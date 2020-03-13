@@ -1,46 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:states_rebuilder/states_rebuilder.dart';
+import 'package:travel_free/models/model.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Injector(
+      inject: [Inject(() => Model())],
+      builder: (_) => MaterialApp(
+        title: 'Travel free',
+        theme: ThemeData(
+            primarySwatch: Colors.teal,
+            fontFamily: GoogleFonts.lato().fontFamily),
+        darkTheme: ThemeData(
+            primarySwatch: Colors.teal,
+            brightness: Brightness.dark,
+            fontFamily: GoogleFonts.lato().fontFamily),
+        themeMode: ThemeMode.system,
+        home: MyHomePage(),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.refresh), onPressed: () => _reload())
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
-        ),
-      ),
+      body: ListView.builder(itemCount: null, itemBuilder: buildItems),
     );
   }
+
+  Widget buildItems(BuildContext _, int i) {
+    return const ListTile();
+  }
+
+  void _reload() {}
 }
