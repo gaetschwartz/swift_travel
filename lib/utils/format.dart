@@ -8,7 +8,7 @@ class Format {
     final m = d.inMinutes;
     if (m > 60) return const Text(">1 h");
     if (m == 0) return FaIcon(FontAwesomeIcons.bus);
-    return Text("${m} m");
+    return Text("$m m");
   }
 
   static String intToSeconds(int i) {
@@ -18,12 +18,12 @@ class Format {
       print(sec);
     }
 
-    int hour = sec.truncate();
+    final int hour = sec.truncate();
     double min = sec - hour;
 
     min = min * 60;
 
-    String minString = min.toString().split(".").first;
+    final String minString = min.toString().split(".").first;
 
     return "${hour}h$minString";
   }

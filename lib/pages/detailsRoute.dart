@@ -8,6 +8,7 @@ class DetailsRoute extends StatelessWidget {
 
   const DetailsRoute({Key key, this.c}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -45,10 +46,10 @@ class DetailsRoute extends StatelessWidget {
   }
 
   List<Widget> buildLegs(List<Legs> legs) {
-    List<Widget> list = [];
+    final List<Widget> list = [];
     for (var i = 0; i < legs.length; i++) {
-      Legs l = legs[i];
-      Legs nextLegs = i == legs.length-1 ? legs[i] : legs[i+1];
+      final Legs l = legs[i];
+      final Legs nextLegs = i == legs.length-1 ? legs[i] : legs[i+1];
       print("type: ${l.type}");
       if (l.type != null) {
         list.add(Container(
@@ -63,7 +64,7 @@ class DetailsRoute extends StatelessWidget {
                   Format.duration(l.arrival.difference(DateTime.now())),
               ],
             )));
-        list.add(Divider());
+        list.add(const Divider());
       }
     }
     return list;

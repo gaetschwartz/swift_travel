@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
-import 'package:travel_free/api/cff/timetable.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:travel_free/utils/format.dart';
 
 class DetailsStop extends StatefulWidget {
@@ -44,7 +42,7 @@ class _DetailsStopState extends State<DetailsStop> {
   }
 
   Future<void> searchData() async {
-    var l = await CFF().timetable(Stop(widget.stop));
+    final l = await CFF().timetable(Stop(widget.stop));
     setState(() {
       data = l.connections;
     });

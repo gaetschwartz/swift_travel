@@ -40,7 +40,7 @@ class _SearchByNameState extends State<SearchByName> {
         ),
         SliverList(
             delegate: SliverChildBuilderDelegate((context, i) {
-          var t = data[i];
+          final t = data[i];
           var icon = FaIcon(FontAwesomeIcons.search);
           if (t.iconClass == "sl-icon-type-train") {
             icon = FaIcon(FontAwesomeIcons.train);
@@ -63,7 +63,7 @@ class _SearchByNameState extends State<SearchByName> {
   }
 
   Future<void> searchData() async {
-    var list = await CFF().complete(searchController.text);
+    final list = await CFF().complete(searchController.text);
     setState(() {
       data = list;
     });

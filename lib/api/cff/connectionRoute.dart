@@ -1,4 +1,3 @@
-import 'package:travel_free/api/cff/connection.dart';
 import 'package:travel_free/api/cff/legs.dart';
 
 class ConnectionRoute {
