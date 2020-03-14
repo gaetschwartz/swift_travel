@@ -56,7 +56,7 @@ class DetailsRoute extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(l.type.toString()),
+                Format.buildIcon(l),
                 Text(l.name),
                 Text(nextLegs.name),
                 if (l.arrival != null)
