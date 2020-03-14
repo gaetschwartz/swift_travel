@@ -68,7 +68,7 @@ class ConnectionTile extends StatelessWidget {
                     int.parse("0x${connection.color.split("~").first}"))),
             child: Text(connection.l)), */
           Text(connection.l),
-      trailing: Format.duration(diff),
+      trailing: Text(Format.duration(diff)),
     );
   }
 }

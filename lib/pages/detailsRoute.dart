@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_free/api/cff/connectionRoute.dart';
 import 'package:travel_free/api/cff/legs.dart';
+import 'package:travel_free/api/cff/stop.dart';
 import 'package:travel_free/utils/format.dart';
 
 class DetailsRoute extends StatelessWidget {
@@ -47,23 +48,33 @@ class DetailsRoute extends StatelessWidget {
 
   List<Widget> buildLegs(List<Legs> legs) {
     final List<Widget> list = [];
+
     for (var i = 0; i < legs.length; i++) {
       final Legs l = legs[i];
-      if (l == null) legs.remove(l);
-      final Legs nextLegs = i == legs.length ? legs[i] : legs[i + 1];
-      print("type: ${l.type}");
+      final Legs nextLegs = i == legs.length - 1 ? legs[i] : legs[i + 1];
       if (l.type != null) {
+        if (i == 0) print(l.stopid);
+
         list.add(Container(
             height: 100,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Format.buildIcon(l),
-                Text(l.name),
-                Text(nextLegs.name),
-                if (l.arrival != null)
-                  Format.duration(l.arrival.difference(DateTime.now())),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Format.buildIcon(l),
+                      Text(Format.duration(
+                          nextLegs.arrival.difference(l.departure))),
+                    ],
+                  ),
+                  Text("${l.name} -> ${nextLegs.name}"),
+                  Text(
+                      "${Format.dateToHour(l.departure)} -> ${Format.dateToHour(nextLegs.arrival)}")
+                ],
+              ),
             )));
         list.add(const Divider());
       }

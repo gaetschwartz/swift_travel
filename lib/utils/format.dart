@@ -4,26 +4,29 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff/legs.dart';
 
 class Format {
-  static Widget duration(Duration d) {
+  static String duration(Duration d) {
     final m = d.inMinutes;
-    if (m > 60) return const Text(">1 h");
-    if (m == 0) return FaIcon(FontAwesomeIcons.bus);
-    return Text("$m m");
+    if (m > 60) return ">1 h";
+    if (m == 0) return "now";
+    return "$m m";
   }
 
   static String intToSeconds(int i) {
     double sec = i.toDouble();
     while (sec > 60) {
       sec = sec / 60;
-      print(sec);
     }
 
     final int hour = sec.truncate();
     double min = sec - hour;
 
     min = min * 60;
+    String minS = min.toString();
+    if (min < 10) {
+      minS = min < 10 ? "0$min" : min.toString();
+    }
 
-    final String minString = min.toString().split(".").first;
+    final String minString = minS.split(".").first;
 
     return "${hour}h$minString";
   }
@@ -43,5 +46,10 @@ class Format {
     } else {
       return FaIcon(FontAwesomeIcons.walking);
     }
+  }
+
+  static String dateToHour(DateTime arrival) {
+    String min = arrival.minute<10 ? "0${arrival.minute}" : arrival.minute.toString();
+    return "${arrival.hour}h$min";
   }
 }

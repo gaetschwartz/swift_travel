@@ -15,7 +15,7 @@ class Legs {
   final List<Stop> stops;
   final String sbbName;
   final String name;
-  final String departure;
+  final DateTime departure;
   final DateTime arrival;
   final int normalTime;
   final int waittime;
@@ -56,8 +56,8 @@ class Legs {
             stops: m["stops"] !=null ? (m["stops"] as List).map((f) => Stop.fromMap(f as Map)).toList() : null,
             sbbName: m["sbb_name"] as String,
             name: m["name"] as String,
-            departure: m["departure"] as String,
-            arrival: m["arrival"] != null ? DateTime.parse(m["arrival"] as String): null,
+            departure: m["departure"] != null ? DateTime.parse(m["departure"] as String) : null,
+            arrival: m["arrival"] != null ? DateTime.parse(m["arrival"] as String): DateTime.now(),
             normalTime: m["normal_time"] as int,
             waittime: m["waittime"] as int);
 }
