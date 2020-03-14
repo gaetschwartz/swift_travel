@@ -9,7 +9,7 @@ class Stop {
   Stop.fromMap(Map m)
       : this(
           m["name"] as String,
-          id: int.parse(m["id"] as String),
+          id: m["id"] != null ? int.parse(m["id"] as String) : null,
           x: m["x"] ,
           y: m["y"] ,
         );

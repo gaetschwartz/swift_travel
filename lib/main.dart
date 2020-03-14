@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/models/model.dart';
+import 'package:travel_free/widget/route.dart';
 import 'package:travel_free/widget/searchByName.dart';
 
 import 'api/cff/completions.dart';
@@ -41,25 +42,27 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.refresh), onPressed: () => _reload())
+          title: const Text("Travel Free"),
+          actions: const <Widget>[
+           // IconButton(icon: Icon(Icons.refresh), onPressed: () => _reload())
           ],
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.search)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_bike)),
+              Tab(icon: Icon(FontAwesomeIcons.search)),
+              Tab(icon: Icon(FontAwesomeIcons.route)),
+              //Tab(icon: Icon(Icons.directions_bike)),
             ],
           ),
         ),
         body: TabBarView(
           children: [
             SearchByName(),
-            Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
+            SearchRoute(),
+            //Icon(Icons.directions_bike),
           ],
         ),
       ),

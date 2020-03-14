@@ -6,36 +6,48 @@ import 'package:travel_free/api/cff/timetable.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:travel_free/utils/format.dart';
 
-class DetailsStop extends StatelessWidget {
+class DetailsStop extends StatefulWidget {
   final String stop;
 
   const DetailsStop({Key key, this.stop}) : super(key: key);
+
+  @override
+  _DetailsStopState createState() => _DetailsStopState();
+}
+
+class _DetailsStopState extends State<DetailsStop> {
+  List<Connection> data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    searchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(stop),
-      ),
-      body: FutureBuilder<TimeTable>(
-        future: CFF().timetable(Stop(stop)),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            print(snapshot.data);
-            List<Connection> c = snapshot.data.connections;
-            return ListView.builder(
-              itemCount: c.length,
-              itemBuilder: (context, i) {
-                return ConnectionTile(
-                  connection: c[i],
-                );
-              },
-            );
-          } else {
-            return Center(child:CircularProgressIndicator());
-          }
-        },
-      ),
-    );
+        appBar: AppBar(
+          title: Text(widget.stop),
+        ),
+        body: RefreshIndicator(
+          onRefresh: () => searchData(),
+          child: ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (context, i) {
+              return ConnectionTile(
+                connection: data[i],
+              );
+            },
+          ),
+        ));
+  }
+
+  Future<void> searchData() async {
+    var l = await CFF().timetable(Stop(widget.stop));
+    setState(() {
+      data = l.connections;
+    });
   }
 }
 

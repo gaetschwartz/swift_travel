@@ -2,6 +2,7 @@ import "dart:convert";
 
 import 'package:http/http.dart' as http;
 import 'package:travel_free/api/cff/completions.dart';
+import 'package:travel_free/api/cff/route.dart';
 import 'package:travel_free/api/cff/timetable.dart';
 import 'package:travel_free/utils/extensions.dart';
 
@@ -72,7 +73,8 @@ class CFF {
       "show_trackchanges": showTrackchanges.toInt(),
       "mode": arrival ? "arrival" : "depart"
     };
-    if(transportationTypes.isNotEmpty) params["transportation_types"] = transportationTypes.join(", ");
+    if (transportationTypes.isNotEmpty)
+      params["transportation_types"] = transportationTypes.join(", ");
     if (when != null) print("TODO");
     var s = builder.build("stationboard", params);
     print("builder : $s");
@@ -80,9 +82,31 @@ class CFF {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-print(response.body);
+    print(response.body);
     return TimeTable.fromMap(json.decode(response.body) as Map);
   }
+
+  Future<Itinerary> route(Stop departure, Stop arrival) async{
+
+    final params = {
+      "from": departure.name,
+      'to': arrival.name,
+      
+    };
+    
+    var s = builder.build("route", params);
+    print("builder : $s");
+    final response = await _client.get(builder.build("route", params));
+    if (response.statusCode != 200) {
+      throw Exception("Couldn't retrieve completion !");
+    }
+    //print(response.body);
+
+
+
+    return Itinerary.fromMap(json.decode(response.body) as Map);
+  }
+
 }
 
 class QueryBuilder {
@@ -94,7 +118,8 @@ class QueryBuilder {
     String url = "$baseUrl/$work.json";
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map<String>((key) => "$key=${Uri.encodeComponent(parameters[key].toString())}")
+          .map<String>((key) =>
+              "$key=${Uri.encodeComponent(parameters[key].toString())}")
           .join("&");
       url += "?$params";
     }
