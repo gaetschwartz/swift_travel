@@ -66,22 +66,22 @@ class CFF {
     final params = {
       "stop": stop.name,
       'limit': limit,
-      "transportation_types": transportationTypes,
       "show_tracks": showTracks.toInt(),
       "show_subsequent_stops": showSubsequentStops.toInt(),
       "show_delays": showDelays.toInt(),
       "show_trackchanges": showTrackchanges.toInt(),
       "mode": arrival ? "arrival" : "depart"
     };
-
+    if(transportationTypes.isNotEmpty) params["transportation_types"] = transportationTypes.join(", ");
     if (when != null) print("TODO");
-
+    var s = builder.build("stationboard", params);
+    print("builder : $s");
     final response = await _client.get(builder.build("stationboard", params));
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-
-    return TimeTable();
+print(response.body);
+    return TimeTable.fromMap(json.decode(response.body) as Map);
   }
 }
 
@@ -94,7 +94,7 @@ class QueryBuilder {
     String url = "$baseUrl/$work.json";
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map<String>((key) => "$key=${parameters[key]}")
+          .map<String>((key) => "$key=${Uri.encodeComponent(parameters[key].toString())}")
           .join("&");
       url += "?$params";
     }
