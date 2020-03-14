@@ -35,27 +35,27 @@ class _SearchRouteState extends State<SearchRoute> {
               decoration: const InputDecoration(hintText: "To")),
         ),
         RaisedButton(
-          child: Text("Search"),
           onPressed: () async {
             if (fromController.text.length > 2 &&
                 toController.text.length > 2) {
-              Itinerary it = await CFF()
+              final Itinerary it = await CFF()
                   .route(Stop(fromController.text), Stop(toController.text));
               setState(() {
                 data = it;
               });
             }
           },
+          child: const Text("Search"),
         ),
         if (data != null)
           ListView.separated(
-              separatorBuilder: (c, i) => Divider(),
+              separatorBuilder: (c, i) => const Divider(),
               shrinkWrap: true,
               itemCount: data.connections.length,
               itemBuilder: (context, i) {
-                ConnectionRoute c = data.connections[i];
+                final ConnectionRoute c = data.connections[i];
                 return ListTile(
-                  title: Text(c.from + " -> " + c.to),
+                  title: Text("${c.from} -> ${c.to}"),
                   subtitle: rowIcon(c.legs),
                   trailing: Container(
                     width: 100,
@@ -79,9 +79,10 @@ class _SearchRouteState extends State<SearchRoute> {
   }
 
   Widget rowIcon(List<Legs> legs) {
-    List<Widget> listWidget = [];
+    final List<Widget> listWidget = [];
 
-    for (var l in legs) {
+    for (int i = 0; i < legs.length; i++) {
+      final Legs l = legs[i];
       print(l.type);
       if (l.type == "bus") {
         listWidget.add(FaIcon(FontAwesomeIcons.bus));
@@ -95,7 +96,7 @@ class _SearchRouteState extends State<SearchRoute> {
       if (l.type == "express_train") {
         listWidget.add(FaIcon(FontAwesomeIcons.train));
       }
-      listWidget.add(SizedBox(width: 10));
+      listWidget.add(const SizedBox(width: 10));
     }
     return Row(
       children: listWidget,

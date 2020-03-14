@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/models/model.dart';
 import 'package:travel_free/widget/route.dart';
 import 'package:travel_free/widget/searchByName.dart';
-
-import 'api/cff/completions.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: const Text("Travel Free"),
           actions: const <Widget>[
-           // IconButton(icon: Icon(Icons.refresh), onPressed: () => _reload())
+            // IconButton(icon: Icon(Icons.refresh), onPressed: () => _reload())
           ],
           bottom: TabBar(
             tabs: [
@@ -67,12 +63,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-  }
-
-  Future<void> _reload() async {
-    final List<Completion> list = await CFF().complete("lu");
-    for (final c in list) {
-      print(c.toString());
-    }
   }
 }

@@ -73,10 +73,11 @@ class CFF {
       "show_trackchanges": showTrackchanges.toInt(),
       "mode": arrival ? "arrival" : "depart"
     };
-    if (transportationTypes.isNotEmpty)
+    if (transportationTypes.isNotEmpty) {
       params["transportation_types"] = transportationTypes.join(", ");
+    }
     if (when != null) print("TODO");
-    var s = builder.build("stationboard", params);
+    final s = builder.build("stationboard", params);
     print("builder : $s");
     final response = await _client.get(builder.build("stationboard", params));
     if (response.statusCode != 200) {
@@ -94,7 +95,7 @@ class CFF {
       
     };
     
-    var s = builder.build("route", params);
+    final s = builder.build("route", params);
     print("builder : $s");
     final response = await _client.get(builder.build("route", params));
     if (response.statusCode != 200) {
