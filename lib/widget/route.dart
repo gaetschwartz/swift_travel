@@ -28,7 +28,9 @@ class _SearchRouteState extends State<SearchRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -159,7 +161,7 @@ class _SearchRouteState extends State<SearchRoute> {
         const SizedBox(
           height: 3,
         ),
-        Text("arrivée à ${c.arrival.hour}h$min")
+        Text("arrivée à ${c.arrival.hour}h$min le ${c.arrival.day}/${c.arrival.month}/${c.arrival.year}" )
       ],
     );
   }

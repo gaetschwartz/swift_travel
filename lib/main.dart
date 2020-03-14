@@ -5,6 +5,7 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:travel_free/models/model.dart';
 import 'package:travel_free/widget/route.dart';
 import 'package:travel_free/widget/searchByName.dart';
+import 'package:travel_free/widget/searchFavorite.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
             tabs: [
               Tab(icon: Icon(FontAwesomeIcons.search)),
               Tab(icon: Icon(FontAwesomeIcons.route)),
-              //Tab(icon: Icon(Icons.directions_bike)),
+              Tab(icon: Icon(Icons.favorite)),
             ],
           ),
         ),
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SearchByName(),
             SearchRoute(),
-            //Icon(Icons.directions_bike),
+            SearchFavorite(),
           ],
         ),
       ),
