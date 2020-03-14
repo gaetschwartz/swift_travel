@@ -53,7 +53,6 @@ class DetailsRoute extends StatelessWidget {
       if (l.type != null) {
         list.add(Container(
             height: 100,
-            color: Colors.red.withOpacity(0.2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -61,7 +60,7 @@ class DetailsRoute extends StatelessWidget {
                 Text(l.name),
                 Text(nextLegs.name),
                 if (l.arrival != null)
-                  Format.duration(l.arrival.difference(DateTime.now()))
+                  Format.duration(l.arrival.difference(DateTime.now())),
               ],
             )));
         list.add(Divider());
