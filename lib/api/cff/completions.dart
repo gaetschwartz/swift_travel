@@ -9,7 +9,7 @@ class Completion {
 
   Completion.fromMap(Map m)
       : this._(m["label"] as String, m["iconclass"] as String);
-      
+
   @override
   String toString() => "label : $label, icon : $iconClass";
 }

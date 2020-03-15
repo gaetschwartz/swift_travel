@@ -56,6 +56,7 @@ class ConnectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final diff = connection.time.difference(DateTime.now());
+    print(connection);
     return ListTile(
       title:
           /* Align(
@@ -67,8 +68,8 @@ class ConnectionTile extends StatelessWidget {
                 color: Color(0xFF000000 +
                     int.parse("0x${connection.color.split("~").first}"))),
             child: Text(connection.l)), */
-          Text(connection.l),
-      trailing: Format.duration(diff),
+          Text(connection.line),
+      trailing: Text(Format.duration(diff)),
     );
   }
 }
