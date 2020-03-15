@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/completions.dart';
 import 'package:travel_free/pages/detailsStop.dart';
+import 'package:travel_free/utils/format.dart';
 
 class SearchByName extends StatefulWidget {
   @override
@@ -16,54 +18,60 @@ class _SearchByNameState extends State<SearchByName> {
   @override
   void initState() {
     super.initState();
-    searchData();
+    searchData("");
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          pinned: true,
-          floating: true,
-          snap: false,
-          expandedHeight: 50,
-          flexibleSpace: FlexibleSpaceBar(
-            title: TextField(
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: <Widget>[
+        TypeAheadField(
+          textFieldConfiguration: TextFieldConfiguration(
               controller: searchController,
-              autocorrect: false,
-              onChanged: (_) async {
-                await searchData();
-              },
-            ),
-          ),
+              autofocus: true,
+              style: DefaultTextStyle.of(context)
+                  .style
+                  .copyWith(fontStyle: FontStyle.normal),
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), hintText: "Stop")),
+          suggestionsCallback: (pattern) async {
+            final l = await CFF().complete(pattern);
+            return l;
+          },
+          itemBuilder: (context, Completion suggestion) {
+            print(suggestion);
+            return ListTile(
+              leading: Format.completionToIcon(suggestion),
+              title: Text(suggestion.label),
+              subtitle: Text(suggestion.iconClass.split("-").last),
+            );
+          },
+          onSuggestionSelected: (Completion suggestion) {
+            setState(() {
+              searchController.text = suggestion.label;
+              searchData(suggestion.label);
+            });
+          },
         ),
-        SliverList(
-            delegate: SliverChildBuilderDelegate((context, i) {
-          final t = data[i];
-          var icon = FaIcon(FontAwesomeIcons.search);
-          if (t.iconClass == "sl-icon-type-train") {
-            icon = FaIcon(FontAwesomeIcons.train);
-          } else if (t.iconClass == "sl-icon-type-bus") {
-            icon = FaIcon(FontAwesomeIcons.bus);
-          } else if (t.iconClass == "sl-icon-type-tram") {
-            icon = FaIcon(FontAwesomeIcons.train);
-          } else if (t.iconClass == "sl-icon-tel-private") {
-            icon = FaIcon(FontAwesomeIcons.home);
-          }
-          return ListTile(
-            leading: icon,
-            title: Text(t.label),
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => DetailsStop(stop: t.label))),
-          );
-        }, childCount: data.length))
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: data.length,
+          itemBuilder: (context, i) {
+            return ListTile(
+              title: Text(data[i].label),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => DetailsStop(stop: data[i].label))),
+            );
+          },
+        )
       ],
     );
   }
 
-  Future<void> searchData() async {
-    final list = await CFF().complete(searchController.text);
+  Future<void> searchData(String p) async {
+    final list = await CFF().complete(p);
     setState(() {
       data = list;
     });

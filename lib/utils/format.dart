@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travel_free/api/cff/completions.dart';
 import 'package:travel_free/api/cff/legs.dart';
 
 class Format {
-  static String duration(Duration d) {
+  static String duration(Duration d, {bool showExactTime = false}) {
     final m = d.inMinutes;
-    if (m > 60) return ">1 h";
+    if (m > 60) {
+      if (showExactTime) {
+        final int hour = m ~/ 60;
+        final int minutes = m % 60;
+        return '${hour.toString()}h${minutes.toString().padLeft(2, "0")}';
+      } else {
+        return ">1 h";
+      }
+    }
     if (m == 0) return "now";
     return "$m m";
   }
@@ -31,7 +40,7 @@ class Format {
     return "${hour}h$minString";
   }
 
-  static Widget buildIcon(Legs l) {
+  static Widget buildIconFromLegs(Legs l) {
     if (l.type == "bus") {
       return FaIcon(FontAwesomeIcons.bus);
     }
@@ -41,6 +50,7 @@ class Format {
     if (l.type == "walk") {
       return FaIcon(FontAwesomeIcons.walking);
     }
+
     if (l.type == "express_train") {
       return FaIcon(FontAwesomeIcons.train);
     } else {
@@ -49,7 +59,38 @@ class Format {
   }
 
   static String dateToHour(DateTime arrival) {
-    String min = arrival.minute<10 ? "0${arrival.minute}" : arrival.minute.toString();
+    String min =
+        arrival.minute < 10 ? "0${arrival.minute}" : arrival.minute.toString();
     return "${arrival.hour}h$min";
+  }
+
+  static Widget completionToIcon(Completion c) {
+    final icon = c.iconClass.split("-").last;
+    if (icon == "bus") {
+      return FaIcon(FontAwesomeIcons.bus);
+    }
+    if (icon == "tram") {
+      return FaIcon(FontAwesomeIcons.subway);
+    }
+    if (icon == "walk") {
+      return FaIcon(FontAwesomeIcons.walking);
+    }
+    if (icon == "train") {
+      return FaIcon(FontAwesomeIcons.train);
+    }
+    if (icon == "strain") {
+      return FaIcon(FontAwesomeIcons.train);
+    }
+    if (icon == "business") {
+      return FaIcon(FontAwesomeIcons.building);
+    }
+    if (icon == "adr") {
+      return FaIcon(FontAwesomeIcons.home);
+    }
+    if (icon == "express_train") {
+      return FaIcon(FontAwesomeIcons.train);
+    } else {
+      return FaIcon(FontAwesomeIcons.walking);
+    }
   }
 }

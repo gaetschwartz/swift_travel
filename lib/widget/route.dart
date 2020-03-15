@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
+import 'package:travel_free/api/cff/completions.dart';
 import 'package:travel_free/api/cff/connectionRoute.dart';
 import 'package:travel_free/api/cff/legs.dart';
 import 'package:travel_free/api/cff/route.dart';
@@ -30,21 +32,64 @@ class _SearchRouteState extends State<SearchRoute> {
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
+        TypeAheadField(
+          textFieldConfiguration: TextFieldConfiguration(
               controller: fromController,
-              focusNode: fnFrom,
-              decoration: const InputDecoration(hintText: "From")),
+              autofocus: true,
+              style: DefaultTextStyle.of(context)
+                  .style
+                  .copyWith(fontStyle: FontStyle.normal),
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), hintText: "From")),
+          suggestionsCallback: (pattern) async {
+            var l = await CFF().complete(pattern);
+            return l;
+          },
+          itemBuilder: (context, Completion suggestion) {
+            print(suggestion);
+            return ListTile(
+              leading: Format.completionToIcon(suggestion),
+              title: Text(suggestion.label),
+              subtitle: Text(suggestion.iconClass.split("-").last),
+            );
+          },
+          onSuggestionSelected: (Completion suggestion) {
+            setState(() {
+              fromController.text = suggestion.label;
+            });
+          },
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
+        const SizedBox(height: 3),
+        TypeAheadField(
+          textFieldConfiguration: TextFieldConfiguration(
               controller: toController,
-              focusNode: fnTo,
-              decoration: const InputDecoration(hintText: "To")),
+              autofocus: true,
+              style: DefaultTextStyle.of(context)
+                  .style
+                  .copyWith(fontStyle: FontStyle.normal),
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), hintText: "To")),
+          suggestionsCallback: (pattern) async {
+            var l = await CFF().complete(pattern);
+            return l;
+          },
+          itemBuilder: (context, Completion suggestion) {
+            print(suggestion);
+            return ListTile(
+              leading: Format.completionToIcon(suggestion),
+              title: Text(suggestion.label),
+              subtitle: suggestion.iconClass != null
+                  ? Text(suggestion.iconClass.split("-").last)
+                  : const Text(""),
+            );
+          },
+          onSuggestionSelected: (Completion suggestion) {
+            setState(() {
+              toController.text = suggestion.label;
+            });
+          },
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -69,7 +114,7 @@ class _SearchRouteState extends State<SearchRoute> {
               ),
               RaisedButton(
                 child: Text(
-                    "${date.hour}:${date.minute} ${date.day}/${date.month}/${date.year}"),
+                    "${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute} "),
                 onPressed: () async {
                   await showCupertinoModalPopup(
                       context: context,
@@ -161,7 +206,8 @@ class _SearchRouteState extends State<SearchRoute> {
         const SizedBox(
           height: 3,
         ),
-        Text("arrivée à ${c.arrival.hour}h$min le ${c.arrival.day}/${c.arrival.month}/${c.arrival.year}" )
+        Text(
+            "arrivée à ${c.arrival.hour}h$min le ${c.arrival.day}/${c.arrival.month}/${c.arrival.year}")
       ],
     );
   }

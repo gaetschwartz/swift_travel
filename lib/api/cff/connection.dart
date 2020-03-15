@@ -36,4 +36,10 @@ class Connection {
             color: m["color"] as String,
             typeName: m["type_name"] as String,
             terminal: Stop.fromMap(m["terminal"] as Map));
+@override
+String toString() {
+    return "time : $time\ng : $g\nl : $l\ntype : $type\nline : $line\nope : $ope\nnumber : $number\ncolor : $color\ntypeName : $typeName";
+
+  }
+  
 }
