@@ -30,14 +30,17 @@ class _DetailsStopState extends State<DetailsStop> {
         ),
         body: RefreshIndicator(
           onRefresh: () => searchData(),
-          child: ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, i) {
-              return ConnectionTile(
-                connection: data[i],
-              );
-            },
-          ),
+          child: data.length > 1
+              ? ListView.separated(
+                separatorBuilder: (c,i) => const Divider(),
+                  itemCount: data.length,
+                  itemBuilder: (context, i) {
+                    return ConnectionTile(
+                      connection: data[i],
+                    );
+                  },
+                )
+              : const Center(child: CircularProgressIndicator()),
         ));
   }
 
@@ -56,8 +59,7 @@ class ConnectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final diff = connection.time.difference(DateTime.now());
-    print(connection);
-    return ListTile(
+    return ExpansionTile(
       title:
           /* Align(
         alignment: Alignment.centerLeft,
@@ -68,7 +70,19 @@ class ConnectionTile extends StatelessWidget {
                 color: Color(0xFF000000 +
                     int.parse("0x${connection.color.split("~").first}"))),
             child: Text(connection.l)), */
-          Text(connection.line),
+          Text(
+        connection.terminal.name,
+        style: const TextStyle(fontSize: 22),
+      ),
+      subtitle: Row(
+        children: <Widget>[
+          Text(connection.line, style: TextStyle(fontSize: 16),),
+
+          Text(" (${connection.type}) "),
+          
+
+        ],
+      ),
       trailing: Text(Format.duration(diff)),
     );
   }
