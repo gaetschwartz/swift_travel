@@ -78,22 +78,22 @@ class CFF {
     }
     if (when != null) print("TODO");
     final s = builder.build("stationboard", params);
-    final response = await _client.get(builder.build("stationboard", params));
+    final response = await _client.get(s);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
     return TimeTable.fromMap(json.decode(response.body) as Map);
   }
 
-  Future<Itinerary> route(Stop departure, Stop arrival, {DateTime when, String typeTime}) async {
+  Future<Itinerary> route(Stop departure, Stop arrival,
+      {DateTime when, String typeTime}) async {
     final params = {
       "from": departure.name,
       'to': arrival.name,
-      'date' : "${when.month}/${when.day}/${when.year}",
-      'time' : "${when.hour}:${when.minute}",
-      "type_time" : typeTime,
-      "show_trackchanges" : 1,
-      
+      'date': "${when.month}/${when.day}/${when.year}",
+      'time': "${when.hour}:${when.minute}",
+      "type_time": typeTime,
+      "show_trackchanges": 1,
     };
 
     final s = builder.build("route", params);

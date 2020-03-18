@@ -36,7 +36,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
             decoration: const InputDecoration(
                 border: OutlineInputBorder(), hintText: "To")),
         suggestionsCallback: (pattern) async {
-          var l = await CFF().complete(pattern);
+          final l = await CFF().complete(pattern);
           return l;
         },
         itemBuilder: (context, Completion suggestion) {

@@ -20,7 +20,7 @@ class DetailsLegs extends StatelessWidget {
 
   List<Widget> buildStopTitle() {
     final List<Widget> list = [];
-    for (var stop in legs.stops) {
+    for (final stop in legs.stops) {
       print("${stop.x}, ${stop.y}");
       list.add(Text(stop.name));
     }

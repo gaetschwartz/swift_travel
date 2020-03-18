@@ -59,7 +59,7 @@ class Format {
   }
 
   static String dateToHour(DateTime arrival) {
-    String min =
+    final String min =
         arrival.minute < 10 ? "0${arrival.minute}" : arrival.minute.toString();
     return "${arrival.hour}h$min";
   }

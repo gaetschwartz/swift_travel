@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/completions.dart';
-import 'package:travel_free/api/cff/stop.dart';
 import 'package:travel_free/widget/input.dart';
 
 class SearchFavorite extends StatefulWidget {
@@ -12,7 +11,6 @@ class SearchFavorite extends StatefulWidget {
 
 class _SearchFavoriteState extends State<SearchFavorite> {
   List<Completion> favoritesStop = [];
-  
 
   @override
   void initState() {
@@ -21,11 +19,11 @@ class _SearchFavoriteState extends State<SearchFavorite> {
   }
 
   Future<void> loadFavorites() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> list = prefs.getStringList("favoritesStop");
-    List<Completion> lComp = [];
-    for (var l in list) {
-      List<Completion> c = await CFF().complete(l);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String> list = prefs.getStringList("favoritesStop");
+    final List<Completion> lComp = [];
+    for (final l in list) {
+      final List<Completion> c = await CFF().complete(l);
       lComp.add(c[0]);
     }
     setState(() {
@@ -45,7 +43,7 @@ class _SearchFavoriteState extends State<SearchFavorite> {
         children: <Widget>[
           FlatButton(
             onPressed: () async {
-              String s = await showDialog(
+              final String s = await showDialog(
                   context: context, builder: (_) => TextInputDialog());
 
               final List<Completion> list = await CFF().complete(s);
@@ -62,14 +60,13 @@ class _SearchFavoriteState extends State<SearchFavorite> {
           ),
           if (favoritesStop != null)
             GridView.count(
-              shrinkWrap: true,
+                shrinkWrap: true,
                 crossAxisCount: 3,
                 children: List.generate(favoritesStop.length, (index) {
                   return Container(
                     decoration: BoxDecoration(
                       border: Border.all(),
                       color: Colors.red,
-                      
                     ),
                     child: Text(favoritesStop[index].label),
                   );

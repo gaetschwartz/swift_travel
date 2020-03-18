@@ -44,7 +44,7 @@ class _SearchRouteState extends State<SearchRoute> {
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), hintText: "From")),
           suggestionsCallback: (pattern) async {
-            var l = await CFF().complete(pattern);
+            final l = await CFF().complete(pattern);
             return l;
           },
           itemBuilder: (context, Completion suggestion) {
@@ -72,7 +72,7 @@ class _SearchRouteState extends State<SearchRoute> {
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), hintText: "To")),
           suggestionsCallback: (pattern) async {
-            var l = await CFF().complete(pattern);
+            final l = await CFF().complete(pattern);
             return l;
           },
           itemBuilder: (context, Completion suggestion) {
@@ -113,8 +113,6 @@ class _SearchRouteState extends State<SearchRoute> {
                 ],
               ),
               RaisedButton(
-                child: Text(
-                    "${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute} "),
                 onPressed: () async {
                   await showCupertinoModalPopup(
                       context: context,
@@ -127,6 +125,8 @@ class _SearchRouteState extends State<SearchRoute> {
                           ));
                   print("date : $date");
                 },
+                child: Text(
+                    "${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute} "),
               ),
             ],
           ),
@@ -193,7 +193,7 @@ class _SearchRouteState extends State<SearchRoute> {
         listWidget.add(FaIcon(FontAwesomeIcons.train));
       }
     }
-    String min = c.arrival.minute < 10
+    final String min = c.arrival.minute < 10
         ? "0${c.arrival.minute}"
         : c.arrival.minute.toString();
     return Column(

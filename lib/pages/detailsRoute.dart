@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_free/api/cff/connectionRoute.dart';
 import 'package:travel_free/api/cff/legs.dart';
-import 'package:travel_free/api/cff/stop.dart';
 import 'package:travel_free/pages/detailsLegs.dart';
 import 'package:travel_free/utils/format.dart';
 
@@ -104,7 +103,7 @@ class DetailsRoute extends StatelessWidget {
 
   List<Widget> buildStopTitle(Legs l) {
     final List<Widget> list = [];
-    for (var stop in l.stops) {
+    for (final stop in l.stops) {
       list.add(Text(stop.name));
     }
     return list;

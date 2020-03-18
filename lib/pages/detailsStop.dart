@@ -32,7 +32,7 @@ class _DetailsStopState extends State<DetailsStop> {
           onRefresh: () => searchData(),
           child: data.length > 1
               ? ListView.separated(
-                separatorBuilder: (c,i) => const Divider(),
+                  separatorBuilder: (c, i) => const Divider(),
                   itemCount: data.length,
                   itemBuilder: (context, i) {
                     return ConnectionTile(
@@ -76,11 +76,11 @@ class ConnectionTile extends StatelessWidget {
       ),
       subtitle: Row(
         children: <Widget>[
-          Text(connection.line, style: TextStyle(fontSize: 16),),
-
+          Text(
+            connection.line,
+            style: const TextStyle(fontSize: 16),
+          ),
           Text(" (${connection.type}) "),
-          
-
         ],
       ),
       trailing: Text(Format.duration(diff)),
