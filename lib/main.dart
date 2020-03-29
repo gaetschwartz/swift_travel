@@ -49,8 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(FontAwesomeIcons.search)),
-              Tab(icon: Icon(FontAwesomeIcons.route)),
+              Tab(icon: FaIcon(FontAwesomeIcons.search)),
+              Tab(icon: FaIcon(FontAwesomeIcons.route)),
               Tab(icon: Icon(Icons.favorite)),
             ],
           ),

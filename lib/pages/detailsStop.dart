@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
@@ -76,10 +77,13 @@ class ConnectionTile extends StatelessWidget {
       ),
       subtitle: Row(
         children: <Widget>[
-          Text(
-            connection.line,
-            style: const TextStyle(fontSize: 16),
-          ),
+          if (connection.line == null)
+            FaIcon(FontAwesomeIcons.question, size: 18)
+          else
+            Text(
+              connection.line,
+              style: const TextStyle(fontSize: 16),
+            ),
           Text(" (${connection.type}) "),
         ],
       ),

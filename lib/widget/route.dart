@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/completions.dart';
