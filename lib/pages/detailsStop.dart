@@ -78,7 +78,7 @@ class ConnectionTile extends StatelessWidget {
       subtitle: Row(
         children: <Widget>[
           if (connection.line == null)
-            FaIcon(FontAwesomeIcons.question, size: 18)
+            const FaIcon(FontAwesomeIcons.question, size: 18)
           else
             Text(
               connection.line,

@@ -41,55 +41,54 @@ class Format {
 
   static Widget buildIconFromLegs(Legs l) {
     if (l.type == "bus") {
-      return FaIcon(FontAwesomeIcons.bus);
+      return const FaIcon(FontAwesomeIcons.bus);
     }
     if (l.type == "tram") {
-      return FaIcon(FontAwesomeIcons.subway);
+      return const FaIcon(FontAwesomeIcons.subway);
     }
     if (l.type == "walk") {
-      return FaIcon(FontAwesomeIcons.walking);
+      return const FaIcon(FontAwesomeIcons.walking);
     }
 
     if (l.type == "express_train") {
-      return FaIcon(FontAwesomeIcons.train);
+      return const FaIcon(FontAwesomeIcons.train);
     } else {
-      return FaIcon(FontAwesomeIcons.walking);
+      return const FaIcon(FontAwesomeIcons.walking);
     }
   }
 
   static String dateToHour(DateTime arrival) {
-    final String min =
-        arrival.minute < 10 ? "0${arrival.minute}" : arrival.minute.toString();
+    final String min = arrival.minute < 10 ? "0${arrival.minute}" : arrival.minute.toString();
     return "${arrival.hour}h$min";
   }
 
   static Widget completionToIcon(Completion c) {
     final icon = c.iconClass.split("-").last;
     if (icon == "bus") {
-      return FaIcon(FontAwesomeIcons.bus);
+      return const FaIcon(FontAwesomeIcons.bus);
     }
     if (icon == "tram") {
-      return FaIcon(FontAwesomeIcons.subway);
+      return const FaIcon(FontAwesomeIcons.subway);
     }
     if (icon == "walk") {
-      return FaIcon(FontAwesomeIcons.walking);
+      return const FaIcon(FontAwesomeIcons.walking);
     }
     if (icon == "train") {
-      return FaIcon(FontAwesomeIcons.train);
+      return const FaIcon(FontAwesomeIcons.train);
     }
     if (icon == "strain") {
-      return FaIcon(FontAwesomeIcons.train);
+      return const FaIcon(FontAwesomeIcons.train);
     }
     if (icon == "business") {
-      return FaIcon(FontAwesomeIcons.building);
+      return const FaIcon(FontAwesomeIcons.building);
     }
     if (icon == "adr") {
-      return FaIcon(FontAwesomeIcons.home);
+      return const FaIcon(FontAwesomeIcons.home);
     }
     if (icon == "express_train") {
-      return FaIcon(FontAwesomeIcons.train);
+      return const FaIcon(FontAwesomeIcons.train);
     } else {
-      return FaIcon(FontAwesomeIcons.walking);
+      return const FaIcon(FontAwesomeIcons.walking);
     }
   }
 }

@@ -3,7 +3,7 @@ import 'package:travel_free/api/cff/legs.dart';
 class ConnectionRoute {
   final String from;
   final DateTime arrival;
-  final disruption;
+  final Object disruption;
   final List<Legs> legs;
   final int duration;
   final String to;
@@ -27,8 +27,6 @@ class ConnectionRoute {
           legs: (m["legs"] as List).map((f) => Legs.fromMap(f as Map)).toList(),
           duration: m["duration"] as int,
           to: m["to"] as String,
-          departure: m["departure"] != null
-              ? DateTime.parse(m["departure"] as String)
-              : null,
+          departure: m["departure"] != null ? DateTime.parse(m["departure"] as String) : null,
         );
 }

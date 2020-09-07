@@ -58,8 +58,7 @@ class DetailsRoute extends StatelessWidget {
         list.add(InkWell(
           onTap: () {
             if (l.stops != null) {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => DetailsLegs(legs: l)));
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsLegs(legs: l)));
             }
           },
           child: ExpansionTile(
@@ -71,15 +70,13 @@ class DetailsRoute extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Format.buildIconFromLegs(l),
-                    Text(Format.duration(
-                        nextLegs.arrival.difference(l.departure),
+                    Text(Format.duration(nextLegs.arrival.difference(l.departure),
                         showExactTime: true)),
                   ],
                 ),
                 Text("${l.name} -> ${nextLegs.name}"),
-                Text(
-                    "${Format.dateToHour(l.departure)} -> ${Format.dateToHour(nextLegs.arrival)}"),
-                if (l.terminal != null) Text("${l.terminal}")
+                Text("${Format.dateToHour(l.departure)} -> ${Format.dateToHour(nextLegs.arrival)}"),
+                if (l.terminal != null) Text(l.terminal)
               ],
             ),
             children: <Widget>[

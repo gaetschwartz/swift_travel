@@ -37,11 +37,8 @@ class _SearchRouteState extends State<SearchRoute> {
           textFieldConfiguration: TextFieldConfiguration(
               controller: fromController,
               autofocus: true,
-              style: DefaultTextStyle.of(context)
-                  .style
-                  .copyWith(fontStyle: FontStyle.normal),
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: "From")),
+              style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
+              decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "From")),
           suggestionsCallback: (pattern) async {
             final l = await CFF().complete(pattern);
             return l;
@@ -65,11 +62,8 @@ class _SearchRouteState extends State<SearchRoute> {
           textFieldConfiguration: TextFieldConfiguration(
               controller: toController,
               autofocus: true,
-              style: DefaultTextStyle.of(context)
-                  .style
-                  .copyWith(fontStyle: FontStyle.normal),
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: "To")),
+              style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
+              decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
           suggestionsCallback: (pattern) async {
             final l = await CFF().complete(pattern);
             return l;
@@ -118,14 +112,12 @@ class _SearchRouteState extends State<SearchRoute> {
                       builder: (context) => Container(
                             height: 300,
                             child: CupertinoDatePicker(
-                                mode: CupertinoDatePickerMode.dateAndTime,
-                                onDateTimeChanged: (d) =>
-                                    setState(() => date = d)),
+                              onDateTimeChanged: (d) => setState(() => date = d),
+                            ),
                           ));
                   print("date : $date");
                 },
-                child: Text(
-                    "${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute} "),
+                child: Text("${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute} "),
               ),
             ],
           ),
@@ -161,12 +153,12 @@ class _SearchRouteState extends State<SearchRoute> {
                           const SizedBox(
                             width: 5,
                           ),
-                          FaIcon(FontAwesomeIcons.chevronRight),
+                          const FaIcon(FontAwesomeIcons.chevronRight),
                         ],
                       ),
                     ),
-                    onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
+                    onTap: () => Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
                   );
                 }),
           )
@@ -180,21 +172,19 @@ class _SearchRouteState extends State<SearchRoute> {
     for (int i = 0; i < c.legs.length; i++) {
       final Legs l = c.legs[i];
       if (l.type == "bus") {
-        listWidget.add(FaIcon(FontAwesomeIcons.bus));
+        listWidget.add(const FaIcon(FontAwesomeIcons.bus));
       }
       if (l.type == "tram") {
-        listWidget.add(FaIcon(FontAwesomeIcons.subway));
+        listWidget.add(const FaIcon(FontAwesomeIcons.subway));
       }
       if (l.type == "walk") {
-        listWidget.add(FaIcon(FontAwesomeIcons.walking));
+        listWidget.add(const FaIcon(FontAwesomeIcons.walking));
       }
       if (l.type == "express_train") {
-        listWidget.add(FaIcon(FontAwesomeIcons.train));
+        listWidget.add(const FaIcon(FontAwesomeIcons.train));
       }
     }
-    final String min = c.arrival.minute < 10
-        ? "0${c.arrival.minute}"
-        : c.arrival.minute.toString();
+    final String min = c.arrival.minute < 10 ? "0${c.arrival.minute}" : c.arrival.minute.toString();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

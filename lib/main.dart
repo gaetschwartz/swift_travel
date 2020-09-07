@@ -16,14 +16,11 @@ class MyApp extends StatelessWidget {
       inject: [Inject(() => Model())],
       builder: (_) => MaterialApp(
         title: 'Travel free',
-        theme: ThemeData(
-            primarySwatch: Colors.teal,
-            fontFamily: GoogleFonts.lato().fontFamily),
+        theme: ThemeData(primarySwatch: Colors.teal, fontFamily: GoogleFonts.lato().fontFamily),
         darkTheme: ThemeData(
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
             fontFamily: GoogleFonts.lato().fontFamily),
-        themeMode: ThemeMode.system,
         home: MyHomePage(),
       ),
     );
@@ -47,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: const <Widget>[
             // IconButton(icon: Icon(Icons.refresh), onPressed: () => _reload())
           ],
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(icon: FaIcon(FontAwesomeIcons.search)),
               Tab(icon: FaIcon(FontAwesomeIcons.route)),

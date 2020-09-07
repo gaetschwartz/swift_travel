@@ -9,14 +9,11 @@ import 'package:travel_free/utils/extensions.dart';
 import 'cff/stop.dart';
 
 class CFF {
-  static final QueryBuilder builder =
-      QueryBuilder("https://timetable.search.ch/api");
+  static const QueryBuilder builder = QueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
 
   Future<List<Completion>> complete(String string,
-      {bool showCoordinates = false,
-      bool showIds = false,
-      bool nofavorites = false}) async {
+      {bool showCoordinates = false, bool showIds = false, bool nofavorites = false}) async {
     final uri = builder.build("completion", {
       "term": string,
       "show_ids": showIds.toInt(),
@@ -35,9 +32,7 @@ class CFF {
   }
 
   Future<List<StationCompletion>> findStation(double lat, double lon,
-      {int accuracy = 10,
-      bool showCoordinates = false,
-      bool showIds = false}) async {
+      {int accuracy = 10, bool showCoordinates = false, bool showIds = false}) async {
     final uri = builder.build("completion", {
       "latlon": "$lat,$lon",
       "accuracy": accuracy,
@@ -85,8 +80,7 @@ class CFF {
     return TimeTable.fromMap(json.decode(response.body) as Map);
   }
 
-  Future<Itinerary> route(Stop departure, Stop arrival,
-      {DateTime when, String typeTime}) async {
+  Future<Itinerary> route(Stop departure, Stop arrival, {DateTime when, String typeTime}) async {
     final params = {
       "from": departure.name,
       'to': arrival.name,
@@ -111,14 +105,13 @@ class CFF {
 class QueryBuilder {
   final String baseUrl;
 
-  QueryBuilder(this.baseUrl);
+  const QueryBuilder(this.baseUrl);
 
   String build(String work, Map<String, dynamic> parameters) {
     String url = "$baseUrl/$work.json";
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map<String>((key) =>
-              "$key=${Uri.encodeComponent(parameters[key].toString())}")
+          .map<String>((key) => "$key=${Uri.encodeComponent(parameters[key].toString())}")
           .join("&");
       url += "?$params";
     }
