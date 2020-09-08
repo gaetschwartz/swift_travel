@@ -222,16 +222,7 @@ class RouteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Row(
-        children: [
-          Text(c.from),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: FaIcon(FontAwesomeIcons.arrowRight, size: 12),
-          ),
-          Text(c.to),
-        ],
-      ),
+      title: Text("${c.legs.length - 1} steps"),
       subtitle: rowIcon(c),
       trailing: Container(
         width: 100,

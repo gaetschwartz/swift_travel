@@ -48,6 +48,6 @@ class CffIcon extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      IconTheme(data: IconThemeData(size: size, color: color), child: getIcon(icon));
+  Widget build(BuildContext context) => IconTheme(
+      data: IconTheme.of(context).copyWith(size: size, color: color), child: getIcon(icon));
 }

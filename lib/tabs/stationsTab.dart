@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -81,39 +80,34 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
           Expanded(
             child: Consumer(builder: (context, w, _) {
               return w(_stateProvider).state.map(
-                  loading: (_) => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                  completions: (c) => c.completions.isEmpty
-                      ? Center(
-                          child: Text(
-                            "Nothing found.",
-                            style: Theme.of(context).textTheme.headline6,
+                    loading: (_) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    completions: (c) => c.completions.isEmpty
+                        ? Center(
+                            child: Text(
+                              "Nothing found.",
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          )
+                        : ListView.separated(
+                            itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
+                            separatorBuilder: (context, i) => const Divider(),
+                            itemCount: c.completions == null ? 0 : c.completions.length,
                           ),
-                        )
-                      : ListView.separated(
-                          itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
-                          separatorBuilder: (context, i) => const Divider(),
-                          itemCount: c.completions == null ? 0 : c.completions.length,
-                        ),
-                  empty: (_) => Center(
-                        child: Text(
-                          "Make a search",
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
+                    empty: (_) => Center(
+                      child: Text(
+                        "Make a search",
+                        style: Theme.of(context).textTheme.headline6,
                       ),
-                  error: (value) => Center(
-                        child: Text(
-                          value.error.toString(),
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
+                    ),
+                    error: (value) => Center(
+                      child: Text(
+                        value.error.toString(),
+                        style: Theme.of(context).textTheme.headline6,
                       ),
-                  networkError: (value) => Center(
-                        child: Text(
-                          "Network error",
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ));
+                    ),
+                  );
             }),
           ),
         ],
@@ -126,8 +120,6 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       final cs = await CFF().complete(s);
       context.read(_stateProvider).state =
           StationStates.completions(cs.where((c) => c.label != null).toList());
-    } on SocketException {
-      context.read(_stateProvider).state = const StationStates.networkError();
     } catch (e) {
       context.read(_stateProvider).state = StationStates.error(e);
     }
