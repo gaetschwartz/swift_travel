@@ -20,10 +20,11 @@ class Format {
   }
 
   static String intToSeconds(int i) {
-    final Duration duration = Duration(seconds: i);
-    final hrs = duration.inHours == 0 ? "" : "${duration.inHours}h";
-    final mins = duration.inMinutes.toString().padLeft(2, "0");
-    return "$hrs$mins${duration.inHours == 0 ? " m" : ""}";
+    final m = i ~/ 60;
+    final h = m ~/ 60;
+    final hrs = h == 0 ? "" : "${h}h";
+    final mins = (m % 60).toString().padLeft(2, "0");
+    return "$hrs$mins${h == 0 ? " m" : ""}";
   }
 
   static String dateToHour(DateTime arrival) {

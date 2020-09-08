@@ -3,7 +3,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/completion.dart';
 import 'package:travel_free/pages/detailsStop.dart';
-import 'package:travel_free/utils/icon.dart';
+import 'package:travel_free/widget/icon.dart';
 
 class SearchByName extends StatefulWidget {
   @override

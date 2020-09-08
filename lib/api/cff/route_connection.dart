@@ -11,7 +11,6 @@ abstract class RouteConnection with _$RouteConnection {
   factory RouteConnection({
     String from,
     DateTime arrival,
-    List<String> disruptions,
     List<Leg> legs,
     int duration,
     String to,

@@ -3,7 +3,7 @@ import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_stationboard.dart';
 import 'package:travel_free/api/cff/stationboard_connection.dart';
 import 'package:travel_free/utils/format.dart';
-import 'package:travel_free/utils/icon.dart';
+import 'package:travel_free/widget/icon.dart';
 
 class DetailsStop extends StatefulWidget {
   final String stop;

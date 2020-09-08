@@ -12,8 +12,6 @@ _$_RouteConnection _$_$_RouteConnectionFromJson(Map<String, dynamic> json) {
     arrival: json['arrival'] == null
         ? null
         : DateTime.parse(json['arrival'] as String),
-    disruptions:
-        (json['disruptions'] as List)?.map((e) => e as String)?.toList(),
     legs: (json['legs'] as List)
         ?.map((e) => e == null ? null : Leg.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -29,7 +27,6 @@ Map<String, dynamic> _$_$_RouteConnectionToJson(_$_RouteConnection instance) =>
     <String, dynamic>{
       'from': instance.from,
       'arrival': instance.arrival?.toIso8601String(),
-      'disruptions': instance.disruptions,
       'legs': instance.legs?.map((e) => e?.toJson())?.toList(),
       'duration': instance.duration,
       'to': instance.to,

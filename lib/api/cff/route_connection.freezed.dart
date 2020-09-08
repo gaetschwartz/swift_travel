@@ -19,7 +19,6 @@ class _$RouteConnectionTearOff {
   _RouteConnection call(
       {String from,
       DateTime arrival,
-      List<String> disruptions,
       List<Leg> legs,
       int duration,
       String to,
@@ -27,7 +26,6 @@ class _$RouteConnectionTearOff {
     return _RouteConnection(
       from: from,
       arrival: arrival,
-      disruptions: disruptions,
       legs: legs,
       duration: duration,
       to: to,
@@ -42,7 +40,6 @@ const $RouteConnection = _$RouteConnectionTearOff();
 mixin _$RouteConnection {
   String get from;
   DateTime get arrival;
-  List<String> get disruptions;
   List<Leg> get legs;
   int get duration;
   String get to;
@@ -59,7 +56,6 @@ abstract class $RouteConnectionCopyWith<$Res> {
   $Res call(
       {String from,
       DateTime arrival,
-      List<String> disruptions,
       List<Leg> legs,
       int duration,
       String to,
@@ -78,7 +74,6 @@ class _$RouteConnectionCopyWithImpl<$Res>
   $Res call({
     Object from = freezed,
     Object arrival = freezed,
-    Object disruptions = freezed,
     Object legs = freezed,
     Object duration = freezed,
     Object to = freezed,
@@ -87,9 +82,6 @@ class _$RouteConnectionCopyWithImpl<$Res>
     return _then(_value.copyWith(
       from: from == freezed ? _value.from : from as String,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
-      disruptions: disruptions == freezed
-          ? _value.disruptions
-          : disruptions as List<String>,
       legs: legs == freezed ? _value.legs : legs as List<Leg>,
       duration: duration == freezed ? _value.duration : duration as int,
       to: to == freezed ? _value.to : to as String,
@@ -108,7 +100,6 @@ abstract class _$RouteConnectionCopyWith<$Res>
   $Res call(
       {String from,
       DateTime arrival,
-      List<String> disruptions,
       List<Leg> legs,
       int duration,
       String to,
@@ -129,7 +120,6 @@ class __$RouteConnectionCopyWithImpl<$Res>
   $Res call({
     Object from = freezed,
     Object arrival = freezed,
-    Object disruptions = freezed,
     Object legs = freezed,
     Object duration = freezed,
     Object to = freezed,
@@ -138,9 +128,6 @@ class __$RouteConnectionCopyWithImpl<$Res>
     return _then(_RouteConnection(
       from: from == freezed ? _value.from : from as String,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
-      disruptions: disruptions == freezed
-          ? _value.disruptions
-          : disruptions as List<String>,
       legs: legs == freezed ? _value.legs : legs as List<Leg>,
       duration: duration == freezed ? _value.duration : duration as int,
       to: to == freezed ? _value.to : to as String,
@@ -155,7 +142,6 @@ class _$_RouteConnection implements _RouteConnection {
   _$_RouteConnection(
       {this.from,
       this.arrival,
-      this.disruptions,
       this.legs,
       this.duration,
       this.to,
@@ -169,8 +155,6 @@ class _$_RouteConnection implements _RouteConnection {
   @override
   final DateTime arrival;
   @override
-  final List<String> disruptions;
-  @override
   final List<Leg> legs;
   @override
   final int duration;
@@ -181,7 +165,7 @@ class _$_RouteConnection implements _RouteConnection {
 
   @override
   String toString() {
-    return 'RouteConnection(from: $from, arrival: $arrival, disruptions: $disruptions, legs: $legs, duration: $duration, to: $to, departure: $departure)';
+    return 'RouteConnection(from: $from, arrival: $arrival, legs: $legs, duration: $duration, to: $to, departure: $departure)';
   }
 
   @override
@@ -193,9 +177,6 @@ class _$_RouteConnection implements _RouteConnection {
             (identical(other.arrival, arrival) ||
                 const DeepCollectionEquality()
                     .equals(other.arrival, arrival)) &&
-            (identical(other.disruptions, disruptions) ||
-                const DeepCollectionEquality()
-                    .equals(other.disruptions, disruptions)) &&
             (identical(other.legs, legs) ||
                 const DeepCollectionEquality().equals(other.legs, legs)) &&
             (identical(other.duration, duration) ||
@@ -213,7 +194,6 @@ class _$_RouteConnection implements _RouteConnection {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(from) ^
       const DeepCollectionEquality().hash(arrival) ^
-      const DeepCollectionEquality().hash(disruptions) ^
       const DeepCollectionEquality().hash(legs) ^
       const DeepCollectionEquality().hash(duration) ^
       const DeepCollectionEquality().hash(to) ^
@@ -233,7 +213,6 @@ abstract class _RouteConnection implements RouteConnection {
   factory _RouteConnection(
       {String from,
       DateTime arrival,
-      List<String> disruptions,
       List<Leg> legs,
       int duration,
       String to,
@@ -246,8 +225,6 @@ abstract class _RouteConnection implements RouteConnection {
   String get from;
   @override
   DateTime get arrival;
-  @override
-  List<String> get disruptions;
   @override
   List<Leg> get legs;
   @override

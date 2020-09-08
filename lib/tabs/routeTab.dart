@@ -10,7 +10,7 @@ import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
 import 'package:travel_free/pages/detailsRoute.dart';
 import 'package:travel_free/utils/format.dart';
-import 'package:travel_free/utils/icon.dart';
+import 'package:travel_free/widget/icon.dart';
 
 class SearchRoute extends StatefulWidget {
   @override
@@ -18,20 +18,24 @@ class SearchRoute extends StatefulWidget {
 }
 
 class _SearchRouteState extends State<SearchRoute> {
-  TextEditingController fromController = TextEditingController();
-  TextEditingController toController = TextEditingController();
+  final TextEditingController fromController = TextEditingController();
+  final TextEditingController toController = TextEditingController();
+  final FocusNode fnFrom = FocusNode();
+  final FocusNode fnTo = FocusNode();
+
   CffRoute data;
   DateTime date = DateTime.now();
   String typeTime = "departure";
   bool switchDepart = false;
 
-  FocusNode fnFrom = FocusNode();
-  FocusNode fnTo = FocusNode();
+  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey();
 
   @override
   void dispose() {
     fnFrom.dispose();
     fnTo.dispose();
+    fromController.dispose();
+    toController.dispose();
     super.dispose();
   }
 
@@ -39,53 +43,34 @@ class _SearchRouteState extends State<SearchRoute> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        TypeAheadField(
+        TypeAheadField<Completion>(
+          debounceDuration: const Duration(milliseconds: 500),
           textFieldConfiguration: TextFieldConfiguration(
               controller: fromController,
               style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
               decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "From")),
-          suggestionsCallback: (pattern) async {
-            final l = await CFF().complete(pattern);
-            return l;
-          },
-          itemBuilder: (context, Completion suggestion) {
-            print(suggestion);
-            return ListTile(
-              leading: CffIcon(suggestion.iconclass),
-              title: Text(suggestion.label),
-              dense: true,
-            );
-          },
-          onSuggestionSelected: (Completion suggestion) {
-            setState(() {
-              fromController.text = suggestion.label;
-            });
-          },
+          suggestionsCallback: (pattern) => CFF().complete(pattern),
+          itemBuilder: (context, suggestion) => ListTile(
+            leading: CffIcon(suggestion.iconclass),
+            title: Text(suggestion.label),
+            dense: true,
+          ),
+          onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
         ),
-        const SizedBox(height: 3),
-        TypeAheadField(
+        const SizedBox(height: 4),
+        TypeAheadField<Completion>(
+          debounceDuration: const Duration(milliseconds: 500),
           textFieldConfiguration: TextFieldConfiguration(
               controller: toController,
-              autofocus: true,
               style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
               decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
-          suggestionsCallback: (pattern) async {
-            final l = await CFF().complete(pattern);
-            return l;
-          },
-          itemBuilder: (context, Completion suggestion) {
-            print(suggestion);
-            return ListTile(
-              leading: CffIcon(suggestion.iconclass),
-              title: Text(suggestion.label),
-              dense: true,
-            );
-          },
-          onSuggestionSelected: (Completion suggestion) {
-            setState(() {
-              toController.text = suggestion.label;
-            });
-          },
+          suggestionsCallback: (pattern) => CFF().complete(pattern),
+          itemBuilder: (context, suggestion) => ListTile(
+            leading: CffIcon(suggestion.iconclass),
+            title: Text(suggestion.label),
+            dense: true,
+          ),
+          onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -100,7 +85,7 @@ class _SearchRouteState extends State<SearchRoute> {
                     height: 30,
                     child: Switch(
                       value: switchDepart,
-                      onChanged: (bool value) {
+                      onChanged: (value) {
                         setState(() => switchDepart = value);
                       },
                     ),
@@ -119,7 +104,6 @@ class _SearchRouteState extends State<SearchRoute> {
                               onDateTimeChanged: (d) => setState(() => date = d),
                             ),
                           ));
-                  print("date : $date");
                 },
                 icon: const FaIcon(FontAwesomeIcons.calendar),
                 label: Text(
@@ -128,30 +112,32 @@ class _SearchRouteState extends State<SearchRoute> {
             ],
           ),
         ),
-        RaisedButton(
+        RaisedButton.icon(
+          icon: const FaIcon(FontAwesomeIcons.search),
           onPressed: () async {
             fnFrom.unfocus();
             fnTo.unfocus();
-            await searchData();
+            _refreshKey.currentState.show();
           },
-          child: const Text("Search"),
+          shape: const StadiumBorder(),
+          label: const Text("Search"),
         ),
-        if (data != null)
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                await searchData();
-              },
-              child: ListView.separated(
-                  separatorBuilder: (c, i) => const Divider(),
-                  shrinkWrap: true,
-                  itemCount: data.connections.length,
-                  itemBuilder: (context, i) {
-                    final RouteConnection c = data.connections[i];
-                    return RouteTile(c: c);
-                  }),
-            ),
-          )
+        Expanded(
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await searchData();
+            },
+            key: _refreshKey,
+            child: ListView.separated(
+                separatorBuilder: (c, i) => const Divider(),
+                shrinkWrap: true,
+                itemCount: data == null ? 0 : data.connections.length,
+                itemBuilder: (context, i) {
+                  final RouteConnection c = data.connections[i];
+                  return RouteTile(c: c);
+                }),
+          ),
+        )
       ],
     );
   }
@@ -164,9 +150,7 @@ class _SearchRouteState extends State<SearchRoute> {
         when: date,
         typeTime: switchDepart ? "arrival" : "depart",
       );
-      setState(() {
-        data = it;
-      });
+      setState(() => data = it);
     }
   }
 }
@@ -193,9 +177,7 @@ class RouteTile extends StatelessWidget {
           spacing: 5,
           children: listWidget,
         ),
-        const SizedBox(
-          height: 3,
-        ),
+        const SizedBox(height: 4),
         Text(
             "${c.departure.hour}h${c.departure.minute.toString().padLeft(2, "0")} - ${c.arrival.hour}h${c.arrival.minute.toString().padLeft(2, "0")}")
       ],
@@ -213,10 +195,8 @@ class RouteTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Text(Format.intToSeconds(c.duration)),
-            const SizedBox(
-              width: 5,
-            ),
-            const FaIcon(FontAwesomeIcons.chevronRight),
+            const SizedBox(width: 5),
+            const FaIcon(FontAwesomeIcons.chevronRight, size: 16),
           ],
         ),
       ),

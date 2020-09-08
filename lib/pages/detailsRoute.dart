@@ -3,7 +3,7 @@ import 'package:travel_free/api/cff/leg.dart';
 import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/pages/detailsLegs.dart';
 import 'package:travel_free/utils/format.dart';
-import 'package:travel_free/utils/icon.dart';
+import 'package:travel_free/widget/icon.dart';
 
 class DetailsRoute extends StatelessWidget {
   final RouteConnection c;
@@ -63,7 +63,7 @@ class DetailsRoute extends StatelessWidget {
         list.add(InkWell(
           onTap: () {
             if (l.stops != null) {
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsLegs(legs: l)));
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsLegs(leg: l)));
             }
           },
           child: ExpansionTile(
@@ -85,15 +85,7 @@ class DetailsRoute extends StatelessWidget {
               ],
             ),
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    if (l.stops != null) ...buildStopTitle(l),
-                  ],
-                ),
-              ),
+              ...buildStopTitle(l),
             ],
           ),
         ));
@@ -106,7 +98,16 @@ class DetailsRoute extends StatelessWidget {
   List<Widget> buildStopTitle(Leg l) {
     final List<Widget> list = [];
     for (final stop in l.stops) {
-      list.add(Text(stop.name));
+      list.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(stop.name),
+            Text(Format.dateToHour(stop.departure)),
+          ],
+        ),
+      ));
     }
     return list;
   }

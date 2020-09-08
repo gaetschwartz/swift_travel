@@ -31,8 +31,10 @@ class CffIcon extends StatelessWidget {
       return const FaIcon(FontAwesomeIcons.home);
     } else if (icon == "express_train") {
       return const FaIcon(FontAwesomeIcons.train);
+    } else if (icon == "private") {
+      return const FaIcon(FontAwesomeIcons.building);
     } else {
-      return const FaIcon(FontAwesomeIcons.question);
+      throw Exception("Unkwown icon : `$icon`");
     }
   }
 
