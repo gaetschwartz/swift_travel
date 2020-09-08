@@ -8,7 +8,7 @@ part of 'completion.dart';
 
 _$_Completion _$_$_CompletionFromJson(Map<String, dynamic> json) {
   return _$_Completion(
-    json['label'] as String,
+    label: json['label'] as String,
     dist: json['dist'] as int,
     iconclass: json['iconclass'] as String,
     html: json['html'] as String,

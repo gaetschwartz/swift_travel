@@ -16,9 +16,9 @@ class _$CompletionTearOff {
   const _$CompletionTearOff();
 
 // ignore: unused_element
-  _Completion call(String label, {int dist, String iconclass, String html}) {
+  _Completion call({String label, int dist, String iconclass, String html}) {
     return _Completion(
-      label,
+      label: label,
       dist: dist,
       iconclass: iconclass,
       html: html,
@@ -94,7 +94,7 @@ class __$CompletionCopyWithImpl<$Res> extends _$CompletionCopyWithImpl<$Res>
     Object html = freezed,
   }) {
     return _then(_Completion(
-      label == freezed ? _value.label : label as String,
+      label: label == freezed ? _value.label : label as String,
       dist: dist == freezed ? _value.dist : dist as int,
       iconclass: iconclass == freezed ? _value.iconclass : iconclass as String,
       html: html == freezed ? _value.html : html as String,
@@ -104,8 +104,7 @@ class __$CompletionCopyWithImpl<$Res> extends _$CompletionCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$_Completion implements _Completion {
-  _$_Completion(this.label, {this.dist, this.iconclass, this.html})
-      : assert(label != null);
+  _$_Completion({this.label, this.dist, this.iconclass, this.html});
 
   factory _$_Completion.fromJson(Map<String, dynamic> json) =>
       _$_$_CompletionFromJson(json);
@@ -158,7 +157,7 @@ class _$_Completion implements _Completion {
 }
 
 abstract class _Completion implements Completion {
-  factory _Completion(String label, {int dist, String iconclass, String html}) =
+  factory _Completion({String label, int dist, String iconclass, String html}) =
       _$_Completion;
 
   factory _Completion.fromJson(Map<String, dynamic> json) =

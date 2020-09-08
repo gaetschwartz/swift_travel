@@ -1,6 +1,16 @@
+import 'dart:developer';
+
 int colorFromString(String s) {
-  if (s.length != 3) throw Exception();
-  return int.parse("ff${s[0]}0${s[1]}0${s[2]}0", radix: 16);
+  if (s.length == 3) {
+    return int.parse("ff${s[0]}0${s[1]}0${s[2]}0", radix: 16);
+  } else if (s.length == 6) {
+    return int.parse("ff$s", radix: 16);
+  } else if (s.isEmpty) {
+    return null;
+  } else {
+    log("", error: "Unknown color code : `$s`");
+    return null;
+  }
 }
 
 class Format {

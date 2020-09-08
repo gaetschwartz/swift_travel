@@ -6,9 +6,9 @@ import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
 
 class DetailsStop extends StatefulWidget {
-  final String stop;
+  final String stopName;
 
-  const DetailsStop({Key key, this.stop}) : super(key: key);
+  const DetailsStop({Key key, @required this.stopName}) : super(key: key);
 
   @override
   _DetailsStopState createState() => _DetailsStopState();
@@ -20,17 +20,17 @@ class _DetailsStopState extends State<DetailsStop> {
   @override
   void initState() {
     super.initState();
-    searchData();
+    reloadData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.stop),
+          title: Text(widget.stopName),
         ),
         body: RefreshIndicator(
-          onRefresh: () => searchData(),
+          onRefresh: () => reloadData(),
           child: data.length > 1
               ? ListView.separated(
                   separatorBuilder: (c, i) => const Divider(),
@@ -45,8 +45,8 @@ class _DetailsStopState extends State<DetailsStop> {
         ));
   }
 
-  Future<void> searchData() async {
-    final CffStationboard l = await CFF().timetable(widget.stop);
+  Future<void> reloadData() async {
+    final CffStationboard l = await CFF().timetable(widget.stopName);
     setState(() {
       data = l.connections;
     });
@@ -66,12 +66,13 @@ class ConnectionTile extends StatelessWidget {
           DecoratedBox(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: Color(colorFromString(connection.color.split("~").first))),
+                  color: Color(colorFromString(connection.color.split("~").first) ?? 0xff000000)),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
                 child: Text(
                   connection.line,
-                  style: TextStyle(color: Color(colorFromString(connection.color.split("~")[1]))),
+                  style: TextStyle(
+                      color: Color(colorFromString(connection.color.split("~")[1]) ?? 0xfff0f0f0)),
                 ),
               )),
           const SizedBox(width: 8),

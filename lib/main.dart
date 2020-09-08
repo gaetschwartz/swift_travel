@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_free/tabs/favoritesTab.dart';
@@ -10,14 +11,16 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Travel free',
-      theme: ThemeData(primarySwatch: Colors.teal, fontFamily: GoogleFonts.lato().fontFamily),
-      darkTheme: ThemeData(
-          primarySwatch: Colors.teal,
-          brightness: Brightness.dark,
-          fontFamily: GoogleFonts.lato().fontFamily),
-      home: MyHomePage(),
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Travel free',
+        theme: ThemeData(primarySwatch: Colors.teal, fontFamily: GoogleFonts.lato().fontFamily),
+        darkTheme: ThemeData(
+            primarySwatch: Colors.teal,
+            brightness: Brightness.dark,
+            fontFamily: GoogleFonts.lato().fontFamily),
+        home: MyHomePage(),
+      ),
     );
   }
 }

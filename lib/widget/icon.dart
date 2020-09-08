@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -18,7 +20,7 @@ class CffIcon extends StatelessWidget {
     if (icon == "bus") {
       return const FaIcon(FontAwesomeIcons.bus);
     } else if (icon == "tram") {
-      return const FaIcon(FontAwesomeIcons.tram);
+      return const FaIcon(FontAwesomeIcons.subway);
     } else if (icon == "walk") {
       return const FaIcon(FontAwesomeIcons.walking);
     } else if (icon == "train") {
@@ -33,8 +35,13 @@ class CffIcon extends StatelessWidget {
       return const FaIcon(FontAwesomeIcons.train);
     } else if (icon == "private") {
       return const FaIcon(FontAwesomeIcons.building);
+    } else if (icon == "gondola") {
+      return const FaIcon(FontAwesomeIcons.ship);
+    } else if (icon == "post") {
+      return const FaIcon(FontAwesomeIcons.bus);
     } else {
-      throw Exception("Unkwown icon : `$icon`");
+      log("", error: "Unkwown icon : `$icon`");
+      return const FaIcon(FontAwesomeIcons.question);
     }
   }
 

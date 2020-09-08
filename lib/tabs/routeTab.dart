@@ -43,34 +43,39 @@ class _SearchRouteState extends State<SearchRoute> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        TypeAheadField<Completion>(
-          debounceDuration: const Duration(milliseconds: 500),
-          textFieldConfiguration: TextFieldConfiguration(
-              controller: fromController,
-              style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-              decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "From")),
-          suggestionsCallback: (pattern) => CFF().complete(pattern),
-          itemBuilder: (context, suggestion) => ListTile(
-            leading: CffIcon(suggestion.iconclass),
-            title: Text(suggestion.label),
-            dense: true,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TypeAheadField<Completion>(
+            debounceDuration: const Duration(milliseconds: 500),
+            textFieldConfiguration: TextFieldConfiguration(
+                controller: fromController,
+                style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
+                decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "From")),
+            suggestionsCallback: (pattern) => CFF().complete(pattern),
+            itemBuilder: (context, suggestion) => ListTile(
+              leading: CffIcon(suggestion.iconclass),
+              title: Text(suggestion.label),
+              dense: true,
+            ),
+            onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
           ),
-          onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
         ),
-        const SizedBox(height: 4),
-        TypeAheadField<Completion>(
-          debounceDuration: const Duration(milliseconds: 500),
-          textFieldConfiguration: TextFieldConfiguration(
-              controller: toController,
-              style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-              decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
-          suggestionsCallback: (pattern) => CFF().complete(pattern),
-          itemBuilder: (context, suggestion) => ListTile(
-            leading: CffIcon(suggestion.iconclass),
-            title: Text(suggestion.label),
-            dense: true,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TypeAheadField<Completion>(
+            debounceDuration: const Duration(milliseconds: 500),
+            textFieldConfiguration: TextFieldConfiguration(
+                controller: toController,
+                style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
+                decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
+            suggestionsCallback: (pattern) => CFF().complete(pattern),
+            itemBuilder: (context, suggestion) => ListTile(
+              leading: CffIcon(suggestion.iconclass),
+              title: Text(suggestion.label),
+              dense: true,
+            ),
+            onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
           ),
-          onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
