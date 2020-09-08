@@ -16,7 +16,7 @@ class SearchByName extends StatefulWidget {
   _SearchByNameState createState() => _SearchByNameState();
 }
 
-class _SearchByNameState extends State<SearchByName> {
+class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
   Timer _debouncer;
 
@@ -33,7 +33,11 @@ class _SearchByNameState extends State<SearchByName> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: <Widget>[
         SizedBox(

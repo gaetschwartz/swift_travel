@@ -9,7 +9,7 @@ class SearchFavorite extends StatefulWidget {
   _SearchFavoriteState createState() => _SearchFavoriteState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite> {
+class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
   List<CffCompletion> favoritesStop = [];
 
   @override
@@ -17,6 +17,9 @@ class _SearchFavoriteState extends State<SearchFavorite> {
     super.initState();
     loadFavorites();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   Future<void> loadFavorites() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -33,6 +36,7 @@ class _SearchFavoriteState extends State<SearchFavorite> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return RefreshIndicator(
       onRefresh: () async {
         await loadFavorites();

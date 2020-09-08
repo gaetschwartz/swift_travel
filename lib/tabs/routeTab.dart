@@ -17,7 +17,7 @@ class SearchRoute extends StatefulWidget {
   _SearchRouteState createState() => _SearchRouteState();
 }
 
-class _SearchRouteState extends State<SearchRoute> {
+class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
   final FocusNode fnFrom = FocusNode();
@@ -42,6 +42,7 @@ class _SearchRouteState extends State<SearchRoute> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: <Widget>[
         Padding(
@@ -185,6 +186,9 @@ class _SearchRouteState extends State<SearchRoute> {
       setState(() => data = it);
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class RouteTile extends StatelessWidget {
