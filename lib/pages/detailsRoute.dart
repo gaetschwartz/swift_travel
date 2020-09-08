@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_free/api/cff/leg.dart';
 import 'package:travel_free/api/cff/route_connection.dart';
-import 'package:travel_free/pages/detailsLegs.dart';
+import 'package:travel_free/api/cff/stop.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
 
@@ -56,38 +56,37 @@ class DetailsRoute extends StatelessWidget {
 
     for (var i = 0; i < legs.length; i++) {
       final Leg l = legs[i];
-      final Leg nextLegs = i == legs.length - 1 ? legs[i] : legs[i + 1];
+      final Leg nextLeg = i == legs.length - 1 ? legs[i] : legs[i + 1];
       if (l.type != null) {
         if (i == 0) print(l.stopid);
 
-        list.add(InkWell(
-          onTap: () {
-            if (l.stops != null) {
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsLegs(leg: l)));
-            }
-          },
-          child: ExpansionTile(
-            backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    CffIcon(l.type),
-                    Text(Format.duration(nextLegs.arrival.difference(l.departure),
-                        showExactTime: true)),
-                  ],
-                ),
-                Text("${l.name} ➡ ${nextLegs.name}"),
-                Text("${Format.dateToHour(l.departure)} ➡ ${Format.dateToHour(nextLegs.arrival)}"),
-                if (l.terminal != null) Text(l.terminal)
-              ],
-            ),
+        list.add(ExpansionTile(
+          backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              ...buildStopTitle(l),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CffIcon(l.type),
+                  const SizedBox(width: 8),
+                  Text(l.terminal),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(Format.duration(nextLeg.arrival.difference(l.departure),
+                          showExactTime: true)),
+                    ),
+                  ),
+                ],
+              ),
+              Text("${l.name} - ${nextLeg.name}"),
+              Text("${Format.dateToHour(l.departure)} - ${Format.dateToHour(nextLeg.arrival)}"),
             ],
           ),
+          children: <Widget>[
+            ...buildStopTitle(l, nextLeg),
+          ],
         ));
         list.add(const Divider());
       }
@@ -95,20 +94,31 @@ class DetailsRoute extends StatelessWidget {
     return list;
   }
 
-  List<Widget> buildStopTitle(Leg l) {
+  List<Widget> buildStopTitle(Leg l, Leg nl) {
     final List<Widget> list = [];
+    list.add(_buildStop(Stop(l.name, departure: l.departure), bold: true));
+
     for (final stop in l.stops) {
-      list.add(Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(stop.name),
-            Text(Format.dateToHour(stop.departure)),
-          ],
-        ),
-      ));
+      list.add(_buildStop(stop));
     }
+    list.add(_buildStop(Stop(nl.name, departure: nl.arrival), bold: true));
+
     return list;
+  }
+
+  Padding _buildStop(Stop stop, {bool bold = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            stop.name,
+            style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+          ),
+          Text(Format.dateToHour(stop.departure)),
+        ],
+      ),
+    );
   }
 }
