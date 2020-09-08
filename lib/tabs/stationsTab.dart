@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_completion.dart';
 import 'package:travel_free/models/station_states.dart';
@@ -38,61 +40,97 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Column(
-      children: <Widget>[
-        SizedBox(
-            height: 64,
-            child: Center(
-                child: Text(
-              "Look for a station",
-              style: Theme.of(context).textTheme.headline4,
-            ))),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: searchController,
-            style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: "Stop",
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+              height: 64,
+              child: Center(
+                  child: Text(
+                "Look for a station",
+                style: Theme.of(context).textTheme.headline4,
+              ))),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: searchController,
+              style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: "Stop",
+                  suffixIcon: IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.times),
+                      onPressed: () {
+                        searchController.text = "";
+                        reload("");
+                      })),
+              onChanged: (s) async {
+                context.read(_stateProvider).state = const StationStates.loading();
+                // Debounce
+                if (_debouncer?.isActive ?? false) {
+                  _debouncer?.cancel();
+                  _debouncer = Timer(const Duration(milliseconds: 500), () => reload(s));
+                } else {
+                  await reload(s);
+                  _debouncer?.cancel();
+                  _debouncer = Timer(const Duration(milliseconds: 500), () {});
+                }
+              },
             ),
-            onChanged: (s) async {
-              context.read(_stateProvider).state = const StationStates.loading();
-              // Debounce
-              if (_debouncer?.isActive ?? false) {
-                _debouncer?.cancel();
-                _debouncer = Timer(const Duration(milliseconds: 500), () => reload(s));
-              } else {
-                await reload(s);
-                _debouncer?.cancel();
-                _debouncer = Timer(const Duration(milliseconds: 500), () {});
-              }
-            },
           ),
-        ),
-        Expanded(
-          child: Consumer(builder: (context, w, _) {
-            return w(_stateProvider).state.map(
-                loading: (_) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                completions: (c) => ListView.separated(
-                      itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
-                      separatorBuilder: (context, i) => const Divider(),
-                      itemCount: c.completions == null ? 0 : c.completions.length,
-                    ),
-                empty: (_) => const SizedBox());
-          }),
-        ),
-      ],
+          Expanded(
+            child: Consumer(builder: (context, w, _) {
+              return w(_stateProvider).state.map(
+                  loading: (_) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                  completions: (c) => c.completions.isEmpty
+                      ? Center(
+                          child: Text(
+                            "Nothing found.",
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        )
+                      : ListView.separated(
+                          itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
+                          separatorBuilder: (context, i) => const Divider(),
+                          itemCount: c.completions == null ? 0 : c.completions.length,
+                        ),
+                  empty: (_) => Center(
+                        child: Text(
+                          "Make a search",
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                  error: (value) => Center(
+                        child: Text(
+                          value.error.toString(),
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                  networkError: (value) => Center(
+                        child: Text(
+                          "Network error",
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ));
+            }),
+          ),
+        ],
+      ),
     );
   }
 
   Future<void> reload(String s) async {
-    final cs = await CFF().complete(s);
-
-    context.read(_stateProvider).state =
-        StationStates.completions(cs.where((c) => c.label != null).toList());
+    try {
+      final cs = await CFF().complete(s);
+      context.read(_stateProvider).state =
+          StationStates.completions(cs.where((c) => c.label != null).toList());
+    } on SocketException {
+      context.read(_stateProvider).state = const StationStates.networkError();
+    } catch (e) {
+      context.read(_stateProvider).state = StationStates.error(e);
+    }
   }
 }
 

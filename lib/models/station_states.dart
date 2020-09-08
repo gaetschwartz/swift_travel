@@ -8,4 +8,6 @@ abstract class StationStates with _$StationStates {
   const factory StationStates.loading() = Loading;
   const factory StationStates.completions(List<CffCompletion> completions) = StationCompletions;
   const factory StationStates.empty() = Empty;
+  const factory StationStates.networkError() = NetworkError;
+  const factory StationStates.error(Object error) = Error;
 }
