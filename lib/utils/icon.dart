@@ -18,7 +18,7 @@ class CffIcon extends StatelessWidget {
     if (icon == "bus") {
       return const FaIcon(FontAwesomeIcons.bus);
     } else if (icon == "tram") {
-      return const FaIcon(FontAwesomeIcons.subway);
+      return const FaIcon(FontAwesomeIcons.tram);
     } else if (icon == "walk") {
       return const FaIcon(FontAwesomeIcons.walking);
     } else if (icon == "train") {
@@ -26,7 +26,7 @@ class CffIcon extends StatelessWidget {
     } else if (icon == "strain") {
       return const FaIcon(FontAwesomeIcons.train);
     } else if (icon == "business") {
-      return const FaIcon(FontAwesomeIcons.building);
+      return const FaIcon(FontAwesomeIcons.store);
     } else if (icon == "adr") {
       return const FaIcon(FontAwesomeIcons.home);
     } else if (icon == "express_train") {

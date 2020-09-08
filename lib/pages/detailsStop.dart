@@ -61,32 +61,35 @@ class ConnectionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final diff = connection.time.difference(DateTime.now());
     return ListTile(
-      title: Align(
-        alignment: Alignment.centerLeft,
-        child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Color(colorFromString(connection.color.split("~").first))),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-              child: Text(
-                connection.line,
-                style: TextStyle(color: Color(colorFromString(connection.color.split("~")[1]))),
-              ),
-            )),
+      title: Row(
+        children: [
+          DecoratedBox(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Color(colorFromString(connection.color.split("~").first))),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+                child: Text(
+                  connection.line,
+                  style: TextStyle(color: Color(colorFromString(connection.color.split("~")[1]))),
+                ),
+              )),
+          const SizedBox(width: 8),
+          Text(
+            connection.terminal.name,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          )
+        ],
       ),
       subtitle: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           children: <Widget>[
-            CffIcon(
-              connection.type,
-              size: 20,
-            ),
+            CffIcon(connection.type, size: 12),
             const SizedBox(width: 8),
             Text(
-              connection.line ?? "???",
-              style: const TextStyle(fontSize: 16),
+              connection.number ?? "???",
+              style: const TextStyle(fontSize: 12),
             ),
           ],
         ),

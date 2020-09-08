@@ -24,7 +24,7 @@ class _SearchByNameState extends State<SearchByName> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        TypeAheadField(
+        TypeAheadField<Completion>(
           textFieldConfiguration: TextFieldConfiguration(
               controller: searchController,
               style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
@@ -33,20 +33,15 @@ class _SearchByNameState extends State<SearchByName> {
             final l = await CFF().complete(pattern);
             return l;
           },
-          itemBuilder: (context, Completion suggestion) {
-            print(suggestion);
+          itemBuilder: (context, suggestion) {
             return ListTile(
               leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
-              subtitle: Text(suggestion.iconclass.split("-").last),
+              dense: true,
             );
           },
-          onSuggestionSelected: (Completion suggestion) {
-            setState(() {
-              searchController.text = suggestion.label;
-              searchData(suggestion.label);
-            });
-          },
+          onSuggestionSelected: (suggestion) => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => DetailsStop(stop: suggestion.label))),
         ),
         ListView.builder(
           shrinkWrap: true,

@@ -42,7 +42,6 @@ class _SearchRouteState extends State<SearchRoute> {
         TypeAheadField(
           textFieldConfiguration: TextFieldConfiguration(
               controller: fromController,
-              autofocus: true,
               style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
               decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "From")),
           suggestionsCallback: (pattern) async {
@@ -54,7 +53,7 @@ class _SearchRouteState extends State<SearchRoute> {
             return ListTile(
               leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
-              subtitle: Text(suggestion.iconclass.split("-").last),
+              dense: true,
             );
           },
           onSuggestionSelected: (Completion suggestion) {
@@ -79,8 +78,7 @@ class _SearchRouteState extends State<SearchRoute> {
             return ListTile(
               leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
-              subtitle:
-                  suggestion.iconclass != null ? Text(suggestion.iconclass.split("-").last) : null,
+              dense: true,
             );
           },
           onSuggestionSelected: (Completion suggestion) {
