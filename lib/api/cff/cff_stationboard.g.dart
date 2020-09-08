@@ -19,6 +19,8 @@ _$_CffStationboard _$_$_CffStationboardFromJson(Map<String, dynamic> json) {
         [],
     request: json['request'] as String,
     eof: json['eof'] as int,
+    messages:
+        (json['messages'] as List)?.map((e) => e as String)?.toList() ?? [],
   );
 }
 
@@ -28,4 +30,5 @@ Map<String, dynamic> _$_$_CffStationboardToJson(_$_CffStationboard instance) =>
       'connections': instance.connections,
       'request': instance.request,
       'eof': instance.eof,
+      'messages': instance.messages,
     };

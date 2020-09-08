@@ -15,7 +15,7 @@ class DetailsStop extends StatefulWidget {
 }
 
 class _DetailsStopState extends State<DetailsStop> {
-  List<StationboardConnection> data = [];
+  CffStationboard data;
 
   @override
   void initState() {
@@ -31,24 +31,38 @@ class _DetailsStopState extends State<DetailsStop> {
         ),
         body: RefreshIndicator(
           onRefresh: () => reloadData(),
-          child: data.length > 1
-              ? ListView.separated(
-                  separatorBuilder: (c, i) => const Divider(),
-                  itemCount: data.length,
-                  itemBuilder: (context, i) {
-                    return ConnectionTile(
-                      connection: data[i],
-                    );
-                  },
-                )
+          child: data != null
+              ? data.messages.isEmpty
+                  ? ListView.separated(
+                      separatorBuilder: (c, i) => const Divider(),
+                      itemCount: data.connections.length,
+                      itemBuilder: (context, i) {
+                        return ConnectionTile(connection: data.connections[i]);
+                      },
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: data.messages
+                            .map((e) => Center(
+                                    child: Text(
+                                  e,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.headline6,
+                                )))
+                            .toList(),
+                      ),
+                    )
               : const Center(child: CircularProgressIndicator()),
         ));
   }
 
   Future<void> reloadData() async {
-    final CffStationboard l = await CFF().timetable(widget.stopName);
+    final CffStationboard l = await CFF().stationboard(widget.stopName);
     setState(() {
-      data = l.connections;
+      data = l;
     });
   }
 }

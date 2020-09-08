@@ -31,7 +31,7 @@ abstract class CFFBase {
     bool showIds,
   });
 
-  Future<CffStationboard> timetable(
+  Future<CffStationboard> stationboard(
     String stopName, {
     DateTime when,
     bool arrival,
@@ -102,7 +102,7 @@ class CFF implements CFFBase {
   }
 
   @override
-  Future<CffStationboard> timetable(String stopName,
+  Future<CffStationboard> stationboard(String stopName,
       {DateTime when,
       bool arrival = false,
       int limit = 0,
@@ -121,11 +121,12 @@ class CFF implements CFFBase {
       "mode": arrival ? "arrival" : "depart"
     };
     if (transportationTypes.isNotEmpty) {
-      params["transportation_types"] = transportationTypes.join(", ");
+      params["transportation_types"] = transportationTypes.join(",");
     }
     if (when != null) print("TODO");
     final s = builder.build("stationboard", params);
-    final response = await _client.get(s);
+    print(s);
+    final response = await _client.get(s, headers: {"accept-language": "en"});
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
