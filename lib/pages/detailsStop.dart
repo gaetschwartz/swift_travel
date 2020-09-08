@@ -86,11 +86,11 @@ class ConnectionTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           children: <Widget>[
-            CffIcon(connection.type, size: 12),
+            CffIcon(connection.type, size: 16),
             const SizedBox(width: 8),
             Text(
               connection.number ?? "???",
-              style: const TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 14),
             ),
           ],
         ),

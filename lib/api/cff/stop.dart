@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'stop.freezed.dart';
 part 'stop.g.dart';
 
-DateTime _fromJson(String s) => DateTime.parse(s);
+DateTime _fromJson(String s) => s == null ? null : DateTime.parse(s);
 String _toJson(DateTime d) => d.toIso8601String();
 
 @freezed

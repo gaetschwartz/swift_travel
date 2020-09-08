@@ -173,18 +173,14 @@ class RouteTile extends StatelessWidget {
 
     for (int i = 0; i < c.legs.length - 1; i++) {
       final Leg l = c.legs[i];
-      listWidget.add(CffIcon(l.type));
+      listWidget.add(CffIcon(l.type, size: 20));
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Wrap(
-          spacing: 5,
-          children: listWidget,
-        ),
+        Wrap(spacing: 8, children: listWidget),
         const SizedBox(height: 4),
-        Text(
-            "${c.departure.hour}h${c.departure.minute.toString().padLeft(2, "0")} - ${c.arrival.hour}h${c.arrival.minute.toString().padLeft(2, "0")}")
+        Text("${Format.dateToHour(c.departure)} - ${Format.dateToHour(c.arrival)}")
       ],
     );
   }
@@ -192,7 +188,7 @@ class RouteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text("${c.from} ➡ ${c.to}"),
+      title: Text("${c.from} > ${c.to}"),
       subtitle: rowIcon(c),
       trailing: Container(
         width: 100,

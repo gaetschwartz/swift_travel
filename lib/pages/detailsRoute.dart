@@ -80,7 +80,7 @@ class DetailsRoute extends StatelessWidget {
                   ),
                 ],
               ),
-              Text("${l.name} - ${nextLeg.name}"),
+              Text("${l.name} > ${nextLeg.name}"),
               Text("${Format.dateToHour(l.departure)} - ${Format.dateToHour(nextLeg.arrival)}"),
             ],
           ),
@@ -116,7 +116,7 @@ class DetailsRoute extends StatelessWidget {
             stop.name,
             style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
           ),
-          Text(Format.dateToHour(stop.departure)),
+          if (stop.departure != null) Text(Format.dateToHour(stop.departure)),
         ],
       ),
     );
