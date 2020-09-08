@@ -22,9 +22,10 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
     stopid: json['stopid'] as String,
     line: json['line'] as String,
     stops: (json['stops'] as List)
-        ?.map(
-            (e) => e == null ? null : Stop.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+            ?.map((e) =>
+                e == null ? null : Stop.fromJson(e as Map<String, dynamic>))
+            ?.toList() ??
+        [],
     sbbName: json['sbbName'] as String,
     name: json['name'] as String,
     departure: json['departure'] == null

@@ -4,11 +4,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:travel_free/api/cff.dart';
-import 'package:travel_free/api/cff/completion.dart';
+import 'package:travel_free/api/cff/cff_completion.dart';
+import 'package:travel_free/models/station_states.dart';
 import 'package:travel_free/pages/detailsStop.dart';
 import 'package:travel_free/widget/icon.dart';
 
-final _loadingProvider = StateProvider((_) => false);
+final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 
 class SearchByName extends StatefulWidget {
   @override
@@ -17,13 +18,18 @@ class SearchByName extends StatefulWidget {
 
 class _SearchByNameState extends State<SearchByName> {
   final TextEditingController searchController = TextEditingController();
-  List<Completion> _completions;
   Timer _debouncer;
 
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    reload("");
   }
 
   @override
@@ -47,7 +53,7 @@ class _SearchByNameState extends State<SearchByName> {
               hintText: "Stop",
             ),
             onChanged: (s) async {
-              context.read(_loadingProvider).state = true;
+              context.read(_stateProvider).state = const StationStates.loading();
               // Debounce
               if (_debouncer?.isActive ?? false) {
                 _debouncer?.cancel();
@@ -62,15 +68,16 @@ class _SearchByNameState extends State<SearchByName> {
         ),
         Expanded(
           child: Consumer(builder: (context, w, _) {
-            return w(_loadingProvider).state
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : ListView.separated(
-                    itemBuilder: (context, i) => CompletionTile(_completions[i]),
-                    separatorBuilder: (context, i) => const Divider(),
-                    itemCount: _completions == null ? 0 : _completions.length,
-                  );
+            return w(_stateProvider).state.map(
+                loading: (_) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                completions: (c) => ListView.separated(
+                      itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
+                      separatorBuilder: (context, i) => const Divider(),
+                      itemCount: c.completions == null ? 0 : c.completions.length,
+                    ),
+                empty: (_) => const SizedBox());
           }),
         ),
       ],
@@ -79,20 +86,19 @@ class _SearchByNameState extends State<SearchByName> {
 
   Future<void> reload(String s) async {
     final cs = await CFF().complete(s);
-    if (mounted) {
-      setState(() => _completions = cs.where((c) => c.label != null).toList());
-    }
-    context.read(_loadingProvider).state = false;
+
+    context.read(_stateProvider).state =
+        StationStates.completions(cs.where((c) => c.label != null).toList());
   }
 }
 
-class CompletionTile extends StatelessWidget {
-  const CompletionTile(
+class CffCompletionTile extends StatelessWidget {
+  const CffCompletionTile(
     this.suggestion, {
     Key key,
   }) : super(key: key);
 
-  final Completion suggestion;
+  final CffCompletion suggestion;
 
   @override
   Widget build(BuildContext context) {

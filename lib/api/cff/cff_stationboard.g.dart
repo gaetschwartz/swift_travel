@@ -8,16 +8,17 @@ part of 'cff_stationboard.dart';
 
 _$_CffStationboard _$_$_CffStationboardFromJson(Map<String, dynamic> json) {
   return _$_CffStationboard(
-    json['stop'] == null
+    stop: json['stop'] == null
         ? null
         : LocatedStop.fromJson(json['stop'] as Map<String, dynamic>),
-    (json['connections'] as List)
-        ?.map((e) => e == null
-            ? null
-            : StationboardConnection.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    json['request'] as String,
-    json['eof'] as int,
+    connections: (json['connections'] as List)
+            ?.map((e) => e == null
+                ? null
+                : StationboardConnection.fromJson(e as Map<String, dynamic>))
+            ?.toList() ??
+        [],
+    request: json['request'] as String,
+    eof: json['eof'] as int,
   );
 }
 

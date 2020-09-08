@@ -21,7 +21,7 @@ abstract class Leg with _$Leg {
     int runningtime,
     String stopid,
     String line,
-    List<Stop> stops,
+    @Default([]) List<Stop> stops,
     String sbbName,
     String name,
     DateTime departure,

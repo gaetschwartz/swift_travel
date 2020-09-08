@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'completion.dart';
+part of 'cff_completion.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Completion _$_$_CompletionFromJson(Map<String, dynamic> json) {
-  return _$_Completion(
+_$_CffCompletion _$_$_CffCompletionFromJson(Map<String, dynamic> json) {
+  return _$_CffCompletion(
     label: json['label'] as String,
     dist: json['dist'] as int,
     iconclass: json['iconclass'] as String,
@@ -15,7 +15,7 @@ _$_Completion _$_$_CompletionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_CompletionToJson(_$_Completion instance) =>
+Map<String, dynamic> _$_$_CffCompletionToJson(_$_CffCompletion instance) =>
     <String, dynamic>{
       'label': instance.label,
       'dist': instance.dist,

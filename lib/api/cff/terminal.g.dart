@@ -8,10 +8,10 @@ part of 'terminal.dart';
 
 _$_Terminal _$_$_TerminalFromJson(Map<String, dynamic> json) {
   return _$_Terminal(
-    json['id'] as String,
-    json['name'] as String,
-    json['x'] as int,
-    json['y'] as int,
+    id: json['id'] as String,
+    name: json['name'] as String,
+    x: json['x'] as int,
+    y: json['y'] as int,
   );
 }
 

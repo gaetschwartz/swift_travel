@@ -13,8 +13,10 @@ _$_RouteConnection _$_$_RouteConnectionFromJson(Map<String, dynamic> json) {
         ? null
         : DateTime.parse(json['arrival'] as String),
     legs: (json['legs'] as List)
-        ?.map((e) => e == null ? null : Leg.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+            ?.map((e) =>
+                e == null ? null : Leg.fromJson(e as Map<String, dynamic>))
+            ?.toList() ??
+        [],
     duration: json['duration'] as int,
     to: json['to'] as String,
     departure: json['departure'] == null

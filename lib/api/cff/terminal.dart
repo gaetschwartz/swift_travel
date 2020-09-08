@@ -5,12 +5,12 @@ part 'terminal.g.dart';
 
 @freezed
 abstract class Terminal with _$Terminal {
-  factory Terminal(
+  factory Terminal({
     String id,
     String name,
     int x,
     int y,
-  ) = _Terminal;
+  }) = _Terminal;
 
   factory Terminal.fromJson(Map<String, dynamic> json) => _$TerminalFromJson(json);
 }

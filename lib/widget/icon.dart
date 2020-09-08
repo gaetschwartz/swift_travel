@@ -38,7 +38,9 @@ class CffIcon extends StatelessWidget {
     } else if (icon == "gondola") {
       return const FaIcon(FontAwesomeIcons.ship);
     } else if (icon == "post") {
-      return const FaIcon(FontAwesomeIcons.bus);
+      return const FaIcon(FontAwesomeIcons.busAlt);
+    } else if (icon == "funicular") {
+      return const FaIcon(FontAwesomeIcons.train);
     } else {
       log("", error: "Unkwown icon : `$icon`");
       return const FaIcon(FontAwesomeIcons.question);

@@ -28,7 +28,7 @@ class _$LegTearOff {
       int runningtime,
       String stopid,
       String line,
-      List<Stop> stops,
+      List<Stop> stops = const [],
       String sbbName,
       String name,
       DateTime departure,
@@ -279,14 +279,15 @@ class _$_Leg implements _Leg {
       this.runningtime,
       this.stopid,
       this.line,
-      this.stops,
+      this.stops = const [],
       this.sbbName,
       this.name,
       this.departure,
       this.arrival,
       this.normalTime,
       this.waittime,
-      this.isaddress});
+      this.isaddress})
+      : assert(stops != null);
 
   factory _$_Leg.fromJson(Map<String, dynamic> json) => _$_$_LegFromJson(json);
 
@@ -312,6 +313,7 @@ class _$_Leg implements _Leg {
   final String stopid;
   @override
   final String line;
+  @JsonKey(defaultValue: const [])
   @override
   final List<Stop> stops;
   @override

@@ -16,12 +16,12 @@ class _$TerminalTearOff {
   const _$TerminalTearOff();
 
 // ignore: unused_element
-  _Terminal call(String id, String name, int x, int y) {
+  _Terminal call({String id, String name, int x, int y}) {
     return _Terminal(
-      id,
-      name,
-      x,
-      y,
+      id: id,
+      name: name,
+      x: x,
+      y: y,
     );
   }
 }
@@ -91,21 +91,17 @@ class __$TerminalCopyWithImpl<$Res> extends _$TerminalCopyWithImpl<$Res>
     Object y = freezed,
   }) {
     return _then(_Terminal(
-      id == freezed ? _value.id : id as String,
-      name == freezed ? _value.name : name as String,
-      x == freezed ? _value.x : x as int,
-      y == freezed ? _value.y : y as int,
+      id: id == freezed ? _value.id : id as String,
+      name: name == freezed ? _value.name : name as String,
+      x: x == freezed ? _value.x : x as int,
+      y: y == freezed ? _value.y : y as int,
     ));
   }
 }
 
 @JsonSerializable()
 class _$_Terminal implements _Terminal {
-  _$_Terminal(this.id, this.name, this.x, this.y)
-      : assert(id != null),
-        assert(name != null),
-        assert(x != null),
-        assert(y != null);
+  _$_Terminal({this.id, this.name, this.x, this.y});
 
   factory _$_Terminal.fromJson(Map<String, dynamic> json) =>
       _$_$_TerminalFromJson(json);
@@ -157,7 +153,7 @@ class _$_Terminal implements _Terminal {
 }
 
 abstract class _Terminal implements Terminal {
-  factory _Terminal(String id, String name, int x, int y) = _$_Terminal;
+  factory _Terminal({String id, String name, int x, int y}) = _$_Terminal;
 
   factory _Terminal.fromJson(Map<String, dynamic> json) = _$_Terminal.fromJson;
 

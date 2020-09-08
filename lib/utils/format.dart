@@ -25,16 +25,18 @@ class Format {
         return ">1 h";
       }
     }
-    if (m == 0) return "now";
-    return "$m m";
+    if (m == 0) return "Now";
+    if (m == 1) return "1 min";
+    return "$m mins";
   }
 
-  static String intToSeconds(int i) {
+  static String intToSeconds(int i, {bool pad = true}) {
     final m = i ~/ 60;
     final h = m ~/ 60;
     final hrs = h == 0 ? "" : "${h}h";
-    final mins = (m % 60).toString().padLeft(2, "0");
-    return "$hrs$mins${h == 0 ? " m" : ""}";
+    final string = (m % 60).toString();
+    final mins = pad ? string.padLeft(2, "0") : string;
+    return "$hrs$mins${h == 0 ? " mins" : ""}";
   }
 
   static String dateToHour(DateTime arrival) {

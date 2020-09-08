@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff/leg.dart';
 import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
@@ -18,13 +19,21 @@ class DetailsRoute extends StatelessWidget {
           c.to,
         ),
       ),
-      body: ListView(
+      body: Column(
         children: <Widget>[
           customRow("Départ", c.from),
           customRow("Arrivée", c.to),
           customRow("Durée", Format.intToSeconds(c.duration)),
           const Divider(),
-          customWay(context, c.legs),
+          Expanded(
+            child: ListView.builder(
+              itemCount: c.legs.length,
+              itemBuilder: (context, i) {
+                final Leg l = c.legs[i];
+                return LegTile(l: l);
+              },
+            ),
+          )
         ],
       ),
     );
@@ -38,70 +47,35 @@ class DetailsRoute extends StatelessWidget {
         children: <Widget>[
           Text(key),
           const SizedBox(width: 8),
-          Expanded(child: Align(alignment: Alignment.centerRight, child: Text(text)))
+          Expanded(
+              child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    text,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  )))
         ],
       ),
     );
   }
+}
 
-  Widget customWay(BuildContext context, List<Leg> legs) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: buildLegs(context, legs),
-    );
-  }
+class LegTile extends StatelessWidget {
+  const LegTile({
+    Key key,
+    @required this.l,
+  }) : super(key: key);
 
-  List<Widget> buildLegs(BuildContext context, List<Leg> legs) {
-    final List<Widget> list = [];
+  final Leg l;
 
-    for (var i = 0; i < legs.length; i++) {
-      final Leg l = legs[i];
-      final Leg nextLeg = i == legs.length - 1 ? legs[i] : legs[i + 1];
-      if (l.type != null) {
-        if (i == 0) print(l.stopid);
-
-        list.add(ExpansionTile(
-          backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  CffIcon(l.type),
-                  const SizedBox(width: 8),
-                  Text(l.terminal),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(Format.duration(nextLeg.arrival.difference(l.departure),
-                          showExactTime: true)),
-                    ),
-                  ),
-                ],
-              ),
-              Text("${l.name} > ${nextLeg.name}"),
-              Text("${Format.dateToHour(l.departure)} - ${Format.dateToHour(nextLeg.arrival)}"),
-            ],
-          ),
-          children: <Widget>[
-            ...buildStopTitle(l, nextLeg),
-          ],
-        ));
-        list.add(const Divider());
-      }
-    }
-    return list;
-  }
-
-  List<Widget> buildStopTitle(Leg l, Leg nl) {
+  List<Widget> _buildStopTitle(Leg l) {
     final List<Widget> list = [];
     list.add(_buildStop(Stop(l.name, departure: l.departure), bold: true));
 
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(_buildStop(Stop(nl.name, departure: nl.arrival), bold: true));
+    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -120,5 +94,82 @@ class DetailsRoute extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return l.exit == null
+        ? ListTile(
+            title: Row(
+              children: [
+                const FaIcon(FontAwesomeIcons.mapPin),
+                const SizedBox(width: 8),
+                Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
+          )
+        : ExpansionTile(
+            backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
+            title: Row(
+              children: <Widget>[
+                CffIcon(l.type),
+                const SizedBox(width: 8),
+                Text(l.exit.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                if (l.track != null)
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "Tr. ${l.track}",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.mapPin,
+                        size: 16,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        l.terminal ??
+                            (l.type == "walk"
+                                ? "Marcher ${Format.intToSeconds(l.runningtime, pad: false)}"
+                                : ""),
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                    ],
+                  ),
+                  if (l.exit != null)
+                    DefaultTextStyle(
+                      style: Theme.of(context).textTheme.subtitle2,
+                      child: Row(
+                        children: [
+                          Text(
+                            "${Format.dateToHour(l.departure)} - ${Format.dateToHour(l.exit.arrival)}",
+                          ),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(Format.intToSeconds(
+                                l.runningtime,
+                              )),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            children: _buildStopTitle(l));
   }
 }

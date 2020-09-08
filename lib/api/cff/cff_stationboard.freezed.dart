@@ -16,13 +16,16 @@ class _$CffStationboardTearOff {
   const _$CffStationboardTearOff();
 
 // ignore: unused_element
-  _CffStationboard call(LocatedStop stop,
-      List<StationboardConnection> connections, String request, int eof) {
+  _CffStationboard call(
+      {LocatedStop stop,
+      List<StationboardConnection> connections = const [],
+      String request,
+      int eof}) {
     return _CffStationboard(
-      stop,
-      connections,
-      request,
-      eof,
+      stop: stop,
+      connections: connections,
+      request: request,
+      eof: eof,
     );
   }
 }
@@ -123,29 +126,28 @@ class __$CffStationboardCopyWithImpl<$Res>
     Object eof = freezed,
   }) {
     return _then(_CffStationboard(
-      stop == freezed ? _value.stop : stop as LocatedStop,
-      connections == freezed
+      stop: stop == freezed ? _value.stop : stop as LocatedStop,
+      connections: connections == freezed
           ? _value.connections
           : connections as List<StationboardConnection>,
-      request == freezed ? _value.request : request as String,
-      eof == freezed ? _value.eof : eof as int,
+      request: request == freezed ? _value.request : request as String,
+      eof: eof == freezed ? _value.eof : eof as int,
     ));
   }
 }
 
 @JsonSerializable()
 class _$_CffStationboard implements _CffStationboard {
-  _$_CffStationboard(this.stop, this.connections, this.request, this.eof)
-      : assert(stop != null),
-        assert(connections != null),
-        assert(request != null),
-        assert(eof != null);
+  _$_CffStationboard(
+      {this.stop, this.connections = const [], this.request, this.eof})
+      : assert(connections != null);
 
   factory _$_CffStationboard.fromJson(Map<String, dynamic> json) =>
       _$_$_CffStationboardFromJson(json);
 
   @override
   final LocatedStop stop;
+  @JsonKey(defaultValue: const [])
   @override
   final List<StationboardConnection> connections;
   @override
@@ -194,10 +196,10 @@ class _$_CffStationboard implements _CffStationboard {
 
 abstract class _CffStationboard implements CffStationboard {
   factory _CffStationboard(
-      LocatedStop stop,
+      {LocatedStop stop,
       List<StationboardConnection> connections,
       String request,
-      int eof) = _$_CffStationboard;
+      int eof}) = _$_CffStationboard;
 
   factory _CffStationboard.fromJson(Map<String, dynamic> json) =
       _$_CffStationboard.fromJson;

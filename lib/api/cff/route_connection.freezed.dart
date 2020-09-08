@@ -19,7 +19,7 @@ class _$RouteConnectionTearOff {
   _RouteConnection call(
       {String from,
       DateTime arrival,
-      List<Leg> legs,
+      List<Leg> legs = const [],
       int duration,
       String to,
       DateTime departure}) {
@@ -142,10 +142,11 @@ class _$_RouteConnection implements _RouteConnection {
   _$_RouteConnection(
       {this.from,
       this.arrival,
-      this.legs,
+      this.legs = const [],
       this.duration,
       this.to,
-      this.departure});
+      this.departure})
+      : assert(legs != null);
 
   factory _$_RouteConnection.fromJson(Map<String, dynamic> json) =>
       _$_$_RouteConnectionFromJson(json);
@@ -154,6 +155,7 @@ class _$_RouteConnection implements _RouteConnection {
   final String from;
   @override
   final DateTime arrival;
+  @JsonKey(defaultValue: const [])
   @override
   final List<Leg> legs;
   @override

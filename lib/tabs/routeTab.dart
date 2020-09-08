@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
+import 'package:travel_free/api/cff/cff_completion.dart';
 import 'package:travel_free/api/cff/cff_route.dart';
-import 'package:travel_free/api/cff/completion.dart';
 import 'package:travel_free/api/cff/leg.dart';
 import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
@@ -24,7 +24,8 @@ class _SearchRouteState extends State<SearchRoute> {
   final FocusNode fnTo = FocusNode();
 
   CffRoute data;
-  DateTime date = DateTime.now();
+  DateTime _date = DateTime.now();
+  TimeOfDay _time = TimeOfDay.now();
   String typeTime = "departure";
   bool switchDepart = false;
 
@@ -45,7 +46,7 @@ class _SearchRouteState extends State<SearchRoute> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TypeAheadField<Completion>(
+          child: TypeAheadField<CffCompletion>(
             debounceDuration: const Duration(milliseconds: 500),
             textFieldConfiguration: TextFieldConfiguration(
                 controller: fromController,
@@ -58,11 +59,12 @@ class _SearchRouteState extends State<SearchRoute> {
               dense: true,
             ),
             onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
+            noItemsFoundBuilder: (_) => const SizedBox(),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TypeAheadField<Completion>(
+          child: TypeAheadField<CffCompletion>(
             debounceDuration: const Duration(milliseconds: 500),
             textFieldConfiguration: TextFieldConfiguration(
                 controller: toController,
@@ -75,57 +77,84 @@ class _SearchRouteState extends State<SearchRoute> {
               dense: true,
             ),
             onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
+            noItemsFoundBuilder: (_) => const SizedBox(),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  const Text("Depart"),
-                  Container(
-                    width: 60,
-                    height: 30,
-                    child: Switch(
-                      value: switchDepart,
-                      onChanged: (value) {
-                        setState(() => switchDepart = value);
-                      },
-                    ),
-                  ),
-                  const Text("Arrivée"),
-                ],
+            children: [
+              RaisedButton.icon(
+                shape: const StadiumBorder(),
+                onPressed: () async {
+                  final time = await showTimePicker(
+                    context: context,
+                    initialTime: _time,
+                  );
+                  if (time == null) return;
+                  setState(() {
+                    _time = time;
+                  });
+                },
+                icon: const FaIcon(FontAwesomeIcons.clock),
+                label: Text("${_time.hour}:${_time.minute.toString().padLeft(2, "0")}"),
               ),
               RaisedButton.icon(
                 shape: const StadiumBorder(),
                 onPressed: () async {
-                  await showCupertinoModalPopup(
-                      context: context,
-                      builder: (context) => Container(
-                            height: 300,
-                            child: CupertinoDatePicker(
-                              onDateTimeChanged: (d) => setState(() => date = d),
-                            ),
-                          ));
+                  final now = DateTime.now();
+                  final dateTime = await showDatePicker(
+                    context: context,
+                    initialDate: _date,
+                    firstDate: now.subtract(const Duration(days: 14)),
+                    lastDate: now.add(const Duration(days: 28)),
+                  );
+                  if (dateTime == null) return;
+                  setState(() {
+                    _date = dateTime;
+                  });
                 },
                 icon: const FaIcon(FontAwesomeIcons.calendar),
-                label: Text(
-                    "${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute.toString().padLeft(2, "0")} "),
+                label: Text("${_date.day}/${_date.month}/${_date.year}"),
               ),
             ],
           ),
         ),
-        RaisedButton.icon(
-          icon: const FaIcon(FontAwesomeIcons.search),
-          onPressed: () async {
-            fnFrom.unfocus();
-            fnTo.unfocus();
-            _refreshKey.currentState.show();
-          },
-          shape: const StadiumBorder(),
-          label: const Text("Search"),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text("Depart"),
+              Container(
+                width: 60,
+                height: 30,
+                child: Switch(
+                  value: switchDepart,
+                  onChanged: (value) {
+                    setState(() => switchDepart = value);
+                  },
+                ),
+              ),
+              const Text("Arrivée"),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: RaisedButton.icon(
+                    icon: const FaIcon(FontAwesomeIcons.search),
+                    onPressed: () async {
+                      fnFrom.unfocus();
+                      fnTo.unfocus();
+                      _refreshKey.currentState.show();
+                    },
+                    shape: const StadiumBorder(),
+                    label: const Text("Search"),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: RefreshIndicator(
@@ -137,10 +166,7 @@ class _SearchRouteState extends State<SearchRoute> {
                 separatorBuilder: (c, i) => const Divider(),
                 shrinkWrap: true,
                 itemCount: data == null ? 0 : data.connections.length,
-                itemBuilder: (context, i) {
-                  final RouteConnection c = data.connections[i];
-                  return RouteTile(c: c);
-                }),
+                itemBuilder: (context, i) => RouteTile(c: data.connections[i])),
           ),
         )
       ],
@@ -152,8 +178,9 @@ class _SearchRouteState extends State<SearchRoute> {
       final CffRoute it = await CFF().route(
         Stop(fromController.text),
         Stop(toController.text),
-        when: date,
-        typeTime: switchDepart ? "arrival" : "depart",
+        date: _date,
+        time: _time,
+        typeTime: switchDepart ? TimeType.arrival : TimeType.depart,
       );
       setState(() => data = it);
     }
@@ -173,12 +200,15 @@ class RouteTile extends StatelessWidget {
 
     for (int i = 0; i < c.legs.length - 1; i++) {
       final Leg l = c.legs[i];
-      listWidget.add(CffIcon(l.type, size: 20));
+      listWidget.add(CffIcon(l.type, size: 18));
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Wrap(spacing: 8, children: listWidget),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Wrap(spacing: 8, children: listWidget),
+        ),
         const SizedBox(height: 4),
         Text("${Format.dateToHour(c.departure)} - ${Format.dateToHour(c.arrival)}")
       ],
@@ -188,7 +218,16 @@ class RouteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text("${c.from} > ${c.to}"),
+      title: Row(
+        children: [
+          Text(c.from),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: FaIcon(FontAwesomeIcons.arrowRight, size: 12),
+          ),
+          Text(c.to),
+        ],
+      ),
       subtitle: rowIcon(c),
       trailing: Container(
         width: 100,
@@ -196,7 +235,7 @@ class RouteTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Text(Format.intToSeconds(c.duration)),
-            const SizedBox(width: 5),
+            const SizedBox(width: 4),
             const FaIcon(FontAwesomeIcons.chevronRight, size: 16),
           ],
         ),

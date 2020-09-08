@@ -20,7 +20,7 @@ class _$CffRouteTearOff {
       {int count,
       int minDuration,
       int maxDuration,
-      List<RouteConnection> connections}) {
+      List<RouteConnection> connections = const []}) {
     return _CffRoute(
       count: count,
       minDuration: minDuration,
@@ -122,7 +122,11 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$_CffRoute implements _CffRoute {
   _$_CffRoute(
-      {this.count, this.minDuration, this.maxDuration, this.connections});
+      {this.count,
+      this.minDuration,
+      this.maxDuration,
+      this.connections = const []})
+      : assert(connections != null);
 
   factory _$_CffRoute.fromJson(Map<String, dynamic> json) =>
       _$_$_CffRouteFromJson(json);
@@ -133,6 +137,7 @@ class _$_CffRoute implements _CffRoute {
   final int minDuration;
   @override
   final int maxDuration;
+  @JsonKey(defaultValue: const [])
   @override
   final List<RouteConnection> connections;
 
