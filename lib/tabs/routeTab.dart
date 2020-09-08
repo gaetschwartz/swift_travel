@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
-import 'package:travel_free/api/cff/completions.dart';
-import 'package:travel_free/api/cff/connectionRoute.dart';
-import 'package:travel_free/api/cff/legs.dart';
-import 'package:travel_free/api/cff/route.dart';
+import 'package:travel_free/api/cff/cff_route.dart';
+import 'package:travel_free/api/cff/completion.dart';
+import 'package:travel_free/api/cff/leg.dart';
+import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
 import 'package:travel_free/pages/detailsRoute.dart';
 import 'package:travel_free/utils/format.dart';
+import 'package:travel_free/utils/icon.dart';
 
 class SearchRoute extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class SearchRoute extends StatefulWidget {
 class _SearchRouteState extends State<SearchRoute> {
   TextEditingController fromController = TextEditingController();
   TextEditingController toController = TextEditingController();
-  Itinerary data;
+  CffRoute data;
   DateTime date = DateTime.now();
   String typeTime = "departure";
   bool switchDepart = false;
@@ -28,10 +29,15 @@ class _SearchRouteState extends State<SearchRoute> {
   FocusNode fnTo = FocusNode();
 
   @override
+  void dispose() {
+    fnFrom.dispose();
+    fnTo.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+    return Column(
       children: <Widget>[
         TypeAheadField(
           textFieldConfiguration: TextFieldConfiguration(
@@ -46,9 +52,9 @@ class _SearchRouteState extends State<SearchRoute> {
           itemBuilder: (context, Completion suggestion) {
             print(suggestion);
             return ListTile(
-              leading: Format.completionToIcon(suggestion),
+              leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
-              subtitle: Text(suggestion.iconClass.split("-").last),
+              subtitle: Text(suggestion.iconclass.split("-").last),
             );
           },
           onSuggestionSelected: (Completion suggestion) {
@@ -71,11 +77,10 @@ class _SearchRouteState extends State<SearchRoute> {
           itemBuilder: (context, Completion suggestion) {
             print(suggestion);
             return ListTile(
-              leading: Format.completionToIcon(suggestion),
+              leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
-              subtitle: suggestion.iconClass != null
-                  ? Text(suggestion.iconClass.split("-").last)
-                  : const Text(""),
+              subtitle:
+                  suggestion.iconclass != null ? Text(suggestion.iconclass.split("-").last) : null,
             );
           },
           onSuggestionSelected: (Completion suggestion) {
@@ -105,7 +110,8 @@ class _SearchRouteState extends State<SearchRoute> {
                   const Text("Arrivée"),
                 ],
               ),
-              RaisedButton(
+              RaisedButton.icon(
+                shape: const StadiumBorder(),
                 onPressed: () async {
                   await showCupertinoModalPopup(
                       context: context,
@@ -117,7 +123,9 @@ class _SearchRouteState extends State<SearchRoute> {
                           ));
                   print("date : $date");
                 },
-                child: Text("${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute} "),
+                icon: const FaIcon(FontAwesomeIcons.calendar),
+                label: Text(
+                    "${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute.toString().padLeft(2, "0")} "),
               ),
             ],
           ),
@@ -131,60 +139,55 @@ class _SearchRouteState extends State<SearchRoute> {
           child: const Text("Search"),
         ),
         if (data != null)
-          RefreshIndicator(
-            onRefresh: () async {
-              await searchData();
-            },
-            child: ListView.separated(
-                separatorBuilder: (c, i) => const Divider(),
-                shrinkWrap: true,
-                itemCount: data.connections.length,
-                itemBuilder: (context, i) {
-                  final ConnectionRoute c = data.connections[i];
-                  return ListTile(
-                    title: Text("${c.from} -> ${c.to}"),
-                    subtitle: rowIcon(c),
-                    trailing: Container(
-                      width: 100,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text(Format.intToSeconds(c.duration)),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const FaIcon(FontAwesomeIcons.chevronRight),
-                        ],
-                      ),
-                    ),
-                    onTap: () => Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
-                  );
-                }),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await searchData();
+              },
+              child: ListView.separated(
+                  separatorBuilder: (c, i) => const Divider(),
+                  shrinkWrap: true,
+                  itemCount: data.connections.length,
+                  itemBuilder: (context, i) {
+                    final RouteConnection c = data.connections[i];
+                    return RouteTile(c: c);
+                  }),
+            ),
           )
       ],
     );
   }
 
-  Widget rowIcon(ConnectionRoute c) {
+  Future<void> searchData() async {
+    if (fromController.text.length > 2 && toController.text.length > 2) {
+      final CffRoute it = await CFF().route(
+        Stop(fromController.text),
+        Stop(toController.text),
+        when: date,
+        typeTime: switchDepart ? "arrival" : "depart",
+      );
+      setState(() {
+        data = it;
+      });
+    }
+  }
+}
+
+class RouteTile extends StatelessWidget {
+  const RouteTile({
+    Key key,
+    @required this.c,
+  }) : super(key: key);
+
+  final RouteConnection c;
+
+  Widget rowIcon(RouteConnection c) {
     final List<Widget> listWidget = [];
 
-    for (int i = 0; i < c.legs.length; i++) {
-      final Legs l = c.legs[i];
-      if (l.type == "bus") {
-        listWidget.add(const FaIcon(FontAwesomeIcons.bus));
-      }
-      if (l.type == "tram") {
-        listWidget.add(const FaIcon(FontAwesomeIcons.subway));
-      }
-      if (l.type == "walk") {
-        listWidget.add(const FaIcon(FontAwesomeIcons.walking));
-      }
-      if (l.type == "express_train") {
-        listWidget.add(const FaIcon(FontAwesomeIcons.train));
-      }
+    for (int i = 0; i < c.legs.length - 1; i++) {
+      final Leg l = c.legs[i];
+      listWidget.add(CffIcon(l.type));
     }
-    final String min = c.arrival.minute < 10 ? "0${c.arrival.minute}" : c.arrival.minute.toString();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -196,22 +199,31 @@ class _SearchRouteState extends State<SearchRoute> {
           height: 3,
         ),
         Text(
-            "arrivée à ${c.arrival.hour}h$min le ${c.arrival.day}/${c.arrival.month}/${c.arrival.year}")
+            "${c.departure.hour}h${c.departure.minute.toString().padLeft(2, "0")} - ${c.arrival.hour}h${c.arrival.minute.toString().padLeft(2, "0")}")
       ],
     );
   }
 
-  Future<void> searchData() async {
-    if (fromController.text.length > 2 && toController.text.length > 2) {
-      final Itinerary it = await CFF().route(
-        Stop(fromController.text),
-        Stop(toController.text),
-        when: date,
-        typeTime: switchDepart ? "arrival" : "depart",
-      );
-      setState(() {
-        data = it;
-      });
-    }
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text("${c.from} ➡ ${c.to}"),
+      subtitle: rowIcon(c),
+      trailing: Container(
+        width: 100,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Text(Format.intToSeconds(c.duration)),
+            const SizedBox(
+              width: 5,
+            ),
+            const FaIcon(FontAwesomeIcons.chevronRight),
+          ],
+        ),
+      ),
+      onTap: () =>
+          Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
+    );
   }
 }

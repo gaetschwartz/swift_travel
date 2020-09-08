@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:travel_free/models/model.dart';
-import 'package:travel_free/widget/route.dart';
-import 'package:travel_free/widget/searchByName.dart';
-import 'package:travel_free/widget/searchFavorite.dart';
+import 'package:travel_free/tabs/favoritesTab.dart';
+import 'package:travel_free/tabs/routeTab.dart';
+import 'package:travel_free/tabs/stationsTab.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Injector(
-      inject: [Inject(() => Model())],
-      builder: (_) => MaterialApp(
-        title: 'Travel free',
-        theme: ThemeData(primarySwatch: Colors.teal, fontFamily: GoogleFonts.lato().fontFamily),
-        darkTheme: ThemeData(
-            primarySwatch: Colors.teal,
-            brightness: Brightness.dark,
-            fontFamily: GoogleFonts.lato().fontFamily),
-        home: MyHomePage(),
-      ),
+    return MaterialApp(
+      title: 'Travel free',
+      theme: ThemeData(primarySwatch: Colors.teal, fontFamily: GoogleFonts.lato().fontFamily),
+      darkTheme: ThemeData(
+          primarySwatch: Colors.teal,
+          brightness: Brightness.dark,
+          fontFamily: GoogleFonts.lato().fontFamily),
+      home: MyHomePage(),
     );
   }
 }

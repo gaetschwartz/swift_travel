@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:travel_free/api/cff.dart';
-import 'package:travel_free/api/cff/completions.dart';
+import 'package:travel_free/api/cff/completion.dart';
 import 'package:travel_free/pages/detailsStop.dart';
-import 'package:travel_free/utils/format.dart';
+import 'package:travel_free/utils/icon.dart';
 
 class SearchByName extends StatefulWidget {
   @override
@@ -22,19 +22,13 @@ class _SearchByNameState extends State<SearchByName> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+    return Column(
       children: <Widget>[
         TypeAheadField(
           textFieldConfiguration: TextFieldConfiguration(
               controller: searchController,
-              autofocus: true,
-              style: DefaultTextStyle.of(context)
-                  .style
-                  .copyWith(fontStyle: FontStyle.normal),
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: "Stop")),
+              style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
+              decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "Stop")),
           suggestionsCallback: (pattern) async {
             final l = await CFF().complete(pattern);
             return l;
@@ -42,9 +36,9 @@ class _SearchByNameState extends State<SearchByName> {
           itemBuilder: (context, Completion suggestion) {
             print(suggestion);
             return ListTile(
-              leading: Format.completionToIcon(suggestion),
+              leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
-              subtitle: Text(suggestion.iconClass.split("-").last),
+              subtitle: Text(suggestion.iconclass.split("-").last),
             );
           },
           onSuggestionSelected: (Completion suggestion) {
@@ -60,8 +54,8 @@ class _SearchByNameState extends State<SearchByName> {
           itemBuilder: (context, i) {
             return ListTile(
               title: Text(data[i].label),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => DetailsStop(stop: data[i].label))),
+              onTap: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => DetailsStop(stop: data[i].label))),
             );
           },
         )

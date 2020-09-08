@@ -1,19 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class Stop {
-  final String name;
-  final int id;
-  final int x;
-  final int y;
+part 'stop.freezed.dart';
+part 'stop.g.dart';
 
-  const Stop(this.name, {this.id, this.x, this.y});
+DateTime _fromJson(String s) => DateTime.parse(s);
+String _toJson(DateTime d) => d.toIso8601String();
 
-  Stop.fromMap(Map m)
-      : this(
-          m["name"] as String,
-          id: m["id"] != null ? int.parse(m["id"] as String) : null,
-          x: m["x"] as int,
-          y: m["y"] as int,
-        );
+@freezed
+abstract class Stop with _$Stop {
+  factory Stop(String name,
+      {String stopid, @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure}) = _Stop;
+
+  factory Stop.fromJson(Map<String, dynamic> json) => _$StopFromJson(json);
 }

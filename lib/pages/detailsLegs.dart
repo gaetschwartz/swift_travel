@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:travel_free/api/cff/legs.dart';
+import 'package:travel_free/api/cff/leg.dart';
 
 class DetailsLegs extends StatelessWidget {
-  final Legs legs;
+  final Leg legs;
 
   const DetailsLegs({Key key, this.legs}) : super(key: key);
   @override
@@ -21,7 +21,6 @@ class DetailsLegs extends StatelessWidget {
   List<Widget> buildStopTitle() {
     final List<Widget> list = [];
     for (final stop in legs.stops) {
-      print("${stop.x}, ${stop.y}");
       list.add(Text(stop.name));
     }
     return list;

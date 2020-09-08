@@ -1,17 +1,49 @@
 import "dart:convert";
 
 import 'package:http/http.dart' as http;
-import 'package:travel_free/api/cff/completions.dart';
-import 'package:travel_free/api/cff/route.dart';
-import 'package:travel_free/api/cff/timetable.dart';
+import 'package:travel_free/api/cff/cff_route.dart';
+import 'package:travel_free/api/cff/cff_stationboard.dart';
+import 'package:travel_free/api/cff/completion.dart';
 import 'package:travel_free/utils/extensions.dart';
 
 import 'cff/stop.dart';
 
-class CFF {
+abstract class CFFBase {
+  Future<List<Completion>> complete(
+    String string, {
+    bool showCoordinates = false,
+    bool showIds = false,
+    bool nofavorites = false,
+  });
+
+  Future<List<Completion>> findStation(
+    double lat,
+    double lon, {
+    int accuracy = 10,
+    bool showCoordinates = false,
+    bool showIds = false,
+  });
+
+  Future<CffStationboard> timetable(
+    String stopName, {
+    DateTime when,
+    bool arrival = false,
+    int limit = 0,
+    bool showTracks = false,
+    bool showSubsequentStops = false,
+    bool showDelays = false,
+    bool showTrackchanges = false,
+    List<String> transportationTypes = const [],
+  });
+
+  Future<CffRoute> route(Stop departure, Stop arrival, {DateTime when, String typeTime});
+}
+
+class CFF implements CFFBase {
   static const QueryBuilder builder = QueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
 
+  @override
   Future<List<Completion>> complete(String string,
       {bool showCoordinates = false, bool showIds = false, bool nofavorites = false}) async {
     final uri = builder.build("completion", {
@@ -26,12 +58,13 @@ class CFF {
       throw Exception("Couldn't retrieve completion !");
     }
     final completions = (json.decode(response.body) as List)
-        .map<Completion>((e) => Completion.fromMap(e as Map))
+        .map<Completion>((e) => Completion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
 
-  Future<List<StationCompletion>> findStation(double lat, double lon,
+  @override
+  Future<List<Completion>> findStation(double lat, double lon,
       {int accuracy = 10, bool showCoordinates = false, bool showIds = false}) async {
     final uri = builder.build("completion", {
       "latlon": "$lat,$lon",
@@ -45,12 +78,13 @@ class CFF {
       throw Exception("Couldn't retrieve completion !");
     }
     final completions = (json.decode(response.body) as List)
-        .map<StationCompletion>((e) => StationCompletion.fromMap(e as Map))
+        .map<Completion>((e) => Completion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
 
-  Future<TimeTable> timetable(Stop stop,
+  @override
+  Future<CffStationboard> timetable(String stopName,
       {DateTime when,
       bool arrival = false,
       int limit = 0,
@@ -60,7 +94,7 @@ class CFF {
       bool showTrackchanges = false,
       List<String> transportationTypes = const []}) async {
     final params = {
-      "stop": stop.name,
+      "stop": stopName,
       'limit': limit,
       "show_tracks": showTracks.toInt(),
       "show_subsequent_stops": showSubsequentStops.toInt(),
@@ -77,10 +111,12 @@ class CFF {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    return TimeTable.fromMap(json.decode(response.body) as Map);
+    return CffStationboard.fromJson(json.decode(response.body) as Map<String, dynamic>);
   }
 
-  Future<Itinerary> route(Stop departure, Stop arrival, {DateTime when, String typeTime}) async {
+  @override
+  Future<CffRoute> route(Stop departure, Stop arrival, {DateTime when, String typeTime}) async {
+    if (when == null) throw StateError("Departure must not be null");
     final params = {
       "from": departure.name,
       'to': arrival.name,
@@ -92,13 +128,12 @@ class CFF {
 
     final s = builder.build("route", params);
     print("builder : $s");
-    final response = await _client.get(builder.build("route", params));
+    final response = await _client.get(s);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    //print(response.body);
 
-    return Itinerary.fromMap(json.decode(response.body) as Map);
+    return CffRoute.fromJson(json.decode(response.body) as Map<String, dynamic>);
   }
 }
 
@@ -107,11 +142,11 @@ class QueryBuilder {
 
   const QueryBuilder(this.baseUrl);
 
-  String build(String work, Map<String, dynamic> parameters) {
-    String url = "$baseUrl/$work.json";
+  String build(String action, Map<String, dynamic> parameters) {
+    String url = "$baseUrl/$action.json";
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map<String>((key) => "$key=${Uri.encodeComponent(parameters[key].toString())}")
+          .map<String>((k) => "$k=${Uri.encodeComponent(parameters[k].toString())}")
           .join("&");
       url += "?$params";
     }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:travel_free/api/cff/connectionRoute.dart';
-import 'package:travel_free/api/cff/legs.dart';
+import 'package:travel_free/api/cff/leg.dart';
+import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/pages/detailsLegs.dart';
 import 'package:travel_free/utils/format.dart';
+import 'package:travel_free/utils/icon.dart';
 
 class DetailsRoute extends StatelessWidget {
-  final ConnectionRoute c;
+  final RouteConnection c;
 
   const DetailsRoute({Key key, this.c}) : super(key: key);
 
@@ -29,29 +30,33 @@ class DetailsRoute extends StatelessWidget {
     );
   }
 
-  Widget customRow(String key, dynamic value) {
+  Widget customRow(String key, String text) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[Text(key), Text(value.toString())],
+        children: <Widget>[
+          Text(key),
+          const SizedBox(width: 8),
+          Expanded(child: Align(alignment: Alignment.centerRight, child: Text(text)))
+        ],
       ),
     );
   }
 
-  Widget customWay(BuildContext context, List<Legs> legs) {
+  Widget customWay(BuildContext context, List<Leg> legs) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: buildLegs(context, legs),
     );
   }
 
-  List<Widget> buildLegs(BuildContext context, List<Legs> legs) {
+  List<Widget> buildLegs(BuildContext context, List<Leg> legs) {
     final List<Widget> list = [];
 
     for (var i = 0; i < legs.length; i++) {
-      final Legs l = legs[i];
-      final Legs nextLegs = i == legs.length - 1 ? legs[i] : legs[i + 1];
+      final Leg l = legs[i];
+      final Leg nextLegs = i == legs.length - 1 ? legs[i] : legs[i + 1];
       if (l.type != null) {
         if (i == 0) print(l.stopid);
 
@@ -69,13 +74,13 @@ class DetailsRoute extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Format.buildIconFromLegs(l),
+                    CffIcon(l.type),
                     Text(Format.duration(nextLegs.arrival.difference(l.departure),
                         showExactTime: true)),
                   ],
                 ),
-                Text("${l.name} -> ${nextLegs.name}"),
-                Text("${Format.dateToHour(l.departure)} -> ${Format.dateToHour(nextLegs.arrival)}"),
+                Text("${l.name} ➡ ${nextLegs.name}"),
+                Text("${Format.dateToHour(l.departure)} ➡ ${Format.dateToHour(nextLegs.arrival)}"),
                 if (l.terminal != null) Text(l.terminal)
               ],
             ),
@@ -98,7 +103,7 @@ class DetailsRoute extends StatelessWidget {
     return list;
   }
 
-  List<Widget> buildStopTitle(Legs l) {
+  List<Widget> buildStopTitle(Leg l) {
     final List<Widget> list = [];
     for (final stop in l.stops) {
       list.add(Text(stop.name));

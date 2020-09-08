@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
-import 'package:travel_free/api/cff/connection.dart';
-import 'package:travel_free/api/cff/stop.dart';
+import 'package:travel_free/api/cff/cff_stationboard.dart';
+import 'package:travel_free/api/cff/stationboard_connection.dart';
 import 'package:travel_free/utils/format.dart';
+import 'package:travel_free/utils/icon.dart';
 
 class DetailsStop extends StatefulWidget {
   final String stop;
@@ -15,7 +15,7 @@ class DetailsStop extends StatefulWidget {
 }
 
 class _DetailsStopState extends State<DetailsStop> {
-  List<Connection> data = [];
+  List<StationboardConnection> data = [];
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _DetailsStopState extends State<DetailsStop> {
   }
 
   Future<void> searchData() async {
-    final l = await CFF().timetable(Stop(widget.stop));
+    final CffStationboard l = await CFF().timetable(widget.stop);
     setState(() {
       data = l.connections;
     });
@@ -54,38 +54,42 @@ class _DetailsStopState extends State<DetailsStop> {
 }
 
 class ConnectionTile extends StatelessWidget {
-  final Connection connection;
+  final StationboardConnection connection;
 
   const ConnectionTile({Key key, this.connection}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final diff = connection.time.difference(DateTime.now());
-    return ExpansionTile(
-      title:
-          /* Align(
+    return ListTile(
+      title: Align(
         alignment: Alignment.centerLeft,
-              child: Container(
-          alignment: Alignment.center,
+        child: Container(
             decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xFF000000 +
-                    int.parse("0x${connection.color.split("~").first}"))),
-            child: Text(connection.l)), */
-          Text(
-        connection.terminal.name,
-        style: const TextStyle(fontSize: 22),
+                borderRadius: BorderRadius.circular(12),
+                color: Color(colorFromString(connection.color.split("~").first))),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+              child: Text(
+                connection.line,
+                style: TextStyle(color: Color(colorFromString(connection.color.split("~")[1]))),
+              ),
+            )),
       ),
-      subtitle: Row(
-        children: <Widget>[
-          if (connection.line == null)
-            const FaIcon(FontAwesomeIcons.question, size: 18)
-          else
+      subtitle: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          children: <Widget>[
+            CffIcon(
+              connection.type,
+              size: 20,
+            ),
+            const SizedBox(width: 8),
             Text(
-              connection.line,
+              connection.line ?? "???",
               style: const TextStyle(fontSize: 16),
             ),
-          Text(" (${connection.type}) "),
-        ],
+          ],
+        ),
       ),
       trailing: Text(Format.duration(diff)),
     );
