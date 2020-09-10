@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:travel_free/api/cff/connectionRoute.dart';
-import 'package:travel_free/api/cff/legs.dart';
-import 'package:travel_free/pages/detailsLegs.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travel_free/api/cff/leg.dart';
+import 'package:travel_free/api/cff/route_connection.dart';
+import 'package:travel_free/api/cff/stop.dart';
 import 'package:travel_free/utils/format.dart';
+import 'package:travel_free/widget/icon.dart';
 
 class DetailsRoute extends StatelessWidget {
-  final ConnectionRoute c;
+  final RouteConnection c;
 
   const DetailsRoute({Key key, this.c}) : super(key: key);
 
@@ -17,95 +19,160 @@ class DetailsRoute extends StatelessWidget {
           c.to,
         ),
       ),
-      body: ListView(
+      body: Column(
         children: <Widget>[
           customRow("Départ", c.from),
           customRow("Arrivée", c.to),
           customRow("Durée", Format.intToSeconds(c.duration)),
-          const Divider(),
-          customWay(context, c.legs),
+          const Divider(thickness: 2),
+          Expanded(
+            child: ListView.separated(
+              itemCount: c.legs.length,
+              itemBuilder: (context, i) {
+                final Leg l = c.legs[i];
+                return LegTile(l: l);
+              },
+              separatorBuilder: (context, index) => const Divider(indent: 16, endIndent: 16),
+            ),
+          )
         ],
       ),
     );
   }
 
-  Widget customRow(String key, dynamic value) {
+  Widget customRow(String key, String text) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[Text(key), Text(value.toString())],
+        children: <Widget>[
+          Text(key),
+          const SizedBox(width: 8),
+          Expanded(
+              child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    text,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  )))
+        ],
+      ),
+    );
+  }
+}
+
+class LegTile extends StatelessWidget {
+  const LegTile({
+    Key key,
+    @required this.l,
+  }) : super(key: key);
+
+  final Leg l;
+
+  List<Widget> _buildStopTitle(Leg l) {
+    final List<Widget> list = [];
+    list.add(_buildStop(Stop(l.name, departure: l.departure), bold: true));
+
+    for (final stop in l.stops) {
+      list.add(_buildStop(stop));
+    }
+    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+
+    return list;
+  }
+
+  Padding _buildStop(Stop stop, {bool bold = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Text(
+              stop.name,
+              style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+            ),
+          ),
+          if (stop.departure != null) ...[
+            const SizedBox(width: 8),
+            Text(Format.dateToHour(stop.departure))
+          ],
+        ],
       ),
     );
   }
 
-  Widget customWay(BuildContext context, List<Legs> legs) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: buildLegs(context, legs),
-    );
-  }
-
-  List<Widget> buildLegs(BuildContext context, List<Legs> legs) {
-    final List<Widget> list = [];
-
-    for (var i = 0; i < legs.length; i++) {
-      final Legs l = legs[i];
-      final Legs nextLegs = i == legs.length - 1 ? legs[i] : legs[i + 1];
-      if (l.type != null) {
-        if (i == 0) print(l.stopid);
-
-        list.add(InkWell(
-          onTap: () {
-            if (l.stops != null) {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => DetailsLegs(legs: l)));
-            }
-          },
-          child: ExpansionTile(
-            backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Format.buildIconFromLegs(l),
-                    Text(Format.duration(
-                        nextLegs.arrival.difference(l.departure),
-                        showExactTime: true)),
-                  ],
-                ),
-                Text("${l.name} -> ${nextLegs.name}"),
-                Text(
-                    "${Format.dateToHour(l.departure)} -> ${Format.dateToHour(nextLegs.arrival)}"),
-                if (l.terminal != null) Text("${l.terminal}")
-              ],
-            ),
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    if (l.stops != null) ...buildStopTitle(l),
-                  ],
-                ),
-              ),
+  @override
+  Widget build(BuildContext context) => l.exit == null
+      ? ListTile(
+          title: Row(
+            children: [
+              const FaIcon(FontAwesomeIcons.mapPin),
+              const SizedBox(width: 8),
+              Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
             ],
           ),
-        ));
-        list.add(const Divider());
-      }
-    }
-    return list;
-  }
-
-  List<Widget> buildStopTitle(Legs l) {
-    final List<Widget> list = [];
-    for (final stop in l.stops) {
-      list.add(Text(stop.name));
-    }
-    return list;
-  }
+        )
+      : ExpansionTile(
+          backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
+          title: Row(
+            children: <Widget>[
+              CffIcon(l.type),
+              const SizedBox(width: 8),
+              Expanded(
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child:
+                          Text(l.exit.name, style: const TextStyle(fontWeight: FontWeight.bold)))),
+              if (l.track != null)
+                Text(
+                  "Tr. ${l.track}",
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+            ],
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const FaIcon(
+                      FontAwesomeIcons.mapPin,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      l.terminal ??
+                          (l.type == "walk"
+                              ? "Marcher ${Format.intToSeconds(l.runningtime, pad: false)}"
+                              : ""),
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                  ],
+                ),
+                if (l.exit != null)
+                  DefaultTextStyle(
+                    style: Theme.of(context).textTheme.subtitle2,
+                    child: Row(
+                      children: [
+                        Text(
+                          "${Format.dateToHour(l.departure)} - ${Format.dateToHour(l.exit.arrival)}",
+                        ),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(Format.intToSeconds(
+                              l.runningtime,
+                            )),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          children: _buildStopTitle(l));
 }

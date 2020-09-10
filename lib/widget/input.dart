@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:travel_free/api/cff.dart';
-import 'package:travel_free/api/cff/completions.dart';
-import 'package:travel_free/utils/format.dart';
+import 'package:travel_free/api/cff/cff_completion.dart';
+import 'package:travel_free/widget/icon.dart';
 
 class TextInputDialog extends StatefulWidget {
   final String title;
@@ -33,23 +33,21 @@ class _TextInputDialogState extends State<TextInputDialog> {
         textFieldConfiguration: TextFieldConfiguration(
             controller: widget._controller,
             autofocus: true,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), hintText: "To")),
+            decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
         suggestionsCallback: (pattern) async {
           final l = await CFF().complete(pattern);
           return l;
         },
-        itemBuilder: (context, Completion suggestion) {
+        itemBuilder: (context, CffCompletion suggestion) {
           print(suggestion);
           return ListTile(
-            leading: Format.completionToIcon(suggestion),
+            leading: CffIcon(suggestion.iconclass),
             title: Text(suggestion.label),
-            subtitle: suggestion.iconClass != null
-                ? Text(suggestion.iconClass.split("-").last)
-                : const Text(""),
+            subtitle:
+                suggestion.iconclass != null ? Text(suggestion.iconclass.split("-").last) : null,
           );
         },
-        onSuggestionSelected: (Completion suggestion) {
+        onSuggestionSelected: (CffCompletion suggestion) {
           setState(() {
             widget._controller.text = suggestion.label;
           });

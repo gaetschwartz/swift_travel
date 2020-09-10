@@ -1,91 +1,113 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
-import 'package:travel_free/api/cff/connection.dart';
-import 'package:travel_free/api/cff/stop.dart';
+import 'package:travel_free/api/cff/cff_stationboard.dart';
+import 'package:travel_free/api/cff/stationboard_connection.dart';
 import 'package:travel_free/utils/format.dart';
+import 'package:travel_free/widget/icon.dart';
 
 class DetailsStop extends StatefulWidget {
-  final String stop;
+  final String stopName;
 
-  const DetailsStop({Key key, this.stop}) : super(key: key);
+  const DetailsStop({Key key, @required this.stopName}) : super(key: key);
 
   @override
   _DetailsStopState createState() => _DetailsStopState();
 }
 
 class _DetailsStopState extends State<DetailsStop> {
-  List<Connection> data = [];
+  CffStationboard data;
 
   @override
   void initState() {
     super.initState();
-    searchData();
+    reloadData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.stop),
+          title: Text(widget.stopName),
         ),
         body: RefreshIndicator(
-          onRefresh: () => searchData(),
-          child: data.length > 1
-              ? ListView.separated(
-                  separatorBuilder: (c, i) => const Divider(),
-                  itemCount: data.length,
-                  itemBuilder: (context, i) {
-                    return ConnectionTile(
-                      connection: data[i],
-                    );
-                  },
-                )
+          onRefresh: () => reloadData(),
+          child: data != null
+              ? data.messages.isEmpty
+                  ? ListView.separated(
+                      separatorBuilder: (c, i) => const Divider(),
+                      itemCount: data.connections.length,
+                      itemBuilder: (context, i) {
+                        return ConnectionTile(connection: data.connections[i]);
+                      },
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: data.messages
+                            .map((e) => Center(
+                                    child: Text(
+                                  e,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.headline6,
+                                )))
+                            .toList(),
+                      ),
+                    )
               : const Center(child: CircularProgressIndicator()),
         ));
   }
 
-  Future<void> searchData() async {
-    final l = await CFF().timetable(Stop(widget.stop));
+  Future<void> reloadData() async {
+    final CffStationboard l = await CFF().stationboard(widget.stopName);
     setState(() {
-      data = l.connections;
+      data = l;
     });
   }
 }
 
 class ConnectionTile extends StatelessWidget {
-  final Connection connection;
+  final StationboardConnection connection;
 
   const ConnectionTile({Key key, this.connection}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final diff = connection.time.difference(DateTime.now());
-    return ExpansionTile(
-      title:
-          /* Align(
-        alignment: Alignment.centerLeft,
-              child: Container(
-          alignment: Alignment.center,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xFF000000 +
-                    int.parse("0x${connection.color.split("~").first}"))),
-            child: Text(connection.l)), */
+    return ListTile(
+      title: Row(
+        children: [
+          DecoratedBox(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Color(colorFromString(connection.color.split("~").first) ?? 0xff000000)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+                child: Text(
+                  connection.line,
+                  style: TextStyle(
+                      color: Color(colorFromString(connection.color.split("~")[1]) ?? 0xfff0f0f0)),
+                ),
+              )),
+          const SizedBox(width: 8),
           Text(
-        connection.terminal.name,
-        style: const TextStyle(fontSize: 22),
-      ),
-      subtitle: Row(
-        children: <Widget>[
-          if (connection.line == null)
-            FaIcon(FontAwesomeIcons.question, size: 18)
-          else
-            Text(
-              connection.line,
-              style: const TextStyle(fontSize: 16),
-            ),
-          Text(" (${connection.type}) "),
+            connection.terminal.name,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          )
         ],
+      ),
+      subtitle: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          children: <Widget>[
+            CffIcon(connection.type, size: 16),
+            const SizedBox(width: 8),
+            Text(
+              connection.number ?? "???",
+              style: const TextStyle(fontSize: 14),
+            ),
+          ],
+        ),
       ),
       trailing: Text(Format.duration(diff)),
     );

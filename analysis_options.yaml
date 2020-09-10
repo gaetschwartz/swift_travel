@@ -8,6 +8,4 @@ analyzer:
     avoid_print: ignore
     file_names: ignore
     avoid_positional_boolean_parameters: ignore
-
-  enable-experiment:
-    - extension-methods
+    non_constant_identifier_names : ignore

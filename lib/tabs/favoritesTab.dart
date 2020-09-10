@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_free/api/cff.dart';
-import 'package:travel_free/api/cff/completions.dart';
+import 'package:travel_free/api/cff/cff_completion.dart';
 import 'package:travel_free/widget/input.dart';
 
 class SearchFavorite extends StatefulWidget {
@@ -9,8 +9,8 @@ class SearchFavorite extends StatefulWidget {
   _SearchFavoriteState createState() => _SearchFavoriteState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite> {
-  List<Completion> favoritesStop = [];
+class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
+  List<CffCompletion> favoritesStop = [];
 
   @override
   void initState() {
@@ -18,12 +18,15 @@ class _SearchFavoriteState extends State<SearchFavorite> {
     loadFavorites();
   }
 
+  @override
+  bool get wantKeepAlive => true;
+
   Future<void> loadFavorites() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final List<String> list = prefs.getStringList("favoritesStop");
-    final List<Completion> lComp = [];
+    final List<String> list = prefs.getStringList("favoritesStop") ?? [];
+    final List<CffCompletion> lComp = [];
     for (final l in list) {
-      final List<Completion> c = await CFF().complete(l);
+      final List<CffCompletion> c = await CFF().complete(l);
       lComp.add(c[0]);
     }
     setState(() {
@@ -33,6 +36,7 @@ class _SearchFavoriteState extends State<SearchFavorite> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return RefreshIndicator(
       onRefresh: () async {
         await loadFavorites();
@@ -43,15 +47,13 @@ class _SearchFavoriteState extends State<SearchFavorite> {
         children: <Widget>[
           FlatButton(
             onPressed: () async {
-              final String s = await showDialog(
-                  context: context, builder: (_) => TextInputDialog());
+              final String s =
+                  await showDialog(context: context, builder: (_) => TextInputDialog());
 
-              final List<Completion> list = await CFF().complete(s);
+              final List<CffCompletion> list = await CFF().complete(s);
               print(list[0].label);
-              final SharedPreferences prefs =
-                  await SharedPreferences.getInstance();
-              final List<String> listPrefs =
-                  prefs.getStringList("favoritesStop") ?? [];
+              final SharedPreferences prefs = await SharedPreferences.getInstance();
+              final List<String> listPrefs = prefs.getStringList("favoritesStop") ?? [];
               listPrefs.add(list[0].label);
               prefs.setStringList("favoritesStop", listPrefs);
               await loadFavorites();

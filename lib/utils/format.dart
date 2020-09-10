@@ -1,7 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:travel_free/api/cff/completions.dart';
-import 'package:travel_free/api/cff/legs.dart';
+import 'dart:developer';
+
+int colorFromString(String s) {
+  if (s.length == 3) {
+    return int.parse("ff${s[0]}0${s[1]}0${s[2]}0", radix: 16);
+  } else if (s.length == 6) {
+    return int.parse("ff$s", radix: 16);
+  } else if (s.isEmpty) {
+    return null;
+  } else {
+    log("", error: "Unknown color code : `$s`");
+    return null;
+  }
+}
 
 class Format {
   static String duration(Duration d, {bool showExactTime = false}) {
@@ -15,81 +25,22 @@ class Format {
         return ">1 h";
       }
     }
-    if (m == 0) return "now";
-    return "$m m";
+    if (m == 0) return "Now";
+    if (m == 1) return "1 min";
+    return "$m mins";
   }
 
-  static String intToSeconds(int i) {
-    double sec = i.toDouble();
-    while (sec > 60) {
-      sec = sec / 60;
-    }
-
-    final int hour = sec.truncate();
-    double min = sec - hour;
-
-    min = min * 60;
-    String minS = min.toString();
-    if (min < 10) {
-      minS = min < 10 ? "0$min" : min.toString();
-    }
-
-    final String minString = minS.split(".").first;
-
-    return "${hour}h$minString";
-  }
-
-  static Widget buildIconFromLegs(Legs l) {
-    if (l.type == "bus") {
-      return FaIcon(FontAwesomeIcons.bus);
-    }
-    if (l.type == "tram") {
-      return FaIcon(FontAwesomeIcons.subway);
-    }
-    if (l.type == "walk") {
-      return FaIcon(FontAwesomeIcons.walking);
-    }
-
-    if (l.type == "express_train") {
-      return FaIcon(FontAwesomeIcons.train);
-    } else {
-      return FaIcon(FontAwesomeIcons.walking);
-    }
+  static String intToSeconds(int i, {bool pad = true}) {
+    final m = i ~/ 60;
+    final h = m ~/ 60;
+    final hrs = h == 0 ? "" : "${h}h";
+    final string = (m % 60).toString();
+    final mins = pad ? string.padLeft(2, "0") : string;
+    return "$hrs$mins${h == 0 ? " mins" : ""}";
   }
 
   static String dateToHour(DateTime arrival) {
-    final String min =
-        arrival.minute < 10 ? "0${arrival.minute}" : arrival.minute.toString();
-    return "${arrival.hour}h$min";
-  }
-
-  static Widget completionToIcon(Completion c) {
-    final icon = c.iconClass.split("-").last;
-    if (icon == "bus") {
-      return FaIcon(FontAwesomeIcons.bus);
-    }
-    if (icon == "tram") {
-      return FaIcon(FontAwesomeIcons.subway);
-    }
-    if (icon == "walk") {
-      return FaIcon(FontAwesomeIcons.walking);
-    }
-    if (icon == "train") {
-      return FaIcon(FontAwesomeIcons.train);
-    }
-    if (icon == "strain") {
-      return FaIcon(FontAwesomeIcons.train);
-    }
-    if (icon == "business") {
-      return FaIcon(FontAwesomeIcons.building);
-    }
-    if (icon == "adr") {
-      return FaIcon(FontAwesomeIcons.home);
-    }
-    if (icon == "express_train") {
-      return FaIcon(FontAwesomeIcons.train);
-    } else {
-      return FaIcon(FontAwesomeIcons.walking);
-    }
+    final String min = arrival.minute < 10 ? "0${arrival.minute}" : arrival.minute.toString();
+    return "${arrival.hour}:$min";
   }
 }

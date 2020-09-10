@@ -1,22 +1,64 @@
 import "dart:convert";
+import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:travel_free/api/cff/completions.dart';
-import 'package:travel_free/api/cff/route.dart';
-import 'package:travel_free/api/cff/timetable.dart';
+import 'package:travel_free/api/cff/cff_stationboard.dart';
 import 'package:travel_free/utils/extensions.dart';
 
+import 'cff/cff_completion.dart';
+import 'cff/cff_route.dart';
 import 'cff/stop.dart';
 
-class CFF {
-  static final QueryBuilder builder =
-      QueryBuilder("https://timetable.search.ch/api");
+export 'package:travel_free/api/cff/cff_completion.dart';
+export 'package:travel_free/api/cff/cff_route.dart';
+export 'package:travel_free/api/cff/cff_stationboard.dart';
+
+abstract class CFFBase {
+  Future<List<CffCompletion>> complete(
+    String string, {
+    bool showCoordinates,
+    bool showIds,
+    bool nofavorites,
+  });
+
+  Future<List<CffCompletion>> findStation(
+    double lat,
+    double lon, {
+    int accuracy,
+    bool showCoordinates,
+    bool showIds,
+  });
+
+  Future<CffStationboard> stationboard(
+    String stopName, {
+    DateTime when,
+    bool arrival,
+    int limit,
+    bool showTracks,
+    bool showSubsequentStops,
+    bool showDelays,
+    bool showTrackchanges,
+    List<TransportationTypes> transportationTypes,
+  });
+
+  Future<CffRoute> route(
+    Stop departure,
+    Stop arrival, {
+    DateTime date,
+    TimeOfDay time,
+    TimeType typeTime,
+  });
+}
+
+class CFF implements CFFBase {
+  static const QueryBuilder builder = QueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
 
-  Future<List<Completion>> complete(String string,
-      {bool showCoordinates = false,
-      bool showIds = false,
-      bool nofavorites = false}) async {
+  @override
+  Future<List<CffCompletion>> complete(String string,
+      {bool showCoordinates = false, bool showIds = false, bool nofavorites = true}) async {
     final uri = builder.build("completion", {
       "term": string,
       "show_ids": showIds.toInt(),
@@ -29,15 +71,19 @@ class CFF {
       throw Exception("Couldn't retrieve completion !");
     }
     final completions = (json.decode(response.body) as List)
-        .map<Completion>((e) => Completion.fromMap(e as Map))
+        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
 
-  Future<List<StationCompletion>> findStation(double lat, double lon,
-      {int accuracy = 10,
-      bool showCoordinates = false,
-      bool showIds = false}) async {
+  @override
+  Future<List<CffCompletion>> findStation(
+    double lat,
+    double lon, {
+    int accuracy = 10,
+    bool showCoordinates = true,
+    bool showIds = false,
+  }) async {
     final uri = builder.build("completion", {
       "latlon": "$lat,$lon",
       "accuracy": accuracy,
@@ -50,12 +96,13 @@ class CFF {
       throw Exception("Couldn't retrieve completion !");
     }
     final completions = (json.decode(response.body) as List)
-        .map<StationCompletion>((e) => StationCompletion.fromMap(e as Map))
+        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
 
-  Future<TimeTable> timetable(Stop stop,
+  @override
+  Future<CffStationboard> stationboard(String stopName,
       {DateTime when,
       bool arrival = false,
       int limit = 0,
@@ -63,10 +110,10 @@ class CFF {
       bool showSubsequentStops = false,
       bool showDelays = false,
       bool showTrackchanges = false,
-      List<String> transportationTypes = const []}) async {
+      List<TransportationTypes> transportationTypes = const []}) async {
     final params = {
-      "stop": stop.name,
-      'limit': limit,
+      "stop": stopName,
+      "limit": limit,
       "show_tracks": showTracks.toInt(),
       "show_subsequent_stops": showSubsequentStops.toInt(),
       "show_delays": showDelays.toInt(),
@@ -74,51 +121,59 @@ class CFF {
       "mode": arrival ? "arrival" : "depart"
     };
     if (transportationTypes.isNotEmpty) {
-      params["transportation_types"] = transportationTypes.join(", ");
+      params["transportation_types"] = transportationTypes.join(",");
     }
     if (when != null) print("TODO");
     final s = builder.build("stationboard", params);
-    final response = await _client.get(s);
+    print(s);
+    final response = await _client.get(s, headers: {"accept-language": "en"});
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    return TimeTable.fromMap(json.decode(response.body) as Map);
+    return CffStationboard.fromJson(json.decode(response.body) as Map<String, dynamic>);
   }
 
-  Future<Itinerary> route(Stop departure, Stop arrival,
-      {DateTime when, String typeTime}) async {
+  @override
+  Future<CffRoute> route(
+    Stop departure,
+    Stop arrival, {
+    @required DateTime date,
+    @required TimeOfDay time,
+    TimeType typeTime,
+  }) async {
+    assert(date != null && time != null);
     final params = {
       "from": departure.name,
-      'to': arrival.name,
-      'date': "${when.month}/${when.day}/${when.year}",
-      'time': "${when.hour}:${when.minute}",
-      "type_time": typeTime,
+      "to": arrival.name,
+      "date": "${date.month}/${date.day}/${date.year}",
+      "time": "${time.hour}:${time.minute}",
+      "type_time": describeEnum(typeTime),
       "show_trackchanges": 1,
     };
 
     final s = builder.build("route", params);
     print("builder : $s");
-    final response = await _client.get(builder.build("route", params));
+    final response = await _client.get(s);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    //print(response.body);
 
-    return Itinerary.fromMap(json.decode(response.body) as Map);
+    final map = json.decode(response.body) as Map<String, dynamic>;
+    if (map["disruptions"] != null) log(map["disruptions"].toString());
+    return CffRoute.fromJson(map);
   }
 }
 
 class QueryBuilder {
   final String baseUrl;
 
-  QueryBuilder(this.baseUrl);
+  const QueryBuilder(this.baseUrl);
 
-  String build(String work, Map<String, dynamic> parameters) {
-    String url = "$baseUrl/$work.json";
+  String build(String action, Map<String, dynamic> parameters) {
+    String url = "$baseUrl/$action.json";
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map<String>((key) =>
-              "$key=${Uri.encodeComponent(parameters[key].toString())}")
+          .map<String>((k) => "$k=${Uri.encodeComponent(parameters[k].toString())}")
           .join("&");
       url += "?$params";
     }
@@ -126,10 +181,6 @@ class QueryBuilder {
   }
 }
 
-abstract class TransportationTypes {
-  static const String train = "train";
-  static const String tram = "tram";
-  static const String bus = "bus";
-  static const String ship = "ship";
-  static const String cableway = "cableway";
-}
+enum TransportationTypes { train, tram, bus, ship, cableway }
+
+enum TimeType { depart, arrival }

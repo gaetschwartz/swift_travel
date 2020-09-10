@@ -1,16 +1,18 @@
-class Stop {
-  final String name;
-  final int id;
-  final x;
-  final y;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Stop(this.name, {this.id, this.x, this.y});
+part 'stop.freezed.dart';
+part 'stop.g.dart';
 
-  Stop.fromMap(Map m)
-      : this(
-          m["name"] as String,
-          id: m["id"] != null ? int.parse(m["id"] as String) : null,
-          x: m["x"],
-          y: m["y"],
-        );
+DateTime _fromJson(String s) => s == null ? null : DateTime.parse(s);
+String _toJson(DateTime d) => d.toIso8601String();
+
+@freezed
+abstract class Stop with _$Stop {
+  factory Stop(
+    String name, {
+    String stopid,
+    @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
+  }) = _Stop;
+
+  factory Stop.fromJson(Map<String, dynamic> json) => _$StopFromJson(json);
 }
