@@ -4,7 +4,6 @@ import 'package:travel_free/api/cff/cff_stationboard.dart';
 import 'package:travel_free/api/cff/stationboard_connection.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
-import 'package:travel_free/widget/iconLine.dart';
 
 class DetailsStop extends StatefulWidget {
   final String stopName;
@@ -78,10 +77,10 @@ class ConnectionTile extends StatelessWidget {
     return ListTile(
       title: Row(
         children: [
-          IconLine(
-            bgColor: connection.color.split("~").first ?? 0xff000000.toString(),
-            text: connection.line,
-            colorText: connection.color.split("~")[1] ?? 0xfff0f0f0.toString(),
+          LineWidget(
+            background: connection.color.split("~").first,
+            foreground: connection.color.split("~")[1],
+            line: connection.l,
           ),
           const SizedBox(width: 8),
           Text(
@@ -105,5 +104,35 @@ class ConnectionTile extends StatelessWidget {
       ),
       trailing: Text(Format.duration(diff)),
     );
+  }
+}
+
+class LineWidget extends StatelessWidget {
+  const LineWidget({
+    Key key,
+    @required this.foreground,
+    @required this.background,
+    @required this.line,
+  }) : super(key: key);
+
+  final String foreground;
+  final String background;
+  final String line;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Color(colorFromString(background) ?? 0xff000000)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+          child: Text(
+            line,
+            style: TextStyle(
+              color: Color(colorFromString(foreground) ?? 0xfff0f0f0),
+            ),
+          ),
+        ));
   }
 }
