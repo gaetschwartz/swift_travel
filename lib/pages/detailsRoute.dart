@@ -3,10 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff/leg.dart';
 import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
-import 'package:travel_free/pages/detailsStop.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
-import 'package:travel_free/widget/iconLine.dart';
+import 'package:travel_free/widget/lineWidget.dart';
 
 class DetailsRoute extends StatelessWidget {
   final RouteConnection c;
@@ -123,13 +122,11 @@ class LegTile extends StatelessWidget {
           backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
           title: Row(
             children: <Widget>[
-              LineWidget(
-                  foreground: l.fgcolor, background: l.bgcolor, line: l.line),
-              const SizedBox(width: 8),
               if (l.line != null) ...[
-                IconLine(bgColor: l.bgcolor, text: l.line)
+                LineWidget(
+                    foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+                const SizedBox(width: 8),
               ],
-              const SizedBox(width: 8),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerLeft,
