@@ -139,7 +139,7 @@ class _$_Exit implements _Exit {
       this.isaddress,
       this.sbbName});
 
-  factory _$_Exit.fromJson(Map<String, dynamic> json) =>
+  factory _$_Exit. fromJson(Map<String, dynamic> json) =>
       _$_$_ExitFromJson(json);
 
   @override

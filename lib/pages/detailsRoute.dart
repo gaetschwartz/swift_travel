@@ -32,7 +32,8 @@ class DetailsRoute extends StatelessWidget {
                 final Leg l = c.legs[i];
                 return LegTile(l: l);
               },
-              separatorBuilder: (context, index) => const Divider(indent: 16, endIndent: 16),
+              separatorBuilder: (context, index) =>
+                  const Divider(indent: 16, endIndent: 16),
             ),
           )
         ],
@@ -76,7 +77,8 @@ class LegTile extends StatelessWidget {
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+    list.add(
+        _buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -109,7 +111,9 @@ class LegTile extends StatelessWidget {
             children: [
               const FaIcon(FontAwesomeIcons.mapPin),
               const SizedBox(width: 8),
-              Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
+              Expanded(
+                  child: Text(l.name,
+                      style: const TextStyle(fontWeight: FontWeight.bold))),
             ],
           ),
         )
@@ -120,10 +124,19 @@ class LegTile extends StatelessWidget {
               CffIcon(l.type),
               const SizedBox(width: 8),
               Expanded(
-                  child: Align(
-                      alignment: Alignment.centerLeft,
-                      child:
-                          Text(l.exit.name, style: const TextStyle(fontWeight: FontWeight.bold)))),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    l.exit.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Text(
+                l.line ?? "",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(width: 10),
               if (l.track != null)
                 Text(
                   "Tr. ${l.track}",

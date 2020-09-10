@@ -53,12 +53,15 @@ abstract class CFFBase {
 }
 
 class CFF implements CFFBase {
-  static const QueryBuilder builder = QueryBuilder("https://timetable.search.ch/api");
+  static const QueryBuilder builder =
+      QueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
 
   @override
   Future<List<CffCompletion>> complete(String string,
-      {bool showCoordinates = false, bool showIds = false, bool nofavorites = true}) async {
+      {bool showCoordinates = false,
+      bool showIds = false,
+      bool nofavorites = true}) async {
     final uri = builder.build("completion", {
       "term": string,
       "show_ids": showIds.toInt(),
@@ -71,7 +74,8 @@ class CFF implements CFFBase {
       throw Exception("Couldn't retrieve completion !");
     }
     final completions = (json.decode(response.body) as List)
-        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
+        .map<CffCompletion>(
+            (e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
@@ -96,7 +100,8 @@ class CFF implements CFFBase {
       throw Exception("Couldn't retrieve completion !");
     }
     final completions = (json.decode(response.body) as List)
-        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
+        .map<CffCompletion>(
+            (e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
@@ -130,7 +135,8 @@ class CFF implements CFFBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    return CffStationboard.fromJson(json.decode(response.body) as Map<String, dynamic>);
+    return CffStationboard.fromJson(
+        json.decode(response.body) as Map<String, dynamic>);
   }
 
   @override
@@ -173,7 +179,8 @@ class QueryBuilder {
     String url = "$baseUrl/$action.json";
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map<String>((k) => "$k=${Uri.encodeComponent(parameters[k].toString())}")
+          .map<String>(
+              (k) => "$k=${Uri.encodeComponent(parameters[k].toString())}")
           .join("&");
       url += "?$params";
     }
