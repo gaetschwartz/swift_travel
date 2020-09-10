@@ -4,6 +4,7 @@ import 'package:travel_free/api/cff/cff_stationboard.dart';
 import 'package:travel_free/api/cff/stationboard_connection.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
+import 'package:travel_free/widget/iconLine.dart';
 
 class DetailsStop extends StatefulWidget {
   final String stopName;
@@ -77,18 +78,11 @@ class ConnectionTile extends StatelessWidget {
     return ListTile(
       title: Row(
         children: [
-          DecoratedBox(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Color(colorFromString(connection.color.split("~").first) ?? 0xff000000)),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-                child: Text(
-                  connection.line,
-                  style: TextStyle(
-                      color: Color(colorFromString(connection.color.split("~")[1]) ?? 0xfff0f0f0)),
-                ),
-              )),
+          IconLine(
+            bgColor: connection.color.split("~").first ?? 0xff000000.toString(),
+            text: connection.line,
+            colorText: connection.color.split("~")[1] ?? 0xfff0f0f0.toString(),
+          ),
           const SizedBox(width: 8),
           Text(
             connection.terminal.name,

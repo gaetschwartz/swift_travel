@@ -5,6 +5,7 @@ import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
+import 'package:travel_free/widget/iconLine.dart';
 
 class DetailsRoute extends StatelessWidget {
   final RouteConnection c;
@@ -123,6 +124,10 @@ class LegTile extends StatelessWidget {
             children: <Widget>[
               CffIcon(l.type),
               const SizedBox(width: 8),
+              if (l.line != null) ...[
+                IconLine(bgColor: l.bgcolor, text: l.line)
+              ],
+              const SizedBox(width: 8),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerLeft,
@@ -131,10 +136,6 @@ class LegTile extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-              ),
-              Text(
-                l.line ?? "",
-                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(width: 10),
               if (l.track != null)
