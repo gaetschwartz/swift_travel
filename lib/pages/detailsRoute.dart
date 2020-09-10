@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff/leg.dart';
 import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
+import 'package:travel_free/pages/detailsStop.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
 
@@ -121,7 +122,8 @@ class LegTile extends StatelessWidget {
           backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
           title: Row(
             children: <Widget>[
-              CffIcon(l.type),
+              LineWidget(
+                  foreground: l.fgcolor, background: l.bgcolor, line: l.line),
               const SizedBox(width: 8),
               Expanded(
                 child: Align(
@@ -132,11 +134,6 @@ class LegTile extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                l.line ?? "",
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(width: 10),
               if (l.track != null)
                 Text(
                   "Tr. ${l.track}",
@@ -151,10 +148,7 @@ class LegTile extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const FaIcon(
-                      FontAwesomeIcons.mapPin,
-                      size: 16,
-                    ),
+                    CffIcon(l.type, size: 16),
                     const SizedBox(width: 8),
                     Text(
                       l.terminal ??
