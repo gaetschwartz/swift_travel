@@ -39,20 +39,16 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
   Widget build(BuildContext context) {
     super.build(context);
     return RefreshIndicator(
-      onRefresh: () async {
-        await loadFavorites();
-      },
-      child: ListView(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+      onRefresh: () async => loadFavorites(),
+      child: Column(
         children: <Widget>[
           FlatButton(
             onPressed: () async {
               final String s =
                   await showDialog(context: context, builder: (_) => TextInputDialog());
+              if (s == null) return;
 
               final List<CffCompletion> list = await context.read(cffProvider).complete(s);
-              print(list[0].label);
               final SharedPreferences prefs = await SharedPreferences.getInstance();
               final List<String> listPrefs = prefs.getStringList("favoritesStop") ?? [];
               listPrefs.add(list[0].label);
@@ -62,18 +58,25 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
             child: const Text("Add Fav"),
           ),
           if (favoritesStop != null)
-            GridView.count(
-                shrinkWrap: true,
+            Expanded(
+              child: GridView.count(
                 crossAxisCount: 3,
-                children: List.generate(favoritesStop.length, (index) {
-                  return Container(
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                children: List.generate(
+                  favoritesStop.length,
+                  (index) => Container(
                     decoration: BoxDecoration(
                       border: Border.all(),
                       color: Colors.red,
                     ),
-                    child: Text(favoritesStop[index].label),
-                  );
-                })),
+                    child: Center(
+                      child: Text(favoritesStop[index].label),
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

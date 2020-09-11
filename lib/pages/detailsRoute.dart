@@ -172,6 +172,7 @@ class LegTile extends StatelessWidget {
                             alignment: Alignment.centerRight,
                             child: Text(Format.intToSeconds(
                               l.runningtime,
+                              pad: false,
                             )),
                           ),
                         ),

@@ -10,6 +10,7 @@ class CffIcon extends StatelessWidget {
     this.size,
     this.color,
   }) : super(key: key);
+
   final String icon;
   final double size;
   final Color color;
@@ -17,34 +18,31 @@ class CffIcon extends StatelessWidget {
   static Widget getIcon(String s) {
     if (s == null) return const FaIcon(FontAwesomeIcons.question);
     final icon = s.substring(s.lastIndexOf("-") + 1);
-    if (icon == "bus") {
-      return const FaIcon(FontAwesomeIcons.bus);
-    } else if (icon == "tram") {
-      return const FaIcon(FontAwesomeIcons.subway);
-    } else if (icon == "walk") {
-      return const FaIcon(FontAwesomeIcons.walking);
-    } else if (icon == "train") {
-      return const FaIcon(FontAwesomeIcons.train);
-    } else if (icon == "strain") {
-      return const FaIcon(FontAwesomeIcons.train);
-    } else if (icon == "business") {
-      return const FaIcon(FontAwesomeIcons.store);
-    } else if (icon == "adr") {
-      return const FaIcon(FontAwesomeIcons.home);
-    } else if (icon == "express_train") {
-      return const FaIcon(FontAwesomeIcons.train);
-    } else if (icon == "private") {
-      return const FaIcon(FontAwesomeIcons.building);
-    } else if (icon == "gondola") {
-      return const FaIcon(FontAwesomeIcons.ship);
-    } else if (icon == "post") {
-      return const FaIcon(FontAwesomeIcons.busAlt);
-    } else if (icon == "funicular") {
-      return const FaIcon(FontAwesomeIcons.train);
-    } else {
-      log("", error: "Unkwown icon : `$icon`");
-      return const FaIcon(FontAwesomeIcons.question);
+    switch (icon) {
+      case "bus":
+        return const FaIcon(FontAwesomeIcons.bus);
+      case "tram":
+        return const FaIcon(FontAwesomeIcons.subway);
+      case "walk":
+        return const FaIcon(FontAwesomeIcons.walking);
+      case "strain":
+      case "train":
+      case "express_train":
+      case "funicular":
+        return const FaIcon(FontAwesomeIcons.train);
+      case "business":
+        return const FaIcon(FontAwesomeIcons.store);
+      case "adr":
+        return const FaIcon(FontAwesomeIcons.home);
+      case "private":
+        return const FaIcon(FontAwesomeIcons.building);
+      case "gondola":
+        return const FaIcon(FontAwesomeIcons.ship);
+      case "post":
+        return const FaIcon(FontAwesomeIcons.busAlt);
     }
+    log("", error: "Unknown icon : `$icon`");
+    return const FaIcon(FontAwesomeIcons.question);
   }
 
   static const List<String> _privatePlaces = ["adr", "business", "private"];
@@ -53,5 +51,7 @@ class CffIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconTheme(
-      data: IconTheme.of(context).copyWith(size: size, color: color), child: getIcon(icon));
+        data: IconTheme.of(context).copyWith(size: size, color: color),
+        child: getIcon(icon),
+      );
 }
