@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,10 +74,13 @@ class _SearchRouteState extends State<SearchRoute>
                           : const FaIcon(FontAwesomeIcons.locationArrow);
                     }), onPressed: () async {
                       context.read(_loadingProvider).state = true;
-                      final p = await getCurrentPosition();
+                      final p = await getCurrentPosition(
+                          desiredAccuracy: LocationAccuracy.high);
+                      log("Position is : $p");
                       final completions = await context
                           .read(cffProvider)
                           .findStation(p.latitude, p.longitude);
+                      log("Found : $completions");
                       fromController.text = completions.first.label;
                       context.read(_loadingProvider).state = false;
                     }))),
