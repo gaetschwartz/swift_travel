@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_completion.dart';
@@ -26,7 +27,7 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
     final List<String> list = prefs.getStringList("favoritesStop") ?? [];
     final List<CffCompletion> lComp = [];
     for (final l in list) {
-      final List<CffCompletion> c = await CFF().complete(l);
+      final List<CffCompletion> c = await context.read(cffProvider).complete(l);
       lComp.add(c[0]);
     }
     setState(() {
@@ -50,7 +51,7 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
               final String s =
                   await showDialog(context: context, builder: (_) => TextInputDialog());
 
-              final List<CffCompletion> list = await CFF().complete(s);
+              final List<CffCompletion> list = await context.read(cffProvider).complete(s);
               print(list[0].label);
               final SharedPreferences prefs = await SharedPreferences.getInstance();
               final List<String> listPrefs = prefs.getStringList("favoritesStop") ?? [];

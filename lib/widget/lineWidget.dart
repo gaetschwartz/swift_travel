@@ -22,7 +22,7 @@ class LineWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
           child: Text(
-            line,
+            line ?? "???",
             style: TextStyle(
               color: Color(colorFromString(foreground) ?? 0xfff0f0f0),
             ),

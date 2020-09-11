@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff.dart';
@@ -43,6 +44,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final cff = ProviderScope.containerOf(context, listen: false).read(cffProvider);
     return Column(
       children: <Widget>[
         Padding(
@@ -53,7 +55,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                 controller: fromController,
                 style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
                 decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "From")),
-            suggestionsCallback: (pattern) => CFF().complete(pattern),
+            suggestionsCallback: (pattern) => cff.complete(pattern),
             itemBuilder: (context, suggestion) => ListTile(
               leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
@@ -71,7 +73,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                 controller: toController,
                 style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
                 decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
-            suggestionsCallback: (pattern) => CFF().complete(pattern),
+            suggestionsCallback: (pattern) => cff.complete(pattern),
             itemBuilder: (context, suggestion) => ListTile(
               leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
@@ -176,13 +178,13 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
 
   Future<void> searchData() async {
     if (fromController.text.length > 2 && toController.text.length > 2) {
-      final CffRoute it = await CFF().route(
-        Stop(fromController.text),
-        Stop(toController.text),
-        date: _date,
-        time: _time,
-        typeTime: switchDepart ? TimeType.arrival : TimeType.depart,
-      );
+      final CffRoute it = await context.read(cffProvider).route(
+            Stop(fromController.text),
+            Stop(toController.text),
+            date: _date,
+            time: _time,
+            typeTime: switchDepart ? TimeType.arrival : TimeType.depart,
+          );
       setState(() => data = it);
     }
   }

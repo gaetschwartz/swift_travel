@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_completion.dart';
@@ -34,10 +35,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
             controller: widget._controller,
             autofocus: true,
             decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
-        suggestionsCallback: (pattern) async {
-          final l = await CFF().complete(pattern);
-          return l;
-        },
+        suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
         itemBuilder: (context, CffCompletion suggestion) {
           print(suggestion);
           return ListTile(

@@ -33,8 +33,7 @@ class DetailsRoute extends StatelessWidget {
                 final Leg l = c.legs[i];
                 return LegTile(l: l);
               },
-              separatorBuilder: (context, index) =>
-                  const Divider(indent: 16, endIndent: 16),
+              separatorBuilder: (context, index) => const Divider(indent: 16, endIndent: 16),
             ),
           )
         ],
@@ -78,8 +77,7 @@ class LegTile extends StatelessWidget {
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(
-        _buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -112,9 +110,7 @@ class LegTile extends StatelessWidget {
             children: [
               const FaIcon(FontAwesomeIcons.mapPin),
               const SizedBox(width: 8),
-              Expanded(
-                  child: Text(l.name,
-                      style: const TextStyle(fontWeight: FontWeight.bold))),
+              Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
             ],
           ),
         )
@@ -123,8 +119,10 @@ class LegTile extends StatelessWidget {
           title: Row(
             children: <Widget>[
               if (l.line != null) ...[
-                LineWidget(
-                    foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+                LineWidget(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+                const SizedBox(width: 8),
+              ] else ...[
+                CffIcon(l.type),
                 const SizedBox(width: 8),
               ],
               Expanded(
@@ -138,7 +136,7 @@ class LegTile extends StatelessWidget {
               ),
               if (l.track != null)
                 Text(
-                  "Tr. ${l.track}",
+                  "Pl. ${l.track}",
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
             ],

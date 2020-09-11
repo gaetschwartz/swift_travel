@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_stationboard.dart';
 import 'package:travel_free/api/cff/stationboard_connection.dart';
@@ -61,7 +62,7 @@ class _DetailsStopState extends State<DetailsStop> {
   }
 
   Future<void> reloadData() async {
-    final CffStationboard l = await CFF().stationboard(widget.stopName);
+    final CffStationboard l = await context.read(cffProvider).stationboard(widget.stopName);
     setState(() {
       data = l;
     });
@@ -81,7 +82,7 @@ class ConnectionTile extends StatelessWidget {
           LineWidget(
             background: connection.color.split("~").first,
             foreground: connection.color.split("~")[1],
-            line: connection.l,
+            line: connection.line,
           ),
           const SizedBox(width: 8),
           Text(

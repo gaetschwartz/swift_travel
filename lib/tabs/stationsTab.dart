@@ -117,7 +117,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
 
   Future<void> reload(String s) async {
     try {
-      final cs = await CFF().complete(s);
+      final cs = await context.read(cffProvider).complete(s);
       context.read(_stateProvider).state =
           StationStates.completions(cs.where((c) => c.label != null).toList());
     } catch (e) {
@@ -128,23 +128,31 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
 
 class CffCompletionTile extends StatelessWidget {
   const CffCompletionTile(
-    this.suggestion, {
+    this.sugg, {
     Key key,
   }) : super(key: key);
 
-  final CffCompletion suggestion;
+  final CffCompletion sugg;
 
   @override
   Widget build(BuildContext context) {
-    if (suggestion.label == null) log(suggestion.toString());
+    if (sugg.label == null) log(sugg.toString());
     return ListTile(
-      leading: CffIcon(suggestion.iconclass),
-      title: Text(suggestion.label ?? ""),
+      leading: CffIcon(sugg.iconclass),
+      title: Text(sugg.label ?? ""),
       dense: true,
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => DetailsStop(
-                stopName: suggestion.label,
-              ))),
+      onTap: CffIcon.isPrivate(sugg.iconclass)
+          ? null
+          : () {
+              log(sugg.iconclass);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => DetailsStop(
+                    stopName: sugg.label,
+                  ),
+                ),
+              );
+            },
     );
   }
 }

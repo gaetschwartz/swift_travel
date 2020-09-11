@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:travel_free/api/cff/cff_stationboard.dart';
 import 'package:travel_free/utils/extensions.dart';
@@ -15,12 +16,13 @@ export 'package:travel_free/api/cff/cff_completion.dart';
 export 'package:travel_free/api/cff/cff_route.dart';
 export 'package:travel_free/api/cff/cff_stationboard.dart';
 
-abstract class CFFBase {
+abstract class CffBase {
   Future<List<CffCompletion>> complete(
     String string, {
     bool showCoordinates,
     bool showIds,
     bool nofavorites,
+    bool filterNull,
   });
 
   Future<List<CffCompletion>> findStation(
@@ -52,16 +54,22 @@ abstract class CFFBase {
   });
 }
 
-class CFF implements CFFBase {
-  static const QueryBuilder builder =
-      QueryBuilder("https://timetable.search.ch/api");
+final Provider<CffBase> cffProvider = Provider<CffBase>((ref) => Cff._());
+
+class Cff implements CffBase {
+  static const QueryBuilder builder = QueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
 
+  Cff._();
+
   @override
-  Future<List<CffCompletion>> complete(String string,
-      {bool showCoordinates = false,
-      bool showIds = false,
-      bool nofavorites = true}) async {
+  Future<List<CffCompletion>> complete(
+    String string, {
+    bool showCoordinates = false,
+    bool showIds = false,
+    bool nofavorites = true,
+    bool filterNull = true,
+  }) async {
     final uri = builder.build("completion", {
       "term": string,
       "show_ids": showIds.toInt(),
@@ -73,10 +81,15 @@ class CFF implements CFFBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    final completions = (json.decode(response.body) as List)
-        .map<CffCompletion>(
-            (e) => CffCompletion.fromJson(e as Map<String, dynamic>))
-        .toList();
+    final List<Map> decode = (json.decode(response.body) as List).cast<Map>();
+    final List<CffCompletion> completions = [];
+
+    for (final Map item in decode) {
+      if (!filterNull || item["label"] != null) {
+        completions.add(CffCompletion.fromJson(item as Map<String, dynamic>));
+      }
+    }
+
     return completions;
   }
 
@@ -100,8 +113,7 @@ class CFF implements CFFBase {
       throw Exception("Couldn't retrieve completion !");
     }
     final completions = (json.decode(response.body) as List)
-        .map<CffCompletion>(
-            (e) => CffCompletion.fromJson(e as Map<String, dynamic>))
+        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
@@ -135,8 +147,7 @@ class CFF implements CFFBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    return CffStationboard.fromJson(
-        json.decode(response.body) as Map<String, dynamic>);
+    return CffStationboard.fromJson(json.decode(response.body) as Map<String, dynamic>);
   }
 
   @override
@@ -179,8 +190,7 @@ class QueryBuilder {
     String url = "$baseUrl/$action.json";
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map<String>(
-              (k) => "$k=${Uri.encodeComponent(parameters[k].toString())}")
+          .map<String>((k) => "$k=${Uri.encodeComponent(parameters[k].toString())}")
           .join("&");
       url += "?$params";
     }
