@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_completion.dart';
 import 'package:travel_free/api/cff/cff_route.dart';
@@ -13,12 +14,15 @@ import 'package:travel_free/pages/detailsRoute.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
 
+final _loadingProvider = StateProvider((_) => false);
+
 class SearchRoute extends StatefulWidget {
   @override
   _SearchRouteState createState() => _SearchRouteState();
 }
 
-class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
+class _SearchRouteState extends State<SearchRoute>
+    with AutomaticKeepAliveClientMixin {
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
   final FocusNode fnFrom = FocusNode();
@@ -44,7 +48,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final cff = ProviderScope.containerOf(context, listen: false).read(cffProvider);
+    final cff =
+        ProviderScope.containerOf(context, listen: false).read(cffProvider);
     return Column(
       children: <Widget>[
         Padding(
@@ -53,15 +58,35 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
             debounceDuration: const Duration(milliseconds: 500),
             textFieldConfiguration: TextFieldConfiguration(
                 controller: fromController,
-                style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-                decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "From")),
+                style: DefaultTextStyle.of(context)
+                    .style
+                    .copyWith(fontStyle: FontStyle.normal),
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: "From",
+                    suffixIcon:
+                        IconButton(icon: Consumer(builder: (context, w, _) {
+                      final loading = w(_loadingProvider).state;
+                      return loading
+                          ? const CircularProgressIndicator()
+                          : const FaIcon(FontAwesomeIcons.locationArrow);
+                    }), onPressed: () async {
+                      context.read(_loadingProvider).state = true;
+                      final p = await getCurrentPosition();
+                      final completions = await context
+                          .read(cffProvider)
+                          .findStation(p.latitude, p.longitude);
+                      fromController.text = completions.first.label;
+                      context.read(_loadingProvider).state = false;
+                    }))),
             suggestionsCallback: (pattern) => cff.complete(pattern),
             itemBuilder: (context, suggestion) => ListTile(
               leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
               dense: true,
             ),
-            onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
+            onSuggestionSelected: (suggestion) =>
+                fromController.text = suggestion.label,
             noItemsFoundBuilder: (_) => const SizedBox(),
           ),
         ),
@@ -71,15 +96,19 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
             debounceDuration: const Duration(milliseconds: 500),
             textFieldConfiguration: TextFieldConfiguration(
                 controller: toController,
-                style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-                decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
+                style: DefaultTextStyle.of(context)
+                    .style
+                    .copyWith(fontStyle: FontStyle.normal),
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), hintText: "To")),
             suggestionsCallback: (pattern) => cff.complete(pattern),
             itemBuilder: (context, suggestion) => ListTile(
               leading: CffIcon(suggestion.iconclass),
               title: Text(suggestion.label),
               dense: true,
             ),
-            onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
+            onSuggestionSelected: (suggestion) =>
+                toController.text = suggestion.label,
             noItemsFoundBuilder: (_) => const SizedBox(),
           ),
         ),
@@ -101,7 +130,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                   });
                 },
                 icon: const FaIcon(FontAwesomeIcons.clock),
-                label: Text("${_time.hour}:${_time.minute.toString().padLeft(2, "0")}"),
+                label: Text(
+                    "${_time.hour}:${_time.minute.toString().padLeft(2, "0")}"),
               ),
               RaisedButton.icon(
                 shape: const StadiumBorder(),
@@ -216,7 +246,8 @@ class RouteTile extends StatelessWidget {
           child: Wrap(spacing: 8, children: listWidget),
         ),
         const SizedBox(height: 4),
-        Text("${Format.dateToHour(c.departure)} - ${Format.dateToHour(c.arrival)}")
+        Text(
+            "${Format.dateToHour(c.departure)} - ${Format.dateToHour(c.arrival)}")
       ],
     );
   }
@@ -237,8 +268,8 @@ class RouteTile extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () =>
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
     );
   }
 }
