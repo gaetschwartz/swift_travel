@@ -141,7 +141,7 @@ jobs:
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
           echo "::set-output name=nbr::$GITHUB_RUN_NUMBER"
       - name: Exporting .ipa
-        run: chmod + x CI/export_ipa.sh && ./CI/export_ipa.sh
+        run: chmod +x CI/export_ipa.sh && ./CI/export_ipa.sh
       - name: Publishing app
         if: success()
         env:
