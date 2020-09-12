@@ -13,7 +13,7 @@ env:
   flutter_build_args: --dart-define=FLUTTER_WEB_USE_SKIA=true --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
 
 jobs:
-  build:
+  build-android:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -88,3 +88,62 @@ jobs:
           asset_path: ./build/app/outputs/flutter-apk/app-release.apk
           asset_name: travel-free-${{ steps.git-data.outputs.nbr }}.apk
           asset_content_type: application/vnd.android.package-archive
+  deploy:
+    name: Deploying to Testflight
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install gpg
+        run: brew install gnupg
+      - name: Setup provisioning profile
+        env:
+          IOS_KEYS: ${{ secrets.IOS_KEYS }}
+        run: ./.github/secrets/decrypt_secrets.sh
+      - name: Get latest Flutter release
+        id: release_json
+        run: echo "::set-output name=json::$(curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_linux.json" | jq -r ".current_release.${{ env.flutter_channel }}")"
+      - name: Get Flutter from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            /opt/hostedtoolcache/flutter
+            $HOME/.pub-cache
+          key: ${{ runner.OS }}-flutter-cache-${{ steps.release_json.outputs.json }}
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.flutter_channel }}
+      - name: Setup Flutter
+        run: |
+          flutter packages get
+      - name: Pre-build configuration
+        env:
+          TZ: Europe/Zurich
+        run: |
+          git_hash=$(git rev-parse --short "$GITHUB_SHA")
+          git_msg=$(printf "%q" "$(git log -1 --pretty=format:"%s")")
+          now=$(date +"%H:%M:%S - %A %d %B %Y")
+          cat > lib/utils/build.dart <<- EOM
+          const String latestBuild = "${now}";
+          const String commit = "${git_hash}";
+          const String commitMessage = "${git_msg}";
+          EOM
+          echo "=== build.dart ==="
+          cat lib/utils/build.dart
+      - name: Build
+        run: flutter build ios
+      - name: Get hash
+        id: git-data
+        run: |
+          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
+          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
+          echo "::set-output name=nbr::$GITHUB_RUN_NUMBER"
+      - name: Exporting .ipa
+        run: ./CI/export_ipa.sh
+      - name: Publishing app
+        if: success()
+        env:
+          APPLEID_USERNAME: ${{ secrets.APPLEID_USERNAME }}
+          APPLEID_PASSWORD: ${{ secrets.APPLEID_PASSWORD }}
+        run: ./CI/publish_testflight.sh
