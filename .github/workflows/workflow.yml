@@ -57,16 +57,24 @@ jobs:
           cat lib/utils/build.dart
       - name: Build
         run: flutter build apk
+      - name: Get hash
+        id: git-data
+        run: |
+          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
+          echo "::set-output name=msg::$(printf "%q" "$(git log -1 --pretty=format:"%s")")"
+          echo "::set-output name=nbr::$GITHUB_RUN_NUMBER"
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
-          release_name: CI Build ${{ github.ref }}
+          tag_name: ${{ steps.git-data.outputs.hash }}
+          release_name: CI Build \#$GITHUB_RUN_NUMBER
           body: |
-            *This is an automated CI build.*
+            *This is an automated CI build for ${{ steps.git-data.outputs.hash }}.*
+
+            ${{ steps.git-data.outputs.msg }}
           draft: false
           prerelease: true
       - name: Upload Release Asset
@@ -77,5 +85,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./build/app/outputs/flutter-apk/app-release.apk
-          asset_name: travel-free-${{ github.ref }}.apk
+          asset_name: travel-free-${{ steps.git-data.outputs.nbr }}.apk
           asset_content_type: application/vnd.android.package-archive
