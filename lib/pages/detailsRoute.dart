@@ -160,6 +160,9 @@ class LegTile extends StatelessWidget {
                   ],
                 ),
                 if (l.exit != null)
+               Padding(
+                padding : const EdgeInsets.symmetric(vertical: 8.0),
+                child :
                   DefaultTextStyle(
                     style: Theme.of(context).textTheme.subtitle2,
                     child: Row(
@@ -178,7 +181,7 @@ class LegTile extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
+                  ),),
               ],
             ),
           ),
