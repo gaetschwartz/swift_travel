@@ -16,6 +16,7 @@ jobs:
   build-android:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    name: Build and deploy Android to Github Releases
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -89,7 +90,7 @@ jobs:
           asset_name: travel-free-${{ steps.git-data.outputs.nbr }}.apk
           asset_content_type: application/vnd.android.package-archive
   deploy:
-    name: Deploying to Testflight
+    name: Build and deploy to Testflight
     runs-on: macos-latest
     steps:
       - name: Checkout repository
@@ -99,7 +100,7 @@ jobs:
       - name: Setup provisioning profile
         env:
           IOS_KEYS: ${{ secrets.IOS_KEYS }}
-        run: ./.github/secrets/decrypt_secrets.sh
+        run: ./CI/decrypt_secrets.sh
       - name: Get latest Flutter release
         id: release_json
         run: echo "::set-output name=json::$(curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_linux.json" | jq -r ".current_release.${{ env.flutter_channel }}")"
