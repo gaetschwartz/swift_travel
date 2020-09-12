@@ -95,8 +95,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Install gpg
-        run: brew install gnupg
       - name: Setup provisioning profile
         env:
           IOS_KEYS: ${{ secrets.IOS_KEYS }}

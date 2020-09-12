@@ -12,6 +12,7 @@ import 'package:travel_free/api/cff/cff_route.dart';
 import 'package:travel_free/api/cff/leg.dart';
 import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
+import 'package:travel_free/models/route_states.dart';
 import 'package:travel_free/pages/detailsRoute.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
@@ -20,20 +21,18 @@ final _loadingProvider = StateProvider((_) => false);
 final _switchProvider = StateProvider((_) => false);
 final _dateProvider = StateProvider((_) => DateTime.now());
 final _timeProvider = StateProvider((_) => TimeOfDay.now());
+final _routesProvider = StateProvider((_) => const RouteStates.empty());
 
 class SearchRoute extends StatefulWidget {
   @override
   _SearchRouteState createState() => _SearchRouteState();
 }
 
-class _SearchRouteState extends State<SearchRoute>
-    with AutomaticKeepAliveClientMixin {
+class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
-
-  CffRoute data;
 
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey();
 
@@ -49,8 +48,7 @@ class _SearchRouteState extends State<SearchRoute>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final cff =
-        ProviderScope.containerOf(context, listen: false).read(cffProvider);
+    final cff = ProviderScope.containerOf(context, listen: false).read(cffProvider);
     return Column(
       children: <Widget>[
         Padding(
@@ -62,9 +60,8 @@ class _SearchRouteState extends State<SearchRoute>
                   debounceDuration: const Duration(milliseconds: 500),
                   textFieldConfiguration: TextFieldConfiguration(
                       controller: fromController,
-                      style: DefaultTextStyle.of(context)
-                          .style
-                          .copyWith(fontStyle: FontStyle.normal),
+                      style:
+                          DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "From",
@@ -75,8 +72,7 @@ class _SearchRouteState extends State<SearchRoute>
                     title: Text(suggestion.label),
                     dense: true,
                   ),
-                  onSuggestionSelected: (suggestion) =>
-                      fromController.text = suggestion.label,
+                  onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
                   noItemsFoundBuilder: (_) => const SizedBox(),
                 ),
               ),
@@ -88,13 +84,12 @@ class _SearchRouteState extends State<SearchRoute>
                     : const FaIcon(FontAwesomeIcons.locationArrow);
               }), onPressed: () async {
                 context.read(_loadingProvider).state = true;
-                final p = await getCurrentPosition(
-                    desiredAccuracy: LocationAccuracy.bestForNavigation);
+                final p =
+                    await getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
                 log("Position is : $p");
 
-                final completions = await context
-                    .read(cffProvider)
-                    .findStation(p.latitude, p.longitude);
+                final completions =
+                    await context.read(cffProvider).findStation(p.latitude, p.longitude);
                 log("Found : $completions");
 
                 final first = completions.first;
@@ -116,19 +111,17 @@ class _SearchRouteState extends State<SearchRoute>
                   debounceDuration: const Duration(milliseconds: 500),
                   textFieldConfiguration: TextFieldConfiguration(
                       controller: toController,
-                      style: DefaultTextStyle.of(context)
-                          .style
-                          .copyWith(fontStyle: FontStyle.normal),
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(), hintText: "To")),
+                      style:
+                          DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
+                      decoration:
+                          const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
                   suggestionsCallback: (pattern) => cff.complete(pattern),
                   itemBuilder: (context, suggestion) => ListTile(
                     leading: CffIcon(suggestion.iconclass),
                     title: Text(suggestion.label),
                     dense: true,
                   ),
-                  onSuggestionSelected: (suggestion) =>
-                      toController.text = suggestion.label,
+                  onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
                   noItemsFoundBuilder: (_) => const SizedBox(),
                 ),
               ),
@@ -163,8 +156,8 @@ class _SearchRouteState extends State<SearchRoute>
                     });
                   },
                   icon: const FaIcon(FontAwesomeIcons.clock),
-                  label: Text(
-                      "${_time.state.hour}:${_time.state.minute.toString().padLeft(2, "0")}"),
+                  label:
+                      Text("${_time.state.hour}:${_time.state.minute.toString().padLeft(2, "0")}"),
                 );
               }),
               Consumer(builder: (context, w, _) {
@@ -183,8 +176,7 @@ class _SearchRouteState extends State<SearchRoute>
                     setState(() => _date.state = dateTime);
                   },
                   icon: const FaIcon(FontAwesomeIcons.calendar),
-                  label: Text(
-                      "${_date.state.day}/${_date.state.month}/${_date.state.year}"),
+                  label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
                 );
               }),
             ],
@@ -199,8 +191,7 @@ class _SearchRouteState extends State<SearchRoute>
               children: <Widget>[
                 Text(
                   "Depart",
-                  style:
-                      TextStyle(fontWeight: sw.state ? null : FontWeight.bold),
+                  style: TextStyle(fontWeight: sw.state ? null : FontWeight.bold),
                 ),
                 Container(
                   width: 60,
@@ -214,8 +205,7 @@ class _SearchRouteState extends State<SearchRoute>
                 ),
                 Text(
                   "Arrivée",
-                  style:
-                      TextStyle(fontWeight: sw.state ? FontWeight.bold : null),
+                  style: TextStyle(fontWeight: sw.state ? FontWeight.bold : null),
                 ),
                 Expanded(
                   child: Align(
@@ -238,15 +228,58 @@ class _SearchRouteState extends State<SearchRoute>
         ),
         Expanded(
           child: RefreshIndicator(
-            onRefresh: () async {
-              await searchData();
-            },
+            onRefresh: () => searchData(),
             key: _refreshKey,
-            child: ListView.separated(
-                separatorBuilder: (c, i) => const Divider(),
-                shrinkWrap: true,
-                itemCount: data == null ? 0 : data.connections.length,
-                itemBuilder: (context, i) => RouteTile(c: data.connections[i])),
+            child: Consumer(
+                builder: (context, w, _) => w(_routesProvider).state.map(
+                      routes: (data) => ListView.separated(
+                          separatorBuilder: (c, i) => const Divider(),
+                          shrinkWrap: true,
+                          itemCount: data.routes == null ? 0 : data.routes.connections.length,
+                          itemBuilder: (context, i) => RouteTile(c: data.routes.connections[i])),
+                      network: (_) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            Icons.wifi_off,
+                            size: 48,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            "Netork Error",
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ],
+                      ),
+                      error: (e) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            Icons.bug_report,
+                            size: 48,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            e.error.toString(),
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ],
+                      ),
+                      empty: (_) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            Icons.search,
+                            size: 48,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            "Search a route",
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ],
+                      ),
+                    )),
           ),
         )
       ],
@@ -260,11 +293,9 @@ class _SearchRouteState extends State<SearchRoute>
             Stop(toController.text),
             date: context.read(_dateProvider).state,
             time: context.read(_timeProvider).state,
-            typeTime: context.read(_switchProvider).state
-                ? TimeType.arrival
-                : TimeType.depart,
+            typeTime: context.read(_switchProvider).state ? TimeType.arrival : TimeType.depart,
           );
-      setState(() => data = it);
+      context.read(_routesProvider).state = RouteStates.routes(it);
     }
   }
 
@@ -295,8 +326,7 @@ class RouteTile extends StatelessWidget {
           child: Wrap(spacing: 8, children: listWidget),
         ),
         const SizedBox(height: 4),
-        Text(
-            "${Format.dateToHour(c.departure)} - ${Format.dateToHour(c.arrival)}")
+        Text("${Format.dateToHour(c.departure)} - ${Format.dateToHour(c.arrival)}")
       ],
     );
   }
@@ -317,8 +347,8 @@ class RouteTile extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () => Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
+      onTap: () =>
+          Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
     );
   }
 }

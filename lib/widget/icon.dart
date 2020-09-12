@@ -21,6 +21,9 @@ class CffIcon extends StatelessWidget {
     switch (icon) {
       case "bus":
         return const FaIcon(FontAwesomeIcons.bus);
+      case "post":
+      case "night_bus":
+        return const FaIcon(FontAwesomeIcons.busAlt);
       case "tram":
         return const FaIcon(FontAwesomeIcons.subway);
       case "walk":
@@ -38,8 +41,6 @@ class CffIcon extends StatelessWidget {
         return const FaIcon(FontAwesomeIcons.building);
       case "gondola":
         return const FaIcon(FontAwesomeIcons.ship);
-      case "post":
-        return const FaIcon(FontAwesomeIcons.busAlt);
     }
     log("", error: "Unknown icon : `$icon`");
     return const FaIcon(FontAwesomeIcons.question);
