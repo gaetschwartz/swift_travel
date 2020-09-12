@@ -131,7 +131,7 @@ jobs:
           echo "=== build.dart ==="
           cat lib/utils/build.dart
       - name: Build
-        run: flutter build ios
+        run: flutter build ios --build-number $GITHUB_RUN_NUMBER
       - name: Get hash
         id: git-data
         run: |
