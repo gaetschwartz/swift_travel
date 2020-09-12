@@ -9,7 +9,7 @@ mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
 cp ./.github/secrets/Travely_Profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/Travely_Profile.mobileprovision
 
 security create-keychain -p "" build.keychain
-security import ./.github/secrets/Certificates.p12 -t agg -k ~/Library/Keychains/build.keychain -P "" -A
+security import ./.github/secrets/Certificates.p12 -t agg -k ~/Library/Keychains/build.keychain -P "$IOS_KEYS" -A
 
 security list-keychains -s ~/Library/Keychains/build.keychain
 security default-keychain -s ~/Library/Keychains/build.keychain
