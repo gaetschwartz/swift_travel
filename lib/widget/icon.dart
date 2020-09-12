@@ -6,9 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class CffIcon extends StatelessWidget {
   const CffIcon(
     this.icon, {
-    Key key,
     this.size,
     this.color,
+    Key key,
   }) : super(key: key);
 
   final String icon;
@@ -47,7 +47,8 @@ class CffIcon extends StatelessWidget {
 
   static const List<String> _privatePlaces = ["adr", "business", "private"];
 
-  static bool isPrivate(String s) => _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
+  static bool isPrivate(String s) =>
+      _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
 
   @override
   Widget build(BuildContext context) => IconTheme(
