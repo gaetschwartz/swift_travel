@@ -9,7 +9,7 @@ part of 'cff_completion.dart';
 _$_CffCompletion _$_$_CffCompletionFromJson(Map<String, dynamic> json) {
   return _$_CffCompletion(
     label: json['label'] as String,
-    dist: json['dist'] as int,
+    dist: (json['dist'] as num)?.toDouble(),
     iconclass: json['iconclass'] as String,
     html: json['html'] as String,
   );

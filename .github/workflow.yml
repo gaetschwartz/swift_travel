@@ -1,0 +1,81 @@
+name: Flutter Build
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  flutter_channel: dev
+  java_version: 12.x
+  node_version: 12.x
+  build_android: true
+  flutter_build_args: --dart-define=FLUTTER_WEB_USE_SKIA=true --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        if: ${{ env.build_android == 'true' }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.java_version }}
+      - name: Get latest Flutter release
+        id: release_json
+        run: echo "::set-output name=json::$(curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_linux.json" | jq -r ".current_release.${{ env.flutter_channel }}")"
+      - name: Get Flutter from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            /opt/hostedtoolcache/flutter
+            $HOME/.pub-cache
+          key: ${{ runner.OS }}-flutter-cache-${{ steps.release_json.outputs.json }}
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.flutter_channel }}
+      - name: Setup Flutter
+        run: |
+          flutter packages get
+      - name: Pre-build configuration
+        env:
+          TZ: Europe/Zurich
+        run: |
+          git_hash=$(git rev-parse --short "$GITHUB_SHA")
+          git_msg=$(printf "%q" "$(git log -1 --pretty=format:"%s")")
+          now=$(date +"%H:%M:%S - %A %d %B %Y")
+          cat > lib/utils/build.dart <<- EOM
+          const String latestBuild = "${now}";
+          const String commit = "${git_hash}";
+          const String commitMessage = "${git_msg}";
+          EOM
+          echo "=== build.dart ==="
+          cat lib/utils/build.dart
+      - name: Build
+        run: flutter build apk
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: CI Release ${{ github.ref }}
+          body: |
+            *This is an automated CI build.*
+          draft: false
+          prerelease: true
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./build/app/outputs/flutter-apk/app-release.apk
+          asset_name: travel-free-${{ github.ref }}.apk
+          asset_content_type: application/vnd.android.package-archive

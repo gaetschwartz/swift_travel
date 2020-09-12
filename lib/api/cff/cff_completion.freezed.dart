@@ -16,7 +16,8 @@ class _$CffCompletionTearOff {
   const _$CffCompletionTearOff();
 
 // ignore: unused_element
-  _CffCompletion call({String label, int dist, String iconclass, String html}) {
+  _CffCompletion call(
+      {String label, double dist, String iconclass, String html}) {
     return _CffCompletion(
       label: label,
       dist: dist,
@@ -31,7 +32,7 @@ const $CffCompletion = _$CffCompletionTearOff();
 
 mixin _$CffCompletion {
   String get label;
-  int get dist;
+  double get dist;
   String get iconclass;
   String get html;
 
@@ -43,7 +44,7 @@ abstract class $CffCompletionCopyWith<$Res> {
   factory $CffCompletionCopyWith(
           CffCompletion value, $Res Function(CffCompletion) then) =
       _$CffCompletionCopyWithImpl<$Res>;
-  $Res call({String label, int dist, String iconclass, String html});
+  $Res call({String label, double dist, String iconclass, String html});
 }
 
 class _$CffCompletionCopyWithImpl<$Res>
@@ -63,7 +64,7 @@ class _$CffCompletionCopyWithImpl<$Res>
   }) {
     return _then(_value.copyWith(
       label: label == freezed ? _value.label : label as String,
-      dist: dist == freezed ? _value.dist : dist as int,
+      dist: dist == freezed ? _value.dist : dist as double,
       iconclass: iconclass == freezed ? _value.iconclass : iconclass as String,
       html: html == freezed ? _value.html : html as String,
     ));
@@ -76,7 +77,7 @@ abstract class _$CffCompletionCopyWith<$Res>
           _CffCompletion value, $Res Function(_CffCompletion) then) =
       __$CffCompletionCopyWithImpl<$Res>;
   @override
-  $Res call({String label, int dist, String iconclass, String html});
+  $Res call({String label, double dist, String iconclass, String html});
 }
 
 class __$CffCompletionCopyWithImpl<$Res>
@@ -98,7 +99,7 @@ class __$CffCompletionCopyWithImpl<$Res>
   }) {
     return _then(_CffCompletion(
       label: label == freezed ? _value.label : label as String,
-      dist: dist == freezed ? _value.dist : dist as int,
+      dist: dist == freezed ? _value.dist : dist as double,
       iconclass: iconclass == freezed ? _value.iconclass : iconclass as String,
       html: html == freezed ? _value.html : html as String,
     ));
@@ -115,7 +116,7 @@ class _$_CffCompletion implements _CffCompletion {
   @override
   final String label;
   @override
-  final int dist;
+  final double dist;
   @override
   final String iconclass;
   @override
@@ -162,7 +163,7 @@ class _$_CffCompletion implements _CffCompletion {
 abstract class _CffCompletion implements CffCompletion {
   factory _CffCompletion(
       {String label,
-      int dist,
+      double dist,
       String iconclass,
       String html}) = _$_CffCompletion;
 
@@ -172,7 +173,7 @@ abstract class _CffCompletion implements CffCompletion {
   @override
   String get label;
   @override
-  int get dist;
+  double get dist;
   @override
   String get iconclass;
   @override

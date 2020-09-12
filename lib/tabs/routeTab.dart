@@ -74,6 +74,7 @@ class _SearchRouteState extends State<SearchRoute>
                           : const FaIcon(FontAwesomeIcons.locationArrow);
                     }), onPressed: () async {
                       context.read(_loadingProvider).state = true;
+                      log("wut");
                       final p = await getCurrentPosition(
                           desiredAccuracy: LocationAccuracy.high);
                       log("Position is : $p");
