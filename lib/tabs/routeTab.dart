@@ -17,6 +17,9 @@ import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
 
 final _loadingProvider = StateProvider((_) => false);
+final _switchProvider = StateProvider((_) => false);
+final _dateProvider = StateProvider((_) => DateTime.now());
+final _timeProvider = StateProvider((_) => TimeOfDay.now());
 
 class SearchRoute extends StatefulWidget {
   @override
@@ -31,10 +34,6 @@ class _SearchRouteState extends State<SearchRoute>
   final FocusNode fnTo = FocusNode();
 
   CffRoute data;
-  DateTime _date = DateTime.now();
-  TimeOfDay _time = TimeOfDay.now();
-  String typeTime = "departure";
-  bool switchDepart = false;
 
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey();
 
@@ -56,66 +55,92 @@ class _SearchRouteState extends State<SearchRoute>
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TypeAheadField<CffCompletion>(
-            debounceDuration: const Duration(milliseconds: 500),
-            textFieldConfiguration: TextFieldConfiguration(
-                controller: fromController,
-                style: DefaultTextStyle.of(context)
-                    .style
-                    .copyWith(fontStyle: FontStyle.normal),
-                decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    hintText: "From",
-                    suffixIcon:
-                        IconButton(icon: Consumer(builder: (context, w, _) {
-                      final loading = w(_loadingProvider).state;
-                      return loading
-                          ? const CircularProgressIndicator()
-                          : const FaIcon(FontAwesomeIcons.locationArrow);
-                    }), onPressed: () async {
-                      context.read(_loadingProvider).state = true;
-                      log("wut");
-                      final p = await getCurrentPosition(
-                          desiredAccuracy: LocationAccuracy.high);
-                      log("Position is : $p");
-                      final completions = await context
-                          .read(cffProvider)
-                          .findStation(p.latitude, p.longitude);
-                      log("Found : $completions");
-                      fromController.text = completions.first.label;
-                      context.read(_loadingProvider).state = false;
-                    }))),
-            suggestionsCallback: (pattern) => cff.complete(pattern),
-            itemBuilder: (context, suggestion) => ListTile(
-              leading: CffIcon(suggestion.iconclass),
-              title: Text(suggestion.label),
-              dense: true,
-            ),
-            onSuggestionSelected: (suggestion) =>
-                fromController.text = suggestion.label,
-            noItemsFoundBuilder: (_) => const SizedBox(),
+          child: Row(
+            children: [
+              Expanded(
+                child: TypeAheadField<CffCompletion>(
+                  debounceDuration: const Duration(milliseconds: 500),
+                  textFieldConfiguration: TextFieldConfiguration(
+                      controller: fromController,
+                      style: DefaultTextStyle.of(context)
+                          .style
+                          .copyWith(fontStyle: FontStyle.normal),
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "From",
+                      )),
+                  suggestionsCallback: (pattern) => cff.complete(pattern),
+                  itemBuilder: (context, suggestion) => ListTile(
+                    leading: CffIcon(suggestion.iconclass),
+                    title: Text(suggestion.label),
+                    dense: true,
+                  ),
+                  onSuggestionSelected: (suggestion) =>
+                      fromController.text = suggestion.label,
+                  noItemsFoundBuilder: (_) => const SizedBox(),
+                ),
+              ),
+              const SizedBox(width: 8),
+              IconButton(icon: Consumer(builder: (context, w, _) {
+                final loading = w(_loadingProvider).state;
+                return loading
+                    ? const CircularProgressIndicator()
+                    : const FaIcon(FontAwesomeIcons.locationArrow);
+              }), onPressed: () async {
+                context.read(_loadingProvider).state = true;
+                final p = await getCurrentPosition(
+                    desiredAccuracy: LocationAccuracy.bestForNavigation);
+                log("Position is : $p");
+
+                final completions = await context
+                    .read(cffProvider)
+                    .findStation(p.latitude, p.longitude);
+                log("Found : $completions");
+
+                final first = completions.first;
+                if (first.dist != null) {
+                  fromController.text = completions.first.label;
+                }
+
+                context.read(_loadingProvider).state = false;
+              })
+            ],
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TypeAheadField<CffCompletion>(
-            debounceDuration: const Duration(milliseconds: 500),
-            textFieldConfiguration: TextFieldConfiguration(
-                controller: toController,
-                style: DefaultTextStyle.of(context)
-                    .style
-                    .copyWith(fontStyle: FontStyle.normal),
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), hintText: "To")),
-            suggestionsCallback: (pattern) => cff.complete(pattern),
-            itemBuilder: (context, suggestion) => ListTile(
-              leading: CffIcon(suggestion.iconclass),
-              title: Text(suggestion.label),
-              dense: true,
-            ),
-            onSuggestionSelected: (suggestion) =>
-                toController.text = suggestion.label,
-            noItemsFoundBuilder: (_) => const SizedBox(),
+          child: Row(
+            children: [
+              Expanded(
+                child: TypeAheadField<CffCompletion>(
+                  debounceDuration: const Duration(milliseconds: 500),
+                  textFieldConfiguration: TextFieldConfiguration(
+                      controller: toController,
+                      style: DefaultTextStyle.of(context)
+                          .style
+                          .copyWith(fontStyle: FontStyle.normal),
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(), hintText: "To")),
+                  suggestionsCallback: (pattern) => cff.complete(pattern),
+                  itemBuilder: (context, suggestion) => ListTile(
+                    leading: CffIcon(suggestion.iconclass),
+                    title: Text(suggestion.label),
+                    dense: true,
+                  ),
+                  onSuggestionSelected: (suggestion) =>
+                      toController.text = suggestion.label,
+                  noItemsFoundBuilder: (_) => const SizedBox(),
+                ),
+              ),
+              const SizedBox(width: 8),
+              IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.arrowsAltV),
+                  onPressed: () {
+                    final from = fromController.text;
+                    fromController.text = toController.text;
+                    toController.text = from;
+                  }),
+            ],
           ),
         ),
         Padding(
@@ -123,77 +148,93 @@ class _SearchRouteState extends State<SearchRoute>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              RaisedButton.icon(
-                shape: const StadiumBorder(),
-                onPressed: () async {
-                  final time = await showTimePicker(
-                    context: context,
-                    initialTime: _time,
-                  );
-                  if (time == null) return;
-                  setState(() {
-                    _time = time;
-                  });
-                },
-                icon: const FaIcon(FontAwesomeIcons.clock),
-                label: Text(
-                    "${_time.hour}:${_time.minute.toString().padLeft(2, "0")}"),
-              ),
-              RaisedButton.icon(
-                shape: const StadiumBorder(),
-                onPressed: () async {
-                  final now = DateTime.now();
-                  final dateTime = await showDatePicker(
-                    context: context,
-                    initialDate: _date,
-                    firstDate: now.subtract(const Duration(days: 14)),
-                    lastDate: now.add(const Duration(days: 28)),
-                  );
-                  if (dateTime == null) return;
-                  setState(() {
-                    _date = dateTime;
-                  });
-                },
-                icon: const FaIcon(FontAwesomeIcons.calendar),
-                label: Text("${_date.day}/${_date.month}/${_date.year}"),
-              ),
+              Consumer(builder: (context, w, _) {
+                final _time = w(_timeProvider);
+                return RaisedButton.icon(
+                  shape: const StadiumBorder(),
+                  onPressed: () async {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: _time.state,
+                    );
+                    if (time == null) return;
+                    setState(() {
+                      _time.state = time;
+                    });
+                  },
+                  icon: const FaIcon(FontAwesomeIcons.clock),
+                  label: Text(
+                      "${_time.state.hour}:${_time.state.minute.toString().padLeft(2, "0")}"),
+                );
+              }),
+              Consumer(builder: (context, w, _) {
+                final _date = w(_dateProvider);
+                return RaisedButton.icon(
+                  shape: const StadiumBorder(),
+                  onPressed: () async {
+                    final now = DateTime.now();
+                    final dateTime = await showDatePicker(
+                      context: context,
+                      initialDate: _date.state,
+                      firstDate: now.subtract(const Duration(days: 14)),
+                      lastDate: now.add(const Duration(days: 28)),
+                    );
+                    if (dateTime == null) return;
+                    setState(() => _date.state = dateTime);
+                  },
+                  icon: const FaIcon(FontAwesomeIcons.calendar),
+                  label: Text(
+                      "${_date.state.day}/${_date.state.month}/${_date.state.year}"),
+                );
+              }),
             ],
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              const Text("Depart"),
-              Container(
-                width: 60,
-                height: 30,
-                child: Switch(
-                  value: switchDepart,
-                  onChanged: (value) {
-                    setState(() => switchDepart = value);
-                  },
+          child: Consumer(builder: (context, w, _) {
+            final sw = w(_switchProvider);
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Text(
+                  "Depart",
+                  style:
+                      TextStyle(fontWeight: sw.state ? null : FontWeight.bold),
                 ),
-              ),
-              const Text("Arrivée"),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: RaisedButton.icon(
-                    icon: const FaIcon(FontAwesomeIcons.search),
-                    onPressed: () async {
-                      fnFrom.unfocus();
-                      fnTo.unfocus();
-                      _refreshKey.currentState.show();
+                Container(
+                  width: 60,
+                  height: 30,
+                  child: Switch(
+                    value: sw.state,
+                    onChanged: (value) {
+                      setState(() => sw.state = value);
                     },
-                    shape: const StadiumBorder(),
-                    label: const Text("Search"),
                   ),
                 ),
-              ),
-            ],
-          ),
+                Text(
+                  "Arrivée",
+                  style:
+                      TextStyle(fontWeight: sw.state ? FontWeight.bold : null),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: RaisedButton.icon(
+                      icon: const FaIcon(FontAwesomeIcons.search),
+                      onPressed: () async {
+                        fnFrom.unfocus();
+                        fnTo.unfocus();
+                        _refreshKey.currentState.show();
+                      },
+                      shape: const StadiumBorder(),
+                      label: const Text("Search"),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
         ),
         Expanded(
           child: RefreshIndicator(
@@ -217,9 +258,11 @@ class _SearchRouteState extends State<SearchRoute>
       final CffRoute it = await context.read(cffProvider).route(
             Stop(fromController.text),
             Stop(toController.text),
-            date: _date,
-            time: _time,
-            typeTime: switchDepart ? TimeType.arrival : TimeType.depart,
+            date: context.read(_dateProvider).state,
+            time: context.read(_timeProvider).state,
+            typeTime: context.read(_switchProvider).state
+                ? TimeType.arrival
+                : TimeType.depart,
           );
       setState(() => data = it);
     }

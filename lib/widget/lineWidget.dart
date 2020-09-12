@@ -17,14 +17,15 @@ class LineWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
             color: Color(colorFromString(background) ?? 0xff000000)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
           child: Text(
             line ?? "???",
             style: TextStyle(
               color: Color(colorFromString(foreground) ?? 0xfff0f0f0),
+              fontWeight: FontWeight.bold,
             ),
           ),
         ));

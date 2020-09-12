@@ -35,6 +35,11 @@ class _$StationStatesTearOff {
       error,
     );
   }
+
+// ignore: unused_element
+  NetworkError network() {
+    return const NetworkError();
+  }
 }
 
 // ignore: unused_element
@@ -47,6 +52,7 @@ mixin _$StationStates {
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
     @required Result error(Object error),
+    @required Result network(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -54,6 +60,7 @@ mixin _$StationStates {
     Result completions(List<CffCompletion> completions),
     Result empty(),
     Result error(Object error),
+    Result network(),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -62,6 +69,7 @@ mixin _$StationStates {
     @required Result completions(StationCompletions value),
     @required Result empty(Empty value),
     @required Result error(Error value),
+    @required Result network(NetworkError value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -69,6 +77,7 @@ mixin _$StationStates {
     Result completions(StationCompletions value),
     Result empty(Empty value),
     Result error(Error value),
+    Result network(NetworkError value),
     @required Result orElse(),
   });
 }
@@ -125,11 +134,13 @@ class _$Loading implements Loading {
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
     @required Result error(Object error),
+    @required Result network(),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
     assert(error != null);
+    assert(network != null);
     return loading();
   }
 
@@ -140,6 +151,7 @@ class _$Loading implements Loading {
     Result completions(List<CffCompletion> completions),
     Result empty(),
     Result error(Object error),
+    Result network(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -156,11 +168,13 @@ class _$Loading implements Loading {
     @required Result completions(StationCompletions value),
     @required Result empty(Empty value),
     @required Result error(Error value),
+    @required Result network(NetworkError value),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
     assert(error != null);
+    assert(network != null);
     return loading(this);
   }
 
@@ -171,6 +185,7 @@ class _$Loading implements Loading {
     Result completions(StationCompletions value),
     Result empty(Empty value),
     Result error(Error value),
+    Result network(NetworkError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -249,11 +264,13 @@ class _$StationCompletions implements StationCompletions {
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
     @required Result error(Object error),
+    @required Result network(),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
     assert(error != null);
+    assert(network != null);
     return completions(this.completions);
   }
 
@@ -264,6 +281,7 @@ class _$StationCompletions implements StationCompletions {
     Result completions(List<CffCompletion> completions),
     Result empty(),
     Result error(Object error),
+    Result network(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -280,11 +298,13 @@ class _$StationCompletions implements StationCompletions {
     @required Result completions(StationCompletions value),
     @required Result empty(Empty value),
     @required Result error(Error value),
+    @required Result network(NetworkError value),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
     assert(error != null);
+    assert(network != null);
     return completions(this);
   }
 
@@ -295,6 +315,7 @@ class _$StationCompletions implements StationCompletions {
     Result completions(StationCompletions value),
     Result empty(Empty value),
     Result error(Error value),
+    Result network(NetworkError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -350,11 +371,13 @@ class _$Empty implements Empty {
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
     @required Result error(Object error),
+    @required Result network(),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
     assert(error != null);
+    assert(network != null);
     return empty();
   }
 
@@ -365,6 +388,7 @@ class _$Empty implements Empty {
     Result completions(List<CffCompletion> completions),
     Result empty(),
     Result error(Object error),
+    Result network(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -381,11 +405,13 @@ class _$Empty implements Empty {
     @required Result completions(StationCompletions value),
     @required Result empty(Empty value),
     @required Result error(Error value),
+    @required Result network(NetworkError value),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
     assert(error != null);
+    assert(network != null);
     return empty(this);
   }
 
@@ -396,6 +422,7 @@ class _$Empty implements Empty {
     Result completions(StationCompletions value),
     Result empty(Empty value),
     Result error(Error value),
+    Result network(NetworkError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -468,11 +495,13 @@ class _$Error implements Error {
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
     @required Result error(Object error),
+    @required Result network(),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
     assert(error != null);
+    assert(network != null);
     return error(this.error);
   }
 
@@ -483,6 +512,7 @@ class _$Error implements Error {
     Result completions(List<CffCompletion> completions),
     Result empty(),
     Result error(Object error),
+    Result network(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -499,11 +529,13 @@ class _$Error implements Error {
     @required Result completions(StationCompletions value),
     @required Result empty(Empty value),
     @required Result error(Error value),
+    @required Result network(NetworkError value),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
     assert(error != null);
+    assert(network != null);
     return error(this);
   }
 
@@ -514,6 +546,7 @@ class _$Error implements Error {
     Result completions(StationCompletions value),
     Result empty(Empty value),
     Result error(Error value),
+    Result network(NetworkError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -529,4 +562,109 @@ abstract class Error implements StationStates {
 
   Object get error;
   $ErrorCopyWith<Error> get copyWith;
+}
+
+abstract class $NetworkErrorCopyWith<$Res> {
+  factory $NetworkErrorCopyWith(
+          NetworkError value, $Res Function(NetworkError) then) =
+      _$NetworkErrorCopyWithImpl<$Res>;
+}
+
+class _$NetworkErrorCopyWithImpl<$Res> extends _$StationStatesCopyWithImpl<$Res>
+    implements $NetworkErrorCopyWith<$Res> {
+  _$NetworkErrorCopyWithImpl(
+      NetworkError _value, $Res Function(NetworkError) _then)
+      : super(_value, (v) => _then(v as NetworkError));
+
+  @override
+  NetworkError get _value => super._value as NetworkError;
+}
+
+class _$NetworkError implements NetworkError {
+  const _$NetworkError();
+
+  @override
+  String toString() {
+    return 'StationStates.network()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is NetworkError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result loading(),
+    @required Result completions(List<CffCompletion> completions),
+    @required Result empty(),
+    @required Result error(Object error),
+    @required Result network(),
+  }) {
+    assert(loading != null);
+    assert(completions != null);
+    assert(empty != null);
+    assert(error != null);
+    assert(network != null);
+    return network();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result loading(),
+    Result completions(List<CffCompletion> completions),
+    Result empty(),
+    Result error(Object error),
+    Result network(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (network != null) {
+      return network();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result loading(Loading value),
+    @required Result completions(StationCompletions value),
+    @required Result empty(Empty value),
+    @required Result error(Error value),
+    @required Result network(NetworkError value),
+  }) {
+    assert(loading != null);
+    assert(completions != null);
+    assert(empty != null);
+    assert(error != null);
+    assert(network != null);
+    return network(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result loading(Loading value),
+    Result completions(StationCompletions value),
+    Result empty(Empty value),
+    Result error(Error value),
+    Result network(NetworkError value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (network != null) {
+      return network(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NetworkError implements StationStates {
+  const factory NetworkError() = _$NetworkError;
 }

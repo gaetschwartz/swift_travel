@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -116,6 +117,20 @@ class _SearchByNameState extends State<SearchByName>
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
+                    network: (value) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const FaIcon(
+                          Icons.wifi_off,
+                          size: 48,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          "Netork Error",
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ],
+                    ),
                   );
             }),
           ),
@@ -129,6 +144,8 @@ class _SearchByNameState extends State<SearchByName>
       final cs = await context.read(cffProvider).complete(s);
       context.read(_stateProvider).state =
           StationStates.completions(cs.where((c) => c.label != null).toList());
+    } on SocketException {
+      context.read(_stateProvider).state = const StationStates.network();
     } catch (e) {
       context.read(_stateProvider).state = StationStates.error(e);
     }
