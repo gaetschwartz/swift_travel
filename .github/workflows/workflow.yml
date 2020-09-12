@@ -61,7 +61,7 @@ jobs:
         id: git-data
         run: |
           echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
-          echo "::set-output name=msg::$(printf "%q" "$(git log -1 --pretty=format:"%s")")"
+          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
           echo "::set-output name=nbr::$GITHUB_RUN_NUMBER"
       - name: Create Release
         id: create_release
@@ -70,7 +70,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ steps.git-data.outputs.hash }}
-          release_name: CI Build \#$GITHUB_RUN_NUMBER
+          release_name: |
+            CI Build #${{ steps.git-data.outputs.nbr }}
           body: |
             *This is an automated CI build for ${{ steps.git-data.outputs.hash }}.*
 
