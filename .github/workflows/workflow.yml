@@ -16,7 +16,7 @@ jobs:
   build-android:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    name: Build and deploy Android to Github Releases
+    name: Deploy Android to Github Releases
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -90,7 +90,7 @@ jobs:
           asset_name: travel-free-${{ steps.git-data.outputs.nbr }}.apk
           asset_content_type: application/vnd.android.package-archive
   deploy:
-    name: Build and deploy to Testflight
+    name: Deploy to Testflight
     runs-on: macos-latest
     steps:
       - name: Checkout repository
