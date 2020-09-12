@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -151,9 +152,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       initialTime: _time.state,
                     );
                     if (time == null) return;
-                    setState(() {
-                      _time.state = time;
-                    });
+                    _time.state = time;
                   },
                   icon: const FaIcon(FontAwesomeIcons.clock),
                   label:
@@ -173,7 +172,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       lastDate: now.add(const Duration(days: 28)),
                     );
                     if (dateTime == null) return;
-                    setState(() => _date.state = dateTime);
+                    _date.state = dateTime;
                   },
                   icon: const FaIcon(FontAwesomeIcons.calendar),
                   label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
@@ -198,9 +197,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                   height: 30,
                   child: Switch(
                     value: sw.state,
-                    onChanged: (value) {
-                      setState(() => sw.state = value);
-                    },
+                    onChanged: (value) => sw.state = value,
                   ),
                 ),
                 Text(
@@ -288,14 +285,20 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
 
   Future<void> searchData() async {
     if (fromController.text.length > 2 && toController.text.length > 2) {
-      final CffRoute it = await context.read(cffProvider).route(
-            Stop(fromController.text),
-            Stop(toController.text),
-            date: context.read(_dateProvider).state,
-            time: context.read(_timeProvider).state,
-            typeTime: context.read(_switchProvider).state ? TimeType.arrival : TimeType.depart,
-          );
-      context.read(_routesProvider).state = RouteStates.routes(it);
+      try {
+        final CffRoute it = await context.read(cffProvider).route(
+              Stop(fromController.text),
+              Stop(toController.text),
+              date: context.read(_dateProvider).state,
+              time: context.read(_timeProvider).state,
+              typeTime: context.read(_switchProvider).state ? TimeType.arrival : TimeType.depart,
+            );
+        context.read(_routesProvider).state = RouteStates.routes(it);
+      } on SocketException {
+        context.read(_routesProvider).state = const RouteStates.network();
+      } catch (e) {
+        context.read(_routesProvider).state = RouteStates.error(e);
+      }
     }
   }
 
