@@ -100,7 +100,7 @@ jobs:
       - name: Setup provisioning profile
         env:
           IOS_KEYS: ${{ secrets.IOS_KEYS }}
-        run: ./CI/decrypt_secrets.sh
+        run: chmod +x CI/decrypt_secrets.sh && bash CI/decrypt_secrets.sh
       - name: Get latest Flutter release
         id: release_json
         run: echo "::set-output name=json::$(curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_linux.json" | jq -r ".current_release.${{ env.flutter_channel }}")"
@@ -141,10 +141,10 @@ jobs:
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
           echo "::set-output name=nbr::$GITHUB_RUN_NUMBER"
       - name: Exporting .ipa
-        run: ./CI/export_ipa.sh
+        run: chmod + x CI/export_ipa.sh && ./CI/export_ipa.sh
       - name: Publishing app
         if: success()
         env:
           APPLEID_USERNAME: ${{ secrets.APPLEID_USERNAME }}
           APPLEID_PASSWORD: ${{ secrets.APPLEID_PASSWORD }}
-        run: ./CI/publish_testflight.sh
+        run: chmod + x CI/publish_testflight.sh ./CI/publish_testflight.sh
