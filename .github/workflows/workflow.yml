@@ -75,7 +75,7 @@ jobs:
           body: |
             *This is an automated CI build for ${{ steps.git-data.outputs.hash }}.*
 
-            ${{ steps.git-data.outputs.msg }}
+            `${{ steps.git-data.outputs.msg }}`
           draft: false
           prerelease: true
       - name: Upload Release Asset
