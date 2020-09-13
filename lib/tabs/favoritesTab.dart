@@ -21,16 +21,12 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
     _store = context.read(favoritesProvider) as LocalStore;
     _cff = context.read(cffProvider) as CffRepository;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      loadFavorites();
+      _store.getFavorites();
     });
   }
 
   @override
   bool get wantKeepAlive => true;
-
-  Future<void> loadFavorites() async {
-    await _store.getFavorites();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +43,7 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
         child: const FaIcon(FontAwesomeIcons.plus),
       ),
       body: RefreshIndicator(
-          onRefresh: () => loadFavorites(),
+          onRefresh: () => _store.getFavorites(notify: false),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Consumer(builder: (context, w, _) {
@@ -59,7 +55,7 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
                   mainAxisSpacing: 8,
                   children: List.generate(
                     data.completions.length,
-                    (i) => _FavoriteTile(data.completions[i], loadFavorites),
+                    (i) => _FavoriteTile(data.completions[i], () => _store.getFavorites()),
                   ),
                 ),
                 loading: (_) => const Center(
@@ -93,9 +89,7 @@ class _FavoriteTile extends StatelessWidget {
     return Card(
       color: Theme.of(context).primaryColor,
       child: InkWell(
-        onLongPress: () async {
-          await context.read(favoritesProvider).deleteFavorite(stop);
-        },
+        onLongPress: () => context.read(favoritesProvider).deleteFavorite(stop),
         child: Center(
           child: Text(stop.label),
         ),

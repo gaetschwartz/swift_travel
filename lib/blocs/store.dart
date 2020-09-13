@@ -30,7 +30,6 @@ class LocalStore implements StoreBase {
   @override
   Future<List<CffCompletion>> getFavorites({bool notify = true}) async {
     if (notify) ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
-
     _prefs = await SharedPreferences.getInstance();
     final List<String> favsIds = _prefs.getStringList("favoritesStop") ?? [];
     final List<CffCompletion> lComp = [];
