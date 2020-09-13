@@ -117,9 +117,8 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: ${{ env.flutter_channel }}
-      - name: Flutter doctor
+      - name: Echo flutter path
         run: |
-          flutter doctor -v
           echo $FLUTTER_HOME
       - name: Setup Flutter
         run: |
