@@ -110,7 +110,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            /opt/hostedtoolcache/flutter
+            $HOME/hostedtoolcache/flutter
             $HOME/.pub-cache
           key: ${{ runner.OS }}-flutter-cache-${{ steps.release_json.outputs.json }}
       - name: Install Flutter
