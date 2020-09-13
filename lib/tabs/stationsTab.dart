@@ -96,26 +96,27 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                     ),
                     empty: (_) => Consumer(
                         builder: (context, w, _) => w(favoritesStatesProvider).state.map(
-                              data: (c) => ListView.separated(
-                                itemBuilder: (context, i) => CffCompletionTile(
-                                  c.completions[i],
-                                  isFav: true,
-                                ),
-                                separatorBuilder: (context, i) => const Divider(),
-                                itemCount: c.completions == null ? 0 : c.completions.length,
-                              ),
+                              data: (c) => c.completions.isEmpty
+                                  ? Center(
+                                      child: Text(
+                                        "No favorites",
+                                        style: Theme.of(context).textTheme.headline6,
+                                      ),
+                                    )
+                                  : ListView.separated(
+                                      itemBuilder: (context, i) => CffCompletionTile(
+                                        c.completions[i],
+                                        isFav: true,
+                                      ),
+                                      separatorBuilder: (context, i) => const Divider(),
+                                      itemCount: c.completions == null ? 0 : c.completions.length,
+                                    ),
                               loading: (_) => const Center(
                                 child: CircularProgressIndicator(),
                               ),
                               error: (e) => Center(
                                 child: Text(
                                   e.toString(),
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
-                              ),
-                              empty: (_) => Center(
-                                child: Text(
-                                  "No favorites",
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
                               ),

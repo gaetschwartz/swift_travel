@@ -71,12 +71,6 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
-                empty: (_) => Center(
-                  child: Text(
-                    "No favorites",
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ),
               );
             }),
           )),

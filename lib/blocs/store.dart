@@ -12,7 +12,7 @@ abstract class StoreBase {
 
 final favoritesProvider = Provider<StoreBase>((r) => LocalStore(r));
 final favoritesStatesProvider =
-    StateProvider<FavoritesStates>((_) => const FavoritesStates.empty());
+    StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());
 
 class LocalStore implements StoreBase {
   final ProviderReference ref;

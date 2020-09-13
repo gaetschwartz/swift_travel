@@ -8,5 +8,4 @@ abstract class FavoritesStates with _$FavoritesStates {
   const factory FavoritesStates.data(List<CffCompletion> completions) = Data;
   const factory FavoritesStates.loading() = Loading;
   const factory FavoritesStates.error(Object error) = Error;
-  const factory FavoritesStates.empty() = Empty;
 }

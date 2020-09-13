@@ -30,11 +30,6 @@ class _$FavoritesStatesTearOff {
       error,
     );
   }
-
-// ignore: unused_element
-  Empty empty() {
-    return const Empty();
-  }
 }
 
 // ignore: unused_element
@@ -46,14 +41,12 @@ mixin _$FavoritesStates {
     @required Result data(List<CffCompletion> completions),
     @required Result loading(),
     @required Result error(Object error),
-    @required Result empty(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result data(List<CffCompletion> completions),
     Result loading(),
     Result error(Object error),
-    Result empty(),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -61,14 +54,12 @@ mixin _$FavoritesStates {
     @required Result data(Data value),
     @required Result loading(Loading value),
     @required Result error(Error value),
-    @required Result empty(Empty value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result data(Data value),
     Result loading(Loading value),
     Result error(Error value),
-    Result empty(Empty value),
     @required Result orElse(),
   });
 }
@@ -148,12 +139,10 @@ class _$Data implements Data {
     @required Result data(List<CffCompletion> completions),
     @required Result loading(),
     @required Result error(Object error),
-    @required Result empty(),
   }) {
     assert(data != null);
     assert(loading != null);
     assert(error != null);
-    assert(empty != null);
     return data(completions);
   }
 
@@ -163,7 +152,6 @@ class _$Data implements Data {
     Result data(List<CffCompletion> completions),
     Result loading(),
     Result error(Object error),
-    Result empty(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -179,12 +167,10 @@ class _$Data implements Data {
     @required Result data(Data value),
     @required Result loading(Loading value),
     @required Result error(Error value),
-    @required Result empty(Empty value),
   }) {
     assert(data != null);
     assert(loading != null);
     assert(error != null);
-    assert(empty != null);
     return data(this);
   }
 
@@ -194,7 +180,6 @@ class _$Data implements Data {
     Result data(Data value),
     Result loading(Loading value),
     Result error(Error value),
-    Result empty(Empty value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -248,12 +233,10 @@ class _$Loading implements Loading {
     @required Result data(List<CffCompletion> completions),
     @required Result loading(),
     @required Result error(Object error),
-    @required Result empty(),
   }) {
     assert(data != null);
     assert(loading != null);
     assert(error != null);
-    assert(empty != null);
     return loading();
   }
 
@@ -263,7 +246,6 @@ class _$Loading implements Loading {
     Result data(List<CffCompletion> completions),
     Result loading(),
     Result error(Object error),
-    Result empty(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -279,12 +261,10 @@ class _$Loading implements Loading {
     @required Result data(Data value),
     @required Result loading(Loading value),
     @required Result error(Error value),
-    @required Result empty(Empty value),
   }) {
     assert(data != null);
     assert(loading != null);
     assert(error != null);
-    assert(empty != null);
     return loading(this);
   }
 
@@ -294,7 +274,6 @@ class _$Loading implements Loading {
     Result data(Data value),
     Result loading(Loading value),
     Result error(Error value),
-    Result empty(Empty value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -366,12 +345,10 @@ class _$Error implements Error {
     @required Result data(List<CffCompletion> completions),
     @required Result loading(),
     @required Result error(Object error),
-    @required Result empty(),
   }) {
     assert(data != null);
     assert(loading != null);
     assert(error != null);
-    assert(empty != null);
     return error(this.error);
   }
 
@@ -381,7 +358,6 @@ class _$Error implements Error {
     Result data(List<CffCompletion> completions),
     Result loading(),
     Result error(Object error),
-    Result empty(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -397,12 +373,10 @@ class _$Error implements Error {
     @required Result data(Data value),
     @required Result loading(Loading value),
     @required Result error(Error value),
-    @required Result empty(Empty value),
   }) {
     assert(data != null);
     assert(loading != null);
     assert(error != null);
-    assert(empty != null);
     return error(this);
   }
 
@@ -412,7 +386,6 @@ class _$Error implements Error {
     Result data(Data value),
     Result loading(Loading value),
     Result error(Error value),
-    Result empty(Empty value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -428,101 +401,4 @@ abstract class Error implements FavoritesStates {
 
   Object get error;
   $ErrorCopyWith<Error> get copyWith;
-}
-
-abstract class $EmptyCopyWith<$Res> {
-  factory $EmptyCopyWith(Empty value, $Res Function(Empty) then) =
-      _$EmptyCopyWithImpl<$Res>;
-}
-
-class _$EmptyCopyWithImpl<$Res> extends _$FavoritesStatesCopyWithImpl<$Res>
-    implements $EmptyCopyWith<$Res> {
-  _$EmptyCopyWithImpl(Empty _value, $Res Function(Empty) _then)
-      : super(_value, (v) => _then(v as Empty));
-
-  @override
-  Empty get _value => super._value as Empty;
-}
-
-class _$Empty implements Empty {
-  const _$Empty();
-
-  @override
-  String toString() {
-    return 'FavoritesStates.empty()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Empty);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result data(List<CffCompletion> completions),
-    @required Result loading(),
-    @required Result error(Object error),
-    @required Result empty(),
-  }) {
-    assert(data != null);
-    assert(loading != null);
-    assert(error != null);
-    assert(empty != null);
-    return empty();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result data(List<CffCompletion> completions),
-    Result loading(),
-    Result error(Object error),
-    Result empty(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (empty != null) {
-      return empty();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result data(Data value),
-    @required Result loading(Loading value),
-    @required Result error(Error value),
-    @required Result empty(Empty value),
-  }) {
-    assert(data != null);
-    assert(loading != null);
-    assert(error != null);
-    assert(empty != null);
-    return empty(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result data(Data value),
-    Result loading(Loading value),
-    Result error(Error value),
-    Result empty(Empty value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (empty != null) {
-      return empty(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Empty implements FavoritesStates {
-  const factory Empty() = _$Empty;
 }
