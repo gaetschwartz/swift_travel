@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Java
-        if: ${{ env.build_android == 'true' }}
+        if: env.build_android == 'true'
         uses: actions/setup-java@v1
         with:
           java-version: ${{ env.java_version }}

@@ -66,6 +66,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "From",
+                        isDense: true,
                       )),
                   suggestionsCallback: (pattern) => cff.complete(pattern),
                   itemBuilder: (context, suggestion) => ListTile(
@@ -114,8 +115,11 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       controller: toController,
                       style:
                           DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-                      decoration:
-                          const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "To",
+                        isDense: true,
+                      )),
                   suggestionsCallback: (pattern) => cff.complete(pattern),
                   itemBuilder: (context, suggestion) => ListTile(
                     leading: CffIcon.fromIconClass(suggestion.iconclass),
@@ -137,91 +141,105 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
             ],
           ),
         ),
-        Padding(
+        Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          height: 48,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Consumer(builder: (context, w, _) {
-                final _time = w(_timeProvider);
-                return RaisedButton.icon(
-                  shape: const StadiumBorder(),
-                  onPressed: () async {
-                    final time = await showTimePicker(
-                      context: context,
-                      initialTime: _time.state,
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: Consumer(builder: (context, w, _) {
+                    final sw = w(_switchProvider);
+                    return DropdownButton<bool>(
+                      underline: const SizedBox(),
+                      items: const [
+                        DropdownMenuItem(
+                          value: false,
+                          child: Text("Depart"),
+                        ),
+                        DropdownMenuItem(
+                          value: true,
+                          child: Text("Arrivée"),
+                        ),
+                      ],
+                      onChanged: (v) => sw.state = v,
+                      value: sw.state,
                     );
-                    if (time == null) return;
-                    _time.state = time;
-                  },
-                  icon: const FaIcon(FontAwesomeIcons.clock),
-                  label:
-                      Text("${_time.state.hour}:${_time.state.minute.toString().padLeft(2, "0")}"),
-                );
-              }),
-              Consumer(builder: (context, w, _) {
-                final _date = w(_dateProvider);
-                return RaisedButton.icon(
-                  shape: const StadiumBorder(),
-                  onPressed: () async {
-                    final now = DateTime.now();
-                    final dateTime = await showDatePicker(
-                      context: context,
-                      initialDate: _date.state,
-                      firstDate: now.subtract(const Duration(days: 14)),
-                      lastDate: now.add(const Duration(days: 28)),
-                    );
-                    if (dateTime == null) return;
-                    _date.state = dateTime;
-                  },
-                  icon: const FaIcon(FontAwesomeIcons.calendar),
-                  label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
-                );
-              }),
+                  }),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Consumer(builder: (context, w, _) {
+                  final _time = w(_timeProvider);
+                  return FlatButton.icon(
+                    onPressed: () async {
+                      final time = await showTimePicker(
+                        context: context,
+                        initialTime: _time.state,
+                      );
+                      if (time == null) return;
+                      _time.state = time;
+                    },
+                    icon: const FaIcon(
+                      FontAwesomeIcons.clock,
+                      size: 16,
+                    ),
+                    label: Text(
+                        "${_time.state.hour}:${_time.state.minute.toString().padLeft(2, "0")}"),
+                  );
+                }),
+              ),
+              Expanded(
+                flex: 3,
+                child: Consumer(builder: (context, w, _) {
+                  final _date = w(_dateProvider);
+                  return FlatButton.icon(
+                    onPressed: () async {
+                      final now = DateTime.now();
+                      final dateTime = await showDatePicker(
+                        context: context,
+                        initialDate: _date.state,
+                        firstDate: now.subtract(const Duration(days: 14)),
+                        lastDate: now.add(const Duration(days: 28)),
+                      );
+                      if (dateTime == null) return;
+                      _date.state = dateTime;
+                    },
+                    icon: const FaIcon(
+                      FontAwesomeIcons.calendar,
+                      size: 16,
+                    ),
+                    label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
+                  );
+                }),
+              ),
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Consumer(builder: (context, w, _) {
-            final sw = w(_switchProvider);
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Text(
-                  "Depart",
-                  style: TextStyle(fontWeight: sw.state ? null : FontWeight.bold),
-                ),
-                Container(
-                  width: 60,
-                  height: 30,
-                  child: Switch(
-                    value: sw.state,
-                    onChanged: (value) => sw.state = value,
-                  ),
-                ),
-                Text(
-                  "Arrivée",
-                  style: TextStyle(fontWeight: sw.state ? FontWeight.bold : null),
-                ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: RaisedButton.icon(
-                      icon: const FaIcon(FontAwesomeIcons.search),
-                      onPressed: () async {
-                        fnFrom.unfocus();
-                        fnTo.unfocus();
-                        _refreshKey.currentState.show();
-                      },
-                      shape: const StadiumBorder(),
-                      label: const Text("Search"),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }),
+        Center(
+          child: DecoratedBox(
+            decoration: const BoxDecoration(boxShadow: [
+              BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8))
+            ]),
+            child: FlatButton.icon(
+              padding: const EdgeInsets.symmetric(horizontal: 48),
+              height: 48,
+              highlightColor: const Color(0x260700b1),
+              icon: const FaIcon(FontAwesomeIcons.search),
+              onPressed: () async {
+                fnFrom.unfocus();
+                fnTo.unfocus();
+                _refreshKey.currentState.show();
+              },
+              shape: const StadiumBorder(),
+              color: Theme.of(context).scaffoldBackgroundColor,
+              label: const Text("Search"),
+            ),
+          ),
         ),
         Expanded(
           child: RefreshIndicator(
