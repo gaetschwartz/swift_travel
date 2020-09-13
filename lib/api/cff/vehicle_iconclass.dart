@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:travel_free/api/cff/types_enum.dart';
+import 'package:swiss_travel/api/cff/types_enum.dart';
 
 part 'vehicle_iconclass.freezed.dart';
 part 'vehicle_iconclass.g.dart';

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:travel_free/api/cff/terminal.dart';
-import 'package:travel_free/api/cff/types_enum.dart';
+import 'package:swiss_travel/api/cff/terminal.dart';
+import 'package:swiss_travel/api/cff/types_enum.dart';
 
 part 'stationboard_connection.freezed.dart';
 part 'stationboard_connection.g.dart';

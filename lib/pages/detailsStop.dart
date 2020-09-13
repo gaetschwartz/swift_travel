@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:travel_free/api/cff/cff_stationboard.dart';
-import 'package:travel_free/api/cff/stationboard_connection.dart';
-import 'package:travel_free/blocs/cff.dart';
-import 'package:travel_free/utils/format.dart';
-import 'package:travel_free/widget/icon.dart';
-import 'package:travel_free/widget/lineWidget.dart';
+import 'package:swiss_travel/api/cff/cff_stationboard.dart';
+import 'package:swiss_travel/api/cff/stationboard_connection.dart';
+import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/utils/format.dart';
+import 'package:swiss_travel/widget/icon.dart';
+import 'package:swiss_travel/widget/lineWidget.dart';
 
 class DetailsStop extends StatefulWidget {
   final String stopName;
@@ -38,7 +38,7 @@ class _DetailsStopState extends State<DetailsStop> {
                   ? ListView.separated(
                       separatorBuilder: (c, i) => const Divider(),
                       itemCount: data.connections.length,
-                      itemBuilder: (context, i) => ConnectionTile(connection: data.connections[i]),
+                      itemBuilder: (context, i) => ConnectionTile(c: data.connections[i]),
                     )
                   : Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -68,35 +68,40 @@ class _DetailsStopState extends State<DetailsStop> {
 }
 
 class ConnectionTile extends StatelessWidget {
-  final StationboardConnection connection;
+  final StationboardConnection c;
 
-  const ConnectionTile({Key key, @required this.connection}) : super(key: key);
+  const ConnectionTile({Key key, @required this.c}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final diff = connection.time.difference(DateTime.now());
+    final diff = c.time.difference(DateTime.now());
     return ListTile(
       title: Row(
         children: [
           LineWidget(
-            background: connection.color.split("~").first,
-            foreground: connection.color.split("~")[1],
-            line: connection.line,
+            background: c.color.split("~").first,
+            foreground: c.color.split("~")[1],
+            line: c.line,
           ),
           const SizedBox(width: 8),
-          Text(
-            connection.terminal.name,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          )
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                c.terminal.name,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
         ],
       ),
       subtitle: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           children: <Widget>[
-            CffIcon(connection.type, size: 16),
+            CffIcon(c.type, size: 16),
             const SizedBox(width: 8),
             Text(
-              connection.number ?? "???",
+              c.number ?? "???",
               style: const TextStyle(fontSize: 14),
             ),
           ],

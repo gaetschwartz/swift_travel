@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel_free/api/cff/cff_completion.dart';
-import 'package:travel_free/blocs/cff.dart';
-import 'package:travel_free/models/favorites_states.dart';
+import 'package:swiss_travel/api/cff/cff_completion.dart';
+import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/models/favorites_states.dart';
 
 abstract class StoreBase {
   Future<List<CffCompletion>> getFavorites({bool notify = true});

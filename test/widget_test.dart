@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:travel_free/utils/format.dart';
+import 'package:swiss_travel/utils/format.dart';
 
 void main() {
   test("Test color", () {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:travel_free/api/cff/cff_completion.dart';
-import 'package:travel_free/blocs/cff.dart';
-import 'package:travel_free/blocs/store.dart';
-import 'package:travel_free/widget/input.dart';
+import 'package:swiss_travel/api/cff/cff_completion.dart';
+import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/blocs/store.dart';
+import 'package:swiss_travel/widget/input.dart';
 
 class SearchFavorite extends StatefulWidget {
   @override
@@ -66,14 +66,10 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
                             ),
                           ],
                         )
-                      : GridView.count(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                          children: List.generate(
-                            c.completions.length,
-                            (i) => _FavoriteTile(c.completions[i], () => _store.getFavorites()),
-                          ),
+                      : ListView.builder(
+                          itemCount: c.completions.length,
+                          itemBuilder: (context, i) =>
+                              _FavoriteTile(c.completions[i], () => _store.getFavorites()),
                         ),
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),
@@ -104,14 +100,11 @@ class _FavoriteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Theme.of(context).primaryColor,
-      child: InkWell(
-        onLongPress: () => context.read(favoritesProvider).deleteFavorite(stop),
-        child: Center(
-          child: Text(stop.label),
-        ),
-      ),
+    return ListTile(
+      trailing: IconButton(
+          icon: const FaIcon(FontAwesomeIcons.trash),
+          onPressed: () => context.read(favoritesProvider).deleteFavorite(stop)),
+      title: Text(stop.label),
     );
   }
 }

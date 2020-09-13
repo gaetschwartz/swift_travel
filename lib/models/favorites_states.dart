@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:travel_free/api/cff/cff_completion.dart';
+import 'package:swiss_travel/api/cff/cff_completion.dart';
 
 part 'favorites_states.freezed.dart';
 

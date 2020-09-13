@@ -5,12 +5,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:travel_free/api/cff/cff_completion.dart';
-import 'package:travel_free/blocs/cff.dart';
-import 'package:travel_free/blocs/store.dart';
-import 'package:travel_free/models/station_states.dart';
-import 'package:travel_free/pages/detailsStop.dart';
-import 'package:travel_free/widget/icon.dart';
+import 'package:swiss_travel/api/cff/cff_completion.dart';
+import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/blocs/store.dart';
+import 'package:swiss_travel/models/station_states.dart';
+import 'package:swiss_travel/pages/detailsStop.dart';
+import 'package:swiss_travel/widget/icon.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 

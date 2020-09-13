@@ -1,4 +1,4 @@
-# travel_free
+# swiss_travel
 
 A new Flutter project.
 

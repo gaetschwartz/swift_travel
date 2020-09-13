@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_free/api/cff/leg.dart';
+import 'package:swiss_travel/api/cff/leg.dart';
 
 class DetailsLegs extends StatelessWidget {
   final Leg leg;

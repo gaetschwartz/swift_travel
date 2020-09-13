@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travel_free/tabs/favoritesTab.dart';
-import 'package:travel_free/tabs/routeTab.dart';
-import 'package:travel_free/tabs/stationsTab.dart';
+import 'package:swiss_travel/tabs/favoritesTab.dart';
+import 'package:swiss_travel/tabs/routeTab.dart';
+import 'package:swiss_travel/tabs/stationsTab.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,8 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
-        title: 'Travel free',
-        theme: ThemeData(primarySwatch: Colors.teal, fontFamily: GoogleFonts.lato().fontFamily),
+        title: 'Swiss Travel',
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+          fontFamily: GoogleFonts.lato().fontFamily,
+        ),
         darkTheme: ThemeData(
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
@@ -50,13 +53,13 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Travel Free"),
+        title: const Text("Swiss Travel"),
         bottom: TabBar(
           controller: _controller,
           tabs: const [
             Tab(icon: FaIcon(FontAwesomeIcons.search)),
             Tab(icon: FaIcon(FontAwesomeIcons.route)),
-            Tab(icon: Icon(Icons.favorite)),
+            Tab(icon: FaIcon(FontAwesomeIcons.solidStar)),
           ],
         ),
       ),

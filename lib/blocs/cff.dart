@@ -5,11 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:travel_free/api/cff.dart';
-import 'package:travel_free/api/cff/cff_completion.dart';
-import 'package:travel_free/api/cff/cff_route.dart';
-import 'package:travel_free/api/cff/cff_stationboard.dart';
-import 'package:travel_free/api/cff/stop.dart';
+import 'package:swiss_travel/api/cff.dart';
+import 'package:swiss_travel/api/cff/cff_completion.dart';
+import 'package:swiss_travel/api/cff/cff_route.dart';
+import 'package:swiss_travel/api/cff/cff_stationboard.dart';
+import 'package:swiss_travel/api/cff/stop.dart';
 
 final Provider<CffBase> cffProvider = Provider<CffBase>((ref) => CffRepository._());
 
@@ -18,6 +18,8 @@ class CffRepository implements CffBase {
   final http.Client _client = http.Client();
 
   CffRepository._();
+
+  Map<String, String> headers = {"accept-language": "en"};
 
   @override
   Future<List<CffCompletion>> complete(
@@ -34,7 +36,7 @@ class CffRepository implements CffBase {
       "nofavorites": nofavorites.toInt()
     });
 
-    final response = await _client.get(uri);
+    final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
@@ -65,7 +67,7 @@ class CffRepository implements CffBase {
       "show_coordinates": showCoordinates.toInt()
     });
 
-    final response = await _client.get(uri);
+    final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
@@ -100,7 +102,7 @@ class CffRepository implements CffBase {
     if (when != null) print("TODO");
     final s = builder.build("stationboard", params);
     print(s);
-    final response = await _client.get(s, headers: {"accept-language": "en"});
+    final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
@@ -127,7 +129,7 @@ class CffRepository implements CffBase {
 
     final s = builder.build("route", params);
     print("builder : $s");
-    final response = await _client.get(s);
+    final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }

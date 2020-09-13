@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:travel_free/api/cff/located_stop.dart';
-import 'package:travel_free/api/cff/stationboard_connection.dart';
+import 'package:swiss_travel/api/cff/located_stop.dart';
+import 'package:swiss_travel/api/cff/stationboard_connection.dart';
 
 part 'cff_stationboard.freezed.dart';
 part 'cff_stationboard.g.dart';

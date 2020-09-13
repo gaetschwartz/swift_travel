@@ -7,16 +7,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:travel_free/api/cff/cff_completion.dart';
-import 'package:travel_free/api/cff/cff_route.dart';
-import 'package:travel_free/api/cff/leg.dart';
-import 'package:travel_free/api/cff/route_connection.dart';
-import 'package:travel_free/api/cff/stop.dart';
-import 'package:travel_free/blocs/cff.dart';
-import 'package:travel_free/models/route_states.dart';
-import 'package:travel_free/pages/detailsRoute.dart';
-import 'package:travel_free/utils/format.dart';
-import 'package:travel_free/widget/icon.dart';
+import 'package:swiss_travel/api/cff/cff_completion.dart';
+import 'package:swiss_travel/api/cff/cff_route.dart';
+import 'package:swiss_travel/api/cff/leg.dart';
+import 'package:swiss_travel/api/cff/route_connection.dart';
+import 'package:swiss_travel/api/cff/stop.dart';
+import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/models/route_states.dart';
+import 'package:swiss_travel/pages/detailsRoute.dart';
+import 'package:swiss_travel/utils/format.dart';
+import 'package:swiss_travel/widget/icon.dart';
 
 final _loadingProvider = StateProvider((_) => false);
 final _switchProvider = StateProvider((_) => false);
@@ -59,7 +59,10 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                 child: TypeAheadField<CffCompletion>(
                   debounceDuration: const Duration(milliseconds: 500),
                   textFieldConfiguration: TextFieldConfiguration(
+                      focusNode: fnFrom,
                       controller: fromController,
+                      onSubmitted: (_) => fnTo.requestFocus(),
+                      textInputAction: TextInputAction.next,
                       style:
                           DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
                       decoration: const InputDecoration(
@@ -91,9 +94,9 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
 
                 final completions =
                     await context.read(cffProvider).findStation(p.latitude, p.longitude);
-                log("Found : $completions");
 
                 final first = completions.first;
+                log("Found : $first");
                 if (first.dist != null) {
                   fromController.text = completions.first.label;
                 }
@@ -111,6 +114,9 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                 child: TypeAheadField<CffCompletion>(
                   debounceDuration: const Duration(milliseconds: 500),
                   textFieldConfiguration: TextFieldConfiguration(
+                      textInputAction: TextInputAction.search,
+                      focusNode: fnTo,
+                      onSubmitted: (_) => search(),
                       controller: toController,
                       style:
                           DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
@@ -157,11 +163,11 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       items: const [
                         DropdownMenuItem(
                           value: false,
-                          child: Text("Depart"),
+                          child: Text("Depart."),
                         ),
                         DropdownMenuItem(
                           value: true,
-                          child: Text("Arrivée"),
+                          child: Text("Arrival"),
                         ),
                       ],
                       onChanged: (v) => sw.state = v,
@@ -229,11 +235,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               height: 48,
               highlightColor: const Color(0x260700b1),
               icon: const FaIcon(FontAwesomeIcons.search),
-              onPressed: () async {
-                fnFrom.unfocus();
-                fnTo.unfocus();
-                _refreshKey.currentState.show();
-              },
+              onPressed: search,
               shape: const StadiumBorder(),
               color: Theme.of(context).scaffoldBackgroundColor,
               label: const Text("Search"),
@@ -298,6 +300,12 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
         )
       ],
     );
+  }
+
+  void search() {
+    fnFrom.unfocus();
+    fnTo.unfocus();
+    _refreshKey.currentState.show();
   }
 
   Future<void> searchData() async {

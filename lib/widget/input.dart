@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:travel_free/api/cff/cff_completion.dart';
-import 'package:travel_free/blocs/cff.dart';
-import 'package:travel_free/widget/icon.dart';
+import 'package:swiss_travel/api/cff/cff_completion.dart';
+import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/widget/icon.dart';
 
 class StopInputDialog extends StatefulWidget {
   final String title;
