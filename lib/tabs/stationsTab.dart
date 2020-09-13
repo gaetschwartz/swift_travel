@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:swiss_travel/api/cff/cff_completion.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
@@ -12,14 +13,17 @@ import 'package:swiss_travel/models/station_states.dart';
 import 'package:swiss_travel/pages/detailsStop.dart';
 import 'package:swiss_travel/widget/icon.dart';
 
-final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider =
+    StateProvider<StationStates>((_) => const StationStates.empty());
+final _loadingProvider = StateProvider((_) => false);
 
 class SearchByName extends StatefulWidget {
   @override
   _SearchByNameState createState() => _SearchByNameState();
 }
 
-class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClientMixin {
+class _SearchByNameState extends State<SearchByName>
+    with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   Timer _debouncer;
@@ -27,13 +31,14 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((timeStamp) => context.read(favoritesProvider).getFavorites());
+    WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) => context.read(favoritesProvider).getFavorites());
   }
 
   @override
   void dispose() {
     searchController.dispose();
+    focusNode.dispose();
     super.dispose();
   }
 
@@ -55,32 +60,74 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
               ))),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              focusNode: focusNode,
-              controller: searchController,
-              style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-              decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  hintText: "Stop",
-                  suffixIcon: IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.times),
-                      onPressed: () {
-                        searchController.text = "";
-                        focusNode.unfocus();
-                        context.read(_stateProvider).state = const StationStates.empty();
-                      })),
-              onChanged: (s) async {
-                context.read(_stateProvider).state = const StationStates.loading();
-                // Debounce
-                if (_debouncer?.isActive ?? false) {
-                  _debouncer?.cancel();
-                  _debouncer = Timer(const Duration(milliseconds: 500), () => load(s));
-                } else {
-                  await load(s);
-                  _debouncer?.cancel();
-                  _debouncer = Timer(const Duration(milliseconds: 500), () {});
-                }
-              },
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    focusNode: focusNode,
+                    controller: searchController,
+                    style: DefaultTextStyle.of(context)
+                        .style
+                        .copyWith(fontStyle: FontStyle.normal),
+                    decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        hintText: "Stop",
+                        suffixIcon: IconButton(
+                            icon: const FaIcon(FontAwesomeIcons.times),
+                            onPressed: () {
+                              searchController.text = "";
+                              focusNode.unfocus();
+                              context.read(_stateProvider).state =
+                                  const StationStates.empty();
+                            })),
+                    onChanged: (s) async {
+                      context.read(_stateProvider).state =
+                          const StationStates.loading();
+                      // Debounce
+                      if (_debouncer?.isActive ?? false) {
+                        _debouncer?.cancel();
+                        _debouncer = Timer(
+                            const Duration(milliseconds: 500), () => load(s));
+                      } else {
+                        await load(s);
+                        _debouncer?.cancel();
+                        _debouncer =
+                            Timer(const Duration(milliseconds: 500), () {});
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(icon: Consumer(builder: (context, w, _) {
+                  final loading = w(_loadingProvider).state;
+                  return loading
+                      ? const CircularProgressIndicator()
+                      : const FaIcon(FontAwesomeIcons.locationArrow);
+                }), onPressed: () async {
+                  context.read(_loadingProvider).state = true;
+                  final p = await getCurrentPosition(
+                      desiredAccuracy: LocationAccuracy.bestForNavigation);
+                  log("Position is : $p");
+
+                  final completions = await context
+                      .read(cffProvider)
+                      .findStation(p.latitude, p.longitude);
+
+                  final first = completions.first;
+                  log("Found : $first");
+                  if (first.dist != null) {
+                    final firstWhere = completions.firstWhere(
+                        (c) => !CffIcon.isPrivate(c.iconclass
+                            .substring(c.iconclass.lastIndexOf("_") + 1)),
+                        orElse: () => null);
+                    if (firstWhere != null) {
+                      searchController.text = firstWhere.label;
+                      await load(firstWhere.label);
+                    }
+                  }
+                  context.read(_loadingProvider).state = false;
+                })
+              ],
             ),
           ),
           Expanded(
@@ -90,15 +137,20 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                       child: CircularProgressIndicator(),
                     ),
                     completions: (c) => ListView.separated(
-                      itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
+                      itemBuilder: (context, i) =>
+                          CffCompletionTile(c.completions[i]),
                       separatorBuilder: (context, i) => const Divider(),
-                      itemCount: c.completions == null ? 0 : c.completions.length,
+                      itemCount:
+                          c.completions == null ? 0 : c.completions.length,
                     ),
                     empty: (_) => Consumer(
-                        builder: (context, w, _) => w(favoritesStatesProvider).state.map(
+                        builder: (context, w, _) => w(favoritesStatesProvider)
+                            .state
+                            .map(
                               data: (c) => c.completions.isEmpty
                                   ? Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         const FaIcon(
                                           FontAwesomeIcons.star,
@@ -107,17 +159,23 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                                         const SizedBox(height: 16),
                                         Text(
                                           "No favorites !",
-                                          style: Theme.of(context).textTheme.headline6,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
                                         ),
                                       ],
                                     )
                                   : ListView.separated(
-                                      itemBuilder: (context, i) => CffCompletionTile(
+                                      itemBuilder: (context, i) =>
+                                          CffCompletionTile(
                                         c.completions[i],
                                         isFav: true,
                                       ),
-                                      separatorBuilder: (context, i) => const Divider(),
-                                      itemCount: c.completions == null ? 0 : c.completions.length,
+                                      separatorBuilder: (context, i) =>
+                                          const Divider(),
+                                      itemCount: c.completions == null
+                                          ? 0
+                                          : c.completions.length,
                                     ),
                               loading: (_) => const Center(
                                 child: CircularProgressIndicator(),
@@ -144,7 +202,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          "Netork Error",
+                          "Network Error",
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ],
@@ -182,16 +240,17 @@ class CffCompletionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isPrivate = CffIcon.isPrivate(sugg.iconclass);
     if (sugg.label == null) log(sugg.toString());
     return ListTile(
       leading: CffIcon.fromIconClass(sugg.iconclass),
-      title: Text(sugg.label ?? ""),
+      title: Text(sugg.label ?? "???"),
       dense: true,
       subtitle: isFav ? const Text("Favorite") : null,
-      onTap: CffIcon.isPrivate(sugg.iconclass)
+      trailing: isPrivate ? null : const Icon(Icons.arrow_forward_ios),
+      onTap: isPrivate
           ? null
           : () {
-              log(sugg.iconclass);
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => DetailsStop(

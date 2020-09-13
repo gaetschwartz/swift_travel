@@ -2,28 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:swiss_travel/pages/settings.dart';
 import 'package:swiss_travel/tabs/favoritesTab.dart';
 import 'package:swiss_travel/tabs/routeTab.dart';
 import 'package:swiss_travel/tabs/stationsTab.dart';
+import 'package:utils/blocs/full_theme.dart';
+import 'package:utils/blocs/theme_configuration.dart';
+import 'package:utils/blocs/theme_riverpod.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  DynamicTheme.defaultConfig = ThemeConfiguration({
+    "default": FullTheme(
+        name: "Default theme",
+        light: ThemeData(
+          primarySwatch: Colors.red,
+          fontFamily: GoogleFonts.muli().fontFamily,
+        ),
+        dark: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.red,
+          fontFamily: GoogleFonts.muli().fontFamily,
+        ))
+  });
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      child: MaterialApp(
-        title: 'Swiss Travel',
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-          fontFamily: GoogleFonts.lato().fontFamily,
-        ),
-        darkTheme: ThemeData(
-            primarySwatch: Colors.teal,
-            brightness: Brightness.dark,
-            fontFamily: GoogleFonts.lato().fontFamily),
-        home: MyHomePage(),
-      ),
+      child: Consumer(builder: (context, w, _) {
+        final theme = w(dynamicTheme);
+        return MaterialApp(
+          title: 'Swiss Travel',
+          theme: theme.light,
+          darkTheme: theme.dark,
+          themeMode: theme.mode,
+          home: MyHomePage(),
+        );
+      }),
     );
   }
 }
@@ -62,6 +80,13 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             Tab(icon: FaIcon(FontAwesomeIcons.solidStar)),
           ],
         ),
+        actions: [
+          IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
+              })
+        ],
       ),
       body: TabBarView(
         controller: _controller,

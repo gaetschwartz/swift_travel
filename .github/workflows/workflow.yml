@@ -21,6 +21,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Clone dependencies
+        run: git clone https://Blaxou:${{ secrets.ACCESS_TOKEN }}@github.com/Blaxou/utils.git
+        working-directory: ../
       - name: Setup Java
         if: env.build_android == 'true'
         uses: actions/setup-java@v1
@@ -99,6 +102,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Clone dependencies
+        run: git clone https://Blaxou:${{ secrets.ACCESS_TOKEN }}@github.com/Blaxou/utils.git
+        working-directory: ../
       - name: Setup provisioning profile
         env:
           IOS_KEYS: ${{ secrets.IOS_KEYS }}

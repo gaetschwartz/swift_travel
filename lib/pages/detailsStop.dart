@@ -38,7 +38,8 @@ class _DetailsStopState extends State<DetailsStop> {
                   ? ListView.separated(
                       separatorBuilder: (c, i) => const Divider(),
                       itemCount: data.connections.length,
-                      itemBuilder: (context, i) => ConnectionTile(c: data.connections[i]),
+                      itemBuilder: (context, i) =>
+                          ConnectionTile(c: data.connections[i]),
                     )
                   : Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -60,7 +61,8 @@ class _DetailsStopState extends State<DetailsStop> {
   }
 
   Future<void> reloadData() async {
-    final CffStationboard l = await context.read(cffProvider).stationboard(widget.stopName);
+    final CffStationboard l =
+        await context.read(cffProvider).stationboard(widget.stopName);
     setState(() {
       data = l;
     });
@@ -101,13 +103,13 @@ class ConnectionTile extends StatelessWidget {
             CffIcon(c.type, size: 16),
             const SizedBox(width: 8),
             Text(
-              c.number ?? "???",
+              Format.dateToHour(c.time),
               style: const TextStyle(fontSize: 14),
             ),
           ],
         ),
       ),
-      trailing: Text(Format.duration(diff)),
+      trailing: Text(Format.duration(diff, showExactTime: true)),
     );
   }
 }

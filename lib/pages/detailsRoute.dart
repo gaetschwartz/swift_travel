@@ -17,15 +17,13 @@ class DetailsRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          c.to,
-        ),
+        title: Text(c.to),
       ),
       body: Column(
         children: <Widget>[
-          customRow("Départ", c.from),
-          customRow("Arrivée", c.to),
-          customRow("Durée", Format.intToSeconds(c.duration)),
+          _dataRow("Departure", c.from),
+          _dataRow("Arrival", c.to),
+          _dataRow("Travel duration", Format.intToSeconds(c.duration)),
           const Divider(thickness: 2),
           Expanded(
             child: ListView.separated(
@@ -34,7 +32,8 @@ class DetailsRoute extends StatelessWidget {
                 final Leg l = c.legs[i];
                 return LegTile(l: l);
               },
-              separatorBuilder: (context, index) => const Divider(indent: 16, endIndent: 16),
+              separatorBuilder: (context, index) =>
+                  const Divider(indent: 16, endIndent: 16),
             ),
           )
         ],
@@ -42,7 +41,7 @@ class DetailsRoute extends StatelessWidget {
     );
   }
 
-  Widget customRow(String key, String text) {
+  Widget _dataRow(String key, String text) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -78,7 +77,8 @@ class LegTile extends StatelessWidget {
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+    list.add(
+        _buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -111,7 +111,9 @@ class LegTile extends StatelessWidget {
             children: [
               const FaIcon(FontAwesomeIcons.mapPin),
               const SizedBox(width: 8),
-              Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
+              Expanded(
+                  child: Text(l.name,
+                      style: const TextStyle(fontWeight: FontWeight.bold))),
             ],
           ),
         )
@@ -120,7 +122,8 @@ class LegTile extends StatelessWidget {
           title: Row(
             children: <Widget>[
               if (l.line != null) ...[
-                LineWidget(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+                LineWidget(
+                    foreground: l.fgcolor, background: l.bgcolor, line: l.line),
                 const SizedBox(width: 8),
               ] else ...[
                 CffIcon(l.type),

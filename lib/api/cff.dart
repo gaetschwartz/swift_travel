@@ -11,7 +11,7 @@ abstract class CffBase {
     String string, {
     bool showCoordinates,
     bool showIds,
-    bool nofavorites,
+    bool noFavorites,
     bool filterNull,
   });
 

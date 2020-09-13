@@ -11,10 +11,12 @@ import 'package:swiss_travel/api/cff/cff_route.dart';
 import 'package:swiss_travel/api/cff/cff_stationboard.dart';
 import 'package:swiss_travel/api/cff/stop.dart';
 
-final Provider<CffBase> cffProvider = Provider<CffBase>((ref) => CffRepository._());
+final Provider<CffBase> cffProvider =
+    Provider<CffBase>((ref) => CffRepository._());
 
 class CffRepository implements CffBase {
-  static const CffQueryBuilder builder = CffQueryBuilder("https://timetable.search.ch/api");
+  static const CffQueryBuilder builder =
+      CffQueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
 
   CffRepository._();
@@ -26,24 +28,25 @@ class CffRepository implements CffBase {
     String string, {
     bool showCoordinates = false,
     bool showIds = false,
-    bool nofavorites = true,
+    bool noFavorites = true,
     bool filterNull = true,
   }) async {
     final uri = builder.build("completion", {
       "term": string,
       "show_ids": showIds.toInt(),
       "show_coordinates": showCoordinates.toInt(),
-      "nofavorites": nofavorites.toInt()
+      "nofavorites": noFavorites.toInt()
     });
 
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    final List<Map> decode = (json.decode(response.body) as List).cast<Map>();
+    final decode = await Future.microtask(() => json.decode(response.body));
+    final List<Map> list = (decode as List).cast<Map>();
     final List<CffCompletion> completions = [];
 
-    for (final Map item in decode) {
+    for (final Map item in list) {
       if (!filterNull || item["label"] != null) {
         completions.add(CffCompletion.fromJson(item as Map<String, dynamic>));
       }
@@ -71,8 +74,10 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    final completions = (json.decode(response.body) as List)
-        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
+    final decode = await Future.microtask(() => json.decode(response.body));
+    final completions = (decode as List)
+        .map<CffCompletion>(
+            (e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
@@ -81,7 +86,7 @@ class CffRepository implements CffBase {
   Future<CffStationboard> stationboard(String stopName,
       {DateTime when,
       bool arrival = false,
-      int limit = 0,
+      int limit = 32,
       bool showTracks = false,
       bool showSubsequentStops = false,
       bool showDelays = false,
@@ -99,14 +104,16 @@ class CffRepository implements CffBase {
     if (transportationTypes.isNotEmpty) {
       params["transportation_types"] = transportationTypes.join(",");
     }
-    if (when != null) print("TODO");
+    if (when != null) throw UnimplementedError("Todo");
     final s = builder.build("stationboard", params);
     print(s);
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-    return CffStationboard.fromJson(json.decode(response.body) as Map<String, dynamic>);
+    final decode = await Future.microtask(() => json.decode(response.body));
+
+    return CffStationboard.fromJson(decode as Map<String, dynamic>);
   }
 
   @override
@@ -133,8 +140,8 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
-
-    final map = json.decode(response.body) as Map<String, dynamic>;
+    final decode = await Future.microtask(() => json.decode(response.body));
+    final map = decode as Map<String, dynamic>;
     if (map["disruptions"] != null) log(map["disruptions"].toString());
     return CffRoute.fromJson(map);
   }
@@ -149,7 +156,8 @@ class CffQueryBuilder {
     String url = "$baseUrl/$action.json";
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map<String>((k) => "$k=${Uri.encodeComponent(parameters[k].toString())}")
+          .map<String>(
+              (k) => "$k=${Uri.encodeComponent(parameters[k].toString())}")
           .join("&");
       url += "?$params";
     }

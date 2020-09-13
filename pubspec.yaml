@@ -31,6 +31,8 @@ dependencies:
   flutter_riverpod: ^0.9.1
   async: ^2.4.2
   geolocator: ^6.0.0+4
+  utils:
+    path: ../utils/utils
 
 dev_dependencies:
   flutter_test:
