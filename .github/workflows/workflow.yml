@@ -11,6 +11,7 @@ env:
   node_version: 12.x
   build_android: true
   flutter_build_args: --dart-define=FLUTTER_WEB_USE_SKIA=true --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
+  build_ios: false
 
 jobs:
   build-android:
@@ -89,9 +90,10 @@ jobs:
           asset_path: ./build/app/outputs/flutter-apk/app-release.apk
           asset_name: travel-free-${{ steps.git-data.outputs.nbr }}.apk
           asset_content_type: application/vnd.android.package-archive
-  deploy:
+  deploy-testflight:
     name: Deploy to Testflight
     runs-on: macos-latest
+    if: ${{ env.build_ios = 'true' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
