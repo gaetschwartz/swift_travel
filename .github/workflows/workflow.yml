@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Clone dependencies
-        run: git clone https://Blaxou:${{ secrets.ACCESS_TOKEN }}@github.com/Blaxou/utils.git
+        run: git clone https://Blaxou:${{ secrets.GITHUB_TOKEN }}@github.com/Blaxou/utils.git
         working-directory: ../
       - name: Setup Java
         if: env.build_android == 'true'
@@ -103,7 +103,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Clone dependencies
-        run: git clone https://Blaxou:${{ secrets.ACCESS_TOKEN }}@github.com/Blaxou/utils.git
+        run: git clone https://Blaxou:${{ secrets.GITHUB_TOKEN }}@github.com/Blaxou/utils.git
         working-directory: ../
       - name: Setup provisioning profile
         env:
