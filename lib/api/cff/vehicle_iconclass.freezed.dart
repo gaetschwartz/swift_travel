@@ -16,7 +16,7 @@ class _$VehicleIconclassTearOff {
   const _$VehicleIconclassTearOff();
 
 // ignore: unused_element
-  _VehicleIconclass call(Vehicle v) {
+  _VehicleIconclass call(@nullable Vehicle v) {
     return _VehicleIconclass(
       v,
     );
@@ -27,6 +27,7 @@ class _$VehicleIconclassTearOff {
 const $VehicleIconclass = _$VehicleIconclassTearOff();
 
 mixin _$VehicleIconclass {
+  @nullable
   Vehicle get v;
 
   Map<String, dynamic> toJson();
@@ -37,7 +38,7 @@ abstract class $VehicleIconclassCopyWith<$Res> {
   factory $VehicleIconclassCopyWith(
           VehicleIconclass value, $Res Function(VehicleIconclass) then) =
       _$VehicleIconclassCopyWithImpl<$Res>;
-  $Res call({Vehicle v});
+  $Res call({@nullable Vehicle v});
 }
 
 class _$VehicleIconclassCopyWithImpl<$Res>
@@ -64,7 +65,7 @@ abstract class _$VehicleIconclassCopyWith<$Res>
           _VehicleIconclass value, $Res Function(_VehicleIconclass) then) =
       __$VehicleIconclassCopyWithImpl<$Res>;
   @override
-  $Res call({Vehicle v});
+  $Res call({@nullable Vehicle v});
 }
 
 class __$VehicleIconclassCopyWithImpl<$Res>
@@ -89,12 +90,13 @@ class __$VehicleIconclassCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$_VehicleIconclass implements _VehicleIconclass {
-  _$_VehicleIconclass(this.v) : assert(v != null);
+  _$_VehicleIconclass(@nullable this.v);
 
   factory _$_VehicleIconclass.fromJson(Map<String, dynamic> json) =>
       _$_$_VehicleIconclassFromJson(json);
 
   @override
+  @nullable
   final Vehicle v;
 
   @override
@@ -125,12 +127,13 @@ class _$_VehicleIconclass implements _VehicleIconclass {
 }
 
 abstract class _VehicleIconclass implements VehicleIconclass {
-  factory _VehicleIconclass(Vehicle v) = _$_VehicleIconclass;
+  factory _VehicleIconclass(@nullable Vehicle v) = _$_VehicleIconclass;
 
   factory _VehicleIconclass.fromJson(Map<String, dynamic> json) =
       _$_VehicleIconclass.fromJson;
 
   @override
+  @nullable
   Vehicle get v;
   @override
   _$VehicleIconclassCopyWith<_VehicleIconclass> get copyWith;

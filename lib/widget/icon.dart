@@ -12,8 +12,14 @@ class CffIcon extends StatelessWidget {
   }) : super(key: key);
 
   CffIcon.fromIconClass(String iconclass, {this.size, this.color, Key key})
-      : vehicle = VehicleIconclass.fromJson({"vehicle": iconclass}).v,
+      : vehicle = getVehicle(iconclass),
         super(key: key);
+
+  static Vehicle getVehicle(String iconclass) {
+    if (iconclass == null) return null;
+    final substring = iconclass.substring(iconclass.lastIndexOf("-") + 1);
+    return VehicleIconclass.fromJson({"v": substring}).v;
+  }
 
   final Vehicle vehicle;
   final double size;
