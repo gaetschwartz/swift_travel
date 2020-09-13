@@ -23,8 +23,8 @@ class DetailsRoute extends StatelessWidget {
         children: <Widget>[
           _dataRow("Departure", c.from),
           _dataRow("Arrival", c.to),
-          _dataRow("Travel duration", Format.intToSeconds(c.duration)),
-          const Divider(thickness: 2),
+          _dataRow("Travel duration", Format.intToMinutes(c.duration)),
+          const Divider(thickness: 2, height: 4),
           Expanded(
             child: ListView.separated(
               itemCount: c.legs.length,
@@ -32,8 +32,11 @@ class DetailsRoute extends StatelessWidget {
                 final Leg l = c.legs[i];
                 return LegTile(l: l);
               },
-              separatorBuilder: (context, index) =>
-                  const Divider(indent: 16, endIndent: 16),
+              separatorBuilder: (context, index) => const Divider(
+                indent: 16,
+                endIndent: 16,
+                height: 0,
+              ),
             ),
           )
         ],
@@ -77,8 +80,7 @@ class LegTile extends StatelessWidget {
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(
-        _buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -111,83 +113,131 @@ class LegTile extends StatelessWidget {
             children: [
               const FaIcon(FontAwesomeIcons.mapPin),
               const SizedBox(width: 8),
-              Expanded(
-                  child: Text(l.name,
-                      style: const TextStyle(fontWeight: FontWeight.bold))),
+              Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
             ],
           ),
         )
-      : ExpansionTile(
-          backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
-          title: Row(
-            children: <Widget>[
-              if (l.line != null) ...[
-                LineWidget(
-                    foreground: l.fgcolor, background: l.bgcolor, line: l.line),
-                const SizedBox(width: 8),
-              ] else ...[
-                CffIcon(l.type),
-                const SizedBox(width: 8),
-              ],
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    l.exit.name,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              if (l.track != null)
-                Text(
-                  "Pl. ${l.track}",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-            ],
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+      : l.type == Vehicle.walk
+          ? InkWell(
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                child: Row(
                   children: [
-                    CffIcon(l.type, size: 16),
-                    const SizedBox(width: 8),
-                    Text(
-                      l.terminal ??
-                          (l.type == Vehicle.walk
-                              ? "Marcher ${Format.intToSeconds(l.runningtime, pad: false)}"
-                              : ""),
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                  ],
-                ),
-                if (l.exit != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: DefaultTextStyle(
-                      style: Theme.of(context).textTheme.subtitle2,
-                      child: Row(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(
-                            "${Format.dateToHour(l.departure)} - ${Format.dateToHour(l.exit.arrival)}",
+                          Row(
+                            children: [
+                              const FaIcon(FontAwesomeIcons.walking),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    l.exit.name,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(Format.intToSeconds(
-                                l.runningtime,
-                                pad: false,
-                              )),
+                          const SizedBox(height: 8),
+                          Text.rich(TextSpan(children: [
+                            TextSpan(
+                              text: "Walk ",
+                              style: Theme.of(context).textTheme.subtitle2,
                             ),
-                          ),
+                            TextSpan(
+                                text: Format.intToMinutes(l.runningtime),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2
+                                    .copyWith(fontWeight: FontWeight.w900)),
+                          ])),
                         ],
                       ),
                     ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Theme.of(context).disabledColor,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : ExpansionTile(
+              backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
+              title: Row(
+                children: <Widget>[
+                  if (l.line != null) ...[
+                    LineWidget(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+                    const SizedBox(width: 8),
+                  ] else ...[
+                    CffIcon(l.type),
+                    const SizedBox(width: 8),
+                  ],
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        l.exit.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-              ],
-            ),
-          ),
-          children: _buildStopTitle(l));
+                  if (l.track != null)
+                    Text(
+                      "Pl. ${l.track}",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                ],
+              ),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        CffIcon(l.type, size: 16),
+                        const SizedBox(width: 8),
+                        Text(
+                          l.terminal ?? "",
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                      ],
+                    ),
+                    if (l.exit != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: DefaultTextStyle(
+                          style: Theme.of(context).textTheme.subtitle2,
+                          child: Row(
+                            children: [
+                              Text(
+                                "${Format.dateToHour(l.departure)} - ${Format.dateToHour(l.exit.arrival)}",
+                              ),
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(Format.intToMinutes(
+                                    l.runningtime,
+                                    pad: false,
+                                  )),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              children: _buildStopTitle(l),
+            );
 }

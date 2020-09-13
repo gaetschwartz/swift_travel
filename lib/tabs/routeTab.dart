@@ -369,7 +369,7 @@ class RouteTile extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Text(Format.intToSeconds(c.duration)),
+            Text(Format.intToMinutes(c.duration)),
             const SizedBox(width: 4),
             const FaIcon(FontAwesomeIcons.chevronRight, size: 16),
           ],

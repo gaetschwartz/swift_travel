@@ -30,12 +30,12 @@ class Format {
     return "$m mins";
   }
 
-  static String intToSeconds(int i, {bool pad = true}) {
+  static String intToMinutes(int i, {bool pad = true}) {
     final m = i ~/ 60;
     final h = m ~/ 60;
     final hrs = h == 0 ? "" : "${h}h";
     final string = (m % 60).toString();
-    final mins = pad ? string.padLeft(2, "0") : string;
+    final mins = pad || h != 0 ? string.padLeft(2, "0") : string;
     return "$hrs$mins${h == 0 ? " mins" : ""}";
   }
 

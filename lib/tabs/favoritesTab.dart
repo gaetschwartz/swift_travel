@@ -11,8 +11,7 @@ class SearchFavorite extends StatefulWidget {
   _SearchFavoriteState createState() => _SearchFavoriteState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite>
-    with AutomaticKeepAliveClientMixin {
+class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
   LocalStore _store;
   CffRepository _cff;
 
@@ -36,14 +35,12 @@ class _SearchFavoriteState extends State<SearchFavorite>
       floatingActionButton: FloatingActionButton(
         shape: const StadiumBorder(),
         onPressed: () async {
-          final String s =
-              await Navigator.of(context).push<String>(MaterialPageRoute(
+          final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
             builder: (_) => const StopInputDialog(title: "Add a favorite"),
             fullscreenDialog: true,
           ));
           if (s == null) return;
-          final CffCompletion completion =
-              (await _cff.complete(s, showIds: true)).first;
+          final CffCompletion completion = (await _cff.complete(s, showIds: true)).first;
           await _store.addFavorite(completion);
         },
         child: const FaIcon(FontAwesomeIcons.plus),
@@ -74,8 +71,8 @@ class _SearchFavoriteState extends State<SearchFavorite>
                         )
                       : ListView.builder(
                           itemCount: c.completions.length,
-                          itemBuilder: (context, i) => _FavoriteTile(
-                              c.completions[i], () => _store.getFavorites()),
+                          itemBuilder: (context, i) =>
+                              _FavoriteTile(c.completions[i], () => _store.getFavorites()),
                         ),
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),
@@ -108,9 +105,8 @@ class _FavoriteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.trash),
-          onPressed: () =>
-              context.read(favoritesProvider).deleteFavorite(stop)),
+          icon: const FaIcon(FontAwesomeIcons.star),
+          onPressed: () => context.read(favoritesProvider).deleteFavorite(stop)),
       title: Text(stop.label),
     );
   }
