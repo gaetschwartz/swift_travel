@@ -46,29 +46,47 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
           onRefresh: () => _store.getFavorites(notify: false),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Consumer(builder: (context, w, _) {
-              final favs = w(favoritesStatesProvider);
-              return favs.state.map(
-                data: (data) => GridView.count(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  children: List.generate(
-                    data.completions.length,
-                    (i) => _FavoriteTile(data.completions[i], () => _store.getFavorites()),
+            child: SizedBox(
+              width: double.infinity,
+              child: Consumer(builder: (context, w, _) {
+                final favs = w(favoritesStatesProvider);
+                return favs.state.map(
+                  data: (c) => c.completions.isEmpty
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const FaIcon(
+                              FontAwesomeIcons.star,
+                              size: 48,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              "No favorites !",
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ],
+                        )
+                      : GridView.count(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          children: List.generate(
+                            c.completions.length,
+                            (i) => _FavoriteTile(c.completions[i], () => _store.getFavorites()),
+                          ),
+                        ),
+                  loading: (_) => const Center(
+                    child: CircularProgressIndicator(),
                   ),
-                ),
-                loading: (_) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                error: (e) => Center(
-                  child: Text(
-                    e.toString(),
-                    style: Theme.of(context).textTheme.headline6,
+                  error: (e) => Center(
+                    child: Text(
+                      e.toString(),
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+            ),
           )),
     );
   }

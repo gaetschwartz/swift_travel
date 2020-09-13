@@ -93,7 +93,7 @@ jobs:
   deploy-testflight:
     name: Deploy to Testflight
     runs-on: macos-latest
-    if: github.actor == 'build'
+    if: github.actor == github.repository_owner
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

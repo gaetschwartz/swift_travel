@@ -97,11 +97,19 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                     empty: (_) => Consumer(
                         builder: (context, w, _) => w(favoritesStatesProvider).state.map(
                               data: (c) => c.completions.isEmpty
-                                  ? Center(
-                                      child: Text(
-                                        "No favorites",
-                                        style: Theme.of(context).textTheme.headline6,
-                                      ),
+                                  ? Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const FaIcon(
+                                          FontAwesomeIcons.star,
+                                          size: 48,
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Text(
+                                          "No favorites !",
+                                          style: Theme.of(context).textTheme.headline6,
+                                        ),
+                                      ],
                                     )
                                   : ListView.separated(
                                       itemBuilder: (context, i) => CffCompletionTile(
