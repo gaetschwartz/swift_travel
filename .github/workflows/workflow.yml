@@ -103,10 +103,24 @@ jobs:
         env:
           IOS_KEYS: ${{ secrets.IOS_KEYS }}
         run: chmod +x CI/decrypt_secrets.sh && bash CI/decrypt_secrets.sh
+      - name: Get latest Flutter release
+        id: release_json
+        run: echo "::set-output name=json::$(curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_linux.json" | jq -r ".current_release.${{ env.flutter_channel }}")"
+      - name: Get Flutter from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            /opt/hostedtoolcache/flutter
+            $HOME/.pub-cache
+          key: ${{ runner.OS }}-flutter-cache-${{ steps.release_json.outputs.json }}
       - name: Install Flutter
         uses: subosito/flutter-action@v1
         with:
           channel: ${{ env.flutter_channel }}
+      - name: Flutter doctor
+        run: |
+          flutter doctor -v
+          echo $FLUTTER_HOME
       - name: Setup Flutter
         run: |
           flutter packages get
