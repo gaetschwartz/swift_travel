@@ -11,24 +11,24 @@ class SearchFavorite extends StatefulWidget {
 }
 
 class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
-  List<CffCompletion> _favoritesStop = [];
   LocalStore _store;
   CffRepository _cff;
 
   @override
   void initState() {
     super.initState();
-    _store = context.read(storeProvider) as LocalStore;
+    _store = context.read(favoritesProvider) as LocalStore;
     _cff = context.read(cffProvider) as CffRepository;
-    loadFavorites();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      loadFavorites();
+    });
   }
 
   @override
   bool get wantKeepAlive => true;
 
   Future<void> loadFavorites() async {
-    final List<CffCompletion> favs = await _store.getFavorites();
-    setState(() => _favoritesStop = favs);
+    await _store.getFavorites();
   }
 
   @override
@@ -42,29 +42,48 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
             shape: const StadiumBorder(),
             onPressed: () async {
               final String s =
-                  await showDialog(context: context, builder: (_) => TextInputDialog());
+                  await showDialog(context: context, builder: (_) => StopInputDialog());
               if (s == null) return;
               final CffCompletion completion = (await _cff.complete(s, showIds: true)).first;
               await _store.addFavorite(completion);
-              await loadFavorites();
             },
             child: const Text("Add Fav"),
           ),
-          if (_favoritesStop != null)
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  children: List.generate(
-                    _favoritesStop.length,
-                    (i) => _FavoriteTile(_favoritesStop[i], loadFavorites),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Consumer(builder: (context, w, _) {
+                final favs = w(favoritesStatesProvider);
+                print(favs.state);
+                return favs.state.map(
+                  data: (data) => GridView.count(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    children: List.generate(
+                      data.completions.length,
+                      (i) => _FavoriteTile(data.completions[i], loadFavorites),
+                    ),
                   ),
-                ),
-              ),
+                  loading: (_) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  error: (e) => Center(
+                    child: Text(
+                      e.toString(),
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                  empty: (_) => Center(
+                    child: Text(
+                      "No favorites",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                );
+              }),
             ),
+          )
         ],
       ),
     );
@@ -87,7 +106,7 @@ class _FavoriteTile extends StatelessWidget {
       color: Theme.of(context).primaryColor,
       child: InkWell(
         onLongPress: () async {
-          await context.read(storeProvider).deleteFavorite(stop);
+          await context.read(favoritesProvider).deleteFavorite(stop);
           reload();
         },
         child: Center(

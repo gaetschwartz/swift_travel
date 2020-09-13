@@ -38,9 +38,7 @@ class _DetailsStopState extends State<DetailsStop> {
                   ? ListView.separated(
                       separatorBuilder: (c, i) => const Divider(),
                       itemCount: data.connections.length,
-                      itemBuilder: (context, i) {
-                        return ConnectionTile(connection: data.connections[i]);
-                      },
+                      itemBuilder: (context, i) => ConnectionTile(connection: data.connections[i]),
                     )
                   : Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -72,7 +70,7 @@ class _DetailsStopState extends State<DetailsStop> {
 class ConnectionTile extends StatelessWidget {
   final StationboardConnection connection;
 
-  const ConnectionTile({Key key, this.connection}) : super(key: key);
+  const ConnectionTile({Key key, @required this.connection}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final diff = connection.time.difference(DateTime.now());

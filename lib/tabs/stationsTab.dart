@@ -12,7 +12,7 @@ import 'package:travel_free/models/station_states.dart';
 import 'package:travel_free/pages/detailsStop.dart';
 import 'package:travel_free/widget/icon.dart';
 
-final _stateProvider = StateProvider<StationStates>((_) => const StationStates.loading());
+final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 
 class SearchByName extends StatefulWidget {
   @override
@@ -21,18 +21,20 @@ class SearchByName extends StatefulWidget {
 
 class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
   Timer _debouncer;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((timeStamp) => context.read(favoritesProvider).getFavorites());
+  }
 
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    init();
   }
 
   @override
@@ -54,6 +56,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              focusNode: focusNode,
               controller: searchController,
               style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
               decoration: InputDecoration(
@@ -63,7 +66,8 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                       icon: const FaIcon(FontAwesomeIcons.times),
                       onPressed: () {
                         searchController.text = "";
-                        load("");
+                        focusNode.unfocus();
+                        context.read(_stateProvider).state = const StationStates.empty();
                       })),
               onChanged: (s) async {
                 context.read(_stateProvider).state = const StationStates.loading();
@@ -85,24 +89,37 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                     loading: (_) => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    completions: (c) => c.completions.isEmpty
-                        ? Center(
-                            child: Text(
-                              "Nothing found.",
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                          )
-                        : ListView.separated(
-                            itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
-                            separatorBuilder: (context, i) => const Divider(),
-                            itemCount: c.completions == null ? 0 : c.completions.length,
-                          ),
-                    empty: (_) => Center(
-                      child: Text(
-                        "Make a search",
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
+                    completions: (c) => ListView.separated(
+                      itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
+                      separatorBuilder: (context, i) => const Divider(),
+                      itemCount: c.completions == null ? 0 : c.completions.length,
                     ),
+                    empty: (_) => Consumer(
+                        builder: (context, w, _) => w(favoritesStatesProvider).state.map(
+                              data: (c) => ListView.separated(
+                                itemBuilder: (context, i) => CffCompletionTile(
+                                  c.completions[i],
+                                  isFav: true,
+                                ),
+                                separatorBuilder: (context, i) => const Divider(),
+                                itemCount: c.completions == null ? 0 : c.completions.length,
+                              ),
+                              loading: (_) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              error: (e) => Center(
+                                child: Text(
+                                  e.toString(),
+                                  style: Theme.of(context).textTheme.headline6,
+                                ),
+                              ),
+                              empty: (_) => Center(
+                                child: Text(
+                                  "No favorites",
+                                  style: Theme.of(context).textTheme.headline6,
+                                ),
+                              ),
+                            )),
                     error: (value) => Center(
                       child: Text(
                         value.error.toString(),
@@ -142,20 +159,17 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       context.read(_stateProvider).state = StationStates.error(e);
     }
   }
-
-  Future<void> init() async {
-    final favs = await context.read(storeProvider).getFavorites();
-    context.read(_stateProvider).state = StationStates.completions(favs);
-  }
 }
 
 class CffCompletionTile extends StatelessWidget {
   const CffCompletionTile(
     this.sugg, {
     Key key,
+    this.isFav = false,
   }) : super(key: key);
 
   final CffCompletion sugg;
+  final bool isFav;
 
   @override
   Widget build(BuildContext context) {
@@ -164,6 +178,7 @@ class CffCompletionTile extends StatelessWidget {
       leading: CffIcon.fromIconClass(sugg.iconclass),
       title: Text(sugg.label ?? ""),
       dense: true,
+      subtitle: isFav ? const Text("Favorite") : null,
       onTap: CffIcon.isPrivate(sugg.iconclass)
           ? null
           : () {
