@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_stationboard.dart';
 import 'package:travel_free/api/cff/stationboard_connection.dart';
+import 'package:travel_free/blocs/cff.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
 import 'package:travel_free/widget/lineWidget.dart';

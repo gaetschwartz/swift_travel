@@ -17,12 +17,13 @@ class _$CffCompletionTearOff {
 
 // ignore: unused_element
   _CffCompletion call(
-      {String label, double dist, String iconclass, String html}) {
+      {String label, double dist, String iconclass, String html, String id}) {
     return _CffCompletion(
       label: label,
       dist: dist,
       iconclass: iconclass,
       html: html,
+      id: id,
     );
   }
 }
@@ -35,6 +36,7 @@ mixin _$CffCompletion {
   double get dist;
   String get iconclass;
   String get html;
+  String get id;
 
   Map<String, dynamic> toJson();
   $CffCompletionCopyWith<CffCompletion> get copyWith;
@@ -44,7 +46,8 @@ abstract class $CffCompletionCopyWith<$Res> {
   factory $CffCompletionCopyWith(
           CffCompletion value, $Res Function(CffCompletion) then) =
       _$CffCompletionCopyWithImpl<$Res>;
-  $Res call({String label, double dist, String iconclass, String html});
+  $Res call(
+      {String label, double dist, String iconclass, String html, String id});
 }
 
 class _$CffCompletionCopyWithImpl<$Res>
@@ -61,12 +64,14 @@ class _$CffCompletionCopyWithImpl<$Res>
     Object dist = freezed,
     Object iconclass = freezed,
     Object html = freezed,
+    Object id = freezed,
   }) {
     return _then(_value.copyWith(
       label: label == freezed ? _value.label : label as String,
       dist: dist == freezed ? _value.dist : dist as double,
       iconclass: iconclass == freezed ? _value.iconclass : iconclass as String,
       html: html == freezed ? _value.html : html as String,
+      id: id == freezed ? _value.id : id as String,
     ));
   }
 }
@@ -77,7 +82,8 @@ abstract class _$CffCompletionCopyWith<$Res>
           _CffCompletion value, $Res Function(_CffCompletion) then) =
       __$CffCompletionCopyWithImpl<$Res>;
   @override
-  $Res call({String label, double dist, String iconclass, String html});
+  $Res call(
+      {String label, double dist, String iconclass, String html, String id});
 }
 
 class __$CffCompletionCopyWithImpl<$Res>
@@ -96,19 +102,21 @@ class __$CffCompletionCopyWithImpl<$Res>
     Object dist = freezed,
     Object iconclass = freezed,
     Object html = freezed,
+    Object id = freezed,
   }) {
     return _then(_CffCompletion(
       label: label == freezed ? _value.label : label as String,
       dist: dist == freezed ? _value.dist : dist as double,
       iconclass: iconclass == freezed ? _value.iconclass : iconclass as String,
       html: html == freezed ? _value.html : html as String,
+      id: id == freezed ? _value.id : id as String,
     ));
   }
 }
 
 @JsonSerializable()
 class _$_CffCompletion implements _CffCompletion {
-  _$_CffCompletion({this.label, this.dist, this.iconclass, this.html});
+  _$_CffCompletion({this.label, this.dist, this.iconclass, this.html, this.id});
 
   factory _$_CffCompletion.fromJson(Map<String, dynamic> json) =>
       _$_$_CffCompletionFromJson(json);
@@ -121,10 +129,12 @@ class _$_CffCompletion implements _CffCompletion {
   final String iconclass;
   @override
   final String html;
+  @override
+  final String id;
 
   @override
   String toString() {
-    return 'CffCompletion(label: $label, dist: $dist, iconclass: $iconclass, html: $html)';
+    return 'CffCompletion(label: $label, dist: $dist, iconclass: $iconclass, html: $html, id: $id)';
   }
 
   @override
@@ -139,7 +149,9 @@ class _$_CffCompletion implements _CffCompletion {
                 const DeepCollectionEquality()
                     .equals(other.iconclass, iconclass)) &&
             (identical(other.html, html) ||
-                const DeepCollectionEquality().equals(other.html, html)));
+                const DeepCollectionEquality().equals(other.html, html)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -148,7 +160,8 @@ class _$_CffCompletion implements _CffCompletion {
       const DeepCollectionEquality().hash(label) ^
       const DeepCollectionEquality().hash(dist) ^
       const DeepCollectionEquality().hash(iconclass) ^
-      const DeepCollectionEquality().hash(html);
+      const DeepCollectionEquality().hash(html) ^
+      const DeepCollectionEquality().hash(id);
 
   @override
   _$CffCompletionCopyWith<_CffCompletion> get copyWith =>
@@ -165,7 +178,8 @@ abstract class _CffCompletion implements CffCompletion {
       {String label,
       double dist,
       String iconclass,
-      String html}) = _$_CffCompletion;
+      String html,
+      String id}) = _$_CffCompletion;
 
   factory _CffCompletion.fromJson(Map<String, dynamic> json) =
       _$_CffCompletion.fromJson;
@@ -178,6 +192,8 @@ abstract class _CffCompletion implements CffCompletion {
   String get iconclass;
   @override
   String get html;
+  @override
+  String get id;
   @override
   _$CffCompletionCopyWith<_CffCompletion> get copyWith;
 }

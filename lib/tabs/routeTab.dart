@@ -7,12 +7,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_completion.dart';
 import 'package:travel_free/api/cff/cff_route.dart';
 import 'package:travel_free/api/cff/leg.dart';
 import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
+import 'package:travel_free/blocs/cff.dart';
 import 'package:travel_free/models/route_states.dart';
 import 'package:travel_free/pages/detailsRoute.dart';
 import 'package:travel_free/utils/format.dart';
@@ -49,7 +49,6 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final cff = ProviderScope.containerOf(context, listen: false).read(cffProvider);
     return Column(
       children: <Widget>[
         Padding(
@@ -68,7 +67,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                         hintText: "From",
                         isDense: true,
                       )),
-                  suggestionsCallback: (pattern) => cff.complete(pattern),
+                  suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
                   itemBuilder: (context, suggestion) => ListTile(
                     leading: CffIcon.fromIconClass(suggestion.iconclass),
                     title: Text(suggestion.label),
@@ -120,7 +119,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                         hintText: "To",
                         isDense: true,
                       )),
-                  suggestionsCallback: (pattern) => cff.complete(pattern),
+                  suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
                   itemBuilder: (context, suggestion) => ListTile(
                     leading: CffIcon.fromIconClass(suggestion.iconclass),
                     title: Text(suggestion.label),

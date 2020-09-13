@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_completion.dart';
+import 'package:travel_free/blocs/cff.dart';
 import 'package:travel_free/widget/icon.dart';
 
 class TextInputDialog extends StatefulWidget {
@@ -46,9 +46,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
           );
         },
         onSuggestionSelected: (CffCompletion suggestion) {
-          setState(() {
-            widget._controller.text = suggestion.label;
-          });
+          Navigator.of(context).pop<String>(suggestion.label);
         },
       ),
       actions: <Widget>[

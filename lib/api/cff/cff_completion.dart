@@ -10,8 +10,8 @@ abstract class CffCompletion with _$CffCompletion {
     double dist,
     String iconclass,
     String html,
+    String id,
   }) = _CffCompletion;
 
-  factory CffCompletion.fromJson(Map<String, dynamic> json) =>
-      _$CffCompletionFromJson(json);
+  factory CffCompletion.fromJson(Map<String, dynamic> json) => _$CffCompletionFromJson(json);
 }

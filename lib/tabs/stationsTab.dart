@@ -5,13 +5,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:travel_free/api/cff.dart';
 import 'package:travel_free/api/cff/cff_completion.dart';
+import 'package:travel_free/blocs/cff.dart';
+import 'package:travel_free/blocs/store.dart';
 import 'package:travel_free/models/station_states.dart';
 import 'package:travel_free/pages/detailsStop.dart';
 import 'package:travel_free/widget/icon.dart';
 
-final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider = StateProvider<StationStates>((_) => const StationStates.loading());
 
 class SearchByName extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   @override
   void initState() {
     super.initState();
-    reload("");
+    init();
   }
 
   @override
@@ -62,16 +63,16 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                       icon: const FaIcon(FontAwesomeIcons.times),
                       onPressed: () {
                         searchController.text = "";
-                        reload("");
+                        load("");
                       })),
               onChanged: (s) async {
                 context.read(_stateProvider).state = const StationStates.loading();
                 // Debounce
                 if (_debouncer?.isActive ?? false) {
                   _debouncer?.cancel();
-                  _debouncer = Timer(const Duration(milliseconds: 500), () => reload(s));
+                  _debouncer = Timer(const Duration(milliseconds: 500), () => load(s));
                 } else {
-                  await reload(s);
+                  await load(s);
                   _debouncer?.cancel();
                   _debouncer = Timer(const Duration(milliseconds: 500), () {});
                 }
@@ -130,7 +131,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     );
   }
 
-  Future<void> reload(String s) async {
+  Future<void> load(String s) async {
     try {
       final cs = await context.read(cffProvider).complete(s);
       context.read(_stateProvider).state =
@@ -140,6 +141,11 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     } catch (e) {
       context.read(_stateProvider).state = StationStates.error(e);
     }
+  }
+
+  Future<void> init() async {
+    final favs = await context.read(storeProvider).getFavorites();
+    context.read(_stateProvider).state = StationStates.completions(favs);
   }
 }
 

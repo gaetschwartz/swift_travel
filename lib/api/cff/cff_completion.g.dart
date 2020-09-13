@@ -12,6 +12,7 @@ _$_CffCompletion _$_$_CffCompletionFromJson(Map<String, dynamic> json) {
     dist: (json['dist'] as num)?.toDouble(),
     iconclass: json['iconclass'] as String,
     html: json['html'] as String,
+    id: json['id'] as String,
   );
 }
 
@@ -21,4 +22,5 @@ Map<String, dynamic> _$_$_CffCompletionToJson(_$_CffCompletion instance) =>
       'dist': instance.dist,
       'iconclass': instance.iconclass,
       'html': instance.html,
+      'id': instance.id,
     };
