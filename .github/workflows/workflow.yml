@@ -10,7 +10,7 @@ env:
   java_version: 12.x
   node_version: 12.x
   build_android: true
-  flutter_build_args: --dart-define=FLUTTER_WEB_USE_SKIA=true --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
+  flutter_build_args: ""
   build_ios: false
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Clone dependencies
-        run: git clone https://Blaxou:${{ secrets.GITHUB_TOKEN }}@github.com/Blaxou/utils.git
+        run: git clone https://Blaxou:${{ secrets.ACCESS_TOKEN }}@github.com/Blaxou/utils.git
         working-directory: ../
       - name: Setup Java
         if: env.build_android == 'true'
@@ -103,7 +103,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Clone dependencies
-        run: git clone https://Blaxou:${{ secrets.GITHUB_TOKEN }}@github.com/Blaxou/utils.git
+        run: git clone https://Blaxou:${{ secrets.ACCESS_TOKEN }}@github.com/Blaxou/utils.git
         working-directory: ../
       - name: Setup provisioning profile
         env:
