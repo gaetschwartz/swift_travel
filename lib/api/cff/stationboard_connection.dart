@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:travel_free/api/cff/terminal.dart';
+import 'package:travel_free/api/cff/types_enum.dart';
 
 part 'stationboard_connection.freezed.dart';
 part 'stationboard_connection.g.dart';
@@ -9,7 +10,7 @@ abstract class StationboardConnection with _$StationboardConnection {
   @JsonSerializable(explicitToJson: true)
   factory StationboardConnection(
     DateTime time,
-    String type,
+    Vehicle type,
     String line,
     String color,
     String number,

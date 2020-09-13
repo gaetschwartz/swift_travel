@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:travel_free/api/cff/stop.dart';
+import 'package:travel_free/api/cff/types_enum.dart';
 
 import 'exit.dart';
 
@@ -10,7 +11,7 @@ part 'leg.g.dart';
 abstract class Leg with _$Leg {
   @JsonSerializable(explicitToJson: true)
   factory Leg({
-    String type,
+    Vehicle type,
     String track,
     String terminal,
     String fgcolor,

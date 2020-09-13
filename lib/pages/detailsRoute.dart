@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff/leg.dart';
 import 'package:travel_free/api/cff/route_connection.dart';
 import 'package:travel_free/api/cff/stop.dart';
+import 'package:travel_free/api/cff/types_enum.dart';
 import 'package:travel_free/utils/format.dart';
 import 'package:travel_free/widget/icon.dart';
 import 'package:travel_free/widget/lineWidget.dart';
@@ -152,7 +153,7 @@ class LegTile extends StatelessWidget {
                     const SizedBox(width: 8),
                     Text(
                       l.terminal ??
-                          (l.type == "walk"
+                          (l.type == Vehicle.walk
                               ? "Marcher ${Format.intToSeconds(l.runningtime, pad: false)}"
                               : ""),
                       style: Theme.of(context).textTheme.subtitle2,
@@ -160,28 +161,28 @@ class LegTile extends StatelessWidget {
                   ],
                 ),
                 if (l.exit != null)
-               Padding(
-                padding : const EdgeInsets.symmetric(vertical: 8.0),
-                child :
-                  DefaultTextStyle(
-                    style: Theme.of(context).textTheme.subtitle2,
-                    child: Row(
-                      children: [
-                        Text(
-                          "${Format.dateToHour(l.departure)} - ${Format.dateToHour(l.exit.arrival)}",
-                        ),
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(Format.intToSeconds(
-                              l.runningtime,
-                              pad: false,
-                            )),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: DefaultTextStyle(
+                      style: Theme.of(context).textTheme.subtitle2,
+                      child: Row(
+                        children: [
+                          Text(
+                            "${Format.dateToHour(l.departure)} - ${Format.dateToHour(l.exit.arrival)}",
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(Format.intToSeconds(
+                                l.runningtime,
+                                pad: false,
+                              )),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),),
+                  ),
               ],
             ),
           ),

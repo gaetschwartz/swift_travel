@@ -39,7 +39,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
         itemBuilder: (context, CffCompletion suggestion) {
           print(suggestion);
           return ListTile(
-            leading: CffIcon(suggestion.iconclass),
+            leading: CffIcon.fromIconClass(suggestion.iconclass),
             title: Text(suggestion.label),
             subtitle:
                 suggestion.iconclass != null ? Text(suggestion.iconclass.split("-").last) : null,

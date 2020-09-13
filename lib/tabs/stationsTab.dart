@@ -11,16 +11,14 @@ import 'package:travel_free/models/station_states.dart';
 import 'package:travel_free/pages/detailsStop.dart';
 import 'package:travel_free/widget/icon.dart';
 
-final _stateProvider =
-    StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 
 class SearchByName extends StatefulWidget {
   @override
   _SearchByNameState createState() => _SearchByNameState();
 }
 
-class _SearchByNameState extends State<SearchByName>
-    with AutomaticKeepAliveClientMixin {
+class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
   Timer _debouncer;
 
@@ -56,9 +54,7 @@ class _SearchByNameState extends State<SearchByName>
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: searchController,
-              style: DefaultTextStyle.of(context)
-                  .style
-                  .copyWith(fontStyle: FontStyle.normal),
+              style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
               decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   hintText: "Stop",
@@ -69,13 +65,11 @@ class _SearchByNameState extends State<SearchByName>
                         reload("");
                       })),
               onChanged: (s) async {
-                context.read(_stateProvider).state =
-                    const StationStates.loading();
+                context.read(_stateProvider).state = const StationStates.loading();
                 // Debounce
                 if (_debouncer?.isActive ?? false) {
                   _debouncer?.cancel();
-                  _debouncer =
-                      Timer(const Duration(milliseconds: 500), () => reload(s));
+                  _debouncer = Timer(const Duration(milliseconds: 500), () => reload(s));
                 } else {
                   await reload(s);
                   _debouncer?.cancel();
@@ -98,12 +92,9 @@ class _SearchByNameState extends State<SearchByName>
                             ),
                           )
                         : ListView.separated(
-                            itemBuilder: (context, i) =>
-                                CffCompletionTile(c.completions[i]),
+                            itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
                             separatorBuilder: (context, i) => const Divider(),
-                            itemCount: c.completions == null
-                                ? 0
-                                : c.completions.length,
+                            itemCount: c.completions == null ? 0 : c.completions.length,
                           ),
                     empty: (_) => Center(
                       child: Text(
@@ -164,7 +155,7 @@ class CffCompletionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     if (sugg.label == null) log(sugg.toString());
     return ListTile(
-      leading: CffIcon(sugg.iconclass),
+      leading: CffIcon.fromIconClass(sugg.iconclass),
       title: Text(sugg.label ?? ""),
       dense: true,
       onTap: CffIcon.isPrivate(sugg.iconclass)

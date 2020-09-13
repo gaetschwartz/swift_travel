@@ -17,7 +17,7 @@ class _$LegTearOff {
 
 // ignore: unused_element
   _Leg call(
-      {String type,
+      {Vehicle type,
       String track,
       String terminal,
       String fgcolor,
@@ -64,7 +64,7 @@ class _$LegTearOff {
 const $Leg = _$LegTearOff();
 
 mixin _$Leg {
-  String get type;
+  Vehicle get type;
   String get track;
   String get terminal;
   String get fgcolor;
@@ -92,7 +92,7 @@ abstract class $LegCopyWith<$Res> {
   factory $LegCopyWith(Leg value, $Res Function(Leg) then) =
       _$LegCopyWithImpl<$Res>;
   $Res call(
-      {String type,
+      {Vehicle type,
       String track,
       String terminal,
       String fgcolor,
@@ -145,7 +145,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
     Object isaddress = freezed,
   }) {
     return _then(_value.copyWith(
-      type: type == freezed ? _value.type : type as String,
+      type: type == freezed ? _value.type : type as Vehicle,
       track: track == freezed ? _value.track : track as String,
       terminal: terminal == freezed ? _value.terminal : terminal as String,
       fgcolor: fgcolor == freezed ? _value.fgcolor : fgcolor as String,
@@ -185,7 +185,7 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       __$LegCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String type,
+      {Vehicle type,
       String track,
       String terminal,
       String fgcolor,
@@ -240,7 +240,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
     Object isaddress = freezed,
   }) {
     return _then(_Leg(
-      type: type == freezed ? _value.type : type as String,
+      type: type == freezed ? _value.type : type as Vehicle,
       track: track == freezed ? _value.track : track as String,
       terminal: terminal == freezed ? _value.terminal : terminal as String,
       fgcolor: fgcolor == freezed ? _value.fgcolor : fgcolor as String,
@@ -292,7 +292,7 @@ class _$_Leg implements _Leg {
   factory _$_Leg.fromJson(Map<String, dynamic> json) => _$_$_LegFromJson(json);
 
   @override
-  final String type;
+  final Vehicle type;
   @override
   final String track;
   @override
@@ -425,7 +425,7 @@ class _$_Leg implements _Leg {
 
 abstract class _Leg implements Leg {
   factory _Leg(
-      {String type,
+      {Vehicle type,
       String track,
       String terminal,
       String fgcolor,
@@ -448,7 +448,7 @@ abstract class _Leg implements Leg {
   factory _Leg.fromJson(Map<String, dynamic> json) = _$_Leg.fromJson;
 
   @override
-  String get type;
+  Vehicle get type;
   @override
   String get track;
   @override

@@ -1,59 +1,60 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travel_free/api/cff/types_enum.dart';
+import 'package:travel_free/api/cff/vehicle_iconclass.dart';
 
 class CffIcon extends StatelessWidget {
   const CffIcon(
-    this.icon, {
+    this.vehicle, {
     this.size,
     this.color,
     Key key,
   }) : super(key: key);
 
-  final String icon;
+  CffIcon.fromIconClass(String iconclass, {this.size, this.color, Key key})
+      : vehicle = VehicleIconclass.fromJson({"vehicle": iconclass}).v,
+        super(key: key);
+
+  final Vehicle vehicle;
   final double size;
   final Color color;
 
-  static Widget getIcon(String s) {
-    if (s == null) return const FaIcon(FontAwesomeIcons.question);
-    final icon = s.substring(s.lastIndexOf("-") + 1);
-    switch (icon) {
-      case "bus":
+  static Widget getIcon(Vehicle v) {
+    switch (v) {
+      case Vehicle.bus:
         return const FaIcon(FontAwesomeIcons.bus);
-      case "post":
-      case "night_bus":
+      case Vehicle.post:
+      case Vehicle.nightBus:
         return const FaIcon(FontAwesomeIcons.busAlt);
-      case "tram":
+      case Vehicle.tram:
         return const FaIcon(FontAwesomeIcons.subway);
-      case "walk":
+      case Vehicle.walk:
         return const FaIcon(FontAwesomeIcons.walking);
-      case "strain":
-      case "train":
-      case "express_train":
-      case "funicular":
+      case Vehicle.strain:
+      case Vehicle.train:
+      case Vehicle.expressTrain:
+      case Vehicle.funicular:
         return const FaIcon(FontAwesomeIcons.train);
-      case "business":
+      case Vehicle.business:
         return const FaIcon(FontAwesomeIcons.store);
-      case "adr":
+      case Vehicle.adr:
         return const FaIcon(FontAwesomeIcons.home);
-      case "private":
+      case Vehicle.private:
         return const FaIcon(FontAwesomeIcons.building);
-      case "gondola":
+      case Vehicle.gondola:
         return const FaIcon(FontAwesomeIcons.ship);
     }
-    log("", error: "Unknown icon : `$icon`");
+
     return const FaIcon(FontAwesomeIcons.question);
   }
 
   static const List<String> _privatePlaces = ["adr", "business", "private"];
 
-  static bool isPrivate(String s) =>
-      _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
+  static bool isPrivate(String s) => _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
 
   @override
   Widget build(BuildContext context) => IconTheme(
         data: IconTheme.of(context).copyWith(size: size, color: color),
-        child: getIcon(icon),
+        child: getIcon(vehicle),
       );
 }

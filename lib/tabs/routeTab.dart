@@ -69,7 +69,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       )),
                   suggestionsCallback: (pattern) => cff.complete(pattern),
                   itemBuilder: (context, suggestion) => ListTile(
-                    leading: CffIcon(suggestion.iconclass),
+                    leading: CffIcon.fromIconClass(suggestion.iconclass),
                     title: Text(suggestion.label),
                     dense: true,
                   ),
@@ -118,7 +118,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                           const InputDecoration(border: OutlineInputBorder(), hintText: "To")),
                   suggestionsCallback: (pattern) => cff.complete(pattern),
                   itemBuilder: (context, suggestion) => ListTile(
-                    leading: CffIcon(suggestion.iconclass),
+                    leading: CffIcon.fromIconClass(suggestion.iconclass),
                     title: Text(suggestion.label),
                     dense: true,
                   ),

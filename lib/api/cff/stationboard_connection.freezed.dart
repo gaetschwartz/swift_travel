@@ -17,7 +17,7 @@ class _$StationboardConnectionTearOff {
   const _$StationboardConnectionTearOff();
 
 // ignore: unused_element
-  _StationboardConnection call(DateTime time, String type, String line,
+  _StationboardConnection call(DateTime time, Vehicle type, String line,
       String color, String number, Terminal terminal, String operator,
       {@JsonKey(name: '*G') String g, @JsonKey(name: '*L') String l}) {
     return _StationboardConnection(
@@ -39,7 +39,7 @@ const $StationboardConnection = _$StationboardConnectionTearOff();
 
 mixin _$StationboardConnection {
   DateTime get time;
-  String get type;
+  Vehicle get type;
   String get line;
   String get color;
   String get number;
@@ -60,7 +60,7 @@ abstract class $StationboardConnectionCopyWith<$Res> {
       _$StationboardConnectionCopyWithImpl<$Res>;
   $Res call(
       {DateTime time,
-      String type,
+      Vehicle type,
       String line,
       String color,
       String number,
@@ -94,7 +94,7 @@ class _$StationboardConnectionCopyWithImpl<$Res>
   }) {
     return _then(_value.copyWith(
       time: time == freezed ? _value.time : time as DateTime,
-      type: type == freezed ? _value.type : type as String,
+      type: type == freezed ? _value.type : type as Vehicle,
       line: line == freezed ? _value.line : line as String,
       color: color == freezed ? _value.color : color as String,
       number: number == freezed ? _value.number : number as String,
@@ -124,7 +124,7 @@ abstract class _$StationboardConnectionCopyWith<$Res>
   @override
   $Res call(
       {DateTime time,
-      String type,
+      Vehicle type,
       String line,
       String color,
       String number,
@@ -161,7 +161,7 @@ class __$StationboardConnectionCopyWithImpl<$Res>
   }) {
     return _then(_StationboardConnection(
       time == freezed ? _value.time : time as DateTime,
-      type == freezed ? _value.type : type as String,
+      type == freezed ? _value.type : type as Vehicle,
       line == freezed ? _value.line : line as String,
       color == freezed ? _value.color : color as String,
       number == freezed ? _value.number : number as String,
@@ -192,7 +192,7 @@ class _$_StationboardConnection implements _StationboardConnection {
   @override
   final DateTime time;
   @override
-  final String type;
+  final Vehicle type;
   @override
   final String line;
   @override
@@ -266,7 +266,7 @@ class _$_StationboardConnection implements _StationboardConnection {
 }
 
 abstract class _StationboardConnection implements StationboardConnection {
-  factory _StationboardConnection(DateTime time, String type, String line,
+  factory _StationboardConnection(DateTime time, Vehicle type, String line,
       String color, String number, Terminal terminal, String operator,
       {@JsonKey(name: '*G') String g,
       @JsonKey(name: '*L') String l}) = _$_StationboardConnection;
@@ -277,7 +277,7 @@ abstract class _StationboardConnection implements StationboardConnection {
   @override
   DateTime get time;
   @override
-  String get type;
+  Vehicle get type;
   @override
   String get line;
   @override

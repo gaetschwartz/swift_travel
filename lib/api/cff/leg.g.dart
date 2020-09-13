@@ -8,7 +8,7 @@ part of 'leg.dart';
 
 _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
   return _$_Leg(
-    type: json['type'] as String,
+    type: _$enumDecodeNullable(_$VehicleEnumMap, json['type']),
     track: json['track'] as String,
     terminal: json['terminal'] as String,
     fgcolor: json['fgcolor'] as String,
@@ -41,7 +41,7 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) => <String, dynamic>{
-      'type': instance.type,
+      'type': _$VehicleEnumMap[instance.type],
       'track': instance.track,
       'terminal': instance.terminal,
       'fgcolor': instance.fgcolor,
@@ -61,3 +61,51 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) => <String, dynamic>{
       'waittime': instance.waittime,
       'isaddress': instance.isaddress,
     };
+
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
+
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return value ?? unknownValue;
+}
+
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$VehicleEnumMap = {
+  Vehicle.bus: 'bus',
+  Vehicle.post: 'post',
+  Vehicle.nightBus: 'night_bus',
+  Vehicle.tram: 'tram',
+  Vehicle.walk: 'walk',
+  Vehicle.strain: 'strain',
+  Vehicle.train: 'train',
+  Vehicle.expressTrain: 'express_train',
+  Vehicle.funicular: 'funicular',
+  Vehicle.business: 'business',
+  Vehicle.adr: 'adr',
+  Vehicle.private: 'private',
+  Vehicle.gondola: 'gondola',
+};
