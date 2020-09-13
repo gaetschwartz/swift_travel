@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_free/api/cff/cff_completion.dart';
 import 'package:travel_free/blocs/cff.dart';
 import 'package:travel_free/blocs/store.dart';
@@ -34,58 +35,51 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return RefreshIndicator(
-      onRefresh: () => loadFavorites(),
-      child: Column(
-        children: <Widget>[
-          RaisedButton(
-            shape: const StadiumBorder(),
-            onPressed: () async {
-              final String s =
-                  await showDialog(context: context, builder: (_) => StopInputDialog());
-              if (s == null) return;
-              final CffCompletion completion = (await _cff.complete(s, showIds: true)).first;
-              await _store.addFavorite(completion);
-            },
-            child: const Text("Add Fav"),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Consumer(builder: (context, w, _) {
-                final favs = w(favoritesStatesProvider);
-                print(favs.state);
-                return favs.state.map(
-                  data: (data) => GridView.count(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                    children: List.generate(
-                      data.completions.length,
-                      (i) => _FavoriteTile(data.completions[i], loadFavorites),
-                    ),
-                  ),
-                  loading: (_) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  error: (e) => Center(
-                    child: Text(
-                      e.toString(),
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
-                  empty: (_) => Center(
-                    child: Text(
-                      "No favorites",
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
-                );
-              }),
-            ),
-          )
-        ],
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        shape: const StadiumBorder(),
+        onPressed: () async {
+          final String s = await showDialog(context: context, builder: (_) => StopInputDialog());
+          if (s == null) return;
+          final CffCompletion completion = (await _cff.complete(s, showIds: true)).first;
+          await _store.addFavorite(completion);
+        },
+        child: const FaIcon(FontAwesomeIcons.plus),
       ),
+      body: RefreshIndicator(
+          onRefresh: () => loadFavorites(),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Consumer(builder: (context, w, _) {
+              final favs = w(favoritesStatesProvider);
+              return favs.state.map(
+                data: (data) => GridView.count(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  children: List.generate(
+                    data.completions.length,
+                    (i) => _FavoriteTile(data.completions[i], loadFavorites),
+                  ),
+                ),
+                loading: (_) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                error: (e) => Center(
+                  child: Text(
+                    e.toString(),
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+                empty: (_) => Center(
+                  child: Text(
+                    "No favorites",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+              );
+            }),
+          )),
     );
   }
 }
@@ -107,7 +101,6 @@ class _FavoriteTile extends StatelessWidget {
       child: InkWell(
         onLongPress: () async {
           await context.read(favoritesProvider).deleteFavorite(stop);
-          reload();
         },
         child: Center(
           child: Text(stop.label),
