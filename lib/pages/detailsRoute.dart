@@ -237,28 +237,7 @@ class WalkingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        final departure =
-            l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
-        final arrival = "${l.exit.lat}, ${l.exit.lon}";
-        final address =
-            'https://maps.google.com/maps?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
-        log(l.toString());
-        log(address);
-        if (Platform.isAndroid) {
-          final AndroidIntent intent = AndroidIntent(
-            action: 'action_view',
-            data: address,
-          );
-          await intent.launch();
-        } else if (Platform.isIOS) {
-          try {
-            await launch(address);
-          } on Exception {
-            log("Failed to open $address");
-          }
-        }
-      },
+      onTap: () => openRoute(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
         child: Row(
@@ -309,5 +288,28 @@ class WalkingTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future openRoute() async {
+    final departure =
+        l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
+    final arrival = "${l.exit.lat}, ${l.exit.lon}";
+    final address =
+        'https://maps.google.com/maps?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
+    log(l.toString());
+    log(address);
+    if (Platform.isAndroid) {
+      final AndroidIntent intent = AndroidIntent(
+        action: 'action_view',
+        data: address,
+      );
+      await intent.launch();
+    } else if (Platform.isIOS) {
+      try {
+        await launch(address);
+      } on Exception {
+        log("Failed to open $address");
+      }
+    }
   }
 }
