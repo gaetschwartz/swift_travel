@@ -88,20 +88,22 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                     : const FaIcon(FontAwesomeIcons.locationArrow);
               }), onPressed: () async {
                 context.read(_loadingProvider).state = true;
-                final p =
-                    await getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-                log("Position is : $p");
+                try {
+                  final p =
+                      await getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
 
-                final completions =
-                    await context.read(cffProvider).findStation(p.latitude, p.longitude);
+                  log("Position is : $p");
+                  final completions =
+                      await context.read(cffProvider).findStation(p.latitude, p.longitude);
 
-                final first = completions.first;
-                log("Found : $first");
-                if (first.dist != null) {
-                  fromController.text = completions.first.label;
+                  final first = completions.first;
+                  log("Found : $first");
+                  if (first.dist != null) {
+                    fromController.text = completions.first.label;
+                  }
+                } finally {
+                  context.read(_loadingProvider).state = false;
                 }
-
-                context.read(_loadingProvider).state = false;
               })
             ],
           ),

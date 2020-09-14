@@ -1,3 +1,7 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/api/cff/leg.dart';
@@ -7,6 +11,7 @@ import 'package:swiss_travel/api/cff/types_enum.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/icon.dart';
 import 'package:swiss_travel/widget/lineWidget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailsRoute extends StatelessWidget {
   final RouteConnection c;
@@ -73,6 +78,94 @@ class LegTile extends StatelessWidget {
 
   final Leg l;
 
+  @override
+  Widget build(BuildContext context) => l.exit == null
+      ? ArrivedTile(l: l)
+      : l.type == Vehicle.walk ? WalkingTile(l: l) : RegularLegTile(l: l);
+}
+
+class RegularLegTile extends StatelessWidget {
+  const RegularLegTile({
+    Key key,
+    @required this.l,
+  }) : super(key: key);
+
+  final Leg l;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
+      title: Row(
+        children: <Widget>[
+          if (l.line != null) ...[
+            LineWidget(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+            const SizedBox(width: 8),
+          ] else ...[
+            CffIcon(l.type),
+            const SizedBox(width: 8),
+          ],
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                l.exit.name,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          if (l.track != null)
+            Text(
+              "Pl. ${l.track}",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+        ],
+      ),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                CffIcon(l.type, size: 16),
+                const SizedBox(width: 8),
+                Text(
+                  l.terminal ?? "",
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+              ],
+            ),
+            if (l.exit != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: DefaultTextStyle(
+                  style: Theme.of(context).textTheme.subtitle2,
+                  child: Row(
+                    children: [
+                      Text(
+                        "${Format.dateToHour(l.departure)} - ${Format.dateToHour(l.exit.arrival)}",
+                      ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(Format.intToMinutes(
+                            l.runningtime,
+                            pad: false,
+                          )),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+      children: _buildStopTitle(l),
+    );
+  }
+
   List<Widget> _buildStopTitle(Leg l) {
     final List<Widget> list = [];
     list.add(_buildStop(Stop(l.name, departure: l.departure), bold: true));
@@ -105,139 +198,105 @@ class LegTile extends StatelessWidget {
       ),
     );
   }
+}
+
+class ArrivedTile extends StatelessWidget {
+  const ArrivedTile({
+    Key key,
+    @required this.l,
+  }) : super(key: key);
+
+  final Leg l;
 
   @override
-  Widget build(BuildContext context) => l.exit == null
-      ? ListTile(
-          title: Row(
-            children: [
-              const FaIcon(FontAwesomeIcons.mapPin),
-              const SizedBox(width: 8),
-              Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
-            ],
-          ),
-        )
-      : l.type == Vehicle.walk
-          ? InkWell(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Row(
-                            children: [
-                              const FaIcon(FontAwesomeIcons.walking),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    l.exit.name,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        .copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ],
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Row(
+        children: [
+          const FaIcon(FontAwesomeIcons.mapPin),
+          const SizedBox(width: 8),
+          Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
+        ],
+      ),
+    );
+  }
+}
+
+class WalkingTile extends StatelessWidget {
+  const WalkingTile({
+    Key key,
+    @required this.l,
+  }) : super(key: key);
+
+  final Leg l;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () async {
+        final departure = l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
+        final address =
+            'http://maps.google.com/maps?saddr=$departure&daddr=${l.exit.lat}, ${l.exit.lon}&dirflg=w';
+        if (Platform.isAndroid) {
+          log(l.toString());
+          final AndroidIntent intent = AndroidIntent(
+            action: 'action_view',
+            data: address,
+          );
+          await intent.launch();
+        } else if (Platform.isIOS) {
+          await launch(address);
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      const FaIcon(FontAwesomeIcons.walking),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            l.exit.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                .copyWith(fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 8),
-                          Text.rich(TextSpan(children: [
-                            TextSpan(
-                              text: "Walk ",
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-                            TextSpan(
-                                text: Format.intToMinutes(l.runningtime),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2
-                                    .copyWith(fontWeight: FontWeight.w900)),
-                          ])),
-                        ],
+                        ),
                       ),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      color: Theme.of(context).disabledColor,
-                    ),
-                  ],
-                ),
-              ),
-            )
-          : ExpansionTile(
-              backgroundColor: Theme.of(context).backgroundColor.withAlpha(100),
-              title: Row(
-                children: <Widget>[
-                  if (l.line != null) ...[
-                    LineWidget(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
-                    const SizedBox(width: 8),
-                  ] else ...[
-                    CffIcon(l.type),
-                    const SizedBox(width: 8),
-                  ],
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        l.exit.name,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                    ],
                   ),
-                  if (l.track != null)
-                    Text(
-                      "Pl. ${l.track}",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                  const SizedBox(height: 8),
+                  Text.rich(TextSpan(children: [
+                    TextSpan(
+                      text: "Walk ",
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
+                    TextSpan(
+                        text: Format.intToMinutes(l.runningtime),
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2
+                            .copyWith(fontWeight: FontWeight.w900)),
+                  ])),
                 ],
               ),
-              subtitle: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        CffIcon(l.type, size: 16),
-                        const SizedBox(width: 8),
-                        Text(
-                          l.terminal ?? "",
-                          style: Theme.of(context).textTheme.subtitle2,
-                        ),
-                      ],
-                    ),
-                    if (l.exit != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: DefaultTextStyle(
-                          style: Theme.of(context).textTheme.subtitle2,
-                          child: Row(
-                            children: [
-                              Text(
-                                "${Format.dateToHour(l.departure)} - ${Format.dateToHour(l.exit.arrival)}",
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(Format.intToMinutes(
-                                    l.runningtime,
-                                    pad: false,
-                                  )),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              children: _buildStopTitle(l),
-            );
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Theme.of(context).disabledColor,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

@@ -35,7 +35,9 @@ class _$LegTearOff {
       DateTime arrival,
       int normalTime,
       int waittime,
-      bool isaddress}) {
+      bool isaddress,
+      double lat,
+      double lon}) {
     return _Leg(
       type: type,
       track: track,
@@ -56,6 +58,8 @@ class _$LegTearOff {
       normalTime: normalTime,
       waittime: waittime,
       isaddress: isaddress,
+      lat: lat,
+      lon: lon,
     );
   }
 }
@@ -83,6 +87,8 @@ mixin _$Leg {
   int get normalTime;
   int get waittime;
   bool get isaddress;
+  double get lat;
+  double get lon;
 
   Map<String, dynamic> toJson();
   $LegCopyWith<Leg> get copyWith;
@@ -110,7 +116,9 @@ abstract class $LegCopyWith<$Res> {
       DateTime arrival,
       int normalTime,
       int waittime,
-      bool isaddress});
+      bool isaddress,
+      double lat,
+      double lon});
 
   $ExitCopyWith<$Res> get exit;
 }
@@ -143,6 +151,8 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
     Object normalTime = freezed,
     Object waittime = freezed,
     Object isaddress = freezed,
+    Object lat = freezed,
+    Object lon = freezed,
   }) {
     return _then(_value.copyWith(
       type: type == freezed ? _value.type : type as Vehicle,
@@ -166,6 +176,8 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
       normalTime: normalTime == freezed ? _value.normalTime : normalTime as int,
       waittime: waittime == freezed ? _value.waittime : waittime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
+      lat: lat == freezed ? _value.lat : lat as double,
+      lon: lon == freezed ? _value.lon : lon as double,
     ));
   }
 
@@ -203,7 +215,9 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       DateTime arrival,
       int normalTime,
       int waittime,
-      bool isaddress});
+      bool isaddress,
+      double lat,
+      double lon});
 
   @override
   $ExitCopyWith<$Res> get exit;
@@ -238,6 +252,8 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
     Object normalTime = freezed,
     Object waittime = freezed,
     Object isaddress = freezed,
+    Object lat = freezed,
+    Object lon = freezed,
   }) {
     return _then(_Leg(
       type: type == freezed ? _value.type : type as Vehicle,
@@ -261,6 +277,8 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
       normalTime: normalTime == freezed ? _value.normalTime : normalTime as int,
       waittime: waittime == freezed ? _value.waittime : waittime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
+      lat: lat == freezed ? _value.lat : lat as double,
+      lon: lon == freezed ? _value.lon : lon as double,
     ));
   }
 }
@@ -286,7 +304,9 @@ class _$_Leg implements _Leg {
       this.arrival,
       this.normalTime,
       this.waittime,
-      this.isaddress})
+      this.isaddress,
+      this.lat,
+      this.lon})
       : assert(stops != null);
 
   factory _$_Leg.fromJson(Map<String, dynamic> json) => _$_$_LegFromJson(json);
@@ -330,10 +350,14 @@ class _$_Leg implements _Leg {
   final int waittime;
   @override
   final bool isaddress;
+  @override
+  final double lat;
+  @override
+  final double lon;
 
   @override
   String toString() {
-    return 'Leg(type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, exit: $exit, runningtime: $runningtime, stopid: $stopid, line: $line, stops: $stops, sbbName: $sbbName, name: $name, departure: $departure, arrival: $arrival, normalTime: $normalTime, waittime: $waittime, isaddress: $isaddress)';
+    return 'Leg(type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, exit: $exit, runningtime: $runningtime, stopid: $stopid, line: $line, stops: $stops, sbbName: $sbbName, name: $name, departure: $departure, arrival: $arrival, normalTime: $normalTime, waittime: $waittime, isaddress: $isaddress, lat: $lat, lon: $lon)';
   }
 
   @override
@@ -387,7 +411,11 @@ class _$_Leg implements _Leg {
                     .equals(other.waittime, waittime)) &&
             (identical(other.isaddress, isaddress) ||
                 const DeepCollectionEquality()
-                    .equals(other.isaddress, isaddress)));
+                    .equals(other.isaddress, isaddress)) &&
+            (identical(other.lat, lat) ||
+                const DeepCollectionEquality().equals(other.lat, lat)) &&
+            (identical(other.lon, lon) ||
+                const DeepCollectionEquality().equals(other.lon, lon)));
   }
 
   @override
@@ -411,7 +439,9 @@ class _$_Leg implements _Leg {
       const DeepCollectionEquality().hash(arrival) ^
       const DeepCollectionEquality().hash(normalTime) ^
       const DeepCollectionEquality().hash(waittime) ^
-      const DeepCollectionEquality().hash(isaddress);
+      const DeepCollectionEquality().hash(isaddress) ^
+      const DeepCollectionEquality().hash(lat) ^
+      const DeepCollectionEquality().hash(lon);
 
   @override
   _$LegCopyWith<_Leg> get copyWith =>
@@ -443,7 +473,9 @@ abstract class _Leg implements Leg {
       DateTime arrival,
       int normalTime,
       int waittime,
-      bool isaddress}) = _$_Leg;
+      bool isaddress,
+      double lat,
+      double lon}) = _$_Leg;
 
   factory _Leg.fromJson(Map<String, dynamic> json) = _$_Leg.fromJson;
 
@@ -485,6 +517,10 @@ abstract class _Leg implements Leg {
   int get waittime;
   @override
   bool get isaddress;
+  @override
+  double get lat;
+  @override
+  double get lon;
   @override
   _$LegCopyWith<_Leg> get copyWith;
 }

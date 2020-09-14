@@ -12,6 +12,8 @@ abstract class Exit with _$Exit {
     int waittime,
     bool isaddress,
     String sbbName,
+    double lat,
+    double lon,
   }) = _Exit;
 
   factory Exit.fromJson(Map<String, dynamic> json) => _$ExitFromJson(json);

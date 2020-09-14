@@ -37,6 +37,8 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
     normalTime: json['normalTime'] as int,
     waittime: json['waittime'] as int,
     isaddress: json['isaddress'] as bool,
+    lat: (json['lat'] as num)?.toDouble(),
+    lon: (json['lon'] as num)?.toDouble(),
   );
 }
 
@@ -60,6 +62,8 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) => <String, dynamic>{
       'normalTime': instance.normalTime,
       'waittime': instance.waittime,
       'isaddress': instance.isaddress,
+      'lat': instance.lat,
+      'lon': instance.lon,
     };
 
 T _$enumDecode<T>(

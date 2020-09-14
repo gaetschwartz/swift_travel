@@ -16,6 +16,8 @@ _$_Exit _$_$_ExitFromJson(Map<String, dynamic> json) {
     waittime: json['waittime'] as int,
     isaddress: json['isaddress'] as bool,
     sbbName: json['sbbName'] as String,
+    lat: (json['lat'] as num)?.toDouble(),
+    lon: (json['lon'] as num)?.toDouble(),
   );
 }
 
@@ -26,4 +28,6 @@ Map<String, dynamic> _$_$_ExitToJson(_$_Exit instance) => <String, dynamic>{
       'waittime': instance.waittime,
       'isaddress': instance.isaddress,
       'sbbName': instance.sbbName,
+      'lat': instance.lat,
+      'lon': instance.lon,
     };

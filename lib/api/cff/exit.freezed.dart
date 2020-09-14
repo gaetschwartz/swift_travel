@@ -22,7 +22,9 @@ class _$ExitTearOff {
       String stopid,
       int waittime,
       bool isaddress,
-      String sbbName}) {
+      String sbbName,
+      double lat,
+      double lon}) {
     return _Exit(
       arrival: arrival,
       name: name,
@@ -30,6 +32,8 @@ class _$ExitTearOff {
       waittime: waittime,
       isaddress: isaddress,
       sbbName: sbbName,
+      lat: lat,
+      lon: lon,
     );
   }
 }
@@ -44,6 +48,8 @@ mixin _$Exit {
   int get waittime;
   bool get isaddress;
   String get sbbName;
+  double get lat;
+  double get lon;
 
   Map<String, dynamic> toJson();
   $ExitCopyWith<Exit> get copyWith;
@@ -58,7 +64,9 @@ abstract class $ExitCopyWith<$Res> {
       String stopid,
       int waittime,
       bool isaddress,
-      String sbbName});
+      String sbbName,
+      double lat,
+      double lon});
 }
 
 class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
@@ -76,6 +84,8 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
     Object waittime = freezed,
     Object isaddress = freezed,
     Object sbbName = freezed,
+    Object lat = freezed,
+    Object lon = freezed,
   }) {
     return _then(_value.copyWith(
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
@@ -84,6 +94,8 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
       waittime: waittime == freezed ? _value.waittime : waittime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String,
+      lat: lat == freezed ? _value.lat : lat as double,
+      lon: lon == freezed ? _value.lon : lon as double,
     ));
   }
 }
@@ -98,7 +110,9 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
       String stopid,
       int waittime,
       bool isaddress,
-      String sbbName});
+      String sbbName,
+      double lat,
+      double lon});
 }
 
 class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
@@ -117,6 +131,8 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
     Object waittime = freezed,
     Object isaddress = freezed,
     Object sbbName = freezed,
+    Object lat = freezed,
+    Object lon = freezed,
   }) {
     return _then(_Exit(
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
@@ -125,6 +141,8 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
       waittime: waittime == freezed ? _value.waittime : waittime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String,
+      lat: lat == freezed ? _value.lat : lat as double,
+      lon: lon == freezed ? _value.lon : lon as double,
     ));
   }
 }
@@ -137,7 +155,9 @@ class _$_Exit implements _Exit {
       this.stopid,
       this.waittime,
       this.isaddress,
-      this.sbbName});
+      this.sbbName,
+      this.lat,
+      this.lon});
 
   factory _$_Exit.fromJson(Map<String, dynamic> json) =>
       _$_$_ExitFromJson(json);
@@ -154,10 +174,14 @@ class _$_Exit implements _Exit {
   final bool isaddress;
   @override
   final String sbbName;
+  @override
+  final double lat;
+  @override
+  final double lon;
 
   @override
   String toString() {
-    return 'Exit(arrival: $arrival, name: $name, stopid: $stopid, waittime: $waittime, isaddress: $isaddress, sbbName: $sbbName)';
+    return 'Exit(arrival: $arrival, name: $name, stopid: $stopid, waittime: $waittime, isaddress: $isaddress, sbbName: $sbbName, lat: $lat, lon: $lon)';
   }
 
   @override
@@ -178,7 +202,12 @@ class _$_Exit implements _Exit {
                 const DeepCollectionEquality()
                     .equals(other.isaddress, isaddress)) &&
             (identical(other.sbbName, sbbName) ||
-                const DeepCollectionEquality().equals(other.sbbName, sbbName)));
+                const DeepCollectionEquality()
+                    .equals(other.sbbName, sbbName)) &&
+            (identical(other.lat, lat) ||
+                const DeepCollectionEquality().equals(other.lat, lat)) &&
+            (identical(other.lon, lon) ||
+                const DeepCollectionEquality().equals(other.lon, lon)));
   }
 
   @override
@@ -189,7 +218,9 @@ class _$_Exit implements _Exit {
       const DeepCollectionEquality().hash(stopid) ^
       const DeepCollectionEquality().hash(waittime) ^
       const DeepCollectionEquality().hash(isaddress) ^
-      const DeepCollectionEquality().hash(sbbName);
+      const DeepCollectionEquality().hash(sbbName) ^
+      const DeepCollectionEquality().hash(lat) ^
+      const DeepCollectionEquality().hash(lon);
 
   @override
   _$ExitCopyWith<_Exit> get copyWith =>
@@ -208,7 +239,9 @@ abstract class _Exit implements Exit {
       String stopid,
       int waittime,
       bool isaddress,
-      String sbbName}) = _$_Exit;
+      String sbbName,
+      double lat,
+      double lon}) = _$_Exit;
 
   factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
 
@@ -224,6 +257,10 @@ abstract class _Exit implements Exit {
   bool get isaddress;
   @override
   String get sbbName;
+  @override
+  double get lat;
+  @override
+  double get lon;
   @override
   _$ExitCopyWith<_Exit> get copyWith;
 }

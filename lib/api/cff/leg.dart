@@ -30,6 +30,8 @@ abstract class Leg with _$Leg {
     int normalTime,
     int waittime,
     bool isaddress,
+    double lat,
+    double lon,
   }) = _Leg;
 
   factory Leg.fromJson(Map<String, dynamic> json) => _$LegFromJson(json);
