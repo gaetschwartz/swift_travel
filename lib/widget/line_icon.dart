@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:swiss_travel/utils/format.dart';
 
-class LineWidget extends StatelessWidget {
-  const LineWidget({
+class LineIcon extends StatelessWidget {
+  const LineIcon({
     Key key,
     @required this.foreground,
     @required this.background,

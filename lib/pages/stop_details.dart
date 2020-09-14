@@ -5,7 +5,7 @@ import 'package:swiss_travel/api/cff/stationboard_connection.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/icon.dart';
-import 'package:swiss_travel/widget/lineWidget.dart';
+import 'package:swiss_travel/widget/line_icon.dart';
 
 class DetailsStop extends StatefulWidget {
   final String stopName;
@@ -38,8 +38,7 @@ class _DetailsStopState extends State<DetailsStop> {
                   ? ListView.separated(
                       separatorBuilder: (c, i) => const Divider(),
                       itemCount: data.connections.length,
-                      itemBuilder: (context, i) =>
-                          ConnectionTile(c: data.connections[i]),
+                      itemBuilder: (context, i) => ConnectionTile(c: data.connections[i]),
                     )
                   : Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -61,8 +60,7 @@ class _DetailsStopState extends State<DetailsStop> {
   }
 
   Future<void> reloadData() async {
-    final CffStationboard l =
-        await context.read(cffProvider).stationboard(widget.stopName);
+    final CffStationboard l = await context.read(cffProvider).stationboard(widget.stopName);
     setState(() {
       data = l;
     });
@@ -79,7 +77,7 @@ class ConnectionTile extends StatelessWidget {
     return ListTile(
       title: Row(
         children: [
-          LineWidget(
+          LineIcon(
             background: c.color.split("~").first,
             foreground: c.color.split("~")[1],
             line: c.line,

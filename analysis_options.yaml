@@ -6,6 +6,5 @@ analyzer:
     - lib/generated/l10n.dart
   errors:
     avoid_print: ignore
-    file_names: ignore
     avoid_positional_boolean_parameters: ignore
-    non_constant_identifier_names : ignore
+    non_constant_identifier_names: ignore

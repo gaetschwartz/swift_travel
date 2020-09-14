@@ -8,7 +8,7 @@ import 'package:utils/blocs/theme_riverpod.dart';
 
 final _initValue = FutureProvider<Maps>((r) async {
   final prefs = await SharedPreferences.getInstance();
-  final i = prefs.getInt("apple_maps");
+  final i = prefs.getInt("maps_app");
   return Maps.values[i];
 });
 
@@ -106,6 +106,6 @@ class Settings extends StatelessWidget {
   Future<void> onMapsChanged(StateController<Maps> maps, Maps m) async {
     final prefs = await SharedPreferences.getInstance();
     maps.state = m;
-    prefs.setInt("apple_maps", m.index);
+    prefs.setInt("maps_app", m.index);
   }
 }

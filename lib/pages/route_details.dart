@@ -9,9 +9,10 @@ import 'package:swiss_travel/api/cff/leg.dart';
 import 'package:swiss_travel/api/cff/route_connection.dart';
 import 'package:swiss_travel/api/cff/stop.dart';
 import 'package:swiss_travel/api/cff/types_enum.dart';
+import 'package:swiss_travel/pages/settings.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/icon.dart';
-import 'package:swiss_travel/widget/lineWidget.dart';
+import 'package:swiss_travel/widget/line_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsRoute extends StatelessWidget {
@@ -100,7 +101,7 @@ class RegularLegTile extends StatelessWidget {
       title: Row(
         children: <Widget>[
           if (l.line != null) ...[
-            LineWidget(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+            LineIcon(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
             const SizedBox(width: 8),
           ] else ...[
             CffIcon(l.type),
@@ -298,14 +299,8 @@ class WalkingTile extends StatelessWidget {
         '?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
     if (Platform.isIOS) {
       final prefs = await SharedPreferences.getInstance();
-      String url;
-      if (prefs.getInt("apple_maps") == 0) {
-        log("Using Apple Maps");
-        url = _apple + suffix;
-      } else if (prefs.getInt("apple_maps") == 1) {
-        log("Using Google Maps");
-        url = _google + suffix;
-      }
+      final map = prefs.getInt("maps_app");
+      final url = getMapsUrl(map, suffix);
       try {
         await launch(url);
       } on Exception {
@@ -318,5 +313,20 @@ class WalkingTile extends StatelessWidget {
       );
       await intent.launch();
     }
+  }
+
+  String getMapsUrl(int map, String suffix) {
+    if (map >= 0 && map < Maps.values.length) {
+      final m = Maps.values[map];
+      switch (m) {
+        case Maps.apple:
+          log("Using Apple Maps");
+          return _apple + suffix;
+        case Maps.google:
+          log("Using Google Maps");
+          return _google + suffix;
+      }
+    }
+    return null;
   }
 }

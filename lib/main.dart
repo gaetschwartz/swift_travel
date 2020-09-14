@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/pages/loading.dart';
 import 'package:swiss_travel/pages/settings.dart';
-import 'package:swiss_travel/tabs/favoritesTab.dart';
-import 'package:swiss_travel/tabs/routeTab.dart';
-import 'package:swiss_travel/tabs/stationsTab.dart';
+import 'package:swiss_travel/tabs/favorites_tab.dart';
+import 'package:swiss_travel/tabs/route_tab.dart';
+import 'package:swiss_travel/tabs/stations_tab.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
 
 void main() => runApp(MyApp());

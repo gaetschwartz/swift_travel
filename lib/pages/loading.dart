@@ -78,7 +78,7 @@ class _LoadingPageState extends State<LoadingPage> {
           }),
         );
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getInt("apple_maps") == null) await prefs.setInt("apple_maps", 0);
+    if (prefs.getInt("maps_app") == null) await prefs.setInt("maps_app", 0);
 
     await Future.delayed(const Duration(milliseconds: 500));
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => MyHomePage()));

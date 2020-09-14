@@ -10,7 +10,7 @@ import 'package:swiss_travel/api/cff/cff_completion.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/station_states.dart';
-import 'package:swiss_travel/pages/detailsStop.dart';
+import 'package:swiss_travel/pages/stop_details.dart';
 import 'package:swiss_travel/widget/icon.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());

@@ -15,7 +15,7 @@ import 'package:swiss_travel/api/cff/route_connection.dart';
 import 'package:swiss_travel/api/cff/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/models/route_states.dart';
-import 'package:swiss_travel/pages/detailsRoute.dart';
+import 'package:swiss_travel/pages/route_details.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/icon.dart';
 
