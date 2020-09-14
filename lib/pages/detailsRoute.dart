@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/api/cff/leg.dart';
 import 'package:swiss_travel/api/cff/route_connection.dart';
 import 'package:swiss_travel/api/cff/stop.dart';
@@ -99,8 +100,7 @@ class RegularLegTile extends StatelessWidget {
       title: Row(
         children: <Widget>[
           if (l.line != null) ...[
-            LineWidget(
-                foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+            LineWidget(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
             const SizedBox(width: 8),
           ] else ...[
             CffIcon(l.type),
@@ -174,8 +174,7 @@ class RegularLegTile extends StatelessWidget {
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(
-        _buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -217,9 +216,7 @@ class ArrivedTile extends StatelessWidget {
         children: [
           const FaIcon(FontAwesomeIcons.mapPin),
           const SizedBox(width: 8),
-          Expanded(
-              child: Text(l.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold))),
+          Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
         ],
       ),
     );
@@ -291,24 +288,27 @@ class WalkingTile extends StatelessWidget {
   }
 
   Future openRoute() async {
-    final departure =
-        l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
+    final departure = l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
     final arrival = "${l.exit.lat}, ${l.exit.lon}";
-    final address =
-        'https://maps.google.com/maps?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
+    const apple = "http://maps.apple.com/";
+    const google = "https://maps.google.com/maps";
+    final suffix =
+        '?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
     log(l.toString());
-    log(address);
+    log(suffix);
     if (Platform.isAndroid) {
       final AndroidIntent intent = AndroidIntent(
         action: 'action_view',
-        data: address,
+        data: google + suffix,
       );
       await intent.launch();
     } else if (Platform.isIOS) {
+      final prefs = await SharedPreferences.getInstance();
+      final url = (prefs.getBool("apple_maps") == false ? google : apple) + suffix;
       try {
-        await launch(address);
+        await launch(url);
       } on Exception {
-        log("Failed to open $address");
+        log("Failed to open $apple+suffix");
       }
     }
   }
