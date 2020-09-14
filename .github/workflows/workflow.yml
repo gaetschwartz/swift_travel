@@ -98,7 +98,7 @@ jobs:
     timeout-minutes: 10
     name: Deploy to Testflight
     runs-on: macos-latest
-    if: github.actor == github.repository_owner
+    if: startsWith(github.event.head_commit.message, '$')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
