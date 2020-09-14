@@ -39,6 +39,10 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
     isaddress: json['isaddress'] as bool,
     lat: (json['lat'] as num)?.toDouble(),
     lon: (json['lon'] as num)?.toDouble(),
+    attributes: (json['attributes'] as Map<String, dynamic>)?.map(
+          (k, e) => MapEntry(k, e as String),
+        ) ??
+        {},
   );
 }
 
@@ -64,6 +68,7 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) => <String, dynamic>{
       'isaddress': instance.isaddress,
       'lat': instance.lat,
       'lon': instance.lon,
+      'attributes': instance.attributes,
     };
 
 T _$enumDecode<T>(

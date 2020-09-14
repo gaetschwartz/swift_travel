@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -238,6 +239,14 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               highlightColor: const Color(0x260700b1),
               icon: const FaIcon(FontAwesomeIcons.search),
               onPressed: search,
+              onLongPress: kReleaseMode
+                  ? null
+                  : () {
+                      fromController.text =
+                          "Université de Genève, Genève, Rue du Général-Dufour 24";
+                      toController.text = "Badenerstrasse 549, 8048 Zürich";
+                      search();
+                    },
               shape: const StadiumBorder(),
               color: Theme.of(context).scaffoldBackgroundColor,
               label: const Text("Search"),

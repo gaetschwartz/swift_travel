@@ -11,12 +11,10 @@ import 'package:swiss_travel/api/cff/cff_route.dart';
 import 'package:swiss_travel/api/cff/cff_stationboard.dart';
 import 'package:swiss_travel/api/cff/stop.dart';
 
-final Provider<CffBase> cffProvider =
-    Provider<CffBase>((ref) => CffRepository._());
+final Provider<CffBase> cffProvider = Provider<CffBase>((ref) => CffRepository._());
 
 class CffRepository implements CffBase {
-  static const CffQueryBuilder builder =
-      CffQueryBuilder("https://timetable.search.ch/api");
+  static const CffQueryBuilder builder = CffQueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
 
   CffRepository._();
@@ -32,11 +30,13 @@ class CffRepository implements CffBase {
     bool filterNull = true,
   }) async {
     final uri = builder.build("completion", {
-      "term": string,
       "show_ids": showIds.toInt(),
       "show_coordinates": showCoordinates.toInt(),
-      "nofavorites": noFavorites.toInt()
+      "nofavorites": noFavorites.toInt(),
+      "term": string,
     });
+    log(uri);
+    log(string);
 
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
@@ -76,8 +76,7 @@ class CffRepository implements CffBase {
     }
     final decode = await Future.microtask(() => json.decode(response.body));
     final completions = (decode as List)
-        .map<CffCompletion>(
-            (e) => CffCompletion.fromJson(e as Map<String, dynamic>))
+        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
@@ -156,12 +155,11 @@ class CffQueryBuilder {
     String url = "$baseUrl/$action.json";
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map<String>(
-              (k) => "$k=${Uri.encodeComponent(parameters[k].toString())}")
+          .map<String>((k) => "$k=${parameters[k].toString().replaceAll(" ", "-")}")
           .join("&");
       url += "?$params";
     }
-    return url;
+    return Uri.encodeFull(url);
   }
 }
 

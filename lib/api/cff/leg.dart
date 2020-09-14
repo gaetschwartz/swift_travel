@@ -32,6 +32,7 @@ abstract class Leg with _$Leg {
     bool isaddress,
     double lat,
     double lon,
+    @Default({}) Map<String, String> attributes,
   }) = _Leg;
 
   factory Leg.fromJson(Map<String, dynamic> json) => _$LegFromJson(json);

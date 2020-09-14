@@ -1,6 +1,23 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
+
+final _initValue = FutureProvider<Maps>((r) async {
+  final prefs = await SharedPreferences.getInstance();
+  final i = prefs.getInt("apple_maps");
+  return Maps.values[i];
+});
+
+final _appleMapsProvider = StateProvider<Maps>((r) {
+  final watch = r.watch(_initValue);
+  return watch.map<Maps>(
+      data: (d) => d.data.value, loading: (l) => Maps.apple, error: (e) => Maps.apple);
+});
+enum Maps { apple, google }
 
 class Settings extends StatelessWidget {
   const Settings();
@@ -39,6 +56,29 @@ class Settings extends StatelessWidget {
                 ],
               );
             }),
+            if (!kReleaseMode || Platform.isIOS)
+              Consumer(builder: (context, w, _) {
+                final maps = w(_appleMapsProvider);
+                return Column(
+                  children: [
+                    const ListTile(title: Text("Maps")),
+                    RadioListTile<Maps>(
+                      dense: true,
+                      title: const Text("Apple Maps"),
+                      value: Maps.apple,
+                      groupValue: maps.state,
+                      onChanged: (m) => onMapsChanged(maps, m),
+                    ),
+                    RadioListTile<Maps>(
+                      dense: true,
+                      title: const Text("Google Maps"),
+                      value: Maps.google,
+                      groupValue: maps.state,
+                      onChanged: (m) => onMapsChanged(maps, m),
+                    ),
+                  ],
+                );
+              }),
             const Divider(
               indent: 16,
               endIndent: 16,
@@ -61,5 +101,11 @@ class Settings extends StatelessWidget {
             }),
           ],
         ));
+  }
+
+  Future<void> onMapsChanged(StateController<Maps> maps, Maps m) async {
+    final prefs = await SharedPreferences.getInstance();
+    maps.state = m;
+    prefs.setInt("apple_maps", m.index);
   }
 }

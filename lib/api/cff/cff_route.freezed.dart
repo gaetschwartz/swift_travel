@@ -18,8 +18,8 @@ class _$CffRouteTearOff {
 // ignore: unused_element
   _CffRoute call(
       {int count,
-      int minDuration,
-      int maxDuration,
+      @JsonKey(name: 'min_duration') int minDuration,
+      @JsonKey(name: 'max_duration') int maxDuration,
       List<RouteConnection> connections = const []}) {
     return _CffRoute(
       count: count,
@@ -35,7 +35,9 @@ const $CffRoute = _$CffRouteTearOff();
 
 mixin _$CffRoute {
   int get count;
+  @JsonKey(name: 'min_duration')
   int get minDuration;
+  @JsonKey(name: 'max_duration')
   int get maxDuration;
   List<RouteConnection> get connections;
 
@@ -48,8 +50,8 @@ abstract class $CffRouteCopyWith<$Res> {
       _$CffRouteCopyWithImpl<$Res>;
   $Res call(
       {int count,
-      int minDuration,
-      int maxDuration,
+      @JsonKey(name: 'min_duration') int minDuration,
+      @JsonKey(name: 'max_duration') int maxDuration,
       List<RouteConnection> connections});
 }
 
@@ -86,8 +88,8 @@ abstract class _$CffRouteCopyWith<$Res> implements $CffRouteCopyWith<$Res> {
   @override
   $Res call(
       {int count,
-      int minDuration,
-      int maxDuration,
+      @JsonKey(name: 'min_duration') int minDuration,
+      @JsonKey(name: 'max_duration') int maxDuration,
       List<RouteConnection> connections});
 }
 
@@ -123,8 +125,8 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
 class _$_CffRoute implements _CffRoute {
   _$_CffRoute(
       {this.count,
-      this.minDuration,
-      this.maxDuration,
+      @JsonKey(name: 'min_duration') this.minDuration,
+      @JsonKey(name: 'max_duration') this.maxDuration,
       this.connections = const []})
       : assert(connections != null);
 
@@ -134,8 +136,10 @@ class _$_CffRoute implements _CffRoute {
   @override
   final int count;
   @override
+  @JsonKey(name: 'min_duration')
   final int minDuration;
   @override
+  @JsonKey(name: 'max_duration')
   final int maxDuration;
   @JsonKey(defaultValue: const [])
   @override
@@ -184,8 +188,8 @@ class _$_CffRoute implements _CffRoute {
 abstract class _CffRoute implements CffRoute {
   factory _CffRoute(
       {int count,
-      int minDuration,
-      int maxDuration,
+      @JsonKey(name: 'min_duration') int minDuration,
+      @JsonKey(name: 'max_duration') int maxDuration,
       List<RouteConnection> connections}) = _$_CffRoute;
 
   factory _CffRoute.fromJson(Map<String, dynamic> json) = _$_CffRoute.fromJson;
@@ -193,8 +197,10 @@ abstract class _CffRoute implements CffRoute {
   @override
   int get count;
   @override
+  @JsonKey(name: 'min_duration')
   int get minDuration;
   @override
+  @JsonKey(name: 'max_duration')
   int get maxDuration;
   @override
   List<RouteConnection> get connections;

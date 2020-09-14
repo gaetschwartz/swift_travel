@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/main.dart';
 import 'package:utils/blocs/full_theme.dart';
 import 'package:utils/blocs/theme_configuration.dart';
@@ -76,6 +77,9 @@ class _LoadingPageState extends State<LoadingPage> {
                 )),
           }),
         );
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getInt("apple_maps") == null) await prefs.setInt("apple_maps", 0);
+
     await Future.delayed(const Duration(milliseconds: 500));
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => MyHomePage()));
   }
