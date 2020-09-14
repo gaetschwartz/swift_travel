@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 int colorFromString(String s) {
+  if (s == null) return null;
   if (s.length == 3) {
     return int.parse("ff${s[0]}0${s[1]}0${s[2]}0", radix: 16);
   } else if (s.length == 6) {
@@ -40,7 +41,8 @@ class Format {
   }
 
   static String dateToHour(DateTime arrival) {
-    final String min = arrival.minute < 10 ? "0${arrival.minute}" : arrival.minute.toString();
+    final String min =
+        arrival.minute < 10 ? "0${arrival.minute}" : arrival.minute.toString();
     return "${arrival.hour}:$min";
   }
 }

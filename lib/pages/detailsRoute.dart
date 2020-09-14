@@ -100,7 +100,8 @@ class RegularLegTile extends StatelessWidget {
       title: Row(
         children: <Widget>[
           if (l.line != null) ...[
-            LineWidget(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+            LineWidget(
+                foreground: l.fgcolor, background: l.bgcolor, line: l.line),
             const SizedBox(width: 8),
           ] else ...[
             CffIcon(l.type),
@@ -174,7 +175,8 @@ class RegularLegTile extends StatelessWidget {
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+    list.add(
+        _buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -216,7 +218,9 @@ class ArrivedTile extends StatelessWidget {
         children: [
           const FaIcon(FontAwesomeIcons.mapPin),
           const SizedBox(width: 8),
-          Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
+          Expanded(
+              child: Text(l.name,
+                  style: const TextStyle(fontWeight: FontWeight.bold))),
         ],
       ),
     );
@@ -288,7 +292,8 @@ class WalkingTile extends StatelessWidget {
   }
 
   Future openRoute() async {
-    final departure = l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
+    final departure =
+        l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
     final arrival = "${l.exit.lat}, ${l.exit.lon}";
     const apple = "http://maps.apple.com/";
     const google = "https://maps.google.com/maps";
@@ -304,7 +309,8 @@ class WalkingTile extends StatelessWidget {
       await intent.launch();
     } else if (Platform.isIOS) {
       final prefs = await SharedPreferences.getInstance();
-      final url = (prefs.getBool("apple_maps") == false ? google : apple) + suffix;
+      final url =
+          (prefs.getBool("apple_maps") == false ? google : apple) + suffix;
       try {
         await launch(url);
       } on Exception {
