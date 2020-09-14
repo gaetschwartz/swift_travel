@@ -99,7 +99,8 @@ class RegularLegTile extends StatelessWidget {
       title: Row(
         children: <Widget>[
           if (l.line != null) ...[
-            LineWidget(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+            LineWidget(
+                foreground: l.fgcolor, background: l.bgcolor, line: l.line),
             const SizedBox(width: 8),
           ] else ...[
             CffIcon(l.type),
@@ -173,7 +174,8 @@ class RegularLegTile extends StatelessWidget {
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+    list.add(
+        _buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -215,7 +217,9 @@ class ArrivedTile extends StatelessWidget {
         children: [
           const FaIcon(FontAwesomeIcons.mapPin),
           const SizedBox(width: 8),
-          Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
+          Expanded(
+              child: Text(l.name,
+                  style: const TextStyle(fontWeight: FontWeight.bold))),
         ],
       ),
     );
@@ -234,18 +238,25 @@ class WalkingTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        final departure = l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
+        final departure =
+            l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
+        final arrival = "${l.exit.lat}, ${l.exit.lon}";
         final address =
-            'http://maps.google.com/maps?saddr=$departure&daddr=${l.exit.lat}, ${l.exit.lon}&dirflg=w';
+            'https://maps.google.com/maps?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
+        log(l.toString());
+        log(address);
         if (Platform.isAndroid) {
-          log(l.toString());
           final AndroidIntent intent = AndroidIntent(
             action: 'action_view',
             data: address,
           );
           await intent.launch();
         } else if (Platform.isIOS) {
-          await launch(address);
+          try {
+            await launch(address);
+          } on Exception {
+            log("Failed to open $address");
+          }
         }
       },
       child: Padding(
