@@ -15,19 +15,34 @@ class Settings extends StatelessWidget {
           children: [
             Consumer(builder: (context, w, _) {
               final theme = w(dynamicTheme);
-              return ListTile(
-                title: const Text("Mode"),
-                trailing: DropdownButton<ThemeMode>(
-                    value: theme.mode,
-                    items: ThemeMode.values
-                        .map((m) => DropdownMenuItem<ThemeMode>(
-                              value: m,
-                              child: Text(_themeModeToString(m)),
-                            ))
-                        .toList(),
-                    onChanged: (mode) => theme.mode = mode),
+              return Column(
+                children: [
+                  const ListTile(title: Text("Mode")),
+                  RadioListTile<ThemeMode>(
+                      dense: true,
+                      title: const Text("Light mode"),
+                      value: ThemeMode.light,
+                      groupValue: theme.mode,
+                      onChanged: (mode) => theme.mode = mode),
+                  RadioListTile<ThemeMode>(
+                      dense: true,
+                      title: const Text("Dark mode"),
+                      value: ThemeMode.dark,
+                      groupValue: theme.mode,
+                      onChanged: (mode) => theme.mode = mode),
+                  RadioListTile<ThemeMode>(
+                      dense: true,
+                      title: const Text("System mode"),
+                      value: ThemeMode.system,
+                      groupValue: theme.mode,
+                      onChanged: (mode) => theme.mode = mode),
+                ],
               );
             }),
+            const Divider(
+              indent: 16,
+              endIndent: 16,
+            ),
             Consumer(builder: (context, w, _) {
               final theme = w(dynamicTheme);
               return ListTile(
@@ -46,18 +61,5 @@ class Settings extends StatelessWidget {
             }),
           ],
         ));
-  }
-}
-
-String _themeModeToString(ThemeMode t) {
-  switch (t) {
-    case ThemeMode.system:
-      return "System";
-    case ThemeMode.light:
-      return "Light";
-    case ThemeMode.dark:
-      return "Dark";
-    default:
-      return "";
   }
 }

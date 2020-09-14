@@ -1,32 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:swiss_travel/pages/loading.dart';
 import 'package:swiss_travel/pages/settings.dart';
 import 'package:swiss_travel/tabs/favoritesTab.dart';
 import 'package:swiss_travel/tabs/routeTab.dart';
 import 'package:swiss_travel/tabs/stationsTab.dart';
-import 'package:utils/blocs/full_theme.dart';
-import 'package:utils/blocs/theme_configuration.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  DynamicTheme.defaultConfig = ThemeConfiguration({
-    "default": FullTheme(
-        name: "Default theme",
-        light: ThemeData(
-          primarySwatch: Colors.red,
-          fontFamily: GoogleFonts.muli().fontFamily,
-        ),
-        dark: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.red,
-          fontFamily: GoogleFonts.muli().fontFamily,
-        ))
-  });
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -39,7 +21,7 @@ class MyApp extends StatelessWidget {
           theme: theme.light,
           darkTheme: theme.dark,
           themeMode: theme.mode,
-          home: MyHomePage(),
+          home: LoadingPage(),
         );
       }),
     );
@@ -71,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("Swiss Travel"),
         bottom: TabBar(
           controller: _controller,

@@ -5,6 +5,7 @@ import 'package:swiss_travel/api/cff/cff_completion.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/widget/input.dart';
+import 'package:utils/dialogs/confirmation_alert.dart';
 
 class SearchFavorite extends StatefulWidget {
   @override
@@ -71,8 +72,7 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
                         )
                       : ListView.builder(
                           itemCount: c.completions.length,
-                          itemBuilder: (context, i) =>
-                              _FavoriteTile(c.completions[i], () => _store.getFavorites()),
+                          itemBuilder: (context, i) => _FavoriteTile(c.completions[i]),
                         ),
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),
@@ -93,11 +93,9 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
 
 class _FavoriteTile extends StatelessWidget {
   final CffCompletion stop;
-  final Future<void> Function() reload;
 
   const _FavoriteTile(
-    this.stop,
-    this.reload, {
+    this.stop, {
     Key key,
   }) : super(key: key);
 
@@ -106,7 +104,15 @@ class _FavoriteTile extends StatelessWidget {
     return ListTile(
       trailing: IconButton(
           icon: const FaIcon(FontAwesomeIcons.star),
-          onPressed: () => context.read(favoritesProvider).deleteFavorite(stop)),
+          onPressed: () async {
+            final b = await confirm(context,
+                title: const Text("Delete favorite ?"),
+                content: Text('Do you really want to delete "${stop.label}"'),
+                confirm: const Text("Yes"),
+                cancel: const Text("No"));
+            if (!b) return;
+            return context.read(favoritesProvider).deleteFavorite(stop);
+          }),
       title: Text(stop.label),
     );
   }
