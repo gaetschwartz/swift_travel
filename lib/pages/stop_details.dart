@@ -101,13 +101,13 @@ class ConnectionTile extends StatelessWidget {
             CffIcon(c.type, size: 16),
             const SizedBox(width: 8),
             Text(
-              Format.dateToHour(c.time),
+              Format.dateTime(c.time),
               style: const TextStyle(fontSize: 14),
             ),
           ],
         ),
       ),
-      trailing: Text(Format.duration(diff, showExactTime: true)),
+      trailing: Text(Format.duration(diff)),
     );
   }
 }

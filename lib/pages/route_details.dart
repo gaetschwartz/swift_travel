@@ -30,7 +30,7 @@ class DetailsRoute extends StatelessWidget {
         children: <Widget>[
           _dataRow("Departure", c.from),
           _dataRow("Arrival", c.to),
-          _dataRow("Travel duration", Format.intToMinutes(c.duration)),
+          _dataRow("Travel duration", Format.intToDuration(c.duration)),
           const Divider(thickness: 2, height: 4),
           Expanded(
             child: ListView.separated(
@@ -146,15 +146,12 @@ class RegularLegTile extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        "${Format.dateToHour(l.departure)} - ${Format.dateToHour(l.exit.arrival)}",
+                        "${Format.dateTime(l.departure)} - ${Format.dateTime(l.exit.arrival)}",
                       ),
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text(Format.intToMinutes(
-                            l.runningtime,
-                            pad: false,
-                          )),
+                          child: Text(Format.intToDuration(l.runningtime)),
                         ),
                       ),
                     ],
@@ -194,7 +191,7 @@ class RegularLegTile extends StatelessWidget {
           ),
           if (stop.departure != null) ...[
             const SizedBox(width: 8),
-            Text(Format.dateToHour(stop.departure))
+            Text(Format.dateTime(stop.departure))
           ],
         ],
       ),
@@ -269,7 +266,7 @@ class WalkingTile extends StatelessWidget {
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                     TextSpan(
-                        text: Format.intToMinutes(l.runningtime),
+                        text: Format.intToDuration(l.runningtime),
                         style: Theme.of(context)
                             .textTheme
                             .subtitle2

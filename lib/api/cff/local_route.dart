@@ -6,6 +6,7 @@ part 'local_route.g.dart';
 @freezed
 abstract class LocalRoute with _$LocalRoute {
   factory LocalRoute(
+    String displayName,
     String from,
     String to,
   ) = _LocalRoute;

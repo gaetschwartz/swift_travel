@@ -8,6 +8,7 @@ part of 'local_route.dart';
 
 _$_LocalRoute _$_$_LocalRouteFromJson(Map<String, dynamic> json) {
   return _$_LocalRoute(
+    json['displayName'] as String,
     json['from'] as String,
     json['to'] as String,
   );
@@ -15,6 +16,7 @@ _$_LocalRoute _$_$_LocalRouteFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_LocalRouteToJson(_$_LocalRoute instance) =>
     <String, dynamic>{
+      'displayName': instance.displayName,
       'from': instance.from,
       'to': instance.to,
     };

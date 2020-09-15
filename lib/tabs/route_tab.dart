@@ -20,6 +20,7 @@ import 'package:swiss_travel/models/route_states.dart';
 import 'package:swiss_travel/pages/route_details.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/icon.dart';
+import 'package:utils/dialogs/input_dialog.dart';
 
 final _loadingProvider = StateProvider((_) => false);
 final _switchProvider = StateProvider((_) => false);
@@ -289,10 +290,11 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                 right: 0,
                 child: FlatButton(
                   shape: const StadiumBorder(),
-                  onPressed: () {
+                  onPressed: () async {
+                    final s = await input(context, title: const Text("Enter route name"));
                     context
                         .read(favoritesProvider)
-                        .addRoute(LocalRoute(fromController.text, toController.text));
+                        .addRoute(LocalRoute(s, fromController.text, toController.text));
                   },
                   child: const Icon(Icons.star),
                 ),
@@ -368,8 +370,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   }
 
   Future<void> searchData() async {
-    context.read(_routesProvider).state = const RouteStates.loading();
     if (fromController.text.length > 2 && toController.text.length > 2) {
+      context.read(_routesProvider).state = const RouteStates.loading();
       try {
         final CffRoute it = await context.read(cffProvider).route(
               Stop(fromController.text),
@@ -399,7 +401,7 @@ class RouteTile extends StatelessWidget {
 
   final RouteConnection c;
 
-  Widget rowIcon(RouteConnection c) {
+  Widget rowIcon() {
     final List<Widget> listWidget = [];
 
     for (int i = 0; i < c.legs.length - 1; i++) {
@@ -414,7 +416,7 @@ class RouteTile extends StatelessWidget {
           child: Wrap(spacing: 8, children: listWidget),
         ),
         const SizedBox(height: 4),
-        Text("${Format.dateToHour(c.departure)} - ${Format.dateToHour(c.arrival)}")
+        Text("${Format.dateTime(c.departure)} - ${Format.dateTime(c.arrival)}")
       ],
     );
   }
@@ -423,17 +425,15 @@ class RouteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text("${c.legs.length - 1} steps"),
-      subtitle: rowIcon(c),
-      trailing: Container(
-        width: 100,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Text(Format.intToMinutes(c.duration)),
-            const SizedBox(width: 4),
-            const FaIcon(FontAwesomeIcons.chevronRight, size: 16),
-          ],
-        ),
+      subtitle: rowIcon(),
+      trailing: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(Format.intToDuration(c.duration)),
+          const SizedBox(width: 4),
+          const FaIcon(FontAwesomeIcons.chevronRight, size: 16),
+        ],
       ),
       onTap: () =>
           Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),

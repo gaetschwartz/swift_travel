@@ -1,6 +1,10 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/pages/loading.dart';
 import 'package:swiss_travel/pages/settings.dart';
 import 'package:swiss_travel/tabs/favorites_tab.dart';
@@ -65,10 +69,18 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         ),
         actions: [
           IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
-              })
+              icon: const Icon(Icons.restore),
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                final b = await prefs.clear();
+                log("Done : $b");
+              }),
+          if (kDebugMode)
+            IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
+                }),
         ],
       ),
       body: TabBarView(

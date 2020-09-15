@@ -19,12 +19,10 @@ class SearchFavorite extends StatefulWidget {
 
 class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
   FavoritesSharedPreferencesStore _store;
-  CffRepository _cff;
 
   @override
   void initState() {
     super.initState();
-    _cff = context.read(cffProvider) as CffRepository;
     _store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _store.getFavorites();
@@ -48,8 +46,8 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
           final i = w(_tabProvider).state;
           return BottomNavigationBar(
             items: const [
-              BottomNavigationBarItem(title: Text("Routes"), icon: FaIcon(FontAwesomeIcons.route)),
-              BottomNavigationBarItem(title: Text("Stops"), icon: FaIcon(FontAwesomeIcons.train)),
+              BottomNavigationBarItem(label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
+              BottomNavigationBarItem(label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
             ],
             onTap: (i) => context.read(_tabProvider).state = i,
             currentIndex: i,
@@ -152,13 +150,33 @@ class _RouteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text("${route.from} ➡ ${route.to}"),
+      title: Text(route.displayName),
+      subtitle: Text("${route.from} ➡ ${route.to}"),
       trailing: IconButton(
           icon: const FaIcon(FontAwesomeIcons.star),
           onPressed: () async {
             final b = await confirm(context,
-                title: const Text("Delete favorite ?"),
-                content: Text('Do you really want to delete "$route"'),
+                title: Text.rich(TextSpan(text: "Delete ", children: [
+                  TextSpan(
+                      text: route.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  const TextSpan(
+                    text: " ?",
+                  ),
+                ])),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      route.from,
+                      textAlign: TextAlign.center,
+                    ),
+                    const Text("⬇"),
+                    Text(
+                      route.to,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
                 confirm: const Text("Yes"),
                 cancel: const Text("No"));
             if (!b) return;
