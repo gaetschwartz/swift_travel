@@ -1,19 +1,19 @@
+import 'dart:developer';
+
 import 'package:quick_actions/quick_actions.dart';
 import 'package:swiss_travel/api/cff/local_route.dart';
 
-class MyQuickActions {
+mixin MyQuickActions {
+  static final quickActions = QuickActions();
   static Future<void> init() async {
-    final QuickActions quickActions = QuickActions();
+    log("init", name: "QuickActions");
     quickActions.initialize((shortcutType) {
-      if (shortcutType.startsWith("route_")) {
-        print('The user tapped on the route : $shortcutType action.');
-      }
-      // More handling code...
+      print('The user tapped on the route : $shortcutType action.');
     });
   }
 
   static Future<void> addNewRoute(LocalRoute route) async {
-    QuickActions().setShortcutItems(<ShortcutItem>[
+    quickActions.setShortcutItems(<ShortcutItem>[
       ShortcutItem(
         type: 'route_${route.hashCode}',
         localizedTitle: '${route.from} → ${route.to}',
