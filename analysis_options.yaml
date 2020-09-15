@@ -4,7 +4,6 @@ analyzer:
   exclude:
     - lib/generated/intl/**
     - lib/generated/l10n.dart
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
   errors:
-    avoid_print: ignore
-    avoid_positional_boolean_parameters: ignore
-    non_constant_identifier_names: ignore

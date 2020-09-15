@@ -105,7 +105,7 @@ class CffRepository implements CffBase {
     }
     if (when != null) throw UnimplementedError("Todo");
     final s = builder.build("stationboard", params);
-    print(s);
+    log(s);
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
@@ -134,7 +134,7 @@ class CffRepository implements CffBase {
     };
 
     final s = builder.build("route", params);
-    print("builder : $s");
+    log("builder : $s");
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
