@@ -9,4 +9,5 @@ abstract class RouteStates with _$RouteStates {
   const factory RouteStates.network() = Network;
   const factory RouteStates.error(Object error) = Error;
   const factory RouteStates.empty() = Empty;
+  const factory RouteStates.loading() = Loading;
 }

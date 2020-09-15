@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         controller: _controller,
         children: [
           SearchByName(),
-          SearchRoute(),
+          const SearchRoute(),
           SearchFavorite(),
         ],
       ),

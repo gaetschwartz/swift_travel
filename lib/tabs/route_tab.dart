@@ -11,9 +11,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:swiss_travel/api/cff/cff_completion.dart';
 import 'package:swiss_travel/api/cff/cff_route.dart';
 import 'package:swiss_travel/api/cff/leg.dart';
+import 'package:swiss_travel/api/cff/local_route.dart';
 import 'package:swiss_travel/api/cff/route_connection.dart';
 import 'package:swiss_travel/api/cff/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/route_states.dart';
 import 'package:swiss_travel/pages/route_details.dart';
 import 'package:swiss_travel/utils/format.dart';
@@ -26,6 +28,9 @@ final _timeProvider = StateProvider((_) => TimeOfDay.now());
 final _routesProvider = StateProvider((_) => const RouteStates.empty());
 
 class SearchRoute extends StatefulWidget {
+  final LocalRoute localRoute;
+
+  const SearchRoute({Key key, this.localRoute}) : super(key: key);
   @override
   _SearchRouteState createState() => _SearchRouteState();
 }
@@ -36,7 +41,17 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
 
-  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey();
+  @override
+  void initState() {
+    super.initState();
+    if (widget.localRoute != null) {
+      fromController.text = widget.localRoute.from;
+      toController.text = widget.localRoute.to;
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        searchData();
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -50,138 +65,143 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: TypeAheadField<CffCompletion>(
-                  debounceDuration: const Duration(milliseconds: 500),
-                  textFieldConfiguration: TextFieldConfiguration(
-                      focusNode: fnFrom,
-                      controller: fromController,
-                      onSubmitted: (_) => fnTo.requestFocus(),
-                      textInputAction: TextInputAction.next,
-                      style:
-                          DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "From",
-                        isDense: true,
-                      )),
-                  suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
-                  itemBuilder: (context, suggestion) => ListTile(
-                    leading: CffIcon.fromIconClass(suggestion.iconclass),
-                    title: Text(suggestion.label),
-                    dense: true,
+    return Scaffold(
+      appBar: widget.localRoute != null
+          ? AppBar(
+              title: const Text("Route"),
+            )
+          : null,
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TypeAheadField<CffCompletion>(
+                    debounceDuration: const Duration(milliseconds: 500),
+                    textFieldConfiguration: TextFieldConfiguration(
+                        focusNode: fnFrom,
+                        controller: fromController,
+                        onSubmitted: (_) => fnTo.requestFocus(),
+                        textInputAction: TextInputAction.next,
+                        style: Theme.of(context).textTheme.bodyText1,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "From",
+                          isDense: true,
+                        )),
+                    suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
+                    itemBuilder: (context, suggestion) => ListTile(
+                      leading: CffIcon.fromIconClass(suggestion.iconclass),
+                      title: Text(suggestion.label),
+                      dense: true,
+                    ),
+                    onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
+                    noItemsFoundBuilder: (_) => const SizedBox(),
+                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+                      opacity: controller,
+                      child: suggestionsBox,
+                    ),
                   ),
-                  onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
-                  noItemsFoundBuilder: (_) => const SizedBox(),
                 ),
-              ),
-              const SizedBox(width: 8),
-              IconButton(icon: Consumer(builder: (context, w, _) {
-                final loading = w(_loadingProvider).state;
-                return loading
-                    ? const CircularProgressIndicator()
-                    : const FaIcon(FontAwesomeIcons.locationArrow);
-              }), onPressed: () async {
-                context.read(_loadingProvider).state = true;
-                try {
-                  final p =
-                      await getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
+                const SizedBox(width: 8),
+                IconButton(icon: Consumer(builder: (context, w, _) {
+                  final loading = w(_loadingProvider).state;
+                  return loading
+                      ? const CircularProgressIndicator()
+                      : const FaIcon(FontAwesomeIcons.locationArrow);
+                }), onPressed: () async {
+                  context.read(_loadingProvider).state = true;
+                  try {
+                    final p = await getCurrentPosition(
+                        desiredAccuracy: LocationAccuracy.bestForNavigation);
 
-                  log("Position is : $p");
-                  final completions =
-                      await context.read(cffProvider).findStation(p.latitude, p.longitude);
+                    log("Position is : $p");
+                    final completions =
+                        await context.read(cffProvider).findStation(p.latitude, p.longitude);
 
-                  final first = completions.first;
-                  log("Found : $first");
-                  if (first.dist != null) {
-                    fromController.text = completions.first.label;
+                    final first = completions.first;
+                    log("Found : $first");
+                    if (first.dist != null) {
+                      fromController.text = completions.first.label;
+                    }
+                  } finally {
+                    context.read(_loadingProvider).state = false;
                   }
-                } finally {
-                  context.read(_loadingProvider).state = false;
-                }
-              })
-            ],
+                })
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: TypeAheadField<CffCompletion>(
-                  debounceDuration: const Duration(milliseconds: 500),
-                  textFieldConfiguration: TextFieldConfiguration(
-                      textInputAction: TextInputAction.search,
-                      focusNode: fnTo,
-                      onSubmitted: (_) => search(),
-                      controller: toController,
-                      style:
-                          DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "To",
-                        isDense: true,
-                      )),
-                  suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
-                  itemBuilder: (context, suggestion) => ListTile(
-                    leading: CffIcon.fromIconClass(suggestion.iconclass),
-                    title: Text(suggestion.label),
-                    dense: true,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TypeAheadField<CffCompletion>(
+                    debounceDuration: const Duration(milliseconds: 500),
+                    textFieldConfiguration: TextFieldConfiguration(
+                        textInputAction: TextInputAction.search,
+                        focusNode: fnTo,
+                        onSubmitted: (_) => search(),
+                        controller: toController,
+                        style: Theme.of(context).textTheme.bodyText1,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "To",
+                          isDense: true,
+                        )),
+                    suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
+                    itemBuilder: (context, suggestion) => ListTile(
+                      leading: CffIcon.fromIconClass(suggestion.iconclass),
+                      title: Text(suggestion.label),
+                      dense: true,
+                    ),
+                    onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
+                    noItemsFoundBuilder: (_) => const SizedBox(),
+                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+                      opacity: controller,
+                      child: suggestionsBox,
+                    ),
                   ),
-                  onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
-                  noItemsFoundBuilder: (_) => const SizedBox(),
                 ),
-              ),
-              const SizedBox(width: 8),
-              IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.arrowsAltV),
-                  onPressed: () {
-                    final from = fromController.text;
-                    fromController.text = toController.text;
-                    toController.text = from;
-                  }),
-            ],
+                const SizedBox(width: 8),
+                IconButton(
+                    icon: const FaIcon(FontAwesomeIcons.arrowsAltV),
+                    onPressed: () {
+                      final from = fromController.text;
+                      fromController.text = toController.text;
+                      toController.text = from;
+                    }),
+              ],
+            ),
           ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          height: 48,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: Consumer(builder: (context, w, _) {
-                    final sw = w(_switchProvider);
-                    return DropdownButton<bool>(
-                      underline: const SizedBox(),
-                      items: const [
-                        DropdownMenuItem(
-                          value: false,
-                          child: Text("Depart."),
-                        ),
-                        DropdownMenuItem(
-                          value: true,
-                          child: Text("Arrival"),
-                        ),
-                      ],
-                      onChanged: (v) => sw.state = v,
-                      value: sw.state,
-                    );
-                  }),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Consumer(builder: (context, w, _) {
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            height: 48,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Consumer(builder: (context, w, _) {
+                  final sw = w(_switchProvider);
+                  return DropdownButton<bool>(
+                    underline: const SizedBox(),
+                    items: const [
+                      DropdownMenuItem(
+                        value: false,
+                        child: Text("Depart."),
+                      ),
+                      DropdownMenuItem(
+                        value: true,
+                        child: Text("Arrival"),
+                      ),
+                    ],
+                    onChanged: (v) => sw.state = v,
+                    value: sw.state,
+                  );
+                }),
+                Consumer(builder: (context, w, _) {
                   final _time = w(_timeProvider);
                   return FlatButton.icon(
                     onPressed: () async {
@@ -200,10 +220,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                         "${_time.state.hour}:${_time.state.minute.toString().padLeft(2, "0")}"),
                   );
                 }),
-              ),
-              Expanded(
-                flex: 3,
-                child: Consumer(builder: (context, w, _) {
+                Consumer(builder: (context, w, _) {
                   final _date = w(_dateProvider);
                   return FlatButton.icon(
                     onPressed: () async {
@@ -224,39 +241,65 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                     label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
                   );
                 }),
-              ),
-            ],
-          ),
-        ),
-        Center(
-          child: DecoratedBox(
-            decoration: const BoxDecoration(boxShadow: [
-              BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8))
-            ]),
-            child: FlatButton.icon(
-              padding: const EdgeInsets.symmetric(horizontal: 48),
-              height: 48,
-              highlightColor: const Color(0x260700b1),
-              icon: const FaIcon(FontAwesomeIcons.search),
-              onPressed: search,
-              onLongPress: kReleaseMode
-                  ? null
-                  : () {
-                      fromController.text =
-                          "Université de Genève, Genève, Rue du Général-Dufour 24";
-                      toController.text = "Badenerstrasse 549, 8048 Zürich";
-                      search();
-                    },
-              shape: const StadiumBorder(),
-              color: Theme.of(context).scaffoldBackgroundColor,
-              label: const Text("Search"),
+                Expanded(
+                    child: FlatButton(
+                  shape: const StadiumBorder(),
+                  onPressed: () {
+                    final time = context.read(_timeProvider);
+                    final nowTime = TimeOfDay.now();
+                    time.state = nowTime;
+                    final date = context.read(_dateProvider);
+                    final nowDate = DateTime.now();
+                    date.state = nowDate;
+                    search();
+                  },
+                  child: const Icon(Icons.restore),
+                )),
+              ],
             ),
           ),
-        ),
-        Expanded(
-          child: RefreshIndicator(
-            onRefresh: () => searchData(),
-            key: _refreshKey,
+          Stack(
+            children: [
+              Center(
+                child: DecoratedBox(
+                  decoration: const BoxDecoration(boxShadow: [
+                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8))
+                  ]),
+                  child: FlatButton.icon(
+                    padding: const EdgeInsets.symmetric(horizontal: 48),
+                    height: 48,
+                    highlightColor: const Color(0x260700b1),
+                    icon: const FaIcon(FontAwesomeIcons.search),
+                    onPressed: search,
+                    onLongPress: kReleaseMode
+                        ? null
+                        : () {
+                            fromController.text =
+                                "Université de Genève, Genève, Rue du Général-Dufour 24";
+                            toController.text = "Badenerstrasse 549, 8048 Zürich";
+                            search();
+                          },
+                    shape: const StadiumBorder(),
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    label: const Text("Search"),
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 0,
+                child: FlatButton(
+                  shape: const StadiumBorder(),
+                  onPressed: () {
+                    context
+                        .read(favoritesProvider)
+                        .addRoute(LocalRoute(fromController.text, toController.text));
+                  },
+                  child: const Icon(Icons.star),
+                ),
+              )
+            ],
+          ),
+          Expanded(
             child: Consumer(
                 builder: (context, w, _) => w(_routesProvider).state.map(
                       routes: (data) => ListView.separated(
@@ -292,6 +335,11 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                           ),
                         ],
                       ),
+                      loading: (_) => const CustomScrollView(
+                        slivers: [
+                          SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
+                        ],
+                      ),
                       empty: (_) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -307,19 +355,20 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                         ],
                       ),
                     )),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
-  void search() {
+  Future<void> search() async {
     fnFrom.unfocus();
     fnTo.unfocus();
-    _refreshKey.currentState.show();
+    await searchData();
   }
 
   Future<void> searchData() async {
+    context.read(_routesProvider).state = const RouteStates.loading();
     if (fromController.text.length > 2 && toController.text.length > 2) {
       try {
         final CffRoute it = await context.read(cffProvider).route(

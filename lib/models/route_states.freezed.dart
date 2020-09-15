@@ -35,6 +35,11 @@ class _$RouteStatesTearOff {
   Empty empty() {
     return const Empty();
   }
+
+// ignore: unused_element
+  Loading loading() {
+    return const Loading();
+  }
 }
 
 // ignore: unused_element
@@ -47,6 +52,7 @@ mixin _$RouteStates {
     @required Result network(),
     @required Result error(Object error),
     @required Result empty(),
+    @required Result loading(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -54,6 +60,7 @@ mixin _$RouteStates {
     Result network(),
     Result error(Object error),
     Result empty(),
+    Result loading(),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -62,6 +69,7 @@ mixin _$RouteStates {
     @required Result network(Network value),
     @required Result error(Error value),
     @required Result empty(Empty value),
+    @required Result loading(Loading value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -69,6 +77,7 @@ mixin _$RouteStates {
     Result network(Network value),
     Result error(Error value),
     Result empty(Empty value),
+    Result loading(Loading value),
     @required Result orElse(),
   });
 }
@@ -157,11 +166,13 @@ class _$Data implements Data {
     @required Result network(),
     @required Result error(Object error),
     @required Result empty(),
+    @required Result loading(),
   }) {
     assert(routes != null);
     assert(network != null);
     assert(error != null);
     assert(empty != null);
+    assert(loading != null);
     return routes(this.routes);
   }
 
@@ -172,6 +183,7 @@ class _$Data implements Data {
     Result network(),
     Result error(Object error),
     Result empty(),
+    Result loading(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -188,11 +200,13 @@ class _$Data implements Data {
     @required Result network(Network value),
     @required Result error(Error value),
     @required Result empty(Empty value),
+    @required Result loading(Loading value),
   }) {
     assert(routes != null);
     assert(network != null);
     assert(error != null);
     assert(empty != null);
+    assert(loading != null);
     return routes(this);
   }
 
@@ -203,6 +217,7 @@ class _$Data implements Data {
     Result network(Network value),
     Result error(Error value),
     Result empty(Empty value),
+    Result loading(Loading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -257,11 +272,13 @@ class _$Network implements Network {
     @required Result network(),
     @required Result error(Object error),
     @required Result empty(),
+    @required Result loading(),
   }) {
     assert(routes != null);
     assert(network != null);
     assert(error != null);
     assert(empty != null);
+    assert(loading != null);
     return network();
   }
 
@@ -272,6 +289,7 @@ class _$Network implements Network {
     Result network(),
     Result error(Object error),
     Result empty(),
+    Result loading(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -288,11 +306,13 @@ class _$Network implements Network {
     @required Result network(Network value),
     @required Result error(Error value),
     @required Result empty(Empty value),
+    @required Result loading(Loading value),
   }) {
     assert(routes != null);
     assert(network != null);
     assert(error != null);
     assert(empty != null);
+    assert(loading != null);
     return network(this);
   }
 
@@ -303,6 +323,7 @@ class _$Network implements Network {
     Result network(Network value),
     Result error(Error value),
     Result empty(Empty value),
+    Result loading(Loading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -375,11 +396,13 @@ class _$Error implements Error {
     @required Result network(),
     @required Result error(Object error),
     @required Result empty(),
+    @required Result loading(),
   }) {
     assert(routes != null);
     assert(network != null);
     assert(error != null);
     assert(empty != null);
+    assert(loading != null);
     return error(this.error);
   }
 
@@ -390,6 +413,7 @@ class _$Error implements Error {
     Result network(),
     Result error(Object error),
     Result empty(),
+    Result loading(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -406,11 +430,13 @@ class _$Error implements Error {
     @required Result network(Network value),
     @required Result error(Error value),
     @required Result empty(Empty value),
+    @required Result loading(Loading value),
   }) {
     assert(routes != null);
     assert(network != null);
     assert(error != null);
     assert(empty != null);
+    assert(loading != null);
     return error(this);
   }
 
@@ -421,6 +447,7 @@ class _$Error implements Error {
     Result network(Network value),
     Result error(Error value),
     Result empty(Empty value),
+    Result loading(Loading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -475,11 +502,13 @@ class _$Empty implements Empty {
     @required Result network(),
     @required Result error(Object error),
     @required Result empty(),
+    @required Result loading(),
   }) {
     assert(routes != null);
     assert(network != null);
     assert(error != null);
     assert(empty != null);
+    assert(loading != null);
     return empty();
   }
 
@@ -490,6 +519,7 @@ class _$Empty implements Empty {
     Result network(),
     Result error(Object error),
     Result empty(),
+    Result loading(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -506,11 +536,13 @@ class _$Empty implements Empty {
     @required Result network(Network value),
     @required Result error(Error value),
     @required Result empty(Empty value),
+    @required Result loading(Loading value),
   }) {
     assert(routes != null);
     assert(network != null);
     assert(error != null);
     assert(empty != null);
+    assert(loading != null);
     return empty(this);
   }
 
@@ -521,6 +553,7 @@ class _$Empty implements Empty {
     Result network(Network value),
     Result error(Error value),
     Result empty(Empty value),
+    Result loading(Loading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -533,4 +566,107 @@ class _$Empty implements Empty {
 
 abstract class Empty implements RouteStates {
   const factory Empty() = _$Empty;
+}
+
+abstract class $LoadingCopyWith<$Res> {
+  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
+      _$LoadingCopyWithImpl<$Res>;
+}
+
+class _$LoadingCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
+    implements $LoadingCopyWith<$Res> {
+  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
+      : super(_value, (v) => _then(v as Loading));
+
+  @override
+  Loading get _value => super._value as Loading;
+}
+
+class _$Loading implements Loading {
+  const _$Loading();
+
+  @override
+  String toString() {
+    return 'RouteStates.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is Loading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result routes(CffRoute routes),
+    @required Result network(),
+    @required Result error(Object error),
+    @required Result empty(),
+    @required Result loading(),
+  }) {
+    assert(routes != null);
+    assert(network != null);
+    assert(error != null);
+    assert(empty != null);
+    assert(loading != null);
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result routes(CffRoute routes),
+    Result network(),
+    Result error(Object error),
+    Result empty(),
+    Result loading(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result routes(Data value),
+    @required Result network(Network value),
+    @required Result error(Error value),
+    @required Result empty(Empty value),
+    @required Result loading(Loading value),
+  }) {
+    assert(routes != null);
+    assert(network != null);
+    assert(error != null);
+    assert(empty != null);
+    assert(loading != null);
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result routes(Data value),
+    Result network(Network value),
+    Result error(Error value),
+    Result empty(Empty value),
+    Result loading(Loading value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Loading implements RouteStates {
+  const factory Loading() = _$Loading;
 }
