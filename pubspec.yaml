@@ -36,6 +36,7 @@ dependencies:
   android_intent: ^0.3.7+3
   url_launcher: ^5.5.3
   animations: ^1.1.2
+  quick_actions: ^0.4.0+8
 
 dev_dependencies:
   flutter_test:

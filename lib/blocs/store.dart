@@ -7,6 +7,7 @@ import 'package:swiss_travel/api/cff/local_route.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/models/favorites_routes_states.dart';
 import 'package:swiss_travel/models/favorites_states.dart';
+import 'package:swiss_travel/utils/quickActions.dart';
 
 abstract class FavoritesStoreBase {
   Future<List<CffCompletion>> getFavorites({bool notify = true});
@@ -16,11 +17,12 @@ abstract class FavoritesStoreBase {
   Future<void> removeRoute(LocalRoute route);
 }
 
-final favoritesProvider = Provider<FavoritesStoreBase>((r) => FavoritesSharedPreferencesStore(r));
+final favoritesProvider =
+    Provider<FavoritesStoreBase>((r) => FavoritesSharedPreferencesStore(r));
 final favoritesStatesProvider =
     StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());
-final favoritesRoutesStatesProvider =
-    StateProvider<FavoritesRoutesStates>((_) => const FavoritesRoutesStates.loading());
+final favoritesRoutesStatesProvider = StateProvider<FavoritesRoutesStates>(
+    (_) => const FavoritesRoutesStates.loading());
 
 class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
   static const _stopsKey = "favoritesStop";
@@ -43,7 +45,8 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
 
   @override
   Future<List<CffCompletion>> getFavorites({bool notify = true}) async {
-    if (notify) ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
+    if (notify)
+      ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
     _prefs = await SharedPreferences.getInstance();
 
     //? Stops
@@ -56,7 +59,8 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
     for (final l in favsIds) {
       if (_cache[l] == null) {
         log("Fetching $l because it's not in the cache");
-        final List<CffCompletion> c = await ref.read(cffProvider).complete(l, showIds: true);
+        final List<CffCompletion> c =
+            await ref.read(cffProvider).complete(l, showIds: true);
         _cache[l] = c.first;
       }
       lComp.add(_cache[l]);
@@ -72,11 +76,13 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
       if (split.length != 2) {
         throw StateError("Invalid local route $spr");
       }
-      final r = LocalRoute(Uri.decodeComponent(split.first), Uri.decodeComponent(split.last));
+      final r = LocalRoute(
+          Uri.decodeComponent(split.first), Uri.decodeComponent(split.last));
       _routes.add(r);
     }
 
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList());
 
     await sync();
     return lComp;
@@ -85,14 +91,17 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
   @override
   Future<void> addRoute(LocalRoute route) async {
     _routes.add(route);
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    await MyQuickActions.addNewRoute(route);
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList());
     await sync();
   }
 
   @override
   Future<void> removeRoute(LocalRoute route) async {
     _routes.remove(route);
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList());
     await sync();
   }
 
@@ -102,14 +111,19 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
     await _checkState();
     final list = await getFavorites(notify: false);
     _favs.add(completion.id ?? completion.label);
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(list..add(completion));
+    ref.read(favoritesStatesProvider).state =
+        FavoritesStates.data(list..add(completion));
     await sync();
   }
 
   Future<void> sync() async {
     await _prefs.setStringList(_stopsKey, _favs.toList());
-    await _prefs.setStringList(_routesKey,
-        _routes.map((e) => "${Uri.encodeComponent(e.from)},${Uri.encodeComponent(e.to)}").toList());
+    await _prefs.setStringList(
+        _routesKey,
+        _routes
+            .map((e) =>
+                "${Uri.encodeComponent(e.from)},${Uri.encodeComponent(e.to)}")
+            .toList());
   }
 
   @override
@@ -120,7 +134,8 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
     _favs.removeWhere((s) => s == completion.label || s == completion.id);
 
     await sync();
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(
-        list..removeWhere((c) => c.label == completion.label || c.id == completion.id));
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(list
+      ..removeWhere(
+          (c) => c.label == completion.label || c.id == completion.id));
   }
 }
