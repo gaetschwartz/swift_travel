@@ -299,18 +299,48 @@ class _SearchRouteState extends State<SearchRoute>
                   ),
                 ),
               ),
-              Positioned(
-                right: 0,
-                child: FlatButton(
-                  shape: const StadiumBorder(),
-                  onPressed: () async {
-                    final s = await input(context,
-                        title: const Text("Enter route name"));
-                    if (s == null) return;
-                    context.read(favoritesProvider).addRoute(
-                        LocalRoute(s, fromController.text, toController.text));
-                  },
-                  child: const Icon(Icons.star),
+              Builder(
+                builder: (context) => Positioned(
+                  right: 0,
+                  child: FlatButton(
+                    shape: const StadiumBorder(),
+                    onPressed: () async {
+                      final _store = context.read(favoritesProvider)
+                          as FavoritesSharedPreferencesStore;
+                      print("***");
+
+                      print(_store.routes);
+                      if (_store.routes.firstWhere(
+                              (lr) =>
+                                  lr.from == fromController.text &&
+                                  lr.to == toController.text,
+                              orElse: () => null) !=
+                          null) {
+                        Scaffold.of(context).showSnackBar(
+                            const SnackBar(content: Text("Already added")));
+                        return;
+                      }
+
+                      final s = await input(context,
+                          title: const Text("Enter route name"));
+                      if (s == null) return;
+                      context.read(favoritesProvider).addRoute(LocalRoute(
+                          s, fromController.text, toController.text));
+                      Scaffold.of(context)
+                          .showSnackBar(const SnackBar(content: Text("Added")));
+                    },
+                    child: (context.read(favoritesProvider)
+                                    as FavoritesSharedPreferencesStore)
+                                .routes
+                                .firstWhere(
+                                    (lr) =>
+                                        lr.from == fromController.text &&
+                                        lr.to == toController.text,
+                                    orElse: () => null) !=
+                            null
+                        ? const Icon(Icons.star)
+                        : const Icon(Icons.star_border),
+                  ),
                 ),
               )
             ],

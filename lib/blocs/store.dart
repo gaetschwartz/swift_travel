@@ -38,6 +38,8 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
   final Set<String> _favs = {};
   final Set<LocalRoute> _routes = {};
 
+  Set<LocalRoute> get routes => _routes;
+
   Future<void> _checkState() async {
     _prefs ??= await SharedPreferences.getInstance();
   }
