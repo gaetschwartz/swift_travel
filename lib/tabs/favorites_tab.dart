@@ -71,7 +71,7 @@ class FavRoutesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
+    final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     return RefreshIndicator(
         onRefresh: () => _store.getFavorites(notify: false),
         child: Padding(
@@ -183,7 +183,7 @@ class _RouteTile extends StatelessWidget {
       isConfirmDestructive: true,
     );
     if (!b) return;
-    return context.read(favoritesProvider).removeRoute(route);
+    return context.read(storeProvider).removeRoute(route);
   }
 }
 
@@ -194,7 +194,7 @@ class FavStopsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
+    final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -300,7 +300,7 @@ class _FavoriteTile extends StatelessWidget {
               isConfirmDestructive: true,
             );
             if (!b) return;
-            return context.read(favoritesProvider).deleteFavorite(stop);
+            return context.read(storeProvider).deleteFavorite(stop);
           }),
       title: Text(stop.label),
     );

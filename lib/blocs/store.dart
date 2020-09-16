@@ -19,7 +19,7 @@ abstract class FavoritesStoreBase extends ChangeNotifier {
   Future<void> removeRoute(LocalRoute route);
 }
 
-final favoritesProvider =
+final storeProvider =
     ChangeNotifierProvider<FavoritesStoreBase>((r) => FavoritesSharedPreferencesStore(r));
 final favoritesStatesProvider =
     StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());

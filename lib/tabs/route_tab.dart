@@ -49,7 +49,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   void initState() {
     super.initState();
     _cff = context.read(cffProvider) as CffRepository;
-    _store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
+    _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     if (widget.localRoute != null) {
       fromController.text = widget.localRoute.from;
       toController.text = widget.localRoute.to;
@@ -288,7 +288,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               Positioned(
                 right: 0,
                 child: Consumer(builder: (context, w, _) {
-                  final _store = w(favoritesProvider) as FavoritesSharedPreferencesStore;
+                  final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
+                  w(_routesProvider);
                   return FlatButton(
                     shape: const StadiumBorder(),
                     onPressed: () async {
@@ -304,7 +305,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       final s = await input(context, title: const Text("Enter route name"));
                       if (s == null) return;
                       context
-                          .read(favoritesProvider)
+                          .read(storeProvider)
                           .addRoute(LocalRoute(s, fromController.text, toController.text));
                       Scaffold.of(context).showSnackBar(const SnackBar(content: Text("Added")));
                     },

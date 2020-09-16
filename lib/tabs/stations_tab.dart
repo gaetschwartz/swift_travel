@@ -204,7 +204,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   Future<void> load(String query) async {
     try {
       final compls = await context.read(cffProvider).complete(query);
-      final store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
+      final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
 
       final List<CffCompletion> completionsWithFavs =
           await completeWithFavorites(store, compls, query);
