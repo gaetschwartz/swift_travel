@@ -287,18 +287,34 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               ),
               Positioned(
                 right: 0,
-                child: FlatButton(
-                  shape: const StadiumBorder(),
-                  onPressed: () async {
-                    final s = await input(context, title: const Text("Enter route name"));
-                    if (s == null) return;
-                    context
-                        .read(favoritesProvider)
-                        .addRoute(LocalRoute(s, fromController.text, toController.text));
-                  },
-                  child: const Icon(Icons.star),
-                ),
-              )
+                child: Consumer(builder: (context, w, _) {
+                  final _store = w(favoritesProvider) as FavoritesSharedPreferencesStore;
+                  return FlatButton(
+                    shape: const StadiumBorder(),
+                    onPressed: () async {
+                      log(_store.routes.toString());
+                      if (_store.routes.any(
+                        (lr) => lr.from == fromController.text && lr.to == toController.text,
+                      )) {
+                        Scaffold.of(context)
+                            .showSnackBar(const SnackBar(content: Text("Already added")));
+                        return;
+                      }
+
+                      final s = await input(context, title: const Text("Enter route name"));
+                      if (s == null) return;
+                      context
+                          .read(favoritesProvider)
+                          .addRoute(LocalRoute(s, fromController.text, toController.text));
+                      Scaffold.of(context).showSnackBar(const SnackBar(content: Text("Added")));
+                    },
+                    child: _store.routes.any(
+                            (lr) => lr.from == fromController.text && lr.to == toController.text)
+                        ? const Icon(Icons.star)
+                        : const Icon(Icons.star_border),
+                  );
+                }),
+              ),
             ],
           ),
           Expanded(

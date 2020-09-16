@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/api/cff/cff_completion.dart';
@@ -10,7 +11,7 @@ import 'package:swiss_travel/blocs/quick_actions.dart';
 import 'package:swiss_travel/models/favorites_routes_states.dart';
 import 'package:swiss_travel/models/favorites_states.dart';
 
-abstract class FavoritesStoreBase {
+abstract class FavoritesStoreBase extends ChangeNotifier {
   Future<List<CffCompletion>> getFavorites({bool notify = true});
   Future<void> addFavorite(CffCompletion completion);
   Future<void> deleteFavorite(CffCompletion completion);
@@ -18,13 +19,14 @@ abstract class FavoritesStoreBase {
   Future<void> removeRoute(LocalRoute route);
 }
 
-final favoritesProvider = Provider<FavoritesStoreBase>((r) => FavoritesSharedPreferencesStore(r));
+final favoritesProvider =
+    ChangeNotifierProvider<FavoritesStoreBase>((r) => FavoritesSharedPreferencesStore(r));
 final favoritesStatesProvider =
     StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());
 final favoritesRoutesStatesProvider =
     StateProvider<FavoritesRoutesStates>((_) => const FavoritesRoutesStates.loading());
 
-class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
+class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   static const stopsKey = "favoritesStop";
   static const routesKey = "favoritesRoutes";
 
@@ -36,6 +38,8 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
   final Map<String, CffCompletion> _cache = {};
   final Set<String> _favs = {};
   final Set<LocalRoute> _routes = {};
+
+  Set<LocalRoute> get routes => _routes;
 
   Future<void> _checkState() async {
     _prefs ??= await SharedPreferences.getInstance();
@@ -118,6 +122,7 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
   }
 
   Future<void> sync() async {
+    if (hasListeners) notifyListeners();
     await _prefs.setStringList(stopsKey, _favs.toList());
 
     final routes = <String>[];
