@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/blocs/quick_actions.dart';
+import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/main.dart';
 import 'package:utils/blocs/full_theme.dart';
 import 'package:utils/blocs/theme_configuration.dart';
@@ -81,7 +82,11 @@ class _LoadingPageState extends State<LoadingPage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getInt("maps_app") == null) await prefs.setInt("maps_app", 0);
     await context.read(quickActions).init();
+    final _store = context.read(favoritesProvider);
+    await _store.getFavorites();
+
     await Future.delayed(const Duration(milliseconds: 500));
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => MyHomePage()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (_) => MyHomePage()));
   }
 }

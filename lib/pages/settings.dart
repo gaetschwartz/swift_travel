@@ -1,10 +1,13 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
+import 'package:utils/dialogs/confirmation_alert.dart';
 
 final _initValue = FutureProvider<Maps>((r) async {
   final prefs = await SharedPreferences.getInstance();
@@ -15,7 +18,9 @@ final _initValue = FutureProvider<Maps>((r) async {
 final _appleMapsProvider = StateProvider<Maps>((r) {
   final watch = r.watch(_initValue);
   return watch.map<Maps>(
-      data: (d) => d.data.value, loading: (l) => Maps.apple, error: (e) => Maps.apple);
+      data: (d) => d.data.value,
+      loading: (l) => Maps.apple,
+      error: (e) => Maps.apple);
 });
 enum Maps { apple, google }
 
@@ -99,6 +104,22 @@ class Settings extends StatelessWidget {
                 ),
               );
             }),
+            if (kDebugMode)
+              ListTile(
+                  leading: const Icon(Icons.restore),
+                  title: const Text("Reset settings"),
+                  onTap: () async {
+                    final c = await confirm(context,
+                        title: const Text("Reset settings ?"),
+                        content:
+                            const Text("You will lose all of you favorites!"),
+                        isConfirmDestructive: true);
+                    if (c != true) return;
+                    final prefs = await SharedPreferences.getInstance();
+                    final b = await prefs.clear();
+                    log("Done : $b");
+                    SystemNavigator.pop(animated: true);
+                  }),
           ],
         ));
   }
@@ -106,6 +127,6 @@ class Settings extends StatelessWidget {
   Future<void> onMapsChanged(StateController<Maps> maps, Maps m) async {
     final prefs = await SharedPreferences.getInstance();
     maps.state = m;
-    prefs.setInt("maps_app", m.index);
+    await prefs.setInt("maps_app", m.index);
   }
 }

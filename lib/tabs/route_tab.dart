@@ -36,7 +36,8 @@ class SearchRoute extends StatefulWidget {
   _SearchRouteState createState() => _SearchRouteState();
 }
 
-class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
+class _SearchRouteState extends State<SearchRoute>
+    with AutomaticKeepAliveClientMixin {
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
   final FocusNode fnFrom = FocusNode();
@@ -92,15 +93,18 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                           hintText: "From",
                           isDense: true,
                         )),
-                    suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
+                    suggestionsCallback: (pattern) =>
+                        context.read(cffProvider).complete(pattern),
                     itemBuilder: (context, suggestion) => ListTile(
                       leading: CffIcon.fromIconClass(suggestion.iconclass),
                       title: Text(suggestion.label),
                       dense: true,
                     ),
-                    onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
+                    onSuggestionSelected: (suggestion) =>
+                        fromController.text = suggestion.label,
                     noItemsFoundBuilder: (_) => const SizedBox(),
-                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+                    transitionBuilder: (context, suggestionsBox, controller) =>
+                        FadeTransition(
                       opacity: controller,
                       child: suggestionsBox,
                     ),
@@ -119,8 +123,9 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                         desiredAccuracy: LocationAccuracy.bestForNavigation);
 
                     log("Position is : $p");
-                    final completions =
-                        await context.read(cffProvider).findStation(p.latitude, p.longitude);
+                    final completions = await context
+                        .read(cffProvider)
+                        .findStation(p.latitude, p.longitude);
 
                     final first = completions.first;
                     log("Found : $first");
@@ -152,15 +157,18 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                           hintText: "To",
                           isDense: true,
                         )),
-                    suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
+                    suggestionsCallback: (pattern) =>
+                        context.read(cffProvider).complete(pattern),
                     itemBuilder: (context, suggestion) => ListTile(
                       leading: CffIcon.fromIconClass(suggestion.iconclass),
                       title: Text(suggestion.label),
                       dense: true,
                     ),
-                    onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
+                    onSuggestionSelected: (suggestion) =>
+                        toController.text = suggestion.label,
                     noItemsFoundBuilder: (_) => const SizedBox(),
-                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+                    transitionBuilder: (context, suggestionsBox, controller) =>
+                        FadeTransition(
                       opacity: controller,
                       child: suggestionsBox,
                     ),
@@ -239,7 +247,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       FontAwesomeIcons.calendar,
                       size: 16,
                     ),
-                    label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
+                    label: Text(
+                        "${_date.state.day}/${_date.state.month}/${_date.state.year}"),
                   );
                 }),
                 Expanded(
@@ -264,7 +273,10 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               Center(
                 child: DecoratedBox(
                   decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8))
+                    BoxShadow(
+                        blurRadius: 16,
+                        color: Color(0x260700b1),
+                        offset: Offset(0, 8))
                   ]),
                   child: FlatButton.icon(
                     padding: const EdgeInsets.symmetric(horizontal: 48),
@@ -277,7 +289,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                         : () {
                             fromController.text =
                                 "Université de Genève, Genève, Rue du Général-Dufour 24";
-                            toController.text = "Badenerstrasse 549, 8048 Zürich";
+                            toController.text =
+                                "Badenerstrasse 549, 8048 Zürich";
                             search();
                           },
                     shape: const StadiumBorder(),
@@ -291,10 +304,11 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                 child: FlatButton(
                   shape: const StadiumBorder(),
                   onPressed: () async {
-                    final s = await input(context, title: const Text("Enter route name"));
-                    context
-                        .read(favoritesProvider)
-                        .addRoute(LocalRoute(s, fromController.text, toController.text));
+                    final s = await input(context,
+                        title: const Text("Enter route name"));
+                    if (s == null) return;
+                    context.read(favoritesProvider).addRoute(
+                        LocalRoute(s, fromController.text, toController.text));
                   },
                   child: const Icon(Icons.star),
                 ),
@@ -307,8 +321,11 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       routes: (data) => ListView.separated(
                           separatorBuilder: (c, i) => const Divider(),
                           shrinkWrap: true,
-                          itemCount: data.routes == null ? 0 : data.routes.connections.length,
-                          itemBuilder: (context, i) => RouteTile(c: data.routes.connections[i])),
+                          itemCount: data.routes == null
+                              ? 0
+                              : data.routes.connections.length,
+                          itemBuilder: (context, i) =>
+                              RouteTile(c: data.routes.connections[i])),
                       network: (_) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -339,7 +356,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       ),
                       loading: (_) => const CustomScrollView(
                         slivers: [
-                          SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
+                          SliverFillRemaining(
+                              child: Center(child: CircularProgressIndicator()))
                         ],
                       ),
                       empty: (_) => Column(
@@ -378,7 +396,9 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               Stop(toController.text),
               date: context.read(_dateProvider).state,
               time: context.read(_timeProvider).state,
-              typeTime: context.read(_switchProvider).state ? TimeType.arrival : TimeType.depart,
+              typeTime: context.read(_switchProvider).state
+                  ? TimeType.arrival
+                  : TimeType.depart,
             );
         context.read(_routesProvider).state = RouteStates.routes(it);
       } on SocketException {
@@ -435,8 +455,8 @@ class RouteTile extends StatelessWidget {
           const FaIcon(FontAwesomeIcons.chevronRight, size: 16),
         ],
       ),
-      onTap: () =>
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
     );
   }
 }

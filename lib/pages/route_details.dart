@@ -83,7 +83,9 @@ class LegTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) => l.exit == null
       ? ArrivedTile(l: l)
-      : l.type == Vehicle.walk ? WalkingTile(l: l) : RegularLegTile(l: l);
+      : l.type == Vehicle.walk
+          ? WalkingTile(l: l)
+          : RegularLegTile(l: l);
 }
 
 class RegularLegTile extends StatelessWidget {
@@ -101,7 +103,8 @@ class RegularLegTile extends StatelessWidget {
       title: Row(
         children: <Widget>[
           if (l.line != null) ...[
-            LineIcon(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+            LineIcon(
+                foreground: l.fgcolor, background: l.bgcolor, line: l.line),
             const SizedBox(width: 8),
           ] else ...[
             CffIcon(l.type),
@@ -172,7 +175,8 @@ class RegularLegTile extends StatelessWidget {
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+    list.add(
+        _buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -214,7 +218,9 @@ class ArrivedTile extends StatelessWidget {
         children: [
           const FaIcon(FontAwesomeIcons.mapPin),
           const SizedBox(width: 8),
-          Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
+          Expanded(
+              child: Text(l.name,
+                  style: const TextStyle(fontWeight: FontWeight.bold))),
         ],
       ),
     );
@@ -289,7 +295,8 @@ class WalkingTile extends StatelessWidget {
   static const _google = "https://maps.google.com/maps";
 
   Future<void> openRoute() async {
-    final departure = l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
+    final departure =
+        l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
     final arrival = "${l.exit.lat}, ${l.exit.lon}";
 
     final suffix =

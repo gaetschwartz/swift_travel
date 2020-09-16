@@ -17,18 +17,8 @@ class SearchFavorite extends StatefulWidget {
   _SearchFavoriteState createState() => _SearchFavoriteState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
-  FavoritesSharedPreferencesStore _store;
-
-  @override
-  void initState() {
-    super.initState();
-    _store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _store.getFavorites();
-    });
-  }
-
+class _SearchFavoriteState extends State<SearchFavorite>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -46,8 +36,10 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
           final i = w(_tabProvider).state;
           return BottomNavigationBar(
             items: const [
-              BottomNavigationBarItem(label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
-              BottomNavigationBarItem(label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
+              BottomNavigationBarItem(
+                  label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
+              BottomNavigationBarItem(
+                  label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
             ],
             onTap: (i) => context.read(_tabProvider).state = i,
             currentIndex: i,
@@ -77,7 +69,8 @@ class FavRoutesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
+    final _store =
+        context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
     return RefreshIndicator(
         onRefresh: () => _store.getFavorites(notify: false),
         child: Padding(
@@ -115,10 +108,14 @@ class FavRoutesTab extends StatelessWidget {
                       )
                     : ListView.builder(
                         itemCount: c.routes.length,
-                        itemBuilder: (context, i) => _RouteTile(route: c.routes[i]),
+                        itemBuilder: (context, i) =>
+                            _RouteTile(route: c.routes[i]),
                       ),
                 loading: (_) => const CustomScrollView(
-                  slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
+                  slivers: [
+                    SliverFillRemaining(
+                        child: Center(child: CircularProgressIndicator()))
+                  ],
                 ),
                 error: (e) => CustomScrollView(
                   slivers: [
@@ -153,40 +150,46 @@ class _RouteTile extends StatelessWidget {
       title: Text(route.displayName),
       subtitle: Text("${route.from} ➡ ${route.to}"),
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.star),
-          onPressed: () async {
-            final b = await confirm(context,
-                title: Text.rich(TextSpan(text: "Delete ", children: [
-                  TextSpan(
-                      text: route.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  const TextSpan(
-                    text: " ?",
-                  ),
-                ])),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      route.from,
-                      textAlign: TextAlign.center,
-                    ),
-                    const Text("⬇"),
-                    Text(
-                      route.to,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-                confirm: const Text("Yes"),
-                cancel: const Text("No"));
-            if (!b) return;
-            return context.read(favoritesProvider).removeRoute(route);
-          }),
+          icon: const FaIcon(FontAwesomeIcons.times),
+          onPressed: () => deleteRoute(context)),
       onTap: () async {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));
       },
     );
+  }
+
+  Future<void> deleteRoute(BuildContext context) async {
+    final b = await confirm(
+      context,
+      title: Text.rich(TextSpan(text: "Delete ", children: [
+        TextSpan(
+            text: route.displayName,
+            style: const TextStyle(fontWeight: FontWeight.bold)),
+        const TextSpan(
+          text: " ?",
+        ),
+      ])),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            route.from,
+            textAlign: TextAlign.center,
+          ),
+          const Text("⬇"),
+          Text(
+            route.to,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+      confirm: const Text("Yes"),
+      cancel: const Text("No"),
+      isConfirmDestructive: true,
+    );
+    if (!b) return;
+    return context.read(favoritesProvider).removeRoute(route);
   }
 }
 
@@ -197,19 +200,22 @@ class FavStopsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
+    final _store =
+        context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         shape: const StadiumBorder(),
         onPressed: () async {
-          final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
+          final String s =
+              await Navigator.of(context).push<String>(MaterialPageRoute(
             builder: (_) => const StopInputDialog(title: "Add a favorite"),
             fullscreenDialog: true,
           ));
           if (s == null) return;
           final CffCompletion completion =
-              (await context.read(cffProvider).complete(s, showIds: true)).first;
+              (await context.read(cffProvider).complete(s, showIds: true))
+                  .first;
           await _store.addFavorite(completion);
         },
         child: const FaIcon(FontAwesomeIcons.plus),
@@ -240,7 +246,8 @@ class FavStopsTab extends StatelessWidget {
                         )
                       : ListView.builder(
                           itemCount: c.completions.length,
-                          itemBuilder: (context, i) => _FavoriteTile(c.completions[i]),
+                          itemBuilder: (context, i) =>
+                              _FavoriteTile(c.completions[i]),
                         ),
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),
@@ -271,13 +278,16 @@ class _FavoriteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.star),
+          icon: const FaIcon(FontAwesomeIcons.times),
           onPressed: () async {
-            final b = await confirm(context,
-                title: const Text("Delete favorite ?"),
-                content: Text('Do you really want to delete "${stop.label}"'),
-                confirm: const Text("Yes"),
-                cancel: const Text("No"));
+            final b = await confirm(
+              context,
+              title: const Text("Delete favorite ?"),
+              content: Text('Do you really want to delete "${stop.label}"'),
+              confirm: const Text("Yes"),
+              cancel: const Text("No"),
+              isConfirmDestructive: true,
+            );
             if (!b) return;
             return context.read(favoritesProvider).deleteFavorite(stop);
           }),

@@ -1,16 +1,14 @@
-import 'dart:developer';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/pages/loading.dart';
 import 'package:swiss_travel/pages/settings.dart';
 import 'package:swiss_travel/tabs/favorites_tab.dart';
 import 'package:swiss_travel/tabs/route_tab.dart';
 import 'package:swiss_travel/tabs/stations_tab.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() => runApp(MyApp());
 
@@ -21,7 +19,11 @@ class MyApp extends StatelessWidget {
       child: Consumer(builder: (context, w, _) {
         final theme = w(dynamicTheme);
         return MaterialApp(
+          navigatorKey: navigatorKey,
           title: 'Swiss Travel',
+          builder: (context, child) => _Unfocus(
+            child: child,
+          ),
           theme: theme.light,
           darkTheme: theme.dark,
           themeMode: theme.mode,
@@ -37,7 +39,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   TabController _controller;
 
   @override
@@ -69,18 +72,11 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         ),
         actions: [
           IconButton(
-              icon: const Icon(Icons.restore),
-              onPressed: () async {
-                final prefs = await SharedPreferences.getInstance();
-                final b = await prefs.clear();
-                log("Done : $b");
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => const Settings()));
               }),
-          if (kDebugMode)
-            IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
-                }),
         ],
       ),
       body: TabBarView(
@@ -91,6 +87,23 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           SearchFavorite(),
         ],
       ),
+    );
+  }
+}
+
+class _Unfocus extends StatelessWidget {
+  const _Unfocus({Key key, this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: child,
     );
   }
 }
