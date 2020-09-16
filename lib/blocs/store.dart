@@ -18,12 +18,11 @@ abstract class FavoritesStoreBase {
   Future<void> removeRoute(LocalRoute route);
 }
 
-final favoritesProvider =
-    Provider<FavoritesStoreBase>((r) => FavoritesSharedPreferencesStore(r));
+final favoritesProvider = Provider<FavoritesStoreBase>((r) => FavoritesSharedPreferencesStore(r));
 final favoritesStatesProvider =
     StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());
-final favoritesRoutesStatesProvider = StateProvider<FavoritesRoutesStates>(
-    (_) => const FavoritesRoutesStates.loading());
+final favoritesRoutesStatesProvider =
+    StateProvider<FavoritesRoutesStates>((_) => const FavoritesRoutesStates.loading());
 
 class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
   static const stopsKey = "favoritesStop";
@@ -42,7 +41,9 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
     _prefs ??= await SharedPreferences.getInstance();
   }
 
-  Map<String, CffCompletion> get completions => _cache;
+  Map<String, CffCompletion> get cache => _cache;
+
+  Iterable<CffCompletion> get completions => _favs.map((e) => _cache[e]).where((e) => e != null);
 
   @override
   Future<List<CffCompletion>> getFavorites({bool notify = true}) async {
@@ -62,8 +63,7 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
     for (final l in favsIds) {
       if (_cache[l] == null) {
         log("Fetching $l because it's not in the cache");
-        final List<CffCompletion> c =
-            await ref.read(cffProvider).complete(l, showIds: true);
+        final List<CffCompletion> c = await ref.read(cffProvider).complete(l, showIds: true);
         _cache[l] = c.first;
       }
       lComp.add(_cache[l]);
@@ -84,10 +84,11 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
       }
     }
 
-    ref.read(favoritesRoutesStatesProvider).state =
-        FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
 
-    await sync();
+    if (notify) {
+      await sync();
+    }
     return lComp;
   }
 
@@ -95,16 +96,14 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
   Future<void> addRoute(LocalRoute route) async {
     _routes.add(route);
 
-    ref.read(favoritesRoutesStatesProvider).state =
-        FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
     await sync();
   }
 
   @override
   Future<void> removeRoute(LocalRoute route) async {
     _routes.remove(route);
-    ref.read(favoritesRoutesStatesProvider).state =
-        FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
     await sync();
   }
 
@@ -114,8 +113,7 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
     await _checkState();
     final list = await getFavorites(notify: false);
     _favs.add(completion.id ?? completion.label);
-    ref.read(favoritesStatesProvider).state =
-        FavoritesStates.data(list..add(completion));
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(list..add(completion));
     await sync();
   }
 
@@ -144,8 +142,7 @@ class FavoritesSharedPreferencesStore implements FavoritesStoreBase {
     _favs.removeWhere((s) => s == completion.label || s == completion.id);
 
     await sync();
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(list
-      ..removeWhere(
-          (c) => c.label == completion.label || c.id == completion.id));
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(
+        list..removeWhere((c) => c.label == completion.label || c.id == completion.id));
   }
 }

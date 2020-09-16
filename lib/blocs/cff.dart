@@ -36,7 +36,6 @@ class CffRepository implements CffBase {
       "term": string,
     });
     log(uri);
-    log(string);
 
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
@@ -121,7 +120,7 @@ class CffRepository implements CffBase {
     Stop arrival, {
     @required DateTime date,
     @required TimeOfDay time,
-    TimeType typeTime,
+    TimeType typeTime = TimeType.depart,
   }) async {
     assert(date != null && time != null);
     final params = {
@@ -154,9 +153,7 @@ class CffQueryBuilder {
   String build(String action, Map<String, dynamic> parameters) {
     String url = "$baseUrl/$action.json";
     if (parameters.isNotEmpty) {
-      final String params = parameters.keys
-          .map<String>((k) => "$k=${parameters[k].toString().replaceAll(" ", "-")}")
-          .join("&");
+      final String params = parameters.keys.map<String>((k) => "$k=${parameters[k]}").join("&");
       url += "?$params";
     }
     return Uri.encodeFull(url);

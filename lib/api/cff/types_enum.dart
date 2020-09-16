@@ -16,4 +16,5 @@ enum Vehicle {
   adr,
   private,
   gondola,
+  cablecar,
 }

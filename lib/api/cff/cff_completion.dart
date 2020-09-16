@@ -11,6 +11,7 @@ abstract class CffCompletion with _$CffCompletion {
     String iconclass,
     String html,
     String id,
+    @Default(false) bool isFavorite,
   }) = _CffCompletion;
 
   factory CffCompletion.fromJson(Map<String, dynamic> json) => _$CffCompletionFromJson(json);

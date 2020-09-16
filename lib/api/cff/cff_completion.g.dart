@@ -13,6 +13,7 @@ _$_CffCompletion _$_$_CffCompletionFromJson(Map<String, dynamic> json) {
     iconclass: json['iconclass'] as String,
     html: json['html'] as String,
     id: json['id'] as String,
+    isFavorite: json['isFavorite'] as bool ?? false,
   );
 }
 
@@ -23,4 +24,5 @@ Map<String, dynamic> _$_$_CffCompletionToJson(_$_CffCompletion instance) =>
       'iconclass': instance.iconclass,
       'html': instance.html,
       'id': instance.id,
+      'isFavorite': instance.isFavorite,
     };

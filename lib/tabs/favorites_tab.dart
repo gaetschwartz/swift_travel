@@ -1,14 +1,19 @@
+import 'dart:developer';
+
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/api/cff/cff_completion.dart';
+import 'package:swiss_travel/api/cff/cff_route.dart';
 import 'package:swiss_travel/api/cff/local_route.dart';
+import 'package:swiss_travel/api/cff/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/tabs/route_tab.dart';
 import 'package:swiss_travel/widget/input.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
+import 'package:utils/dialogs/loading_dialog.dart';
 
 final _tabProvider = StateProvider<int>((ref) => 0);
 
@@ -17,8 +22,7 @@ class SearchFavorite extends StatefulWidget {
   _SearchFavoriteState createState() => _SearchFavoriteState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite>
-    with AutomaticKeepAliveClientMixin {
+class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -36,10 +40,8 @@ class _SearchFavoriteState extends State<SearchFavorite>
           final i = w(_tabProvider).state;
           return BottomNavigationBar(
             items: const [
-              BottomNavigationBarItem(
-                  label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
-              BottomNavigationBarItem(
-                  label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
+              BottomNavigationBarItem(label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
+              BottomNavigationBarItem(label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
             ],
             onTap: (i) => context.read(_tabProvider).state = i,
             currentIndex: i,
@@ -69,8 +71,7 @@ class FavRoutesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store =
-        context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
+    final _store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
     return RefreshIndicator(
         onRefresh: () => _store.getFavorites(notify: false),
         child: Padding(
@@ -108,14 +109,10 @@ class FavRoutesTab extends StatelessWidget {
                       )
                     : ListView.builder(
                         itemCount: c.routes.length,
-                        itemBuilder: (context, i) =>
-                            _RouteTile(route: c.routes[i]),
+                        itemBuilder: (context, i) => _RouteTile(route: c.routes[i]),
                       ),
                 loading: (_) => const CustomScrollView(
-                  slivers: [
-                    SliverFillRemaining(
-                        child: Center(child: CircularProgressIndicator()))
-                  ],
+                  slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
                 ),
                 error: (e) => CustomScrollView(
                   slivers: [
@@ -150,11 +147,10 @@ class _RouteTile extends StatelessWidget {
       title: Text(route.displayName),
       subtitle: Text("${route.from} ➡ ${route.to}"),
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.times),
-          onPressed: () => deleteRoute(context)),
+          icon: const FaIcon(FontAwesomeIcons.times), onPressed: () => deleteRoute(context)),
       onTap: () async {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));
       },
     );
   }
@@ -163,9 +159,7 @@ class _RouteTile extends StatelessWidget {
     final b = await confirm(
       context,
       title: Text.rich(TextSpan(text: "Delete ", children: [
-        TextSpan(
-            text: route.displayName,
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+        TextSpan(text: route.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(
           text: " ?",
         ),
@@ -200,23 +194,41 @@ class FavStopsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store =
-        context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
+    final _store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         shape: const StadiumBorder(),
         onPressed: () async {
-          final String s =
-              await Navigator.of(context).push<String>(MaterialPageRoute(
+          final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
             builder: (_) => const StopInputDialog(title: "Add a favorite"),
             fullscreenDialog: true,
           ));
-          if (s == null) return;
-          final CffCompletion completion =
-              (await context.read(cffProvider).complete(s, showIds: true))
-                  .first;
-          await _store.addFavorite(completion);
+
+          await load(context, future: () async {
+            final cff = context.read(cffProvider);
+            List<CffCompletion> completions = await cff.complete(s, showIds: true);
+
+            if (completions.isEmpty) {
+              log("Didn't find a station, will try using routes as a hack...");
+              final CffRoute cffRoute = await cff.route(Stop(s), Stop("Geneva"),
+                  date: DateTime.now(), time: TimeOfDay.now());
+              if (cffRoute.connections.isNotEmpty) {
+                final from = cffRoute.connections.first.from;
+                log("Found $from");
+                completions = await cff.complete(from, showIds: true);
+                log(completions.toString());
+              }
+            }
+
+            if (completions.isEmpty) {
+              log("Didn't find anything for string $s");
+              return;
+            }
+
+            final CffCompletion completion = completions.first;
+            await _store.addFavorite(completion);
+          });
         },
         child: const FaIcon(FontAwesomeIcons.plus),
       ),
@@ -246,8 +258,7 @@ class FavStopsTab extends StatelessWidget {
                         )
                       : ListView.builder(
                           itemCount: c.completions.length,
-                          itemBuilder: (context, i) =>
-                              _FavoriteTile(c.completions[i]),
+                          itemBuilder: (context, i) => _FavoriteTile(c.completions[i]),
                         ),
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),

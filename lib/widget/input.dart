@@ -62,19 +62,22 @@ class _StopInputDialogState extends State<StopInputDialog> {
                 hintText: "To",
               ),
             ),
-            suggestionsCallback: (pattern) =>
-                context.read(cffProvider).complete(pattern),
+            suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
             itemBuilder: (context, CffCompletion suggestion) => ListTile(
               leading: CffIcon.fromIconClass(suggestion.iconclass),
               title: Text(suggestion.label),
-              subtitle: suggestion.iconclass != null
-                  ? Text(suggestion.iconclass.split("-").last)
-                  : null,
+              subtitle:
+                  suggestion.iconclass != null ? Text(suggestion.iconclass.split("-").last) : null,
             ),
             onSuggestionSelected: (CffCompletion suggestion) {
               node.unfocus();
               Navigator.of(context).pop<String>(suggestion.label);
             },
+            noItemsFoundBuilder: (_) => const SizedBox(),
+            transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+              opacity: controller,
+              child: suggestionsBox,
+            ),
           ),
         ),
       ),
@@ -82,9 +85,6 @@ class _StopInputDialogState extends State<StopInputDialog> {
   }
 
   Future submit(BuildContext context) async {
-    final complete = await context
-        .read(cffProvider)
-        .complete(_controller.text, showIds: true);
-    Navigator.of(context).pop<String>(complete.first.id);
+    Navigator.of(context).pop<String>(_controller.text);
   }
 }

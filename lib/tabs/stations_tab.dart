@@ -11,10 +11,10 @@ import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/station_states.dart';
 import 'package:swiss_travel/pages/stop_details.dart';
+import 'package:swiss_travel/utils/conplete.dart';
 import 'package:swiss_travel/widget/icon.dart';
 
-final _stateProvider =
-    StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 final _loadingProvider = StateProvider((_) => false);
 
 class SearchByName extends StatefulWidget {
@@ -22,8 +22,7 @@ class SearchByName extends StatefulWidget {
   _SearchByNameState createState() => _SearchByNameState();
 }
 
-class _SearchByNameState extends State<SearchByName>
-    with AutomaticKeepAliveClientMixin {
+class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   Timer _debouncer;
@@ -64,9 +63,7 @@ class _SearchByNameState extends State<SearchByName>
                   child: TextField(
                     focusNode: focusNode,
                     controller: searchController,
-                    style: DefaultTextStyle.of(context)
-                        .style
-                        .copyWith(fontStyle: FontStyle.normal),
+                    style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
                     decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         hintText: "Stop",
@@ -75,24 +72,9 @@ class _SearchByNameState extends State<SearchByName>
                             onPressed: () {
                               searchController.text = "";
                               focusNode.unfocus();
-                              context.read(_stateProvider).state =
-                                  const StationStates.empty();
+                              context.read(_stateProvider).state = const StationStates.empty();
                             })),
-                    onChanged: (s) async {
-                      context.read(_stateProvider).state =
-                          const StationStates.loading();
-                      // Debounce
-                      if (_debouncer?.isActive ?? false) {
-                        _debouncer?.cancel();
-                        _debouncer = Timer(
-                            const Duration(milliseconds: 500), () => load(s));
-                      } else {
-                        await load(s);
-                        _debouncer?.cancel();
-                        _debouncer =
-                            Timer(const Duration(milliseconds: 500), () {});
-                      }
-                    },
+                    onChanged: (s) => debounce(context, s),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -114,20 +96,15 @@ class _SearchByNameState extends State<SearchByName>
                       child: CircularProgressIndicator(),
                     ),
                     completions: (c) => ListView.separated(
-                      itemBuilder: (context, i) =>
-                          CffCompletionTile(c.completions[i]),
+                      itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
                       separatorBuilder: (context, i) => const Divider(),
-                      itemCount:
-                          c.completions == null ? 0 : c.completions.length,
+                      itemCount: c.completions == null ? 0 : c.completions.length,
                     ),
                     empty: (_) => Consumer(
-                        builder: (context, w, _) => w(favoritesStatesProvider)
-                            .state
-                            .map(
+                        builder: (context, w, _) => w(favoritesStatesProvider).state.map(
                               data: (c) => c.completions.isEmpty
                                   ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         const FaIcon(
                                           FontAwesomeIcons.star,
@@ -136,23 +113,17 @@ class _SearchByNameState extends State<SearchByName>
                                         const SizedBox(height: 16),
                                         Text(
                                           "No favorites !",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6,
+                                          style: Theme.of(context).textTheme.headline6,
                                         ),
                                       ],
                                     )
                                   : ListView.separated(
-                                      itemBuilder: (context, i) =>
-                                          CffCompletionTile(
+                                      itemBuilder: (context, i) => CffCompletionTile(
                                         c.completions[i],
                                         isFav: true,
                                       ),
-                                      separatorBuilder: (context, i) =>
-                                          const Divider(),
-                                      itemCount: c.completions == null
-                                          ? 0
-                                          : c.completions.length,
+                                      separatorBuilder: (context, i) => const Divider(),
+                                      itemCount: c.completions == null ? 0 : c.completions.length,
                                     ),
                               loading: (_) => const Center(
                                 child: CircularProgressIndicator(),
@@ -192,22 +163,32 @@ class _SearchByNameState extends State<SearchByName>
     );
   }
 
+  Future<void> debounce(BuildContext context, String s) async {
+    context.read(_stateProvider).state = const StationStates.loading();
+    // Debounce
+    if (_debouncer?.isActive ?? false) {
+      _debouncer?.cancel();
+      _debouncer = Timer(const Duration(milliseconds: 500), () => load(s));
+    } else {
+      await load(s);
+      _debouncer?.cancel();
+      _debouncer = Timer(const Duration(milliseconds: 500), () {});
+    }
+  }
+
   Future<void> getLocation() async {
     context.read(_loadingProvider).state = true;
 
     try {
-      final p = await getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.bestForNavigation);
+      final p = await getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
       log("Position is : $p");
 
-      final completions =
-          await context.read(cffProvider).findStation(p.latitude, p.longitude);
+      final completions = await context.read(cffProvider).findStation(p.latitude, p.longitude);
 
       final first = completions.first;
       if (first.dist != null) {
         final firstWhere = completions.firstWhere(
-            (c) => !CffIcon.isPrivate(
-                c.iconclass.substring(c.iconclass.lastIndexOf("_") + 1)),
+            (c) => !CffIcon.isPrivate(c.iconclass.substring(c.iconclass.lastIndexOf("_") + 1)),
             orElse: () => null);
         if (firstWhere != null) {
           log("Found : $firstWhere");
@@ -220,15 +201,20 @@ class _SearchByNameState extends State<SearchByName>
     }
   }
 
-  Future<void> load(String s) async {
+  Future<void> load(String query) async {
     try {
-      final cs = await context.read(cffProvider).complete(s);
-      context.read(_stateProvider).state =
-          StationStates.completions(cs.where((c) => c.label != null).toList());
+      final compls = await context.read(cffProvider).complete(query);
+      final store = context.read(favoritesProvider) as FavoritesSharedPreferencesStore;
+
+      final List<CffCompletion> completionsWithFavs =
+          await completeWithFavorites(store, compls, query);
+
+      context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } catch (e) {
       context.read(_stateProvider).state = StationStates.error(e);
+      rethrow;
     }
   }
 }
@@ -251,7 +237,7 @@ class CffCompletionTile extends StatelessWidget {
       leading: CffIcon.fromIconClass(sugg.iconclass),
       title: Text(sugg.label ?? "???"),
       dense: true,
-      subtitle: isFav ? const Text("Favorite") : null,
+      subtitle: isFav || sugg.isFavorite ? const Text("Favorite") : null,
       trailing: isPrivate ? null : const Icon(Icons.arrow_forward_ios),
       onTap: isPrivate
           ? null
