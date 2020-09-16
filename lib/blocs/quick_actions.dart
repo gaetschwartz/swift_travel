@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,17 +19,20 @@ class MyQuickActions {
   Future<void> init() async {
     log("init", name: "QuickActions");
     quickActions.initialize((shortcutType) async {
-      log('Tapped route $shortcutType', name: "QuickActions");
-      final prefs = await SharedPreferences.getInstance();
-      final stringList =
-          prefs.getStringList(FavoritesSharedPreferencesStore.routesKey);
-      final idS = shortcutType.split("_").last;
-      final id = int.parse(idS);
-      final route = stringList[id];
-      final lr = LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
-      navigatorKey.currentState.push(MaterialPageRoute(builder: (_) {
-        return SearchRoute(localRoute: lr);
-      }));
+      final split = shortcutType.split("_");
+      if (split.first == "route") {
+        log('Tapped route $shortcutType', name: "QuickActions");
+        final prefs = await SharedPreferences.getInstance();
+        final stringList =
+            prefs.getStringList(FavoritesSharedPreferencesStore.routesKey);
+        final idS = split.last;
+        final id = int.parse(idS);
+        final route = stringList[id];
+        final lr =
+            LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
+        navigatorKey.currentState.push(
+            MaterialPageRoute(builder: (_) => SearchRoute(localRoute: lr)));
+      }
     });
   }
 
@@ -40,6 +44,7 @@ class MyQuickActions {
       shortcuts.add(ShortcutItem(
         type: 'route_$i',
         localizedTitle: route.displayName,
+        icon: Platform.isIOS ? "route" : "ic_route",
       ));
     }
     await quickActions.setShortcutItems(shortcuts);
