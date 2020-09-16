@@ -114,7 +114,7 @@ class FavRoutesTab extends StatelessWidget {
                 loading: (_) => const CustomScrollView(
                   slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
                 ),
-                error: (e) => CustomScrollView(
+                exception: (e) => CustomScrollView(
                   slivers: [
                     SliverFillRemaining(
                       child: Center(
@@ -263,7 +263,7 @@ class FavStopsTab extends StatelessWidget {
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  error: (e) => Center(
+                  exception: (e) => Center(
                     child: Text(
                       e.toString(),
                       style: Theme.of(context).textTheme.headline6,

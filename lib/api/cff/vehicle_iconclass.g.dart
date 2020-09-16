@@ -65,4 +65,5 @@ const _$VehicleEnumMap = {
   Vehicle.private: 'private',
   Vehicle.gondola: 'gondola',
   Vehicle.cablecar: 'cablecar',
+  Vehicle.chairlift: 'chairlift',
 };

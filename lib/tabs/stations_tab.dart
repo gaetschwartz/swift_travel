@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +12,7 @@ import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/station_states.dart';
 import 'package:swiss_travel/pages/stop_details.dart';
-import 'package:swiss_travel/utils/conplete.dart';
+import 'package:swiss_travel/utils/complete.dart';
 import 'package:swiss_travel/widget/icon.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
@@ -128,16 +129,16 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                               loading: (_) => const Center(
                                 child: CircularProgressIndicator(),
                               ),
-                              error: (e) => Center(
+                              exception: (e) => Center(
                                 child: Text(
-                                  e.toString(),
+                                  e.exception.toString(),
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
                               ),
                             )),
-                    error: (value) => Center(
+                    exception: (value) => Center(
                       child: Text(
-                        value.error.toString(),
+                        value.exception.toString(),
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
@@ -212,9 +213,9 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
-    } catch (e) {
-      context.read(_stateProvider).state = StationStates.error(e);
-      rethrow;
+    } on Exception catch (e) {
+      context.read(_stateProvider).state = StationStates.exception(e);
+      FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
     }
   }
 }

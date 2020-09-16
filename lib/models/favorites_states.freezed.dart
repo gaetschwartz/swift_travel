@@ -13,21 +13,21 @@ class _$FavoritesStatesTearOff {
   const _$FavoritesStatesTearOff();
 
 // ignore: unused_element
-  Data data(List<CffCompletion> completions) {
-    return Data(
+  FavoritesStatesData data(List<CffCompletion> completions) {
+    return FavoritesStatesData(
       completions,
     );
   }
 
 // ignore: unused_element
-  Loading loading() {
-    return const Loading();
+  FavoritesStatesLoading loading() {
+    return const FavoritesStatesLoading();
   }
 
 // ignore: unused_element
-  Error error(Object error) {
-    return Error(
-      error,
+  FavoritesStatesError exception(Exception exception) {
+    return FavoritesStatesError(
+      exception,
     );
   }
 }
@@ -40,26 +40,26 @@ mixin _$FavoritesStates {
   Result when<Result extends Object>({
     @required Result data(List<CffCompletion> completions),
     @required Result loading(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result data(List<CffCompletion> completions),
     Result loading(),
-    Result error(Object error),
+    Result exception(Exception exception),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result data(Data value),
-    @required Result loading(Loading value),
-    @required Result error(Error value),
+    @required Result data(FavoritesStatesData value),
+    @required Result loading(FavoritesStatesLoading value),
+    @required Result exception(FavoritesStatesError value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result data(Data value),
-    Result loading(Loading value),
-    Result error(Error value),
+    Result data(FavoritesStatesData value),
+    Result loading(FavoritesStatesLoading value),
+    Result exception(FavoritesStatesError value),
     @required Result orElse(),
   });
 }
@@ -79,25 +79,28 @@ class _$FavoritesStatesCopyWithImpl<$Res>
   final $Res Function(FavoritesStates) _then;
 }
 
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res>;
+abstract class $FavoritesStatesDataCopyWith<$Res> {
+  factory $FavoritesStatesDataCopyWith(
+          FavoritesStatesData value, $Res Function(FavoritesStatesData) then) =
+      _$FavoritesStatesDataCopyWithImpl<$Res>;
   $Res call({List<CffCompletion> completions});
 }
 
-class _$DataCopyWithImpl<$Res> extends _$FavoritesStatesCopyWithImpl<$Res>
-    implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(Data _value, $Res Function(Data) _then)
-      : super(_value, (v) => _then(v as Data));
+class _$FavoritesStatesDataCopyWithImpl<$Res>
+    extends _$FavoritesStatesCopyWithImpl<$Res>
+    implements $FavoritesStatesDataCopyWith<$Res> {
+  _$FavoritesStatesDataCopyWithImpl(
+      FavoritesStatesData _value, $Res Function(FavoritesStatesData) _then)
+      : super(_value, (v) => _then(v as FavoritesStatesData));
 
   @override
-  Data get _value => super._value as Data;
+  FavoritesStatesData get _value => super._value as FavoritesStatesData;
 
   @override
   $Res call({
     Object completions = freezed,
   }) {
-    return _then(Data(
+    return _then(FavoritesStatesData(
       completions == freezed
           ? _value.completions
           : completions as List<CffCompletion>,
@@ -105,8 +108,8 @@ class _$DataCopyWithImpl<$Res> extends _$FavoritesStatesCopyWithImpl<$Res>
   }
 }
 
-class _$Data implements Data {
-  const _$Data(this.completions) : assert(completions != null);
+class _$FavoritesStatesData implements FavoritesStatesData {
+  const _$FavoritesStatesData(this.completions) : assert(completions != null);
 
   @override
   final List<CffCompletion> completions;
@@ -119,7 +122,7 @@ class _$Data implements Data {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Data &&
+        (other is FavoritesStatesData &&
             (identical(other.completions, completions) ||
                 const DeepCollectionEquality()
                     .equals(other.completions, completions)));
@@ -130,19 +133,19 @@ class _$Data implements Data {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(completions);
 
   @override
-  $DataCopyWith<Data> get copyWith =>
-      _$DataCopyWithImpl<Data>(this, _$identity);
+  $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith =>
+      _$FavoritesStatesDataCopyWithImpl<FavoritesStatesData>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result data(List<CffCompletion> completions),
     @required Result loading(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
+    assert(exception != null);
     return data(completions);
   }
 
@@ -151,7 +154,7 @@ class _$Data implements Data {
   Result maybeWhen<Result extends Object>({
     Result data(List<CffCompletion> completions),
     Result loading(),
-    Result error(Object error),
+    Result exception(Exception exception),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -164,22 +167,22 @@ class _$Data implements Data {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result data(Data value),
-    @required Result loading(Loading value),
-    @required Result error(Error value),
+    @required Result data(FavoritesStatesData value),
+    @required Result loading(FavoritesStatesLoading value),
+    @required Result exception(FavoritesStatesError value),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
+    assert(exception != null);
     return data(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result data(Data value),
-    Result loading(Loading value),
-    Result error(Error value),
+    Result data(FavoritesStatesData value),
+    Result loading(FavoritesStatesLoading value),
+    Result exception(FavoritesStatesError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -190,29 +193,33 @@ class _$Data implements Data {
   }
 }
 
-abstract class Data implements FavoritesStates {
-  const factory Data(List<CffCompletion> completions) = _$Data;
+abstract class FavoritesStatesData implements FavoritesStates {
+  const factory FavoritesStatesData(List<CffCompletion> completions) =
+      _$FavoritesStatesData;
 
   List<CffCompletion> get completions;
-  $DataCopyWith<Data> get copyWith;
+  $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith;
 }
 
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class $FavoritesStatesLoadingCopyWith<$Res> {
+  factory $FavoritesStatesLoadingCopyWith(FavoritesStatesLoading value,
+          $Res Function(FavoritesStatesLoading) then) =
+      _$FavoritesStatesLoadingCopyWithImpl<$Res>;
 }
 
-class _$LoadingCopyWithImpl<$Res> extends _$FavoritesStatesCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+class _$FavoritesStatesLoadingCopyWithImpl<$Res>
+    extends _$FavoritesStatesCopyWithImpl<$Res>
+    implements $FavoritesStatesLoadingCopyWith<$Res> {
+  _$FavoritesStatesLoadingCopyWithImpl(FavoritesStatesLoading _value,
+      $Res Function(FavoritesStatesLoading) _then)
+      : super(_value, (v) => _then(v as FavoritesStatesLoading));
 
   @override
-  Loading get _value => super._value as Loading;
+  FavoritesStatesLoading get _value => super._value as FavoritesStatesLoading;
 }
 
-class _$Loading implements Loading {
-  const _$Loading();
+class _$FavoritesStatesLoading implements FavoritesStatesLoading {
+  const _$FavoritesStatesLoading();
 
   @override
   String toString() {
@@ -221,7 +228,7 @@ class _$Loading implements Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Loading);
+    return identical(this, other) || (other is FavoritesStatesLoading);
   }
 
   @override
@@ -232,11 +239,11 @@ class _$Loading implements Loading {
   Result when<Result extends Object>({
     @required Result data(List<CffCompletion> completions),
     @required Result loading(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
+    assert(exception != null);
     return loading();
   }
 
@@ -245,7 +252,7 @@ class _$Loading implements Loading {
   Result maybeWhen<Result extends Object>({
     Result data(List<CffCompletion> completions),
     Result loading(),
-    Result error(Object error),
+    Result exception(Exception exception),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -258,22 +265,22 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result data(Data value),
-    @required Result loading(Loading value),
-    @required Result error(Error value),
+    @required Result data(FavoritesStatesData value),
+    @required Result loading(FavoritesStatesLoading value),
+    @required Result exception(FavoritesStatesError value),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
+    assert(exception != null);
     return loading(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result data(Data value),
-    Result loading(Loading value),
-    Result error(Error value),
+    Result data(FavoritesStatesData value),
+    Result loading(FavoritesStatesLoading value),
+    Result exception(FavoritesStatesError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -284,72 +291,77 @@ class _$Loading implements Loading {
   }
 }
 
-abstract class Loading implements FavoritesStates {
-  const factory Loading() = _$Loading;
+abstract class FavoritesStatesLoading implements FavoritesStates {
+  const factory FavoritesStatesLoading() = _$FavoritesStatesLoading;
 }
 
-abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
-      _$ErrorCopyWithImpl<$Res>;
-  $Res call({Object error});
+abstract class $FavoritesStatesErrorCopyWith<$Res> {
+  factory $FavoritesStatesErrorCopyWith(FavoritesStatesError value,
+          $Res Function(FavoritesStatesError) then) =
+      _$FavoritesStatesErrorCopyWithImpl<$Res>;
+  $Res call({Exception exception});
 }
 
-class _$ErrorCopyWithImpl<$Res> extends _$FavoritesStatesCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
-      : super(_value, (v) => _then(v as Error));
+class _$FavoritesStatesErrorCopyWithImpl<$Res>
+    extends _$FavoritesStatesCopyWithImpl<$Res>
+    implements $FavoritesStatesErrorCopyWith<$Res> {
+  _$FavoritesStatesErrorCopyWithImpl(
+      FavoritesStatesError _value, $Res Function(FavoritesStatesError) _then)
+      : super(_value, (v) => _then(v as FavoritesStatesError));
 
   @override
-  Error get _value => super._value as Error;
+  FavoritesStatesError get _value => super._value as FavoritesStatesError;
 
   @override
   $Res call({
-    Object error = freezed,
+    Object exception = freezed,
   }) {
-    return _then(Error(
-      error == freezed ? _value.error : error,
+    return _then(FavoritesStatesError(
+      exception == freezed ? _value.exception : exception as Exception,
     ));
   }
 }
 
-class _$Error implements Error {
-  const _$Error(this.error) : assert(error != null);
+class _$FavoritesStatesError implements FavoritesStatesError {
+  const _$FavoritesStatesError(this.exception) : assert(exception != null);
 
   @override
-  final Object error;
+  final Exception exception;
 
   @override
   String toString() {
-    return 'FavoritesStates.error(error: $error)';
+    return 'FavoritesStates.exception(exception: $exception)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Error &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+        (other is FavoritesStatesError &&
+            (identical(other.exception, exception) ||
+                const DeepCollectionEquality()
+                    .equals(other.exception, exception)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
 
   @override
-  $ErrorCopyWith<Error> get copyWith =>
-      _$ErrorCopyWithImpl<Error>(this, _$identity);
+  $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith =>
+      _$FavoritesStatesErrorCopyWithImpl<FavoritesStatesError>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result data(List<CffCompletion> completions),
     @required Result loading(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
-    return error(this.error);
+    assert(exception != null);
+    return exception(this.exception);
   }
 
   @override
@@ -357,12 +369,12 @@ class _$Error implements Error {
   Result maybeWhen<Result extends Object>({
     Result data(List<CffCompletion> completions),
     Result loading(),
-    Result error(Object error),
+    Result exception(Exception exception),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (error != null) {
-      return error(this.error);
+    if (exception != null) {
+      return exception(this.exception);
     }
     return orElse();
   }
@@ -370,35 +382,36 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result data(Data value),
-    @required Result loading(Loading value),
-    @required Result error(Error value),
+    @required Result data(FavoritesStatesData value),
+    @required Result loading(FavoritesStatesLoading value),
+    @required Result exception(FavoritesStatesError value),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
-    return error(this);
+    assert(exception != null);
+    return exception(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result data(Data value),
-    Result loading(Loading value),
-    Result error(Error value),
+    Result data(FavoritesStatesData value),
+    Result loading(FavoritesStatesLoading value),
+    Result exception(FavoritesStatesError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (error != null) {
-      return error(this);
+    if (exception != null) {
+      return exception(this);
     }
     return orElse();
   }
 }
 
-abstract class Error implements FavoritesStates {
-  const factory Error(Object error) = _$Error;
+abstract class FavoritesStatesError implements FavoritesStates {
+  const factory FavoritesStatesError(Exception exception) =
+      _$FavoritesStatesError;
 
-  Object get error;
-  $ErrorCopyWith<Error> get copyWith;
+  Exception get exception;
+  $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith;
 }

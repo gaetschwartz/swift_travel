@@ -13,32 +13,32 @@ class _$StationStatesTearOff {
   const _$StationStatesTearOff();
 
 // ignore: unused_element
-  Loading loading() {
-    return const Loading();
+  StationStatesLoading loading() {
+    return const StationStatesLoading();
   }
 
 // ignore: unused_element
-  StationCompletions completions(List<CffCompletion> completions) {
-    return StationCompletions(
+  StationStatesCompletions completions(List<CffCompletion> completions) {
+    return StationStatesCompletions(
       completions,
     );
   }
 
 // ignore: unused_element
-  Empty empty() {
-    return const Empty();
+  StationStatesEmpty empty() {
+    return const StationStatesEmpty();
   }
 
 // ignore: unused_element
-  Error error(Object error) {
-    return Error(
-      error,
+  StationStatesException exception(Exception exception) {
+    return StationStatesException(
+      exception,
     );
   }
 
 // ignore: unused_element
-  NetworkError network() {
-    return const NetworkError();
+  StationStatesNetworkError network() {
+    return const StationStatesNetworkError();
   }
 }
 
@@ -51,7 +51,7 @@ mixin _$StationStates {
     @required Result loading(),
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result network(),
   });
   @optionalTypeArgs
@@ -59,25 +59,25 @@ mixin _$StationStates {
     Result loading(),
     Result completions(List<CffCompletion> completions),
     Result empty(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result network(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result loading(Loading value),
-    @required Result completions(StationCompletions value),
-    @required Result empty(Empty value),
-    @required Result error(Error value),
-    @required Result network(NetworkError value),
+    @required Result loading(StationStatesLoading value),
+    @required Result completions(StationStatesCompletions value),
+    @required Result empty(StationStatesEmpty value),
+    @required Result exception(StationStatesException value),
+    @required Result network(StationStatesNetworkError value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result loading(Loading value),
-    Result completions(StationCompletions value),
-    Result empty(Empty value),
-    Result error(Error value),
-    Result network(NetworkError value),
+    Result loading(StationStatesLoading value),
+    Result completions(StationStatesCompletions value),
+    Result empty(StationStatesEmpty value),
+    Result exception(StationStatesException value),
+    Result network(StationStatesNetworkError value),
     @required Result orElse(),
   });
 }
@@ -97,22 +97,25 @@ class _$StationStatesCopyWithImpl<$Res>
   final $Res Function(StationStates) _then;
 }
 
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class $StationStatesLoadingCopyWith<$Res> {
+  factory $StationStatesLoadingCopyWith(StationStatesLoading value,
+          $Res Function(StationStatesLoading) then) =
+      _$StationStatesLoadingCopyWithImpl<$Res>;
 }
 
-class _$LoadingCopyWithImpl<$Res> extends _$StationStatesCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+class _$StationStatesLoadingCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res>
+    implements $StationStatesLoadingCopyWith<$Res> {
+  _$StationStatesLoadingCopyWithImpl(
+      StationStatesLoading _value, $Res Function(StationStatesLoading) _then)
+      : super(_value, (v) => _then(v as StationStatesLoading));
 
   @override
-  Loading get _value => super._value as Loading;
+  StationStatesLoading get _value => super._value as StationStatesLoading;
 }
 
-class _$Loading implements Loading {
-  const _$Loading();
+class _$StationStatesLoading implements StationStatesLoading {
+  const _$StationStatesLoading();
 
   @override
   String toString() {
@@ -121,7 +124,7 @@ class _$Loading implements Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Loading);
+    return identical(this, other) || (other is StationStatesLoading);
   }
 
   @override
@@ -133,13 +136,13 @@ class _$Loading implements Loading {
     @required Result loading(),
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result network(),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
     return loading();
   }
@@ -150,7 +153,7 @@ class _$Loading implements Loading {
     Result loading(),
     Result completions(List<CffCompletion> completions),
     Result empty(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result network(),
     @required Result orElse(),
   }) {
@@ -164,16 +167,16 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result loading(Loading value),
-    @required Result completions(StationCompletions value),
-    @required Result empty(Empty value),
-    @required Result error(Error value),
-    @required Result network(NetworkError value),
+    @required Result loading(StationStatesLoading value),
+    @required Result completions(StationStatesCompletions value),
+    @required Result empty(StationStatesEmpty value),
+    @required Result exception(StationStatesException value),
+    @required Result network(StationStatesNetworkError value),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
     return loading(this);
   }
@@ -181,11 +184,11 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result loading(Loading value),
-    Result completions(StationCompletions value),
-    Result empty(Empty value),
-    Result error(Error value),
-    Result network(NetworkError value),
+    Result loading(StationStatesLoading value),
+    Result completions(StationStatesCompletions value),
+    Result empty(StationStatesEmpty value),
+    Result exception(StationStatesException value),
+    Result network(StationStatesNetworkError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -196,32 +199,33 @@ class _$Loading implements Loading {
   }
 }
 
-abstract class Loading implements StationStates {
-  const factory Loading() = _$Loading;
+abstract class StationStatesLoading implements StationStates {
+  const factory StationStatesLoading() = _$StationStatesLoading;
 }
 
-abstract class $StationCompletionsCopyWith<$Res> {
-  factory $StationCompletionsCopyWith(
-          StationCompletions value, $Res Function(StationCompletions) then) =
-      _$StationCompletionsCopyWithImpl<$Res>;
+abstract class $StationStatesCompletionsCopyWith<$Res> {
+  factory $StationStatesCompletionsCopyWith(StationStatesCompletions value,
+          $Res Function(StationStatesCompletions) then) =
+      _$StationStatesCompletionsCopyWithImpl<$Res>;
   $Res call({List<CffCompletion> completions});
 }
 
-class _$StationCompletionsCopyWithImpl<$Res>
+class _$StationStatesCompletionsCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
-    implements $StationCompletionsCopyWith<$Res> {
-  _$StationCompletionsCopyWithImpl(
-      StationCompletions _value, $Res Function(StationCompletions) _then)
-      : super(_value, (v) => _then(v as StationCompletions));
+    implements $StationStatesCompletionsCopyWith<$Res> {
+  _$StationStatesCompletionsCopyWithImpl(StationStatesCompletions _value,
+      $Res Function(StationStatesCompletions) _then)
+      : super(_value, (v) => _then(v as StationStatesCompletions));
 
   @override
-  StationCompletions get _value => super._value as StationCompletions;
+  StationStatesCompletions get _value =>
+      super._value as StationStatesCompletions;
 
   @override
   $Res call({
     Object completions = freezed,
   }) {
-    return _then(StationCompletions(
+    return _then(StationStatesCompletions(
       completions == freezed
           ? _value.completions
           : completions as List<CffCompletion>,
@@ -229,8 +233,9 @@ class _$StationCompletionsCopyWithImpl<$Res>
   }
 }
 
-class _$StationCompletions implements StationCompletions {
-  const _$StationCompletions(this.completions) : assert(completions != null);
+class _$StationStatesCompletions implements StationStatesCompletions {
+  const _$StationStatesCompletions(this.completions)
+      : assert(completions != null);
 
   @override
   final List<CffCompletion> completions;
@@ -243,7 +248,7 @@ class _$StationCompletions implements StationCompletions {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is StationCompletions &&
+        (other is StationStatesCompletions &&
             (identical(other.completions, completions) ||
                 const DeepCollectionEquality()
                     .equals(other.completions, completions)));
@@ -254,8 +259,9 @@ class _$StationCompletions implements StationCompletions {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(completions);
 
   @override
-  $StationCompletionsCopyWith<StationCompletions> get copyWith =>
-      _$StationCompletionsCopyWithImpl<StationCompletions>(this, _$identity);
+  $StationStatesCompletionsCopyWith<StationStatesCompletions> get copyWith =>
+      _$StationStatesCompletionsCopyWithImpl<StationStatesCompletions>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -263,13 +269,13 @@ class _$StationCompletions implements StationCompletions {
     @required Result loading(),
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result network(),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
     return completions(this.completions);
   }
@@ -280,7 +286,7 @@ class _$StationCompletions implements StationCompletions {
     Result loading(),
     Result completions(List<CffCompletion> completions),
     Result empty(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result network(),
     @required Result orElse(),
   }) {
@@ -294,16 +300,16 @@ class _$StationCompletions implements StationCompletions {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result loading(Loading value),
-    @required Result completions(StationCompletions value),
-    @required Result empty(Empty value),
-    @required Result error(Error value),
-    @required Result network(NetworkError value),
+    @required Result loading(StationStatesLoading value),
+    @required Result completions(StationStatesCompletions value),
+    @required Result empty(StationStatesEmpty value),
+    @required Result exception(StationStatesException value),
+    @required Result network(StationStatesNetworkError value),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
     return completions(this);
   }
@@ -311,11 +317,11 @@ class _$StationCompletions implements StationCompletions {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result loading(Loading value),
-    Result completions(StationCompletions value),
-    Result empty(Empty value),
-    Result error(Error value),
-    Result network(NetworkError value),
+    Result loading(StationStatesLoading value),
+    Result completions(StationStatesCompletions value),
+    Result empty(StationStatesEmpty value),
+    Result exception(StationStatesException value),
+    Result network(StationStatesNetworkError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -326,30 +332,33 @@ class _$StationCompletions implements StationCompletions {
   }
 }
 
-abstract class StationCompletions implements StationStates {
-  const factory StationCompletions(List<CffCompletion> completions) =
-      _$StationCompletions;
+abstract class StationStatesCompletions implements StationStates {
+  const factory StationStatesCompletions(List<CffCompletion> completions) =
+      _$StationStatesCompletions;
 
   List<CffCompletion> get completions;
-  $StationCompletionsCopyWith<StationCompletions> get copyWith;
+  $StationStatesCompletionsCopyWith<StationStatesCompletions> get copyWith;
 }
 
-abstract class $EmptyCopyWith<$Res> {
-  factory $EmptyCopyWith(Empty value, $Res Function(Empty) then) =
-      _$EmptyCopyWithImpl<$Res>;
+abstract class $StationStatesEmptyCopyWith<$Res> {
+  factory $StationStatesEmptyCopyWith(
+          StationStatesEmpty value, $Res Function(StationStatesEmpty) then) =
+      _$StationStatesEmptyCopyWithImpl<$Res>;
 }
 
-class _$EmptyCopyWithImpl<$Res> extends _$StationStatesCopyWithImpl<$Res>
-    implements $EmptyCopyWith<$Res> {
-  _$EmptyCopyWithImpl(Empty _value, $Res Function(Empty) _then)
-      : super(_value, (v) => _then(v as Empty));
+class _$StationStatesEmptyCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res>
+    implements $StationStatesEmptyCopyWith<$Res> {
+  _$StationStatesEmptyCopyWithImpl(
+      StationStatesEmpty _value, $Res Function(StationStatesEmpty) _then)
+      : super(_value, (v) => _then(v as StationStatesEmpty));
 
   @override
-  Empty get _value => super._value as Empty;
+  StationStatesEmpty get _value => super._value as StationStatesEmpty;
 }
 
-class _$Empty implements Empty {
-  const _$Empty();
+class _$StationStatesEmpty implements StationStatesEmpty {
+  const _$StationStatesEmpty();
 
   @override
   String toString() {
@@ -358,7 +367,7 @@ class _$Empty implements Empty {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Empty);
+    return identical(this, other) || (other is StationStatesEmpty);
   }
 
   @override
@@ -370,13 +379,13 @@ class _$Empty implements Empty {
     @required Result loading(),
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result network(),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
     return empty();
   }
@@ -387,7 +396,7 @@ class _$Empty implements Empty {
     Result loading(),
     Result completions(List<CffCompletion> completions),
     Result empty(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result network(),
     @required Result orElse(),
   }) {
@@ -401,16 +410,16 @@ class _$Empty implements Empty {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result loading(Loading value),
-    @required Result completions(StationCompletions value),
-    @required Result empty(Empty value),
-    @required Result error(Error value),
-    @required Result network(NetworkError value),
+    @required Result loading(StationStatesLoading value),
+    @required Result completions(StationStatesCompletions value),
+    @required Result empty(StationStatesEmpty value),
+    @required Result exception(StationStatesException value),
+    @required Result network(StationStatesNetworkError value),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
     return empty(this);
   }
@@ -418,11 +427,11 @@ class _$Empty implements Empty {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result loading(Loading value),
-    Result completions(StationCompletions value),
-    Result empty(Empty value),
-    Result error(Error value),
-    Result network(NetworkError value),
+    Result loading(StationStatesLoading value),
+    Result completions(StationStatesCompletions value),
+    Result empty(StationStatesEmpty value),
+    Result exception(StationStatesException value),
+    Result network(StationStatesNetworkError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -433,60 +442,65 @@ class _$Empty implements Empty {
   }
 }
 
-abstract class Empty implements StationStates {
-  const factory Empty() = _$Empty;
+abstract class StationStatesEmpty implements StationStates {
+  const factory StationStatesEmpty() = _$StationStatesEmpty;
 }
 
-abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
-      _$ErrorCopyWithImpl<$Res>;
-  $Res call({Object error});
+abstract class $StationStatesExceptionCopyWith<$Res> {
+  factory $StationStatesExceptionCopyWith(StationStatesException value,
+          $Res Function(StationStatesException) then) =
+      _$StationStatesExceptionCopyWithImpl<$Res>;
+  $Res call({Exception exception});
 }
 
-class _$ErrorCopyWithImpl<$Res> extends _$StationStatesCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
-      : super(_value, (v) => _then(v as Error));
+class _$StationStatesExceptionCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res>
+    implements $StationStatesExceptionCopyWith<$Res> {
+  _$StationStatesExceptionCopyWithImpl(StationStatesException _value,
+      $Res Function(StationStatesException) _then)
+      : super(_value, (v) => _then(v as StationStatesException));
 
   @override
-  Error get _value => super._value as Error;
+  StationStatesException get _value => super._value as StationStatesException;
 
   @override
   $Res call({
-    Object error = freezed,
+    Object exception = freezed,
   }) {
-    return _then(Error(
-      error == freezed ? _value.error : error,
+    return _then(StationStatesException(
+      exception == freezed ? _value.exception : exception as Exception,
     ));
   }
 }
 
-class _$Error implements Error {
-  const _$Error(this.error) : assert(error != null);
+class _$StationStatesException implements StationStatesException {
+  const _$StationStatesException(this.exception) : assert(exception != null);
 
   @override
-  final Object error;
+  final Exception exception;
 
   @override
   String toString() {
-    return 'StationStates.error(error: $error)';
+    return 'StationStates.exception(exception: $exception)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Error &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+        (other is StationStatesException &&
+            (identical(other.exception, exception) ||
+                const DeepCollectionEquality()
+                    .equals(other.exception, exception)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
 
   @override
-  $ErrorCopyWith<Error> get copyWith =>
-      _$ErrorCopyWithImpl<Error>(this, _$identity);
+  $StationStatesExceptionCopyWith<StationStatesException> get copyWith =>
+      _$StationStatesExceptionCopyWithImpl<StationStatesException>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -494,15 +508,15 @@ class _$Error implements Error {
     @required Result loading(),
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result network(),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
-    return error(this.error);
+    return exception(this.exception);
   }
 
   @override
@@ -511,13 +525,13 @@ class _$Error implements Error {
     Result loading(),
     Result completions(List<CffCompletion> completions),
     Result empty(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result network(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (error != null) {
-      return error(this.error);
+    if (exception != null) {
+      return exception(this.exception);
     }
     return orElse();
   }
@@ -525,63 +539,66 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result loading(Loading value),
-    @required Result completions(StationCompletions value),
-    @required Result empty(Empty value),
-    @required Result error(Error value),
-    @required Result network(NetworkError value),
+    @required Result loading(StationStatesLoading value),
+    @required Result completions(StationStatesCompletions value),
+    @required Result empty(StationStatesEmpty value),
+    @required Result exception(StationStatesException value),
+    @required Result network(StationStatesNetworkError value),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
-    return error(this);
+    return exception(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result loading(Loading value),
-    Result completions(StationCompletions value),
-    Result empty(Empty value),
-    Result error(Error value),
-    Result network(NetworkError value),
+    Result loading(StationStatesLoading value),
+    Result completions(StationStatesCompletions value),
+    Result empty(StationStatesEmpty value),
+    Result exception(StationStatesException value),
+    Result network(StationStatesNetworkError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (error != null) {
-      return error(this);
+    if (exception != null) {
+      return exception(this);
     }
     return orElse();
   }
 }
 
-abstract class Error implements StationStates {
-  const factory Error(Object error) = _$Error;
+abstract class StationStatesException implements StationStates {
+  const factory StationStatesException(Exception exception) =
+      _$StationStatesException;
 
-  Object get error;
-  $ErrorCopyWith<Error> get copyWith;
+  Exception get exception;
+  $StationStatesExceptionCopyWith<StationStatesException> get copyWith;
 }
 
-abstract class $NetworkErrorCopyWith<$Res> {
-  factory $NetworkErrorCopyWith(
-          NetworkError value, $Res Function(NetworkError) then) =
-      _$NetworkErrorCopyWithImpl<$Res>;
+abstract class $StationStatesNetworkErrorCopyWith<$Res> {
+  factory $StationStatesNetworkErrorCopyWith(StationStatesNetworkError value,
+          $Res Function(StationStatesNetworkError) then) =
+      _$StationStatesNetworkErrorCopyWithImpl<$Res>;
 }
 
-class _$NetworkErrorCopyWithImpl<$Res> extends _$StationStatesCopyWithImpl<$Res>
-    implements $NetworkErrorCopyWith<$Res> {
-  _$NetworkErrorCopyWithImpl(
-      NetworkError _value, $Res Function(NetworkError) _then)
-      : super(_value, (v) => _then(v as NetworkError));
+class _$StationStatesNetworkErrorCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res>
+    implements $StationStatesNetworkErrorCopyWith<$Res> {
+  _$StationStatesNetworkErrorCopyWithImpl(StationStatesNetworkError _value,
+      $Res Function(StationStatesNetworkError) _then)
+      : super(_value, (v) => _then(v as StationStatesNetworkError));
 
   @override
-  NetworkError get _value => super._value as NetworkError;
+  StationStatesNetworkError get _value =>
+      super._value as StationStatesNetworkError;
 }
 
-class _$NetworkError implements NetworkError {
-  const _$NetworkError();
+class _$StationStatesNetworkError implements StationStatesNetworkError {
+  const _$StationStatesNetworkError();
 
   @override
   String toString() {
@@ -590,7 +607,7 @@ class _$NetworkError implements NetworkError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is NetworkError);
+    return identical(this, other) || (other is StationStatesNetworkError);
   }
 
   @override
@@ -602,13 +619,13 @@ class _$NetworkError implements NetworkError {
     @required Result loading(),
     @required Result completions(List<CffCompletion> completions),
     @required Result empty(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result network(),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
     return network();
   }
@@ -619,7 +636,7 @@ class _$NetworkError implements NetworkError {
     Result loading(),
     Result completions(List<CffCompletion> completions),
     Result empty(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result network(),
     @required Result orElse(),
   }) {
@@ -633,16 +650,16 @@ class _$NetworkError implements NetworkError {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result loading(Loading value),
-    @required Result completions(StationCompletions value),
-    @required Result empty(Empty value),
-    @required Result error(Error value),
-    @required Result network(NetworkError value),
+    @required Result loading(StationStatesLoading value),
+    @required Result completions(StationStatesCompletions value),
+    @required Result empty(StationStatesEmpty value),
+    @required Result exception(StationStatesException value),
+    @required Result network(StationStatesNetworkError value),
   }) {
     assert(loading != null);
     assert(completions != null);
     assert(empty != null);
-    assert(error != null);
+    assert(exception != null);
     assert(network != null);
     return network(this);
   }
@@ -650,11 +667,11 @@ class _$NetworkError implements NetworkError {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result loading(Loading value),
-    Result completions(StationCompletions value),
-    Result empty(Empty value),
-    Result error(Error value),
-    Result network(NetworkError value),
+    Result loading(StationStatesLoading value),
+    Result completions(StationStatesCompletions value),
+    Result empty(StationStatesEmpty value),
+    Result exception(StationStatesException value),
+    Result network(StationStatesNetworkError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -665,6 +682,6 @@ class _$NetworkError implements NetworkError {
   }
 }
 
-abstract class NetworkError implements StationStates {
-  const factory NetworkError() = _$NetworkError;
+abstract class StationStatesNetworkError implements StationStates {
+  const factory StationStatesNetworkError() = _$StationStatesNetworkError;
 }

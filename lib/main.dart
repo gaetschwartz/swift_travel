@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,9 +14,11 @@ import 'package:utils/blocs/theme_riverpod.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
-void main() {
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runZonedGuarded<Future<void>>(
       () async => runApp(MyApp()), FirebaseCrashlytics.instance.recordError);
 }

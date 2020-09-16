@@ -5,9 +5,10 @@ part 'station_states.freezed.dart';
 
 @freezed
 abstract class StationStates with _$StationStates {
-  const factory StationStates.loading() = Loading;
-  const factory StationStates.completions(List<CffCompletion> completions) = StationCompletions;
-  const factory StationStates.empty() = Empty;
-  const factory StationStates.error(Object error) = Error;
-  const factory StationStates.network() = NetworkError;
+  const factory StationStates.loading() = StationStatesLoading;
+  const factory StationStates.completions(List<CffCompletion> completions) =
+      StationStatesCompletions;
+  const factory StationStates.empty() = StationStatesEmpty;
+  const factory StationStates.exception(Exception exception) = StationStatesException;
+  const factory StationStates.network() = StationStatesNetworkError;
 }

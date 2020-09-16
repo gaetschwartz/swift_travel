@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -85,6 +86,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         _routes.add(r);
       } on Exception catch (e) {
         log("Error while trying to decode $spr", error: e, name: "Store");
+        FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
       }
     }
 
@@ -132,6 +134,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         routes.add(await Future.microtask(() => jsonEncode(e.toJson())));
       } on Exception catch (e) {
         log("Error while trying to encode $e", error: e, name: "Store");
+        FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
       }
     }
 

@@ -13,32 +13,32 @@ class _$RouteStatesTearOff {
   const _$RouteStatesTearOff();
 
 // ignore: unused_element
-  Data routes(CffRoute routes) {
-    return Data(
+  RouteStatesData routes(CffRoute routes) {
+    return RouteStatesData(
       routes,
     );
   }
 
 // ignore: unused_element
-  Network network() {
-    return const Network();
+  RouteStatesNetwork network() {
+    return const RouteStatesNetwork();
   }
 
 // ignore: unused_element
-  Error error(Object error) {
-    return Error(
-      error,
+  RouteStatesException exception(Exception exception) {
+    return RouteStatesException(
+      exception,
     );
   }
 
 // ignore: unused_element
-  Empty empty() {
-    return const Empty();
+  RouteStatesEmpty empty() {
+    return const RouteStatesEmpty();
   }
 
 // ignore: unused_element
-  Loading loading() {
-    return const Loading();
+  RouteStatesLoading loading() {
+    return const RouteStatesLoading();
   }
 }
 
@@ -50,7 +50,7 @@ mixin _$RouteStates {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result empty(),
     @required Result loading(),
   });
@@ -58,26 +58,26 @@ mixin _$RouteStates {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result routes(Data value),
-    @required Result network(Network value),
-    @required Result error(Error value),
-    @required Result empty(Empty value),
-    @required Result loading(Loading value),
+    @required Result routes(RouteStatesData value),
+    @required Result network(RouteStatesNetwork value),
+    @required Result exception(RouteStatesException value),
+    @required Result empty(RouteStatesEmpty value),
+    @required Result loading(RouteStatesLoading value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result routes(Data value),
-    Result network(Network value),
-    Result error(Error value),
-    Result empty(Empty value),
-    Result loading(Loading value),
+    Result routes(RouteStatesData value),
+    Result network(RouteStatesNetwork value),
+    Result exception(RouteStatesException value),
+    Result empty(RouteStatesEmpty value),
+    Result loading(RouteStatesLoading value),
     @required Result orElse(),
   });
 }
@@ -96,27 +96,30 @@ class _$RouteStatesCopyWithImpl<$Res> implements $RouteStatesCopyWith<$Res> {
   final $Res Function(RouteStates) _then;
 }
 
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res>;
+abstract class $RouteStatesDataCopyWith<$Res> {
+  factory $RouteStatesDataCopyWith(
+          RouteStatesData value, $Res Function(RouteStatesData) then) =
+      _$RouteStatesDataCopyWithImpl<$Res>;
   $Res call({CffRoute routes});
 
   $CffRouteCopyWith<$Res> get routes;
 }
 
-class _$DataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
-    implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(Data _value, $Res Function(Data) _then)
-      : super(_value, (v) => _then(v as Data));
+class _$RouteStatesDataCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RouteStatesDataCopyWith<$Res> {
+  _$RouteStatesDataCopyWithImpl(
+      RouteStatesData _value, $Res Function(RouteStatesData) _then)
+      : super(_value, (v) => _then(v as RouteStatesData));
 
   @override
-  Data get _value => super._value as Data;
+  RouteStatesData get _value => super._value as RouteStatesData;
 
   @override
   $Res call({
     Object routes = freezed,
   }) {
-    return _then(Data(
+    return _then(RouteStatesData(
       routes == freezed ? _value.routes : routes as CffRoute,
     ));
   }
@@ -132,8 +135,8 @@ class _$DataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
   }
 }
 
-class _$Data implements Data {
-  const _$Data(this.routes) : assert(routes != null);
+class _$RouteStatesData implements RouteStatesData {
+  const _$RouteStatesData(this.routes) : assert(routes != null);
 
   @override
   final CffRoute routes;
@@ -146,7 +149,7 @@ class _$Data implements Data {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Data &&
+        (other is RouteStatesData &&
             (identical(other.routes, routes) ||
                 const DeepCollectionEquality().equals(other.routes, routes)));
   }
@@ -156,21 +159,21 @@ class _$Data implements Data {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(routes);
 
   @override
-  $DataCopyWith<Data> get copyWith =>
-      _$DataCopyWithImpl<Data>(this, _$identity);
+  $RouteStatesDataCopyWith<RouteStatesData> get copyWith =>
+      _$RouteStatesDataCopyWithImpl<RouteStatesData>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result empty(),
     @required Result loading(),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
     return routes(this.routes);
@@ -181,7 +184,7 @@ class _$Data implements Data {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
@@ -196,15 +199,15 @@ class _$Data implements Data {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result routes(Data value),
-    @required Result network(Network value),
-    @required Result error(Error value),
-    @required Result empty(Empty value),
-    @required Result loading(Loading value),
+    @required Result routes(RouteStatesData value),
+    @required Result network(RouteStatesNetwork value),
+    @required Result exception(RouteStatesException value),
+    @required Result empty(RouteStatesEmpty value),
+    @required Result loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
     return routes(this);
@@ -213,11 +216,11 @@ class _$Data implements Data {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result routes(Data value),
-    Result network(Network value),
-    Result error(Error value),
-    Result empty(Empty value),
-    Result loading(Loading value),
+    Result routes(RouteStatesData value),
+    Result network(RouteStatesNetwork value),
+    Result exception(RouteStatesException value),
+    Result empty(RouteStatesEmpty value),
+    Result loading(RouteStatesLoading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -228,29 +231,32 @@ class _$Data implements Data {
   }
 }
 
-abstract class Data implements RouteStates {
-  const factory Data(CffRoute routes) = _$Data;
+abstract class RouteStatesData implements RouteStates {
+  const factory RouteStatesData(CffRoute routes) = _$RouteStatesData;
 
   CffRoute get routes;
-  $DataCopyWith<Data> get copyWith;
+  $RouteStatesDataCopyWith<RouteStatesData> get copyWith;
 }
 
-abstract class $NetworkCopyWith<$Res> {
-  factory $NetworkCopyWith(Network value, $Res Function(Network) then) =
-      _$NetworkCopyWithImpl<$Res>;
+abstract class $RouteStatesNetworkCopyWith<$Res> {
+  factory $RouteStatesNetworkCopyWith(
+          RouteStatesNetwork value, $Res Function(RouteStatesNetwork) then) =
+      _$RouteStatesNetworkCopyWithImpl<$Res>;
 }
 
-class _$NetworkCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
-    implements $NetworkCopyWith<$Res> {
-  _$NetworkCopyWithImpl(Network _value, $Res Function(Network) _then)
-      : super(_value, (v) => _then(v as Network));
+class _$RouteStatesNetworkCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RouteStatesNetworkCopyWith<$Res> {
+  _$RouteStatesNetworkCopyWithImpl(
+      RouteStatesNetwork _value, $Res Function(RouteStatesNetwork) _then)
+      : super(_value, (v) => _then(v as RouteStatesNetwork));
 
   @override
-  Network get _value => super._value as Network;
+  RouteStatesNetwork get _value => super._value as RouteStatesNetwork;
 }
 
-class _$Network implements Network {
-  const _$Network();
+class _$RouteStatesNetwork implements RouteStatesNetwork {
+  const _$RouteStatesNetwork();
 
   @override
   String toString() {
@@ -259,7 +265,7 @@ class _$Network implements Network {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Network);
+    return identical(this, other) || (other is RouteStatesNetwork);
   }
 
   @override
@@ -270,13 +276,13 @@ class _$Network implements Network {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result empty(),
     @required Result loading(),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
     return network();
@@ -287,7 +293,7 @@ class _$Network implements Network {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
@@ -302,15 +308,15 @@ class _$Network implements Network {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result routes(Data value),
-    @required Result network(Network value),
-    @required Result error(Error value),
-    @required Result empty(Empty value),
-    @required Result loading(Loading value),
+    @required Result routes(RouteStatesData value),
+    @required Result network(RouteStatesNetwork value),
+    @required Result exception(RouteStatesException value),
+    @required Result empty(RouteStatesEmpty value),
+    @required Result loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
     return network(this);
@@ -319,11 +325,11 @@ class _$Network implements Network {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result routes(Data value),
-    Result network(Network value),
-    Result error(Error value),
-    Result empty(Empty value),
-    Result loading(Loading value),
+    Result routes(RouteStatesData value),
+    Result network(RouteStatesNetwork value),
+    Result exception(RouteStatesException value),
+    Result empty(RouteStatesEmpty value),
+    Result loading(RouteStatesLoading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -334,76 +340,81 @@ class _$Network implements Network {
   }
 }
 
-abstract class Network implements RouteStates {
-  const factory Network() = _$Network;
+abstract class RouteStatesNetwork implements RouteStates {
+  const factory RouteStatesNetwork() = _$RouteStatesNetwork;
 }
 
-abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
-      _$ErrorCopyWithImpl<$Res>;
-  $Res call({Object error});
+abstract class $RouteStatesExceptionCopyWith<$Res> {
+  factory $RouteStatesExceptionCopyWith(RouteStatesException value,
+          $Res Function(RouteStatesException) then) =
+      _$RouteStatesExceptionCopyWithImpl<$Res>;
+  $Res call({Exception exception});
 }
 
-class _$ErrorCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
-      : super(_value, (v) => _then(v as Error));
+class _$RouteStatesExceptionCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RouteStatesExceptionCopyWith<$Res> {
+  _$RouteStatesExceptionCopyWithImpl(
+      RouteStatesException _value, $Res Function(RouteStatesException) _then)
+      : super(_value, (v) => _then(v as RouteStatesException));
 
   @override
-  Error get _value => super._value as Error;
+  RouteStatesException get _value => super._value as RouteStatesException;
 
   @override
   $Res call({
-    Object error = freezed,
+    Object exception = freezed,
   }) {
-    return _then(Error(
-      error == freezed ? _value.error : error,
+    return _then(RouteStatesException(
+      exception == freezed ? _value.exception : exception as Exception,
     ));
   }
 }
 
-class _$Error implements Error {
-  const _$Error(this.error) : assert(error != null);
+class _$RouteStatesException implements RouteStatesException {
+  const _$RouteStatesException(this.exception) : assert(exception != null);
 
   @override
-  final Object error;
+  final Exception exception;
 
   @override
   String toString() {
-    return 'RouteStates.error(error: $error)';
+    return 'RouteStates.exception(exception: $exception)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Error &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+        (other is RouteStatesException &&
+            (identical(other.exception, exception) ||
+                const DeepCollectionEquality()
+                    .equals(other.exception, exception)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
 
   @override
-  $ErrorCopyWith<Error> get copyWith =>
-      _$ErrorCopyWithImpl<Error>(this, _$identity);
+  $RouteStatesExceptionCopyWith<RouteStatesException> get copyWith =>
+      _$RouteStatesExceptionCopyWithImpl<RouteStatesException>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result empty(),
     @required Result loading(),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
-    return error(this.error);
+    return exception(this.exception);
   }
 
   @override
@@ -411,14 +422,14 @@ class _$Error implements Error {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (error != null) {
-      return error(this.error);
+    if (exception != null) {
+      return exception(this.exception);
     }
     return orElse();
   }
@@ -426,61 +437,65 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result routes(Data value),
-    @required Result network(Network value),
-    @required Result error(Error value),
-    @required Result empty(Empty value),
-    @required Result loading(Loading value),
+    @required Result routes(RouteStatesData value),
+    @required Result network(RouteStatesNetwork value),
+    @required Result exception(RouteStatesException value),
+    @required Result empty(RouteStatesEmpty value),
+    @required Result loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
-    return error(this);
+    return exception(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result routes(Data value),
-    Result network(Network value),
-    Result error(Error value),
-    Result empty(Empty value),
-    Result loading(Loading value),
+    Result routes(RouteStatesData value),
+    Result network(RouteStatesNetwork value),
+    Result exception(RouteStatesException value),
+    Result empty(RouteStatesEmpty value),
+    Result loading(RouteStatesLoading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (error != null) {
-      return error(this);
+    if (exception != null) {
+      return exception(this);
     }
     return orElse();
   }
 }
 
-abstract class Error implements RouteStates {
-  const factory Error(Object error) = _$Error;
+abstract class RouteStatesException implements RouteStates {
+  const factory RouteStatesException(Exception exception) =
+      _$RouteStatesException;
 
-  Object get error;
-  $ErrorCopyWith<Error> get copyWith;
+  Exception get exception;
+  $RouteStatesExceptionCopyWith<RouteStatesException> get copyWith;
 }
 
-abstract class $EmptyCopyWith<$Res> {
-  factory $EmptyCopyWith(Empty value, $Res Function(Empty) then) =
-      _$EmptyCopyWithImpl<$Res>;
+abstract class $RouteStatesEmptyCopyWith<$Res> {
+  factory $RouteStatesEmptyCopyWith(
+          RouteStatesEmpty value, $Res Function(RouteStatesEmpty) then) =
+      _$RouteStatesEmptyCopyWithImpl<$Res>;
 }
 
-class _$EmptyCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
-    implements $EmptyCopyWith<$Res> {
-  _$EmptyCopyWithImpl(Empty _value, $Res Function(Empty) _then)
-      : super(_value, (v) => _then(v as Empty));
+class _$RouteStatesEmptyCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RouteStatesEmptyCopyWith<$Res> {
+  _$RouteStatesEmptyCopyWithImpl(
+      RouteStatesEmpty _value, $Res Function(RouteStatesEmpty) _then)
+      : super(_value, (v) => _then(v as RouteStatesEmpty));
 
   @override
-  Empty get _value => super._value as Empty;
+  RouteStatesEmpty get _value => super._value as RouteStatesEmpty;
 }
 
-class _$Empty implements Empty {
-  const _$Empty();
+class _$RouteStatesEmpty implements RouteStatesEmpty {
+  const _$RouteStatesEmpty();
 
   @override
   String toString() {
@@ -489,7 +504,7 @@ class _$Empty implements Empty {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Empty);
+    return identical(this, other) || (other is RouteStatesEmpty);
   }
 
   @override
@@ -500,13 +515,13 @@ class _$Empty implements Empty {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result empty(),
     @required Result loading(),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
     return empty();
@@ -517,7 +532,7 @@ class _$Empty implements Empty {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
@@ -532,15 +547,15 @@ class _$Empty implements Empty {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result routes(Data value),
-    @required Result network(Network value),
-    @required Result error(Error value),
-    @required Result empty(Empty value),
-    @required Result loading(Loading value),
+    @required Result routes(RouteStatesData value),
+    @required Result network(RouteStatesNetwork value),
+    @required Result exception(RouteStatesException value),
+    @required Result empty(RouteStatesEmpty value),
+    @required Result loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
     return empty(this);
@@ -549,11 +564,11 @@ class _$Empty implements Empty {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result routes(Data value),
-    Result network(Network value),
-    Result error(Error value),
-    Result empty(Empty value),
-    Result loading(Loading value),
+    Result routes(RouteStatesData value),
+    Result network(RouteStatesNetwork value),
+    Result exception(RouteStatesException value),
+    Result empty(RouteStatesEmpty value),
+    Result loading(RouteStatesLoading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -564,26 +579,29 @@ class _$Empty implements Empty {
   }
 }
 
-abstract class Empty implements RouteStates {
-  const factory Empty() = _$Empty;
+abstract class RouteStatesEmpty implements RouteStates {
+  const factory RouteStatesEmpty() = _$RouteStatesEmpty;
 }
 
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class $RouteStatesLoadingCopyWith<$Res> {
+  factory $RouteStatesLoadingCopyWith(
+          RouteStatesLoading value, $Res Function(RouteStatesLoading) then) =
+      _$RouteStatesLoadingCopyWithImpl<$Res>;
 }
 
-class _$LoadingCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+class _$RouteStatesLoadingCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RouteStatesLoadingCopyWith<$Res> {
+  _$RouteStatesLoadingCopyWithImpl(
+      RouteStatesLoading _value, $Res Function(RouteStatesLoading) _then)
+      : super(_value, (v) => _then(v as RouteStatesLoading));
 
   @override
-  Loading get _value => super._value as Loading;
+  RouteStatesLoading get _value => super._value as RouteStatesLoading;
 }
 
-class _$Loading implements Loading {
-  const _$Loading();
+class _$RouteStatesLoading implements RouteStatesLoading {
+  const _$RouteStatesLoading();
 
   @override
   String toString() {
@@ -592,7 +610,7 @@ class _$Loading implements Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Loading);
+    return identical(this, other) || (other is RouteStatesLoading);
   }
 
   @override
@@ -603,13 +621,13 @@ class _$Loading implements Loading {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
     @required Result empty(),
     @required Result loading(),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
     return loading();
@@ -620,7 +638,7 @@ class _$Loading implements Loading {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result error(Object error),
+    Result exception(Exception exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
@@ -635,15 +653,15 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result routes(Data value),
-    @required Result network(Network value),
-    @required Result error(Error value),
-    @required Result empty(Empty value),
-    @required Result loading(Loading value),
+    @required Result routes(RouteStatesData value),
+    @required Result network(RouteStatesNetwork value),
+    @required Result exception(RouteStatesException value),
+    @required Result empty(RouteStatesEmpty value),
+    @required Result loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
-    assert(error != null);
+    assert(exception != null);
     assert(empty != null);
     assert(loading != null);
     return loading(this);
@@ -652,11 +670,11 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result routes(Data value),
-    Result network(Network value),
-    Result error(Error value),
-    Result empty(Empty value),
-    Result loading(Loading value),
+    Result routes(RouteStatesData value),
+    Result network(RouteStatesNetwork value),
+    Result exception(RouteStatesException value),
+    Result empty(RouteStatesEmpty value),
+    Result loading(RouteStatesLoading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -667,6 +685,6 @@ class _$Loading implements Loading {
   }
 }
 
-abstract class Loading implements RouteStates {
-  const factory Loading() = _$Loading;
+abstract class RouteStatesLoading implements RouteStates {
+  const factory RouteStatesLoading() = _$RouteStatesLoading;
 }

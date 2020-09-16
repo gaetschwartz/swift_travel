@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/route_states.dart';
 import 'package:swiss_travel/pages/route_details.dart';
-import 'package:swiss_travel/utils/conplete.dart';
+import 'package:swiss_travel/utils/complete.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/icon.dart';
 import 'package:utils/dialogs/input_dialog.dart';
@@ -340,7 +341,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                           ),
                         ],
                       ),
-                      error: (e) => Column(
+                      exception: (e) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const FaIcon(
@@ -349,7 +350,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            e.error.toString(),
+                            e.exception.toString(),
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
@@ -401,8 +402,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
       } on SocketException {
         context.read(_routesProvider).state = const RouteStates.network();
       } on Exception catch (e) {
-        context.read(_routesProvider).state = RouteStates.error(e);
-        rethrow;
+        context.read(_routesProvider).state = RouteStates.exception(e);
+        FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
       }
     }
   }

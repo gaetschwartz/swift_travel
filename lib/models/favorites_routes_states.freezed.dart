@@ -13,21 +13,21 @@ class _$FavoritesRoutesStatesTearOff {
   const _$FavoritesRoutesStatesTearOff();
 
 // ignore: unused_element
-  Data data(List<LocalRoute> routes) {
-    return Data(
+  FavoritesRoutesStatesData data(List<LocalRoute> routes) {
+    return FavoritesRoutesStatesData(
       routes,
     );
   }
 
 // ignore: unused_element
-  Loading loading() {
-    return const Loading();
+  FavoritesRoutesStatesLoading loading() {
+    return const FavoritesRoutesStatesLoading();
   }
 
 // ignore: unused_element
-  Error error(Object error) {
-    return Error(
-      error,
+  FavoritesRoutesStatesError exception(Exception exception) {
+    return FavoritesRoutesStatesError(
+      exception,
     );
   }
 }
@@ -40,26 +40,26 @@ mixin _$FavoritesRoutesStates {
   Result when<Result extends Object>({
     @required Result data(List<LocalRoute> routes),
     @required Result loading(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result data(List<LocalRoute> routes),
     Result loading(),
-    Result error(Object error),
+    Result exception(Exception exception),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result data(Data value),
-    @required Result loading(Loading value),
-    @required Result error(Error value),
+    @required Result data(FavoritesRoutesStatesData value),
+    @required Result loading(FavoritesRoutesStatesLoading value),
+    @required Result exception(FavoritesRoutesStatesError value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result data(Data value),
-    Result loading(Loading value),
-    Result error(Error value),
+    Result data(FavoritesRoutesStatesData value),
+    Result loading(FavoritesRoutesStatesLoading value),
+    Result exception(FavoritesRoutesStatesError value),
     @required Result orElse(),
   });
 }
@@ -79,32 +79,36 @@ class _$FavoritesRoutesStatesCopyWithImpl<$Res>
   final $Res Function(FavoritesRoutesStates) _then;
 }
 
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res>;
+abstract class $FavoritesRoutesStatesDataCopyWith<$Res> {
+  factory $FavoritesRoutesStatesDataCopyWith(FavoritesRoutesStatesData value,
+          $Res Function(FavoritesRoutesStatesData) then) =
+      _$FavoritesRoutesStatesDataCopyWithImpl<$Res>;
   $Res call({List<LocalRoute> routes});
 }
 
-class _$DataCopyWithImpl<$Res> extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
-    implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(Data _value, $Res Function(Data) _then)
-      : super(_value, (v) => _then(v as Data));
+class _$FavoritesRoutesStatesDataCopyWithImpl<$Res>
+    extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
+    implements $FavoritesRoutesStatesDataCopyWith<$Res> {
+  _$FavoritesRoutesStatesDataCopyWithImpl(FavoritesRoutesStatesData _value,
+      $Res Function(FavoritesRoutesStatesData) _then)
+      : super(_value, (v) => _then(v as FavoritesRoutesStatesData));
 
   @override
-  Data get _value => super._value as Data;
+  FavoritesRoutesStatesData get _value =>
+      super._value as FavoritesRoutesStatesData;
 
   @override
   $Res call({
     Object routes = freezed,
   }) {
-    return _then(Data(
+    return _then(FavoritesRoutesStatesData(
       routes == freezed ? _value.routes : routes as List<LocalRoute>,
     ));
   }
 }
 
-class _$Data implements Data {
-  const _$Data(this.routes) : assert(routes != null);
+class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
+  const _$FavoritesRoutesStatesData(this.routes) : assert(routes != null);
 
   @override
   final List<LocalRoute> routes;
@@ -117,7 +121,7 @@ class _$Data implements Data {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Data &&
+        (other is FavoritesRoutesStatesData &&
             (identical(other.routes, routes) ||
                 const DeepCollectionEquality().equals(other.routes, routes)));
   }
@@ -127,19 +131,20 @@ class _$Data implements Data {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(routes);
 
   @override
-  $DataCopyWith<Data> get copyWith =>
-      _$DataCopyWithImpl<Data>(this, _$identity);
+  $FavoritesRoutesStatesDataCopyWith<FavoritesRoutesStatesData> get copyWith =>
+      _$FavoritesRoutesStatesDataCopyWithImpl<FavoritesRoutesStatesData>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result data(List<LocalRoute> routes),
     @required Result loading(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
+    assert(exception != null);
     return data(routes);
   }
 
@@ -148,7 +153,7 @@ class _$Data implements Data {
   Result maybeWhen<Result extends Object>({
     Result data(List<LocalRoute> routes),
     Result loading(),
-    Result error(Object error),
+    Result exception(Exception exception),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -161,22 +166,22 @@ class _$Data implements Data {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result data(Data value),
-    @required Result loading(Loading value),
-    @required Result error(Error value),
+    @required Result data(FavoritesRoutesStatesData value),
+    @required Result loading(FavoritesRoutesStatesLoading value),
+    @required Result exception(FavoritesRoutesStatesError value),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
+    assert(exception != null);
     return data(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result data(Data value),
-    Result loading(Loading value),
-    Result error(Error value),
+    Result data(FavoritesRoutesStatesData value),
+    Result loading(FavoritesRoutesStatesLoading value),
+    Result exception(FavoritesRoutesStatesError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -187,30 +192,36 @@ class _$Data implements Data {
   }
 }
 
-abstract class Data implements FavoritesRoutesStates {
-  const factory Data(List<LocalRoute> routes) = _$Data;
+abstract class FavoritesRoutesStatesData implements FavoritesRoutesStates {
+  const factory FavoritesRoutesStatesData(List<LocalRoute> routes) =
+      _$FavoritesRoutesStatesData;
 
   List<LocalRoute> get routes;
-  $DataCopyWith<Data> get copyWith;
+  $FavoritesRoutesStatesDataCopyWith<FavoritesRoutesStatesData> get copyWith;
 }
 
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class $FavoritesRoutesStatesLoadingCopyWith<$Res> {
+  factory $FavoritesRoutesStatesLoadingCopyWith(
+          FavoritesRoutesStatesLoading value,
+          $Res Function(FavoritesRoutesStatesLoading) then) =
+      _$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>;
 }
 
-class _$LoadingCopyWithImpl<$Res>
+class _$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>
     extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+    implements $FavoritesRoutesStatesLoadingCopyWith<$Res> {
+  _$FavoritesRoutesStatesLoadingCopyWithImpl(
+      FavoritesRoutesStatesLoading _value,
+      $Res Function(FavoritesRoutesStatesLoading) _then)
+      : super(_value, (v) => _then(v as FavoritesRoutesStatesLoading));
 
   @override
-  Loading get _value => super._value as Loading;
+  FavoritesRoutesStatesLoading get _value =>
+      super._value as FavoritesRoutesStatesLoading;
 }
 
-class _$Loading implements Loading {
-  const _$Loading();
+class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
+  const _$FavoritesRoutesStatesLoading();
 
   @override
   String toString() {
@@ -219,7 +230,7 @@ class _$Loading implements Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Loading);
+    return identical(this, other) || (other is FavoritesRoutesStatesLoading);
   }
 
   @override
@@ -230,11 +241,11 @@ class _$Loading implements Loading {
   Result when<Result extends Object>({
     @required Result data(List<LocalRoute> routes),
     @required Result loading(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
+    assert(exception != null);
     return loading();
   }
 
@@ -243,7 +254,7 @@ class _$Loading implements Loading {
   Result maybeWhen<Result extends Object>({
     Result data(List<LocalRoute> routes),
     Result loading(),
-    Result error(Object error),
+    Result exception(Exception exception),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -256,22 +267,22 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result data(Data value),
-    @required Result loading(Loading value),
-    @required Result error(Error value),
+    @required Result data(FavoritesRoutesStatesData value),
+    @required Result loading(FavoritesRoutesStatesLoading value),
+    @required Result exception(FavoritesRoutesStatesError value),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
+    assert(exception != null);
     return loading(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result data(Data value),
-    Result loading(Loading value),
-    Result error(Error value),
+    Result data(FavoritesRoutesStatesData value),
+    Result loading(FavoritesRoutesStatesLoading value),
+    Result exception(FavoritesRoutesStatesError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -282,73 +293,80 @@ class _$Loading implements Loading {
   }
 }
 
-abstract class Loading implements FavoritesRoutesStates {
-  const factory Loading() = _$Loading;
+abstract class FavoritesRoutesStatesLoading implements FavoritesRoutesStates {
+  const factory FavoritesRoutesStatesLoading() = _$FavoritesRoutesStatesLoading;
 }
 
-abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
-      _$ErrorCopyWithImpl<$Res>;
-  $Res call({Object error});
+abstract class $FavoritesRoutesStatesErrorCopyWith<$Res> {
+  factory $FavoritesRoutesStatesErrorCopyWith(FavoritesRoutesStatesError value,
+          $Res Function(FavoritesRoutesStatesError) then) =
+      _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>;
+  $Res call({Exception exception});
 }
 
-class _$ErrorCopyWithImpl<$Res>
+class _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
     extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
-      : super(_value, (v) => _then(v as Error));
+    implements $FavoritesRoutesStatesErrorCopyWith<$Res> {
+  _$FavoritesRoutesStatesErrorCopyWithImpl(FavoritesRoutesStatesError _value,
+      $Res Function(FavoritesRoutesStatesError) _then)
+      : super(_value, (v) => _then(v as FavoritesRoutesStatesError));
 
   @override
-  Error get _value => super._value as Error;
+  FavoritesRoutesStatesError get _value =>
+      super._value as FavoritesRoutesStatesError;
 
   @override
   $Res call({
-    Object error = freezed,
+    Object exception = freezed,
   }) {
-    return _then(Error(
-      error == freezed ? _value.error : error,
+    return _then(FavoritesRoutesStatesError(
+      exception == freezed ? _value.exception : exception as Exception,
     ));
   }
 }
 
-class _$Error implements Error {
-  const _$Error(this.error) : assert(error != null);
+class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
+  const _$FavoritesRoutesStatesError(this.exception)
+      : assert(exception != null);
 
   @override
-  final Object error;
+  final Exception exception;
 
   @override
   String toString() {
-    return 'FavoritesRoutesStates.error(error: $error)';
+    return 'FavoritesRoutesStates.exception(exception: $exception)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Error &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+        (other is FavoritesRoutesStatesError &&
+            (identical(other.exception, exception) ||
+                const DeepCollectionEquality()
+                    .equals(other.exception, exception)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
 
   @override
-  $ErrorCopyWith<Error> get copyWith =>
-      _$ErrorCopyWithImpl<Error>(this, _$identity);
+  $FavoritesRoutesStatesErrorCopyWith<FavoritesRoutesStatesError>
+      get copyWith =>
+          _$FavoritesRoutesStatesErrorCopyWithImpl<FavoritesRoutesStatesError>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result data(List<LocalRoute> routes),
     @required Result loading(),
-    @required Result error(Object error),
+    @required Result exception(Exception exception),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
-    return error(this.error);
+    assert(exception != null);
+    return exception(this.exception);
   }
 
   @override
@@ -356,12 +374,12 @@ class _$Error implements Error {
   Result maybeWhen<Result extends Object>({
     Result data(List<LocalRoute> routes),
     Result loading(),
-    Result error(Object error),
+    Result exception(Exception exception),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (error != null) {
-      return error(this.error);
+    if (exception != null) {
+      return exception(this.exception);
     }
     return orElse();
   }
@@ -369,35 +387,36 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result data(Data value),
-    @required Result loading(Loading value),
-    @required Result error(Error value),
+    @required Result data(FavoritesRoutesStatesData value),
+    @required Result loading(FavoritesRoutesStatesLoading value),
+    @required Result exception(FavoritesRoutesStatesError value),
   }) {
     assert(data != null);
     assert(loading != null);
-    assert(error != null);
-    return error(this);
+    assert(exception != null);
+    return exception(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result data(Data value),
-    Result loading(Loading value),
-    Result error(Error value),
+    Result data(FavoritesRoutesStatesData value),
+    Result loading(FavoritesRoutesStatesLoading value),
+    Result exception(FavoritesRoutesStatesError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (error != null) {
-      return error(this);
+    if (exception != null) {
+      return exception(this);
     }
     return orElse();
   }
 }
 
-abstract class Error implements FavoritesRoutesStates {
-  const factory Error(Object error) = _$Error;
+abstract class FavoritesRoutesStatesError implements FavoritesRoutesStates {
+  const factory FavoritesRoutesStatesError(Exception exception) =
+      _$FavoritesRoutesStatesError;
 
-  Object get error;
-  $ErrorCopyWith<Error> get copyWith;
+  Exception get exception;
+  $FavoritesRoutesStatesErrorCopyWith<FavoritesRoutesStatesError> get copyWith;
 }
