@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,7 +13,12 @@ import 'package:utils/blocs/theme_riverpod.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
-void main() => runApp(MyApp());
+void main() {
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
+  runZonedGuarded<Future<void>>(
+      () async => runApp(MyApp()), FirebaseCrashlytics.instance.recordError);
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -39,8 +47,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   TabController _controller;
 
   @override
@@ -74,8 +81,7 @@ class _MyHomePageState extends State<MyHomePage>
           IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => const Settings()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
               }),
         ],
       ),

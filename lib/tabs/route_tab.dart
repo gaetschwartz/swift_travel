@@ -400,8 +400,9 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
         context.read(_routesProvider).state = RouteStates.routes(it);
       } on SocketException {
         context.read(_routesProvider).state = const RouteStates.network();
-      } catch (e) {
+      } on Exception catch (e) {
         context.read(_routesProvider).state = RouteStates.error(e);
+        rethrow;
       }
     }
   }
