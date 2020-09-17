@@ -84,7 +84,7 @@ jobs:
           asset_content_type: application/vnd.android.package-archive
 
   deploy-testflight:
-    timeout-minutes: 60
+    timeout-minutes: 15
     name: Deploy to Testflight
     runs-on: macos-latest
     if: startsWith(github.event.head_commit.message, '$')
