@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +20,9 @@ final _initValue = FutureProvider<Maps>((r) async {
 final _appleMapsProvider = StateProvider<Maps>((r) {
   final watch = r.watch(_initValue);
   return watch.map<Maps>(
-      data: (d) => d.data.value, loading: (l) => Maps.apple, error: (e) => Maps.apple);
+      data: (d) => d.data.value,
+      loading: (l) => Maps.apple,
+      error: (e) => Maps.apple);
 });
 
 enum Maps { apple, google }
@@ -112,16 +115,23 @@ class Settings extends StatelessWidget {
             const ListTile(title: Text("The team")),
             ListTile(
               title: const Text("Open source"),
-              onTap: () => showLicensePage(context: context, applicationIcon: const FlutterLogo()),
+              onTap: () => showLicensePage(
+                  context: context, applicationIcon: const FlutterLogo()),
             ),
             const _SectionTitle(title: Text("Developer")),
+            if (kDebugMode)
+              ListTile(
+                  leading: const Icon(Icons.warning),
+                  title: const Text("Crash"),
+                  onTap: () => FirebaseCrashlytics.instance.crash()),
             ListTile(
                 leading: const Icon(Icons.restore),
                 title: const Text("Reset settings"),
                 onTap: () async {
                   final c = await confirm(context,
                       title: const Text("Reset settings ?"),
-                      content: const Text("You will lose all of you favorites!"),
+                      content:
+                          const Text("You will lose all of you favorites!"),
                       isConfirmDestructive: true);
                   if (c != true) return;
                   final prefs = await SharedPreferences.getInstance();
@@ -169,8 +179,10 @@ class _SectionTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8.0),
       child: DefaultTextStyle(
-          style:
-              Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).accentColor),
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(color: Theme.of(context).accentColor),
           child: title),
     );
   }
