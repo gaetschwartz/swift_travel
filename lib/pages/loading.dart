@@ -81,11 +81,12 @@ class _LoadingPageState extends State<LoadingPage> {
         );
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getInt("maps_app") == null) await prefs.setInt("maps_app", 0);
-    await context.read(quickActions).init();
     final _store = context.read(storeProvider);
     await _store.getFavorites();
 
     await Future.delayed(const Duration(milliseconds: 500));
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => MyHomePage()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (_) => MyHomePage()));
+    await context.read(quickActions).init();
   }
 }
