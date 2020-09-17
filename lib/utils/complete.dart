@@ -6,6 +6,7 @@ import 'package:utils/utils/levenshtein.dart';
 
 const _kConfidenceThreshold = .9;
 
+/// Add similar favorites to the completions
 Future<List<CffCompletion>> completeWithFavorites(
   FavoritesSharedPreferencesStore store,
   List<CffCompletion> compls,
