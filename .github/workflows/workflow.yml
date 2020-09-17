@@ -48,17 +48,7 @@ jobs:
       - name: Pre-build configuration
         env:
           TZ: Europe/Zurich
-        run: |
-          git_hash=$(git rev-parse --short "$GITHUB_SHA")
-          git_msg=$(printf "%q" "$(git log -1 --pretty=format:"%s")")
-          now=$(date +"%H:%M:%S - %A %d %B %Y")
-          cat > lib/utils/build.dart <<- EOM
-          const String latestBuild = "${now}";
-          const String commit = "${git_hash}";
-          const String commitMessage = "${git_msg}";
-          EOM
-          echo "=== build.dart ==="
-          cat lib/utils/build.dart
+        run: chmod +x CI/prebuild.sh && ./CI/prebuild.sh
       - name: Build
         run: flutter build apk
       - name: Get hash
@@ -94,7 +84,7 @@ jobs:
           asset_content_type: application/vnd.android.package-archive
 
   deploy-testflight:
-    timeout-minutes: 15
+    timeout-minutes: 30
     name: Deploy to Testflight
     runs-on: macos-latest
     if: startsWith(github.event.head_commit.message, '$')
@@ -117,6 +107,7 @@ jobs:
           path: |
             ~/hostedtoolcache/flutter/
             ~/.pub-cache
+            ~/Library/Caches/CocoaPods
           key: ${{ runner.OS }}-flutter-cache-${{ steps.release_json.outputs.json }}
       - name: Install Flutter
         uses: subosito/flutter-action@v1
@@ -131,17 +122,7 @@ jobs:
       - name: Pre-build configuration
         env:
           TZ: Europe/Zurich
-        run: |
-          git_hash=$(git rev-parse --short "$GITHUB_SHA")
-          git_msg=$(printf "%q" "$(git log -1 --pretty=format:"%s")")
-          now=$(date +"%H:%M:%S - %A %d %B %Y")
-          cat > lib/utils/build.dart <<- EOM
-          const String latestBuild = "${now}";
-          const String commit = "${git_hash}";
-          const String commitMessage = "${git_msg}";
-          EOM
-          echo "=== build.dart ==="
-          cat lib/utils/build.dart
+        run: chmod +x CI/prebuild.sh && ./CI/prebuild.sh
       - name: Build
         run: flutter build ios --build-number $GITHUB_RUN_NUMBER
       - name: Get hash

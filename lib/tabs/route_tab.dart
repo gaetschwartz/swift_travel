@@ -298,8 +298,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       if (_store.routes.any(
                         (lr) => lr.from == fromController.text && lr.to == toController.text,
                       )) {
-                        Scaffold.of(context)
-                            .showSnackBar(const SnackBar(content: Text("Already added")));
+                        Scaffold.of(context).showSnackBar(const SnackBar(
+                            content: Text("This route is already in your favorites !")));
                         return;
                       }
 
@@ -308,7 +308,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       context
                           .read(storeProvider)
                           .addRoute(LocalRoute(s, fromController.text, toController.text));
-                      Scaffold.of(context).showSnackBar(const SnackBar(content: Text("Added")));
+                      Scaffold.of(context)
+                          .showSnackBar(const SnackBar(content: Text("Route starred !")));
                     },
                     child: _store.routes.any(
                             (lr) => lr.from == fromController.text && lr.to == toController.text)
@@ -317,6 +318,17 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                   );
                 }),
               ),
+              Positioned(
+                  left: 0,
+                  child: FlatButton(
+                    shape: const StadiumBorder(),
+                    onPressed: () async {
+                      fromController.clear();
+                      toController.clear();
+                      context.read(_routesProvider).state = const RouteStates.empty();
+                    },
+                    child: const FaIcon(FontAwesomeIcons.times),
+                  )),
             ],
           ),
           Expanded(

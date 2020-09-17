@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swiss_travel/utils/build.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 
@@ -18,10 +19,9 @@ final _initValue = FutureProvider<Maps>((r) async {
 final _appleMapsProvider = StateProvider<Maps>((r) {
   final watch = r.watch(_initValue);
   return watch.map<Maps>(
-      data: (d) => d.data.value,
-      loading: (l) => Maps.apple,
-      error: (e) => Maps.apple);
+      data: (d) => d.data.value, loading: (l) => Maps.apple, error: (e) => Maps.apple);
 });
+
 enum Maps { apple, google }
 
 class Settings extends StatelessWidget {
@@ -35,11 +35,15 @@ class Settings extends StatelessWidget {
         ),
         body: ListView(
           children: [
+            const _SectionTitle(title: Text("Options")),
             Consumer(builder: (context, w, _) {
               final theme = w(dynamicTheme);
               return Column(
                 children: [
-                  const ListTile(title: Text("Mode")),
+                  const ListTile(
+                    title: Text("Mode"),
+                    dense: true,
+                  ),
                   RadioListTile<ThemeMode>(
                       dense: true,
                       title: const Text("Light mode"),
@@ -104,22 +108,44 @@ class Settings extends StatelessWidget {
                 ),
               );
             }),
-            if (kDebugMode)
-              ListTile(
-                  leading: const Icon(Icons.restore),
-                  title: const Text("Reset settings"),
-                  onTap: () async {
-                    final c = await confirm(context,
-                        title: const Text("Reset settings ?"),
-                        content:
-                            const Text("You will lose all of you favorites!"),
-                        isConfirmDestructive: true);
-                    if (c != true) return;
-                    final prefs = await SharedPreferences.getInstance();
-                    final b = await prefs.clear();
-                    log("Done : $b");
-                    SystemNavigator.pop(animated: true);
-                  }),
+            const _SectionTitle(title: Text("More")),
+            const ListTile(title: Text("The team")),
+            ListTile(
+              title: const Text("Open source"),
+              onTap: () => showLicensePage(context: context, applicationIcon: const FlutterLogo()),
+            ),
+            const _SectionTitle(title: Text("Developer")),
+            ListTile(
+                leading: const Icon(Icons.restore),
+                title: const Text("Reset settings"),
+                onTap: () async {
+                  final c = await confirm(context,
+                      title: const Text("Reset settings ?"),
+                      content: const Text("You will lose all of you favorites!"),
+                      isConfirmDestructive: true);
+                  if (c != true) return;
+                  final prefs = await SharedPreferences.getInstance();
+                  final b = await prefs.clear();
+                  log("Done : $b");
+                  SystemNavigator.pop(animated: true);
+                }),
+            const ListTile(
+              isThreeLine: true,
+              dense: true,
+              title: Text(commitMessage),
+              subtitle: Text("$buildNumber • $commitBuildDate\n$commitHash"),
+            ),
+            const SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  "© Copyright Gaëtan Schwartz 2020",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+              ),
+            ),
           ],
         ));
   }
@@ -128,5 +154,24 @@ class Settings extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     maps.state = m;
     await prefs.setInt("maps_app", m.index);
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  const _SectionTitle({
+    Key key,
+    @required this.title,
+  }) : super(key: key);
+  final Widget title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8.0),
+      child: DefaultTextStyle(
+          style:
+              Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).accentColor),
+          child: title),
+    );
   }
 }
