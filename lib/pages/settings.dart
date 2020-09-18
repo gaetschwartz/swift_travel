@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +128,9 @@ class Settings extends StatelessWidget {
                   leading: const Icon(Icons.info),
                   title: const Text("Test"),
                   onTap: () async {
-                    log(Firebase.app().options.toString());
+                    await FirebaseCrashlytics.instance
+                        .recordError(Exception("Test"), StackTrace.current);
+                    await FirebaseCrashlytics.instance.sendUnsentReports();
                   }),
               ListTile(
                   leading: const Icon(Icons.warning),

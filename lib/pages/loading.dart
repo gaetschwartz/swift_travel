@@ -44,7 +44,7 @@ class _LoadingPageState extends State<LoadingPage> {
   Future<void> init() async {
     if (kDebugMode) {
       log("Disabling crash reports in debug mode", name: "Loading");
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     } else {
       await FirebaseCrashlytics.instance.log("Loading page");
     }
