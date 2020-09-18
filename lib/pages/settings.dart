@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,22 @@ class Settings extends StatelessWidget {
                 ],
               );
             }),
+            Consumer(builder: (context, w, _) {
+              final theme = w(dynamicTheme);
+              return ListTile(
+                title: const Text("Theme"),
+                trailing: DropdownButton<String>(
+                  value: theme.name,
+                  items: theme.configuration.themes.keys
+                      .map((m) => DropdownMenuItem<String>(
+                            value: m,
+                            child: Text(theme.configuration.themes[m].name),
+                          ))
+                      .toList(),
+                  onChanged: (n) => theme.name = n,
+                ),
+              );
+            }),
             if (!kReleaseMode || Platform.isIOS)
               Consumer(builder: (context, w, _) {
                 final maps = w(_appleMapsProvider);
@@ -95,22 +112,6 @@ class Settings extends StatelessWidget {
               indent: 16,
               endIndent: 16,
             ),
-            Consumer(builder: (context, w, _) {
-              final theme = w(dynamicTheme);
-              return ListTile(
-                title: const Text("Theme"),
-                trailing: DropdownButton<String>(
-                  value: theme.name,
-                  items: theme.configuration.themes.keys
-                      .map((m) => DropdownMenuItem<String>(
-                            value: m,
-                            child: Text(theme.configuration.themes[m].name),
-                          ))
-                      .toList(),
-                  onChanged: (n) => theme.name = n,
-                ),
-              );
-            }),
             const _SectionTitle(title: Text("More")),
             const ListTile(title: Text("The team")),
             ListTile(
@@ -118,12 +119,27 @@ class Settings extends StatelessWidget {
               onTap: () => showLicensePage(
                   context: context, applicationIcon: const FlutterLogo()),
             ),
+            const Divider(
+              indent: 16,
+              endIndent: 16,
+            ),
             const _SectionTitle(title: Text("Developer")),
-            if (kDebugMode)
+            if (kDebugMode) ...[
+              ListTile(
+                  leading: const Icon(Icons.info),
+                  title: const Text("Test"),
+                  onTap: () async {
+                    log(Firebase.app().options.toString());
+                  }),
               ListTile(
                   leading: const Icon(Icons.warning),
                   title: const Text("Crash"),
-                  onTap: () => FirebaseCrashlytics.instance.crash()),
+                  onTap: () async {
+                    await FirebaseCrashlytics.instance
+                        .log("We trigger a crash");
+                    FirebaseCrashlytics.instance.crash();
+                  }),
+            ],
             ListTile(
                 leading: const Icon(Icons.restore),
                 title: const Text("Reset settings"),

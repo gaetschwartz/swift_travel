@@ -11,22 +11,29 @@ Future<List<CffCompletion>> completeWithFavorites(
   FavoritesSharedPreferencesStore store,
   List<CffCompletion> compls,
   String query,
-) async {
-  final List<CffCompletion> completions = await Future.microtask(() {
-    final Map<CffCompletion, double> levens = {};
-    for (final c in store.completions) {
-      final leven = c.label == null ? 1.0 : levenshtein(query, c.label.replaceAll(",", ""));
-      //log("\t${c.label}\t$leven\t${leven / c.label.length}");
-      levens[c] = leven / c.label.length;
-    }
-    final favs = levens.entries.toList();
-    favs.sort((a, b) => a.value.compareTo(b.value));
-    final list = favs.where((e) => e.value < _kConfidenceThreshold).toList();
-    final sublist = list.sublist(0, min(list.length, 3));
+) =>
+    Future.microtask(() {
+      final Map<CffCompletion, double> levens = {};
 
-    final completions = compls.where((c) => c.label != null).toList();
-    completions.insertAll(0, sublist.map((e) => e.key.copyWith(isFavorite: true)));
-    return completions;
-  });
-  return completions;
-}
+      for (final CffCompletion c in store.favorites) {
+        if (c.label == null) continue;
+        final int leven = levenshtein(query, c.label.replaceAll(",", ""));
+        // Skip if above threshold
+        if (leven < _kConfidenceThreshold) {
+          levens[c] = leven / c.label.length;
+        }
+      }
+
+      final List<MapEntry<CffCompletion, double>> favs =
+          levens.entries.toList();
+      favs.sort((a, b) => a.value.compareTo(b.value));
+      final Iterable<CffCompletion> sublist = favs
+          .toList()
+          .sublist(0, min(favs.length, 3))
+          .map((e) => e.key.copyWith(isFavorite: true));
+
+      final List<CffCompletion> completions =
+          compls.where((c) => c.label != null).toList();
+      completions.insertAll(0, sublist);
+      return completions;
+    });

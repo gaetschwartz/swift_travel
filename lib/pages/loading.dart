@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,6 +42,13 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   Future<void> init() async {
+    if (kDebugMode) {
+      log("Disabling crash reports in debug mode", name: "Loading");
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    } else {
+      await FirebaseCrashlytics.instance.log("Loading page");
+    }
+
     await context.read(dynamicTheme).configure(
           ThemeConfiguration({
             "default": FullTheme(

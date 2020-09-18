@@ -20,12 +20,12 @@ abstract class FavoritesStoreBase extends ChangeNotifier {
   Future<void> removeRoute(LocalRoute route);
 }
 
-final storeProvider =
-    ChangeNotifierProvider<FavoritesStoreBase>((r) => FavoritesSharedPreferencesStore(r));
+final storeProvider = ChangeNotifierProvider<FavoritesStoreBase>(
+    (r) => FavoritesSharedPreferencesStore(r));
 final favoritesStatesProvider =
     StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());
-final favoritesRoutesStatesProvider =
-    StateProvider<FavoritesRoutesStates>((_) => const FavoritesRoutesStates.loading());
+final favoritesRoutesStatesProvider = StateProvider<FavoritesRoutesStates>(
+    (_) => const FavoritesRoutesStates.loading());
 
 class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   static const stopsKey = "favoritesStop";
@@ -48,7 +48,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   Map<String, CffCompletion> get cache => _cache;
 
-  Iterable<CffCompletion> get completions => _favs.map((e) => _cache[e]).where((e) => e != null);
+  Iterable<CffCompletion> get favorites =>
+      _favs.map((e) => _cache[e]).where((e) => e != null);
 
   @override
   Future<List<CffCompletion>> getFavorites({bool notify = true}) async {
@@ -68,7 +69,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     for (final l in favsIds) {
       if (_cache[l] == null) {
         log("Fetching $l because it's not in the cache");
-        final List<CffCompletion> c = await ref.read(cffProvider).complete(l, showIds: true);
+        final List<CffCompletion> c =
+            await ref.read(cffProvider).complete(l, showIds: true);
         _cache[l] = c.first;
       }
       lComp.add(_cache[l]);
@@ -86,11 +88,13 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         _routes.add(r);
       } on Exception catch (e) {
         log("Error while trying to decode $spr", error: e, name: "Store");
-        FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
+        FirebaseCrashlytics.instance
+            .recordError(e, StackTrace.current, printDetails: true);
       }
     }
 
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList());
 
     if (notify) {
       await sync();
@@ -102,14 +106,16 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   Future<void> addRoute(LocalRoute route) async {
     _routes.add(route);
 
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList());
     await sync();
   }
 
   @override
   Future<void> removeRoute(LocalRoute route) async {
     _routes.remove(route);
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList());
     await sync();
   }
 
@@ -119,7 +125,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     await _checkState();
     final list = await getFavorites(notify: false);
     _favs.add(completion.id ?? completion.label);
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(list..add(completion));
+    ref.read(favoritesStatesProvider).state =
+        FavoritesStates.data(list..add(completion));
     await sync();
   }
 
@@ -134,7 +141,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         routes.add(await Future.microtask(() => jsonEncode(e.toJson())));
       } on Exception catch (e) {
         log("Error while trying to encode $e", error: e, name: "Store");
-        FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
+        FirebaseCrashlytics.instance
+            .recordError(e, StackTrace.current, printDetails: true);
       }
     }
 
@@ -150,7 +158,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     _favs.removeWhere((s) => s == completion.label || s == completion.id);
 
     await sync();
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(
-        list..removeWhere((c) => c.label == completion.label || c.id == completion.id));
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(list
+      ..removeWhere(
+          (c) => c.label == completion.label || c.id == completion.id));
   }
 }

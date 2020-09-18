@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -19,6 +20,8 @@ class MyQuickActions {
   Future<void> init() async {
     log("init", name: "QuickActions");
     quickActions.initialize((shortcutType) async {
+      await FirebaseCrashlytics.instance
+          .log("User tapped a quick action : `$shortcutType`");
       final split = shortcutType.split("_");
       if (split.first == "route") {
         log('Tapped route $shortcutType', name: "QuickActions");
