@@ -17,10 +17,12 @@ Future<List<CffCompletion>> completeWithFavorites(
 
       for (final CffCompletion c in store.favorites) {
         if (c.label == null) continue;
-        final int leven = levenshtein(query, c.label.replaceAll(",", ""));
+        final double leven =
+            levenshtein(query, c.label.replaceAll(",", "")) / c.label.length;
         // Skip if above threshold
         if (leven < _kConfidenceThreshold) {
-          levens[c] = leven / c.label.length;
+          // log("$query - ${c.label} => $leven");
+          levens[c] = leven;
         }
       }
 
