@@ -93,7 +93,7 @@ class _LoadingPageState extends State<LoadingPage> {
         );
     final prefs = await SharedPreferences.getInstance();
     await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
-    await context.read(storeProvider).getFavorites(prefs: prefs);
+    await context.read(storeProvider).loadFromPreferences(prefs: prefs);
 
     await Future.delayed(const Duration(milliseconds: 500));
     Navigator.of(context)

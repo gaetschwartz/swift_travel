@@ -13,7 +13,7 @@ import 'package:swiss_travel/models/favorites_routes_states.dart';
 import 'package:swiss_travel/models/favorites_states.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
-  Future<List<CffCompletion>> getFavorites(
+  Future<List<CffCompletion>> loadFromPreferences(
       {SharedPreferences prefs, bool notify = true});
   Future<void> addFavorite(CffCompletion completion);
   Future<void> deleteFavorite(CffCompletion completion);
@@ -53,7 +53,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       _favs.map((e) => _cache[e]).where((e) => e != null);
 
   @override
-  Future<List<CffCompletion>> getFavorites(
+  Future<List<CffCompletion>> loadFromPreferences(
       {SharedPreferences prefs, bool notify = true}) async {
     log("Gettings favorites", name: "Store");
     if (notify) {
@@ -79,8 +79,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
     _favs.clear();
     _favs.addAll(favsIds);
-    //? Routes
 
+    //? Routes
     final List<String> routes = _prefs.getStringList(routesKey) ?? [];
     _routes.clear();
     for (final spr in routes) {
@@ -128,12 +128,15 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     final value = completion.label;
     if (value != null) {
       _favs.add(value);
+      _cache[value] = completion;
       log("Added $completion", name: "Store");
     } else {
       log("Completion couldn't be added because label and id was null",
           name: "Store");
     }
-    await getFavorites();
+    ref.read(favoritesStatesProvider).state =
+        FavoritesStates.data(favorites.toList());
+    await sync();
   }
 
   Future<void> sync() async {
@@ -160,14 +163,13 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   @override
   Future<void> deleteFavorite(CffCompletion completion) async {
-    ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
     await _checkState();
-    final list = await getFavorites(notify: false);
-    _favs.removeWhere((s) => s == completion.label || s == completion.id);
 
+    if (!_favs.remove(completion.id) && !_favs.remove(completion.label)) {
+      log("$completion was not in favorites ?", name: "Store");
+    }
+    ref.read(favoritesStatesProvider).state =
+        FavoritesStates.data(favorites.toList());
     await sync();
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(list
-      ..removeWhere(
-          (c) => c.label == completion.label || c.id == completion.id));
   }
 }

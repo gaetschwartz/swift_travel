@@ -77,7 +77,7 @@ class FavRoutesTab extends StatelessWidget {
     final _store =
         context.read(storeProvider) as FavoritesSharedPreferencesStore;
     return RefreshIndicator(
-        onRefresh: () => _store.getFavorites(notify: false),
+        onRefresh: () => _store.loadFromPreferences(notify: false),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
@@ -248,7 +248,7 @@ class FavStopsTab extends StatelessWidget {
         child: const FaIcon(FontAwesomeIcons.plus),
       ),
       body: RefreshIndicator(
-          onRefresh: () => _store.getFavorites(notify: false),
+          onRefresh: () => _store.loadFromPreferences(notify: false),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(

@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
       child: Consumer(builder: (context, w, _) {
         final theme = w(dynamicTheme);
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
           title: 'Swiss Travel',
           builder: (context, child) => _Unfocus(
@@ -50,7 +51,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   TabController _controller;
 
   @override
@@ -84,7 +86,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => const Settings()));
               }),
         ],
       ),

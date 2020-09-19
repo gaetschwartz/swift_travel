@@ -17,6 +17,8 @@ import 'package:swiss_travel/tabs/route_tab.dart';
 final quickActions = Provider<MyQuickActions>((ref) => MyQuickActions());
 
 class MyQuickActions {
+  static const maxFavoriteRoutes = 5;
+  static const maxFavoriteStops = 5;
   final quickActions = QuickActions();
 
   Future<void> init() async {
@@ -58,17 +60,17 @@ class MyQuickActions {
     final shortcuts = <ShortcutItem>[];
 
     log("Add favorites $favorites", name: "QuickActions");
-    for (var i = 0; i < min(3, favorites.length); i++) {
+    for (var i = 0; i < min(maxFavoriteStops, favorites.length); i++) {
       final fav = favorites[i];
       shortcuts.add(ShortcutItem(
         type: 'fav_$i',
         localizedTitle: fav.label,
-        icon: Platform.isIOS ? "favorite" : "ic_favorites_round",
+        icon: Platform.isIOS ? "star" : "ic_favorites_round",
       ));
     }
 
     log("Add routes $routes", name: "QuickActions");
-    for (var i = 0; i < min(3, routes.length); i++) {
+    for (var i = 0; i < min(maxFavoriteRoutes, routes.length); i++) {
       final route = routes[i];
       shortcuts.add(ShortcutItem(
         type: 'route_$i',
