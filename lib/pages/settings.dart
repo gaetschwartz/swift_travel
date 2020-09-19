@@ -7,25 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/utils/build.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
-
-final _initValue = FutureProvider<Maps>((r) async {
-  final prefs = await SharedPreferences.getInstance();
-  final i = prefs.getInt("maps_app");
-  return Maps.values[i];
-});
-
-final _appleMapsProvider = StateProvider<Maps>((r) {
-  final watch = r.watch(_initValue);
-  return watch.map<Maps>(
-      data: (d) => d.data.value,
-      loading: (l) => Maps.apple,
-      error: (e) => Maps.apple);
-});
-
-enum Maps { apple, google }
 
 class Settings extends StatelessWidget {
   const Settings();
@@ -86,7 +71,7 @@ class Settings extends StatelessWidget {
             }),
             if (!kReleaseMode || Platform.isIOS)
               Consumer(builder: (context, w, _) {
-                final maps = w(_appleMapsProvider);
+                final maps = w(mapsAppProvider);
                 return Column(
                   children: [
                     const ListTile(title: Text("Maps")),
@@ -94,14 +79,14 @@ class Settings extends StatelessWidget {
                       dense: true,
                       title: const Text("Apple Maps"),
                       value: Maps.apple,
-                      groupValue: maps.state,
+                      groupValue: maps.mapsApp,
                       onChanged: (m) => onMapsChanged(maps, m),
                     ),
                     RadioListTile<Maps>(
                       dense: true,
                       title: const Text("Google Maps"),
                       value: Maps.google,
-                      groupValue: maps.state,
+                      groupValue: maps.mapsApp,
                       onChanged: (m) => onMapsChanged(maps, m),
                     ),
                   ],
@@ -177,10 +162,8 @@ class Settings extends StatelessWidget {
         ));
   }
 
-  Future<void> onMapsChanged(StateController<Maps> maps, Maps m) async {
-    final prefs = await SharedPreferences.getInstance();
-    maps.state = m;
-    await prefs.setInt("maps_app", m.index);
+  void onMapsChanged(PreferencesBloc maps, Maps m) {
+    maps.mapsApp = m;
   }
 }
 

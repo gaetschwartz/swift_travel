@@ -22,7 +22,8 @@ class SearchFavorite extends StatefulWidget {
   _SearchFavoriteState createState() => _SearchFavoriteState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
+class _SearchFavoriteState extends State<SearchFavorite>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -40,8 +41,10 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
           final i = w(_tabProvider).state;
           return BottomNavigationBar(
             items: const [
-              BottomNavigationBarItem(label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
-              BottomNavigationBarItem(label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
+              BottomNavigationBarItem(
+                  label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
+              BottomNavigationBarItem(
+                  label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
             ],
             onTap: (i) => context.read(_tabProvider).state = i,
             currentIndex: i,
@@ -71,7 +74,8 @@ class FavRoutesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    final _store =
+        context.read(storeProvider) as FavoritesSharedPreferencesStore;
     return RefreshIndicator(
         onRefresh: () => _store.getFavorites(notify: false),
         child: Padding(
@@ -109,10 +113,14 @@ class FavRoutesTab extends StatelessWidget {
                       )
                     : ListView.builder(
                         itemCount: c.routes.length,
-                        itemBuilder: (context, i) => _RouteTile(route: c.routes[i]),
+                        itemBuilder: (context, i) =>
+                            _RouteTile(route: c.routes[i]),
                       ),
                 loading: (_) => const CustomScrollView(
-                  slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
+                  slivers: [
+                    SliverFillRemaining(
+                        child: Center(child: CircularProgressIndicator()))
+                  ],
                 ),
                 exception: (e) => CustomScrollView(
                   slivers: [
@@ -147,10 +155,11 @@ class _RouteTile extends StatelessWidget {
       title: Text(route.displayName),
       subtitle: Text("${route.from} ➡ ${route.to}"),
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.times), onPressed: () => deleteRoute(context)),
+          icon: const FaIcon(FontAwesomeIcons.times),
+          onPressed: () => deleteRoute(context)),
       onTap: () async {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));
       },
     );
   }
@@ -159,7 +168,9 @@ class _RouteTile extends StatelessWidget {
     final b = await confirm(
       context,
       title: Text.rich(TextSpan(text: "Delete ", children: [
-        TextSpan(text: route.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
+        TextSpan(
+            text: route.displayName,
+            style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(
           text: " ?",
         ),
@@ -194,20 +205,24 @@ class FavStopsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    final _store =
+        context.read(storeProvider) as FavoritesSharedPreferencesStore;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         shape: const StadiumBorder(),
         onPressed: () async {
-          final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
+          final String s =
+              await Navigator.of(context).push<String>(MaterialPageRoute(
             builder: (_) => const StopInputDialog(title: "Add a favorite"),
             fullscreenDialog: true,
           ));
+          if (s == null) return;
 
           await load(context, future: () async {
             final cff = context.read(cffProvider);
-            List<CffCompletion> completions = await cff.complete(s, showIds: true);
+            List<CffCompletion> completions =
+                await cff.complete(s, showIds: true);
 
             if (completions.isEmpty) {
               log("Didn't find a station, will try using routes as a hack...");
@@ -258,7 +273,8 @@ class FavStopsTab extends StatelessWidget {
                         )
                       : ListView.builder(
                           itemCount: c.completions.length,
-                          itemBuilder: (context, i) => _FavoriteTile(c.completions[i]),
+                          itemBuilder: (context, i) =>
+                              _FavoriteTile(c.completions[i]),
                         ),
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),

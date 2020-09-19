@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/api/cff/leg.dart';
 import 'package:swiss_travel/api/cff/route_connection.dart';
 import 'package:swiss_travel/api/cff/stop.dart';
 import 'package:swiss_travel/api/cff/types_enum.dart';
-import 'package:swiss_travel/pages/settings.dart';
+import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/icon.dart';
 import 'package:swiss_travel/widget/line_icon.dart';
@@ -238,7 +238,7 @@ class WalkingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => openRoute(),
+      onTap: () => openRoute(context),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
         child: Row(
@@ -294,7 +294,7 @@ class WalkingTile extends StatelessWidget {
   static const _apple = "http://maps.apple.com/";
   static const _google = "https://maps.google.com/maps";
 
-  Future<void> openRoute() async {
+  Future<void> openRoute(BuildContext context) async {
     final departure =
         l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
     final arrival = "${l.exit.lat}, ${l.exit.lon}";
@@ -302,9 +302,7 @@ class WalkingTile extends StatelessWidget {
     final suffix =
         '?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
     if (Platform.isIOS) {
-      final prefs = await SharedPreferences.getInstance();
-      final map = prefs.getInt("maps_app");
-      final url = getMapsUrl(map, suffix);
+      final url = getMapsUrl(context, suffix);
       try {
         await launch(url);
       } on Exception {
@@ -319,18 +317,16 @@ class WalkingTile extends StatelessWidget {
     }
   }
 
-  String getMapsUrl(int map, String suffix) {
-    if (map >= 0 && map < Maps.values.length) {
-      final m = Maps.values[map];
-      switch (m) {
-        case Maps.apple:
-          log("Using Apple Maps");
-          return _apple + suffix;
-        case Maps.google:
-          log("Using Google Maps");
-          return _google + suffix;
-      }
+  String getMapsUrl(BuildContext context, String suffix) {
+    final m = context.read(mapsAppProvider).mapsApp;
+    switch (m) {
+      case Maps.apple:
+        log("Using Apple Maps");
+        return _apple + suffix;
+      case Maps.google:
+        log("Using Google Maps");
+        return _google + suffix;
     }
-    return null;
+    throw UnsupportedError("Unsupported : `$m`");
   }
 }

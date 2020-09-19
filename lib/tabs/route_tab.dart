@@ -24,7 +24,7 @@ import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/icon.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 
-final _loadingProvider = StateProvider((_) => false);
+final _isLocating = StateProvider((_) => false);
 final _switchProvider = StateProvider((_) => false);
 final _dateProvider = StateProvider((_) => DateTime.now());
 final _timeProvider = StateProvider((_) => TimeOfDay.now());
@@ -32,13 +32,16 @@ final _routesProvider = StateProvider((_) => const RouteStates.empty());
 
 class SearchRoute extends StatefulWidget {
   final LocalRoute localRoute;
+  final String destination;
 
-  const SearchRoute({Key key, this.localRoute}) : super(key: key);
+  const SearchRoute({Key key, this.localRoute, this.destination})
+      : super(key: key);
   @override
   _SearchRouteState createState() => _SearchRouteState();
 }
 
-class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
+class _SearchRouteState extends State<SearchRoute>
+    with AutomaticKeepAliveClientMixin {
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
   final FocusNode fnFrom = FocusNode();
@@ -57,7 +60,18 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         searchData();
       });
+    } else if (widget.destination != null) {
+      goToDest();
     }
+  }
+
+  Future goToDest() async {
+    toController.text = widget.destination;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      context.read(_routesProvider).state = const RouteStates.loading();
+      await locate();
+      await searchData();
+    });
   }
 
   @override
@@ -73,7 +87,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: widget.localRoute != null
+      appBar: widget.localRoute != null || widget.destination != null
           ? AppBar(
               title: const Text("Route"),
             )
@@ -98,42 +112,29 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                           hintText: "From",
                           isDense: true,
                         )),
-                    suggestionsCallback: (s) async =>
-                        completeWithFavorites(_store, await _cff.complete(s), s),
-                    itemBuilder: (context, suggestion) => _SuggestedTile(suggestion),
-                    onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
+                    suggestionsCallback: (s) async => completeWithFavorites(
+                        _store, await _cff.complete(s), s),
+                    itemBuilder: (context, suggestion) =>
+                        _SuggestedTile(suggestion),
+                    onSuggestionSelected: (suggestion) =>
+                        fromController.text = suggestion.label,
                     noItemsFoundBuilder: (_) => const SizedBox(),
-                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+                    transitionBuilder: (context, suggestionsBox, controller) =>
+                        FadeTransition(
                       opacity: controller,
                       child: suggestionsBox,
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
-                IconButton(icon: Consumer(builder: (context, w, _) {
-                  final loading = w(_loadingProvider).state;
-                  return loading
-                      ? const CircularProgressIndicator()
-                      : const FaIcon(FontAwesomeIcons.locationArrow);
-                }), onPressed: () async {
-                  context.read(_loadingProvider).state = true;
-                  try {
-                    final p = await getCurrentPosition(
-                        desiredAccuracy: LocationAccuracy.bestForNavigation);
-
-                    log("Position is : $p");
-                    final completions =
-                        await context.read(cffProvider).findStation(p.latitude, p.longitude);
-
-                    final first = completions.first;
-                    log("Found : $first");
-                    if (first.dist != null) {
-                      fromController.text = completions.first.label;
-                    }
-                  } finally {
-                    context.read(_loadingProvider).state = false;
-                  }
-                })
+                IconButton(
+                    icon: Consumer(builder: (context, w, _) {
+                      final loading = w(_isLocating).state;
+                      return loading
+                          ? const CircularProgressIndicator()
+                          : const FaIcon(FontAwesomeIcons.locationArrow);
+                    }),
+                    onPressed: () => locate())
               ],
             ),
           ),
@@ -155,12 +156,15 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                           hintText: "To",
                           isDense: true,
                         )),
-                    suggestionsCallback: (s) async =>
-                        completeWithFavorites(_store, await _cff.complete(s), s),
-                    itemBuilder: (context, suggestion) => _SuggestedTile(suggestion),
-                    onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
+                    suggestionsCallback: (s) async => completeWithFavorites(
+                        _store, await _cff.complete(s), s),
+                    itemBuilder: (context, suggestion) =>
+                        _SuggestedTile(suggestion),
+                    onSuggestionSelected: (suggestion) =>
+                        toController.text = suggestion.label,
                     noItemsFoundBuilder: (_) => const SizedBox(),
-                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+                    transitionBuilder: (context, suggestionsBox, controller) =>
+                        FadeTransition(
                       opacity: controller,
                       child: suggestionsBox,
                     ),
@@ -239,7 +243,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       FontAwesomeIcons.calendar,
                       size: 16,
                     ),
-                    label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
+                    label: Text(
+                        "${_date.state.day}/${_date.state.month}/${_date.state.year}"),
                   );
                 }),
                 Expanded(
@@ -264,7 +269,10 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               Center(
                 child: DecoratedBox(
                   decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8))
+                    BoxShadow(
+                        blurRadius: 16,
+                        color: Color(0x260700b1),
+                        offset: Offset(0, 8))
                   ]),
                   child: FlatButton.icon(
                     padding: const EdgeInsets.symmetric(horizontal: 48),
@@ -277,7 +285,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                         : () {
                             fromController.text =
                                 "Université de Genève, Genève, Rue du Général-Dufour 24";
-                            toController.text = "Badenerstrasse 549, 8048 Zürich";
+                            toController.text =
+                                "Badenerstrasse 549, 8048 Zürich";
                             search();
                           },
                     shape: const StadiumBorder(),
@@ -289,30 +298,35 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               Positioned(
                 right: 0,
                 child: Consumer(builder: (context, w, _) {
-                  final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
+                  final _store =
+                      w(storeProvider) as FavoritesSharedPreferencesStore;
                   w(_routesProvider);
                   return FlatButton(
                     shape: const StadiumBorder(),
                     onPressed: () async {
                       log(_store.routes.toString());
                       if (_store.routes.any(
-                        (lr) => lr.from == fromController.text && lr.to == toController.text,
+                        (lr) =>
+                            lr.from == fromController.text &&
+                            lr.to == toController.text,
                       )) {
                         Scaffold.of(context).showSnackBar(const SnackBar(
-                            content: Text("This route is already in your favorites !")));
+                            content: Text(
+                                "This route is already in your favorites !")));
                         return;
                       }
 
-                      final s = await input(context, title: const Text("Enter route name"));
+                      final s = await input(context,
+                          title: const Text("Enter route name"));
                       if (s == null) return;
-                      context
-                          .read(storeProvider)
-                          .addRoute(LocalRoute(s, fromController.text, toController.text));
-                      Scaffold.of(context)
-                          .showSnackBar(const SnackBar(content: Text("Route starred !")));
+                      context.read(storeProvider).addRoute(LocalRoute(
+                          s, fromController.text, toController.text));
+                      Scaffold.of(context).showSnackBar(
+                          const SnackBar(content: Text("Route starred !")));
                     },
-                    child: _store.routes.any(
-                            (lr) => lr.from == fromController.text && lr.to == toController.text)
+                    child: _store.routes.any((lr) =>
+                            lr.from == fromController.text &&
+                            lr.to == toController.text)
                         ? const Icon(Icons.star)
                         : const Icon(Icons.star_border),
                   );
@@ -325,7 +339,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                     onPressed: () async {
                       fromController.clear();
                       toController.clear();
-                      context.read(_routesProvider).state = const RouteStates.empty();
+                      context.read(_routesProvider).state =
+                          const RouteStates.empty();
                     },
                     child: const FaIcon(FontAwesomeIcons.times),
                   )),
@@ -337,8 +352,11 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       routes: (data) => ListView.separated(
                           separatorBuilder: (c, i) => const Divider(),
                           shrinkWrap: true,
-                          itemCount: data.routes == null ? 0 : data.routes.connections.length,
-                          itemBuilder: (context, i) => RouteTile(c: data.routes.connections[i])),
+                          itemCount: data.routes == null
+                              ? 0
+                              : data.routes.connections.length,
+                          itemBuilder: (context, i) =>
+                              RouteTile(c: data.routes.connections[i])),
                       network: (_) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -369,7 +387,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                       ),
                       loading: (_) => const CustomScrollView(
                         slivers: [
-                          SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
+                          SliverFillRemaining(
+                              child: Center(child: CircularProgressIndicator()))
                         ],
                       ),
                       empty: (_) => Column(
@@ -393,6 +412,26 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
     );
   }
 
+  Future<void> locate() async {
+    context.read(_isLocating).state = true;
+    try {
+      final p = await getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.bestForNavigation);
+
+      log("Position is : $p");
+      final completions =
+          await context.read(cffProvider).findStation(p.latitude, p.longitude);
+
+      final first = completions.first;
+      log("Found : $first");
+      if (first.dist != null) {
+        fromController.text = completions.first.label;
+      }
+    } finally {
+      context.read(_isLocating).state = false;
+    }
+  }
+
   Future<void> search() async {
     fnFrom.unfocus();
     fnTo.unfocus();
@@ -408,14 +447,17 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
           Stop(toController.text),
           date: context.read(_dateProvider).state,
           time: context.read(_timeProvider).state,
-          typeTime: context.read(_switchProvider).state ? TimeType.arrival : TimeType.depart,
+          typeTime: context.read(_switchProvider).state
+              ? TimeType.arrival
+              : TimeType.depart,
         );
         context.read(_routesProvider).state = RouteStates.routes(it);
       } on SocketException {
         context.read(_routesProvider).state = const RouteStates.network();
       } on Exception catch (e) {
         context.read(_routesProvider).state = RouteStates.exception(e);
-        FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
+        FirebaseCrashlytics.instance
+            .recordError(e, StackTrace.current, printDetails: true);
       }
     }
   }
@@ -484,8 +526,8 @@ class RouteTile extends StatelessWidget {
           const FaIcon(FontAwesomeIcons.chevronRight, size: 16),
         ],
       ),
-      onTap: () =>
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
     );
   }
 }

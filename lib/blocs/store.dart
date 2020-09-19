@@ -13,7 +13,8 @@ import 'package:swiss_travel/models/favorites_routes_states.dart';
 import 'package:swiss_travel/models/favorites_states.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
-  Future<List<CffCompletion>> getFavorites({bool notify = true});
+  Future<List<CffCompletion>> getFavorites(
+      {SharedPreferences prefs, bool notify = true});
   Future<void> addFavorite(CffCompletion completion);
   Future<void> deleteFavorite(CffCompletion completion);
   Future<void> addRoute(LocalRoute route);
@@ -52,18 +53,17 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       _favs.map((e) => _cache[e]).where((e) => e != null);
 
   @override
-  Future<List<CffCompletion>> getFavorites({bool notify = true}) async {
+  Future<List<CffCompletion>> getFavorites(
+      {SharedPreferences prefs, bool notify = true}) async {
     log("Gettings favorites", name: "Store");
     if (notify) {
       ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
     }
-    _prefs = await SharedPreferences.getInstance();
+    _prefs = prefs ?? await SharedPreferences.getInstance();
 
     //? Stops
 
     final List<String> favsIds = _prefs.getStringList(stopsKey) ?? [];
-    _favs.clear();
-    _favs.addAll(favsIds);
     if (_cache.length >= 50) _cache.clear();
     final List<CffCompletion> lComp = [];
     for (final l in favsIds) {
@@ -77,6 +77,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     }
     ref.read(favoritesStatesProvider).state = FavoritesStates.data(lComp);
 
+    _favs.clear();
+    _favs.addAll(favsIds);
     //? Routes
 
     final List<String> routes = _prefs.getStringList(routesKey) ?? [];
@@ -123,11 +125,15 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   Future<void> addFavorite(CffCompletion completion) async {
     ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
     await _checkState();
-    final list = await getFavorites(notify: false);
-    _favs.add(completion.id ?? completion.label);
-    ref.read(favoritesStatesProvider).state =
-        FavoritesStates.data(list..add(completion));
-    await sync();
+    final value = completion.label;
+    if (value != null) {
+      _favs.add(value);
+      log("Added $completion", name: "Store");
+    } else {
+      log("Completion couldn't be added because label and id was null",
+          name: "Store");
+    }
+    await getFavorites();
   }
 
   Future<void> sync() async {
@@ -147,7 +153,9 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     }
 
     await _prefs.setStringList(routesKey, routes);
-    await ref.read(quickActions).setRoutes(_routes.toList());
+    await ref
+        .read(quickActions)
+        .setActions(_routes.toList(), favorites.toList());
   }
 
   @override
