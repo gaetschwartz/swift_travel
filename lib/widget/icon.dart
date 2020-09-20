@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swiss_travel/api/cff/types_enum.dart';
-import 'package:swiss_travel/api/cff/vehicle_iconclass.dart';
+import 'package:swiss_travel/api/cff/models/types_enum.dart';
+import 'package:swiss_travel/api/cff/models/vehicle_iconclass.dart';
 
 class CffIcon extends StatelessWidget {
   const CffIcon(
@@ -59,7 +59,8 @@ class CffIcon extends StatelessWidget {
 
   static const List<String> _privatePlaces = ["adr", "business", "private"];
 
-  static bool isPrivate(String s) => _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
+  static bool isPrivate(String s) =>
+      _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
 
   @override
   Widget build(BuildContext context) => IconTheme(

@@ -1,6 +1,6 @@
 import 'dart:math' show min;
 
-import 'package:swiss_travel/api/cff/cff_completion.dart';
+import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:utils/utils/levenshtein.dart';
 

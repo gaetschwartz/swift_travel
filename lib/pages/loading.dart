@@ -9,10 +9,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/blocs/quick_actions.dart';
 import 'package:swiss_travel/blocs/store.dart';
-import 'package:swiss_travel/main.dart';
 import 'package:utils/blocs/full_theme.dart';
 import 'package:utils/blocs/theme_configuration.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
+
+import 'home_page.dart';
 
 class LoadingPage extends StatefulWidget {
   @override
@@ -97,7 +98,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
     await Future.delayed(const Duration(milliseconds: 500));
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => MyHomePage()));
+        .pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
 
     await context.read(quickActions).init();
   }

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swiss_travel/api/cff/route_connection.dart';
+import 'package:swiss_travel/api/cff/models/route_connection.dart';
 
 part 'cff_route.freezed.dart';
 part 'cff_route.g.dart';
@@ -14,5 +14,6 @@ abstract class CffRoute with _$CffRoute {
     @Default([]) List<RouteConnection> connections,
   }) = _CffRoute;
 
-  factory CffRoute.fromJson(Map<String, dynamic> json) => _$CffRouteFromJson(json);
+  factory CffRoute.fromJson(Map<String, dynamic> json) =>
+      _$CffRouteFromJson(json);
 }

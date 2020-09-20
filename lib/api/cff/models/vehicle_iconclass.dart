@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swiss_travel/api/cff/types_enum.dart';
+import 'package:swiss_travel/api/cff/models/types_enum.dart';
 
 part 'vehicle_iconclass.freezed.dart';
 part 'vehicle_iconclass.g.dart';
@@ -8,5 +8,6 @@ part 'vehicle_iconclass.g.dart';
 abstract class VehicleIconclass with _$VehicleIconclass {
   factory VehicleIconclass(@nullable Vehicle v) = _VehicleIconclass;
 
-  factory VehicleIconclass.fromJson(Map<String, dynamic> json) => _$VehicleIconclassFromJson(json);
+  factory VehicleIconclass.fromJson(Map<String, dynamic> json) =>
+      _$VehicleIconclassFromJson(json);
 }

@@ -5,16 +5,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:swiss_travel/api/cff.dart';
-import 'package:swiss_travel/api/cff/cff_completion.dart';
-import 'package:swiss_travel/api/cff/cff_route.dart';
-import 'package:swiss_travel/api/cff/cff_stationboard.dart';
-import 'package:swiss_travel/api/cff/stop.dart';
+import 'package:swiss_travel/api/cff/cff.dart';
+import 'package:swiss_travel/api/cff/models/cff_completion.dart';
+import 'package:swiss_travel/api/cff/models/cff_route.dart';
+import 'package:swiss_travel/api/cff/models/cff_stationboard.dart';
+import 'package:swiss_travel/api/cff/models/stop.dart';
 
-final Provider<CffBase> cffProvider = Provider<CffBase>((ref) => CffRepository._());
+final Provider<CffBase> cffProvider =
+    Provider<CffBase>((ref) => CffRepository._());
 
 class CffRepository implements CffBase {
-  static const CffQueryBuilder builder = CffQueryBuilder("https://timetable.search.ch/api");
+  static const CffQueryBuilder builder =
+      CffQueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
 
   CffRepository._();
@@ -75,7 +77,8 @@ class CffRepository implements CffBase {
     }
     final decode = await Future.microtask(() => json.decode(response.body));
     final completions = (decode as List)
-        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
+        .map<CffCompletion>(
+            (e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
@@ -153,7 +156,8 @@ class CffQueryBuilder {
   String build(String action, Map<String, dynamic> parameters) {
     String url = "$baseUrl/$action.json";
     if (parameters.isNotEmpty) {
-      final String params = parameters.keys.map<String>((k) => "$k=${parameters[k]}").join("&");
+      final String params =
+          parameters.keys.map<String>((k) => "$k=${parameters[k]}").join("&");
       url += "?$params";
     }
     return Uri.encodeFull(url);

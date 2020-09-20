@@ -519,7 +519,7 @@ packages:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.3"
   pedantic:
     dependency: transitive
     description:
@@ -804,7 +804,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.1"
+    version: "1.7.2+1"
   xdg_directories:
     dependency: transitive
     description:

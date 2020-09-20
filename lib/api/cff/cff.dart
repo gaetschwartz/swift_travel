@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_travel/api/cff/cff_stationboard.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 
-import 'cff/cff_completion.dart';
-import 'cff/cff_route.dart';
-import 'cff/stop.dart';
+import 'models/cff_completion.dart';
+import 'models/cff_route.dart';
+import 'models/cff_stationboard.dart';
+import 'models/stop.dart';
 
 abstract class CffBase {
   Future<List<CffCompletion>> complete(
