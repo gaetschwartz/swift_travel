@@ -1,14 +1,17 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/utils/build.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 
@@ -97,11 +100,17 @@ class Settings extends StatelessWidget {
               endIndent: 16,
             ),
             const _SectionTitle(title: Text("More")),
-            const ListTile(title: Text("The team")),
             ListTile(
+              leading: const FaIcon(FontAwesomeIcons.users),
+              title: const Text("The team"),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage()));
+              },
+            ),
+            ListTile(
+              leading: const FaIcon(FontAwesomeIcons.fileCode),
               title: const Text("Open source"),
-              onTap: () => showLicensePage(
-                  context: context, applicationIcon: const FlutterLogo()),
+              onTap: () => showLicensePage(context: context, applicationIcon: const FlutterLogo()),
             ),
             const Divider(
               indent: 16,
@@ -121,8 +130,7 @@ class Settings extends StatelessWidget {
                   leading: const Icon(Icons.warning),
                   title: const Text("Crash"),
                   onTap: () async {
-                    await FirebaseCrashlytics.instance
-                        .log("We trigger a crash");
+                    await FirebaseCrashlytics.instance.log("We trigger a crash");
                     FirebaseCrashlytics.instance.crash();
                   }),
             ],
@@ -132,8 +140,7 @@ class Settings extends StatelessWidget {
                 onTap: () async {
                   final c = await confirm(context,
                       title: const Text("Reset settings ?"),
-                      content:
-                          const Text("You will lose all of you favorites!"),
+                      content: const Text("You will lose all of you favorites!"),
                       isConfirmDestructive: true);
                   if (c != true) return;
                   final prefs = await SharedPreferences.getInstance();
@@ -167,6 +174,71 @@ class Settings extends StatelessWidget {
   }
 }
 
+class TeamPage extends StatelessWidget {
+  const TeamPage({
+    Key key,
+  }) : super(key: key);
+
+  static const coders = <Coder>[
+    Coder(
+      "Gaëtan Schwartz",
+      role: "Lead Developer,\nApp Designer",
+      twitterUrl: "https://twitter.com/gaetschwartz",
+      imageUrl: "https://pbs.twimg.com/profile_images/1307716781356834818/kwCKuS7q_400x400.jpg",
+      website: "https://gaetanschwartz.com/#/",
+    ),
+    Coder(
+      "Vincent Tarrit",
+      role: "Developer, Designer",
+      imageUrl:
+          "https://i2.wp.com/www.tarrit.com/wp-content/uploads/2018/11/cropped-Vincent-Tarrit3petitblanc-2-1.jpg?w=512",
+      website: "https://tarrit.com/",
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("The team")),
+      body: ListView.builder(
+          itemCount: coders.length,
+          itemBuilder: (context, i) {
+            final c = coders[i];
+            return ListTile(
+              title: Text(c.name),
+              leading: CircleAvatar(
+                backgroundImage: c.imageUrl == null ? null : CachedNetworkImageProvider(c.imageUrl),
+                child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user) : null,
+              ),
+              subtitle: c.role == null ? null : Text(c.role),
+              trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                if (c.website != null)
+                  IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.paperclip),
+                      onPressed: () => launch(c.website)),
+                if (c.twitterUrl != null)
+                  IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.twitter),
+                      onPressed: () => launch(c.twitterUrl)),
+              ]),
+              isThreeLine: true,
+            );
+          }),
+    );
+  }
+}
+
+@immutable
+class Coder {
+  final String name;
+  final String twitterUrl;
+  final String role;
+  final String imageUrl;
+  final String website;
+
+  const Coder(this.name, {this.twitterUrl, this.role, this.imageUrl, this.website});
+}
+
 class _SectionTitle extends StatelessWidget {
   const _SectionTitle({
     Key key,
@@ -179,10 +251,8 @@ class _SectionTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8.0),
       child: DefaultTextStyle(
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .copyWith(color: Theme.of(context).accentColor),
+          style:
+              Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).accentColor),
           child: title),
     );
   }
