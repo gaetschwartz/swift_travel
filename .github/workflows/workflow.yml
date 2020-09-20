@@ -59,7 +59,7 @@ jobs:
           echo "::set-output name=nbr::$GITHUB_RUN_NUMBER"
       - uses: r0adkll/upload-google-play@v1
         with:
-          serviceAccountJsonPlainText: ${{ SERVICE_ACCOUNT_PLAIN }}
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.gaetanschwartz.swiss_travel
           releaseFile: build/app/outputs/bundle/release/app-release.aab
           track: internal
