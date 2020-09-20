@@ -119,14 +119,6 @@ class Settings extends StatelessWidget {
             const _SectionTitle(title: Text("Developer")),
             if (kDebugMode) ...[
               ListTile(
-                  leading: const Icon(Icons.info),
-                  title: const Text("Test"),
-                  onTap: () async {
-                    await FirebaseCrashlytics.instance
-                        .recordError(Exception("Test"), StackTrace.current);
-                    await FirebaseCrashlytics.instance.sendUnsentReports();
-                  }),
-              ListTile(
                   leading: const Icon(Icons.warning),
                   title: const Text("Crash"),
                   onTap: () async {
@@ -206,9 +198,14 @@ class TeamPage extends StatelessWidget {
             final c = coders[i];
             return ListTile(
               title: Text(c.name),
-              leading: CircleAvatar(
-                backgroundImage: c.imageUrl == null ? null : CachedNetworkImageProvider(c.imageUrl),
-                child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user) : null,
+              leading: SizedBox(
+                height: 48,
+                width: 48,
+                child: CircleAvatar(
+                  backgroundImage:
+                      c.imageUrl == null ? null : CachedNetworkImageProvider(c.imageUrl),
+                  child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user) : null,
+                ),
               ),
               subtitle: c.role == null ? null : Text(c.role),
               trailing: Row(mainAxisSize: MainAxisSize.min, children: [

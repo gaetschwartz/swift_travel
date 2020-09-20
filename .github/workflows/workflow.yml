@@ -50,7 +50,7 @@ jobs:
           TZ: Europe/Zurich
         run: chmod +x CI/prebuild.sh && ./CI/prebuild.sh
       - name: Build
-        run: flutter build appbundle
+        run: flutter build appbundle --build-number $GITHUB_RUN_NUMBER
       - name: Get hash
         id: git-data
         run: |
