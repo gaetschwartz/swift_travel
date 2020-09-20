@@ -50,7 +50,7 @@ class RouteTile extends StatelessWidget {
           else
             LineIcon(foreground: leg.fgcolor, background: leg.bgcolor, line: leg.line),
           const SizedBox(width: 8),
-          Expanded(child: Text(leg.name)),
+          Expanded(child: Text(leg.terminal)),
         ],
       ),
       subtitle: rowIcon(),
