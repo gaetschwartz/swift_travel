@@ -16,7 +16,7 @@ jobs:
   build-android:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    name: Deploy Android to Github Releases
+    name: Deploy Android to PlayStore Alpha
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -62,7 +62,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.gaetanschwartz.swiss_travel
           releaseFile: build/app/outputs/bundle/release/app-release.aab
-          track: internal
+          track: alpha
           mappingFile: build/app/outputs/mapping/release/mapping.txt
       - name: Create Release
         id: create_release
