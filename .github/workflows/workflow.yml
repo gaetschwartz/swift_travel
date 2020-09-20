@@ -63,7 +63,6 @@ jobs:
           packageName: com.gaetanschwartz.swiss_travel
           releaseFile: build/app/outputs/bundle/release/app-release.aab
           track: internal
-          userFraction: 1
           mappingFile: app/build/outputs/mapping/release/mapping.txt
       - name: Create Release
         id: create_release
