@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/tabs/routes/route_tab.dart';
+import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 
 class FavRoutesTab extends StatelessWidget {
@@ -89,7 +90,14 @@ class _RouteTile extends StatelessWidget {
       title: Text(route.displayName),
       subtitle: Text("${route.from} ➡ ${route.to}"),
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.times), onPressed: () => deleteRoute(context)),
+          icon: const FaIcon(FontAwesomeIcons.edit),
+          onPressed: () {
+            choose<String>(context,
+                choices: [Choice("Delete", isDestructive: true, onTap: () => deleteRoute(context))],
+                cancel: const Choice(Text("Cancel")),
+                title: const Text("What to do ?"),
+                valueToWidget: (v) => Text(v));
+          }),
       onTap: () async {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));

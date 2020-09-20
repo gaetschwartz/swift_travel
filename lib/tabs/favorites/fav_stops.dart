@@ -9,6 +9,7 @@ import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/widget/input.dart';
+import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
 
@@ -115,23 +116,31 @@ class _FavoriteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.times),
+          icon: const FaIcon(FontAwesomeIcons.edit),
           onPressed: () async {
-            final b = await confirm(
-              context,
-              title: const Text("Delete favorite ?"),
-              content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
-                TextSpan(text: stop.label, style: const TextStyle(fontWeight: FontWeight.bold)),
-                const TextSpan(text: "?"),
-              ])),
-              confirm: const Text("Yes"),
-              cancel: const Text("No"),
-              isConfirmDestructive: true,
-            );
-            if (!b) return;
-            return context.read(storeProvider).deleteFavorite(stop);
+            choose<String>(context,
+                choices: [Choice("Delete", isDestructive: true, onTap: () => delete(context))],
+                cancel: const Choice(Text("Cancel")),
+                title: const Text("What to do ?"),
+                valueToWidget: (v) => Text(v));
           }),
       title: Text(stop.label),
     );
+  }
+
+  Future<void> delete(BuildContext context) async {
+    final b = await confirm(
+      context,
+      title: const Text("Delete favorite ?"),
+      content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
+        TextSpan(text: stop.label, style: const TextStyle(fontWeight: FontWeight.bold)),
+        const TextSpan(text: "?"),
+      ])),
+      confirm: const Text("Yes"),
+      cancel: const Text("No"),
+      isConfirmDestructive: true,
+    );
+    if (!b) return;
+    return context.read(storeProvider).deleteFavorite(stop);
   }
 }
