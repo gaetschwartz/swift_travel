@@ -11,14 +11,14 @@ import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/api/cff/models/types_enum.dart';
 import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/utils/format.dart';
-import 'package:swiss_travel/widget/icon.dart';
+import 'package:swiss_travel/widget/cff_icon.dart';
 import 'package:swiss_travel/widget/line_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailsRoute extends StatelessWidget {
+class RouteDetails extends StatelessWidget {
   final RouteConnection c;
 
-  const DetailsRoute({Key key, this.c}) : super(key: key);
+  const RouteDetails({Key key, this.c}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class DetailsRoute extends StatelessWidget {
         children: <Widget>[
           _dataRow("Departure", c.from),
           _dataRow("Arrival", c.to),
-          _dataRow("Travel duration", Format.intToDuration(c.duration)),
+          _dataRow("Travel duration", Format.intToDuration(c.duration.round())),
           const Divider(thickness: 2, height: 4),
           Expanded(
             child: ListView.separated(
@@ -103,8 +103,7 @@ class RegularLegTile extends StatelessWidget {
       title: Row(
         children: <Widget>[
           if (l.line != null) ...[
-            LineIcon(
-                foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+            LineIcon(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
             const SizedBox(width: 8),
           ] else ...[
             CffIcon(l.type),
@@ -154,7 +153,7 @@ class RegularLegTile extends StatelessWidget {
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text(Format.intToDuration(l.runningtime)),
+                          child: Text(Format.intToDuration(l.runningtime.round())),
                         ),
                       ),
                     ],
@@ -175,8 +174,7 @@ class RegularLegTile extends StatelessWidget {
     for (final stop in l.stops) {
       list.add(_buildStop(stop));
     }
-    list.add(
-        _buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
+    list.add(_buildStop(Stop(l.exit.name, departure: l.exit.arrival), bold: true));
 
     return list;
   }
@@ -218,9 +216,7 @@ class ArrivedTile extends StatelessWidget {
         children: [
           const FaIcon(FontAwesomeIcons.mapPin),
           const SizedBox(width: 8),
-          Expanded(
-              child: Text(l.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold))),
+          Expanded(child: Text(l.name, style: const TextStyle(fontWeight: FontWeight.bold))),
         ],
       ),
     );
@@ -272,7 +268,7 @@ class WalkingTile extends StatelessWidget {
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                     TextSpan(
-                        text: Format.intToDuration(l.runningtime),
+                        text: Format.intToDuration(l.runningtime.round()),
                         style: Theme.of(context)
                             .textTheme
                             .subtitle2
@@ -281,9 +277,9 @@ class WalkingTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Theme.of(context).disabledColor,
+            FaIcon(
+              FontAwesomeIcons.map,
+              color: Theme.of(context).accentColor,
             ),
           ],
         ),
@@ -295,8 +291,7 @@ class WalkingTile extends StatelessWidget {
   static const _google = "https://maps.google.com/maps";
 
   Future<void> openRoute(BuildContext context) async {
-    final departure =
-        l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
+    final departure = l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
     final arrival = "${l.exit.lat}, ${l.exit.lon}";
 
     final suffix =

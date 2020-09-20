@@ -12,6 +12,7 @@ Point _$PointFromJson(Map<String, dynamic> json) {
   return _Point.fromJson(json);
 }
 
+/// @nodoc
 class _$PointTearOff {
   const _$PointTearOff();
 
@@ -34,11 +35,18 @@ class _$PointTearOff {
       lon: lon,
     );
   }
+
+// ignore: unused_element
+  Point fromJson(Map<String, Object> json) {
+    return Point.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Point = _$PointTearOff();
 
+/// @nodoc
 mixin _$Point {
   String get text;
   String get url;
@@ -52,6 +60,7 @@ mixin _$Point {
   $PointCopyWith<Point> get copyWith;
 }
 
+/// @nodoc
 abstract class $PointCopyWith<$Res> {
   factory $PointCopyWith(Point value, $Res Function(Point) then) =
       _$PointCopyWithImpl<$Res>;
@@ -65,6 +74,7 @@ abstract class $PointCopyWith<$Res> {
       double lon});
 }
 
+/// @nodoc
 class _$PointCopyWithImpl<$Res> implements $PointCopyWith<$Res> {
   _$PointCopyWithImpl(this._value, this._then);
 
@@ -94,6 +104,7 @@ class _$PointCopyWithImpl<$Res> implements $PointCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$PointCopyWith<$Res> implements $PointCopyWith<$Res> {
   factory _$PointCopyWith(_Point value, $Res Function(_Point) then) =
       __$PointCopyWithImpl<$Res>;
@@ -108,6 +119,7 @@ abstract class _$PointCopyWith<$Res> implements $PointCopyWith<$Res> {
       double lon});
 }
 
+/// @nodoc
 class __$PointCopyWithImpl<$Res> extends _$PointCopyWithImpl<$Res>
     implements _$PointCopyWith<$Res> {
   __$PointCopyWithImpl(_Point _value, $Res Function(_Point) _then)
@@ -139,6 +151,8 @@ class __$PointCopyWithImpl<$Res> extends _$PointCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Point implements _Point {
   _$_Point({this.text, this.url, this.id, this.x, this.y, this.lat, this.lon});
 

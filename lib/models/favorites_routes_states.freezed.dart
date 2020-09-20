@@ -9,6 +9,7 @@ part of 'favorites_routes_states.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$FavoritesRoutesStatesTearOff {
   const _$FavoritesRoutesStatesTearOff();
 
@@ -32,9 +33,11 @@ class _$FavoritesRoutesStatesTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $FavoritesRoutesStates = _$FavoritesRoutesStatesTearOff();
 
+/// @nodoc
 mixin _$FavoritesRoutesStates {
   @optionalTypeArgs
   Result when<Result extends Object>({
@@ -64,12 +67,14 @@ mixin _$FavoritesRoutesStates {
   });
 }
 
+/// @nodoc
 abstract class $FavoritesRoutesStatesCopyWith<$Res> {
   factory $FavoritesRoutesStatesCopyWith(FavoritesRoutesStates value,
           $Res Function(FavoritesRoutesStates) then) =
       _$FavoritesRoutesStatesCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$FavoritesRoutesStatesCopyWithImpl<$Res>
     implements $FavoritesRoutesStatesCopyWith<$Res> {
   _$FavoritesRoutesStatesCopyWithImpl(this._value, this._then);
@@ -79,6 +84,7 @@ class _$FavoritesRoutesStatesCopyWithImpl<$Res>
   final $Res Function(FavoritesRoutesStates) _then;
 }
 
+/// @nodoc
 abstract class $FavoritesRoutesStatesDataCopyWith<$Res> {
   factory $FavoritesRoutesStatesDataCopyWith(FavoritesRoutesStatesData value,
           $Res Function(FavoritesRoutesStatesData) then) =
@@ -86,6 +92,7 @@ abstract class $FavoritesRoutesStatesDataCopyWith<$Res> {
   $Res call({List<LocalRoute> routes});
 }
 
+/// @nodoc
 class _$FavoritesRoutesStatesDataCopyWithImpl<$Res>
     extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
     implements $FavoritesRoutesStatesDataCopyWith<$Res> {
@@ -107,6 +114,7 @@ class _$FavoritesRoutesStatesDataCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
   const _$FavoritesRoutesStatesData(this.routes) : assert(routes != null);
 
@@ -200,6 +208,7 @@ abstract class FavoritesRoutesStatesData implements FavoritesRoutesStates {
   $FavoritesRoutesStatesDataCopyWith<FavoritesRoutesStatesData> get copyWith;
 }
 
+/// @nodoc
 abstract class $FavoritesRoutesStatesLoadingCopyWith<$Res> {
   factory $FavoritesRoutesStatesLoadingCopyWith(
           FavoritesRoutesStatesLoading value,
@@ -207,6 +216,7 @@ abstract class $FavoritesRoutesStatesLoadingCopyWith<$Res> {
       _$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>
     extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
     implements $FavoritesRoutesStatesLoadingCopyWith<$Res> {
@@ -220,6 +230,7 @@ class _$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>
       super._value as FavoritesRoutesStatesLoading;
 }
 
+/// @nodoc
 class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
   const _$FavoritesRoutesStatesLoading();
 
@@ -297,6 +308,7 @@ abstract class FavoritesRoutesStatesLoading implements FavoritesRoutesStates {
   const factory FavoritesRoutesStatesLoading() = _$FavoritesRoutesStatesLoading;
 }
 
+/// @nodoc
 abstract class $FavoritesRoutesStatesErrorCopyWith<$Res> {
   factory $FavoritesRoutesStatesErrorCopyWith(FavoritesRoutesStatesError value,
           $Res Function(FavoritesRoutesStatesError) then) =
@@ -304,6 +316,7 @@ abstract class $FavoritesRoutesStatesErrorCopyWith<$Res> {
   $Res call({Exception exception});
 }
 
+/// @nodoc
 class _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
     extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
     implements $FavoritesRoutesStatesErrorCopyWith<$Res> {
@@ -325,6 +338,7 @@ class _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
   const _$FavoritesRoutesStatesError(this.exception)
       : assert(exception != null);

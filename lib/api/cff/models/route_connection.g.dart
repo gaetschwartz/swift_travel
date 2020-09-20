@@ -17,7 +17,7 @@ _$_RouteConnection _$_$_RouteConnectionFromJson(Map<String, dynamic> json) {
                 e == null ? null : Leg.fromJson(e as Map<String, dynamic>))
             ?.toList() ??
         [],
-    duration: json['duration'] as int,
+    duration: (json['duration'] as num)?.toDouble(),
     to: json['to'] as String,
     departure: json['departure'] == null
         ? null

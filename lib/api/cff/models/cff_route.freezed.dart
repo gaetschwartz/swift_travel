@@ -12,14 +12,15 @@ CffRoute _$CffRouteFromJson(Map<String, dynamic> json) {
   return _CffRoute.fromJson(json);
 }
 
+/// @nodoc
 class _$CffRouteTearOff {
   const _$CffRouteTearOff();
 
 // ignore: unused_element
   _CffRoute call(
       {int count,
-      @JsonKey(name: 'min_duration') int minDuration,
-      @JsonKey(name: 'max_duration') int maxDuration,
+      @JsonKey(name: 'min_duration') double minDuration,
+      @JsonKey(name: 'max_duration') double maxDuration,
       List<RouteConnection> connections = const []}) {
     return _CffRoute(
       count: count,
@@ -28,33 +29,42 @@ class _$CffRouteTearOff {
       connections: connections,
     );
   }
+
+// ignore: unused_element
+  CffRoute fromJson(Map<String, Object> json) {
+    return CffRoute.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $CffRoute = _$CffRouteTearOff();
 
+/// @nodoc
 mixin _$CffRoute {
   int get count;
   @JsonKey(name: 'min_duration')
-  int get minDuration;
+  double get minDuration;
   @JsonKey(name: 'max_duration')
-  int get maxDuration;
+  double get maxDuration;
   List<RouteConnection> get connections;
 
   Map<String, dynamic> toJson();
   $CffRouteCopyWith<CffRoute> get copyWith;
 }
 
+/// @nodoc
 abstract class $CffRouteCopyWith<$Res> {
   factory $CffRouteCopyWith(CffRoute value, $Res Function(CffRoute) then) =
       _$CffRouteCopyWithImpl<$Res>;
   $Res call(
       {int count,
-      @JsonKey(name: 'min_duration') int minDuration,
-      @JsonKey(name: 'max_duration') int maxDuration,
+      @JsonKey(name: 'min_duration') double minDuration,
+      @JsonKey(name: 'max_duration') double maxDuration,
       List<RouteConnection> connections});
 }
 
+/// @nodoc
 class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
   _$CffRouteCopyWithImpl(this._value, this._then);
 
@@ -72,9 +82,9 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
     return _then(_value.copyWith(
       count: count == freezed ? _value.count : count as int,
       minDuration:
-          minDuration == freezed ? _value.minDuration : minDuration as int,
+          minDuration == freezed ? _value.minDuration : minDuration as double,
       maxDuration:
-          maxDuration == freezed ? _value.maxDuration : maxDuration as int,
+          maxDuration == freezed ? _value.maxDuration : maxDuration as double,
       connections: connections == freezed
           ? _value.connections
           : connections as List<RouteConnection>,
@@ -82,17 +92,19 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$CffRouteCopyWith<$Res> implements $CffRouteCopyWith<$Res> {
   factory _$CffRouteCopyWith(_CffRoute value, $Res Function(_CffRoute) then) =
       __$CffRouteCopyWithImpl<$Res>;
   @override
   $Res call(
       {int count,
-      @JsonKey(name: 'min_duration') int minDuration,
-      @JsonKey(name: 'max_duration') int maxDuration,
+      @JsonKey(name: 'min_duration') double minDuration,
+      @JsonKey(name: 'max_duration') double maxDuration,
       List<RouteConnection> connections});
 }
 
+/// @nodoc
 class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
     implements _$CffRouteCopyWith<$Res> {
   __$CffRouteCopyWithImpl(_CffRoute _value, $Res Function(_CffRoute) _then)
@@ -111,9 +123,9 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
     return _then(_CffRoute(
       count: count == freezed ? _value.count : count as int,
       minDuration:
-          minDuration == freezed ? _value.minDuration : minDuration as int,
+          minDuration == freezed ? _value.minDuration : minDuration as double,
       maxDuration:
-          maxDuration == freezed ? _value.maxDuration : maxDuration as int,
+          maxDuration == freezed ? _value.maxDuration : maxDuration as double,
       connections: connections == freezed
           ? _value.connections
           : connections as List<RouteConnection>,
@@ -122,6 +134,8 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
 }
 
 @JsonSerializable(explicitToJson: true)
+
+/// @nodoc
 class _$_CffRoute implements _CffRoute {
   _$_CffRoute(
       {this.count,
@@ -137,10 +151,10 @@ class _$_CffRoute implements _CffRoute {
   final int count;
   @override
   @JsonKey(name: 'min_duration')
-  final int minDuration;
+  final double minDuration;
   @override
   @JsonKey(name: 'max_duration')
-  final int maxDuration;
+  final double maxDuration;
   @JsonKey(defaultValue: const [])
   @override
   final List<RouteConnection> connections;
@@ -188,8 +202,8 @@ class _$_CffRoute implements _CffRoute {
 abstract class _CffRoute implements CffRoute {
   factory _CffRoute(
       {int count,
-      @JsonKey(name: 'min_duration') int minDuration,
-      @JsonKey(name: 'max_duration') int maxDuration,
+      @JsonKey(name: 'min_duration') double minDuration,
+      @JsonKey(name: 'max_duration') double maxDuration,
       List<RouteConnection> connections}) = _$_CffRoute;
 
   factory _CffRoute.fromJson(Map<String, dynamic> json) = _$_CffRoute.fromJson;
@@ -198,10 +212,10 @@ abstract class _CffRoute implements CffRoute {
   int get count;
   @override
   @JsonKey(name: 'min_duration')
-  int get minDuration;
+  double get minDuration;
   @override
   @JsonKey(name: 'max_duration')
-  int get maxDuration;
+  double get maxDuration;
   @override
   List<RouteConnection> get connections;
   @override

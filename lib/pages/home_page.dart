@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/pages/settings.dart';
-import 'package:swiss_travel/tabs/favorites_tab.dart';
-import 'package:swiss_travel/tabs/route_tab.dart';
-import 'package:swiss_travel/tabs/stations_tab.dart';
+import 'package:swiss_travel/tabs/favorites/favorites_tab.dart';
+import 'package:swiss_travel/tabs/routes/route_tab.dart';
+import 'package:swiss_travel/tabs/stations/stations_tab.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage();
@@ -12,8 +12,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   TabController _controller;
 
   @override
@@ -47,8 +46,7 @@ class _MyHomePageState extends State<MyHomePage>
           IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => const Settings()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
               }),
         ],
       ),

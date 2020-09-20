@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/api/cff/models/types_enum.dart';
@@ -54,13 +56,13 @@ class CffIcon extends StatelessWidget {
         return const FaIcon(FontAwesomeIcons.tram);
     }
 
+    log("Unknown icon type : `$v`");
     return const FaIcon(FontAwesomeIcons.question);
   }
 
   static const List<String> _privatePlaces = ["adr", "business", "private"];
 
-  static bool isPrivate(String s) =>
-      _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
+  static bool isPrivate(String s) => _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
 
   @override
   Widget build(BuildContext context) => IconTheme(

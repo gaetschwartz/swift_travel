@@ -12,6 +12,7 @@ VehicleIconclass _$VehicleIconclassFromJson(Map<String, dynamic> json) {
   return _VehicleIconclass.fromJson(json);
 }
 
+/// @nodoc
 class _$VehicleIconclassTearOff {
   const _$VehicleIconclassTearOff();
 
@@ -21,11 +22,18 @@ class _$VehicleIconclassTearOff {
       v,
     );
   }
+
+// ignore: unused_element
+  VehicleIconclass fromJson(Map<String, Object> json) {
+    return VehicleIconclass.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $VehicleIconclass = _$VehicleIconclassTearOff();
 
+/// @nodoc
 mixin _$VehicleIconclass {
   @nullable
   Vehicle get v;
@@ -34,6 +42,7 @@ mixin _$VehicleIconclass {
   $VehicleIconclassCopyWith<VehicleIconclass> get copyWith;
 }
 
+/// @nodoc
 abstract class $VehicleIconclassCopyWith<$Res> {
   factory $VehicleIconclassCopyWith(
           VehicleIconclass value, $Res Function(VehicleIconclass) then) =
@@ -41,6 +50,7 @@ abstract class $VehicleIconclassCopyWith<$Res> {
   $Res call({@nullable Vehicle v});
 }
 
+/// @nodoc
 class _$VehicleIconclassCopyWithImpl<$Res>
     implements $VehicleIconclassCopyWith<$Res> {
   _$VehicleIconclassCopyWithImpl(this._value, this._then);
@@ -59,6 +69,7 @@ class _$VehicleIconclassCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$VehicleIconclassCopyWith<$Res>
     implements $VehicleIconclassCopyWith<$Res> {
   factory _$VehicleIconclassCopyWith(
@@ -68,6 +79,7 @@ abstract class _$VehicleIconclassCopyWith<$Res>
   $Res call({@nullable Vehicle v});
 }
 
+/// @nodoc
 class __$VehicleIconclassCopyWithImpl<$Res>
     extends _$VehicleIconclassCopyWithImpl<$Res>
     implements _$VehicleIconclassCopyWith<$Res> {
@@ -89,6 +101,8 @@ class __$VehicleIconclassCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_VehicleIconclass implements _VehicleIconclass {
   _$_VehicleIconclass(@nullable this.v);
 

@@ -18,7 +18,7 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
     exit: json['exit'] == null
         ? null
         : Exit.fromJson(json['exit'] as Map<String, dynamic>),
-    runningtime: json['runningtime'] as int,
+    runningtime: (json['runningtime'] as num)?.toDouble(),
     stopid: json['stopid'] as String,
     line: json['line'] as String,
     stops: (json['stops'] as List)

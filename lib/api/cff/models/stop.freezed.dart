@@ -12,6 +12,7 @@ Stop _$StopFromJson(Map<String, dynamic> json) {
   return _Stop.fromJson(json);
 }
 
+/// @nodoc
 class _$StopTearOff {
   const _$StopTearOff();
 
@@ -25,11 +26,18 @@ class _$StopTearOff {
       departure: departure,
     );
   }
+
+// ignore: unused_element
+  Stop fromJson(Map<String, Object> json) {
+    return Stop.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Stop = _$StopTearOff();
 
+/// @nodoc
 mixin _$Stop {
   String get name;
   String get stopid;
@@ -40,6 +48,7 @@ mixin _$Stop {
   $StopCopyWith<Stop> get copyWith;
 }
 
+/// @nodoc
 abstract class $StopCopyWith<$Res> {
   factory $StopCopyWith(Stop value, $Res Function(Stop) then) =
       _$StopCopyWithImpl<$Res>;
@@ -49,6 +58,7 @@ abstract class $StopCopyWith<$Res> {
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure});
 }
 
+/// @nodoc
 class _$StopCopyWithImpl<$Res> implements $StopCopyWith<$Res> {
   _$StopCopyWithImpl(this._value, this._then);
 
@@ -71,6 +81,7 @@ class _$StopCopyWithImpl<$Res> implements $StopCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$StopCopyWith<$Res> implements $StopCopyWith<$Res> {
   factory _$StopCopyWith(_Stop value, $Res Function(_Stop) then) =
       __$StopCopyWithImpl<$Res>;
@@ -81,6 +92,7 @@ abstract class _$StopCopyWith<$Res> implements $StopCopyWith<$Res> {
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure});
 }
 
+/// @nodoc
 class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
     implements _$StopCopyWith<$Res> {
   __$StopCopyWithImpl(_Stop _value, $Res Function(_Stop) _then)
@@ -105,6 +117,8 @@ class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Stop implements _Stop {
   _$_Stop(this.name,
       {this.stopid,

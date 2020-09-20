@@ -9,6 +9,7 @@ part of 'favorites_states.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$FavoritesStatesTearOff {
   const _$FavoritesStatesTearOff();
 
@@ -32,9 +33,11 @@ class _$FavoritesStatesTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $FavoritesStates = _$FavoritesStatesTearOff();
 
+/// @nodoc
 mixin _$FavoritesStates {
   @optionalTypeArgs
   Result when<Result extends Object>({
@@ -64,12 +67,14 @@ mixin _$FavoritesStates {
   });
 }
 
+/// @nodoc
 abstract class $FavoritesStatesCopyWith<$Res> {
   factory $FavoritesStatesCopyWith(
           FavoritesStates value, $Res Function(FavoritesStates) then) =
       _$FavoritesStatesCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$FavoritesStatesCopyWithImpl<$Res>
     implements $FavoritesStatesCopyWith<$Res> {
   _$FavoritesStatesCopyWithImpl(this._value, this._then);
@@ -79,6 +84,7 @@ class _$FavoritesStatesCopyWithImpl<$Res>
   final $Res Function(FavoritesStates) _then;
 }
 
+/// @nodoc
 abstract class $FavoritesStatesDataCopyWith<$Res> {
   factory $FavoritesStatesDataCopyWith(
           FavoritesStatesData value, $Res Function(FavoritesStatesData) then) =
@@ -86,6 +92,7 @@ abstract class $FavoritesStatesDataCopyWith<$Res> {
   $Res call({List<CffCompletion> completions});
 }
 
+/// @nodoc
 class _$FavoritesStatesDataCopyWithImpl<$Res>
     extends _$FavoritesStatesCopyWithImpl<$Res>
     implements $FavoritesStatesDataCopyWith<$Res> {
@@ -108,6 +115,7 @@ class _$FavoritesStatesDataCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$FavoritesStatesData implements FavoritesStatesData {
   const _$FavoritesStatesData(this.completions) : assert(completions != null);
 
@@ -201,12 +209,14 @@ abstract class FavoritesStatesData implements FavoritesStates {
   $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith;
 }
 
+/// @nodoc
 abstract class $FavoritesStatesLoadingCopyWith<$Res> {
   factory $FavoritesStatesLoadingCopyWith(FavoritesStatesLoading value,
           $Res Function(FavoritesStatesLoading) then) =
       _$FavoritesStatesLoadingCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$FavoritesStatesLoadingCopyWithImpl<$Res>
     extends _$FavoritesStatesCopyWithImpl<$Res>
     implements $FavoritesStatesLoadingCopyWith<$Res> {
@@ -218,6 +228,7 @@ class _$FavoritesStatesLoadingCopyWithImpl<$Res>
   FavoritesStatesLoading get _value => super._value as FavoritesStatesLoading;
 }
 
+/// @nodoc
 class _$FavoritesStatesLoading implements FavoritesStatesLoading {
   const _$FavoritesStatesLoading();
 
@@ -295,6 +306,7 @@ abstract class FavoritesStatesLoading implements FavoritesStates {
   const factory FavoritesStatesLoading() = _$FavoritesStatesLoading;
 }
 
+/// @nodoc
 abstract class $FavoritesStatesErrorCopyWith<$Res> {
   factory $FavoritesStatesErrorCopyWith(FavoritesStatesError value,
           $Res Function(FavoritesStatesError) then) =
@@ -302,6 +314,7 @@ abstract class $FavoritesStatesErrorCopyWith<$Res> {
   $Res call({Exception exception});
 }
 
+/// @nodoc
 class _$FavoritesStatesErrorCopyWithImpl<$Res>
     extends _$FavoritesStatesCopyWithImpl<$Res>
     implements $FavoritesStatesErrorCopyWith<$Res> {
@@ -322,6 +335,7 @@ class _$FavoritesStatesErrorCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$FavoritesStatesError implements FavoritesStatesError {
   const _$FavoritesStatesError(this.exception) : assert(exception != null);
 

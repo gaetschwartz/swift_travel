@@ -12,6 +12,7 @@ Exit _$ExitFromJson(Map<String, dynamic> json) {
   return _Exit.fromJson(json);
 }
 
+/// @nodoc
 class _$ExitTearOff {
   const _$ExitTearOff();
 
@@ -36,11 +37,18 @@ class _$ExitTearOff {
       lon: lon,
     );
   }
+
+// ignore: unused_element
+  Exit fromJson(Map<String, Object> json) {
+    return Exit.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Exit = _$ExitTearOff();
 
+/// @nodoc
 mixin _$Exit {
   DateTime get arrival;
   String get name;
@@ -55,6 +63,7 @@ mixin _$Exit {
   $ExitCopyWith<Exit> get copyWith;
 }
 
+/// @nodoc
 abstract class $ExitCopyWith<$Res> {
   factory $ExitCopyWith(Exit value, $Res Function(Exit) then) =
       _$ExitCopyWithImpl<$Res>;
@@ -69,6 +78,7 @@ abstract class $ExitCopyWith<$Res> {
       double lon});
 }
 
+/// @nodoc
 class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
   _$ExitCopyWithImpl(this._value, this._then);
 
@@ -100,6 +110,7 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
   factory _$ExitCopyWith(_Exit value, $Res Function(_Exit) then) =
       __$ExitCopyWithImpl<$Res>;
@@ -115,6 +126,7 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
       double lon});
 }
 
+/// @nodoc
 class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
     implements _$ExitCopyWith<$Res> {
   __$ExitCopyWithImpl(_Exit _value, $Res Function(_Exit) _then)
@@ -148,6 +160,8 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Exit implements _Exit {
   _$_Exit(
       {this.arrival,

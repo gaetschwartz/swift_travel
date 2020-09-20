@@ -13,6 +13,7 @@ StationboardConnection _$StationboardConnectionFromJson(
   return _StationboardConnection.fromJson(json);
 }
 
+/// @nodoc
 class _$StationboardConnectionTearOff {
   const _$StationboardConnectionTearOff();
 
@@ -32,11 +33,18 @@ class _$StationboardConnectionTearOff {
       l: l,
     );
   }
+
+// ignore: unused_element
+  StationboardConnection fromJson(Map<String, Object> json) {
+    return StationboardConnection.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $StationboardConnection = _$StationboardConnectionTearOff();
 
+/// @nodoc
 mixin _$StationboardConnection {
   DateTime get time;
   Vehicle get type;
@@ -54,6 +62,7 @@ mixin _$StationboardConnection {
   $StationboardConnectionCopyWith<StationboardConnection> get copyWith;
 }
 
+/// @nodoc
 abstract class $StationboardConnectionCopyWith<$Res> {
   factory $StationboardConnectionCopyWith(StationboardConnection value,
           $Res Function(StationboardConnection) then) =
@@ -72,6 +81,7 @@ abstract class $StationboardConnectionCopyWith<$Res> {
   $TerminalCopyWith<$Res> get terminal;
 }
 
+/// @nodoc
 class _$StationboardConnectionCopyWithImpl<$Res>
     implements $StationboardConnectionCopyWith<$Res> {
   _$StationboardConnectionCopyWithImpl(this._value, this._then);
@@ -116,6 +126,7 @@ class _$StationboardConnectionCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$StationboardConnectionCopyWith<$Res>
     implements $StationboardConnectionCopyWith<$Res> {
   factory _$StationboardConnectionCopyWith(_StationboardConnection value,
@@ -137,6 +148,7 @@ abstract class _$StationboardConnectionCopyWith<$Res>
   $TerminalCopyWith<$Res> get terminal;
 }
 
+/// @nodoc
 class __$StationboardConnectionCopyWithImpl<$Res>
     extends _$StationboardConnectionCopyWithImpl<$Res>
     implements _$StationboardConnectionCopyWith<$Res> {
@@ -174,6 +186,8 @@ class __$StationboardConnectionCopyWithImpl<$Res>
 }
 
 @JsonSerializable(explicitToJson: true)
+
+/// @nodoc
 class _$_StationboardConnection implements _StationboardConnection {
   _$_StationboardConnection(this.time, this.type, this.line, this.color,
       this.number, this.terminal, this.operator,

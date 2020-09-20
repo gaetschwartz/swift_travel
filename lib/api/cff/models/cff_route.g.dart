@@ -9,8 +9,8 @@ part of 'cff_route.dart';
 _$_CffRoute _$_$_CffRouteFromJson(Map<String, dynamic> json) {
   return _$_CffRoute(
     count: json['count'] as int,
-    minDuration: json['min_duration'] as int,
-    maxDuration: json['max_duration'] as int,
+    minDuration: (json['min_duration'] as num)?.toDouble(),
+    maxDuration: (json['max_duration'] as num)?.toDouble(),
     connections: (json['connections'] as List)
             ?.map((e) => e == null
                 ? null

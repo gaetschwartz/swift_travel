@@ -12,6 +12,7 @@ CffStationboard _$CffStationboardFromJson(Map<String, dynamic> json) {
   return _CffStationboard.fromJson(json);
 }
 
+/// @nodoc
 class _$CffStationboardTearOff {
   const _$CffStationboardTearOff();
 
@@ -30,11 +31,18 @@ class _$CffStationboardTearOff {
       messages: messages,
     );
   }
+
+// ignore: unused_element
+  CffStationboard fromJson(Map<String, Object> json) {
+    return CffStationboard.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $CffStationboard = _$CffStationboardTearOff();
 
+/// @nodoc
 mixin _$CffStationboard {
   LocatedStop get stop;
   List<StationboardConnection> get connections;
@@ -46,6 +54,7 @@ mixin _$CffStationboard {
   $CffStationboardCopyWith<CffStationboard> get copyWith;
 }
 
+/// @nodoc
 abstract class $CffStationboardCopyWith<$Res> {
   factory $CffStationboardCopyWith(
           CffStationboard value, $Res Function(CffStationboard) then) =
@@ -60,6 +69,7 @@ abstract class $CffStationboardCopyWith<$Res> {
   $LocatedStopCopyWith<$Res> get stop;
 }
 
+/// @nodoc
 class _$CffStationboardCopyWithImpl<$Res>
     implements $CffStationboardCopyWith<$Res> {
   _$CffStationboardCopyWithImpl(this._value, this._then);
@@ -99,6 +109,7 @@ class _$CffStationboardCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$CffStationboardCopyWith<$Res>
     implements $CffStationboardCopyWith<$Res> {
   factory _$CffStationboardCopyWith(
@@ -116,6 +127,7 @@ abstract class _$CffStationboardCopyWith<$Res>
   $LocatedStopCopyWith<$Res> get stop;
 }
 
+/// @nodoc
 class __$CffStationboardCopyWithImpl<$Res>
     extends _$CffStationboardCopyWithImpl<$Res>
     implements _$CffStationboardCopyWith<$Res> {
@@ -148,6 +160,8 @@ class __$CffStationboardCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_CffStationboard implements _CffStationboard {
   _$_CffStationboard(
       {this.stop,

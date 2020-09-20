@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/tabs/favorites/fav_stops.dart';
 
-import 'favorites/fav_routes.dart';
+import 'fav_routes.dart';
 
 final _tabProvider = StateProvider<int>((ref) => 0);
 
@@ -15,8 +15,7 @@ class SearchFavorite extends StatefulWidget {
   _SearchFavoriteState createState() => _SearchFavoriteState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite>
-    with AutomaticKeepAliveClientMixin {
+class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -34,10 +33,8 @@ class _SearchFavoriteState extends State<SearchFavorite>
           final i = w(_tabProvider).state;
           return BottomNavigationBar(
             items: const [
-              BottomNavigationBarItem(
-                  label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
-              BottomNavigationBarItem(
-                  label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
+              BottomNavigationBarItem(label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
+              BottomNavigationBarItem(label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
             ],
             onTap: (i) => context.read(_tabProvider).state = i,
             currentIndex: i,

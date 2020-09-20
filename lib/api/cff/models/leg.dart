@@ -19,7 +19,7 @@ abstract class Leg with _$Leg {
     String bgcolor,
     String tripid,
     Exit exit,
-    int runningtime,
+    double runningtime,
     String stopid,
     String line,
     @Default([]) List<Stop> stops,

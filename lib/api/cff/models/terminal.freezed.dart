@@ -12,6 +12,7 @@ Terminal _$TerminalFromJson(Map<String, dynamic> json) {
   return _Terminal.fromJson(json);
 }
 
+/// @nodoc
 class _$TerminalTearOff {
   const _$TerminalTearOff();
 
@@ -24,11 +25,18 @@ class _$TerminalTearOff {
       y: y,
     );
   }
+
+// ignore: unused_element
+  Terminal fromJson(Map<String, Object> json) {
+    return Terminal.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Terminal = _$TerminalTearOff();
 
+/// @nodoc
 mixin _$Terminal {
   String get id;
   String get name;
@@ -39,12 +47,14 @@ mixin _$Terminal {
   $TerminalCopyWith<Terminal> get copyWith;
 }
 
+/// @nodoc
 abstract class $TerminalCopyWith<$Res> {
   factory $TerminalCopyWith(Terminal value, $Res Function(Terminal) then) =
       _$TerminalCopyWithImpl<$Res>;
   $Res call({String id, String name, int x, int y});
 }
 
+/// @nodoc
 class _$TerminalCopyWithImpl<$Res> implements $TerminalCopyWith<$Res> {
   _$TerminalCopyWithImpl(this._value, this._then);
 
@@ -68,6 +78,7 @@ class _$TerminalCopyWithImpl<$Res> implements $TerminalCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$TerminalCopyWith<$Res> implements $TerminalCopyWith<$Res> {
   factory _$TerminalCopyWith(_Terminal value, $Res Function(_Terminal) then) =
       __$TerminalCopyWithImpl<$Res>;
@@ -75,6 +86,7 @@ abstract class _$TerminalCopyWith<$Res> implements $TerminalCopyWith<$Res> {
   $Res call({String id, String name, int x, int y});
 }
 
+/// @nodoc
 class __$TerminalCopyWithImpl<$Res> extends _$TerminalCopyWithImpl<$Res>
     implements _$TerminalCopyWith<$Res> {
   __$TerminalCopyWithImpl(_Terminal _value, $Res Function(_Terminal) _then)
@@ -100,6 +112,8 @@ class __$TerminalCopyWithImpl<$Res> extends _$TerminalCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Terminal implements _Terminal {
   _$_Terminal({this.id, this.name, this.x, this.y});
 

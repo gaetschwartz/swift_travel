@@ -12,6 +12,7 @@ LocatedStop _$LocatedStopFromJson(Map<String, dynamic> json) {
   return _LocatedStop.fromJson(json);
 }
 
+/// @nodoc
 class _$LocatedStopTearOff {
   const _$LocatedStopTearOff();
 
@@ -24,11 +25,18 @@ class _$LocatedStopTearOff {
       y,
     );
   }
+
+// ignore: unused_element
+  LocatedStop fromJson(Map<String, Object> json) {
+    return LocatedStop.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $LocatedStop = _$LocatedStopTearOff();
 
+/// @nodoc
 mixin _$LocatedStop {
   String get id;
   String get name;
@@ -39,6 +47,7 @@ mixin _$LocatedStop {
   $LocatedStopCopyWith<LocatedStop> get copyWith;
 }
 
+/// @nodoc
 abstract class $LocatedStopCopyWith<$Res> {
   factory $LocatedStopCopyWith(
           LocatedStop value, $Res Function(LocatedStop) then) =
@@ -46,6 +55,7 @@ abstract class $LocatedStopCopyWith<$Res> {
   $Res call({String id, String name, String x, String y});
 }
 
+/// @nodoc
 class _$LocatedStopCopyWithImpl<$Res> implements $LocatedStopCopyWith<$Res> {
   _$LocatedStopCopyWithImpl(this._value, this._then);
 
@@ -69,6 +79,7 @@ class _$LocatedStopCopyWithImpl<$Res> implements $LocatedStopCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$LocatedStopCopyWith<$Res>
     implements $LocatedStopCopyWith<$Res> {
   factory _$LocatedStopCopyWith(
@@ -78,6 +89,7 @@ abstract class _$LocatedStopCopyWith<$Res>
   $Res call({String id, String name, String x, String y});
 }
 
+/// @nodoc
 class __$LocatedStopCopyWithImpl<$Res> extends _$LocatedStopCopyWithImpl<$Res>
     implements _$LocatedStopCopyWith<$Res> {
   __$LocatedStopCopyWithImpl(
@@ -104,6 +116,8 @@ class __$LocatedStopCopyWithImpl<$Res> extends _$LocatedStopCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_LocatedStop implements _LocatedStop {
   _$_LocatedStop(this.id, this.name, this.x, this.y)
       : assert(id != null),

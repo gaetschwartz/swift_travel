@@ -19,15 +19,13 @@ class FavStopsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store =
-        context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         shape: const StadiumBorder(),
         onPressed: () async {
-          final String s =
-              await Navigator.of(context).push<String>(MaterialPageRoute(
+          final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
             builder: (_) => const StopInputDialog(title: "Add a favorite"),
             fullscreenDialog: true,
           ));
@@ -35,8 +33,7 @@ class FavStopsTab extends StatelessWidget {
 
           await load(context, future: () async {
             final cff = context.read(cffProvider);
-            List<CffCompletion> completions =
-                await cff.complete(s, showIds: true);
+            List<CffCompletion> completions = await cff.complete(s, showIds: true);
 
             if (completions.isEmpty) {
               log("Didn't find a station, will try using routes as a hack...");
@@ -87,8 +84,7 @@ class FavStopsTab extends StatelessWidget {
                         )
                       : ListView.builder(
                           itemCount: c.completions.length,
-                          itemBuilder: (context, i) =>
-                              _FavoriteTile(c.completions[i]),
+                          itemBuilder: (context, i) => _FavoriteTile(c.completions[i]),
                         ),
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),
@@ -124,7 +120,10 @@ class _FavoriteTile extends StatelessWidget {
             final b = await confirm(
               context,
               title: const Text("Delete favorite ?"),
-              content: Text('Do you really want to delete "${stop.label}"'),
+              content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
+                TextSpan(text: stop.label, style: const TextStyle(fontWeight: FontWeight.bold)),
+                const TextSpan(text: "?"),
+              ])),
               confirm: const Text("Yes"),
               cancel: const Text("No"),
               isConfirmDestructive: true,

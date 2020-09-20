@@ -12,7 +12,7 @@ abstract class RouteConnection with _$RouteConnection {
     String from,
     DateTime arrival,
     @Default([]) List<Leg> legs,
-    int duration,
+    double duration,
     String to,
     DateTime departure,
   }) = _RouteConnection;

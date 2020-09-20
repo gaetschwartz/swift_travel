@@ -12,6 +12,7 @@ Leg _$LegFromJson(Map<String, dynamic> json) {
   return _Leg.fromJson(json);
 }
 
+/// @nodoc
 class _$LegTearOff {
   const _$LegTearOff();
 
@@ -25,7 +26,7 @@ class _$LegTearOff {
       String bgcolor,
       String tripid,
       Exit exit,
-      int runningtime,
+      double runningtime,
       String stopid,
       String line,
       List<Stop> stops = const [],
@@ -64,11 +65,18 @@ class _$LegTearOff {
       attributes: attributes,
     );
   }
+
+// ignore: unused_element
+  Leg fromJson(Map<String, Object> json) {
+    return Leg.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Leg = _$LegTearOff();
 
+/// @nodoc
 mixin _$Leg {
   Vehicle get type;
   String get track;
@@ -78,7 +86,7 @@ mixin _$Leg {
   String get bgcolor;
   String get tripid;
   Exit get exit;
-  int get runningtime;
+  double get runningtime;
   String get stopid;
   String get line;
   List<Stop> get stops;
@@ -97,6 +105,7 @@ mixin _$Leg {
   $LegCopyWith<Leg> get copyWith;
 }
 
+/// @nodoc
 abstract class $LegCopyWith<$Res> {
   factory $LegCopyWith(Leg value, $Res Function(Leg) then) =
       _$LegCopyWithImpl<$Res>;
@@ -109,7 +118,7 @@ abstract class $LegCopyWith<$Res> {
       String bgcolor,
       String tripid,
       Exit exit,
-      int runningtime,
+      double runningtime,
       String stopid,
       String line,
       List<Stop> stops,
@@ -127,6 +136,7 @@ abstract class $LegCopyWith<$Res> {
   $ExitCopyWith<$Res> get exit;
 }
 
+/// @nodoc
 class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
   _$LegCopyWithImpl(this._value, this._then);
 
@@ -169,7 +179,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
       tripid: tripid == freezed ? _value.tripid : tripid as String,
       exit: exit == freezed ? _value.exit : exit as Exit,
       runningtime:
-          runningtime == freezed ? _value.runningtime : runningtime as int,
+          runningtime == freezed ? _value.runningtime : runningtime as double,
       stopid: stopid == freezed ? _value.stopid : stopid as String,
       line: line == freezed ? _value.line : line as String,
       stops: stops == freezed ? _value.stops : stops as List<Stop>,
@@ -200,6 +210,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
   factory _$LegCopyWith(_Leg value, $Res Function(_Leg) then) =
       __$LegCopyWithImpl<$Res>;
@@ -213,7 +224,7 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       String bgcolor,
       String tripid,
       Exit exit,
-      int runningtime,
+      double runningtime,
       String stopid,
       String line,
       List<Stop> stops,
@@ -232,6 +243,7 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
   $ExitCopyWith<$Res> get exit;
 }
 
+/// @nodoc
 class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
     implements _$LegCopyWith<$Res> {
   __$LegCopyWithImpl(_Leg _value, $Res Function(_Leg) _then)
@@ -275,7 +287,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
       tripid: tripid == freezed ? _value.tripid : tripid as String,
       exit: exit == freezed ? _value.exit : exit as Exit,
       runningtime:
-          runningtime == freezed ? _value.runningtime : runningtime as int,
+          runningtime == freezed ? _value.runningtime : runningtime as double,
       stopid: stopid == freezed ? _value.stopid : stopid as String,
       line: line == freezed ? _value.line : line as String,
       stops: stops == freezed ? _value.stops : stops as List<Stop>,
@@ -297,6 +309,8 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
 }
 
 @JsonSerializable(explicitToJson: true)
+
+/// @nodoc
 class _$_Leg implements _Leg {
   _$_Leg(
       {this.type,
@@ -343,7 +357,7 @@ class _$_Leg implements _Leg {
   @override
   final Exit exit;
   @override
-  final int runningtime;
+  final double runningtime;
   @override
   final String stopid;
   @override
@@ -485,7 +499,7 @@ abstract class _Leg implements Leg {
       String bgcolor,
       String tripid,
       Exit exit,
-      int runningtime,
+      double runningtime,
       String stopid,
       String line,
       List<Stop> stops,
@@ -519,7 +533,7 @@ abstract class _Leg implements Leg {
   @override
   Exit get exit;
   @override
-  int get runningtime;
+  double get runningtime;
   @override
   String get stopid;
   @override

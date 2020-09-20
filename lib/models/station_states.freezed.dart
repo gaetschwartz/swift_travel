@@ -9,6 +9,7 @@ part of 'station_states.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$StationStatesTearOff {
   const _$StationStatesTearOff();
 
@@ -42,9 +43,11 @@ class _$StationStatesTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $StationStates = _$StationStatesTearOff();
 
+/// @nodoc
 mixin _$StationStates {
   @optionalTypeArgs
   Result when<Result extends Object>({
@@ -82,12 +85,14 @@ mixin _$StationStates {
   });
 }
 
+/// @nodoc
 abstract class $StationStatesCopyWith<$Res> {
   factory $StationStatesCopyWith(
           StationStates value, $Res Function(StationStates) then) =
       _$StationStatesCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$StationStatesCopyWithImpl<$Res>
     implements $StationStatesCopyWith<$Res> {
   _$StationStatesCopyWithImpl(this._value, this._then);
@@ -97,12 +102,14 @@ class _$StationStatesCopyWithImpl<$Res>
   final $Res Function(StationStates) _then;
 }
 
+/// @nodoc
 abstract class $StationStatesLoadingCopyWith<$Res> {
   factory $StationStatesLoadingCopyWith(StationStatesLoading value,
           $Res Function(StationStatesLoading) then) =
       _$StationStatesLoadingCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$StationStatesLoadingCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
     implements $StationStatesLoadingCopyWith<$Res> {
@@ -114,6 +121,7 @@ class _$StationStatesLoadingCopyWithImpl<$Res>
   StationStatesLoading get _value => super._value as StationStatesLoading;
 }
 
+/// @nodoc
 class _$StationStatesLoading implements StationStatesLoading {
   const _$StationStatesLoading();
 
@@ -203,6 +211,7 @@ abstract class StationStatesLoading implements StationStates {
   const factory StationStatesLoading() = _$StationStatesLoading;
 }
 
+/// @nodoc
 abstract class $StationStatesCompletionsCopyWith<$Res> {
   factory $StationStatesCompletionsCopyWith(StationStatesCompletions value,
           $Res Function(StationStatesCompletions) then) =
@@ -210,6 +219,7 @@ abstract class $StationStatesCompletionsCopyWith<$Res> {
   $Res call({List<CffCompletion> completions});
 }
 
+/// @nodoc
 class _$StationStatesCompletionsCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
     implements $StationStatesCompletionsCopyWith<$Res> {
@@ -233,6 +243,7 @@ class _$StationStatesCompletionsCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$StationStatesCompletions implements StationStatesCompletions {
   const _$StationStatesCompletions(this.completions)
       : assert(completions != null);
@@ -340,12 +351,14 @@ abstract class StationStatesCompletions implements StationStates {
   $StationStatesCompletionsCopyWith<StationStatesCompletions> get copyWith;
 }
 
+/// @nodoc
 abstract class $StationStatesEmptyCopyWith<$Res> {
   factory $StationStatesEmptyCopyWith(
           StationStatesEmpty value, $Res Function(StationStatesEmpty) then) =
       _$StationStatesEmptyCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$StationStatesEmptyCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
     implements $StationStatesEmptyCopyWith<$Res> {
@@ -357,6 +370,7 @@ class _$StationStatesEmptyCopyWithImpl<$Res>
   StationStatesEmpty get _value => super._value as StationStatesEmpty;
 }
 
+/// @nodoc
 class _$StationStatesEmpty implements StationStatesEmpty {
   const _$StationStatesEmpty();
 
@@ -446,6 +460,7 @@ abstract class StationStatesEmpty implements StationStates {
   const factory StationStatesEmpty() = _$StationStatesEmpty;
 }
 
+/// @nodoc
 abstract class $StationStatesExceptionCopyWith<$Res> {
   factory $StationStatesExceptionCopyWith(StationStatesException value,
           $Res Function(StationStatesException) then) =
@@ -453,6 +468,7 @@ abstract class $StationStatesExceptionCopyWith<$Res> {
   $Res call({Exception exception});
 }
 
+/// @nodoc
 class _$StationStatesExceptionCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
     implements $StationStatesExceptionCopyWith<$Res> {
@@ -473,6 +489,7 @@ class _$StationStatesExceptionCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$StationStatesException implements StationStatesException {
   const _$StationStatesException(this.exception) : assert(exception != null);
 
@@ -579,12 +596,14 @@ abstract class StationStatesException implements StationStates {
   $StationStatesExceptionCopyWith<StationStatesException> get copyWith;
 }
 
+/// @nodoc
 abstract class $StationStatesNetworkErrorCopyWith<$Res> {
   factory $StationStatesNetworkErrorCopyWith(StationStatesNetworkError value,
           $Res Function(StationStatesNetworkError) then) =
       _$StationStatesNetworkErrorCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$StationStatesNetworkErrorCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
     implements $StationStatesNetworkErrorCopyWith<$Res> {
@@ -597,6 +616,7 @@ class _$StationStatesNetworkErrorCopyWithImpl<$Res>
       super._value as StationStatesNetworkError;
 }
 
+/// @nodoc
 class _$StationStatesNetworkError implements StationStatesNetworkError {
   const _$StationStatesNetworkError();
 

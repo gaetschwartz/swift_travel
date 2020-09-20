@@ -11,17 +11,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
-import 'package:swiss_travel/api/cff/models/leg.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
-import 'package:swiss_travel/api/cff/models/route_connection.dart';
 import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/route_states.dart';
-import 'package:swiss_travel/tabs/routes/route_details.dart';
+import 'package:swiss_travel/tabs/routes/route_tile.dart';
+import 'package:swiss_travel/tabs/routes/suggested.dart';
 import 'package:swiss_travel/utils/complete.dart';
-import 'package:swiss_travel/utils/format.dart';
-import 'package:swiss_travel/widget/icon.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 
 final _isLocating = StateProvider((_) => false);
@@ -34,14 +31,12 @@ class SearchRoute extends StatefulWidget {
   final LocalRoute localRoute;
   final String destination;
 
-  const SearchRoute({Key key, this.localRoute, this.destination})
-      : super(key: key);
+  const SearchRoute({Key key, this.localRoute, this.destination}) : super(key: key);
   @override
   _SearchRouteState createState() => _SearchRouteState();
 }
 
-class _SearchRouteState extends State<SearchRoute>
-    with AutomaticKeepAliveClientMixin {
+class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
   final FocusNode fnFrom = FocusNode();
@@ -65,7 +60,7 @@ class _SearchRouteState extends State<SearchRoute>
     }
   }
 
-  Future goToDest() async {
+  Future<void> goToDest() async {
     toController.text = widget.destination;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       context.read(_routesProvider).state = const RouteStates.loading();
@@ -89,7 +84,11 @@ class _SearchRouteState extends State<SearchRoute>
     return Scaffold(
       appBar: widget.localRoute != null || widget.destination != null
           ? AppBar(
-              title: const Text("Route"),
+              leading: widget.localRoute != null || widget.destination != null
+                  ? const CloseButton()
+                  : null,
+              title: Text(widget.localRoute != null ? widget.localRoute.displayName : "Route"),
+              automaticallyImplyLeading: false,
             )
           : null,
       body: Column(
@@ -112,15 +111,12 @@ class _SearchRouteState extends State<SearchRoute>
                           hintText: "From",
                           isDense: true,
                         )),
-                    suggestionsCallback: (s) async => completeWithFavorites(
-                        _store, await _cff.complete(s), s),
-                    itemBuilder: (context, suggestion) =>
-                        _SuggestedTile(suggestion),
-                    onSuggestionSelected: (suggestion) =>
-                        fromController.text = suggestion.label,
+                    suggestionsCallback: (s) async =>
+                        completeWithFavorites(_store, await _cff.complete(s), s),
+                    itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+                    onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
                     noItemsFoundBuilder: (_) => const SizedBox(),
-                    transitionBuilder: (context, suggestionsBox, controller) =>
-                        FadeTransition(
+                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
                       opacity: controller,
                       child: suggestionsBox,
                     ),
@@ -156,15 +152,12 @@ class _SearchRouteState extends State<SearchRoute>
                           hintText: "To",
                           isDense: true,
                         )),
-                    suggestionsCallback: (s) async => completeWithFavorites(
-                        _store, await _cff.complete(s), s),
-                    itemBuilder: (context, suggestion) =>
-                        _SuggestedTile(suggestion),
-                    onSuggestionSelected: (suggestion) =>
-                        toController.text = suggestion.label,
+                    suggestionsCallback: (s) async =>
+                        completeWithFavorites(_store, await _cff.complete(s), s),
+                    itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+                    onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
                     noItemsFoundBuilder: (_) => const SizedBox(),
-                    transitionBuilder: (context, suggestionsBox, controller) =>
-                        FadeTransition(
+                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
                       opacity: controller,
                       child: suggestionsBox,
                     ),
@@ -243,8 +236,7 @@ class _SearchRouteState extends State<SearchRoute>
                       FontAwesomeIcons.calendar,
                       size: 16,
                     ),
-                    label: Text(
-                        "${_date.state.day}/${_date.state.month}/${_date.state.year}"),
+                    label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
                   );
                 }),
                 Expanded(
@@ -269,10 +261,7 @@ class _SearchRouteState extends State<SearchRoute>
               Center(
                 child: DecoratedBox(
                   decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        blurRadius: 16,
-                        color: Color(0x260700b1),
-                        offset: Offset(0, 8))
+                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8))
                   ]),
                   child: FlatButton.icon(
                     padding: const EdgeInsets.symmetric(horizontal: 48),
@@ -285,8 +274,7 @@ class _SearchRouteState extends State<SearchRoute>
                         : () {
                             fromController.text =
                                 "Université de Genève, Genève, Rue du Général-Dufour 24";
-                            toController.text =
-                                "Badenerstrasse 549, 8048 Zürich";
+                            toController.text = "Badenerstrasse 549, 8048 Zürich";
                             search();
                           },
                     shape: const StadiumBorder(),
@@ -298,35 +286,30 @@ class _SearchRouteState extends State<SearchRoute>
               Positioned(
                 right: 0,
                 child: Consumer(builder: (context, w, _) {
-                  final _store =
-                      w(storeProvider) as FavoritesSharedPreferencesStore;
+                  final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
                   w(_routesProvider);
                   return FlatButton(
                     shape: const StadiumBorder(),
                     onPressed: () async {
                       log(_store.routes.toString());
                       if (_store.routes.any(
-                        (lr) =>
-                            lr.from == fromController.text &&
-                            lr.to == toController.text,
+                        (lr) => lr.from == fromController.text && lr.to == toController.text,
                       )) {
                         Scaffold.of(context).showSnackBar(const SnackBar(
-                            content: Text(
-                                "This route is already in your favorites !")));
+                            content: Text("This route is already in your favorites !")));
                         return;
                       }
 
-                      final s = await input(context,
-                          title: const Text("Enter route name"));
+                      final s = await input(context, title: const Text("Enter route name"));
                       if (s == null) return;
-                      context.read(storeProvider).addRoute(LocalRoute(
-                          s, fromController.text, toController.text));
-                      Scaffold.of(context).showSnackBar(
-                          const SnackBar(content: Text("Route starred !")));
+                      context
+                          .read(storeProvider)
+                          .addRoute(LocalRoute(s, fromController.text, toController.text));
+                      Scaffold.of(context)
+                          .showSnackBar(const SnackBar(content: Text("Route starred !")));
                     },
-                    child: _store.routes.any((lr) =>
-                            lr.from == fromController.text &&
-                            lr.to == toController.text)
+                    child: _store.routes.any(
+                            (lr) => lr.from == fromController.text && lr.to == toController.text)
                         ? const Icon(Icons.star)
                         : const Icon(Icons.star_border),
                   );
@@ -339,8 +322,7 @@ class _SearchRouteState extends State<SearchRoute>
                     onPressed: () async {
                       fromController.clear();
                       toController.clear();
-                      context.read(_routesProvider).state =
-                          const RouteStates.empty();
+                      context.read(_routesProvider).state = const RouteStates.empty();
                     },
                     child: const FaIcon(FontAwesomeIcons.times),
                   )),
@@ -352,11 +334,8 @@ class _SearchRouteState extends State<SearchRoute>
                       routes: (data) => ListView.separated(
                           separatorBuilder: (c, i) => const Divider(),
                           shrinkWrap: true,
-                          itemCount: data.routes == null
-                              ? 0
-                              : data.routes.connections.length,
-                          itemBuilder: (context, i) =>
-                              RouteTile(c: data.routes.connections[i])),
+                          itemCount: data.routes == null ? 0 : data.routes.connections.length,
+                          itemBuilder: (context, i) => RouteTile(c: data.routes.connections[i])),
                       network: (_) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -387,8 +366,7 @@ class _SearchRouteState extends State<SearchRoute>
                       ),
                       loading: (_) => const CustomScrollView(
                         slivers: [
-                          SliverFillRemaining(
-                              child: Center(child: CircularProgressIndicator()))
+                          SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
                         ],
                       ),
                       empty: (_) => Column(
@@ -415,12 +393,10 @@ class _SearchRouteState extends State<SearchRoute>
   Future<void> locate() async {
     context.read(_isLocating).state = true;
     try {
-      final p = await getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.bestForNavigation);
+      final p = await getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
 
       log("Position is : $p");
-      final completions =
-          await context.read(cffProvider).findStation(p.latitude, p.longitude);
+      final completions = await context.read(cffProvider).findStation(p.latitude, p.longitude);
 
       final first = completions.first;
       log("Found : $first");
@@ -447,87 +423,18 @@ class _SearchRouteState extends State<SearchRoute>
           Stop(toController.text),
           date: context.read(_dateProvider).state,
           time: context.read(_timeProvider).state,
-          typeTime: context.read(_switchProvider).state
-              ? TimeType.arrival
-              : TimeType.depart,
+          typeTime: context.read(_switchProvider).state ? TimeType.arrival : TimeType.depart,
         );
         context.read(_routesProvider).state = RouteStates.routes(it);
       } on SocketException {
         context.read(_routesProvider).state = const RouteStates.network();
       } on Exception catch (e) {
         context.read(_routesProvider).state = RouteStates.exception(e);
-        FirebaseCrashlytics.instance
-            .recordError(e, StackTrace.current, printDetails: true);
+        FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
       }
     }
   }
 
   @override
   bool get wantKeepAlive => true;
-}
-
-class _SuggestedTile extends StatelessWidget {
-  const _SuggestedTile(
-    this.suggestion, {
-    Key key,
-  }) : super(key: key);
-  final CffCompletion suggestion;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CffIcon.fromIconClass(suggestion.iconclass),
-      title: Text(suggestion.label),
-      trailing: suggestion.isFavorite ? const Text("⭐") : null,
-      dense: true,
-    );
-  }
-}
-
-class RouteTile extends StatelessWidget {
-  const RouteTile({
-    Key key,
-    @required this.c,
-  }) : super(key: key);
-
-  final RouteConnection c;
-
-  Widget rowIcon() {
-    final List<Widget> listWidget = [];
-
-    for (int i = 0; i < c.legs.length - 1; i++) {
-      final Leg l = c.legs[i];
-      listWidget.add(CffIcon(l.type, size: 18));
-    }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: Wrap(spacing: 8, children: listWidget),
-        ),
-        const SizedBox(height: 4),
-        Text("${Format.dateTime(c.departure)} - ${Format.dateTime(c.arrival)}")
-      ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text("${c.legs.length - 1} steps"),
-      subtitle: rowIcon(),
-      trailing: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(Format.intToDuration(c.duration)),
-          const SizedBox(width: 4),
-          const FaIcon(FontAwesomeIcons.chevronRight, size: 16),
-        ],
-      ),
-      onTap: () => Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => DetailsRoute(c: c))),
-    );
-  }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
 import 'package:swiss_travel/blocs/store.dart';
-import 'package:swiss_travel/tabs/route_tab.dart';
+import 'package:swiss_travel/tabs/routes/route_tab.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 
 class FavRoutesTab extends StatelessWidget {
@@ -13,8 +13,7 @@ class FavRoutesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _store =
-        context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     return RefreshIndicator(
         onRefresh: () => _store.loadFromPreferences(notify: false),
         child: Padding(
@@ -52,14 +51,10 @@ class FavRoutesTab extends StatelessWidget {
                       )
                     : ListView.builder(
                         itemCount: c.routes.length,
-                        itemBuilder: (context, i) =>
-                            _RouteTile(route: c.routes[i]),
+                        itemBuilder: (context, i) => _RouteTile(route: c.routes[i]),
                       ),
                 loading: (_) => const CustomScrollView(
-                  slivers: [
-                    SliverFillRemaining(
-                        child: Center(child: CircularProgressIndicator()))
-                  ],
+                  slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
                 ),
                 exception: (e) => CustomScrollView(
                   slivers: [
@@ -94,11 +89,10 @@ class _RouteTile extends StatelessWidget {
       title: Text(route.displayName),
       subtitle: Text("${route.from} ➡ ${route.to}"),
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.times),
-          onPressed: () => deleteRoute(context)),
+          icon: const FaIcon(FontAwesomeIcons.times), onPressed: () => deleteRoute(context)),
       onTap: () async {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));
       },
     );
   }
@@ -107,9 +101,7 @@ class _RouteTile extends StatelessWidget {
     final b = await confirm(
       context,
       title: Text.rich(TextSpan(text: "Delete ", children: [
-        TextSpan(
-            text: route.displayName,
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+        TextSpan(text: route.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(
           text: " ?",
         ),

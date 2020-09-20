@@ -12,7 +12,7 @@ import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/main.dart';
-import 'package:swiss_travel/tabs/route_tab.dart';
+import 'package:swiss_travel/tabs/routes/route_tab.dart';
 
 final quickActions = Provider<MyQuickActions>((ref) => MyQuickActions());
 
@@ -24,39 +24,34 @@ class MyQuickActions {
   Future<void> init() async {
     log("Initialize", name: "QuickActions");
     quickActions.initialize((shortcutType) async {
-      await FirebaseCrashlytics.instance
-          .log("User tapped a quick action : `$shortcutType`");
+      await FirebaseCrashlytics.instance.log("User tapped a quick action : `$shortcutType`");
       log('Tapped shortcut $shortcutType', name: "QuickActions");
       final split = shortcutType.split("_");
       final first = split.first;
       if (first == "route") {
         log('Tapped route $shortcutType', name: "QuickActions");
         final prefs = await SharedPreferences.getInstance();
-        final stringList =
-            prefs.getStringList(FavoritesSharedPreferencesStore.routesKey);
+        final stringList = prefs.getStringList(FavoritesSharedPreferencesStore.routesKey);
         final idS = split.last;
         final id = int.parse(idS);
         final route = stringList[id];
-        final lr =
-            LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
-        navigatorKey.currentState.push(
-            MaterialPageRoute(builder: (_) => SearchRoute(localRoute: lr)));
+        final lr = LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
+        navigatorKey.currentState
+            .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: lr)));
       } else if (first == "fav") {
         log('Tapped fav $shortcutType', name: "QuickActions");
         final prefs = await SharedPreferences.getInstance();
-        final stringList =
-            prefs.getStringList(FavoritesSharedPreferencesStore.stopsKey);
+        final stringList = prefs.getStringList(FavoritesSharedPreferencesStore.stopsKey);
         final idS = split.last;
         final id = int.parse(idS);
         final fav = stringList[id];
-        navigatorKey.currentState.push(
-            MaterialPageRoute(builder: (_) => SearchRoute(destination: fav)));
+        navigatorKey.currentState
+            .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: fav)));
       }
     });
   }
 
-  Future<void> setActions(
-      List<LocalRoute> routes, List<CffCompletion> favorites) async {
+  Future<void> setActions(List<LocalRoute> routes, List<CffCompletion> favorites) async {
     final List<ShortcutItem> shortcuts = [];
 
     log("Add favorites $favorites", name: "QuickActions");

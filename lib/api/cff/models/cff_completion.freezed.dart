@@ -12,6 +12,7 @@ CffCompletion _$CffCompletionFromJson(Map<String, dynamic> json) {
   return _CffCompletion.fromJson(json);
 }
 
+/// @nodoc
 class _$CffCompletionTearOff {
   const _$CffCompletionTearOff();
 
@@ -32,11 +33,18 @@ class _$CffCompletionTearOff {
       isFavorite: isFavorite,
     );
   }
+
+// ignore: unused_element
+  CffCompletion fromJson(Map<String, Object> json) {
+    return CffCompletion.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $CffCompletion = _$CffCompletionTearOff();
 
+/// @nodoc
 mixin _$CffCompletion {
   String get label;
   double get dist;
@@ -49,6 +57,7 @@ mixin _$CffCompletion {
   $CffCompletionCopyWith<CffCompletion> get copyWith;
 }
 
+/// @nodoc
 abstract class $CffCompletionCopyWith<$Res> {
   factory $CffCompletionCopyWith(
           CffCompletion value, $Res Function(CffCompletion) then) =
@@ -62,6 +71,7 @@ abstract class $CffCompletionCopyWith<$Res> {
       bool isFavorite});
 }
 
+/// @nodoc
 class _$CffCompletionCopyWithImpl<$Res>
     implements $CffCompletionCopyWith<$Res> {
   _$CffCompletionCopyWithImpl(this._value, this._then);
@@ -91,6 +101,7 @@ class _$CffCompletionCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$CffCompletionCopyWith<$Res>
     implements $CffCompletionCopyWith<$Res> {
   factory _$CffCompletionCopyWith(
@@ -106,6 +117,7 @@ abstract class _$CffCompletionCopyWith<$Res>
       bool isFavorite});
 }
 
+/// @nodoc
 class __$CffCompletionCopyWithImpl<$Res>
     extends _$CffCompletionCopyWithImpl<$Res>
     implements _$CffCompletionCopyWith<$Res> {
@@ -138,6 +150,8 @@ class __$CffCompletionCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_CffCompletion implements _CffCompletion {
   _$_CffCompletion(
       {this.label,

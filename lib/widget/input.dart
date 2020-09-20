@@ -4,7 +4,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/blocs/cff.dart';
-import 'package:swiss_travel/widget/icon.dart';
+import 'package:swiss_travel/widget/cff_icon.dart';
 
 class StopInputDialog extends StatefulWidget {
   final String title;
@@ -62,8 +62,7 @@ class _StopInputDialogState extends State<StopInputDialog> {
                 hintText: "To",
               ),
             ),
-            suggestionsCallback: (pattern) =>
-                context.read(cffProvider).complete(pattern),
+            suggestionsCallback: (pattern) => context.read(cffProvider).complete(pattern),
             itemBuilder: (context, CffCompletion suggestion) => ListTile(
               leading: CffIcon.fromIconClass(suggestion.iconclass),
               title: Text(suggestion.label),
@@ -73,8 +72,7 @@ class _StopInputDialogState extends State<StopInputDialog> {
               Navigator.of(context).pop<String>(suggestion.label);
             },
             noItemsFoundBuilder: (_) => const SizedBox(),
-            transitionBuilder: (context, suggestionsBox, controller) =>
-                FadeTransition(
+            transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
               opacity: controller,
               child: suggestionsBox,
             ),

@@ -9,6 +9,7 @@ part of 'route_states.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$RouteStatesTearOff {
   const _$RouteStatesTearOff();
 
@@ -42,9 +43,11 @@ class _$RouteStatesTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $RouteStates = _$RouteStatesTearOff();
 
+/// @nodoc
 mixin _$RouteStates {
   @optionalTypeArgs
   Result when<Result extends Object>({
@@ -82,12 +85,14 @@ mixin _$RouteStates {
   });
 }
 
+/// @nodoc
 abstract class $RouteStatesCopyWith<$Res> {
   factory $RouteStatesCopyWith(
           RouteStates value, $Res Function(RouteStates) then) =
       _$RouteStatesCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$RouteStatesCopyWithImpl<$Res> implements $RouteStatesCopyWith<$Res> {
   _$RouteStatesCopyWithImpl(this._value, this._then);
 
@@ -96,6 +101,7 @@ class _$RouteStatesCopyWithImpl<$Res> implements $RouteStatesCopyWith<$Res> {
   final $Res Function(RouteStates) _then;
 }
 
+/// @nodoc
 abstract class $RouteStatesDataCopyWith<$Res> {
   factory $RouteStatesDataCopyWith(
           RouteStatesData value, $Res Function(RouteStatesData) then) =
@@ -105,6 +111,7 @@ abstract class $RouteStatesDataCopyWith<$Res> {
   $CffRouteCopyWith<$Res> get routes;
 }
 
+/// @nodoc
 class _$RouteStatesDataCopyWithImpl<$Res>
     extends _$RouteStatesCopyWithImpl<$Res>
     implements $RouteStatesDataCopyWith<$Res> {
@@ -135,6 +142,7 @@ class _$RouteStatesDataCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$RouteStatesData implements RouteStatesData {
   const _$RouteStatesData(this.routes) : assert(routes != null);
 
@@ -238,12 +246,14 @@ abstract class RouteStatesData implements RouteStates {
   $RouteStatesDataCopyWith<RouteStatesData> get copyWith;
 }
 
+/// @nodoc
 abstract class $RouteStatesNetworkCopyWith<$Res> {
   factory $RouteStatesNetworkCopyWith(
           RouteStatesNetwork value, $Res Function(RouteStatesNetwork) then) =
       _$RouteStatesNetworkCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$RouteStatesNetworkCopyWithImpl<$Res>
     extends _$RouteStatesCopyWithImpl<$Res>
     implements $RouteStatesNetworkCopyWith<$Res> {
@@ -255,6 +265,7 @@ class _$RouteStatesNetworkCopyWithImpl<$Res>
   RouteStatesNetwork get _value => super._value as RouteStatesNetwork;
 }
 
+/// @nodoc
 class _$RouteStatesNetwork implements RouteStatesNetwork {
   const _$RouteStatesNetwork();
 
@@ -344,6 +355,7 @@ abstract class RouteStatesNetwork implements RouteStates {
   const factory RouteStatesNetwork() = _$RouteStatesNetwork;
 }
 
+/// @nodoc
 abstract class $RouteStatesExceptionCopyWith<$Res> {
   factory $RouteStatesExceptionCopyWith(RouteStatesException value,
           $Res Function(RouteStatesException) then) =
@@ -351,6 +363,7 @@ abstract class $RouteStatesExceptionCopyWith<$Res> {
   $Res call({Exception exception});
 }
 
+/// @nodoc
 class _$RouteStatesExceptionCopyWithImpl<$Res>
     extends _$RouteStatesCopyWithImpl<$Res>
     implements $RouteStatesExceptionCopyWith<$Res> {
@@ -371,6 +384,7 @@ class _$RouteStatesExceptionCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$RouteStatesException implements RouteStatesException {
   const _$RouteStatesException(this.exception) : assert(exception != null);
 
@@ -477,12 +491,14 @@ abstract class RouteStatesException implements RouteStates {
   $RouteStatesExceptionCopyWith<RouteStatesException> get copyWith;
 }
 
+/// @nodoc
 abstract class $RouteStatesEmptyCopyWith<$Res> {
   factory $RouteStatesEmptyCopyWith(
           RouteStatesEmpty value, $Res Function(RouteStatesEmpty) then) =
       _$RouteStatesEmptyCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$RouteStatesEmptyCopyWithImpl<$Res>
     extends _$RouteStatesCopyWithImpl<$Res>
     implements $RouteStatesEmptyCopyWith<$Res> {
@@ -494,6 +510,7 @@ class _$RouteStatesEmptyCopyWithImpl<$Res>
   RouteStatesEmpty get _value => super._value as RouteStatesEmpty;
 }
 
+/// @nodoc
 class _$RouteStatesEmpty implements RouteStatesEmpty {
   const _$RouteStatesEmpty();
 
@@ -583,12 +600,14 @@ abstract class RouteStatesEmpty implements RouteStates {
   const factory RouteStatesEmpty() = _$RouteStatesEmpty;
 }
 
+/// @nodoc
 abstract class $RouteStatesLoadingCopyWith<$Res> {
   factory $RouteStatesLoadingCopyWith(
           RouteStatesLoading value, $Res Function(RouteStatesLoading) then) =
       _$RouteStatesLoadingCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$RouteStatesLoadingCopyWithImpl<$Res>
     extends _$RouteStatesCopyWithImpl<$Res>
     implements $RouteStatesLoadingCopyWith<$Res> {
@@ -600,6 +619,7 @@ class _$RouteStatesLoadingCopyWithImpl<$Res>
   RouteStatesLoading get _value => super._value as RouteStatesLoading;
 }
 
+/// @nodoc
 class _$RouteStatesLoading implements RouteStatesLoading {
   const _$RouteStatesLoading();
 

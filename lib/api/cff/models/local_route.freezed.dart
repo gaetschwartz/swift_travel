@@ -12,6 +12,7 @@ LocalRoute _$LocalRouteFromJson(Map<String, dynamic> json) {
   return _LocalRoute.fromJson(json);
 }
 
+/// @nodoc
 class _$LocalRouteTearOff {
   const _$LocalRouteTearOff();
 
@@ -23,11 +24,18 @@ class _$LocalRouteTearOff {
       to,
     );
   }
+
+// ignore: unused_element
+  LocalRoute fromJson(Map<String, Object> json) {
+    return LocalRoute.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $LocalRoute = _$LocalRouteTearOff();
 
+/// @nodoc
 mixin _$LocalRoute {
   String get displayName;
   String get from;
@@ -37,6 +45,7 @@ mixin _$LocalRoute {
   $LocalRouteCopyWith<LocalRoute> get copyWith;
 }
 
+/// @nodoc
 abstract class $LocalRouteCopyWith<$Res> {
   factory $LocalRouteCopyWith(
           LocalRoute value, $Res Function(LocalRoute) then) =
@@ -44,6 +53,7 @@ abstract class $LocalRouteCopyWith<$Res> {
   $Res call({String displayName, String from, String to});
 }
 
+/// @nodoc
 class _$LocalRouteCopyWithImpl<$Res> implements $LocalRouteCopyWith<$Res> {
   _$LocalRouteCopyWithImpl(this._value, this._then);
 
@@ -66,6 +76,7 @@ class _$LocalRouteCopyWithImpl<$Res> implements $LocalRouteCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$LocalRouteCopyWith<$Res> implements $LocalRouteCopyWith<$Res> {
   factory _$LocalRouteCopyWith(
           _LocalRoute value, $Res Function(_LocalRoute) then) =
@@ -74,6 +85,7 @@ abstract class _$LocalRouteCopyWith<$Res> implements $LocalRouteCopyWith<$Res> {
   $Res call({String displayName, String from, String to});
 }
 
+/// @nodoc
 class __$LocalRouteCopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
     implements _$LocalRouteCopyWith<$Res> {
   __$LocalRouteCopyWithImpl(
@@ -98,6 +110,8 @@ class __$LocalRouteCopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_LocalRoute implements _LocalRoute {
   _$_LocalRoute(this.displayName, this.from, this.to)
       : assert(displayName != null),
