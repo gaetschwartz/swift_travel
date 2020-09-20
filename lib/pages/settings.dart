@@ -181,7 +181,7 @@ class TeamPage extends StatelessWidget {
     ),
     Coder(
       "Vincent Tarrit",
-      role: "Developer, Designer",
+      role: "Developer",
       imageUrl:
           "https://i2.wp.com/www.tarrit.com/wp-content/uploads/2018/11/cropped-Vincent-Tarrit3petitblanc-2-1.jpg?w=512",
       website: "https://tarrit.com/",
