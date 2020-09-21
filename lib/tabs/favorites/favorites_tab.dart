@@ -15,7 +15,8 @@ class SearchFavorite extends StatefulWidget {
   _SearchFavoriteState createState() => _SearchFavoriteState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
+class _SearchFavoriteState extends State<SearchFavorite>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -33,8 +34,10 @@ class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAlive
           final i = w(_tabProvider).state;
           return BottomNavigationBar(
             items: const [
-              BottomNavigationBarItem(label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
-              BottomNavigationBarItem(label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
+              BottomNavigationBarItem(
+                  title: Text("Routes"), icon: FaIcon(FontAwesomeIcons.route)),
+              BottomNavigationBarItem(
+                  title: Text("Stops"), icon: FaIcon(FontAwesomeIcons.train)),
             ],
             onTap: (i) => context.read(_tabProvider).state = i,
             currentIndex: i,

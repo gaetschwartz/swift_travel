@@ -40,6 +40,9 @@ PODS:
   - Flutter (1.0.0)
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
   - "geolocator (6.0.0+4)":
     - Flutter
   - GoogleDataTransport (6.2.1)
@@ -64,6 +67,9 @@ PODS:
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
+  - sqflite (0.0.1):
+    - Flutter
+    - FMDB (~> 2.7.2)
   - url_launcher (0.0.1):
     - Flutter
 
@@ -77,6 +83,7 @@ DEPENDENCIES:
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
@@ -88,6 +95,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnosticsInterop
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - FMDB
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
@@ -114,6 +122,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/quick_actions/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
 
@@ -135,6 +145,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 6f5f680e65dc374397a483c32d1799ba822a395b
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator: 1ae40084cc6c1586ce5ad12cfc3fd38c64d05f2f
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
@@ -144,6 +155,7 @@ SPEC CHECKSUMS:
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
 PODFILE CHECKSUM: 0ba888dbda85bfb3a2176dbf0d4f1579f0e5daa1

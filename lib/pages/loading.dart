@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/blocs/quick_actions.dart';
 import 'package:swiss_travel/blocs/store.dart';
+import 'package:swiss_travel/pages/tuto.dart';
 import 'package:utils/blocs/full_theme.dart';
 import 'package:utils/blocs/theme_configuration.dart';
 import 'package:utils/blocs/theme_riverpod.dart';
@@ -95,6 +96,13 @@ class _LoadingPageState extends State<LoadingPage> {
     final prefs = await SharedPreferences.getInstance();
     await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
     await context.read(storeProvider).loadFromPreferences(prefs: prefs);
+
+    if (prefs.getBool("hasAlreadySeenTuto") == null) {
+      await Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => Tuto()));
+
+      await prefs.setBool("hasAlreadySeenTuto", true);
+    }
 
     await Future.delayed(const Duration(milliseconds: 500));
     Navigator.of(context)

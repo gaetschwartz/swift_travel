@@ -22,7 +22,7 @@ class PreferencesBloc extends ChangeNotifier {
   Future<void> loadFromPreferences(
       {SharedPreferences prefs, Maps defaultApp = Maps.google}) async {
     _prefs = prefs ?? await SharedPreferences.getInstance();
-    final i = _prefs.getInt(mapsKey);
+    final i = _prefs.getInt(mapsKey) ?? -1;
     _maps = i >= 0 && i < Maps.values.length ? Maps.values[i] : defaultApp;
   }
 }
