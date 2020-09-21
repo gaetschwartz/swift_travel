@@ -57,12 +57,13 @@ class _LoadingPageState extends State<LoadingPage> {
             "default": FullTheme(
                 name: "Default theme",
                 light: ThemeData(
-                  primarySwatch: Colors.red,
-                  fontFamily: GoogleFonts.muli().fontFamily,
-                ),
+                    primarySwatch: Colors.red,
+                    fontFamily: GoogleFonts.muli().fontFamily,
+                    primaryColor: Colors.red),
                 dark: ThemeData(
                   brightness: Brightness.dark,
                   primarySwatch: Colors.red,
+                  primaryColor: Colors.red,
                   fontFamily: GoogleFonts.muli().fontFamily,
                 )),
             "dancing": FullTheme(
@@ -96,7 +97,7 @@ class _LoadingPageState extends State<LoadingPage> {
     final prefs = await SharedPreferences.getInstance();
     await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
     await context.read(storeProvider).loadFromPreferences(prefs: prefs);
-
+    await prefs.setBool("hasAlreadySeenTuto", null);
     if (prefs.getBool("hasAlreadySeenTuto") == null) {
       await Navigator.of(context)
           .push(MaterialPageRoute(builder: (_) => Tuto()));

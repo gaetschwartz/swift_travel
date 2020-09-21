@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
@@ -84,7 +85,7 @@ class _TutoState extends State<Tuto> {
   Widget renderNextBtn() {
     return const Icon(
       Icons.navigate_next,
-      color: Color(0xffffcc5c),
+      color: Colors.white, //Theme.of(context).accentColor,
       size: 35.0,
     );
   }
@@ -92,14 +93,14 @@ class _TutoState extends State<Tuto> {
   Widget renderDoneBtn() {
     return const Icon(
       Icons.done,
-      color: Color(0xffffcc5c),
+      color: Colors.white,
     );
   }
 
   Widget renderSkipBtn() {
     return const Icon(
       Icons.skip_next,
-      color: Color(0xffffcc5c),
+      color: Colors.white,
     );
   }
 
@@ -152,10 +153,11 @@ class _TutoState extends State<Tuto> {
     return IntroSlider(
       // List slides
       slides: slides,
+      isShowSkipBtn: kDebugMode,
 
       // Skip button
       renderSkipBtn: renderSkipBtn(),
-      colorSkipBtn: const Color(0x33ffcc5c),
+      colorSkipBtn: Colors.red,
       highlightColorSkipBtn: const Color(0xffffcc5c),
 
       // Next button
@@ -164,11 +166,11 @@ class _TutoState extends State<Tuto> {
       // Done button
       renderDoneBtn: renderDoneBtn(),
       onDonePress: onDonePress,
-      colorDoneBtn: const Color(0x33ffcc5c),
+      colorDoneBtn: Colors.red,
       highlightColorDoneBtn: const Color(0xffffcc5c),
 
       // Dot indicator
-      colorDot: const Color(0xffffcc5c),
+      colorDot: Colors.red,
       sizeDot: 13.0,
 
       // Tabs
