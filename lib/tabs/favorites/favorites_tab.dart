@@ -35,9 +35,9 @@ class _SearchFavoriteState extends State<SearchFavorite>
           return BottomNavigationBar(
             items: const [
               BottomNavigationBarItem(
-                  title: Text("Routes"), icon: FaIcon(FontAwesomeIcons.route)),
+                  label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
               BottomNavigationBarItem(
-                  title: Text("Stops"), icon: FaIcon(FontAwesomeIcons.train)),
+                  label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
             ],
             onTap: (i) => context.read(_tabProvider).state = i,
             currentIndex: i,

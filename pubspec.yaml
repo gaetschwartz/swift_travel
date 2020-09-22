@@ -30,6 +30,7 @@ dependencies:
   firebase_crashlytics: ^0.2.0-dev.5
   cached_network_image: ^2.3.2+1
   intro_slider: ^2.3.3
+  connectivity: ^0.4.9+2
 
 dev_dependencies:
   flutter_test:

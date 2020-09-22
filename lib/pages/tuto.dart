@@ -78,7 +78,7 @@ class _TutoState extends State<Tuto> {
     Navigator.of(context).pop();
   }
 
-  void onTabChangeCompleted(index) {
+  void onTabChangeCompleted(int index) {
     // Index of current tab is focused
   }
 
