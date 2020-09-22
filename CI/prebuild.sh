@@ -9,3 +9,4 @@ const String buildNumber = "$GITHUB_RUN_NUMBER";
 EOM
 echo "=== build.dart ==="
 cat lib/utils/build.dart
+rm -rf ~/Library/Developer/Xcode/DerivedData
