@@ -11,9 +11,6 @@ import 'package:swiss_travel/blocs/quick_actions.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/pages/tuto.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
-import 'package:utils/blocs/theme/src/full_theme.dart';
-import 'package:utils/blocs/theme/src/shadow_theme.dart';
-import 'package:utils/blocs/theme/src/theme_configuration.dart';
 
 import 'home_page.dart';
 

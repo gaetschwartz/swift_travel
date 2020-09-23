@@ -100,7 +100,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               children: [
                 Expanded(
                   child: TypeAheadField<CffCompletion>(
-                    key: const ValueKey("route-first-textfield-key"),
+                    key: const Key("route-first-textfield-key"),
                     debounceDuration: const Duration(milliseconds: 500),
                     textFieldConfiguration: TextFieldConfiguration(
                         focusNode: fnFrom,
@@ -142,7 +142,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               children: [
                 Expanded(
                   child: TypeAheadField<CffCompletion>(
-                    key: const ValueKey("route-second-textfield-key"),
+                    key: const Key("route-second-textfield-key"),
                     debounceDuration: const Duration(milliseconds: 500),
                     textFieldConfiguration: TextFieldConfiguration(
                         textInputAction: TextInputAction.search,
@@ -266,7 +266,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                   decoration:
                       BoxDecoration(boxShadow: [DynamicTheme.shadowOf(context).buttonShadow]),
                   child: FlatButton.icon(
-                    key: const ValueKey("search-route"),
+                    key: const Key("search-route"),
                     padding: const EdgeInsets.symmetric(horizontal: 48),
                     height: 48,
                     highlightColor: const Color(0x260700b1),
@@ -339,7 +339,10 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                           // separatorBuilder: (c, i) => const Divider(height: 0),
                           shrinkWrap: true,
                           itemCount: data.routes == null ? 0 : data.routes.connections.length,
-                          itemBuilder: (context, i) => RouteTile(c: data.routes.connections[i])),
+                          itemBuilder: (context, i) => RouteTile(
+                                c: data.routes.connections[i],
+                                key: Key("routetile-$i"),
+                              )),
                       network: (_) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

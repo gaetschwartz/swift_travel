@@ -29,6 +29,7 @@ class _DetailsStopState extends State<DetailsStop> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: const BackButton(),
           title: Text(widget.stopName),
         ),
         body: RefreshIndicator(

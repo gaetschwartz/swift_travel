@@ -16,6 +16,7 @@ class RouteDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const BackButton(),
         title: Text(c.to),
       ),
       body: Column(

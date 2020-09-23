@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         title: 'Swiss Travel',
-        builder: (context, child) => _Unfocus(child: child),
+        builder: (context, child) => Unfocus(child: child),
         theme: theme.light,
         darkTheme: theme.dark,
         themeMode: theme.mode,
@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class _Unfocus extends StatelessWidget {
-  const _Unfocus({Key key, this.child}) : super(key: key);
+class Unfocus extends StatelessWidget {
+  const Unfocus({Key key, this.child}) : super(key: key);
 
   final Widget child;
 

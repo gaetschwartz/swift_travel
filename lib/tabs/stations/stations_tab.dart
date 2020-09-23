@@ -65,6 +65,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
               children: [
                 Expanded(
                   child: TextField(
+                    key: const Key("stations-textfield"),
                     focusNode: focusNode,
                     controller: searchController,
                     style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
@@ -100,7 +101,10 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                       child: CircularProgressIndicator(),
                     ),
                     completions: (c) => ListView.builder(
-                      itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
+                      itemBuilder: (context, i) => CffCompletionTile(
+                        c.completions[i],
+                        key: Key("stations-key-$i"),
+                      ),
                       itemCount: c.completions == null ? 0 : c.completions.length,
                     ),
                     empty: (_) => Consumer(
