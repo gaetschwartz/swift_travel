@@ -104,13 +104,15 @@ class Settings extends StatelessWidget {
               leading: const FaIcon(FontAwesomeIcons.users),
               title: const Text("The team"),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage()));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => const TeamPage()));
               },
             ),
             ListTile(
               leading: const FaIcon(FontAwesomeIcons.fileCode),
               title: const Text("Open source"),
-              onTap: () => showLicensePage(context: context, applicationIcon: const FlutterLogo()),
+              onTap: () => showLicensePage(
+                  context: context, applicationIcon: const FlutterLogo()),
             ),
             const Divider(
               indent: 16,
@@ -122,7 +124,8 @@ class Settings extends StatelessWidget {
                   leading: const Icon(Icons.warning),
                   title: const Text("Crash"),
                   onTap: () async {
-                    await FirebaseCrashlytics.instance.log("We trigger a crash");
+                    await FirebaseCrashlytics.instance
+                        .log("We trigger a crash");
                     FirebaseCrashlytics.instance.crash();
                   }),
             ],
@@ -132,7 +135,8 @@ class Settings extends StatelessWidget {
                 onTap: () async {
                   final c = await confirm(context,
                       title: const Text("Reset settings ?"),
-                      content: const Text("You will lose all of you favorites!"),
+                      content:
+                          const Text("You will lose all of you favorites!"),
                       isConfirmDestructive: true);
                   if (c != true) return;
                   final prefs = await SharedPreferences.getInstance();
@@ -176,7 +180,8 @@ class TeamPage extends StatelessWidget {
       "Gaëtan Schwartz",
       role: "Lead Developer,\nApp Designer",
       twitterUrl: "https://twitter.com/gaetschwartz",
-      imageUrl: "https://pbs.twimg.com/profile_images/1307716781356834818/kwCKuS7q_400x400.jpg",
+      imageUrl:
+          "https://pbs.twimg.com/profile_images/1307716781356834818/kwCKuS7q_400x400.jpg",
       website: "https://gaetanschwartz.com/#/",
     ),
     Coder(
@@ -202,9 +207,12 @@ class TeamPage extends StatelessWidget {
                 height: 48,
                 width: 48,
                 child: CircleAvatar(
-                  backgroundImage:
-                      c.imageUrl == null ? null : CachedNetworkImageProvider(c.imageUrl),
-                  child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user) : null,
+                  backgroundImage: c.imageUrl == null
+                      ? null
+                      : CachedNetworkImageProvider(c.imageUrl),
+                  child: c.imageUrl == null
+                      ? const FaIcon(FontAwesomeIcons.user)
+                      : null,
                 ),
               ),
               subtitle: c.role == null ? null : Text(c.role),
@@ -233,7 +241,8 @@ class Coder {
   final String imageUrl;
   final String website;
 
-  const Coder(this.name, {this.twitterUrl, this.role, this.imageUrl, this.website});
+  const Coder(this.name,
+      {this.twitterUrl, this.role, this.imageUrl, this.website});
 }
 
 class _SectionTitle extends StatelessWidget {
@@ -248,8 +257,10 @@ class _SectionTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8.0),
       child: DefaultTextStyle(
-          style:
-              Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).accentColor),
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(color: Theme.of(context).accentColor),
           child: title),
     );
   }

@@ -34,7 +34,7 @@ class Tuto extends StatelessWidget {
         activeSize: const Size(20.0, 10.0),
         activeColor: Theme.of(context).accentColor,
         color: Colors.black26,
-        spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+        spacing: const EdgeInsets.symmetric(horizontal: 4.0),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
         ),
