@@ -97,7 +97,7 @@ class _LoadingPageState extends State<LoadingPage> {
     final prefs = await SharedPreferences.getInstance();
     await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
     await context.read(storeProvider).loadFromPreferences(prefs: prefs);
-    await prefs.setBool("hasAlreadySeenTuto", null);
+    if (kDebugMode) await prefs.setBool("hasAlreadySeenTuto", null);
     if (prefs.getBool("hasAlreadySeenTuto") == null) {
       await Navigator.of(context)
           .push(MaterialPageRoute(builder: (_) => Tuto()));
