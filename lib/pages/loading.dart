@@ -10,9 +10,7 @@ import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/blocs/quick_actions.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/pages/tuto.dart';
-import 'package:utils/blocs/full_theme.dart';
-import 'package:utils/blocs/theme_configuration.dart';
-import 'package:utils/blocs/theme_riverpod.dart';
+import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 import 'home_page.dart';
 
@@ -55,43 +53,70 @@ class _LoadingPageState extends State<LoadingPage> {
     await context.read(dynamicTheme).configure(
           ThemeConfiguration({
             "default": FullTheme(
-                name: "Default theme",
-                light: ThemeData(
-                    primarySwatch: Colors.red,
-                    fontFamily: GoogleFonts.muli().fontFamily,
-                    primaryColor: Colors.red),
-                dark: ThemeData(
-                  brightness: Brightness.dark,
+              name: "Default theme",
+              light: ThemeData(
                   primarySwatch: Colors.red,
-                  primaryColor: Colors.red,
                   fontFamily: GoogleFonts.muli().fontFamily,
-                )),
+                  primaryColor: Colors.red),
+              dark: ThemeData(
+                brightness: Brightness.dark,
+                primarySwatch: Colors.red,
+                primaryColor: Colors.red,
+                fontFamily: GoogleFonts.muli().fontFamily,
+              ),
+              lightShadow: const ShadowTheme(
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
+              ),
+              darkShadow: const ShadowTheme(
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
+              ),
+            ),
             "dancing": FullTheme(
-                name: "Dancing",
-                light: ThemeData(
-                  primaryColor: const Color(0xfffbf3d4),
-                  accentColor: Colors.pinkAccent,
-                  fontFamily: GoogleFonts.merriweather().fontFamily,
-                ),
-                dark: ThemeData(
-                  brightness: Brightness.dark,
-                  primaryColor: const Color(0xfffbf3d4),
-                  accentColor: Colors.deepOrangeAccent,
-                  fontFamily: GoogleFonts.merriweather().fontFamily,
-                )),
+              name: "Dancing",
+              light: ThemeData(
+                primaryColor: const Color(0xfffbf3d4),
+                accentColor: Colors.pinkAccent,
+                fontFamily: GoogleFonts.merriweather().fontFamily,
+              ),
+              dark: ThemeData(
+                brightness: Brightness.dark,
+                primaryColor: const Color(0xfffbf3d4),
+                accentColor: Colors.deepOrangeAccent,
+                fontFamily: GoogleFonts.merriweather().fontFamily,
+              ),
+              lightShadow: const ShadowTheme(
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
+              ),
+              darkShadow: const ShadowTheme(
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
+              ),
+            ),
             "lavender": FullTheme(
-                name: "Lavender",
-                light: ThemeData(
-                  primaryColor: Colors.deepPurple,
-                  accentColor: Colors.deepPurpleAccent,
-                  fontFamily: GoogleFonts.merriweather().fontFamily,
-                ),
-                dark: ThemeData(
-                  brightness: Brightness.dark,
-                  primaryColor: Colors.deepPurple,
-                  accentColor: Colors.deepPurpleAccent,
-                  fontFamily: GoogleFonts.merriweather().fontFamily,
-                )),
+              name: "Lavender",
+              light: ThemeData(
+                primaryColor: Colors.deepPurple,
+                accentColor: Colors.deepPurpleAccent,
+                fontFamily: GoogleFonts.merriweather().fontFamily,
+              ),
+              dark: ThemeData(
+                brightness: Brightness.dark,
+                primaryColor: Colors.deepPurple,
+                accentColor: Colors.deepPurpleAccent,
+                fontFamily: GoogleFonts.merriweather().fontFamily,
+              ),
+              lightShadow: const ShadowTheme(
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
+              ),
+              darkShadow: const ShadowTheme(
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
+              ),
+            ),
           }),
         );
     final prefs = await SharedPreferences.getInstance();
@@ -99,15 +124,13 @@ class _LoadingPageState extends State<LoadingPage> {
     await context.read(storeProvider).loadFromPreferences(prefs: prefs);
     await prefs.setBool("hasAlreadySeenTuto", null);
     if (prefs.getBool("hasAlreadySeenTuto") == null) {
-      await Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => Tuto()));
+      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => Tuto()));
 
       await prefs.setBool("hasAlreadySeenTuto", true);
     }
 
     await Future.delayed(const Duration(milliseconds: 500));
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
 
     await context.read(quickActions).init();
   }

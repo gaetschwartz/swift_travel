@@ -7,6 +7,7 @@ import 'package:swiss_travel/tabs/routes/details/route_details.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/cff_icon.dart';
 import 'package:swiss_travel/widget/line_icon.dart';
+import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 class RouteTile extends StatelessWidget {
   const RouteTile({
@@ -45,9 +46,7 @@ class RouteTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          boxShadow: const [
-            BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8))
-          ],
+          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
           color: Theme.of(context).cardColor,
           borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),

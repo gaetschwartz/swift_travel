@@ -19,6 +19,7 @@ import 'package:swiss_travel/models/route_states.dart';
 import 'package:swiss_travel/tabs/routes/route_tile.dart';
 import 'package:swiss_travel/tabs/routes/suggested.dart';
 import 'package:swiss_travel/utils/complete.dart';
+import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 
 final _isLocating = StateProvider((_) => false);
@@ -260,9 +261,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
             children: [
               Center(
                 child: DecoratedBox(
-                  decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8))
-                  ]),
+                  decoration:
+                      BoxDecoration(boxShadow: [DynamicTheme.shadowOf(context).buttonShadow]),
                   child: FlatButton.icon(
                     padding: const EdgeInsets.symmetric(horizontal: 48),
                     height: 48,
