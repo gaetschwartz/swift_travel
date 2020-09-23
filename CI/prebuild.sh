@@ -16,5 +16,5 @@ echo "=== build.dart ==="
 cat lib/utils/build.dart
 echo "=================="
 cd $BITRISE_SOURCE_DIR/ios
-sudo gem install cocapods
+sudo gem install cocoapods
 pod deintegrate
