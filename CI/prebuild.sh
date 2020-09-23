@@ -15,4 +15,5 @@ EOM
 echo "=== build.dart ==="
 cat lib/utils/build.dart
 echo "=================="
+cd $BITRISE_SOURCE_DIR/ios
 pod deintegrate
