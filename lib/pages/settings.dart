@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/utils/build.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:utils/blocs/theme_riverpod.dart';
+import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 
 class Settings extends StatelessWidget {
