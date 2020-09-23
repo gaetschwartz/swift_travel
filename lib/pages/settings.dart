@@ -26,7 +26,7 @@ class Settings extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            const _SectionTitle(title: Text("Options")),
+            const _SectionTitle(title: Text("Themes")),
             Consumer(builder: (context, w, _) {
               final theme = w(dynamicTheme);
               return Column(
@@ -58,22 +58,70 @@ class Settings extends StatelessWidget {
                 ],
               );
             }),
-            Consumer(builder: (context, w, _) {
-              final theme = w(dynamicTheme);
-              return ListTile(
-                title: const Text("Theme"),
-                trailing: DropdownButton<String>(
-                  value: theme.name,
-                  items: theme.configuration.themes.keys
-                      .map((m) => DropdownMenuItem<String>(
-                            value: m,
-                            child: Text(theme.configuration.themes[m].name),
-                          ))
-                      .toList(),
-                  onChanged: (n) => theme.name = n,
-                ),
-              );
-            }),
+            SizedBox(
+              height: 250,
+              child: Consumer(builder: (context, w, _) {
+                final theme = w(dynamicTheme);
+                final list = theme.configuration.themes.entries.toList();
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: list.length,
+                  itemBuilder: (context, i) {
+                    final FullTheme ft = list[i].value;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24),
+                      child: SizedBox(
+                        width: 160,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                              color: Theme.of(context).cardColor,
+                              border: ft == theme.theme
+                                  ? Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).accentColor,
+                                    )
+                                  : null,
+                              borderRadius: const BorderRadius.all(Radius.circular(16))),
+                          child: InkWell(
+                            onTap: () {
+                              theme.name = list[i].key;
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          buildColorRow(ft.light),
+                                          buildColorRow(ft.dark),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Text(ft.name,
+                                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                          fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
+                                  const SizedBox(height: 8),
+                                  Text(ft.description,
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                          fontSize: 12,
+                                          fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
+            ),
             if (!kReleaseMode || Platform.isIOS)
               Consumer(builder: (context, w, _) {
                 final maps = w(mapsAppProvider);
@@ -161,6 +209,59 @@ class Settings extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  Widget buildColorRow(ThemeData d) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxHeight: 40),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: SizedBox.expand(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: d.primaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: SizedBox.expand(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: d.accentColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: SizedBox.expand(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: d.backgroundColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void onMapsChanged(PreferencesBloc maps, Maps m) {

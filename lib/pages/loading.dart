@@ -53,7 +53,8 @@ class _LoadingPageState extends State<LoadingPage> {
     await context.read(dynamicTheme).configure(
           ThemeConfiguration({
             "default": FullTheme(
-              name: "Default theme",
+              name: "Swiss Travel",
+              description: "The default theme.",
               light: ThemeData(
                   primarySwatch: Colors.red,
                   fontFamily: GoogleFonts.muli().fontFamily,
@@ -73,17 +74,18 @@ class _LoadingPageState extends State<LoadingPage> {
                     BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
               ),
             ),
-            "dancing": FullTheme(
-              name: "Dancing",
+            "lavender": FullTheme(
+              name: "Lavender",
+              description: "We all love lavender.",
               light: ThemeData(
-                primaryColor: const Color(0xfffbf3d4),
-                accentColor: Colors.pinkAccent,
+                primaryColor: Colors.deepPurple,
+                accentColor: Colors.deepPurpleAccent,
                 fontFamily: GoogleFonts.merriweather().fontFamily,
               ),
               dark: ThemeData(
                 brightness: Brightness.dark,
-                primaryColor: const Color(0xfffbf3d4),
-                accentColor: Colors.deepOrangeAccent,
+                primaryColor: Colors.deepPurple,
+                accentColor: Colors.deepPurpleAccent,
                 fontFamily: GoogleFonts.merriweather().fontFamily,
               ),
               lightShadow: const ShadowTheme(
@@ -95,17 +97,18 @@ class _LoadingPageState extends State<LoadingPage> {
                     BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
               ),
             ),
-            "lavender": FullTheme(
-              name: "Lavender",
+            "dancing": FullTheme(
+              name: "Dancing",
+              description: "A little dance ?",
               light: ThemeData(
-                primaryColor: Colors.deepPurple,
-                accentColor: Colors.deepPurpleAccent,
+                primaryColor: const Color(0xfffbf3d4),
+                accentColor: Colors.pinkAccent,
                 fontFamily: GoogleFonts.merriweather().fontFamily,
               ),
               dark: ThemeData(
                 brightness: Brightness.dark,
-                primaryColor: Colors.deepPurple,
-                accentColor: Colors.deepPurpleAccent,
+                primaryColor: const Color(0xfffbf3d4),
+                accentColor: Colors.deepOrangeAccent,
                 fontFamily: GoogleFonts.merriweather().fontFamily,
               ),
               lightShadow: const ShadowTheme(

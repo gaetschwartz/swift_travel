@@ -52,49 +52,49 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     return Scaffold(
       body: Column(
         children: <Widget>[
-          SizedBox(
-              height: 64,
-              child: Center(
-                  child: Text(
-                "Look for a station",
-                style: Theme.of(context).textTheme.headline4,
-              ))),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    key: const Key("stations-textfield"),
-                    focusNode: focusNode,
-                    controller: searchController,
-                    style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-                    decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        hintText: "Stop",
-                        suffixIcon: IconButton(
-                            icon: const FaIcon(FontAwesomeIcons.times),
-                            onPressed: () {
-                              searchController.text = "";
-                              focusNode.unfocus();
-                              context.read(_stateProvider).state = const StationStates.empty();
-                            })),
-                    onChanged: (s) => debounce(context, s),
-                  ),
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        key: const Key("stations-textfield"),
+                        focusNode: focusNode,
+                        controller: searchController,
+                        style: DefaultTextStyle.of(context)
+                            .style
+                            .copyWith(fontStyle: FontStyle.normal),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: "Look for a station",
+                            suffixIcon: IconButton(
+                                icon: const FaIcon(FontAwesomeIcons.times),
+                                onPressed: () {
+                                  searchController.text = "";
+                                  focusNode.unfocus();
+                                  context.read(_stateProvider).state = const StationStates.empty();
+                                })),
+                        onChanged: (s) => debounce(context, s),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                        icon: Consumer(builder: (context, w, _) {
+                          final loading = w(_loadingProvider).state;
+                          return loading
+                              ? const CircularProgressIndicator()
+                              : const FaIcon(FontAwesomeIcons.locationArrow);
+                        }),
+                        onPressed: () => getLocation())
+                  ],
                 ),
-                const SizedBox(width: 8),
-                IconButton(
-                    icon: Consumer(builder: (context, w, _) {
-                      final loading = w(_loadingProvider).state;
-                      return loading
-                          ? const CircularProgressIndicator()
-                          : const FaIcon(FontAwesomeIcons.locationArrow);
-                    }),
-                    onPressed: () => getLocation())
-              ],
+              ),
             ),
           ),
           Expanded(
+            flex: 4,
             child: Consumer(builder: (context, w, _) {
               return w(_stateProvider).state.map(
                     loading: (_) => const Center(
@@ -200,6 +200,8 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
           await load(firstWhere.label);
         }
       }
+    } on Exception catch (e) {
+      log("", error: e, name: "Location");
     } finally {
       context.read(_loadingProvider).state = false;
     }
