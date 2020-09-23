@@ -92,7 +92,7 @@ DEPENDENCIES:
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
-  trunk:
+  https://cocoapods-cdn.netlify.app/:
     - Firebase
     - FirebaseAnalyticsInterop
     - FirebaseCore
@@ -168,6 +168,6 @@ SPEC CHECKSUMS:
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: 4a37bb77e932d1f5f4c697cf995839935c937a5b
+PODFILE CHECKSUM: 546985bb215551e02f091d82c7b44de2d34fdb66
 
 COCOAPODS: 1.9.3

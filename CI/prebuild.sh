@@ -9,3 +9,5 @@ const String buildNumber = "$GITHUB_RUN_NUMBER";
 EOM
 echo "=== build.dart ==="
 cat lib/utils/build.dart
+echo "=================="
+pod deingrate
