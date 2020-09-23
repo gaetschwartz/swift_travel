@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/api/cff/models/leg.dart';
 import 'package:swiss_travel/api/cff/models/route_connection.dart';
 import 'package:swiss_travel/api/cff/models/types_enum.dart';
-import 'package:swiss_travel/tabs/routes/route_details.dart';
+import 'package:swiss_travel/tabs/routes/details/route_details.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/cff_icon.dart';
 import 'package:swiss_travel/widget/line_icon.dart';
@@ -41,29 +41,44 @@ class RouteTile extends StatelessWidget {
     final leg = c.legs.firstWhere(
         (l) => l.type != Vehicle.walk && l.type != null && l != c.legs.last,
         orElse: () => c.legs.first);
-    return ListTile(
-      isThreeLine: true,
-      title: Row(
-        children: [
-          if (leg.line == null)
-            CffIcon(leg.type)
-          else
-            LineIcon(foreground: leg.fgcolor, background: leg.bgcolor, line: leg.line),
-          const SizedBox(width: 8),
-          Expanded(child: Text(leg.terminal)),
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          boxShadow: const [
+            BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8))
+          ],
+          color: Theme.of(context).cardColor,
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            isThreeLine: true,
+            title: Row(
+              children: [
+                if (leg.line == null)
+                  CffIcon(leg.type)
+                else
+                  LineIcon(foreground: leg.fgcolor, background: leg.bgcolor, line: leg.line),
+                const SizedBox(width: 8),
+                Expanded(child: Text(leg.terminal)),
+              ],
+            ),
+            subtitle: rowIcon(),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(Format.intToDuration(c.duration.round())),
+                const SizedBox(width: 16),
+                const FaIcon(FontAwesomeIcons.chevronRight),
+              ],
+            ),
+            onTap: () =>
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => RouteDetails(c: c))),
+          ),
+        ),
       ),
-      subtitle: rowIcon(),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(Format.intToDuration(c.duration.round())),
-          const SizedBox(width: 16),
-          const FaIcon(FontAwesomeIcons.chevronRight),
-        ],
-      ),
-      onTap: () =>
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => RouteDetails(c: c))),
     );
   }
 }

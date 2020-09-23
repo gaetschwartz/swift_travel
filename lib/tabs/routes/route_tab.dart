@@ -328,11 +328,12 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                   )),
             ],
           ),
+          const SizedBox(height: 8),
           Expanded(
             child: Consumer(
                 builder: (context, w, _) => w(_routesProvider).state.map(
-                      routes: (data) => ListView.separated(
-                          separatorBuilder: (c, i) => const Divider(),
+                      routes: (data) => ListView.builder(
+                          // separatorBuilder: (c, i) => const Divider(height: 0),
                           shrinkWrap: true,
                           itemCount: data.routes == null ? 0 : data.routes.connections.length,
                           itemBuilder: (context, i) => RouteTile(c: data.routes.connections[i])),

@@ -11,9 +11,10 @@ import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/station_states.dart';
-import 'package:swiss_travel/tabs/stations/stop_details.dart';
 import 'package:swiss_travel/utils/complete.dart';
 import 'package:swiss_travel/widget/cff_icon.dart';
+
+import 'completion_tile.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 final _loadingProvider = StateProvider((_) => false);
@@ -98,9 +99,8 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                     loading: (_) => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    completions: (c) => ListView.separated(
+                    completions: (c) => ListView.builder(
                       itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
-                      separatorBuilder: (context, i) => const Divider(),
                       itemCount: c.completions == null ? 0 : c.completions.length,
                     ),
                     empty: (_) => Consumer(
@@ -120,12 +120,9 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                                         ),
                                       ],
                                     )
-                                  : ListView.separated(
-                                      itemBuilder: (context, i) => CffCompletionTile(
-                                        c.completions[i],
-                                        isFav: true,
-                                      ),
-                                      separatorBuilder: (context, i) => const Divider(),
+                                  : ListView.builder(
+                                      itemBuilder: (context, i) =>
+                                          CffCompletionTile(c.completions[i], isFav: true),
                                       itemCount: c.completions == null ? 0 : c.completions.length,
                                     ),
                               loading: (_) => const Center(
@@ -219,40 +216,5 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       context.read(_stateProvider).state = StationStates.exception(e);
       FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
     }
-  }
-}
-
-class CffCompletionTile extends StatelessWidget {
-  const CffCompletionTile(
-    this.sugg, {
-    Key key,
-    this.isFav = false,
-  }) : super(key: key);
-
-  final CffCompletion sugg;
-  final bool isFav;
-
-  @override
-  Widget build(BuildContext context) {
-    final isPrivate = CffIcon.isPrivate(sugg.iconclass);
-    if (sugg.label == null) log(sugg.toString());
-    return ListTile(
-      leading: CffIcon.fromIconClass(sugg.iconclass),
-      title: Text(sugg.label ?? "???"),
-      dense: true,
-      subtitle: isFav || sugg.isFavorite ? const Text("Favorite") : null,
-      trailing: isPrivate ? null : const Icon(Icons.arrow_forward_ios),
-      onTap: isPrivate
-          ? null
-          : () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => DetailsStop(
-                    stopName: sugg.label,
-                  ),
-                ),
-              );
-            },
-    );
   }
 }
