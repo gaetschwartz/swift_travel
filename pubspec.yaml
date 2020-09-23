@@ -33,8 +33,9 @@ dependencies:
   introduction_screen: ^1.0.9
 
 dev_dependencies:
-  flutter_test:
+  flutter_driver:
     sdk: flutter
+  test: any
   lint: ^1.1.1
   freezed: ^0.12.0
   build_runner: ^1.10.2
@@ -44,4 +45,3 @@ flutter:
   uses-material-design: true
   assets:
     - "assets/"
-

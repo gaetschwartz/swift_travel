@@ -15,27 +15,25 @@ Future<void> main() async {
   await Firebase.initializeApp();
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runZonedGuarded<Future<void>>(
-      () async => runApp(MyApp()), FirebaseCrashlytics.instance.recordError);
+      () async => runApp(ProviderScope(child: MyApp())), FirebaseCrashlytics.instance.recordError);
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: Consumer(builder: (context, w, _) {
-        final theme = w(dynamicTheme);
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: navigatorKey,
-          title: 'Swiss Travel',
-          builder: (context, child) => _Unfocus(child: child),
-          theme: theme.light,
-          darkTheme: theme.dark,
-          themeMode: theme.mode,
-          home: LoadingPage(),
-        );
-      }),
-    );
+    return Consumer(builder: (context, w, _) {
+      final theme = w(dynamicTheme);
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
+        title: 'Swiss Travel',
+        builder: (context, child) => _Unfocus(child: child),
+        theme: theme.light,
+        darkTheme: theme.dark,
+        themeMode: theme.mode,
+        home: LoadingPage(),
+      );
+    });
   }
 }
 

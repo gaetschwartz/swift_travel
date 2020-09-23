@@ -37,9 +37,18 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         bottom: TabBar(
           controller: _controller,
           tabs: const [
-            Tab(icon: FaIcon(FontAwesomeIcons.search)),
-            Tab(icon: FaIcon(FontAwesomeIcons.route)),
-            Tab(icon: FaIcon(FontAwesomeIcons.solidStar)),
+            Tab(
+              icon: FaIcon(FontAwesomeIcons.search),
+              key: ValueKey("search-tab-key"),
+            ),
+            Tab(
+              icon: FaIcon(FontAwesomeIcons.route),
+              key: ValueKey("route-tab-key"),
+            ),
+            Tab(
+              icon: FaIcon(FontAwesomeIcons.solidStar),
+              key: ValueKey("favs-tab-key"),
+            ),
           ],
         ),
         actions: [

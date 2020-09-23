@@ -34,10 +34,10 @@ class SearchRoute extends StatefulWidget {
 
   const SearchRoute({Key key, this.localRoute, this.destination}) : super(key: key);
   @override
-  _SearchRouteState createState() => _SearchRouteState();
+  SearchRouteState createState() => SearchRouteState();
 }
 
-class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
+class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
   final FocusNode fnFrom = FocusNode();
@@ -100,6 +100,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               children: [
                 Expanded(
                   child: TypeAheadField<CffCompletion>(
+                    key: const ValueKey("route-first-textfield-key"),
                     debounceDuration: const Duration(milliseconds: 500),
                     textFieldConfiguration: TextFieldConfiguration(
                         focusNode: fnFrom,
@@ -141,6 +142,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               children: [
                 Expanded(
                   child: TypeAheadField<CffCompletion>(
+                    key: const ValueKey("route-second-textfield-key"),
                     debounceDuration: const Duration(milliseconds: 500),
                     textFieldConfiguration: TextFieldConfiguration(
                         textInputAction: TextInputAction.search,
@@ -264,6 +266,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                   decoration:
                       BoxDecoration(boxShadow: [DynamicTheme.shadowOf(context).buttonShadow]),
                   child: FlatButton.icon(
+                    key: const ValueKey("search-route"),
                     padding: const EdgeInsets.symmetric(horizontal: 48),
                     height: 48,
                     highlightColor: const Color(0x260700b1),

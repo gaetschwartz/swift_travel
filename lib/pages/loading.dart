@@ -68,16 +68,12 @@ class _LoadingPageState extends State<LoadingPage> {
                 fontFamily: GoogleFonts.muli().fontFamily,
               ),
               lightShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x260700b1),
-                    offset: Offset(0, 8)),
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
               ),
               darkShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x4C000000),
-                    offset: Offset(0, 8)),
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
               ),
             ),
             "dancing": FullTheme(
@@ -94,16 +90,12 @@ class _LoadingPageState extends State<LoadingPage> {
                 fontFamily: GoogleFonts.merriweather().fontFamily,
               ),
               lightShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x260700b1),
-                    offset: Offset(0, 8)),
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
               ),
               darkShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x4C000000),
-                    offset: Offset(0, 8)),
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
               ),
             ),
             "lavender": FullTheme(
@@ -120,16 +112,12 @@ class _LoadingPageState extends State<LoadingPage> {
                 fontFamily: GoogleFonts.merriweather().fontFamily,
               ),
               lightShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x260700b1),
-                    offset: Offset(0, 8)),
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
               ),
               darkShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x4C000000),
-                    offset: Offset(0, 8)),
+                buttonShadow:
+                    BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
               ),
             ),
           }),
@@ -137,17 +125,14 @@ class _LoadingPageState extends State<LoadingPage> {
     final prefs = await SharedPreferences.getInstance();
     await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
     await context.read(storeProvider).loadFromPreferences(prefs: prefs);
-    if (kDebugMode) await prefs.setBool("hasAlreadySeenTuto", null);
-    if (prefs.getBool("hasAlreadySeenTuto") == null) {
-      await Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => Tuto()));
+    if (kDebugMode || prefs.getBool("hasAlreadySeenTuto") != true) {
+      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => Tuto()));
 
       await prefs.setBool("hasAlreadySeenTuto", true);
     }
 
     await Future.delayed(const Duration(milliseconds: 500));
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
 
     await context.read(quickActions).init();
   }
