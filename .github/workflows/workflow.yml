@@ -54,7 +54,7 @@ jobs:
         run: |
           echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=nbr::$(git rev-list --count $(git rev-parse --abbrev-ref HEAD))"
+          echo "::set-output name=nbr::$(git rev-list --count origin/$(git rev-parse --abbrev-ref HEAD))"
       - name: Build
         run: flutter build apk --build-number ${{ steps.git-data.outputs.nbr }}
       - name: Create Release

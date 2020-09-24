@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math' show min;
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -43,70 +44,7 @@ class Settings extends StatelessWidget {
               }),
             ),
             const _SectionTitle(title: Text("Themes")),
-            SizedBox(
-              height: 250,
-              child: Consumer(builder: (context, w, _) {
-                final theme = w(dynamicTheme);
-                final list = theme.configuration.themes.entries.toList();
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: list.length,
-                  itemBuilder: (context, i) {
-                    final FullTheme ft = list[i].value;
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 24),
-                      child: SizedBox(
-                        width: 160,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                              boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
-                              color: Theme.of(context).cardColor,
-                              border: ft == theme.theme
-                                  ? Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).accentColor,
-                                    )
-                                  : null,
-                              borderRadius: const BorderRadius.all(Radius.circular(16))),
-                          child: InkWell(
-                            onTap: () {
-                              theme.name = list[i].key;
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          buildColorRow(ft.light),
-                                          buildColorRow(ft.dark),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Text(ft.name,
-                                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                          fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
-                                  const SizedBox(height: 8),
-                                  Text(ft.description,
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                          fontSize: 12,
-                                          fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }),
-            ),
+            const _ThemesSection(),
             if (!kReleaseMode || Platform.isIOS)
               Consumer(builder: (context, w, _) {
                 final maps = w(mapsAppProvider);
@@ -136,14 +74,14 @@ class Settings extends StatelessWidget {
             ),
             const _SectionTitle(title: Text("More")),
             ListTile(
-              leading: const FaIcon(FontAwesomeIcons.users),
+              leading: const Icon(FontAwesomeIcons.users),
               title: const Text("The team"),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage()));
               },
             ),
             ListTile(
-              leading: const FaIcon(FontAwesomeIcons.fileCode),
+              leading: const Icon(FontAwesomeIcons.fileCode),
               title: const Text("Open source"),
               onTap: () => showLicensePage(context: context, applicationIcon: const FlutterLogo()),
             ),
@@ -196,6 +134,106 @@ class Settings extends StatelessWidget {
         ));
   }
 
+  void onMapsChanged(PreferencesBloc maps, Maps m) {
+    maps.mapsApp = m;
+  }
+}
+
+class _ThemesSection extends StatefulWidget {
+  const _ThemesSection({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  __ThemesSectionState createState() => __ThemesSectionState();
+}
+
+class __ThemesSectionState extends State<_ThemesSection> {
+  final ScrollController _controller = ScrollController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 250,
+          child: Consumer(builder: (context, w, _) {
+            final theme = w(dynamicTheme);
+            final list = theme.configuration.themes.entries.toList();
+            return ListView.builder(
+              controller: _controller,
+              scrollDirection: Axis.horizontal,
+              itemCount: list.length,
+              itemBuilder: (context, i) {
+                final FullTheme ft = list[i].value;
+                return Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 24),
+                  child: SizedBox(
+                    width: 160,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                          color: Theme.of(context).cardColor,
+                          border: ft == theme.theme
+                              ? Border.all(
+                                  width: 2,
+                                  color: Theme.of(context).accentColor,
+                                )
+                              : null,
+                          borderRadius: const BorderRadius.all(Radius.circular(16))),
+                      child: InkWell(
+                        onTap: () {
+                          theme.name = list[i].key;
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      buildColorRow(ft.light),
+                                      buildColorRow(ft.dark),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Text(ft.name,
+                                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                      fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
+                              const SizedBox(height: 8),
+                              Text(ft.description,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                      fontSize: 12,
+                                      fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: _ScrollProgress(controller: _controller),
+        ),
+      ],
+    );
+  }
+
   Widget buildColorRow(ThemeData d) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -236,7 +274,7 @@ class Settings extends StatelessWidget {
                 child: SizedBox.expand(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: d.backgroundColor,
+                      color: d.cardColor,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -248,9 +286,44 @@ class Settings extends StatelessWidget {
       ),
     );
   }
+}
 
-  void onMapsChanged(PreferencesBloc maps, Maps m) {
-    maps.mapsApp = m;
+class _ScrollProgress extends StatefulWidget {
+  const _ScrollProgress({
+    Key key,
+    @required ScrollController controller,
+  })  : _controller = controller,
+        super(key: key);
+
+  final ScrollController _controller;
+
+  @override
+  __ScrollProgressState createState() => __ScrollProgressState();
+}
+
+class __ScrollProgressState extends State<_ScrollProgress> {
+  double _progress = 0;
+
+  void update() {
+    if (mounted) {
+      final __progress =
+          widget._controller.position.pixels / widget._controller.position.maxScrollExtent;
+      setState(() {
+        _progress = min(1, __progress);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget._controller.addListener(update);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LinearProgressIndicator(value: _progress);
   }
 }
 
