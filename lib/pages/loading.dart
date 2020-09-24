@@ -4,12 +4,12 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/blocs/quick_actions.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/pages/tuto.dart';
+import 'package:swiss_travel/utils/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 import 'home_page.dart';
@@ -50,78 +50,7 @@ class _LoadingPageState extends State<LoadingPage> {
       await FirebaseCrashlytics.instance.log("Loading page");
     }
 
-    await context.read(dynamicTheme).configure(
-          ThemeConfiguration({
-            "default": FullTheme(
-              name: "Swiss Travel",
-              description: "The default theme.",
-              light: ThemeData(
-                  primarySwatch: Colors.red,
-                  fontFamily: GoogleFonts.muli().fontFamily,
-                  primaryColor: Colors.red),
-              dark: ThemeData(
-                brightness: Brightness.dark,
-                primarySwatch: Colors.red,
-                primaryColor: Colors.red,
-                fontFamily: GoogleFonts.muli().fontFamily,
-              ),
-              lightShadow: const ShadowTheme(
-                buttonShadow:
-                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-              ),
-              darkShadow: const ShadowTheme(
-                buttonShadow:
-                    BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-              ),
-            ),
-            "lavender": FullTheme(
-              name: "Lavender",
-              description: "We all love lavender.",
-              light: ThemeData(
-                primaryColor: Colors.deepPurple,
-                accentColor: Colors.deepPurpleAccent,
-                fontFamily: GoogleFonts.merriweather().fontFamily,
-              ),
-              dark: ThemeData(
-                brightness: Brightness.dark,
-                primaryColor: Colors.deepPurple,
-                accentColor: Colors.deepPurpleAccent,
-                fontFamily: GoogleFonts.merriweather().fontFamily,
-              ),
-              lightShadow: const ShadowTheme(
-                buttonShadow:
-                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-              ),
-              darkShadow: const ShadowTheme(
-                buttonShadow:
-                    BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-              ),
-            ),
-            "dancing": FullTheme(
-              name: "Dancing",
-              description: "A little dance ?",
-              light: ThemeData(
-                primaryColor: const Color(0xfffbf3d4),
-                accentColor: Colors.pinkAccent,
-                fontFamily: GoogleFonts.merriweather().fontFamily,
-              ),
-              dark: ThemeData(
-                brightness: Brightness.dark,
-                primaryColor: const Color(0xfffbf3d4),
-                accentColor: Colors.deepOrangeAccent,
-                fontFamily: GoogleFonts.merriweather().fontFamily,
-              ),
-              lightShadow: const ShadowTheme(
-                buttonShadow:
-                    BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-              ),
-              darkShadow: const ShadowTheme(
-                buttonShadow:
-                    BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-              ),
-            ),
-          }),
-        );
+    await context.read(dynamicTheme).configure(themeConfiguration);
     final prefs = await SharedPreferences.getInstance();
     await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
     await context.read(storeProvider).loadFromPreferences(prefs: prefs);
