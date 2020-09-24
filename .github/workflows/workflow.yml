@@ -27,8 +27,9 @@ jobs:
         run: |
           echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=nbr::$(git rev-list --count HEAD)"
-          git rev-list HEAD
+          count=$(git rev-list --count HEAD)
+          echo "::set-output name=nbr::${count}"
+          echo ${count}
       - name: Clone dependencies
         run: git clone https://Blaxou:${{ secrets.ACCESS_TOKEN }}@github.com/Blaxou/utils.git
         working-directory: ../
