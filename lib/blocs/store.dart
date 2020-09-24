@@ -13,20 +13,19 @@ import 'package:swiss_travel/models/favorites_routes_states.dart';
 import 'package:swiss_travel/models/favorites_states.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
-  Future<List<CffCompletion>> loadFromPreferences(
-      {SharedPreferences prefs, bool notify = true});
+  Future<List<CffCompletion>> loadFromPreferences({SharedPreferences prefs, bool notify = true});
   Future<void> addFavorite(CffCompletion completion);
   Future<void> deleteFavorite(CffCompletion completion);
   Future<void> addRoute(LocalRoute route);
   Future<void> removeRoute(LocalRoute route);
 }
 
-final storeProvider = ChangeNotifierProvider<FavoritesStoreBase>(
-    (r) => FavoritesSharedPreferencesStore(r));
+final storeProvider =
+    ChangeNotifierProvider<FavoritesStoreBase>((r) => FavoritesSharedPreferencesStore(r));
 final favoritesStatesProvider =
     StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());
-final favoritesRoutesStatesProvider = StateProvider<FavoritesRoutesStates>(
-    (_) => const FavoritesRoutesStates.loading());
+final favoritesRoutesStatesProvider =
+    StateProvider<FavoritesRoutesStates>((_) => const FavoritesRoutesStates.loading());
 
 class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   static const stopsKey = "favoritesStop";
@@ -49,8 +48,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   Map<String, CffCompletion> get cache => _cache;
 
-  Iterable<CffCompletion> get favorites =>
-      _favs.map((e) => _cache[e]).where((e) => e != null);
+  Iterable<CffCompletion> get favorites => _favs.map((e) => _cache[e]).where((e) => e != null);
 
   @override
   Future<List<CffCompletion>> loadFromPreferences(
@@ -69,8 +67,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     for (final l in favsIds) {
       if (_cache[l] == null) {
         log("Fetching $l because it's not in the cache");
-        final List<CffCompletion> c =
-            await ref.read(cffProvider).complete(l, showIds: true);
+        final List<CffCompletion> c = await ref.read(cffProvider).complete(l, showIds: true);
         _cache[l] = c.first;
       }
       lComp.add(_cache[l]);
@@ -88,15 +85,13 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         final decode = await Future.microtask(() => jsonDecode(spr));
         final r = LocalRoute.fromJson(decode as Map<String, dynamic>);
         _routes.add(r);
-      } on Exception catch (e) {
+      } on Exception catch (e, s) {
         log("Error while trying to decode $spr", error: e, name: "Store");
-        FirebaseCrashlytics.instance
-            .recordError(e, StackTrace.current, printDetails: true);
+        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       }
     }
 
-    ref.read(favoritesRoutesStatesProvider).state =
-        FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
 
     if (notify) {
       await sync();
@@ -108,16 +103,14 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   Future<void> addRoute(LocalRoute route) async {
     _routes.add(route);
 
-    ref.read(favoritesRoutesStatesProvider).state =
-        FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
     await sync();
   }
 
   @override
   Future<void> removeRoute(LocalRoute route) async {
     _routes.remove(route);
-    ref.read(favoritesRoutesStatesProvider).state =
-        FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
     await sync();
   }
 
@@ -131,11 +124,9 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       _cache[value] = completion;
       log("Added $completion", name: "Store");
     } else {
-      log("Completion couldn't be added because label and id was null",
-          name: "Store");
+      log("Completion couldn't be added because label and id was null", name: "Store");
     }
-    ref.read(favoritesStatesProvider).state =
-        FavoritesStates.data(favorites.toList());
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(favorites.toList());
     await sync();
   }
 
@@ -148,17 +139,14 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     for (final e in _routes) {
       try {
         routes.add(await Future.microtask(() => jsonEncode(e.toJson())));
-      } on Exception catch (e) {
+      } on Exception catch (e, s) {
         log("Error while trying to encode $e", error: e, name: "Store");
-        FirebaseCrashlytics.instance
-            .recordError(e, StackTrace.current, printDetails: true);
+        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       }
     }
 
     await _prefs.setStringList(routesKey, routes);
-    await ref
-        .read(quickActions)
-        .setActions(_routes.toList(), favorites.toList());
+    await ref.read(quickActions).setActions(_routes.toList(), favorites.toList());
   }
 
   @override
@@ -168,8 +156,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     if (!_favs.remove(completion.id) && !_favs.remove(completion.label)) {
       log("$completion was not in favorites ?", name: "Store");
     }
-    ref.read(favoritesStatesProvider).state =
-        FavoritesStates.data(favorites.toList());
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(favorites.toList());
     await sync();
   }
 }

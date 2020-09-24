@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -26,38 +27,22 @@ class Settings extends StatelessWidget {
         ),
         body: ListView(
           children: [
+            const _SectionTitle(title: Text("Brightness")),
+            SizedBox(
+              height: 100,
+              child: Consumer(builder: (context, w, _) {
+                final theme = w(dynamicTheme);
+                return ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    _ModeWidget(theme: theme, label: 'Light', mode: ThemeMode.light),
+                    _ModeWidget(theme: theme, label: 'Dark', mode: ThemeMode.dark),
+                    _ModeWidget(theme: theme, label: 'System', mode: ThemeMode.system),
+                  ],
+                );
+              }),
+            ),
             const _SectionTitle(title: Text("Themes")),
-            Consumer(builder: (context, w, _) {
-              final theme = w(dynamicTheme);
-              return Column(
-                children: [
-                  const ListTile(
-                    title: Text("Mode"),
-                    dense: true,
-                  ),
-                  RadioListTile<ThemeMode>(
-                      key: const Key("light"),
-                      dense: true,
-                      title: const Text("Light mode"),
-                      value: ThemeMode.light,
-                      groupValue: theme.mode,
-                      onChanged: (mode) => theme.mode = mode),
-                  RadioListTile<ThemeMode>(
-                      key: const Key("dark"),
-                      dense: true,
-                      title: const Text("Dark mode"),
-                      value: ThemeMode.dark,
-                      groupValue: theme.mode,
-                      onChanged: (mode) => theme.mode = mode),
-                  RadioListTile<ThemeMode>(
-                      dense: true,
-                      title: const Text("System mode"),
-                      value: ThemeMode.system,
-                      groupValue: theme.mode,
-                      onChanged: (mode) => theme.mode = mode),
-                ],
-              );
-            }),
             SizedBox(
               height: 250,
               child: Consumer(builder: (context, w, _) {
@@ -69,7 +54,7 @@ class Settings extends StatelessWidget {
                   itemBuilder: (context, i) {
                     final FullTheme ft = list[i].value;
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24),
+                      padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 24),
                       child: SizedBox(
                         width: 160,
                         child: DecoratedBox(
@@ -267,6 +252,128 @@ class Settings extends StatelessWidget {
   void onMapsChanged(PreferencesBloc maps, Maps m) {
     maps.mapsApp = m;
   }
+}
+
+class _ModeWidget extends StatelessWidget {
+  const _ModeWidget({
+    Key key,
+    @required this.theme,
+    @required this.mode,
+    @required this.label,
+  }) : super(key: key);
+
+  final DynamicTheme theme;
+  final ThemeMode mode;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: DynamicTheme.resolve(context, mode, theme.theme),
+      child: Builder(builder: (context) {
+        final linearGradient =
+            LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
+          theme.theme.light.cardColor,
+          theme.theme.dark.cardColor,
+        ], stops: const [
+          0.5,
+          0.5
+        ]);
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: InkWell(
+            onTap: () => theme.mode = mode,
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                key: Key("mode-$label"),
+                decoration: BoxDecoration(
+                    boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                    color: mode == ThemeMode.system ? null : Theme.of(context).cardColor,
+                    border: theme.mode == mode
+                        ? Border.all(
+                            width: 2,
+                            color: Theme.of(context).accentColor,
+                          )
+                        : null,
+                    gradient: mode == ThemeMode.system ? linearGradient : null,
+                    borderRadius: const BorderRadius.all(Radius.circular(16))),
+                child: Center(
+                  child: mode == ThemeMode.system
+                      ? ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(4)),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                              child: Text(label,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(color: Colors.black)),
+                            ),
+                          ),
+                        )
+                      : buildText(context),
+                ),
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
+  Text buildText(BuildContext context) {
+    return Text(label, style: Theme.of(context).textTheme.headline6);
+  }
+}
+
+class DiagonalPainter extends CustomPainter {
+  final Color black;
+  final Color white;
+  final String label;
+
+  DiagonalPainter({this.label, this.black, this.white});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final lightP = Paint()..color = white;
+    final blackP = Paint()..color = black;
+
+    canvas.drawRect(Offset.zero & size, lightP);
+
+    final topLeft = size.topLeft(Offset.zero);
+    final bottomRight = size.bottomRight(Offset.zero);
+    final bottomLeft = size.bottomLeft(Offset.zero);
+    final p1 = Path();
+    p1.lineTo(bottomLeft.dx, bottomLeft.dy);
+    p1.lineTo(bottomRight.dx, bottomRight.dy);
+    p1.lineTo(topLeft.dx, topLeft.dy);
+
+    canvas.drawPath(p1, blackP);
+
+    const textStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 12,
+    );
+    final textSpan = TextSpan(
+      text: label,
+      style: textStyle,
+    );
+    final textPainter =
+        TextPainter(text: textSpan, textDirection: TextDirection.ltr, textAlign: TextAlign.center);
+    textPainter.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    final offset = size.center(Offset.zero);
+    textPainter.layout();
+    textPainter.paint(canvas, offset);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
 class TeamPage extends StatelessWidget {

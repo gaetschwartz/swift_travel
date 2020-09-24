@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
 import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/blocs/location.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/route_states.dart';
 import 'package:swiss_travel/tabs/routes/route_tile.dart';
@@ -400,7 +400,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
   Future<void> locate() async {
     context.read(_isLocating).state = true;
     try {
-      final p = await getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
+      final p = await context.read(locationProvider).getLocation(context: context);
 
       log("Position is : $p");
       final completions = await context.read(cffProvider).findStation(p.latitude, p.longitude);
@@ -435,9 +435,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
         context.read(_routesProvider).state = RouteStates.routes(it);
       } on SocketException {
         context.read(_routesProvider).state = const RouteStates.network();
-      } on Exception catch (e) {
+      } on Exception catch (e, s) {
         context.read(_routesProvider).state = RouteStates.exception(e);
-        FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
+        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       }
     }
   }
