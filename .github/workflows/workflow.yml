@@ -45,16 +45,17 @@ jobs:
       - name: Setup Flutter
         run: |
           flutter packages get
-      - name: Pre-build configuration
-        env:
-          TZ: Europe/Zurich
-        run: chmod +x CI/prebuild-github.sh && ./CI/prebuild-github.sh
       - name: Get hash
         id: git-data
         run: |
           echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=nbr::$(git rev-list --count origin/$(git rev-parse --abbrev-ref HEAD))"
+          echo "::set-output name=nbr::$(git rev-list --count HEAD)"
+      - name: Pre-build configuration
+        env:
+          TZ: Europe/Zurich
+          COMMIT_COUNT: ${{ steps.git-data.outputs.nbr }}
+        run: chmod +x CI/prebuild-github.sh && ./CI/prebuild-github.sh
       - name: Build
         run: flutter build apk --build-number ${{ steps.git-data.outputs.nbr }}
       - name: Create Release
