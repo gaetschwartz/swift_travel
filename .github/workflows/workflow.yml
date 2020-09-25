@@ -61,7 +61,7 @@ jobs:
           COMMIT_COUNT: ${{ steps.git-data.outputs.nbr }}
         run: chmod +x CI/prebuild-github.sh && ./CI/prebuild-github.sh
       - name: Build
-        run: flutter build apk --build-number ${{ steps.git-data.outputs.nbr }}
+        run: flutter build apk -v --build-number ${{ steps.git-data.outputs.nbr }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
