@@ -63,6 +63,7 @@ jobs:
       - name: Test Build
         run: |
           cd android
+          ls
           ./gradlew assembleRelease --scan
       - name: Build
         run: flutter build apk -v --build-number ${{ steps.git-data.outputs.nbr }}
