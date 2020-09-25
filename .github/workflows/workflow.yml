@@ -7,7 +7,7 @@ on:
 
 env:
   flutter_channel: dev
-  java_version: 12.x
+  java_version: 8.x
   node_version: 12.x
   build_android: true
   flutter_build_args: ""
@@ -60,11 +60,6 @@ jobs:
           TZ: Europe/Zurich
           COMMIT_COUNT: ${{ steps.git-data.outputs.nbr }}
         run: chmod +x CI/prebuild-github.sh && ./CI/prebuild-github.sh
-      - name: Test Build
-        run: |
-          cd android
-          ls
-          ./gradlew assembleRelease --scan
       - name: Build
         run: flutter build apk -v --build-number ${{ steps.git-data.outputs.nbr }}
       - name: Create Release
