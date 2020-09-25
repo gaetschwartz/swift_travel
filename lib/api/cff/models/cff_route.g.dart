@@ -17,6 +17,7 @@ _$_CffRoute _$_$_CffRouteFromJson(Map<String, dynamic> json) {
                 : RouteConnection.fromJson(e as Map<String, dynamic>))
             ?.toList() ??
         [],
+    requestUrl: json['requestUrl'] as String,
   );
 }
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$_$_CffRouteToJson(_$_CffRoute instance) =>
       'min_duration': instance.minDuration,
       'max_duration': instance.maxDuration,
       'connections': instance.connections?.map((e) => e?.toJson())?.toList(),
+      'requestUrl': instance.requestUrl,
     };

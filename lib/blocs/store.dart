@@ -56,13 +56,13 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     log("Gettings favorites", name: "Store");
     if (notify) {
       ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
+      ref.read(favoritesRoutesStatesProvider).state = const FavoritesRoutesStates.loading();
     }
     _prefs = prefs ?? await SharedPreferences.getInstance();
 
     //? Stops
 
     final List<String> favsIds = _prefs.getStringList(stopsKey) ?? [];
-    if (_cache.length >= 50) _cache.clear();
     final List<CffCompletion> lComp = [];
     for (final l in favsIds) {
       if (_cache[l] == null) {

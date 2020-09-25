@@ -1,23 +1,52 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
+import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/leg.dart';
-import 'package:swiss_travel/api/cff/models/route_connection.dart';
 import 'package:swiss_travel/api/cff/models/types_enum.dart';
 import 'package:swiss_travel/tabs/routes/details/arrived_tile.dart';
 import 'package:swiss_travel/tabs/routes/details/regular_leg_tile.dart';
 import 'package:swiss_travel/tabs/routes/details/walking_tile.dart';
+import 'package:swiss_travel/utils/constants.dart';
 import 'package:swiss_travel/utils/format.dart';
 
 class RouteDetails extends StatelessWidget {
-  final RouteConnection c;
+  final CffRoute route;
+  final int i;
 
-  const RouteDetails({Key key, this.c}) : super(key: key);
+  const RouteDetails({
+    Key key,
+    @required this.route,
+    @required this.i,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final c = route.connections[i];
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(),
         title: Text(c.to),
+        actions: [
+          IconButton(
+              icon: Theme.of(context).platform == TargetPlatform.iOS
+                  ? const Icon(CupertinoIcons.share)
+                  : const Icon(Icons.share),
+              onPressed: () async {
+                final String requestUrl = route.requestUrl;
+                final Uri uri = Uri.parse(requestUrl);
+                final Map<String, String> params = Map.from(uri.queryParameters);
+                params["i"] = "$i";
+                final Uri sharedUri =
+                    Uri(scheme: urlScheme, host: "route", queryParameters: params);
+                log(sharedUri.toString());
+                Share.share(sharedUri.toString());
+              })
+        ],
       ),
       body: Column(
         children: <Widget>[
@@ -37,6 +66,18 @@ class RouteDetails extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void base64Experiment() {
+    final connection = route.connections[i];
+    final json = connection.toJson().toString();
+    log(json);
+    final bytes = ascii.encode(json);
+    final compressed = zlib.encode(bytes);
+    final compressed64 = base64.encode(compressed);
+    final raw64 = base64.encode(bytes);
+    log("compresssed : ${compressed64.length}, raw : ${raw64.length}");
+    log(compressed64);
   }
 
   Widget _dataRow(String key, String text) {

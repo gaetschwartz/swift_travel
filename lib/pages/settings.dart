@@ -103,10 +103,14 @@ class Settings extends StatelessWidget {
                 leading: const Icon(Icons.restore),
                 title: const Text("Reset settings"),
                 onTap: () async {
-                  final c = await confirm(context,
-                      title: const Text("Reset settings ?"),
-                      content: const Text("You will lose all of you favorites!"),
-                      isConfirmDestructive: true);
+                  final c = await confirm(
+                    context,
+                    title: const Text("Reset settings ?"),
+                    content: const Text("You will lose all of you favorites!"),
+                    isConfirmDestructive: true,
+                    confirm: const Text("Yes"),
+                    cancel: const Text("No"),
+                  );
                   if (c != true) return;
                   final prefs = await SharedPreferences.getInstance();
                   final b = await prefs.clear();

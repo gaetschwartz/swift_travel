@@ -11,12 +11,10 @@ import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/cff_stationboard.dart';
 import 'package:swiss_travel/api/cff/models/stop.dart';
 
-final Provider<CffBase> cffProvider =
-    Provider<CffBase>((ref) => CffRepository._());
+final Provider<CffBase> cffProvider = Provider<CffBase>((ref) => CffRepository._());
 
 class CffRepository implements CffBase {
-  static const CffQueryBuilder builder =
-      CffQueryBuilder("https://timetable.search.ch/api");
+  static const CffQueryBuilder builder = CffQueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
 
   CffRepository._();
@@ -77,8 +75,7 @@ class CffRepository implements CffBase {
     }
     final decode = await Future.microtask(() => json.decode(response.body));
     final completions = (decode as List)
-        .map<CffCompletion>(
-            (e) => CffCompletion.fromJson(e as Map<String, dynamic>))
+        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
@@ -137,13 +134,19 @@ class CffRepository implements CffBase {
 
     final s = builder.build("route", params);
     log("builder : $s");
-    final response = await _client.get(s, headers: headers);
+    return rawRoute(s);
+  }
+
+  @override
+  Future<CffRoute> rawRoute(String query) async {
+    final response = await _client.get(query, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion !");
     }
     final decode = await Future.microtask(() => json.decode(response.body));
     final map = decode as Map<String, dynamic>;
     if (map["disruptions"] != null) log(map["disruptions"].toString());
+    map["requestUrl"] = query;
     return CffRoute.fromJson(map);
   }
 }
@@ -156,8 +159,7 @@ class CffQueryBuilder {
   String build(String action, Map<String, dynamic> parameters) {
     String url = "$baseUrl/$action.json";
     if (parameters.isNotEmpty) {
-      final String params =
-          parameters.keys.map<String>((k) => "$k=${parameters[k]}").join("&");
+      final String params = parameters.keys.map<String>((k) => "$k=${parameters[k]}").join("&");
       url += "?$params";
     }
     return Uri.encodeFull(url);

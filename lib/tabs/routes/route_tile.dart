@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/leg.dart';
-import 'package:swiss_travel/api/cff/models/route_connection.dart';
 import 'package:swiss_travel/api/cff/models/types_enum.dart';
 import 'package:swiss_travel/tabs/routes/details/route_details.dart';
 import 'package:swiss_travel/utils/format.dart';
@@ -12,14 +12,16 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 class RouteTile extends StatelessWidget {
   const RouteTile({
     Key key,
-    @required this.c,
+    @required this.route,
+    @required this.i,
   }) : super(key: key);
 
-  final RouteConnection c;
+  final CffRoute route;
+  final int i;
 
   Widget rowIcon() {
     final List<Widget> listWidget = [];
-
+    final c = route.connections[i];
     for (int i = 0; i < c.legs.length - 1; i++) {
       final Leg l = c.legs[i];
       listWidget.add(CffIcon(l.type, size: 18));
@@ -39,6 +41,7 @@ class RouteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = route.connections[i];
     final leg = c.legs.firstWhere(
         (l) => l.type != Vehicle.walk && l.type != null && l != c.legs.last,
         orElse: () => c.legs.first);
@@ -73,8 +76,11 @@ class RouteTile extends StatelessWidget {
                 const FaIcon(FontAwesomeIcons.chevronRight),
               ],
             ),
-            onTap: () =>
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => RouteDetails(c: c))),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => RouteDetails(
+                      route: route,
+                      i: i,
+                    ))),
           ),
         ),
       ),

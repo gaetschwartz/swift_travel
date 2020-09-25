@@ -42,4 +42,6 @@ abstract class CffBase {
     TimeOfDay time,
     TimeType typeTime,
   });
+
+  Future<CffRoute> rawRoute(String query);
 }

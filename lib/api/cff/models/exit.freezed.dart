@@ -159,7 +159,7 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 
 /// @nodoc
 class _$_Exit implements _Exit {

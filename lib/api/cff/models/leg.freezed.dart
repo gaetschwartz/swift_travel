@@ -308,7 +308,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 
 /// @nodoc
 class _$_Leg implements _Leg {

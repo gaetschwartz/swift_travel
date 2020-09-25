@@ -84,8 +84,6 @@ class WalkingTile extends StatelessWidget {
         l.exit.lat != null && l.exit.lon != null ? "${l.exit.lat}, ${l.exit.lon}" : l.exit.name;
     log("($departure) => ($arrival)");
 
-    // TODO : https://developers.google.com/maps/documentation/geocoding/overview
-
     final suffix =
         '?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
     if (Platform.isIOS) {

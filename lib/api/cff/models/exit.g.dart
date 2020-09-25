@@ -21,13 +21,22 @@ _$_Exit _$_$_ExitFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_ExitToJson(_$_Exit instance) => <String, dynamic>{
-      'arrival': instance.arrival?.toIso8601String(),
-      'name': instance.name,
-      'stopid': instance.stopid,
-      'waittime': instance.waittime,
-      'isaddress': instance.isaddress,
-      'sbbName': instance.sbbName,
-      'lat': instance.lat,
-      'lon': instance.lon,
-    };
+Map<String, dynamic> _$_$_ExitToJson(_$_Exit instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('arrival', instance.arrival?.toIso8601String());
+  writeNotNull('name', instance.name);
+  writeNotNull('stopid', instance.stopid);
+  writeNotNull('waittime', instance.waittime);
+  writeNotNull('isaddress', instance.isaddress);
+  writeNotNull('sbbName', instance.sbbName);
+  writeNotNull('lat', instance.lat);
+  writeNotNull('lon', instance.lon);
+  return val;
+}

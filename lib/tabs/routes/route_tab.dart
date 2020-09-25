@@ -33,6 +33,7 @@ class SearchRoute extends StatefulWidget {
   final String destination;
 
   const SearchRoute({Key key, this.localRoute, this.destination}) : super(key: key);
+
   @override
   SearchRouteState createState() => SearchRouteState();
 }
@@ -51,17 +52,21 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     _cff = context.read(cffProvider) as CffRepository;
     _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     if (widget.localRoute != null) {
-      fromController.text = widget.localRoute.from;
-      toController.text = widget.localRoute.to;
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        searchData();
-      });
+      useLocalRoute();
     } else if (widget.destination != null) {
       goToDest();
     }
   }
 
-  Future<void> goToDest() async {
+  void useLocalRoute() {
+    fromController.text = widget.localRoute.from;
+    toController.text = widget.localRoute.to;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      searchData();
+    });
+  }
+
+  void goToDest() {
     toController.text = widget.destination;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       context.read(_routesProvider).state = const RouteStates.loading();
@@ -88,7 +93,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               leading: widget.localRoute != null || widget.destination != null
                   ? const CloseButton()
                   : null,
-              title: Text(widget.localRoute != null ? widget.localRoute.displayName : "Route"),
+              title: Text(widget.localRoute?.displayName ?? "Route"),
               automaticallyImplyLeading: false,
             )
           : null,
@@ -305,9 +310,8 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
 
                       final s = await input(context, title: const Text("Enter route name"));
                       if (s == null) return;
-                      context
-                          .read(storeProvider)
-                          .addRoute(LocalRoute(s, fromController.text, toController.text));
+                      context.read(storeProvider).addRoute(
+                          LocalRoute(fromController.text, toController.text, displayName: s));
                       Scaffold.of(context)
                           .showSnackBar(const SnackBar(content: Text("Route starred !")));
                     },
@@ -340,8 +344,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                           shrinkWrap: true,
                           itemCount: data.routes == null ? 0 : data.routes.connections.length,
                           itemBuilder: (context, i) => RouteTile(
-                                c: data.routes.connections[i],
                                 key: Key("routetile-$i"),
+                                route: data.routes,
+                                i: i,
                               )),
                       network: (_) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -412,6 +417,8 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
       }
     } finally {
       context.read(_isLocating).state = false;
+      fnFrom.unfocus();
+      fnTo.unfocus();
     }
   }
 

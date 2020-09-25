@@ -8,6 +8,7 @@ import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
+import 'package:swiss_travel/tabs/routes/route_tab.dart';
 import 'package:swiss_travel/widget/input.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
@@ -115,6 +116,8 @@ class _FavoriteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: stop.label))),
       trailing: IconButton(
           icon: const FaIcon(FontAwesomeIcons.edit),
           onPressed: () async {
