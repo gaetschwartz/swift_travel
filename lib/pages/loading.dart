@@ -82,16 +82,18 @@ class _LoadingPageState extends State<LoadingPage> {
           log("We have a new route");
           if (uri.queryParameters.containsKey("from") && uri.queryParameters.containsKey("to")) {
             log("Valid route");
-            final params = Map.from(uri.queryParameters);
-            params.remove("i");
-            final qUri = Uri.https("timetable.search.ch", "api/route.json", uri.queryParameters);
-            log(qUri.toString());
-            final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
-                future: () => context.read(cffProvider).rawRoute(qUri.toString()),
-                title: const Text("Getting route infos ..."));
-            final i = int.parse(uri.queryParameters["i"]);
-            navigatorKey.currentState
-                .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
+            final Map<String, String> params = Map.from(uri.queryParameters);
+            if (params.containsKey("i")) {
+              params.remove("i");
+              final qUri = Uri.https("timetable.search.ch", "api/route.json", uri.queryParameters);
+              log(qUri.toString());
+              final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
+                  future: () => context.read(cffProvider).rawRoute(qUri.toString()),
+                  title: const Text("Getting route infos ..."));
+              final i = int.parse(uri.queryParameters["i"]);
+              navigatorKey.currentState
+                  .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
+            }
           }
         }
       });
