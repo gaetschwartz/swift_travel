@@ -135,9 +135,12 @@ class CustomExpansionTile extends StatefulWidget {
 
 class _CustomExpansionTileState extends State<CustomExpansionTile>
     with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
-  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
+  static final Animatable<double> _easeOutTween =
+      CurveTween(curve: Curves.easeOut);
+  static final Animatable<double> _easeInTween =
+      CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _halfTween =
+      Tween<double>(begin: 0.0, end: 0.5);
 
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
@@ -161,9 +164,11 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
     _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
     _iconColor = _controller.drive(_iconColorTween.chain(_easeInTween));
-    _backgroundColor = _controller.drive(_backgroundColorTween.chain(_easeOutTween));
+    _backgroundColor =
+        _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
-    _isExpanded = PageStorage.of(context)?.readState(context) as bool ?? widget.initiallyExpanded;
+    _isExpanded = PageStorage.of(context)?.readState(context) as bool ??
+        widget.initiallyExpanded;
     if (_isExpanded) _controller.value = 1.0;
   }
 
@@ -188,7 +193,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
       }
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
-    if (widget.onExpansionChanged != null) widget.onExpansionChanged(_isExpanded);
+    if (widget.onExpansionChanged != null)
+      widget.onExpansionChanged(_isExpanded);
   }
 
   Widget _buildChildren(BuildContext context, Widget child) {
@@ -256,7 +262,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
         child: Padding(
           padding: widget.childrenPadding ?? EdgeInsets.zero,
           child: Column(
-            crossAxisAlignment: widget.expandedCrossAxisAlignment ?? CrossAxisAlignment.center,
+            crossAxisAlignment:
+                widget.expandedCrossAxisAlignment ?? CrossAxisAlignment.center,
             children: widget.children,
           ),
         ),
