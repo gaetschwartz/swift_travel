@@ -21,12 +21,14 @@ class _$CffRouteTearOff {
       {int count,
       @JsonKey(name: 'min_duration') double minDuration,
       @JsonKey(name: 'max_duration') double maxDuration,
-      List<RouteConnection> connections = const []}) {
+      List<RouteConnection> connections = const [],
+      String requestUrl}) {
     return _CffRoute(
       count: count,
       minDuration: minDuration,
       maxDuration: maxDuration,
       connections: connections,
+      requestUrl: requestUrl,
     );
   }
 
@@ -48,6 +50,7 @@ mixin _$CffRoute {
   @JsonKey(name: 'max_duration')
   double get maxDuration;
   List<RouteConnection> get connections;
+  String get requestUrl;
 
   Map<String, dynamic> toJson();
   $CffRouteCopyWith<CffRoute> get copyWith;
@@ -61,7 +64,8 @@ abstract class $CffRouteCopyWith<$Res> {
       {int count,
       @JsonKey(name: 'min_duration') double minDuration,
       @JsonKey(name: 'max_duration') double maxDuration,
-      List<RouteConnection> connections});
+      List<RouteConnection> connections,
+      String requestUrl});
 }
 
 /// @nodoc
@@ -78,6 +82,7 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
     Object minDuration = freezed,
     Object maxDuration = freezed,
     Object connections = freezed,
+    Object requestUrl = freezed,
   }) {
     return _then(_value.copyWith(
       count: count == freezed ? _value.count : count as int,
@@ -88,6 +93,8 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
       connections: connections == freezed
           ? _value.connections
           : connections as List<RouteConnection>,
+      requestUrl:
+          requestUrl == freezed ? _value.requestUrl : requestUrl as String,
     ));
   }
 }
@@ -101,7 +108,8 @@ abstract class _$CffRouteCopyWith<$Res> implements $CffRouteCopyWith<$Res> {
       {int count,
       @JsonKey(name: 'min_duration') double minDuration,
       @JsonKey(name: 'max_duration') double maxDuration,
-      List<RouteConnection> connections});
+      List<RouteConnection> connections,
+      String requestUrl});
 }
 
 /// @nodoc
@@ -119,6 +127,7 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
     Object minDuration = freezed,
     Object maxDuration = freezed,
     Object connections = freezed,
+    Object requestUrl = freezed,
   }) {
     return _then(_CffRoute(
       count: count == freezed ? _value.count : count as int,
@@ -129,6 +138,8 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
       connections: connections == freezed
           ? _value.connections
           : connections as List<RouteConnection>,
+      requestUrl:
+          requestUrl == freezed ? _value.requestUrl : requestUrl as String,
     ));
   }
 }
@@ -141,7 +152,8 @@ class _$_CffRoute implements _CffRoute {
       {this.count,
       @JsonKey(name: 'min_duration') this.minDuration,
       @JsonKey(name: 'max_duration') this.maxDuration,
-      this.connections = const []})
+      this.connections = const [],
+      this.requestUrl})
       : assert(connections != null);
 
   factory _$_CffRoute.fromJson(Map<String, dynamic> json) =>
@@ -158,10 +170,12 @@ class _$_CffRoute implements _CffRoute {
   @JsonKey(defaultValue: const [])
   @override
   final List<RouteConnection> connections;
+  @override
+  final String requestUrl;
 
   @override
   String toString() {
-    return 'CffRoute(count: $count, minDuration: $minDuration, maxDuration: $maxDuration, connections: $connections)';
+    return 'CffRoute(count: $count, minDuration: $minDuration, maxDuration: $maxDuration, connections: $connections, requestUrl: $requestUrl)';
   }
 
   @override
@@ -178,7 +192,10 @@ class _$_CffRoute implements _CffRoute {
                     .equals(other.maxDuration, maxDuration)) &&
             (identical(other.connections, connections) ||
                 const DeepCollectionEquality()
-                    .equals(other.connections, connections)));
+                    .equals(other.connections, connections)) &&
+            (identical(other.requestUrl, requestUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.requestUrl, requestUrl)));
   }
 
   @override
@@ -187,7 +204,8 @@ class _$_CffRoute implements _CffRoute {
       const DeepCollectionEquality().hash(count) ^
       const DeepCollectionEquality().hash(minDuration) ^
       const DeepCollectionEquality().hash(maxDuration) ^
-      const DeepCollectionEquality().hash(connections);
+      const DeepCollectionEquality().hash(connections) ^
+      const DeepCollectionEquality().hash(requestUrl);
 
   @override
   _$CffRouteCopyWith<_CffRoute> get copyWith =>
@@ -204,7 +222,8 @@ abstract class _CffRoute implements CffRoute {
       {int count,
       @JsonKey(name: 'min_duration') double minDuration,
       @JsonKey(name: 'max_duration') double maxDuration,
-      List<RouteConnection> connections}) = _$_CffRoute;
+      List<RouteConnection> connections,
+      String requestUrl}) = _$_CffRoute;
 
   factory _CffRoute.fromJson(Map<String, dynamic> json) = _$_CffRoute.fromJson;
 
@@ -218,6 +237,8 @@ abstract class _CffRoute implements CffRoute {
   double get maxDuration;
   @override
   List<RouteConnection> get connections;
+  @override
+  String get requestUrl;
   @override
   _$CffRouteCopyWith<_CffRoute> get copyWith;
 }

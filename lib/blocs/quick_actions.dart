@@ -21,7 +21,7 @@ class MyQuickActions {
   static const maxFavoriteStops = 5;
   final quickActions = QuickActions();
 
-  Future<void> init() async {
+  void init() {
     log("Initialize", name: "QuickActions");
     quickActions.initialize((shortcutType) async {
       await FirebaseCrashlytics.instance.log("User tapped a quick action : `$shortcutType`");

@@ -5,6 +5,7 @@ part 'exit.g.dart';
 
 @freezed
 abstract class Exit with _$Exit {
+  @JsonSerializable(includeIfNull: false)
   factory Exit({
     DateTime arrival,
     String name,

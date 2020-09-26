@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math' show min;
+import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -26,52 +28,23 @@ class Settings extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            const _SectionTitle(title: Text("Options")),
-            Consumer(builder: (context, w, _) {
-              final theme = w(dynamicTheme);
-              return Column(
-                children: [
-                  const ListTile(
-                    title: Text("Mode"),
-                    dense: true,
-                  ),
-                  RadioListTile<ThemeMode>(
-                      dense: true,
-                      title: const Text("Light mode"),
-                      value: ThemeMode.light,
-                      groupValue: theme.mode,
-                      onChanged: (mode) => theme.mode = mode),
-                  RadioListTile<ThemeMode>(
-                      dense: true,
-                      title: const Text("Dark mode"),
-                      value: ThemeMode.dark,
-                      groupValue: theme.mode,
-                      onChanged: (mode) => theme.mode = mode),
-                  RadioListTile<ThemeMode>(
-                      dense: true,
-                      title: const Text("System mode"),
-                      value: ThemeMode.system,
-                      groupValue: theme.mode,
-                      onChanged: (mode) => theme.mode = mode),
-                ],
-              );
-            }),
-            Consumer(builder: (context, w, _) {
-              final theme = w(dynamicTheme);
-              return ListTile(
-                title: const Text("Theme"),
-                trailing: DropdownButton<String>(
-                  value: theme.name,
-                  items: theme.configuration.themes.keys
-                      .map((m) => DropdownMenuItem<String>(
-                            value: m,
-                            child: Text(theme.configuration.themes[m].name),
-                          ))
-                      .toList(),
-                  onChanged: (n) => theme.name = n,
-                ),
-              );
-            }),
+            const _SectionTitle(title: Text("Brightness")),
+            SizedBox(
+              height: 100,
+              child: Consumer(builder: (context, w, _) {
+                final theme = w(dynamicTheme);
+                return ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    _ModeWidget(theme: theme, label: 'Light', mode: ThemeMode.light),
+                    _ModeWidget(theme: theme, label: 'Dark', mode: ThemeMode.dark),
+                    _ModeWidget(theme: theme, label: 'System', mode: ThemeMode.system),
+                  ],
+                );
+              }),
+            ),
+            const _SectionTitle(title: Text("Themes")),
+            const _ThemesSection(),
             if (!kReleaseMode || Platform.isIOS)
               Consumer(builder: (context, w, _) {
                 final maps = w(mapsAppProvider);
@@ -101,18 +74,16 @@ class Settings extends StatelessWidget {
             ),
             const _SectionTitle(title: Text("More")),
             ListTile(
-              leading: const FaIcon(FontAwesomeIcons.users),
+              leading: const Icon(FontAwesomeIcons.users),
               title: const Text("The team"),
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => const TeamPage()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage()));
               },
             ),
             ListTile(
-              leading: const FaIcon(FontAwesomeIcons.fileCode),
+              leading: const Icon(FontAwesomeIcons.fileCode),
               title: const Text("Open source"),
-              onTap: () => showLicensePage(
-                  context: context, applicationIcon: const FlutterLogo()),
+              onTap: () => showLicensePage(context: context, applicationIcon: const FlutterLogo()),
             ),
             const Divider(
               indent: 16,
@@ -124,8 +95,7 @@ class Settings extends StatelessWidget {
                   leading: const Icon(Icons.warning),
                   title: const Text("Crash"),
                   onTap: () async {
-                    await FirebaseCrashlytics.instance
-                        .log("We trigger a crash");
+                    await FirebaseCrashlytics.instance.log("We trigger a crash");
                     FirebaseCrashlytics.instance.crash();
                   }),
             ],
@@ -133,11 +103,14 @@ class Settings extends StatelessWidget {
                 leading: const Icon(Icons.restore),
                 title: const Text("Reset settings"),
                 onTap: () async {
-                  final c = await confirm(context,
-                      title: const Text("Reset settings ?"),
-                      content:
-                          const Text("You will lose all of you favorites!"),
-                      isConfirmDestructive: true);
+                  final c = await confirm(
+                    context,
+                    title: const Text("Reset settings ?"),
+                    content: const Text("You will lose all of you favorites!"),
+                    isConfirmDestructive: true,
+                    confirm: const Text("Yes"),
+                    cancel: const Text("No"),
+                  );
                   if (c != true) return;
                   final prefs = await SharedPreferences.getInstance();
                   final b = await prefs.clear();
@@ -170,6 +143,316 @@ class Settings extends StatelessWidget {
   }
 }
 
+class _ThemesSection extends StatefulWidget {
+  const _ThemesSection({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  __ThemesSectionState createState() => __ThemesSectionState();
+}
+
+class __ThemesSectionState extends State<_ThemesSection> {
+  final ScrollController _controller = ScrollController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 250,
+          child: Consumer(builder: (context, w, _) {
+            final theme = w(dynamicTheme);
+            final list = theme.configuration.themes.entries.toList();
+            return ListView.builder(
+              controller: _controller,
+              scrollDirection: Axis.horizontal,
+              itemCount: list.length,
+              itemBuilder: (context, i) {
+                final FullTheme ft = list[i].value;
+                return Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 24),
+                  child: SizedBox(
+                    width: 160,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                          color: Theme.of(context).cardColor,
+                          border: ft == theme.theme
+                              ? Border.all(
+                                  width: 2,
+                                  color: Theme.of(context).accentColor,
+                                )
+                              : null,
+                          borderRadius: const BorderRadius.all(Radius.circular(16))),
+                      child: InkWell(
+                        onTap: () {
+                          theme.name = list[i].key;
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      buildColorRow(ft.light),
+                                      buildColorRow(ft.dark),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Text(ft.name,
+                                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                      fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
+                              const SizedBox(height: 8),
+                              Text(ft.description,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                      fontSize: 12,
+                                      fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: _ScrollProgress(controller: _controller),
+        ),
+      ],
+    );
+  }
+
+  Widget buildColorRow(ThemeData d) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxHeight: 40),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: SizedBox.expand(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: d.primaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: SizedBox.expand(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: d.accentColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: SizedBox.expand(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: d.cardColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ScrollProgress extends StatefulWidget {
+  const _ScrollProgress({
+    Key key,
+    @required ScrollController controller,
+  })  : _controller = controller,
+        super(key: key);
+
+  final ScrollController _controller;
+
+  @override
+  __ScrollProgressState createState() => __ScrollProgressState();
+}
+
+class __ScrollProgressState extends State<_ScrollProgress> {
+  double _progress = 0;
+
+  void update() {
+    if (mounted) {
+      final __progress =
+          widget._controller.position.pixels / widget._controller.position.maxScrollExtent;
+      setState(() {
+        _progress = min(1, __progress);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget._controller.addListener(update);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LinearProgressIndicator(value: _progress);
+  }
+}
+
+class _ModeWidget extends StatelessWidget {
+  const _ModeWidget({
+    Key key,
+    @required this.theme,
+    @required this.mode,
+    @required this.label,
+  }) : super(key: key);
+
+  final DynamicTheme theme;
+  final ThemeMode mode;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: DynamicTheme.resolve(context, mode, theme.theme),
+      child: Builder(builder: (context) {
+        final linearGradient =
+            LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
+          theme.theme.light.cardColor,
+          theme.theme.dark.cardColor,
+        ], stops: const [
+          0.5,
+          0.5
+        ]);
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: InkWell(
+            onTap: () => theme.mode = mode,
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                key: Key("mode-$label"),
+                decoration: BoxDecoration(
+                    boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                    color: mode == ThemeMode.system ? null : Theme.of(context).cardColor,
+                    border: theme.mode == mode
+                        ? Border.all(
+                            width: 2,
+                            color: Theme.of(context).accentColor,
+                          )
+                        : null,
+                    gradient: mode == ThemeMode.system ? linearGradient : null,
+                    borderRadius: const BorderRadius.all(Radius.circular(16))),
+                child: Center(
+                  child: mode == ThemeMode.system
+                      ? ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(4)),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                              child: Text(label,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(color: Colors.black)),
+                            ),
+                          ),
+                        )
+                      : buildText(context),
+                ),
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
+  Text buildText(BuildContext context) {
+    return Text(label, style: Theme.of(context).textTheme.headline6);
+  }
+}
+
+class DiagonalPainter extends CustomPainter {
+  final Color black;
+  final Color white;
+  final String label;
+
+  DiagonalPainter({this.label, this.black, this.white});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final lightP = Paint()..color = white;
+    final blackP = Paint()..color = black;
+
+    canvas.drawRect(Offset.zero & size, lightP);
+
+    final topLeft = size.topLeft(Offset.zero);
+    final bottomRight = size.bottomRight(Offset.zero);
+    final bottomLeft = size.bottomLeft(Offset.zero);
+    final p1 = Path();
+    p1.lineTo(bottomLeft.dx, bottomLeft.dy);
+    p1.lineTo(bottomRight.dx, bottomRight.dy);
+    p1.lineTo(topLeft.dx, topLeft.dy);
+
+    canvas.drawPath(p1, blackP);
+
+    const textStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 12,
+    );
+    final textSpan = TextSpan(
+      text: label,
+      style: textStyle,
+    );
+    final textPainter =
+        TextPainter(text: textSpan, textDirection: TextDirection.ltr, textAlign: TextAlign.center);
+    textPainter.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    final offset = size.center(Offset.zero);
+    textPainter.layout();
+    textPainter.paint(canvas, offset);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
 class TeamPage extends StatelessWidget {
   const TeamPage({
     Key key,
@@ -180,8 +463,7 @@ class TeamPage extends StatelessWidget {
       "Gaëtan Schwartz",
       role: "Lead Developer,\nApp Designer",
       twitterUrl: "https://twitter.com/gaetschwartz",
-      imageUrl:
-          "https://pbs.twimg.com/profile_images/1307716781356834818/kwCKuS7q_400x400.jpg",
+      imageUrl: "https://pbs.twimg.com/profile_images/1307716781356834818/kwCKuS7q_400x400.jpg",
       website: "https://gaetanschwartz.com/#/",
     ),
     Coder(
@@ -207,12 +489,9 @@ class TeamPage extends StatelessWidget {
                 height: 48,
                 width: 48,
                 child: CircleAvatar(
-                  backgroundImage: c.imageUrl == null
-                      ? null
-                      : CachedNetworkImageProvider(c.imageUrl),
-                  child: c.imageUrl == null
-                      ? const FaIcon(FontAwesomeIcons.user)
-                      : null,
+                  backgroundImage:
+                      c.imageUrl == null ? null : CachedNetworkImageProvider(c.imageUrl),
+                  child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user) : null,
                 ),
               ),
               subtitle: c.role == null ? null : Text(c.role),
@@ -241,8 +520,7 @@ class Coder {
   final String imageUrl;
   final String website;
 
-  const Coder(this.name,
-      {this.twitterUrl, this.role, this.imageUrl, this.website});
+  const Coder(this.name, {this.twitterUrl, this.role, this.imageUrl, this.website});
 }
 
 class _SectionTitle extends StatelessWidget {
@@ -257,10 +535,8 @@ class _SectionTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8.0),
       child: DefaultTextStyle(
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .copyWith(color: Theme.of(context).accentColor),
+          style:
+              Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).accentColor),
           child: title),
     );
   }

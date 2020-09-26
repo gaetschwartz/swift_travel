@@ -19,18 +19,18 @@ class _$RouteConnectionTearOff {
 // ignore: unused_element
   _RouteConnection call(
       {String from,
-      DateTime arrival,
-      List<Leg> legs = const [],
-      double duration,
+      DateTime departure,
       String to,
-      DateTime departure}) {
+      DateTime arrival,
+      double duration,
+      List<Leg> legs = const []}) {
     return _RouteConnection(
       from: from,
-      arrival: arrival,
-      legs: legs,
-      duration: duration,
-      to: to,
       departure: departure,
+      to: to,
+      arrival: arrival,
+      duration: duration,
+      legs: legs,
     );
   }
 
@@ -47,11 +47,11 @@ const $RouteConnection = _$RouteConnectionTearOff();
 /// @nodoc
 mixin _$RouteConnection {
   String get from;
-  DateTime get arrival;
-  List<Leg> get legs;
-  double get duration;
-  String get to;
   DateTime get departure;
+  String get to;
+  DateTime get arrival;
+  double get duration;
+  List<Leg> get legs;
 
   Map<String, dynamic> toJson();
   $RouteConnectionCopyWith<RouteConnection> get copyWith;
@@ -64,11 +64,11 @@ abstract class $RouteConnectionCopyWith<$Res> {
       _$RouteConnectionCopyWithImpl<$Res>;
   $Res call(
       {String from,
-      DateTime arrival,
-      List<Leg> legs,
-      double duration,
+      DateTime departure,
       String to,
-      DateTime departure});
+      DateTime arrival,
+      double duration,
+      List<Leg> legs});
 }
 
 /// @nodoc
@@ -83,20 +83,20 @@ class _$RouteConnectionCopyWithImpl<$Res>
   @override
   $Res call({
     Object from = freezed,
-    Object arrival = freezed,
-    Object legs = freezed,
-    Object duration = freezed,
-    Object to = freezed,
     Object departure = freezed,
+    Object to = freezed,
+    Object arrival = freezed,
+    Object duration = freezed,
+    Object legs = freezed,
   }) {
     return _then(_value.copyWith(
       from: from == freezed ? _value.from : from as String,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
-      legs: legs == freezed ? _value.legs : legs as List<Leg>,
-      duration: duration == freezed ? _value.duration : duration as double,
-      to: to == freezed ? _value.to : to as String,
       departure:
           departure == freezed ? _value.departure : departure as DateTime,
+      to: to == freezed ? _value.to : to as String,
+      arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
+      duration: duration == freezed ? _value.duration : duration as double,
+      legs: legs == freezed ? _value.legs : legs as List<Leg>,
     ));
   }
 }
@@ -110,11 +110,11 @@ abstract class _$RouteConnectionCopyWith<$Res>
   @override
   $Res call(
       {String from,
-      DateTime arrival,
-      List<Leg> legs,
-      double duration,
+      DateTime departure,
       String to,
-      DateTime departure});
+      DateTime arrival,
+      double duration,
+      List<Leg> legs});
 }
 
 /// @nodoc
@@ -131,35 +131,35 @@ class __$RouteConnectionCopyWithImpl<$Res>
   @override
   $Res call({
     Object from = freezed,
-    Object arrival = freezed,
-    Object legs = freezed,
-    Object duration = freezed,
-    Object to = freezed,
     Object departure = freezed,
+    Object to = freezed,
+    Object arrival = freezed,
+    Object duration = freezed,
+    Object legs = freezed,
   }) {
     return _then(_RouteConnection(
       from: from == freezed ? _value.from : from as String,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
-      legs: legs == freezed ? _value.legs : legs as List<Leg>,
-      duration: duration == freezed ? _value.duration : duration as double,
-      to: to == freezed ? _value.to : to as String,
       departure:
           departure == freezed ? _value.departure : departure as DateTime,
+      to: to == freezed ? _value.to : to as String,
+      arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
+      duration: duration == freezed ? _value.duration : duration as double,
+      legs: legs == freezed ? _value.legs : legs as List<Leg>,
     ));
   }
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 
 /// @nodoc
 class _$_RouteConnection implements _RouteConnection {
   _$_RouteConnection(
       {this.from,
-      this.arrival,
-      this.legs = const [],
-      this.duration,
+      this.departure,
       this.to,
-      this.departure})
+      this.arrival,
+      this.duration,
+      this.legs = const []})
       : assert(legs != null);
 
   factory _$_RouteConnection.fromJson(Map<String, dynamic> json) =>
@@ -168,20 +168,20 @@ class _$_RouteConnection implements _RouteConnection {
   @override
   final String from;
   @override
-  final DateTime arrival;
-  @JsonKey(defaultValue: const [])
-  @override
-  final List<Leg> legs;
-  @override
-  final double duration;
+  final DateTime departure;
   @override
   final String to;
   @override
-  final DateTime departure;
+  final DateTime arrival;
+  @override
+  final double duration;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<Leg> legs;
 
   @override
   String toString() {
-    return 'RouteConnection(from: $from, arrival: $arrival, legs: $legs, duration: $duration, to: $to, departure: $departure)';
+    return 'RouteConnection(from: $from, departure: $departure, to: $to, arrival: $arrival, duration: $duration, legs: $legs)';
   }
 
   @override
@@ -190,30 +190,30 @@ class _$_RouteConnection implements _RouteConnection {
         (other is _RouteConnection &&
             (identical(other.from, from) ||
                 const DeepCollectionEquality().equals(other.from, from)) &&
+            (identical(other.departure, departure) ||
+                const DeepCollectionEquality()
+                    .equals(other.departure, departure)) &&
+            (identical(other.to, to) ||
+                const DeepCollectionEquality().equals(other.to, to)) &&
             (identical(other.arrival, arrival) ||
                 const DeepCollectionEquality()
                     .equals(other.arrival, arrival)) &&
-            (identical(other.legs, legs) ||
-                const DeepCollectionEquality().equals(other.legs, legs)) &&
             (identical(other.duration, duration) ||
                 const DeepCollectionEquality()
                     .equals(other.duration, duration)) &&
-            (identical(other.to, to) ||
-                const DeepCollectionEquality().equals(other.to, to)) &&
-            (identical(other.departure, departure) ||
-                const DeepCollectionEquality()
-                    .equals(other.departure, departure)));
+            (identical(other.legs, legs) ||
+                const DeepCollectionEquality().equals(other.legs, legs)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(from) ^
-      const DeepCollectionEquality().hash(arrival) ^
-      const DeepCollectionEquality().hash(legs) ^
-      const DeepCollectionEquality().hash(duration) ^
+      const DeepCollectionEquality().hash(departure) ^
       const DeepCollectionEquality().hash(to) ^
-      const DeepCollectionEquality().hash(departure);
+      const DeepCollectionEquality().hash(arrival) ^
+      const DeepCollectionEquality().hash(duration) ^
+      const DeepCollectionEquality().hash(legs);
 
   @override
   _$RouteConnectionCopyWith<_RouteConnection> get copyWith =>
@@ -228,11 +228,11 @@ class _$_RouteConnection implements _RouteConnection {
 abstract class _RouteConnection implements RouteConnection {
   factory _RouteConnection(
       {String from,
-      DateTime arrival,
-      List<Leg> legs,
-      double duration,
+      DateTime departure,
       String to,
-      DateTime departure}) = _$_RouteConnection;
+      DateTime arrival,
+      double duration,
+      List<Leg> legs}) = _$_RouteConnection;
 
   factory _RouteConnection.fromJson(Map<String, dynamic> json) =
       _$_RouteConnection.fromJson;
@@ -240,15 +240,15 @@ abstract class _RouteConnection implements RouteConnection {
   @override
   String get from;
   @override
-  DateTime get arrival;
-  @override
-  List<Leg> get legs;
-  @override
-  double get duration;
+  DateTime get departure;
   @override
   String get to;
   @override
-  DateTime get departure;
+  DateTime get arrival;
+  @override
+  double get duration;
+  @override
+  List<Leg> get legs;
   @override
   _$RouteConnectionCopyWith<_RouteConnection> get copyWith;
 }

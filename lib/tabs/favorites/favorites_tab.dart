@@ -15,14 +15,13 @@ class SearchFavorite extends StatefulWidget {
   _SearchFavoriteState createState() => _SearchFavoriteState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite>
-    with AutomaticKeepAliveClientMixin {
+class _SearchFavoriteState extends State<SearchFavorite> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
   static const List<Widget> tabs = [
-    FavRoutesTab(),
     FavStopsTab(),
+    FavRoutesTab(),
   ];
 
   @override
@@ -34,10 +33,8 @@ class _SearchFavoriteState extends State<SearchFavorite>
           final i = w(_tabProvider).state;
           return BottomNavigationBar(
             items: const [
-              BottomNavigationBarItem(
-                  label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
-              BottomNavigationBarItem(
-                  label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
+              BottomNavigationBarItem(label: "Stops", icon: FaIcon(FontAwesomeIcons.train)),
+              BottomNavigationBarItem(label: "Routes", icon: FaIcon(FontAwesomeIcons.route)),
             ],
             onTap: (i) => context.read(_tabProvider).state = i,
             currentIndex: i,

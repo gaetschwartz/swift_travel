@@ -78,8 +78,11 @@ class WalkingTile extends StatelessWidget {
   static const _google = "https://maps.google.com/maps";
 
   Future<void> openRoute(BuildContext context) async {
+    log(l.toString());
     final departure = l.lat != null && l.lon != null ? "${l.lat}, ${l.lon}" : l.name;
-    final arrival = "${l.exit.lat}, ${l.exit.lon}";
+    final arrival =
+        l.exit.lat != null && l.exit.lon != null ? "${l.exit.lat}, ${l.exit.lon}" : l.exit.name;
+    log("($departure) => ($arrival)");
 
     final suffix =
         '?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';

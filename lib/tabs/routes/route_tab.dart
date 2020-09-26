@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
 import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/blocs/location.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/route_states.dart';
 import 'package:swiss_travel/tabs/routes/route_tile.dart';
@@ -33,11 +33,12 @@ class SearchRoute extends StatefulWidget {
   final String destination;
 
   const SearchRoute({Key key, this.localRoute, this.destination}) : super(key: key);
+
   @override
-  _SearchRouteState createState() => _SearchRouteState();
+  SearchRouteState createState() => SearchRouteState();
 }
 
-class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
+class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
   final FocusNode fnFrom = FocusNode();
@@ -51,17 +52,21 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
     _cff = context.read(cffProvider) as CffRepository;
     _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     if (widget.localRoute != null) {
-      fromController.text = widget.localRoute.from;
-      toController.text = widget.localRoute.to;
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        searchData();
-      });
+      useLocalRoute();
     } else if (widget.destination != null) {
       goToDest();
     }
   }
 
-  Future<void> goToDest() async {
+  void useLocalRoute() {
+    fromController.text = widget.localRoute.from;
+    toController.text = widget.localRoute.to;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      searchData();
+    });
+  }
+
+  void goToDest() {
     toController.text = widget.destination;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       context.read(_routesProvider).state = const RouteStates.loading();
@@ -88,7 +93,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               leading: widget.localRoute != null || widget.destination != null
                   ? const CloseButton()
                   : null,
-              title: Text(widget.localRoute != null ? widget.localRoute.displayName : "Route"),
+              title: Text(widget.localRoute?.displayName ?? "Route"),
               automaticallyImplyLeading: false,
             )
           : null,
@@ -100,6 +105,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               children: [
                 Expanded(
                   child: TypeAheadField<CffCompletion>(
+                    key: const Key("route-first-textfield-key"),
                     debounceDuration: const Duration(milliseconds: 500),
                     textFieldConfiguration: TextFieldConfiguration(
                         focusNode: fnFrom,
@@ -141,6 +147,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
               children: [
                 Expanded(
                   child: TypeAheadField<CffCompletion>(
+                    key: const Key("route-second-textfield-key"),
                     debounceDuration: const Duration(milliseconds: 500),
                     textFieldConfiguration: TextFieldConfiguration(
                         textInputAction: TextInputAction.search,
@@ -264,6 +271,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                   decoration:
                       BoxDecoration(boxShadow: [DynamicTheme.shadowOf(context).buttonShadow]),
                   child: FlatButton.icon(
+                    key: const Key("search-route"),
                     padding: const EdgeInsets.symmetric(horizontal: 48),
                     height: 48,
                     highlightColor: const Color(0x260700b1),
@@ -302,9 +310,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
 
                       final s = await input(context, title: const Text("Enter route name"));
                       if (s == null) return;
-                      context
-                          .read(storeProvider)
-                          .addRoute(LocalRoute(s, fromController.text, toController.text));
+                      context.read(storeProvider).addRoute(
+                          LocalRoute(fromController.text, toController.text, displayName: s));
                       Scaffold.of(context)
                           .showSnackBar(const SnackBar(content: Text("Route starred !")));
                     },
@@ -336,7 +343,11 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
                           // separatorBuilder: (c, i) => const Divider(height: 0),
                           shrinkWrap: true,
                           itemCount: data.routes == null ? 0 : data.routes.connections.length,
-                          itemBuilder: (context, i) => RouteTile(c: data.routes.connections[i])),
+                          itemBuilder: (context, i) => RouteTile(
+                                key: Key("routetile-$i"),
+                                route: data.routes,
+                                i: i,
+                              )),
                       network: (_) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -394,7 +405,7 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   Future<void> locate() async {
     context.read(_isLocating).state = true;
     try {
-      final p = await getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
+      final p = await context.read(locationProvider).getLocation(context: context);
 
       log("Position is : $p");
       final completions = await context.read(cffProvider).findStation(p.latitude, p.longitude);
@@ -406,6 +417,8 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
       }
     } finally {
       context.read(_isLocating).state = false;
+      fnFrom.unfocus();
+      fnTo.unfocus();
     }
   }
 
@@ -429,9 +442,9 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
         context.read(_routesProvider).state = RouteStates.routes(it);
       } on SocketException {
         context.read(_routesProvider).state = const RouteStates.network();
-      } on Exception catch (e) {
+      } on Exception catch (e, s) {
         context.read(_routesProvider).state = RouteStates.exception(e);
-        FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
+        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       }
     }
   }

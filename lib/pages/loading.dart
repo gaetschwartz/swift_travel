@@ -4,16 +4,19 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swiss_travel/api/cff/models/cff_route.dart';
+import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/blocs/links.dart';
 import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/blocs/quick_actions.dart';
 import 'package:swiss_travel/blocs/store.dart';
+import 'package:swiss_travel/main.dart';
 import 'package:swiss_travel/pages/tuto.dart';
+import 'package:swiss_travel/tabs/routes/details/route_details.dart';
+import 'package:swiss_travel/utils/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
-import 'package:utils/blocs/theme/src/full_theme.dart';
-import 'package:utils/blocs/theme/src/shadow_theme.dart';
-import 'package:utils/blocs/theme/src/theme_configuration.dart';
+import 'package:utils/dialogs/loading_dialog.dart';
 
 import 'home_page.dart';
 
@@ -53,102 +56,47 @@ class _LoadingPageState extends State<LoadingPage> {
       await FirebaseCrashlytics.instance.log("Loading page");
     }
 
-    await context.read(dynamicTheme).configure(
-          ThemeConfiguration({
-            "default": FullTheme(
-              name: "Default theme",
-              light: ThemeData(
-                  primarySwatch: Colors.red,
-                  fontFamily: GoogleFonts.muli().fontFamily,
-                  primaryColor: Colors.red),
-              dark: ThemeData(
-                brightness: Brightness.dark,
-                primarySwatch: Colors.red,
-                primaryColor: Colors.red,
-                fontFamily: GoogleFonts.muli().fontFamily,
-              ),
-              lightShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x260700b1),
-                    offset: Offset(0, 8)),
-              ),
-              darkShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x4C000000),
-                    offset: Offset(0, 8)),
-              ),
-            ),
-            "dancing": FullTheme(
-              name: "Dancing",
-              light: ThemeData(
-                primaryColor: const Color(0xfffbf3d4),
-                accentColor: Colors.pinkAccent,
-                fontFamily: GoogleFonts.merriweather().fontFamily,
-              ),
-              dark: ThemeData(
-                brightness: Brightness.dark,
-                primaryColor: const Color(0xfffbf3d4),
-                accentColor: Colors.deepOrangeAccent,
-                fontFamily: GoogleFonts.merriweather().fontFamily,
-              ),
-              lightShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x260700b1),
-                    offset: Offset(0, 8)),
-              ),
-              darkShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x4C000000),
-                    offset: Offset(0, 8)),
-              ),
-            ),
-            "lavender": FullTheme(
-              name: "Lavender",
-              light: ThemeData(
-                primaryColor: Colors.deepPurple,
-                accentColor: Colors.deepPurpleAccent,
-                fontFamily: GoogleFonts.merriweather().fontFamily,
-              ),
-              dark: ThemeData(
-                brightness: Brightness.dark,
-                primaryColor: Colors.deepPurple,
-                accentColor: Colors.deepPurpleAccent,
-                fontFamily: GoogleFonts.merriweather().fontFamily,
-              ),
-              lightShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x260700b1),
-                    offset: Offset(0, 8)),
-              ),
-              darkShadow: const ShadowTheme(
-                buttonShadow: BoxShadow(
-                    blurRadius: 16,
-                    color: Color(0x4C000000),
-                    offset: Offset(0, 8)),
-              ),
-            ),
-          }),
-        );
+    await context.read(dynamicTheme).configure(themeConfiguration);
     final prefs = await SharedPreferences.getInstance();
     await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
     await context.read(storeProvider).loadFromPreferences(prefs: prefs);
-    if (kDebugMode) await prefs.setBool("hasAlreadySeenTuto", null);
-    if (prefs.getBool("hasAlreadySeenTuto") == null) {
-      await Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => Tuto()));
+    if (prefs.getBool("hasAlreadySeenTuto") != true) {
+      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => Tuto()));
 
       await prefs.setBool("hasAlreadySeenTuto", true);
     }
 
-    await Future.delayed(const Duration(milliseconds: 500));
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
 
-    await context.read(quickActions).init();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read(quickActions).init();
+      context.read(linksProvider).init((link) async {
+        Uri uri;
+        try {
+          uri = Uri.parse(link);
+        } on Exception catch (e, s) {
+          FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+          return;
+        }
+        if (uri.host == "route") {
+          log("We have a new route");
+          if (uri.queryParameters.containsKey("from") && uri.queryParameters.containsKey("to")) {
+            log("Valid route");
+            final Map<String, String> params = Map.from(uri.queryParameters);
+            if (params.containsKey("i")) {
+              params.remove("i");
+              final qUri = Uri.https("timetable.search.ch", "api/route.json", uri.queryParameters);
+              log(qUri.toString());
+              final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
+                  future: () => context.read(cffProvider).rawRoute(qUri.toString()),
+                  title: const Text("Getting route infos ..."));
+              final i = int.parse(uri.queryParameters["i"]);
+              navigatorKey.currentState
+                  .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
+            }
+          }
+        }
+      });
+    });
   }
 }

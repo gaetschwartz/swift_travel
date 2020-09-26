@@ -7,7 +7,7 @@ on:
 
 env:
   flutter_channel: dev
-  java_version: 12.x
+  java_version: 8.x
   node_version: 12.x
   build_android: true
   flutter_build_args: ""
@@ -20,6 +20,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get git infos
+        id: git-data
+        run: |
+          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
+          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
+          count=$(git rev-list --count HEAD)
+          echo "::set-output name=nbr::${count}"
+          echo ${count}
       - name: Clone dependencies
         run: git clone https://Blaxou:${{ secrets.ACCESS_TOKEN }}@github.com/Blaxou/utils.git
         working-directory: ../
@@ -48,22 +58,10 @@ jobs:
       - name: Pre-build configuration
         env:
           TZ: Europe/Zurich
-        run: chmod +x CI/prebuild.sh && ./CI/prebuild.sh
+          COMMIT_COUNT: ${{ steps.git-data.outputs.nbr }}
+        run: chmod +x CI/prebuild-github.sh && ./CI/prebuild-github.sh
       - name: Build
-        run: flutter build appbundle --build-number $GITHUB_RUN_NUMBER
-      - name: Get hash
-        id: git-data
-        run: |
-          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
-          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=nbr::$GITHUB_RUN_NUMBER"
-      - uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-          packageName: com.gaetanschwartz.swiss_travel
-          releaseFile: build/app/outputs/bundle/release/app-release.aab
-          track: alpha
-          mappingFile: build/app/outputs/mapping/release/mapping.txt
+        run: flutter build apk --build-number ${{ steps.git-data.outputs.nbr }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -79,16 +77,16 @@ jobs:
             `${{ steps.git-data.outputs.msg }}`
           draft: false
           prerelease: true
-      # - name: Upload Release Asset
-      #   id: upload-release-asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-      #     asset_path: ./build/app/outputs/flutter-apk/app-release.apk
-      #     asset_name: travel-free-${{ steps.git-data.outputs.nbr }}.apk
-      #     asset_content_type: application/vnd.android.package-archive
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./build/app/outputs/flutter-apk/app-release.apk
+          asset_name: travel-free-${{ steps.git-data.outputs.nbr }}.apk
+          asset_content_type: application/vnd.android.package-archive
 
   deploy-testflight:
     timeout-minutes: 30

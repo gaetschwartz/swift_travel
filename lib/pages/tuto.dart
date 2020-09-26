@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Tuto extends StatelessWidget {
   static List<PageViewModel> listPagesViewModel = [1, 2, 3, 4, 5]
@@ -22,8 +23,10 @@ class Tuto extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntroductionScreen(
       pages: listPagesViewModel,
-      onDone: () {
+      onDone: () async {
         Navigator.of(context).pop();
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool("hasAlreadySeenTuto", true);
       },
       showSkipButton: kDebugMode,
       skip: const Icon(Icons.skip_next),

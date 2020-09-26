@@ -46,30 +46,39 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) => <String, dynamic>{
-      'type': _$VehicleEnumMap[instance.type],
-      'track': instance.track,
-      'terminal': instance.terminal,
-      'fgcolor': instance.fgcolor,
-      'number': instance.number,
-      'bgcolor': instance.bgcolor,
-      'tripid': instance.tripid,
-      'exit': instance.exit?.toJson(),
-      'runningtime': instance.runningtime,
-      'stopid': instance.stopid,
-      'line': instance.line,
-      'stops': instance.stops?.map((e) => e?.toJson())?.toList(),
-      'sbbName': instance.sbbName,
-      'name': instance.name,
-      'departure': instance.departure?.toIso8601String(),
-      'arrival': instance.arrival?.toIso8601String(),
-      'normalTime': instance.normalTime,
-      'waittime': instance.waittime,
-      'isaddress': instance.isaddress,
-      'lat': instance.lat,
-      'lon': instance.lon,
-      'attributes': instance.attributes,
-    };
+Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('type', _$VehicleEnumMap[instance.type]);
+  writeNotNull('track', instance.track);
+  writeNotNull('terminal', instance.terminal);
+  writeNotNull('fgcolor', instance.fgcolor);
+  writeNotNull('number', instance.number);
+  writeNotNull('bgcolor', instance.bgcolor);
+  writeNotNull('tripid', instance.tripid);
+  writeNotNull('exit', instance.exit?.toJson());
+  writeNotNull('runningtime', instance.runningtime);
+  writeNotNull('stopid', instance.stopid);
+  writeNotNull('line', instance.line);
+  writeNotNull('stops', instance.stops?.map((e) => e?.toJson())?.toList());
+  writeNotNull('sbbName', instance.sbbName);
+  writeNotNull('name', instance.name);
+  writeNotNull('departure', instance.departure?.toIso8601String());
+  writeNotNull('arrival', instance.arrival?.toIso8601String());
+  writeNotNull('normalTime', instance.normalTime);
+  writeNotNull('waittime', instance.waittime);
+  writeNotNull('isaddress', instance.isaddress);
+  writeNotNull('lat', instance.lat);
+  writeNotNull('lon', instance.lon);
+  writeNotNull('attributes', instance.attributes);
+  return val;
+}
 
 T _$enumDecode<T>(
   Map<T, dynamic> enumValues,

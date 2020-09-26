@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swiss_travel/pages/loading.dart';
+import 'package:swiss_travel/utils/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -15,32 +17,42 @@ Future<void> main() async {
   await Firebase.initializeApp();
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runZonedGuarded<Future<void>>(
-      () async => runApp(MyApp()), FirebaseCrashlytics.instance.recordError);
+      () async => runApp(ProviderScope(child: MyApp())), FirebaseCrashlytics.instance.recordError);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void reassemble() {
+    super.reassemble();
+    log("Reload theme");
+    context.read(dynamicTheme).configure(themeConfiguration);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: Consumer(builder: (context, w, _) {
-        final theme = w(dynamicTheme);
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: navigatorKey,
-          title: 'Swiss Travel',
-          builder: (context, child) => _Unfocus(child: child),
-          theme: theme.light,
-          darkTheme: theme.dark,
-          themeMode: theme.mode,
-          home: LoadingPage(),
-        );
-      }),
-    );
+    return Consumer(builder: (context, w, _) {
+      final theme = w(dynamicTheme);
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
+        title: 'Swiss Travel',
+        builder: (context, child) => Unfocus(child: child),
+        theme: theme.light,
+        darkTheme: theme.dark,
+        themeMode: theme.mode,
+        home: LoadingPage(),
+      );
+    });
   }
 }
 
-class _Unfocus extends StatelessWidget {
-  const _Unfocus({Key key, this.child}) : super(key: key);
+class Unfocus extends StatelessWidget {
+  const Unfocus({Key key, this.child}) : super(key: key);
 
   final Widget child;
 

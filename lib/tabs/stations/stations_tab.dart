@@ -6,9 +6,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/blocs/location.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/station_states.dart';
 import 'package:swiss_travel/utils/complete.dart';
@@ -52,25 +52,19 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     return Scaffold(
       body: Column(
         children: <Widget>[
-          SizedBox(
-              height: 64,
-              child: Center(
-                  child: Text(
-                "Look for a station",
-                style: Theme.of(context).textTheme.headline4,
-              ))),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
             child: Row(
               children: [
                 Expanded(
                   child: TextField(
+                    key: const Key("stations-textfield"),
                     focusNode: focusNode,
                     controller: searchController,
                     style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
                     decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        hintText: "Stop",
+                        hintText: "Look for a station",
                         suffixIcon: IconButton(
                             icon: const FaIcon(FontAwesomeIcons.times),
                             onPressed: () {
@@ -100,26 +94,16 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                       child: CircularProgressIndicator(),
                     ),
                     completions: (c) => ListView.builder(
-                      itemBuilder: (context, i) => CffCompletionTile(c.completions[i]),
+                      itemBuilder: (context, i) => CffCompletionTile(
+                        c.completions[i],
+                        key: Key("stations-key-$i"),
+                      ),
                       itemCount: c.completions == null ? 0 : c.completions.length,
                     ),
                     empty: (_) => Consumer(
                         builder: (context, w, _) => w(favoritesStatesProvider).state.map(
                               data: (c) => c.completions.isEmpty
-                                  ? Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        const FaIcon(
-                                          FontAwesomeIcons.star,
-                                          size: 48,
-                                        ),
-                                        const SizedBox(height: 16),
-                                        Text(
-                                          "No favorites !",
-                                          style: Theme.of(context).textTheme.headline6,
-                                        ),
-                                      ],
-                                    )
+                                  ? const SizedBox()
                                   : ListView.builder(
                                       itemBuilder: (context, i) =>
                                           CffCompletionTile(c.completions[i], isFav: true),
@@ -180,8 +164,8 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     context.read(_loadingProvider).state = true;
 
     try {
-      final p = await getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-      log("Position is : $p");
+      final p = await context.read(locationProvider).getLocation(context: context);
+      if (p == null) return;
 
       final completions = await context.read(cffProvider).findStation(p.latitude, p.longitude);
 
@@ -196,6 +180,8 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
           await load(firstWhere.label);
         }
       }
+    } on Exception catch (e) {
+      log("", error: e, name: "Location");
     } finally {
       context.read(_loadingProvider).state = false;
     }
@@ -212,9 +198,9 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
-    } on Exception catch (e) {
+    } on Exception catch (e, s) {
       context.read(_stateProvider).state = StationStates.exception(e);
-      FirebaseCrashlytics.instance.recordError(e, StackTrace.current, printDetails: true);
+      FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
     }
   }
 }
