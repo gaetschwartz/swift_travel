@@ -52,7 +52,8 @@ class RouteDetails extends StatelessWidget {
         children: <Widget>[
           _dataRow("Departure", c.from),
           _dataRow("Arrival", c.to),
-          _dataRow("Travel duration", Format.intToDuration(c.duration.round())),
+          _dataRow("Travel duration",
+              "${Format.time(c.departure)} - ${Format.time(c.arrival)} (${Format.intToDuration(c.duration.round())})"),
           const Divider(thickness: 2, height: 4),
           Expanded(
             child: ListView.builder(
@@ -94,6 +95,7 @@ class RouteDetails extends StatelessWidget {
                   child: Text(
                     text,
                     style: const TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.end,
                   )))
         ],
       ),

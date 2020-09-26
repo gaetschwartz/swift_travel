@@ -29,7 +29,7 @@
 				<string>Editor</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>swiss-travel</string>
+					<string>swisstravel</string>
 				</array>
 			</dict>
 		</array>

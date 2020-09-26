@@ -37,7 +37,7 @@ class _DetailsStopState extends State<DetailsStop> {
           child: data != null
               ? data.messages.isEmpty
                   ? ListView.separated(
-                      separatorBuilder: (c, i) => const Divider(),
+                      separatorBuilder: (c, i) => const Divider(height: 0),
                       itemCount: data.connections.length,
                       itemBuilder: (context, i) => ConnectionTile(c: data.connections[i]),
                     )
@@ -75,40 +75,43 @@ class ConnectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final diff = c.time.difference(DateTime.now());
-    return ListTile(
-      title: Row(
-        children: [
-          LineIcon(
-            background: c.color.split("~").first,
-            foreground: c.color.split("~")[1],
-            line: c.line,
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                c.terminal.name,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ListTile(
+        title: Row(
+          children: [
+            LineIcon(
+              background: c.color.split("~").first,
+              foreground: c.color.split("~")[1],
+              line: c.line,
             ),
-          ),
-        ],
-      ),
-      subtitle: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          children: <Widget>[
-            CffIcon(c.type, size: 16),
             const SizedBox(width: 8),
-            Text(
-              Format.dateTime(c.time),
-              style: const TextStyle(fontSize: 14),
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  c.terminal.name,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
           ],
         ),
+        subtitle: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            children: <Widget>[
+              CffIcon(c.type, size: 16),
+              const SizedBox(width: 8),
+              Text(
+                Format.time(c.time),
+                style: const TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
+        ),
+        trailing: Text(Format.duration(diff)),
       ),
-      trailing: Text(Format.duration(diff)),
     );
   }
 }

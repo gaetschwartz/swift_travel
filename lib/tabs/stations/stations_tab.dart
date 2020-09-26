@@ -17,6 +17,7 @@ import 'package:swiss_travel/widget/cff_icon.dart';
 import 'completion_tile.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
+final _locatingProvider = StateProvider((_) => false);
 final _loadingProvider = StateProvider((_) => false);
 
 class SearchByName extends StatefulWidget {
@@ -52,8 +53,9 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     return Scaffold(
       body: Column(
         children: <Widget>[
+          const SizedBox(height: 16),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: [
                 Expanded(
@@ -78,7 +80,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                 const SizedBox(width: 8),
                 IconButton(
                     icon: Consumer(builder: (context, w, _) {
-                      final loading = w(_loadingProvider).state;
+                      final loading = w(_locatingProvider).state;
                       return loading
                           ? const CircularProgressIndicator()
                           : const FaIcon(FontAwesomeIcons.locationArrow);
@@ -87,18 +89,34 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
               ],
             ),
           ),
+          const SizedBox(height: 8),
           Expanded(
             child: Consumer(builder: (context, w, _) {
               return w(_stateProvider).state.map(
-                    loading: (_) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    completions: (c) => ListView.builder(
-                      itemBuilder: (context, i) => CffCompletionTile(
-                        c.completions[i],
-                        key: Key("stations-key-$i"),
-                      ),
-                      itemCount: c.completions == null ? 0 : c.completions.length,
+                    completions: (c) => Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: SizedBox(
+                            height: 4,
+                            child: Center(
+                              child: Consumer(
+                                  builder: (context, w, _) => w(_loadingProvider).state
+                                      ? const LinearProgressIndicator()
+                                      : const SizedBox()),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemBuilder: (context, i) => CffCompletionTile(
+                              c.completions[i],
+                              key: Key("stations-key-$i"),
+                            ),
+                            itemCount: c.completions == null ? 0 : c.completions.length,
+                          ),
+                        ),
+                      ],
                     ),
                     empty: (_) => Consumer(
                         builder: (context, w, _) => w(favoritesStatesProvider).state.map(
@@ -119,12 +137,6 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                                 ),
                               ),
                             )),
-                    exception: (value) => Center(
-                      child: Text(
-                        value.exception.toString(),
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                    ),
                     network: (value) => Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -148,20 +160,20 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   }
 
   Future<void> debounce(BuildContext context, String s) async {
-    context.read(_stateProvider).state = const StationStates.loading();
+    context.read(_loadingProvider).state = true;
     // Debounce
     if (_debouncer?.isActive ?? false) {
       _debouncer?.cancel();
-      _debouncer = Timer(const Duration(milliseconds: 500), () => load(s));
+      _debouncer = Timer(const Duration(milliseconds: 500), () => fetch(s));
     } else {
-      await load(s);
+      await fetch(s);
       _debouncer?.cancel();
       _debouncer = Timer(const Duration(milliseconds: 500), () {});
     }
   }
 
   Future<void> getLocation() async {
-    context.read(_loadingProvider).state = true;
+    context.read(_locatingProvider).state = true;
 
     try {
       final p = await context.read(locationProvider).getLocation(context: context);
@@ -177,17 +189,17 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
         if (firstWhere != null) {
           log("Found : $firstWhere");
           searchController.text = firstWhere.label;
-          await load(firstWhere.label);
+          await fetch(firstWhere.label);
         }
       }
     } on Exception catch (e) {
       log("", error: e, name: "Location");
     } finally {
-      context.read(_loadingProvider).state = false;
+      context.read(_locatingProvider).state = false;
     }
   }
 
-  Future<void> load(String query) async {
+  Future<void> fetch(String query) async {
     try {
       final compls = await context.read(cffProvider).complete(query);
       final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
@@ -199,8 +211,9 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
-      context.read(_stateProvider).state = StationStates.exception(e);
       FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+    } finally {
+      context.read(_loadingProvider).state = false;
     }
   }
 }

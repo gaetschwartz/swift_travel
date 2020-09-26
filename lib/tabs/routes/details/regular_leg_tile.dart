@@ -77,7 +77,7 @@ class RegularLegTile extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            "${Format.dateTime(l.departure)} - ${Format.dateTime(l.exit.arrival)}",
+                            "${Format.time(l.departure)} - ${Format.time(l.exit.arrival)}",
                           ),
                           Expanded(
                             child: Align(
@@ -124,7 +124,10 @@ class RegularLegTile extends StatelessWidget {
           ),
           if (stop.departure != null) ...[
             const SizedBox(width: 8),
-            Text(Format.dateTime(stop.departure))
+            Text(
+              Format.time(stop.departure),
+              style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+            )
           ],
         ],
       ),

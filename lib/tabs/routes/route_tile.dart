@@ -34,7 +34,7 @@ class RouteTile extends StatelessWidget {
           child: Wrap(spacing: 8, children: listWidget),
         ),
         const SizedBox(height: 4),
-        Text("${Format.dateTime(c.departure)} - ${Format.dateTime(c.arrival)}")
+        Text("${Format.time(c.departure)} - ${Format.time(c.arrival)}")
       ],
     );
   }

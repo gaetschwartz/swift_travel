@@ -48,8 +48,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="route"
-                    android:scheme="swiss-travel" />
+                    android:scheme="swisstravel" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

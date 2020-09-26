@@ -67,6 +67,7 @@ class _LoadingPageState extends State<LoadingPage> {
     }
 
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
+    final cff = context.read(cffProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read(quickActions).init();
@@ -88,7 +89,7 @@ class _LoadingPageState extends State<LoadingPage> {
               final qUri = Uri.https("timetable.search.ch", "api/route.json", uri.queryParameters);
               log(qUri.toString());
               final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
-                  future: () => context.read(cffProvider).rawRoute(qUri.toString()),
+                  future: () => cff.rawRoute(qUri.toString()),
                   title: const Text("Getting route infos ..."));
               final i = int.parse(uri.queryParameters["i"]);
               navigatorKey.currentState

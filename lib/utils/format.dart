@@ -58,7 +58,7 @@ class Format {
     return "$hrs$mins${h == 0 ? " ${_mins(locale)}" : ""}";
   }
 
-  static String dateTime(DateTime date, [Locale locale = const Locale("en")]) {
+  static String time(DateTime date, [Locale locale = const Locale("en")]) {
     final String min = date.minute < 10 ? "0${date.minute}" : date.minute.toString();
     return "${date.hour}:$min";
   }
