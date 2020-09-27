@@ -45,14 +45,15 @@ dev_dependencies:
   freezed: ^0.12.0
   build_runner: null
   json_serializable: ^3.4.1
-  flutter_launcher_icons: "^0.7.0"
+  flutter_launcher_icons: ^0.8.0
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/profiles/
-
+# flutter pub get
+# flutter pub run flutter_launcher_icons:main
 flutter_icons:
   ios: true
   android: true
