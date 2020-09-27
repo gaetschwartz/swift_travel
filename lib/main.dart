@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swiss_travel/pages/loading.dart';
@@ -12,6 +13,7 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
+  // if (kDebugMode) debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
