@@ -75,14 +75,13 @@ class Settings extends StatelessWidget {
             const _SectionTitle(title: Text("More")),
             ListTile(
               leading: const Icon(FontAwesomeIcons.users),
-              title: const Text("The team"),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage()));
-              },
+              title: const Text("Our team"),
+              onTap: () =>
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage())),
             ),
             ListTile(
               leading: const Icon(FontAwesomeIcons.fileCode),
-              title: const Text("Open source"),
+              title: const Text("Licenses"),
               onTap: () => showLicensePage(context: context, applicationIcon: const FlutterLogo()),
             ),
             const Divider(
@@ -458,20 +457,33 @@ class TeamPage extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  static const coders = <Coder>[
+  static const primaryCoders = <Coder>[
     Coder(
       "Gaëtan Schwartz",
-      role: "Lead Developer,\nApp Designer",
-      twitterUrl: "https://twitter.com/gaetschwartz",
+      role: "Lead Developer\nApp Concept/Design",
       imageUrl: "https://pbs.twimg.com/profile_images/1307716781356834818/kwCKuS7q_400x400.jpg",
       website: "https://gaetanschwartz.com/#/",
+      email: "gaetan.schwartz@gmail.com",
     ),
     Coder(
       "Vincent Tarrit",
-      role: "Developer",
+      role: "Developer\nDesign",
       imageUrl:
           "https://i2.wp.com/www.tarrit.com/wp-content/uploads/2018/11/cropped-Vincent-Tarrit3petitblanc-2-1.jpg?w=512",
       website: "https://tarrit.com/",
+    ),
+  ];
+
+  static const secondaryCoders = <Coder>[
+    Coder(
+      "Abin W.",
+      role: "Beta-tester",
+      imageUrl: "assets/profiles/abin.jpeg",
+      isAssets: true,
+    ),
+    Coder(
+      "Alexandre S.",
+      role: "Beta-tester",
     ),
   ];
 
@@ -479,35 +491,59 @@ class TeamPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("The team")),
-      body: ListView.builder(
-          itemCount: coders.length,
-          itemBuilder: (context, i) {
-            final c = coders[i];
-            return ListTile(
-              title: Text(c.name),
-              leading: SizedBox(
-                height: 48,
-                width: 48,
-                child: CircleAvatar(
-                  backgroundImage:
-                      c.imageUrl == null ? null : CachedNetworkImageProvider(c.imageUrl),
-                  child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user) : null,
-                ),
-              ),
-              subtitle: c.role == null ? null : Text(c.role),
-              trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                if (c.website != null)
-                  IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.paperclip),
-                      onPressed: () => launch(c.website)),
-                if (c.twitterUrl != null)
-                  IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.twitter),
-                      onPressed: () => launch(c.twitterUrl)),
-              ]),
-              isThreeLine: true,
-            );
-          }),
+      body: ListView(
+        children: [
+          Column(
+            children: primaryCoders.map((c) => _CoderTile(c: c)).toList(),
+          ),
+          ExpansionTile(
+            title: const Text("People that helped"),
+            children: secondaryCoders.map((c) => _CoderTile(c: c)).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CoderTile extends StatelessWidget {
+  const _CoderTile({
+    Key key,
+    @required this.c,
+  }) : super(key: key);
+
+  final Coder c;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(c.name),
+      leading: SizedBox(
+        height: 48,
+        width: 48,
+        child: CircleAvatar(
+          backgroundImage: c.imageUrl == null
+              ? null
+              : c.isAssets
+                  ? AssetImage(c.imageUrl) as ImageProvider
+                  : CachedNetworkImageProvider(c.imageUrl),
+          child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user) : null,
+        ),
+      ),
+      subtitle: c.role == null ? null : Text(c.role),
+      trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+        if (c.website != null)
+          IconButton(
+              icon: const FaIcon(FontAwesomeIcons.paperclip), onPressed: () => launch(c.website)),
+        if (c.twitterUrl != null)
+          IconButton(
+              icon: const FaIcon(FontAwesomeIcons.twitter), onPressed: () => launch(c.twitterUrl)),
+        if (c.email != null)
+          IconButton(
+              icon: const FaIcon(FontAwesomeIcons.envelope),
+              onPressed: () => launch("mailto:${c.email}")),
+      ]),
+      isThreeLine: true,
     );
   }
 }
@@ -519,8 +555,18 @@ class Coder {
   final String role;
   final String imageUrl;
   final String website;
+  final String email;
+  final bool isAssets;
 
-  const Coder(this.name, {this.twitterUrl, this.role, this.imageUrl, this.website});
+  const Coder(
+    this.name, {
+    this.isAssets = false,
+    this.twitterUrl,
+    this.role,
+    this.imageUrl,
+    this.website,
+    this.email,
+  });
 }
 
 class _SectionTitle extends StatelessWidget {

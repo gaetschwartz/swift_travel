@@ -1,10 +1,15 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
+import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/tabs/stations/stop_details.dart';
 import 'package:swiss_travel/widget/cff_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
+import 'package:utils/dialogs/choice.dart';
+
+enum _Actions { favorite }
 
 class CffCompletionTile extends StatelessWidget {
   const CffCompletionTile(
@@ -34,12 +39,15 @@ class CffCompletionTile extends StatelessWidget {
             leading: CffIcon.fromIconClass(sugg.iconclass),
             title: Text(sugg.label ?? "???"),
             dense: true,
-            subtitle: sugg.dist != null
-                ? Text("${sugg.dist.round()}m")
-                : isFav || sugg.isFavorite
-                    ? const Text("Favorite")
+            subtitle: isFav || sugg.isFavorite
+                ? const Text("Favorite")
+                : sugg.dist != null
+                    ? Text("${sugg.dist.round()}m")
                     : null,
-            trailing: isPrivate ? null : const Icon(Icons.arrow_forward_ios),
+            trailing: isPrivate
+                ? IconButton(icon: const Icon(Icons.more_horiz), onPressed: () => more(context))
+                : const Icon(Icons.arrow_forward_ios),
+            onLongPress: () => more(context),
             onTap: isPrivate
                 ? null
                 : () {
@@ -53,5 +61,27 @@ class CffCompletionTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> more(BuildContext context) async {
+    final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    final isFav = store.favorites.contains(sugg);
+    final c = await choose<_Actions>(context,
+        choices: [
+          Choice(
+              value: _Actions.favorite,
+              child: isFav ? const Text("Remove from favorites") : const Text("Add to favorites"))
+        ],
+        title: const Text("Choose an action"),
+        cancel: const Choice.cancel(child: Text("Cancel")));
+    switch (c.value) {
+      case _Actions.favorite:
+        if (isFav) {
+          store.deleteFavorite(sugg);
+        } else {
+          store.addFavorite(sugg);
+        }
+        break;
+    }
   }
 }

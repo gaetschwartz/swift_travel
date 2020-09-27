@@ -50,6 +50,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/profiles/
+
 flutter_icons:
   ios: true
   android: true
@@ -57,4 +60,3 @@ flutter_icons:
   image_path_android: "assets/logo/logo.png"
   adaptive_icon_background: "assets/logo/logo.png"
   adaptive_icon_foreground: "assets/logo/logo.png"
-

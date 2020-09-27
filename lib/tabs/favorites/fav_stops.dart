@@ -121,11 +121,19 @@ class _FavoriteTile extends StatelessWidget {
       trailing: IconButton(
           icon: const FaIcon(FontAwesomeIcons.edit),
           onPressed: () async {
-            choose<String>(context,
-                choices: [Choice("Delete", isDestructive: true, onTap: () => delete(context))],
-                cancel: const Choice(Text("Cancel")),
-                title: const Text("What to do ?"),
-                valueToWidget: (v) => Text(v));
+            choose<String>(
+              context,
+              choices: [
+                Choice(
+                  value: "Delete",
+                  isDestructive: true,
+                  onTap: () => delete(context),
+                  child: const Text("Delete"),
+                )
+              ],
+              cancel: const Choice.cancel(child: Text("Cancel")),
+              title: const Text("What to do ?"),
+            );
           }),
       title: Text(stop.label),
     );

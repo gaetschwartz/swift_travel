@@ -92,11 +92,19 @@ class _RouteTile extends StatelessWidget {
       trailing: IconButton(
           icon: const FaIcon(FontAwesomeIcons.edit),
           onPressed: () {
-            choose<String>(context,
-                choices: [Choice("Delete", isDestructive: true, onTap: () => deleteRoute(context))],
-                cancel: const Choice(Text("Cancel")),
-                title: const Text("What to do ?"),
-                valueToWidget: (v) => Text(v));
+            choose<String>(
+              context,
+              choices: [
+                Choice(
+                  value: "Delete",
+                  isDestructive: true,
+                  onTap: () => deleteRoute(context),
+                  child: null,
+                )
+              ],
+              cancel: const Choice.cancel(child: Text("Cancel")),
+              title: const Text("What to do ?"),
+            );
           }),
       onTap: () async {
         Navigator.of(context)

@@ -185,7 +185,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       if (first.dist != null) {
         final public = completions.where(
             (c) => !CffIcon.isPrivate(c.iconclass.substring(c.iconclass.lastIndexOf("_") + 1)));
-        context.read(_stateProvider).state = StationStates.completions(public.toList());
+        context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log("Found : ${public.first}");
           searchController.text = public.first.label;
