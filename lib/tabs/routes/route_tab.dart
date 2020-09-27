@@ -113,11 +113,13 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                         onSubmitted: (_) => fnTo.requestFocus(),
                         textInputAction: TextInputAction.next,
                         style: Theme.of(context).textTheme.bodyText1,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "From",
-                          isDense: true,
-                        )),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: "From",
+                            isDense: true,
+                            suffixIcon: IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () => fromController.text = ""))),
                     suggestionsCallback: (s) async =>
                         completeWithFavorites(_store, await _cff.complete(s), s),
                     itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
@@ -155,11 +157,13 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                         onSubmitted: (_) => search(),
                         controller: toController,
                         style: Theme.of(context).textTheme.bodyText1,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "To",
-                          isDense: true,
-                        )),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: "To",
+                            isDense: true,
+                            suffixIcon: IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () => toController.text = ""))),
                     suggestionsCallback: (s) async =>
                         completeWithFavorites(_store, await _cff.complete(s), s),
                     itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
@@ -248,18 +252,21 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                   );
                 }),
                 Expanded(
-                    child: FlatButton(
-                  shape: const StadiumBorder(),
-                  onPressed: () {
-                    final time = context.read(_timeProvider);
-                    final nowTime = TimeOfDay.now();
-                    time.state = nowTime;
-                    final date = context.read(_dateProvider);
-                    final nowDate = DateTime.now();
-                    date.state = nowDate;
-                    search();
-                  },
-                  child: const Icon(Icons.restore),
+                    child: Tooltip(
+                  message: "Reset time",
+                  child: FlatButton(
+                    shape: const StadiumBorder(),
+                    onPressed: () {
+                      final time = context.read(_timeProvider);
+                      final nowTime = TimeOfDay.now();
+                      time.state = nowTime;
+                      final date = context.read(_dateProvider);
+                      final nowDate = DateTime.now();
+                      date.state = nowDate;
+                      search();
+                    },
+                    child: const Icon(Icons.restore),
+                  ),
                 )),
               ],
             ),
@@ -324,14 +331,17 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               ),
               Positioned(
                   left: 0,
-                  child: FlatButton(
-                    shape: const StadiumBorder(),
-                    onPressed: () async {
-                      fromController.clear();
-                      toController.clear();
-                      context.read(_routesProvider).state = const RouteStates.empty();
-                    },
-                    child: const FaIcon(FontAwesomeIcons.times),
+                  child: Tooltip(
+                    message: "Clear everything",
+                    child: FlatButton(
+                      shape: const StadiumBorder(),
+                      onPressed: () async {
+                        fromController.clear();
+                        toController.clear();
+                        context.read(_routesProvider).state = const RouteStates.empty();
+                      },
+                      child: const Icon(Icons.clear),
+                    ),
                   )),
             ],
           ),
@@ -418,7 +428,6 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     } finally {
       context.read(_isLocating).state = false;
       fnFrom.unfocus();
-      fnTo.unfocus();
     }
   }
 

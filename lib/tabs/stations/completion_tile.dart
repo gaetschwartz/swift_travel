@@ -34,7 +34,11 @@ class CffCompletionTile extends StatelessWidget {
             leading: CffIcon.fromIconClass(sugg.iconclass),
             title: Text(sugg.label ?? "???"),
             dense: true,
-            subtitle: isFav || sugg.isFavorite ? const Text("Favorite") : null,
+            subtitle: sugg.dist != null
+                ? Text("${sugg.dist.round()}m")
+                : isFav || sugg.isFavorite
+                    ? const Text("Favorite")
+                    : null,
             trailing: isPrivate ? null : const Icon(Icons.arrow_forward_ios),
             onTap: isPrivate
                 ? null

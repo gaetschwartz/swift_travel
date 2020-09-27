@@ -183,13 +183,12 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
 
       final first = completions.first;
       if (first.dist != null) {
-        final firstWhere = completions.firstWhere(
-            (c) => !CffIcon.isPrivate(c.iconclass.substring(c.iconclass.lastIndexOf("_") + 1)),
-            orElse: () => null);
-        if (firstWhere != null) {
-          log("Found : $firstWhere");
-          searchController.text = firstWhere.label;
-          await fetch(firstWhere.label);
+        final public = completions.where(
+            (c) => !CffIcon.isPrivate(c.iconclass.substring(c.iconclass.lastIndexOf("_") + 1)));
+        context.read(_stateProvider).state = StationStates.completions(public.toList());
+        if (public.isNotEmpty) {
+          log("Found : ${public.first}");
+          searchController.text = public.first.label;
         }
       }
     } on Exception catch (e) {

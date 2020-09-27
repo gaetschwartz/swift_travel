@@ -17,7 +17,7 @@ class LocationRepository {
     bool forceAndroidLocationManager = false,
     Duration timeLimit,
   }) async {
-    final LocationPermission permission = await checkPermission();
+    final LocationPermission permission = await requestPermission();
     if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
       try {
         final p = await getCurrentPosition(
@@ -30,21 +30,23 @@ class LocationRepository {
         await FirebaseCrashlytics.instance.recordError(e, s);
         return null;
       }
-    } else if (context != null) {
-      log(permission.toString());
-      final b = await confirm(
-        context,
-        title: const Text("You need permissions !"),
-        content: const Text("Location permissions are needed to get your position !"),
-        cancel: const Text("Ok"),
-        confirm: const Text("Open Settings"),
-        defaultAction: DefaultAction.confirm,
-        isCancelDestructive: true,
-      );
-      if (!b) return null;
-      log("Opening settings ...");
-      final opened = await openAppSettings();
-      if (opened) log("Successfully opened settings");
+    } else {
+      if (context != null) {
+        log(permission.toString());
+        final b = await confirm(
+          context,
+          title: const Text("You need permissions !"),
+          content: const Text("Location permissions are needed to get your position !"),
+          cancel: const Text("Cancel"),
+          confirm: const Text("Open Settings"),
+          defaultAction: DefaultAction.confirm,
+          isCancelDestructive: true,
+        );
+        if (!b) return null;
+        log("Opening settings ...");
+        final opened = await openAppSettings();
+        if (opened) log("Successfully opened settings");
+      }
     }
     return null;
   }

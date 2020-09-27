@@ -52,8 +52,28 @@ class RouteDetails extends StatelessWidget {
         children: <Widget>[
           _dataRow("Departure", c.from),
           _dataRow("Arrival", c.to),
-          _dataRow("Travel duration",
-              "${Format.time(c.departure)} - ${Format.time(c.arrival)} (${Format.intToDuration(c.duration.round())})"),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                const Text("Travel duration"),
+                const SizedBox(width: 8),
+                Expanded(
+                    child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text.rich(
+                          TextSpan(children: [
+                            TextSpan(
+                                text: "${Format.time(c.departure)} - ${Format.time(c.arrival)}",
+                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(text: " (${Format.intToDuration(c.duration.round())})")
+                          ]),
+                          textAlign: TextAlign.end,
+                        )))
+              ],
+            ),
+          ),
           const Divider(thickness: 2, height: 4),
           Expanded(
             child: ListView.builder(
