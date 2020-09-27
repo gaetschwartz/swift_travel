@@ -7,6 +7,7 @@ import 'package:test/test.dart';
 Future<void> wait([int ms = 500]) => Future.delayed(Duration(milliseconds: ms));
 
 void main() {
+  // flutter drive --target=test_driver/app.dart --profile --cache-sksl --write-sksl-on-exit shaders/01.sksl.json
   group('Swiss Travel App', () {
     // First, define the Finders and use them to locate widgets from the
     // test suite. Note: the Strings provided to the `byValueKey` method must
@@ -20,6 +21,9 @@ void main() {
     final tile = find.byValueKey("routetile-0");
     final stationsTf = find.byValueKey("stations-textfield");
     final firstStation = find.byValueKey("stations-key-0");
+    final settings = find.byValueKey("settings");
+    final light = find.byValueKey("mode-Light");
+    final dark = find.byValueKey("mode-Dark");
 
     FlutterDriver driver;
 
@@ -82,15 +86,16 @@ void main() {
         await driver.tap(favsTab);
         await wait();
 
-        await driver.tap(find.byValueKey("settings"));
+        await driver.tap(settings);
         await wait();
-        await driver.tap(find.byValueKey("light"));
+
+        await driver.tap(light);
         await wait(1000);
-        await driver.tap(find.byValueKey("dark"));
+        await driver.tap(dark);
         await wait(1000);
-        await driver.tap(find.byValueKey("light"));
+        await driver.tap(light);
         await wait(1000);
-        await driver.tap(find.byValueKey("dark"));
+        await driver.tap(dark);
         await wait(1000);
       });
     });
