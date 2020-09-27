@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swiss_travel/api/cff/models/cff_stationboard.dart';
@@ -19,10 +21,21 @@ class DetailsStop extends StatefulWidget {
 class _DetailsStopState extends State<DetailsStop> {
   CffStationboard data;
 
+  Timer timer;
+
   @override
   void initState() {
     super.initState();
+    timer = Timer.periodic(const Duration(seconds: 15), (_) {
+      setState(() {});
+    });
     reloadData();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
