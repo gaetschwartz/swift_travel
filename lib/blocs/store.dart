@@ -13,7 +13,7 @@ import 'package:swiss_travel/models/favorites_routes_states.dart';
 import 'package:swiss_travel/models/favorites_states.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
-  Future<List<CffCompletion>> loadFromPreferences({SharedPreferences prefs, bool notify = true});
+  Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true});
   Future<void> addFavorite(CffCompletion completion);
   Future<void> deleteFavorite(CffCompletion completion);
   Future<void> addRoute(LocalRoute route);
@@ -51,8 +51,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   Iterable<CffCompletion> get favorites => _favs.map((e) => _cache[e]).where((e) => e != null);
 
   @override
-  Future<List<CffCompletion>> loadFromPreferences(
-      {SharedPreferences prefs, bool notify = true}) async {
+  Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true}) async {
     log("Gettings favorites", name: "Store");
     if (notify) {
       ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
