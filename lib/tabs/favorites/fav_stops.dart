@@ -140,6 +140,7 @@ class _FavoriteTile extends StatelessWidget {
             );
           }),
       title: Text(stop.name),
+      subtitle: Text(stop.stop),
     );
   }
 

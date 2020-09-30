@@ -53,7 +53,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   @override
   Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true}) async {
-    log("Gettings favorites", name: "Store");
+    log("Getting favorites", name: "Store");
     if (notify) {
       ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
       ref.read(favoritesRoutesStatesProvider).state = const FavoritesRoutesStates.loading();
@@ -66,15 +66,17 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     for (final String ll in _prefs.getStringList(stopsKey) ?? []) {
       final fs = FavoriteStop.fromJson(jsonDecode(ll) as Map<String, dynamic>);
       if (_cache[fs.stop] == null) {
-        log("Fetching ${fs.stop} because it's not in the cache");
+        log("Fetching ${fs.stop} because it's not in the cache", name: "Store");
         final List<CffCompletion> c = await ref.read(cffProvider).complete(fs.stop, showIds: true);
         _cache[fs.stop] = c.first;
       }
+      log("Found $fs", name: "Store");
+      favStops.add(fs);
     }
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(favorites.toList());
-
     _favs.clear();
     _favs.addAll(favStops);
+
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(favorites.toList());
 
     //? Routes
     final List<String> routes = _prefs.getStringList(routesKey) ?? [];

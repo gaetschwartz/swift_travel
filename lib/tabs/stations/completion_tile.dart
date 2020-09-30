@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
@@ -14,19 +12,21 @@ import 'package:utils/dialogs/input_dialog.dart';
 enum _Actions { favorite }
 
 class CffCompletionTile extends StatelessWidget {
-  const CffCompletionTile({
+  CffCompletionTile({
     Key key,
-    this.sugg,
+    CffCompletion suggestion,
     this.favoriteStop,
-  }) : super(key: key);
+  })  : sugg = suggestion ?? favoriteStop.completion,
+        assert(suggestion != null || favoriteStop != null),
+        super(key: key);
 
   final CffCompletion sugg;
   final FavoriteStop favoriteStop;
 
   @override
   Widget build(BuildContext context) {
-    final isPrivate = CffIcon.isPrivate(sugg.iconclass);
-    if (sugg.label == null) log(sugg.toString());
+    final iconClass = sugg?.iconclass ?? favoriteStop.completion.iconclass;
+    final isPrivate = CffIcon.isPrivate(iconClass);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       child: DecoratedBox(
@@ -38,11 +38,13 @@ class CffCompletionTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
-            leading: CffIcon.fromIconClass(sugg.iconclass),
-            title: Text(sugg.label ?? "???"),
+            leading: CffIcon.fromIconClass(iconClass),
+            title: Text(
+                (favoriteStop != null ? favoriteStop.name : sugg.favoriteName ?? sugg.label) ??
+                    "???"),
             dense: true,
-            subtitle: favoriteStop != null || sugg.isFavorite
-                ? const Text("Favorite")
+            subtitle: favoriteStop != null || sugg.favoriteName != null
+                ? Text(favoriteStop != null ? favoriteStop.stop : sugg.label ?? "Favorite")
                 : sugg.dist != null
                     ? Text("${sugg.dist.round()}m")
                     : null,

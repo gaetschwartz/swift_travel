@@ -39,7 +39,7 @@ class CffRepository implements CffBase {
 
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
-      throw Exception("Couldn't retrieve completion !");
+      throw Exception("Couldn't retrieve completion : ${response.body}");
     }
     final decode = await Future.microtask(() => json.decode(response.body));
     final List<Map> list = (decode as List).cast<Map>();
@@ -71,7 +71,7 @@ class CffRepository implements CffBase {
 
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
-      throw Exception("Couldn't retrieve completion !");
+      throw Exception("Couldn't find station : ${response.body}");
     }
     final decode = await Future.microtask(() => json.decode(response.body));
     final completions = (decode as List)
@@ -107,7 +107,7 @@ class CffRepository implements CffBase {
     log(s);
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
-      throw Exception("Couldn't retrieve completion !");
+      throw Exception("Couldn't retrieve stationboard : ${response.body}");
     }
     final decode = await Future.microtask(() => json.decode(response.body));
 
@@ -141,7 +141,7 @@ class CffRepository implements CffBase {
   Future<CffRoute> rawRoute(String query) async {
     final response = await _client.get(query, headers: headers);
     if (response.statusCode != 200) {
-      throw Exception("Couldn't retrieve completion !");
+      throw Exception("Couldn't retrieve raw route : ${response.body}");
     }
     final decode = await Future.microtask(() => json.decode(response.body));
     final map = decode as Map<String, dynamic>;
