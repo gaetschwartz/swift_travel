@@ -1,55 +1,58 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
+import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
-import 'package:swiss_travel/blocs/store.dart';
 
-class HiveBoxStore extends FavoritesSharedPreferencesStore {
-  Box _routesBox;
-  Box _stopsBox;
+class HiveBoxStore extends ChangeNotifier {
+  final ProviderReference ref;
+  HiveBoxStore(this.ref);
 
-  HiveBoxStore(ProviderReference ref) : super(ref);
+  Box<Map<String, dynamic>> _routesBox;
+  Box<Map<String, dynamic>> _stopsBox;
 
-  @override
-  Future<void> addFavorite(CffCompletion completion) {
-    throw UnimplementedError();
+  final Map<String, CffCompletion> _cache = {};
+  final Set<String> _favs = {};
+  final Set<LocalRoute> _routes = {};
+
+  Future<void> addFavorite(CffCompletion completion, String name) async {
+    final favoriteStop = FavoriteStop(completion.label, name: name);
+    _cache[completion.label] = completion;
+    await _stopsBox.put(completion.label, favoriteStop.toJson());
+    sync();
   }
 
-  @override
-  Future<void> addRoute(LocalRoute route) {
-    throw UnimplementedError();
+  Future<void> deleteFavorite(FavoriteStop stop) async {
+    await _stopsBox.delete(stop.name);
+    sync();
   }
 
-  @override
+  Future<void> addRoute(LocalRoute route) async {
+    await _routesBox.put(route.hashCode, route.toJson());
+    sync();
+  }
+
+  Future<void> removeRoute(LocalRoute route) async {
+    await _routesBox.delete(route.hashCode);
+    sync();
+  }
+
   Map<String, CffCompletion> get cache => throw UnimplementedError();
 
-  @override
-  Future<void> deleteFavorite(CffCompletion completion) {
-    throw UnimplementedError();
-  }
+  Iterable<FavoriteStop> get favorites => _stopsBox.values.map((m) => FavoriteStop.fromJson(m));
 
-  @override
-  Iterable<CffCompletion> get favorites => throw UnimplementedError();
-
-  @override
   Future<void> loadFromPreferences({
     SharedPreferences prefs,
     bool notify = true,
   }) async {
-    _routesBox = await Hive.openBox<Map>("favorite-routes");
-    _stopsBox = await Hive.openBox<Map>("favorite-stops");
+    _routesBox = await Hive.openBox<Map<String, dynamic>>("favorite-routes");
+    _stopsBox = await Hive.openBox<Map<String, dynamic>>("favorite-stops");
   }
 
-  @override
-  Future<void> removeRoute(LocalRoute route) async {
-    _routesBox.toMap();
-  }
-
-  @override
   Set<LocalRoute> get routes => throw UnimplementedError();
 
-  @override
   Future<void> sync() {
     throw UnimplementedError();
   }

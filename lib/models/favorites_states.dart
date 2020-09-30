@@ -1,13 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
+import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
 
 part 'favorites_states.freezed.dart';
 
 @freezed
 abstract class FavoritesStates with _$FavoritesStates {
-  const factory FavoritesStates.data(List<CffCompletion> completions) =
-      FavoritesStatesData;
+  const factory FavoritesStates.data(List<FavoriteStop> favorites) = FavoritesStatesData;
   const factory FavoritesStates.loading() = FavoritesStatesLoading;
-  const factory FavoritesStates.exception(Exception exception) =
-      FavoritesStatesError;
+  const factory FavoritesStates.exception(Exception exception) = FavoritesStatesError;
 }

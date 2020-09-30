@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
+import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/main.dart';
@@ -51,7 +51,7 @@ class MyQuickActions {
     });
   }
 
-  Future<void> setActions(List<LocalRoute> routes, List<CffCompletion> favorites) async {
+  Future<void> setActions(List<LocalRoute> routes, List<FavoriteStop> favorites) async {
     final List<ShortcutItem> shortcuts = [];
 
     log("Add favorites $favorites", name: "QuickActions");
@@ -59,7 +59,7 @@ class MyQuickActions {
       final fav = favorites[i];
       shortcuts.add(ShortcutItem(
         type: 'fav_$i',
-        localizedTitle: fav.label,
+        localizedTitle: fav.completion.label,
         icon: Platform.isIOS ? "star" : "ic_favorites_round",
       ));
     }

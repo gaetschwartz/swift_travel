@@ -3,23 +3,25 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
+import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/tabs/stations/stop_details.dart';
 import 'package:swiss_travel/widget/cff_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/choice.dart';
+import 'package:utils/dialogs/input_dialog.dart';
 
 enum _Actions { favorite }
 
 class CffCompletionTile extends StatelessWidget {
-  const CffCompletionTile(
-    this.sugg, {
+  const CffCompletionTile({
     Key key,
-    this.isFav = false,
+    this.sugg,
+    this.favoriteStop,
   }) : super(key: key);
 
   final CffCompletion sugg;
-  final bool isFav;
+  final FavoriteStop favoriteStop;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class CffCompletionTile extends StatelessWidget {
             leading: CffIcon.fromIconClass(sugg.iconclass),
             title: Text(sugg.label ?? "???"),
             dense: true,
-            subtitle: isFav || sugg.isFavorite
+            subtitle: favoriteStop != null || sugg.isFavorite
                 ? const Text("Favorite")
                 : sugg.dist != null
                     ? Text("${sugg.dist.round()}m")
@@ -65,7 +67,9 @@ class CffCompletionTile extends StatelessWidget {
 
   Future<void> more(BuildContext context) async {
     final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
-    final isFav = store.favorites.contains(sugg);
+    final first = store.favorites
+        .firstWhere((element) => element.completion.label == sugg.label, orElse: () => null);
+    final isFav = first != null;
     final c = await choose<_Actions>(context,
         choices: [
           Choice(
@@ -77,9 +81,11 @@ class CffCompletionTile extends StatelessWidget {
     switch (c.value) {
       case _Actions.favorite:
         if (isFav) {
-          store.deleteFavorite(sugg);
+          store.deleteFavorite(first);
         } else {
-          store.addFavorite(sugg);
+          final name = await input(context, title: const Text("What is the name of this stop"));
+          if (name == null) return;
+          store.addFavorite(sugg, name);
         }
         break;
     }

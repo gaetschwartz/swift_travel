@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
+import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
 import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
@@ -12,6 +13,7 @@ import 'package:swiss_travel/tabs/routes/route_tab.dart';
 import 'package:swiss_travel/widget/input.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
+import 'package:utils/dialogs/input_dialog.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
 
 class FavStopsTab extends StatelessWidget {
@@ -55,7 +57,9 @@ class FavStopsTab extends StatelessWidget {
             }
 
             final CffCompletion completion = completions.first;
-            await _store.addFavorite(completion);
+            final name = await input(context, title: const Text("What is the name of this stop"));
+            if (name == null) return;
+            await _store.addFavorite(completion, name);
           });
         },
         child: const FaIcon(FontAwesomeIcons.plus),
@@ -69,7 +73,7 @@ class FavStopsTab extends StatelessWidget {
               child: Consumer(builder: (context, w, _) {
                 final favs = w(favoritesStatesProvider);
                 return favs.state.map(
-                  data: (c) => c.completions.isEmpty
+                  data: (c) => c.favorites.isEmpty
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -85,8 +89,8 @@ class FavStopsTab extends StatelessWidget {
                           ],
                         )
                       : ListView.builder(
-                          itemCount: c.completions.length,
-                          itemBuilder: (context, i) => _FavoriteTile(c.completions[i]),
+                          itemCount: c.favorites.length,
+                          itemBuilder: (context, i) => _FavoriteTile(c.favorites[i]),
                         ),
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),
@@ -106,7 +110,7 @@ class FavStopsTab extends StatelessWidget {
 }
 
 class _FavoriteTile extends StatelessWidget {
-  final CffCompletion stop;
+  final FavoriteStop stop;
 
   const _FavoriteTile(
     this.stop, {
@@ -117,7 +121,7 @@ class _FavoriteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () => Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: stop.label))),
+          .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: stop.completion.label))),
       trailing: IconButton(
           icon: const FaIcon(FontAwesomeIcons.edit),
           onPressed: () async {
@@ -135,7 +139,7 @@ class _FavoriteTile extends StatelessWidget {
               title: const Text("What to do ?"),
             );
           }),
-      title: Text(stop.label),
+      title: Text(stop.name),
     );
   }
 
@@ -144,7 +148,9 @@ class _FavoriteTile extends StatelessWidget {
       context,
       title: const Text("Delete favorite ?"),
       content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
-        TextSpan(text: stop.label, style: const TextStyle(fontWeight: FontWeight.bold)),
+        TextSpan(
+            text: "${stop.name} (${stop.stop})",
+            style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(text: "?"),
       ])),
       confirm: const Text("Yes"),

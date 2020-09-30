@@ -110,7 +110,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                         Expanded(
                           child: ListView.builder(
                             itemBuilder: (context, i) => CffCompletionTile(
-                              c.completions[i],
+                              sugg: c.completions[i],
                               key: Key("stations-key-$i"),
                             ),
                             itemCount: c.completions == null ? 0 : c.completions.length,
@@ -120,12 +120,12 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                     ),
                     empty: (_) => Consumer(
                         builder: (context, w, _) => w(favoritesStatesProvider).state.map(
-                              data: (c) => c.completions.isEmpty
+                              data: (c) => c.favorites.isEmpty
                                   ? const SizedBox()
                                   : ListView.builder(
                                       itemBuilder: (context, i) =>
-                                          CffCompletionTile(c.completions[i], isFav: true),
-                                      itemCount: c.completions == null ? 0 : c.completions.length,
+                                          CffCompletionTile(favoriteStop: c.favorites[i]),
+                                      itemCount: c.favorites == null ? 0 : c.favorites.length,
                                     ),
                               loading: (_) => const Center(
                                 child: CircularProgressIndicator(),
