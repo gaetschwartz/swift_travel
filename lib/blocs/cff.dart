@@ -68,7 +68,7 @@ class CffRepository implements CffBase {
       "show_ids": showIds.toInt(),
       "show_coordinates": showCoordinates.toInt()
     });
-
+    log(uri);
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't find station : ${response.body}");

@@ -17,7 +17,8 @@ class LocationRepository {
     bool forceAndroidLocationManager = false,
     Duration timeLimit,
   }) async {
-    final LocationPermission permission = await requestPermission();
+    LocationPermission permission = await checkPermission();
+    if (permission == LocationPermission.denied) permission = await requestPermission();
     if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
       try {
         final p = await getCurrentPosition(

@@ -125,15 +125,20 @@ class _FavoriteTile extends StatelessWidget {
       trailing: IconButton(
           icon: const FaIcon(FontAwesomeIcons.edit),
           onPressed: () async {
-            choose<String>(
+            choose<void>(
               context,
               choices: [
                 Choice(
-                  value: "Delete",
+                  child: const Text("Rename"),
+                  onTap: () => rename(context),
+                  value: null,
+                ),
+                Choice(
                   isDestructive: true,
                   onTap: () => delete(context),
                   child: const Text("Delete"),
-                )
+                  value: null,
+                ),
               ],
               cancel: const Choice.cancel(child: Text("Cancel")),
               title: const Text("What to do ?"),
@@ -142,6 +147,15 @@ class _FavoriteTile extends StatelessWidget {
       title: Text(stop.name),
       subtitle: Text(stop.stop),
     );
+  }
+
+  Future<void> rename(BuildContext context) async {
+    final s = await input(context, title: Text('How to rename "${stop.name}" ?'));
+    if (s == null) return;
+    assert(stop.completion != null);
+    final store = context.read(storeProvider);
+    await store.deleteFavorite(stop);
+    return store.addFavorite(stop.completion, s);
   }
 
   Future<void> delete(BuildContext context) async {

@@ -117,8 +117,6 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   @override
   Future<void> addFavorite(CffCompletion completion, String displayName) async {
-    ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
-    await _checkState();
     final value = completion.label;
     if (value != null) {
       _cache[value] = completion;

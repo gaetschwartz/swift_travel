@@ -419,7 +419,6 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
 
       log("Position is : $p");
       final completions = await context.read(cffProvider).findStation(p.latitude, p.longitude);
-
       final first = completions.first;
       log("Found : $first");
       if (first.dist != null) {
