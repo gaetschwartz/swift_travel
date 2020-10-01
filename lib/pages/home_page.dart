@@ -6,7 +6,7 @@ import 'package:swiss_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swiss_travel/tabs/routes/route_tab.dart';
 import 'package:swiss_travel/tabs/stations/stations_tab.dart';
 
-final tabControllerProvider = StateProvider<TabController>((ref) => null);
+final _tabProvider = StateProvider<int>((ref) => 0);
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage();
@@ -16,26 +16,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
-  TabController _controller;
+  final PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 3, vsync: this);
-    var state = context.read(tabControllerProvider).state;
-    if (state == null) {
-      state = _controller;
-    } else {
-      throw StateError("There is still a tabController in the provider, "
-          "it means that either there still is a "
-          "HomePage widget somewhere or it is a bug.");
-    }
+    final StateController<int> _tab = context.read(_tabProvider);
+
+    _pageController.addListener(() {
+      final round = _pageController.page.round();
+      if (round != _tab.state) _tab.state = round;
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    context.read(tabControllerProvider).state = null;
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -44,28 +40,32 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     return Scaffold(
       key: const Key("home-scaffold"),
       resizeToAvoidBottomInset: false,
+      bottomNavigationBar: Consumer(builder: (context, w, c) {
+        return BottomNavigationBar(
+          onTap: (i) => _pageController.animateToPage(i,
+              curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250)),
+          currentIndex: w(_tabProvider).state,
+          items: const [
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.search),
+              label: "Search",
+            ),
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.route),
+              label: "Route",
+            ),
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.solidStar),
+              label: "Favorites",
+            ),
+          ],
+        );
+      }),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
           "Swiss Travel",
           key: Key("scaffold-title"),
-        ),
-        bottom: TabBar(
-          controller: _controller,
-          tabs: const [
-            Tab(
-              icon: FaIcon(FontAwesomeIcons.search),
-              key: Key("search-tab-key"),
-            ),
-            Tab(
-              icon: FaIcon(FontAwesomeIcons.route),
-              key: Key("route-tab-key"),
-            ),
-            Tab(
-              icon: FaIcon(FontAwesomeIcons.solidStar),
-              key: Key("favs-tab-key"),
-            ),
-          ],
         ),
         actions: [
           IconButton(
@@ -76,8 +76,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               }),
         ],
       ),
-      body: TabBarView(
-        controller: _controller,
+      body: PageView(
+        controller: _pageController,
         children: const [
           SearchByName(),
           SearchRoute(),
