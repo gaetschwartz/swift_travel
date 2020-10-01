@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
@@ -6,94 +7,109 @@ final MaterialColor purpleAbin = createMaterialColor(const Color(0xffcbaacb));
 final MaterialColor blueAbin = createMaterialColor(const Color(0xffabdee6));
 final MaterialColor redAccent = createMaterialColor(Colors.redAccent);
 
-ThemeConfiguration get themeConfiguration => ThemeConfiguration({
-      "default": FullTheme(
-        name: "Swiss Travel",
-        description: "The default theme.",
-        light: ThemeData(
-          primaryColor: Colors.redAccent,
-          primarySwatch: redAccent,
-          indicatorColor: const Color(0xFFFFFFFF),
-          fontFamily: GoogleFonts.muli().fontFamily,
-        ),
-        dark: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.redAccent,
-          primarySwatch: redAccent,
-          fontFamily: GoogleFonts.muli().fontFamily,
-        ),
-        lightShadow: const ShadowTheme(
-          buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-        ),
-        darkShadow: const ShadowTheme(
-          buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-        ),
+const _pageTransitions = PageTransitionsTheme(builders: {
+  TargetPlatform.android:
+      SharedAxisPageTransitionsBuilder(transitionType: SharedAxisTransitionType.scaled),
+});
+
+ThemeConfiguration get themeConfiguration {
+  return ThemeConfiguration({
+    "default": FullTheme(
+      name: "Swiss Travel",
+      description: "The default theme.",
+      light: ThemeData(
+        primaryColor: Colors.redAccent,
+        primarySwatch: redAccent,
+        indicatorColor: const Color(0xFFFFFFFF),
+        fontFamily: GoogleFonts.muli().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
       ),
-      "lexend": FullTheme(
-        name: "Lexend",
-        description: "Lexend !",
-        light: ThemeData(
-          primaryColor: Colors.redAccent,
-          primarySwatch: redAccent,
-          fontFamily: GoogleFonts.lexendDeca().fontFamily,
-        ),
-        dark: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.redAccent,
-          primarySwatch: redAccent,
-          fontFamily: GoogleFonts.lexendDeca().fontFamily,
-        ),
-        lightShadow: const ShadowTheme(
-          buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-        ),
-        darkShadow: const ShadowTheme(
-          buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-        ),
+      dark: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.redAccent,
+        primarySwatch: redAccent,
+        fontFamily: GoogleFonts.muli().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
       ),
-      "abin": FullTheme(
-        name: "Abin",
-        description: "My inspiration",
-        light: ThemeData(
-          primarySwatch: purpleAbin,
-          accentColor: blueAbin,
-          fontFamily: GoogleFonts.cardo().fontFamily,
-        ),
-        dark: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: purpleAbin,
-          primarySwatch: purpleAbin,
-          accentColor: blueAbin,
-          fontFamily: GoogleFonts.cardo().fontFamily,
-        ),
-        lightShadow: const ShadowTheme(
-          buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-        ),
-        darkShadow: const ShadowTheme(
-          buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-        ),
+      lightShadow: const ShadowTheme(
+        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
       ),
-      "lavender": FullTheme(
-        name: "Lavender",
-        description: "We all love lavender.",
-        light: ThemeData(
-          primaryColor: Colors.deepPurple,
-          accentColor: Colors.deepPurpleAccent,
-          fontFamily: GoogleFonts.merriweather().fontFamily,
-        ),
-        dark: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.deepPurple,
-          accentColor: Colors.deepPurpleAccent,
-          fontFamily: GoogleFonts.merriweather().fontFamily,
-        ),
-        lightShadow: const ShadowTheme(
-          buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-        ),
-        darkShadow: const ShadowTheme(
-          buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-        ),
+      darkShadow: const ShadowTheme(
+        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
       ),
-    });
+    ),
+    "lexend": FullTheme(
+      name: "Lexend",
+      description: "Lexend !",
+      light: ThemeData(
+        primaryColor: Colors.redAccent,
+        primarySwatch: redAccent,
+        fontFamily: GoogleFonts.lexendDeca().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
+      ),
+      dark: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.redAccent,
+        primarySwatch: redAccent,
+        fontFamily: GoogleFonts.lexendDeca().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
+      ),
+      lightShadow: const ShadowTheme(
+        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
+      ),
+      darkShadow: const ShadowTheme(
+        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
+      ),
+    ),
+    "abin": FullTheme(
+      name: "Abin",
+      description: "My inspiration",
+      light: ThemeData(
+        primarySwatch: purpleAbin,
+        accentColor: blueAbin,
+        fontFamily: GoogleFonts.cardo().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
+      ),
+      dark: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: purpleAbin,
+        primarySwatch: purpleAbin,
+        accentColor: blueAbin,
+        fontFamily: GoogleFonts.cardo().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
+      ),
+      lightShadow: const ShadowTheme(
+        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
+      ),
+      darkShadow: const ShadowTheme(
+        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
+      ),
+    ),
+    "lavender": FullTheme(
+      name: "Lavender",
+      description: "We all love lavender.",
+      light: ThemeData(
+        primaryColor: Colors.deepPurple,
+        accentColor: Colors.deepPurpleAccent,
+        fontFamily: GoogleFonts.merriweather().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
+      ),
+      dark: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.deepPurple,
+        accentColor: Colors.deepPurpleAccent,
+        fontFamily: GoogleFonts.merriweather().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
+      ),
+      lightShadow: const ShadowTheme(
+        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
+      ),
+      darkShadow: const ShadowTheme(
+        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
+      ),
+    ),
+  });
+}
 
 /// Utility method to create a material color from any given
 /// color.
