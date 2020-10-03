@@ -130,7 +130,7 @@ class CffRepository implements CffBase {
       "to": arrival.name,
       "date": "${date.month}/${date.day}/${date.year}",
       "time": "${time.hour}:${time.minute}",
-      "type_time": describeEnum(typeTime),
+      "time_type": describeEnum(typeTime),
       "show_trackchanges": 1,
     };
 
