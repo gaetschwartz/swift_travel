@@ -41,12 +41,11 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion : ${response.body}");
     }
-    final decode = await compute(jsonDecode, response.body) as Map<String, dynamic>;
+    final decode = await compute(jsonDecode, response.body) as List;
 
-    final List<Map> list = (decode as List).cast<Map>();
     final List<CffCompletion> completions = [];
 
-    for (final Map item in list) {
+    for (final item in decode) {
       if (!filterNull || item["label"] != null) {
         completions.add(CffCompletion.fromJson(item as Map<String, dynamic>));
       }

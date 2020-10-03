@@ -16,6 +16,7 @@ import 'package:swiss_travel/pages/tuto.dart';
 import 'package:swiss_travel/tabs/routes/details/route_details.dart';
 import 'package:swiss_travel/utils/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
+import 'package:utils/dialogs/confirmation_alert.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
 
 import 'home_page.dart';
@@ -56,10 +57,19 @@ class _LoadingPageState extends State<LoadingPage> {
       await FirebaseCrashlytics.instance.log("Loading page");
     }
 
-    await context.read(dynamicTheme).configure(themeConfiguration);
     final prefs = await SharedPreferences.getInstance();
-    await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
-    await context.read(storeProvider).loadFromPreferences(prefs: prefs);
+    try {
+      await context.read(dynamicTheme).configure(themeConfiguration);
+      await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
+      await context.read(storeProvider).loadFromPreferences(prefs: prefs);
+    } on Exception {
+      await confirm(
+        context,
+        title: const Text("Failed to load your previous settings !"),
+        content: const Text("We are very sorry this happened !"),
+      );
+      rethrow;
+    }
     if (prefs.getBool("hasAlreadySeenTuto") != true) {
       await Navigator.of(context).push(MaterialPageRoute(builder: (_) => Tuto()));
 
