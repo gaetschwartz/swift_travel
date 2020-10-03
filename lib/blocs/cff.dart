@@ -74,9 +74,9 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't find station : ${response.body}");
     }
-    final decode = await compute(jsonDecode, response.body) as Map<String, dynamic>;
+    final decode = await compute(jsonDecode, response.body) as List;
 
-    final completions = (decode as List)
+    final completions = decode
         .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;

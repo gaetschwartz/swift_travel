@@ -48,6 +48,7 @@ class LocationRepository {
         final opened = await openAppSettings();
         if (opened) log("Successfully opened settings");
       }
+      throw Exception("Failed to locate, didn't have the required permissions : $permission");
     }
   }
 }
