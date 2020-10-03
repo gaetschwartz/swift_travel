@@ -52,7 +52,7 @@ class FavRoutesTab extends StatelessWidget {
                       )
                     : ListView.builder(
                         itemCount: c.routes.length,
-                        itemBuilder: (context, i) => _RouteTile(route: c.routes[i]),
+                        itemBuilder: (context, i) => FavoriteRoutTile(route: c.routes[i]),
                       ),
                 loading: (_) => const CustomScrollView(
                   slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
@@ -76,8 +76,8 @@ class FavRoutesTab extends StatelessWidget {
   }
 }
 
-class _RouteTile extends StatelessWidget {
-  const _RouteTile({
+class FavoriteRoutTile extends StatelessWidget {
+  const FavoriteRoutTile({
     Key key,
     @required this.route,
   }) : super(key: key);
@@ -87,6 +87,8 @@ class _RouteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: const Icon(FontAwesomeIcons.route),
+      isThreeLine: true,
       title: Text(route.displayName),
       subtitle: Text("${route.from} ➡ ${route.to}"),
       trailing: IconButton(

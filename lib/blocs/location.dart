@@ -29,7 +29,7 @@ class LocationRepository {
         return p;
       } on Exception catch (e, s) {
         await FirebaseCrashlytics.instance.recordError(e, s);
-        return null;
+        rethrow;
       }
     } else {
       if (context != null) {
@@ -49,6 +49,5 @@ class LocationRepository {
         if (opened) log("Successfully opened settings");
       }
     }
-    return null;
   }
 }

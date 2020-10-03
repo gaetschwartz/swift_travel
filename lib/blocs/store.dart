@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
@@ -83,8 +84,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     _routes.clear();
     for (final spr in routes) {
       try {
-        final decode = await Future.microtask(() => jsonDecode(spr));
-        final r = LocalRoute.fromJson(decode as Map<String, dynamic>);
+        final decode = jsonDecode(spr) as Map<String, dynamic>;
+        final r = LocalRoute.fromJson(decode);
         _routes.add(r);
       } on Exception catch (e, s) {
         log("Error while trying to decode $spr", error: e, name: "Store");
@@ -137,7 +138,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
     for (final e in _routes) {
       try {
-        routes.add(await Future.microtask(() => jsonEncode(e.toJson())));
+        routes.add(jsonEncode(e.toJson()));
       } on Exception catch (e, s) {
         log("Error while trying to encode $e", error: e, name: "Store");
         FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);

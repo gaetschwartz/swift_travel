@@ -41,7 +41,8 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion : ${response.body}");
     }
-    final decode = await Future.microtask(() => json.decode(response.body));
+    final decode = await compute(jsonDecode, response.body) as Map<String, dynamic>;
+
     final List<Map> list = (decode as List).cast<Map>();
     final List<CffCompletion> completions = [];
 
@@ -73,7 +74,8 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't find station : ${response.body}");
     }
-    final decode = await Future.microtask(() => json.decode(response.body));
+    final decode = await compute(jsonDecode, response.body) as Map<String, dynamic>;
+
     final completions = (decode as List)
         .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
@@ -109,9 +111,9 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve stationboard : ${response.body}");
     }
-    final decode = await Future.microtask(() => json.decode(response.body));
+    final decode = await compute(jsonDecode, response.body) as Map<String, dynamic>;
 
-    return CffStationboard.fromJson(decode as Map<String, dynamic>);
+    return CffStationboard.fromJson(decode);
   }
 
   @override
@@ -143,8 +145,8 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve raw route : ${response.body}");
     }
-    final decode = await Future.microtask(() => json.decode(response.body));
-    final map = decode as Map<String, dynamic>;
+    final map = await compute(jsonDecode, response.body) as Map<String, dynamic>;
+
     if (map["disruptions"] != null) log(map["disruptions"].toString());
     map["requestUrl"] = query;
     return CffRoute.fromJson(map);

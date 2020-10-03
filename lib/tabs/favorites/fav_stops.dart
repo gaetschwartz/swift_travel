@@ -90,7 +90,7 @@ class FavStopsTab extends StatelessWidget {
                         )
                       : ListView.builder(
                           itemCount: c.favorites.length,
-                          itemBuilder: (context, i) => _FavoriteTile(c.favorites[i]),
+                          itemBuilder: (context, i) => FavoriteStationTile(c.favorites[i]),
                         ),
                   loading: (_) => const Center(
                     child: CircularProgressIndicator(),
@@ -109,10 +109,10 @@ class FavStopsTab extends StatelessWidget {
   }
 }
 
-class _FavoriteTile extends StatelessWidget {
+class FavoriteStationTile extends StatelessWidget {
   final FavoriteStop stop;
 
-  const _FavoriteTile(
+  const FavoriteStationTile(
     this.stop, {
     Key key,
   }) : super(key: key);
@@ -120,6 +120,7 @@ class _FavoriteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: const Icon(FontAwesomeIcons.solidStar),
       onTap: () => Navigator.of(context)
           .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: stop.completion.label))),
       trailing: IconButton(
