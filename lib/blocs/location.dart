@@ -38,7 +38,6 @@ class LocationRepository {
           context,
           title: const Text("You need permissions !"),
           content: const Text("Location permissions are needed to get your position !"),
-          cancel: const Text("Cancel"),
           confirm: const Text("Open Settings"),
           defaultAction: DefaultAction.confirm,
           isCancelDestructive: true,

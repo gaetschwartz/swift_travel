@@ -12,7 +12,7 @@ import 'package:swiss_travel/blocs/preferences.dart';
 import 'package:swiss_travel/blocs/quick_actions.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/main.dart';
-import 'package:swiss_travel/pages/tuto.dart';
+import 'package:swiss_travel/pages/welcome.dart';
 import 'package:swiss_travel/tabs/routes/details/route_details.dart';
 import 'package:swiss_travel/utils/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
@@ -71,7 +71,7 @@ class _LoadingPageState extends State<LoadingPage> {
       rethrow;
     }
     if (prefs.getBool("hasAlreadySeenTuto") != true) {
-      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => Tuto()));
+      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => WelcomePage()));
 
       await prefs.setBool("hasAlreadySeenTuto", true);
     }

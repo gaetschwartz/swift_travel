@@ -1,23 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Tuto extends StatelessWidget {
-  static List<PageViewModel> listPagesViewModel = [1, 2, 3, 4, 5]
-      .map((e) => PageViewModel(
-            title: "Title of $e page",
-            bodyWidget: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text("Click on "),
-                Icon(Icons.edit),
-                Text(" to edit a post"),
-              ],
-            ),
-            image: const Center(child: Icon(Icons.android)),
-          ))
-      .toList();
+  static List<PageViewModel> listPagesViewModel = [
+    PageViewModel(
+      title: "First page",
+      bodyWidget: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text("Click on "),
+          Icon(Icons.edit),
+          Text(" to edit a post"),
+        ],
+      ),
+      image: const Center(child: Icon(Icons.android)),
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +24,6 @@ class Tuto extends StatelessWidget {
       pages: listPagesViewModel,
       onDone: () async {
         Navigator.of(context).pop();
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool("hasAlreadySeenTuto", true);
       },
       showSkipButton: kDebugMode,
       skip: const Icon(Icons.skip_next),
