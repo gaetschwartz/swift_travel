@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swiss_travel/api/cff/models/disruption.dart';
 
 import 'leg.dart';
 
@@ -15,6 +16,8 @@ abstract class RouteConnection with _$RouteConnection {
     DateTime arrival,
     double duration,
     @Default([]) List<Leg> legs,
+    @Default({}) Map<String, Disruption> disruptions,
+    @JsonKey(name: "dep_delay") String depDelay,
   }) = _RouteConnection;
 
   factory RouteConnection.fromJson(Map<String, dynamic> json) => _$RouteConnectionFromJson(json);

@@ -43,7 +43,7 @@ class CffRepository implements CffBase {
     }
     final decode = await compute(jsonDecode, response.body) as List;
 
-    final List<CffCompletion> completions = [];
+    final completions = <CffCompletion>[];
 
     for (final item in decode) {
       if (!filterNull || item["label"] != null) {
@@ -122,6 +122,7 @@ class CffRepository implements CffBase {
     @required DateTime date,
     @required TimeOfDay time,
     TimeType typeTime = TimeType.depart,
+    bool showDelays = true,
   }) async {
     assert(date != null && time != null);
     final params = {
@@ -131,6 +132,7 @@ class CffRepository implements CffBase {
       "time": "${time.hour}:${time.minute}",
       "time_type": describeEnum(typeTime),
       "show_trackchanges": 1,
+      "show_delays": showDelays.toInt(),
     };
 
     final s = builder.build("route", params);

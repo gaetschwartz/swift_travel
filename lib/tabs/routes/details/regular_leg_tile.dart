@@ -127,7 +127,12 @@ class RegularLegTile extends StatelessWidget {
             Text(
               Format.time(stop.departure),
               style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
-            )
+            ),
+            if (l.depDelay != null)
+              Text(
+                l.depDelay,
+                style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
+              )
           ],
         ],
       ),

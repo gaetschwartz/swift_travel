@@ -72,6 +72,11 @@ class RouteTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(Format.intToDuration(c.duration.round())),
+                if (c.depDelay != null)
+                  Text(
+                    c.depDelay,
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
+                  ),
                 const SizedBox(width: 16),
                 const FaIcon(FontAwesomeIcons.chevronRight),
               ],
