@@ -8,6 +8,7 @@ import 'package:share/share.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/leg.dart';
 import 'package:swiss_travel/api/cff/models/types_enum.dart';
+import 'package:swiss_travel/pages/live_route.dart';
 import 'package:swiss_travel/tabs/routes/details/arrived_tile.dart';
 import 'package:swiss_travel/tabs/routes/details/regular_leg_tile.dart';
 import 'package:swiss_travel/tabs/routes/details/walking_tile.dart';
@@ -28,6 +29,13 @@ class RouteDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = route.connections[i];
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => LiveRoutePage(
+                  connection: c,
+                ))),
+        child: const Icon(Icons.play_arrow),
+      ),
       appBar: AppBar(
         leading: const BackButton(),
         title: Text(c.to),
