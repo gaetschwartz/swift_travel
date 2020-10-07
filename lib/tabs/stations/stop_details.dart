@@ -56,17 +56,23 @@ class _DetailsStopState extends State<DetailsStop> {
                     )
                   : Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: data.messages
-                            .map((e) => Center(
-                                    child: Text(
-                                  e,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.headline6,
-                                )))
-                            .toList(),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "😕",
+                              style: TextStyle(fontSize: 64),
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              "We couldn't find any departures from this location",
+                              style: Theme.of(context).textTheme.headline6,
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        ),
                       ),
                     )
               : const Center(child: CircularProgressIndicator()),

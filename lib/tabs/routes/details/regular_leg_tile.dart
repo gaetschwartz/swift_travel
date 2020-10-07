@@ -54,31 +54,32 @@ class RegularLegTile extends StatelessWidget {
                 ),
             ],
           ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    CffIcon(l.type, size: 16),
-                    const SizedBox(width: 8),
-                    Text(
-                      l.terminal ?? "",
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                  ],
-                ),
-                if (l.exit != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: DefaultTextStyle(
-                      style: Theme.of(context).textTheme.subtitle2,
+          subtitle: DefaultTextStyle(
+            style: Theme.of(context).textTheme.subtitle2,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      CffIcon(l.type, size: 16),
+                      const SizedBox(width: 8),
+                      Text(l.terminal ?? ""),
+                    ],
+                  ),
+                  if (l.exit != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
                       child: Row(
                         children: [
-                          Text(
-                            "${Format.time(l.departure)} - ${Format.time(l.exit.arrival)}",
-                          ),
+                          Text(Format.time(l.departure)),
+                          if (l.depDelay != null && l.depDelay != "+0")
+                            Text(
+                              l.depDelay,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
+                            ),
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerRight,
@@ -88,8 +89,8 @@ class RegularLegTile extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
           children: _buildStopTitle(l),
@@ -128,11 +129,6 @@ class RegularLegTile extends StatelessWidget {
               Format.time(stop.departure),
               style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
             ),
-            if (l.depDelay != null)
-              Text(
-                l.depDelay,
-                style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
-              )
           ],
         ],
       ),

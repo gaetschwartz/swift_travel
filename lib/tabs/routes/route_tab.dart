@@ -62,6 +62,8 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     fromController.text = widget.localRoute.from;
     toController.text = widget.localRoute.to;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read(_timeProvider).state = TimeOfDay.now();
+      context.read(_dateProvider).state = DateTime.now();
       searchData();
     });
   }
@@ -70,6 +72,8 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     toController.text = widget.destination;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       context.read(_routesProvider).state = const RouteStates.loading();
+      context.read(_timeProvider).state = TimeOfDay.now();
+      context.read(_dateProvider).state = DateTime.now();
       await locate();
       await searchData();
     });
@@ -454,6 +458,8 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
         context.read(_routesProvider).state = RouteStates.exception(e);
         FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       }
+    } else {
+      context.read(_routesProvider).state = const RouteStates.empty();
     }
   }
 

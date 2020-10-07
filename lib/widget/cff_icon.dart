@@ -54,6 +54,8 @@ class CffIcon extends StatelessWidget {
       case Vehicle.cablecar:
       case Vehicle.chairlift:
         return const FaIcon(FontAwesomeIcons.tram);
+      case Vehicle.favorite:
+        return const FaIcon(FontAwesomeIcons.solidStar);
     }
 
     log("Unknown icon type : `$v`");
@@ -62,7 +64,8 @@ class CffIcon extends StatelessWidget {
 
   static const List<String> _privatePlaces = ["adr", "business", "private"];
 
-  static bool isPrivate(String s) => _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
+  static bool isPrivate(String s) =>
+      s != null && _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
 
   @override
   Widget build(BuildContext context) => IconTheme(

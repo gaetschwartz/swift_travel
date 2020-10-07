@@ -1,10 +1,12 @@
+// ignore_for_file: unused_element
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
 
 part 'cff_completion.freezed.dart';
 part 'cff_completion.g.dart';
 
 @freezed
-abstract class CffCompletion with _$CffCompletion {
+abstract class CffCompletion implements _$CffCompletion {
   factory CffCompletion({
     String label,
     double dist,
@@ -13,6 +15,9 @@ abstract class CffCompletion with _$CffCompletion {
     String id,
     String favoriteName,
   }) = _CffCompletion;
+  const CffCompletion._();
 
   factory CffCompletion.fromJson(Map<String, dynamic> json) => _$CffCompletionFromJson(json);
+
+  FavoriteStop toFavoriteStop({String name}) => FavoriteStop(label, name: name ?? label);
 }

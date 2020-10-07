@@ -17,11 +17,10 @@ class _$FavoriteStopTearOff {
   const _$FavoriteStopTearOff();
 
 // ignore: unused_element
-  _FavoriteStop call(String stop, {String name, CffCompletion completion}) {
+  _FavoriteStop call(String stop, {String name}) {
     return _FavoriteStop(
       stop,
       name: name,
-      completion: completion,
     );
   }
 
@@ -39,7 +38,6 @@ const $FavoriteStop = _$FavoriteStopTearOff();
 mixin _$FavoriteStop {
   String get stop;
   String get name;
-  CffCompletion get completion;
 
   Map<String, dynamic> toJson();
   $FavoriteStopCopyWith<FavoriteStop> get copyWith;
@@ -50,9 +48,7 @@ abstract class $FavoriteStopCopyWith<$Res> {
   factory $FavoriteStopCopyWith(
           FavoriteStop value, $Res Function(FavoriteStop) then) =
       _$FavoriteStopCopyWithImpl<$Res>;
-  $Res call({String stop, String name, CffCompletion completion});
-
-  $CffCompletionCopyWith<$Res> get completion;
+  $Res call({String stop, String name});
 }
 
 /// @nodoc
@@ -67,25 +63,11 @@ class _$FavoriteStopCopyWithImpl<$Res> implements $FavoriteStopCopyWith<$Res> {
   $Res call({
     Object stop = freezed,
     Object name = freezed,
-    Object completion = freezed,
   }) {
     return _then(_value.copyWith(
       stop: stop == freezed ? _value.stop : stop as String,
       name: name == freezed ? _value.name : name as String,
-      completion: completion == freezed
-          ? _value.completion
-          : completion as CffCompletion,
     ));
-  }
-
-  @override
-  $CffCompletionCopyWith<$Res> get completion {
-    if (_value.completion == null) {
-      return null;
-    }
-    return $CffCompletionCopyWith<$Res>(_value.completion, (value) {
-      return _then(_value.copyWith(completion: value));
-    });
   }
 }
 
@@ -96,10 +78,7 @@ abstract class _$FavoriteStopCopyWith<$Res>
           _FavoriteStop value, $Res Function(_FavoriteStop) then) =
       __$FavoriteStopCopyWithImpl<$Res>;
   @override
-  $Res call({String stop, String name, CffCompletion completion});
-
-  @override
-  $CffCompletionCopyWith<$Res> get completion;
+  $Res call({String stop, String name});
 }
 
 /// @nodoc
@@ -116,14 +95,10 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
   $Res call({
     Object stop = freezed,
     Object name = freezed,
-    Object completion = freezed,
   }) {
     return _then(_FavoriteStop(
       stop == freezed ? _value.stop : stop as String,
       name: name == freezed ? _value.name : name as String,
-      completion: completion == freezed
-          ? _value.completion
-          : completion as CffCompletion,
     ));
   }
 }
@@ -131,9 +106,10 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_FavoriteStop implements _FavoriteStop {
-  _$_FavoriteStop(this.stop, {this.name, this.completion})
-      : assert(stop != null);
+class _$_FavoriteStop extends _FavoriteStop {
+  _$_FavoriteStop(this.stop, {this.name})
+      : assert(stop != null),
+        super._();
 
   factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
       _$_$_FavoriteStopFromJson(json);
@@ -142,12 +118,10 @@ class _$_FavoriteStop implements _FavoriteStop {
   final String stop;
   @override
   final String name;
-  @override
-  final CffCompletion completion;
 
   @override
   String toString() {
-    return 'FavoriteStop(stop: $stop, name: $name, completion: $completion)';
+    return 'FavoriteStop(stop: $stop, name: $name)';
   }
 
   @override
@@ -157,18 +131,14 @@ class _$_FavoriteStop implements _FavoriteStop {
             (identical(other.stop, stop) ||
                 const DeepCollectionEquality().equals(other.stop, stop)) &&
             (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.completion, completion) ||
-                const DeepCollectionEquality()
-                    .equals(other.completion, completion)));
+                const DeepCollectionEquality().equals(other.name, name)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(stop) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(completion);
+      const DeepCollectionEquality().hash(name);
 
   @override
   _$FavoriteStopCopyWith<_FavoriteStop> get copyWith =>
@@ -180,9 +150,9 @@ class _$_FavoriteStop implements _FavoriteStop {
   }
 }
 
-abstract class _FavoriteStop implements FavoriteStop {
-  factory _FavoriteStop(String stop, {String name, CffCompletion completion}) =
-      _$_FavoriteStop;
+abstract class _FavoriteStop extends FavoriteStop {
+  _FavoriteStop._() : super._();
+  factory _FavoriteStop(String stop, {String name}) = _$_FavoriteStop;
 
   factory _FavoriteStop.fromJson(Map<String, dynamic> json) =
       _$_FavoriteStop.fromJson;
@@ -191,8 +161,6 @@ abstract class _FavoriteStop implements FavoriteStop {
   String get stop;
   @override
   String get name;
-  @override
-  CffCompletion get completion;
   @override
   _$FavoriteStopCopyWith<_FavoriteStop> get copyWith;
 }

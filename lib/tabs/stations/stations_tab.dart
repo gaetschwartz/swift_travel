@@ -110,7 +110,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                         Expanded(
                           child: ListView.builder(
                             itemBuilder: (context, i) => CffCompletionTile(
-                              suggestion: c.completions[i],
+                              sugg: c.completions[i],
                               key: Key("stations-key-$i"),
                             ),
                             itemCount: c.completions == null ? 0 : c.completions.length,
@@ -124,7 +124,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                                   ? const SizedBox()
                                   : ListView.builder(
                                       itemBuilder: (context, i) =>
-                                          CffCompletionTile(favoriteStop: c.favorites[i]),
+                                          CffCompletionTile(sugg: c.favorites[i].toCompletion()),
                                       itemCount: c.favorites == null ? 0 : c.favorites.length,
                                     ),
                               loading: (_) => const Center(

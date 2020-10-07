@@ -79,7 +79,7 @@ class _SearchFavoriteState extends State<SearchFavorite>
             final CffCompletion completion = completions.first;
             final name = await input(context, title: const Text("What is the name of this stop"));
             if (name == null) return;
-            await _store.addFavorite(completion, name);
+            await _store.addFavorite(completion.toFavoriteStop(name: name));
           });
         },
         child: const FaIcon(FontAwesomeIcons.plus),

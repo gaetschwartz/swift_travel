@@ -16,7 +16,7 @@ Future<List<CffCompletion>> completeWithFavorites(
   final Map<FavoriteStop, double> levens = {};
 
   for (final c in store.favorites) {
-    if (c.completion.label == null) continue;
+    if (c.stop == null) continue;
     final double leven = _leven(query, c);
     // Skip if above threshold
     if (leven < _kConfidenceThreshold) {
@@ -27,10 +27,8 @@ Future<List<CffCompletion>> completeWithFavorites(
 
   final List<MapEntry<FavoriteStop, double>> favs = levens.entries.toList();
   favs.sort((a, b) => a.value.compareTo(b.value));
-  final Iterable<CffCompletion> sublist = favs
-      .toList()
-      .sublist(0, min(favs.length, 3))
-      .map((e) => e.key.completion.copyWith(favoriteName: e.key.name));
+  final Iterable<CffCompletion> sublist =
+      favs.toList().sublist(0, min(favs.length, 3)).map((e) => e.key.toCompletion());
 
   final List<CffCompletion> completions = compls.where((c) => c.label != null).toList();
   completions.insertAll(0, sublist);

@@ -154,14 +154,15 @@ class __$CffCompletionCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_CffCompletion implements _CffCompletion {
+class _$_CffCompletion extends _CffCompletion {
   _$_CffCompletion(
       {this.label,
       this.dist,
       this.iconclass,
       this.html,
       this.id,
-      this.favoriteName});
+      this.favoriteName})
+      : super._();
 
   factory _$_CffCompletion.fromJson(Map<String, dynamic> json) =>
       _$_$_CffCompletionFromJson(json);
@@ -224,7 +225,8 @@ class _$_CffCompletion implements _CffCompletion {
   }
 }
 
-abstract class _CffCompletion implements CffCompletion {
+abstract class _CffCompletion extends CffCompletion {
+  _CffCompletion._() : super._();
   factory _CffCompletion(
       {String label,
       double dist,

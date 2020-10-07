@@ -59,7 +59,7 @@ class MyQuickActions {
       final fav = favorites[i];
       shortcuts.add(ShortcutItem(
         type: 'fav_$i',
-        localizedTitle: fav.completion.label,
+        localizedTitle: fav.stop,
         icon: Platform.isIOS ? "star" : "ic_favorites_round",
       ));
     }

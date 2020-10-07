@@ -46,28 +46,32 @@ class Settings extends StatelessWidget {
             const _SectionTitle(title: Text("Themes")),
             const _ThemesSection(),
             if (!kReleaseMode || Platform.isIOS)
-              Consumer(builder: (context, w, _) {
-                final maps = w(mapsAppProvider);
-                return Column(
-                  children: [
-                    const ListTile(title: Text("Maps")),
-                    RadioListTile<Maps>(
-                      dense: true,
-                      title: const Text("Apple Maps"),
-                      value: Maps.apple,
-                      groupValue: maps.mapsApp,
-                      onChanged: (m) => onMapsChanged(maps, m),
-                    ),
-                    RadioListTile<Maps>(
-                      dense: true,
-                      title: const Text("Google Maps"),
-                      value: Maps.google,
-                      groupValue: maps.mapsApp,
-                      onChanged: (m) => onMapsChanged(maps, m),
-                    ),
-                  ],
-                );
-              }),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Consumer(builder: (context, w, _) {
+                  final maps = w(mapsAppProvider);
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const _SectionTitle(title: Text("Maps app")),
+                      RadioListTile<Maps>(
+                        dense: true,
+                        title: const Text("Apple Maps"),
+                        value: Maps.apple,
+                        groupValue: maps.mapsApp,
+                        onChanged: (m) => onMapsChanged(maps, m),
+                      ),
+                      RadioListTile<Maps>(
+                        dense: true,
+                        title: const Text("Google Maps"),
+                        value: Maps.google,
+                        groupValue: maps.mapsApp,
+                        onChanged: (m) => onMapsChanged(maps, m),
+                      ),
+                    ],
+                  );
+                }),
+              ),
             const Divider(
               indent: 16,
               endIndent: 16,

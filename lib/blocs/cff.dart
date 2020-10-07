@@ -19,7 +19,7 @@ class CffRepository implements CffBase {
 
   CffRepository._();
 
-  Map<String, String> headers = {"accept-language": "en"};
+  static const Map<String, String> headers = {"accept-language": "en"};
 
   @override
   Future<List<CffCompletion>> complete(

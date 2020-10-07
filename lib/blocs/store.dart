@@ -6,17 +6,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
-import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/quick_actions.dart';
 import 'package:swiss_travel/models/favorites_routes_states.dart';
 import 'package:swiss_travel/models/favorites_states.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
   Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true});
-  Future<void> addFavorite(CffCompletion completion, String displayName);
+  Future<void> addFavorite(FavoriteStop stop);
   Future<void> deleteFavorite(FavoriteStop favoriteStop);
   Future<void> addRoute(LocalRoute route);
   Future<void> removeRoute(LocalRoute route);
@@ -38,7 +36,6 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   SharedPreferences _prefs;
 
-  final Map<String, CffCompletion> _cache = {};
   final Set<FavoriteStop> _favs = {};
   final Set<LocalRoute> _routes = {};
 
@@ -47,8 +44,6 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   Future<void> _checkState() async {
     _prefs ??= await SharedPreferences.getInstance();
   }
-
-  Map<String, CffCompletion> get cache => _cache;
 
   Iterable<FavoriteStop> get favorites => _favs.where((e) => e != null);
 
@@ -66,11 +61,6 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     final List<FavoriteStop> favStops = [];
     for (final String ll in _prefs.getStringList(stopsKey) ?? []) {
       final fs = FavoriteStop.fromJson(jsonDecode(ll) as Map<String, dynamic>);
-      if (_cache[fs.stop] == null) {
-        log("Fetching ${fs.stop} because it's not in the cache", name: "Store");
-        final List<CffCompletion> c = await ref.read(cffProvider).complete(fs.stop, showIds: true);
-        _cache[fs.stop] = c.first;
-      }
       log("Found $fs", name: "Store");
       favStops.add(fs);
     }
@@ -117,15 +107,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   }
 
   @override
-  Future<void> addFavorite(CffCompletion completion, String displayName) async {
-    final value = completion.label;
-    if (value != null) {
-      _cache[value] = completion;
-      log("Added $completion", name: "Store");
-    } else {
-      log("Completion couldn't be added because label and id was null", name: "Store");
-    }
-    _favs.add(FavoriteStop(completion.label, name: displayName, completion: _cache[value]));
+  Future<void> addFavorite(FavoriteStop stop) async {
+    _favs.add(stop);
     ref.read(favoritesStatesProvider).state = FavoritesStates.data(favorites.toList());
     await sync();
   }

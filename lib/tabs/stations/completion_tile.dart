@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
-import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
+import 'package:swiss_travel/api/cff/models/types_enum.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/tabs/stations/stop_details.dart';
 import 'package:swiss_travel/widget/cff_icon.dart';
@@ -12,21 +12,19 @@ import 'package:utils/dialogs/input_dialog.dart';
 enum _Actions { favorite }
 
 class CffCompletionTile extends StatelessWidget {
-  CffCompletionTile({
+  const CffCompletionTile({
     Key key,
-    CffCompletion suggestion,
-    this.favoriteStop,
-  })  : sugg = suggestion ?? favoriteStop.completion,
-        assert(suggestion != null || favoriteStop != null),
+    @required this.sugg,
+  })  : assert(sugg != null),
         super(key: key);
 
   final CffCompletion sugg;
-  final FavoriteStop favoriteStop;
 
   @override
   Widget build(BuildContext context) {
-    final iconClass = sugg?.iconclass ?? favoriteStop.completion.iconclass;
+    final iconClass = sugg.iconclass;
     final isPrivate = CffIcon.isPrivate(iconClass);
+    final isFav = sugg.favoriteName != null;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       child: DecoratedBox(
@@ -38,13 +36,11 @@ class CffCompletionTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
-            leading: CffIcon.fromIconClass(iconClass),
-            title: Text(
-                (favoriteStop != null ? favoriteStop.name : sugg.favoriteName ?? sugg.label) ??
-                    "???"),
+            leading: isFav ? const CffIcon(Vehicle.favorite) : CffIcon.fromIconClass(iconClass),
+            title: Text((isFav ? sugg.favoriteName : sugg.label) ?? "???"),
             dense: true,
-            subtitle: favoriteStop != null || sugg.favoriteName != null
-                ? Text(favoriteStop != null ? favoriteStop.stop : sugg.label ?? "Favorite")
+            subtitle: isFav
+                ? Text(sugg.label ?? "Favorite")
                 : sugg.dist != null
                     ? Text("${sugg.dist.round()}m")
                     : null,
@@ -69,8 +65,7 @@ class CffCompletionTile extends StatelessWidget {
 
   Future<void> more(BuildContext context) async {
     final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
-    final first = store.favorites
-        .firstWhere((element) => element.completion.label == sugg.label, orElse: () => null);
+    final first = store.favorites.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
     final isFav = first != null;
     final c = await choose<_Actions>(context,
         choices: [
@@ -87,7 +82,7 @@ class CffCompletionTile extends StatelessWidget {
         } else {
           final name = await input(context, title: const Text("What is the name of this stop"));
           if (name == null) return;
-          store.addFavorite(sugg, name);
+          store.addFavorite(sugg.toFavoriteStop(name: name));
         }
         break;
     }

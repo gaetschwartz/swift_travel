@@ -59,7 +59,7 @@ class FavStopsTab extends StatelessWidget {
             final CffCompletion completion = completions.first;
             final name = await input(context, title: const Text("What is the name of this stop"));
             if (name == null) return;
-            await _store.addFavorite(completion, name);
+            await _store.addFavorite(completion.toFavoriteStop(name: name));
           });
         },
         child: const FaIcon(FontAwesomeIcons.plus),
@@ -122,7 +122,7 @@ class FavoriteStationTile extends StatelessWidget {
     return ListTile(
       leading: const Icon(FontAwesomeIcons.solidStar),
       onTap: () => Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: stop.completion.label))),
+          .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: stop.stop))),
       trailing: IconButton(
           icon: const FaIcon(FontAwesomeIcons.edit),
           onPressed: () async {
@@ -153,10 +153,9 @@ class FavoriteStationTile extends StatelessWidget {
   Future<void> rename(BuildContext context) async {
     final s = await input(context, title: Text('How to rename "${stop.name}" ?'));
     if (s == null) return;
-    assert(stop.completion != null);
     final store = context.read(storeProvider);
     await store.deleteFavorite(stop);
-    return store.addFavorite(stop.completion, s);
+    return store.addFavorite(stop.copyWith(name: s));
   }
 
   Future<void> delete(BuildContext context) async {
