@@ -11,6 +11,8 @@ _$_Stop _$_$_StopFromJson(Map<String, dynamic> json) {
     json['name'] as String,
     stopid: json['stopid'] as String,
     departure: _fromJson(json['departure'] as String),
+    lat: (json['lat'] as num)?.toDouble(),
+    lon: (json['lon'] as num)?.toDouble(),
   );
 }
 
@@ -18,4 +20,6 @@ Map<String, dynamic> _$_$_StopToJson(_$_Stop instance) => <String, dynamic>{
       'name': instance.name,
       'stopid': instance.stopid,
       'departure': _toJson(instance.departure),
+      'lat': instance.lat,
+      'lon': instance.lon,
     };

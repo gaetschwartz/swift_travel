@@ -9,45 +9,47 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^1.0.0
-  font_awesome_flutter: ^8.7.0
-  intl: ^0.16.1
-  shared_preferences: ^0.5.6+3
-  flutter_typeahead: ^1.8.0
-  cupertino_icons: ^1.0.0
-  json_annotation: ^3.0.1
-  freezed_annotation: ^0.12.0
-  flutter_riverpod: ^0.11.0
-  async: ^2.4.2
-  geolocator: ^6.0.0+4
   utils:
     path: ../utils/utils
   android_intent: ^0.3.7+3
-  url_launcher: ^5.5.3
   animations: ^1.1.2
-  quick_actions: ^0.4.0+8
-  firebase_core: ^0.5.0
-  firebase_crashlytics: ^0.2.0
+  async: ^2.4.2
   cached_network_image: ^2.3.2+1
   connectivity: ^0.4.9+2
+  cupertino_icons: ^1.0.0
+  firebase_core: ^0.5.0
+  firebase_crashlytics: ^0.2.0
+  flare_flutter: ^2.0.6
+  flutter_riverpod: ^0.11.0
+  flutter_typeahead: ^1.8.0
+  font_awesome_flutter: ^8.7.0
+  freezed_annotation: ^0.12.0
+  geolocator: ^6.0.0+4
+  google_fonts: ^1.0.0
+  intl: ^0.16.1
   introduction_screen: ^1.0.9
+  json_annotation: ^3.0.1
+  quick_actions: ^0.4.0+8
   share: ^0.6.5+2
+  shared_preferences: ^0.5.6+3
+  url_launcher: ^5.5.3
 
 dev_dependencies:
   flutter_driver:
     sdk: flutter
-  test: any
-  lint: ^1.1.1
+  build_runner: any
+  flutter_launcher_icons: ^0.8.0
   freezed: ^0.12.0
   json_serializable: ^3.4.1
-  flutter_launcher_icons: ^0.8.0
-  build_runner: any
+  lint: ^1.1.1
+  test: any
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/profiles/
+    - assets/anims/
 # flutter pub get
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:

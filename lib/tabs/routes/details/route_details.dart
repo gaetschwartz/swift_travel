@@ -8,7 +8,7 @@ import 'package:share/share.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/leg.dart';
 import 'package:swiss_travel/api/cff/models/types_enum.dart';
-import 'package:swiss_travel/pages/live_route.dart';
+import 'package:swiss_travel/pages/live_route/live_route.dart';
 import 'package:swiss_travel/tabs/routes/details/arrived_tile.dart';
 import 'package:swiss_travel/tabs/routes/details/regular_leg_tile.dart';
 import 'package:swiss_travel/tabs/routes/details/walking_tile.dart';

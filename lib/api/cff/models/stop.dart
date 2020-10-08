@@ -12,6 +12,8 @@ abstract class Stop with _$Stop {
     String name, {
     String stopid,
     @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
+    double lat,
+    double lon,
   }) = _Stop;
 
   factory Stop.fromJson(Map<String, dynamic> json) => _$StopFromJson(json);
