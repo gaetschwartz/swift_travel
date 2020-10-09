@@ -14,8 +14,8 @@ final geoProvider = Provider.autoDispose((ref) {
 });
 
 class GeoRepository {
-  static const baseUrl = "https://api3.geo.admin.ch/rest/services/api/SearchServer";
-  final _client = Client();
+  static const String baseUrl = "https://api3.geo.admin.ch/rest/services/api/SearchServer";
+  final Client _client = Client();
 
   Future<GeoResponse> getPosition(String location) async {
     final url = "$baseUrl?type=locations&searchText=${Uri.encodeComponent(location)}";

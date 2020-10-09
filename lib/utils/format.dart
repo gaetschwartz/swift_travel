@@ -26,6 +26,7 @@ class Format {
   }
 
   static String duration(Duration d, {Locale locale = const Locale("en")}) {
+    if (d == null) return null;
     final m = d.inMinutes;
     if (m > 60) {
       final int hour = m ~/ 60;
