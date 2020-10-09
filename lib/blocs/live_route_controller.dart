@@ -7,11 +7,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:swiss_travel/api/cff/models/leg.dart';
 import 'package:swiss_travel/api/cff/models/route_connection.dart';
 import 'package:swiss_travel/api/cff/models/stop.dart';
+import 'package:swiss_travel/api/cff/models/types_enum.dart';
 import 'package:swiss_travel/api/geo/geo.dart';
 
 final liveRouteControllerProvider = ChangeNotifierProvider((r) => LiveRouteController(r));
-
-const _distThreshold = 500;
 
 @immutable
 class RouteData {
@@ -86,6 +85,15 @@ class LiveRouteController extends ChangeNotifier {
 
   bool get isRunning => _connection != null;
 
+  static const _kDefaultDistanceThreshold = 500;
+  static const _kDistanceThersholds = {
+    Vehicle.bus: 100,
+    Vehicle.walk: 100,
+    Vehicle.tram: 100,
+  };
+  static int getDistanceThreshHold(Leg leg) =>
+      _kDistanceThersholds[leg.type] ?? _kDefaultDistanceThreshold;
+
   void _update(Position p) {
     if (!isRunning) {
       log("Is not running ??");
@@ -99,17 +107,19 @@ class LiveRouteController extends ChangeNotifier {
     _updateDistances(p);
     _updateData();
 
+    final threshold = getDistanceThreshHold(currentLeg);
+
     if (_currentLeg == null) {
       _currentLeg = _closestLeg;
     } else if (legDistances.containsKey(_currentLeg + 1) &&
-        legDistances[_currentLeg + 1][-1] < _distThreshold) {
+        legDistances[_currentLeg + 1][-1] < threshold) {
       log("We are close enough to the next leg, switching to it");
       _currentLeg += 1;
     }
     if (_currentStop == null) {
       _currentStop = _closestStop;
     } else if (legDistances[_currentLeg].containsKey(_currentStop + 1) &&
-        legDistances[_currentLeg][_currentStop + 1] < _distThreshold) {
+        legDistances[_currentLeg][_currentStop + 1] < threshold) {
       log("We are close enough to the next stop, switching to it");
       _currentStop += 1;
     }

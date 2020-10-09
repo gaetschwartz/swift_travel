@@ -11,6 +11,6 @@ abstract class FavoriteStop implements _$FavoriteStop {
   const FavoriteStop._();
 
   factory FavoriteStop.fromJson(Map<String, dynamic> json) => _$FavoriteStopFromJson(json);
-
-  CffCompletion toCompletion() => CffCompletion(label: stop, favoriteName: name);
+  CffCompletion toCompletion() =>
+      CffCompletion(label: stop, favoriteName: name, iconclass: "favorite");
 }

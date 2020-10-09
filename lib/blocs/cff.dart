@@ -35,13 +35,14 @@ class CffRepository implements CffBase {
       "nofavorites": noFavorites.toInt(),
       "term": string,
     });
-    log(uri);
+    //log(uri);
 
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve completion : ${response.body}");
     }
-    final decode = await compute(jsonDecode, response.body) as List;
+
+    final decode = jsonDecode(response.body) as List;
 
     final completions = <CffCompletion>[];
 
@@ -73,7 +74,7 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't find station : ${response.body}");
     }
-    final decode = await compute(jsonDecode, response.body) as List;
+    final decode = jsonDecode(response.body) as List;
 
     final completions = decode
         .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
@@ -146,7 +147,9 @@ class CffRepository implements CffBase {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve raw route : ${response.body}");
     }
-    final map = await compute(jsonDecode, response.body) as Map<String, dynamic>;
+    final stopwatch = Stopwatch()..start();
+    final map = jsonDecode(response.body) as Map<String, dynamic>;
+    log("decode took ${stopwatch.elapsedMilliseconds} ms");
 
     if (map["disruptions"] != null) log(map["disruptions"].toString());
     map["requestUrl"] = query;
