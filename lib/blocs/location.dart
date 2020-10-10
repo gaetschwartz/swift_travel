@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
@@ -17,37 +18,42 @@ class LocationRepository {
     bool forceAndroidLocationManager = false,
     Duration timeLimit,
   }) async {
-    LocationPermission permission = await checkPermission();
-    if (permission == LocationPermission.denied) permission = await requestPermission();
-    if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
-      try {
-        final p = await getCurrentPosition(
-          desiredAccuracy: desiredAccuracy,
-          forceAndroidLocationManager: forceAndroidLocationManager,
-          timeLimit: timeLimit,
-        );
-        return p;
-      } on Exception catch (e, s) {
-        await FirebaseCrashlytics.instance.recordError(e, s);
-        rethrow;
+    LocationPermission permission;
+    try {
+      permission = await checkPermission();
+      if (permission == LocationPermission.denied) permission = await requestPermission();
+      if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+        try {
+          final p = await getCurrentPosition(
+            desiredAccuracy: desiredAccuracy,
+            forceAndroidLocationManager: forceAndroidLocationManager,
+            timeLimit: timeLimit,
+          );
+          return p;
+        } on Exception catch (e, s) {
+          await FirebaseCrashlytics.instance.recordError(e, s);
+          rethrow;
+        }
+      } else {
+        if (context != null) {
+          log(permission.toString());
+          final b = await confirm(
+            context,
+            title: const Text("You need permissions !"),
+            content: const Text("Location permissions are needed to get your position !"),
+            confirm: const Text("Open Settings"),
+            defaultAction: DefaultAction.confirm,
+            isCancelDestructive: true,
+          );
+          if (!b) return null;
+          log("Opening settings ...");
+          final opened = await openAppSettings();
+          if (opened) log("Successfully opened settings");
+        }
+        throw Exception("Failed to locate, didn't have the required permissions : $permission");
       }
-    } else {
-      if (context != null) {
-        log(permission.toString());
-        final b = await confirm(
-          context,
-          title: const Text("You need permissions !"),
-          content: const Text("Location permissions are needed to get your position !"),
-          confirm: const Text("Open Settings"),
-          defaultAction: DefaultAction.confirm,
-          isCancelDestructive: true,
-        );
-        if (!b) return null;
-        log("Opening settings ...");
-        final opened = await openAppSettings();
-        if (opened) log("Successfully opened settings");
-      }
-      throw Exception("Failed to locate, didn't have the required permissions : $permission");
+    } on MissingPluginException {
+      return null;
     }
   }
 }

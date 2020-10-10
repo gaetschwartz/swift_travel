@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -50,11 +51,13 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   Future<void> init() async {
-    if (kDebugMode) {
-      log("Disabling crash reports in debug mode", name: "Loading");
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    } else {
-      await FirebaseCrashlytics.instance.log("Loading page");
+    if (!Platform.isWindows) {
+      if (kDebugMode) {
+        log("Disabling crash reports in debug mode", name: "Loading");
+        await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+      } else {
+        await FirebaseCrashlytics.instance.log("Loading page");
+      }
     }
 
     final prefs = await SharedPreferences.getInstance();

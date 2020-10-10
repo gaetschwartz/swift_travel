@@ -5,6 +5,7 @@ import 'dart:math' show min;
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,32 +24,38 @@ class MyQuickActions {
 
   void init() {
     log("Initialize", name: "QuickActions");
-    quickActions.initialize((shortcutType) async {
-      await FirebaseCrashlytics.instance.log("User tapped a quick action : `$shortcutType`");
-      log('Tapped shortcut $shortcutType', name: "QuickActions");
-      final split = shortcutType.split("_");
-      final first = split.first;
-      if (first == "route") {
-        log('Tapped route $shortcutType', name: "QuickActions");
-        final prefs = await SharedPreferences.getInstance();
-        final stringList = prefs.getStringList(FavoritesSharedPreferencesStore.routesKey);
-        final idS = split.last;
-        final id = int.parse(idS);
-        final route = stringList[id];
-        final lr = LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
-        navigatorKey.currentState
-            .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: lr)));
-      } else if (first == "fav") {
-        log('Tapped fav $shortcutType', name: "QuickActions");
-        final prefs = await SharedPreferences.getInstance();
-        final stringList = prefs.getStringList(FavoritesSharedPreferencesStore.stopsKey);
-        final idS = split.last;
-        final id = int.parse(idS);
-        final fav = stringList[id];
-        navigatorKey.currentState
-            .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: fav)));
-      }
-    });
+    try {
+      quickActions.initialize(_init);
+    } on MissingPluginException {
+      log("Unsupported for now on ${Platform.operatingSystem}");
+    }
+  }
+
+  void _init(String shortcutType) async {
+    await FirebaseCrashlytics.instance.log("User tapped a quick action : `$shortcutType`");
+    log('Tapped shortcut $shortcutType', name: "QuickActions");
+    final split = shortcutType.split("_");
+    final first = split.first;
+    if (first == "route") {
+      log('Tapped route $shortcutType', name: "QuickActions");
+      final prefs = await SharedPreferences.getInstance();
+      final stringList = prefs.getStringList(FavoritesSharedPreferencesStore.routesKey);
+      final idS = split.last;
+      final id = int.parse(idS);
+      final route = stringList[id];
+      final lr = LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
+      navigatorKey.currentState
+          .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: lr)));
+    } else if (first == "fav") {
+      log('Tapped fav $shortcutType', name: "QuickActions");
+      final prefs = await SharedPreferences.getInstance();
+      final stringList = prefs.getStringList(FavoritesSharedPreferencesStore.stopsKey);
+      final idS = split.last;
+      final id = int.parse(idS);
+      final fav = stringList[id];
+      navigatorKey.currentState
+          .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: fav)));
+    }
   }
 
   Future<void> setActions(List<LocalRoute> routes, List<FavoriteStop> favorites) async {
@@ -73,6 +80,10 @@ class MyQuickActions {
         icon: Platform.isIOS ? "route" : "ic_route_round",
       ));
     }
-    await quickActions.setShortcutItems(shortcuts);
+    try {
+      await quickActions.setShortcutItems(shortcuts);
+    } on MissingPluginException {
+      log("Unsupported for now on ${Platform.operatingSystem}");
+    }
   }
 }

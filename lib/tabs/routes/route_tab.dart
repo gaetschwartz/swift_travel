@@ -23,7 +23,7 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 
 final _isLocating = StateProvider((_) => false);
-final _switchProvider = StateProvider((_) => false);
+final _timeTypeProvider = StateProvider((_) => false);
 final _dateProvider = StateProvider((_) => DateTime.now());
 final _timeProvider = StateProvider((_) => TimeOfDay.now());
 final _routesProvider = StateProvider((_) => const RouteStates.empty());
@@ -198,7 +198,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Consumer(builder: (context, w, _) {
-                  final sw = w(_switchProvider);
+                  final sw = w(_timeTypeProvider);
                   return DropdownButton<bool>(
                     underline: const SizedBox(),
                     items: const [
@@ -255,8 +255,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
                   );
                 }),
-                Expanded(
-                    child: Tooltip(
+                Tooltip(
                   message: "Reset time",
                   child: FlatButton(
                     shape: const StadiumBorder(),
@@ -271,7 +270,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     },
                     child: const Icon(Icons.restore),
                   ),
-                )),
+                ),
               ],
             ),
           ),
@@ -449,7 +448,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
           Stop(toController.text),
           date: context.read(_dateProvider).state,
           time: context.read(_timeProvider).state,
-          typeTime: context.read(_switchProvider).state ? TimeType.arrival : TimeType.depart,
+          typeTime: context.read(_timeTypeProvider).state ? TimeType.arrival : TimeType.depart,
         );
         context.read(_routesProvider).state = RouteStates.routes(it);
       } on SocketException {

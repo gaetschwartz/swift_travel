@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -16,11 +17,16 @@ Future<void> main() async {
   // if (kDebugMode) debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  runZonedGuarded<Future<void>>(
-      () async => runApp(ProviderScope(child: MyApp())), FirebaseCrashlytics.instance.recordError);
+  if (!Platform.isWindows) {
+    await Firebase.initializeApp();
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    runZonedGuarded<Future<void>>(() async => _runApp(), FirebaseCrashlytics.instance.recordError);
+  } else {
+    _runApp();
+  }
 }
+
+void _runApp() => runApp(ProviderScope(child: MyApp()));
 
 class MyApp extends StatefulWidget {
   @override
@@ -37,19 +43,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, w, _) {
-      final theme = w(dynamicTheme);
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        navigatorKey: navigatorKey,
-        title: 'Swiss Travel',
-        builder: (context, child) => Unfocus(child: child),
-        theme: theme.light,
-        darkTheme: theme.dark,
-        themeMode: theme.mode,
-        home: LoadingPage(),
-      );
-    });
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Consumer(builder: (context, w, _) {
+        final theme = w(dynamicTheme);
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
+          title: 'Swiss Travel',
+          theme: theme.light,
+          darkTheme: theme.dark,
+          themeMode: theme.mode,
+          home: LoadingPage(),
+        );
+      }),
+    );
   }
 }
 

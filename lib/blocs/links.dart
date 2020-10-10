@@ -27,7 +27,10 @@ class DeepLinkBloc {
         log("No initial link");
       }
     });
-    _sub = stream.receiveBroadcastStream().listen((d) => _onRedirected(d, onLink));
+    _sub = stream.receiveBroadcastStream().listen((d) => _onRedirected(d, onLink), onError: (e) {
+      log("", error: e);
+      _sub?.cancel();
+    });
   }
 
   void _onRedirected(dynamic o, void Function(String link) onLink) {
@@ -44,5 +47,11 @@ class DeepLinkBloc {
     _sub.cancel();
   }
 
-  Future<String> get initialLink async => platform.invokeMethod<String>('initialLink');
+  Future<String> get initialLink async {
+    try {
+      return platform.invokeMethod<String>('initialLink');
+    } on MissingPluginException {
+      return null;
+    }
+  }
 }
