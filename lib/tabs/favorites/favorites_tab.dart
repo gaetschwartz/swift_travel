@@ -84,53 +84,79 @@ class _SearchFavoriteState extends State<SearchFavorite>
         },
         child: const FaIcon(FontAwesomeIcons.plus),
       ),
-      body: Column(
-        children: [
-          Consumer(builder: (context, w, _) {
-            final favs = w(favoritesStatesProvider);
-            return favs.state.map(
-              data: (c) => ListView.builder(
-                shrinkWrap: true,
-                itemCount: c.favorites.length,
-                itemBuilder: (context, i) => FavoriteStationTile(c.favorites[i]),
-              ),
-              loading: (_) => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              exception: (e) => Center(
-                child: Text(
-                  e.toString(),
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
-            );
-          }),
-          Consumer(builder: (context, w, _) {
-            final favs = w(favoritesRoutesStatesProvider);
-            return favs.state.map(
-              data: (c) => ListView.builder(
-                shrinkWrap: true,
-                itemCount: c.routes.length,
-                itemBuilder: (context, i) => FavoriteRoutTile(route: c.routes[i]),
-              ),
-              loading: (_) => const CustomScrollView(
-                slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
-              ),
-              exception: (e) => CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    child: Center(
-                      child: Text(
-                        e.toString(),
-                        style: Theme.of(context).textTheme.headline6,
+      body: SizedBox(
+        width: double.infinity,
+        child: Consumer(builder: (context, w, _) {
+          final favs = w(favoritesStatesProvider);
+          final favRoutes = w(favoritesRoutesStatesProvider);
+          return favs.state.maybeWhen<bool>(data: (d) => d.isEmpty, orElse: () => false) &&
+                  favRoutes.state.maybeWhen<bool>(data: (d) => d.isEmpty, orElse: () => false)
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "⭐",
+                      style: TextStyle(fontSize: 64),
+                    ),
+                    const SizedBox(height: 32),
+                    Text(
+                      "You have no favorites !",
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "You can add one by tapping the ➕ button.",
+                      style: Theme.of(context).textTheme.subtitle1,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    favs.state.map(
+                      data: (c) => ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: c.favorites.length,
+                        itemBuilder: (context, i) => FavoriteStationTile(c.favorites[i]),
+                      ),
+                      loading: (_) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      exception: (e) => Center(
+                        child: Text(
+                          e.toString(),
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
                       ),
                     ),
-                  )
-                ],
-              ),
-            );
-          }),
-        ],
+                    favRoutes.state.map(
+                      data: (c) => ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: c.routes.length,
+                        itemBuilder: (context, i) => FavoriteRoutTile(route: c.routes[i]),
+                      ),
+                      loading: (_) => const CustomScrollView(
+                        slivers: [
+                          SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
+                        ],
+                      ),
+                      exception: (e) => CustomScrollView(
+                        slivers: [
+                          SliverFillRemaining(
+                            child: Center(
+                              child: Text(
+                                e.toString(),
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+        }),
       ),
     );
   }

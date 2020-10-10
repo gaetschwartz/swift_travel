@@ -127,7 +127,10 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     suggestionsCallback: (s) async =>
                         completeWithFavorites(_store, await _cff.complete(s), s),
                     itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-                    onSuggestionSelected: (suggestion) => fromController.text = suggestion.label,
+                    onSuggestionSelected: (suggestion) {
+                      fromController.text = suggestion.label;
+                      searchData();
+                    },
                     noItemsFoundBuilder: (_) => const SizedBox(),
                     transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
                       opacity: controller,
@@ -158,7 +161,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     textFieldConfiguration: TextFieldConfiguration(
                         textInputAction: TextInputAction.search,
                         focusNode: fnTo,
-                        onSubmitted: (_) => search(),
+                        onSubmitted: (_) => searchData(),
                         controller: toController,
                         style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
@@ -171,7 +174,10 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     suggestionsCallback: (s) async =>
                         completeWithFavorites(_store, await _cff.complete(s), s),
                     itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-                    onSuggestionSelected: (suggestion) => toController.text = suggestion.label,
+                    onSuggestionSelected: (suggestion) {
+                      toController.text = suggestion.label;
+                      searchData();
+                    },
                     noItemsFoundBuilder: (_) => const SizedBox(),
                     transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
                       opacity: controller,
@@ -215,28 +221,31 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     value: sw.state,
                   );
                 }),
-                Consumer(builder: (context, w, _) {
-                  final _time = w(_timeProvider);
-                  return FlatButton.icon(
-                    onPressed: () async {
-                      final time = await showTimePicker(
-                        context: context,
-                        initialTime: _time.state,
-                      );
-                      if (time == null) return;
-                      _time.state = time;
-                    },
-                    icon: const FaIcon(
-                      FontAwesomeIcons.clock,
-                      size: 16,
-                    ),
-                    label: Text(
-                        "${_time.state.hour}:${_time.state.minute.toString().padLeft(2, "0")}"),
-                  );
-                }),
+                FlatButton.icon(
+                  padding: const EdgeInsets.only(left: 8, right: 12),
+                  onPressed: () async {
+                    final _time = context.read(_timeProvider);
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: _time.state,
+                    );
+                    if (time == null) return;
+                    _time.state = time;
+                  },
+                  icon: const FaIcon(
+                    FontAwesomeIcons.clock,
+                    size: 16,
+                  ),
+                  label: Consumer(builder: (context, w, _) {
+                    final _time = w(_timeProvider);
+                    return Text(
+                        "${_time.state.hour}:${_time.state.minute.toString().padLeft(2, "0")}");
+                  }),
+                ),
                 Consumer(builder: (context, w, _) {
                   final _date = w(_dateProvider);
                   return FlatButton.icon(
+                    padding: const EdgeInsets.only(left: 8, right: 12),
                     onPressed: () async {
                       final now = DateTime.now();
                       final dateTime = await showDatePicker(
@@ -257,8 +266,8 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 }),
                 Tooltip(
                   message: "Reset time",
-                  child: FlatButton(
-                    shape: const StadiumBorder(),
+                  child: IconButton(
+                    padding: const EdgeInsets.all(0),
                     onPressed: () {
                       final time = context.read(_timeProvider);
                       final nowTime = TimeOfDay.now();
@@ -266,9 +275,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                       final date = context.read(_dateProvider);
                       final nowDate = DateTime.now();
                       date.state = nowDate;
-                      search();
+                      searchData();
                     },
-                    child: const Icon(Icons.restore),
+                    icon: const Icon(Icons.restore),
                   ),
                 ),
               ],
@@ -286,14 +295,14 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     height: 48,
                     highlightColor: const Color(0x260700b1),
                     icon: const FaIcon(FontAwesomeIcons.search),
-                    onPressed: search,
+                    onPressed: () => searchData(),
                     onLongPress: kReleaseMode
                         ? null
                         : () {
                             fromController.text =
                                 "Université de Genève, Genève, Rue du Général-Dufour 24";
                             toController.text = "Badenerstrasse 549, 8048 Zürich";
-                            search();
+                            searchData();
                           },
                     shape: const StadiumBorder(),
                     color: Theme.of(context).scaffoldBackgroundColor,
@@ -352,63 +361,63 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
           Expanded(
             child: Consumer(
                 builder: (context, w, _) => w(_routesProvider).state.map(
-                      routes: (data) => ListView.builder(
-                          // separatorBuilder: (c, i) => const Divider(height: 0),
-                          shrinkWrap: true,
-                          itemCount: data.routes == null ? 0 : data.routes.connections.length,
-                          itemBuilder: (context, i) => RouteTile(
-                                key: Key("routetile-$i"),
-                                route: data.routes,
-                                i: i,
-                              )),
-                      network: (_) => Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const FaIcon(
-                            Icons.wifi_off,
-                            size: 48,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            "Netork Error",
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        ],
-                      ),
-                      exception: (e) => Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const FaIcon(
-                            Icons.bug_report,
-                            size: 48,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            e.exception.toString(),
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        ],
-                      ),
-                      loading: (_) => const CustomScrollView(
-                        slivers: [
-                          SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
-                        ],
-                      ),
-                      empty: (_) => Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const FaIcon(
-                            Icons.search,
-                            size: 48,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            "Search a route",
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        ],
-                      ),
-                    )),
+                    routes: (data) => ListView.builder(
+                        // separatorBuilder: (c, i) => const Divider(height: 0),
+                        shrinkWrap: true,
+                        itemCount: data.routes == null ? 0 : data.routes.connections.length,
+                        itemBuilder: (context, i) => RouteTile(
+                              key: Key("routetile-$i"),
+                              route: data.routes,
+                              i: i,
+                            )),
+                    network: (_) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const FaIcon(
+                              Icons.wifi_off,
+                              size: 48,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              "Netork Error",
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ],
+                        ),
+                    exception: (e) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const FaIcon(
+                              Icons.bug_report,
+                              size: 48,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              e.exception.toString(),
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ],
+                        ),
+                    loading: (_) => const CustomScrollView(
+                          slivers: [
+                            SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
+                          ],
+                        ),
+                    empty: (_) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "🔎",
+                              style: TextStyle(fontSize: 48),
+                            ),
+                            const SizedBox(height: 24),
+                            Text(
+                              "Search a route",
+                              style: Theme.of(context).textTheme.headline6,
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        ))),
           )
         ],
       ),
@@ -419,8 +428,8 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     context.read(_isLocating).state = true;
     try {
       final p = await context.read(locationProvider).getLocation(context: context);
-
       log("Position is : $p");
+      if (p == null) throw StateError("We got no location");
       final completions = await context.read(cffProvider).findStation(p.latitude, p.longitude);
       final first = completions.first;
       log("Found : $first");
@@ -433,13 +442,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     }
   }
 
-  Future<void> search() async {
+  Future<void> searchData() async {
     fnFrom.unfocus();
     fnTo.unfocus();
-    await searchData();
-  }
-
-  Future<void> searchData() async {
     if (fromController.text.length > 2 && toController.text.length > 2) {
       context.read(_routesProvider).state = const RouteStates.loading();
       try {

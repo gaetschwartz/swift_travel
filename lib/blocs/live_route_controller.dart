@@ -64,14 +64,14 @@ class LiveRouteController extends ChangeNotifier {
       : null;
 
   void startRoute(RouteConnection connection) {
-    stopCurrentRoute();
+    stopCurrentRoute(notify: false);
     _connection = connection;
     _sub = getPositionStream(timeInterval: 5000).listen(_update);
     _computeRoute();
     notifyListeners();
   }
 
-  void stopCurrentRoute() {
+  void stopCurrentRoute({bool notify = true}) {
     _closestLeg = null;
     _closestStop = null;
     _connection = null;
@@ -79,8 +79,8 @@ class LiveRouteController extends ChangeNotifier {
     _currentStop = null;
     _isReady = false;
     legDistances.clear();
-
     _sub?.cancel();
+    if (notify) notifyListeners();
   }
 
   bool get isRunning => _connection != null;

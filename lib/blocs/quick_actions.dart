@@ -31,7 +31,7 @@ class MyQuickActions {
     }
   }
 
-  void _init(String shortcutType) async {
+  Future<void> _init(String shortcutType) async {
     await FirebaseCrashlytics.instance.log("User tapped a quick action : `$shortcutType`");
     log('Tapped shortcut $shortcutType', name: "QuickActions");
     final split = shortcutType.split("_");

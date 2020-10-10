@@ -33,8 +33,8 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
 
   @override
   void deactivate() {
-    super.deactivate();
     _controller.stopCurrentRoute();
+    super.deactivate();
   }
 
   @override
