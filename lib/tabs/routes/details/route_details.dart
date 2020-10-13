@@ -52,7 +52,13 @@ class RouteDetails extends StatelessWidget {
                 final Uri sharedUri =
                     Uri(scheme: urlScheme, host: "route", queryParameters: params);
                 log(sharedUri.toString());
-                Share.share(sharedUri.toString());
+                try {
+                  Share.share(sharedUri.toString());
+                } on Exception catch (e) {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text(e.toString()),
+                  ));
+                }
               })
         ],
       ),
