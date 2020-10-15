@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
@@ -16,6 +17,7 @@ import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/location.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/route_states.dart';
+import 'package:swiss_travel/models/route_textfield_state.dart';
 import 'package:swiss_travel/tabs/routes/route_tile.dart';
 import 'package:swiss_travel/tabs/routes/suggested.dart';
 import 'package:swiss_travel/utils/complete.dart';
@@ -27,6 +29,9 @@ final _timeTypeProvider = StateProvider((_) => false);
 final _dateProvider = StateProvider((_) => DateTime.now());
 final _timeProvider = StateProvider((_) => TimeOfDay.now());
 final _routesProvider = StateProvider((_) => const RouteStates.empty());
+
+final _firstProvider = StateProvider((_) => const RouteTextfieldState.empty());
+final _secondProvider = StateProvider((_) => const RouteTextfieldState.empty());
 
 class SearchRoute extends StatefulWidget {
   final LocalRoute localRoute;
@@ -187,12 +192,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                    icon: const FaIcon(FontAwesomeIcons.arrowsAltV),
-                    onPressed: () {
-                      final from = fromController.text;
-                      fromController.text = toController.text;
-                      toController.text = from;
-                    }),
+                  icon: const FaIcon(FontAwesomeIcons.arrowsAltV),
+                  onPressed: () => switchInputs(),
+                ),
               ],
             ),
           ),
@@ -424,14 +426,27 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     );
   }
 
+  void switchInputs() {
+    final String from = fromController.text;
+    final String to = toController.text;
+    fromController.text = to;
+    toController.text = from;
+    final StateController<RouteTextfieldState> fromState = context.read(_firstProvider);
+    final StateController<RouteTextfieldState> toState = context.read(_secondProvider);
+    final RouteTextfieldState fromS = fromState.state;
+    fromState.state = toState.state;
+    toState.state = fromS;
+  }
+
   Future<void> locate() async {
     context.read(_isLocating).state = true;
     try {
-      final p = await context.read(locationProvider).getLocation(context: context);
+      final Position p = await context.read(locationProvider).getLocation(context: context);
       log("Position is : $p");
       if (p == null) throw StateError("We got no location");
-      final completions = await context.read(cffProvider).findStation(p.latitude, p.longitude);
-      final first = completions.first;
+      final List<CffCompletion> completions =
+          await context.read(cffProvider).findStation(p.latitude, p.longitude);
+      final CffCompletion first = completions.first;
       log("Found : $first");
       if (first.dist != null) {
         fromController.text = completions.first.label;

@@ -20,7 +20,7 @@ class _$StationboardConnectionTearOff {
 // ignore: unused_element
   _StationboardConnection call(DateTime time, Vehicle type, String line,
       String color, String number, Terminal terminal, String operator,
-      {@JsonKey(name: '*G') String g, @JsonKey(name: '*L') String l}) {
+      {@JsonKey(name: "*G") String g, @JsonKey(name: "*L") String l}) {
     return _StationboardConnection(
       time,
       type,
@@ -53,9 +53,9 @@ mixin _$StationboardConnection {
   String get number;
   Terminal get terminal;
   String get operator;
-  @JsonKey(name: '*G')
+  @JsonKey(name: "*G")
   String get g;
-  @JsonKey(name: '*L')
+  @JsonKey(name: "*L")
   String get l;
 
   Map<String, dynamic> toJson();
@@ -75,8 +75,8 @@ abstract class $StationboardConnectionCopyWith<$Res> {
       String number,
       Terminal terminal,
       String operator,
-      @JsonKey(name: '*G') String g,
-      @JsonKey(name: '*L') String l});
+      @JsonKey(name: "*G") String g,
+      @JsonKey(name: "*L") String l});
 
   $TerminalCopyWith<$Res> get terminal;
 }
@@ -141,8 +141,8 @@ abstract class _$StationboardConnectionCopyWith<$Res>
       String number,
       Terminal terminal,
       String operator,
-      @JsonKey(name: '*G') String g,
-      @JsonKey(name: '*L') String l});
+      @JsonKey(name: "*G") String g,
+      @JsonKey(name: "*L") String l});
 
   @override
   $TerminalCopyWith<$Res> get terminal;
@@ -191,7 +191,7 @@ class __$StationboardConnectionCopyWithImpl<$Res>
 class _$_StationboardConnection implements _StationboardConnection {
   _$_StationboardConnection(this.time, this.type, this.line, this.color,
       this.number, this.terminal, this.operator,
-      {@JsonKey(name: '*G') this.g, @JsonKey(name: '*L') this.l})
+      {@JsonKey(name: "*G") this.g, @JsonKey(name: "*L") this.l})
       : assert(time != null),
         assert(type != null),
         assert(line != null),
@@ -218,10 +218,10 @@ class _$_StationboardConnection implements _StationboardConnection {
   @override
   final String operator;
   @override
-  @JsonKey(name: '*G')
+  @JsonKey(name: "*G")
   final String g;
   @override
-  @JsonKey(name: '*L')
+  @JsonKey(name: "*L")
   final String l;
 
   @override
@@ -282,8 +282,8 @@ class _$_StationboardConnection implements _StationboardConnection {
 abstract class _StationboardConnection implements StationboardConnection {
   factory _StationboardConnection(DateTime time, Vehicle type, String line,
       String color, String number, Terminal terminal, String operator,
-      {@JsonKey(name: '*G') String g,
-      @JsonKey(name: '*L') String l}) = _$_StationboardConnection;
+      {@JsonKey(name: "*G") String g,
+      @JsonKey(name: "*L") String l}) = _$_StationboardConnection;
 
   factory _StationboardConnection.fromJson(Map<String, dynamic> json) =
       _$_StationboardConnection.fromJson;
@@ -303,10 +303,10 @@ abstract class _StationboardConnection implements StationboardConnection {
   @override
   String get operator;
   @override
-  @JsonKey(name: '*G')
+  @JsonKey(name: "*G")
   String get g;
   @override
-  @JsonKey(name: '*L')
+  @JsonKey(name: "*L")
   String get l;
   @override
   _$StationboardConnectionCopyWith<_StationboardConnection> get copyWith;
