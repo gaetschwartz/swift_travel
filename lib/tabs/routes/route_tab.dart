@@ -69,7 +69,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read(_timeProvider).state = TimeOfDay.now();
       context.read(_dateProvider).state = DateTime.now();
-      searchData();
+      fetchRoute();
     });
   }
 
@@ -80,7 +80,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
       context.read(_timeProvider).state = TimeOfDay.now();
       context.read(_dateProvider).state = DateTime.now();
       await locate();
-      await searchData();
+      await fetchRoute();
     });
   }
 
@@ -134,7 +134,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
                     onSuggestionSelected: (suggestion) {
                       fromController.text = suggestion.label;
-                      searchData();
+                      fetchRoute();
                     },
                     noItemsFoundBuilder: (_) => const SizedBox(),
                     transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
@@ -166,7 +166,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     textFieldConfiguration: TextFieldConfiguration(
                         textInputAction: TextInputAction.search,
                         focusNode: fnTo,
-                        onSubmitted: (_) => searchData(),
+                        onSubmitted: (_) => fetchRoute(),
                         controller: toController,
                         style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
@@ -181,7 +181,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
                     onSuggestionSelected: (suggestion) {
                       toController.text = suggestion.label;
-                      searchData();
+                      fetchRoute();
                     },
                     noItemsFoundBuilder: (_) => const SizedBox(),
                     transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
@@ -277,7 +277,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                       final date = context.read(_dateProvider);
                       final nowDate = DateTime.now();
                       date.state = nowDate;
-                      searchData();
+                      fetchRoute();
                     },
                     icon: const Icon(Icons.restore),
                   ),
@@ -297,14 +297,14 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     height: 48,
                     highlightColor: const Color(0x260700b1),
                     icon: const FaIcon(FontAwesomeIcons.search),
-                    onPressed: () => searchData(),
+                    onPressed: () => fetchRoute(),
                     onLongPress: kReleaseMode
                         ? null
                         : () {
                             fromController.text =
                                 "Université de Genève, Genève, Rue du Général-Dufour 24";
                             toController.text = "Badenerstrasse 549, 8048 Zürich";
-                            searchData();
+                            fetchRoute();
                           },
                     shape: const StadiumBorder(),
                     color: Theme.of(context).scaffoldBackgroundColor,
@@ -450,6 +450,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
       log("Found : $first");
       if (first.dist != null) {
         fromController.text = completions.first.label;
+        fetchRoute();
       }
     } finally {
       context.read(_isLocating).state = false;
@@ -457,7 +458,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     }
   }
 
-  Future<void> searchData() async {
+  Future<void> fetchRoute() async {
     fnFrom.unfocus();
     fnTo.unfocus();
     if (fromController.text.length > 2 && toController.text.length > 2) {

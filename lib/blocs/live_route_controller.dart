@@ -92,7 +92,7 @@ class LiveRouteController extends ChangeNotifier {
     Vehicle.tram: 100,
   };
   static int getDistanceThreshHold(Leg leg) =>
-      _kDistanceThersholds[leg.type] ?? _kDefaultDistanceThreshold;
+      _kDistanceThersholds[leg?.type] ?? _kDefaultDistanceThreshold;
 
   void _update(Position p) {
     if (!isRunning) {
