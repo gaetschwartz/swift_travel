@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 import 'dart:math' show min;
 import 'dart:ui';
 
@@ -45,7 +44,7 @@ class Settings extends StatelessWidget {
             ),
             const _SectionTitle(title: Text("Themes")),
             const _ThemesSection(),
-            if (!kReleaseMode || Platform.isIOS)
+            if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS)
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Consumer(builder: (context, w, _) {

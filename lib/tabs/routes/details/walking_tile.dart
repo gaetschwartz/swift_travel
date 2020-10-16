@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:android_intent/android_intent.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -86,7 +87,14 @@ class WalkingTile extends StatelessWidget {
 
     final suffix =
         '?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
-    if (Platform.isIOS) {
+    if (kIsWeb) {
+      final url = _google + suffix;
+      try {
+        await launch(url);
+      } on Exception {
+        log("Failed to open $url");
+      }
+    } else if (Platform.isIOS) {
       final url = getMapsUrl(context, suffix);
       try {
         await launch(url);

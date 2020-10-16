@@ -27,7 +27,7 @@ class MyQuickActions {
     try {
       quickActions.initialize(_init);
     } on MissingPluginException {
-      log("Unsupported for now on ${Platform.operatingSystem}");
+      log("Unsupported for now on $platform");
     }
   }
 
@@ -59,6 +59,9 @@ class MyQuickActions {
   }
 
   Future<void> setActions(List<LocalRoute> routes, List<FavoriteStop> favorites) async {
+    if (!isSupported) {
+      log("Actions not supported for now on $platform");
+    }
     final List<ShortcutItem> shortcuts = [];
 
     log("Add favorites $favorites", name: "QuickActions");
@@ -83,7 +86,7 @@ class MyQuickActions {
     try {
       await quickActions.setShortcutItems(shortcuts);
     } on MissingPluginException {
-      log("Unsupported for now on ${Platform.operatingSystem}");
+      log("Unsupported for now on $platform");
     }
   }
 }

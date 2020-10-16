@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -51,7 +50,7 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   Future<void> init() async {
-    if (!Platform.isWindows) {
+    if (isSupported) {
       if (kDebugMode) {
         log("Disabling crash reports in debug mode", name: "Loading");
         await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
@@ -82,35 +81,38 @@ class _LoadingPageState extends State<LoadingPage> {
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
     final cff = context.read(cffProvider);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read(quickActions).init();
-      context.read(linksProvider).init((link) async {
-        Uri uri;
-        try {
-          uri = Uri.parse(link);
-        } on Exception catch (e, s) {
-          FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
-          return;
-        }
-        if (uri.host == "route") {
-          log("We have a new route");
-          if (uri.queryParameters.containsKey("from") && uri.queryParameters.containsKey("to")) {
-            log("Valid route");
-            final Map<String, String> params = Map.from(uri.queryParameters);
-            if (params.containsKey("i")) {
-              params.remove("i");
-              final qUri = Uri.https("timetable.search.ch", "api/route.json", uri.queryParameters);
-              log(qUri.toString());
-              final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
-                  future: () => cff.rawRoute(qUri.toString()),
-                  title: const Text("Getting route infos ..."));
-              final i = int.parse(uri.queryParameters["i"]);
-              navigatorKey.currentState
-                  .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
+    if (isSupported) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.read(quickActions).init();
+        context.read(linksProvider).init((link) async {
+          Uri uri;
+          try {
+            uri = Uri.parse(link);
+          } on Exception catch (e, s) {
+            FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+            return;
+          }
+          if (uri.host == "route") {
+            log("We have a new route");
+            if (uri.queryParameters.containsKey("from") && uri.queryParameters.containsKey("to")) {
+              log("Valid route");
+              final Map<String, String> params = Map.from(uri.queryParameters);
+              if (params.containsKey("i")) {
+                params.remove("i");
+                final qUri =
+                    Uri.https("timetable.search.ch", "api/route.json", uri.queryParameters);
+                log(qUri.toString());
+                final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
+                    future: () => cff.rawRoute(qUri.toString()),
+                    title: const Text("Getting route infos ..."));
+                final i = int.parse(uri.queryParameters["i"]);
+                navigatorKey.currentState
+                    .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
+              }
             }
           }
-        }
+        });
       });
-    });
+    }
   }
 }
