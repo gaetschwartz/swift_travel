@@ -368,62 +368,76 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     context.read(_toTextfieldProvider).state = RouteTextfieldState.text(_toController.text);
   }
 
-  TypeAheadField<CffCompletion> buildFromField(BuildContext context) {
-    return TypeAheadField<CffCompletion>(
-      key: const Key("route-first-textfield-key"),
-      debounceDuration: const Duration(milliseconds: 500),
-      textFieldConfiguration: TextFieldConfiguration(
+  Widget buildFromField(BuildContext context) {
+    return InputDecorator(
+      child: TypeAheadField<CffCompletion>(
+        key: const Key("route-first-textfield-key"),
+        debounceDuration: const Duration(milliseconds: 500),
+        textFieldConfiguration: TextFieldConfiguration(
           focusNode: fnFrom,
           controller: _fromController,
           onSubmitted: (_) => fnTo.requestFocus(),
           textInputAction: TextInputAction.next,
           style: Theme.of(context).textTheme.bodyText1,
           decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: "From",
-              isDense: true,
-              suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear), onPressed: () => _fromController.text = ""))),
-      suggestionsCallback: (s) async => completeWithFavorites(_store, await _cff.complete(s), s),
-      itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-      onSuggestionSelected: (suggestion) {
-        _fromController.text = suggestion.label;
-        context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(suggestion.label);
-      },
-      noItemsFoundBuilder: (_) => const SizedBox(),
-      transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-        opacity: controller,
-        child: suggestionsBox,
+            border: const UnderlineInputBorder(),
+            labelText: "From",
+            isDense: true,
+            filled: true,
+            fillColor: Theme.of(context).cardColor,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+            suffixIcon: IconButton(
+                icon: const Icon(Icons.clear), onPressed: () => _fromController.text = ""),
+          ),
+        ),
+        suggestionsCallback: (s) async => completeWithFavorites(_store, await _cff.complete(s), s),
+        itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+        onSuggestionSelected: (suggestion) {
+          _fromController.text = suggestion.label;
+          context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(suggestion.label);
+        },
+        noItemsFoundBuilder: (_) => const SizedBox(),
+        transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+          opacity: controller,
+          child: suggestionsBox,
+        ),
       ),
     );
   }
 
-  TypeAheadField<CffCompletion> buildToField(BuildContext context) {
-    return TypeAheadField<CffCompletion>(
-      key: const Key("route-second-textfield-key"),
-      debounceDuration: const Duration(milliseconds: 500),
-      textFieldConfiguration: TextFieldConfiguration(
+  Widget buildToField(BuildContext context) {
+    return InputDecorator(
+      child: TypeAheadField<CffCompletion>(
+        key: const Key("route-second-textfield-key"),
+        debounceDuration: const Duration(milliseconds: 500),
+        textFieldConfiguration: TextFieldConfiguration(
           textInputAction: TextInputAction.search,
           focusNode: fnTo,
           onSubmitted: (_) => unFocusFields(),
           controller: _toController,
           style: Theme.of(context).textTheme.bodyText1,
           decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: "To",
-              isDense: true,
-              suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear), onPressed: () => _toController.text = ""))),
-      suggestionsCallback: (s) async => completeWithFavorites(_store, await _cff.complete(s), s),
-      itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-      onSuggestionSelected: (suggestion) {
-        _toController.text = suggestion.label;
-        context.read(_toTextfieldProvider).state = RouteTextfieldState.text(suggestion.label);
-      },
-      noItemsFoundBuilder: (_) => const SizedBox(),
-      transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-        opacity: controller,
-        child: suggestionsBox,
+            border: const UnderlineInputBorder(),
+            labelText: "To",
+            isDense: true,
+            filled: true,
+            fillColor: Theme.of(context).cardColor,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+            suffixIcon:
+                IconButton(icon: const Icon(Icons.clear), onPressed: () => _toController.text = ""),
+          ),
+        ),
+        suggestionsCallback: (s) async => completeWithFavorites(_store, await _cff.complete(s), s),
+        itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+        onSuggestionSelected: (suggestion) {
+          _toController.text = suggestion.label;
+          context.read(_toTextfieldProvider).state = RouteTextfieldState.text(suggestion.label);
+        },
+        noItemsFoundBuilder: (_) => const SizedBox(),
+        transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+          opacity: controller,
+          child: suggestionsBox,
+        ),
       ),
     );
   }
@@ -537,5 +551,21 @@ class RoutesView extends StatelessWidget {
                 ],
               ));
     });
+  }
+}
+
+class InputDecorator extends StatelessWidget {
+  final Widget child;
+
+  const InputDecorator({Key key, this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+      ),
+      child: child,
+    );
   }
 }
