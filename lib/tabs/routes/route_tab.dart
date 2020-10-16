@@ -38,7 +38,7 @@ final _futureRouteProvider = ChangeNotifierProvider<Fetcher>((ref) {
 });
 
 class Fetcher extends ChangeNotifier {
-  RouteStates _state;
+  RouteStates _state = const RouteStates.empty();
 
   RouteStates get state => _state;
 
@@ -54,12 +54,12 @@ class Fetcher extends ChangeNotifier {
     final time = ref.watch(_timeProvider).state;
     final date = ref.watch(_dateProvider).state;
     final isArrival = ref.watch(_isArrivalProvider).state;
-    //! How to do it properly ? Is it safe ?
-    state = const RouteStates.loading();
 
     if (from is RouteTextfieldStateEmpty || to is RouteTextfieldStateEmpty) {
-      return state = const RouteStates.empty();
+      return;
     }
+
+    state = const RouteStates.loading();
     final departure = from.when(
         empty: () => null, text: (t) => t, currentLocation: (loc, lat, lon) => "$lat,$lon");
     final arrival =
@@ -165,14 +165,17 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                   child: buildFromField(context),
                 ),
                 const SizedBox(width: 8),
-                IconButton(
-                    icon: Consumer(builder: (context, w, _) {
-                      final loading = w(_isLocating).state;
-                      return loading
-                          ? const CircularProgressIndicator()
-                          : const FaIcon(FontAwesomeIcons.locationArrow);
-                    }),
-                    onPressed: () => locate())
+                Tooltip(
+                  message: "Use current location",
+                  child: IconButton(
+                      icon: Consumer(builder: (context, w, _) {
+                        final loading = w(_isLocating).state;
+                        return loading
+                            ? const CircularProgressIndicator()
+                            : const FaIcon(FontAwesomeIcons.locationArrow);
+                      }),
+                      onPressed: () => locate()),
+                )
               ],
             ),
           ),
@@ -184,9 +187,12 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                   child: buildToField(context),
                 ),
                 const SizedBox(width: 8),
-                IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.arrowsAltV),
-                  onPressed: () => switchInputs(),
+                Tooltip(
+                  message: 'Switch inputs',
+                  child: IconButton(
+                    icon: const FaIcon(FontAwesomeIcons.arrowsAltV),
+                    onPressed: () => switchInputs(),
+                  ),
                 ),
               ],
             ),
@@ -314,29 +320,32 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 child: Consumer(builder: (context, w, _) {
                   final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
                   w(_futureRouteProvider);
-                  return FlatButton(
-                    shape: const StadiumBorder(),
-                    onPressed: () async {
-                      log(_store.routes.toString());
-                      if (_store.routes.any(
-                        (lr) => lr.from == _fromController.text && lr.to == _toController.text,
-                      )) {
-                        Scaffold.of(context).showSnackBar(const SnackBar(
-                            content: Text("This route is already in your favorites !")));
-                        return;
-                      }
+                  return Tooltip(
+                    message: "Favorite route",
+                    child: FlatButton(
+                      shape: const StadiumBorder(),
+                      onPressed: () async {
+                        log(_store.routes.toString());
+                        if (_store.routes.any(
+                          (lr) => lr.from == _fromController.text && lr.to == _toController.text,
+                        )) {
+                          Scaffold.of(context).showSnackBar(const SnackBar(
+                              content: Text("This route is already in your favorites !")));
+                          return;
+                        }
 
-                      final s = await input(context, title: const Text("Enter route name"));
-                      if (s == null) return;
-                      context.read(storeProvider).addRoute(
-                          LocalRoute(_fromController.text, _toController.text, displayName: s));
-                      Scaffold.of(context)
-                          .showSnackBar(const SnackBar(content: Text("Route starred !")));
-                    },
-                    child: _store.routes.any(
-                            (lr) => lr.from == _fromController.text && lr.to == _toController.text)
-                        ? const Icon(Icons.star)
-                        : const Icon(Icons.star_border),
+                        final s = await input(context, title: const Text("Enter route name"));
+                        if (s == null) return;
+                        context.read(storeProvider).addRoute(
+                            LocalRoute(_fromController.text, _toController.text, displayName: s));
+                        Scaffold.of(context)
+                            .showSnackBar(const SnackBar(content: Text("Route starred !")));
+                      },
+                      child: _store.routes.any((lr) =>
+                              lr.from == _fromController.text && lr.to == _toController.text)
+                          ? const Icon(Icons.star)
+                          : const Icon(Icons.star_border),
+                    ),
                   );
                 }),
               ),
@@ -370,74 +379,99 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
 
   Widget buildFromField(BuildContext context) {
     return InputWrapperDecoration(
-      child: TypeAheadField<CffCompletion>(
-        key: const Key("route-first-textfield-key"),
-        debounceDuration: const Duration(milliseconds: 500),
-        textFieldConfiguration: TextFieldConfiguration(
-          focusNode: fnFrom,
-          controller: _fromController,
-          onSubmitted: (_) => fnTo.requestFocus(),
-          textInputAction: TextInputAction.next,
-          style: Theme.of(context).textTheme.bodyText1,
-          decoration: InputDecoration(
-            border: const UnderlineInputBorder(),
-            labelText: "From",
-            isDense: true,
-            filled: true,
-            fillColor: Theme.of(context).cardColor,
-            contentPadding: const EdgeInsets.only(left: 8),
-            suffixIcon: IconButton(
-                icon: const Icon(Icons.clear), onPressed: () => _fromController.text = ""),
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          TypeAheadField<CffCompletion>(
+            key: const Key("route-first-textfield-key"),
+            debounceDuration: const Duration(milliseconds: 500),
+            textFieldConfiguration: TextFieldConfiguration(
+              focusNode: fnFrom,
+              controller: _fromController,
+              onSubmitted: (_) => fnTo.requestFocus(),
+              textInputAction: TextInputAction.next,
+              style: Theme.of(context).textTheme.bodyText1,
+              decoration: InputDecoration(
+                border: const UnderlineInputBorder(),
+                labelText: "From",
+                isDense: true,
+                filled: true,
+                fillColor: Theme.of(context).cardColor,
+                contentPadding: const EdgeInsets.only(left: 8, right: 48),
+                suffixIcon: const SizedBox(),
+              ),
+            ),
+            suggestionsCallback: (s) async =>
+                completeWithFavorites(_store, await _cff.complete(s), s),
+            itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+            onSuggestionSelected: (suggestion) {
+              _fromController.text = suggestion.label;
+              context.read(_fromTextfieldProvider).state =
+                  RouteTextfieldState.text(suggestion.label);
+            },
+            noItemsFoundBuilder: (_) => const SizedBox(),
+            transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+              opacity: controller,
+              child: suggestionsBox,
+            ),
           ),
-        ),
-        suggestionsCallback: (s) async => completeWithFavorites(_store, await _cff.complete(s), s),
-        itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-        onSuggestionSelected: (suggestion) {
-          _fromController.text = suggestion.label;
-          context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(suggestion.label);
-        },
-        noItemsFoundBuilder: (_) => const SizedBox(),
-        transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-          opacity: controller,
-          child: suggestionsBox,
-        ),
+          IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              _fromController.text = "";
+              context.read(_fromTextfieldProvider).state = const RouteTextfieldState.empty();
+            },
+          ),
+        ],
       ),
     );
   }
 
   Widget buildToField(BuildContext context) {
     return InputWrapperDecoration(
-      child: TypeAheadField<CffCompletion>(
-        key: const Key("route-second-textfield-key"),
-        debounceDuration: const Duration(milliseconds: 500),
-        textFieldConfiguration: TextFieldConfiguration(
-          textInputAction: TextInputAction.search,
-          focusNode: fnTo,
-          onSubmitted: (_) => unFocusFields(),
-          controller: _toController,
-          style: Theme.of(context).textTheme.bodyText1,
-          decoration: InputDecoration(
-            border: const UnderlineInputBorder(),
-            labelText: "To",
-            isDense: true,
-            filled: true,
-            fillColor: Theme.of(context).cardColor,
-            contentPadding: const EdgeInsets.only(left: 8),
-            suffixIcon:
-                IconButton(icon: const Icon(Icons.clear), onPressed: () => _toController.text = ""),
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          TypeAheadField<CffCompletion>(
+            key: const Key("route-second-textfield-key"),
+            debounceDuration: const Duration(milliseconds: 500),
+            textFieldConfiguration: TextFieldConfiguration(
+              textInputAction: TextInputAction.search,
+              focusNode: fnTo,
+              onSubmitted: (_) => unFocusFields(),
+              controller: _toController,
+              style: Theme.of(context).textTheme.bodyText1,
+              decoration: InputDecoration(
+                border: const UnderlineInputBorder(),
+                labelText: "To",
+                isDense: true,
+                filled: true,
+                fillColor: Theme.of(context).cardColor,
+                contentPadding: const EdgeInsets.only(left: 8, right: 48),
+                suffixIcon: const SizedBox(),
+              ),
+            ),
+            suggestionsCallback: (s) async =>
+                completeWithFavorites(_store, await _cff.complete(s), s),
+            itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+            onSuggestionSelected: (suggestion) {
+              _toController.text = suggestion.label;
+              context.read(_toTextfieldProvider).state = RouteTextfieldState.text(suggestion.label);
+            },
+            noItemsFoundBuilder: (_) => const SizedBox(),
+            transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+              opacity: controller,
+              child: suggestionsBox,
+            ),
           ),
-        ),
-        suggestionsCallback: (s) async => completeWithFavorites(_store, await _cff.complete(s), s),
-        itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-        onSuggestionSelected: (suggestion) {
-          _toController.text = suggestion.label;
-          context.read(_toTextfieldProvider).state = RouteTextfieldState.text(suggestion.label);
-        },
-        noItemsFoundBuilder: (_) => const SizedBox(),
-        transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-          opacity: controller,
-          child: suggestionsBox,
-        ),
+          IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              _toController.text = "";
+              context.read(_toTextfieldProvider).state = const RouteTextfieldState.empty();
+            },
+          ),
+        ],
       ),
     );
   }

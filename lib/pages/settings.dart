@@ -464,7 +464,8 @@ class TeamPage extends StatelessWidget {
     Coder(
       "Gaëtan Schwartz",
       role: "Lead Developer\nApp Concept/Design",
-      imageUrl: "https://pbs.twimg.com/profile_images/1310259452365410304/MyQDJ7vQ_400x400.jpg",
+      imageUrl: "assets/profiles/gaetan.jpg",
+      isAssets: true,
       website: "https://gaetanschwartz.com/#/",
       email: "gaetan.schwartz@gmail.com",
     ),
