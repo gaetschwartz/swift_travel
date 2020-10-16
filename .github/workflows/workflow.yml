@@ -7,7 +7,7 @@ on:
 
 env:
   flutter_channel: dev
-  java_version: 8.x
+  java_version: 12.x
   node_version: 12.x
   build_android: true
   flutter_build_args: ""

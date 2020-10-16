@@ -9,7 +9,6 @@ import 'package:swiss_travel/api/cff/cff.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/cff_stationboard.dart';
-import 'package:swiss_travel/api/cff/models/stop.dart';
 
 final Provider<CffBase> cffProvider = Provider<CffBase>((ref) => CffRepository._());
 
@@ -118,8 +117,8 @@ class CffRepository implements CffBase {
 
   @override
   Future<CffRoute> route(
-    Stop departure,
-    Stop arrival, {
+    String departure,
+    String arrival, {
     @required DateTime date,
     @required TimeOfDay time,
     TimeType typeTime = TimeType.depart,
@@ -127,8 +126,8 @@ class CffRepository implements CffBase {
   }) async {
     assert(date != null && time != null);
     final params = {
-      "from": departure.name,
-      "to": arrival.name,
+      "from": departure,
+      "to": arrival,
       "date": "${date.month}/${date.day}/${date.year}",
       "time": "${time.hour}:${time.minute}",
       "time_type": describeEnum(typeTime),

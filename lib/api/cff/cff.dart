@@ -4,7 +4,6 @@ import 'package:swiss_travel/blocs/cff.dart';
 import 'models/cff_completion.dart';
 import 'models/cff_route.dart';
 import 'models/cff_stationboard.dart';
-import 'models/stop.dart';
 
 abstract class CffBase {
   Future<List<CffCompletion>> complete(
@@ -36,8 +35,8 @@ abstract class CffBase {
   });
 
   Future<CffRoute> route(
-    Stop departure,
-    Stop arrival, {
+    String departure,
+    String arrival, {
     DateTime date,
     TimeOfDay time,
     TimeType typeTime,

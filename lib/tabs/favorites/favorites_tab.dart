@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
-import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/tabs/favorites/fav_stops.dart';
@@ -61,8 +60,8 @@ class _SearchFavoriteState extends State<SearchFavorite>
 
             if (completions.isEmpty) {
               log("Didn't find a station, will try using routes as a hack...");
-              final CffRoute cffRoute = await cff.route(Stop(s), Stop("Geneva"),
-                  date: DateTime.now(), time: TimeOfDay.now());
+              final CffRoute cffRoute =
+                  await cff.route(s, "Geneva", date: DateTime.now(), time: TimeOfDay.now());
               if (cffRoute.connections.isNotEmpty) {
                 final from = cffRoute.connections.first.from;
                 log("Found $from");

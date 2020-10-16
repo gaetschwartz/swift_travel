@@ -12,7 +12,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
-import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/location.dart';
 import 'package:swiss_travel/blocs/store.dart';
@@ -25,13 +24,64 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 
 final _isLocating = StateProvider((_) => false);
-final _timeTypeProvider = StateProvider((_) => false);
+final _isArrivalProvider = StateProvider((_) => false);
 final _dateProvider = StateProvider((_) => DateTime.now());
 final _timeProvider = StateProvider((_) => TimeOfDay.now());
-final _routesProvider = StateProvider((_) => const RouteStates.empty());
 
-final _firstProvider = StateProvider((_) => const RouteTextfieldState.empty());
-final _secondProvider = StateProvider((_) => const RouteTextfieldState.empty());
+final _fromTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
+final _toTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
+
+final _fetcher = Fetcher();
+final _futureRouteProvider = ChangeNotifierProvider<Fetcher>((ref) {
+  _fetcher.fetch(ref);
+  return _fetcher;
+});
+
+class Fetcher extends ChangeNotifier {
+  RouteStates _state;
+
+  RouteStates get state => _state;
+
+  set state(RouteStates state) {
+    _state = state;
+    notifyListeners();
+  }
+
+  Future<void> fetch(ProviderReference ref) async {
+    final from = ref.watch(_fromTextfieldProvider).state;
+    final to = ref.watch(_toTextfieldProvider).state;
+    final _cff = ref.read(cffProvider);
+    final time = ref.watch(_timeProvider).state;
+    final date = ref.watch(_dateProvider).state;
+    final isArrival = ref.watch(_isArrivalProvider).state;
+    //! How to do it properly ? Is it safe ?
+    state = const RouteStates.loading();
+
+    if (from is RouteTextfieldStateEmpty || to is RouteTextfieldStateEmpty) {
+      return state = const RouteStates.empty();
+    }
+    final departure = from.when(
+        empty: () => null, text: (t) => t, currentLocation: (loc, lat, lon) => "$lat,$lon");
+    final arrival =
+        to.when(empty: () => null, text: (t) => t, currentLocation: (loc, lat, lon) => "$lat,$lon");
+    log("Fetching route from $departure to $arrival");
+    try {
+      final CffRoute it = await _cff.route(
+        departure,
+        arrival,
+        date: date,
+        time: time,
+        typeTime: isArrival ? TimeType.arrival : TimeType.depart,
+      );
+      state = RouteStates.routes(it);
+    } on SocketException {
+      state = const RouteStates.network();
+    } on Exception catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+      state = RouteStates.exception(e);
+    }
+  }
+}
 
 class SearchRoute extends StatefulWidget {
   final LocalRoute localRoute;
@@ -44,10 +94,10 @@ class SearchRoute extends StatefulWidget {
 }
 
 class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
-  final TextEditingController fromController = TextEditingController();
-  final TextEditingController toController = TextEditingController();
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
+  final TextEditingController _fromController = TextEditingController();
+  final TextEditingController _toController = TextEditingController();
   CffRepository _cff;
   FavoritesSharedPreferencesStore _store;
 
@@ -64,32 +114,31 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
   }
 
   void useLocalRoute() {
-    fromController.text = widget.localRoute.from;
-    toController.text = widget.localRoute.to;
+    _fromController.text = widget.localRoute.from;
+    _toController.text = widget.localRoute.to;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      unFocusFields();
       context.read(_timeProvider).state = TimeOfDay.now();
       context.read(_dateProvider).state = DateTime.now();
-      fetchRoute();
     });
   }
 
   void goToDest() {
-    toController.text = widget.destination;
+    _toController.text = widget.destination;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      context.read(_routesProvider).state = const RouteStates.loading();
+      unFocusFields();
       context.read(_timeProvider).state = TimeOfDay.now();
       context.read(_dateProvider).state = DateTime.now();
       await locate();
-      await fetchRoute();
     });
   }
 
   @override
   void dispose() {
+    _fromController.dispose();
+    _toController.dispose();
     fnFrom.dispose();
     fnTo.dispose();
-    fromController.dispose();
-    toController.dispose();
     super.dispose();
   }
 
@@ -113,35 +162,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             child: Row(
               children: [
                 Expanded(
-                  child: TypeAheadField<CffCompletion>(
-                    key: const Key("route-first-textfield-key"),
-                    debounceDuration: const Duration(milliseconds: 500),
-                    textFieldConfiguration: TextFieldConfiguration(
-                        focusNode: fnFrom,
-                        controller: fromController,
-                        onSubmitted: (_) => fnTo.requestFocus(),
-                        textInputAction: TextInputAction.next,
-                        style: Theme.of(context).textTheme.bodyText1,
-                        decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            hintText: "From",
-                            isDense: true,
-                            suffixIcon: IconButton(
-                                icon: const Icon(Icons.clear),
-                                onPressed: () => fromController.text = ""))),
-                    suggestionsCallback: (s) async =>
-                        completeWithFavorites(_store, await _cff.complete(s), s),
-                    itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-                    onSuggestionSelected: (suggestion) {
-                      fromController.text = suggestion.label;
-                      fetchRoute();
-                    },
-                    noItemsFoundBuilder: (_) => const SizedBox(),
-                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-                      opacity: controller,
-                      child: suggestionsBox,
-                    ),
-                  ),
+                  child: buildFromField(context),
                 ),
                 const SizedBox(width: 8),
                 IconButton(
@@ -160,35 +181,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             child: Row(
               children: [
                 Expanded(
-                  child: TypeAheadField<CffCompletion>(
-                    key: const Key("route-second-textfield-key"),
-                    debounceDuration: const Duration(milliseconds: 500),
-                    textFieldConfiguration: TextFieldConfiguration(
-                        textInputAction: TextInputAction.search,
-                        focusNode: fnTo,
-                        onSubmitted: (_) => fetchRoute(),
-                        controller: toController,
-                        style: Theme.of(context).textTheme.bodyText1,
-                        decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            hintText: "To",
-                            isDense: true,
-                            suffixIcon: IconButton(
-                                icon: const Icon(Icons.clear),
-                                onPressed: () => toController.text = ""))),
-                    suggestionsCallback: (s) async =>
-                        completeWithFavorites(_store, await _cff.complete(s), s),
-                    itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-                    onSuggestionSelected: (suggestion) {
-                      toController.text = suggestion.label;
-                      fetchRoute();
-                    },
-                    noItemsFoundBuilder: (_) => const SizedBox(),
-                    transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-                      opacity: controller,
-                      child: suggestionsBox,
-                    ),
-                  ),
+                  child: buildToField(context),
                 ),
                 const SizedBox(width: 8),
                 IconButton(
@@ -206,7 +199,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Consumer(builder: (context, w, _) {
-                  final sw = w(_timeTypeProvider);
+                  final sw = w(_isArrivalProvider);
                   return DropdownButton<bool>(
                     underline: const SizedBox(),
                     items: const [
@@ -277,7 +270,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                       final date = context.read(_dateProvider);
                       final nowDate = DateTime.now();
                       date.state = nowDate;
-                      fetchRoute();
+                      unFocusFields();
                     },
                     icon: const Icon(Icons.restore),
                   ),
@@ -297,14 +290,18 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     height: 48,
                     highlightColor: const Color(0x260700b1),
                     icon: const FaIcon(FontAwesomeIcons.search),
-                    onPressed: () => fetchRoute(),
+                    onPressed: () {
+                      unFocusFields();
+                      searchFromText();
+                    },
                     onLongPress: kReleaseMode
                         ? null
                         : () {
-                            fromController.text =
+                            unFocusFields();
+                            _fromController.text =
                                 "Université de Genève, Genève, Rue du Général-Dufour 24";
-                            toController.text = "Badenerstrasse 549, 8048 Zürich";
-                            fetchRoute();
+                            _toController.text = "Badenerstrasse 549, 8048 Zürich";
+                            searchFromText();
                           },
                     shape: const StadiumBorder(),
                     color: Theme.of(context).scaffoldBackgroundColor,
@@ -316,13 +313,13 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 right: 0,
                 child: Consumer(builder: (context, w, _) {
                   final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
-                  w(_routesProvider);
+                  w(_futureRouteProvider);
                   return FlatButton(
                     shape: const StadiumBorder(),
                     onPressed: () async {
                       log(_store.routes.toString());
                       if (_store.routes.any(
-                        (lr) => lr.from == fromController.text && lr.to == toController.text,
+                        (lr) => lr.from == _fromController.text && lr.to == _toController.text,
                       )) {
                         Scaffold.of(context).showSnackBar(const SnackBar(
                             content: Text("This route is already in your favorites !")));
@@ -332,12 +329,12 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                       final s = await input(context, title: const Text("Enter route name"));
                       if (s == null) return;
                       context.read(storeProvider).addRoute(
-                          LocalRoute(fromController.text, toController.text, displayName: s));
+                          LocalRoute(_fromController.text, _toController.text, displayName: s));
                       Scaffold.of(context)
                           .showSnackBar(const SnackBar(content: Text("Route starred !")));
                     },
                     child: _store.routes.any(
-                            (lr) => lr.from == fromController.text && lr.to == toController.text)
+                            (lr) => lr.from == _fromController.text && lr.to == _toController.text)
                         ? const Icon(Icons.star)
                         : const Icon(Icons.star_border),
                   );
@@ -350,9 +347,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     child: FlatButton(
                       shape: const StadiumBorder(),
                       onPressed: () async {
-                        fromController.clear();
-                        toController.clear();
-                        context.read(_routesProvider).state = const RouteStates.empty();
+                        _fromController.clear();
+                        _toController.clear();
+                        context.read(_futureRouteProvider).state = const RouteStates.empty();
                       },
                       child: const Icon(Icons.clear),
                     ),
@@ -360,79 +357,84 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             ],
           ),
           const SizedBox(height: 8),
-          Expanded(
-            child: Consumer(
-                builder: (context, w, _) => w(_routesProvider).state.map(
-                    routes: (data) => ListView.builder(
-                        // separatorBuilder: (c, i) => const Divider(height: 0),
-                        shrinkWrap: true,
-                        itemCount: data.routes == null ? 0 : data.routes.connections.length,
-                        itemBuilder: (context, i) => RouteTile(
-                              key: Key("routetile-$i"),
-                              route: data.routes,
-                              i: i,
-                            )),
-                    network: (_) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const FaIcon(
-                              Icons.wifi_off,
-                              size: 48,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              "Netork Error",
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                          ],
-                        ),
-                    exception: (e) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const FaIcon(
-                              Icons.bug_report,
-                              size: 48,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              e.exception.toString(),
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                          ],
-                        ),
-                    loading: (_) => const CustomScrollView(
-                          slivers: [
-                            SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
-                          ],
-                        ),
-                    empty: (_) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "🔎",
-                              style: TextStyle(fontSize: 48),
-                            ),
-                            const SizedBox(height: 24),
-                            Text(
-                              "Search a route",
-                              style: Theme.of(context).textTheme.headline6,
-                              textAlign: TextAlign.center,
-                            )
-                          ],
-                        ))),
-          )
+          const Expanded(child: RoutesView())
         ],
       ),
     );
   }
 
+  void searchFromText() {
+    context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(_fromController.text);
+    context.read(_toTextfieldProvider).state = RouteTextfieldState.text(_toController.text);
+  }
+
+  TypeAheadField<CffCompletion> buildFromField(BuildContext context) {
+    return TypeAheadField<CffCompletion>(
+      key: const Key("route-first-textfield-key"),
+      debounceDuration: const Duration(milliseconds: 500),
+      textFieldConfiguration: TextFieldConfiguration(
+          focusNode: fnFrom,
+          controller: _fromController,
+          onSubmitted: (_) => fnTo.requestFocus(),
+          textInputAction: TextInputAction.next,
+          style: Theme.of(context).textTheme.bodyText1,
+          decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              hintText: "From",
+              isDense: true,
+              suffixIcon: IconButton(
+                  icon: const Icon(Icons.clear), onPressed: () => _fromController.text = ""))),
+      suggestionsCallback: (s) async => completeWithFavorites(_store, await _cff.complete(s), s),
+      itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+      onSuggestionSelected: (suggestion) {
+        _fromController.text = suggestion.label;
+        context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(suggestion.label);
+      },
+      noItemsFoundBuilder: (_) => const SizedBox(),
+      transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+        opacity: controller,
+        child: suggestionsBox,
+      ),
+    );
+  }
+
+  TypeAheadField<CffCompletion> buildToField(BuildContext context) {
+    return TypeAheadField<CffCompletion>(
+      key: const Key("route-second-textfield-key"),
+      debounceDuration: const Duration(milliseconds: 500),
+      textFieldConfiguration: TextFieldConfiguration(
+          textInputAction: TextInputAction.search,
+          focusNode: fnTo,
+          onSubmitted: (_) => unFocusFields(),
+          controller: _toController,
+          style: Theme.of(context).textTheme.bodyText1,
+          decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              hintText: "To",
+              isDense: true,
+              suffixIcon: IconButton(
+                  icon: const Icon(Icons.clear), onPressed: () => _toController.text = ""))),
+      suggestionsCallback: (s) async => completeWithFavorites(_store, await _cff.complete(s), s),
+      itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+      onSuggestionSelected: (suggestion) {
+        _toController.text = suggestion.label;
+        context.read(_toTextfieldProvider).state = RouteTextfieldState.text(suggestion.label);
+      },
+      noItemsFoundBuilder: (_) => const SizedBox(),
+      transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+        opacity: controller,
+        child: suggestionsBox,
+      ),
+    );
+  }
+
   void switchInputs() {
-    final String from = fromController.text;
-    final String to = toController.text;
-    fromController.text = to;
-    toController.text = from;
-    final StateController<RouteTextfieldState> fromState = context.read(_firstProvider);
-    final StateController<RouteTextfieldState> toState = context.read(_secondProvider);
+    final String from = _fromController.text;
+    final String to = _toController.text;
+    _fromController.text = to;
+    _toController.text = from;
+    final StateController<RouteTextfieldState> fromState = context.read(_fromTextfieldProvider);
+    final StateController<RouteTextfieldState> toState = context.read(_toTextfieldProvider);
     final RouteTextfieldState fromS = fromState.state;
     fromState.state = toState.state;
     toState.state = fromS;
@@ -440,6 +442,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
 
   Future<void> locate() async {
     context.read(_isLocating).state = true;
+    unFocusFields();
     try {
       final Position p = await context.read(locationProvider).getLocation(context: context);
       log("Position is : $p");
@@ -449,8 +452,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
       final CffCompletion first = completions.first;
       log("Found : $first");
       if (first.dist != null) {
-        fromController.text = completions.first.label;
-        fetchRoute();
+        _fromController.text = completions.first.label;
+        context.read(_fromTextfieldProvider).state =
+            RouteTextfieldState.currentLocation(first.label, lat: p.latitude, lon: p.longitude);
       }
     } finally {
       context.read(_isLocating).state = false;
@@ -458,31 +462,80 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     }
   }
 
-  Future<void> fetchRoute() async {
+  void unFocusFields() {
     fnFrom.unfocus();
     fnTo.unfocus();
-    if (fromController.text.length > 2 && toController.text.length > 2) {
-      context.read(_routesProvider).state = const RouteStates.loading();
-      try {
-        final CffRoute it = await _cff.route(
-          Stop(fromController.text),
-          Stop(toController.text),
-          date: context.read(_dateProvider).state,
-          time: context.read(_timeProvider).state,
-          typeTime: context.read(_timeTypeProvider).state ? TimeType.arrival : TimeType.depart,
-        );
-        context.read(_routesProvider).state = RouteStates.routes(it);
-      } on SocketException {
-        context.read(_routesProvider).state = const RouteStates.network();
-      } on Exception catch (e, s) {
-        context.read(_routesProvider).state = RouteStates.exception(e);
-        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
-      }
-    } else {
-      context.read(_routesProvider).state = const RouteStates.empty();
-    }
   }
 
   @override
   bool get wantKeepAlive => true;
+}
+
+class RoutesView extends StatelessWidget {
+  const RoutesView({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(builder: (context, w, _) {
+      final Fetcher fetcher = w(_futureRouteProvider);
+      return fetcher.state.map(
+          routes: (data) => ListView.builder(
+              // separatorBuilder: (c, i) => const Divider(height: 0),
+              shrinkWrap: true,
+              itemCount: data.routes == null ? 0 : data.routes.connections.length,
+              itemBuilder: (context, i) => RouteTile(
+                    key: Key("routetile-$i"),
+                    route: data.routes,
+                    i: i,
+                  )),
+          network: (_) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const FaIcon(
+                    Icons.wifi_off,
+                    size: 48,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Netork Error",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ],
+              ),
+          exception: (e) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const FaIcon(
+                    Icons.bug_report,
+                    size: 48,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    e.exception.toString(),
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ],
+              ),
+          loading: (_) => const CustomScrollView(
+                slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
+              ),
+          empty: (_) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "🔎",
+                    style: TextStyle(fontSize: 48),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    "Search a route",
+                    style: Theme.of(context).textTheme.headline6,
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ));
+    });
+  }
 }

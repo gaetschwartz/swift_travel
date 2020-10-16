@@ -19,13 +19,20 @@ class _$RouteTextfieldStateTearOff {
   }
 
 // ignore: unused_element
-  RouteTextfieldStateController controller() {
-    return const RouteTextfieldStateController();
+  RouteTextfieldStateText text(String text) {
+    return RouteTextfieldStateText(
+      text,
+    );
   }
 
 // ignore: unused_element
-  RouteTextfieldStateLocation currentLocation() {
-    return const RouteTextfieldStateLocation();
+  RouteTextfieldStateLocation currentLocation(String location,
+      {@required double lat, @required double lon}) {
+    return RouteTextfieldStateLocation(
+      location,
+      lat: lat,
+      lon: lon,
+    );
   }
 }
 
@@ -38,26 +45,26 @@ mixin _$RouteTextfieldState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result empty(),
-    @required Result controller(),
-    @required Result currentLocation(),
+    @required Result text(String text),
+    @required Result currentLocation(String location, double lat, double lon),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result empty(),
-    Result controller(),
-    Result currentLocation(),
+    Result text(String text),
+    Result currentLocation(String location, double lat, double lon),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(RouteTextfieldStateEmpty value),
-    @required Result controller(RouteTextfieldStateController value),
+    @required Result text(RouteTextfieldStateText value),
     @required Result currentLocation(RouteTextfieldStateLocation value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(RouteTextfieldStateEmpty value),
-    Result controller(RouteTextfieldStateController value),
+    Result text(RouteTextfieldStateText value),
     Result currentLocation(RouteTextfieldStateLocation value),
     @required Result orElse(),
   });
@@ -121,11 +128,11 @@ class _$RouteTextfieldStateEmpty implements RouteTextfieldStateEmpty {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result empty(),
-    @required Result controller(),
-    @required Result currentLocation(),
+    @required Result text(String text),
+    @required Result currentLocation(String location, double lat, double lon),
   }) {
     assert(empty != null);
-    assert(controller != null);
+    assert(text != null);
     assert(currentLocation != null);
     return empty();
   }
@@ -134,8 +141,8 @@ class _$RouteTextfieldStateEmpty implements RouteTextfieldStateEmpty {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result empty(),
-    Result controller(),
-    Result currentLocation(),
+    Result text(String text),
+    Result currentLocation(String location, double lat, double lon),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -149,11 +156,11 @@ class _$RouteTextfieldStateEmpty implements RouteTextfieldStateEmpty {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(RouteTextfieldStateEmpty value),
-    @required Result controller(RouteTextfieldStateController value),
+    @required Result text(RouteTextfieldStateText value),
     @required Result currentLocation(RouteTextfieldStateLocation value),
   }) {
     assert(empty != null);
-    assert(controller != null);
+    assert(text != null);
     assert(currentLocation != null);
     return empty(this);
   }
@@ -162,7 +169,7 @@ class _$RouteTextfieldStateEmpty implements RouteTextfieldStateEmpty {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(RouteTextfieldStateEmpty value),
-    Result controller(RouteTextfieldStateController value),
+    Result text(RouteTextfieldStateText value),
     Result currentLocation(RouteTextfieldStateLocation value),
     @required Result orElse(),
   }) {
@@ -179,68 +186,87 @@ abstract class RouteTextfieldStateEmpty implements RouteTextfieldState {
 }
 
 /// @nodoc
-abstract class $RouteTextfieldStateControllerCopyWith<$Res> {
-  factory $RouteTextfieldStateControllerCopyWith(
-          RouteTextfieldStateController value,
-          $Res Function(RouteTextfieldStateController) then) =
-      _$RouteTextfieldStateControllerCopyWithImpl<$Res>;
+abstract class $RouteTextfieldStateTextCopyWith<$Res> {
+  factory $RouteTextfieldStateTextCopyWith(RouteTextfieldStateText value,
+          $Res Function(RouteTextfieldStateText) then) =
+      _$RouteTextfieldStateTextCopyWithImpl<$Res>;
+  $Res call({String text});
 }
 
 /// @nodoc
-class _$RouteTextfieldStateControllerCopyWithImpl<$Res>
+class _$RouteTextfieldStateTextCopyWithImpl<$Res>
     extends _$RouteTextfieldStateCopyWithImpl<$Res>
-    implements $RouteTextfieldStateControllerCopyWith<$Res> {
-  _$RouteTextfieldStateControllerCopyWithImpl(
-      RouteTextfieldStateController _value,
-      $Res Function(RouteTextfieldStateController) _then)
-      : super(_value, (v) => _then(v as RouteTextfieldStateController));
+    implements $RouteTextfieldStateTextCopyWith<$Res> {
+  _$RouteTextfieldStateTextCopyWithImpl(RouteTextfieldStateText _value,
+      $Res Function(RouteTextfieldStateText) _then)
+      : super(_value, (v) => _then(v as RouteTextfieldStateText));
 
   @override
-  RouteTextfieldStateController get _value =>
-      super._value as RouteTextfieldStateController;
+  RouteTextfieldStateText get _value => super._value as RouteTextfieldStateText;
+
+  @override
+  $Res call({
+    Object text = freezed,
+  }) {
+    return _then(RouteTextfieldStateText(
+      text == freezed ? _value.text : text as String,
+    ));
+  }
 }
 
 /// @nodoc
-class _$RouteTextfieldStateController implements RouteTextfieldStateController {
-  const _$RouteTextfieldStateController();
+class _$RouteTextfieldStateText implements RouteTextfieldStateText {
+  const _$RouteTextfieldStateText(this.text) : assert(text != null);
+
+  @override
+  final String text;
 
   @override
   String toString() {
-    return 'RouteTextfieldState.controller()';
+    return 'RouteTextfieldState.text(text: $text)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RouteTextfieldStateController);
+    return identical(this, other) ||
+        (other is RouteTextfieldStateText &&
+            (identical(other.text, text) ||
+                const DeepCollectionEquality().equals(other.text, text)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(text);
+
+  @override
+  $RouteTextfieldStateTextCopyWith<RouteTextfieldStateText> get copyWith =>
+      _$RouteTextfieldStateTextCopyWithImpl<RouteTextfieldStateText>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result empty(),
-    @required Result controller(),
-    @required Result currentLocation(),
+    @required Result text(String text),
+    @required Result currentLocation(String location, double lat, double lon),
   }) {
     assert(empty != null);
-    assert(controller != null);
+    assert(text != null);
     assert(currentLocation != null);
-    return controller();
+    return text(this.text);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result empty(),
-    Result controller(),
-    Result currentLocation(),
+    Result text(String text),
+    Result currentLocation(String location, double lat, double lon),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (controller != null) {
-      return controller();
+    if (text != null) {
+      return text(this.text);
     }
     return orElse();
   }
@@ -249,34 +275,37 @@ class _$RouteTextfieldStateController implements RouteTextfieldStateController {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(RouteTextfieldStateEmpty value),
-    @required Result controller(RouteTextfieldStateController value),
+    @required Result text(RouteTextfieldStateText value),
     @required Result currentLocation(RouteTextfieldStateLocation value),
   }) {
     assert(empty != null);
-    assert(controller != null);
+    assert(text != null);
     assert(currentLocation != null);
-    return controller(this);
+    return text(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(RouteTextfieldStateEmpty value),
-    Result controller(RouteTextfieldStateController value),
+    Result text(RouteTextfieldStateText value),
     Result currentLocation(RouteTextfieldStateLocation value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (controller != null) {
-      return controller(this);
+    if (text != null) {
+      return text(this);
     }
     return orElse();
   }
 }
 
-abstract class RouteTextfieldStateController implements RouteTextfieldState {
-  const factory RouteTextfieldStateController() =
-      _$RouteTextfieldStateController;
+abstract class RouteTextfieldStateText implements RouteTextfieldState {
+  const factory RouteTextfieldStateText(String text) =
+      _$RouteTextfieldStateText;
+
+  String get text;
+  $RouteTextfieldStateTextCopyWith<RouteTextfieldStateText> get copyWith;
 }
 
 /// @nodoc
@@ -285,6 +314,7 @@ abstract class $RouteTextfieldStateLocationCopyWith<$Res> {
           RouteTextfieldStateLocation value,
           $Res Function(RouteTextfieldStateLocation) then) =
       _$RouteTextfieldStateLocationCopyWithImpl<$Res>;
+  $Res call({String location, double lat, double lon});
 }
 
 /// @nodoc
@@ -298,49 +328,90 @@ class _$RouteTextfieldStateLocationCopyWithImpl<$Res>
   @override
   RouteTextfieldStateLocation get _value =>
       super._value as RouteTextfieldStateLocation;
+
+  @override
+  $Res call({
+    Object location = freezed,
+    Object lat = freezed,
+    Object lon = freezed,
+  }) {
+    return _then(RouteTextfieldStateLocation(
+      location == freezed ? _value.location : location as String,
+      lat: lat == freezed ? _value.lat : lat as double,
+      lon: lon == freezed ? _value.lon : lon as double,
+    ));
+  }
 }
 
 /// @nodoc
 class _$RouteTextfieldStateLocation implements RouteTextfieldStateLocation {
-  const _$RouteTextfieldStateLocation();
+  const _$RouteTextfieldStateLocation(this.location,
+      {@required this.lat, @required this.lon})
+      : assert(location != null),
+        assert(lat != null),
+        assert(lon != null);
+
+  @override
+  final String location;
+  @override
+  final double lat;
+  @override
+  final double lon;
 
   @override
   String toString() {
-    return 'RouteTextfieldState.currentLocation()';
+    return 'RouteTextfieldState.currentLocation(location: $location, lat: $lat, lon: $lon)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RouteTextfieldStateLocation);
+    return identical(this, other) ||
+        (other is RouteTextfieldStateLocation &&
+            (identical(other.location, location) ||
+                const DeepCollectionEquality()
+                    .equals(other.location, location)) &&
+            (identical(other.lat, lat) ||
+                const DeepCollectionEquality().equals(other.lat, lat)) &&
+            (identical(other.lon, lon) ||
+                const DeepCollectionEquality().equals(other.lon, lon)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(location) ^
+      const DeepCollectionEquality().hash(lat) ^
+      const DeepCollectionEquality().hash(lon);
+
+  @override
+  $RouteTextfieldStateLocationCopyWith<RouteTextfieldStateLocation>
+      get copyWith => _$RouteTextfieldStateLocationCopyWithImpl<
+          RouteTextfieldStateLocation>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result empty(),
-    @required Result controller(),
-    @required Result currentLocation(),
+    @required Result text(String text),
+    @required Result currentLocation(String location, double lat, double lon),
   }) {
     assert(empty != null);
-    assert(controller != null);
+    assert(text != null);
     assert(currentLocation != null);
-    return currentLocation();
+    return currentLocation(location, lat, lon);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result empty(),
-    Result controller(),
-    Result currentLocation(),
+    Result text(String text),
+    Result currentLocation(String location, double lat, double lon),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (currentLocation != null) {
-      return currentLocation();
+      return currentLocation(location, lat, lon);
     }
     return orElse();
   }
@@ -349,11 +420,11 @@ class _$RouteTextfieldStateLocation implements RouteTextfieldStateLocation {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(RouteTextfieldStateEmpty value),
-    @required Result controller(RouteTextfieldStateController value),
+    @required Result text(RouteTextfieldStateText value),
     @required Result currentLocation(RouteTextfieldStateLocation value),
   }) {
     assert(empty != null);
-    assert(controller != null);
+    assert(text != null);
     assert(currentLocation != null);
     return currentLocation(this);
   }
@@ -362,7 +433,7 @@ class _$RouteTextfieldStateLocation implements RouteTextfieldStateLocation {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(RouteTextfieldStateEmpty value),
-    Result controller(RouteTextfieldStateController value),
+    Result text(RouteTextfieldStateText value),
     Result currentLocation(RouteTextfieldStateLocation value),
     @required Result orElse(),
   }) {
@@ -375,5 +446,13 @@ class _$RouteTextfieldStateLocation implements RouteTextfieldStateLocation {
 }
 
 abstract class RouteTextfieldStateLocation implements RouteTextfieldState {
-  const factory RouteTextfieldStateLocation() = _$RouteTextfieldStateLocation;
+  const factory RouteTextfieldStateLocation(String location,
+      {@required double lat,
+      @required double lon}) = _$RouteTextfieldStateLocation;
+
+  String get location;
+  double get lat;
+  double get lon;
+  $RouteTextfieldStateLocationCopyWith<RouteTextfieldStateLocation>
+      get copyWith;
 }
