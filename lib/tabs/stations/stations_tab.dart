@@ -11,6 +11,7 @@ import 'package:swiss_travel/blocs/cff.dart';
 import 'package:swiss_travel/blocs/location.dart';
 import 'package:swiss_travel/blocs/store.dart';
 import 'package:swiss_travel/models/station_states.dart';
+import 'package:swiss_travel/tabs/routes/route_tab.dart';
 import 'package:swiss_travel/utils/complete.dart';
 import 'package:swiss_travel/widget/cff_icon.dart';
 
@@ -59,22 +60,28 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
             child: Row(
               children: [
                 Expanded(
-                  child: TextField(
-                    key: const Key("stations-textfield"),
-                    focusNode: focusNode,
-                    controller: searchController,
-                    style: DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-                    decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        hintText: "Look for a station",
-                        suffixIcon: IconButton(
-                            icon: const FaIcon(FontAwesomeIcons.times),
-                            onPressed: () {
-                              searchController.text = "";
-                              focusNode.unfocus();
-                              context.read(_stateProvider).state = const StationStates.empty();
-                            })),
-                    onChanged: (s) => debounce(context, s),
+                  child: InputWrapperDecoration(
+                    child: TextField(
+                      key: const Key("stations-textfield"),
+                      focusNode: focusNode,
+                      controller: searchController,
+                      style:
+                          DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
+                      decoration: InputDecoration(
+                          border: const UnderlineInputBorder(),
+                          labelText: "Look for a station",
+                          filled: true,
+                          fillColor: Theme.of(context).cardColor,
+                          contentPadding: const EdgeInsets.only(left: 8),
+                          suffixIcon: IconButton(
+                              icon: const FaIcon(FontAwesomeIcons.times),
+                              onPressed: () {
+                                searchController.text = "";
+                                focusNode.unfocus();
+                                context.read(_stateProvider).state = const StationStates.empty();
+                              })),
+                      onChanged: (s) => debounce(context, s),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),

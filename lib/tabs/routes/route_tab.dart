@@ -369,7 +369,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
   }
 
   Widget buildFromField(BuildContext context) {
-    return InputDecorator(
+    return InputWrapperDecoration(
       child: TypeAheadField<CffCompletion>(
         key: const Key("route-first-textfield-key"),
         debounceDuration: const Duration(milliseconds: 500),
@@ -385,7 +385,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             isDense: true,
             filled: true,
             fillColor: Theme.of(context).cardColor,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+            contentPadding: const EdgeInsets.only(left: 8),
             suffixIcon: IconButton(
                 icon: const Icon(Icons.clear), onPressed: () => _fromController.text = ""),
           ),
@@ -406,7 +406,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
   }
 
   Widget buildToField(BuildContext context) {
-    return InputDecorator(
+    return InputWrapperDecoration(
       child: TypeAheadField<CffCompletion>(
         key: const Key("route-second-textfield-key"),
         debounceDuration: const Duration(milliseconds: 500),
@@ -422,7 +422,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             isDense: true,
             filled: true,
             fillColor: Theme.of(context).cardColor,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+            contentPadding: const EdgeInsets.only(left: 8),
             suffixIcon:
                 IconButton(icon: const Icon(Icons.clear), onPressed: () => _toController.text = ""),
           ),
@@ -554,10 +554,10 @@ class RoutesView extends StatelessWidget {
   }
 }
 
-class InputDecorator extends StatelessWidget {
+class InputWrapperDecoration extends StatelessWidget {
   final Widget child;
 
-  const InputDecorator({Key key, this.child}) : super(key: key);
+  const InputWrapperDecoration({Key key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
