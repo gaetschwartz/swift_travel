@@ -16,10 +16,15 @@ _$_StationboardConnection _$_$_StationboardConnectionFromJson(
     json['number'] as String,
     json['terminal'] == null
         ? null
-        : Terminal.fromJson(json['terminal'] as Map<String, dynamic>),
+        : Stop.fromJson(json['terminal'] as Map<String, dynamic>),
     json['operator'] as String,
     g: json['*G'] as String,
     l: json['*L'] as String,
+    subsequentStops: (json['subsequent_stops'] as List)
+        ?.map((e) => e == null
+            ? null
+            : SubsequentStop.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -35,6 +40,8 @@ Map<String, dynamic> _$_$_StationboardConnectionToJson(
       'operator': instance.operator,
       '*G': instance.g,
       '*L': instance.l,
+      'subsequent_stops':
+          instance.subsequentStops?.map((e) => e?.toJson())?.toList(),
     };
 
 T _$enumDecode<T>(

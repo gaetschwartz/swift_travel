@@ -87,7 +87,7 @@ class CffRepository implements CffBase {
       bool arrival = false,
       int limit = 32,
       bool showTracks = false,
-      bool showSubsequentStops = false,
+      bool showSubsequentStops = true,
       bool showDelays = false,
       bool showTrackchanges = false,
       List<TransportationTypes> transportationTypes = const []}) async {

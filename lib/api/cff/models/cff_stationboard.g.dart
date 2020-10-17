@@ -10,7 +10,7 @@ _$_CffStationboard _$_$_CffStationboardFromJson(Map<String, dynamic> json) {
   return _$_CffStationboard(
     stop: json['stop'] == null
         ? null
-        : LocatedStop.fromJson(json['stop'] as Map<String, dynamic>),
+        : Stop.fromJson(json['stop'] as Map<String, dynamic>),
     connections: (json['connections'] as List)
             ?.map((e) => e == null
                 ? null

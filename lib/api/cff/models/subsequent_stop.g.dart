@@ -1,27 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'stop.dart';
+part of 'subsequent_stop.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Stop _$_$_StopFromJson(Map<String, dynamic> json) {
-  return _$_Stop(
+_$_SubsequentStop _$_$_SubsequentStopFromJson(Map<String, dynamic> json) {
+  return _$_SubsequentStop(
     json['name'] as String,
     id: json['id'] as String,
-    stopid: json['stopid'] as String,
-    departure: _fromJson(json['departure'] as String),
+    dep: json['dep'] == null ? null : DateTime.parse(json['dep'] as String),
+    arr: json['arr'] == null ? null : DateTime.parse(json['arr'] as String),
     lat: (json['lat'] as num)?.toDouble(),
     lon: (json['lon'] as num)?.toDouble(),
   );
 }
 
-Map<String, dynamic> _$_$_StopToJson(_$_Stop instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_SubsequentStopToJson(_$_SubsequentStop instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'id': instance.id,
-      'stopid': instance.stopid,
-      'departure': _toJson(instance.departure),
+      'dep': instance.dep?.toIso8601String(),
+      'arr': instance.arr?.toIso8601String(),
       'lat': instance.lat,
       'lon': instance.lon,
     };

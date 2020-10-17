@@ -18,7 +18,7 @@ class _$CffStationboardTearOff {
 
 // ignore: unused_element
   _CffStationboard call(
-      {LocatedStop stop,
+      {Stop stop,
       List<StationboardConnection> connections = const [],
       String request,
       int eof,
@@ -44,7 +44,7 @@ const $CffStationboard = _$CffStationboardTearOff();
 
 /// @nodoc
 mixin _$CffStationboard {
-  LocatedStop get stop;
+  Stop get stop;
   List<StationboardConnection> get connections;
   String get request;
   int get eof;
@@ -60,13 +60,13 @@ abstract class $CffStationboardCopyWith<$Res> {
           CffStationboard value, $Res Function(CffStationboard) then) =
       _$CffStationboardCopyWithImpl<$Res>;
   $Res call(
-      {LocatedStop stop,
+      {Stop stop,
       List<StationboardConnection> connections,
       String request,
       int eof,
       List<String> messages});
 
-  $LocatedStopCopyWith<$Res> get stop;
+  $StopCopyWith<$Res> get stop;
 }
 
 /// @nodoc
@@ -87,7 +87,7 @@ class _$CffStationboardCopyWithImpl<$Res>
     Object messages = freezed,
   }) {
     return _then(_value.copyWith(
-      stop: stop == freezed ? _value.stop : stop as LocatedStop,
+      stop: stop == freezed ? _value.stop : stop as Stop,
       connections: connections == freezed
           ? _value.connections
           : connections as List<StationboardConnection>,
@@ -99,11 +99,11 @@ class _$CffStationboardCopyWithImpl<$Res>
   }
 
   @override
-  $LocatedStopCopyWith<$Res> get stop {
+  $StopCopyWith<$Res> get stop {
     if (_value.stop == null) {
       return null;
     }
-    return $LocatedStopCopyWith<$Res>(_value.stop, (value) {
+    return $StopCopyWith<$Res>(_value.stop, (value) {
       return _then(_value.copyWith(stop: value));
     });
   }
@@ -117,14 +117,14 @@ abstract class _$CffStationboardCopyWith<$Res>
       __$CffStationboardCopyWithImpl<$Res>;
   @override
   $Res call(
-      {LocatedStop stop,
+      {Stop stop,
       List<StationboardConnection> connections,
       String request,
       int eof,
       List<String> messages});
 
   @override
-  $LocatedStopCopyWith<$Res> get stop;
+  $StopCopyWith<$Res> get stop;
 }
 
 /// @nodoc
@@ -147,7 +147,7 @@ class __$CffStationboardCopyWithImpl<$Res>
     Object messages = freezed,
   }) {
     return _then(_CffStationboard(
-      stop: stop == freezed ? _value.stop : stop as LocatedStop,
+      stop: stop == freezed ? _value.stop : stop as Stop,
       connections: connections == freezed
           ? _value.connections
           : connections as List<StationboardConnection>,
@@ -176,7 +176,7 @@ class _$_CffStationboard implements _CffStationboard {
       _$_$_CffStationboardFromJson(json);
 
   @override
-  final LocatedStop stop;
+  final Stop stop;
   @JsonKey(defaultValue: const [])
   @override
   final List<StationboardConnection> connections;
@@ -233,7 +233,7 @@ class _$_CffStationboard implements _CffStationboard {
 
 abstract class _CffStationboard implements CffStationboard {
   factory _CffStationboard(
-      {LocatedStop stop,
+      {Stop stop,
       List<StationboardConnection> connections,
       String request,
       int eof,
@@ -243,7 +243,7 @@ abstract class _CffStationboard implements CffStationboard {
       _$_CffStationboard.fromJson;
 
   @override
-  LocatedStop get stop;
+  Stop get stop;
   @override
   List<StationboardConnection> get connections;
   @override

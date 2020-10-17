@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swiss_travel/api/cff/models/cff_stationboard.dart';
 import 'package:swiss_travel/api/cff/models/stationboard_connection.dart';
 import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swiss_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swiss_travel/utils/format.dart';
 import 'package:swiss_travel/widget/cff_icon.dart';
 import 'package:swiss_travel/widget/line_icon.dart';
@@ -97,6 +98,11 @@ class ConnectionTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
+        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => NextStopsPage(
+            connection: c,
+          ),
+        )),
         title: Row(
           children: [
             LineIcon(

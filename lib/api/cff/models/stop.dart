@@ -10,6 +10,7 @@ String _toJson(DateTime d) => d.toIso8601String();
 abstract class Stop with _$Stop {
   factory Stop(
     String name, {
+    String id,
     String stopid,
     @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
     double lat,

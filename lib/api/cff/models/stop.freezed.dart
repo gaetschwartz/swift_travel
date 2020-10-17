@@ -18,12 +18,14 @@ class _$StopTearOff {
 
 // ignore: unused_element
   _Stop call(String name,
-      {String stopid,
+      {String id,
+      String stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
       double lat,
       double lon}) {
     return _Stop(
       name,
+      id: id,
       stopid: stopid,
       departure: departure,
       lat: lat,
@@ -44,6 +46,7 @@ const $Stop = _$StopTearOff();
 /// @nodoc
 mixin _$Stop {
   String get name;
+  String get id;
   String get stopid;
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
   DateTime get departure;
@@ -60,6 +63,7 @@ abstract class $StopCopyWith<$Res> {
       _$StopCopyWithImpl<$Res>;
   $Res call(
       {String name,
+      String id,
       String stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
       double lat,
@@ -77,6 +81,7 @@ class _$StopCopyWithImpl<$Res> implements $StopCopyWith<$Res> {
   @override
   $Res call({
     Object name = freezed,
+    Object id = freezed,
     Object stopid = freezed,
     Object departure = freezed,
     Object lat = freezed,
@@ -84,6 +89,7 @@ class _$StopCopyWithImpl<$Res> implements $StopCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       name: name == freezed ? _value.name : name as String,
+      id: id == freezed ? _value.id : id as String,
       stopid: stopid == freezed ? _value.stopid : stopid as String,
       departure:
           departure == freezed ? _value.departure : departure as DateTime,
@@ -100,6 +106,7 @@ abstract class _$StopCopyWith<$Res> implements $StopCopyWith<$Res> {
   @override
   $Res call(
       {String name,
+      String id,
       String stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
       double lat,
@@ -118,6 +125,7 @@ class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
   @override
   $Res call({
     Object name = freezed,
+    Object id = freezed,
     Object stopid = freezed,
     Object departure = freezed,
     Object lat = freezed,
@@ -125,6 +133,7 @@ class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
   }) {
     return _then(_Stop(
       name == freezed ? _value.name : name as String,
+      id: id == freezed ? _value.id : id as String,
       stopid: stopid == freezed ? _value.stopid : stopid as String,
       departure:
           departure == freezed ? _value.departure : departure as DateTime,
@@ -139,7 +148,8 @@ class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
 /// @nodoc
 class _$_Stop implements _Stop {
   _$_Stop(this.name,
-      {this.stopid,
+      {this.id,
+      this.stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) this.departure,
       this.lat,
       this.lon})
@@ -150,6 +160,8 @@ class _$_Stop implements _Stop {
 
   @override
   final String name;
+  @override
+  final String id;
   @override
   final String stopid;
   @override
@@ -162,7 +174,7 @@ class _$_Stop implements _Stop {
 
   @override
   String toString() {
-    return 'Stop(name: $name, stopid: $stopid, departure: $departure, lat: $lat, lon: $lon)';
+    return 'Stop(name: $name, id: $id, stopid: $stopid, departure: $departure, lat: $lat, lon: $lon)';
   }
 
   @override
@@ -171,6 +183,8 @@ class _$_Stop implements _Stop {
         (other is _Stop &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.stopid, stopid) ||
                 const DeepCollectionEquality().equals(other.stopid, stopid)) &&
             (identical(other.departure, departure) ||
@@ -186,6 +200,7 @@ class _$_Stop implements _Stop {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(stopid) ^
       const DeepCollectionEquality().hash(departure) ^
       const DeepCollectionEquality().hash(lat) ^
@@ -203,7 +218,8 @@ class _$_Stop implements _Stop {
 
 abstract class _Stop implements Stop {
   factory _Stop(String name,
-      {String stopid,
+      {String id,
+      String stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
       double lat,
       double lon}) = _$_Stop;
@@ -212,6 +228,8 @@ abstract class _Stop implements Stop {
 
   @override
   String get name;
+  @override
+  String get id;
   @override
   String get stopid;
   @override
