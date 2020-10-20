@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:swiss_travel/api/cff/models/cff_completion.dart';
 import 'package:swiss_travel/api/cff/models/cff_route.dart';
 import 'package:swiss_travel/api/cff/models/local_route.dart';
@@ -21,12 +22,12 @@ import 'package:swiss_travel/tabs/routes/route_tile.dart';
 import 'package:swiss_travel/tabs/routes/suggested.dart';
 import 'package:swiss_travel/utils/complete.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
+import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 
 final _isLocating = StateProvider((_) => false);
 final _isArrivalProvider = StateProvider((_) => false);
 final _dateProvider = StateProvider((_) => DateTime.now());
-final _timeProvider = StateProvider((_) => TimeOfDay.now());
 
 final _fromTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
 final _toTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
@@ -51,7 +52,6 @@ class Fetcher extends ChangeNotifier {
     final from = ref.watch(_fromTextfieldProvider).state;
     final to = ref.watch(_toTextfieldProvider).state;
     final _cff = ref.read(cffProvider);
-    final time = ref.watch(_timeProvider).state;
     final date = ref.watch(_dateProvider).state;
     final isArrival = ref.watch(_isArrivalProvider).state;
 
@@ -70,7 +70,7 @@ class Fetcher extends ChangeNotifier {
         departure,
         arrival,
         date: date,
-        time: time,
+        time: TimeOfDay.fromDateTime(date),
         typeTime: isArrival ? TimeType.arrival : TimeType.depart,
       );
       state = RouteStates.routes(it);
@@ -118,7 +118,6 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     _toController.text = widget.localRoute.to;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       unFocusFields();
-      context.read(_timeProvider).state = TimeOfDay.now();
       context.read(_dateProvider).state = DateTime.now();
     });
   }
@@ -127,7 +126,6 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     _toController.text = widget.destination;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       unFocusFields();
-      context.read(_timeProvider).state = TimeOfDay.now();
       context.read(_dateProvider).state = DateTime.now();
       await locate();
     });
@@ -198,172 +196,152 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
             height: 48,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Stack(
               children: [
-                Consumer(builder: (context, w, _) {
-                  final sw = w(_isArrivalProvider);
-                  return DropdownButton<bool>(
-                    underline: const SizedBox(),
-                    items: const [
-                      DropdownMenuItem(
-                        value: false,
-                        child: Text("Depart."),
-                      ),
-                      DropdownMenuItem(
-                        value: true,
-                        child: Text("Arrival"),
-                      ),
-                    ],
-                    onChanged: (v) => sw.state = v,
-                    value: sw.state,
-                  );
-                }),
-                FlatButton.icon(
-                  padding: const EdgeInsets.only(left: 8, right: 12),
-                  onPressed: () async {
-                    final _time = context.read(_timeProvider);
-                    final time = await showTimePicker(
-                      context: context,
-                      initialTime: _time.state,
+                Positioned(
+                  left: 12,
+                  child: Consumer(builder: (context, w, _) {
+                    final sw = w(_isArrivalProvider);
+                    return DropdownButton<bool>(
+                      underline: const SizedBox(),
+                      items: const [
+                        DropdownMenuItem(
+                          value: false,
+                          child: Text("Depart."),
+                        ),
+                        DropdownMenuItem(
+                          value: true,
+                          child: Text("Arrival"),
+                        ),
+                      ],
+                      onChanged: (v) => sw.state = v,
+                      value: sw.state,
                     );
-                    if (time == null) return;
-                    _time.state = time;
-                  },
-                  icon: const FaIcon(
-                    FontAwesomeIcons.clock,
-                    size: 16,
-                  ),
-                  label: Consumer(builder: (context, w, _) {
-                    final _time = w(_timeProvider);
-                    return Text(
-                        "${_time.state.hour}:${_time.state.minute.toString().padLeft(2, "0")}");
                   }),
                 ),
-                Consumer(builder: (context, w, _) {
-                  final _date = w(_dateProvider);
-                  return FlatButton.icon(
-                    padding: const EdgeInsets.only(left: 8, right: 12),
+                Center(
+                  child: FlatButton.icon(
+                    shape: const StadiumBorder(),
                     onPressed: () async {
-                      final now = DateTime.now();
-                      final dateTime = await showDatePicker(
-                        context: context,
-                        initialDate: _date.state,
-                        firstDate: now.subtract(const Duration(days: 14)),
-                        lastDate: now.add(const Duration(days: 28)),
-                      );
-                      if (dateTime == null) return;
-                      _date.state = dateTime;
+                      final _date = context.read(_dateProvider);
+                      final date = await pickDate(context, initialDateTime: _date.state);
+                      if (date == null) return;
+                      _date.state = date;
                     },
                     icon: const FaIcon(
-                      FontAwesomeIcons.calendar,
+                      FontAwesomeIcons.clock,
                       size: 16,
                     ),
-                    label: Text("${_date.state.day}/${_date.state.month}/${_date.state.year}"),
-                  );
-                }),
-                Tooltip(
-                  message: "Reset time",
-                  child: IconButton(
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () {
-                      final time = context.read(_timeProvider);
-                      final nowTime = TimeOfDay.now();
-                      time.state = nowTime;
-                      final date = context.read(_dateProvider);
-                      final nowDate = DateTime.now();
-                      date.state = nowDate;
-                      unFocusFields();
-                    },
-                    icon: const Icon(Icons.restore),
+                    label: Consumer(builder: (context, w, _) {
+                      final _date = w(_dateProvider);
+                      return Text(DateFormat("d MMM y | H:mm").format(_date.state) ??
+                          "${_date.state.day}.${_date.state.month}.${_date.state.year} ${_date.state.hour}:${_date.state.minute.toString().padLeft(2, "0")}");
+                    }),
+                  ),
+                ),
+                Positioned(
+                  right: 0,
+                  child: Tooltip(
+                    message: "Reset time",
+                    child: IconButton(
+                      onPressed: () {
+                        final date = context.read(_dateProvider);
+                        final nowDate = DateTime.now();
+                        date.state = nowDate;
+                        unFocusFields();
+                      },
+                      icon: const Icon(Icons.restore),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          Stack(
-            children: [
-              Center(
-                child: DecoratedBox(
-                  decoration:
-                      BoxDecoration(boxShadow: [DynamicTheme.shadowOf(context).buttonShadow]),
-                  child: FlatButton.icon(
-                    key: const Key("search-route"),
-                    padding: const EdgeInsets.symmetric(horizontal: 48),
-                    height: 48,
-                    highlightColor: const Color(0x260700b1),
-                    icon: const FaIcon(FontAwesomeIcons.search),
-                    onPressed: () {
-                      unFocusFields();
-                      searchFromText();
-                    },
-                    onLongPress: kReleaseMode
-                        ? null
-                        : () {
-                            unFocusFields();
-                            _fromController.text =
-                                "Université de Genève, Genève, Rue du Général-Dufour 24";
-                            _toController.text = "Badenerstrasse 549, 8048 Zürich";
-                            searchFromText();
-                          },
-                    shape: const StadiumBorder(),
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    label: const Text("Search"),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: Stack(
+              children: [
+                Center(
+                  child: DecoratedBox(
+                    decoration:
+                        BoxDecoration(boxShadow: [DynamicTheme.shadowOf(context).buttonShadow]),
+                    child: FlatButton.icon(
+                      key: const Key("search-route"),
+                      padding: const EdgeInsets.symmetric(horizontal: 48),
+                      height: 48,
+                      highlightColor: const Color(0x260700b1),
+                      icon: const FaIcon(FontAwesomeIcons.search),
+                      onPressed: () {
+                        unFocusFields();
+                        searchFromText();
+                      },
+                      onLongPress: kReleaseMode
+                          ? null
+                          : () {
+                              unFocusFields();
+                              _fromController.text =
+                                  "Université de Genève, Genève, Rue du Général-Dufour 24";
+                              _toController.text = "Badenerstrasse 549, 8048 Zürich";
+                              searchFromText();
+                            },
+                      shape: const StadiumBorder(),
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      label: const Text("Search"),
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                right: 0,
-                child: Consumer(builder: (context, w, _) {
-                  final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
-                  w(_futureRouteProvider);
-                  return Tooltip(
-                    message: "Favorite route",
-                    child: FlatButton(
-                      shape: const StadiumBorder(),
-                      onPressed: () async {
-                        log(_store.routes.toString());
-                        if (_store.routes.any(
-                          (lr) => lr.from == _fromController.text && lr.to == _toController.text,
-                        )) {
-                          Scaffold.of(context).showSnackBar(const SnackBar(
-                              content: Text("This route is already in your favorites !")));
-                          return;
-                        }
+                Positioned(
+                    right: 0,
+                    child: Tooltip(
+                      message: "Favorite route",
+                      child: IconButton(
+                        onPressed: () async {
+                          final _store =
+                              context.read(storeProvider) as FavoritesSharedPreferencesStore;
+                          log(_store.routes.toString());
+                          if (_store.routes.any(
+                            (lr) => lr.from == _fromController.text && lr.to == _toController.text,
+                          )) {
+                            Scaffold.of(context).showSnackBar(const SnackBar(
+                                content: Text("This route is already in your favorites !")));
+                            return;
+                          }
 
-                        final s = await input(context, title: const Text("Enter route name"));
-                        if (s == null) return;
-                        context.read(storeProvider).addRoute(
-                            LocalRoute(_fromController.text, _toController.text, displayName: s));
-                        Scaffold.of(context)
-                            .showSnackBar(const SnackBar(content: Text("Route starred !")));
-                      },
-                      child: _store.routes.any((lr) =>
-                              lr.from == _fromController.text && lr.to == _toController.text)
-                          ? const Icon(Icons.star)
-                          : const Icon(Icons.star_border),
-                    ),
-                  );
-                }),
-              ),
-              Positioned(
-                  left: 0,
-                  child: Tooltip(
-                    message: "Clear everything",
-                    child: FlatButton(
-                      shape: const StadiumBorder(),
-                      onPressed: () async {
-                        _fromController.clear();
-                        _toController.clear();
-                        context.read(_futureRouteProvider).state = const RouteStates.empty();
-                      },
-                      child: const Icon(Icons.clear),
-                    ),
-                  )),
-            ],
+                          final s = await input(context, title: const Text("Enter route name"));
+                          if (s == null) return;
+                          context.read(storeProvider).addRoute(
+                              LocalRoute(_fromController.text, _toController.text, displayName: s));
+                          Scaffold.of(context)
+                              .showSnackBar(const SnackBar(content: Text("Route starred !")));
+                        },
+                        icon: Consumer(builder: (context, w, _) {
+                          final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
+                          w(_futureRouteProvider);
+
+                          return _store.routes.any((lr) =>
+                                  lr.from == _fromController.text && lr.to == _toController.text)
+                              ? const Icon(Icons.star)
+                              : const Icon(Icons.star_border);
+                        }),
+                      ),
+                    )),
+                Positioned(
+                    left: 0,
+                    child: Tooltip(
+                      message: "Clear everything",
+                      child: IconButton(
+                        onPressed: () async {
+                          _fromController.clear();
+                          _toController.clear();
+                          context.read(_futureRouteProvider).state = const RouteStates.empty();
+                        },
+                        icon: const Icon(Icons.clear),
+                      ),
+                    )),
+              ],
+            ),
           ),
           const SizedBox(height: 8),
           const Expanded(child: RoutesView())

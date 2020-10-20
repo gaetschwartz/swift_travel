@@ -6,4 +6,5 @@ analyzer:
     - lib/generated/l10n.dart
     - "**/*.g.dart"
     - "**/*.freezed.dart"
-  errors:
+  # enable-experiment:
+  #   - non-nullable

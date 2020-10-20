@@ -20,11 +20,13 @@ class LocationRepository {
   }) async {
     LocationPermission permission;
     try {
-      permission = await checkPermission();
-      if (permission == LocationPermission.denied) permission = await requestPermission();
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
       if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
         try {
-          final p = await getCurrentPosition(
+          final p = await Geolocator.getCurrentPosition(
             desiredAccuracy: desiredAccuracy,
             forceAndroidLocationManager: forceAndroidLocationManager,
             timeLimit: timeLimit,
@@ -47,7 +49,7 @@ class LocationRepository {
           );
           if (!b) return null;
           log("Opening settings ...");
-          final opened = await openAppSettings();
+          final opened = await Geolocator.openAppSettings();
           if (opened) log("Successfully opened settings");
         }
         throw Exception("Failed to locate, didn't have the required permissions : $permission");

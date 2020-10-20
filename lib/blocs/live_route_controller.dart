@@ -66,7 +66,7 @@ class LiveRouteController extends ChangeNotifier {
   void startRoute(RouteConnection connection) {
     stopCurrentRoute(notify: false);
     _connection = connection;
-    _sub = getPositionStream(timeInterval: 5000).listen(_update);
+    _sub = Geolocator.getPositionStream(timeInterval: 5000).listen(_update);
     _computeRoute();
     notifyListeners();
   }
@@ -138,7 +138,7 @@ class LiveRouteController extends ChangeNotifier {
     for (int i = 0; i < _connection.legs.length; i++) {
       final l = _connection.legs[i];
       if (l.lat == null || l.lon == null) continue;
-      final double d = distanceBetween(l.lat, l.lon, p.latitude, p.longitude);
+      final double d = Geolocator.distanceBetween(l.lat, l.lon, p.latitude, p.longitude);
       legDistances[i] ??= {};
       legDistances[i][-1] = d;
       if (l.stops.isNotEmpty) {
@@ -147,7 +147,7 @@ class LiveRouteController extends ChangeNotifier {
           if (s.lat == null || s.lon == null) {
             continue;
           }
-          final double d = distanceBetween(s.lat, s.lon, p.latitude, p.longitude);
+          final double d = Geolocator.distanceBetween(s.lat, s.lon, p.latitude, p.longitude);
           legDistances[i][j] = d;
           if (d < dist) {
             closestLeg = i;
@@ -177,9 +177,9 @@ class LiveRouteController extends ChangeNotifier {
         : currentLeg.stops.length - currentLeg.stops.indexOf(currentStop);
     final distFromCurrToNext = currentStop == null
         ? null
-        : distanceBetween(
+        : Geolocator.distanceBetween(
             currentStop.lat, currentStop.lon, currentLeg.exit.lat, currentLeg.exit.lon);
-    final distUntilExit = distanceBetween(
+    final distUntilExit = Geolocator.distanceBetween(
         currentLeg.exit.lat, currentLeg.exit.lon, position.latitude, position.longitude);
 
     final d = currentStop == null ? null : distUntilExit / distFromCurrToNext;

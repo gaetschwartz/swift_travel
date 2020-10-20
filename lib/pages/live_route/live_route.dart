@@ -9,7 +9,7 @@ import 'package:swiss_travel/api/cff/models/stop.dart';
 import 'package:swiss_travel/blocs/live_route_controller.dart';
 import 'package:swiss_travel/utils/format.dart';
 
-final positionProvider = StreamProvider.autoDispose((_) => getPositionStream());
+final positionProvider = StreamProvider.autoDispose((_) => Geolocator.getPositionStream());
 
 class LiveRoutePage extends StatefulWidget {
   final RouteConnection connection;

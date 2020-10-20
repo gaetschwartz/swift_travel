@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swiss_travel/api/cff/models/located_stop.dart';
 import 'package:swiss_travel/api/cff/models/stationboard_connection.dart';
 import 'package:swiss_travel/api/cff/models/stop.dart';
 
