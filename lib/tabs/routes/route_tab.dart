@@ -259,8 +259,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               ],
             ),
           ),
-          Padding(
+          Container(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            height: 48,
             child: Stack(
               children: [
                 Center(
