@@ -222,23 +222,31 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                   }),
                 ),
                 Center(
-                  child: FlatButton.icon(
-                    shape: const StadiumBorder(),
-                    onPressed: () async {
-                      final _date = context.read(_dateProvider);
-                      final date = await pickDate(context, initialDateTime: _date.state);
-                      if (date == null) return;
-                      _date.state = date;
-                    },
-                    icon: const FaIcon(
-                      FontAwesomeIcons.clock,
-                      size: 16,
+                  child: SizedBox(
+                    height: 48,
+                    child: FlatButton.icon(
+                      shape: const StadiumBorder(),
+                      onPressed: () async {
+                        final _date = context.read(_dateProvider);
+                        final date = await pickDate(
+                          context,
+                          initialDateTime:
+                              _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
+                          minuteInterval: 5,
+                        );
+                        if (date == null) return;
+                        _date.state = date;
+                      },
+                      icon: const FaIcon(
+                        FontAwesomeIcons.clock,
+                        size: 16,
+                      ),
+                      label: Consumer(builder: (context, w, _) {
+                        final _date = w(_dateProvider);
+                        return Text(DateFormat("d MMM y | H:mm").format(_date.state) ??
+                            "${_date.state.day}.${_date.state.month}.${_date.state.year} ${_date.state.hour}:${_date.state.minute.toString().padLeft(2, "0")}");
+                      }),
                     ),
-                    label: Consumer(builder: (context, w, _) {
-                      final _date = w(_dateProvider);
-                      return Text(DateFormat("d MMM y | H:mm").format(_date.state) ??
-                          "${_date.state.day}.${_date.state.month}.${_date.state.year} ${_date.state.hour}:${_date.state.minute.toString().padLeft(2, "0")}");
-                    }),
                   ),
                 ),
                 Positioned(
