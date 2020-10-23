@@ -221,10 +221,10 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                       },
                       child: Consumer(builder: (context, w, _) {
                         final _date = w(_dateProvider);
-                        final time = w(_timeTypeProvider);
+                        final _time = w(_timeTypeProvider);
                         final dateFormatted = DateFormat("d MMM y").format(_date.state);
                         final timeFormatted = DateFormat("H:mm").format(_date.state);
-                        final type = describeEnum(time.state);
+                        final type = describeEnum(_time.state);
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
