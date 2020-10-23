@@ -206,8 +206,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     child: FlatButton(
                       shape: const StadiumBorder(),
                       onPressed: () async {
-                        final _date = context.read(_dateProvider);
                         TimeType type = context.read(_timeTypeProvider).state;
+                        final _date = context.read(_dateProvider);
+
                         final date = await pickDate(context,
                             initialDateTime:
                                 _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
