@@ -9,11 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
-import 'package:swiss_travel/api/cff/models/local_route.dart';
-import 'package:swiss_travel/blocs/store.dart';
-import 'package:swiss_travel/main.dart';
-import 'package:swiss_travel/tabs/routes/route_tab.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
+import 'package:swift_travel/apis/cff/models/local_route.dart';
+import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/main.dart';
+import 'package:swift_travel/tabs/routes/route_tab.dart';
 
 final quickActions = Provider<MyQuickActions>((ref) => MyQuickActions());
 

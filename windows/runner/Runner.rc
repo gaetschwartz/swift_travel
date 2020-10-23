@@ -92,10 +92,10 @@ BEGIN
             VALUE "CompanyName", "com.gaetanschwartz" "\0"
             VALUE "FileDescription", "A new Flutter project." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "swiss_travel" "\0"
+            VALUE "InternalName", "swift_travel" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2020 com.gaetanschwartz. All rights reserved." "\0"
-            VALUE "OriginalFilename", "swiss_travel.exe" "\0"
-            VALUE "ProductName", "swiss_travel" "\0"
+            VALUE "OriginalFilename", "swift_travel.exe" "\0"
+            VALUE "ProductName", "swift_travel" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

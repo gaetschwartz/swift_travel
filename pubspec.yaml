@@ -1,4 +1,4 @@
-name: swiss_travel
+name: swift_travel
 description: A new Flutter project.
 
 version: 1.0.0+1
@@ -17,6 +17,7 @@ dependencies:
   cached_network_image: ^2.3.2+1
   connectivity: ^0.4.9+2
   cupertino_icons: ^1.0.0
+  dio: ^3.0.10
   firebase_core: ^0.5.0
   firebase_crashlytics: ^0.2.0
   flare_flutter: ^2.0.6

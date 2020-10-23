@@ -10,8 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swiss_travel/blocs/preferences.dart';
-import 'package:swiss_travel/utils/build.dart';
+import 'package:swift_travel/blocs/preferences.dart';
+import 'package:swift_travel/utils/build.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
@@ -48,7 +48,7 @@ class Settings extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Consumer(builder: (context, w, _) {
-                  final maps = w(mapsAppProvider);
+                  final maps = w(preferencesProvider);
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -71,6 +71,32 @@ class Settings extends StatelessWidget {
                   );
                 }),
               ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Consumer(builder: (context, w, _) {
+                final prefs = w(preferencesProvider);
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const _SectionTitle(title: Text("Navigation API")),
+                    RadioListTile<NavigationApiType>(
+                      dense: true,
+                      title: const Text("CFF"),
+                      value: NavigationApiType.cff,
+                      groupValue: prefs.api,
+                      onChanged: (api) => onAPIChanged(prefs, api),
+                    ),
+                    RadioListTile<NavigationApiType>(
+                      dense: true,
+                      title: const Text("SNCF"),
+                      value: NavigationApiType.sncf,
+                      groupValue: prefs.api,
+                      onChanged: (api) => onAPIChanged(prefs, api),
+                    ),
+                  ],
+                );
+              }),
+            ),
             const Divider(
               indent: 16,
               endIndent: 16,
@@ -140,9 +166,8 @@ class Settings extends StatelessWidget {
         ));
   }
 
-  void onMapsChanged(PreferencesBloc maps, Maps m) {
-    maps.mapsApp = m;
-  }
+  void onMapsChanged(PreferencesBloc prefs, Maps m) => prefs.mapsApp = m;
+  void onAPIChanged(PreferencesBloc prefs, NavigationApiType api) => prefs.api = api;
 }
 
 class _ThemesSection extends StatefulWidget {

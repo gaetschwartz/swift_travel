@@ -10,17 +10,18 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
-import 'package:swiss_travel/api/cff/models/cff_route.dart';
-import 'package:swiss_travel/api/cff/models/local_route.dart';
-import 'package:swiss_travel/blocs/cff.dart';
-import 'package:swiss_travel/blocs/location.dart';
-import 'package:swiss_travel/blocs/store.dart';
-import 'package:swiss_travel/models/route_states.dart';
-import 'package:swiss_travel/models/route_textfield_state.dart';
-import 'package:swiss_travel/tabs/routes/route_tile.dart';
-import 'package:swiss_travel/tabs/routes/suggested.dart';
-import 'package:swiss_travel/utils/complete.dart';
+import 'package:swift_travel/apis/cff/cff.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/apis/cff/models/local_route.dart';
+import 'package:swift_travel/blocs/location.dart';
+import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/models/route_states.dart';
+import 'package:swift_travel/models/route_textfield_state.dart';
+import 'package:swift_travel/tabs/routes/route_tile.dart';
+import 'package:swift_travel/tabs/routes/suggested.dart';
+import 'package:swift_travel/utils/complete.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
@@ -51,7 +52,7 @@ class Fetcher extends ChangeNotifier {
   Future<void> fetch(ProviderReference ref) async {
     final from = ref.watch(_fromTextfieldProvider).state;
     final to = ref.watch(_toTextfieldProvider).state;
-    final _cff = ref.read(cffProvider);
+    final _cff = ref.read(navigationAPIProvider);
     final date = ref.watch(_dateProvider).state;
     final timeType = ref.watch(_timeTypeProvider).state;
 
@@ -104,7 +105,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
   @override
   void initState() {
     super.initState();
-    _cff = context.read(cffProvider) as CffRepository;
+    _cff = context.read(navigationAPIProvider) as CffRepository;
     _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     if (widget.localRoute != null) {
       useLocalRoute();
@@ -474,7 +475,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
       log("Position is : $p");
       if (p == null) throw StateError("We got no location");
       final List<CffCompletion> completions =
-          await context.read(cffProvider).findStation(p.latitude, p.longitude);
+          await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
       final CffCompletion first = completions.first;
       log("Found : $first");
       if (first.dist != null) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_travel/pages/tuto.dart';
+import 'package:swift_travel/pages/tuto.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -13,7 +13,7 @@ class WelcomePage extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  "Welcome to Swiss Travel",
+                  "Welcome to SwiftTravel",
                   style: Theme.of(context).textTheme.headline4,
                   textAlign: TextAlign.center,
                 ),

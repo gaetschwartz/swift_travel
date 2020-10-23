@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:swiss_travel/api/cff/models/leg.dart';
-import 'package:swiss_travel/api/cff/models/route_connection.dart';
-import 'package:swiss_travel/api/cff/models/stop.dart';
-import 'package:swiss_travel/blocs/live_route_controller.dart';
-import 'package:swiss_travel/utils/format.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
+import 'package:swift_travel/apis/cff/models/route_connection.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:swift_travel/blocs/live_route_controller.dart';
+import 'package:swift_travel/utils/format.dart';
 
 final positionProvider = StreamProvider.autoDispose((_) => Geolocator.getPositionStream());
 

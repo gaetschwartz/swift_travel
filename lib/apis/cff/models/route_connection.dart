@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swiss_travel/api/cff/models/disruption.dart';
+import 'package:swift_travel/apis/cff/models/disruption.dart';
 
 import 'leg.dart';
 

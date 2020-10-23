@@ -12,9 +12,9 @@ final linksProvider = Provider<DeepLinkBloc>((ref) {
 
 class DeepLinkBloc {
   //Event Channel creation
-  static const stream = EventChannel('com.gaetanschwartz.swiss_travel.deeplink/events');
+  static const stream = EventChannel('com.gaetanschwartz.swift_travel.deeplink/events');
   //Method channel creation
-  static const platform = MethodChannel('com.gaetanschwartz.swiss_travel.deeplink/channel');
+  static const platform = MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
 
   StreamSubscription _sub;
 

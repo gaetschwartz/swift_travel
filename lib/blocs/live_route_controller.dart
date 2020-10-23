@@ -4,11 +4,11 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:swiss_travel/api/cff/models/leg.dart';
-import 'package:swiss_travel/api/cff/models/route_connection.dart';
-import 'package:swiss_travel/api/cff/models/stop.dart';
-import 'package:swiss_travel/api/cff/models/types_enum.dart';
-import 'package:swiss_travel/api/geo/geo.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
+import 'package:swift_travel/apis/cff/models/route_connection.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:swift_travel/apis/geo/geo.dart';
 
 final liveRouteControllerProvider = ChangeNotifierProvider((r) => LiveRouteController(r));
 

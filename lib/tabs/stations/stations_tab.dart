@@ -6,14 +6,15 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
-import 'package:swiss_travel/blocs/cff.dart';
-import 'package:swiss_travel/blocs/location.dart';
-import 'package:swiss_travel/blocs/store.dart';
-import 'package:swiss_travel/models/station_states.dart';
-import 'package:swiss_travel/tabs/routes/route_tab.dart';
-import 'package:swiss_travel/utils/complete.dart';
-import 'package:swiss_travel/widget/cff_icon.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/blocs/location.dart';
+import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/main.dart';
+import 'package:swift_travel/models/station_states.dart';
+import 'package:swift_travel/tabs/routes/route_tab.dart';
+import 'package:swift_travel/utils/complete.dart';
+import 'package:swift_travel/widget/cff_icon.dart';
 
 import 'completion_tile.dart';
 
@@ -200,7 +201,8 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       final p = await context.read(locationProvider).getLocation(context: context);
       if (p == null) return;
 
-      final completions = await context.read(cffProvider).findStation(p.latitude, p.longitude);
+      final completions =
+          await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
 
       final first = completions.first;
       if (first.dist != null) {
@@ -221,17 +223,23 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
 
   Future<void> fetch(String query) async {
     try {
-      final compls = await context.read(cffProvider).complete(query);
+      final compls = await context.read(navigationAPIProvider).complete(query);
       final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
 
       final List<CffCompletion> completionsWithFavs =
           await completeWithFavorites(store, compls, query);
 
+      log("Completions : ${completionsWithFavs.length}");
+
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
-      FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+      if (isSupported) {
+        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+      } else {
+        log("", error: e, stackTrace: s);
+      }
     } finally {
       context.read(_loadingProvider).state = false;
     }

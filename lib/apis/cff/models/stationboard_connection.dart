@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swiss_travel/api/cff/models/stop.dart';
-import 'package:swiss_travel/api/cff/models/subsequent_stop.dart';
-import 'package:swiss_travel/api/cff/models/types_enum.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:swift_travel/apis/cff/models/subsequent_stop.dart';
+import 'package:swift_travel/apis/cff/models/types_enum.dart';
 
 part 'stationboard_connection.freezed.dart';
 part 'stationboard_connection.g.dart';

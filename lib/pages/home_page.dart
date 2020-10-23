@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swiss_travel/pages/settings.dart';
-import 'package:swiss_travel/tabs/favorites/favorites_tab.dart';
-import 'package:swiss_travel/tabs/routes/route_tab.dart';
-import 'package:swiss_travel/tabs/stations/stations_tab.dart';
+import 'package:swift_travel/pages/settings.dart';
+import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
+import 'package:swift_travel/tabs/routes/route_tab.dart';
+import 'package:swift_travel/tabs/stations/stations_tab.dart';
 
 final _tabProvider = StateProvider<int>((ref) => 0);
 
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          "Swiss Travel",
+          "SwiftTravel",
           key: Key("scaffold-title"),
         ),
         actions: [

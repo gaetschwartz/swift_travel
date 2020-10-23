@@ -6,11 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
-import 'package:swiss_travel/api/cff/models/local_route.dart';
-import 'package:swiss_travel/blocs/quick_actions.dart';
-import 'package:swiss_travel/models/favorites_routes_states.dart';
-import 'package:swiss_travel/models/favorites_states.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
+import 'package:swift_travel/apis/cff/models/local_route.dart';
+import 'package:swift_travel/blocs/quick_actions.dart';
+import 'package:swift_travel/models/favorites_routes_states.dart';
+import 'package:swift_travel/models/favorites_states.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
   Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true});
@@ -114,7 +114,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   }
 
   Future<void> sync() async {
-    if (hasListeners) notifyListeners();
+    notifyListeners();
     await _prefs.setStringList(stopsKey, _favs.map((e) => jsonEncode(e.toJson())).toList());
 
     final routes = <String>[];

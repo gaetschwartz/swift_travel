@@ -1,4 +1,4 @@
-# swiss_travel
+# swift_travel
 
 A new Flutter project.
 

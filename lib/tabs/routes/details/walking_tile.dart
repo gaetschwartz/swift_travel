@@ -6,9 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swiss_travel/api/cff/models/leg.dart';
-import 'package:swiss_travel/blocs/preferences.dart';
-import 'package:swiss_travel/utils/format.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
+import 'package:swift_travel/blocs/preferences.dart';
+import 'package:swift_travel/utils/format.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WalkingTile extends StatelessWidget {
@@ -111,7 +111,7 @@ class WalkingTile extends StatelessWidget {
   }
 
   String getMapsUrl(BuildContext context, String suffix) {
-    final m = context.read(mapsAppProvider).mapsApp;
+    final m = context.read(preferencesProvider).mapsApp;
     switch (m) {
       case Maps.apple:
         log("Using Apple Maps");

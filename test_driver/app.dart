@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/driver_extension.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:swiss_travel/main.dart';
-import 'package:swiss_travel/pages/home_page.dart';
+import 'package:swift_travel/main.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 void main() {
@@ -44,7 +44,7 @@ void main() {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
-          title: 'Swiss Travel',
+          title: 'SwiftTravel',
           builder: (context, child) => Unfocus(child: child),
           theme: theme.light,
           darkTheme: theme.dark,

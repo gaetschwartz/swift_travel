@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
-import 'package:swiss_travel/widget/cff_icon.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/widget/cff_icon.dart';
 
 class SuggestedTile extends StatelessWidget {
   const SuggestedTile(

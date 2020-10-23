@@ -7,8 +7,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swiss_travel/pages/loading.dart';
-import 'package:swiss_travel/utils/theme.dart';
+import 'package:swift_travel/pages/loading.dart';
+import 'package:swift_travel/utils/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
-          title: 'Swiss Travel',
+          title: 'SwiftTravel',
           theme: theme.light,
           darkTheme: theme.dark,
           themeMode: theme.mode,

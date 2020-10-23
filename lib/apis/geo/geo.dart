@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:swiss_travel/api/geo/models/geo_error.dart';
-import 'package:swiss_travel/api/geo/models/geo_response.dart';
+import 'package:swift_travel/apis/geo/models/geo_error.dart';
+import 'package:swift_travel/apis/geo/models/geo_response.dart';
 
 final geoProvider = Provider.autoDispose((ref) {
   final GeoRepository geoRepository = GeoRepository();
@@ -14,7 +14,7 @@ final geoProvider = Provider.autoDispose((ref) {
 });
 
 class GeoRepository {
-  static const String baseUrl = "https://api3.geo.admin.ch/rest/services/api/SearchServer";
+  static const String baseUrl = "https://api3.geo.admin.ch/rest/services/apis/SearchServer";
   final Client _client = Client();
 
   Future<GeoResponse> getPosition(String location) async {

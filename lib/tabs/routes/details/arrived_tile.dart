@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swiss_travel/api/cff/models/leg.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 class ArrivedTile extends StatelessWidget {

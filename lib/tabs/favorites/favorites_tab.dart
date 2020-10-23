@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
-import 'package:swiss_travel/api/cff/models/cff_route.dart';
-import 'package:swiss_travel/blocs/cff.dart';
-import 'package:swiss_travel/blocs/store.dart';
-import 'package:swiss_travel/tabs/favorites/fav_stops.dart';
-import 'package:swiss_travel/widget/input.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/tabs/favorites/fav_stops.dart';
+import 'package:swift_travel/widget/input.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
 
@@ -55,7 +55,7 @@ class _SearchFavoriteState extends State<SearchFavorite>
           if (s == null) return;
 
           await load(context, future: () async {
-            final cff = context.read(cffProvider);
+            final cff = context.read(navigationAPIProvider);
             List<CffCompletion> completions = await cff.complete(s, showIds: true);
 
             if (completions.isEmpty) {

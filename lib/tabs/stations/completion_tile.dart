@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
-import 'package:swiss_travel/api/cff/models/types_enum.dart';
-import 'package:swiss_travel/blocs/store.dart';
-import 'package:swiss_travel/tabs/stations/stop_details.dart';
-import 'package:swiss_travel/widget/cff_icon.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/tabs/stations/stop_details.dart';
+import 'package:swift_travel/widget/cff_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/input_dialog.dart';

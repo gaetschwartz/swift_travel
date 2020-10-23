@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swiss_travel/api/cff/models/cff_stationboard.dart';
-import 'package:swiss_travel/api/cff/models/stationboard_connection.dart';
-import 'package:swiss_travel/blocs/cff.dart';
-import 'package:swiss_travel/tabs/stations/subsequent_stops.dart';
-import 'package:swiss_travel/utils/format.dart';
-import 'package:swiss_travel/widget/cff_icon.dart';
-import 'package:swiss_travel/widget/line_icon.dart';
+import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
+import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
+import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/widget/cff_icon.dart';
+import 'package:swift_travel/widget/line_icon.dart';
 
 class DetailsStop extends StatefulWidget {
   final String stopName;
@@ -81,7 +81,8 @@ class _DetailsStopState extends State<DetailsStop> {
   }
 
   Future<void> reloadData() async {
-    final CffStationboard l = await context.read(cffProvider).stationboard(widget.stopName);
+    final CffStationboard l =
+        await context.read(navigationAPIProvider).stationboard(widget.stopName);
     setState(() {
       data = l;
     });

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_travel/blocs/cff.dart';
+import 'package:swift_travel/apis/cff/cff.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 
-import 'models/cff_completion.dart';
-import 'models/cff_route.dart';
-import 'models/cff_stationboard.dart';
-
-abstract class CffBase {
+abstract class NavigationApi {
   Future<List<CffCompletion>> complete(
     String string, {
     bool showCoordinates,

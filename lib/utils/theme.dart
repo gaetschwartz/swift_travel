@@ -15,7 +15,7 @@ const _pageTransitions = PageTransitionsTheme(builders: {
 ThemeConfiguration get themeConfiguration {
   return ThemeConfiguration({
     "default": FullTheme(
-      name: "Swiss Travel",
+      name: "SwiftTravel",
       description: "The default theme.",
       light: ThemeData(
         primaryColor: Colors.redAccent,

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 
 part 'favorites_states.freezed.dart';
 

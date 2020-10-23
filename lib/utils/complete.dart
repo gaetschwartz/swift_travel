@@ -1,8 +1,8 @@
 import 'dart:math' show min;
 
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
-import 'package:swiss_travel/api/cff/models/favorite_stop.dart';
-import 'package:swiss_travel/blocs/store.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
+import 'package:swift_travel/blocs/store.dart';
 import 'package:utils/utils/levenshtein.dart';
 
 const _kConfidenceThreshold = .9;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_travel/api/cff/models/leg.dart';
-import 'package:swiss_travel/api/cff/models/stop.dart';
-import 'package:swiss_travel/utils/format.dart';
-import 'package:swiss_travel/widget/cff_icon.dart';
-import 'package:swiss_travel/widget/expansion_tile.dart' as e;
-import 'package:swiss_travel/widget/line_icon.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/widget/cff_icon.dart';
+import 'package:swift_travel/widget/expansion_tile.dart' as e;
+import 'package:swift_travel/widget/line_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 class RegularLegTile extends StatelessWidget {

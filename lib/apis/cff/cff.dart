@@ -3,20 +3,16 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:swiss_travel/api/cff/cff.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
-import 'package:swiss_travel/api/cff/models/cff_route.dart';
-import 'package:swiss_travel/api/cff/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
 
-final Provider<CffBase> cffProvider = Provider<CffBase>((ref) => CffRepository._());
+import 'models/cff_completion.dart';
+import 'models/cff_route.dart';
+import 'models/cff_stationboard.dart';
 
-class CffRepository implements CffBase {
+class CffRepository implements NavigationApi {
   static const CffQueryBuilder builder = CffQueryBuilder("https://timetable.search.ch/api");
   final http.Client _client = http.Client();
-
-  CffRepository._();
 
   static const Map<String, String> headers = {"accept-language": "en"};
 

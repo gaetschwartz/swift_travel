@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swiss_travel/api/cff/models/local_route.dart';
-import 'package:swiss_travel/blocs/store.dart';
-import 'package:swiss_travel/tabs/routes/route_tab.dart';
+import 'package:swift_travel/apis/cff/models/local_route.dart';
+import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 

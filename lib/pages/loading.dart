@@ -5,16 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swiss_travel/api/cff/models/cff_route.dart';
-import 'package:swiss_travel/blocs/cff.dart';
-import 'package:swiss_travel/blocs/links.dart';
-import 'package:swiss_travel/blocs/preferences.dart';
-import 'package:swiss_travel/blocs/quick_actions.dart';
-import 'package:swiss_travel/blocs/store.dart';
-import 'package:swiss_travel/main.dart';
-import 'package:swiss_travel/pages/welcome.dart';
-import 'package:swiss_travel/tabs/routes/details/route_details.dart';
-import 'package:swiss_travel/utils/theme.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/blocs/links.dart';
+import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/blocs/preferences.dart';
+import 'package:swift_travel/blocs/quick_actions.dart';
+import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/main.dart';
+import 'package:swift_travel/pages/welcome.dart';
+import 'package:swift_travel/tabs/routes/details/route_details.dart';
+import 'package:swift_travel/utils/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
@@ -62,7 +62,7 @@ class _LoadingPageState extends State<LoadingPage> {
     final prefs = await SharedPreferences.getInstance();
     try {
       await context.read(dynamicTheme).configure(themeConfiguration);
-      await context.read(mapsAppProvider).loadFromPreferences(prefs: prefs);
+      await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
       await context.read(storeProvider).loadFromPreferences(prefs: prefs);
     } on Exception {
       await confirm(
@@ -79,7 +79,7 @@ class _LoadingPageState extends State<LoadingPage> {
     }
 
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
-    final cff = context.read(cffProvider);
+    final cff = context.read(navigationAPIProvider);
 
     if (isSupported) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

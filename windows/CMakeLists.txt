@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(swiss_travel LANGUAGES CXX)
+project(swift_travel LANGUAGES CXX)
 
-set(BINARY_NAME "swiss_travel")
+set(BINARY_NAME "swift_travel")
 
 cmake_policy(SET CMP0063 NEW)
 

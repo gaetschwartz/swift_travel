@@ -1,6 +1,6 @@
 // ignore_for_file: unused_element
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swiss_travel/api/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 
 part 'favorite_stop.freezed.dart';
 part 'favorite_stop.g.dart';

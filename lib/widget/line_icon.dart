@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_travel/utils/format.dart';
+import 'package:swift_travel/utils/format.dart';
 
 class LineIcon extends StatelessWidget {
   const LineIcon({

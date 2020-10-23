@@ -8,7 +8,7 @@ Future<void> wait([int ms = 500]) => Future.delayed(Duration(milliseconds: ms));
 
 void main() {
   // flutter drive --target=test_driver/app.dart --profile --cache-sksl --write-sksl-on-exit shaders/01.sksl.json
-  group('Swiss Travel App', () {
+  group('SwiftTravel App', () {
     // First, define the Finders and use them to locate widgets from the
     // test suite. Note: the Strings provided to the `byValueKey` method must
     // be the same as the Strings we used for the Keys in step 1.

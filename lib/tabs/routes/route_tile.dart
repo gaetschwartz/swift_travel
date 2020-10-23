@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swiss_travel/api/cff/models/cff_route.dart';
-import 'package:swiss_travel/api/cff/models/leg.dart';
-import 'package:swiss_travel/api/cff/models/types_enum.dart';
-import 'package:swiss_travel/tabs/routes/details/route_details.dart';
-import 'package:swiss_travel/utils/format.dart';
-import 'package:swiss_travel/widget/cff_icon.dart';
-import 'package:swiss_travel/widget/line_icon.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
+import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:swift_travel/tabs/routes/details/route_details.dart';
+import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/widget/cff_icon.dart';
+import 'package:swift_travel/widget/line_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 class RouteTile extends StatelessWidget {
