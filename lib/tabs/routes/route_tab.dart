@@ -228,14 +228,22 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                       shape: const StadiumBorder(),
                       onPressed: () async {
                         final _date = context.read(_dateProvider);
-                        final date = await pickDate(
-                          context,
-                          initialDateTime:
-                              _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
-                          minuteInterval: 5,
-                        );
+                        bool isArrival = false;
+                        final date = await pickDate(context,
+                            initialDateTime:
+                                _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
+                            minuteInterval: 5,
+                            bottom: CupertinoSlidingSegmentedControl<bool>(
+                              groupValue: false,
+                              onValueChanged: (v) => isArrival = v,
+                              children: const {
+                                false: Text("Departure"),
+                                true: Text("Arrival"),
+                              },
+                            ));
                         if (date == null) return;
                         _date.state = date;
+                        context.read(_isArrivalProvider).state = isArrival;
                       },
                       icon: const FaIcon(
                         FontAwesomeIcons.clock,
