@@ -26,7 +26,7 @@ import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 
 final _isLocating = StateProvider((_) => false);
-final _isArrivalProvider = StateProvider((_) => false);
+final _timeTypeProvider = StateProvider((_) => TimeType.depart);
 final _dateProvider = StateProvider((_) => DateTime.now());
 
 final _fromTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
@@ -53,7 +53,7 @@ class Fetcher extends ChangeNotifier {
     final to = ref.watch(_toTextfieldProvider).state;
     final _cff = ref.read(cffProvider);
     final date = ref.watch(_dateProvider).state;
-    final isArrival = ref.watch(_isArrivalProvider).state;
+    final timeType = ref.watch(_timeTypeProvider).state;
 
     if (from is RouteTextfieldStateEmpty || to is RouteTextfieldStateEmpty) {
       return;
@@ -71,7 +71,7 @@ class Fetcher extends ChangeNotifier {
         arrival,
         date: date,
         time: TimeOfDay.fromDateTime(date),
-        typeTime: isArrival ? TimeType.arrival : TimeType.depart,
+        typeTime: timeType,
       );
       state = RouteStates.routes(it);
     } on SocketException {
@@ -200,59 +200,41 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             height: 48,
             child: Stack(
               children: [
-                Positioned(
-                  left: 12,
-                  child: Consumer(builder: (context, w, _) {
-                    final sw = w(_isArrivalProvider);
-                    return DropdownButton<bool>(
-                      underline: const SizedBox(),
-                      items: const [
-                        DropdownMenuItem(
-                          value: false,
-                          child: Text("Depart."),
-                        ),
-                        DropdownMenuItem(
-                          value: true,
-                          child: Text("Arrival"),
-                        ),
-                      ],
-                      onChanged: (v) => sw.state = v,
-                      value: sw.state,
-                    );
-                  }),
-                ),
                 Center(
                   child: SizedBox(
                     height: 48,
-                    child: FlatButton.icon(
+                    child: FlatButton(
                       shape: const StadiumBorder(),
                       onPressed: () async {
                         final _date = context.read(_dateProvider);
-                        bool isArrival = false;
+                        TimeType type = context.read(_timeTypeProvider).state;
                         final date = await pickDate(context,
                             initialDateTime:
                                 _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
                             minuteInterval: 5,
-                            bottom: CupertinoSlidingSegmentedControl<bool>(
-                              groupValue: false,
-                              onValueChanged: (v) => isArrival = v,
-                              children: const {
-                                false: Text("Departure"),
-                                true: Text("Arrival"),
-                              },
+                            bottom: _Segmented(
+                              onChange: (v) => type = v,
+                              initialValue: type,
                             ));
-                        if (date == null) return;
-                        _date.state = date;
-                        context.read(_isArrivalProvider).state = isArrival;
+                        if (date != null) _date.state = date;
+                        if (type != null) context.read(_timeTypeProvider).state = type;
                       },
-                      icon: const FaIcon(
-                        FontAwesomeIcons.clock,
-                        size: 16,
-                      ),
-                      label: Consumer(builder: (context, w, _) {
+                      child: Consumer(builder: (context, w, _) {
                         final _date = w(_dateProvider);
-                        return Text(DateFormat("d MMM y | H:mm").format(_date.state) ??
-                            "${_date.state.day}.${_date.state.month}.${_date.state.year} ${_date.state.hour}:${_date.state.minute.toString().padLeft(2, "0")}");
+                        final time = w(_timeTypeProvider);
+                        final dateFormatted = DateFormat("d MMM y").format(_date.state);
+                        final timeFormatted = DateFormat("H:mm").format(_date.state);
+                        final type = describeEnum(time.state);
+                        return Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text("${type[0].toUpperCase()}${type.substring(1, 3)}."),
+                            const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
+                            Text(dateFormatted),
+                            const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
+                            Text(timeFormatted),
+                          ],
+                        );
                       }),
                     ),
                   ),
@@ -595,6 +577,51 @@ class InputWrapperDecoration extends StatelessWidget {
         boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
       ),
       child: child,
+    );
+  }
+}
+
+class _Segmented extends StatefulWidget {
+  const _Segmented({
+    Key key,
+    @required this.onChange,
+    @required this.initialValue,
+  }) : super(key: key);
+
+  final ValueChanged<TimeType> onChange;
+  final TimeType initialValue;
+
+  @override
+  __SegmentedState createState() => __SegmentedState();
+}
+
+class __SegmentedState extends State<_Segmented> {
+  TimeType _type;
+
+  @override
+  void initState() {
+    super.initState();
+    _type = widget.initialValue;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoSlidingSegmentedControl<TimeType>(
+      groupValue: _type,
+      onValueChanged: (v) {
+        setState(() => _type = v);
+        widget.onChange(v);
+      },
+      children: {
+        TimeType.depart: Text(
+          "Departure",
+          style: CupertinoTheme.of(context).textTheme.textStyle,
+        ),
+        TimeType.arrival: Text(
+          "Arrival",
+          style: CupertinoTheme.of(context).textTheme.textStyle,
+        ),
+      },
     );
   }
 }
