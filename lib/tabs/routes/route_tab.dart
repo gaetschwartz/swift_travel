@@ -80,6 +80,10 @@ class Fetcher extends ChangeNotifier {
     } on Exception catch (e, s) {
       FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       state = RouteStates.exception(e);
+      // ignore: avoid_catching_errors
+    } on Error catch (e) {
+      FirebaseCrashlytics.instance.recordError(e, e.stackTrace, printDetails: true);
+      state = RouteStates.exception(e);
     }
   }
 }
@@ -305,7 +309,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                           if (_store.routes.any(
                             (lr) => lr.from == _fromController.text && lr.to == _toController.text,
                           )) {
-                            Scaffold.of(context).showSnackBar(const SnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                 content: Text("This route is already in your favorites !")));
                             return;
                           }
@@ -314,7 +318,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                           if (s == null) return;
                           context.read(storeProvider).addRoute(
                               LocalRoute(_fromController.text, _toController.text, displayName: s));
-                          Scaffold.of(context)
+                          ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(content: Text("Route starred !")));
                         },
                         icon: Consumer(builder: (context, w, _) {

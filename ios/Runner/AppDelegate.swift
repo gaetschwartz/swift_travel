@@ -17,7 +17,7 @@ import Flutter
         
         
         let controller = window.rootViewController as! FlutterViewController
-        methodChannel = FlutterMethodChannel(name: "com.gaetanschwartz.swiss_travel.deeplink/channel", binaryMessenger: controller as! FlutterBinaryMessenger)
+        methodChannel = FlutterMethodChannel(name: "com.gaetanschwartz.swift_travel.deeplink/channel", binaryMessenger: controller as! FlutterBinaryMessenger)
         
         methodChannel?.setMethodCallHandler({ (call: FlutterMethodCall, result: FlutterResult) in
                                                 guard call.method == "initialLink" else {
@@ -26,7 +26,7 @@ import Flutter
                                                 }})
         
         
-        self.eventChannel = FlutterEventChannel(name: "com.gaetanschwartz.swiss_travel.deeplink/events", binaryMessenger: controller as! FlutterBinaryMessenger)
+        self.eventChannel = FlutterEventChannel(name: "com.gaetanschwartz.swift_travel.deeplink/events", binaryMessenger: controller as! FlutterBinaryMessenger)
         
         GeneratedPluginRegistrant.register(with: self)
         self.eventChannel?.setStreamHandler(self.linkStreamHandler)

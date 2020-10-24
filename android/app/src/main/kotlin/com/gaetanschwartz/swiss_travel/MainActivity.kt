@@ -12,10 +12,10 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
 
 class MainActivity : FlutterActivity() {
-    private val _CHANNEL = "com.gaetanschwartz.swiss_travel.deeplink/channel"
+    private val _CHANNEL = "com.gaetanschwartz.swift_travel.deeplink/channel"
     private var startString: String? = null
 
-    private val _EVENTS = "com.gaetanschwartz.swiss_travel.deeplink/events"
+    private val _EVENTS = "com.gaetanschwartz.swift_travel.deeplink/events"
     private var linksReceiver: BroadcastReceiver? = null
 
 

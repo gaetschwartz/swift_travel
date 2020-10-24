@@ -58,7 +58,7 @@ class RouteDetails extends StatelessWidget {
                   try {
                     Share.share(sharedUri.toString());
                   } on Exception catch (e) {
-                    Scaffold.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(e.toString()),
                     ));
                   }

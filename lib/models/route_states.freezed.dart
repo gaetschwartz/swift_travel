@@ -26,7 +26,7 @@ class _$RouteStatesTearOff {
   }
 
 // ignore: unused_element
-  RouteStatesException exception(Exception exception) {
+  RouteStatesException exception(Object exception) {
     return RouteStatesException(
       exception,
     );
@@ -53,7 +53,7 @@ mixin _$RouteStates {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result exception(Exception exception),
+    @required Result exception(Object exception),
     @required Result empty(),
     @required Result loading(),
   });
@@ -61,7 +61,7 @@ mixin _$RouteStates {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result exception(Exception exception),
+    Result exception(Object exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
@@ -175,7 +175,7 @@ class _$RouteStatesData implements RouteStatesData {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result exception(Exception exception),
+    @required Result exception(Object exception),
     @required Result empty(),
     @required Result loading(),
   }) {
@@ -192,7 +192,7 @@ class _$RouteStatesData implements RouteStatesData {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result exception(Exception exception),
+    Result exception(Object exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
@@ -287,7 +287,7 @@ class _$RouteStatesNetwork implements RouteStatesNetwork {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result exception(Exception exception),
+    @required Result exception(Object exception),
     @required Result empty(),
     @required Result loading(),
   }) {
@@ -304,7 +304,7 @@ class _$RouteStatesNetwork implements RouteStatesNetwork {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result exception(Exception exception),
+    Result exception(Object exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
@@ -360,7 +360,7 @@ abstract class $RouteStatesExceptionCopyWith<$Res> {
   factory $RouteStatesExceptionCopyWith(RouteStatesException value,
           $Res Function(RouteStatesException) then) =
       _$RouteStatesExceptionCopyWithImpl<$Res>;
-  $Res call({Exception exception});
+  $Res call({Object exception});
 }
 
 /// @nodoc
@@ -379,7 +379,7 @@ class _$RouteStatesExceptionCopyWithImpl<$Res>
     Object exception = freezed,
   }) {
     return _then(RouteStatesException(
-      exception == freezed ? _value.exception : exception as Exception,
+      exception == freezed ? _value.exception : exception,
     ));
   }
 }
@@ -389,7 +389,7 @@ class _$RouteStatesException implements RouteStatesException {
   const _$RouteStatesException(this.exception) : assert(exception != null);
 
   @override
-  final Exception exception;
+  final Object exception;
 
   @override
   String toString() {
@@ -419,7 +419,7 @@ class _$RouteStatesException implements RouteStatesException {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result exception(Exception exception),
+    @required Result exception(Object exception),
     @required Result empty(),
     @required Result loading(),
   }) {
@@ -436,7 +436,7 @@ class _$RouteStatesException implements RouteStatesException {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result exception(Exception exception),
+    Result exception(Object exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
@@ -484,10 +484,9 @@ class _$RouteStatesException implements RouteStatesException {
 }
 
 abstract class RouteStatesException implements RouteStates {
-  const factory RouteStatesException(Exception exception) =
-      _$RouteStatesException;
+  const factory RouteStatesException(Object exception) = _$RouteStatesException;
 
-  Exception get exception;
+  Object get exception;
   $RouteStatesExceptionCopyWith<RouteStatesException> get copyWith;
 }
 
@@ -532,7 +531,7 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result exception(Exception exception),
+    @required Result exception(Object exception),
     @required Result empty(),
     @required Result loading(),
   }) {
@@ -549,7 +548,7 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result exception(Exception exception),
+    Result exception(Object exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
@@ -641,7 +640,7 @@ class _$RouteStatesLoading implements RouteStatesLoading {
   Result when<Result extends Object>({
     @required Result routes(CffRoute routes),
     @required Result network(),
-    @required Result exception(Exception exception),
+    @required Result exception(Object exception),
     @required Result empty(),
     @required Result loading(),
   }) {
@@ -658,7 +657,7 @@ class _$RouteStatesLoading implements RouteStatesLoading {
   Result maybeWhen<Result extends Object>({
     Result routes(CffRoute routes),
     Result network(),
-    Result exception(Exception exception),
+    Result exception(Object exception),
     Result empty(),
     Result loading(),
     @required Result orElse(),
