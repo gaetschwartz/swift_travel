@@ -13,7 +13,7 @@ class WelcomePage extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  "Welcome to SwiftTravel",
+                  "Welcome to Swift Travel",
                   style: Theme.of(context).textTheme.headline4,
                   textAlign: TextAlign.center,
                 ),

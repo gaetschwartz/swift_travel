@@ -237,15 +237,12 @@ class __ThemesSectionState extends State<_ThemesSection> {
                                   ),
                                 ),
                               ),
-                              Text(ft.name,
-                                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                      fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
-                              const SizedBox(height: 8),
-                              Text(ft.description,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                      fontSize: 12,
-                                      fontFamily: ft.light.textTheme.bodyText1.fontFamily)),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(ft.name,
+                                    style: Theme.of(context).textTheme.headline6.copyWith(
+                                        fontFamily: ft.light.textTheme.headline6.fontFamily)),
+                              ),
                             ],
                           ),
                         ),
@@ -496,7 +493,7 @@ class TeamPage extends StatelessWidget {
     ),
     Coder(
       "Vincent Tarrit",
-      role: "Developer\nDesign",
+      role: "Icon Design\n",
       imageUrl:
           "https://i2.wp.com/www.tarrit.com/wp-content/uploads/2018/11/cropped-Vincent-Tarrit3petitblanc-2-1.jpg?w=512",
       website: "https://tarrit.com/",
@@ -526,7 +523,7 @@ class TeamPage extends StatelessWidget {
             children: primaryCoders.map((c) => _CoderTile(c: c)).toList(),
           ),
           ExpansionTile(
-            title: const Text("People that helped"),
+            title: const Text("Helpers"),
             children: secondaryCoders.map((c) => _CoderTile(c: c)).toList(),
           ),
         ],

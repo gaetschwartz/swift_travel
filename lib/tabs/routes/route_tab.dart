@@ -14,6 +14,7 @@ import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
@@ -103,13 +104,13 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
   final FocusNode fnTo = FocusNode();
   final TextEditingController _fromController = TextEditingController();
   final TextEditingController _toController = TextEditingController();
-  CffRepository _cff;
+  NavigationApi _cff;
   FavoritesSharedPreferencesStore _store;
 
   @override
   void initState() {
     super.initState();
-    _cff = context.read(navigationAPIProvider) as CffRepository;
+    _cff = context.read(navigationAPIProvider);
     _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     if (widget.localRoute != null) {
       useLocalRoute();
@@ -380,7 +381,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 isDense: true,
                 filled: true,
                 fillColor: Theme.of(context).cardColor,
-                contentPadding: const EdgeInsets.only(left: 8, right: 48),
+                contentPadding: const EdgeInsets.only(left: 8),
                 suffixIcon: const SizedBox(),
               ),
             ),
@@ -430,7 +431,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 isDense: true,
                 filled: true,
                 fillColor: Theme.of(context).cardColor,
-                contentPadding: const EdgeInsets.only(left: 8, right: 48),
+                contentPadding: const EdgeInsets.only(left: 8),
                 suffixIcon: const SizedBox(),
               ),
             ),

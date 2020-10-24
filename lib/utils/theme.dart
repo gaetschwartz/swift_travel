@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
@@ -6,64 +5,57 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 final MaterialColor purpleAbin = createMaterialColor(const Color(0xffcbaacb));
 final MaterialColor blueAbin = createMaterialColor(const Color(0xffabdee6));
 final MaterialColor redAccent = createMaterialColor(Colors.redAccent);
+final MaterialColor white = createMaterialColor(Colors.white);
 
-const _pageTransitions = PageTransitionsTheme(builders: {
-  TargetPlatform.android:
-      SharedAxisPageTransitionsBuilder(transitionType: SharedAxisTransitionType.scaled),
-});
+const _pageTransitions = PageTransitionsTheme(builders: {});
+
+const lightShadow = ShadowTheme(
+  buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
+);
+
+const darkShadow = ShadowTheme(
+  buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
+);
 
 ThemeConfiguration get themeConfiguration {
+  final String muli = GoogleFonts.muli().fontFamily;
   return ThemeConfiguration({
     "default": FullTheme(
-      name: "SwiftTravel",
-      description: "The default theme.",
+      name: "Swift Travel",
       light: ThemeData(
-        primaryColor: Colors.redAccent,
         primarySwatch: redAccent,
-        indicatorColor: const Color(0xFFFFFFFF),
-        fontFamily: GoogleFonts.muli().fontFamily,
+        fontFamily: muli,
         pageTransitionsTheme: _pageTransitions,
       ),
       dark: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: Colors.redAccent,
         primarySwatch: redAccent,
-        fontFamily: GoogleFonts.muli().fontFamily,
+        primaryColor: Colors.redAccent,
+        fontFamily: muli,
         pageTransitionsTheme: _pageTransitions,
       ),
-      lightShadow: const ShadowTheme(
-        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-      ),
-      darkShadow: const ShadowTheme(
-        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-      ),
+      lightShadow: lightShadow,
+      darkShadow: darkShadow,
     ),
     "lexend": FullTheme(
       name: "Lexend",
-      description: "Lexend !",
       light: ThemeData(
-        primaryColor: Colors.redAccent,
         primarySwatch: redAccent,
         fontFamily: GoogleFonts.lexendDeca().fontFamily,
         pageTransitionsTheme: _pageTransitions,
       ),
       dark: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: Colors.redAccent,
         primarySwatch: redAccent,
+        primaryColor: Colors.redAccent,
         fontFamily: GoogleFonts.lexendDeca().fontFamily,
         pageTransitionsTheme: _pageTransitions,
       ),
-      lightShadow: const ShadowTheme(
-        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-      ),
-      darkShadow: const ShadowTheme(
-        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-      ),
+      lightShadow: lightShadow,
+      darkShadow: darkShadow,
     ),
     "abin": FullTheme(
       name: "Abin",
-      description: "My inspiration",
       light: ThemeData(
         primarySwatch: purpleAbin,
         accentColor: blueAbin,
@@ -78,35 +70,26 @@ ThemeConfiguration get themeConfiguration {
         fontFamily: GoogleFonts.cardo().fontFamily,
         pageTransitionsTheme: _pageTransitions,
       ),
-      lightShadow: const ShadowTheme(
-        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-      ),
-      darkShadow: const ShadowTheme(
-        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-      ),
+      lightShadow: lightShadow,
+      darkShadow: darkShadow,
     ),
-    "lavender": FullTheme(
-      name: "Lavender",
-      description: "We all love lavender.",
+    "code": FullTheme(
+      name: "Code",
       light: ThemeData(
-        primaryColor: Colors.deepPurple,
-        accentColor: Colors.deepPurpleAccent,
-        fontFamily: GoogleFonts.merriweather().fontFamily,
+        primarySwatch: Colors.indigo,
+        accentColor: Colors.indigoAccent,
+        fontFamily: GoogleFonts.ibmPlexMono().fontFamily,
         pageTransitionsTheme: _pageTransitions,
       ),
       dark: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: Colors.deepPurple,
-        accentColor: Colors.deepPurpleAccent,
-        fontFamily: GoogleFonts.merriweather().fontFamily,
+        primarySwatch: Colors.indigo,
+        accentColor: Colors.indigoAccent,
+        fontFamily: GoogleFonts.ibmPlexMono().fontFamily,
         pageTransitionsTheme: _pageTransitions,
       ),
-      lightShadow: const ShadowTheme(
-        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
-      ),
-      darkShadow: const ShadowTheme(
-        buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
-      ),
+      lightShadow: lightShadow,
+      darkShadow: darkShadow,
     ),
   });
 }

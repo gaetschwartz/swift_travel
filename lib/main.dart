@@ -18,6 +18,7 @@ bool get isSupported => !kIsWeb && !Platform.isWindows;
 String get platform => kIsWeb ? "Web" : Platform.operatingSystem;
 
 Future<void> main() async {
+  if (kDebugMode) debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
 
   if (isSupported) {
@@ -53,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
-          title: 'SwiftTravel',
+          title: 'Swift Travel',
           theme: theme.light,
           darkTheme: theme.dark,
           themeMode: theme.mode,

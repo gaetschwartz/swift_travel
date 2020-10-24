@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          "SwiftTravel",
+          "Swift Travel",
           key: Key("scaffold-title"),
         ),
         actions: [

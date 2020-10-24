@@ -44,7 +44,7 @@ void main() {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
-          title: 'SwiftTravel',
+          title: 'Swift Travel',
           builder: (context, child) => Unfocus(child: child),
           theme: theme.light,
           darkTheme: theme.dark,
