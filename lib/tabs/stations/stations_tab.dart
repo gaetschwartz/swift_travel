@@ -138,7 +138,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                                         ),
                                         const SizedBox(height: 24),
                                         Text(
-                                          "Search a route",
+                                          "Search a station",
                                           style: Theme.of(context).textTheme.headline6,
                                           textAlign: TextAlign.center,
                                         )

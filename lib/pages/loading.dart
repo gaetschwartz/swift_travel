@@ -14,7 +14,8 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/welcome.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
-import 'package:swift_travel/utils/theme.dart';
+import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
@@ -89,7 +90,7 @@ class _LoadingPageState extends State<LoadingPage> {
           try {
             uri = Uri.parse(link);
           } on Exception catch (e, s) {
-            FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+            report(e, s, name: "Loading", text: "Failed to parse link $link");
             return;
           }
           if (uri.host == "route") {

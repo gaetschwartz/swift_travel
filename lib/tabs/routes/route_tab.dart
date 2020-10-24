@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +22,7 @@ import 'package:swift_travel/models/route_textfield_state.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
@@ -79,12 +79,12 @@ class Fetcher extends ChangeNotifier {
     } on SocketException {
       state = const RouteStates.network();
     } on Exception catch (e, s) {
-      FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       state = RouteStates.exception(e);
+      report(e, s, name: "Fetch");
       // ignore: avoid_catching_errors
     } on Error catch (e) {
-      FirebaseCrashlytics.instance.recordError(e, e.stackTrace, printDetails: true);
       state = RouteStates.exception(e);
+      report(e, e.stackTrace, name: "Fetch");
     }
   }
 }

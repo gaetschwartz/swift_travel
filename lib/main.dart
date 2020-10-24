@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/pages/loading.dart';
-import 'package:swift_travel/utils/theme.dart';
+import 'package:swift_travel/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -18,7 +18,7 @@ bool get isSupported => !kIsWeb && !Platform.isWindows;
 String get platform => kIsWeb ? "Web" : Platform.operatingSystem;
 
 Future<void> main() async {
-  if (kDebugMode) debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+  //if (kDebugMode) debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
 
   if (isSupported) {

@@ -1,10 +1,10 @@
 import 'dart:developer';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 
 final locationProvider = Provider<LocationRepository>((ref) {
@@ -33,8 +33,8 @@ class LocationRepository {
           );
           return p;
         } on Exception catch (e, s) {
-          await FirebaseCrashlytics.instance.recordError(e, s);
-          rethrow;
+          report(e, s);
+          return null;
         }
       } else {
         if (context != null) {

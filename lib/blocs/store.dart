@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +10,7 @@ import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/blocs/quick_actions.dart';
 import 'package:swift_travel/models/favorites_routes_states.dart';
 import 'package:swift_travel/models/favorites_states.dart';
+import 'package:swift_travel/utils/errors.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
   Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true});
@@ -78,8 +78,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         final r = LocalRoute.fromJson(decode);
         _routes.add(r);
       } on Exception catch (e, s) {
-        log("Error while trying to decode $spr", error: e, name: "Store");
-        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+        report(e, s, name: "Store", text: "Error while trying to decode $spr");
       }
     }
 
@@ -123,8 +122,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       try {
         routes.add(jsonEncode(e.toJson()));
       } on Exception catch (e, s) {
-        log("Error while trying to encode $e", error: e, name: "Store");
-        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+        report(e, s, text: "Error while trying to encode $e", name: "Store");
       }
     }
 
