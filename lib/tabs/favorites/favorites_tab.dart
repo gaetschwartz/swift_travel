@@ -46,6 +46,7 @@ class _SearchFavoriteState extends State<SearchFavorite>
     final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        tooltip: "Add a favorite",
         shape: const StadiumBorder(),
         onPressed: () async {
           final String s = await Navigator.of(context).push<String>(MaterialPageRoute(

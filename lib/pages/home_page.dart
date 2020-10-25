@@ -70,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         actions: [
           IconButton(
               key: const Key("settings"),
+              tooltip: "Settings",
               icon: const Icon(Icons.settings),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));

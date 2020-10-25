@@ -91,6 +91,24 @@ ThemeConfiguration get themeConfiguration {
       lightShadow: lightShadow,
       darkShadow: darkShadow,
     ),
+    "quicksand": FullTheme(
+      name: "Quicksand",
+      light: ThemeData(
+        primarySwatch: Colors.purple,
+        accentColor: Colors.purpleAccent,
+        fontFamily: GoogleFonts.quicksand().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
+      ),
+      dark: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.purple,
+        accentColor: Colors.purpleAccent,
+        fontFamily: GoogleFonts.quicksand().fontFamily,
+        pageTransitionsTheme: _pageTransitions,
+      ),
+      lightShadow: lightShadow,
+      darkShadow: darkShadow,
+    ),
   });
 }
 

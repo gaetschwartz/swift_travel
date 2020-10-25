@@ -108,11 +108,6 @@ class Settings extends StatelessWidget {
               onTap: () =>
                   Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage())),
             ),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.fileCode),
-              title: const Text("Licenses"),
-              onTap: () => showLicensePage(context: context, applicationIcon: const FlutterLogo()),
-            ),
             const Divider(
               indent: 16,
               endIndent: 16,
@@ -203,25 +198,25 @@ class __ThemesSectionState extends State<_ThemesSection> {
               itemCount: list.length,
               itemBuilder: (context, i) {
                 final FullTheme ft = list[i].value;
+                const BorderRadius radius = BorderRadius.all(Radius.circular(16));
+                final String fontFamily = ft.light.textTheme.headline6.fontFamily;
                 return Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 24),
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 24),
                   child: SizedBox(
                     width: 160,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
-                          color: Theme.of(context).cardColor,
-                          border: ft == theme.theme
-                              ? Border.all(
-                                  width: 2,
-                                  color: Theme.of(context).accentColor,
-                                )
-                              : null,
-                          borderRadius: const BorderRadius.all(Radius.circular(16))),
+                        boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                        color: Theme.of(context).cardColor,
+                        borderRadius: radius,
+                        border: ft == theme.theme
+                            ? Border.all(width: 2, color: Theme.of(context).accentColor)
+                            : null,
+                      ),
                       child: InkWell(
-                        onTap: () {
-                          theme.name = list[i].key;
-                        },
+                        hoverColor: Theme.of(context).accentColor.withOpacity(0.2),
+                        borderRadius: radius,
+                        onTap: () => theme.name = list[i].key,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
@@ -239,9 +234,13 @@ class __ThemesSectionState extends State<_ThemesSection> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(ft.name,
-                                    style: Theme.of(context).textTheme.headline6.copyWith(
-                                        fontFamily: ft.light.textTheme.headline6.fontFamily)),
+                                child: Text(
+                                  ft.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(fontFamily: fontFamily),
+                                ),
                               ),
                             ],
                           ),
@@ -516,7 +515,19 @@ class TeamPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("The team")),
+      appBar: AppBar(
+        title: const Text("The team"),
+        actions: [
+          FlatButton(
+            onPressed: () =>
+                showLicensePage(context: context, applicationIcon: const FlutterLogo()),
+            child: Text(
+              "View licenses",
+              style: Theme.of(context).primaryTextTheme.subtitle1,
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         children: [
           Column(

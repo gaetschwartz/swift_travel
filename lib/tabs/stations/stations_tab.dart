@@ -87,13 +87,15 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                    icon: Consumer(builder: (context, w, _) {
-                      final loading = w(_locatingProvider).state;
-                      return loading
-                          ? const CircularProgressIndicator()
-                          : const FaIcon(FontAwesomeIcons.locationArrow);
-                    }),
-                    onPressed: () => getLocation())
+                  icon: Consumer(builder: (context, w, _) {
+                    final loading = w(_locatingProvider).state;
+                    return loading
+                        ? const CircularProgressIndicator()
+                        : const FaIcon(FontAwesomeIcons.locationArrow);
+                  }),
+                  tooltip: "Use current location",
+                  onPressed: () => getLocation(),
+                )
               ],
             ),
           ),
