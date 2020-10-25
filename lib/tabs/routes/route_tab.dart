@@ -340,6 +340,10 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                           _fromController.clear();
                           _toController.clear();
                           context.read(_futureRouteProvider).state = const RouteStates.empty();
+                          context.read(_fromTextfieldProvider).state =
+                              const RouteTextfieldState.empty();
+                          context.read(_toTextfieldProvider).state =
+                              const RouteTextfieldState.empty();
                         },
                         icon: const Icon(Icons.clear),
                       ),
@@ -483,7 +487,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     try {
       final Position p = await context.read(locationProvider).getLocation(context: context);
       log("Position is : $p");
-      if (p == null) throw StateError("We got no location");
+      if (p == null) throw Exception("We got no location");
       final List<CffCompletion> completions =
           await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
       final CffCompletion first = completions.first;
@@ -493,6 +497,8 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
         context.read(_fromTextfieldProvider).state =
             RouteTextfieldState.currentLocation(first.label, lat: p.latitude, lon: p.longitude);
       }
+    } on Exception catch (e, s) {
+      report(e, s);
     } finally {
       context.read(_isLocating).state = false;
       fnFrom.unfocus();
