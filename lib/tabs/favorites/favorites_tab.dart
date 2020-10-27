@@ -23,22 +23,8 @@ class SearchFavorite extends StatefulWidget {
 
 class _SearchFavoriteState extends State<SearchFavorite>
     with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
-  TabController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TabController(length: 2, vsync: this);
-  }
-
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
