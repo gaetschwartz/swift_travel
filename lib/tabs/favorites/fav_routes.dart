@@ -51,18 +51,23 @@ class FavoriteRoutTile extends StatelessWidget {
       context,
       title: Text.rich(TextSpan(text: "Delete ", children: [
         TextSpan(text: route.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const TextSpan(
-          text: " ?",
-        ),
+        const TextSpan(text: " ?"),
       ])),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
+            "From",
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          Text(
             route.from,
             textAlign: TextAlign.center,
           ),
-          const Text("⬇"),
+          Text(
+            "To",
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
           Text(
             route.to,
             textAlign: TextAlign.center,
