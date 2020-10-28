@@ -148,6 +148,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: widget.localRoute != null || widget.destination != null
           ? AppBar(
               leading: widget.localRoute != null || widget.destination != null

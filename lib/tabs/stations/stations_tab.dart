@@ -53,6 +53,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
           const SizedBox(height: 16),
