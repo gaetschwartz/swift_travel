@@ -18,7 +18,6 @@ bool get isSupported => !kIsWeb && !Platform.isWindows;
 String get platform => kIsWeb ? "Web" : Platform.operatingSystem;
 
 Future<void> main() async {
-  if (kDebugMode) debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
 
   if (isSupported) {
