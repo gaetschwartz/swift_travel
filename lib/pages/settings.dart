@@ -35,9 +35,9 @@ class Settings extends StatelessWidget {
                 return ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
+                    _ModeWidget(theme: theme, label: 'System', mode: ThemeMode.system),
                     _ModeWidget(theme: theme, label: 'Light', mode: ThemeMode.light),
                     _ModeWidget(theme: theme, label: 'Dark', mode: ThemeMode.dark),
-                    _ModeWidget(theme: theme, label: 'System', mode: ThemeMode.system),
                   ],
                 );
               }),

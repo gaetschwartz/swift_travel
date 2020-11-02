@@ -66,42 +66,38 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
               children: [
                 Expanded(
                   child: InputWrapperDecoration(
-                    child: TextField(
-                      key: const Key("stations-textfield"),
-                      focusNode: focusNode,
-                      controller: searchController,
-                      style:
-                          DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.normal),
-                      decoration: InputDecoration(
-                          border: const UnderlineInputBorder(),
-                          labelText: "Look for a station",
-                          filled: true,
-                          fillColor: Theme.of(context).cardColor,
-                          contentPadding: const EdgeInsets.only(left: 8),
-                          suffixIcon: IconButton(
-                              icon: const FaIcon(FontAwesomeIcons.times),
+                    child: Stack(
+                      children: [
+                        TextField(
+                          key: const Key("stations-textfield"),
+                          focusNode: focusNode,
+                          controller: searchController,
+                          style: DefaultTextStyle.of(context)
+                              .style
+                              .copyWith(fontStyle: FontStyle.normal),
+                          decoration: InputDecoration(
+                            border: const UnderlineInputBorder(),
+                            labelText: "Look for a station",
+                            filled: true,
+                            fillColor: Theme.of(context).cardColor,
+                            contentPadding: const EdgeInsets.only(left: 8),
+                          ),
+                          onChanged: (s) => debounce(context, s),
+                        ),
+                        Positioned(
+                          right: 0,
+                          child: IconButton(
+                              icon: const Icon(Icons.clear),
                               onPressed: () {
                                 searchController.text = "";
                                 focusNode.unfocus();
                                 context.read(_stateProvider).state = const StationStates.empty();
-                              })),
-                      onChanged: (s) => debounce(context, s),
+                              }),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: Consumer(builder: (context, w, _) {
-                    final loading = w(_locatingProvider).state;
-                    return loading
-                        ? const CircularProgressIndicator()
-                        : (isDarwin
-                            ? const Icon(CupertinoIcons.location_fill)
-                            : const FaIcon(FontAwesomeIcons.locationArrow));
-                  }),
-                  tooltip: "Use current location",
-                  onPressed: () => getLocation(),
-                )
               ],
             ),
           ),
