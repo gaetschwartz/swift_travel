@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/blocs/quick_actions.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites_routes_states.dart';
 import 'package:swift_travel/models/favorites_states.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -127,7 +128,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     }
 
     await _prefs.setStringList(routesKey, routes);
-    await ref.read(quickActions).setActions(_routes.toList(), favorites.toList());
+    if (isMobile) await ref.read(quickActions).setActions(_routes.toList(), favorites.toList());
   }
 
   @override

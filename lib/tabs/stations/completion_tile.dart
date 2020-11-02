@@ -96,7 +96,8 @@ class CffCompletionTile extends ConsumerWidget {
         : listTile;
 
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), child: child);
+        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+        child: Center(child: child));
   }
 
   Future<void> more(

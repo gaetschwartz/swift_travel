@@ -18,15 +18,24 @@ bool get isMobile =>
 
 String get platform => kIsWeb ? "Web ($defaultTargetPlatform)" : Platform.operatingSystem;
 
+const debugPlatformMap = {
+  TargetPlatform.windows: TargetPlatform.macOS,
+  TargetPlatform.android: TargetPlatform.iOS
+};
+
 Future<void> main() async {
-  if (kDebugMode) debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+  if (kDebugMode) {
+    debugDefaultTargetPlatformOverride = debugPlatformMap[defaultTargetPlatform];
+  }
   WidgetsFlutterBinding.ensureInitialized();
 
   if (isMobile) {
+    log("We are on mobile ($platform)");
     await Firebase.initializeApp();
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     runZonedGuarded<Future<void>>(() async => _runApp(), FirebaseCrashlytics.instance.recordError);
   } else {
+    log("We are not on mobile ($platform)");
     _runApp();
   }
 }
