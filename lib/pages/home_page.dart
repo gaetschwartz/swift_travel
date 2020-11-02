@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,6 +6,7 @@ import 'package:swift_travel/pages/settings.dart';
 import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';
+import 'package:utils/widgets/responsive.dart';
 
 final _tabProvider = StateProvider<int>((ref) => 0);
 
@@ -37,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
       key: const Key("home-scaffold"),
       resizeToAvoidBottomInset: false,
@@ -45,19 +48,34 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           onTap: (i) => _pageController.animateToPage(i,
               curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250)),
           currentIndex: w(_tabProvider).state,
-          items: const [
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.search),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
+          items: [
+            if (isDarwin)
+              const BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.search),
+                label: "Search",
+              )
+            else
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.search_sharp),
+                activeIcon: Icon(Icons.search),
+                label: "Search",
+              ),
+            const BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.route),
               label: "Route",
             ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.solidStar),
-              label: "Favorites",
-            ),
+            if (isDarwin)
+              const BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.square_favorites_alt),
+                activeIcon: Icon(CupertinoIcons.square_favorites_alt_fill),
+                label: "Favorites",
+              )
+            else
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.star_border_sharp),
+                activeIcon: Icon(Icons.star),
+                label: "Favorites",
+              ),
           ],
         );
       }),
@@ -71,10 +89,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           IconButton(
               key: const Key("settings"),
               tooltip: "Settings",
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
-              }),
+              icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
+              onPressed: () =>
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()))),
         ],
       ),
       body: PageView(

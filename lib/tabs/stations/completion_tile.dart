@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
-import 'package:swift_travel/apis/cff/models/types_enum.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/widget/cff_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/input_dialog.dart';
+import 'package:utils/widgets/responsive.dart';
 
 enum _Actions { favorite }
 
@@ -33,8 +32,7 @@ class CffCompletionTile extends ConsumerWidget {
     final favStop = store.favorites.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
     final isFav = sugg.favoriteName != null;
     final isFavInStore = favStop != null;
-    final targetPlatform = Theme.of(context).platform;
-    final isDarwin = targetPlatform == TargetPlatform.iOS || targetPlatform == TargetPlatform.macOS;
+    final isDarwin = ResponsiveWidget.isDarwin(context);
 
     final listTile = DecoratedBox(
       decoration: BoxDecoration(
@@ -44,7 +42,9 @@ class CffCompletionTile extends ConsumerWidget {
       ),
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: _kRadius),
-        leading: isFav ? const CffIcon(Vehicle.favorite) : CffIcon.fromIconClass(iconClass),
+        leading: isFav
+            ? (isDarwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star))
+            : CffIcon.fromIconClass(iconClass),
         title: Text((isFav ? sugg.favoriteName : sugg.label) ?? "???"),
         subtitle: isFav
             ? Text(sugg.label ?? "Favorite")
@@ -76,8 +76,9 @@ class CffCompletionTile extends ConsumerWidget {
         ? CupertinoContextMenu(
             actions: [
               CupertinoContextMenuAction(
-                trailingIcon: isFavInStore ? FontAwesomeIcons.star : FontAwesomeIcons.solidStar,
+                trailingIcon: isFavInStore ? CupertinoIcons.heart_slash : CupertinoIcons.heart,
                 onPressed: () => Navigator.pop(context),
+                isDestructiveAction: isFavInStore,
                 child: isFavInStore
                     ? const Text("Remove from favorites")
                     : const Text("Add to favorites"),

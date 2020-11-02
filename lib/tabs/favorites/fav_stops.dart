@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,7 +24,7 @@ class FavoriteStationTile extends StatelessWidget {
       onTap: () => Navigator.of(context)
           .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: stop.stop))),
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.edit),
+          icon: const Icon(CupertinoIcons.pencil),
           onPressed: () async {
             choose<void>(
               context,

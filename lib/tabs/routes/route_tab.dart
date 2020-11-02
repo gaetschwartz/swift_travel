@@ -25,6 +25,7 @@ import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
+import 'package:utils/widgets/responsive.dart';
 
 final _isLocating = StateProvider((_) => false);
 final _timeTypeProvider = StateProvider((_) => TimeType.depart);
@@ -147,6 +148,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: widget.localRoute != null || widget.destination != null
@@ -174,7 +176,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                       final loading = w(_isLocating).state;
                       return loading
                           ? const CircularProgressIndicator()
-                          : const FaIcon(FontAwesomeIcons.locationArrow);
+                          : (isDarwin
+                              ? const Icon(CupertinoIcons.location_fill)
+                              : const FaIcon(FontAwesomeIcons.locationArrow));
                     }),
                     onPressed: () => locate())
               ],
@@ -190,7 +194,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 const SizedBox(width: 8),
                 IconButton(
                   tooltip: 'Switch inputs',
-                  icon: const FaIcon(FontAwesomeIcons.arrowsAltV),
+                  icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
                   onPressed: () => switchInputs(),
                 ),
               ],

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,6 +16,7 @@ import 'package:swift_travel/models/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widget/cff_icon.dart';
+import 'package:utils/widgets/responsive.dart';
 
 import 'completion_tile.dart';
 
@@ -52,6 +54,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -92,7 +95,9 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                     final loading = w(_locatingProvider).state;
                     return loading
                         ? const CircularProgressIndicator()
-                        : const FaIcon(FontAwesomeIcons.locationArrow);
+                        : (isDarwin
+                            ? const Icon(CupertinoIcons.location_fill)
+                            : const FaIcon(FontAwesomeIcons.locationArrow));
                   }),
                   tooltip: "Use current location",
                   onPressed: () => getLocation(),

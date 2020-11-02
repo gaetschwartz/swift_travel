@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,7 +24,7 @@ class FavoriteRoutTile extends StatelessWidget {
       title: Text(route.displayName),
       subtitle: Text("${route.from} ➡ ${route.to}"),
       trailing: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.edit),
+          icon: const Icon(CupertinoIcons.pencil),
           onPressed: () {
             choose<String>(
               context,
