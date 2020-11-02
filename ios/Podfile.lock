@@ -65,7 +65,7 @@ PODS:
   - nanopb/encode (1.30905.0)
   - path_provider (0.0.1):
     - Flutter
-  - PromisesObjC (1.2.10)
+  - PromisesObjC (1.2.11)
   - quick_actions (0.0.1):
     - Flutter
   - Reachability (3.2)
@@ -95,7 +95,7 @@ DEPENDENCIES:
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
-  https://cocoapods-cdn.netlify.app/:
+  trunk:
     - Firebase
     - FirebaseAnalyticsInterop
     - FirebaseCore
@@ -166,7 +166,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
@@ -174,6 +174,6 @@ SPEC CHECKSUMS:
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: a0a8d9d19dfb69f368339b9b0980642d9356317d
+PODFILE CHECKSUM: 6040cda96604eb1e07a80bf9dc5a89256468c7fd
 
 COCOAPODS: 1.10.0
