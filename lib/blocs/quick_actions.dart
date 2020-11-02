@@ -59,7 +59,7 @@ class MyQuickActions {
   }
 
   Future<void> setActions(List<LocalRoute> routes, List<FavoriteStop> favorites) async {
-    if (!isSupported) {
+    if (!isMobile) {
       log("Actions not supported for now on $platform");
     }
     final List<ShortcutItem> shortcuts = [];

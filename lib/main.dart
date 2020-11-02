@@ -13,14 +13,16 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
-bool get isSupported => !kIsWeb && !Platform.isWindows;
+bool get isMobile =>
+    defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android;
 
-String get platform => kIsWeb ? "Web" : Platform.operatingSystem;
+String get platform => kIsWeb ? "Web ($defaultTargetPlatform)" : Platform.operatingSystem;
 
 Future<void> main() async {
+  if (kDebugMode) debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (isSupported) {
+  if (isMobile) {
     await Firebase.initializeApp();
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     runZonedGuarded<Future<void>>(() async => _runApp(), FirebaseCrashlytics.instance.recordError);

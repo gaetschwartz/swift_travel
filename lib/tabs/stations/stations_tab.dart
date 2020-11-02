@@ -238,7 +238,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
-      if (isSupported) {
+      if (isMobile) {
         FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       } else {
         log("", error: e, stackTrace: s);

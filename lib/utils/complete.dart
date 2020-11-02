@@ -6,6 +6,7 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:utils/utils/levenshtein.dart';
 
 const _kConfidenceThreshold = .9;
+const _kMaxFavoritesCount = 3;
 
 /// Add similar favorites to the completions
 Future<List<CffCompletion>> completeWithFavorites(
@@ -25,14 +26,13 @@ Future<List<CffCompletion>> completeWithFavorites(
     }
   }
 
-  final List<MapEntry<FavoriteStop, double>> favs = levens.entries.toList();
+  final List<MapEntry<FavoriteStop, double>> favs = levens.entries.toList(growable: false);
   favs.sort((a, b) => a.value.compareTo(b.value));
-  final Iterable<CffCompletion> sublist =
-      favs.toList().sublist(0, min(favs.length, 3)).map((e) => e.key.toCompletion());
 
-  final List<CffCompletion> completions = compls.where((c) => c.label != null).toList();
-  completions.insertAll(0, sublist);
-  return completions;
+  return [
+    ...favs.sublist(0, min(favs.length, _kMaxFavoritesCount)).map((e) => e.key.toCompletion()),
+    ...compls.where((c) => c.label != null),
+  ];
 }
 
 double _leven(String query, FavoriteStop c) =>

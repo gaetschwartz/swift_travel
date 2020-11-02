@@ -29,43 +29,58 @@ class CffCompletionTile extends ConsumerWidget {
     final iconClass = sugg.iconclass;
     final isPrivate = CffIcon.isPrivate(iconClass);
     final store = watch(storeProvider) as FavoritesSharedPreferencesStore;
+    @Deprecated("")
     final favStop = store.favorites.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
-    final isFav = favStop != null;
+    final isFav = sugg.favoriteName != null;
+    final isFavInStore = favStop != null;
     final targetPlatform = Theme.of(context).platform;
     final isDarwin = targetPlatform == TargetPlatform.iOS || targetPlatform == TargetPlatform.macOS;
-    final listTile = ListTile(
-      shape: const RoundedRectangleBorder(borderRadius: _kRadius),
-      leading: isFav ? const CffIcon(Vehicle.favorite) : CffIcon.fromIconClass(iconClass),
-      title: Text((isFav ? (sugg.favoriteName ?? favStop.name) : sugg.label) ?? "???"),
-      subtitle: isFav
-          ? Text(favStop.stop ?? sugg.label ?? "Favorite")
-          : sugg.dist != null
-              ? Text("${sugg.dist.round()}m")
-              : null,
-      onLongPress:
-          isDarwin ? null : () => more(context, isFav: isFav, favoriteStop: favStop, store: store),
-      trailing: isPrivate
-          ? IconButton(
-              icon: const Icon(Icons.more_horiz),
-              onPressed: () => more(context, favoriteStop: favStop, isFav: isFav, store: store))
-          : const Icon(Icons.arrow_forward_ios),
-      onTap: isPrivate
-          ? null
-          : () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => DetailsStop(stopName: sugg.label),
-                ),
-              );
-            },
+
+    final listTile = DecoratedBox(
+      decoration: BoxDecoration(
+        boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+        color: Theme.of(context).cardColor,
+        borderRadius: _kRadius,
+      ),
+      child: ListTile(
+        shape: const RoundedRectangleBorder(borderRadius: _kRadius),
+        leading: isFav ? const CffIcon(Vehicle.favorite) : CffIcon.fromIconClass(iconClass),
+        title: Text((isFav ? sugg.favoriteName : sugg.label) ?? "???"),
+        subtitle: isFav
+            ? Text(sugg.label ?? "Favorite")
+            : sugg.dist != null
+                ? Text("${sugg.dist.round()}m")
+                : null,
+        onLongPress: isDarwin
+            ? null
+            : () => more(context, isFav: isFavInStore, favoriteStop: favStop, store: store),
+        trailing: isPrivate
+            ? IconButton(
+                icon: const Icon(Icons.more_horiz),
+                onPressed: () =>
+                    more(context, favoriteStop: favStop, isFav: isFavInStore, store: store))
+            : const Icon(Icons.arrow_forward_ios),
+        onTap: isPrivate
+            ? null
+            : () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => DetailsStop(stopName: sugg.label),
+                  ),
+                );
+              },
+      ),
     );
+
     final child = isDarwin
         ? CupertinoContextMenu(
             actions: [
               CupertinoContextMenuAction(
-                trailingIcon: isFav ? FontAwesomeIcons.star : FontAwesomeIcons.solidStar,
+                trailingIcon: isFavInStore ? FontAwesomeIcons.star : FontAwesomeIcons.solidStar,
                 onPressed: () => Navigator.pop(context),
-                child: isFav ? const Text("Remove from favorites") : const Text("Add to favorites"),
+                child: isFavInStore
+                    ? const Text("Remove from favorites")
+                    : const Text("Add to favorites"),
               ),
               CupertinoContextMenuAction(
                 trailingIcon: CupertinoIcons.xmark,
@@ -81,16 +96,7 @@ class CffCompletionTile extends ConsumerWidget {
         : listTile;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
-          color: Theme.of(context).cardColor,
-          borderRadius: _kRadius,
-        ),
-        child: child,
-      ),
-    );
+        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), child: child);
   }
 
   Future<void> more(

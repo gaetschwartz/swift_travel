@@ -51,7 +51,7 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   Future<void> init() async {
-    if (isSupported) {
+    if (isMobile) {
       if (kDebugMode) {
         log("Disabling crash reports in debug mode", name: "Loading");
         await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
@@ -82,7 +82,7 @@ class _LoadingPageState extends State<LoadingPage> {
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
     final cff = context.read(navigationAPIProvider);
 
-    if (isSupported) {
+    if (isMobile) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         context.read(quickActions).init();
         context.read(linksProvider).init((link) async {

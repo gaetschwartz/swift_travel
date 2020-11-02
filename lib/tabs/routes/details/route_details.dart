@@ -42,7 +42,7 @@ class RouteDetails extends StatelessWidget {
         leading: const BackButton(),
         title: Text(c.to),
         actions: [
-          if (isSupported)
+          if (isMobile)
             IconButton(
                 icon: Theme.of(context).platform == TargetPlatform.iOS
                     ? const Icon(CupertinoIcons.share)
