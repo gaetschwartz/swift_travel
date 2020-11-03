@@ -24,7 +24,7 @@ const debugPlatformMap = {
 };
 
 Future<void> main() async {
-  if (kDebugMode) {
+  if (kDebugMode || const bool.fromEnvironment("OVERRIDE_PLATFORM")) {
     debugDefaultTargetPlatformOverride = debugPlatformMap[defaultTargetPlatform];
   }
   WidgetsFlutterBinding.ensureInitialized();

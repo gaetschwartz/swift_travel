@@ -34,7 +34,7 @@ class CffCompletionTile extends ConsumerWidget {
     final isFavInStore = favStop != null;
     final isDarwin = ResponsiveWidget.isDarwin(context);
 
-    final listTile = DecoratedBox(
+    final Widget listTile = DecoratedBox(
       decoration: BoxDecoration(
         boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
         color: Theme.of(context).cardColor,
@@ -42,14 +42,13 @@ class CffCompletionTile extends ConsumerWidget {
       ),
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: _kRadius),
-        leading: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (isFav)
-              isDarwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star)
-            else
-              CffIcon.fromIconClass(iconClass),
-          ],
+        leading: SizedBox(
+          height: double.infinity,
+          child: isFav
+              ? isDarwin
+                  ? const Icon(CupertinoIcons.heart_fill)
+                  : const Icon(Icons.star)
+              : CffIcon.fromIconClass(iconClass),
         ),
         title: Text((isFav ? sugg.favoriteName : sugg.label) ?? "???"),
         subtitle: isFav
@@ -78,12 +77,16 @@ class CffCompletionTile extends ConsumerWidget {
       ),
     );
 
-    final child = isDarwin
+    final Widget child = isDarwin
         ? CupertinoContextMenu(
             actions: [
               CupertinoContextMenuAction(
                 trailingIcon: isFavInStore ? CupertinoIcons.heart_slash : CupertinoIcons.heart,
-                onPressed: () => Navigator.pop(context),
+                onPressed: () async {
+                  await deleteOrAddToFav(context,
+                      isFav: isFav, favoriteStop: favStop, store: store);
+                  Navigator.pop(context);
+                },
                 isDestructiveAction: isFavInStore,
                 child: isFavInStore
                     ? const Text("Remove from favorites")
@@ -103,8 +106,11 @@ class CffCompletionTile extends ConsumerWidget {
         : listTile;
 
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-        child: Center(child: child));
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      child: Center(
+        child: child,
+      ),
+    );
   }
 
   Future<void> more(

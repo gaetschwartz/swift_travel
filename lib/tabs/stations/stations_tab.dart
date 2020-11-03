@@ -16,7 +16,6 @@ import 'package:swift_travel/models/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widget/cff_icon.dart';
-import 'package:utils/widgets/responsive.dart';
 
 import 'completion_tile.dart';
 
@@ -54,7 +53,6 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
