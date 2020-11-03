@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/pages/loading.dart';
+import 'package:swift_travel/pages/welcome.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
@@ -21,6 +22,10 @@ String get platform => kIsWeb ? "Web ($defaultTargetPlatform)" : Platform.operat
 const debugPlatformMap = {
   TargetPlatform.windows: TargetPlatform.macOS,
   TargetPlatform.android: TargetPlatform.iOS
+};
+
+const Map<String, WelcomePage> pagesMap = {
+  "welcome": WelcomePage(),
 };
 
 Future<void> main() async {

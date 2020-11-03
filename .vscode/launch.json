@@ -5,9 +5,27 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "swiss_travel",
+      "name": "Launch",
       "request": "launch",
-      "type": "dart"
-    }
+      "type": "dart",
+    },
+    {
+      "name": "Launch (welcome)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "PAGE=welcome"
+      ]
+    },
+    {
+      "name": "Launch (override)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "OVERRIDE_PLATFORM=true"
+      ]
+    },
   ]
 }

@@ -74,12 +74,20 @@ class _LoadingPageState extends State<LoadingPage> {
       rethrow;
     }
     if (prefs.getBool("hasAlreadySeenTuto") != true) {
-      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => WelcomePage()));
+      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WelcomePage()));
 
       await prefs.setBool("hasAlreadySeenTuto", true);
     }
 
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyHomePage()));
+    const page = String.fromEnvironment("PAGE");
+    log(page);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) {
+          return pagesMap[page] ?? const MyHomePage();
+        },
+      ),
+    );
     final cff = context.read(navigationAPIProvider);
 
     if (isMobile) {
