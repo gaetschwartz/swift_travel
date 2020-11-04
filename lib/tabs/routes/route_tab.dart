@@ -26,6 +26,7 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 import 'package:utils/widgets/responsive.dart';
+import 'package:vibration/vibration.dart';
 
 final _isLocating = StateProvider((_) => false);
 final _timeTypeProvider = StateProvider((_) => TimeType.depart);
@@ -116,6 +117,21 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     } else if (widget.destination != null) {
       goToDest();
     }
+
+    fnFrom.addListener(_onFocusFromChanged);
+    fnTo.addListener(_onFocusToChanged);
+  }
+
+  void _onFocusToChanged() {
+    if (fnTo.hasFocus) {
+      Vibration.select();
+    }
+  }
+
+  void _onFocusFromChanged() {
+    if (fnFrom.hasFocus) {
+      Vibration.select();
+    }
   }
 
   void useLocalRoute() {
@@ -180,7 +196,10 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                               ? const Icon(CupertinoIcons.location_fill)
                               : const FaIcon(FontAwesomeIcons.locationArrow));
                     }),
-                    onPressed: () => locate())
+                    onPressed: () {
+                      Vibration.select();
+                      locate();
+                    })
               ],
             ),
           ),
@@ -195,7 +214,10 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 IconButton(
                   tooltip: 'Switch inputs',
                   icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
-                  onPressed: () => switchInputs(),
+                  onPressed: () {
+                    Vibration.select();
+                    switchInputs();
+                  },
                 ),
               ],
             ),
@@ -213,6 +235,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                       child: FlatButton(
                         shape: const StadiumBorder(),
                         onPressed: () async {
+                          Vibration.select();
                           TimeType type = context.read(_timeTypeProvider).state;
                           final _date = context.read(_dateProvider);
 
@@ -253,6 +276,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                   child: IconButton(
                     tooltip: "Reset time",
                     onPressed: () {
+                      Vibration.select();
                       final date = context.read(_dateProvider);
                       final nowDate = DateTime.now();
                       date.state = nowDate;
@@ -282,6 +306,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                         highlightColor: const Color(0x260700b1),
                         icon: const FaIcon(FontAwesomeIcons.search),
                         onPressed: () {
+                          Vibration.selectionHeavy();
                           unFocusFields();
                           searchFromText();
                         },
@@ -306,6 +331,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     child: IconButton(
                       tooltip: "Favorite route",
                       onPressed: () async {
+                        Vibration.select();
                         final _store =
                             context.read(storeProvider) as FavoritesSharedPreferencesStore;
                         log(_store.routes.toString());
@@ -339,6 +365,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     child: IconButton(
                       tooltip: "Clear everything",
                       onPressed: () async {
+                        Vibration.selectionMedium();
                         _fromController.clear();
                         _toController.clear();
                         context.read(_futureRouteProvider).state = const RouteStates.empty();
@@ -410,6 +437,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             IconButton(
               icon: const Icon(Icons.clear),
               onPressed: () {
+                Vibration.select();
                 _fromController.text = "";
                 context.read(_fromTextfieldProvider).state = const RouteTextfieldState.empty();
               },
@@ -466,6 +494,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             IconButton(
               icon: const Icon(Icons.clear),
               onPressed: () {
+                Vibration.select();
                 _toController.text = "";
                 context.read(_toTextfieldProvider).state = const RouteTextfieldState.empty();
               },

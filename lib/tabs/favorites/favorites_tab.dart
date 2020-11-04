@@ -11,6 +11,7 @@ import 'package:swift_travel/tabs/favorites/fav_stops.dart';
 import 'package:swift_travel/widget/input.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
+import 'package:vibration/vibration.dart';
 
 import 'fav_routes.dart';
 
@@ -35,6 +36,7 @@ class _SearchFavoriteState extends State<SearchFavorite>
         tooltip: "Add a favorite",
         shape: const StadiumBorder(),
         onPressed: () async {
+          Vibration.select();
           final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
             builder: (_) => const StopInputDialog(title: "Add a favorite"),
             fullscreenDialog: true,

@@ -16,6 +16,7 @@ import 'package:swift_travel/models/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widget/cff_icon.dart';
+import 'package:vibration/vibration.dart';
 
 import 'completion_tile.dart';
 
@@ -46,6 +47,9 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   void onFocusChanged() {
     if (mounted) {
       setState(() => _hasFocus = focusNode.hasFocus);
+    }
+    if (focusNode.hasFocus) {
+      Vibration.select();
     }
   }
 
@@ -108,6 +112,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                             child: IconButton(
                                 icon: const Icon(Icons.clear),
                                 onPressed: () {
+                                  Vibration.select();
                                   searchController.text = "";
                                   focusNode.unfocus();
                                   context.read(_stateProvider).state = const StationStates.empty();

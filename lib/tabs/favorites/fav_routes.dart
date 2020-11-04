@@ -7,6 +7,7 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
+import 'package:vibration/vibration.dart';
 
 class FavoriteRoutTile extends StatelessWidget {
   const FavoriteRoutTile({
@@ -26,6 +27,7 @@ class FavoriteRoutTile extends StatelessWidget {
       trailing: IconButton(
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () {
+            Vibration.select();
             choose<String>(
               context,
               choices: [

@@ -16,6 +16,7 @@ import 'package:swift_travel/tabs/routes/details/regular_leg_tile.dart';
 import 'package:swift_travel/tabs/routes/details/walking_tile.dart';
 import 'package:swift_travel/utils/constants.dart';
 import 'package:swift_travel/utils/format.dart';
+import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
   final CffRoute route;
@@ -32,10 +33,13 @@ class RouteDetails extends StatelessWidget {
     final c = route.connections[i];
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => LiveRoutePage(
-                  connection: c,
-                ))),
+        onPressed: () {
+          Vibration.select();
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => LiveRoutePage(
+                    connection: c,
+                  )));
+        },
         child: const Icon(Icons.play_arrow),
       ),
       appBar: AppBar(
@@ -48,6 +52,7 @@ class RouteDetails extends StatelessWidget {
                     ? const Icon(CupertinoIcons.share)
                     : const Icon(Icons.share),
                 onPressed: () async {
+                  Vibration.select();
                   final String requestUrl = route.requestUrl;
                   final Uri uri = Uri.parse(requestUrl);
                   final Map<String, String> params = Map.from(uri.queryParameters);

@@ -7,6 +7,7 @@ import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';
 import 'package:utils/widgets/responsive.dart';
+import 'package:vibration/vibration.dart';
 
 final _tabProvider = StateProvider<int>((ref) => 0);
 
@@ -45,8 +46,11 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: Consumer(builder: (context, w, c) {
         return BottomNavigationBar(
-          onTap: (i) => _pageController.animateToPage(i,
-              curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250)),
+          onTap: (i) {
+            Vibration.select();
+            _pageController.animateToPage(i,
+                curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
+          },
           currentIndex: w(_tabProvider).state,
           items: [
             if (isDarwin)

@@ -1004,6 +1004,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.4"
+  vibration:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: efb54d448c68bb3a0d7ac33abd26364c1a1dcc00
+      url: "https://github.com/vincenttarrit/vibration.git"
+    source: git
+    version: "0.0.1"
   vm_service:
     dependency: transitive
     description:
