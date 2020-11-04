@@ -29,7 +29,8 @@ class CffCompletionTile extends ConsumerWidget {
     final isPrivate = CffIcon.isPrivate(iconClass);
     final store = watch(storeProvider) as FavoritesSharedPreferencesStore;
     @Deprecated("")
-    final favStop = store.favorites.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
+    final favStop = store.favorites
+        .firstWhere((f) => f.stop == sugg.label, orElse: () => null);
     final isFav = sugg.favoriteName != null;
     final isFavInStore = favStop != null;
     final isDarwin = ResponsiveWidget.isDarwin(context);
@@ -43,7 +44,7 @@ class CffCompletionTile extends ConsumerWidget {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: _kRadius),
         leading: SizedBox(
-          height: double.infinity,
+          height: isFav ? double.infinity : 0,
           child: isFav
               ? isDarwin
                   ? const Icon(CupertinoIcons.heart_fill)
@@ -58,12 +59,13 @@ class CffCompletionTile extends ConsumerWidget {
                 : null,
         onLongPress: isDarwin
             ? null
-            : () => more(context, isFav: isFavInStore, favoriteStop: favStop, store: store),
+            : () => more(context,
+                isFav: isFavInStore, favoriteStop: favStop, store: store),
         trailing: isPrivate
             ? IconButton(
                 icon: const Icon(Icons.more_horiz),
-                onPressed: () =>
-                    more(context, favoriteStop: favStop, isFav: isFavInStore, store: store))
+                onPressed: () => more(context,
+                    favoriteStop: favStop, isFav: isFavInStore, store: store))
             : const Icon(Icons.arrow_forward_ios),
         onTap: isPrivate
             ? null
@@ -81,7 +83,9 @@ class CffCompletionTile extends ConsumerWidget {
         ? CupertinoContextMenu(
             actions: [
               CupertinoContextMenuAction(
-                trailingIcon: isFavInStore ? CupertinoIcons.heart_slash : CupertinoIcons.heart,
+                trailingIcon: isFavInStore
+                    ? CupertinoIcons.heart_slash
+                    : CupertinoIcons.heart,
                 onPressed: () async {
                   await deleteOrAddToFav(context,
                       isFav: isFav, favoriteStop: favStop, store: store);
@@ -123,14 +127,17 @@ class CffCompletionTile extends ConsumerWidget {
         choices: [
           Choice(
             value: _Actions.favorite,
-            child: isFav ? const Text("Remove from favorites") : const Text("Add to favorites"),
+            child: isFav
+                ? const Text("Remove from favorites")
+                : const Text("Add to favorites"),
           ),
         ],
         title: const Text("Choose an action"),
         cancel: const Choice.cancel(child: Text("Cancel")));
     switch (c.value) {
       case _Actions.favorite:
-        await deleteOrAddToFav(context, isFav: isFav, favoriteStop: favoriteStop, store: store);
+        await deleteOrAddToFav(context,
+            isFav: isFav, favoriteStop: favoriteStop, store: store);
         break;
     }
   }
@@ -144,7 +151,8 @@ class CffCompletionTile extends ConsumerWidget {
     if (isFav) {
       store.deleteFavorite(favoriteStop);
     } else {
-      final name = await input(context, title: const Text("What is the name of this stop"));
+      final name = await input(context,
+          title: const Text("What is the name of this stop"));
       if (name == null) return;
       store.addFavorite(sugg.toFavoriteStop(name: name));
     }

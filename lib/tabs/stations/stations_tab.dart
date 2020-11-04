@@ -19,7 +19,8 @@ import 'package:swift_travel/widget/cff_icon.dart';
 
 import 'completion_tile.dart';
 
-final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider =
+    StateProvider<StationStates>((_) => const StationStates.empty());
 final _locatingProvider = StateProvider((_) => false);
 final _loadingProvider = StateProvider((_) => false);
 
@@ -30,7 +31,8 @@ class SearchByName extends StatefulWidget {
   _SearchByNameState createState() => _SearchByNameState();
 }
 
-class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClientMixin {
+class _SearchByNameState extends State<SearchByName>
+    with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   Timer _debouncer;
@@ -74,13 +76,25 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                               .style
                               .copyWith(fontStyle: FontStyle.normal),
                           decoration: InputDecoration(
-                            border: const UnderlineInputBorder(),
-                            labelText: "Look for a station",
+                            border: InputBorder.none,
+                            //labelText: "Look for a station",
                             filled: true,
                             fillColor: Theme.of(context).cardColor,
-                            contentPadding: const EdgeInsets.only(left: 8),
+                            contentPadding: const EdgeInsets.only(left: 48),
                           ),
                           onChanged: (s) => debounce(context, s),
+                        ),
+                        Positioned(
+                          left: 0,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.search,
+                              color: focusNode.hasFocus
+                                  ? Colors.grey
+                                  : Colors.black,
+                            ),
+                            onPressed: () {},
+                          ),
                         ),
                         Positioned(
                           right: 0,
@@ -89,7 +103,8 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                               onPressed: () {
                                 searchController.text = "";
                                 focusNode.unfocus();
-                                context.read(_stateProvider).state = const StationStates.empty();
+                                context.read(_stateProvider).state =
+                                    const StationStates.empty();
                               }),
                         ),
                       ],
@@ -111,9 +126,10 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                             height: 4,
                             child: Center(
                               child: Consumer(
-                                  builder: (context, w, _) => w(_loadingProvider).state
-                                      ? const LinearProgressIndicator()
-                                      : const SizedBox()),
+                                  builder: (context, w, _) =>
+                                      w(_loadingProvider).state
+                                          ? const LinearProgressIndicator()
+                                          : const SizedBox()),
                             ),
                           ),
                         ),
@@ -123,16 +139,21 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                               sugg: c.completions[i],
                               key: Key("stations-key-$i"),
                             ),
-                            itemCount: c.completions == null ? 0 : c.completions.length,
+                            itemCount: c.completions == null
+                                ? 0
+                                : c.completions.length,
                           ),
                         ),
                       ],
                     ),
                     empty: (_) => Consumer(
-                        builder: (context, w, _) => w(favoritesStatesProvider).state.map(
+                        builder: (context, w, _) => w(favoritesStatesProvider)
+                            .state
+                            .map(
                               data: (c) => c.favorites.isEmpty
                                   ? Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           "🔎",
@@ -141,15 +162,21 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                                         const SizedBox(height: 24),
                                         Text(
                                           "Search a station",
-                                          style: Theme.of(context).textTheme.headline6,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
                                           textAlign: TextAlign.center,
                                         )
                                       ],
                                     )
                                   : ListView.builder(
                                       itemBuilder: (context, i) =>
-                                          CffCompletionTile(sugg: c.favorites[i].toCompletion()),
-                                      itemCount: c.favorites == null ? 0 : c.favorites.length,
+                                          CffCompletionTile(
+                                              sugg: c.favorites[i]
+                                                  .toCompletion()),
+                                      itemCount: c.favorites == null
+                                          ? 0
+                                          : c.favorites.length,
                                     ),
                               loading: (_) => const Center(
                                 child: CircularProgressIndicator(),
@@ -200,17 +227,20 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     context.read(_locatingProvider).state = true;
 
     try {
-      final p = await context.read(locationProvider).getLocation(context: context);
+      final p =
+          await context.read(locationProvider).getLocation(context: context);
       if (p == null) return;
 
-      final completions =
-          await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
+      final completions = await context
+          .read(navigationAPIProvider)
+          .findStation(p.latitude, p.longitude);
 
       final first = completions.first;
       if (first.dist != null) {
-        final public = completions.where(
-            (c) => !CffIcon.isPrivate(c.iconclass.substring(c.iconclass.lastIndexOf("_") + 1)));
-        context.read(_stateProvider).state = StationStates.completions(completions);
+        final public = completions.where((c) => !CffIcon.isPrivate(
+            c.iconclass.substring(c.iconclass.lastIndexOf("_") + 1)));
+        context.read(_stateProvider).state =
+            StationStates.completions(completions);
         if (public.isNotEmpty) {
           log("Found : ${public.first}");
           searchController.text = public.first.label;
@@ -226,14 +256,16 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   Future<void> fetch(String query) async {
     try {
       final compls = await context.read(navigationAPIProvider).complete(query);
-      final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+      final store =
+          context.read(storeProvider) as FavoritesSharedPreferencesStore;
 
       final List<CffCompletion> completionsWithFavs =
           await completeWithFavorites(store, compls, query);
 
       log("Completions : ${completionsWithFavs.length}");
 
-      context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
+      context.read(_stateProvider).state =
+          StationStates.completions(completionsWithFavs);
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
