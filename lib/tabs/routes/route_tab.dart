@@ -381,7 +381,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 textInputAction: TextInputAction.next,
                 style: Theme.of(context).textTheme.bodyText1,
                 decoration: InputDecoration(
-                  border: const UnderlineInputBorder(),
+                  border: const UnderlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
                   labelText: "From",
                   isDense: true,
                   filled: true,
@@ -434,7 +436,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 controller: _toController,
                 style: Theme.of(context).textTheme.bodyText1,
                 decoration: InputDecoration(
-                  border: const UnderlineInputBorder(),
+                  border: const UnderlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
                   labelText: "To",
                   isDense: true,
                   filled: true,
