@@ -84,14 +84,16 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                               .style
                               .copyWith(fontStyle: FontStyle.normal),
                           decoration: InputDecoration(
-                            icon: Icon(
+                            isDense: true,
+                            prefixIcon: Icon(
                               Icons.search,
                               color: _hasFocus ? Colors.grey : Colors.black,
                             ),
                             hintText: "Search here...",
-                            border: const UnderlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.all(Radius.circular(8))),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                            ),
                             //labelText: "Look for a station",
                             filled: true,
                             fillColor: Theme.of(context).cardColor,
@@ -100,13 +102,17 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                         ),
                         Positioned(
                           right: 0,
-                          child: IconButton(
-                              icon: const Icon(Icons.clear),
-                              onPressed: () {
-                                searchController.text = "";
-                                focusNode.unfocus();
-                                context.read(_stateProvider).state = const StationStates.empty();
-                              }),
+                          top: 0,
+                          bottom: 0,
+                          child: Center(
+                            child: IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () {
+                                  searchController.text = "";
+                                  focusNode.unfocus();
+                                  context.read(_stateProvider).state = const StationStates.empty();
+                                }),
+                          ),
                         ),
                       ],
                     ),
