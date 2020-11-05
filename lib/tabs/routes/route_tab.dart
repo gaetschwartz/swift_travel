@@ -232,13 +232,14 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     height: 48,
                     child: Tooltip(
                       message: "Change date and time",
-                      child: FlatButton(
-                        shape: const StadiumBorder(),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                            shape: const StadiumBorder(),
+                            primary: Theme.of(context).textTheme.button.color),
                         onPressed: () async {
                           Vibration.select();
                           TimeType type = context.read(_timeTypeProvider).state;
                           final _date = context.read(_dateProvider);
-
                           final date = await pickDate(context,
                               initialDateTime:
                                   _date.state.subtract(Duration(minutes: _date.state.minute % 5)),

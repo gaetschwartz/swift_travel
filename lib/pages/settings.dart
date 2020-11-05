@@ -518,7 +518,8 @@ class TeamPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("The team"),
         actions: [
-          FlatButton(
+          TextButton(
+            style: TextButton.styleFrom(enableFeedback: true),
             onPressed: () =>
                 showLicensePage(context: context, applicationIcon: const FlutterLogo()),
             child: Text(
