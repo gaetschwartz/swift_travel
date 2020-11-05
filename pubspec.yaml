@@ -35,7 +35,7 @@ dependencies:
   shared_preferences: ^0.5.6+3
   url_launcher: ^5.5.3
   vibration:
-    git: "https://github.com/vincenttarrit/vibration.git"
+    path: ../vibration
 
 dev_dependencies:
   flutter_driver:

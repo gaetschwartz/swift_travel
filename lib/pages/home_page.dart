@@ -94,8 +94,10 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               key: const Key("settings"),
               tooltip: "Settings",
               icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
-              onPressed: () =>
-                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()))),
+              onPressed: () {
+                Vibration.select();
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
+              }),
         ],
       ),
       body: PageView(

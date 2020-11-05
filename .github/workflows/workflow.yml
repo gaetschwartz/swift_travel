@@ -31,7 +31,9 @@ jobs:
           echo "::set-output name=nbr::${count}"
           echo ${count}
       - name: Clone dependencies
-        run: git clone https://Blaxou:${{ secrets.ACCESS_TOKEN }}@github.com/Blaxou/utils.git
+        run: |
+          git clone https://gaetschwartz:${{ secrets.ACCESS_TOKEN }}@github.com/gaetschwartz/utils.git
+          git clone https://gaetschwartz:${{ secrets.ACCESS_TOKEN }}@github.com/vincenttarrit/vibration.git
         working-directory: ../
       - name: Setup Java
         if: env.build_android == 'true'
