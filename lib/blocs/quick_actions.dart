@@ -53,8 +53,9 @@ class MyQuickActions {
       final idS = split.last;
       final id = int.parse(idS);
       final fav = stringList[id];
-      navigatorKey.currentState
-          .push(MaterialPageRoute(builder: (_) => SearchRoute(destination: fav)));
+      final f = jsonDecode(fav) as Map<String, dynamic>;
+      final f2 = FavoriteStop.fromJson(f);
+      navigatorKey.currentState.push(MaterialPageRoute(builder: (_) => SearchRoute(favStop: f2)));
     }
   }
 

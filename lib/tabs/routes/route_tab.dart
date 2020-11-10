@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/blocs/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
@@ -92,9 +93,9 @@ class Fetcher extends ChangeNotifier {
 
 class SearchRoute extends StatefulWidget {
   final LocalRoute localRoute;
-  final String destination;
+  final FavoriteStop favStop;
 
-  const SearchRoute({Key key, this.localRoute, this.destination}) : super(key: key);
+  const SearchRoute({Key key, this.localRoute, this.favStop}) : super(key: key);
 
   @override
   SearchRouteState createState() => SearchRouteState();
@@ -114,7 +115,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     if (widget.localRoute != null) {
       useLocalRoute();
-    } else if (widget.destination != null) {
+    } else if (widget.favStop != null) {
       goToDest();
     }
 
@@ -144,7 +145,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
   }
 
   void goToDest() {
-    _toController.text = widget.destination;
+    _toController.text = widget.favStop.stop;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       unFocusFields();
       context.read(_dateProvider).state = DateTime.now();
@@ -167,11 +168,10 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: widget.localRoute != null || widget.destination != null
+      appBar: widget.localRoute != null || widget.favStop != null
           ? AppBar(
-              leading: widget.localRoute != null || widget.destination != null
-                  ? const CloseButton()
-                  : null,
+              leading:
+                  widget.localRoute != null || widget.favStop != null ? const CloseButton() : null,
               title: Text(widget.localRoute?.displayName ?? "Route"),
               automaticallyImplyLeading: false,
             )
