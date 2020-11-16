@@ -16,6 +16,7 @@ import 'package:swift_travel/models/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widget/cff_icon.dart';
+import 'package:utils/widgets/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 import 'completion_tile.dart';
@@ -67,6 +68,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -123,6 +125,19 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                     ),
                   ),
                 ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: Consumer(builder: (context, w, _) {
+                    final loading = w(_locatingProvider).state;
+                    return loading
+                        ? const CircularProgressIndicator()
+                        : (isDarwin
+                            ? const Icon(CupertinoIcons.location_fill)
+                            : const FaIcon(FontAwesomeIcons.locationArrow));
+                  }),
+                  tooltip: "Use current location",
+                  onPressed: () => getLocation(),
+                )
               ],
             ),
           ),
