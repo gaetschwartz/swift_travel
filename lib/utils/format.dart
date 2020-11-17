@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 int colorFromString(String s) {
   if (s == null) return null;
   if (s.length == 3) {
-    return int.parse("ff${s[0]}0${s[1]}0${s[2]}0", radix: 16);
+    return int.tryParse("${s[0]}0${s[1]}0${s[2]}0", radix: 16) + 0xff000000;
   } else if (s.length == 6) {
-    return int.parse("ff$s", radix: 16);
-  } else if (s.isEmpty) {
-    return null;
+    return int.tryParse(s, radix: 16) + 0xff000000;
   } else {
     log("", error: "Unknown color code : `$s`");
     return null;

@@ -11,7 +11,8 @@ import 'models/cff_route.dart';
 import 'models/cff_stationboard.dart';
 
 class CffRepository implements NavigationApi {
-  static const CffQueryBuilder builder = CffQueryBuilder("https://timetable.search.ch/api");
+  final QueryBuilder queryBuilder =
+      QueryBuilder("https://timetable.search.ch/api", (s) => "$s.json");
   final http.Client _client = http.Client();
 
   static const Map<String, String> headers = {"accept-language": "en"};
@@ -24,7 +25,7 @@ class CffRepository implements NavigationApi {
     bool noFavorites = true,
     bool filterNull = true,
   }) async {
-    final uri = builder.build("completion", {
+    final uri = queryBuilder("completion", {
       "show_ids": showIds.toInt(),
       "show_coordinates": showCoordinates.toInt(),
       "nofavorites": noFavorites.toInt(),
@@ -58,7 +59,7 @@ class CffRepository implements NavigationApi {
     bool showCoordinates = true,
     bool showIds = false,
   }) async {
-    final uri = builder.build("completion", {
+    final uri = queryBuilder("completion", {
       "latlon": "$lat,$lon",
       "accuracy": accuracy,
       "show_ids": showIds.toInt(),
@@ -100,7 +101,7 @@ class CffRepository implements NavigationApi {
       params["transportation_types"] = transportationTypes.join(",");
     }
     if (when != null) throw UnimplementedError("Todo");
-    final s = builder.build("stationboard", params);
+    final s = queryBuilder("stationboard", params);
     log(s);
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
@@ -131,7 +132,7 @@ class CffRepository implements NavigationApi {
       "show_delays": showDelays.toInt(),
     };
 
-    final s = builder.build("route", params);
+    final s = queryBuilder("route", params);
     log("builder : $s");
     return rawRoute(s);
   }
@@ -152,18 +153,19 @@ class CffRepository implements NavigationApi {
   }
 }
 
-class CffQueryBuilder {
+class QueryBuilder {
   final String baseUrl;
+  final String Function(String action) actionBuilder;
 
-  const CffQueryBuilder(this.baseUrl);
+  const QueryBuilder(this.baseUrl, this.actionBuilder);
 
-  String build(String action, Map<String, dynamic> parameters) {
-    String url = "$baseUrl/$action.json";
+  String call(String action, Map<String, dynamic> parameters) {
+    final StringBuffer url = StringBuffer("$baseUrl/${actionBuilder(action)}");
     if (parameters.isNotEmpty) {
-      final String params = parameters.keys.map<String>((k) => "$k=${parameters[k]}").join("&");
-      url += "?$params";
+      final String params = parameters.keys.map((k) => "$k=${parameters[k]}").join("&");
+      url.write("?$params");
     }
-    return Uri.encodeFull(url);
+    return Uri.encodeFull(url.toString());
   }
 }
 
