@@ -55,13 +55,13 @@ void main() {
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
 
       final geneva = FavoriteStop("Genève");
-      await store.addFavorite(geneva);
+      await store.addStop(geneva);
       final route = LocalRoute("Genève", "Lausanne");
       await store.addRoute(route);
 
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
 
-      expect(store.favorites, [geneva]);
+      expect(store.stops, [geneva]);
       expect(store.routes, [route]);
     });
 
@@ -71,7 +71,7 @@ void main() {
       final store = container.read(storeProvider);
 
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
-      expect(store.favorites, []);
+      expect(store.stops, []);
       expect(store.routes, []);
     });
 
@@ -81,16 +81,16 @@ void main() {
       final favsListener = FavsListener();
       final store = container.read(storeProvider);
 
-      store.addListener(() => favsListener(store.favorites));
+      store.addListener(() => favsListener(store.stops));
 
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
 
       final geneva = FavoriteStop("Genève");
-      await store.addFavorite(geneva);
-      expect(store.favorites, [geneva]);
+      await store.addStop(geneva);
+      expect(store.stops, [geneva]);
       verify(favsListener([geneva]));
-      await store.deleteFavorite(geneva);
-      expect(store.favorites, []);
+      await store.removeStop(geneva);
+      expect(store.stops, []);
       verify(favsListener([]));
 
       verifyNoMoreInteractions(favsListener);
@@ -110,7 +110,7 @@ void main() {
       await store.addRoute(route);
       expect(store.routes, [route]);
       verify(routesListener([route]));
-      await store.deleteRoute(route);
+      await store.removeRoute(route);
       expect(store.routes, []);
       verify(routesListener([]));
 
@@ -160,22 +160,40 @@ void main() {
       expect(builder("compute", {}), "https://example.com/compute.json");
       expect(builder("delete", {"test1": true, "test2": false}),
           "https://example.com/delete.json?test1=true&test2=false");
+      expect(
+          builder("encode", {"f1": "¦@#°§", "f2": "¬|¢´", "f3": "&?"}),
+          "https://example.com/encode.json?"
+          "f1=%C2%A6%40%23%C2%B0%C2%A7"
+          "&f2=%C2%AC%7C%C2%A2%C2%B4"
+          "&f3=%26%3F");
     });
 
     const count = 50;
-    test("colorFromString", () {
-      for (var i = 0; i < count; i++) {
-        final nextInt = r.nextInt(1 << 12);
-        final s = nextInt.toRadixString(16).padLeft(3, "0");
-        expect(s.length, 3);
-        expect(colorFromString(s).toRadixString(16), "ff${s[0]}0${s[1]}0${s[2]}0");
-      }
-      for (var i = 0; i < count; i++) {
-        final nextInt = r.nextInt(1 << 24);
-        final s = nextInt.toRadixString(16).padLeft(6, "0");
-        expect(s.length, 6);
-        expect(colorFromString(s).toRadixString(16), "ff$s");
-      }
+
+    group("colorFromString", () {
+      test("works correctly ", () {
+        for (var i = 0; i < count; i++) {
+          final nextInt = r.nextInt(1 << 12);
+          final s = nextInt.toRadixString(16).padLeft(3, "0");
+          expect(s.length, 3);
+          expect(colorFromString(s).toRadixString(16), "ff${s[0]}0${s[1]}0${s[2]}0");
+        }
+        for (var i = 0; i < count; i++) {
+          final nextInt = r.nextInt(1 << 24);
+          final s = nextInt.toRadixString(16).padLeft(6, "0");
+          expect(s.length, 6);
+          expect(colorFromString(s).toRadixString(16), "ff$s");
+        }
+      });
+      test("throw exception if doesn't work", () {
+        expect(() => colorFromString("hell"), throwsArgumentError);
+        expect(() => colorFromString("1234"), throwsArgumentError);
+        expect(() => colorFromString(""), throwsArgumentError);
+        expect(() => colorFromString(null), throwsArgumentError);
+
+        expect(() => colorFromString("zzz"), throwsFormatException);
+        expect(() => colorFromString("------"), throwsFormatException);
+      });
     });
   });
 }

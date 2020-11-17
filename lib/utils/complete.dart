@@ -16,7 +16,7 @@ Future<List<CffCompletion>> completeWithFavorites(
 ) async {
   final Map<FavoriteStop, double> levens = {};
 
-  for (final c in store.favorites) {
+  for (final c in store.stops) {
     if (c.stop == null) continue;
     final double leven = _leven(query, c);
     // Skip if above threshold

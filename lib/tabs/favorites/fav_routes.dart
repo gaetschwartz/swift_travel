@@ -9,8 +9,8 @@ import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 import 'package:vibration/vibration.dart';
 
-class FavoriteRoutTile extends StatelessWidget {
-  const FavoriteRoutTile({
+class FavoriteRouteTile extends StatelessWidget {
+  const FavoriteRouteTile({
     Key key,
     @required this.route,
   }) : super(key: key);
@@ -82,6 +82,6 @@ class FavoriteRoutTile extends StatelessWidget {
       isConfirmDestructive: true,
     );
     if (!b) return;
-    return context.read(storeProvider).deleteRoute(route);
+    return context.read(storeProvider).removeRoute(route);
   }
 }

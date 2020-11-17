@@ -67,7 +67,7 @@ class _SearchFavoriteState extends State<SearchFavorite>
             final CffCompletion completion = completions.first;
             final name = await input(context, title: const Text("What is the name of this stop"));
             if (name == null) return;
-            await _store.addFavorite(completion.toFavoriteStop(name: name));
+            await _store.addStop(completion.toFavoriteStop(name: name));
           });
         },
         child: const FaIcon(FontAwesomeIcons.plus),
@@ -122,7 +122,7 @@ class _SearchFavoriteState extends State<SearchFavorite>
                       data: (c) => ListView.builder(
                         shrinkWrap: true,
                         itemCount: c.routes.length,
-                        itemBuilder: (context, i) => FavoriteRoutTile(route: c.routes[i]),
+                        itemBuilder: (context, i) => FavoriteRouteTile(route: c.routes[i]),
                       ),
                       loading: (_) => const CustomScrollView(
                         slivers: [

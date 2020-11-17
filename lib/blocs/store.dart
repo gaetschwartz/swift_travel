@@ -15,10 +15,10 @@ import 'package:swift_travel/utils/errors.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
   Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true});
-  Future<void> addFavorite(FavoriteStop stop);
-  Future<void> deleteFavorite(FavoriteStop favoriteStop);
+  Future<void> addStop(FavoriteStop stop);
+  Future<void> removeStop(FavoriteStop favoriteStop);
   Future<void> addRoute(LocalRoute route);
-  Future<void> deleteRoute(LocalRoute route);
+  Future<void> removeRoute(LocalRoute route);
 }
 
 final storeProvider =
@@ -37,16 +37,15 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   SharedPreferences _prefs;
 
-  final Set<FavoriteStop> _favs = {};
+  final Set<FavoriteStop> _stops = {};
   final Set<LocalRoute> _routes = {};
 
   Set<LocalRoute> get routes => _routes;
+  Iterable<FavoriteStop> get stops => _stops;
 
   Future<void> _checkState() async {
     _prefs ??= await SharedPreferences.getInstance();
   }
-
-  Iterable<FavoriteStop> get favorites => _favs.where((e) => e != null);
 
   @override
   Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true}) async {
@@ -65,10 +64,10 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       log("Found $fs", name: "Store");
       favStops.add(fs);
     }
-    _favs.clear();
-    _favs.addAll(favStops);
+    _stops.clear();
+    _stops.addAll(favStops);
 
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(favorites.toList());
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
 
     //? Routes
     final List<String> routes = _prefs.getStringList(routesKey) ?? [];
@@ -86,7 +85,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
 
     if (notify) {
-      await sync();
+      await _sync();
     }
   }
 
@@ -95,26 +94,37 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     _routes.add(route);
 
     ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
-    await sync();
+    await _sync();
   }
 
   @override
-  Future<void> deleteRoute(LocalRoute route) async {
+  Future<void> removeRoute(LocalRoute route) async {
     _routes.remove(route);
     ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
-    await sync();
+    await _sync();
   }
 
   @override
-  Future<void> addFavorite(FavoriteStop stop) async {
-    _favs.add(stop);
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(favorites.toList());
-    await sync();
+  Future<void> addStop(FavoriteStop stop) async {
+    _stops.add(stop);
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
+    await _sync();
   }
 
-  Future<void> sync() async {
+  @override
+  Future<void> removeStop(FavoriteStop favoriteStop) async {
+    await _checkState();
+
+    if (!_stops.remove(favoriteStop)) {
+      log("$favoriteStop was not in favorites ?", name: "Store");
+    }
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
+    await _sync();
+  }
+
+  Future<void> _sync() async {
     notifyListeners();
-    await _prefs.setStringList(stopsKey, _favs.map((e) => jsonEncode(e.toJson())).toList());
+    await _prefs.setStringList(stopsKey, _stops.map((e) => jsonEncode(e.toJson())).toList());
 
     final routes = <String>[];
 
@@ -127,17 +137,6 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     }
 
     await _prefs.setStringList(routesKey, routes);
-    if (isMobile) await ref.read(quickActions).setActions(_routes.toList(), favorites.toList());
-  }
-
-  @override
-  Future<void> deleteFavorite(FavoriteStop favoriteStop) async {
-    await _checkState();
-
-    if (!_favs.remove(favoriteStop)) {
-      log("$favoriteStop was not in favorites ?", name: "Store");
-    }
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(favorites.toList());
-    await sync();
+    if (isMobile) await ref.read(quickActions).setActions(_routes.toList(), stops.toList());
   }
 }

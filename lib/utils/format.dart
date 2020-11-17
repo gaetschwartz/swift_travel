@@ -1,16 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 int colorFromString(String s) {
-  if (s == null) return null;
+  if (s == null) throw ArgumentError("No color code provided");
   if (s.length == 3) {
-    return int.tryParse("${s[0]}0${s[1]}0${s[2]}0", radix: 16) + 0xff000000;
+    return int.parse("${s[0]}0${s[1]}0${s[2]}0", radix: 16) + 0xff000000;
   } else if (s.length == 6) {
-    return int.tryParse(s, radix: 16) + 0xff000000;
+    return int.parse(s, radix: 16) + 0xff000000;
   } else {
-    log("", error: "Unknown color code : `$s`");
-    return null;
+    throw ArgumentError("Color code is not valid : $s");
   }
 }
 

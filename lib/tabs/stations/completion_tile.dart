@@ -30,7 +30,7 @@ class CffCompletionTile extends ConsumerWidget {
     final isPrivate = CffIcon.isPrivate(iconClass);
     final store = watch(storeProvider) as FavoritesSharedPreferencesStore;
     @Deprecated("")
-    final favStop = store.favorites.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
+    final favStop = store.stops.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
     final isFav = sugg.favoriteName != null;
     final isFavInStore = favStop != null;
     final isDarwin = ResponsiveWidget.isDarwin(context);
@@ -146,11 +146,11 @@ class CffCompletionTile extends ConsumerWidget {
     @required FavoritesSharedPreferencesStore store,
   }) async {
     if (isFav) {
-      store.deleteFavorite(favoriteStop);
+      store.removeStop(favoriteStop);
     } else {
       final name = await input(context, title: const Text("What is the name of this stop"));
       if (name == null) return;
-      store.addFavorite(sugg.toFavoriteStop(name: name));
+      store.addStop(sugg.toFavoriteStop(name: name));
     }
   }
 }

@@ -162,10 +162,12 @@ class QueryBuilder {
   String call(String action, Map<String, dynamic> parameters) {
     final StringBuffer url = StringBuffer("$baseUrl/${actionBuilder(action)}");
     if (parameters.isNotEmpty) {
-      final String params = parameters.keys.map((k) => "$k=${parameters[k]}").join("&");
+      final String params = parameters.keys
+          .map((k) => "$k=${Uri.encodeQueryComponent(parameters[k].toString())}")
+          .join("&");
       url.write("?$params");
     }
-    return Uri.encodeFull(url.toString());
+    return url.toString();
   }
 }
 
