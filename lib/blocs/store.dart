@@ -18,7 +18,7 @@ abstract class FavoritesStoreBase extends ChangeNotifier {
   Future<void> addFavorite(FavoriteStop stop);
   Future<void> deleteFavorite(FavoriteStop favoriteStop);
   Future<void> addRoute(LocalRoute route);
-  Future<void> removeRoute(LocalRoute route);
+  Future<void> deleteRoute(LocalRoute route);
 }
 
 final storeProvider =
@@ -88,7 +88,6 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     if (notify) {
       await sync();
     }
-    return favorites;
   }
 
   @override
@@ -100,7 +99,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   }
 
   @override
-  Future<void> removeRoute(LocalRoute route) async {
+  Future<void> deleteRoute(LocalRoute route) async {
     _routes.remove(route);
     ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
     await sync();

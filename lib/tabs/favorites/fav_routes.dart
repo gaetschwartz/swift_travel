@@ -82,6 +82,6 @@ class FavoriteRoutTile extends StatelessWidget {
       isConfirmDestructive: true,
     );
     if (!b) return;
-    return context.read(storeProvider).removeRoute(route);
+    return context.read(storeProvider).deleteRoute(route);
   }
 }
