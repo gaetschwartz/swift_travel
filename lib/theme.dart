@@ -7,8 +7,6 @@ final MaterialColor blueAbin = createMaterialColor(const Color(0xffabdee6));
 final MaterialColor redAccent = createMaterialColor(Colors.redAccent);
 final MaterialColor white = createMaterialColor(Colors.white);
 
-const _pageTransitions = PageTransitionsTheme(builders: {});
-
 const lightShadow = ShadowTheme(
   buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
 );
@@ -25,14 +23,12 @@ ThemeConfiguration get themeConfiguration {
       light: ThemeData(
         primarySwatch: redAccent,
         fontFamily: muli,
-        pageTransitionsTheme: _pageTransitions,
       ),
       dark: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: redAccent,
         primaryColor: Colors.redAccent,
         fontFamily: muli,
-        pageTransitionsTheme: _pageTransitions,
       ),
       lightShadow: lightShadow,
       darkShadow: darkShadow,
@@ -42,14 +38,12 @@ ThemeConfiguration get themeConfiguration {
       light: ThemeData(
         primarySwatch: redAccent,
         fontFamily: GoogleFonts.lexendDeca().fontFamily,
-        pageTransitionsTheme: _pageTransitions,
       ),
       dark: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: redAccent,
         primaryColor: Colors.redAccent,
         fontFamily: GoogleFonts.lexendDeca().fontFamily,
-        pageTransitionsTheme: _pageTransitions,
       ),
       lightShadow: lightShadow,
       darkShadow: darkShadow,
@@ -60,7 +54,6 @@ ThemeConfiguration get themeConfiguration {
         primarySwatch: purpleAbin,
         accentColor: blueAbin,
         fontFamily: GoogleFonts.cardo().fontFamily,
-        pageTransitionsTheme: _pageTransitions,
       ),
       dark: ThemeData(
         brightness: Brightness.dark,
@@ -68,7 +61,6 @@ ThemeConfiguration get themeConfiguration {
         primarySwatch: purpleAbin,
         accentColor: blueAbin,
         fontFamily: GoogleFonts.cardo().fontFamily,
-        pageTransitionsTheme: _pageTransitions,
       ),
       lightShadow: lightShadow,
       darkShadow: darkShadow,
@@ -79,14 +71,12 @@ ThemeConfiguration get themeConfiguration {
         primarySwatch: Colors.indigo,
         accentColor: Colors.indigoAccent,
         fontFamily: GoogleFonts.ibmPlexMono().fontFamily,
-        pageTransitionsTheme: _pageTransitions,
       ),
       dark: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.indigo,
         accentColor: Colors.indigoAccent,
         fontFamily: GoogleFonts.ibmPlexMono().fontFamily,
-        pageTransitionsTheme: _pageTransitions,
       ),
       lightShadow: lightShadow,
       darkShadow: darkShadow,
@@ -97,14 +87,12 @@ ThemeConfiguration get themeConfiguration {
         primarySwatch: Colors.purple,
         accentColor: Colors.purpleAccent,
         fontFamily: GoogleFonts.quicksand().fontFamily,
-        pageTransitionsTheme: _pageTransitions,
       ),
       dark: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.purple,
         accentColor: Colors.purpleAccent,
         fontFamily: GoogleFonts.quicksand().fontFamily,
-        pageTransitionsTheme: _pageTransitions,
       ),
       lightShadow: lightShadow,
       darkShadow: darkShadow,

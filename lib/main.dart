@@ -30,7 +30,9 @@ const Map<String, WelcomePage> pagesMap = {
 
 Future<void> main() async {
   if (const bool.fromEnvironment("OVERRIDE_PLATFORM")) {
-    debugDefaultTargetPlatformOverride = debugPlatformMap[defaultTargetPlatform];
+    final TargetPlatform platform = debugPlatformMap[defaultTargetPlatform];
+    log("Overriding $defaultTargetPlatform by $platform");
+    debugDefaultTargetPlatformOverride = platform;
   }
   WidgetsFlutterBinding.ensureInitialized();
 
