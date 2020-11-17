@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/blocs/preferences.dart';
-import 'package:swift_travel/utils/build.dart';
+import 'package:swift_travel/constants/build.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';

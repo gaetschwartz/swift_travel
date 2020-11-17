@@ -9,12 +9,12 @@ import 'package:share/share.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:swift_travel/constants/constants.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/tabs/routes/details/arrived_tile.dart';
 import 'package:swift_travel/tabs/routes/details/regular_leg_tile.dart';
 import 'package:swift_travel/tabs/routes/details/walking_tile.dart';
-import 'package:swift_travel/utils/constants.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:vibration/vibration.dart';
 
