@@ -21,7 +21,6 @@ import 'package:swift_travel/utils/format.dart';
 import 'package:utils/utils/levenshtein.dart';
 
 final storeProvider = ChangeNotifierProvider((r) => FavoritesSharedPreferencesStore(r));
-
 final preferencesProvider = ChangeNotifierProvider((r) => PreferencesBloc());
 
 class FavsListener extends Mock {
@@ -47,21 +46,21 @@ void main() {
       preferences.clear();
     });
 
-    test("add favs and remove", () async {
+    test("favs and routes are persisted correctly", () async {
       final container = ProviderContainer();
 
       final store = container.read(storeProvider);
 
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
 
-      final geneva = FavoriteStop("Genève");
-      await store.addStop(geneva);
-      final route = LocalRoute("Genève", "Lausanne");
+      final bern = FavoriteStop("Bern");
+      await store.addStop(bern);
+      final route = LocalRoute("Bern", "Zürich");
       await store.addRoute(route);
 
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
 
-      expect(store.stops, [geneva]);
+      expect(store.stops, [bern]);
       expect(store.routes, [route]);
     });
 
@@ -84,15 +83,19 @@ void main() {
       store.addListener(() => favsListener(store.stops));
 
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      verify(favsListener([])).called(1);
 
-      final geneva = FavoriteStop("Genève");
-      await store.addStop(geneva);
-      expect(store.stops, [geneva]);
-      verify(favsListener([geneva]));
-      await store.removeStop(geneva);
+      final bern = FavoriteStop("Bern");
+      final nowhere = FavoriteStop("Nowhere");
+
+      await store.addStop(bern);
+      expect(store.stops, [bern]);
+      verify(favsListener([bern])).called(1);
+      await store.removeStop(bern);
       expect(store.stops, []);
-      verify(favsListener([]));
+      verify(favsListener([])).called(1);
 
+      verifyNever(favsListener([nowhere]));
       verifyNoMoreInteractions(favsListener);
     });
 
@@ -105,15 +108,19 @@ void main() {
       store.addListener(() => routesListener(store.routes));
 
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      verify(routesListener([])).called(1);
 
-      final route = LocalRoute("Genève", "Lausanne");
+      final route = LocalRoute("Bern", "Zürich");
+      final routeNever = LocalRoute("Nowhere", "Everywhere");
+
       await store.addRoute(route);
       expect(store.routes, [route]);
-      verify(routesListener([route]));
+      verify(routesListener([route])).called(1);
       await store.removeRoute(route);
       expect(store.routes, []);
-      verify(routesListener([]));
+      verify(routesListener([])).called(1);
 
+      verifyNever(routesListener([routeNever]));
       verifyNoMoreInteractions(routesListener);
     });
   });
