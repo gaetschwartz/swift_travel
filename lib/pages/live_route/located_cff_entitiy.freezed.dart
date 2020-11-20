@@ -35,26 +35,26 @@ const $LocatedCffEntitiy = _$LocatedCffEntitiyTearOff();
 /// @nodoc
 mixin _$LocatedCffEntitiy {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result leg(Leg leg),
-    @required Result stop(Stop stop),
+  TResult when<TResult extends Object>({
+    @required TResult leg(Leg leg),
+    @required TResult stop(Stop stop),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result leg(Leg leg),
-    Result stop(Stop stop),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult leg(Leg leg),
+    TResult stop(Stop stop),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result leg(LegEntity value),
-    @required Result stop(StopEntity value),
+  TResult map<TResult extends Object>({
+    @required TResult leg(LegEntity value),
+    @required TResult stop(StopEntity value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result leg(LegEntity value),
-    Result stop(StopEntity value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult leg(LegEntity value),
+    TResult stop(StopEntity value),
+    @required TResult orElse(),
   });
 }
 
@@ -144,9 +144,9 @@ class _$LegEntity implements LegEntity {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result leg(Leg leg),
-    @required Result stop(Stop stop),
+  TResult when<TResult extends Object>({
+    @required TResult leg(Leg leg),
+    @required TResult stop(Stop stop),
   }) {
     assert(leg != null);
     assert(stop != null);
@@ -155,10 +155,10 @@ class _$LegEntity implements LegEntity {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result leg(Leg leg),
-    Result stop(Stop stop),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult leg(Leg leg),
+    TResult stop(Stop stop),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (leg != null) {
@@ -169,9 +169,9 @@ class _$LegEntity implements LegEntity {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result leg(LegEntity value),
-    @required Result stop(StopEntity value),
+  TResult map<TResult extends Object>({
+    @required TResult leg(LegEntity value),
+    @required TResult stop(StopEntity value),
   }) {
     assert(leg != null);
     assert(stop != null);
@@ -180,10 +180,10 @@ class _$LegEntity implements LegEntity {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result leg(LegEntity value),
-    Result stop(StopEntity value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult leg(LegEntity value),
+    TResult stop(StopEntity value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (leg != null) {
@@ -270,9 +270,9 @@ class _$StopEntity implements StopEntity {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result leg(Leg leg),
-    @required Result stop(Stop stop),
+  TResult when<TResult extends Object>({
+    @required TResult leg(Leg leg),
+    @required TResult stop(Stop stop),
   }) {
     assert(leg != null);
     assert(stop != null);
@@ -281,10 +281,10 @@ class _$StopEntity implements StopEntity {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result leg(Leg leg),
-    Result stop(Stop stop),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult leg(Leg leg),
+    TResult stop(Stop stop),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (stop != null) {
@@ -295,9 +295,9 @@ class _$StopEntity implements StopEntity {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result leg(LegEntity value),
-    @required Result stop(StopEntity value),
+  TResult map<TResult extends Object>({
+    @required TResult leg(LegEntity value),
+    @required TResult stop(StopEntity value),
   }) {
     assert(leg != null);
     assert(stop != null);
@@ -306,10 +306,10 @@ class _$StopEntity implements StopEntity {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result leg(LegEntity value),
-    Result stop(StopEntity value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult leg(LegEntity value),
+    TResult stop(StopEntity value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (stop != null) {

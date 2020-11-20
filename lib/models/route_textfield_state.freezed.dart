@@ -43,30 +43,30 @@ const $RouteTextfieldState = _$RouteTextfieldStateTearOff();
 /// @nodoc
 mixin _$RouteTextfieldState {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result empty(),
-    @required Result text(String text),
-    @required Result currentLocation(String location, double lat, double lon),
+  TResult when<TResult extends Object>({
+    @required TResult empty(),
+    @required TResult text(String text),
+    @required TResult currentLocation(String location, double lat, double lon),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result empty(),
-    Result text(String text),
-    Result currentLocation(String location, double lat, double lon),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult empty(),
+    TResult text(String text),
+    TResult currentLocation(String location, double lat, double lon),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result empty(RouteTextfieldStateEmpty value),
-    @required Result text(RouteTextfieldStateText value),
-    @required Result currentLocation(RouteTextfieldStateLocation value),
+  TResult map<TResult extends Object>({
+    @required TResult empty(RouteTextfieldStateEmpty value),
+    @required TResult text(RouteTextfieldStateText value),
+    @required TResult currentLocation(RouteTextfieldStateLocation value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result empty(RouteTextfieldStateEmpty value),
-    Result text(RouteTextfieldStateText value),
-    Result currentLocation(RouteTextfieldStateLocation value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult empty(RouteTextfieldStateEmpty value),
+    TResult text(RouteTextfieldStateText value),
+    TResult currentLocation(RouteTextfieldStateLocation value),
+    @required TResult orElse(),
   });
 }
 
@@ -126,10 +126,10 @@ class _$RouteTextfieldStateEmpty implements RouteTextfieldStateEmpty {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result empty(),
-    @required Result text(String text),
-    @required Result currentLocation(String location, double lat, double lon),
+  TResult when<TResult extends Object>({
+    @required TResult empty(),
+    @required TResult text(String text),
+    @required TResult currentLocation(String location, double lat, double lon),
   }) {
     assert(empty != null);
     assert(text != null);
@@ -139,11 +139,11 @@ class _$RouteTextfieldStateEmpty implements RouteTextfieldStateEmpty {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result empty(),
-    Result text(String text),
-    Result currentLocation(String location, double lat, double lon),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult empty(),
+    TResult text(String text),
+    TResult currentLocation(String location, double lat, double lon),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
@@ -154,10 +154,10 @@ class _$RouteTextfieldStateEmpty implements RouteTextfieldStateEmpty {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result empty(RouteTextfieldStateEmpty value),
-    @required Result text(RouteTextfieldStateText value),
-    @required Result currentLocation(RouteTextfieldStateLocation value),
+  TResult map<TResult extends Object>({
+    @required TResult empty(RouteTextfieldStateEmpty value),
+    @required TResult text(RouteTextfieldStateText value),
+    @required TResult currentLocation(RouteTextfieldStateLocation value),
   }) {
     assert(empty != null);
     assert(text != null);
@@ -167,11 +167,11 @@ class _$RouteTextfieldStateEmpty implements RouteTextfieldStateEmpty {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result empty(RouteTextfieldStateEmpty value),
-    Result text(RouteTextfieldStateText value),
-    Result currentLocation(RouteTextfieldStateLocation value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult empty(RouteTextfieldStateEmpty value),
+    TResult text(RouteTextfieldStateText value),
+    TResult currentLocation(RouteTextfieldStateLocation value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
@@ -245,10 +245,10 @@ class _$RouteTextfieldStateText implements RouteTextfieldStateText {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result empty(),
-    @required Result text(String text),
-    @required Result currentLocation(String location, double lat, double lon),
+  TResult when<TResult extends Object>({
+    @required TResult empty(),
+    @required TResult text(String text),
+    @required TResult currentLocation(String location, double lat, double lon),
   }) {
     assert(empty != null);
     assert(text != null);
@@ -258,11 +258,11 @@ class _$RouteTextfieldStateText implements RouteTextfieldStateText {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result empty(),
-    Result text(String text),
-    Result currentLocation(String location, double lat, double lon),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult empty(),
+    TResult text(String text),
+    TResult currentLocation(String location, double lat, double lon),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (text != null) {
@@ -273,10 +273,10 @@ class _$RouteTextfieldStateText implements RouteTextfieldStateText {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result empty(RouteTextfieldStateEmpty value),
-    @required Result text(RouteTextfieldStateText value),
-    @required Result currentLocation(RouteTextfieldStateLocation value),
+  TResult map<TResult extends Object>({
+    @required TResult empty(RouteTextfieldStateEmpty value),
+    @required TResult text(RouteTextfieldStateText value),
+    @required TResult currentLocation(RouteTextfieldStateLocation value),
   }) {
     assert(empty != null);
     assert(text != null);
@@ -286,11 +286,11 @@ class _$RouteTextfieldStateText implements RouteTextfieldStateText {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result empty(RouteTextfieldStateEmpty value),
-    Result text(RouteTextfieldStateText value),
-    Result currentLocation(RouteTextfieldStateLocation value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult empty(RouteTextfieldStateEmpty value),
+    TResult text(RouteTextfieldStateText value),
+    TResult currentLocation(RouteTextfieldStateLocation value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (text != null) {
@@ -390,10 +390,10 @@ class _$RouteTextfieldStateLocation implements RouteTextfieldStateLocation {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result empty(),
-    @required Result text(String text),
-    @required Result currentLocation(String location, double lat, double lon),
+  TResult when<TResult extends Object>({
+    @required TResult empty(),
+    @required TResult text(String text),
+    @required TResult currentLocation(String location, double lat, double lon),
   }) {
     assert(empty != null);
     assert(text != null);
@@ -403,11 +403,11 @@ class _$RouteTextfieldStateLocation implements RouteTextfieldStateLocation {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result empty(),
-    Result text(String text),
-    Result currentLocation(String location, double lat, double lon),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult empty(),
+    TResult text(String text),
+    TResult currentLocation(String location, double lat, double lon),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (currentLocation != null) {
@@ -418,10 +418,10 @@ class _$RouteTextfieldStateLocation implements RouteTextfieldStateLocation {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result empty(RouteTextfieldStateEmpty value),
-    @required Result text(RouteTextfieldStateText value),
-    @required Result currentLocation(RouteTextfieldStateLocation value),
+  TResult map<TResult extends Object>({
+    @required TResult empty(RouteTextfieldStateEmpty value),
+    @required TResult text(RouteTextfieldStateText value),
+    @required TResult currentLocation(RouteTextfieldStateLocation value),
   }) {
     assert(empty != null);
     assert(text != null);
@@ -431,11 +431,11 @@ class _$RouteTextfieldStateLocation implements RouteTextfieldStateLocation {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result empty(RouteTextfieldStateEmpty value),
-    Result text(RouteTextfieldStateText value),
-    Result currentLocation(RouteTextfieldStateLocation value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult empty(RouteTextfieldStateEmpty value),
+    TResult text(RouteTextfieldStateText value),
+    TResult currentLocation(RouteTextfieldStateLocation value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (currentLocation != null) {

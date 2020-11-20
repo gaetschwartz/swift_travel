@@ -40,30 +40,30 @@ const $FavoritesStates = _$FavoritesStatesTearOff();
 /// @nodoc
 mixin _$FavoritesStates {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result data(List<FavoriteStop> favorites),
-    @required Result loading(),
-    @required Result exception(Exception exception),
+  TResult when<TResult extends Object>({
+    @required TResult data(List<FavoriteStop> favorites),
+    @required TResult loading(),
+    @required TResult exception(Exception exception),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result data(List<FavoriteStop> favorites),
-    Result loading(),
-    Result exception(Exception exception),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult data(List<FavoriteStop> favorites),
+    TResult loading(),
+    TResult exception(Exception exception),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result data(FavoritesStatesData value),
-    @required Result loading(FavoritesStatesLoading value),
-    @required Result exception(FavoritesStatesError value),
+  TResult map<TResult extends Object>({
+    @required TResult data(FavoritesStatesData value),
+    @required TResult loading(FavoritesStatesLoading value),
+    @required TResult exception(FavoritesStatesError value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result data(FavoritesStatesData value),
-    Result loading(FavoritesStatesLoading value),
-    Result exception(FavoritesStatesError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult data(FavoritesStatesData value),
+    TResult loading(FavoritesStatesLoading value),
+    TResult exception(FavoritesStatesError value),
+    @required TResult orElse(),
   });
 }
 
@@ -144,10 +144,10 @@ class _$FavoritesStatesData implements FavoritesStatesData {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result data(List<FavoriteStop> favorites),
-    @required Result loading(),
-    @required Result exception(Exception exception),
+  TResult when<TResult extends Object>({
+    @required TResult data(List<FavoriteStop> favorites),
+    @required TResult loading(),
+    @required TResult exception(Exception exception),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -157,11 +157,11 @@ class _$FavoritesStatesData implements FavoritesStatesData {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result data(List<FavoriteStop> favorites),
-    Result loading(),
-    Result exception(Exception exception),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult data(List<FavoriteStop> favorites),
+    TResult loading(),
+    TResult exception(Exception exception),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (data != null) {
@@ -172,10 +172,10 @@ class _$FavoritesStatesData implements FavoritesStatesData {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result data(FavoritesStatesData value),
-    @required Result loading(FavoritesStatesLoading value),
-    @required Result exception(FavoritesStatesError value),
+  TResult map<TResult extends Object>({
+    @required TResult data(FavoritesStatesData value),
+    @required TResult loading(FavoritesStatesLoading value),
+    @required TResult exception(FavoritesStatesError value),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -185,11 +185,11 @@ class _$FavoritesStatesData implements FavoritesStatesData {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result data(FavoritesStatesData value),
-    Result loading(FavoritesStatesLoading value),
-    Result exception(FavoritesStatesError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult data(FavoritesStatesData value),
+    TResult loading(FavoritesStatesLoading value),
+    TResult exception(FavoritesStatesError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (data != null) {
@@ -245,10 +245,10 @@ class _$FavoritesStatesLoading implements FavoritesStatesLoading {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result data(List<FavoriteStop> favorites),
-    @required Result loading(),
-    @required Result exception(Exception exception),
+  TResult when<TResult extends Object>({
+    @required TResult data(List<FavoriteStop> favorites),
+    @required TResult loading(),
+    @required TResult exception(Exception exception),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -258,11 +258,11 @@ class _$FavoritesStatesLoading implements FavoritesStatesLoading {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result data(List<FavoriteStop> favorites),
-    Result loading(),
-    Result exception(Exception exception),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult data(List<FavoriteStop> favorites),
+    TResult loading(),
+    TResult exception(Exception exception),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
@@ -273,10 +273,10 @@ class _$FavoritesStatesLoading implements FavoritesStatesLoading {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result data(FavoritesStatesData value),
-    @required Result loading(FavoritesStatesLoading value),
-    @required Result exception(FavoritesStatesError value),
+  TResult map<TResult extends Object>({
+    @required TResult data(FavoritesStatesData value),
+    @required TResult loading(FavoritesStatesLoading value),
+    @required TResult exception(FavoritesStatesError value),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -286,11 +286,11 @@ class _$FavoritesStatesLoading implements FavoritesStatesLoading {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result data(FavoritesStatesData value),
-    Result loading(FavoritesStatesLoading value),
-    Result exception(FavoritesStatesError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult data(FavoritesStatesData value),
+    TResult loading(FavoritesStatesLoading value),
+    TResult exception(FavoritesStatesError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
@@ -365,10 +365,10 @@ class _$FavoritesStatesError implements FavoritesStatesError {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result data(List<FavoriteStop> favorites),
-    @required Result loading(),
-    @required Result exception(Exception exception),
+  TResult when<TResult extends Object>({
+    @required TResult data(List<FavoriteStop> favorites),
+    @required TResult loading(),
+    @required TResult exception(Exception exception),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -378,11 +378,11 @@ class _$FavoritesStatesError implements FavoritesStatesError {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result data(List<FavoriteStop> favorites),
-    Result loading(),
-    Result exception(Exception exception),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult data(List<FavoriteStop> favorites),
+    TResult loading(),
+    TResult exception(Exception exception),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (exception != null) {
@@ -393,10 +393,10 @@ class _$FavoritesStatesError implements FavoritesStatesError {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result data(FavoritesStatesData value),
-    @required Result loading(FavoritesStatesLoading value),
-    @required Result exception(FavoritesStatesError value),
+  TResult map<TResult extends Object>({
+    @required TResult data(FavoritesStatesData value),
+    @required TResult loading(FavoritesStatesLoading value),
+    @required TResult exception(FavoritesStatesError value),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -406,11 +406,11 @@ class _$FavoritesStatesError implements FavoritesStatesError {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result data(FavoritesStatesData value),
-    Result loading(FavoritesStatesLoading value),
-    Result exception(FavoritesStatesError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult data(FavoritesStatesData value),
+    TResult loading(FavoritesStatesLoading value),
+    TResult exception(FavoritesStatesError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (exception != null) {

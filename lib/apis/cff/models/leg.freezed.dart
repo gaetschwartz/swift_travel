@@ -40,7 +40,7 @@ class _$LegTearOff {
       double lat,
       double lon,
       Map<String, String> attributes = const {},
-      @JsonKey(name: "dep_delay") String depDelay}) {
+      @JsonKey(name: 'dep_delay') String depDelay}) {
     return _Leg(
       type: type,
       track: track,
@@ -102,7 +102,7 @@ mixin _$Leg {
   double get lat;
   double get lon;
   Map<String, String> get attributes;
-  @JsonKey(name: "dep_delay")
+  @JsonKey(name: 'dep_delay')
   String get depDelay;
 
   Map<String, dynamic> toJson();
@@ -136,7 +136,7 @@ abstract class $LegCopyWith<$Res> {
       double lat,
       double lon,
       Map<String, String> attributes,
-      @JsonKey(name: "dep_delay") String depDelay});
+      @JsonKey(name: 'dep_delay') String depDelay});
 
   $ExitCopyWith<$Res> get exit;
 }
@@ -245,7 +245,7 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       double lat,
       double lon,
       Map<String, String> attributes,
-      @JsonKey(name: "dep_delay") String depDelay});
+      @JsonKey(name: 'dep_delay') String depDelay});
 
   @override
   $ExitCopyWith<$Res> get exit;
@@ -345,7 +345,7 @@ class _$_Leg implements _Leg {
       this.lat,
       this.lon,
       this.attributes = const {},
-      @JsonKey(name: "dep_delay") this.depDelay})
+      @JsonKey(name: 'dep_delay') this.depDelay})
       : assert(stops != null),
         assert(attributes != null);
 
@@ -398,7 +398,7 @@ class _$_Leg implements _Leg {
   @override
   final Map<String, String> attributes;
   @override
-  @JsonKey(name: "dep_delay")
+  @JsonKey(name: 'dep_delay')
   final String depDelay;
 
   @override
@@ -531,7 +531,7 @@ abstract class _Leg implements Leg {
       double lat,
       double lon,
       Map<String, String> attributes,
-      @JsonKey(name: "dep_delay") String depDelay}) = _$_Leg;
+      @JsonKey(name: 'dep_delay') String depDelay}) = _$_Leg;
 
   factory _Leg.fromJson(Map<String, dynamic> json) = _$_Leg.fromJson;
 
@@ -580,7 +580,7 @@ abstract class _Leg implements Leg {
   @override
   Map<String, String> get attributes;
   @override
-  @JsonKey(name: "dep_delay")
+  @JsonKey(name: 'dep_delay')
   String get depDelay;
   @override
   _$LegCopyWith<_Leg> get copyWith;

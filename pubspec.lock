@@ -231,7 +231,7 @@ packages:
       name: dart_style
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.9"
+    version: "1.3.10"
   dio:
     dependency: "direct main"
     description:
@@ -398,7 +398,7 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.12.3-dev"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -912,7 +912,7 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.16.0-nullsafety.10"
+    version: "1.16.0-nullsafety.11"
   test_api:
     dependency: transitive
     description:

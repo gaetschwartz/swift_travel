@@ -26,11 +26,11 @@ class _$StationboardConnectionTearOff {
       String number,
       Stop terminal,
       String operator,
-      {@JsonKey(name: "*G")
+      {@JsonKey(name: '*G')
           String g,
-      @JsonKey(name: "*L")
+      @JsonKey(name: '*L')
           String l,
-      @JsonKey(name: "subsequent_stops")
+      @JsonKey(name: 'subsequent_stops')
           List<SubsequentStop> subsequentStops = const []}) {
     return _StationboardConnection(
       time,
@@ -65,11 +65,11 @@ mixin _$StationboardConnection {
   String get number;
   Stop get terminal;
   String get operator;
-  @JsonKey(name: "*G")
+  @JsonKey(name: '*G')
   String get g;
-  @JsonKey(name: "*L")
+  @JsonKey(name: '*L')
   String get l;
-  @JsonKey(name: "subsequent_stops")
+  @JsonKey(name: 'subsequent_stops')
   List<SubsequentStop> get subsequentStops;
 
   Map<String, dynamic> toJson();
@@ -89,9 +89,9 @@ abstract class $StationboardConnectionCopyWith<$Res> {
       String number,
       Stop terminal,
       String operator,
-      @JsonKey(name: "*G") String g,
-      @JsonKey(name: "*L") String l,
-      @JsonKey(name: "subsequent_stops") List<SubsequentStop> subsequentStops});
+      @JsonKey(name: '*G') String g,
+      @JsonKey(name: '*L') String l,
+      @JsonKey(name: 'subsequent_stops') List<SubsequentStop> subsequentStops});
 
   $StopCopyWith<$Res> get terminal;
 }
@@ -160,9 +160,9 @@ abstract class _$StationboardConnectionCopyWith<$Res>
       String number,
       Stop terminal,
       String operator,
-      @JsonKey(name: "*G") String g,
-      @JsonKey(name: "*L") String l,
-      @JsonKey(name: "subsequent_stops") List<SubsequentStop> subsequentStops});
+      @JsonKey(name: '*G') String g,
+      @JsonKey(name: '*L') String l,
+      @JsonKey(name: 'subsequent_stops') List<SubsequentStop> subsequentStops});
 
   @override
   $StopCopyWith<$Res> get terminal;
@@ -215,9 +215,9 @@ class __$StationboardConnectionCopyWithImpl<$Res>
 class _$_StationboardConnection implements _StationboardConnection {
   _$_StationboardConnection(this.time, this.type, this.line, this.color,
       this.number, this.terminal, this.operator,
-      {@JsonKey(name: "*G") this.g,
-      @JsonKey(name: "*L") this.l,
-      @JsonKey(name: "subsequent_stops") this.subsequentStops = const []})
+      {@JsonKey(name: '*G') this.g,
+      @JsonKey(name: '*L') this.l,
+      @JsonKey(name: 'subsequent_stops') this.subsequentStops = const []})
       : assert(time != null),
         assert(type != null),
         assert(line != null),
@@ -245,13 +245,13 @@ class _$_StationboardConnection implements _StationboardConnection {
   @override
   final String operator;
   @override
-  @JsonKey(name: "*G")
+  @JsonKey(name: '*G')
   final String g;
   @override
-  @JsonKey(name: "*L")
+  @JsonKey(name: '*L')
   final String l;
   @override
-  @JsonKey(name: "subsequent_stops")
+  @JsonKey(name: 'subsequent_stops')
   final List<SubsequentStop> subsequentStops;
 
   @override
@@ -322,11 +322,11 @@ abstract class _StationboardConnection implements StationboardConnection {
       String number,
       Stop terminal,
       String operator,
-      {@JsonKey(name: "*G")
+      {@JsonKey(name: '*G')
           String g,
-      @JsonKey(name: "*L")
+      @JsonKey(name: '*L')
           String l,
-      @JsonKey(name: "subsequent_stops")
+      @JsonKey(name: 'subsequent_stops')
           List<SubsequentStop> subsequentStops}) = _$_StationboardConnection;
 
   factory _StationboardConnection.fromJson(Map<String, dynamic> json) =
@@ -347,13 +347,13 @@ abstract class _StationboardConnection implements StationboardConnection {
   @override
   String get operator;
   @override
-  @JsonKey(name: "*G")
+  @JsonKey(name: '*G')
   String get g;
   @override
-  @JsonKey(name: "*L")
+  @JsonKey(name: '*L')
   String get l;
   @override
-  @JsonKey(name: "subsequent_stops")
+  @JsonKey(name: 'subsequent_stops')
   List<SubsequentStop> get subsequentStops;
   @override
   _$StationboardConnectionCopyWith<_StationboardConnection> get copyWith;

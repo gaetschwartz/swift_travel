@@ -38,30 +38,30 @@ const $StationStates = _$StationStatesTearOff();
 /// @nodoc
 mixin _$StationStates {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result completions(List<CffCompletion> completions),
-    @required Result empty(),
-    @required Result network(),
+  TResult when<TResult extends Object>({
+    @required TResult completions(List<CffCompletion> completions),
+    @required TResult empty(),
+    @required TResult network(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result completions(List<CffCompletion> completions),
-    Result empty(),
-    Result network(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult completions(List<CffCompletion> completions),
+    TResult empty(),
+    TResult network(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result completions(StationStatesCompletions value),
-    @required Result empty(StationStatesEmpty value),
-    @required Result network(StationStatesNetworkError value),
+  TResult map<TResult extends Object>({
+    @required TResult completions(StationStatesCompletions value),
+    @required TResult empty(StationStatesEmpty value),
+    @required TResult network(StationStatesNetworkError value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result completions(StationStatesCompletions value),
-    Result empty(StationStatesEmpty value),
-    Result network(StationStatesNetworkError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult completions(StationStatesCompletions value),
+    TResult empty(StationStatesEmpty value),
+    TResult network(StationStatesNetworkError value),
+    @required TResult orElse(),
   });
 }
 
@@ -147,10 +147,10 @@ class _$StationStatesCompletions implements StationStatesCompletions {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result completions(List<CffCompletion> completions),
-    @required Result empty(),
-    @required Result network(),
+  TResult when<TResult extends Object>({
+    @required TResult completions(List<CffCompletion> completions),
+    @required TResult empty(),
+    @required TResult network(),
   }) {
     assert(completions != null);
     assert(empty != null);
@@ -160,11 +160,11 @@ class _$StationStatesCompletions implements StationStatesCompletions {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result completions(List<CffCompletion> completions),
-    Result empty(),
-    Result network(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult completions(List<CffCompletion> completions),
+    TResult empty(),
+    TResult network(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (completions != null) {
@@ -175,10 +175,10 @@ class _$StationStatesCompletions implements StationStatesCompletions {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result completions(StationStatesCompletions value),
-    @required Result empty(StationStatesEmpty value),
-    @required Result network(StationStatesNetworkError value),
+  TResult map<TResult extends Object>({
+    @required TResult completions(StationStatesCompletions value),
+    @required TResult empty(StationStatesEmpty value),
+    @required TResult network(StationStatesNetworkError value),
   }) {
     assert(completions != null);
     assert(empty != null);
@@ -188,11 +188,11 @@ class _$StationStatesCompletions implements StationStatesCompletions {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result completions(StationStatesCompletions value),
-    Result empty(StationStatesEmpty value),
-    Result network(StationStatesNetworkError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult completions(StationStatesCompletions value),
+    TResult empty(StationStatesEmpty value),
+    TResult network(StationStatesNetworkError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (completions != null) {
@@ -248,10 +248,10 @@ class _$StationStatesEmpty implements StationStatesEmpty {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result completions(List<CffCompletion> completions),
-    @required Result empty(),
-    @required Result network(),
+  TResult when<TResult extends Object>({
+    @required TResult completions(List<CffCompletion> completions),
+    @required TResult empty(),
+    @required TResult network(),
   }) {
     assert(completions != null);
     assert(empty != null);
@@ -261,11 +261,11 @@ class _$StationStatesEmpty implements StationStatesEmpty {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result completions(List<CffCompletion> completions),
-    Result empty(),
-    Result network(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult completions(List<CffCompletion> completions),
+    TResult empty(),
+    TResult network(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
@@ -276,10 +276,10 @@ class _$StationStatesEmpty implements StationStatesEmpty {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result completions(StationStatesCompletions value),
-    @required Result empty(StationStatesEmpty value),
-    @required Result network(StationStatesNetworkError value),
+  TResult map<TResult extends Object>({
+    @required TResult completions(StationStatesCompletions value),
+    @required TResult empty(StationStatesEmpty value),
+    @required TResult network(StationStatesNetworkError value),
   }) {
     assert(completions != null);
     assert(empty != null);
@@ -289,11 +289,11 @@ class _$StationStatesEmpty implements StationStatesEmpty {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result completions(StationStatesCompletions value),
-    Result empty(StationStatesEmpty value),
-    Result network(StationStatesNetworkError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult completions(StationStatesCompletions value),
+    TResult empty(StationStatesEmpty value),
+    TResult network(StationStatesNetworkError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
@@ -346,10 +346,10 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result completions(List<CffCompletion> completions),
-    @required Result empty(),
-    @required Result network(),
+  TResult when<TResult extends Object>({
+    @required TResult completions(List<CffCompletion> completions),
+    @required TResult empty(),
+    @required TResult network(),
   }) {
     assert(completions != null);
     assert(empty != null);
@@ -359,11 +359,11 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result completions(List<CffCompletion> completions),
-    Result empty(),
-    Result network(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult completions(List<CffCompletion> completions),
+    TResult empty(),
+    TResult network(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (network != null) {
@@ -374,10 +374,10 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result completions(StationStatesCompletions value),
-    @required Result empty(StationStatesEmpty value),
-    @required Result network(StationStatesNetworkError value),
+  TResult map<TResult extends Object>({
+    @required TResult completions(StationStatesCompletions value),
+    @required TResult empty(StationStatesEmpty value),
+    @required TResult network(StationStatesNetworkError value),
   }) {
     assert(completions != null);
     assert(empty != null);
@@ -387,11 +387,11 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result completions(StationStatesCompletions value),
-    Result empty(StationStatesEmpty value),
-    Result network(StationStatesNetworkError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult completions(StationStatesCompletions value),
+    TResult empty(StationStatesEmpty value),
+    TResult network(StationStatesNetworkError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (network != null) {

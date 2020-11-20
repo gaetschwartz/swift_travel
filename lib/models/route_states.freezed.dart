@@ -50,38 +50,38 @@ const $RouteStates = _$RouteStatesTearOff();
 /// @nodoc
 mixin _$RouteStates {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result routes(CffRoute routes),
-    @required Result network(),
-    @required Result exception(Object exception),
-    @required Result empty(),
-    @required Result loading(),
+  TResult when<TResult extends Object>({
+    @required TResult routes(CffRoute routes),
+    @required TResult network(),
+    @required TResult exception(Object exception),
+    @required TResult empty(),
+    @required TResult loading(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result routes(CffRoute routes),
-    Result network(),
-    Result exception(Object exception),
-    Result empty(),
-    Result loading(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult routes(CffRoute routes),
+    TResult network(),
+    TResult exception(Object exception),
+    TResult empty(),
+    TResult loading(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result routes(RouteStatesData value),
-    @required Result network(RouteStatesNetwork value),
-    @required Result exception(RouteStatesException value),
-    @required Result empty(RouteStatesEmpty value),
-    @required Result loading(RouteStatesLoading value),
+  TResult map<TResult extends Object>({
+    @required TResult routes(RouteStatesData value),
+    @required TResult network(RouteStatesNetwork value),
+    @required TResult exception(RouteStatesException value),
+    @required TResult empty(RouteStatesEmpty value),
+    @required TResult loading(RouteStatesLoading value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result routes(RouteStatesData value),
-    Result network(RouteStatesNetwork value),
-    Result exception(RouteStatesException value),
-    Result empty(RouteStatesEmpty value),
-    Result loading(RouteStatesLoading value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult routes(RouteStatesData value),
+    TResult network(RouteStatesNetwork value),
+    TResult exception(RouteStatesException value),
+    TResult empty(RouteStatesEmpty value),
+    TResult loading(RouteStatesLoading value),
+    @required TResult orElse(),
   });
 }
 
@@ -172,12 +172,12 @@ class _$RouteStatesData implements RouteStatesData {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result routes(CffRoute routes),
-    @required Result network(),
-    @required Result exception(Object exception),
-    @required Result empty(),
-    @required Result loading(),
+  TResult when<TResult extends Object>({
+    @required TResult routes(CffRoute routes),
+    @required TResult network(),
+    @required TResult exception(Object exception),
+    @required TResult empty(),
+    @required TResult loading(),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -189,13 +189,13 @@ class _$RouteStatesData implements RouteStatesData {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result routes(CffRoute routes),
-    Result network(),
-    Result exception(Object exception),
-    Result empty(),
-    Result loading(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult routes(CffRoute routes),
+    TResult network(),
+    TResult exception(Object exception),
+    TResult empty(),
+    TResult loading(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (routes != null) {
@@ -206,12 +206,12 @@ class _$RouteStatesData implements RouteStatesData {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result routes(RouteStatesData value),
-    @required Result network(RouteStatesNetwork value),
-    @required Result exception(RouteStatesException value),
-    @required Result empty(RouteStatesEmpty value),
-    @required Result loading(RouteStatesLoading value),
+  TResult map<TResult extends Object>({
+    @required TResult routes(RouteStatesData value),
+    @required TResult network(RouteStatesNetwork value),
+    @required TResult exception(RouteStatesException value),
+    @required TResult empty(RouteStatesEmpty value),
+    @required TResult loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -223,13 +223,13 @@ class _$RouteStatesData implements RouteStatesData {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result routes(RouteStatesData value),
-    Result network(RouteStatesNetwork value),
-    Result exception(RouteStatesException value),
-    Result empty(RouteStatesEmpty value),
-    Result loading(RouteStatesLoading value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult routes(RouteStatesData value),
+    TResult network(RouteStatesNetwork value),
+    TResult exception(RouteStatesException value),
+    TResult empty(RouteStatesEmpty value),
+    TResult loading(RouteStatesLoading value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (routes != null) {
@@ -284,12 +284,12 @@ class _$RouteStatesNetwork implements RouteStatesNetwork {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result routes(CffRoute routes),
-    @required Result network(),
-    @required Result exception(Object exception),
-    @required Result empty(),
-    @required Result loading(),
+  TResult when<TResult extends Object>({
+    @required TResult routes(CffRoute routes),
+    @required TResult network(),
+    @required TResult exception(Object exception),
+    @required TResult empty(),
+    @required TResult loading(),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -301,13 +301,13 @@ class _$RouteStatesNetwork implements RouteStatesNetwork {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result routes(CffRoute routes),
-    Result network(),
-    Result exception(Object exception),
-    Result empty(),
-    Result loading(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult routes(CffRoute routes),
+    TResult network(),
+    TResult exception(Object exception),
+    TResult empty(),
+    TResult loading(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (network != null) {
@@ -318,12 +318,12 @@ class _$RouteStatesNetwork implements RouteStatesNetwork {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result routes(RouteStatesData value),
-    @required Result network(RouteStatesNetwork value),
-    @required Result exception(RouteStatesException value),
-    @required Result empty(RouteStatesEmpty value),
-    @required Result loading(RouteStatesLoading value),
+  TResult map<TResult extends Object>({
+    @required TResult routes(RouteStatesData value),
+    @required TResult network(RouteStatesNetwork value),
+    @required TResult exception(RouteStatesException value),
+    @required TResult empty(RouteStatesEmpty value),
+    @required TResult loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -335,13 +335,13 @@ class _$RouteStatesNetwork implements RouteStatesNetwork {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result routes(RouteStatesData value),
-    Result network(RouteStatesNetwork value),
-    Result exception(RouteStatesException value),
-    Result empty(RouteStatesEmpty value),
-    Result loading(RouteStatesLoading value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult routes(RouteStatesData value),
+    TResult network(RouteStatesNetwork value),
+    TResult exception(RouteStatesException value),
+    TResult empty(RouteStatesEmpty value),
+    TResult loading(RouteStatesLoading value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (network != null) {
@@ -416,12 +416,12 @@ class _$RouteStatesException implements RouteStatesException {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result routes(CffRoute routes),
-    @required Result network(),
-    @required Result exception(Object exception),
-    @required Result empty(),
-    @required Result loading(),
+  TResult when<TResult extends Object>({
+    @required TResult routes(CffRoute routes),
+    @required TResult network(),
+    @required TResult exception(Object exception),
+    @required TResult empty(),
+    @required TResult loading(),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -433,13 +433,13 @@ class _$RouteStatesException implements RouteStatesException {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result routes(CffRoute routes),
-    Result network(),
-    Result exception(Object exception),
-    Result empty(),
-    Result loading(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult routes(CffRoute routes),
+    TResult network(),
+    TResult exception(Object exception),
+    TResult empty(),
+    TResult loading(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (exception != null) {
@@ -450,12 +450,12 @@ class _$RouteStatesException implements RouteStatesException {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result routes(RouteStatesData value),
-    @required Result network(RouteStatesNetwork value),
-    @required Result exception(RouteStatesException value),
-    @required Result empty(RouteStatesEmpty value),
-    @required Result loading(RouteStatesLoading value),
+  TResult map<TResult extends Object>({
+    @required TResult routes(RouteStatesData value),
+    @required TResult network(RouteStatesNetwork value),
+    @required TResult exception(RouteStatesException value),
+    @required TResult empty(RouteStatesEmpty value),
+    @required TResult loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -467,13 +467,13 @@ class _$RouteStatesException implements RouteStatesException {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result routes(RouteStatesData value),
-    Result network(RouteStatesNetwork value),
-    Result exception(RouteStatesException value),
-    Result empty(RouteStatesEmpty value),
-    Result loading(RouteStatesLoading value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult routes(RouteStatesData value),
+    TResult network(RouteStatesNetwork value),
+    TResult exception(RouteStatesException value),
+    TResult empty(RouteStatesEmpty value),
+    TResult loading(RouteStatesLoading value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (exception != null) {
@@ -528,12 +528,12 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result routes(CffRoute routes),
-    @required Result network(),
-    @required Result exception(Object exception),
-    @required Result empty(),
-    @required Result loading(),
+  TResult when<TResult extends Object>({
+    @required TResult routes(CffRoute routes),
+    @required TResult network(),
+    @required TResult exception(Object exception),
+    @required TResult empty(),
+    @required TResult loading(),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -545,13 +545,13 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result routes(CffRoute routes),
-    Result network(),
-    Result exception(Object exception),
-    Result empty(),
-    Result loading(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult routes(CffRoute routes),
+    TResult network(),
+    TResult exception(Object exception),
+    TResult empty(),
+    TResult loading(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
@@ -562,12 +562,12 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result routes(RouteStatesData value),
-    @required Result network(RouteStatesNetwork value),
-    @required Result exception(RouteStatesException value),
-    @required Result empty(RouteStatesEmpty value),
-    @required Result loading(RouteStatesLoading value),
+  TResult map<TResult extends Object>({
+    @required TResult routes(RouteStatesData value),
+    @required TResult network(RouteStatesNetwork value),
+    @required TResult exception(RouteStatesException value),
+    @required TResult empty(RouteStatesEmpty value),
+    @required TResult loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -579,13 +579,13 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result routes(RouteStatesData value),
-    Result network(RouteStatesNetwork value),
-    Result exception(RouteStatesException value),
-    Result empty(RouteStatesEmpty value),
-    Result loading(RouteStatesLoading value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult routes(RouteStatesData value),
+    TResult network(RouteStatesNetwork value),
+    TResult exception(RouteStatesException value),
+    TResult empty(RouteStatesEmpty value),
+    TResult loading(RouteStatesLoading value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
@@ -637,12 +637,12 @@ class _$RouteStatesLoading implements RouteStatesLoading {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result routes(CffRoute routes),
-    @required Result network(),
-    @required Result exception(Object exception),
-    @required Result empty(),
-    @required Result loading(),
+  TResult when<TResult extends Object>({
+    @required TResult routes(CffRoute routes),
+    @required TResult network(),
+    @required TResult exception(Object exception),
+    @required TResult empty(),
+    @required TResult loading(),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -654,13 +654,13 @@ class _$RouteStatesLoading implements RouteStatesLoading {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result routes(CffRoute routes),
-    Result network(),
-    Result exception(Object exception),
-    Result empty(),
-    Result loading(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult routes(CffRoute routes),
+    TResult network(),
+    TResult exception(Object exception),
+    TResult empty(),
+    TResult loading(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
@@ -671,12 +671,12 @@ class _$RouteStatesLoading implements RouteStatesLoading {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result routes(RouteStatesData value),
-    @required Result network(RouteStatesNetwork value),
-    @required Result exception(RouteStatesException value),
-    @required Result empty(RouteStatesEmpty value),
-    @required Result loading(RouteStatesLoading value),
+  TResult map<TResult extends Object>({
+    @required TResult routes(RouteStatesData value),
+    @required TResult network(RouteStatesNetwork value),
+    @required TResult exception(RouteStatesException value),
+    @required TResult empty(RouteStatesEmpty value),
+    @required TResult loading(RouteStatesLoading value),
   }) {
     assert(routes != null);
     assert(network != null);
@@ -688,13 +688,13 @@ class _$RouteStatesLoading implements RouteStatesLoading {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result routes(RouteStatesData value),
-    Result network(RouteStatesNetwork value),
-    Result exception(RouteStatesException value),
-    Result empty(RouteStatesEmpty value),
-    Result loading(RouteStatesLoading value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult routes(RouteStatesData value),
+    TResult network(RouteStatesNetwork value),
+    TResult exception(RouteStatesException value),
+    TResult empty(RouteStatesEmpty value),
+    TResult loading(RouteStatesLoading value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
