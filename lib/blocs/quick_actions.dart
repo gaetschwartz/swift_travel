@@ -6,7 +6,6 @@ import 'dart:math' show min;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
@@ -15,12 +14,15 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 
-final quickActions = Provider<MyQuickActions>((ref) => MyQuickActions());
-
 class MyQuickActions {
   static const maxFavoriteRoutes = 5;
   static const maxFavoriteStops = 5;
   final quickActions = QuickActions();
+
+  MyQuickActions._();
+  static MyQuickActions _instance;
+  // ignore: prefer_constructors_over_static_methods
+  static MyQuickActions get instance => _instance ?? (_instance = MyQuickActions._());
 
   void init() {
     log("Initialize", name: "QuickActions");

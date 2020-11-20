@@ -92,7 +92,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
     if (isMobile) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.read(quickActions).init();
+        MyQuickActions.instance.init();
         context.read(linksProvider).init((link) async {
           Uri uri;
           try {

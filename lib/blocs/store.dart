@@ -137,6 +137,6 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     }
 
     await _prefs.setStringList(routesKey, routes);
-    if (isMobile) await ref.read(quickActions).setActions(_routes.toList(), stops.toList());
+    if (isMobile) await MyQuickActions.instance.setActions(_routes.toList(), stops.toList());
   }
 }

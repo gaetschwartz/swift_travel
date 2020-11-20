@@ -508,7 +508,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   json_rpc_2:
     dependency: transitive
     description:
@@ -912,7 +912,7 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.16.0-nullsafety.11"
+    version: "1.16.0-nullsafety.12"
   test_api:
     dependency: transitive
     description:
@@ -926,7 +926,7 @@ packages:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.12-nullsafety.10"
+    version: "0.3.12-nullsafety.11"
   timing:
     dependency: transitive
     description:

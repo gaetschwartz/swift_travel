@@ -66,8 +66,8 @@ class LiveRouteController extends ChangeNotifier {
   void startRoute(RouteConnection connection) {
     stopCurrentRoute(notify: false);
     _connection = connection;
-    _sub = Geolocator.getPositionStream(timeInterval: 5000).listen(_update);
-    _computeRoute();
+    _sub = Geolocator.getPositionStream(timeInterval: 1000).listen(_update);
+    _computeMissingStops();
     notifyListeners();
   }
 
@@ -96,8 +96,7 @@ class LiveRouteController extends ChangeNotifier {
 
   void _update(Position p) {
     if (!isRunning) {
-      log("Is not running ??");
-      return;
+      throw StateError("Is not running ??");
     }
     _position = p;
     if (!_isReady) {
@@ -200,7 +199,7 @@ class LiveRouteController extends ChangeNotifier {
         timeUntilNextLeg: timeUntilNextLeg);
   }
 
-  Future<void> _computeRoute() async {
+  Future<void> _computeMissingStops() async {
     if (!isRunning) throw StateError("Live route not running");
     log("Computing distances we didn't find");
     final List<Leg> legs = await Stream.fromIterable(_connection.legs).asyncMap((e) async {
