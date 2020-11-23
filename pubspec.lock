@@ -398,7 +398,7 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.3-dev"
+    version: "0.12.3"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -571,7 +571,7 @@ packages:
       name: node_interop
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   node_io:
     dependency: transitive
     description:
@@ -755,7 +755,7 @@ packages:
     source: hosted
     version: "0.0.1+11"
   shared_preferences_platform_interface:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: shared_preferences_platform_interface
       url: "https://pub.dartlang.org"
