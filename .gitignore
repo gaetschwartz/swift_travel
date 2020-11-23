@@ -40,5 +40,7 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Coverage file
-coverage/lcov.info
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
