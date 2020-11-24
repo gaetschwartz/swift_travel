@@ -63,16 +63,12 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
             SizedBox(
               height: 64,
               width: 64,
-              child: AnimatedBuilder(
-                animation: _animation,
-                builder: (context, child) => RotationTransition(
-                  turns: _animation,
-                  child: child,
-                ),
+              child: RotationTransition(
+                turns: _animation,
                 child: const Icon(
                   Icons.train,
                   size: 64,
-                  color: Color(0xffffffff),
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -90,6 +86,21 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
 
+    await Future.wait([initSettings(prefs), Future.delayed(const Duration(seconds: 1))]);
+
+    await showTutoIfNeeded(prefs);
+
+    route();
+
+    if (isMobile) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        MyQuickActions.instance.init();
+        context.read(linksProvider).init(context.read(navigationAPIProvider));
+      });
+    }
+  }
+
+  Future<void> initSettings(SharedPreferences prefs) async {
     if (const bool.fromEnvironment("CORRUPT")) {
       await prefs.setStringList(FavoritesSharedPreferencesStore.routesKey, ["[", "}"]);
     }
@@ -121,20 +132,9 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       );
       rethrow;
     }
-
-    await showTutoIfNeeded(prefs);
-
-    route();
-
-    if (isMobile) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        MyQuickActions.instance.init();
-        context.read(linksProvider).init(context.read(navigationAPIProvider));
-      });
-    }
   }
 
-  Future showTutoIfNeeded(SharedPreferences prefs) async {
+  Future<void> showTutoIfNeeded(SharedPreferences prefs) async {
     if (prefs.getBool(_tutoKey) != true) {
       await Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WelcomePage()));
 
