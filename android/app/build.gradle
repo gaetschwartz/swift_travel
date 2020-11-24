@@ -36,8 +36,6 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdkVersion 30
-    ndkVersion "21.3.6528147"
-
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -45,6 +43,7 @@ android {
 
     lintOptions {
         disable 'InvalidPackage'
+        checkReleaseBuilds false
     }
 
     defaultConfig {

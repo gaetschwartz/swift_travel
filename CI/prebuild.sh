@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
-# fail if any commands fails
 set -e
-# debug log
 set -x
-git_hash=$GIT_CLONE_COMMIT_HASH
-git_msg=$(printf "%q" "$GIT_CLONE_COMMIT_MESSAGE_BODY")
+
+hash=$([[ $BITRISE_IO ]] && $GIT_CLONE_COMMIT_HASH || $GIT_HASH)
+msg=$([[ $BITRISE_IO ]] && $BITRISE_GIT_MESSAGE || $GIT_MSG)
+count=$([[ $BITRISE_IO ]] && $GIT_CLONE_COMMIT_COUNT || $COMMIT_COUNT)
 now=$(date +"%H:%M:%S - %A %d %B %Y")
+
 cat > lib/constants/build.dart <<- EOM
 const String commitBuildDate = "${now}";
-const String commitHash = "${git_hash}";
-const String commitMessage = "${git_msg}";
-const String buildNumber = "$GIT_CLONE_COMMIT_COUNT";
+const String commitHash = "${hash}";
+const String commitMessage = "${msg}";
+const String buildNumber = "${count}";
 EOM
+
 echo "=== build.dart ==="
 cat lib/constants/build.dart
 echo "=================="

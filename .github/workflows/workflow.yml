@@ -8,15 +8,14 @@ on:
 env:
   flutter_channel: dev
   java_version: 8.x
-  node_version: 12.x
-  build_android: true
+  build_android: false
   flutter_build_args: ""
 
 jobs:
   build-android:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    name: Build and deploy APK to Github
+    name: Run Flutter tests
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,9 +26,7 @@ jobs:
         run: |
           echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          count=$(git rev-list --count HEAD)
-          echo "::set-output name=nbr::${count}"
-          echo ${count}
+          echo "::set-output name=count::$(git rev-list --count HEAD)"
       - name: Clone dependencies
         run: |
           git clone https://gaetschwartz:${{ secrets.ACCESS_TOKEN }}@github.com/gaetschwartz/utils.git
@@ -55,24 +52,33 @@ jobs:
         with:
           channel: ${{ env.flutter_channel }}
       - name: Setup Flutter
-        run: |
-          flutter packages get
+        run: flutter packages get
       - name: Pre-build configuration
         env:
           TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ steps.git-data.outputs.nbr }}
-        run: chmod +x CI/prebuild-github.sh && ./CI/prebuild-github.sh
+          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
+          GIT_MSG: ${{ steps.git-data.outputs.msg }}
+          GIT_HASH: ${{ steps.git-data.outputs.hash }}
+        run: bash CI/prebuild.sh
+      - name: Test
+        run: flutter test --coverage
       - name: Build
-        run: flutter build apk --build-number ${{ steps.git-data.outputs.nbr }}
+        if: env.build_android == 'true'
+        run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Create Release
+        if: env.build_android == 'true'
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ci-build-${{ steps.git-data.outputs.nbr }}
+          tag_name: ci-build-${{ steps.git-data.outputs.count }}
           release_name: |
-            CI Build #${{ steps.git-data.outputs.nbr }}
+            CI Build #${{ steps.git-data.outputs.count }}
           body: |
             *This is an automated CI build for ${{ steps.git-data.outputs.hash }}.*
 
@@ -80,6 +86,7 @@ jobs:
           draft: false
           prerelease: true
       - name: Upload Release Asset
+        if: env.build_android == 'true'
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -87,7 +94,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./build/app/outputs/flutter-apk/app-release.apk
-          asset_name: travel-free-${{ steps.git-data.outputs.nbr }}.apk
+          asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
           asset_content_type: application/vnd.android.package-archive
   # deploy-testflight:
   #   timeout-minutes: 30
@@ -136,7 +143,7 @@ jobs:
   #       run: |
   #         echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
   #         echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-  #         echo "::set-output name=nbr::$GITHUB_RUN_NUMBER"
+  #         echo "::set-output name=count::$GITHUB_RUN_NUMBER"
   #     - name: Exporting .ipa
   #       run: chmod +x CI/export_ipa.sh && ./CI/export_ipa.sh
   #     - name: Publishing app
