@@ -35,50 +35,82 @@ class _NextStopsPageState extends State<NextStopsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: const BackButton(),
-          title: Text(connection.terminal.name),
-        ),
-        body: RefreshIndicator(
-          onRefresh: () => reloadData(),
-          child: connection != null
-              ? ListView.separated(
-                  separatorBuilder: (c, i) => const Divider(height: 0),
-                  itemCount: connection.subsequentStops.length,
-                  itemBuilder: (context, i) => StopTile(stop: connection.subsequentStops[i]),
-                )
-              : const Center(child: CircularProgressIndicator()),
-        ));
+      appBar: AppBar(
+        leading: const BackButton(),
+        title: Text(connection.terminal.name),
+      ),
+      body: connection != null
+          ? ListView.builder(
+              itemCount: connection.subsequentStops.length,
+              itemBuilder: (context, i) => StopTile(
+                stop: connection.subsequentStops[i],
+                isFirst: i == 0,
+                isLast: i == connection.subsequentStops.length - 1,
+              ),
+            )
+          : const Center(child: CircularProgressIndicator()),
+    );
   }
-
-  Future<void> reloadData() async {}
 }
 
 class StopTile extends StatelessWidget {
   final SubsequentStop stop;
+  final bool isFirst;
+  final bool isLast;
 
-  const StopTile({Key key, @required this.stop}) : super(key: key);
+  Widget _buildLine(bool isVisible) {
+    return Container(
+      width: isVisible ? 1 : 0,
+      color: Colors.grey.shade400,
+    );
+  }
+
+  Widget _buildCircle(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 2.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        shape: BoxShape.circle,
+      ),
+      width: 16,
+      height: 16,
+    );
+  }
+
+  const StopTile({Key key, @required this.stop, this.isFirst = false, this.isLast = false})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        title: Row(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: SizedBox(
+        height: 64,
+        child: Row(
           children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(child: _buildLine(!isFirst)),
+                _buildCircle(context),
+                Expanded(child: _buildLine(!isLast)),
+              ],
+            ),
+            const SizedBox(width: 16),
             Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
+              child: ListTile(
+                title: Text(
                   stop.name,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
+                subtitle: Text(
+                  Format.time(stop.arr),
+                  style: const TextStyle(fontSize: 14),
+                ),
+                contentPadding: EdgeInsets.zero,
               ),
             ),
           ],
-        ),
-        subtitle: Text(
-          Format.time(stop.arr),
-          style: const TextStyle(fontSize: 14),
         ),
       ),
     );
