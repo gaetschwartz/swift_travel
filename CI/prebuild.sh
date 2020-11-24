@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-set -x
 
 hash=$([[ $BITRISE_IO ]] && echo $GIT_CLONE_COMMIT_HASH || echo $GIT_HASH)
 msg=$([[ $BITRISE_IO ]] && echo $BITRISE_GIT_MESSAGE || echo $GIT_MSG)
