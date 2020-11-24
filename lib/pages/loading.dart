@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/blocs/links.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
@@ -13,44 +12,88 @@ import 'package:swift_travel/blocs/quick_actions.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/welcome.dart';
-import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/theme.dart';
-import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
-import 'package:utils/dialogs/loading_dialog.dart';
 
 import 'home_page.dart';
+
+const _tutoKey = "hasAlreadySeenTuto";
 
 class LoadingPage extends StatefulWidget {
   @override
   _LoadingPageState createState() => _LoadingPageState();
 }
 
-class _LoadingPageState extends State<LoadingPage> {
+class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => init());
+    if (const String.fromEnvironment("PAGE") != "loading") {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) => init());
+    }
+
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+
+    _animation = Tween<double>(begin: 0, end: 2)
+        .animate(CurveTween(curve: Curves.easeInOutCubic).animate(_controller));
+
+    _controller.repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-      alignment: Alignment.center,
-      child: const SizedBox(
-        height: 64,
-        width: 64,
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation(Colors.white),
+    return Scaffold(
+      backgroundColor: Colors.red,
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 64,
+              width: 64,
+              child: AnimatedBuilder(
+                animation: _animation,
+                builder: (context, child) => RotationTransition(
+                  turns: _animation,
+                  child: child,
+                ),
+                child: const Icon(
+                  Icons.train,
+                  size: 64,
+                  color: Color(0xffffffff),
+                ),
+              ),
+            ),
+            const SizedBox(height: 32),
+            const Text(
+              "Loading ...",
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            )
+          ],
         ),
       ),
     );
   }
 
   Future<void> init() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (const bool.fromEnvironment("CORRUPT")) {
+      await prefs.setStringList(FavoritesSharedPreferencesStore.routesKey, ["[", "}"]);
+    }
+
     if (isMobile) {
       if (kDebugMode) {
         log("Disabling crash reports in debug mode", name: "Loading");
@@ -60,68 +103,52 @@ class _LoadingPageState extends State<LoadingPage> {
       }
     }
 
-    final prefs = await SharedPreferences.getInstance();
     try {
       await context.read(dynamicTheme).configure(themeConfiguration);
       await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
       await context.read(storeProvider).loadFromPreferences(prefs: prefs);
     } on Exception {
+      final String data = prefs.getKeys().map((e) => "$e : ${prefs.get(e)}").join("\n");
       await confirm(
         context,
         title: const Text("Failed to load your previous settings !"),
-        content: const Text("We are very sorry this happened !"),
+        content: SingleChildScrollView(
+          child: Text(
+            "Here is what it previously was :\n$data",
+            textAlign: TextAlign.center,
+          ),
+        ),
       );
       rethrow;
     }
-    if (prefs.getBool("hasAlreadySeenTuto") != true) {
-      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WelcomePage()));
 
-      await prefs.setBool("hasAlreadySeenTuto", true);
-    }
+    await showTutoIfNeeded(prefs);
 
-    const page = String.fromEnvironment("PAGE");
-    log(page);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) {
-          return pagesMap[page] ?? const MyHomePage();
-        },
-      ),
-    );
-    final cff = context.read(navigationAPIProvider);
+    route();
 
     if (isMobile) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         MyQuickActions.instance.init();
-        context.read(linksProvider).init((link) async {
-          Uri uri;
-          try {
-            uri = Uri.parse(link);
-          } on Exception catch (e, s) {
-            report(e, s, name: "Loading", text: "Failed to parse link $link");
-            return;
-          }
-          if (uri.host == "route") {
-            log("We have a new route");
-            if (uri.queryParameters.containsKey("from") && uri.queryParameters.containsKey("to")) {
-              log("Valid route");
-              final Map<String, String> params = Map.from(uri.queryParameters);
-              if (params.containsKey("i")) {
-                params.remove("i");
-                final qUri =
-                    Uri.https("timetable.search.ch", "api/route.json", uri.queryParameters);
-                log(qUri.toString());
-                final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
-                    future: () => cff.rawRoute(qUri.toString()),
-                    title: const Text("Getting route infos ..."));
-                final i = int.parse(uri.queryParameters["i"]);
-                navigatorKey.currentState
-                    .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
-              }
-            }
-          }
-        });
+        context.read(linksProvider).init(context.read(navigationAPIProvider));
       });
     }
+  }
+
+  Future showTutoIfNeeded(SharedPreferences prefs) async {
+    if (prefs.getBool(_tutoKey) != true) {
+      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WelcomePage()));
+
+      await prefs.setBool(_tutoKey, true);
+    }
+  }
+
+  void route() {
+    const String page = String.fromEnvironment("PAGE");
+    log(page);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => pagesMap[page] ?? const MyHomePage(),
+      ),
+    );
   }
 }

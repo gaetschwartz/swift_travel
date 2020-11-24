@@ -59,10 +59,14 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     //? Stops
 
     final List<FavoriteStop> favStops = [];
-    for (final String ll in _prefs.getStringList(stopsKey) ?? []) {
-      final fs = FavoriteStop.fromJson(jsonDecode(ll) as Map<String, dynamic>);
-      log("Found $fs", name: "Store");
-      favStops.add(fs);
+    for (final String stopString in _prefs.getStringList(stopsKey) ?? []) {
+      try {
+        final decode = jsonDecode(stopString) as Map<String, dynamic>;
+        final fs = FavoriteStop.fromJson(decode);
+        favStops.add(fs);
+      } on FormatException catch (e, s) {
+        report(e, s, name: "Store", reason: "Error while trying to decode stop");
+      }
     }
     _stops.clear();
     _stops.addAll(favStops);
@@ -77,8 +81,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         final decode = jsonDecode(spr) as Map<String, dynamic>;
         final r = LocalRoute.fromJson(decode);
         _routes.add(r);
-      } on Exception catch (e, s) {
-        report(e, s, name: "Store", text: "Error while trying to decode $spr");
+      } on FormatException catch (e, s) {
+        report(e, s, name: "Store", reason: "Error while trying to decode route");
       }
     }
 
@@ -124,19 +128,27 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   Future<void> _sync() async {
     notifyListeners();
-    await _prefs.setStringList(stopsKey, _stops.map((e) => jsonEncode(e.toJson())).toList());
+
+    final stops = <String>[];
+    for (final e in _stops) {
+      try {
+        stops.add(jsonEncode(e.toJson()));
+      } on FormatException catch (e, s) {
+        report(e, s, reason: "Error while trying to encode stop", name: "Store");
+      }
+    }
+    await _prefs.setStringList(stopsKey, stops);
 
     final routes = <String>[];
-
     for (final e in _routes) {
       try {
         routes.add(jsonEncode(e.toJson()));
-      } on Exception catch (e, s) {
-        report(e, s, text: "Error while trying to encode $e", name: "Store");
+      } on FormatException catch (e, s) {
+        report(e, s, reason: "Error while trying to encode route", name: "Store");
       }
     }
-
     await _prefs.setStringList(routesKey, routes);
-    if (isMobile) await MyQuickActions.instance.setActions(_routes.toList(), stops.toList());
+
+    if (isMobile) await MyQuickActions.instance.setActions(_routes.toList(), _stops.toList());
   }
 }

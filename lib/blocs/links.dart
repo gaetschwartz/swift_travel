@@ -1,8 +1,14 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/main.dart';
+import 'package:swift_travel/tabs/routes/details/route_details.dart';
+import 'package:utils/dialogs/loading_dialog.dart';
 
 final linksProvider = Provider<DeepLinkBloc>((ref) {
   final deepLinkBloc = DeepLinkBloc();
@@ -10,36 +16,54 @@ final linksProvider = Provider<DeepLinkBloc>((ref) {
   return deepLinkBloc;
 });
 
+class InvalidRouteException implements Exception {
+  final Map<String, String> map;
+  InvalidRouteException(this.map);
+
+  @override
+  String toString() => "InvalidRouteException : $map";
+}
+
 class DeepLinkBloc {
-  //Event Channel creation
   static const stream = EventChannel('com.gaetanschwartz.swift_travel.deeplink/events');
-  //Method channel creation
   static const platform = MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
 
   StreamSubscription _sub;
 
-  void init(void Function(String link) onLink) {
+  void init(NavigationApi navApi) {
     log("Initialize", name: "LinksBloc");
     initialLink.then((s) {
       if (s != null) {
-        _onRedirected(s, onLink);
+        onLink(navApi, s);
       } else {
         log("No initial link");
       }
     });
-    _sub = stream.receiveBroadcastStream().listen((d) => _onRedirected(d, onLink), onError: (e) {
-      log("", error: e);
-      _sub?.cancel();
-    });
+    _sub = stream.receiveBroadcastStream().cast<String>().listen((d) => onLink(navApi, d));
   }
 
-  void _onRedirected(dynamic o, void Function(String link) onLink) {
-    if (o != null && o is String) {
-      final String s = o;
-      log("Got an Uri of $s");
-      onLink(s);
-    } else {
-      throw StateError("Redirected URI ($o) is not a String but a ${o.runtimeType}");
+  Future<void> onLink(NavigationApi navApi, String link) async {
+    final Uri uri = Uri.parse(link);
+
+    if (uri.host == "route") {
+      log("We have a new route");
+      if (!uri.queryParameters.containsKey("from") ||
+          !uri.queryParameters.containsKey("to") ||
+          !uri.queryParameters.containsKey("i")) {
+        throw InvalidRouteException(uri.queryParameters);
+      }
+      final Map<String, String> params = Map.from(uri.queryParameters)..remove("i");
+
+      final qUri = Uri.https("timetable.search.ch", "api/route.json", params);
+      log(qUri.toString());
+
+      final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
+          future: () => navApi.rawRoute(qUri.toString()),
+          title: const Text("Getting route infos ..."));
+
+      final int i = int.parse(uri.queryParameters["i"]);
+      navigatorKey.currentState
+          .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
     }
   }
 

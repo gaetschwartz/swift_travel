@@ -10,6 +10,24 @@
       "type": "dart",
     },
     {
+      "name": "Launch (corrupt)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "CORRUPT=true"
+      ]
+    },
+    {
+      "name": "Launch (loading)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "PAGE=loading"
+      ]
+    },
+    {
       "name": "Launch (welcome)",
       "request": "launch",
       "type": "dart",
