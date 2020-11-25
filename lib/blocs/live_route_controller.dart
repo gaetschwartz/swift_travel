@@ -66,7 +66,8 @@ class LiveRouteController extends ChangeNotifier {
   void startRoute(RouteConnection connection) {
     stopCurrentRoute(notify: false);
     _connection = connection;
-    _sub = Geolocator.getPositionStream(timeInterval: 1000).listen(_update);
+    _sub =
+        Geolocator.getPositionStream(intervalDuration: const Duration(seconds: 1)).listen(_update);
     _computeMissingStops();
     notifyListeners();
   }
