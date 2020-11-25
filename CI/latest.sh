@@ -1,1 +1,1 @@
-curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_macos.json" | python3 latest.py $1
+curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_macos.json" | python3 CI/latest.py $1
