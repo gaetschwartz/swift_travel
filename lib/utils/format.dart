@@ -63,6 +63,7 @@ class Format {
   }
 
   static String time(DateTime date, [Locale locale = const Locale("en")]) {
+    if (date == null) return "";
     final String min = date.minute < 10 ? "0${date.minute}" : date.minute.toString();
     return "${date.hour}:$min";
   }
