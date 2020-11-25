@@ -27,6 +27,7 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
   AnimationController _controller;
+  AnimationController _controller2;
   Animation<double> _animation;
 
   @override
@@ -38,11 +39,13 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     }
 
     _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _controller2 = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
     _animation = Tween<double>(begin: 0, end: 2)
         .animate(CurveTween(curve: Curves.easeInOutCubic).animate(_controller));
 
     _controller.repeat();
+    _controller2.forward();
   }
 
   @override
@@ -57,27 +60,30 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       backgroundColor: Colors.red,
       body: SizedBox(
         width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 64,
-              width: 64,
-              child: RotationTransition(
-                turns: _animation,
-                child: const Icon(
-                  Icons.train,
-                  size: 64,
-                  color: Colors.white,
+        child: FadeTransition(
+          opacity: _controller2,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 64,
+                width: 64,
+                child: RotationTransition(
+                  turns: _animation,
+                  child: const Icon(
+                    Icons.train,
+                    size: 64,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
-            const Text(
-              "Loading ...",
-              style: TextStyle(color: Colors.white, fontSize: 24),
-            )
-          ],
+              const SizedBox(height: 32),
+              const Text(
+                "Loading ...",
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              )
+            ],
+          ),
         ),
       ),
     );
