@@ -1,1 +1,1 @@
-const String urlScheme = "swift_travel";
+const String urlScheme = "swifttravel";

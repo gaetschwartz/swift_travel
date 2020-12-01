@@ -7,6 +7,7 @@
 
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -15,13 +16,15 @@ import 'package:shared_preferences_platform_interface/shared_preferences_platfor
 import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/apis/sncf/sncf.dart';
+import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:utils/utils/levenshtein.dart';
 
 final storeProvider = ChangeNotifierProvider((r) => FavoritesSharedPreferencesStore(r));
-final preferencesProvider = ChangeNotifierProvider((r) => PreferencesBloc());
 
 class FavsListener extends Mock {
   void call(Iterable<FavoriteStop> value);
@@ -38,6 +41,26 @@ class PrefsListener extends Mock {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final Random r = Random();
+
+  group("navigation api", () {
+    setUp(() async {
+      SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
+      final preferences = await SharedPreferences.getInstance();
+      preferences.clear();
+    });
+    test("returns the right instance", () async {
+      final container = ProviderContainer();
+      final store = container.read(preferencesProvider);
+      await store.loadFromPreferences();
+
+      store.api = NavigationApiType.cff;
+      NavigationApi navApi = container.read(navigationAPIProvider);
+      expect(navApi is CffRepository, isTrue);
+      store.api = NavigationApiType.sncf;
+      navApi = container.read(navigationAPIProvider);
+      expect(navApi is SncfRepository, isTrue);
+    });
+  });
 
   group("favorites store", () {
     setUp(() async {
@@ -157,6 +180,30 @@ void main() {
   });
 
   group("misc", () {
+    group("format", () {
+      test("distance", () {
+        expect(Format.distance(0), "0 m");
+        expect(Format.distance(10), "10 m");
+        expect(Format.distance(1000), "1.0 km");
+        expect(Format.distance(1234), "1.2 km");
+        expect(Format.distance(null), "");
+      });
+
+      test("duration - en", () {
+        expect(Format.duration(const Duration(hours: 2, minutes: 3)), "2:03");
+        expect(Format.duration(const Duration(hours: 2)), "2:00");
+        expect(Format.duration(const Duration(minutes: 3)), "3 mins");
+        expect(Format.duration(Duration.zero), "Now");
+      });
+
+      test("duration - fr", () {
+        const locale = Locale("fr");
+        expect(Format.duration(const Duration(hours: 2, minutes: 3), locale: locale), "2h03");
+        expect(Format.duration(const Duration(hours: 2), locale: locale), "2h00");
+        expect(Format.duration(const Duration(minutes: 3), locale: locale), "3 mins");
+        expect(Format.duration(Duration.zero, locale: locale), "Maint.");
+      });
+    });
     test("levenshtein", () {
       expect(levenshtein("hello", "hello"), 0);
       expect(levenshtein("hello!", "hello"), 1);

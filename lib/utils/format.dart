@@ -11,11 +11,11 @@ int colorFromString(String s) {
   }
 }
 
-class Format {
+abstract class Format {
   static String distance(double d) {
     return d == null
         ? ""
-        : d > 1000
+        : d >= 1000
             ? "${(d / 1000).toStringAsFixed(1)} km"
             : "${d.round()} m";
   }

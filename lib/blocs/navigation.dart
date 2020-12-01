@@ -17,5 +17,5 @@ final Provider<NavigationApi> navigationAPIProvider = Provider<NavigationApi>((r
       log("Using sncf repository");
       return SncfRepository();
   }
-  throw StateError("Unexpected state of nav api : ${prefs.api}");
+  throw StateError("Unexpected value of nav api : ${prefs.api}");
 });
