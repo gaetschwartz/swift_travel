@@ -5,17 +5,17 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/leg.dart';
+import 'package:swift_travel/apis/cff/models/route_connection.dart';
 import 'package:swift_travel/apis/cff/models/types_enum.dart';
-import 'package:swift_travel/constants/constants.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
-import 'package:swift_travel/tabs/routes/details/arrived_tile.dart';
-import 'package:swift_travel/tabs/routes/details/regular_leg_tile.dart';
-import 'package:swift_travel/tabs/routes/details/walking_tile.dart';
+import 'package:swift_travel/tabs/routes/details/tiles/arrived_tile.dart';
+import 'package:swift_travel/tabs/routes/details/tiles/regular_leg_tile.dart';
+import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/utils/share.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
@@ -33,13 +33,7 @@ class RouteDetails extends StatelessWidget {
     final c = route.connections[i];
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Vibration.select();
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => LiveRoutePage(
-                    connection: c,
-                  )));
-        },
+        onPressed: () => openLive(context, c),
         child: const Icon(Icons.play_arrow),
       ),
       appBar: AppBar(
@@ -51,23 +45,7 @@ class RouteDetails extends StatelessWidget {
                 icon: Theme.of(context).platform == TargetPlatform.iOS
                     ? const Icon(CupertinoIcons.share)
                     : const Icon(Icons.share),
-                onPressed: () async {
-                  Vibration.select();
-                  final String requestUrl = route.requestUrl;
-                  final Uri uri = Uri.parse(requestUrl);
-                  final Map<String, String> params = Map.from(uri.queryParameters);
-                  params["i"] = "$i";
-                  final Uri sharedUri =
-                      Uri(scheme: urlScheme, host: "route", queryParameters: params);
-                  log(sharedUri.toString());
-                  try {
-                    Share.share(sharedUri.toString());
-                  } on Exception catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(e.toString()),
-                    ));
-                  }
-                })
+                onPressed: () => _shareRoute(context))
         ],
       ),
       body: Column(
@@ -107,6 +85,20 @@ class RouteDetails extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  void _shareRoute(BuildContext context) {
+    Vibration.select();
+    shareRoute(route, i);
+  }
+
+  void openLive(BuildContext context, RouteConnection c) {
+    Vibration.select();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => LiveRoutePage(connection: c),
       ),
     );
   }
