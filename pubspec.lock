@@ -280,7 +280,7 @@ packages:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.2+1"
+    version: "0.5.3"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -301,14 +301,14 @@ packages:
       name: firebase_crashlytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.3+1"
+    version: "0.2.4"
   firebase_crashlytics_platform_interface:
     dependency: transitive
     description:
       name: firebase_crashlytics_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.3"
+    version: "1.1.4"
   fixnum:
     dependency: transitive
     description:
@@ -400,7 +400,7 @@ packages:
       name: flutter_typeahead
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.0"
+    version: "1.9.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -438,7 +438,7 @@ packages:
       name: geolocator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.9"
+    version: "6.1.10"
   geolocator_platform_interface:
     dependency: transitive
     description:
@@ -1038,7 +1038,7 @@ packages:
       name: vm_service
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.0"
+    version: "5.5.0"
   watcher:
     dependency: transitive
     description:
