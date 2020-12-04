@@ -49,13 +49,14 @@ void main() {
       preferences.clear();
     });
     test("returns the right instance", () async {
-      final container = ProviderContainer();
-      final store = container.read(preferencesProvider);
+      final ProviderContainer container = ProviderContainer();
+      final PreferencesBloc store = container.read(preferencesProvider);
       await store.loadFromPreferences();
 
       store.api = NavigationApiType.cff;
       NavigationApi navApi = container.read(navigationAPIProvider);
       expect(navApi is CffRepository, isTrue);
+
       store.api = NavigationApiType.sncf;
       navApi = container.read(navigationAPIProvider);
       expect(navApi is SncfRepository, isTrue);
