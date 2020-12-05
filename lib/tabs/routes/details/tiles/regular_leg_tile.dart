@@ -106,6 +106,7 @@ class RegularLegTile extends StatelessWidget {
               ),
               expanded: ListView.builder(
                 shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: children.length,
                 itemBuilder: (context, i) => children[i],
               ),
