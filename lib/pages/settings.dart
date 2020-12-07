@@ -115,8 +115,12 @@ class Settings extends StatelessWidget {
             const _SectionTitle(title: Text("Developer")),
             if (kDebugMode) ...[
               ListTile(
-                  leading: const Icon(Icons.warning),
-                  title: const Text("Crash"),
+                  leading: const Icon(Icons.warning_rounded),
+                  title: const Text("Throw an exception"),
+                  onTap: () => throw Exception("I am an exception")),
+              ListTile(
+                  leading: const Icon(Icons.close),
+                  title: const Text("Trigger a crash"),
                   onTap: () async {
                     await FirebaseCrashlytics.instance.log("We trigger a crash");
                     FirebaseCrashlytics.instance.crash();

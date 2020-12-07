@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/pages/loading.dart';
 import 'package:swift_travel/pages/welcome.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -39,7 +40,7 @@ Future<void> main() async {
   if (isMobile) {
     log("We are on mobile ($platform)");
     await Firebase.initializeApp();
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    FlutterError.onError = reportFlutterError;
     runZonedGuarded<Future<void>>(() async => _runApp(), FirebaseCrashlytics.instance.recordError);
   } else {
     log("We are not on mobile ($platform)");
