@@ -8,6 +8,7 @@ import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
+import 'package:swift_travel/utils/share.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
 
 final linksProvider = Provider<DeepLinkBloc>((ref) {
@@ -44,15 +45,20 @@ class DeepLinkBloc {
 
   Future<void> onLink(NavigationApi navApi, String link) async {
     final Uri uri = Uri.parse(link);
+    log(uri.toString());
+    if (uri.path == "/route") {
+      log("We have a new route $uri");
+      final params = <String, String>{};
 
-    if (uri.host == "route") {
-      log("We have a new route");
-      if (!uri.queryParameters.containsKey("from") ||
-          !uri.queryParameters.containsKey("to") ||
+      for (final e in uri.queryParameters.entries) {
+        params[translate[e.key] ?? e.key] = translate[e.value] ?? e.value;
+      }
+
+      if (!params.containsKey("from") ||
+          !params.containsKey("to") ||
           !uri.queryParameters.containsKey("i")) {
         throw InvalidRouteException(uri.queryParameters);
       }
-      final Map<String, String> params = Map.from(uri.queryParameters)..remove("i");
 
       final qUri = Uri.https("timetable.search.ch", "api/route.json", params);
       log(qUri.toString());
