@@ -54,6 +54,8 @@ class DeepLinkBloc {
         params[translate[e.key] ?? e.key] = translate[e.value] ?? e.value;
       }
 
+      params.remove("i");
+
       if (!params.containsKey("from") ||
           !params.containsKey("to") ||
           !uri.queryParameters.containsKey("i")) {
