@@ -14,8 +14,6 @@ import Flutter
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        
-        
         let controller = window.rootViewController as! FlutterViewController
         methodChannel = FlutterMethodChannel(name: "com.gaetanschwartz.swift_travel.deeplink/channel", binaryMessenger: controller as! FlutterBinaryMessenger)
         
@@ -36,6 +34,18 @@ import Flutter
     override func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         eventChannel?.setStreamHandler(linkStreamHandler)
         return linkStreamHandler.handleLink(url.absoluteString)
+    }
+    
+    override func application(_ application: UIApplication,
+                              continue userActivity: NSUserActivity,
+                              restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool
+    {
+        eventChannel?.setStreamHandler(linkStreamHandler)
+        // Get URL components from the incoming user activity.
+        if (userActivity.activityType != NSUserActivityTypeBrowsingWeb) {return false}
+        guard let incomingURL = userActivity.webpageURL else {return false}
+        print("We have a new URL \(incomingURL)")
+        return linkStreamHandler.handleLink(incomingURL.absoluteString)
     }
     
     
