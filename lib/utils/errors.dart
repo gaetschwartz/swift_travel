@@ -8,12 +8,15 @@ void report(Object e, StackTrace s, {String name = "", String reason = ""}) {
   if (kDebugMode) debugPrintStack(stackTrace: s, label: "[$name] $reason: $e");
 
   navigatorKey.currentState.push(MaterialPageRoute(
-      builder: (context) => ErrorWidget(FlutterErrorDetails(
-            exception: e,
-            stack: s,
-            context: ErrorDescription(reason),
-            library: name,
-          )),
+      builder: (context) => ErrorWidget(
+            FlutterErrorDetails(
+              exception: e,
+              stack: s,
+              context: ErrorDescription(reason),
+              library: name,
+            ),
+            isFlutter: false,
+          ),
       fullscreenDialog: true));
 
   if (Firebase.apps.isNotEmpty) {
@@ -22,8 +25,12 @@ void report(Object e, StackTrace s, {String name = "", String reason = ""}) {
 }
 
 void reportFlutterError(FlutterErrorDetails details) {
-  navigatorKey.currentState
-      .push(MaterialPageRoute(builder: (context) => ErrorWidget(details), fullscreenDialog: true));
+  navigatorKey.currentState.push(MaterialPageRoute(
+      builder: (context) => ErrorWidget(
+            details,
+            isFlutter: true,
+          ),
+      fullscreenDialog: true));
   FirebaseCrashlytics.instance.recordFlutterError(details);
 }
 
@@ -31,15 +38,17 @@ class ErrorWidget extends StatelessWidget {
   const ErrorWidget(
     this.details, {
     Key key,
+    @required this.isFlutter,
   }) : super(key: key);
 
   final FlutterErrorDetails details;
+  final bool isFlutter;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Error details"),
+        title: Text(isFlutter ? "Flutter error" : "Dart error"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -53,7 +62,7 @@ class ErrorWidget extends StatelessWidget {
             Text.rich(
               TextSpan(text: "${details.exception} ", children: [
                 TextSpan(
-                  text: details.context.toString(),
+                  text: details.context.toDescription(),
                   style: const TextStyle(fontWeight: FontWeight.normal),
                 ),
               ]),

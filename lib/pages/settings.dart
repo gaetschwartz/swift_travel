@@ -116,8 +116,8 @@ class Settings extends StatelessWidget {
             if (kDebugMode) ...[
               ListTile(
                   leading: const Icon(Icons.warning_rounded),
-                  title: const Text("Throw an exception"),
-                  onTap: () => throw Exception("I am an exception")),
+                  title: const Text("Throw a Flutter error"),
+                  onTap: () => throw UnimplementedError("Debug error")),
               ListTile(
                   leading: const Icon(Icons.close),
                   title: const Text("Trigger a crash"),
@@ -168,6 +168,8 @@ class Settings extends StatelessWidget {
   void onMapsChanged(PreferencesBloc prefs, Maps m) => prefs.mapsApp = m;
   void onAPIChanged(PreferencesBloc prefs, NavigationApiType api) => prefs.api = api;
 }
+
+void _error() => throw StateError("I am an error");
 
 class _ThemesSection extends StatefulWidget {
   const _ThemesSection({
