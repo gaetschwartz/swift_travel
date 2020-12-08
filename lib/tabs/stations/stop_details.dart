@@ -130,7 +130,7 @@ class ConnectionTile extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               Format.time(c.time),
-              style: const TextStyle(fontSize: 14),
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ],
         ),

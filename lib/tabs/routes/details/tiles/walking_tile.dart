@@ -35,36 +35,31 @@ class WalkingTile extends StatelessWidget {
                     children: [
                       const FaIcon(FontAwesomeIcons.walking),
                       const SizedBox(width: 8),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            l.exit.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ),
+                      Text(
+                        l.exit.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text.rich(TextSpan(children: [
-                    TextSpan(
-                      text: "Walk ",
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
+                    const TextSpan(text: "Walk "),
                     TextSpan(
                         text: Format.intToDuration(l.runningtime.round()),
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle2
-                            .copyWith(fontWeight: FontWeight.w900)),
-                  ])),
+                        style: const TextStyle(fontWeight: FontWeight.w900)),
+                    if (l.exit.waittime != null && l.exit.waittime != 0) ...[
+                      const TextSpan(text: " and wait "),
+                      TextSpan(text: Format.intToDuration(l.exit.waittime ?? 0)),
+                    ],
+                    const TextSpan(text: "."),
+                  ], style: Theme.of(context).textTheme.subtitle2)),
                 ],
               ),
             ),
+            const SizedBox(width: 16),
             FaIcon(
               FontAwesomeIcons.map,
               color: Theme.of(context).accentColor,

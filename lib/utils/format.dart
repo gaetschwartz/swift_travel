@@ -30,8 +30,8 @@ abstract class Format {
       return '${hour.toString()}${_hs(locale)}${minutes.toString().padLeft(2, "0")}';
     }
     if (m == 0) return _now(locale);
-    if (m == 1) return "1 ${_mins(locale)}";
-    return "$m ${_mins(locale)}";
+    if (m == 1) return "1 ${_mins(locale, m)}";
+    return "$m ${_mins(locale, m)}";
   }
 
   static String _now(Locale locale) {
@@ -40,8 +40,9 @@ abstract class Format {
         return "Maint.";
       case "de":
         return "Jetzt";
+      default:
+        return "Now";
     }
-    return "Now";
   }
 
   static String _hs(Locale locale) {
@@ -52,15 +53,25 @@ abstract class Format {
     return ":";
   }
 
-  static String _mins(Locale locale) => locale.languageCode == "de" ? "min" : "mins";
+  static String _mins(Locale locale, int m) {
+    switch (locale.languageCode) {
+      case "fr":
+      case "en":
+        return m == 1 ? "min" : "mins";
+      case "de":
+        return "min";
+      default:
+        return "min";
+    }
+  }
 
-  static String intToDuration(int i, [Locale locale = const Locale("en")]) {
+  static String intToDuration(int i, [Locale locale = const Locale("fr")]) {
     final m = i ~/ 60;
     final h = m ~/ 60;
     final hrs = h == 0 ? "" : "$h${_hs(locale)}";
     final string = (m % 60).toString();
     final mins = h != 0 ? string.padLeft(2, "0") : string;
-    return "$hrs$mins${h == 0 ? " ${_mins(locale)}" : ""}";
+    return "$hrs$mins${h == 0 ? " ${_mins(locale, m)}" : ""}";
   }
 
   static String time(DateTime date, [Locale locale = const Locale("en")]) {

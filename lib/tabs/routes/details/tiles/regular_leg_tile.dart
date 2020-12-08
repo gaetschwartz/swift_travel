@@ -82,19 +82,22 @@ class RegularLegTile extends StatelessWidget {
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Row(
                                 children: [
-                                  Text(Format.time(l.departure)),
-                                  if (l.depDelay != null && l.depDelay != "+0")
-                                    Text(
-                                      l.depDelay,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
+                                  Text.rich(TextSpan(children: [
+                                    TextSpan(
+                                      text: Format.time(l.departure),
                                     ),
-                                  Expanded(
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(Format.intToDuration(l.runningtime.round())),
+                                    if (l.depDelay != null && l.depDelay != "+0")
+                                      TextSpan(
+                                        text: l.depDelay,
+                                        style: const TextStyle(color: Color(0xFFFF5252)),
+                                      ),
+                                    const TextSpan(text: " ⇢ "),
+                                    TextSpan(
+                                      text: Format.time(l.exit.arrival),
                                     ),
-                                  ),
+                                  ])),
+                                  const Spacer(),
+                                  Text(Format.intToDuration(l.runningtime.round())),
                                 ],
                               ),
                             ),

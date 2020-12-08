@@ -105,7 +105,7 @@ class StopTile extends StatelessWidget {
                 ),
                 subtitle: Text(
                   Format.time(stop.arr),
-                  style: const TextStyle(fontSize: 14),
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 contentPadding: EdgeInsets.zero,
               ),
