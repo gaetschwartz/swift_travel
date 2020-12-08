@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-int colorFromString(String s) {
+int colorFromString(String s, {bool isbackground = false}) {
   if (s == null) {
-    return 0xff000000;
+    return null;
   } else if (s.length == 3) {
     return int.parse("${s[0]}0${s[1]}0${s[2]}0", radix: 16) + 0xff000000;
   } else if (s.length == 6) {

@@ -169,8 +169,6 @@ class Settings extends StatelessWidget {
   void onAPIChanged(PreferencesBloc prefs, NavigationApiType api) => prefs.api = api;
 }
 
-void _error() => throw StateError("I am an error");
-
 class _ThemesSection extends StatefulWidget {
   const _ThemesSection({
     Key key,
