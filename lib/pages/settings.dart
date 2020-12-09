@@ -117,7 +117,7 @@ class Settings extends StatelessWidget {
               ListTile(
                   leading: const Icon(Icons.warning_rounded),
                   title: const Text("Throw a Flutter error"),
-                  onTap: () => throw UnimplementedError("Debug error")),
+                  onTap: () => throw StateError("Debug error")),
               ListTile(
                   leading: const Icon(Icons.close),
                   title: const Text("Trigger a crash"),
