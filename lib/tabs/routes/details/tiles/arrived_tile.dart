@@ -31,12 +31,14 @@ class ArrivedTile extends StatelessWidget {
                 children: [
                   const FaIcon(FontAwesomeIcons.mapPin),
                   const SizedBox(width: 8),
-                  Text(l.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .copyWith(fontWeight: FontWeight.bold)
-                          .apply(fontSizeFactor: 1.2)),
+                  Expanded(
+                    child: Text(l.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            .copyWith(fontWeight: FontWeight.bold)
+                            .apply(fontSizeFactor: 1.2)),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),

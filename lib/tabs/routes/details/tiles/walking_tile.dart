@@ -35,12 +35,14 @@ class WalkingTile extends StatelessWidget {
                     children: [
                       const FaIcon(FontAwesomeIcons.walking),
                       const SizedBox(width: 8),
-                      Text(
-                        l.exit.name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            .copyWith(fontWeight: FontWeight.bold),
+                      Expanded(
+                        child: Text(
+                          l.exit.name,
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),
