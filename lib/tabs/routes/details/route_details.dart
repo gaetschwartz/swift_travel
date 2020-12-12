@@ -30,61 +30,75 @@ class RouteDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = route.connections[i];
+    final conn = route.connections[i];
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => openLive(context, c),
+        onPressed: () => openLive(context, conn),
         child: const Icon(Icons.play_arrow),
       ),
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: Text(c.to),
-        actions: [
-          if (isMobile)
-            IconButton(
-                icon: Theme.of(context).platform == TargetPlatform.iOS
-                    ? const Icon(CupertinoIcons.share)
-                    : const Icon(Icons.share),
-                onPressed: () => _shareRoute(context))
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          _dataRow("Departure", c.from),
-          _dataRow("Arrival", c.to),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                const Text("Travel duration"),
-                const SizedBox(width: 8),
-                Expanded(
-                    child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text.rich(
-                          TextSpan(children: [
-                            TextSpan(
-                                text: "${Format.time(c.departure)} - ${Format.time(c.arrival)}",
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
-                            TextSpan(text: " (${Format.intToDuration(c.duration.round())})")
-                          ]),
-                          textAlign: TextAlign.end,
-                        )))
-              ],
-            ),
-          ),
-          const Divider(thickness: 2, height: 4),
-          Expanded(
-            child: ListView.builder(
-              itemCount: c.legs.length,
-              itemBuilder: (context, i) {
-                final Leg l = c.legs[i];
-                return LegTile(l: l);
-              },
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+              title: const Text('Route'),
+              pinned: true,
+              floating: true,
+              snap: true,
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(140),
+                child: header(context, conn),
+              ),
+              actions: <Widget>[
+                if (isMobile)
+                  IconButton(
+                      icon: Theme.of(context).platform == TargetPlatform.iOS
+                          ? const Icon(CupertinoIcons.share)
+                          : const Icon(Icons.share),
+                      onPressed: () => _shareRoute(context))
+              ]),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (_, i) => LegTile(l: conn.legs[i]),
+              childCount: conn.legs.length,
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget header(BuildContext context, RouteConnection c) {
+    return DecoratedBox(
+      decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
+      child: DefaultTextStyle(
+        style: Theme.of(context).textTheme.bodyText1,
+        child: Column(
+          children: [
+            _dataRow("Departure", c.from),
+            _dataRow("Arrival", c.to),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  const Text("Travel duration"),
+                  const SizedBox(width: 8),
+                  Expanded(
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text.rich(
+                            TextSpan(children: [
+                              TextSpan(
+                                  text: "${Format.time(c.departure)} - ${Format.time(c.arrival)}",
+                                  style: const TextStyle(fontWeight: FontWeight.bold)),
+                              TextSpan(text: " (${Format.intToDuration(c.duration.round())})")
+                            ]),
+                            textAlign: TextAlign.end,
+                          )))
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

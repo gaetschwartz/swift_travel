@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       bottomNavigationBar: Consumer(builder: (context, w, c) {
         return BottomNavigationBar(
           onTap: (i) {
-            Vibration.select();
+            Vibration.selectionHeavy();
             _pageController.animateToPage(i,
                 curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
           },

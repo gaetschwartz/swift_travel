@@ -27,7 +27,7 @@ class _$GeoAttrTearOff {
       int rank,
       String geomStBox2d,
       double lat,
-      @JsonKey(name: "num") int number,
+      @JsonKey(name: 'num') int number,
       double y,
       double x,
       String label}) {
@@ -69,7 +69,7 @@ mixin _$GeoAttr {
   int get rank;
   String get geomStBox2d;
   double get lat;
-  @JsonKey(name: "num")
+  @JsonKey(name: 'num')
   int get number;
   double get y;
   double get x;
@@ -93,7 +93,7 @@ abstract class $GeoAttrCopyWith<$Res> {
       int rank,
       String geomStBox2d,
       double lat,
-      @JsonKey(name: "num") int number,
+      @JsonKey(name: 'num') int number,
       double y,
       double x,
       String label});
@@ -159,7 +159,7 @@ abstract class _$GeoAttrCopyWith<$Res> implements $GeoAttrCopyWith<$Res> {
       int rank,
       String geomStBox2d,
       double lat,
-      @JsonKey(name: "num") int number,
+      @JsonKey(name: 'num') int number,
       double y,
       double x,
       String label});
@@ -225,7 +225,7 @@ class _$_GeoAttr implements _GeoAttr {
       this.rank,
       this.geomStBox2d,
       this.lat,
-      @JsonKey(name: "num") this.number,
+      @JsonKey(name: 'num') this.number,
       this.y,
       this.x,
       this.label});
@@ -252,7 +252,7 @@ class _$_GeoAttr implements _GeoAttr {
   @override
   final double lat;
   @override
-  @JsonKey(name: "num")
+  @JsonKey(name: 'num')
   final int number;
   @override
   final double y;
@@ -340,7 +340,7 @@ abstract class _GeoAttr implements GeoAttr {
       int rank,
       String geomStBox2d,
       double lat,
-      @JsonKey(name: "num") int number,
+      @JsonKey(name: 'num') int number,
       double y,
       double x,
       String label}) = _$_GeoAttr;
@@ -366,7 +366,7 @@ abstract class _GeoAttr implements GeoAttr {
   @override
   double get lat;
   @override
-  @JsonKey(name: "num")
+  @JsonKey(name: 'num')
   int get number;
   @override
   double get y;
