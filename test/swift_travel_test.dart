@@ -243,11 +243,11 @@ void main() {
       test("throw exception if doesn't work", () {
         expect(() => colorFromString("hell"), throwsArgumentError);
         expect(() => colorFromString("1234"), throwsArgumentError);
-        expect(() => colorFromString(""), throwsArgumentError);
 
         expect(() => colorFromString("zzz"), throwsFormatException);
         expect(() => colorFromString("------"), throwsFormatException);
 
+        expect(colorFromString(""), null);
         expect(colorFromString(null), null);
       });
     });
