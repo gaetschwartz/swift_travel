@@ -27,7 +27,7 @@ class FavoriteRouteTile extends StatelessWidget {
       trailing: IconButton(
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () {
-            Vibration.select();
+            Vibration.selectSoft();
             choose<String>(
               context,
               choices: [

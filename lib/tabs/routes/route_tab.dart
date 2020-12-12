@@ -125,13 +125,13 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
 
   void _onFocusToChanged() {
     if (fnTo.hasFocus) {
-      Vibration.select();
+      Vibration.selectSoft();
     }
   }
 
   void _onFocusFromChanged() {
     if (fnFrom.hasFocus) {
-      Vibration.select();
+      Vibration.selectSoft();
     }
   }
 
@@ -197,7 +197,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                               : const FaIcon(FontAwesomeIcons.locationArrow));
                     }),
                     onPressed: () {
-                      Vibration.select();
+                      Vibration.selectSoft();
                       locate();
                     })
               ],
@@ -215,7 +215,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                   tooltip: 'Switch inputs',
                   icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
                   onPressed: () {
-                    Vibration.select();
+                    Vibration.selectSoft();
                     switchInputs();
                   },
                 ),
@@ -237,7 +237,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                             shape: const StadiumBorder(),
                             primary: Theme.of(context).textTheme.button.color),
                         onPressed: () async {
-                          Vibration.select();
+                          Vibration.selectSoft();
                           TimeType type = context.read(_timeTypeProvider).state;
                           final _date = context.read(_dateProvider);
                           final date = await pickDate(context,
@@ -277,7 +277,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                   child: IconButton(
                     tooltip: "Reset time",
                     onPressed: () {
-                      Vibration.select();
+                      Vibration.selectSoft();
                       final date = context.read(_dateProvider);
                       final nowDate = DateTime.now();
                       date.state = nowDate;
@@ -332,7 +332,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     child: IconButton(
                       tooltip: "Favorite route",
                       onPressed: () async {
-                        Vibration.select();
+                        Vibration.selectSoft();
                         final _store =
                             context.read(storeProvider) as FavoritesSharedPreferencesStore;
                         log(_store.routes.toString());
@@ -438,7 +438,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             IconButton(
               icon: const Icon(Icons.clear),
               onPressed: () {
-                Vibration.select();
+                Vibration.selectSoft();
                 _fromController.text = "";
                 context.read(_fromTextfieldProvider).state = const RouteTextfieldState.empty();
               },
@@ -495,7 +495,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
             IconButton(
               icon: const Icon(Icons.clear),
               onPressed: () {
-                Vibration.select();
+                Vibration.selectSoft();
                 _toController.text = "";
                 context.read(_toTextfieldProvider).state = const RouteTextfieldState.empty();
               },

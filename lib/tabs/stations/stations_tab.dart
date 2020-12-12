@@ -50,7 +50,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       setState(() => _hasFocus = focusNode.hasFocus);
     }
     if (focusNode.hasFocus) {
-      Vibration.select();
+      Vibration.selectSoft();
     }
   }
 
@@ -114,7 +114,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                             child: IconButton(
                                 icon: const Icon(Icons.clear),
                                 onPressed: () {
-                                  Vibration.select();
+                                  Vibration.selectSoft();
                                   searchController.text = "";
                                   focusNode.unfocus();
                                   context.read(_stateProvider).state = const StationStates.empty();

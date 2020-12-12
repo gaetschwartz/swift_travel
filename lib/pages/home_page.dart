@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       bottomNavigationBar: Consumer(builder: (context, w, c) {
         return BottomNavigationBar(
           onTap: (i) {
-            Vibration.selectionHeavy();
+            Vibration.selectSoft();
             _pageController.animateToPage(i,
                 curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
           },
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               tooltip: "Settings",
               icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
               onPressed: () {
-                Vibration.select();
+                Vibration.selectSoft();
                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
               }),
         ],

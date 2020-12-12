@@ -104,12 +104,12 @@ class RouteDetails extends StatelessWidget {
   }
 
   void _shareRoute(BuildContext context) {
-    Vibration.select();
+    Vibration.selectSoft();
     shareRoute(route, i);
   }
 
   void openLive(BuildContext context, RouteConnection c) {
-    Vibration.select();
+    Vibration.selectSoft();
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => LiveRoutePage(connection: c),
