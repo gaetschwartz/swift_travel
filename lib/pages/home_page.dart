@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               tooltip: "Settings",
               icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
               onPressed: () {
-                Vibration.selectSoft();
+                Vibration.select();
                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
               }),
         ],

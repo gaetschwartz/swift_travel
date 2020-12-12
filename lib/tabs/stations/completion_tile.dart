@@ -64,14 +64,14 @@ class CffCompletionTile extends ConsumerWidget {
             ? IconButton(
                 icon: const Icon(Icons.more_horiz),
                 onPressed: () {
-                  Vibration.selectSoft();
+                  Vibration.select();
                   more(context, favoriteStop: favStop, isFav: isFavInStore, store: store);
                 })
             : const Icon(Icons.arrow_forward_ios),
         onTap: isPrivate
             ? null
             : () {
-                Vibration.selectSoft();
+                Vibration.select();
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => DetailsStop(stopName: sugg.label),

@@ -36,7 +36,7 @@ class _SearchFavoriteState extends State<SearchFavorite>
         tooltip: "Add a favorite",
         shape: const StadiumBorder(),
         onPressed: () async {
-          Vibration.selectSoft();
+          Vibration.select();
           final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
             builder: (_) => const StopInputDialog(title: "Add a favorite"),
             fullscreenDialog: true,
