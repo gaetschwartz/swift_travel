@@ -36,7 +36,7 @@ class RouteDetails extends StatelessWidget {
         onPressed: () => openLive(context, conn),
         child: const Icon(Icons.play_arrow),
       ),
-      body: CustomScrollView(
+      body: SafeArea(child:CustomScrollView(
         slivers: [
           SliverAppBar(
               title: const Text('Route'),
@@ -63,7 +63,7 @@ class RouteDetails extends StatelessWidget {
           )
         ],
       ),
-    );
+    ));
   }
 
   Widget header(BuildContext context, RouteConnection c) {
