@@ -32,38 +32,39 @@ class RouteDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final conn = route.connections[i];
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => openLive(context, conn),
-        child: const Icon(Icons.play_arrow),
-      ),
-      body: SafeArea(child:CustomScrollView(
-        slivers: [
-          SliverAppBar(
-              title: const Text('Route'),
-              pinned: true,
-              floating: true,
-              snap: true,
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(140),
-                child: header(context, conn),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => openLive(context, conn),
+          child: const Icon(Icons.play_arrow),
+        ),
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+                title: const Text('Route'),
+                pinned: true,
+                floating: true,
+                snap: true,
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(140),
+                  child: header(context, conn),
+                ),
+                actions: <Widget>[
+                  if (isMobile)
+                    IconButton(
+                        icon: Theme.of(context).platform == TargetPlatform.iOS
+                            ? const Icon(CupertinoIcons.share)
+                            : const Icon(Icons.share),
+                        onPressed: () => _shareRoute(context))
+                ]),
+            SliverSafeArea(
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (_, i) => LegTile(l: conn.legs[i]),
+                  childCount: conn.legs.length,
+                ),
               ),
-              actions: <Widget>[
-                if (isMobile)
-                  IconButton(
-                      icon: Theme.of(context).platform == TargetPlatform.iOS
-                          ? const Icon(CupertinoIcons.share)
-                          : const Icon(Icons.share),
-                      onPressed: () => _shareRoute(context))
-              ]),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (_, i) => LegTile(l: conn.legs[i]),
-              childCount: conn.legs.length,
             ),
-          )
-        ],
-      ),
-    ));
+          ],
+        ));
   }
 
   Widget header(BuildContext context, RouteConnection c) {

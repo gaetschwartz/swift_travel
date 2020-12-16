@@ -36,6 +36,8 @@ void report(Object e, StackTrace s, {String name = "", String reason = ""}) {
 }
 
 void reportFlutterError(FlutterErrorDetails details) {
+  if (kDebugMode) debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
+
   Vibration.error();
 
   scaffoldMessengerKey.currentState.showSnackBar(SnackBar(

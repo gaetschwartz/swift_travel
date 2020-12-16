@@ -54,7 +54,7 @@ class RouteTile extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: ListTile(
             isThreeLine: true,
             title: Row(

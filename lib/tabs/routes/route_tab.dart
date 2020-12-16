@@ -141,6 +141,8 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       unFocusFields();
       context.read(_dateProvider).state = DateTime.now();
+      context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(widget.localRoute.from);
+      context.read(_toTextfieldProvider).state = RouteTextfieldState.text(widget.localRoute.to);
     });
   }
 
@@ -149,6 +151,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       unFocusFields();
       context.read(_dateProvider).state = DateTime.now();
+      context.read(_toTextfieldProvider).state = RouteTextfieldState.text(widget.favStop.stop);
       await locate();
     });
   }
