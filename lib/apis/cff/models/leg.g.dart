@@ -43,7 +43,7 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
           (k, e) => MapEntry(k, e as String),
         ) ??
         {},
-    depDelay: json['dep_delay'] as String,
+    depDelay: delayFromJson(json['dep_delay']),
   );
 }
 
@@ -78,7 +78,7 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);
   writeNotNull('attributes', instance.attributes);
-  writeNotNull('dep_delay', instance.depDelay);
+  writeNotNull('dep_delay', delayToJson(instance.depDelay));
   return val;
 }
 

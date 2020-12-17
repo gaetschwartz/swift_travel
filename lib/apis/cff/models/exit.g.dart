@@ -18,6 +18,7 @@ _$_Exit _$_$_ExitFromJson(Map<String, dynamic> json) {
     sbbName: json['sbbName'] as String,
     lat: (json['lat'] as num)?.toDouble(),
     lon: (json['lon'] as num)?.toDouble(),
+    arrDelay: delayFromJson(json['arr_delay']),
   );
 }
 
@@ -38,5 +39,6 @@ Map<String, dynamic> _$_$_ExitToJson(_$_Exit instance) {
   writeNotNull('sbbName', instance.sbbName);
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);
+  writeNotNull('arr_delay', delayFromJson(instance.arrDelay));
   return val;
 }

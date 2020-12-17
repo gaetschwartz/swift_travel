@@ -25,7 +25,9 @@ class _$ExitTearOff {
       bool isaddress,
       String sbbName,
       double lat,
-      double lon}) {
+      double lon,
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+          int arrDelay}) {
     return _Exit(
       arrival: arrival,
       name: name,
@@ -35,6 +37,7 @@ class _$ExitTearOff {
       sbbName: sbbName,
       lat: lat,
       lon: lon,
+      arrDelay: arrDelay,
     );
   }
 
@@ -58,6 +61,8 @@ mixin _$Exit {
   String get sbbName;
   double get lat;
   double get lon;
+  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+  int get arrDelay;
 
   Map<String, dynamic> toJson();
   $ExitCopyWith<Exit> get copyWith;
@@ -75,7 +80,9 @@ abstract class $ExitCopyWith<$Res> {
       bool isaddress,
       String sbbName,
       double lat,
-      double lon});
+      double lon,
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+          int arrDelay});
 }
 
 /// @nodoc
@@ -96,6 +103,7 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
     Object sbbName = freezed,
     Object lat = freezed,
     Object lon = freezed,
+    Object arrDelay = freezed,
   }) {
     return _then(_value.copyWith(
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
@@ -106,6 +114,7 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String,
       lat: lat == freezed ? _value.lat : lat as double,
       lon: lon == freezed ? _value.lon : lon as double,
+      arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
     ));
   }
 }
@@ -123,7 +132,9 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
       bool isaddress,
       String sbbName,
       double lat,
-      double lon});
+      double lon,
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+          int arrDelay});
 }
 
 /// @nodoc
@@ -145,6 +156,7 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
     Object sbbName = freezed,
     Object lat = freezed,
     Object lon = freezed,
+    Object arrDelay = freezed,
   }) {
     return _then(_Exit(
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
@@ -155,6 +167,7 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String,
       lat: lat == freezed ? _value.lat : lat as double,
       lon: lon == freezed ? _value.lon : lon as double,
+      arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
     ));
   }
 }
@@ -171,7 +184,9 @@ class _$_Exit implements _Exit {
       this.isaddress,
       this.sbbName,
       this.lat,
-      this.lon});
+      this.lon,
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+          this.arrDelay});
 
   factory _$_Exit.fromJson(Map<String, dynamic> json) =>
       _$_$_ExitFromJson(json);
@@ -192,10 +207,13 @@ class _$_Exit implements _Exit {
   final double lat;
   @override
   final double lon;
+  @override
+  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+  final int arrDelay;
 
   @override
   String toString() {
-    return 'Exit(arrival: $arrival, name: $name, stopid: $stopid, waittime: $waittime, isaddress: $isaddress, sbbName: $sbbName, lat: $lat, lon: $lon)';
+    return 'Exit(arrival: $arrival, name: $name, stopid: $stopid, waittime: $waittime, isaddress: $isaddress, sbbName: $sbbName, lat: $lat, lon: $lon, arrDelay: $arrDelay)';
   }
 
   @override
@@ -221,7 +239,10 @@ class _$_Exit implements _Exit {
             (identical(other.lat, lat) ||
                 const DeepCollectionEquality().equals(other.lat, lat)) &&
             (identical(other.lon, lon) ||
-                const DeepCollectionEquality().equals(other.lon, lon)));
+                const DeepCollectionEquality().equals(other.lon, lon)) &&
+            (identical(other.arrDelay, arrDelay) ||
+                const DeepCollectionEquality()
+                    .equals(other.arrDelay, arrDelay)));
   }
 
   @override
@@ -234,7 +255,8 @@ class _$_Exit implements _Exit {
       const DeepCollectionEquality().hash(isaddress) ^
       const DeepCollectionEquality().hash(sbbName) ^
       const DeepCollectionEquality().hash(lat) ^
-      const DeepCollectionEquality().hash(lon);
+      const DeepCollectionEquality().hash(lon) ^
+      const DeepCollectionEquality().hash(arrDelay);
 
   @override
   _$ExitCopyWith<_Exit> get copyWith =>
@@ -255,7 +277,9 @@ abstract class _Exit implements Exit {
       bool isaddress,
       String sbbName,
       double lat,
-      double lon}) = _$_Exit;
+      double lon,
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+          int arrDelay}) = _$_Exit;
 
   factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
 
@@ -275,6 +299,9 @@ abstract class _Exit implements Exit {
   double get lat;
   @override
   double get lon;
+  @override
+  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+  int get arrDelay;
   @override
   _$ExitCopyWith<_Exit> get copyWith;
 }

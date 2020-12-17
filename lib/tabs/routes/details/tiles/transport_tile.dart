@@ -9,8 +9,9 @@ import 'package:swift_travel/widget/cff_icon.dart';
 import 'package:swift_travel/widget/line_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
-class RegularLegTile extends StatelessWidget {
-  const RegularLegTile({
+@Deprecated("Use `NewTransportLegTile`")
+class TransportLegTile extends StatelessWidget {
+  const TransportLegTile({
     Key key,
     @required this.l,
   }) : super(key: key);
@@ -86,9 +87,9 @@ class RegularLegTile extends StatelessWidget {
                                     TextSpan(
                                       text: Format.time(l.departure),
                                     ),
-                                    if (l.depDelay != null && l.depDelay != "+0")
+                                    if (l.depDelay != null && l.depDelay > 0)
                                       TextSpan(
-                                        text: l.depDelay,
+                                        text: Format.delay(l.depDelay),
                                         style: const TextStyle(color: Color(0xFFFF5252)),
                                       ),
                                     const TextSpan(text: " ⇢ "),

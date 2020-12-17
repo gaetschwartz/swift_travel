@@ -6,29 +6,32 @@ import 'package:swift_travel/main.dart';
 import 'package:vibration/vibration.dart';
 
 void report(Object e, StackTrace s, {String name = "", String reason = ""}) {
-  if (kDebugMode) debugPrintStack(stackTrace: s, label: "[$name] $reason: $e");
-
-  Vibration.error();
-
-  scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-    content: Text("$e"),
-    action: SnackBarAction(
-      label: "Details",
-      onPressed: () {
-        navigatorKey.currentState.push(MaterialPageRoute(
-            builder: (context) => ErrorWidget(
-                  FlutterErrorDetails(
-                    exception: e,
-                    stack: s,
-                    context: ErrorDescription(reason),
-                    library: name,
-                  ),
-                  isFlutter: false,
-                ),
-            fullscreenDialog: true));
-      },
-    ),
-  ));
+  if (kDebugMode) {
+    debugPrintStack(stackTrace: s, label: "[$name] $reason: $e");
+    scaffoldMessengerKey.currentState
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text("$e"),
+        action: SnackBarAction(
+          label: "Details",
+          onPressed: () {
+            navigatorKey.currentState.push(MaterialPageRoute(
+                builder: (context) => ErrorWidget(
+                      FlutterErrorDetails(
+                        exception: e,
+                        stack: s,
+                        context: ErrorDescription(reason),
+                        library: name,
+                      ),
+                      isFlutter: false,
+                    ),
+                fullscreenDialog: true));
+          },
+        ),
+      ));
+  } else {
+    Vibration.error();
+  }
 
   if (Firebase.apps.isNotEmpty) {
     FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
@@ -36,24 +39,27 @@ void report(Object e, StackTrace s, {String name = "", String reason = ""}) {
 }
 
 void reportFlutterError(FlutterErrorDetails details) {
-  if (kDebugMode) debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
-
-  Vibration.error();
-
-  scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-    content: Text(details.exception.toString()),
-    action: SnackBarAction(
-      label: "Details",
-      onPressed: () {
-        navigatorKey.currentState.push(
-          MaterialPageRoute(
-            builder: (context) => ErrorWidget(details, isFlutter: true),
-            fullscreenDialog: true,
-          ),
-        );
-      },
-    ),
-  ));
+  if (kDebugMode) {
+    debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
+    scaffoldMessengerKey.currentState
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text(details.exception.toString()),
+        action: SnackBarAction(
+          label: "Details",
+          onPressed: () {
+            navigatorKey.currentState.push(
+              MaterialPageRoute(
+                builder: (context) => ErrorWidget(details, isFlutter: true),
+                fullscreenDialog: true,
+              ),
+            );
+          },
+        ),
+      ));
+  } else {
+    Vibration.error();
+  }
 
   FirebaseCrashlytics.instance.recordFlutterError(details);
 }

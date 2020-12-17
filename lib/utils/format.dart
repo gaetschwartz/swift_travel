@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swift_travel/apis/cff/models/exit.dart';
 
 int colorFromString(String s, {bool isbackground = false}) {
   if (s == null || s.isEmpty) {
@@ -20,6 +21,8 @@ abstract class Format {
             ? "${(d / 1000).toStringAsFixed(1)} km"
             : "${d.round()} m";
   }
+
+  static String delay(int d) => delayToJson(d);
 
   static String duration(Duration d, {Locale locale = const Locale("en")}) {
     if (d == null) return null;

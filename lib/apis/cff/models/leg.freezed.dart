@@ -40,7 +40,8 @@ class _$LegTearOff {
       double lat,
       double lon,
       Map<String, String> attributes = const {},
-      @JsonKey(name: 'dep_delay') String depDelay}) {
+      @JsonKey(name: "dep_delay", fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay}) {
     return _Leg(
       type: type,
       track: track,
@@ -102,8 +103,8 @@ mixin _$Leg {
   double get lat;
   double get lon;
   Map<String, String> get attributes;
-  @JsonKey(name: 'dep_delay')
-  String get depDelay;
+  @JsonKey(name: "dep_delay", fromJson: delayFromJson, toJson: delayToJson)
+  int get depDelay;
 
   Map<String, dynamic> toJson();
   $LegCopyWith<Leg> get copyWith;
@@ -136,7 +137,8 @@ abstract class $LegCopyWith<$Res> {
       double lat,
       double lon,
       Map<String, String> attributes,
-      @JsonKey(name: 'dep_delay') String depDelay});
+      @JsonKey(name: "dep_delay", fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay});
 
   $ExitCopyWith<$Res> get exit;
 }
@@ -202,7 +204,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
       attributes: attributes == freezed
           ? _value.attributes
           : attributes as Map<String, String>,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as String,
+      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
     ));
   }
 
@@ -245,7 +247,8 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       double lat,
       double lon,
       Map<String, String> attributes,
-      @JsonKey(name: 'dep_delay') String depDelay});
+      @JsonKey(name: "dep_delay", fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay});
 
   @override
   $ExitCopyWith<$Res> get exit;
@@ -313,7 +316,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
       attributes: attributes == freezed
           ? _value.attributes
           : attributes as Map<String, String>,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as String,
+      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
     ));
   }
 }
@@ -345,7 +348,8 @@ class _$_Leg implements _Leg {
       this.lat,
       this.lon,
       this.attributes = const {},
-      @JsonKey(name: 'dep_delay') this.depDelay})
+      @JsonKey(name: "dep_delay", fromJson: delayFromJson, toJson: delayToJson)
+          this.depDelay})
       : assert(stops != null),
         assert(attributes != null);
 
@@ -398,8 +402,8 @@ class _$_Leg implements _Leg {
   @override
   final Map<String, String> attributes;
   @override
-  @JsonKey(name: 'dep_delay')
-  final String depDelay;
+  @JsonKey(name: "dep_delay", fromJson: delayFromJson, toJson: delayToJson)
+  final int depDelay;
 
   @override
   String toString() {
@@ -531,7 +535,8 @@ abstract class _Leg implements Leg {
       double lat,
       double lon,
       Map<String, String> attributes,
-      @JsonKey(name: 'dep_delay') String depDelay}) = _$_Leg;
+      @JsonKey(name: "dep_delay", fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay}) = _$_Leg;
 
   factory _Leg.fromJson(Map<String, dynamic> json) = _$_Leg.fromJson;
 
@@ -580,8 +585,8 @@ abstract class _Leg implements Leg {
   @override
   Map<String, String> get attributes;
   @override
-  @JsonKey(name: 'dep_delay')
-  String get depDelay;
+  @JsonKey(name: "dep_delay", fromJson: delayFromJson, toJson: delayToJson)
+  int get depDelay;
   @override
   _$LegCopyWith<_Leg> get copyWith;
 }
