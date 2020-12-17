@@ -54,11 +54,13 @@ class _NewTransportLegTileState extends State<NewTransportLegTile> {
             child: ExpandablePanel(
               controller: _controller,
               builder: (context, collapsed, expanded) {
-                return MyExpandable(
-                  collapsed: collapsed,
-                  expanded: expanded,
-                  backgroundColor: Theme.of(context).cardColor,
-                  theme: _expandableTheme,
+                return ExpandableButton(
+                  child: MyExpandable(
+                    collapsed: collapsed,
+                    expanded: expanded,
+                    backgroundColor: Theme.of(context).cardColor,
+                    theme: _expandableTheme,
+                  ),
                 );
               },
               header: Column(
@@ -70,16 +72,15 @@ class _NewTransportLegTileState extends State<NewTransportLegTile> {
                             foreground: widget.l.fgcolor,
                             background: widget.l.bgcolor,
                             line: widget.l.line),
-                        const SizedBox(width: 8),
                       ] else ...[
                         CffIcon(widget.l.type),
-                        const SizedBox(width: 8),
                       ],
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.l.exit.name,
+                            widget.l.terminal,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -140,6 +141,8 @@ class _NewTransportLegTileState extends State<NewTransportLegTile> {
                               ])),
                               const SizedBox(width: 16),
                               Expanded(flex: 3, child: Text(widget.l.exit.name)),
+                              Text(Format.intToDuration(widget.l.runningtime.round())),
+                              const SizedBox(width: 32),
                             ],
                           ),
                         ),
