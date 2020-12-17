@@ -1,21 +1,41 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:swift_travel/tabs/routes/details/tiles/expandable.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widget/cff_icon.dart';
 import 'package:swift_travel/widget/line_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
-class NewTransportLegTile extends StatelessWidget {
+class NewTransportLegTile extends StatefulWidget {
   const NewTransportLegTile({
     Key key,
     @required this.l,
   }) : super(key: key);
 
   final Leg l;
+
+  @override
+  _NewTransportLegTileState createState() => _NewTransportLegTileState();
+}
+
+const _expandableTheme = ExpandableThemeData(
+  sizeCurve: Curves.easeOutCubic,
+  iconRotationAngle: math.pi / 2,
+  animationDuration: Duration(milliseconds: 200),
+);
+
+class _NewTransportLegTileState extends State<NewTransportLegTile> {
+  final ExpandableController _controller = ExpandableController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,34 +50,43 @@ class NewTransportLegTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: ExpandableTheme(
-            data: const ExpandableThemeData(
-              sizeCurve: Curves.easeOutCubic,
-              iconRotationAngle: pi / 2,
-            ),
+            data: _expandableTheme,
             child: ExpandablePanel(
+              controller: _controller,
+              builder: (context, collapsed, expanded) {
+                return MyExpandable(
+                  collapsed: collapsed,
+                  expanded: expanded,
+                  backgroundColor: Theme.of(context).cardColor,
+                  theme: _expandableTheme,
+                );
+              },
               header: Column(
                 children: [
                   Row(
                     children: <Widget>[
-                      if (l.line != null) ...[
-                        LineIcon(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
+                      if (widget.l.line != null) ...[
+                        LineIcon(
+                            foreground: widget.l.fgcolor,
+                            background: widget.l.bgcolor,
+                            line: widget.l.line),
                         const SizedBox(width: 8),
                       ] else ...[
-                        CffIcon(l.type),
+                        CffIcon(widget.l.type),
                         const SizedBox(width: 8),
                       ],
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            l.exit.name,
+                            widget.l.exit.name,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                      if (l.track != null)
+                      if (widget.l.track != null)
                         Text(
-                          "Pl. ${l.track}",
+                          "Pl. ${widget.l.track}",
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                     ],
@@ -65,7 +94,7 @@ class NewTransportLegTile extends StatelessWidget {
                 ],
               ),
               expanded: Column(
-                children: _stops(l, context),
+                children: _stops(widget.l, context),
               ),
               collapsed: DefaultTextStyle(
                 style: Theme.of(context).textTheme.subtitle2,
@@ -74,43 +103,43 @@ class NewTransportLegTile extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (l.exit != null)
+                      if (widget.l.exit != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Row(
                             children: [
                               Text.rich(TextSpan(children: [
                                 TextSpan(
-                                  text: Format.time(l.departure),
+                                  text: Format.time(widget.l.departure),
                                 ),
-                                if (l.depDelay != null && l.depDelay > 0)
+                                if (widget.l.depDelay != null && widget.l.depDelay > 0)
                                   TextSpan(
-                                    text: Format.delay(l.depDelay),
+                                    text: Format.delay(widget.l.depDelay),
                                     style: const TextStyle(color: Color(0xFFFF5252)),
                                   ),
                               ])),
                               const SizedBox(width: 16),
-                              Expanded(flex: 3, child: Text(l.name)),
+                              Expanded(flex: 3, child: Text(widget.l.name)),
                             ],
                           ),
                         ),
-                      if (l.exit != null)
+                      if (widget.l.exit != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Row(
                             children: [
                               Text.rich(TextSpan(children: [
                                 TextSpan(
-                                  text: Format.time(l.exit.arrival),
+                                  text: Format.time(widget.l.exit.arrival),
                                 ),
-                                if (l.exit.arrDelay != null && l.exit.arrDelay > 0)
+                                if (widget.l.exit.arrDelay != null && widget.l.exit.arrDelay > 0)
                                   TextSpan(
-                                    text: Format.delay(l.exit.arrDelay),
+                                    text: Format.delay(widget.l.exit.arrDelay),
                                     style: const TextStyle(color: Color(0xFFFF5252)),
                                   ),
                               ])),
                               const SizedBox(width: 16),
-                              Expanded(flex: 3, child: Text(l.exit.name)),
+                              Expanded(flex: 3, child: Text(widget.l.exit.name)),
                             ],
                           ),
                         ),

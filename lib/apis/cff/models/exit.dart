@@ -8,7 +8,7 @@ int delayFromJson(dynamic s) => s is String
     : s == null
         ? null
         : throw FormatException("$s is not of type String but ${s.runtimeType}");
-String delayToJson(int d) => d >= 0 ? "+$d" : d.toString();
+String delayToJson(int d) => d > 0 ? "+$d" : d.toString();
 
 @freezed
 abstract class Exit with _$Exit {

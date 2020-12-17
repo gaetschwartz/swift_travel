@@ -139,18 +139,25 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     _fromController.text = widget.localRoute.from;
     _toController.text = widget.localRoute.to;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      clearProviders();
       unFocusFields();
-      context.read(_dateProvider).state = DateTime.now();
       context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(widget.localRoute.from);
       context.read(_toTextfieldProvider).state = RouteTextfieldState.text(widget.localRoute.to);
     });
   }
 
+  void clearProviders() {
+    context.read(_futureRouteProvider).state = const RouteStates.empty();
+    context.read(_fromTextfieldProvider).state = const RouteTextfieldState.empty();
+    context.read(_toTextfieldProvider).state = const RouteTextfieldState.empty();
+    context.read(_dateProvider).state = DateTime.now();
+  }
+
   void goToDest() {
     _toController.text = widget.favStop.stop;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      clearProviders();
       unFocusFields();
-      context.read(_dateProvider).state = DateTime.now();
       context.read(_toTextfieldProvider).state = RouteTextfieldState.text(widget.favStop.stop);
       await locate();
     });

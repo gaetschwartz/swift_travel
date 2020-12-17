@@ -8,6 +8,7 @@ import 'package:vibration/vibration.dart';
 void report(Object e, StackTrace s, {String name = "", String reason = ""}) {
   if (kDebugMode) {
     debugPrintStack(stackTrace: s, label: "[$name] $reason: $e");
+  } else {
     scaffoldMessengerKey.currentState
       ..removeCurrentSnackBar()
       ..showSnackBar(SnackBar(
@@ -29,7 +30,6 @@ void report(Object e, StackTrace s, {String name = "", String reason = ""}) {
           },
         ),
       ));
-  } else {
     Vibration.error();
   }
 
@@ -41,6 +41,7 @@ void report(Object e, StackTrace s, {String name = "", String reason = ""}) {
 void reportFlutterError(FlutterErrorDetails details) {
   if (kDebugMode) {
     debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
+  } else {
     scaffoldMessengerKey.currentState
       ..removeCurrentSnackBar()
       ..showSnackBar(SnackBar(
@@ -57,7 +58,6 @@ void reportFlutterError(FlutterErrorDetails details) {
           },
         ),
       ));
-  } else {
     Vibration.error();
   }
 
