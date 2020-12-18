@@ -18,8 +18,7 @@ _$_Disruption _$_$_DisruptionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_DisruptionToJson(_$_Disruption instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$_$_DisruptionToJson(_$_Disruption instance) => <String, dynamic>{
       'id': instance.id,
       'header': instance.header,
       'lead': instance.lead,

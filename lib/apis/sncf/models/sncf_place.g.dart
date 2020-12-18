@@ -12,15 +12,13 @@ _$_SncfPlace _$_$_SncfPlaceFromJson(Map<String, dynamic> json) {
     quality: json['quality'] as int,
     administrativeRegion: json['administrativeRegion'] == null
         ? null
-        : SncfAdministrativeRegion.fromJson(
-            json['administrativeRegion'] as Map<String, dynamic>),
+        : SncfAdministrativeRegion.fromJson(json['administrativeRegion'] as Map<String, dynamic>),
     name: json['name'] as String,
     id: json['id'] as String,
   );
 }
 
-Map<String, dynamic> _$_$_SncfPlaceToJson(_$_SncfPlace instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$_$_SncfPlaceToJson(_$_SncfPlace instance) => <String, dynamic>{
       'embeddedType': instance.embeddedType,
       'quality': instance.quality,
       'administrativeRegion': instance.administrativeRegion?.toJson(),

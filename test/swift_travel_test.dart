@@ -42,13 +42,13 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final Random r = Random();
 
-  group("navigation api", () {
+  group('navigation api', () {
     setUp(() async {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
       final preferences = await SharedPreferences.getInstance();
       preferences.clear();
     });
-    test("returns the right instance", () async {
+    test('returns the right instance', () async {
       final ProviderContainer container = ProviderContainer();
       final PreferencesBloc store = container.read(preferencesProvider);
       await store.loadFromPreferences();
@@ -63,23 +63,23 @@ void main() {
     });
   });
 
-  group("favorites store", () {
+  group('favorites store', () {
     setUp(() async {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
       final preferences = await SharedPreferences.getInstance();
       preferences.clear();
     });
 
-    test("favs and routes are persisted correctly", () async {
+    test('favs and routes are persisted correctly', () async {
       final container = ProviderContainer();
 
       final store = container.read(storeProvider);
 
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
 
-      final bern = FavoriteStop("Bern");
+      final bern = FavoriteStop('Bern');
       await store.addStop(bern);
-      final route = LocalRoute("Bern", "Zürich");
+      final route = LocalRoute('Bern', 'Bern');
       await store.addRoute(route);
 
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
@@ -88,7 +88,7 @@ void main() {
       expect(store.routes, [route]);
     });
 
-    test("default is empty", () async {
+    test('default is empty', () async {
       final container = ProviderContainer();
 
       final store = container.read(storeProvider);
@@ -98,7 +98,7 @@ void main() {
       expect(store.routes, []);
     });
 
-    test("add favs and remove", () async {
+    test('add favs and remove', () async {
       final container = ProviderContainer();
 
       final favsListener = FavsListener();
@@ -109,8 +109,8 @@ void main() {
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(favsListener([])).called(1);
 
-      final bern = FavoriteStop("Bern");
-      final nowhere = FavoriteStop("Nowhere");
+      final bern = FavoriteStop('Bern');
+      final nowhere = FavoriteStop('Nowhere');
 
       await store.addStop(bern);
       expect(store.stops, [bern]);
@@ -123,7 +123,7 @@ void main() {
       verifyNoMoreInteractions(favsListener);
     });
 
-    test("add routes and remove", () async {
+    test('add routes and remove', () async {
       final container = ProviderContainer();
 
       final routesListener = RoutesListener();
@@ -134,8 +134,8 @@ void main() {
       store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(routesListener([])).called(1);
 
-      final route = LocalRoute("Bern", "Zürich");
-      final routeNever = LocalRoute("Nowhere", "Everywhere");
+      final route = LocalRoute('Bern', 'Bern');
+      final routeNever = LocalRoute('Nowhere', 'Everywhere');
 
       await store.addRoute(route);
       expect(store.routes, [route]);
@@ -149,12 +149,12 @@ void main() {
     });
   });
 
-  group("preferences store", () {
+  group('preferences store', () {
     setUp(() {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
     });
 
-    test("prefs persist", () async {
+    test('prefs persist', () async {
       final container = ProviderContainer();
 
       final listener = PrefsListener();
@@ -180,74 +180,74 @@ void main() {
     });
   });
 
-  group("misc", () {
-    group("format", () {
-      test("distance", () {
-        expect(Format.distance(0), "0 m");
-        expect(Format.distance(10), "10 m");
-        expect(Format.distance(1000), "1.0 km");
-        expect(Format.distance(1234), "1.2 km");
-        expect(Format.distance(null), "");
+  group('misc', () {
+    group('format', () {
+      test('distance', () {
+        expect(Format.distance(0), '0 m');
+        expect(Format.distance(10), '10 m');
+        expect(Format.distance(1000), '1.0 km');
+        expect(Format.distance(1234), '1.2 km');
+        expect(Format.distance(null), '');
       });
 
-      test("duration - en", () {
-        expect(Format.duration(const Duration(hours: 2, minutes: 3)), "2:03");
-        expect(Format.duration(const Duration(hours: 2)), "2:00");
-        expect(Format.duration(const Duration(minutes: 3)), "3 mins");
-        expect(Format.duration(Duration.zero), "Now");
+      test('duration - en', () {
+        expect(Format.duration(const Duration(hours: 2, minutes: 3)), '2:03');
+        expect(Format.duration(const Duration(hours: 2)), '2:00');
+        expect(Format.duration(const Duration(minutes: 3)), '3 mins');
+        expect(Format.duration(Duration.zero), 'Now');
       });
 
-      test("duration - fr", () {
-        const locale = Locale("fr");
-        expect(Format.duration(const Duration(hours: 2, minutes: 3), locale: locale), "2h03");
-        expect(Format.duration(const Duration(hours: 2), locale: locale), "2h00");
-        expect(Format.duration(const Duration(minutes: 3), locale: locale), "3 mins");
-        expect(Format.duration(Duration.zero, locale: locale), "Maint.");
+      test('duration - fr', () {
+        const locale = Locale('fr');
+        expect(Format.duration(const Duration(hours: 2, minutes: 3), locale: locale), '2h03');
+        expect(Format.duration(const Duration(hours: 2), locale: locale), '2h00');
+        expect(Format.duration(const Duration(minutes: 3), locale: locale), '3 mins');
+        expect(Format.duration(Duration.zero, locale: locale), 'Maint.');
       });
     });
-    test("levenshtein", () {
-      expect(levenshtein("hello", "hello"), 0);
-      expect(levenshtein("hello!", "hello"), 1);
-      expect(levenshtein("hello!!!", "hello"), 3);
+    test('levenshtein', () {
+      expect(levenshtein('hello', 'hello'), 0);
+      expect(levenshtein('hello!', 'hello'), 1);
+      expect(levenshtein('hello!!!', 'hello'), 3);
     });
-    test("query builder", () {
-      final builder = QueryBuilder("https://example.com", (s) => "$s.json");
-      expect(builder("compute", {}), "https://example.com/compute.json");
-      expect(builder("delete", {"test1": true, "test2": false}),
-          "https://example.com/delete.json?test1=true&test2=false");
+    test('query builder', () {
+      final builder = QueryBuilder('https://example.com', (s) => '$s.json');
+      expect(builder('compute', {}), 'https://example.com/compute.json');
+      expect(builder('delete', {'test1': true, 'test2': false}),
+          'https://example.com/delete.json?test1=true&test2=false');
       expect(
-          builder("encode", {"f1": "¦@#°§", "f2": "¬|¢´", "f3": "&?"}),
-          "https://example.com/encode.json?"
-          "f1=%C2%A6%40%23%C2%B0%C2%A7"
-          "&f2=%C2%AC%7C%C2%A2%C2%B4"
-          "&f3=%26%3F");
+          builder('encode', {'f1': '¦@#°§', 'f2': '¬|¢´', 'f3': '&?'}),
+          'https://example.com/encode.json?'
+          'f1=%C2%A6%40%23%C2%B0%C2%A7'
+          '&f2=%C2%AC%7C%C2%A2%C2%B4'
+          '&f3=%26%3F');
     });
 
     const count = 50;
 
-    group("colorFromString", () {
-      test("works correctly ", () {
+    group('colorFromString', () {
+      test('works correctly ', () {
         for (var i = 0; i < count; i++) {
           final nextInt = r.nextInt(1 << 12);
-          final s = nextInt.toRadixString(16).padLeft(3, "0");
+          final s = nextInt.toRadixString(16).padLeft(3, '0');
           expect(s.length, 3);
-          expect(colorFromString(s).toRadixString(16), "ff${s[0]}0${s[1]}0${s[2]}0");
+          expect(colorFromString(s).toRadixString(16), 'ff${s[0]}0${s[1]}0${s[2]}0');
         }
         for (var i = 0; i < count; i++) {
           final nextInt = r.nextInt(1 << 24);
-          final s = nextInt.toRadixString(16).padLeft(6, "0");
+          final s = nextInt.toRadixString(16).padLeft(6, '0');
           expect(s.length, 6);
-          expect(colorFromString(s).toRadixString(16), "ff$s");
+          expect(colorFromString(s).toRadixString(16), 'ff$s');
         }
       });
       test("throw exception if doesn't work", () {
-        expect(() => colorFromString("hell"), throwsArgumentError);
-        expect(() => colorFromString("1234"), throwsArgumentError);
+        expect(() => colorFromString('hell'), throwsArgumentError);
+        expect(() => colorFromString('1234'), throwsArgumentError);
 
-        expect(() => colorFromString("zzz"), throwsFormatException);
-        expect(() => colorFromString("------"), throwsFormatException);
+        expect(() => colorFromString('zzz'), throwsFormatException);
+        expect(() => colorFromString('------'), throwsFormatException);
 
-        expect(colorFromString(""), null);
+        expect(colorFromString(''), null);
         expect(colorFromString(null), null);
       });
     });

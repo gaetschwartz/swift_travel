@@ -18,8 +18,8 @@ const darkShadow = ShadowTheme(
 ThemeConfiguration get themeConfiguration {
   final String muli = GoogleFonts.muli().fontFamily;
   return ThemeConfiguration({
-    "default": FullTheme(
-      name: "Swift Travel",
+    'default': FullTheme(
+      name: 'Swift Travel',
       light: ThemeData(
         primarySwatch: redAccent,
         fontFamily: muli,
@@ -33,8 +33,8 @@ ThemeConfiguration get themeConfiguration {
       lightShadow: lightShadow,
       darkShadow: darkShadow,
     ),
-    "lexend": FullTheme(
-      name: "Lexend",
+    'lexend': FullTheme(
+      name: 'Lexend',
       light: ThemeData(
         primarySwatch: redAccent,
         fontFamily: GoogleFonts.lexendDeca().fontFamily,
@@ -48,8 +48,8 @@ ThemeConfiguration get themeConfiguration {
       lightShadow: lightShadow,
       darkShadow: darkShadow,
     ),
-    "abin": FullTheme(
-      name: "Abin",
+    'abin': FullTheme(
+      name: 'Abin',
       light: ThemeData(
         primarySwatch: purpleAbin,
         accentColor: blueAbin,
@@ -65,8 +65,8 @@ ThemeConfiguration get themeConfiguration {
       lightShadow: lightShadow,
       darkShadow: darkShadow,
     ),
-    "code": FullTheme(
-      name: "Code",
+    'code': FullTheme(
+      name: 'Code',
       light: ThemeData(
         primarySwatch: Colors.indigo,
         accentColor: Colors.indigoAccent,
@@ -81,8 +81,8 @@ ThemeConfiguration get themeConfiguration {
       lightShadow: lightShadow,
       darkShadow: darkShadow,
     ),
-    "quicksand": FullTheme(
-      name: "Quicksand",
+    'quicksand': FullTheme(
+      name: 'Quicksand',
       light: ThemeData(
         primarySwatch: Colors.purple,
         accentColor: Colors.purpleAccent,

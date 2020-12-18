@@ -9,7 +9,7 @@ import 'package:swift_travel/widget/cff_icon.dart';
 import 'package:swift_travel/widget/line_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
-@Deprecated("Use `NewTransportLegTile`")
+@Deprecated('Use `NewTransportLegTile`')
 class TransportLegTile extends StatelessWidget {
   const TransportLegTile({
     Key key,
@@ -59,7 +59,7 @@ class TransportLegTile extends StatelessWidget {
                       ),
                       if (l.track != null)
                         Text(
-                          "Pl. ${l.track}",
+                          'Pl. ${l.track}',
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                     ],
@@ -75,7 +75,7 @@ class TransportLegTile extends StatelessWidget {
                             children: [
                               CffIcon(l.type, size: 16),
                               const SizedBox(width: 8),
-                              Text(l.terminal ?? ""),
+                              Text(l.terminal ?? ''),
                             ],
                           ),
                           if (l.exit != null)
@@ -92,7 +92,7 @@ class TransportLegTile extends StatelessWidget {
                                         text: Format.delay(l.depDelay),
                                         style: const TextStyle(color: Color(0xFFFF5252)),
                                       ),
-                                    const TextSpan(text: " ⇢ "),
+                                    const TextSpan(text: ' ⇢ '),
                                     TextSpan(
                                       text: Format.time(l.exit.arrival),
                                     ),

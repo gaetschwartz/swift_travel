@@ -63,7 +63,7 @@ class _DetailsStopState extends State<DetailsStop> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              "😕",
+                              '😕',
                               style: TextStyle(fontSize: 64),
                             ),
                             const SizedBox(height: 16),
@@ -106,8 +106,8 @@ class ConnectionTile extends StatelessWidget {
       title: Row(
         children: [
           LineIcon(
-            background: c.color.split("~").first,
-            foreground: c.color.split("~")[1],
+            background: c.color.split('~').first,
+            foreground: c.color.split('~')[1],
             line: c.line,
           ),
           const SizedBox(width: 8),

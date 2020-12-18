@@ -40,11 +40,11 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Live route")),
+        appBar: AppBar(title: const Text('Live route')),
         body: Consumer(builder: (context, w, _) {
           final controller = w(liveRouteControllerProvider);
           if (!controller.isRunning || !controller.isReady) {
-            log("Running : ${controller.isRunning}, read : ${controller.isReady}");
+            log('Running : ${controller.isRunning}, read : ${controller.isReady}');
             return const Center(child: CircularProgressIndicator());
           }
 
@@ -59,25 +59,25 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text.rich(TextSpan(
-                            text: "Get off at ",
+                            text: 'Get off at ',
                             children: [
                               TextSpan(
                                   text: controller.currentLeg.exit.name,
                                   style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const TextSpan(text: " in "),
+                              const TextSpan(text: ' in '),
                               TextSpan(
                                   text: Format.duration(controller.routeData.timeUntilNextLeg),
                                   style: const TextStyle(fontWeight: FontWeight.bold)),
                               TextSpan(
                                   text:
-                                      " (${Format.distance(controller.routeData.distUntilExit)})"),
+                                      ' (${Format.distance(controller.routeData.distUntilExit)})'),
                             ],
                             style: Theme.of(context).textTheme.headline6.apply(fontSizeFactor: 0.8),
                           )),
                           Text(
                             controller.routeData.currentStopIndex == 2
-                                ? "Get off next stop"
-                                : "${controller.routeData.currentStopIndex} stops left",
+                                ? 'Get off next stop'
+                                : '${controller.routeData.currentStopIndex} stops left',
                             style: Theme.of(context).textTheme.subtitle2,
                           ),
                         ],
@@ -93,20 +93,20 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
                 ),
               ),
               ExpansionTile(
-                title: const Text("Debug info"),
+                title: const Text('Debug info'),
                 children: [
                   Text(controller.position.toString()),
                   Text(
-                    "Closest stop : ${controller.closestStop?.name}\n"
-                    "Current stop : ${controller.currentStop?.name}\n"
-                    "Closest leg : ${controller.closestLeg.name}\n"
-                    "Current leg : ${controller.currentLeg.name}\n"
-                    "---\n"
-                    "Stops until ${controller.currentLeg.exit.name} : ${controller.routeData.currentStopIndex}\n"
-                    "Distance from ${controller.currentStop?.name} to ${controller.currentLeg.exit.name} : ${Format.distance(controller.routeData.distFromCurrToNext)}\n"
-                    "Distance until ${controller.currentLeg.exit.name} : ${Format.distance(controller.routeData.distUntilExit)} (${controller.currentStop == null || controller.routeData.portionOfLegDone == null ? null : (100 * controller.routeData.portionOfLegDone).toStringAsFixed(1)}%)\n"
-                    "Time until ${controller.currentLeg.exit.name} : ${controller.routeData.timeUntilNextLeg} min\n"
-                    "Portion of trip complete (${controller.currentStop == null || controller.routeData.portionFromCurrentToExit == null ? null : (100 * controller.routeData.portionFromCurrentToExit).toStringAsFixed(1)}%)",
+                    'Closest stop : ${controller.closestStop?.name}\n'
+                    'Current stop : ${controller.currentStop?.name}\n'
+                    'Closest leg : ${controller.closestLeg.name}\n'
+                    'Current leg : ${controller.currentLeg.name}\n'
+                    '---\n'
+                    'Stops until ${controller.currentLeg.exit.name} : ${controller.routeData.currentStopIndex}\n'
+                    'Distance from ${controller.currentStop?.name} to ${controller.currentLeg.exit.name} : ${Format.distance(controller.routeData.distFromCurrToNext)}\n'
+                    'Distance until ${controller.currentLeg.exit.name} : ${Format.distance(controller.routeData.distUntilExit)} (${controller.currentStop == null || controller.routeData.portionOfLegDone == null ? null : (100 * controller.routeData.portionOfLegDone).toStringAsFixed(1)}%)\n'
+                    'Time until ${controller.currentLeg.exit.name} : ${controller.routeData.timeUntilNextLeg} min\n'
+                    'Portion of trip complete (${controller.currentStop == null || controller.routeData.portionFromCurrentToExit == null ? null : (100 * controller.routeData.portionFromCurrentToExit).toStringAsFixed(1)}%)',
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -135,7 +135,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
               l.name,
               style: TextStyle(fontWeight: selected ? FontWeight.bold : null),
             ),
-            subtitle: dist != null ? Text(Format.distance(dist)) : const Text("No location data"),
+            subtitle: dist != null ? Text(Format.distance(dist)) : const Text('No location data'),
           ),
           for (var j = 0; j < l.stops.length; j++) _buildStop(controller, i, j, l.stops[j]),
         ],
@@ -153,7 +153,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
         s.name,
         style: TextStyle(fontWeight: selected ? FontWeight.bold : null),
       ),
-      subtitle: dist != null ? Text(Format.distance(dist)) : const Text("No location data"),
+      subtitle: dist != null ? Text(Format.distance(dist)) : const Text('No location data'),
     );
   }
 }

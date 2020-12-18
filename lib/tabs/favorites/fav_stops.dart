@@ -30,19 +30,19 @@ class FavoriteStationTile extends StatelessWidget {
               context,
               choices: [
                 Choice(
-                  child: const Text("Rename"),
+                  child: const Text('Rename'),
                   onTap: () => rename(context),
                   value: null,
                 ),
                 Choice(
                   isDestructive: true,
                   onTap: () => delete(context),
-                  child: const Text("Delete"),
+                  child: const Text('Delete'),
                   value: null,
                 ),
               ],
-              cancel: const Choice.cancel(child: Text("Cancel")),
-              title: const Text("What to do ?"),
+              cancel: const Choice.cancel(child: Text('Cancel')),
+              title: const Text('What to do ?'),
             );
           }),
       title: Text(stop.name),
@@ -61,15 +61,15 @@ class FavoriteStationTile extends StatelessWidget {
   Future<void> delete(BuildContext context) async {
     final b = await confirm(
       context,
-      title: const Text("Delete favorite ?"),
+      title: const Text('Delete favorite ?'),
       content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
         TextSpan(
-            text: "${stop.name} (${stop.stop})",
+            text: '${stop.name} (${stop.stop})',
             style: const TextStyle(fontWeight: FontWeight.bold)),
-        const TextSpan(text: "?"),
+        const TextSpan(text: '?'),
       ])),
-      confirm: const Text("Yes"),
-      cancel: const Text("No"),
+      confirm: const Text('Yes'),
+      cancel: const Text('No'),
       isConfirmDestructive: true,
     );
     if (!b) return;

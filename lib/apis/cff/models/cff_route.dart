@@ -9,8 +9,8 @@ abstract class CffRoute with _$CffRoute {
   @JsonSerializable(explicitToJson: true)
   factory CffRoute({
     int count,
-    @JsonKey(name: "min_duration") double minDuration,
-    @JsonKey(name: "max_duration") double maxDuration,
+    @JsonKey(name: 'min_duration') double minDuration,
+    @JsonKey(name: 'max_duration') double maxDuration,
     @Default([]) List<RouteConnection> connections,
     String requestUrl,
   }) = _CffRoute;

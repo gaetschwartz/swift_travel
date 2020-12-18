@@ -8,9 +8,7 @@ part of 'exit.dart';
 
 _$_Exit _$_$_ExitFromJson(Map<String, dynamic> json) {
   return _$_Exit(
-    arrival: json['arrival'] == null
-        ? null
-        : DateTime.parse(json['arrival'] as String),
+    arrival: json['arrival'] == null ? null : DateTime.parse(json['arrival'] as String),
     name: json['name'] as String,
     stopid: json['stopid'] as String,
     waittime: json['waittime'] as int,

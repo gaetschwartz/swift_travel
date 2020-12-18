@@ -22,12 +22,12 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Settings"),
+          title: const Text('Settings'),
           leading: const CloseButton(),
         ),
         body: ListView(
           children: [
-            const _SectionTitle(title: Text("Brightness")),
+            const _SectionTitle(title: Text('Brightness')),
             SizedBox(
               height: 100,
               child: Consumer(builder: (context, w, _) {
@@ -42,7 +42,7 @@ class Settings extends StatelessWidget {
                 );
               }),
             ),
-            const _SectionTitle(title: Text("Themes")),
+            const _SectionTitle(title: Text('Themes')),
             const _ThemesSection(),
             if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS)
               Padding(
@@ -52,17 +52,17 @@ class Settings extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const _SectionTitle(title: Text("Maps app")),
+                      const _SectionTitle(title: Text('Maps app')),
                       RadioListTile<Maps>(
                         dense: true,
-                        title: const Text("Apple Maps"),
+                        title: const Text('Apple Maps'),
                         value: Maps.apple,
                         groupValue: maps.mapsApp,
                         onChanged: (m) => onMapsChanged(maps, m),
                       ),
                       RadioListTile<Maps>(
                         dense: true,
-                        title: const Text("Google Maps"),
+                        title: const Text('Google Maps'),
                         value: Maps.google,
                         groupValue: maps.mapsApp,
                         onChanged: (m) => onMapsChanged(maps, m),
@@ -78,17 +78,17 @@ class Settings extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const _SectionTitle(title: Text("Navigation API")),
+                    const _SectionTitle(title: Text('Navigation API')),
                     RadioListTile<NavigationApiType>(
                       dense: true,
-                      title: const Text("CFF"),
+                      title: const Text('CFF'),
                       value: NavigationApiType.cff,
                       groupValue: prefs.api,
                       onChanged: (api) => onAPIChanged(prefs, api),
                     ),
                     RadioListTile<NavigationApiType>(
                       dense: true,
-                      title: const Text("SNCF"),
+                      title: const Text('SNCF'),
                       value: NavigationApiType.sncf,
                       groupValue: prefs.api,
                       onChanged: (api) => onAPIChanged(prefs, api),
@@ -101,10 +101,10 @@ class Settings extends StatelessWidget {
               indent: 16,
               endIndent: 16,
             ),
-            const _SectionTitle(title: Text("More")),
+            const _SectionTitle(title: Text('More')),
             ListTile(
               leading: const Icon(FontAwesomeIcons.users),
-              title: const Text("Our team"),
+              title: const Text('Our team'),
               onTap: () =>
                   Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage())),
             ),
@@ -112,50 +112,50 @@ class Settings extends StatelessWidget {
               indent: 16,
               endIndent: 16,
             ),
-            const _SectionTitle(title: Text("Developer")),
+            const _SectionTitle(title: Text('Developer')),
             if (kDebugMode) ...[
               ListTile(
                   leading: const Icon(Icons.warning_rounded),
-                  title: const Text("Throw a Flutter error"),
-                  onTap: () => throw StateError("Debug error")),
+                  title: const Text('Throw a Flutter error'),
+                  onTap: () => throw StateError('Debug error')),
               ListTile(
                   leading: const Icon(Icons.close),
-                  title: const Text("Trigger a crash"),
+                  title: const Text('Trigger a crash'),
                   onTap: () async {
-                    await FirebaseCrashlytics.instance.log("We trigger a crash");
+                    await FirebaseCrashlytics.instance.log('We trigger a crash');
                     FirebaseCrashlytics.instance.crash();
                   }),
             ],
             ListTile(
                 leading: const Icon(Icons.restore),
-                title: const Text("Reset settings"),
+                title: const Text('Reset settings'),
                 onTap: () async {
                   final c = await confirm(
                     context,
-                    title: const Text("Reset settings ?"),
-                    content: const Text("You will lose all of you favorites!"),
+                    title: const Text('Reset settings ?'),
+                    content: const Text('You will lose all of you favorites!'),
                     isConfirmDestructive: true,
-                    confirm: const Text("Yes"),
-                    cancel: const Text("No"),
+                    confirm: const Text('Yes'),
+                    cancel: const Text('No'),
                   );
                   if (c != true) return;
                   final prefs = await SharedPreferences.getInstance();
                   final b = await prefs.clear();
-                  log("Done : $b");
+                  log('Done : $b');
                   SystemNavigator.pop(animated: true);
                 }),
             const ListTile(
               isThreeLine: true,
               dense: true,
               title: Text(commitMessage),
-              subtitle: Text("$buildNumber • $commitBuildDate\n$commitHash"),
+              subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
             ),
             const SizedBox(height: 32),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  "© Copyright Gaëtan Schwartz 2020",
+                  '© Copyright Gaëtan Schwartz 2020',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
@@ -390,7 +390,7 @@ class _ModeWidget extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 1,
               child: Container(
-                key: Key("mode-$label"),
+                key: Key('mode-$label'),
                 decoration: BoxDecoration(
                     boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
                     color: mode == ThemeMode.system ? null : Theme.of(context).cardColor,
@@ -487,32 +487,32 @@ class TeamPage extends StatelessWidget {
 
   static const primaryCoders = <Coder>[
     Coder(
-      "Gaëtan Schwartz",
-      role: "Lead Developer\nApp Concept/Design",
-      imageUrl: "assets/profiles/gaetan.jpg",
+      'Gaëtan Schwartz',
+      role: 'Lead Developer\nApp Concept/Design',
+      imageUrl: 'assets/profiles/gaetan.jpg',
       isAssets: true,
-      website: "https://gaetanschwartz.com/#/",
-      email: "gaetan.schwartz@gmail.com",
+      website: 'https://gaetanschwartz.com/#/',
+      email: 'gaetan.schwartz@gmail.com',
     ),
     Coder(
-      "Vincent Tarrit",
-      role: "Icon Design\n",
+      'Vincent Tarrit',
+      role: 'Icon Design\n',
       imageUrl:
-          "https://i2.wp.com/www.tarrit.com/wp-content/uploads/2018/11/cropped-Vincent-Tarrit3petitblanc-2-1.jpg?w=512",
-      website: "https://tarrit.com/",
+          'https://i2.wp.com/www.tarrit.com/wp-content/uploads/2018/11/cropped-Vincent-Tarrit3petitblanc-2-1.jpg?w=512',
+      website: 'https://tarrit.com/',
     ),
   ];
 
   static const secondaryCoders = <Coder>[
     Coder(
-      "Abin W.",
-      role: "Beta-tester",
-      imageUrl: "assets/profiles/abin.jpeg",
+      'Abin W.',
+      role: 'Beta-tester',
+      imageUrl: 'assets/profiles/abin.jpeg',
       isAssets: true,
     ),
     Coder(
-      "Alexandre S.",
-      role: "Beta-tester",
+      'Alexandre S.',
+      role: 'Beta-tester',
     ),
   ];
 
@@ -520,14 +520,14 @@ class TeamPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("The team"),
+        title: const Text('The team'),
         actions: [
           TextButton(
             style: TextButton.styleFrom(enableFeedback: true),
             onPressed: () =>
                 showLicensePage(context: context, applicationIcon: const FlutterLogo()),
             child: Text(
-              "View licenses",
+              'View licenses',
               style: Theme.of(context).primaryTextTheme.subtitle1,
             ),
           ),
@@ -539,7 +539,7 @@ class TeamPage extends StatelessWidget {
             children: primaryCoders.map((c) => _CoderTile(c: c)).toList(),
           ),
           ExpansionTile(
-            title: const Text("Helpers"),
+            title: const Text('Helpers'),
             children: secondaryCoders.map((c) => _CoderTile(c: c)).toList(),
           ),
         ],
@@ -583,7 +583,7 @@ class _CoderTile extends StatelessWidget {
         if (c.email != null)
           IconButton(
               icon: const FaIcon(FontAwesomeIcons.envelope),
-              onPressed: () => launch("mailto:${c.email}")),
+              onPressed: () => launch('mailto:${c.email}')),
       ]),
       isThreeLine: true,
     );

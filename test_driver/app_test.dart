@@ -12,18 +12,18 @@ void main() {
     // First, define the Finders and use them to locate widgets from the
     // test suite. Note: the Strings provided to the `byValueKey` method must
     // be the same as the Strings we used for the Keys in step 1.
-    final searchRoute = find.byValueKey("search-route");
-    final routeTab = find.byValueKey("route-tab-key");
-    final favsTab = find.byValueKey("favs-tab-key");
-    final firstTf = find.byValueKey("route-first-textfield-key");
-    final secondTf = find.byValueKey("route-second-textfield-key");
-    final scaffoldTitle = find.byValueKey("scaffold-title");
-    final tile = find.byValueKey("routetile-0");
-    final stationsTf = find.byValueKey("stations-textfield");
-    final firstStation = find.byValueKey("stations-key-0");
-    final settings = find.byValueKey("settings");
-    final light = find.byValueKey("mode-Light");
-    final dark = find.byValueKey("mode-Dark");
+    final searchRoute = find.byValueKey('search-route');
+    final routeTab = find.byValueKey('route-tab-key');
+    final favsTab = find.byValueKey('favs-tab-key');
+    final firstTf = find.byValueKey('route-first-textfield-key');
+    final secondTf = find.byValueKey('route-second-textfield-key');
+    final scaffoldTitle = find.byValueKey('scaffold-title');
+    final tile = find.byValueKey('routetile-0');
+    final stationsTf = find.byValueKey('stations-textfield');
+    final firstStation = find.byValueKey('stations-key-0');
+    final settings = find.byValueKey('settings');
+    final light = find.byValueKey('mode-Light');
+    final dark = find.byValueKey('mode-Dark');
 
     FlutterDriver driver;
 
@@ -50,14 +50,14 @@ void main() {
         await wait();
         await driver.tap(stationsTf);
         await wait();
-        await driver.enterText("Genève");
+        await driver.enterText('Genève');
         await wait();
         await driver.tap(scaffoldTitle);
         await wait();
         await driver.waitFor(firstStation, timeout: const Duration(seconds: 5));
         await driver.tap(firstStation);
         await wait(1000);
-        await driver.tap(find.byType("BackButton"));
+        await driver.tap(find.byType('BackButton'));
         await wait();
 
         //? Search route
@@ -65,13 +65,13 @@ void main() {
         await wait();
         await driver.tap(firstTf);
         await wait();
-        await driver.enterText("Université de Genève, Genève, Rue du Général-Dufour 24");
+        await driver.enterText('Université de Genève, Genève, Rue du Général-Dufour 24');
         await wait();
         await driver.tap(scaffoldTitle);
         await wait();
         await driver.tap(secondTf);
         await wait();
-        await driver.enterText("Badenerstrasse 549, 8048 Zürich");
+        await driver.enterText('Badenerstrasse 549, 8048 Zürich');
         await wait();
         await driver.tap(scaffoldTitle);
         await wait();
@@ -80,7 +80,7 @@ void main() {
         await driver.waitFor(tile);
         await driver.tap(tile);
         await wait();
-        await driver.tap(find.byType("BackButton"));
+        await driver.tap(find.byType('BackButton'));
 
         await wait();
         await driver.tap(favsTab);

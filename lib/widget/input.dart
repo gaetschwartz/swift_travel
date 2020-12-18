@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,7 +12,7 @@ class StopInputDialog extends StatefulWidget {
 
   const StopInputDialog({
     Key key,
-    this.title = "",
+    this.title = '',
     this.inputType = TextInputType.text,
   }) : super(key: key);
 
@@ -59,7 +59,7 @@ class _StopInputDialogState extends State<StopInputDialog> {
               controller: _controller,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: "To",
+                hintText: 'To',
               ),
             ),
             suggestionsCallback: (pattern) => context.read(navigationAPIProvider).complete(pattern),

@@ -29,7 +29,7 @@ class CffCompletionTile extends ConsumerWidget {
     final iconClass = sugg.iconclass;
     final isPrivate = CffIcon.isPrivate(iconClass);
     final store = watch(storeProvider) as FavoritesSharedPreferencesStore;
-    @Deprecated("")
+    @Deprecated('')
     final favStop = store.stops.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
     final isFav = sugg.favoriteName != null;
     final isFavInStore = favStop != null;
@@ -51,11 +51,11 @@ class CffCompletionTile extends ConsumerWidget {
                   : const Icon(Icons.star)
               : CffIcon.fromIconClass(iconClass),
         ),
-        title: Text((isFav ? sugg.favoriteName : sugg.label) ?? "???"),
+        title: Text((isFav ? sugg.favoriteName : sugg.label) ?? '???'),
         subtitle: isFav
-            ? Text(sugg.label ?? "Favorite")
+            ? Text(sugg.label ?? 'Favorite')
             : sugg.dist != null
-                ? Text("${sugg.dist.round()}m")
+                ? Text('${sugg.dist.round()}m')
                 : null,
         onLongPress: isDarwin
             ? null
@@ -93,13 +93,13 @@ class CffCompletionTile extends ConsumerWidget {
                 },
                 isDestructiveAction: isFavInStore,
                 child: isFavInStore
-                    ? const Text("Remove from favorites")
-                    : const Text("Add to favorites"),
+                    ? const Text('Remove from favorites')
+                    : const Text('Add to favorites'),
               ),
               CupertinoContextMenuAction(
                 trailingIcon: CupertinoIcons.xmark,
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text("Cancel"),
+                child: const Text('Cancel'),
               ),
             ],
             child: Material(
@@ -127,11 +127,11 @@ class CffCompletionTile extends ConsumerWidget {
         choices: [
           Choice(
             value: _Actions.favorite,
-            child: isFav ? const Text("Remove from favorites") : const Text("Add to favorites"),
+            child: isFav ? const Text('Remove from favorites') : const Text('Add to favorites'),
           ),
         ],
-        title: const Text("Choose an action"),
-        cancel: const Choice.cancel(child: Text("Cancel")));
+        title: const Text('Choose an action'),
+        cancel: const Choice.cancel(child: Text('Cancel')));
     switch (c.value) {
       case _Actions.favorite:
         await deleteOrAddToFav(context, isFav: isFav, favoriteStop: favoriteStop, store: store);
@@ -148,7 +148,7 @@ class CffCompletionTile extends ConsumerWidget {
     if (isFav) {
       store.removeStop(favoriteStop);
     } else {
-      final name = await input(context, title: const Text("What is the name of this stop"));
+      final name = await input(context, title: const Text('What is the name of this stop'));
       if (name == null) return;
       store.addStop(sugg.toFavoriteStop(name: name));
     }

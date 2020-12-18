@@ -17,9 +17,9 @@ abstract class StationboardConnection with _$StationboardConnection {
     String number,
     Stop terminal,
     String operator, {
-    @JsonKey(name: "*G") String g,
-    @JsonKey(name: "*L") String l,
-    @Default([]) @JsonKey(name: "subsequent_stops") List<SubsequentStop> subsequentStops,
+    @JsonKey(name: '*G') String g,
+    @JsonKey(name: '*L') String l,
+    @Default([]) @JsonKey(name: 'subsequent_stops') List<SubsequentStop> subsequentStops,
   }) = _StationboardConnection;
 
   factory StationboardConnection.fromJson(Map<String, dynamic> json) =>

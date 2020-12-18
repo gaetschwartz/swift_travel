@@ -34,7 +34,7 @@ class RouteTile extends StatelessWidget {
           child: Wrap(spacing: 8, children: listWidget),
         ),
         const SizedBox(height: 4),
-        Text("${Format.time(c.departure)} - ${Format.time(c.arrival)}")
+        Text('${Format.time(c.departure)} - ${Format.time(c.arrival)}')
       ],
     );
   }
@@ -72,7 +72,7 @@ class RouteTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(Format.intToDuration(c.duration.round())),
-                if (c.depDelay != null && c.depDelay != "+0")
+                if (c.depDelay != null && c.depDelay != '+0')
                   Text(
                     c.depDelay,
                     style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),

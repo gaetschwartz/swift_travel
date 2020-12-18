@@ -33,7 +33,7 @@ abstract class Leg with _$Leg {
     double lat,
     double lon,
     @Default({}) Map<String, String> attributes,
-    @JsonKey(name: "dep_delay", fromJson: delayFromJson, toJson: delayToJson) int depDelay,
+    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) int depDelay,
   }) = _Leg;
 
   factory Leg.fromJson(Map<String, dynamic> json) => _$LegFromJson(json);

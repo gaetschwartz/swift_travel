@@ -5,13 +5,13 @@ import 'package:introduction_screen/introduction_screen.dart';
 class Tuto extends StatelessWidget {
   static List<PageViewModel> listPagesViewModel = [
     PageViewModel(
-      title: "First page",
+      title: 'First page',
       bodyWidget: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Text("Click on "),
+          Text('Click on '),
           Icon(Icons.edit),
-          Text(" to edit a post"),
+          Text(' to edit a post'),
         ],
       ),
       image: const Center(child: Icon(Icons.android)),
@@ -28,7 +28,7 @@ class Tuto extends StatelessWidget {
       showSkipButton: kDebugMode,
       skip: const Icon(Icons.skip_next),
       next: const Icon(Icons.arrow_forward_ios),
-      done: const Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
+      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
       dotsDecorator: DotsDecorator(
         size: const Size.square(10.0),
         activeSize: const Size(20.0, 10.0),

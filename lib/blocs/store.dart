@@ -29,8 +29,8 @@ final favoritesRoutesStatesProvider =
     StateProvider<FavoritesRoutesStates>((_) => const FavoritesRoutesStates.loading());
 
 class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
-  static const stopsKey = "favoritesStop";
-  static const routesKey = "favoritesRoutes";
+  static const stopsKey = 'favoritesStop';
+  static const routesKey = 'favoritesRoutes';
 
   final ProviderReference ref;
   FavoritesSharedPreferencesStore(this.ref);
@@ -49,7 +49,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   @override
   Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true}) async {
-    log("Getting favorites", name: "Store");
+    log('Getting favorites', name: 'Store');
     if (notify) {
       ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
       ref.read(favoritesRoutesStatesProvider).state = const FavoritesRoutesStates.loading();
@@ -65,7 +65,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         final fs = FavoriteStop.fromJson(decode);
         favStops.add(fs);
       } on FormatException catch (e, s) {
-        report(e, s, name: "Store", reason: "Error while trying to decode stop");
+        report(e, s, name: 'Store', reason: 'Error while trying to decode stop');
       }
     }
     _stops.clear();
@@ -82,7 +82,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         final r = LocalRoute.fromJson(decode);
         _routes.add(r);
       } on FormatException catch (e, s) {
-        report(e, s, name: "Store", reason: "Error while trying to decode route");
+        report(e, s, name: 'Store', reason: 'Error while trying to decode route');
       }
     }
 
@@ -120,7 +120,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     await _checkState();
 
     if (!_stops.remove(favoriteStop)) {
-      log("$favoriteStop was not in favorites ?", name: "Store");
+      log('$favoriteStop was not in favorites ?', name: 'Store');
     }
     ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
     await _sync();
@@ -134,7 +134,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       try {
         stops.add(jsonEncode(e.toJson()));
       } on FormatException catch (e, s) {
-        report(e, s, reason: "Error while trying to encode stop", name: "Store");
+        report(e, s, reason: 'Error while trying to encode stop', name: 'Store');
       }
     }
     await _prefs.setStringList(stopsKey, stops);
@@ -144,7 +144,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       try {
         routes.add(jsonEncode(e.toJson()));
       } on FormatException catch (e, s) {
-        report(e, s, reason: "Error while trying to encode route", name: "Store");
+        report(e, s, reason: 'Error while trying to encode route', name: 'Store');
       }
     }
     await _prefs.setStringList(routesKey, routes);

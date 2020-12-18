@@ -12,10 +12,10 @@ import 'models/cff_stationboard.dart';
 
 class CffRepository implements NavigationApi {
   final QueryBuilder queryBuilder =
-      QueryBuilder("https://timetable.search.ch/api", (s) => "$s.json");
+      QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
   final http.Client _client = http.Client();
 
-  static const Map<String, String> headers = {"accept-language": "en"};
+  static const Map<String, String> headers = {'accept-language': 'en'};
 
   @override
   Future<List<CffCompletion>> complete(
@@ -25,11 +25,11 @@ class CffRepository implements NavigationApi {
     bool noFavorites = true,
     bool filterNull = true,
   }) async {
-    final uri = queryBuilder("completion", {
-      "show_ids": showIds.toInt(),
-      "show_coordinates": showCoordinates.toInt(),
-      "nofavorites": noFavorites.toInt(),
-      "term": string,
+    final uri = queryBuilder('completion', {
+      'show_ids': showIds.toInt(),
+      'show_coordinates': showCoordinates.toInt(),
+      'nofavorites': noFavorites.toInt(),
+      'term': string,
     });
     //log(uri);
 
@@ -43,7 +43,7 @@ class CffRepository implements NavigationApi {
     final completions = <CffCompletion>[];
 
     for (final item in decode) {
-      if (!filterNull || item["label"] != null) {
+      if (!filterNull || item['label'] != null) {
         completions.add(CffCompletion.fromJson(item as Map<String, dynamic>));
       }
     }
@@ -59,11 +59,11 @@ class CffRepository implements NavigationApi {
     bool showCoordinates = true,
     bool showIds = false,
   }) async {
-    final uri = queryBuilder("completion", {
-      "latlon": "$lat,$lon",
-      "accuracy": accuracy,
-      "show_ids": showIds.toInt(),
-      "show_coordinates": showCoordinates.toInt()
+    final uri = queryBuilder('completion', {
+      'latlon': '$lat,$lon',
+      'accuracy': accuracy,
+      'show_ids': showIds.toInt(),
+      'show_coordinates': showCoordinates.toInt()
     });
     log(uri);
     final response = await _client.get(uri, headers: headers);
@@ -89,19 +89,19 @@ class CffRepository implements NavigationApi {
       bool showTrackchanges = false,
       List<TransportationTypes> transportationTypes = const []}) async {
     final params = {
-      "stop": stopName,
-      "limit": limit,
-      "show_tracks": showTracks.toInt(),
-      "show_subsequent_stops": showSubsequentStops.toInt(),
-      "show_delays": showDelays.toInt(),
-      "show_trackchanges": showTrackchanges.toInt(),
-      "mode": arrival ? "arrival" : "depart"
+      'stop': stopName,
+      'limit': limit,
+      'show_tracks': showTracks.toInt(),
+      'show_subsequent_stops': showSubsequentStops.toInt(),
+      'show_delays': showDelays.toInt(),
+      'show_trackchanges': showTrackchanges.toInt(),
+      'mode': arrival ? 'arrival' : 'depart'
     };
     if (transportationTypes.isNotEmpty) {
-      params["transportation_types"] = transportationTypes.join(",");
+      params['transportation_types'] = transportationTypes.join(',');
     }
-    if (when != null) throw UnimplementedError("Todo");
-    final s = queryBuilder("stationboard", params);
+    if (when != null) throw UnimplementedError('Todo');
+    final s = queryBuilder('stationboard', params);
     log(s);
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
@@ -123,17 +123,17 @@ class CffRepository implements NavigationApi {
   }) async {
     assert(date != null && time != null);
     final params = {
-      "from": departure,
-      "to": arrival,
-      "date": "${date.month}/${date.day}/${date.year}",
-      "time": "${time.hour}:${time.minute}",
-      "time_type": describeEnum(typeTime),
-      "show_trackchanges": 1,
-      "show_delays": showDelays.toInt(),
+      'from': departure,
+      'to': arrival,
+      'date': '${date.month}/${date.day}/${date.year}',
+      'time': '${time.hour}:${time.minute}',
+      'time_type': describeEnum(typeTime),
+      'show_trackchanges': 1,
+      'show_delays': showDelays.toInt(),
     };
 
-    final s = queryBuilder("route", params);
-    log("builder : $s");
+    final s = queryBuilder('route', params);
+    log('builder : $s');
     return rawRoute(s);
   }
 
@@ -145,10 +145,10 @@ class CffRepository implements NavigationApi {
     }
     final stopwatch = Stopwatch()..start();
     final map = jsonDecode(response.body) as Map<String, dynamic>;
-    log("decode took ${stopwatch.elapsedMilliseconds} ms");
+    log('decode took ${stopwatch.elapsedMilliseconds} ms');
 
-    if (map["disruptions"] != null) log(map["disruptions"].toString());
-    map["requestUrl"] = query;
+    if (map['disruptions'] != null) log(map['disruptions'].toString());
+    map['requestUrl'] = query;
     return CffRoute.fromJson(map);
   }
 }
@@ -160,12 +160,12 @@ class QueryBuilder {
   const QueryBuilder(this.baseUrl, this.actionBuilder);
 
   String call(String action, Map<String, dynamic> parameters) {
-    final StringBuffer url = StringBuffer("$baseUrl/${actionBuilder(action)}");
+    final StringBuffer url = StringBuffer('$baseUrl/${actionBuilder(action)}');
     if (parameters.isNotEmpty) {
       final String params = parameters.keys
-          .map((k) => "$k=${Uri.encodeQueryComponent(parameters[k].toString())}")
-          .join("&");
-      url.write("?$params");
+          .map((k) => '$k=${Uri.encodeQueryComponent(parameters[k].toString())}')
+          .join('&');
+      url.write('?$params');
     }
     return url.toString();
   }

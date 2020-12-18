@@ -13,7 +13,7 @@ import 'package:swift_travel/apis/sncf/models/sncf_place.dart';
 
 class SncfRepository implements NavigationApi {
   final Dio cli = Dio(BaseOptions(
-      baseUrl: "https://api.navitia.io/v1/coverage/sncf", queryParameters: {"key": sncfKey}));
+      baseUrl: 'https://api.navitia.io/v1/coverage/sncf', queryParameters: {'key': sncfKey}));
 
   @override
   Future<List<CffCompletion>> complete(String string,
@@ -21,8 +21,8 @@ class SncfRepository implements NavigationApi {
     if (string.isEmpty) return [];
 
     final response = await cli.get(
-      "/places",
-      queryParameters: {"q": string},
+      '/places',
+      queryParameters: {'q': string},
       options: Options(responseType: ResponseType.json),
     );
 
@@ -32,10 +32,10 @@ class SncfRepository implements NavigationApi {
     //  log(decode.toString());
     final SncfCompletion sncfCompletion = SncfCompletion.fromJson(decode);
     final List<SncfPlace> places = sncfCompletion.places;
-    log("Found ${places.length} places");
+    log('Found ${places.length} places');
     final List<CffCompletion> list =
-        places.map((e) => CffCompletion(label: e.name ?? "???")).toList();
-    log("Found ${list.length} completions");
+        places.map((e) => CffCompletion(label: e.name ?? '???')).toList();
+    log('Found ${list.length} completions');
     return list;
   }
 

@@ -97,11 +97,11 @@ class LiveRouteController extends ChangeNotifier {
 
   void _update(Position p) {
     if (!isRunning) {
-      throw StateError("Is not running ??");
+      throw StateError('Is not running ??');
     }
     _position = p;
     if (!_isReady) {
-      log("Not ready, waiting for distances to be computed...");
+      log('Not ready, waiting for distances to be computed...');
       return;
     }
     _updateDistances(p);
@@ -113,14 +113,14 @@ class LiveRouteController extends ChangeNotifier {
       _currentLeg = _closestLeg;
     } else if (legDistances.containsKey(_currentLeg + 1) &&
         legDistances[_currentLeg + 1][-1] < threshold) {
-      log("We are close enough to the next leg, switching to it");
+      log('We are close enough to the next leg, switching to it');
       _currentLeg += 1;
     }
     if (_currentStop == null) {
       _currentStop = _closestStop;
     } else if (legDistances[_currentLeg].containsKey(_currentStop + 1) &&
         legDistances[_currentLeg][_currentStop + 1] < threshold) {
-      log("We are close enough to the next stop, switching to it");
+      log('We are close enough to the next stop, switching to it');
       _currentStop += 1;
     }
     /*   log("Closest stop : ${closestStop?.name}\n"
@@ -201,15 +201,15 @@ class LiveRouteController extends ChangeNotifier {
   }
 
   Future<void> _computeMissingStops() async {
-    if (!isRunning) throw StateError("Live route not running");
+    if (!isRunning) throw StateError('Live route not running');
     log("Computing distances we didn't find");
     final List<Leg> legs = await Stream.fromIterable(_connection.legs).asyncMap((e) async {
       if (e.lat != null && e.lon != null) {
         return e;
       } else {
-        final pos = await ref.read(geoProvider).getPosition(e.name.split(",").last);
+        final pos = await ref.read(geoProvider).getPosition(e.name.split(',').last);
         if (pos.results.isEmpty) return e;
-        log("Found position ${pos.results.first.attrs.lat}, ${pos.results.first.attrs.lon} for ${e.name}");
+        log('Found position ${pos.results.first.attrs.lat}, ${pos.results.first.attrs.lon} for ${e.name}');
         return e.copyWith(
           lat: pos.results.first.attrs.lat,
           lon: pos.results.first.attrs.lon,
@@ -219,7 +219,7 @@ class LiveRouteController extends ChangeNotifier {
 
     _connection = _connection.copyWith(legs: legs);
     _isReady = true;
-    log("Done computing routes");
+    log('Done computing routes');
   }
 
   @override

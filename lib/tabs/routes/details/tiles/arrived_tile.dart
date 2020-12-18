@@ -47,7 +47,7 @@ class ArrivedTile extends StatelessWidget {
                 TextSpan(
                     text: Format.time(l.arrival),
                     style: const TextStyle(fontWeight: FontWeight.bold)),
-                const TextSpan(text: "."),
+                const TextSpan(text: '.'),
               ], style: Theme.of(context).textTheme.subtitle2)),
             ],
           ),

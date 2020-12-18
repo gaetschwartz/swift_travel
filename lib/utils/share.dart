@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:share/share.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 
-const routeUrl = "gaetanschwartz.com";
+const String routeUrl = 'gaetanschwartz.com';
 
 Future<void> shareRoute(CffRoute route, int i) async {
   final String requestUrl = route.requestUrl;
@@ -17,9 +17,9 @@ Future<void> shareRoute(CffRoute route, int i) async {
             e.value;
     params[newKey] = newValue;
   }
-  params["i"] = i.toString();
+  params['i'] = i.toString();
   final Uri sharedUri =
-      Uri(scheme: "https", host: routeUrl, path: "route", queryParameters: params);
+      Uri(scheme: 'https', host: routeUrl, path: 'route', queryParameters: params);
   log(sharedUri.toString());
 
   try {
@@ -32,12 +32,12 @@ Future<void> shareRoute(CffRoute route, int i) async {
 }
 
 const translate = <String, String>{
-  "fr": "from",
-  "dt": "date",
-  "to": "to",
-  "tt": "time_type",
-  "stc": "show_trackchanges",
-  "sd": "show_delays",
-  "dpt": "depart",
-  "arv": "arrival"
+  'fr': 'from',
+  'dt': 'date',
+  'to': 'to',
+  'tt': 'time_type',
+  'stc': 'show_trackchanges',
+  'sd': 'show_delays',
+  'dpt': 'depart',
+  'arv': 'arrival'
 };

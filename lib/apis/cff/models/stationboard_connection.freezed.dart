@@ -8,8 +8,7 @@ part of 'stationboard_connection.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-StationboardConnection _$StationboardConnectionFromJson(
-    Map<String, dynamic> json) {
+StationboardConnection _$StationboardConnectionFromJson(Map<String, dynamic> json) {
   return _StationboardConnection.fromJson(json);
 }
 
@@ -18,20 +17,11 @@ class _$StationboardConnectionTearOff {
   const _$StationboardConnectionTearOff();
 
 // ignore: unused_element
-  _StationboardConnection call(
-      DateTime time,
-      Vehicle type,
-      String line,
-      String color,
-      String number,
-      Stop terminal,
-      String operator,
-      {@JsonKey(name: '*G')
-          String g,
-      @JsonKey(name: '*L')
-          String l,
-      @JsonKey(name: 'subsequent_stops')
-          List<SubsequentStop> subsequentStops = const []}) {
+  _StationboardConnection call(DateTime time, Vehicle type, String line, String color,
+      String number, Stop terminal, String operator,
+      {@JsonKey(name: '*G') String g,
+      @JsonKey(name: '*L') String l,
+      @JsonKey(name: 'subsequent_stops') List<SubsequentStop> subsequentStops = const []}) {
     return _StationboardConnection(
       time,
       type,
@@ -78,8 +68,8 @@ mixin _$StationboardConnection {
 
 /// @nodoc
 abstract class $StationboardConnectionCopyWith<$Res> {
-  factory $StationboardConnectionCopyWith(StationboardConnection value,
-          $Res Function(StationboardConnection) then) =
+  factory $StationboardConnectionCopyWith(
+          StationboardConnection value, $Res Function(StationboardConnection) then) =
       _$StationboardConnectionCopyWithImpl<$Res>;
   $Res call(
       {DateTime time,
@@ -97,8 +87,7 @@ abstract class $StationboardConnectionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StationboardConnectionCopyWithImpl<$Res>
-    implements $StationboardConnectionCopyWith<$Res> {
+class _$StationboardConnectionCopyWithImpl<$Res> implements $StationboardConnectionCopyWith<$Res> {
   _$StationboardConnectionCopyWithImpl(this._value, this._then);
 
   final StationboardConnection _value;
@@ -148,8 +137,8 @@ class _$StationboardConnectionCopyWithImpl<$Res>
 /// @nodoc
 abstract class _$StationboardConnectionCopyWith<$Res>
     implements $StationboardConnectionCopyWith<$Res> {
-  factory _$StationboardConnectionCopyWith(_StationboardConnection value,
-          $Res Function(_StationboardConnection) then) =
+  factory _$StationboardConnectionCopyWith(
+          _StationboardConnection value, $Res Function(_StationboardConnection) then) =
       __$StationboardConnectionCopyWithImpl<$Res>;
   @override
   $Res call(
@@ -169,11 +158,10 @@ abstract class _$StationboardConnectionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$StationboardConnectionCopyWithImpl<$Res>
-    extends _$StationboardConnectionCopyWithImpl<$Res>
+class __$StationboardConnectionCopyWithImpl<$Res> extends _$StationboardConnectionCopyWithImpl<$Res>
     implements _$StationboardConnectionCopyWith<$Res> {
-  __$StationboardConnectionCopyWithImpl(_StationboardConnection _value,
-      $Res Function(_StationboardConnection) _then)
+  __$StationboardConnectionCopyWithImpl(
+      _StationboardConnection _value, $Res Function(_StationboardConnection) _then)
       : super(_value, (v) => _then(v as _StationboardConnection));
 
   @override
@@ -213,8 +201,8 @@ class __$StationboardConnectionCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_StationboardConnection implements _StationboardConnection {
-  _$_StationboardConnection(this.time, this.type, this.line, this.color,
-      this.number, this.terminal, this.operator,
+  _$_StationboardConnection(
+      this.time, this.type, this.line, this.color, this.number, this.terminal, this.operator,
       {@JsonKey(name: '*G') this.g,
       @JsonKey(name: '*L') this.l,
       @JsonKey(name: 'subsequent_stops') this.subsequentStops = const []})
@@ -274,18 +262,13 @@ class _$_StationboardConnection implements _StationboardConnection {
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
             (identical(other.terminal, terminal) ||
-                const DeepCollectionEquality()
-                    .equals(other.terminal, terminal)) &&
+                const DeepCollectionEquality().equals(other.terminal, terminal)) &&
             (identical(other.operator, operator) ||
-                const DeepCollectionEquality()
-                    .equals(other.operator, operator)) &&
-            (identical(other.g, g) ||
-                const DeepCollectionEquality().equals(other.g, g)) &&
-            (identical(other.l, l) ||
-                const DeepCollectionEquality().equals(other.l, l)) &&
+                const DeepCollectionEquality().equals(other.operator, operator)) &&
+            (identical(other.g, g) || const DeepCollectionEquality().equals(other.g, g)) &&
+            (identical(other.l, l) || const DeepCollectionEquality().equals(other.l, l)) &&
             (identical(other.subsequentStops, subsequentStops) ||
-                const DeepCollectionEquality()
-                    .equals(other.subsequentStops, subsequentStops)));
+                const DeepCollectionEquality().equals(other.subsequentStops, subsequentStops)));
   }
 
   @override
@@ -304,8 +287,7 @@ class _$_StationboardConnection implements _StationboardConnection {
 
   @override
   _$StationboardConnectionCopyWith<_StationboardConnection> get copyWith =>
-      __$StationboardConnectionCopyWithImpl<_StationboardConnection>(
-          this, _$identity);
+      __$StationboardConnectionCopyWithImpl<_StationboardConnection>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -314,20 +296,12 @@ class _$_StationboardConnection implements _StationboardConnection {
 }
 
 abstract class _StationboardConnection implements StationboardConnection {
-  factory _StationboardConnection(
-      DateTime time,
-      Vehicle type,
-      String line,
-      String color,
-      String number,
-      Stop terminal,
-      String operator,
-      {@JsonKey(name: '*G')
-          String g,
-      @JsonKey(name: '*L')
-          String l,
-      @JsonKey(name: 'subsequent_stops')
-          List<SubsequentStop> subsequentStops}) = _$_StationboardConnection;
+  factory _StationboardConnection(DateTime time, Vehicle type, String line, String color,
+          String number, Stop terminal, String operator,
+          {@JsonKey(name: '*G') String g,
+          @JsonKey(name: '*L') String l,
+          @JsonKey(name: 'subsequent_stops') List<SubsequentStop> subsequentStops}) =
+      _$_StationboardConnection;
 
   factory _StationboardConnection.fromJson(Map<String, dynamic> json) =
       _$_StationboardConnection.fromJson;

@@ -12,9 +12,7 @@ _$_VehicleIconclass _$_$_VehicleIconclassFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_VehicleIconclassToJson(
-        _$_VehicleIconclass instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$_$_VehicleIconclassToJson(_$_VehicleIconclass instance) => <String, dynamic>{
       'v': _$VehicleEnumMap[instance.v],
     };
 
@@ -28,9 +26,7 @@ T _$enumDecode<T>(
         '${enumValues.values.join(', ')}');
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
+  final value = enumValues.entries.singleWhere((e) => e.value == source, orElse: () => null)?.key;
 
   if (value == null && unknownValue == null) {
     throw ArgumentError('`$source` is not one of the supported values: '

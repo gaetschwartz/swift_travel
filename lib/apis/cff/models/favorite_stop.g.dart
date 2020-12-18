@@ -13,8 +13,7 @@ _$_FavoriteStop _$_$_FavoriteStopFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_FavoriteStopToJson(_$_FavoriteStop instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$_$_FavoriteStopToJson(_$_FavoriteStop instance) => <String, dynamic>{
       'stop': instance.stop,
       'name': instance.name,
     };

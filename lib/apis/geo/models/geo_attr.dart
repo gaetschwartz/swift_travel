@@ -15,7 +15,7 @@ abstract class GeoAttr with _$GeoAttr {
     int rank,
     String geomStBox2d,
     double lat,
-    @JsonKey(name: "num") int number,
+    @JsonKey(name: 'num') int number,
     double y,
     double x,
     String label,

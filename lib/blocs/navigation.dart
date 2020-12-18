@@ -11,11 +11,11 @@ final Provider<NavigationApi> navigationAPIProvider = Provider<NavigationApi>((r
   final PreferencesBloc prefs = ref.watch(preferencesProvider);
   switch (prefs.api) {
     case NavigationApiType.cff:
-      log("Using cff repository");
+      log('Using cff repository');
       return CffRepository();
     case NavigationApiType.sncf:
-      log("Using sncf repository");
+      log('Using sncf repository');
       return SncfRepository();
   }
-  throw StateError("Unexpected value of nav api : ${prefs.api}");
+  throw StateError('Unexpected value of nav api : ${prefs.api}');
 });

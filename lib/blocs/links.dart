@@ -22,7 +22,7 @@ class InvalidRouteException implements Exception {
   InvalidRouteException(this.map);
 
   @override
-  String toString() => "InvalidRouteException : $map";
+  String toString() => 'InvalidRouteException : $map';
 }
 
 class DeepLinkBloc {
@@ -32,12 +32,12 @@ class DeepLinkBloc {
   StreamSubscription _sub;
 
   void init(NavigationApi navApi) {
-    log("Initialize", name: "LinksBloc");
+    log('Initialize', name: 'LinksBloc');
     initialLink.then((s) {
       if (s != null) {
         onLink(navApi, s);
       } else {
-        log("No initial link");
+        log('No initial link');
       }
     });
     _sub = stream.receiveBroadcastStream().cast<String>().listen((d) => onLink(navApi, d));
@@ -46,30 +46,30 @@ class DeepLinkBloc {
   Future<void> onLink(NavigationApi navApi, String link) async {
     final Uri uri = Uri.parse(link);
     log(uri.toString());
-    if (uri.path == "/route") {
-      log("We have a new route $uri");
+    if (uri.path == '/route') {
+      log('We have a new route $uri');
       final params = <String, String>{};
 
       for (final e in uri.queryParameters.entries) {
         params[translate[e.key] ?? e.key] = translate[e.value] ?? e.value;
       }
 
-      params.remove("i");
+      params.remove('i');
 
-      if (!params.containsKey("from") ||
-          !params.containsKey("to") ||
-          !uri.queryParameters.containsKey("i")) {
+      if (!params.containsKey('from') ||
+          !params.containsKey('to') ||
+          !uri.queryParameters.containsKey('i')) {
         throw InvalidRouteException(uri.queryParameters);
       }
 
-      final qUri = Uri.https("timetable.search.ch", "api/route.json", params);
+      final qUri = Uri.https('timetable.search.ch', 'api/route.json', params);
       log(qUri.toString());
 
       final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
           future: () => navApi.rawRoute(qUri.toString()),
-          title: const Text("Getting route infos ..."));
+          title: const Text('Getting route infos ...'));
 
-      final int i = int.parse(uri.queryParameters["i"]);
+      final int i = int.parse(uri.queryParameters['i']);
       navigatorKey.currentState
           .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
     }

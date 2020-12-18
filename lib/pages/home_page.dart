@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/pages/settings.dart';
 import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
@@ -42,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
-      key: const Key("home-scaffold"),
+      key: const Key('home-scaffold'),
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: Consumer(builder: (context, w, c) {
         return BottomNavigationBar(
@@ -54,31 +55,30 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           currentIndex: w(_tabProvider).state,
           items: [
             if (isDarwin)
-              const BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.search),
-                label: "Search",
+              BottomNavigationBarItem(
+                icon: const Icon(CupertinoIcons.search),
+                label: S.of(context).search,
               )
             else
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.search_sharp),
-                activeIcon: Icon(Icons.search),
-                label: "Search",
-              ),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.search_sharp),
+                  activeIcon: const Icon(Icons.search),
+                  label: S.of(context).search),
             const BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.route),
-              label: "Route",
+              label: 'Route',
             ),
             if (isDarwin)
               const BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.square_favorites_alt),
                 activeIcon: Icon(CupertinoIcons.square_favorites_alt_fill),
-                label: "Favorites",
+                label: 'Favorites',
               )
             else
               const BottomNavigationBarItem(
                 icon: Icon(Icons.star_border_sharp),
                 activeIcon: Icon(Icons.star),
-                label: "Favorites",
+                label: 'Favorites',
               ),
           ],
         );
@@ -86,13 +86,13 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          "Swift Travel",
-          key: Key("scaffold-title"),
+          'Swift Travel',
+          key: Key('scaffold-title'),
         ),
         actions: [
           IconButton(
-              key: const Key("settings"),
-              tooltip: "Settings",
+              key: const Key('settings'),
+              tooltip: 'Settings',
               icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
               onPressed: () {
                 Vibration.select();

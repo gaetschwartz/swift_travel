@@ -18,7 +18,7 @@ import 'package:utils/dialogs/confirmation_alert.dart';
 
 import 'home_page.dart';
 
-const _tutoKey = "hasAlreadySeenTuto";
+const _tutoKey = 'hasAlreadySeenTuto';
 
 class LoadingPage extends StatefulWidget {
   @override
@@ -34,7 +34,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   void initState() {
     super.initState();
 
-    if (const String.fromEnvironment("PAGE") != "loading") {
+    if (const String.fromEnvironment('PAGE') != 'loading') {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) => init());
     }
 
@@ -79,7 +79,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
               ),
               const SizedBox(height: 32),
               const Text(
-                "Loading ...",
+                'Loading ...',
                 style: TextStyle(color: Colors.white, fontSize: 24),
               )
             ],
@@ -107,16 +107,16 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   Future<void> initSettings(SharedPreferences prefs) async {
-    if (const bool.fromEnvironment("CORRUPT")) {
-      await prefs.setStringList(FavoritesSharedPreferencesStore.routesKey, ["[", "}"]);
+    if (const bool.fromEnvironment('CORRUPT')) {
+      await prefs.setStringList(FavoritesSharedPreferencesStore.routesKey, ['[', '}']);
     }
 
     if (isMobile) {
       if (kDebugMode) {
-        log("Disabling crash reports in debug mode", name: "Loading");
+        log('Disabling crash reports in debug mode', name: 'Loading');
         await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
       } else {
-        await FirebaseCrashlytics.instance.log("Loading page");
+        await FirebaseCrashlytics.instance.log('Loading page');
       }
     }
 
@@ -125,13 +125,13 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
       await context.read(storeProvider).loadFromPreferences(prefs: prefs);
     } on Exception {
-      final String data = prefs.getKeys().map((e) => "$e : ${prefs.get(e)}").join("\n");
+      final String data = prefs.getKeys().map((e) => '$e : ${prefs.get(e)}').join('\n');
       await confirm(
         context,
-        title: const Text("Failed to load your previous settings !"),
+        title: const Text('Failed to load your previous settings !'),
         content: SingleChildScrollView(
           child: Text(
-            "Here is what it previously was :\n$data",
+            'Here is what it previously was :\n$data',
             textAlign: TextAlign.center,
           ),
         ),
@@ -149,7 +149,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   void route() {
-    const String page = String.fromEnvironment("PAGE");
+    const String page = String.fromEnvironment('PAGE');
     log(page);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(

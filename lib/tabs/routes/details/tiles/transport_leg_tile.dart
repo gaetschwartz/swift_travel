@@ -87,7 +87,7 @@ class _NewTransportLegTileState extends State<NewTransportLegTile> {
                       ),
                       if (widget.l.track != null)
                         Text(
-                          "Pl. ${widget.l.track}",
+                          'Pl. ${widget.l.track}',
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                     ],

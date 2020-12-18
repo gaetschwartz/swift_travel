@@ -17,8 +17,8 @@ void main() {
         dynamicTheme.overrideWithProvider(ChangeNotifierProvider((_) => DynamicTheme(
               ThemeConfiguration(
                 {
-                  "default": FullTheme(
-                    name: "Default theme",
+                  'default': FullTheme(
+                    name: 'Default theme',
                     light: ThemeData(primarySwatch: Colors.red, primaryColor: Colors.red),
                     dark: ThemeData(
                       brightness: Brightness.dark,

@@ -17,8 +17,7 @@ _$_CffCompletion _$_$_CffCompletionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_CffCompletionToJson(_$_CffCompletion instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$_$_CffCompletionToJson(_$_CffCompletion instance) => <String, dynamic>{
       'label': instance.label,
       'dist': instance.dist,
       'iconclass': instance.iconclass,

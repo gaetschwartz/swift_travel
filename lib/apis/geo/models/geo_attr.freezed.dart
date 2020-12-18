@@ -125,16 +125,13 @@ class _$GeoAttrCopyWithImpl<$Res> implements $GeoAttrCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       origin: origin == freezed ? _value.origin : origin as String,
-      geomQuadindex: geomQuadindex == freezed
-          ? _value.geomQuadindex
-          : geomQuadindex as String,
+      geomQuadindex: geomQuadindex == freezed ? _value.geomQuadindex : geomQuadindex as String,
       zoomlevel: zoomlevel == freezed ? _value.zoomlevel : zoomlevel as int,
       featureId: featureId == freezed ? _value.featureId : featureId as String,
       lon: lon == freezed ? _value.lon : lon as double,
       detail: detail == freezed ? _value.detail : detail as String,
       rank: rank == freezed ? _value.rank : rank as int,
-      geomStBox2d:
-          geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String,
+      geomStBox2d: geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String,
       lat: lat == freezed ? _value.lat : lat as double,
       number: number == freezed ? _value.number : number as int,
       y: y == freezed ? _value.y : y as double,
@@ -192,16 +189,13 @@ class __$GeoAttrCopyWithImpl<$Res> extends _$GeoAttrCopyWithImpl<$Res>
   }) {
     return _then(_GeoAttr(
       origin: origin == freezed ? _value.origin : origin as String,
-      geomQuadindex: geomQuadindex == freezed
-          ? _value.geomQuadindex
-          : geomQuadindex as String,
+      geomQuadindex: geomQuadindex == freezed ? _value.geomQuadindex : geomQuadindex as String,
       zoomlevel: zoomlevel == freezed ? _value.zoomlevel : zoomlevel as int,
       featureId: featureId == freezed ? _value.featureId : featureId as String,
       lon: lon == freezed ? _value.lon : lon as double,
       detail: detail == freezed ? _value.detail : detail as String,
       rank: rank == freezed ? _value.rank : rank as int,
-      geomStBox2d:
-          geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String,
+      geomStBox2d: geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String,
       lat: lat == freezed ? _value.lat : lat as double,
       number: number == freezed ? _value.number : number as int,
       y: y == freezed ? _value.y : y as double,
@@ -230,8 +224,7 @@ class _$_GeoAttr implements _GeoAttr {
       this.x,
       this.label});
 
-  factory _$_GeoAttr.fromJson(Map<String, dynamic> json) =>
-      _$_$_GeoAttrFromJson(json);
+  factory _$_GeoAttr.fromJson(Map<String, dynamic> json) => _$_$_GeoAttrFromJson(json);
 
   @override
   final String origin;
@@ -273,31 +266,23 @@ class _$_GeoAttr implements _GeoAttr {
             (identical(other.origin, origin) ||
                 const DeepCollectionEquality().equals(other.origin, origin)) &&
             (identical(other.geomQuadindex, geomQuadindex) ||
-                const DeepCollectionEquality()
-                    .equals(other.geomQuadindex, geomQuadindex)) &&
+                const DeepCollectionEquality().equals(other.geomQuadindex, geomQuadindex)) &&
             (identical(other.zoomlevel, zoomlevel) ||
-                const DeepCollectionEquality()
-                    .equals(other.zoomlevel, zoomlevel)) &&
+                const DeepCollectionEquality().equals(other.zoomlevel, zoomlevel)) &&
             (identical(other.featureId, featureId) ||
-                const DeepCollectionEquality()
-                    .equals(other.featureId, featureId)) &&
-            (identical(other.lon, lon) ||
-                const DeepCollectionEquality().equals(other.lon, lon)) &&
+                const DeepCollectionEquality().equals(other.featureId, featureId)) &&
+            (identical(other.lon, lon) || const DeepCollectionEquality().equals(other.lon, lon)) &&
             (identical(other.detail, detail) ||
                 const DeepCollectionEquality().equals(other.detail, detail)) &&
             (identical(other.rank, rank) ||
                 const DeepCollectionEquality().equals(other.rank, rank)) &&
             (identical(other.geomStBox2d, geomStBox2d) ||
-                const DeepCollectionEquality()
-                    .equals(other.geomStBox2d, geomStBox2d)) &&
-            (identical(other.lat, lat) ||
-                const DeepCollectionEquality().equals(other.lat, lat)) &&
+                const DeepCollectionEquality().equals(other.geomStBox2d, geomStBox2d)) &&
+            (identical(other.lat, lat) || const DeepCollectionEquality().equals(other.lat, lat)) &&
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
-            (identical(other.y, y) ||
-                const DeepCollectionEquality().equals(other.y, y)) &&
-            (identical(other.x, x) ||
-                const DeepCollectionEquality().equals(other.x, x)) &&
+            (identical(other.y, y) || const DeepCollectionEquality().equals(other.y, y)) &&
+            (identical(other.x, x) || const DeepCollectionEquality().equals(other.x, x)) &&
             (identical(other.label, label) ||
                 const DeepCollectionEquality().equals(other.label, label)));
   }
@@ -320,8 +305,7 @@ class _$_GeoAttr implements _GeoAttr {
       const DeepCollectionEquality().hash(label);
 
   @override
-  _$GeoAttrCopyWith<_GeoAttr> get copyWith =>
-      __$GeoAttrCopyWithImpl<_GeoAttr>(this, _$identity);
+  _$GeoAttrCopyWith<_GeoAttr> get copyWith => __$GeoAttrCopyWithImpl<_GeoAttr>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {

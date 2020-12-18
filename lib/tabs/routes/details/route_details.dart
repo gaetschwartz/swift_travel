@@ -74,14 +74,14 @@ class RouteDetails extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyText1,
         child: Column(
           children: [
-            _dataRow("Departure", c.from),
-            _dataRow("Arrival", c.to),
+            _dataRow('Departure', c.from),
+            _dataRow('Arrival', c.to),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  const Text("Travel duration"),
+                  const Text('Travel duration'),
                   const SizedBox(width: 8),
                   Expanded(
                       child: Align(
@@ -89,9 +89,9 @@ class RouteDetails extends StatelessWidget {
                           child: Text.rich(
                             TextSpan(children: [
                               TextSpan(
-                                  text: "${Format.time(c.departure)} - ${Format.time(c.arrival)}",
+                                  text: '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
                                   style: const TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: " (${Format.intToDuration(c.duration.round())})")
+                              TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
                             ]),
                             textAlign: TextAlign.end,
                           )))
@@ -126,7 +126,7 @@ class RouteDetails extends StatelessWidget {
     final compressed = zlib.encode(bytes);
     final compressed64 = base64.encode(compressed);
     final raw64 = base64.encode(bytes);
-    log("compresssed : ${compressed64.length}, raw : ${raw64.length}");
+    log('compresssed : ${compressed64.length}, raw : ${raw64.length}');
     log(compressed64);
   }
 

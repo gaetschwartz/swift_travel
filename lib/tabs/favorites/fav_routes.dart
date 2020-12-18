@@ -23,7 +23,7 @@ class FavoriteRouteTile extends StatelessWidget {
       leading: const Icon(FontAwesomeIcons.route),
       isThreeLine: true,
       title: Text(route.displayName),
-      subtitle: Text("${route.from} ➡ ${route.to}"),
+      subtitle: Text('${route.from} ➡ ${route.to}'),
       trailing: IconButton(
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () {
@@ -32,14 +32,14 @@ class FavoriteRouteTile extends StatelessWidget {
               context,
               choices: [
                 Choice(
-                  value: "Delete",
+                  value: 'Delete',
                   isDestructive: true,
                   onTap: () => deleteRoute(context),
                   child: null,
                 )
               ],
-              cancel: const Choice.cancel(child: Text("Cancel")),
-              title: const Text("What to do ?"),
+              cancel: const Choice.cancel(child: Text('Cancel')),
+              title: const Text('What to do ?'),
             );
           }),
       onTap: () async {
@@ -52,15 +52,15 @@ class FavoriteRouteTile extends StatelessWidget {
   Future<void> deleteRoute(BuildContext context) async {
     final b = await confirm(
       context,
-      title: Text.rich(TextSpan(text: "Delete ", children: [
+      title: Text.rich(TextSpan(text: 'Delete ', children: [
         TextSpan(text: route.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const TextSpan(text: " ?"),
+        const TextSpan(text: ' ?'),
       ])),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "From",
+            'From',
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -68,7 +68,7 @@ class FavoriteRouteTile extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            "To",
+            'To',
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -77,8 +77,8 @@ class FavoriteRouteTile extends StatelessWidget {
           ),
         ],
       ),
-      confirm: const Text("Yes"),
-      cancel: const Text("No"),
+      confirm: const Text('Yes'),
+      cancel: const Text('No'),
       isConfirmDestructive: true,
     );
     if (!b) return;

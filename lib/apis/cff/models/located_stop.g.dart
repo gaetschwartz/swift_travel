@@ -15,8 +15,7 @@ _$_LocatedStop _$_$_LocatedStopFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_LocatedStopToJson(_$_LocatedStop instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$_$_LocatedStopToJson(_$_LocatedStop instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'x': instance.x,

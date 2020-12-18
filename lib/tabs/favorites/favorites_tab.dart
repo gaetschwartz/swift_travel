@@ -33,12 +33,12 @@ class _SearchFavoriteState extends State<SearchFavorite>
     final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        tooltip: "Add a favorite",
+        tooltip: 'Add a favorite',
         shape: const StadiumBorder(),
         onPressed: () async {
           Vibration.select();
           final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
-            builder: (_) => const StopInputDialog(title: "Add a favorite"),
+            builder: (_) => const StopInputDialog(title: 'Add a favorite'),
             fullscreenDialog: true,
           ));
           if (s == null) return;
@@ -50,10 +50,10 @@ class _SearchFavoriteState extends State<SearchFavorite>
             if (completions.isEmpty) {
               log("Didn't find a station, will try using routes as a hack...");
               final CffRoute cffRoute =
-                  await cff.route(s, "Geneva", date: DateTime.now(), time: TimeOfDay.now());
+                  await cff.route(s, 'Geneva', date: DateTime.now(), time: TimeOfDay.now());
               if (cffRoute.connections.isNotEmpty) {
                 final from = cffRoute.connections.first.from;
-                log("Found $from");
+                log('Found $from');
                 completions = await cff.complete(from, showIds: true);
                 log(completions.toString());
               }
@@ -65,7 +65,7 @@ class _SearchFavoriteState extends State<SearchFavorite>
             }
 
             final CffCompletion completion = completions.first;
-            final name = await input(context, title: const Text("What is the name of this stop"));
+            final name = await input(context, title: const Text('What is the name of this stop'));
             if (name == null) return;
             await _store.addStop(completion.toFavoriteStop(name: name));
           });
@@ -83,18 +83,18 @@ class _SearchFavoriteState extends State<SearchFavorite>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "⭐",
+                      '⭐',
                       style: TextStyle(fontSize: 64),
                     ),
                     const SizedBox(height: 32),
                     Text(
-                      "You have no favorites !",
+                      'You have no favorites !',
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      "You can add one by tapping the ➕ button.",
+                      'You can add one by tapping the ➕ button.',
                       style: Theme.of(context).textTheme.subtitle1,
                       textAlign: TextAlign.center,
                     ),

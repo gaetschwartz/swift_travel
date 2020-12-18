@@ -7,8 +7,8 @@ int delayFromJson(dynamic s) => s is String
     ? int.tryParse(s)
     : s == null
         ? null
-        : throw FormatException("$s is not of type String but ${s.runtimeType}");
-String delayToJson(int d) => d > 0 ? "+$d" : d.toString();
+        : throw FormatException('$s is not of type String but ${s.runtimeType}');
+String delayToJson(int d) => d > 0 ? '+$d' : d.toString();
 
 @freezed
 abstract class Exit with _$Exit {
@@ -22,7 +22,7 @@ abstract class Exit with _$Exit {
     String sbbName,
     double lat,
     double lon,
-    @JsonKey(name: "arr_delay", fromJson: delayFromJson, toJson: delayFromJson) int arrDelay,
+    @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson) int arrDelay,
   }) = _Exit;
 
   factory Exit.fromJson(Map<String, dynamic> json) => _$ExitFromJson(json);

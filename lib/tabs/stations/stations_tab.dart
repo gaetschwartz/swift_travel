@@ -83,7 +83,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                     child: Stack(
                       children: [
                         TextField(
-                          key: const Key("stations-textfield"),
+                          key: const Key('stations-textfield'),
                           focusNode: focusNode,
                           controller: searchController,
                           style: DefaultTextStyle.of(context)
@@ -95,7 +95,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                               Icons.search,
                               color: _hasFocus ? Colors.grey : Colors.black,
                             ),
-                            hintText: "Search here...",
+                            hintText: 'Search here...',
                             border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -115,7 +115,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                                 icon: const Icon(Icons.clear),
                                 onPressed: () {
                                   Vibration.select();
-                                  searchController.text = "";
+                                  searchController.text = '';
                                   focusNode.unfocus();
                                   context.read(_stateProvider).state = const StationStates.empty();
                                 }),
@@ -135,7 +135,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                             ? const Icon(CupertinoIcons.location_fill)
                             : const FaIcon(FontAwesomeIcons.locationArrow));
                   }),
-                  tooltip: "Use current location",
+                  tooltip: 'Use current location',
                   onPressed: () => getLocation(),
                 )
               ],
@@ -163,7 +163,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                           child: ListView.builder(
                             itemBuilder: (context, i) => CffCompletionTile(
                               sugg: c.completions[i],
-                              key: Key("stations-key-$i"),
+                              key: Key('stations-key-$i'),
                             ),
                             itemCount: c.completions == null ? 0 : c.completions.length,
                           ),
@@ -177,12 +177,12 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         const Text(
-                                          "🔎",
+                                          '🔎',
                                           style: TextStyle(fontSize: 48),
                                         ),
                                         const SizedBox(height: 24),
                                         Text(
-                                          "Search a station",
+                                          'Search a station',
                                           style: Theme.of(context).textTheme.headline6,
                                           textAlign: TextAlign.center,
                                         )
@@ -212,7 +212,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          "Network Error",
+                          'Network Error',
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ],
@@ -251,15 +251,15 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       final first = completions.first;
       if (first.dist != null) {
         final public = completions.where(
-            (c) => !CffIcon.isPrivate(c.iconclass.substring(c.iconclass.lastIndexOf("_") + 1)));
+            (c) => !CffIcon.isPrivate(c.iconclass.substring(c.iconclass.lastIndexOf('_') + 1)));
         context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
-          log("Found : ${public.first}");
+          log('Found : ${public.first}');
           searchController.text = public.first.label;
         }
       }
     } on Exception catch (e) {
-      log("", error: e, name: "Location");
+      log('', error: e, name: 'Location');
     } finally {
       context.read(_locatingProvider).state = false;
     }
@@ -273,7 +273,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       final List<CffCompletion> completionsWithFavs =
           await completeWithFavorites(store, compls, query);
 
-      log("Completions : ${completionsWithFavs.length}");
+      log('Completions : ${completionsWithFavs.length}');
 
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
@@ -282,7 +282,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
       if (isMobile) {
         FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       } else {
-        log("", error: e, stackTrace: s);
+        log('', error: e, stackTrace: s);
       }
     } finally {
       context.read(_loadingProvider).state = false;

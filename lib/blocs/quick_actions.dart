@@ -25,21 +25,21 @@ class MyQuickActions {
   static MyQuickActions get instance => _instance ?? (_instance = MyQuickActions._());
 
   void init() {
-    log("Initialize", name: "QuickActions");
+    log('Initialize', name: 'QuickActions');
     try {
       quickActions.initialize(_init);
     } on MissingPluginException {
-      log("Unsupported for now on $platform");
+      log('Unsupported for now on $platform');
     }
   }
 
   Future<void> _init(String shortcutType) async {
-    await FirebaseCrashlytics.instance.log("User tapped a quick action : `$shortcutType`");
-    log('Tapped shortcut $shortcutType', name: "QuickActions");
-    final split = shortcutType.split("_");
+    await FirebaseCrashlytics.instance.log('User tapped a quick action : `$shortcutType`');
+    log('Tapped shortcut $shortcutType', name: 'QuickActions');
+    final split = shortcutType.split('_');
     final first = split.first;
-    if (first == "route") {
-      log('Tapped route $shortcutType', name: "QuickActions");
+    if (first == 'route') {
+      log('Tapped route $shortcutType', name: 'QuickActions');
       final prefs = await SharedPreferences.getInstance();
       final stringList = prefs.getStringList(FavoritesSharedPreferencesStore.routesKey);
       final idS = split.last;
@@ -48,8 +48,8 @@ class MyQuickActions {
       final lr = LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
       navigatorKey.currentState
           .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: lr)));
-    } else if (first == "fav") {
-      log('Tapped fav $shortcutType', name: "QuickActions");
+    } else if (first == 'fav') {
+      log('Tapped fav $shortcutType', name: 'QuickActions');
       final prefs = await SharedPreferences.getInstance();
       final stringList = prefs.getStringList(FavoritesSharedPreferencesStore.stopsKey);
       final idS = split.last;
@@ -63,33 +63,33 @@ class MyQuickActions {
 
   Future<void> setActions(List<LocalRoute> routes, List<FavoriteStop> favorites) async {
     if (!isMobile) {
-      log("Actions not supported for now on $platform");
+      log('Actions not supported for now on $platform');
     }
     final List<ShortcutItem> shortcuts = [];
 
-    log("Add favorites $favorites", name: "QuickActions");
+    log('Add favorites $favorites', name: 'QuickActions');
     for (var i = 0; i < min(maxFavoriteStops, favorites.length); i++) {
       final fav = favorites[i];
       shortcuts.add(ShortcutItem(
         type: 'fav_$i',
         localizedTitle: fav.stop,
-        icon: Platform.isIOS ? "star" : "ic_favorites_round",
+        icon: Platform.isIOS ? 'star' : 'ic_favorites_round',
       ));
     }
 
-    log("Add routes $routes", name: "QuickActions");
+    log('Add routes $routes', name: 'QuickActions');
     for (var i = 0; i < min(maxFavoriteRoutes, routes.length); i++) {
       final route = routes[i];
       shortcuts.add(ShortcutItem(
         type: 'route_$i',
         localizedTitle: route.displayName,
-        icon: Platform.isIOS ? "route" : "ic_route_round",
+        icon: Platform.isIOS ? 'route' : 'ic_route_round',
       ));
     }
     try {
       await quickActions.setShortcutItems(shortcuts);
     } on MissingPluginException {
-      log("Unsupported for now on $platform");
+      log('Unsupported for now on $platform');
     }
   }
 }

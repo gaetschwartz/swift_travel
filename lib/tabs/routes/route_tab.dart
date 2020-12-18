@@ -65,10 +65,10 @@ class Fetcher extends ChangeNotifier {
 
     state = const RouteStates.loading();
     final departure = from.when(
-        empty: () => null, text: (t) => t, currentLocation: (loc, lat, lon) => "$lat,$lon");
+        empty: () => null, text: (t) => t, currentLocation: (loc, lat, lon) => '$lat,$lon');
     final arrival =
-        to.when(empty: () => null, text: (t) => t, currentLocation: (loc, lat, lon) => "$lat,$lon");
-    log("Fetching route from $departure to $arrival");
+        to.when(empty: () => null, text: (t) => t, currentLocation: (loc, lat, lon) => '$lat,$lon');
+    log('Fetching route from $departure to $arrival');
     try {
       final CffRoute it = await _cff.route(
         departure,
@@ -82,11 +82,11 @@ class Fetcher extends ChangeNotifier {
       state = const RouteStates.network();
     } on Exception catch (e, s) {
       state = RouteStates.exception(e);
-      report(e, s, name: "Fetch");
+      report(e, s, name: 'Fetch');
       // ignore: avoid_catching_errors
     } on Error catch (e) {
       state = RouteStates.exception(e);
-      report(e, e.stackTrace, name: "Fetch");
+      report(e, e.stackTrace, name: 'Fetch');
     }
   }
 }
@@ -182,7 +182,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
           ? AppBar(
               leading:
                   widget.localRoute != null || widget.favStop != null ? const CloseButton() : null,
-              title: Text(widget.localRoute?.displayName ?? "Route"),
+              title: Text(widget.localRoute?.displayName ?? 'Route'),
               automaticallyImplyLeading: false,
             )
           : null,
@@ -197,7 +197,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                    tooltip: "Use current location",
+                    tooltip: 'Use current location',
                     icon: Consumer(builder: (context, w, _) {
                       final loading = w(_isLocating).state;
                       return loading
@@ -241,7 +241,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                   child: SizedBox(
                     height: 48,
                     child: Tooltip(
-                      message: "Change date and time",
+                      message: 'Change date and time',
                       child: TextButton(
                         style: TextButton.styleFrom(
                             shape: const StadiumBorder(),
@@ -264,13 +264,13 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                         child: Consumer(builder: (context, w, _) {
                           final _date = w(_dateProvider);
                           final _time = w(_timeTypeProvider);
-                          final dateFormatted = DateFormat("d MMM y").format(_date.state);
-                          final timeFormatted = DateFormat("H:mm").format(_date.state);
+                          final dateFormatted = DateFormat('d MMM y').format(_date.state);
+                          final timeFormatted = DateFormat('H:mm').format(_date.state);
                           final type = describeEnum(_time.state);
                           return Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text("${type[0].toUpperCase()}${type.substring(1, 3)}."),
+                              Text('${type[0].toUpperCase()}${type.substring(1, 3)}.'),
                               const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
                               Text(dateFormatted),
                               const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
@@ -285,7 +285,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 Positioned(
                   right: 0,
                   child: IconButton(
-                    tooltip: "Reset time",
+                    tooltip: 'Reset time',
                     onPressed: () {
                       Vibration.select();
                       final date = context.read(_dateProvider);
@@ -309,9 +309,9 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     decoration:
                         BoxDecoration(boxShadow: [DynamicTheme.shadowOf(context).buttonShadow]),
                     child: Tooltip(
-                      message: "Search",
+                      message: 'Search',
                       child: FlatButton.icon(
-                        key: const Key("search-route"),
+                        key: const Key('search-route'),
                         padding: const EdgeInsets.symmetric(horizontal: 48),
                         height: 48,
                         highlightColor: const Color(0x260700b1),
@@ -326,13 +326,13 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                             : () {
                                 unFocusFields();
                                 _fromController.text =
-                                    "Université de Genève, Genève, Rue du Général-Dufour 24";
-                                _toController.text = "Badenerstrasse 549, 8048 Zürich";
+                                    'Université de Genève, Genève, Rue du Général-Dufour 24';
+                                _toController.text = 'Badenerstrasse 549, 8048 Zürich';
                                 searchFromText();
                               },
                         shape: const StadiumBorder(),
                         color: Theme.of(context).scaffoldBackgroundColor,
-                        label: const Text("Search"),
+                        label: const Text('Search'),
                       ),
                     ),
                   ),
@@ -340,7 +340,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 Positioned(
                     right: 0,
                     child: IconButton(
-                      tooltip: "Favorite route",
+                      tooltip: 'Favorite route',
                       onPressed: () async {
                         Vibration.select();
                         final _store =
@@ -350,16 +350,16 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                           (lr) => lr.from == _fromController.text && lr.to == _toController.text,
                         )) {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text("This route is already in your favorites !")));
+                              content: Text('This route is already in your favorites !')));
                           return;
                         }
 
-                        final s = await input(context, title: const Text("Enter route name"));
+                        final s = await input(context, title: const Text('Enter route name'));
                         if (s == null) return;
                         context.read(storeProvider).addRoute(
                             LocalRoute(_fromController.text, _toController.text, displayName: s));
                         ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(content: Text("Route starred !")));
+                            .showSnackBar(const SnackBar(content: Text('Route starred !')));
                       },
                       icon: Consumer(builder: (context, w, _) {
                         final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
@@ -374,7 +374,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                 Positioned(
                     left: 0,
                     child: IconButton(
-                      tooltip: "Clear everything",
+                      tooltip: 'Clear everything',
                       onPressed: () async {
                         Vibration.selectionMedium();
                         _fromController.clear();
@@ -410,7 +410,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
           alignment: Alignment.centerRight,
           children: [
             TypeAheadField<CffCompletion>(
-              key: const Key("route-first-textfield-key"),
+              key: const Key('route-first-textfield-key'),
               debounceDuration: const Duration(milliseconds: 500),
               textFieldConfiguration: TextFieldConfiguration(
                 focusNode: fnFrom,
@@ -423,7 +423,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
-                  labelText: "From",
+                  labelText: 'From',
                   isDense: true,
                   filled: true,
                   fillColor: Theme.of(context).cardColor,
@@ -449,7 +449,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               icon: const Icon(Icons.clear),
               onPressed: () {
                 Vibration.select();
-                _fromController.text = "";
+                _fromController.text = '';
                 context.read(_fromTextfieldProvider).state = const RouteTextfieldState.empty();
               },
             ),
@@ -467,7 +467,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
           alignment: Alignment.centerRight,
           children: [
             TypeAheadField<CffCompletion>(
-              key: const Key("route-second-textfield-key"),
+              key: const Key('route-second-textfield-key'),
               debounceDuration: const Duration(milliseconds: 500),
               textFieldConfiguration: TextFieldConfiguration(
                 textInputAction: TextInputAction.search,
@@ -480,7 +480,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
-                  labelText: "To",
+                  labelText: 'To',
                   isDense: true,
                   filled: true,
                   fillColor: Theme.of(context).cardColor,
@@ -506,7 +506,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               icon: const Icon(Icons.clear),
               onPressed: () {
                 Vibration.select();
-                _toController.text = "";
+                _toController.text = '';
                 context.read(_toTextfieldProvider).state = const RouteTextfieldState.empty();
               },
             ),
@@ -533,12 +533,12 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
     unFocusFields();
     try {
       final Position p = await context.read(locationProvider).getLocation(context: context);
-      log("Position is : $p");
-      if (p == null) throw Exception("We got no location");
+      log('Position is : $p');
+      if (p == null) throw Exception('We got no location');
       final List<CffCompletion> completions =
           await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
       final CffCompletion first = completions.first;
-      log("Found : $first");
+      log('Found : $first');
       if (first.dist != null) {
         _fromController.text = completions.first.label;
         context.read(_fromTextfieldProvider).state =
@@ -576,7 +576,7 @@ class RoutesView extends StatelessWidget {
               shrinkWrap: true,
               itemCount: data.routes == null ? 0 : data.routes.connections.length,
               itemBuilder: (context, i) => RouteTile(
-                    key: Key("routetile-$i"),
+                    key: Key('routetile-$i'),
                     route: data.routes,
                     i: i,
                   )),
@@ -589,7 +589,7 @@ class RoutesView extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    "Netork Error",
+                    'Netork Error',
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
@@ -615,12 +615,12 @@ class RoutesView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "🔎",
+                    '🔎',
                     style: TextStyle(fontSize: 48),
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    "Search a route",
+                    'Search a route',
                     style: Theme.of(context).textTheme.headline6,
                     textAlign: TextAlign.center,
                   )
@@ -679,11 +679,11 @@ class __SegmentedState extends State<_Segmented> {
       },
       children: {
         TimeType.depart: Text(
-          "Departure",
+          'Departure',
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
         TimeType.arrival: Text(
-          "Arrival",
+          'Arrival',
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
       },

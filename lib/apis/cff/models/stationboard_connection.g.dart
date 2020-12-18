@@ -6,30 +6,24 @@ part of 'stationboard_connection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_StationboardConnection _$_$_StationboardConnectionFromJson(
-    Map<String, dynamic> json) {
+_$_StationboardConnection _$_$_StationboardConnectionFromJson(Map<String, dynamic> json) {
   return _$_StationboardConnection(
     json['time'] == null ? null : DateTime.parse(json['time'] as String),
     _$enumDecodeNullable(_$VehicleEnumMap, json['type']),
     json['line'] as String,
     json['color'] as String,
     json['number'] as String,
-    json['terminal'] == null
-        ? null
-        : Stop.fromJson(json['terminal'] as Map<String, dynamic>),
+    json['terminal'] == null ? null : Stop.fromJson(json['terminal'] as Map<String, dynamic>),
     json['operator'] as String,
     g: json['*G'] as String,
     l: json['*L'] as String,
     subsequentStops: (json['subsequent_stops'] as List)
-        ?.map((e) => e == null
-            ? null
-            : SubsequentStop.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null ? null : SubsequentStop.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
 
-Map<String, dynamic> _$_$_StationboardConnectionToJson(
-        _$_StationboardConnection instance) =>
+Map<String, dynamic> _$_$_StationboardConnectionToJson(_$_StationboardConnection instance) =>
     <String, dynamic>{
       'time': instance.time?.toIso8601String(),
       'type': _$VehicleEnumMap[instance.type],
@@ -40,8 +34,7 @@ Map<String, dynamic> _$_$_StationboardConnectionToJson(
       'operator': instance.operator,
       '*G': instance.g,
       '*L': instance.l,
-      'subsequent_stops':
-          instance.subsequentStops?.map((e) => e?.toJson())?.toList(),
+      'subsequent_stops': instance.subsequentStops?.map((e) => e?.toJson())?.toList(),
     };
 
 T _$enumDecode<T>(
@@ -54,9 +47,7 @@ T _$enumDecode<T>(
         '${enumValues.values.join(', ')}');
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
+  final value = enumValues.entries.singleWhere((e) => e.value == source, orElse: () => null)?.key;
 
   if (value == null && unknownValue == null) {
     throw ArgumentError('`$source` is not one of the supported values: '

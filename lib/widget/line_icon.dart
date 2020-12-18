@@ -22,7 +22,7 @@ class LineIcon extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
           child: Text(
-            line ?? "???",
+            line ?? '???',
             style: TextStyle(
               color: Color(colorFromString(foreground) ?? 0xfff0f0f0),
               fontWeight: FontWeight.bold,

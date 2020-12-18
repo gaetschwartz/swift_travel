@@ -5,8 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 final preferencesProvider = ChangeNotifierProvider((r) => PreferencesBloc());
 
 class PreferencesBloc extends ChangeNotifier {
-  static const String mapsKey = "maps_app";
-  static const String navigationAPIKey = "navigation_api";
+  static const String mapsKey = 'maps_app';
+  static const String navigationAPIKey = 'navigation_api';
   SharedPreferences _prefs;
   Maps _maps;
   NavigationApiType _api;

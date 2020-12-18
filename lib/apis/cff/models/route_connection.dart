@@ -17,7 +17,7 @@ abstract class RouteConnection with _$RouteConnection {
     double duration,
     @Default([]) List<Leg> legs,
     @Default({}) Map<String, Disruption> disruptions,
-    @JsonKey(name: "dep_delay") String depDelay,
+    @JsonKey(name: 'dep_delay') String depDelay,
   }) = _RouteConnection;
 
   factory RouteConnection.fromJson(Map<String, dynamic> json) => _$RouteConnectionFromJson(json);

@@ -58,7 +58,7 @@ class WelcomePage extends StatelessWidget {
                     children: [
                       Center(
                         child: Text(
-                          "Welcome to Swift Travel",
+                          'Welcome to Swift Travel',
                           style: Theme.of(context).textTheme.headline5,
                           textAlign: TextAlign.center,
                         ),
@@ -66,7 +66,7 @@ class WelcomePage extends StatelessWidget {
                       const SizedBox(height: 8),
                       const Center(
                         child: Text(
-                          "We will help you 🚄🚶🏼‍♂️🚎🚶🏻‍♀🚌 !",
+                          'We will help you 🚄🚶🏼‍♂️🚎🚶🏻‍♀🚌 !',
                           style: TextStyle(fontSize: 14),
                           textAlign: TextAlign.center,
                         ),
@@ -87,7 +87,7 @@ class WelcomePage extends StatelessWidget {
                           onPrimary: Theme.of(context).primaryColor,
                         ),
                         icon: const Icon(Icons.skip_next),
-                        label: const Text("Skip tutorial"),
+                        label: const Text('Skip tutorial'),
                       ),
                     ),
                     SizedBox(
@@ -101,7 +101,7 @@ class WelcomePage extends StatelessWidget {
                         },
                         child: Row(
                           children: const [
-                            Text("Continue"),
+                            Text('Continue'),
                             SizedBox(width: 8),
                             Icon(Icons.chevron_right),
                           ],

@@ -41,16 +41,16 @@ class LocationRepository {
           log(permission.toString());
           final b = await confirm(
             context,
-            title: const Text("You need permissions !"),
-            content: const Text("Location permissions are needed to get your position !"),
-            confirm: const Text("Open Settings"),
+            title: const Text('You need permissions !'),
+            content: const Text('Location permissions are needed to get your position !'),
+            confirm: const Text('Open Settings'),
             defaultAction: DefaultAction.confirm,
             isCancelDestructive: true,
           );
           if (!b) return null;
-          log("Opening settings ...");
+          log('Opening settings ...');
           final opened = await Geolocator.openAppSettings();
-          if (opened) log("Successfully opened settings");
+          if (opened) log('Successfully opened settings');
         }
         throw Exception("Failed to locate, didn't have the required permissions : $permission");
       }

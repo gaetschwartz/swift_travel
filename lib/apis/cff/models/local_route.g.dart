@@ -14,8 +14,7 @@ _$_LocalRoute _$_$_LocalRouteFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_LocalRouteToJson(_$_LocalRoute instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$_$_LocalRouteToJson(_$_LocalRoute instance) => <String, dynamic>{
       'from': instance.from,
       'to': instance.to,
       'displayName': instance.displayName,

@@ -36,4 +36,4 @@ Future<List<CffCompletion>> completeWithFavorites(
 }
 
 double _leven(String query, FavoriteStop c) =>
-    levenshtein(query, c.name.replaceAll(",", "")) / c.name.length;
+    levenshtein(query, c.name.replaceAll(',', '')) / c.name.length;

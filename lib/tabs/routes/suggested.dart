@@ -15,7 +15,7 @@ class SuggestedTile extends StatelessWidget {
       leading: CffIcon.fromIconClass(suggestion.iconclass),
       title: Text(suggestion.favoriteName ?? suggestion.label),
       subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
-      trailing: suggestion.favoriteName != null ? const Text("⭐") : null,
+      trailing: suggestion.favoriteName != null ? const Text('⭐') : null,
       dense: true,
     );
   }

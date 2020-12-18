@@ -21,7 +21,7 @@ final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 bool get isMobile =>
     defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android;
 
-String get platform => kIsWeb ? "Web ($defaultTargetPlatform)" : Platform.operatingSystem;
+String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
 
 const debugPlatformMap = {
   TargetPlatform.windows: TargetPlatform.macOS,
@@ -29,24 +29,24 @@ const debugPlatformMap = {
 };
 
 const Map<String, WelcomePage> pagesMap = {
-  "welcome": WelcomePage(),
+  'welcome': WelcomePage(),
 };
 
 Future<void> main() async {
-  if (const bool.fromEnvironment("OVERRIDE_PLATFORM")) {
+  if (const bool.fromEnvironment('OVERRIDE_PLATFORM')) {
     final TargetPlatform platform = debugPlatformMap[defaultTargetPlatform];
-    log("Overriding $defaultTargetPlatform by $platform");
+    log('Overriding $defaultTargetPlatform by $platform');
     debugDefaultTargetPlatformOverride = platform;
   }
   WidgetsFlutterBinding.ensureInitialized();
 
   if (isMobile) {
-    log("We are on mobile ($platform)");
+    log('We are on mobile ($platform)');
     await Firebase.initializeApp();
     FlutterError.onError = reportFlutterError;
     runZonedGuarded<Future<void>>(() async => _runApp(), FirebaseCrashlytics.instance.recordError);
   } else {
-    log("We are not on mobile ($platform)");
+    log('We are not on mobile ($platform)');
     _runApp();
   }
 }
@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void reassemble() {
     super.reassemble();
-    log("Reload theme");
+    log('Reload theme');
     context.read(dynamicTheme).configure(themeConfiguration);
   }
 

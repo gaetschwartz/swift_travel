@@ -19,8 +19,8 @@ class CffIcon extends StatelessWidget {
 
   static Vehicle getVehicle(String iconclass) {
     if (iconclass == null) return null;
-    final substring = iconclass.substring(iconclass.lastIndexOf("-") + 1);
-    return VehicleIconclass.fromJson({"v": substring}).v;
+    final substring = iconclass.substring(iconclass.lastIndexOf('-') + 1);
+    return VehicleIconclass.fromJson({'v': substring}).v;
   }
 
   final Vehicle vehicle;
@@ -58,14 +58,14 @@ class CffIcon extends StatelessWidget {
         return const FaIcon(FontAwesomeIcons.solidStar);
     }
 
-    log("Unknown icon type : `$v`");
+    log('Unknown icon type : `$v`');
     return const FaIcon(FontAwesomeIcons.question);
   }
 
-  static const List<String> _privatePlaces = ["adr", "business", "private"];
+  static const List<String> _privatePlaces = ['adr', 'business', 'private'];
 
   static bool isPrivate(String s) =>
-      s != null && _privatePlaces.contains(s.substring(s.lastIndexOf("-") + 1));
+      s != null && _privatePlaces.contains(s.substring(s.lastIndexOf('-') + 1));
 
   @override
   Widget build(BuildContext context) => IconTheme(

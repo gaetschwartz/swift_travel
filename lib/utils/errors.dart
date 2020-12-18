@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:swift_travel/main.dart';
 import 'package:vibration/vibration.dart';
 
-void report(Object e, StackTrace s, {String name = "", String reason = ""}) {
+void report(Object e, StackTrace s, {String name = '', String reason = ''}) {
   if (kDebugMode) {
-    debugPrintStack(stackTrace: s, label: "[$name] $reason: $e");
+    debugPrintStack(stackTrace: s, label: '[$name] $reason: $e');
   } else {
     scaffoldMessengerKey.currentState
       ..removeCurrentSnackBar()
       ..showSnackBar(SnackBar(
-        content: Text("$e"),
+        content: Text('$e'),
         action: SnackBarAction(
-          label: "Details",
+          label: 'Details',
           onPressed: () {
             navigatorKey.currentState.push(MaterialPageRoute(
                 builder: (context) => ErrorWidget(
@@ -47,7 +47,7 @@ void reportFlutterError(FlutterErrorDetails details) {
       ..showSnackBar(SnackBar(
         content: Text(details.exception.toString()),
         action: SnackBarAction(
-          label: "Details",
+          label: 'Details',
           onPressed: () {
             navigatorKey.currentState.push(
               MaterialPageRoute(
@@ -78,19 +78,19 @@ class ErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(isFlutter ? "Flutter error" : "Dart error"),
+        title: Text(isFlutter ? 'Flutter error' : 'Dart error'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
             Text(
-              "The app encountered an issue, here are some details for the developer.",
+              'The app encountered an issue, here are some details for the developer.',
               style: Theme.of(context).textTheme.headline6,
             ),
             const SizedBox(height: 12),
             Text.rich(
-              TextSpan(text: "${details.exception} ", children: [
+              TextSpan(text: '${details.exception} ', children: [
                 TextSpan(
                   text: details.context.toDescription(),
                   style: const TextStyle(fontWeight: FontWeight.normal),
