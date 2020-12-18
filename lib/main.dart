@@ -6,7 +6,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/pages/loading.dart';
 import 'package:swift_travel/pages/welcome.dart';
 import 'package:swift_travel/theme.dart';
@@ -78,6 +80,13 @@ class _MyAppState extends State<MyApp> {
           theme: theme.light,
           darkTheme: theme.dark,
           themeMode: theme.mode,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
           home: LoadingPage(),
         );
       }),

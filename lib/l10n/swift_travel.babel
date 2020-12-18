@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<babeledit_project be_version="2.8.0" version="1.2">
+    <!--
+
+    BabelEdit project file
+    https://www.codeandweb.com/babeledit
+
+    This file contains meta data for all translations, but not the translation texts itself.
+    They are stored in framework-specific message files (.json / .vue / .yaml / .properties)
+
+    -->
+    <preset_collections/>
+    <framework>arb</framework>
+    <filename>swift_travel.babel</filename>
+    <source_root_dir/>
+    <folder_node>
+        <name/>
+        <children/>
+    </folder_node>
+    <isTemplateProject>false</isTemplateProject>
+    <languages>
+        <language>
+            <code>de-DE</code>
+            <source_id/>
+            <source_file>intl_de.arb</source_file>
+        </language>
+        <language>
+            <code>en-GB</code>
+            <source_id/>
+            <source_file>intl_en.arb</source_file>
+        </language>
+        <language>
+            <code>fr-CH</code>
+            <source_id/>
+            <source_file>intl_fr.arb</source_file>
+        </language>
+        <language>
+            <code>it-IT</code>
+            <source_id/>
+            <source_file>intl_it.arb</source_file>
+        </language>
+    </languages>
+    <translation_files>
+        <translation_file>
+            <file>intl_de.arb</file>
+        </translation_file>
+        <translation_file>
+            <file>intl_en.arb</file>
+        </translation_file>
+        <translation_file>
+            <file>intl_fr.arb</file>
+        </translation_file>
+        <translation_file>
+            <file>intl_it.arb</file>
+        </translation_file>
+    </translation_files>
+    <editor_configuration>
+        <save_empty_translations>true</save_empty_translations>
+        <copy_templates>
+            <copy_template>Localizations.of(context).%1</copy_template>
+            <copy_template/>
+            <copy_template/>
+        </copy_templates>
+    </editor_configuration>
+    <primary_language>en-GB</primary_language>
+    <configuration>
+        <indent>tab</indent>
+        <format>plaintext-json</format>
+    </configuration>
+</babeledit_project>
