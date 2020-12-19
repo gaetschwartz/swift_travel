@@ -25,7 +25,7 @@ class NewTransportLegTile extends StatefulWidget {
 const _expandableTheme = ExpandableThemeData(
   sizeCurve: Curves.easeOutCubic,
   iconRotationAngle: math.pi / 2,
-  animationDuration: Duration(milliseconds: 200),
+  animationDuration: Duration(milliseconds: 100),
 );
 
 class _NewTransportLegTileState extends State<NewTransportLegTile> {

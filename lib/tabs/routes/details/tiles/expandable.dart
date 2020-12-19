@@ -27,8 +27,8 @@ class MyExpandable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = this.controller ?? ExpandableController.of(context);
-    final theme = ExpandableThemeData.withDefaults(_theme, context);
+    final ExpandableController controller = this.controller ?? ExpandableController.of(context);
+    final ExpandableThemeData theme = ExpandableThemeData.withDefaults(_theme, context);
 
     return AnimatedCrossFade(
       duration: theme.animationDuration,
