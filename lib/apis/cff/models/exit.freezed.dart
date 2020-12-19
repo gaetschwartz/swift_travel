@@ -26,7 +26,8 @@ class _$ExitTearOff {
       String sbbName,
       double lat,
       double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson) int arrDelay}) {
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+          int arrDelay}) {
     return _Exit(
       arrival: arrival,
       name: name,
@@ -69,7 +70,8 @@ mixin _$Exit {
 
 /// @nodoc
 abstract class $ExitCopyWith<$Res> {
-  factory $ExitCopyWith(Exit value, $Res Function(Exit) then) = _$ExitCopyWithImpl<$Res>;
+  factory $ExitCopyWith(Exit value, $Res Function(Exit) then) =
+      _$ExitCopyWithImpl<$Res>;
   $Res call(
       {DateTime arrival,
       String name,
@@ -79,7 +81,8 @@ abstract class $ExitCopyWith<$Res> {
       String sbbName,
       double lat,
       double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson) int arrDelay});
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+          int arrDelay});
 }
 
 /// @nodoc
@@ -118,7 +121,8 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
 
 /// @nodoc
 abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
-  factory _$ExitCopyWith(_Exit value, $Res Function(_Exit) then) = __$ExitCopyWithImpl<$Res>;
+  factory _$ExitCopyWith(_Exit value, $Res Function(_Exit) then) =
+      __$ExitCopyWithImpl<$Res>;
   @override
   $Res call(
       {DateTime arrival,
@@ -129,11 +133,13 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
       String sbbName,
       double lat,
       double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson) int arrDelay});
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+          int arrDelay});
 }
 
 /// @nodoc
-class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res> implements _$ExitCopyWith<$Res> {
+class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
+    implements _$ExitCopyWith<$Res> {
   __$ExitCopyWithImpl(_Exit _value, $Res Function(_Exit) _then)
       : super(_value, (v) => _then(v as _Exit));
 
@@ -179,9 +185,11 @@ class _$_Exit implements _Exit {
       this.sbbName,
       this.lat,
       this.lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson) this.arrDelay});
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+          this.arrDelay});
 
-  factory _$_Exit.fromJson(Map<String, dynamic> json) => _$_$_ExitFromJson(json);
+  factory _$_Exit.fromJson(Map<String, dynamic> json) =>
+      _$_$_ExitFromJson(json);
 
   @override
   final DateTime arrival;
@@ -213,21 +221,28 @@ class _$_Exit implements _Exit {
     return identical(this, other) ||
         (other is _Exit &&
             (identical(other.arrival, arrival) ||
-                const DeepCollectionEquality().equals(other.arrival, arrival)) &&
+                const DeepCollectionEquality()
+                    .equals(other.arrival, arrival)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.stopid, stopid) ||
                 const DeepCollectionEquality().equals(other.stopid, stopid)) &&
             (identical(other.waittime, waittime) ||
-                const DeepCollectionEquality().equals(other.waittime, waittime)) &&
+                const DeepCollectionEquality()
+                    .equals(other.waittime, waittime)) &&
             (identical(other.isaddress, isaddress) ||
-                const DeepCollectionEquality().equals(other.isaddress, isaddress)) &&
+                const DeepCollectionEquality()
+                    .equals(other.isaddress, isaddress)) &&
             (identical(other.sbbName, sbbName) ||
-                const DeepCollectionEquality().equals(other.sbbName, sbbName)) &&
-            (identical(other.lat, lat) || const DeepCollectionEquality().equals(other.lat, lat)) &&
-            (identical(other.lon, lon) || const DeepCollectionEquality().equals(other.lon, lon)) &&
+                const DeepCollectionEquality()
+                    .equals(other.sbbName, sbbName)) &&
+            (identical(other.lat, lat) ||
+                const DeepCollectionEquality().equals(other.lat, lat)) &&
+            (identical(other.lon, lon) ||
+                const DeepCollectionEquality().equals(other.lon, lon)) &&
             (identical(other.arrDelay, arrDelay) ||
-                const DeepCollectionEquality().equals(other.arrDelay, arrDelay)));
+                const DeepCollectionEquality()
+                    .equals(other.arrDelay, arrDelay)));
   }
 
   @override
@@ -244,7 +259,8 @@ class _$_Exit implements _Exit {
       const DeepCollectionEquality().hash(arrDelay);
 
   @override
-  _$ExitCopyWith<_Exit> get copyWith => __$ExitCopyWithImpl<_Exit>(this, _$identity);
+  _$ExitCopyWith<_Exit> get copyWith =>
+      __$ExitCopyWithImpl<_Exit>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {

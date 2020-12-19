@@ -50,6 +50,7 @@ class CffIcon extends StatelessWidget {
       case Vehicle.private:
         return const FaIcon(FontAwesomeIcons.building);
       case Vehicle.gondola:
+      case Vehicle.ship:
         return const FaIcon(FontAwesomeIcons.ship);
       case Vehicle.cablecar:
       case Vehicle.chairlift:

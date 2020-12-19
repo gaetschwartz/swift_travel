@@ -24,7 +24,8 @@ _$_GeoAttr _$_$_GeoAttrFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_GeoAttrToJson(_$_GeoAttr instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_GeoAttrToJson(_$_GeoAttr instance) =>
+    <String, dynamic>{
       'origin': instance.origin,
       'geomQuadindex': instance.geomQuadindex,
       'zoomlevel': instance.zoomlevel,

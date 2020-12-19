@@ -8,19 +8,24 @@ part of 'cff_stationboard.dart';
 
 _$_CffStationboard _$_$_CffStationboardFromJson(Map<String, dynamic> json) {
   return _$_CffStationboard(
-    stop: json['stop'] == null ? null : Stop.fromJson(json['stop'] as Map<String, dynamic>),
+    stop: json['stop'] == null
+        ? null
+        : Stop.fromJson(json['stop'] as Map<String, dynamic>),
     connections: (json['connections'] as List)
-            ?.map((e) =>
-                e == null ? null : StationboardConnection.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => e == null
+                ? null
+                : StationboardConnection.fromJson(e as Map<String, dynamic>))
             ?.toList() ??
         [],
     request: json['request'] as String,
     eof: json['eof'] as int,
-    messages: (json['messages'] as List)?.map((e) => e as String)?.toList() ?? [],
+    messages:
+        (json['messages'] as List)?.map((e) => e as String)?.toList() ?? [],
   );
 }
 
-Map<String, dynamic> _$_$_CffStationboardToJson(_$_CffStationboard instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_CffStationboardToJson(_$_CffStationboard instance) =>
+    <String, dynamic>{
       'stop': instance.stop,
       'connections': instance.connections,
       'request': instance.request,

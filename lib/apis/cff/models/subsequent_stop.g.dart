@@ -17,7 +17,8 @@ _$_SubsequentStop _$_$_SubsequentStopFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_SubsequentStopToJson(_$_SubsequentStop instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_SubsequentStopToJson(_$_SubsequentStop instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'id': instance.id,
       'dep': instance.dep?.toIso8601String(),

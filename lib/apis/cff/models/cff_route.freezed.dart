@@ -86,11 +86,15 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       count: count == freezed ? _value.count : count as int,
-      minDuration: minDuration == freezed ? _value.minDuration : minDuration as double,
-      maxDuration: maxDuration == freezed ? _value.maxDuration : maxDuration as double,
-      connections:
-          connections == freezed ? _value.connections : connections as List<RouteConnection>,
-      requestUrl: requestUrl == freezed ? _value.requestUrl : requestUrl as String,
+      minDuration:
+          minDuration == freezed ? _value.minDuration : minDuration as double,
+      maxDuration:
+          maxDuration == freezed ? _value.maxDuration : maxDuration as double,
+      connections: connections == freezed
+          ? _value.connections
+          : connections as List<RouteConnection>,
+      requestUrl:
+          requestUrl == freezed ? _value.requestUrl : requestUrl as String,
     ));
   }
 }
@@ -127,11 +131,15 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
   }) {
     return _then(_CffRoute(
       count: count == freezed ? _value.count : count as int,
-      minDuration: minDuration == freezed ? _value.minDuration : minDuration as double,
-      maxDuration: maxDuration == freezed ? _value.maxDuration : maxDuration as double,
-      connections:
-          connections == freezed ? _value.connections : connections as List<RouteConnection>,
-      requestUrl: requestUrl == freezed ? _value.requestUrl : requestUrl as String,
+      minDuration:
+          minDuration == freezed ? _value.minDuration : minDuration as double,
+      maxDuration:
+          maxDuration == freezed ? _value.maxDuration : maxDuration as double,
+      connections: connections == freezed
+          ? _value.connections
+          : connections as List<RouteConnection>,
+      requestUrl:
+          requestUrl == freezed ? _value.requestUrl : requestUrl as String,
     ));
   }
 }
@@ -148,7 +156,8 @@ class _$_CffRoute implements _CffRoute {
       this.requestUrl})
       : assert(connections != null);
 
-  factory _$_CffRoute.fromJson(Map<String, dynamic> json) => _$_$_CffRouteFromJson(json);
+  factory _$_CffRoute.fromJson(Map<String, dynamic> json) =>
+      _$_$_CffRouteFromJson(json);
 
   @override
   final int count;
@@ -176,13 +185,17 @@ class _$_CffRoute implements _CffRoute {
             (identical(other.count, count) ||
                 const DeepCollectionEquality().equals(other.count, count)) &&
             (identical(other.minDuration, minDuration) ||
-                const DeepCollectionEquality().equals(other.minDuration, minDuration)) &&
+                const DeepCollectionEquality()
+                    .equals(other.minDuration, minDuration)) &&
             (identical(other.maxDuration, maxDuration) ||
-                const DeepCollectionEquality().equals(other.maxDuration, maxDuration)) &&
+                const DeepCollectionEquality()
+                    .equals(other.maxDuration, maxDuration)) &&
             (identical(other.connections, connections) ||
-                const DeepCollectionEquality().equals(other.connections, connections)) &&
+                const DeepCollectionEquality()
+                    .equals(other.connections, connections)) &&
             (identical(other.requestUrl, requestUrl) ||
-                const DeepCollectionEquality().equals(other.requestUrl, requestUrl)));
+                const DeepCollectionEquality()
+                    .equals(other.requestUrl, requestUrl)));
   }
 
   @override

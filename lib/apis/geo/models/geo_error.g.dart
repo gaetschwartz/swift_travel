@@ -14,7 +14,8 @@ _$_GeoError _$_$_GeoErrorFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_GeoErrorToJson(_$_GeoError instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_GeoErrorToJson(_$_GeoError instance) =>
+    <String, dynamic>{
       'status': instance.status,
       'detail': instance.detail,
       'code': instance.code,

@@ -15,18 +15,25 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
     number: json['number'] as String,
     bgcolor: json['bgcolor'] as String,
     tripid: json['tripid'] as String,
-    exit: json['exit'] == null ? null : Exit.fromJson(json['exit'] as Map<String, dynamic>),
+    exit: json['exit'] == null
+        ? null
+        : Exit.fromJson(json['exit'] as Map<String, dynamic>),
     runningtime: (json['runningtime'] as num)?.toDouble(),
     stopid: json['stopid'] as String,
     line: json['line'] as String,
     stops: (json['stops'] as List)
-            ?.map((e) => e == null ? null : Stop.fromJson(e as Map<String, dynamic>))
+            ?.map((e) =>
+                e == null ? null : Stop.fromJson(e as Map<String, dynamic>))
             ?.toList() ??
         [],
     sbbName: json['sbbName'] as String,
     name: json['name'] as String,
-    departure: json['departure'] == null ? null : DateTime.parse(json['departure'] as String),
-    arrival: json['arrival'] == null ? null : DateTime.parse(json['arrival'] as String),
+    departure: json['departure'] == null
+        ? null
+        : DateTime.parse(json['departure'] as String),
+    arrival: json['arrival'] == null
+        ? null
+        : DateTime.parse(json['arrival'] as String),
     normalTime: json['normalTime'] as int,
     waittime: json['waittime'] as int,
     isaddress: json['isaddress'] as bool,
@@ -85,7 +92,9 @@ T _$enumDecode<T>(
         '${enumValues.values.join(', ')}');
   }
 
-  final value = enumValues.entries.singleWhere((e) => e.value == source, orElse: () => null)?.key;
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
 
   if (value == null && unknownValue == null) {
     throw ArgumentError('`$source` is not one of the supported values: '
@@ -122,4 +131,5 @@ const _$VehicleEnumMap = {
   Vehicle.cablecar: 'cablecar',
   Vehicle.chairlift: 'chairlift',
   Vehicle.favorite: 'favorite',
+  Vehicle.ship: 'ship',
 };

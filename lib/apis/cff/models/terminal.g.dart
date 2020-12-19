@@ -15,7 +15,8 @@ _$_Terminal _$_$_TerminalFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_TerminalToJson(_$_Terminal instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_TerminalToJson(_$_Terminal instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'x': instance.x,

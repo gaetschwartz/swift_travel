@@ -66,7 +66,8 @@ mixin _$RouteConnection {
 
 /// @nodoc
 abstract class $RouteConnectionCopyWith<$Res> {
-  factory $RouteConnectionCopyWith(RouteConnection value, $Res Function(RouteConnection) then) =
+  factory $RouteConnectionCopyWith(
+          RouteConnection value, $Res Function(RouteConnection) then) =
       _$RouteConnectionCopyWithImpl<$Res>;
   $Res call(
       {String from,
@@ -80,7 +81,8 @@ abstract class $RouteConnectionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RouteConnectionCopyWithImpl<$Res> implements $RouteConnectionCopyWith<$Res> {
+class _$RouteConnectionCopyWithImpl<$Res>
+    implements $RouteConnectionCopyWith<$Res> {
   _$RouteConnectionCopyWithImpl(this._value, this._then);
 
   final RouteConnection _value;
@@ -100,21 +102,25 @@ class _$RouteConnectionCopyWithImpl<$Res> implements $RouteConnectionCopyWith<$R
   }) {
     return _then(_value.copyWith(
       from: from == freezed ? _value.from : from as String,
-      departure: departure == freezed ? _value.departure : departure as DateTime,
+      departure:
+          departure == freezed ? _value.departure : departure as DateTime,
       to: to == freezed ? _value.to : to as String,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
       duration: duration == freezed ? _value.duration : duration as double,
       legs: legs == freezed ? _value.legs : legs as List<Leg>,
-      disruptions:
-          disruptions == freezed ? _value.disruptions : disruptions as Map<String, Disruption>,
+      disruptions: disruptions == freezed
+          ? _value.disruptions
+          : disruptions as Map<String, Disruption>,
       depDelay: depDelay == freezed ? _value.depDelay : depDelay as String,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$RouteConnectionCopyWith<$Res> implements $RouteConnectionCopyWith<$Res> {
-  factory _$RouteConnectionCopyWith(_RouteConnection value, $Res Function(_RouteConnection) then) =
+abstract class _$RouteConnectionCopyWith<$Res>
+    implements $RouteConnectionCopyWith<$Res> {
+  factory _$RouteConnectionCopyWith(
+          _RouteConnection value, $Res Function(_RouteConnection) then) =
       __$RouteConnectionCopyWithImpl<$Res>;
   @override
   $Res call(
@@ -129,9 +135,11 @@ abstract class _$RouteConnectionCopyWith<$Res> implements $RouteConnectionCopyWi
 }
 
 /// @nodoc
-class __$RouteConnectionCopyWithImpl<$Res> extends _$RouteConnectionCopyWithImpl<$Res>
+class __$RouteConnectionCopyWithImpl<$Res>
+    extends _$RouteConnectionCopyWithImpl<$Res>
     implements _$RouteConnectionCopyWith<$Res> {
-  __$RouteConnectionCopyWithImpl(_RouteConnection _value, $Res Function(_RouteConnection) _then)
+  __$RouteConnectionCopyWithImpl(
+      _RouteConnection _value, $Res Function(_RouteConnection) _then)
       : super(_value, (v) => _then(v as _RouteConnection));
 
   @override
@@ -150,13 +158,15 @@ class __$RouteConnectionCopyWithImpl<$Res> extends _$RouteConnectionCopyWithImpl
   }) {
     return _then(_RouteConnection(
       from: from == freezed ? _value.from : from as String,
-      departure: departure == freezed ? _value.departure : departure as DateTime,
+      departure:
+          departure == freezed ? _value.departure : departure as DateTime,
       to: to == freezed ? _value.to : to as String,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
       duration: duration == freezed ? _value.duration : duration as double,
       legs: legs == freezed ? _value.legs : legs as List<Leg>,
-      disruptions:
-          disruptions == freezed ? _value.disruptions : disruptions as Map<String, Disruption>,
+      disruptions: disruptions == freezed
+          ? _value.disruptions
+          : disruptions as Map<String, Disruption>,
       depDelay: depDelay == freezed ? _value.depDelay : depDelay as String,
     ));
   }
@@ -213,18 +223,24 @@ class _$_RouteConnection implements _RouteConnection {
             (identical(other.from, from) ||
                 const DeepCollectionEquality().equals(other.from, from)) &&
             (identical(other.departure, departure) ||
-                const DeepCollectionEquality().equals(other.departure, departure)) &&
-            (identical(other.to, to) || const DeepCollectionEquality().equals(other.to, to)) &&
+                const DeepCollectionEquality()
+                    .equals(other.departure, departure)) &&
+            (identical(other.to, to) ||
+                const DeepCollectionEquality().equals(other.to, to)) &&
             (identical(other.arrival, arrival) ||
-                const DeepCollectionEquality().equals(other.arrival, arrival)) &&
+                const DeepCollectionEquality()
+                    .equals(other.arrival, arrival)) &&
             (identical(other.duration, duration) ||
-                const DeepCollectionEquality().equals(other.duration, duration)) &&
+                const DeepCollectionEquality()
+                    .equals(other.duration, duration)) &&
             (identical(other.legs, legs) ||
                 const DeepCollectionEquality().equals(other.legs, legs)) &&
             (identical(other.disruptions, disruptions) ||
-                const DeepCollectionEquality().equals(other.disruptions, disruptions)) &&
+                const DeepCollectionEquality()
+                    .equals(other.disruptions, disruptions)) &&
             (identical(other.depDelay, depDelay) ||
-                const DeepCollectionEquality().equals(other.depDelay, depDelay)));
+                const DeepCollectionEquality()
+                    .equals(other.depDelay, depDelay)));
   }
 
   @override
@@ -260,7 +276,8 @@ abstract class _RouteConnection implements RouteConnection {
       Map<String, Disruption> disruptions,
       @JsonKey(name: 'dep_delay') String depDelay}) = _$_RouteConnection;
 
-  factory _RouteConnection.fromJson(Map<String, dynamic> json) = _$_RouteConnection.fromJson;
+  factory _RouteConnection.fromJson(Map<String, dynamic> json) =
+      _$_RouteConnection.fromJson;
 
   @override
   String get from;
