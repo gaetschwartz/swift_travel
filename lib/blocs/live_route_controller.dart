@@ -24,13 +24,21 @@ class RouteData {
   final Duration timeUntilNextLeg;
 
   const RouteData({
-    this.currentStopIndex,
-    this.distFromCurrToNext,
-    this.distUntilExit,
-    this.portionOfLegDone,
-    this.portionFromCurrentToExit,
-    this.timeUntilNextLeg,
+    @required this.currentStopIndex,
+    @required this.distFromCurrToNext,
+    @required this.distUntilExit,
+    @required this.portionOfLegDone,
+    @required this.portionFromCurrentToExit,
+    @required this.timeUntilNextLeg,
   });
+
+  const RouteData.empty()
+      : currentStopIndex = null,
+        distFromCurrToNext = null,
+        distUntilExit = null,
+        portionOfLegDone = null,
+        portionFromCurrentToExit = null,
+        timeUntilNextLeg = null;
 }
 
 class LiveRouteController extends ChangeNotifier {
@@ -38,12 +46,14 @@ class LiveRouteController extends ChangeNotifier {
   LiveRouteController(this.ref);
 
   StreamSubscription<Position> _sub;
+
   RouteConnection _connection;
   Position _position;
   int _closestLeg;
   int _closestStop;
   bool _isReady = false;
-  final Map<int, Map<int, double>> legDistances = {};
+
+  final legDistances = <int, Map<int, double>>{};
 
   Position get position => _position;
   RouteConnection get connection => _connection;
@@ -51,10 +61,9 @@ class LiveRouteController extends ChangeNotifier {
   Stop get closestStop =>
       closestLeg != null && _closestStop != null ? closestLeg.stops[_closestStop] : null;
   bool get isReady => _isReady;
-
-  RouteData _routeData;
-
   RouteData get routeData => _routeData;
+
+  RouteData _routeData = const RouteData.empty();
 
   int _currentStop;
   int _currentLeg;
@@ -134,6 +143,7 @@ class LiveRouteController extends ChangeNotifier {
   void _updateDistances(Position p) {
     int closestStop;
     int closestLeg;
+
     double dist = double.infinity;
     for (int i = 0; i < _connection.legs.length; i++) {
       final l = _connection.legs[i];
@@ -169,7 +179,6 @@ class LiveRouteController extends ChangeNotifier {
 
   void _updateData() {
     if (currentLeg == null) {
-      _routeData = const RouteData();
       return;
     }
     final currentStopIndex = currentLeg.stops.isEmpty
@@ -203,6 +212,7 @@ class LiveRouteController extends ChangeNotifier {
   Future<void> _computeMissingStops() async {
     if (!isRunning) throw StateError('Live route not running');
     log("Computing distances we didn't find");
+
     final List<Leg> legs = await Stream.fromIterable(_connection.legs).asyncMap((e) async {
       if (e.lat != null && e.lon != null) {
         return e;
