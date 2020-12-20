@@ -28,6 +28,8 @@ const _expandableTheme = ExpandableThemeData(
   animationDuration: Duration(milliseconds: 100),
 );
 
+const _red = Color(0xFFFF5252);
+
 class _NewTransportLegTileState extends State<NewTransportLegTile> {
   final ExpandableController _controller = ExpandableController();
 
@@ -112,15 +114,19 @@ class _NewTransportLegTileState extends State<NewTransportLegTile> {
                               Text.rich(TextSpan(children: [
                                 TextSpan(
                                   text: Format.time(widget.l.departure),
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 if (widget.l.depDelay != null && widget.l.depDelay > 0)
                                   TextSpan(
                                     text: Format.delay(widget.l.depDelay),
-                                    style: const TextStyle(color: Color(0xFFFF5252)),
+                                    style: const TextStyle(
+                                      color: _red,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                               ])),
                               const SizedBox(width: 16),
-                              Expanded(flex: 3, child: Text(widget.l.name)),
+                              Expanded(child: Text(widget.l.name)),
                             ],
                           ),
                         ),
@@ -132,15 +138,19 @@ class _NewTransportLegTileState extends State<NewTransportLegTile> {
                               Text.rich(TextSpan(children: [
                                 TextSpan(
                                   text: Format.time(widget.l.exit.arrival),
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 if (widget.l.exit.arrDelay != null && widget.l.exit.arrDelay > 0)
                                   TextSpan(
                                     text: Format.delay(widget.l.exit.arrDelay),
-                                    style: const TextStyle(color: Color(0xFFFF5252)),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: _red,
+                                    ),
                                   ),
                               ])),
                               const SizedBox(width: 16),
-                              Expanded(flex: 3, child: Text(widget.l.exit.name)),
+                              Expanded(child: Text(widget.l.exit.name)),
                               Text(Format.intToDuration(widget.l.runningtime.round())),
                               const SizedBox(width: 32),
                             ],
@@ -195,34 +205,37 @@ class _NewTransportLegTileState extends State<NewTransportLegTile> {
 
   Widget _buildStop(Stop stop, BuildContext context,
       {bool bold = false, bool isFirst = false, bool isLast = false}) {
-    return SizedBox(
-      height: 28,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(child: _buildLine(!isFirst)),
-              _buildCircle(context),
-              Expanded(child: _buildLine(!isLast)),
-            ],
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              stop.name,
-              style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+    return Padding(
+      padding: const EdgeInsets.only(right: 32.0),
+      child: SizedBox(
+        height: 28,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(child: _buildLine(!isFirst)),
+                _buildCircle(context),
+                Expanded(child: _buildLine(!isLast)),
+              ],
             ),
-          ),
-          if (stop.departure != null) ...[
             const SizedBox(width: 8),
-            Text(
-              Format.time(stop.departure),
-              style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+            Expanded(
+              child: Text(
+                stop.name,
+                style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+              ),
             ),
+            if (stop.departure != null) ...[
+              const SizedBox(width: 8),
+              Text(
+                Format.time(stop.departure),
+                style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

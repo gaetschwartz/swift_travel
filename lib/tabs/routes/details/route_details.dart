@@ -41,12 +41,16 @@ class RouteDetails extends StatelessWidget {
             SliverAppBar(
                 title: const Text('Route'),
                 pinned: true,
-                floating: true,
                 snap: true,
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(140),
-                  child: header(context, conn),
-                ),
+                floating: true,
+                bottom: buildHeader(
+                    context,
+                    conn,
+                    Size.fromHeight((Theme.of(context).textTheme.bodyText1.fontSize *
+                                MediaQuery.of(context).textScaleFactor) +
+                            20) *
+                        3),
+                flexibleSpace: const SizedBox(),
                 actions: <Widget>[
                   if (isMobile)
                     IconButton(
@@ -67,38 +71,46 @@ class RouteDetails extends StatelessWidget {
         ));
   }
 
-  Widget header(BuildContext context, RouteConnection c) {
-    return DecoratedBox(
-      decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
-      child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.bodyText1,
-        child: Column(
-          children: [
-            _dataRow('Departure', c.from),
-            _dataRow('Arrival', c.to),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  const Text('Travel duration'),
-                  const SizedBox(width: 8),
-                  Expanded(
-                      child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                  text: '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
-                            ]),
-                            textAlign: TextAlign.end,
-                          )))
+  PreferredSize buildHeader(BuildContext context, RouteConnection c, Size size) {
+    return PreferredSize(
+      preferredSize: size,
+      child: DecoratedBox(
+        decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
+        child: DefaultTextStyle(
+          style: Theme.of(context).textTheme.bodyText1,
+          child: SizedBox.fromSize(
+            size: size,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _dataRow('Departure', c.from),
+                  _dataRow('Arrival', c.to),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      const Text('Travel duration'),
+                      const SizedBox(width: 8),
+                      Expanded(
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(
+                                      text:
+                                          '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
+                                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                                  TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
+                                ]),
+                                textAlign: TextAlign.end,
+                              )))
+                    ],
+                  ),
                 ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -131,23 +143,20 @@ class RouteDetails extends StatelessWidget {
   }
 
   Widget _dataRow(String key, String text) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(key),
-          const SizedBox(width: 8),
-          Expanded(
-              child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    text,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.end,
-                  )))
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(key),
+        const SizedBox(width: 8),
+        Expanded(
+            child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  text,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.end,
+                )))
+      ],
     );
   }
 }

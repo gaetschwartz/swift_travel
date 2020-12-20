@@ -84,26 +84,18 @@ class WalkingTile extends StatelessWidget {
 
     final suffix =
         '?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
-    if (kIsWeb) {
-      final url = _google + suffix;
-      try {
-        await launch(url);
-      } on Exception {
-        log('Failed to open $url');
-      }
-    } else if (Platform.isIOS) {
+    if (Platform.isIOS) {
       final url = getMapsUrl(context, suffix);
-      try {
-        await launch(url);
-      } on Exception {
-        log('Failed to open $url');
-      }
+      await launch(url);
     } else if (Platform.isAndroid) {
       final AndroidIntent intent = AndroidIntent(
         action: 'action_view',
         data: _google + suffix,
       );
       await intent.launch();
+    } else {
+      final url = _google + suffix;
+      await launch(url);
     }
   }
 
