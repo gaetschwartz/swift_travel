@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:swift_travel/apis/cff/models/route_connection.dart';
@@ -10,7 +11,8 @@ import 'package:swift_travel/apis/cff/models/stop.dart';
 import 'package:swift_travel/apis/cff/models/types_enum.dart';
 import 'package:swift_travel/apis/geo/geo.dart';
 
-final liveRouteControllerProvider = ChangeNotifierProvider((r) => LiveRouteController(r));
+final liveRouteControllerProvider =
+    ChangeNotifierProvider((r) => LiveRouteController(r.read(geoProvider)));
 
 @immutable
 class RouteData {
@@ -42,8 +44,8 @@ class RouteData {
 }
 
 class LiveRouteController extends ChangeNotifier {
-  final ProviderReference ref;
-  LiveRouteController(this.ref);
+  final GeoRepository geo;
+  LiveRouteController(this.geo);
 
   StreamSubscription<Position> _sub;
 
@@ -53,7 +55,9 @@ class LiveRouteController extends ChangeNotifier {
   int _closestStop;
   bool _isReady = false;
 
-  final legDistances = <int, Map<int, double>>{};
+  final _legDistances = <int, Map<int, double>>{};
+
+  Map<int, Map<int, double>> get legDistances => UnmodifiableMapView(_legDistances);
 
   Position get position => _position;
   RouteConnection get connection => _connection;
@@ -72,12 +76,12 @@ class LiveRouteController extends ChangeNotifier {
       ? currentLeg.stops[_currentStop]
       : null;
 
-  void startRoute(RouteConnection connection) {
+  Future<void> startRoute(RouteConnection connection) async {
     stopCurrentRoute(notify: false);
     _connection = connection;
     _sub =
         Geolocator.getPositionStream(intervalDuration: const Duration(seconds: 1)).listen(_update);
-    _computeMissingStops();
+    await _computeMissingStops();
     notifyListeners();
   }
 
@@ -88,7 +92,7 @@ class LiveRouteController extends ChangeNotifier {
     _currentLeg = null;
     _currentStop = null;
     _isReady = false;
-    legDistances.clear();
+    _legDistances.clear();
     _sub?.cancel();
     if (notify) notifyListeners();
   }
@@ -101,6 +105,7 @@ class LiveRouteController extends ChangeNotifier {
     Vehicle.walk: 100,
     Vehicle.tram: 100,
   };
+
   static int getDistanceThreshHold(Leg leg) =>
       _kDistanceThersholds[leg?.type] ?? _kDefaultDistanceThreshold;
 
@@ -120,15 +125,15 @@ class LiveRouteController extends ChangeNotifier {
 
     if (_currentLeg == null) {
       _currentLeg = _closestLeg;
-    } else if (legDistances.containsKey(_currentLeg + 1) &&
-        legDistances[_currentLeg + 1][-1] < threshold) {
+    } else if (_legDistances.containsKey(_currentLeg + 1) &&
+        _legDistances[_currentLeg + 1][-1] < threshold) {
       log('We are close enough to the next leg, switching to it');
       _currentLeg += 1;
     }
     if (_currentStop == null) {
       _currentStop = _closestStop;
-    } else if (legDistances[_currentLeg].containsKey(_currentStop + 1) &&
-        legDistances[_currentLeg][_currentStop + 1] < threshold) {
+    } else if (_legDistances[_currentLeg].containsKey(_currentStop + 1) &&
+        _legDistances[_currentLeg][_currentStop + 1] < threshold) {
       log('We are close enough to the next stop, switching to it');
       _currentStop += 1;
     }
@@ -149,8 +154,8 @@ class LiveRouteController extends ChangeNotifier {
       final l = _connection.legs[i];
       if (l.lat == null || l.lon == null) continue;
       final double d = Geolocator.distanceBetween(l.lat, l.lon, p.latitude, p.longitude);
-      legDistances[i] ??= {};
-      legDistances[i][-1] = d;
+      _legDistances[i] ??= {};
+      _legDistances[i][-1] = d;
       if (l.stops.isNotEmpty) {
         for (int j = 0; j < l.stops.length; j++) {
           final s = l.stops[j];
@@ -158,7 +163,7 @@ class LiveRouteController extends ChangeNotifier {
             continue;
           }
           final double d = Geolocator.distanceBetween(s.lat, s.lon, p.latitude, p.longitude);
-          legDistances[i][j] = d;
+          _legDistances[i][j] = d;
           if (d < dist) {
             closestLeg = i;
             closestStop = j;
@@ -213,23 +218,34 @@ class LiveRouteController extends ChangeNotifier {
     if (!isRunning) throw StateError('Live route not running');
     log("Computing distances we didn't find");
 
-    final List<Leg> legs = await Stream.fromIterable(_connection.legs).asyncMap((e) async {
-      if (e.lat != null && e.lon != null) {
-        return e;
-      } else {
-        final pos = await ref.read(geoProvider).getPosition(e.name.split(',').last);
-        if (pos.results.isEmpty) return e;
+    final List<Leg> legs = _connection.legs;
+
+    for (final e in _connection.legs) {
+      legs.add(await _computeLeg(e));
+    }
+
+    _connection = _connection.copyWith(legs: legs);
+    _isReady = true;
+    notifyListeners();
+    log('Done computing routes');
+  }
+
+  Future<Leg> _computeLeg(Leg e) async {
+    if (e.lat != null && e.lon != null) {
+      return e;
+    } else {
+      final split = e.name.split(',');
+      for (var i = split.length; i >= 0; i--) {
+        final pos = await geo.getPosition(split.sublist(i).join());
+        if (pos.results.isEmpty) continue;
         log('Found position ${pos.results.first.attrs.lat}, ${pos.results.first.attrs.lon} for ${e.name}');
         return e.copyWith(
           lat: pos.results.first.attrs.lat,
           lon: pos.results.first.attrs.lon,
         );
       }
-    }).toList();
-
-    _connection = _connection.copyWith(legs: legs);
-    _isReady = true;
-    log('Done computing routes');
+      return e;
+    }
   }
 
   @override
