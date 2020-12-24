@@ -1,16 +1,16 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:swift_travel/tabs/routes/details/tiles/expandable.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widget/cff_icon.dart';
 import 'package:swift_travel/widget/line_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
-@Deprecated('Use `NewTransportLegTile`')
-class TransportLegTile extends StatelessWidget {
+class TransportLegTile extends StatefulWidget {
   const TransportLegTile({
     Key key,
     @required this.l,
@@ -19,8 +19,28 @@ class TransportLegTile extends StatelessWidget {
   final Leg l;
 
   @override
+  _TransportLegTileState createState() => _TransportLegTileState();
+}
+
+const _expandableTheme = ExpandableThemeData(
+  sizeCurve: Curves.easeOutCubic,
+  iconRotationAngle: math.pi / 2,
+  animationDuration: Duration(milliseconds: 100),
+);
+
+const _red = Color(0xFFFF5252);
+
+class _TransportLegTileState extends State<TransportLegTile> {
+  final ExpandableController _controller = ExpandableController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final children = _stops(l, context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DecoratedBox(
@@ -32,84 +52,113 @@ class TransportLegTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: ExpandableTheme(
-            data: const ExpandableThemeData(
-              sizeCurve: Curves.easeOutCubic,
-              iconRotationAngle: pi / 2,
-            ),
+            data: _expandableTheme,
             child: ExpandablePanel(
+              controller: _controller,
+              builder: (context, collapsed, expanded) {
+                return ExpandableButton(
+                  child: MyExpandable(
+                    collapsed: collapsed,
+                    expanded: expanded,
+                    backgroundColor: Theme.of(context).cardColor,
+                    theme: _expandableTheme,
+                  ),
+                );
+              },
               header: Column(
                 children: [
                   Row(
                     children: <Widget>[
-                      if (l.line != null) ...[
-                        LineIcon(foreground: l.fgcolor, background: l.bgcolor, line: l.line),
-                        const SizedBox(width: 8),
+                      if (widget.l.line != null) ...[
+                        LineIcon(
+                            foreground: widget.l.fgcolor,
+                            background: widget.l.bgcolor,
+                            line: widget.l.line),
                       ] else ...[
-                        CffIcon(l.type),
-                        const SizedBox(width: 8),
+                        CffIcon(widget.l.type),
                       ],
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            l.exit.name,
+                            widget.l.terminal,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                      if (l.track != null)
+                      if (widget.l.track != null)
                         Text(
-                          'Pl. ${l.track}',
+                          'Pl. ${widget.l.track}',
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                     ],
                   ),
-                  DefaultTextStyle(
-                    style: Theme.of(context).textTheme.subtitle2,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              CffIcon(l.type, size: 16),
-                              const SizedBox(width: 8),
-                              Text(l.terminal ?? ''),
-                            ],
-                          ),
-                          if (l.exit != null)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Row(
-                                children: [
-                                  Text.rich(TextSpan(children: [
-                                    TextSpan(
-                                      text: Format.time(l.departure),
-                                    ),
-                                    if (l.depDelay != null && l.depDelay > 0)
-                                      TextSpan(
-                                        text: Format.delay(l.depDelay),
-                                        style: const TextStyle(color: Color(0xFFFF5252)),
-                                      ),
-                                    const TextSpan(text: ' ⇢ '),
-                                    TextSpan(
-                                      text: Format.time(l.exit.arrival),
-                                    ),
-                                  ])),
-                                  const Spacer(),
-                                  Text(Format.intToDuration(l.runningtime.round())),
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
               expanded: Column(
-                children: children,
+                children: _stops(widget.l, context),
+              ),
+              collapsed: DefaultTextStyle(
+                style: Theme.of(context).textTheme.subtitle2,
+                child: Padding(
+                  padding: EdgeInsets.zero,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (widget.l.exit != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Row(
+                            children: [
+                              Text.rich(TextSpan(children: [
+                                TextSpan(
+                                  text: Format.time(widget.l.departure),
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                if (widget.l.depDelay != null && widget.l.depDelay > 0)
+                                  TextSpan(
+                                    text: Format.delay(widget.l.depDelay),
+                                    style: const TextStyle(
+                                      color: _red,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                              ])),
+                              const SizedBox(width: 16),
+                              Expanded(child: Text(widget.l.name)),
+                            ],
+                          ),
+                        ),
+                      if (widget.l.exit != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Row(
+                            children: [
+                              Text.rich(TextSpan(children: [
+                                TextSpan(
+                                  text: Format.time(widget.l.exit.arrival),
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                if (widget.l.exit.arrDelay != null && widget.l.exit.arrDelay > 0)
+                                  TextSpan(
+                                    text: Format.delay(widget.l.exit.arrDelay),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: _red,
+                                    ),
+                                  ),
+                              ])),
+                              const SizedBox(width: 16),
+                              Expanded(child: Text(widget.l.exit.name)),
+                              Text(Format.intToDuration(widget.l.runningtime.round())),
+                              const SizedBox(width: 32),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
@@ -121,13 +170,15 @@ class TransportLegTile extends StatelessWidget {
   List<Widget> _stops(Leg l, BuildContext context) {
     return [
       _buildStop(
+        l,
         Stop(l.name, departure: l.departure),
         context,
         bold: true,
         isFirst: true,
       ),
-      ...l.stops.map((s) => _buildStop(s, context)),
+      ...l.stops.map((s) => _buildStop(l, s, context)),
       _buildStop(
+        l,
         Stop(l.exit.name, departure: l.exit.arrival),
         context,
         bold: true,
@@ -143,10 +194,10 @@ class TransportLegTile extends StatelessWidget {
     );
   }
 
-  Widget _buildCircle(BuildContext context) {
+  Widget _buildCircle(BuildContext context, Leg l) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: Color(parseColor(l.bgcolor)),
         shape: BoxShape.circle,
       ),
       width: 8,
@@ -154,36 +205,39 @@ class TransportLegTile extends StatelessWidget {
     );
   }
 
-  Widget _buildStop(Stop stop, BuildContext context,
+  Widget _buildStop(Leg l, Stop stop, BuildContext context,
       {bool bold = false, bool isFirst = false, bool isLast = false}) {
-    return SizedBox(
-      height: 28,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(child: _buildLine(!isFirst)),
-              _buildCircle(context),
-              Expanded(child: _buildLine(!isLast)),
-            ],
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              stop.name,
-              style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+    return Padding(
+      padding: const EdgeInsets.only(right: 32.0),
+      child: SizedBox(
+        height: 28,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(child: _buildLine(!isFirst)),
+                _buildCircle(context, l),
+                Expanded(child: _buildLine(!isLast)),
+              ],
             ),
-          ),
-          if (stop.departure != null) ...[
             const SizedBox(width: 8),
-            Text(
-              Format.time(stop.departure),
-              style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+            Expanded(
+              child: Text(
+                stop.name,
+                style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+              ),
             ),
+            if (stop.departure != null) ...[
+              const SizedBox(width: 8),
+              Text(
+                Format.time(stop.departure),
+                style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

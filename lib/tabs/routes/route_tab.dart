@@ -186,42 +186,65 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               automaticallyImplyLeading: false,
             )
           : null,
+      floatingActionButton: kReleaseMode
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                unFocusFields();
+                _fromController.text = 'Université de Genève, Genève, Rue du Général-Dufour 24';
+                _toController.text = 'Badenerstrasse 549, 8048 Zürich';
+                context.read(_fromTextfieldProvider).state =
+                    RouteTextfieldState.text(_fromController.text);
+                context.read(_toTextfieldProvider).state =
+                    RouteTextfieldState.text(_toController.text);
+              },
+              child: const Icon(Icons.bug_report)),
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: buildFromField(context),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 4, top: 8, bottom: 4),
+                      child: Row(
+                        children: [
+                          IconButton(
+                              tooltip: 'Use current location',
+                              icon: Consumer(builder: (context, w, _) {
+                                final loading = w(_isLocating).state;
+                                return loading
+                                    ? const CircularProgressIndicator()
+                                    : (isDarwin
+                                        ? const Icon(CupertinoIcons.location_fill)
+                                        : const FaIcon(FontAwesomeIcons.locationArrow));
+                              }),
+                              onPressed: () {
+                                Vibration.select();
+                                locate();
+                              }),
+                          Expanded(
+                            child: buildFromField(context),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4, right: 4, left: 8, bottom: 8),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: buildToField(context),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                IconButton(
-                    tooltip: 'Use current location',
-                    icon: Consumer(builder: (context, w, _) {
-                      final loading = w(_isLocating).state;
-                      return loading
-                          ? const CircularProgressIndicator()
-                          : (isDarwin
-                              ? const Icon(CupertinoIcons.location_fill)
-                              : const FaIcon(FontAwesomeIcons.locationArrow));
-                    }),
-                    onPressed: () {
-                      Vibration.select();
-                      locate();
-                    })
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: buildToField(context),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
+              ),
+              Center(
+                child: IconButton(
                   tooltip: 'Switch inputs',
                   icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
                   onPressed: () {
@@ -229,14 +252,48 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     switchInputs();
                   },
                 ),
-              ],
-            ),
+              )
+            ],
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            height: 48,
+            height: 40,
             child: Stack(
               children: [
+                Positioned(
+                    left: 0,
+                    child: IconButton(
+                      tooltip: 'Favorite route',
+                      onPressed: () async {
+                        Vibration.select();
+                        final _store =
+                            context.read(storeProvider) as FavoritesSharedPreferencesStore;
+                        log(_store.routes.toString());
+                        if (_store.routes.any(
+                          (lr) => lr.from == _fromController.text && lr.to == _toController.text,
+                        )) {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text('This route is already in your favorites !')));
+                          return;
+                        }
+
+                        final s = await input(context, title: const Text('Enter route name'));
+                        if (s == null) return;
+                        context.read(storeProvider).addRoute(
+                            LocalRoute(_fromController.text, _toController.text, displayName: s));
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(content: Text('Route starred !')));
+                      },
+                      icon: Consumer(builder: (context, w, _) {
+                        final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
+                        w(_futureRouteProvider);
+
+                        return _store.routes.any((lr) =>
+                                lr.from == _fromController.text && lr.to == _toController.text)
+                            ? const Icon(Icons.star)
+                            : const Icon(Icons.star_border);
+                      }),
+                    )),
                 Center(
                   child: SizedBox(
                     height: 48,
@@ -288,105 +345,16 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
                     tooltip: 'Reset time',
                     onPressed: () {
                       Vibration.select();
-                      final date = context.read(_dateProvider);
-                      final nowDate = DateTime.now();
-                      date.state = nowDate;
                       unFocusFields();
+                      context.read(_dateProvider).state = DateTime.now();
+                      context.read(_fromTextfieldProvider).state =
+                          RouteTextfieldState.text(_fromController.text);
+                      context.read(_toTextfieldProvider).state =
+                          RouteTextfieldState.text(_toController.text);
                     },
                     icon: const Icon(Icons.restore),
                   ),
                 ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            height: 48,
-            child: Stack(
-              children: [
-                Center(
-                  child: DecoratedBox(
-                    decoration:
-                        BoxDecoration(boxShadow: [DynamicTheme.shadowOf(context).buttonShadow]),
-                    child: Tooltip(
-                      message: 'Search',
-                      child: FlatButton.icon(
-                        key: const Key('search-route'),
-                        padding: const EdgeInsets.symmetric(horizontal: 48),
-                        height: 48,
-                        highlightColor: const Color(0x260700b1),
-                        icon: const FaIcon(FontAwesomeIcons.search),
-                        onPressed: () {
-                          Vibration.selectionHeavy();
-                          unFocusFields();
-                          searchFromText();
-                        },
-                        onLongPress: kReleaseMode
-                            ? null
-                            : () {
-                                unFocusFields();
-                                _fromController.text =
-                                    'Université de Genève, Genève, Rue du Général-Dufour 24';
-                                _toController.text = 'Badenerstrasse 549, 8048 Zürich';
-                                searchFromText();
-                              },
-                        shape: const StadiumBorder(),
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        label: const Text('Search'),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                    right: 0,
-                    child: IconButton(
-                      tooltip: 'Favorite route',
-                      onPressed: () async {
-                        Vibration.select();
-                        final _store =
-                            context.read(storeProvider) as FavoritesSharedPreferencesStore;
-                        log(_store.routes.toString());
-                        if (_store.routes.any(
-                          (lr) => lr.from == _fromController.text && lr.to == _toController.text,
-                        )) {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text('This route is already in your favorites !')));
-                          return;
-                        }
-
-                        final s = await input(context, title: const Text('Enter route name'));
-                        if (s == null) return;
-                        context.read(storeProvider).addRoute(
-                            LocalRoute(_fromController.text, _toController.text, displayName: s));
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(content: Text('Route starred !')));
-                      },
-                      icon: Consumer(builder: (context, w, _) {
-                        final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
-                        w(_futureRouteProvider);
-
-                        return _store.routes.any((lr) =>
-                                lr.from == _fromController.text && lr.to == _toController.text)
-                            ? const Icon(Icons.star)
-                            : const Icon(Icons.star_border);
-                      }),
-                    )),
-                Positioned(
-                    left: 0,
-                    child: IconButton(
-                      tooltip: 'Clear everything',
-                      onPressed: () async {
-                        Vibration.selectionMedium();
-                        _fromController.clear();
-                        _toController.clear();
-                        context.read(_futureRouteProvider).state = const RouteStates.empty();
-                        context.read(_fromTextfieldProvider).state =
-                            const RouteTextfieldState.empty();
-                        context.read(_toTextfieldProvider).state =
-                            const RouteTextfieldState.empty();
-                      },
-                      icon: const Icon(Icons.clear),
-                    )),
               ],
             ),
           ),
@@ -395,11 +363,6 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
         ],
       ),
     );
-  }
-
-  void searchFromText() {
-    context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(_fromController.text);
-    context.read(_toTextfieldProvider).state = RouteTextfieldState.text(_toController.text);
   }
 
   Widget buildFromField(BuildContext context) {

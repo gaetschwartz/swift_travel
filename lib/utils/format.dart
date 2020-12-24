@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/cff/models/exit.dart';
 
-int colorFromString(String s, {bool isbackground = false}) {
+int parseColor(String s, {bool isbackground = false}) {
   if (s == null || s.isEmpty) {
     return null;
   } else if (s.length == 3) {

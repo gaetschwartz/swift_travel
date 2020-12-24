@@ -12,7 +12,7 @@ import 'package:swift_travel/apis/cff/models/types_enum.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/arrived_tile.dart';
-import 'package:swift_travel/tabs/routes/details/tiles/transport_leg_tile.dart';
+import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/share.dart';
@@ -174,5 +174,5 @@ class LegTile extends StatelessWidget {
       ? ArrivedTile(l: l)
       : l.type == Vehicle.walk
           ? WalkingTile(l: l)
-          : NewTransportLegTile(l: l);
+          : TransportLegTile(l: l);
 }

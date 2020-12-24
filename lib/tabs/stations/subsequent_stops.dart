@@ -44,6 +44,7 @@ class _NextStopsPageState extends State<NextStopsPage> {
               itemCount: connection.subsequentStops.length,
               itemBuilder: (context, i) => StopTile(
                 stop: connection.subsequentStops[i],
+                connection: connection,
                 isFirst: i == 0,
                 isLast: i == connection.subsequentStops.length - 1,
               ),
@@ -55,6 +56,7 @@ class _NextStopsPageState extends State<NextStopsPage> {
 
 class StopTile extends StatelessWidget {
   final SubsequentStop stop;
+  final StationboardConnection connection;
   final bool isFirst;
   final bool isLast;
 
@@ -65,11 +67,11 @@ class StopTile extends StatelessWidget {
     );
   }
 
-  Widget _buildCircle(BuildContext context) {
+  Widget _buildCircle(BuildContext context, StationboardConnection connection) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: Color(parseColor(connection.color)),
         shape: BoxShape.circle,
       ),
       width: 16,
@@ -77,8 +79,13 @@ class StopTile extends StatelessWidget {
     );
   }
 
-  const StopTile({Key key, @required this.stop, this.isFirst = false, this.isLast = false})
-      : super(key: key);
+  const StopTile({
+    Key key,
+    @required this.stop,
+    @required this.connection,
+    this.isFirst = false,
+    this.isLast = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +99,7 @@ class StopTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(child: _buildLine(!isFirst)),
-                _buildCircle(context),
+                _buildCircle(context, connection),
                 Expanded(child: _buildLine(!isLast)),
               ],
             ),

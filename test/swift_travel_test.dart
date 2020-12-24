@@ -225,30 +225,30 @@ void main() {
 
     const count = 50;
 
-    group('colorFromString', () {
+    group('parse color', () {
       test('works correctly ', () {
         for (var i = 0; i < count; i++) {
           final nextInt = r.nextInt(1 << 12);
           final s = nextInt.toRadixString(16).padLeft(3, '0');
           expect(s.length, 3);
-          expect(colorFromString(s).toRadixString(16), 'ff${s[0]}0${s[1]}0${s[2]}0');
+          expect(parseColor(s).toRadixString(16), 'ff${s[0]}0${s[1]}0${s[2]}0');
         }
         for (var i = 0; i < count; i++) {
           final nextInt = r.nextInt(1 << 24);
           final s = nextInt.toRadixString(16).padLeft(6, '0');
           expect(s.length, 6);
-          expect(colorFromString(s).toRadixString(16), 'ff$s');
+          expect(parseColor(s).toRadixString(16), 'ff$s');
         }
       });
       test("throw exception if doesn't work", () {
-        expect(() => colorFromString('hell'), throwsArgumentError);
-        expect(() => colorFromString('1234'), throwsArgumentError);
+        expect(() => parseColor('hell'), throwsArgumentError);
+        expect(() => parseColor('1234'), throwsArgumentError);
 
-        expect(() => colorFromString('zzz'), throwsFormatException);
-        expect(() => colorFromString('------'), throwsFormatException);
+        expect(() => parseColor('zzz'), throwsFormatException);
+        expect(() => parseColor('------'), throwsFormatException);
 
-        expect(colorFromString(''), null);
-        expect(colorFromString(null), null);
+        expect(parseColor(''), null);
+        expect(parseColor(null), null);
       });
     });
   });
