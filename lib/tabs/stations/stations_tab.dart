@@ -13,6 +13,7 @@ import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/station_states.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widget/cff_icon.dart';
@@ -25,14 +26,14 @@ final _stateProvider = StateProvider<StationStates>((_) => const StationStates.e
 final _locatingProvider = StateProvider((_) => false);
 final _loadingProvider = StateProvider((_) => false);
 
-class SearchByName extends StatefulWidget {
-  const SearchByName();
+class StationsTab extends StatefulWidget {
+  const StationsTab();
 
   @override
-  _SearchByNameState createState() => _SearchByNameState();
+  _StationsTabState createState() => _StationsTabState();
 }
 
-class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClientMixin {
+class _StationsTabState extends State<StationsTab> with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   Timer _debouncer;
@@ -70,6 +71,7 @@ class _SearchByNameState extends State<SearchByName> with AutomaticKeepAliveClie
     super.build(context);
     final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
+      appBar: swiftTravelAppBar(context),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[

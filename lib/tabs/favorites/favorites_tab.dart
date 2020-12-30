@@ -7,6 +7,7 @@ import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/favorites/fav_stops.dart';
 import 'package:swift_travel/widget/input.dart';
 import 'package:utils/dialogs/input_dialog.dart';
@@ -15,14 +16,14 @@ import 'package:vibration/vibration.dart';
 
 import 'fav_routes.dart';
 
-class SearchFavorite extends StatefulWidget {
-  const SearchFavorite();
+class FavoritesTab extends StatefulWidget {
+  const FavoritesTab();
 
   @override
-  _SearchFavoriteState createState() => _SearchFavoriteState();
+  _FavoritesTabState createState() => _FavoritesTabState();
 }
 
-class _SearchFavoriteState extends State<SearchFavorite>
+class _FavoritesTabState extends State<FavoritesTab>
     with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
   @override
   bool get wantKeepAlive => true;
@@ -32,6 +33,7 @@ class _SearchFavoriteState extends State<SearchFavorite>
     super.build(context);
     final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     return Scaffold(
+      appBar: swiftTravelAppBar(context),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add a favorite',
         shape: const StadiumBorder(),

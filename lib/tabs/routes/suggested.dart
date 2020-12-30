@@ -12,7 +12,7 @@ class SuggestedTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CffIcon.fromIconClass(suggestion.iconclass),
+      leading: CffIcon.fromIconClass(suggestion.iconclass, size: 16),
       title: Text(suggestion.favoriteName ?? suggestion.label),
       subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
       trailing: suggestion.favoriteName != null ? const Text('⭐') : null,

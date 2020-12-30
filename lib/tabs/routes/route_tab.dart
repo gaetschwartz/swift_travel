@@ -19,6 +19,7 @@ import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/models/route_states.dart';
 import 'package:swift_travel/models/route_textfield_state.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
@@ -91,6 +92,29 @@ class Fetcher extends ChangeNotifier {
   }
 }
 
+class MyPage extends Page {
+  final Widget child;
+
+  const MyPage(this.child, {String name = 'myPage'}) : super(name: name);
+
+  @override
+  Route createRoute(BuildContext context) {
+    return PageRouteBuilder(pageBuilder: (context, a1, a2) => child, settings: this);
+  }
+}
+
+class RouteSearchTab extends StatelessWidget {
+  const RouteSearchTab();
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      pages: const [MyPage(SearchRoute())],
+      onPopPage: (_, __) => false,
+    );
+  }
+}
+
 class SearchRoute extends StatefulWidget {
   final LocalRoute localRoute;
   final FavoriteStop favStop;
@@ -98,10 +122,10 @@ class SearchRoute extends StatefulWidget {
   const SearchRoute({Key key, this.localRoute, this.favStop}) : super(key: key);
 
   @override
-  SearchRouteState createState() => SearchRouteState();
+  _SearchRouteState createState() => _SearchRouteState();
 }
 
-class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
+class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
   final TextEditingController _fromController = TextEditingController();
@@ -185,7 +209,7 @@ class SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientM
               title: Text(widget.localRoute?.displayName ?? 'Route'),
               automaticallyImplyLeading: false,
             )
-          : null,
+          : swiftTravelAppBar(context),
       floatingActionButton: kReleaseMode
           ? null
           : FloatingActionButton(

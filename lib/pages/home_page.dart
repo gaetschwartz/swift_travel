@@ -83,31 +83,34 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           ],
         );
       }),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'Swift Travel',
-          key: Key('scaffold-title'),
-        ),
-        actions: [
-          IconButton(
-              key: const Key('settings'),
-              tooltip: 'Settings',
-              icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
-              onPressed: () {
-                Vibration.select();
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
-              }),
-        ],
-      ),
       body: PageView(
         controller: _pageController,
         children: const [
-          SearchByName(),
-          SearchRoute(),
-          SearchFavorite(),
+          StationsTab(),
+          RouteSearchTab(),
+          FavoritesTab(),
         ],
       ),
     );
   }
+}
+
+AppBar swiftTravelAppBar(BuildContext context, {bool isDarwin = true}) {
+  return AppBar(
+    automaticallyImplyLeading: false,
+    title: const Text(
+      'Swift Travel',
+      key: Key('scaffold-title'),
+    ),
+    actions: [
+      IconButton(
+          key: const Key('settings'),
+          tooltip: 'Settings',
+          icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
+          onPressed: () {
+            Vibration.select();
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
+          }),
+    ],
+  );
 }
