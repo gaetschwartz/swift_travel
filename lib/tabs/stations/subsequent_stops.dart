@@ -113,12 +113,12 @@ class StopTile extends StatelessWidget {
                 ),
                 subtitle: Text.rich(TextSpan(children: [
                   TextSpan(
-                    text: Format.time(stop.dep),
+                    text: Format.time(stop.dep ?? stop.arr),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   if (stop.depDelay > 0)
                     TextSpan(
-                      text: Format.delay(stop.depDelay),
+                      text: Format.delay(stop.dep != null ? stop.depDelay : stop.arrDelay),
                       style: const TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
