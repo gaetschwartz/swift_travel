@@ -71,8 +71,8 @@ class StopTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2.0),
       decoration: BoxDecoration(
-        color: parseColor(connection.color.substring(0, connection.color.indexOf('~')),
-            Theme.of(context).accentColor),
+        color:
+            parseColor(connection.color.substring(0, connection.color.indexOf('~')), Colors.black),
         shape: BoxShape.circle,
       ),
       width: 16,
