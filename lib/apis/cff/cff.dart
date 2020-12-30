@@ -85,7 +85,7 @@ class CffRepository implements NavigationApi {
       int limit = 32,
       bool showTracks = false,
       bool showSubsequentStops = true,
-      bool showDelays = false,
+      bool showDelays = true,
       bool showTrackchanges = false,
       List<TransportationTypes> transportationTypes = const []}) async {
     final params = {

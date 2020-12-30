@@ -20,6 +20,8 @@ abstract class StationboardConnection with _$StationboardConnection {
     @JsonKey(name: '*G') String g,
     @JsonKey(name: '*L') String l,
     @Default([]) @JsonKey(name: 'subsequent_stops') List<SubsequentStop> subsequentStops,
+    //@JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) int depDelay,
+    //@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson) int arrDelay,
   }) = _StationboardConnection;
 
   factory StationboardConnection.fromJson(Map<String, dynamic> json) =>

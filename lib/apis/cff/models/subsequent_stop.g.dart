@@ -14,6 +14,8 @@ _$_SubsequentStop _$_$_SubsequentStopFromJson(Map<String, dynamic> json) {
     arr: json['arr'] == null ? null : DateTime.parse(json['arr'] as String),
     lat: (json['lat'] as num)?.toDouble(),
     lon: (json['lon'] as num)?.toDouble(),
+    depDelay: json['dep_delay'] as int,
+    arrDelay: json['arr_delay'] as int,
   );
 }
 
@@ -25,4 +27,6 @@ Map<String, dynamic> _$_$_SubsequentStopToJson(_$_SubsequentStop instance) =>
       'arr': instance.arr?.toIso8601String(),
       'lat': instance.lat,
       'lon': instance.lon,
+      'dep_delay': instance.depDelay,
+      'arr_delay': instance.arrDelay,
     };

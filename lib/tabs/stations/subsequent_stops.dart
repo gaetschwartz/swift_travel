@@ -111,10 +111,20 @@ class StopTile extends StatelessWidget {
                   stop.name,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                subtitle: Text(
-                  Format.time(stop.arr),
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+                subtitle: Text.rich(TextSpan(children: [
+                  TextSpan(
+                    text: Format.time(stop.dep),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  if (stop.depDelay > 0)
+                    TextSpan(
+                      text: Format.delay(stop.depDelay),
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                ])),
                 contentPadding: EdgeInsets.zero,
               ),
             ),

@@ -125,7 +125,7 @@ class SearchRoute extends StatefulWidget {
   _SearchRouteState createState() => _SearchRouteState();
 }
 
-class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClientMixin {
+class _SearchRouteState extends State<SearchRoute> {
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
   final TextEditingController _fromController = TextEditingController();
@@ -135,7 +135,6 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
   @override
   void initState() {
     super.initState();
-
     _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     if (widget.localRoute != null) {
       useLocalRoute();
@@ -198,7 +197,6 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -543,9 +541,6 @@ class _SearchRouteState extends State<SearchRoute> with AutomaticKeepAliveClient
     fnFrom.unfocus();
     fnTo.unfocus();
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class RoutesView extends StatelessWidget {
