@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/cff/models/disruption.dart';
+import 'package:swift_travel/apis/cff/models/exit.dart';
 
 import 'leg.dart';
 
@@ -17,7 +18,7 @@ abstract class RouteConnection with _$RouteConnection {
     double duration,
     @Default([]) List<Leg> legs,
     @Default({}) Map<String, Disruption> disruptions,
-    @JsonKey(name: 'dep_delay') String depDelay,
+    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) int depDelay,
   }) = _RouteConnection;
 
   factory RouteConnection.fromJson(Map<String, dynamic> json) => _$RouteConnectionFromJson(json);

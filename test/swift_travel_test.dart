@@ -231,24 +231,24 @@ void main() {
           final nextInt = r.nextInt(1 << 12);
           final s = nextInt.toRadixString(16).padLeft(3, '0');
           expect(s.length, 3);
-          expect(parseColor(s).toRadixString(16), 'ff${s[0]}0${s[1]}0${s[2]}0');
+          expect(parseColorInt(s).toRadixString(16), 'ff${s[0]}0${s[1]}0${s[2]}0');
         }
         for (var i = 0; i < count; i++) {
           final nextInt = r.nextInt(1 << 24);
           final s = nextInt.toRadixString(16).padLeft(6, '0');
           expect(s.length, 6);
-          expect(parseColor(s).toRadixString(16), 'ff$s');
+          expect(parseColorInt(s).toRadixString(16), 'ff$s');
         }
       });
       test("throw exception if doesn't work", () {
-        expect(() => parseColor('hell'), throwsArgumentError);
-        expect(() => parseColor('1234'), throwsArgumentError);
+        expect(() => parseColorInt('hell'), throwsArgumentError);
+        expect(() => parseColorInt('1234'), throwsArgumentError);
 
-        expect(() => parseColor('zzz'), throwsFormatException);
-        expect(() => parseColor('------'), throwsFormatException);
+        expect(() => parseColorInt('zzz'), throwsFormatException);
+        expect(() => parseColorInt('------'), throwsFormatException);
 
-        expect(parseColor(''), null);
-        expect(parseColor(null), null);
+        expect(parseColorInt(''), null);
+        expect(parseColorInt(null), null);
       });
     });
   });

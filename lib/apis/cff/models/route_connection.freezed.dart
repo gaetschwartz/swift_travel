@@ -25,7 +25,8 @@ class _$RouteConnectionTearOff {
       double duration,
       List<Leg> legs = const [],
       Map<String, Disruption> disruptions = const {},
-      @JsonKey(name: 'dep_delay') String depDelay}) {
+      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay}) {
     return _RouteConnection(
       from: from,
       departure: departure,
@@ -57,8 +58,8 @@ mixin _$RouteConnection {
   double get duration;
   List<Leg> get legs;
   Map<String, Disruption> get disruptions;
-  @JsonKey(name: 'dep_delay')
-  String get depDelay;
+  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+  int get depDelay;
 
   Map<String, dynamic> toJson();
   $RouteConnectionCopyWith<RouteConnection> get copyWith;
@@ -77,7 +78,8 @@ abstract class $RouteConnectionCopyWith<$Res> {
       double duration,
       List<Leg> legs,
       Map<String, Disruption> disruptions,
-      @JsonKey(name: 'dep_delay') String depDelay});
+      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay});
 }
 
 /// @nodoc
@@ -111,7 +113,7 @@ class _$RouteConnectionCopyWithImpl<$Res>
       disruptions: disruptions == freezed
           ? _value.disruptions
           : disruptions as Map<String, Disruption>,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as String,
+      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
     ));
   }
 }
@@ -131,7 +133,8 @@ abstract class _$RouteConnectionCopyWith<$Res>
       double duration,
       List<Leg> legs,
       Map<String, Disruption> disruptions,
-      @JsonKey(name: 'dep_delay') String depDelay});
+      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay});
 }
 
 /// @nodoc
@@ -167,7 +170,7 @@ class __$RouteConnectionCopyWithImpl<$Res>
       disruptions: disruptions == freezed
           ? _value.disruptions
           : disruptions as Map<String, Disruption>,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as String,
+      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
     ));
   }
 }
@@ -184,7 +187,8 @@ class _$_RouteConnection implements _RouteConnection {
       this.duration,
       this.legs = const [],
       this.disruptions = const {},
-      @JsonKey(name: 'dep_delay') this.depDelay})
+      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+          this.depDelay})
       : assert(legs != null),
         assert(disruptions != null);
 
@@ -208,8 +212,8 @@ class _$_RouteConnection implements _RouteConnection {
   @override
   final Map<String, Disruption> disruptions;
   @override
-  @JsonKey(name: 'dep_delay')
-  final String depDelay;
+  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+  final int depDelay;
 
   @override
   String toString() {
@@ -274,7 +278,8 @@ abstract class _RouteConnection implements RouteConnection {
       double duration,
       List<Leg> legs,
       Map<String, Disruption> disruptions,
-      @JsonKey(name: 'dep_delay') String depDelay}) = _$_RouteConnection;
+      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay}) = _$_RouteConnection;
 
   factory _RouteConnection.fromJson(Map<String, dynamic> json) =
       _$_RouteConnection.fromJson;
@@ -294,8 +299,8 @@ abstract class _RouteConnection implements RouteConnection {
   @override
   Map<String, Disruption> get disruptions;
   @override
-  @JsonKey(name: 'dep_delay')
-  String get depDelay;
+  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+  int get depDelay;
   @override
   _$RouteConnectionCopyWith<_RouteConnection> get copyWith;
 }

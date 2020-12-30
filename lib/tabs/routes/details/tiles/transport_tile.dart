@@ -103,10 +103,10 @@ class _TransportLegTileState extends State<TransportLegTile> {
                 style: Theme.of(context).textTheme.subtitle2,
                 child: Padding(
                   padding: EdgeInsets.zero,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (widget.l.exit != null)
+                  child: Builder(builder: (context) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Row(
@@ -116,7 +116,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                   text: Format.time(widget.l.departure),
                                   style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                if (widget.l.depDelay != null && widget.l.depDelay > 0)
+                                if (widget.l.depDelay > 0)
                                   TextSpan(
                                     text: Format.delay(widget.l.depDelay),
                                     style: const TextStyle(
@@ -130,34 +130,35 @@ class _TransportLegTileState extends State<TransportLegTile> {
                             ],
                           ),
                         ),
-                      if (widget.l.exit != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Row(
-                            children: [
-                              Text.rich(TextSpan(children: [
-                                TextSpan(
-                                  text: Format.time(widget.l.exit.arrival),
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                if (widget.l.exit.arrDelay != null && widget.l.exit.arrDelay > 0)
+                        if (widget.l.exit != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Row(
+                              children: [
+                                Text.rich(TextSpan(children: [
                                   TextSpan(
-                                    text: Format.delay(widget.l.exit.arrDelay),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: _red,
-                                    ),
+                                    text: Format.time(widget.l.exit.arrival),
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                              ])),
-                              const SizedBox(width: 16),
-                              Expanded(child: Text(widget.l.exit.name)),
-                              Text(Format.intToDuration(widget.l.runningtime.round())),
-                              const SizedBox(width: 32),
-                            ],
+                                  if (widget.l.exit.arrDelay > 0)
+                                    TextSpan(
+                                      text: Format.delay(widget.l.exit.arrDelay),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: _red,
+                                      ),
+                                    ),
+                                ])),
+                                const SizedBox(width: 16),
+                                Expanded(child: Text(widget.l.exit.name)),
+                                Text(Format.intToDuration(widget.l.runningtime.round())),
+                                const SizedBox(width: 32),
+                              ],
+                            ),
                           ),
-                        ),
-                    ],
-                  ),
+                      ],
+                    );
+                  }),
                 ),
               ),
             ),
@@ -197,7 +198,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
   Widget _buildCircle(BuildContext context, Leg l) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(parseColor(l.bgcolor)),
+        color: parseColor(l.bgcolor, Colors.black),
         shape: BoxShape.circle,
       ),
       width: 8,

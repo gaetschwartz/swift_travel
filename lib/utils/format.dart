@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/cff/models/exit.dart';
 
-int parseColor(String s, {bool isbackground = false}) {
+int parseColorInt(String s) {
   if (s == null || s.isEmpty) {
     return null;
   } else if (s.length == 3) {
@@ -11,6 +11,11 @@ int parseColor(String s, {bool isbackground = false}) {
   } else {
     throw ArgumentError('Color code is not valid : $s');
   }
+}
+
+Color parseColor(String s, Color defaultColor) {
+  final c = parseColorInt(s);
+  return c == null ? defaultColor : Color(c);
 }
 
 abstract class Format {

@@ -30,7 +30,7 @@ _$_RouteConnection _$_$_RouteConnectionFromJson(Map<String, dynamic> json) {
                   : Disruption.fromJson(e as Map<String, dynamic>)),
         ) ??
         {},
-    depDelay: json['dep_delay'] as String,
+    depDelay: delayFromJson(json['dep_delay']),
   );
 }
 
@@ -51,6 +51,6 @@ Map<String, dynamic> _$_$_RouteConnectionToJson(_$_RouteConnection instance) {
   writeNotNull('legs', instance.legs?.map((e) => e?.toJson())?.toList());
   writeNotNull('disruptions',
       instance.disruptions?.map((k, e) => MapEntry(k, e?.toJson())));
-  writeNotNull('dep_delay', instance.depDelay);
+  writeNotNull('dep_delay', delayToJson(instance.depDelay));
   return val;
 }

@@ -18,13 +18,13 @@ class LineIcon extends StatelessWidget {
     return DecoratedBox(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: Color(parseColor(background) ?? 0xff000000)),
+            color: parseColor(background, const Color(0xff000000))),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
           child: Text(
             line ?? '???',
             style: TextStyle(
-              color: Color(parseColor(foreground) ?? 0xfff0f0f0),
+              color: parseColor(foreground, const Color(0xfff0f0f0)),
               fontWeight: FontWeight.bold,
             ),
           ),
