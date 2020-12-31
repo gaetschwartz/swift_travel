@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:models/cff/cff_completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/widget/cff_icon.dart';
 

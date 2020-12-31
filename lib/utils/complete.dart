@@ -1,7 +1,7 @@
 import 'dart:math' show min;
 
-import 'package:swift_travel/apis/cff/models/cff_completion.dart';
-import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
+import 'package:models/cff/cff_completion.dart';
+import 'package:models/cff/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:utils/utils/levenshtein.dart';
 

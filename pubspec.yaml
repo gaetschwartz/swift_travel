@@ -40,8 +40,10 @@ dependencies:
   share: ^0.6.5+2
   shared_preferences: ^0.5.6+3
   url_launcher: ^5.5.3
+  models:
+    path: dependencies/models/
   live_route:
-    path: plugins/live_route/
+    path: dependencies/live_route/
 
 dev_dependencies:
   flutter_driver:

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/cff/models/stop.dart';
-import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:models/cff/stop.dart';
+import 'package:models/cff/types_enum.dart';
 
 import 'exit.dart';
 

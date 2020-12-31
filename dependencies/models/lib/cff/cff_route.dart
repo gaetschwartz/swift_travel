@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/cff/models/route_connection.dart';
+import 'package:models/cff/route_connection.dart';
 
 part 'cff_route.freezed.dart';
 part 'cff_route.g.dart';

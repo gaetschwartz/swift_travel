@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:live_route/live_route.dart';
-import 'package:swift_travel/apis/cff/models/leg.dart';
-import 'package:swift_travel/apis/cff/models/route_connection.dart';
-import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:models/cff/leg.dart';
+import 'package:models/cff/route_connection.dart';
+import 'package:models/cff/stop.dart';
 import 'package:swift_travel/utils/format.dart';
 
 final positionProvider = StreamProvider.autoDispose((_) => Geolocator.getPositionStream());

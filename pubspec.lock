@@ -559,7 +559,7 @@ packages:
   live_route:
     dependency: "direct main"
     description:
-      path: "plugins/live_route"
+      path: "dependencies/live_route"
       relative: true
     source: path
     version: "0.0.1"
@@ -598,6 +598,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.3"
+  models:
+    dependency: "direct main"
+    description:
+      path: "dependencies/models"
+      relative: true
+    source: path
+    version: "0.0.1"
   node_interop:
     dependency: transitive
     description:

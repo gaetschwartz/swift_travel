@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:swift_travel/apis/cff/models/leg.dart';
-import 'package:swift_travel/apis/cff/models/route_connection.dart';
-import 'package:swift_travel/apis/cff/models/stop.dart';
-import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:models/cff/leg.dart';
+import 'package:models/cff/route_connection.dart';
+import 'package:models/cff/stop.dart';
+import 'package:models/cff/types_enum.dart';
 import 'package:swift_travel/apis/geo/geo.dart';
 
 final liveRouteControllerProvider =

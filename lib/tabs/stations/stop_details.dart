@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
-import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
+import 'package:models/cff/cff_stationboard.dart';
+import 'package:models/cff/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/utils/format.dart';

@@ -4,11 +4,10 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:models/cff/cff_completion.dart';
+import 'package:models/cff/cff_route.dart';
+import 'package:models/cff/cff_stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-
-import 'models/cff_completion.dart';
-import 'models/cff_route.dart';
-import 'models/cff_stationboard.dart';
 
 class CffRepository implements NavigationApi {
   final QueryBuilder queryBuilder =
