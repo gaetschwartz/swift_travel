@@ -9,27 +9,25 @@ void report(Object e, StackTrace s, {String name = '', String reason = ''}) {
   if (kDebugMode) {
     debugPrintStack(stackTrace: s, label: '[$name] $reason: $e');
   } else {
-    scaffoldMessengerKey.currentState
-      ..removeCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Text('$e'),
-        action: SnackBarAction(
-          label: 'Details',
-          onPressed: () {
-            navigatorKey.currentState.push(MaterialPageRoute(
-                builder: (context) => ErrorWidget(
-                      FlutterErrorDetails(
-                        exception: e,
-                        stack: s,
-                        context: ErrorDescription(reason),
-                        library: name,
-                      ),
-                      isFlutter: false,
+    scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text('$e'),
+      action: SnackBarAction(
+        label: 'Details',
+        onPressed: () {
+          navigatorKey.currentState.push(MaterialPageRoute(
+              builder: (context) => ErrorWidget(
+                    FlutterErrorDetails(
+                      exception: e,
+                      stack: s,
+                      context: ErrorDescription(reason),
+                      library: name,
                     ),
-                fullscreenDialog: true));
-          },
-        ),
-      ));
+                    isFlutter: false,
+                  ),
+              fullscreenDialog: true));
+        },
+      ),
+    ));
     Vibration.error();
   }
 
@@ -42,22 +40,20 @@ void reportFlutterError(FlutterErrorDetails details) {
   if (kDebugMode) {
     debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
   } else {
-    scaffoldMessengerKey.currentState
-      ..removeCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Text(details.exception.toString()),
-        action: SnackBarAction(
-          label: 'Details',
-          onPressed: () {
-            navigatorKey.currentState.push(
-              MaterialPageRoute(
-                builder: (context) => ErrorWidget(details, isFlutter: true),
-                fullscreenDialog: true,
-              ),
-            );
-          },
-        ),
-      ));
+    scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text(details.exception.toString()),
+      action: SnackBarAction(
+        label: 'Details',
+        onPressed: () {
+          navigatorKey.currentState.push(
+            MaterialPageRoute(
+              builder: (context) => ErrorWidget(details, isFlutter: true),
+              fullscreenDialog: true,
+            ),
+          );
+        },
+      ),
+    ));
     Vibration.error();
   }
 
