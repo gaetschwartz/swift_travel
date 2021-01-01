@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:models/cff/leg.dart';
 import 'package:models/cff/stop.dart';
 import 'package:swift_travel/utils/format.dart';
-import 'package:swift_travel/widget/cff_icon.dart';
-import 'package:swift_travel/widget/line_icon.dart';
+import 'package:swift_travel/widgets/cff_icon.dart';
+import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 @Deprecated('Use `NewTransportLegTile`')

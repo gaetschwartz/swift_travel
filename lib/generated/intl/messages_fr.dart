@@ -19,8 +19,50 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
+  static m0(walk) => "Marchez ${walk}";
+
+  static m1(walk, wait) => "Marchez ${walk} et attendez ${wait}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "search" : MessageLookupByLibrary.simpleMessage("Recherche")
+    "add_to_favs" : MessageLookupByLibrary.simpleMessage("Ajouter aux Favoris"),
+    "arrival" : MessageLookupByLibrary.simpleMessage("Arrivée"),
+    "brightness" : MessageLookupByLibrary.simpleMessage("Luminosité"),
+    "brightness_dark" : MessageLookupByLibrary.simpleMessage("Foncé"),
+    "brightness_light" : MessageLookupByLibrary.simpleMessage("Clair"),
+    "brightness_system" : MessageLookupByLibrary.simpleMessage("Système"),
+    "cancel" : MessageLookupByLibrary.simpleMessage("Annuler"),
+    "continue_" : MessageLookupByLibrary.simpleMessage("Continuer"),
+    "delete" : MessageLookupByLibrary.simpleMessage("Supprimer"),
+    "departure" : MessageLookupByLibrary.simpleMessage("Départ"),
+    "destination" : MessageLookupByLibrary.simpleMessage("Destination"),
+    "developer" : MessageLookupByLibrary.simpleMessage("Développeur"),
+    "fav_route" : MessageLookupByLibrary.simpleMessage("Ajouter la route aux favoris"),
+    "find_a_route" : MessageLookupByLibrary.simpleMessage("Faire un itinéraire"),
+    "from" : MessageLookupByLibrary.simpleMessage("De"),
+    "maps_app" : MessageLookupByLibrary.simpleMessage("Application de cartes"),
+    "more" : MessageLookupByLibrary.simpleMessage("Plus"),
+    "navigation_api" : MessageLookupByLibrary.simpleMessage("API de navigation"),
+    "no" : MessageLookupByLibrary.simpleMessage("Non"),
+    "our_team" : MessageLookupByLibrary.simpleMessage("Notre équipe"),
+    "remove_from_favoruites" : MessageLookupByLibrary.simpleMessage("Retirer des favoris"),
+    "rename" : MessageLookupByLibrary.simpleMessage("Renommer"),
+    "reset_settings" : MessageLookupByLibrary.simpleMessage("Réinitialiser les paramètres"),
+    "search" : MessageLookupByLibrary.simpleMessage("Recherche"),
+    "search_station" : MessageLookupByLibrary.simpleMessage("Rechercher une station"),
+    "settings" : MessageLookupByLibrary.simpleMessage("Paramètres"),
+    "tabs_favourites" : MessageLookupByLibrary.simpleMessage("Favoris"),
+    "tabs_route" : MessageLookupByLibrary.simpleMessage("Itinéraire"),
+    "tabs_search" : MessageLookupByLibrary.simpleMessage("Recherche"),
+    "themes" : MessageLookupByLibrary.simpleMessage("Thèmes"),
+    "to" : MessageLookupByLibrary.simpleMessage("à"),
+    "travel_duration" : MessageLookupByLibrary.simpleMessage("Durée du voyage"),
+    "use_current_location" : MessageLookupByLibrary.simpleMessage("Utiliser l\'emplacement actuel"),
+    "use_current_time" : MessageLookupByLibrary.simpleMessage("Utiliser l\'heure actuelle"),
+    "walk" : m0,
+    "walk_and_wait" : m1,
+    "what_to_do" : MessageLookupByLibrary.simpleMessage("Que faire ?"),
+    "yes" : MessageLookupByLibrary.simpleMessage("Oui"),
+    "youll_be_there" : MessageLookupByLibrary.simpleMessage("Vous serez présent à")
   };
 }

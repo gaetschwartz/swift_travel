@@ -7,15 +7,21 @@ import 'package:swift_travel/apis/sncf/sncf.dart';
 
 import 'preferences.dart';
 
-final Provider<NavigationApi> navigationAPIProvider = Provider<NavigationApi>((ref) {
+final navigationAPIProvider = Provider<NavigationApi>((ref) {
   final PreferencesBloc prefs = ref.watch(preferencesProvider);
+
+  NavigationApi api;
   switch (prefs.api) {
-    case NavigationApiType.cff:
-      log('Using cff repository');
-      return CffRepository();
     case NavigationApiType.sncf:
       log('Using sncf repository');
-      return SncfRepository();
+      api = SncfRepository();
+      break;
+    case NavigationApiType.cff:
+    default:
+      log('Using cff repository');
+      api = CffRepository();
+      break;
   }
-  throw StateError('Unexpected value of nav api : ${prefs.api}');
+  ref.onDispose(api.dispose);
+  return api;
 });

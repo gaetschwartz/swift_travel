@@ -2,8 +2,8 @@ include: package:lint/analysis_options.yaml
 
 analyzer:
   exclude:
-    - lib/generated/intl/**
-    - lib/generated/l10n.dart
+    - "lib/generated/intl/**"
+    - "lib/generated/intl/l10n.dart"
     - "**/*.g.dart"
     - "**/*.freezed.dart"
   errors:

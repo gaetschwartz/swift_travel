@@ -9,6 +9,7 @@ import 'package:models/cff/cff_route.dart';
 import 'package:models/cff/leg.dart';
 import 'package:models/cff/route_connection.dart';
 import 'package:models/cff/types_enum.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/arrived_tile.dart';
@@ -39,7 +40,7 @@ class RouteDetails extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-                title: const Text('Route'),
+                title: Text(Strings.of(context).tabs_route),
                 pinned: true,
                 snap: true,
                 floating: true,
@@ -85,8 +86,8 @@ class RouteDetails extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _dataRow('Departure', c.from),
-                  _dataRow('Arrival', c.to),
+                  _dataRow(Strings.of(context).departure, c.from),
+                  _dataRow(Strings.of(context).destination, c.to),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[

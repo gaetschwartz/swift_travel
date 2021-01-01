@@ -12,15 +12,18 @@ import 'package:swift_travel/apis/sncf/models/sncf_completion.dart';
 import 'package:swift_travel/apis/sncf/models/sncf_place.dart';
 
 class SncfRepository implements NavigationApi {
-  final Dio cli = Dio(BaseOptions(
+  final Dio _client = Dio(BaseOptions(
       baseUrl: 'https://api.navitia.io/v1/coverage/sncf', queryParameters: {'key': sncfKey}));
+
+  @override
+  Locale locale = const Locale('en');
 
   @override
   Future<List<CffCompletion>> complete(String string,
       {bool showCoordinates, bool showIds, bool noFavorites, bool filterNull}) async {
     if (string.isEmpty) return [];
 
-    final response = await cli.get(
+    final response = await _client.get(
       '/places',
       queryParameters: {'q': string},
       options: Options(responseType: ResponseType.json),
@@ -71,5 +74,10 @@ class SncfRepository implements NavigationApi {
       List<TransportationTypes> transportationTypes}) {
     // TODO: implement stationboard
     throw UnimplementedError();
+  }
+
+  @override
+  void dispose() {
+    _client.close();
   }
 }

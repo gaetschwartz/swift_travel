@@ -9,12 +9,12 @@ import 'package:models/cff/cff_route.dart';
 import 'package:models/cff/cff_stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 
-class CffRepository implements NavigationApi {
+class CffRepository extends NavigationApi {
   final QueryBuilder queryBuilder =
       QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
   final http.Client _client = http.Client();
 
-  static const Map<String, String> headers = {'accept-language': 'en'};
+  Map<String, String> get headers => {'accept-language': locale.toLanguageTag()};
 
   @override
   Future<List<CffCompletion>> complete(
@@ -30,7 +30,9 @@ class CffRepository implements NavigationApi {
       'nofavorites': noFavorites.toInt(),
       'term': string,
     });
+
     //log(uri);
+    //log(headers.toString());
 
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
@@ -149,6 +151,11 @@ class CffRepository implements NavigationApi {
     if (map['disruptions'] != null) log(map['disruptions'].toString());
     map['requestUrl'] = query;
     return CffRoute.fromJson(map);
+  }
+
+  @override
+  void dispose() {
+    _client.close();
   }
 }
 

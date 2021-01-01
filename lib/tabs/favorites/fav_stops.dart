@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:models/cff/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
@@ -30,19 +31,19 @@ class FavoriteStationTile extends StatelessWidget {
               context,
               choices: [
                 Choice(
-                  child: const Text('Rename'),
+                  child: Text(Strings.of(context).rename),
                   onTap: () => rename(context),
                   value: null,
                 ),
                 Choice(
                   isDestructive: true,
                   onTap: () => delete(context),
-                  child: const Text('Delete'),
+                  child: Text(Strings.of(context).delete),
                   value: null,
                 ),
               ],
-              cancel: const Choice.cancel(child: Text('Cancel')),
-              title: const Text('What to do ?'),
+              cancel: Choice.cancel(child: Text(Strings.of(context).cancel)),
+              title: Text(Strings.of(context).what_to_do),
             );
           }),
       title: Text(stop.name),
@@ -68,8 +69,8 @@ class FavoriteStationTile extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(text: '?'),
       ])),
-      confirm: const Text('Yes'),
-      cancel: const Text('No'),
+      confirm: Text(Strings.of(context).yes),
+      cancel: Text(Strings.of(context).no),
       isConfirmDestructive: true,
     );
     if (!b) return;

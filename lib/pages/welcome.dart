@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/pages/tuto.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -100,10 +101,10 @@ class WelcomePage extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         child: Row(
-                          children: const [
-                            Text('Continue'),
-                            SizedBox(width: 8),
-                            Icon(Icons.chevron_right),
+                          children: [
+                            Text(Strings.of(context).continue_),
+                            const SizedBox(width: 8),
+                            const Icon(Icons.chevron_right),
                           ],
                         ),
                       ),

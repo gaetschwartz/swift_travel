@@ -17,6 +17,7 @@ import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/blocs/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/route_states.dart';
 import 'package:swift_travel/models/route_textfield_state.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -204,7 +205,7 @@ class _SearchRouteState extends State<SearchRoute> {
           ? AppBar(
               leading:
                   widget.localRoute != null || widget.favStop != null ? const CloseButton() : null,
-              title: Text(widget.localRoute?.displayName ?? 'Route'),
+              title: Text(widget.localRoute?.displayName ?? Strings.of(context).tabs_route),
               automaticallyImplyLeading: false,
             )
           : swiftTravelAppBar(context),
@@ -233,13 +234,15 @@ class _SearchRouteState extends State<SearchRoute> {
                       child: Row(
                         children: [
                           IconButton(
-                              tooltip: 'Use current location',
+                              tooltip: Strings.of(context).use_current_location,
                               icon: Consumer(builder: (context, w, _) {
                                 final loading = w(_isLocating).state;
                                 return loading
                                     ? const CircularProgressIndicator()
                                     : (isDarwin
-                                        ? const Icon(CupertinoIcons.location_fill)
+                                        ? const Icon(
+                                            CupertinoIcons.location_fill,
+                                          )
                                         : const FaIcon(FontAwesomeIcons.locationArrow));
                               }),
                               onPressed: () {
@@ -285,7 +288,7 @@ class _SearchRouteState extends State<SearchRoute> {
                 Positioned(
                     left: 0,
                     child: IconButton(
-                      tooltip: 'Favorite route',
+                      tooltip: Strings.of(context).fav_route,
                       onPressed: () async {
                         Vibration.select();
                         final _store =
@@ -364,7 +367,7 @@ class _SearchRouteState extends State<SearchRoute> {
                 Positioned(
                   right: 0,
                   child: IconButton(
-                    tooltip: 'Reset time',
+                    tooltip: Strings.of(context).use_current_time,
                     onPressed: () {
                       Vibration.select();
                       unFocusFields();
@@ -408,7 +411,7 @@ class _SearchRouteState extends State<SearchRoute> {
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
-                  labelText: 'From',
+                  labelText: Strings.of(context).departure,
                   isDense: true,
                   filled: true,
                   fillColor: Theme.of(context).cardColor,
@@ -465,7 +468,7 @@ class _SearchRouteState extends State<SearchRoute> {
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
-                  labelText: 'To',
+                  labelText: Strings.of(context).destination,
                   isDense: true,
                   filled: true,
                   fillColor: Theme.of(context).cardColor,
@@ -571,7 +574,7 @@ class RoutesView extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Netork Error',
+                    'Network Error',
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
@@ -602,7 +605,7 @@ class RoutesView extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Search a route',
+                    Strings.of(context).find_a_route,
                     style: Theme.of(context).textTheme.headline6,
                     textAlign: TextAlign.center,
                   )
@@ -661,11 +664,11 @@ class __SegmentedState extends State<_Segmented> {
       },
       children: {
         TimeType.depart: Text(
-          'Departure',
+          Strings.of(context).departure,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
         TimeType.arrival: Text(
-          'Arrival',
+          Strings.of(context).arrival,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
       },

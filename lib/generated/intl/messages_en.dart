@@ -19,8 +19,50 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static m0(walk) => "Walk ${walk}";
+
+  static m1(walk, wait) => "Walk ${walk} and wait ${wait}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "search" : MessageLookupByLibrary.simpleMessage("Search")
+    "add_to_favs" : MessageLookupByLibrary.simpleMessage("Add to favourites"),
+    "arrival" : MessageLookupByLibrary.simpleMessage("Arrival"),
+    "brightness" : MessageLookupByLibrary.simpleMessage("Brightness"),
+    "brightness_dark" : MessageLookupByLibrary.simpleMessage("Dark"),
+    "brightness_light" : MessageLookupByLibrary.simpleMessage("Light"),
+    "brightness_system" : MessageLookupByLibrary.simpleMessage("System"),
+    "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
+    "continue_" : MessageLookupByLibrary.simpleMessage("Continue"),
+    "delete" : MessageLookupByLibrary.simpleMessage("Delete"),
+    "departure" : MessageLookupByLibrary.simpleMessage("Departure"),
+    "destination" : MessageLookupByLibrary.simpleMessage("Destination"),
+    "developer" : MessageLookupByLibrary.simpleMessage("Developer"),
+    "fav_route" : MessageLookupByLibrary.simpleMessage("Save route"),
+    "find_a_route" : MessageLookupByLibrary.simpleMessage("Find a route"),
+    "from" : MessageLookupByLibrary.simpleMessage("From"),
+    "maps_app" : MessageLookupByLibrary.simpleMessage("Maps app"),
+    "more" : MessageLookupByLibrary.simpleMessage("More"),
+    "navigation_api" : MessageLookupByLibrary.simpleMessage("Navigation API"),
+    "no" : MessageLookupByLibrary.simpleMessage("No"),
+    "our_team" : MessageLookupByLibrary.simpleMessage("Our team"),
+    "remove_from_favoruites" : MessageLookupByLibrary.simpleMessage("Remove from favourites"),
+    "rename" : MessageLookupByLibrary.simpleMessage("Rename"),
+    "reset_settings" : MessageLookupByLibrary.simpleMessage("Reset settings"),
+    "search" : MessageLookupByLibrary.simpleMessage("Search"),
+    "search_station" : MessageLookupByLibrary.simpleMessage("Search for a station"),
+    "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
+    "tabs_favourites" : MessageLookupByLibrary.simpleMessage("Favourites"),
+    "tabs_route" : MessageLookupByLibrary.simpleMessage("Itinerary"),
+    "tabs_search" : MessageLookupByLibrary.simpleMessage("Search"),
+    "themes" : MessageLookupByLibrary.simpleMessage("Themes"),
+    "to" : MessageLookupByLibrary.simpleMessage("to"),
+    "travel_duration" : MessageLookupByLibrary.simpleMessage("Travel duration"),
+    "use_current_location" : MessageLookupByLibrary.simpleMessage("Use current location"),
+    "use_current_time" : MessageLookupByLibrary.simpleMessage("Use current time"),
+    "walk" : m0,
+    "walk_and_wait" : m1,
+    "what_to_do" : MessageLookupByLibrary.simpleMessage("What to do ?"),
+    "yes" : MessageLookupByLibrary.simpleMessage("Yes"),
+    "youll_be_there" : MessageLookupByLibrary.simpleMessage("You\'ll be there at")
   };
 }

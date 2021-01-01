@@ -13,19 +13,20 @@ void report(Object e, StackTrace s, {String name = '', String reason = ''}) {
       content: Text('$e'),
       action: SnackBarAction(
         label: 'Details',
-        onPressed: () {
-          navigatorKey.currentState.push(MaterialPageRoute(
-              builder: (context) => ErrorWidget(
-                    FlutterErrorDetails(
-                      exception: e,
-                      stack: s,
-                      context: ErrorDescription(reason),
-                      library: name,
-                    ),
-                    isFlutter: false,
-                  ),
-              fullscreenDialog: true));
-        },
+        onPressed: () => navigatorKey.currentState.push(
+          MaterialPageRoute(
+            builder: (context) => ErrorWidget(
+              FlutterErrorDetails(
+                exception: e,
+                stack: s,
+                context: ErrorDescription(reason),
+                library: name,
+              ),
+              isFlutter: false,
+            ),
+            fullscreenDialog: true,
+          ),
+        ),
       ),
     ));
     Vibration.error();
@@ -44,14 +45,12 @@ void reportFlutterError(FlutterErrorDetails details) {
       content: Text(details.exception.toString()),
       action: SnackBarAction(
         label: 'Details',
-        onPressed: () {
-          navigatorKey.currentState.push(
-            MaterialPageRoute(
-              builder: (context) => ErrorWidget(details, isFlutter: true),
-              fullscreenDialog: true,
-            ),
-          );
-        },
+        onPressed: () => navigatorKey.currentState.push(
+          MaterialPageRoute(
+            builder: (context) => ErrorWidget(details, isFlutter: true),
+            fullscreenDialog: true,
+          ),
+        ),
       ),
     ));
     Vibration.error();

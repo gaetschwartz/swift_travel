@@ -11,12 +11,13 @@ import 'package:models/cff/cff_completion.dart';
 import 'package:swift_travel/blocs/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/station_states.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
-import 'package:swift_travel/widget/cff_icon.dart';
+import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:utils/widgets/responsive.dart';
 import 'package:vibration/vibration.dart';
 
@@ -97,7 +98,7 @@ class _StationsTabState extends State<StationsTab> with AutomaticKeepAliveClient
                               Icons.search,
                               color: _hasFocus ? Colors.grey : Colors.black,
                             ),
-                            hintText: 'Search here...',
+                            hintText: Strings.of(context).search_station,
                             border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.all(Radius.circular(8)),

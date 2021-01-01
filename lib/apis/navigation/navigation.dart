@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:models/cff/cff_completion.dart';
 import 'package:models/cff/cff_route.dart';
@@ -5,6 +7,15 @@ import 'package:models/cff/cff_stationboard.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
 
 abstract class NavigationApi {
+  Locale _locale = const Locale('en');
+
+  Locale get locale => _locale;
+
+  set locale(Locale locale) {
+    _locale = locale;
+    log('Set locale to $locale');
+  }
+
   Future<List<CffCompletion>> complete(
     String string, {
     bool showCoordinates,
@@ -40,6 +51,8 @@ abstract class NavigationApi {
     TimeOfDay time,
     TimeType typeTime,
   });
+
+  void dispose();
 
   Future<CffRoute> rawRoute(String query);
 }

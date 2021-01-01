@@ -57,28 +57,28 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             if (isDarwin)
               BottomNavigationBarItem(
                 icon: const Icon(CupertinoIcons.search),
-                label: S.of(context).search,
+                label: Strings.of(context).search,
               )
             else
               BottomNavigationBarItem(
                   icon: const Icon(Icons.search_sharp),
                   activeIcon: const Icon(Icons.search),
-                  label: S.of(context).search),
-            const BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.route),
-              label: 'Route',
+                  label: Strings.of(context).search),
+            BottomNavigationBarItem(
+              icon: const FaIcon(FontAwesomeIcons.route),
+              label: Strings.of(context).tabs_route,
             ),
             if (isDarwin)
-              const BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.square_favorites_alt),
-                activeIcon: Icon(CupertinoIcons.square_favorites_alt_fill),
-                label: 'Favorites',
+              BottomNavigationBarItem(
+                icon: const Icon(CupertinoIcons.square_favorites_alt),
+                activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
+                label: Strings.of(context).tabs_favourites,
               )
             else
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.star_border_sharp),
-                activeIcon: Icon(Icons.star),
-                label: 'Favorites',
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.star_border_sharp),
+                activeIcon: const Icon(Icons.star),
+                label: Strings.of(context).tabs_favourites,
               ),
           ],
         );
@@ -105,7 +105,7 @@ AppBar swiftTravelAppBar(BuildContext context, {bool isDarwin = true}) {
     actions: [
       IconButton(
           key: const Key('settings'),
-          tooltip: 'Settings',
+          tooltip: Strings.of(context).settings,
           icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
           onPressed: () {
             Vibration.select();

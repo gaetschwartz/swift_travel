@@ -9,7 +9,7 @@ import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/favorites/fav_stops.dart';
-import 'package:swift_travel/widget/input.dart';
+import 'package:swift_travel/widgets/input.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
 import 'package:vibration/vibration.dart';

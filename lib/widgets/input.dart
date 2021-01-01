@@ -4,7 +4,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:models/cff/cff_completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/widget/cff_icon.dart';
+import 'package:swift_travel/widgets/cff_icon.dart';
 
 class StopInputDialog extends StatefulWidget {
   final String title;

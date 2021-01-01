@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/pages/loading.dart';
 import 'package:swift_travel/pages/welcome.dart';
@@ -81,17 +82,39 @@ class _MyAppState extends State<MyApp> {
           darkTheme: theme.dark,
           themeMode: theme.mode,
           localizationsDelegates: const [
-            S.delegate,
+            Strings.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: S.delegate.supportedLocales,
+          builder: (context, child) => LocalizationAwareWidget(child: child),
+          supportedLocales: Strings.delegate.supportedLocales,
           home: LoadingPage(),
         );
       }),
     );
   }
+}
+
+class LocalizationAwareWidget extends StatefulWidget {
+  final Widget child;
+
+  const LocalizationAwareWidget({Key key, this.child}) : super(key: key);
+
+  @override
+  _LocalizationAwareWidgetState createState() => _LocalizationAwareWidgetState();
+}
+
+class _LocalizationAwareWidgetState extends State<LocalizationAwareWidget> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final locale = Localizations.localeOf(context);
+    context.read(navigationAPIProvider).locale = locale;
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
 
 class Unfocus extends StatelessWidget {

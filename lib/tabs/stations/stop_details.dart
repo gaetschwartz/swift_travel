@@ -7,8 +7,8 @@ import 'package:models/cff/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/utils/format.dart';
-import 'package:swift_travel/widget/cff_icon.dart';
-import 'package:swift_travel/widget/line_icon.dart';
+import 'package:swift_travel/widgets/cff_icon.dart';
+import 'package:swift_travel/widgets/line_icon.dart';
 
 class DetailsStop extends StatefulWidget {
   final String stopName;

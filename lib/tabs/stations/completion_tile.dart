@@ -4,8 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:models/cff/cff_completion.dart';
 import 'package:models/cff/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
-import 'package:swift_travel/widget/cff_icon.dart';
+import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/input_dialog.dart';
@@ -53,7 +54,9 @@ class CffCompletionTile extends ConsumerWidget {
         ),
         title: Text((isFav ? sugg.favoriteName : sugg.label) ?? '???'),
         subtitle: isFav
-            ? Text(sugg.label ?? 'Favorite')
+            ? sugg.label != null
+                ? Text(sugg.label)
+                : null
             : sugg.dist != null
                 ? Text('${sugg.dist.round()}m')
                 : null,
@@ -93,13 +96,13 @@ class CffCompletionTile extends ConsumerWidget {
                 },
                 isDestructiveAction: isFavInStore,
                 child: isFavInStore
-                    ? const Text('Remove from favorites')
-                    : const Text('Add to favorites'),
+                    ? Text(Strings.of(context).remove_from_favoruites)
+                    : Text(Strings.of(context).add_to_favs),
               ),
               CupertinoContextMenuAction(
                 trailingIcon: CupertinoIcons.xmark,
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Cancel'),
+                child: Text(Strings.of(context).cancel),
               ),
             ],
             child: Material(
@@ -127,11 +130,13 @@ class CffCompletionTile extends ConsumerWidget {
         choices: [
           Choice(
             value: _Actions.favorite,
-            child: isFav ? const Text('Remove from favorites') : const Text('Add to favorites'),
+            child: isFav
+                ? Text(Strings.of(context).remove_from_favoruites)
+                : Text(Strings.of(context).add_to_favs),
           ),
         ],
-        title: const Text('Choose an action'),
-        cancel: const Choice.cancel(child: Text('Cancel')));
+        title: Text(Strings.of(context).what_to_do),
+        cancel: Choice.cancel(child: Text(Strings.of(context).cancel)));
     switch (c.value) {
       case _Actions.favorite:
         await deleteOrAddToFav(context, isFav: isFav, favoriteStop: favoriteStop, store: store);

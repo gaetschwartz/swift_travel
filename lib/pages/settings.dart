@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
@@ -22,12 +23,12 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Settings'),
+          title: Text(Strings.of(context).settings),
           leading: const CloseButton(),
         ),
         body: ListView(
           children: [
-            const _SectionTitle(title: Text('Brightness')),
+            _SectionTitle(title: Text(Strings.of(context).brightness)),
             SizedBox(
               height: 100,
               child: Consumer(builder: (context, w, _) {
@@ -35,14 +36,26 @@ class Settings extends StatelessWidget {
                 return ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    _ModeWidget(theme: theme, label: 'System', mode: ThemeMode.system),
-                    _ModeWidget(theme: theme, label: 'Light', mode: ThemeMode.light),
-                    _ModeWidget(theme: theme, label: 'Dark', mode: ThemeMode.dark),
+                    _ModeWidget(
+                      theme: theme,
+                      label: Strings.of(context).brightness_system,
+                      mode: ThemeMode.system,
+                    ),
+                    _ModeWidget(
+                      theme: theme,
+                      label: Strings.of(context).brightness_light,
+                      mode: ThemeMode.light,
+                    ),
+                    _ModeWidget(
+                      theme: theme,
+                      label: Strings.of(context).brightness_dark,
+                      mode: ThemeMode.dark,
+                    ),
                   ],
                 );
               }),
             ),
-            const _SectionTitle(title: Text('Themes')),
+            _SectionTitle(title: Text(Strings.of(context).themes)),
             const _ThemesSection(),
             if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS)
               Padding(
@@ -52,7 +65,7 @@ class Settings extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const _SectionTitle(title: Text('Maps app')),
+                      _SectionTitle(title: Text(Strings.of(context).maps_app)),
                       RadioListTile<Maps>(
                         dense: true,
                         title: const Text('Apple Maps'),
@@ -78,7 +91,7 @@ class Settings extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const _SectionTitle(title: Text('Navigation API')),
+                    _SectionTitle(title: Text(Strings.of(context).navigation_api)),
                     RadioListTile<NavigationApiType>(
                       dense: true,
                       title: const Text('CFF'),
@@ -101,10 +114,10 @@ class Settings extends StatelessWidget {
               indent: 16,
               endIndent: 16,
             ),
-            const _SectionTitle(title: Text('More')),
+            _SectionTitle(title: Text(Strings.of(context).more)),
             ListTile(
               leading: const Icon(FontAwesomeIcons.users),
-              title: const Text('Our team'),
+              title: Text(Strings.of(context).our_team),
               onTap: () =>
                   Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage())),
             ),
@@ -112,7 +125,7 @@ class Settings extends StatelessWidget {
               indent: 16,
               endIndent: 16,
             ),
-            const _SectionTitle(title: Text('Developer')),
+            _SectionTitle(title: Text(Strings.of(context).developer)),
             if (kDebugMode) ...[
               ListTile(
                   leading: const Icon(Icons.warning_rounded),
@@ -128,15 +141,15 @@ class Settings extends StatelessWidget {
             ],
             ListTile(
                 leading: const Icon(Icons.restore),
-                title: const Text('Reset settings'),
+                title: Text(Strings.of(context).reset_settings),
                 onTap: () async {
                   final c = await confirm(
                     context,
                     title: const Text('Reset settings ?'),
                     content: const Text('You will lose all of you favorites!'),
                     isConfirmDestructive: true,
-                    confirm: const Text('Yes'),
-                    cancel: const Text('No'),
+                    confirm: Text(Strings.of(context).yes),
+                    cancel: Text(Strings.of(context).no),
                   );
                   if (c != true) return;
                   final prefs = await SharedPreferences.getInstance();
@@ -520,7 +533,7 @@ class TeamPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('The team'),
+        title: Text(Strings.of(context).our_team),
         actions: [
           TextButton(
             style: TextButton.styleFrom(enableFeedback: true),

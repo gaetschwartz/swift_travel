@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:models/cff/local_route.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
@@ -28,18 +29,18 @@ class FavoriteRouteTile extends StatelessWidget {
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () {
             Vibration.select();
-            choose<String>(
+            choose<void>(
               context,
               choices: [
                 Choice(
-                  value: 'Delete',
                   isDestructive: true,
                   onTap: () => deleteRoute(context),
-                  child: null,
+                  child: Text(Strings.of(context).delete),
+                  value: null,
                 )
               ],
-              cancel: const Choice.cancel(child: Text('Cancel')),
-              title: const Text('What to do ?'),
+              cancel: Choice.cancel(child: Text(Strings.of(context).cancel)),
+              title: Text(Strings.of(context).what_to_do),
             );
           }),
       onTap: () async {
@@ -60,7 +61,7 @@ class FavoriteRouteTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'From',
+            Strings.of(context).from,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -68,7 +69,7 @@ class FavoriteRouteTile extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            'To',
+            Strings.of(context).to,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -77,8 +78,8 @@ class FavoriteRouteTile extends StatelessWidget {
           ),
         ],
       ),
-      confirm: const Text('Yes'),
-      cancel: const Text('No'),
+      confirm: Text(Strings.of(context).yes),
+      cancel: Text(Strings.of(context).no),
       isConfirmDestructive: true,
     );
     if (!b) return;

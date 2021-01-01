@@ -76,3 +76,4 @@ flutter_icons:
 
 flutter_intl:
   enabled: true
+  class_name: Strings
