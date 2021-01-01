@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:models/cff/leg.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/utils/format.dart';
@@ -49,19 +49,19 @@ class WalkingTile extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  if (l.exit.waittime != null && l.exit.waittime != 0)
+                  if (l.exit.waitTime > 0)
                     Text.rich(
                       parseDecoratedText(
                         Strings.of(context).walk_and_wait(
-                            Format.intToDuration(l.runningtime.round()),
-                            Format.intToDuration(l.exit.waittime)),
+                            Format.intToDuration(l.runningTime.round()),
+                            Format.intToDuration(l.exit.waitTime)),
                         Theme.of(context).textTheme.subtitle2,
                       ),
                     )
                   else
                     Text.rich(
                       parseDecoratedText(
-                        Strings.of(context).walk(Format.intToDuration(l.runningtime.round())),
+                        Strings.of(context).walk(Format.intToDuration(l.runningTime.round())),
                         Theme.of(context).textTheme.subtitle2,
                       ),
                     ),

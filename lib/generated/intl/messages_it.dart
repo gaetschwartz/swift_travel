@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "brightness_system" : MessageLookupByLibrary.simpleMessage("Sistema"),
     "cancel" : MessageLookupByLibrary.simpleMessage("Annulla"),
     "continue_" : MessageLookupByLibrary.simpleMessage("Continua"),
+    "current_location" : MessageLookupByLibrary.simpleMessage("Posizione attuale"),
     "delete" : MessageLookupByLibrary.simpleMessage("Cancellare"),
     "delete_fav" : MessageLookupByLibrary.simpleMessage("Eliminare il preferito?"),
     "departure" : MessageLookupByLibrary.simpleMessage("Partenza"),

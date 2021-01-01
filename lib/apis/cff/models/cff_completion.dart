@@ -1,6 +1,6 @@
 // ignore_for_file: unused_element
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:models/cff/favorite_stop.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 
 part 'cff_completion.freezed.dart';
 part 'cff_completion.g.dart';
@@ -10,10 +10,11 @@ abstract class CffCompletion implements _$CffCompletion {
   factory CffCompletion({
     String label,
     double dist,
-    String iconclass,
+    @JsonKey(name: "iconclass") String icon,
     String html,
     String id,
     String favoriteName,
+    @Default(false) bool isCurrentLocation,
   }) = _CffCompletion;
   const CffCompletion._();
 

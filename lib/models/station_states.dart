@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:models/cff/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 
 part 'station_states.freezed.dart';
 

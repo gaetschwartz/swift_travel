@@ -4,6 +4,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/blocs/links.dart';
 import 'package:swift_travel/blocs/navigation.dart';
@@ -95,6 +96,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     await Future.wait([initSettings(prefs), Future.delayed(const Duration(seconds: 1))]);
 
     await showTutoIfNeeded(prefs);
+
+    await Geolocator.requestPermission();
 
     route();
 

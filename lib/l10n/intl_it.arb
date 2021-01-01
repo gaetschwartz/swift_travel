@@ -40,5 +40,6 @@
 	"from": "A partire dal",
 	"to": "a",
 	"done": "Fatto",
-	"delete_fav": "Eliminare il preferito?"
+	"delete_fav": "Eliminare il preferito?",
+	"current_location": "Posizione attuale"
 }

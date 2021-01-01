@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:models/cff/cff_completion.dart';
-import 'package:models/cff/cff_route.dart';
-import 'package:models/cff/cff_stationboard.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 
 abstract class NavigationApi {
   Locale _locale = const Locale('en');

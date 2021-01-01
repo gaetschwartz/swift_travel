@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:models/cff/cff_route.dart';
 import 'package:share/share.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
 
 const String routeUrl = 'gaetanschwartz.com';
 

@@ -20,17 +20,19 @@ class _$CffCompletionTearOff {
   _CffCompletion call(
       {String label,
       double dist,
-      String iconclass,
+      @JsonKey(name: "iconclass") String icon,
       String html,
       String id,
-      String favoriteName}) {
+      String favoriteName,
+      bool isCurrentLocation = false}) {
     return _CffCompletion(
       label: label,
       dist: dist,
-      iconclass: iconclass,
+      icon: icon,
       html: html,
       id: id,
       favoriteName: favoriteName,
+      isCurrentLocation: isCurrentLocation,
     );
   }
 
@@ -48,10 +50,12 @@ const $CffCompletion = _$CffCompletionTearOff();
 mixin _$CffCompletion {
   String get label;
   double get dist;
-  String get iconclass;
+  @JsonKey(name: "iconclass")
+  String get icon;
   String get html;
   String get id;
   String get favoriteName;
+  bool get isCurrentLocation;
 
   Map<String, dynamic> toJson();
   $CffCompletionCopyWith<CffCompletion> get copyWith;
@@ -65,10 +69,11 @@ abstract class $CffCompletionCopyWith<$Res> {
   $Res call(
       {String label,
       double dist,
-      String iconclass,
+      @JsonKey(name: "iconclass") String icon,
       String html,
       String id,
-      String favoriteName});
+      String favoriteName,
+      bool isCurrentLocation});
 }
 
 /// @nodoc
@@ -84,20 +89,24 @@ class _$CffCompletionCopyWithImpl<$Res>
   $Res call({
     Object label = freezed,
     Object dist = freezed,
-    Object iconclass = freezed,
+    Object icon = freezed,
     Object html = freezed,
     Object id = freezed,
     Object favoriteName = freezed,
+    Object isCurrentLocation = freezed,
   }) {
     return _then(_value.copyWith(
       label: label == freezed ? _value.label : label as String,
       dist: dist == freezed ? _value.dist : dist as double,
-      iconclass: iconclass == freezed ? _value.iconclass : iconclass as String,
+      icon: icon == freezed ? _value.icon : icon as String,
       html: html == freezed ? _value.html : html as String,
       id: id == freezed ? _value.id : id as String,
       favoriteName: favoriteName == freezed
           ? _value.favoriteName
           : favoriteName as String,
+      isCurrentLocation: isCurrentLocation == freezed
+          ? _value.isCurrentLocation
+          : isCurrentLocation as bool,
     ));
   }
 }
@@ -112,10 +121,11 @@ abstract class _$CffCompletionCopyWith<$Res>
   $Res call(
       {String label,
       double dist,
-      String iconclass,
+      @JsonKey(name: "iconclass") String icon,
       String html,
       String id,
-      String favoriteName});
+      String favoriteName,
+      bool isCurrentLocation});
 }
 
 /// @nodoc
@@ -133,20 +143,24 @@ class __$CffCompletionCopyWithImpl<$Res>
   $Res call({
     Object label = freezed,
     Object dist = freezed,
-    Object iconclass = freezed,
+    Object icon = freezed,
     Object html = freezed,
     Object id = freezed,
     Object favoriteName = freezed,
+    Object isCurrentLocation = freezed,
   }) {
     return _then(_CffCompletion(
       label: label == freezed ? _value.label : label as String,
       dist: dist == freezed ? _value.dist : dist as double,
-      iconclass: iconclass == freezed ? _value.iconclass : iconclass as String,
+      icon: icon == freezed ? _value.icon : icon as String,
       html: html == freezed ? _value.html : html as String,
       id: id == freezed ? _value.id : id as String,
       favoriteName: favoriteName == freezed
           ? _value.favoriteName
           : favoriteName as String,
+      isCurrentLocation: isCurrentLocation == freezed
+          ? _value.isCurrentLocation
+          : isCurrentLocation as bool,
     ));
   }
 }
@@ -158,11 +172,13 @@ class _$_CffCompletion extends _CffCompletion {
   _$_CffCompletion(
       {this.label,
       this.dist,
-      this.iconclass,
+      @JsonKey(name: "iconclass") this.icon,
       this.html,
       this.id,
-      this.favoriteName})
-      : super._();
+      this.favoriteName,
+      this.isCurrentLocation = false})
+      : assert(isCurrentLocation != null),
+        super._();
 
   factory _$_CffCompletion.fromJson(Map<String, dynamic> json) =>
       _$_$_CffCompletionFromJson(json);
@@ -172,17 +188,21 @@ class _$_CffCompletion extends _CffCompletion {
   @override
   final double dist;
   @override
-  final String iconclass;
+  @JsonKey(name: "iconclass")
+  final String icon;
   @override
   final String html;
   @override
   final String id;
   @override
   final String favoriteName;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isCurrentLocation;
 
   @override
   String toString() {
-    return 'CffCompletion(label: $label, dist: $dist, iconclass: $iconclass, html: $html, id: $id, favoriteName: $favoriteName)';
+    return 'CffCompletion(label: $label, dist: $dist, icon: $icon, html: $html, id: $id, favoriteName: $favoriteName, isCurrentLocation: $isCurrentLocation)';
   }
 
   @override
@@ -193,16 +213,18 @@ class _$_CffCompletion extends _CffCompletion {
                 const DeepCollectionEquality().equals(other.label, label)) &&
             (identical(other.dist, dist) ||
                 const DeepCollectionEquality().equals(other.dist, dist)) &&
-            (identical(other.iconclass, iconclass) ||
-                const DeepCollectionEquality()
-                    .equals(other.iconclass, iconclass)) &&
+            (identical(other.icon, icon) ||
+                const DeepCollectionEquality().equals(other.icon, icon)) &&
             (identical(other.html, html) ||
                 const DeepCollectionEquality().equals(other.html, html)) &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.favoriteName, favoriteName) ||
                 const DeepCollectionEquality()
-                    .equals(other.favoriteName, favoriteName)));
+                    .equals(other.favoriteName, favoriteName)) &&
+            (identical(other.isCurrentLocation, isCurrentLocation) ||
+                const DeepCollectionEquality()
+                    .equals(other.isCurrentLocation, isCurrentLocation)));
   }
 
   @override
@@ -210,10 +232,11 @@ class _$_CffCompletion extends _CffCompletion {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(label) ^
       const DeepCollectionEquality().hash(dist) ^
-      const DeepCollectionEquality().hash(iconclass) ^
+      const DeepCollectionEquality().hash(icon) ^
       const DeepCollectionEquality().hash(html) ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(favoriteName);
+      const DeepCollectionEquality().hash(favoriteName) ^
+      const DeepCollectionEquality().hash(isCurrentLocation);
 
   @override
   _$CffCompletionCopyWith<_CffCompletion> get copyWith =>
@@ -230,10 +253,11 @@ abstract class _CffCompletion extends CffCompletion {
   factory _CffCompletion(
       {String label,
       double dist,
-      String iconclass,
+      @JsonKey(name: "iconclass") String icon,
       String html,
       String id,
-      String favoriteName}) = _$_CffCompletion;
+      String favoriteName,
+      bool isCurrentLocation}) = _$_CffCompletion;
 
   factory _CffCompletion.fromJson(Map<String, dynamic> json) =
       _$_CffCompletion.fromJson;
@@ -243,13 +267,16 @@ abstract class _CffCompletion extends CffCompletion {
   @override
   double get dist;
   @override
-  String get iconclass;
+  @JsonKey(name: "iconclass")
+  String get icon;
   @override
   String get html;
   @override
   String get id;
   @override
   String get favoriteName;
+  @override
+  bool get isCurrentLocation;
   @override
   _$CffCompletionCopyWith<_CffCompletion> get copyWith;
 }

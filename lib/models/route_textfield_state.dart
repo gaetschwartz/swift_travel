@@ -4,11 +4,7 @@ part 'route_textfield_state.freezed.dart';
 
 @freezed
 abstract class RouteTextfieldState with _$RouteTextfieldState {
-  const factory RouteTextfieldState.empty() = RouteTextfieldStateEmpty;
-  const factory RouteTextfieldState.text(String text) = RouteTextfieldStateText;
-  const factory RouteTextfieldState.currentLocation(
-    String location, {
-    @required double lat,
-    @required double lon,
-  }) = RouteTextfieldStateLocation;
+  const factory RouteTextfieldState.empty() = EmptyRouteState;
+  const factory RouteTextfieldState.text(String text) = TextRouteState;
+  const factory RouteTextfieldState.useCurrentLocation() = UseCurrentLocation;
 }

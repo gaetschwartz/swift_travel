@@ -22,7 +22,7 @@ class _$DisruptionTearOff {
       String header,
       String lead,
       String text,
-      String timerange,
+      @JsonKey(name: "timerange") String timeRange,
       bool exact,
       int priority}) {
     return _Disruption(
@@ -30,7 +30,7 @@ class _$DisruptionTearOff {
       header: header,
       lead: lead,
       text: text,
-      timerange: timerange,
+      timeRange: timeRange,
       exact: exact,
       priority: priority,
     );
@@ -52,7 +52,8 @@ mixin _$Disruption {
   String get header;
   String get lead;
   String get text;
-  String get timerange;
+  @JsonKey(name: "timerange")
+  String get timeRange;
   bool get exact;
   int get priority;
 
@@ -70,7 +71,7 @@ abstract class $DisruptionCopyWith<$Res> {
       String header,
       String lead,
       String text,
-      String timerange,
+      @JsonKey(name: "timerange") String timeRange,
       bool exact,
       int priority});
 }
@@ -89,7 +90,7 @@ class _$DisruptionCopyWithImpl<$Res> implements $DisruptionCopyWith<$Res> {
     Object header = freezed,
     Object lead = freezed,
     Object text = freezed,
-    Object timerange = freezed,
+    Object timeRange = freezed,
     Object exact = freezed,
     Object priority = freezed,
   }) {
@@ -98,7 +99,7 @@ class _$DisruptionCopyWithImpl<$Res> implements $DisruptionCopyWith<$Res> {
       header: header == freezed ? _value.header : header as String,
       lead: lead == freezed ? _value.lead : lead as String,
       text: text == freezed ? _value.text : text as String,
-      timerange: timerange == freezed ? _value.timerange : timerange as String,
+      timeRange: timeRange == freezed ? _value.timeRange : timeRange as String,
       exact: exact == freezed ? _value.exact : exact as bool,
       priority: priority == freezed ? _value.priority : priority as int,
     ));
@@ -116,7 +117,7 @@ abstract class _$DisruptionCopyWith<$Res> implements $DisruptionCopyWith<$Res> {
       String header,
       String lead,
       String text,
-      String timerange,
+      @JsonKey(name: "timerange") String timeRange,
       bool exact,
       int priority});
 }
@@ -137,7 +138,7 @@ class __$DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
     Object header = freezed,
     Object lead = freezed,
     Object text = freezed,
-    Object timerange = freezed,
+    Object timeRange = freezed,
     Object exact = freezed,
     Object priority = freezed,
   }) {
@@ -146,7 +147,7 @@ class __$DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
       header: header == freezed ? _value.header : header as String,
       lead: lead == freezed ? _value.lead : lead as String,
       text: text == freezed ? _value.text : text as String,
-      timerange: timerange == freezed ? _value.timerange : timerange as String,
+      timeRange: timeRange == freezed ? _value.timeRange : timeRange as String,
       exact: exact == freezed ? _value.exact : exact as bool,
       priority: priority == freezed ? _value.priority : priority as int,
     ));
@@ -162,7 +163,7 @@ class _$_Disruption implements _Disruption {
       this.header,
       this.lead,
       this.text,
-      this.timerange,
+      @JsonKey(name: "timerange") this.timeRange,
       this.exact,
       this.priority});
 
@@ -178,7 +179,8 @@ class _$_Disruption implements _Disruption {
   @override
   final String text;
   @override
-  final String timerange;
+  @JsonKey(name: "timerange")
+  final String timeRange;
   @override
   final bool exact;
   @override
@@ -186,7 +188,7 @@ class _$_Disruption implements _Disruption {
 
   @override
   String toString() {
-    return 'Disruption(id: $id, header: $header, lead: $lead, text: $text, timerange: $timerange, exact: $exact, priority: $priority)';
+    return 'Disruption(id: $id, header: $header, lead: $lead, text: $text, timeRange: $timeRange, exact: $exact, priority: $priority)';
   }
 
   @override
@@ -201,9 +203,9 @@ class _$_Disruption implements _Disruption {
                 const DeepCollectionEquality().equals(other.lead, lead)) &&
             (identical(other.text, text) ||
                 const DeepCollectionEquality().equals(other.text, text)) &&
-            (identical(other.timerange, timerange) ||
+            (identical(other.timeRange, timeRange) ||
                 const DeepCollectionEquality()
-                    .equals(other.timerange, timerange)) &&
+                    .equals(other.timeRange, timeRange)) &&
             (identical(other.exact, exact) ||
                 const DeepCollectionEquality().equals(other.exact, exact)) &&
             (identical(other.priority, priority) ||
@@ -218,7 +220,7 @@ class _$_Disruption implements _Disruption {
       const DeepCollectionEquality().hash(header) ^
       const DeepCollectionEquality().hash(lead) ^
       const DeepCollectionEquality().hash(text) ^
-      const DeepCollectionEquality().hash(timerange) ^
+      const DeepCollectionEquality().hash(timeRange) ^
       const DeepCollectionEquality().hash(exact) ^
       const DeepCollectionEquality().hash(priority);
 
@@ -238,7 +240,7 @@ abstract class _Disruption implements Disruption {
       String header,
       String lead,
       String text,
-      String timerange,
+      @JsonKey(name: "timerange") String timeRange,
       bool exact,
       int priority}) = _$_Disruption;
 
@@ -254,7 +256,8 @@ abstract class _Disruption implements Disruption {
   @override
   String get text;
   @override
-  String get timerange;
+  @JsonKey(name: "timerange")
+  String get timeRange;
   @override
   bool get exact;
   @override

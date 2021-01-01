@@ -21,10 +21,13 @@ _$_StationboardConnection _$_$_StationboardConnectionFromJson(
     g: json['*G'] as String,
     l: json['*L'] as String,
     subsequentStops: (json['subsequent_stops'] as List)
-        ?.map((e) => e == null
-            ? null
-            : SubsequentStop.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+            ?.map((e) => e == null
+                ? null
+                : SubsequentStop.fromJson(e as Map<String, dynamic>))
+            ?.toList() ??
+        [],
+    depDelay: delayFromJson(json['dep_delay']),
+    arrDelay: delayFromJson(json['arr_delay']),
   );
 }
 
@@ -42,6 +45,8 @@ Map<String, dynamic> _$_$_StationboardConnectionToJson(
       '*L': instance.l,
       'subsequent_stops':
           instance.subsequentStops?.map((e) => e?.toJson())?.toList(),
+      'dep_delay': delayToJson(instance.depDelay),
+      'arr_delay': delayToJson(instance.arrDelay),
     };
 
 T _$enumDecode<T>(

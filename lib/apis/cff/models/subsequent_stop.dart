@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:models/cff/exit.dart';
+import 'package:swift_travel/apis/cff/models/exit.dart';
 
 part 'subsequent_stop.freezed.dart';
 part 'subsequent_stop.g.dart';

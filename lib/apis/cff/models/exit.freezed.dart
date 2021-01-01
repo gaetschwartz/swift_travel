@@ -21,7 +21,8 @@ class _$ExitTearOff {
       {DateTime arrival,
       String name,
       String stopid,
-      int waittime,
+      @JsonKey(name: "waittime", defaultValue: 0)
+          int waitTime,
       bool isaddress,
       String sbbName,
       double lat,
@@ -32,7 +33,7 @@ class _$ExitTearOff {
       arrival: arrival,
       name: name,
       stopid: stopid,
-      waittime: waittime,
+      waitTime: waitTime,
       isaddress: isaddress,
       sbbName: sbbName,
       lat: lat,
@@ -56,7 +57,8 @@ mixin _$Exit {
   DateTime get arrival;
   String get name;
   String get stopid;
-  int get waittime;
+  @JsonKey(name: "waittime", defaultValue: 0)
+  int get waitTime;
   bool get isaddress;
   String get sbbName;
   double get lat;
@@ -76,7 +78,8 @@ abstract class $ExitCopyWith<$Res> {
       {DateTime arrival,
       String name,
       String stopid,
-      int waittime,
+      @JsonKey(name: "waittime", defaultValue: 0)
+          int waitTime,
       bool isaddress,
       String sbbName,
       double lat,
@@ -98,7 +101,7 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
     Object arrival = freezed,
     Object name = freezed,
     Object stopid = freezed,
-    Object waittime = freezed,
+    Object waitTime = freezed,
     Object isaddress = freezed,
     Object sbbName = freezed,
     Object lat = freezed,
@@ -109,7 +112,7 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
       name: name == freezed ? _value.name : name as String,
       stopid: stopid == freezed ? _value.stopid : stopid as String,
-      waittime: waittime == freezed ? _value.waittime : waittime as int,
+      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String,
       lat: lat == freezed ? _value.lat : lat as double,
@@ -128,7 +131,8 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
       {DateTime arrival,
       String name,
       String stopid,
-      int waittime,
+      @JsonKey(name: "waittime", defaultValue: 0)
+          int waitTime,
       bool isaddress,
       String sbbName,
       double lat,
@@ -151,7 +155,7 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
     Object arrival = freezed,
     Object name = freezed,
     Object stopid = freezed,
-    Object waittime = freezed,
+    Object waitTime = freezed,
     Object isaddress = freezed,
     Object sbbName = freezed,
     Object lat = freezed,
@@ -162,7 +166,7 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
       name: name == freezed ? _value.name : name as String,
       stopid: stopid == freezed ? _value.stopid : stopid as String,
-      waittime: waittime == freezed ? _value.waittime : waittime as int,
+      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String,
       lat: lat == freezed ? _value.lat : lat as double,
@@ -180,7 +184,8 @@ class _$_Exit implements _Exit {
       {this.arrival,
       this.name,
       this.stopid,
-      this.waittime,
+      @JsonKey(name: "waittime", defaultValue: 0)
+          this.waitTime,
       this.isaddress,
       this.sbbName,
       this.lat,
@@ -198,7 +203,8 @@ class _$_Exit implements _Exit {
   @override
   final String stopid;
   @override
-  final int waittime;
+  @JsonKey(name: "waittime", defaultValue: 0)
+  final int waitTime;
   @override
   final bool isaddress;
   @override
@@ -213,7 +219,7 @@ class _$_Exit implements _Exit {
 
   @override
   String toString() {
-    return 'Exit(arrival: $arrival, name: $name, stopid: $stopid, waittime: $waittime, isaddress: $isaddress, sbbName: $sbbName, lat: $lat, lon: $lon, arrDelay: $arrDelay)';
+    return 'Exit(arrival: $arrival, name: $name, stopid: $stopid, waitTime: $waitTime, isaddress: $isaddress, sbbName: $sbbName, lat: $lat, lon: $lon, arrDelay: $arrDelay)';
   }
 
   @override
@@ -227,9 +233,9 @@ class _$_Exit implements _Exit {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.stopid, stopid) ||
                 const DeepCollectionEquality().equals(other.stopid, stopid)) &&
-            (identical(other.waittime, waittime) ||
+            (identical(other.waitTime, waitTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.waittime, waittime)) &&
+                    .equals(other.waitTime, waitTime)) &&
             (identical(other.isaddress, isaddress) ||
                 const DeepCollectionEquality()
                     .equals(other.isaddress, isaddress)) &&
@@ -251,7 +257,7 @@ class _$_Exit implements _Exit {
       const DeepCollectionEquality().hash(arrival) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(stopid) ^
-      const DeepCollectionEquality().hash(waittime) ^
+      const DeepCollectionEquality().hash(waitTime) ^
       const DeepCollectionEquality().hash(isaddress) ^
       const DeepCollectionEquality().hash(sbbName) ^
       const DeepCollectionEquality().hash(lat) ^
@@ -273,7 +279,8 @@ abstract class _Exit implements Exit {
       {DateTime arrival,
       String name,
       String stopid,
-      int waittime,
+      @JsonKey(name: "waittime", defaultValue: 0)
+          int waitTime,
       bool isaddress,
       String sbbName,
       double lat,
@@ -290,7 +297,8 @@ abstract class _Exit implements Exit {
   @override
   String get stopid;
   @override
-  int get waittime;
+  @JsonKey(name: "waittime", defaultValue: 0)
+  int get waitTime;
   @override
   bool get isaddress;
   @override

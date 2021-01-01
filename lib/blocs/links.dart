@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:models/cff/cff_route.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';

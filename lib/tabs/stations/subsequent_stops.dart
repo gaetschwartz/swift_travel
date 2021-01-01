@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:models/cff/stationboard_connection.dart';
-import 'package:models/cff/subsequent_stop.dart';
+import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
+import 'package:swift_travel/apis/cff/models/subsequent_stop.dart';
 import 'package:swift_travel/utils/format.dart';
 
 class NextStopsPage extends StatefulWidget {

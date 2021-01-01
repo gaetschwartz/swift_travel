@@ -2,8 +2,8 @@ import 'dart:math' as math;
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:models/cff/leg.dart';
-import 'package:models/cff/stop.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/expandable.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
@@ -151,7 +151,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                 ])),
                                 const SizedBox(width: 16),
                                 Expanded(child: Text(widget.l.exit.name)),
-                                Text(Format.intToDuration(widget.l.runningtime.round())),
+                                Text(Format.intToDuration(widget.l.runningTime.round())),
                                 const SizedBox(width: 32),
                               ],
                             ),

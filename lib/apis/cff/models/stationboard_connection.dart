@@ -1,7 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:models/cff/stop.dart';
-import 'package:models/cff/subsequent_stop.dart';
-import 'package:models/cff/types_enum.dart';
+import 'package:swift_travel/apis/cff/models/exit.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:swift_travel/apis/cff/models/subsequent_stop.dart';
+import 'package:swift_travel/apis/cff/models/types_enum.dart';
 
 part 'stationboard_connection.freezed.dart';
 part 'stationboard_connection.g.dart';
@@ -19,9 +20,9 @@ abstract class StationboardConnection with _$StationboardConnection {
     String operator, {
     @JsonKey(name: '*G') String g,
     @JsonKey(name: '*L') String l,
-    @Default([]) @JsonKey(name: 'subsequent_stops') List<SubsequentStop> subsequentStops,
-    //@JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) int depDelay,
-    //@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson) int arrDelay,
+    @JsonKey(name: 'subsequent_stops', defaultValue: []) List<SubsequentStop> subsequentStops,
+    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) int depDelay,
+    @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson) int arrDelay,
   }) = _StationboardConnection;
 
   factory StationboardConnection.fromJson(Map<String, dynamic> json) =>

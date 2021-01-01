@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:models/cff/stop.dart';
-import 'package:models/cff/types_enum.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:swift_travel/apis/cff/models/types_enum.dart';
 
 import 'exit.dart';
 
@@ -19,7 +19,7 @@ abstract class Leg with _$Leg {
     String bgcolor,
     String tripid,
     Exit exit,
-    double runningtime,
+    @JsonKey(name: 'runningtime') double runningTime,
     String stopid,
     String line,
     @Default([]) List<Stop> stops,
@@ -28,7 +28,7 @@ abstract class Leg with _$Leg {
     DateTime departure,
     DateTime arrival,
     int normalTime,
-    int waittime,
+    @JsonKey(name: "waittime") int waitTime,
     bool isaddress,
     double lat,
     double lon,

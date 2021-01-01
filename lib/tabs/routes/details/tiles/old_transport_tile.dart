@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:models/cff/leg.dart';
-import 'package:models/cff/stop.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
@@ -98,7 +98,7 @@ class OldTransportLegTile extends StatelessWidget {
                                     ),
                                   ])),
                                   const Spacer(),
-                                  Text(Format.intToDuration(l.runningtime.round())),
+                                  Text(Format.intToDuration(l.runningTime.round())),
                                 ],
                               ),
                             ),

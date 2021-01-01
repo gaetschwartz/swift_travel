@@ -18,7 +18,7 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
     exit: json['exit'] == null
         ? null
         : Exit.fromJson(json['exit'] as Map<String, dynamic>),
-    runningtime: (json['runningtime'] as num)?.toDouble(),
+    runningTime: (json['runningtime'] as num)?.toDouble(),
     stopid: json['stopid'] as String,
     line: json['line'] as String,
     stops: (json['stops'] as List)
@@ -35,7 +35,7 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
         ? null
         : DateTime.parse(json['arrival'] as String),
     normalTime: json['normalTime'] as int,
-    waittime: json['waittime'] as int,
+    waitTime: json['waittime'] as int,
     isaddress: json['isaddress'] as bool,
     lat: (json['lat'] as num)?.toDouble(),
     lon: (json['lon'] as num)?.toDouble(),
@@ -64,7 +64,7 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
   writeNotNull('bgcolor', instance.bgcolor);
   writeNotNull('tripid', instance.tripid);
   writeNotNull('exit', instance.exit?.toJson());
-  writeNotNull('runningtime', instance.runningtime);
+  writeNotNull('runningtime', instance.runningTime);
   writeNotNull('stopid', instance.stopid);
   writeNotNull('line', instance.line);
   writeNotNull('stops', instance.stops?.map((e) => e?.toJson())?.toList());
@@ -73,7 +73,7 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
   writeNotNull('departure', instance.departure?.toIso8601String());
   writeNotNull('arrival', instance.arrival?.toIso8601String());
   writeNotNull('normalTime', instance.normalTime);
-  writeNotNull('waittime', instance.waittime);
+  writeNotNull('waittime', instance.waitTime);
   writeNotNull('isaddress', instance.isaddress);
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);

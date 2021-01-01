@@ -1,7 +1,8 @@
 import 'dart:math' show min;
 
-import 'package:models/cff/cff_completion.dart';
-import 'package:models/cff/favorite_stop.dart';
+import 'package:flutter/foundation.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:utils/utils/levenshtein.dart';
 
@@ -10,10 +11,8 @@ const _kMaxFavoritesCount = 3;
 
 /// Add similar favorites to the completions
 Future<List<CffCompletion>> completeWithFavorites(
-  FavoritesSharedPreferencesStore store,
-  List<CffCompletion> compls,
-  String query,
-) async {
+    FavoritesSharedPreferencesStore store, List<CffCompletion> compls, String query,
+    {@required String currentLocationString}) async {
   final Map<FavoriteStop, double> levens = {};
 
   for (final c in store.stops) {
@@ -30,6 +29,8 @@ Future<List<CffCompletion>> completeWithFavorites(
   favs.sort((a, b) => a.value.compareTo(b.value));
 
   return [
+    if (currentLocationString != null)
+      CffCompletion(label: currentLocationString, isCurrentLocation: true),
     ...favs.sublist(0, min(favs.length, _kMaxFavoritesCount)).map((e) => e.key.toCompletion()),
     ...compls.where((c) => c.label != null),
   ];

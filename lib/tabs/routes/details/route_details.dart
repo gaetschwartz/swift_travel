@@ -5,10 +5,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:models/cff/cff_route.dart';
-import 'package:models/cff/leg.dart';
-import 'package:models/cff/route_connection.dart';
-import 'package:models/cff/types_enum.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
+import 'package:swift_travel/apis/cff/models/route_connection.dart';
+import 'package:swift_travel/apis/cff/models/types_enum.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
@@ -72,6 +72,12 @@ class RouteDetails extends StatelessWidget {
         ));
   }
 
+  String _format(String place) {
+    final i = place.indexOf('@');
+    if (i == -1) return place;
+    return place.substring(0, i);
+  }
+
   PreferredSize buildHeader(BuildContext context, RouteConnection c, Size size) {
     return PreferredSize(
       preferredSize: size,
@@ -86,8 +92,8 @@ class RouteDetails extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _dataRow(Strings.of(context).departure, c.from),
-                  _dataRow(Strings.of(context).destination, c.to),
+                  _dataRow(Strings.of(context).departure, _format(c.from)),
+                  _dataRow(Strings.of(context).destination, _format(c.to)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[

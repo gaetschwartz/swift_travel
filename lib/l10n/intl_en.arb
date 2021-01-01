@@ -40,5 +40,6 @@
 	"from": "From",
 	"to": "to",
 	"done": "Done",
-	"delete_fav": "Delete favourite ?"
+	"delete_fav": "Delete favourite ?",
+	"current_location": "Current location"
 }

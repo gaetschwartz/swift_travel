@@ -40,5 +40,6 @@
 	"from": "Von",
 	"to": "zu",
 	"done": "Erledigt",
-	"delete_fav": "Favorit löschen?"
+	"delete_fav": "Favorit löschen?",
+	"current_location": "Aktueller Standort"
 }

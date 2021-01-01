@@ -21,13 +21,11 @@ class _$CffStationboardTearOff {
       {Stop stop,
       List<StationboardConnection> connections = const [],
       String request,
-      int eof,
       List<String> messages = const []}) {
     return _CffStationboard(
       stop: stop,
       connections: connections,
       request: request,
-      eof: eof,
       messages: messages,
     );
   }
@@ -47,7 +45,6 @@ mixin _$CffStationboard {
   Stop get stop;
   List<StationboardConnection> get connections;
   String get request;
-  int get eof;
   List<String> get messages;
 
   Map<String, dynamic> toJson();
@@ -63,7 +60,6 @@ abstract class $CffStationboardCopyWith<$Res> {
       {Stop stop,
       List<StationboardConnection> connections,
       String request,
-      int eof,
       List<String> messages});
 
   $StopCopyWith<$Res> get stop;
@@ -83,7 +79,6 @@ class _$CffStationboardCopyWithImpl<$Res>
     Object stop = freezed,
     Object connections = freezed,
     Object request = freezed,
-    Object eof = freezed,
     Object messages = freezed,
   }) {
     return _then(_value.copyWith(
@@ -92,7 +87,6 @@ class _$CffStationboardCopyWithImpl<$Res>
           ? _value.connections
           : connections as List<StationboardConnection>,
       request: request == freezed ? _value.request : request as String,
-      eof: eof == freezed ? _value.eof : eof as int,
       messages:
           messages == freezed ? _value.messages : messages as List<String>,
     ));
@@ -120,7 +114,6 @@ abstract class _$CffStationboardCopyWith<$Res>
       {Stop stop,
       List<StationboardConnection> connections,
       String request,
-      int eof,
       List<String> messages});
 
   @override
@@ -143,7 +136,6 @@ class __$CffStationboardCopyWithImpl<$Res>
     Object stop = freezed,
     Object connections = freezed,
     Object request = freezed,
-    Object eof = freezed,
     Object messages = freezed,
   }) {
     return _then(_CffStationboard(
@@ -152,7 +144,6 @@ class __$CffStationboardCopyWithImpl<$Res>
           ? _value.connections
           : connections as List<StationboardConnection>,
       request: request == freezed ? _value.request : request as String,
-      eof: eof == freezed ? _value.eof : eof as int,
       messages:
           messages == freezed ? _value.messages : messages as List<String>,
     ));
@@ -167,7 +158,6 @@ class _$_CffStationboard implements _CffStationboard {
       {this.stop,
       this.connections = const [],
       this.request,
-      this.eof,
       this.messages = const []})
       : assert(connections != null),
         assert(messages != null);
@@ -182,15 +172,13 @@ class _$_CffStationboard implements _CffStationboard {
   final List<StationboardConnection> connections;
   @override
   final String request;
-  @override
-  final int eof;
   @JsonKey(defaultValue: const [])
   @override
   final List<String> messages;
 
   @override
   String toString() {
-    return 'CffStationboard(stop: $stop, connections: $connections, request: $request, eof: $eof, messages: $messages)';
+    return 'CffStationboard(stop: $stop, connections: $connections, request: $request, messages: $messages)';
   }
 
   @override
@@ -205,8 +193,6 @@ class _$_CffStationboard implements _CffStationboard {
             (identical(other.request, request) ||
                 const DeepCollectionEquality()
                     .equals(other.request, request)) &&
-            (identical(other.eof, eof) ||
-                const DeepCollectionEquality().equals(other.eof, eof)) &&
             (identical(other.messages, messages) ||
                 const DeepCollectionEquality()
                     .equals(other.messages, messages)));
@@ -218,7 +204,6 @@ class _$_CffStationboard implements _CffStationboard {
       const DeepCollectionEquality().hash(stop) ^
       const DeepCollectionEquality().hash(connections) ^
       const DeepCollectionEquality().hash(request) ^
-      const DeepCollectionEquality().hash(eof) ^
       const DeepCollectionEquality().hash(messages);
 
   @override
@@ -236,7 +221,6 @@ abstract class _CffStationboard implements CffStationboard {
       {Stop stop,
       List<StationboardConnection> connections,
       String request,
-      int eof,
       List<String> messages}) = _$_CffStationboard;
 
   factory _CffStationboard.fromJson(Map<String, dynamic> json) =
@@ -248,8 +232,6 @@ abstract class _CffStationboard implements CffStationboard {
   List<StationboardConnection> get connections;
   @override
   String get request;
-  @override
-  int get eof;
   @override
   List<String> get messages;
   @override

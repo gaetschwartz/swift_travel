@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:models/cff/types_enum.dart';
-import 'package:models/cff/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:swift_travel/apis/cff/models/vehicle_iconclass.dart';
 
 class CffIcon extends StatelessWidget {
   const CffIcon(

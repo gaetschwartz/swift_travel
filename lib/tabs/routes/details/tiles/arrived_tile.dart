@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:models/cff/leg.dart';
+import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/markdown.dart';

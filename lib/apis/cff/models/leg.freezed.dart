@@ -26,7 +26,8 @@ class _$LegTearOff {
       String bgcolor,
       String tripid,
       Exit exit,
-      double runningtime,
+      @JsonKey(name: 'runningtime')
+          double runningTime,
       String stopid,
       String line,
       List<Stop> stops = const [],
@@ -35,7 +36,8 @@ class _$LegTearOff {
       DateTime departure,
       DateTime arrival,
       int normalTime,
-      int waittime,
+      @JsonKey(name: "waittime")
+          int waitTime,
       bool isaddress,
       double lat,
       double lon,
@@ -51,7 +53,7 @@ class _$LegTearOff {
       bgcolor: bgcolor,
       tripid: tripid,
       exit: exit,
-      runningtime: runningtime,
+      runningTime: runningTime,
       stopid: stopid,
       line: line,
       stops: stops,
@@ -60,7 +62,7 @@ class _$LegTearOff {
       departure: departure,
       arrival: arrival,
       normalTime: normalTime,
-      waittime: waittime,
+      waitTime: waitTime,
       isaddress: isaddress,
       lat: lat,
       lon: lon,
@@ -89,7 +91,8 @@ mixin _$Leg {
   String get bgcolor;
   String get tripid;
   Exit get exit;
-  double get runningtime;
+  @JsonKey(name: 'runningtime')
+  double get runningTime;
   String get stopid;
   String get line;
   List<Stop> get stops;
@@ -98,7 +101,8 @@ mixin _$Leg {
   DateTime get departure;
   DateTime get arrival;
   int get normalTime;
-  int get waittime;
+  @JsonKey(name: "waittime")
+  int get waitTime;
   bool get isaddress;
   double get lat;
   double get lon;
@@ -123,7 +127,8 @@ abstract class $LegCopyWith<$Res> {
       String bgcolor,
       String tripid,
       Exit exit,
-      double runningtime,
+      @JsonKey(name: 'runningtime')
+          double runningTime,
       String stopid,
       String line,
       List<Stop> stops,
@@ -132,7 +137,8 @@ abstract class $LegCopyWith<$Res> {
       DateTime departure,
       DateTime arrival,
       int normalTime,
-      int waittime,
+      @JsonKey(name: "waittime")
+          int waitTime,
       bool isaddress,
       double lat,
       double lon,
@@ -161,7 +167,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
     Object bgcolor = freezed,
     Object tripid = freezed,
     Object exit = freezed,
-    Object runningtime = freezed,
+    Object runningTime = freezed,
     Object stopid = freezed,
     Object line = freezed,
     Object stops = freezed,
@@ -170,7 +176,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
     Object departure = freezed,
     Object arrival = freezed,
     Object normalTime = freezed,
-    Object waittime = freezed,
+    Object waitTime = freezed,
     Object isaddress = freezed,
     Object lat = freezed,
     Object lon = freezed,
@@ -186,8 +192,8 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
       bgcolor: bgcolor == freezed ? _value.bgcolor : bgcolor as String,
       tripid: tripid == freezed ? _value.tripid : tripid as String,
       exit: exit == freezed ? _value.exit : exit as Exit,
-      runningtime:
-          runningtime == freezed ? _value.runningtime : runningtime as double,
+      runningTime:
+          runningTime == freezed ? _value.runningTime : runningTime as double,
       stopid: stopid == freezed ? _value.stopid : stopid as String,
       line: line == freezed ? _value.line : line as String,
       stops: stops == freezed ? _value.stops : stops as List<Stop>,
@@ -197,7 +203,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
           departure == freezed ? _value.departure : departure as DateTime,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
       normalTime: normalTime == freezed ? _value.normalTime : normalTime as int,
-      waittime: waittime == freezed ? _value.waittime : waittime as int,
+      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double,
       lon: lon == freezed ? _value.lon : lon as double,
@@ -233,7 +239,8 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       String bgcolor,
       String tripid,
       Exit exit,
-      double runningtime,
+      @JsonKey(name: 'runningtime')
+          double runningTime,
       String stopid,
       String line,
       List<Stop> stops,
@@ -242,7 +249,8 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       DateTime departure,
       DateTime arrival,
       int normalTime,
-      int waittime,
+      @JsonKey(name: "waittime")
+          int waitTime,
       bool isaddress,
       double lat,
       double lon,
@@ -273,7 +281,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
     Object bgcolor = freezed,
     Object tripid = freezed,
     Object exit = freezed,
-    Object runningtime = freezed,
+    Object runningTime = freezed,
     Object stopid = freezed,
     Object line = freezed,
     Object stops = freezed,
@@ -282,7 +290,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
     Object departure = freezed,
     Object arrival = freezed,
     Object normalTime = freezed,
-    Object waittime = freezed,
+    Object waitTime = freezed,
     Object isaddress = freezed,
     Object lat = freezed,
     Object lon = freezed,
@@ -298,8 +306,8 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
       bgcolor: bgcolor == freezed ? _value.bgcolor : bgcolor as String,
       tripid: tripid == freezed ? _value.tripid : tripid as String,
       exit: exit == freezed ? _value.exit : exit as Exit,
-      runningtime:
-          runningtime == freezed ? _value.runningtime : runningtime as double,
+      runningTime:
+          runningTime == freezed ? _value.runningTime : runningTime as double,
       stopid: stopid == freezed ? _value.stopid : stopid as String,
       line: line == freezed ? _value.line : line as String,
       stops: stops == freezed ? _value.stops : stops as List<Stop>,
@@ -309,7 +317,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
           departure == freezed ? _value.departure : departure as DateTime,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
       normalTime: normalTime == freezed ? _value.normalTime : normalTime as int,
-      waittime: waittime == freezed ? _value.waittime : waittime as int,
+      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double,
       lon: lon == freezed ? _value.lon : lon as double,
@@ -334,7 +342,8 @@ class _$_Leg implements _Leg {
       this.bgcolor,
       this.tripid,
       this.exit,
-      this.runningtime,
+      @JsonKey(name: 'runningtime')
+          this.runningTime,
       this.stopid,
       this.line,
       this.stops = const [],
@@ -343,7 +352,8 @@ class _$_Leg implements _Leg {
       this.departure,
       this.arrival,
       this.normalTime,
-      this.waittime,
+      @JsonKey(name: "waittime")
+          this.waitTime,
       this.isaddress,
       this.lat,
       this.lon,
@@ -372,7 +382,8 @@ class _$_Leg implements _Leg {
   @override
   final Exit exit;
   @override
-  final double runningtime;
+  @JsonKey(name: 'runningtime')
+  final double runningTime;
   @override
   final String stopid;
   @override
@@ -391,7 +402,8 @@ class _$_Leg implements _Leg {
   @override
   final int normalTime;
   @override
-  final int waittime;
+  @JsonKey(name: "waittime")
+  final int waitTime;
   @override
   final bool isaddress;
   @override
@@ -407,7 +419,7 @@ class _$_Leg implements _Leg {
 
   @override
   String toString() {
-    return 'Leg(type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, exit: $exit, runningtime: $runningtime, stopid: $stopid, line: $line, stops: $stops, sbbName: $sbbName, name: $name, departure: $departure, arrival: $arrival, normalTime: $normalTime, waittime: $waittime, isaddress: $isaddress, lat: $lat, lon: $lon, attributes: $attributes, depDelay: $depDelay)';
+    return 'Leg(type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, exit: $exit, runningTime: $runningTime, stopid: $stopid, line: $line, stops: $stops, sbbName: $sbbName, name: $name, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isaddress: $isaddress, lat: $lat, lon: $lon, attributes: $attributes, depDelay: $depDelay)';
   }
 
   @override
@@ -433,9 +445,9 @@ class _$_Leg implements _Leg {
                 const DeepCollectionEquality().equals(other.tripid, tripid)) &&
             (identical(other.exit, exit) ||
                 const DeepCollectionEquality().equals(other.exit, exit)) &&
-            (identical(other.runningtime, runningtime) ||
+            (identical(other.runningTime, runningTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.runningtime, runningtime)) &&
+                    .equals(other.runningTime, runningTime)) &&
             (identical(other.stopid, stopid) ||
                 const DeepCollectionEquality().equals(other.stopid, stopid)) &&
             (identical(other.line, line) ||
@@ -456,9 +468,9 @@ class _$_Leg implements _Leg {
             (identical(other.normalTime, normalTime) ||
                 const DeepCollectionEquality()
                     .equals(other.normalTime, normalTime)) &&
-            (identical(other.waittime, waittime) ||
+            (identical(other.waitTime, waitTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.waittime, waittime)) &&
+                    .equals(other.waitTime, waitTime)) &&
             (identical(other.isaddress, isaddress) ||
                 const DeepCollectionEquality()
                     .equals(other.isaddress, isaddress)) &&
@@ -485,7 +497,7 @@ class _$_Leg implements _Leg {
       const DeepCollectionEquality().hash(bgcolor) ^
       const DeepCollectionEquality().hash(tripid) ^
       const DeepCollectionEquality().hash(exit) ^
-      const DeepCollectionEquality().hash(runningtime) ^
+      const DeepCollectionEquality().hash(runningTime) ^
       const DeepCollectionEquality().hash(stopid) ^
       const DeepCollectionEquality().hash(line) ^
       const DeepCollectionEquality().hash(stops) ^
@@ -494,7 +506,7 @@ class _$_Leg implements _Leg {
       const DeepCollectionEquality().hash(departure) ^
       const DeepCollectionEquality().hash(arrival) ^
       const DeepCollectionEquality().hash(normalTime) ^
-      const DeepCollectionEquality().hash(waittime) ^
+      const DeepCollectionEquality().hash(waitTime) ^
       const DeepCollectionEquality().hash(isaddress) ^
       const DeepCollectionEquality().hash(lat) ^
       const DeepCollectionEquality().hash(lon) ^
@@ -521,7 +533,8 @@ abstract class _Leg implements Leg {
       String bgcolor,
       String tripid,
       Exit exit,
-      double runningtime,
+      @JsonKey(name: 'runningtime')
+          double runningTime,
       String stopid,
       String line,
       List<Stop> stops,
@@ -530,7 +543,8 @@ abstract class _Leg implements Leg {
       DateTime departure,
       DateTime arrival,
       int normalTime,
-      int waittime,
+      @JsonKey(name: "waittime")
+          int waitTime,
       bool isaddress,
       double lat,
       double lon,
@@ -557,7 +571,8 @@ abstract class _Leg implements Leg {
   @override
   Exit get exit;
   @override
-  double get runningtime;
+  @JsonKey(name: 'runningtime')
+  double get runningTime;
   @override
   String get stopid;
   @override
@@ -575,7 +590,8 @@ abstract class _Leg implements Leg {
   @override
   int get normalTime;
   @override
-  int get waittime;
+  @JsonKey(name: "waittime")
+  int get waitTime;
   @override
   bool get isaddress;
   @override

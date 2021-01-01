@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -9,12 +10,11 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:models/cff/cff_completion.dart';
-import 'package:models/cff/cff_route.dart';
-import 'package:models/cff/favorite_stop.dart';
-import 'package:models/cff/local_route.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
-import 'package:swift_travel/blocs/location.dart';
+import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
+import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
@@ -28,14 +28,12 @@ import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
-import 'package:utils/widgets/responsive.dart';
 import 'package:vibration/vibration.dart';
 
-final _isLocating = StateProvider((_) => false);
 final _timeTypeProvider = StateProvider((_) => TimeType.depart);
 final _dateProvider = StateProvider((_) => DateTime.now());
 
-final _fromTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
+final _fromTextfieldProvider = StateProvider((_) => const RouteTextfieldState.useCurrentLocation());
 final _toTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
 
 final _fetcher = Fetcher();
@@ -55,21 +53,39 @@ class Fetcher extends ChangeNotifier {
   }
 
   Future<void> fetch(ProviderReference ref) async {
-    final from = ref.watch(_fromTextfieldProvider).state;
-    final to = ref.watch(_toTextfieldProvider).state;
+    final from = ref.watch(_fromTextfieldProvider);
+    final to = ref.watch(_toTextfieldProvider);
     final _cff = ref.read(navigationAPIProvider);
     final date = ref.watch(_dateProvider).state;
     final timeType = ref.watch(_timeTypeProvider).state;
 
-    if (from is RouteTextfieldStateEmpty || to is RouteTextfieldStateEmpty) {
+    if (from.state is EmptyRouteState || to.state is EmptyRouteState) {
+      if (from.state is EmptyRouteState && to.state is EmptyRouteState) {
+        state = const RouteStates.empty();
+      }
       return;
+    } else {
+      state = const RouteStates.loading();
     }
 
-    state = const RouteStates.loading();
-    final departure = from.when(
-        empty: () => null, text: (t) => t, currentLocation: (loc, lat, lon) => '$lat,$lon');
-    final arrival =
-        to.when(empty: () => null, text: (t) => t, currentLocation: (loc, lat, lon) => '$lat,$lon');
+    Position p;
+
+    final departure = await from.state.when<FutureOr<String>>(
+      empty: () => null,
+      text: (t) => t,
+      useCurrentLocation: () async {
+        p ??= await Geolocator.getCurrentPosition();
+        return "${p.latitude},${p.longitude}";
+      },
+    );
+    final arrival = await to.state.when<FutureOr<String>>(
+      empty: () => null,
+      text: (t) => t,
+      useCurrentLocation: () async {
+        p ??= await Geolocator.getCurrentPosition();
+        return "${p.latitude},${p.longitude}";
+      },
+    );
     log('Fetching route from $departure to $arrival');
     try {
       final CffRoute it = await _cff.route(
@@ -141,6 +157,8 @@ class _SearchRouteState extends State<SearchRoute> {
       useLocalRoute();
     } else if (widget.favStop != null) {
       goToDest();
+    } else {
+      WidgetsBinding.instance.addPostFrameCallback((_) => clearProviders());
     }
 
     fnFrom.addListener(_onFocusFromChanged);
@@ -163,8 +181,9 @@ class _SearchRouteState extends State<SearchRoute> {
     _fromController.text = widget.localRoute.from;
     _toController.text = widget.localRoute.to;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      clearProviders();
       unFocusFields();
+      context.read(_futureRouteProvider).state = const RouteStates.empty();
+      context.read(_dateProvider).state = DateTime.now();
       context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(widget.localRoute.from);
       context.read(_toTextfieldProvider).state = RouteTextfieldState.text(widget.localRoute.to);
     });
@@ -172,9 +191,9 @@ class _SearchRouteState extends State<SearchRoute> {
 
   void clearProviders() {
     context.read(_futureRouteProvider).state = const RouteStates.empty();
-    context.read(_fromTextfieldProvider).state = const RouteTextfieldState.empty();
-    context.read(_toTextfieldProvider).state = const RouteTextfieldState.empty();
     context.read(_dateProvider).state = DateTime.now();
+    context.read(_fromTextfieldProvider).state = const RouteTextfieldState.useCurrentLocation();
+    context.read(_toTextfieldProvider).state = const RouteTextfieldState.empty();
   }
 
   void goToDest() {
@@ -183,7 +202,6 @@ class _SearchRouteState extends State<SearchRoute> {
       clearProviders();
       unFocusFields();
       context.read(_toTextfieldProvider).state = RouteTextfieldState.text(widget.favStop.stop);
-      await locate();
     });
   }
 
@@ -198,7 +216,6 @@ class _SearchRouteState extends State<SearchRoute> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarwin = ResponsiveWidget.isDarwin(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: widget.localRoute != null || widget.favStop != null
@@ -230,25 +247,9 @@ class _SearchRouteState extends State<SearchRoute> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 4, top: 8, bottom: 4),
+                      padding: const EdgeInsets.only(right: 4, left: 8, top: 8, bottom: 4),
                       child: Row(
                         children: [
-                          IconButton(
-                              tooltip: Strings.of(context).use_current_location,
-                              icon: Consumer(builder: (context, w, _) {
-                                final loading = w(_isLocating).state;
-                                return loading
-                                    ? const CircularProgressIndicator()
-                                    : (isDarwin
-                                        ? const Icon(
-                                            CupertinoIcons.location_fill,
-                                          )
-                                        : const FaIcon(FontAwesomeIcons.locationArrow));
-                              }),
-                              onPressed: () {
-                                Vibration.select();
-                                locate();
-                              }),
                           Expanded(
                             child: buildFromField(context),
                           ),
@@ -256,7 +257,7 @@ class _SearchRouteState extends State<SearchRoute> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4, right: 4, left: 8, bottom: 8),
+                      padding: const EdgeInsets.only(right: 4, left: 8, top: 4, bottom: 8),
                       child: Row(
                         children: [
                           Expanded(
@@ -391,9 +392,16 @@ class _SearchRouteState extends State<SearchRoute> {
   }
 
   Widget buildFromField(BuildContext context) {
-    return Consumer(builder: (context, w, c) {
-      final _api = w(navigationAPIProvider);
-      return InputWrapperDecoration(
+    final _api = context.read(navigationAPIProvider);
+    final currentLocationString = Strings.of(context).current_location;
+
+    return ProviderListener<StateController<RouteTextfieldState>>(
+      onChange: (context, value) {
+        if (value.state is UseCurrentLocation)
+          _fromController.text = Strings.of(context).current_location;
+      },
+      provider: _fromTextfieldProvider,
+      child: InputWrapperDecoration(
         child: Stack(
           alignment: Alignment.centerRight,
           children: [
@@ -419,13 +427,19 @@ class _SearchRouteState extends State<SearchRoute> {
                   suffixIcon: const SizedBox(),
                 ),
               ),
-              suggestionsCallback: (s) async =>
-                  completeWithFavorites(_store, await _api.complete(s), s),
+              suggestionsCallback: (s) async => completeWithFavorites(
+                  _store, await _api.complete(s), s,
+                  currentLocationString: currentLocationString),
               itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
               onSuggestionSelected: (suggestion) {
                 _fromController.text = suggestion.label;
-                context.read(_fromTextfieldProvider).state =
-                    RouteTextfieldState.text(suggestion.label);
+                if (suggestion.isCurrentLocation) {
+                  context.read(_fromTextfieldProvider).state =
+                      RouteTextfieldState.useCurrentLocation();
+                } else {
+                  context.read(_fromTextfieldProvider).state =
+                      RouteTextfieldState.text(suggestion.label);
+                }
               },
               noItemsFoundBuilder: (_) => const SizedBox(),
               transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
@@ -443,14 +457,21 @@ class _SearchRouteState extends State<SearchRoute> {
             ),
           ],
         ),
-      );
-    });
+      ),
+    );
   }
 
   Widget buildToField(BuildContext context) {
-    return Consumer(builder: (context, w, c) {
-      final _api = w(navigationAPIProvider);
-      return InputWrapperDecoration(
+    final _api = context.read(navigationAPIProvider);
+    final currentLocationString = Strings.of(context).current_location;
+
+    return ProviderListener<StateController<RouteTextfieldState>>(
+      onChange: (context, value) {
+        if (value.state is UseCurrentLocation)
+          _toController.text = Strings.of(context).current_location;
+      },
+      provider: _toTextfieldProvider,
+      child: InputWrapperDecoration(
         child: Stack(
           alignment: Alignment.centerRight,
           children: [
@@ -476,13 +497,19 @@ class _SearchRouteState extends State<SearchRoute> {
                   suffixIcon: const SizedBox(),
                 ),
               ),
-              suggestionsCallback: (s) async =>
-                  completeWithFavorites(_store, await _api.complete(s), s),
+              suggestionsCallback: (s) async => completeWithFavorites(
+                  _store, await _api.complete(s), s,
+                  currentLocationString: currentLocationString),
               itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
               onSuggestionSelected: (suggestion) {
                 _toController.text = suggestion.label;
-                context.read(_toTextfieldProvider).state =
-                    RouteTextfieldState.text(suggestion.label);
+                if (suggestion.isCurrentLocation) {
+                  context.read(_toTextfieldProvider).state =
+                      RouteTextfieldState.useCurrentLocation();
+                } else {
+                  context.read(_toTextfieldProvider).state =
+                      RouteTextfieldState.text(suggestion.label);
+                }
               },
               noItemsFoundBuilder: (_) => const SizedBox(),
               transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
@@ -500,8 +527,8 @@ class _SearchRouteState extends State<SearchRoute> {
             ),
           ],
         ),
-      );
-    });
+      ),
+    );
   }
 
   void switchInputs() {
@@ -514,30 +541,6 @@ class _SearchRouteState extends State<SearchRoute> {
     final RouteTextfieldState fromS = fromState.state;
     fromState.state = toState.state;
     toState.state = fromS;
-  }
-
-  Future<void> locate() async {
-    context.read(_isLocating).state = true;
-    unFocusFields();
-    try {
-      final Position p = await context.read(locationProvider).getLocation(context: context);
-      log('Position is : $p');
-      if (p == null) throw Exception('We got no location');
-      final List<CffCompletion> completions =
-          await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
-      final CffCompletion first = completions.first;
-      log('Found : $first');
-      if (first.dist != null) {
-        _fromController.text = completions.first.label;
-        context.read(_fromTextfieldProvider).state =
-            RouteTextfieldState.currentLocation(first.label, lat: p.latitude, lon: p.longitude);
-      }
-    } on Exception catch (e, s) {
-      report(e, s);
-    } finally {
-      context.read(_isLocating).state = false;
-      fnFrom.unfocus();
-    }
   }
 
   void unFocusFields() {
@@ -556,15 +559,19 @@ class RoutesView extends StatelessWidget {
     return Consumer(builder: (context, w, _) {
       final Fetcher fetcher = w(_futureRouteProvider);
       return fetcher.state.map(
-          routes: (data) => ListView.builder(
-              // separatorBuilder: (c, i) => const Divider(height: 0),
-              shrinkWrap: true,
-              itemCount: data.routes == null ? 0 : data.routes.connections.length,
-              itemBuilder: (context, i) => RouteTile(
-                    key: Key('routetile-$i'),
-                    route: data.routes,
-                    i: i,
-                  )),
+          routes: (data) => data.routes.connections.isNotEmpty
+              ? ListView.builder(
+                  // separatorBuilder: (c, i) => const Divider(height: 0),
+                  shrinkWrap: true,
+                  itemCount: data.routes == null ? 0 : data.routes.connections.length,
+                  itemBuilder: (context, i) => RouteTile(
+                        key: Key('routetile-$i'),
+                        route: data.routes,
+                        i: i,
+                      ))
+              : Center(
+                  child: Text("Couldn't find any routes :("),
+                ),
           network: (_) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
