@@ -8,7 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:models/cff/leg.dart';
 import 'package:swift_travel/blocs/preferences.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/utils/markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WalkingTile extends StatelessWidget {
@@ -47,17 +49,22 @@ class WalkingTile extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text.rich(TextSpan(children: [
-                    const TextSpan(text: 'Walk '),
-                    TextSpan(
-                        text: Format.intToDuration(l.runningtime.round()),
-                        style: const TextStyle(fontWeight: FontWeight.w900)),
-                    if (l.exit.waittime != null && l.exit.waittime != 0) ...[
-                      const TextSpan(text: ' and wait '),
-                      TextSpan(text: Format.intToDuration(l.exit.waittime ?? 0)),
-                    ],
-                    const TextSpan(text: '.'),
-                  ], style: Theme.of(context).textTheme.subtitle2)),
+                  if (l.exit.waittime != null && l.exit.waittime != 0)
+                    Text.rich(
+                      parseDecoratedText(
+                        Strings.of(context).walk_and_wait(
+                            Format.intToDuration(l.runningtime.round()),
+                            Format.intToDuration(l.exit.waittime)),
+                        Theme.of(context).textTheme.subtitle2,
+                      ),
+                    )
+                  else
+                    Text.rich(
+                      parseDecoratedText(
+                        Strings.of(context).walk(Format.intToDuration(l.runningtime.round())),
+                        Theme.of(context).textTheme.subtitle2,
+                      ),
+                    ),
                 ],
               ),
             ),

@@ -275,13 +275,13 @@ class Strings {
     );
   }
 
-  /// `You'll be there at`
-  String get youll_be_there {
+  /// `You arrive at *{time}*.`
+  String youll_be_there(Object time) {
     return Intl.message(
-      'You\'ll be there at',
+      'You arrive at *$time*.',
       name: 'youll_be_there',
       desc: '',
-      args: [],
+      args: [time],
     );
   }
 
@@ -295,20 +295,20 @@ class Strings {
     );
   }
 
-  /// `Walk {walk} and wait {wait}`
+  /// `Walk *{walk}* and wait *{wait}*.`
   String walk_and_wait(Object walk, Object wait) {
     return Intl.message(
-      'Walk $walk and wait $wait',
+      'Walk *$walk* and wait *$wait*.',
       name: 'walk_and_wait',
       desc: '',
       args: [walk, wait],
     );
   }
 
-  /// `Walk {walk}`
+  /// `Walk *{walk}*.`
   String walk(Object walk) {
     return Intl.message(
-      'Walk $walk',
+      'Walk *$walk*.',
       name: 'walk',
       desc: '',
       args: [walk],
@@ -420,6 +420,26 @@ class Strings {
     return Intl.message(
       'to',
       name: 'to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get done {
+    return Intl.message(
+      'Done',
+      name: 'done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete favourite ?`
+  String get delete_fav {
+    return Intl.message(
+      'Delete favourite ?',
+      name: 'delete_fav',
       desc: '',
       args: [],
     );

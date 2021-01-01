@@ -24,10 +24,10 @@
 	"what_to_do": "Was ist zu tun?",
 	"delete": "Löschen",
 	"travel_duration": "Reisedauer",
-	"youll_be_there": "Sie werden dort sein bei",
+	"youll_be_there": "Sie kommen zu *{time}*.",
 	"fav_route": "Route speichern",
-	"walk_and_wait": "{walk} gehen und {wait} warten",
-	"walk": "Gehen Sie {walk}",
+	"walk_and_wait": "*{walk}* gehen und *{wait}* warten.",
+	"walk": "Gehen Sie *{walk}*.",
 	"search": "Suche",
 	"destination": "Ziel",
 	"find_a_route": "Finde eine Route",
@@ -38,5 +38,7 @@
 	"no": "Nein",
 	"continue_": "Fortsetzen",
 	"from": "Von",
-	"to": "zu"
+	"to": "zu",
+	"done": "Erledigt",
+	"delete_fav": "Favorit löschen?"
 }

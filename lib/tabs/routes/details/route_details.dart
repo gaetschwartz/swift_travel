@@ -91,7 +91,7 @@ class RouteDetails extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Text('Travel duration'),
+                      Text(Strings.of(context).travel_duration),
                       const SizedBox(width: 8),
                       Expanded(
                           child: Align(

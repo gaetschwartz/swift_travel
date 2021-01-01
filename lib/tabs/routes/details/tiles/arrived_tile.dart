@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:models/cff/leg.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/utils/markdown.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 class ArrivedTile extends StatelessWidget {
@@ -42,13 +44,9 @@ class ArrivedTile extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              Text.rich(TextSpan(children: [
-                const TextSpan(text: "You'll be there at "),
-                TextSpan(
-                    text: Format.time(l.arrival),
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                const TextSpan(text: '.'),
-              ], style: Theme.of(context).textTheme.subtitle2)),
+              Text.rich(parseDecoratedText(
+                  Strings.of(context).youll_be_there(Format.time(l.arrival)),
+                  Theme.of(context).textTheme.subtitle2)),
             ],
           ),
         ),

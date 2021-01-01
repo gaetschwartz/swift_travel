@@ -121,24 +121,6 @@ class Settings extends StatelessWidget {
               onTap: () =>
                   Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage())),
             ),
-            const Divider(
-              indent: 16,
-              endIndent: 16,
-            ),
-            _SectionTitle(title: Text(Strings.of(context).developer)),
-            if (kDebugMode) ...[
-              ListTile(
-                  leading: const Icon(Icons.warning_rounded),
-                  title: const Text('Throw a Flutter error'),
-                  onTap: () => throw StateError('Debug error')),
-              ListTile(
-                  leading: const Icon(Icons.close),
-                  title: const Text('Trigger a crash'),
-                  onTap: () async {
-                    await FirebaseCrashlytics.instance.log('We trigger a crash');
-                    FirebaseCrashlytics.instance.crash();
-                  }),
-            ],
             ListTile(
                 leading: const Icon(Icons.restore),
                 title: Text(Strings.of(context).reset_settings),
@@ -157,6 +139,24 @@ class Settings extends StatelessWidget {
                   log('Done : $b');
                   SystemNavigator.pop(animated: true);
                 }),
+            const Divider(
+              indent: 16,
+              endIndent: 16,
+            ),
+            if (kDebugMode) ...[
+              _SectionTitle(title: Text(Strings.of(context).developer)),
+              ListTile(
+                  leading: const Icon(Icons.warning_rounded),
+                  title: const Text('Throw a Flutter error'),
+                  onTap: () => throw StateError('Debug error')),
+              ListTile(
+                  leading: const Icon(Icons.close),
+                  title: const Text('Trigger a crash'),
+                  onTap: () async {
+                    await FirebaseCrashlytics.instance.log('We trigger a crash');
+                    FirebaseCrashlytics.instance.crash();
+                  }),
+            ],
             const ListTile(
               isThreeLine: true,
               dense: true,

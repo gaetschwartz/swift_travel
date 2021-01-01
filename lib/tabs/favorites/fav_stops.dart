@@ -62,7 +62,7 @@ class FavoriteStationTile extends StatelessWidget {
   Future<void> delete(BuildContext context) async {
     final b = await confirm(
       context,
-      title: const Text('Delete favorite ?'),
+      title: Text(Strings.of(context).delete_fav),
       content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
         TextSpan(
             text: '${stop.name} (${stop.stop})',

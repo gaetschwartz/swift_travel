@@ -135,7 +135,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
               l.name,
               style: TextStyle(fontWeight: selected ? FontWeight.bold : null),
             ),
-            subtitle: dist != null ? Text(Format.distance(dist)) : const Text('No location data'),
+            subtitle: dist != null ? Text(Format.distance(dist)) : null,
           ),
           for (var j = 0; j < l.stops.length; j++) _buildStop(controller, i, j, l.stops[j]),
         ],

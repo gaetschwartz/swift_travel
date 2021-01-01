@@ -19,9 +19,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'it';
 
-  static m0(walk) => "Cammina ${walk}";
+  static m0(walk) => "Cammina *${walk}*.";
 
-  static m1(walk, wait) => "Camminare ${walk} e aspettare ${wait}";
+  static m1(walk, wait) => "Camminare *${walk}* e aspettare *${wait}*.";
+
+  static m2(time) => "Arrivi a *${time}*.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -34,9 +36,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "cancel" : MessageLookupByLibrary.simpleMessage("Annulla"),
     "continue_" : MessageLookupByLibrary.simpleMessage("Continua"),
     "delete" : MessageLookupByLibrary.simpleMessage("Cancellare"),
+    "delete_fav" : MessageLookupByLibrary.simpleMessage("Eliminare il preferito?"),
     "departure" : MessageLookupByLibrary.simpleMessage("Partenza"),
     "destination" : MessageLookupByLibrary.simpleMessage("Destinazione"),
     "developer" : MessageLookupByLibrary.simpleMessage("Sviluppatore"),
+    "done" : MessageLookupByLibrary.simpleMessage("Fatto"),
     "fav_route" : MessageLookupByLibrary.simpleMessage("Salvare il percorso"),
     "find_a_route" : MessageLookupByLibrary.simpleMessage("Trova un percorso"),
     "from" : MessageLookupByLibrary.simpleMessage("A partire dal"),
@@ -63,6 +67,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "walk_and_wait" : m1,
     "what_to_do" : MessageLookupByLibrary.simpleMessage("Cosa fare?"),
     "yes" : MessageLookupByLibrary.simpleMessage("Sì"),
-    "youll_be_there" : MessageLookupByLibrary.simpleMessage("Sarai presente al")
+    "youll_be_there" : m2
   };
 }

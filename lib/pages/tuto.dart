@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:swift_travel/generated/l10n.dart';
 
 class Tuto extends StatelessWidget {
   static List<PageViewModel> listPagesViewModel = [
@@ -8,11 +9,6 @@ class Tuto extends StatelessWidget {
       title: 'First page',
       bodyWidget: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text('Click on '),
-          Icon(Icons.edit),
-          Text(' to edit a post'),
-        ],
       ),
       image: const Center(child: Icon(Icons.android)),
     )
@@ -22,13 +18,11 @@ class Tuto extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntroductionScreen(
       pages: listPagesViewModel,
-      onDone: () async {
-        Navigator.of(context).pop();
-      },
+      onDone: () => Navigator.of(context).pop(),
       showSkipButton: kDebugMode,
       skip: const Icon(Icons.skip_next),
       next: const Icon(Icons.arrow_forward_ios),
-      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+      done: Text(Strings.of(context).done, style: TextStyle(fontWeight: FontWeight.w600)),
       dotsDecorator: DotsDecorator(
         size: const Size.square(10.0),
         activeSize: const Size(20.0, 10.0),

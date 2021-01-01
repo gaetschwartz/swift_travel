@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
   void reassemble() {
     super.reassemble();
     log('Reload theme');
-    context.read(dynamicTheme).configure(themeConfiguration);
+    context.read(dynamicTheme).configure(themeConfiguration, doLog: false);
   }
 
   @override

@@ -24,10 +24,10 @@
 	"what_to_do": "Que faire ?",
 	"delete": "Supprimer",
 	"travel_duration": "Durée du voyage",
-	"youll_be_there": "Vous serez présent à",
+	"youll_be_there": "Vous arrivez à *{time}*.",
 	"fav_route": "Ajouter la route aux favoris",
-	"walk_and_wait": "Marchez {walk} et attendez {wait}",
-	"walk": "Marchez {walk}",
+	"walk_and_wait": "Marchez *{walk}* et attendez *{wait}*.",
+	"walk": "Marchez *{walk}*.",
 	"search": "Recherche",
 	"destination": "Destination",
 	"find_a_route": "Faire un itinéraire",
@@ -38,5 +38,7 @@
 	"no": "Non",
 	"continue_": "Continuer",
 	"from": "De",
-	"to": "à"
+	"to": "à",
+	"done": "Terminé",
+	"delete_fav": "Supprimer le favori?"
 }
