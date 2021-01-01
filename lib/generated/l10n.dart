@@ -95,10 +95,10 @@ class Strings {
     );
   }
 
-  /// `Departure`
+  /// `Starting point`
   String get departure {
     return Intl.message(
-      'Departure',
+      'Starting point',
       name: 'departure',
       desc: '',
       args: [],

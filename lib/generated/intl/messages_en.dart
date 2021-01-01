@@ -34,7 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "continue_" : MessageLookupByLibrary.simpleMessage("Continue"),
     "delete" : MessageLookupByLibrary.simpleMessage("Delete"),
-    "departure" : MessageLookupByLibrary.simpleMessage("Departure"),
+    "departure" : MessageLookupByLibrary.simpleMessage("Starting point"),
     "destination" : MessageLookupByLibrary.simpleMessage("Destination"),
     "developer" : MessageLookupByLibrary.simpleMessage("Developer"),
     "fav_route" : MessageLookupByLibrary.simpleMessage("Save route"),
