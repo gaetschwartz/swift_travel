@@ -16,22 +16,22 @@ final liveRouteControllerProvider =
 
 @immutable
 class RouteData {
-  final int currentStopIndex;
-  final double distFromCurrToNext;
-  final double distUntilExit;
+  final int? currentStopIndex;
+  final double? distFromCurrToNext;
+  final double? distUntilExit;
 
-  final double portionOfLegDone;
-  final double portionFromCurrentToExit;
+  final double? portionOfLegDone;
+  final double? portionFromCurrentToExit;
 
-  final Duration timeUntilNextLeg;
+  final Duration? timeUntilNextLeg;
 
   const RouteData({
-    @required this.currentStopIndex,
-    @required this.distFromCurrToNext,
-    @required this.distUntilExit,
-    @required this.portionOfLegDone,
-    @required this.portionFromCurrentToExit,
-    @required this.timeUntilNextLeg,
+    required this.currentStopIndex,
+    required this.distFromCurrToNext,
+    required this.distUntilExit,
+    required this.portionOfLegDone,
+    required this.portionFromCurrentToExit,
+    required this.timeUntilNextLeg,
   });
 
   const RouteData.empty()
@@ -47,34 +47,35 @@ class LiveRouteController extends ChangeNotifier {
   final GeoRepository geo;
   LiveRouteController(this.geo);
 
-  StreamSubscription<Position> _sub;
+  StreamSubscription<Position>? _sub;
 
-  RouteConnection _connection;
-  Position _position;
-  int _closestLeg;
-  int _closestStop;
+  RouteConnection? _connection;
+  Position? _position;
+  int? _closestLeg;
+  int? _closestStop;
   bool _isReady = false;
 
-  final _legDistances = <int, Map<int, double>>{};
+  final Map<int, Map<int, double>> _legDistances = {};
 
   Map<int, Map<int, double>> get legDistances => UnmodifiableMapView(_legDistances);
 
-  Position get position => _position;
-  RouteConnection get connection => _connection;
-  Leg get closestLeg => isRunning && _closestLeg != null ? _connection.legs[_closestLeg] : null;
-  Stop get closestStop =>
-      closestLeg != null && _closestStop != null ? closestLeg.stops[_closestStop] : null;
+  Position? get position => _position;
+  RouteConnection? get connection => _connection;
+  Leg? get closestLeg => isRunning && _closestLeg != null ? _connection!.legs[_closestLeg!] : null;
+  Stop? get closestStop =>
+      closestLeg != null && _closestStop != null ? closestLeg!.stops[_closestStop!] : null;
   bool get isReady => _isReady;
   RouteData get routeData => _routeData;
 
   RouteData _routeData = const RouteData.empty();
 
-  int _currentStop;
-  int _currentLeg;
-  Leg get currentLeg => isRunning && _currentLeg != null ? _connection.legs[_currentLeg] : null;
-  Stop get currentStop => currentLeg != null && _currentStop != null && currentLeg.stops.isNotEmpty
-      ? currentLeg.stops[_currentStop]
-      : null;
+  int? _currentStop;
+  int? _currentLeg;
+  Leg? get currentLeg => isRunning && _currentLeg != null ? _connection!.legs[_currentLeg!] : null;
+  Stop? get currentStop =>
+      currentLeg != null && _currentStop != null && currentLeg!.stops.isNotEmpty
+          ? currentLeg!.stops[_currentStop!]
+          : null;
 
   Future<void> startRoute(RouteConnection connection) async {
     stopCurrentRoute(notify: false);
@@ -106,7 +107,7 @@ class LiveRouteController extends ChangeNotifier {
     Vehicle.tram: 100,
   };
 
-  static int getDistanceThreshHold(Leg leg) =>
+  static int getDistanceThreshHold(Leg? leg) =>
       _kDistanceThersholds[leg?.type] ?? _kDefaultDistanceThreshold;
 
   void _update(Position p) {
@@ -125,49 +126,49 @@ class LiveRouteController extends ChangeNotifier {
 
     if (_currentLeg == null) {
       _currentLeg = _closestLeg;
-    } else if (_legDistances.containsKey(_currentLeg + 1) &&
-        _legDistances[_currentLeg + 1][-1] < threshold) {
+    } else if (_legDistances.containsKey(_currentLeg! + 1) &&
+        _legDistances[_currentLeg! + 1]![-1]! < threshold) {
       log('We are close enough to the next leg, switching to it');
-      _currentLeg += 1;
+      _currentLeg = _currentLeg! + 1;
     }
     if (_currentStop == null) {
       _currentStop = _closestStop;
-    } else if (_legDistances[_currentLeg].containsKey(_currentStop + 1) &&
-        _legDistances[_currentLeg][_currentStop + 1] < threshold) {
+    } else if (_legDistances[_currentLeg!]!.containsKey(_currentStop! + 1) &&
+        _legDistances[_currentLeg!]![_currentStop! + 1]! < threshold) {
       log('We are close enough to the next stop, switching to it');
-      _currentStop += 1;
+      _currentStop = _currentStop! + 1;
     }
-    /*   log("Closest stop : ${closestStop?.name}\n"
-        "Current stop : ${currentStop?.name}\n"
-        "Closest leg : ${closestLeg?.name}\n"
-        "Current leg : ${currentLeg?.name}\n"); */
-    // log(legDistances.toString());
+
     notifyListeners();
   }
 
   void _updateDistances(Position p) {
-    int closestStop;
-    int closestLeg;
+    int? closestStop;
+    int? closestLeg;
 
     double dist = double.infinity;
-    for (int i = 0; i < _connection.legs.length; i++) {
-      final l = _connection.legs[i];
-      if (l.lat == null || l.lon == null) continue;
-      final double d = Geolocator.distanceBetween(l.lat, l.lon, p.latitude, p.longitude);
+    for (int i = 0; i < _connection!.legs.length; i++) {
+      final l = _connection!.legs[i];
       _legDistances[i] ??= {};
-      _legDistances[i][-1] = d;
+      final d = Geolocator.distanceBetween(l.lat, l.lon, p.latitude, p.longitude);
+      if (l.lat == null || l.lon == null) {
+        _legDistances[i]![-1] = double.infinity;
+      } else {
+        _legDistances[i]![-1] = d;
+      }
       if (l.stops.isNotEmpty) {
         for (int j = 0; j < l.stops.length; j++) {
           final s = l.stops[j];
           if (s.lat == null || s.lon == null) {
-            continue;
-          }
-          final double d = Geolocator.distanceBetween(s.lat, s.lon, p.latitude, p.longitude);
-          _legDistances[i][j] = d;
-          if (d < dist) {
-            closestLeg = i;
-            closestStop = j;
-            dist = d;
+            _legDistances[i]![j] = double.infinity;
+          } else {
+            final d = Geolocator.distanceBetween(s.lat, s.lon, p.latitude, p.longitude);
+            _legDistances[i]![j] = d;
+            if (d < dist) {
+              closestLeg = i;
+              closestStop = j;
+              dist = d;
+            }
           }
         }
       } else {
@@ -183,68 +184,71 @@ class LiveRouteController extends ChangeNotifier {
   }
 
   void _updateData() {
-    if (currentLeg == null) {
-      return;
-    }
-    final currentStopIndex = currentLeg.stops.isEmpty
-        ? 0
-        : currentLeg.stops.length - currentLeg.stops.indexOf(currentStop);
-    final distFromCurrToNext = currentStop == null
-        ? null
-        : Geolocator.distanceBetween(
-            currentStop.lat, currentStop.lon, currentLeg.exit.lat, currentLeg.exit.lon);
-    final distUntilExit = Geolocator.distanceBetween(
-        currentLeg.exit.lat, currentLeg.exit.lon, position.latitude, position.longitude);
+    if (currentLeg == null) return;
 
-    final d = currentStop == null ? null : distUntilExit / distFromCurrToNext;
-    final perc = currentStop == null
-        ? null
-        : (currentLeg.stops.length - currentStopIndex * d) / currentLeg.stops.length;
+    if (currentStop != null) {
+      final double distFromCurrToExt = Geolocator.distanceBetween(
+          currentStop!.lat, currentStop!.lon, currentLeg!.exit.lat, currentLeg!.exit.lon);
+      final double distUntilExit = Geolocator.distanceBetween(
+          currentLeg!.exit.lat, currentLeg!.exit.lon, position!.latitude, position!.longitude);
 
-    final timeUntilNextLeg = currentStop == null
-        ? Duration.zero
-        : currentLeg.exit.arrival.difference(currentStop.departure) * d;
+      final double d = distUntilExit / distFromCurrToExt;
+      final double perc = (currentLeg!.stops.length - _currentStop! * d) / currentLeg!.stops.length;
 
-    _routeData = RouteData(
-        currentStopIndex: currentStopIndex,
+      final Duration timeUntilNextLeg =
+          currentLeg!.exit.arrival.difference(currentStop!.departure) * d;
+
+      _routeData = RouteData(
+        currentStopIndex: _currentStop,
         portionOfLegDone: d,
-        distFromCurrToNext: distFromCurrToNext,
+        distFromCurrToNext: distFromCurrToExt,
         distUntilExit: distUntilExit,
         portionFromCurrentToExit: perc,
-        timeUntilNextLeg: timeUntilNextLeg);
+        timeUntilNextLeg: timeUntilNextLeg,
+      );
+    } else {
+      _routeData = RouteData(
+        currentStopIndex: _currentStop,
+        distFromCurrToNext: 0,
+        distUntilExit: 0,
+        portionOfLegDone: 0,
+        portionFromCurrentToExit: 0,
+        timeUntilNextLeg: Duration.zero,
+      );
+    }
   }
 
   Future<void> _computeMissingStops() async {
     if (!isRunning) throw StateError('Live route not running');
     log("Computing distances we didn't find");
 
-    final List<Leg> legs = _connection.legs;
+    final List<Leg> legs = [];
 
-    for (final e in _connection.legs) {
+    for (final e in _connection!.legs) {
       legs.add(await _computeLeg(e));
     }
 
-    _connection = _connection.copyWith(legs: legs);
+    _connection = _connection!.copyWith(legs: legs);
     _isReady = true;
     notifyListeners();
     log('Done computing routes');
   }
 
-  Future<Leg> _computeLeg(Leg e) async {
-    if (e.lat != null && e.lon != null) {
-      return e;
+  Future<Leg> _computeLeg(Leg leg) async {
+    if (leg.lat != null && leg.lon != null) {
+      return leg;
     } else {
-      final split = e.name.split(',');
+      final split = leg.name.split(',');
       for (var i = split.length; i >= 0; i--) {
         final pos = await geo.getPosition(split.sublist(i).join());
         if (pos.results.isEmpty) continue;
-        log('Found position ${pos.results.first.attrs.lat}, ${pos.results.first.attrs.lon} for ${e.name}');
-        return e.copyWith(
+        log('Found position ${pos.results.first.attrs.lat}, ${pos.results.first.attrs.lon} for ${leg.name}');
+        return leg.copyWith(
           lat: pos.results.first.attrs.lat,
           lon: pos.results.first.attrs.lon,
         );
       }
-      return e;
+      return leg;
     }
   }
 

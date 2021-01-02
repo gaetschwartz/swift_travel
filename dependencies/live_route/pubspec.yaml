@@ -5,13 +5,13 @@ author: null
 publish_to: none
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  geolocator: ^6.1.13
+  geolocator: ^7.0.0-nullsafety.4
   freezed_annotation: ^0.12.0
   swift_travel:
     path: ../../
