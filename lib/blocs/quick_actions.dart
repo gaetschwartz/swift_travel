@@ -46,8 +46,7 @@ class MyQuickActions {
       final id = int.parse(idS);
       final route = stringList[id];
       final lr = LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
-      navigatorKey.currentState
-          .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: lr)));
+      navigatorKey.currentState.push(MaterialPageRoute(builder: (_) => SearchRoute.route(lr)));
     } else if (first == 'fav') {
       log('Tapped fav $shortcutType', name: 'QuickActions');
       final prefs = await SharedPreferences.getInstance();
@@ -57,7 +56,7 @@ class MyQuickActions {
       final fav = stringList[id];
       final f = jsonDecode(fav) as Map<String, dynamic>;
       final f2 = FavoriteStop.fromJson(f);
-      navigatorKey.currentState.push(MaterialPageRoute(builder: (_) => SearchRoute(favStop: f2)));
+      navigatorKey.currentState.push(MaterialPageRoute(builder: (_) => SearchRoute.stop(f2)));
     }
   }
 

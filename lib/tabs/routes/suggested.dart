@@ -14,8 +14,8 @@ class SuggestedTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: suggestion.isCurrentLocation
-          ? Icon(CupertinoIcons.location_fill)
-          : CffIcon.fromIconClass(suggestion.icon, size: 16),
+          ? Icon(CupertinoIcons.location_fill, size: 20)
+          : CffIcon.fromIconClass(suggestion.icon, size: 20),
       title: Text(suggestion.favoriteName ?? suggestion.label),
       subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
       trailing: suggestion.favoriteName != null ? const Text('⭐') : null,

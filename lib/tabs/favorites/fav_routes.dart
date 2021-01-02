@@ -44,8 +44,7 @@ class FavoriteRouteTile extends StatelessWidget {
             );
           }),
       onTap: () async {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => SearchRoute(localRoute: route)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) => SearchRoute.route(route)));
       },
     );
   }

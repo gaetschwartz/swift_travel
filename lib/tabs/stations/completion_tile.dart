@@ -44,13 +44,16 @@ class CffCompletionTile extends ConsumerWidget {
       ),
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: _kRadius),
-        leading: SizedBox(
-          height: isFav ? double.infinity : 0,
-          child: isFav
-              ? isDarwin
-                  ? const Icon(CupertinoIcons.heart_fill)
-                  : const Icon(Icons.star)
-              : CffIcon.fromIconClass(iconClass),
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            isFav
+                ? isDarwin
+                    ? const Icon(CupertinoIcons.heart_fill)
+                    : const Icon(Icons.star)
+                : CffIcon.fromIconClass(iconClass),
+          ],
         ),
         title: Text((isFav ? sugg.favoriteName : sugg.label) ?? '???'),
         subtitle: isFav

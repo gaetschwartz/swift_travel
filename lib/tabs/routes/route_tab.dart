@@ -136,7 +136,18 @@ class SearchRoute extends StatefulWidget {
   final LocalRoute localRoute;
   final FavoriteStop favStop;
 
-  const SearchRoute({Key key, this.localRoute, this.favStop}) : super(key: key);
+  const SearchRoute({Key key})
+      : favStop = null,
+        localRoute = null,
+        super(key: key);
+
+  const SearchRoute.route(this.localRoute, {Key key})
+      : favStop = null,
+        super(key: key);
+
+  const SearchRoute.stop(this.favStop, {Key key})
+      : localRoute = null,
+        super(key: key);
 
   @override
   _SearchRouteState createState() => _SearchRouteState();

@@ -23,7 +23,7 @@ class FavoriteStationTile extends StatelessWidget {
     return ListTile(
       leading: const Icon(FontAwesomeIcons.solidStar),
       onTap: () =>
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => SearchRoute(favStop: stop))),
+          Navigator.of(context).push(MaterialPageRoute(builder: (_) => SearchRoute.stop(stop))),
       trailing: IconButton(
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () async {

@@ -1,10 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
@@ -27,9 +31,7 @@ class _DetailsStopState extends State<DetailsStop> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 15), (_) {
-      setState(() {});
-    });
+    timer = Timer.periodic(const Duration(seconds: 15), (_) => setState(() {}));
     reloadData();
   }
 
@@ -45,6 +47,13 @@ class _DetailsStopState extends State<DetailsStop> {
         appBar: AppBar(
           leading: const BackButton(),
           title: Text(widget.stopName),
+          actions: [
+            IconButton(
+                icon: Icon(FontAwesomeIcons.route),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) =>
+                        SearchRoute.stop(FavoriteStop(data.stop.name, name: data.stop.name)))))
+          ],
         ),
         body: RefreshIndicator(
           onRefresh: () => reloadData(),
@@ -81,11 +90,8 @@ class _DetailsStopState extends State<DetailsStop> {
   }
 
   Future<void> reloadData() async {
-    final CffStationboard l =
-        await context.read(navigationAPIProvider).stationboard(widget.stopName);
-    setState(() {
-      data = l;
-    });
+    final stationBoard = await context.read(navigationAPIProvider).stationboard(widget.stopName);
+    setState(() => data = stationBoard);
   }
 }
 
@@ -96,6 +102,8 @@ class ConnectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final diff = c.time.difference(DateTime.now());
+    final i = c.color.indexOf("~");
+
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
@@ -105,11 +113,12 @@ class ConnectionTile extends StatelessWidget {
       )),
       title: Row(
         children: [
-          LineIcon(
-            background: c.color.split('~').first,
-            foreground: c.color.split('~')[1],
-            line: c.line,
-          ),
+          if (i != -1)
+            LineIcon(
+              background: c.color.substring(0, i),
+              foreground: c.color.substring(i + 1, c.color.length - 1),
+              line: c.line,
+            ),
           const SizedBox(width: 8),
           Expanded(
             child: Align(

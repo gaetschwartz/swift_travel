@@ -75,7 +75,7 @@ class RouteDetails extends StatelessWidget {
   String _format(String place) {
     final i = place.indexOf('@');
     if (i == -1) return place;
-    return place.substring(0, i + 1);
+    return place.substring(0, i);
   }
 
   PreferredSize buildHeader(BuildContext context, RouteConnection c, Size size) {
