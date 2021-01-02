@@ -41,5 +41,6 @@
 	"to": "zu",
 	"done": "Erledigt",
 	"delete_fav": "Favorit löschen?",
-	"current_location": "Aktueller Standort"
+	"current_location": "Aktueller Standort",
+	"close": "Schließen"
 }

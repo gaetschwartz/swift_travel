@@ -41,5 +41,6 @@
 	"to": "a",
 	"done": "Fatto",
 	"delete_fav": "Eliminare il preferito?",
-	"current_location": "Posizione attuale"
+	"current_location": "Posizione attuale",
+	"close": "Chiudere"
 }

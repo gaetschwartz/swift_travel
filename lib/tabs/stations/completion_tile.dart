@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
@@ -8,7 +9,6 @@ import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
-import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 import 'package:utils/widgets/responsive.dart';
 import 'package:vibration/vibration.dart';
@@ -63,9 +63,7 @@ class CffCompletionTile extends ConsumerWidget {
             : sugg.dist != null
                 ? Text('${sugg.dist.round()}m')
                 : null,
-        onLongPress: isDarwin
-            ? null
-            : () => more(context, isFav: isFavInStore, favoriteStop: favStop, store: store),
+        onLongPress: () => more(context, isFav: isFavInStore, favoriteStop: favStop, store: store),
         trailing: isPrivate
             ? IconButton(
                 icon: const Icon(Icons.more_horiz),
@@ -87,38 +85,10 @@ class CffCompletionTile extends ConsumerWidget {
       ),
     );
 
-    final Widget child = isDarwin
-        ? CupertinoContextMenu(
-            actions: [
-              CupertinoContextMenuAction(
-                trailingIcon: isFavInStore ? CupertinoIcons.heart_slash : CupertinoIcons.heart,
-                onPressed: () async {
-                  await deleteOrAddToFav(context,
-                      isFav: isFav, favoriteStop: favStop, store: store);
-                  Navigator.pop(context);
-                },
-                isDestructiveAction: isFavInStore,
-                child: isFavInStore
-                    ? Text(Strings.of(context).remove_from_favoruites)
-                    : Text(Strings.of(context).add_to_favs),
-              ),
-              CupertinoContextMenuAction(
-                trailingIcon: CupertinoIcons.xmark,
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text(Strings.of(context).cancel),
-              ),
-            ],
-            child: Material(
-              borderRadius: _kRadius,
-              child: listTile,
-            ),
-          )
-        : listTile;
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       child: Center(
-        child: child,
+        child: listTile,
       ),
     );
   }
@@ -129,18 +99,33 @@ class CffCompletionTile extends ConsumerWidget {
     @required FavoriteStop favoriteStop,
     @required FavoritesSharedPreferencesStore store,
   }) async {
-    final c = await choose<_Actions>(context,
-        choices: [
-          Choice(
-            value: _Actions.favorite,
-            child: isFav
-                ? Text(Strings.of(context).remove_from_favoruites)
-                : Text(Strings.of(context).add_to_favs),
-          ),
-        ],
-        title: Text(Strings.of(context).what_to_do),
-        cancel: Choice.cancel(child: Text(Strings.of(context).cancel)));
-    switch (c.value) {
+    final c = await showCupertinoModalBottomSheet<_Actions>(
+        context: context,
+        expand: false,
+        backgroundColor: Colors.transparent,
+        builder: (context) => Material(
+                child: SafeArea(
+              top: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    title: isFav
+                        ? Text(Strings.of(context).remove_from_favoruites)
+                        : Text(Strings.of(context).add_to_favs),
+                    leading: isFav ? Icon(CupertinoIcons.heart_slash) : Icon(CupertinoIcons.heart),
+                    onTap: () => Navigator.of(context).pop(_Actions.favorite),
+                  ),
+                  ListTile(
+                    title: Text(Strings.of(context).cancel),
+                    leading: Icon(CupertinoIcons.xmark),
+                    onTap: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ),
+            )));
+
+    switch (c) {
       case _Actions.favorite:
         await deleteOrAddToFav(context, isFav: isFav, favoriteStop: favoriteStop, store: store);
         break;
