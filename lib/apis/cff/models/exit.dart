@@ -18,7 +18,7 @@ abstract class Exit with _$Exit {
     String sbbName,
     double lat,
     double lon,
-    @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson) int arrDelay,
+    @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson) int arrDelay,
   }) = _Exit;
 
   factory Exit.fromJson(Map<String, dynamic> json) => _$ExitFromJson(json);
