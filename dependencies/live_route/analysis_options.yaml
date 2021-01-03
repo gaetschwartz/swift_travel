@@ -8,6 +8,7 @@ analyzer:
     - "**/*.freezed.dart"
   errors:
     sort_pub_dependencies: ignore
+    import_of_legacy_library_into_null_safe: ignore
 
 linter:
   rules:

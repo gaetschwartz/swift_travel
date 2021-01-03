@@ -5,16 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:swift_travel/main.dart';
 import 'package:vibration/vibration.dart';
 
-void report(Object e, StackTrace s, {String name = '', String reason = ''}) {
+void report(Object e, StackTrace s,
+    {String name = '', String reason = '', bool showSnackbar = true}) {
   if (kDebugMode) {
-    debugPrintStack(stackTrace: s, label: '[$name] $reason: $e');
-  } else {
+    debugPrintStack(stackTrace: s, label: '[$name] $e $reason');
+  }
+  if (showSnackbar && (!kDebugMode || bool.fromEnvironment("DO_SHOW_ERRORS"))) {
+    Vibration.error();
+
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text('$e'),
       action: SnackBarAction(
         label: 'Details',
         onPressed: () => navigatorKey.currentState.pushNamed(
-          "/error",
+          "error",
           arguments: FlutterErrorDetails(
             exception: e,
             stack: s,
@@ -24,7 +28,6 @@ void report(Object e, StackTrace s, {String name = '', String reason = ''}) {
         ),
       ),
     ));
-    Vibration.error();
   }
 
   if (Firebase.apps.isNotEmpty) {
@@ -35,18 +38,18 @@ void report(Object e, StackTrace s, {String name = '', String reason = ''}) {
 void reportFlutterError(FlutterErrorDetails details) {
   if (kDebugMode) {
     debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
-  } else {
+  }
+  if (!kDebugMode || bool.fromEnvironment("DO_SHOW_ERRORS")) {
+    Vibration.error();
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text(details.exception.toString()),
       action: SnackBarAction(
         label: 'Details',
-        onPressed: () => navigatorKey.currentState.pushNamed("/error", arguments: details),
+        onPressed: () => navigatorKey.currentState.pushNamed("error", arguments: details),
       ),
     ));
-    Vibration.error();
   }
-
-  FirebaseCrashlytics.instance.recordFlutterError(details);
+  if (Firebase.apps.isNotEmpty) FirebaseCrashlytics.instance.recordFlutterError(details);
 }
 
 class ErrorPage extends StatelessWidget {

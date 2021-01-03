@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -16,6 +17,7 @@ import 'package:swift_travel/apis/cff/models/route_connection.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/pages/404.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/pages/loading.dart';
@@ -32,6 +34,7 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+final FirebaseAnalytics analytics = FirebaseAnalytics();
 
 bool get isMobile =>
     defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android;
@@ -55,6 +58,7 @@ Future<void> main() async {
     log('We are on mobile ($platform)');
     await Firebase.initializeApp();
     FlutterError.onError = reportFlutterError;
+    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
     runZonedGuarded<Future<void>>(() async => _runApp(), FirebaseCrashlytics.instance.recordError);
   } else {
     log('We are not on mobile ($platform)');
@@ -97,20 +101,22 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
+          navigatorObservers: [],
           builder: (context, child) => LocalizationAwareWidget(child: child),
           supportedLocales: Strings.delegate.supportedLocales,
           onGenerateRoute: onGenerateRoute,
-          initialRoute: "/loading",
+          initialRoute: "loading",
         );
       }),
     );
   }
 
   Route onGenerateRoute(RouteSettings settings) {
+    log("Routing to ${settings.name}");
     switch (settings.name) {
-      case "/app":
+      case "/":
         return MaterialWithModalsPageRoute(settings: settings, builder: (_) => MainApp());
-      case "/loading":
+      case "loading":
         return MaterialWithModalsPageRoute(settings: settings, builder: (_) => LoadingPage());
       case "/settings":
         return MaterialWithModalsPageRoute(settings: settings, builder: (_) => Settings());
@@ -157,13 +163,9 @@ class _MyAppState extends State<MyApp> {
             settings: settings,
             builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails));
     }
-    log("Unknown page : `${settings.name}`");
-    return MaterialPageRoute(
-        builder: (_) => Scaffold(
-              body: Center(
-                child: Text("Unknown page"),
-              ),
-            ));
+    report("Unknown page : `${settings.name}`", StackTrace.current,
+        name: "router", reason: "while trying to route", showSnackbar: false);
+    return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
   }
 }
 

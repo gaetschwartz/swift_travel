@@ -149,6 +149,10 @@ class Settings extends StatelessWidget {
                   title: const Text('Throw a Flutter error'),
                   onTap: () => throw StateError('Debug error')),
               ListTile(
+                  leading: const Icon(Icons.open_in_browser),
+                  title: const Text('Open incorrect page'),
+                  onTap: () => Navigator.of(context).pushNamed("/thisIsNotACorrectPage")),
+              ListTile(
                   leading: const Icon(Icons.close),
                   title: const Text('Trigger a crash'),
                   onTap: () async {

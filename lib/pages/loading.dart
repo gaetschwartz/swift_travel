@@ -154,6 +154,6 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   void route() {
     const String page = String.fromEnvironment('PAGE');
     log(page);
-    Navigator.of(context).pushReplacementNamed(page ?? "/app");
+    Navigator.of(context).pushReplacementNamed(page.isEmpty ? "/" : page);
   }
 }

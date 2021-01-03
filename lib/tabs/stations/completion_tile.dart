@@ -96,6 +96,7 @@ class CffCompletionTile extends ConsumerWidget {
   }) async {
     final c = await showCupertinoModalBottomSheet<_Actions>(
         context: context,
+        duration: Duration(milliseconds: 200),
         expand: false,
         backgroundColor: Colors.transparent,
         builder: (context) => Material(
@@ -112,7 +113,7 @@ class CffCompletionTile extends ConsumerWidget {
                     onTap: () => Navigator.of(context).pop(_Actions.favorite),
                   ),
                   ListTile(
-                    title: Text(Strings.of(context).cancel),
+                    title: Text(Strings.of(context).close),
                     leading: Icon(CupertinoIcons.xmark),
                     onTap: () => Navigator.of(context).pop(),
                   )

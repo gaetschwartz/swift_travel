@@ -10,6 +10,15 @@
       "type": "dart",
     },
     {
+      "name": "Launch (errors)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "DO_SHOW_ERRORS=true"
+      ]
+    },
+    {
       "name": "Launch (corrupt)",
       "request": "launch",
       "type": "dart",
