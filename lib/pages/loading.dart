@@ -25,9 +25,7 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
-  AnimationController _controller;
   AnimationController _controller2;
-  Animation<double> _animation;
 
   @override
   void initState() {
@@ -37,19 +35,14 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) => init());
     }
 
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _controller2 = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
-    _animation = Tween<double>(begin: 0, end: 2)
-        .animate(CurveTween(curve: Curves.easeInOutCubic).animate(_controller));
-
-    _controller.repeat();
     _controller2.forward();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller2.dispose();
     super.dispose();
   }
 
@@ -67,14 +60,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
               SizedBox(
                 height: 64,
                 width: 64,
-                child: RotationTransition(
-                  turns: _animation,
-                  child: const Icon(
-                    Icons.train,
-                    size: 64,
-                    color: Colors.white,
-                  ),
-                ),
+                child: CircularProgressIndicator.adaptive(
+                    valueColor: AlwaysStoppedAnimation(Colors.white)),
               ),
               const SizedBox(height: 32),
               const Text(
@@ -91,7 +78,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
 
-    await Future.wait([initSettings(prefs), Future.delayed(const Duration(seconds: 1))]);
+    await initSettings(prefs);
 
     await showTutoIfNeeded(prefs);
 
