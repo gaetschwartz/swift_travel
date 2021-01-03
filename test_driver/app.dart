@@ -49,7 +49,7 @@ void main() {
           theme: theme.light,
           darkTheme: theme.dark,
           themeMode: theme.mode,
-          home: const MyHomePage(),
+          home: const MainApp(),
         );
       }),
     ),

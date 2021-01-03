@@ -11,7 +11,6 @@ import 'package:swift_travel/apis/cff/models/route_connection.dart';
 import 'package:swift_travel/apis/cff/models/types_enum.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/arrived_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
@@ -130,11 +129,7 @@ class RouteDetails extends StatelessWidget {
 
   void openLive(BuildContext context, RouteConnection c) {
     Vibration.select();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => LiveRoutePage(connection: c),
-      ),
-    );
+    Navigator.of(context).pushNamed("/liveRoute", arguments: c);
   }
 
   void base64Experiment() {

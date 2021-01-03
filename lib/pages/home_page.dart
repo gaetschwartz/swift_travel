@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:swift_travel/pages/settings.dart';
 import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';
@@ -12,14 +11,14 @@ import 'package:vibration/vibration.dart';
 
 final _tabProvider = StateProvider<int>((ref) => 0);
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage();
+class MainApp extends StatefulWidget {
+  const MainApp();
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MainAppState createState() => _MainAppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
 
   @override
@@ -109,7 +108,7 @@ AppBar swiftTravelAppBar(BuildContext context, {bool isDarwin = true}) {
           icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
           onPressed: () {
             Vibration.select();
-            Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Settings()));
+            Navigator.of(context).pushNamed("/settings");
           }),
     ],
   );

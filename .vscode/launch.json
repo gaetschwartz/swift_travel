@@ -33,7 +33,7 @@
       "type": "dart",
       "args": [
         "--dart-define",
-        "PAGE=welcome"
+        "PAGE=/welcome"
       ]
     },
     {

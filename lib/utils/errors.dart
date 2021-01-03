@@ -13,18 +13,13 @@ void report(Object e, StackTrace s, {String name = '', String reason = ''}) {
       content: Text('$e'),
       action: SnackBarAction(
         label: 'Details',
-        onPressed: () => navigatorKey.currentState.push(
-          MaterialPageRoute(
-            builder: (context) => ErrorWidget(
-              FlutterErrorDetails(
-                exception: e,
-                stack: s,
-                context: ErrorDescription(reason),
-                library: name,
-              ),
-              isFlutter: false,
-            ),
-            fullscreenDialog: true,
+        onPressed: () => navigatorKey.currentState.pushNamed(
+          "/error",
+          arguments: FlutterErrorDetails(
+            exception: e,
+            stack: s,
+            context: ErrorDescription(reason),
+            library: name,
           ),
         ),
       ),
@@ -45,12 +40,7 @@ void reportFlutterError(FlutterErrorDetails details) {
       content: Text(details.exception.toString()),
       action: SnackBarAction(
         label: 'Details',
-        onPressed: () => navigatorKey.currentState.push(
-          MaterialPageRoute(
-            builder: (context) => ErrorWidget(details, isFlutter: true),
-            fullscreenDialog: true,
-          ),
-        ),
+        onPressed: () => navigatorKey.currentState.pushNamed("/error", arguments: details),
       ),
     ));
     Vibration.error();
@@ -59,21 +49,19 @@ void reportFlutterError(FlutterErrorDetails details) {
   FirebaseCrashlytics.instance.recordFlutterError(details);
 }
 
-class ErrorWidget extends StatelessWidget {
-  const ErrorWidget(
+class ErrorPage extends StatelessWidget {
+  const ErrorPage(
     this.details, {
     Key key,
-    @required this.isFlutter,
   }) : super(key: key);
 
   final FlutterErrorDetails details;
-  final bool isFlutter;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(isFlutter ? 'Flutter error' : 'Dart error'),
+        title: Text(details.library ?? "Unknown library"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

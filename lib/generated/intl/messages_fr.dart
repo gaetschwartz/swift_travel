@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "brightness_light" : MessageLookupByLibrary.simpleMessage("Clair"),
     "brightness_system" : MessageLookupByLibrary.simpleMessage("Système"),
     "cancel" : MessageLookupByLibrary.simpleMessage("Annuler"),
+    "close" : MessageLookupByLibrary.simpleMessage("Fermer"),
     "continue_" : MessageLookupByLibrary.simpleMessage("Continuer"),
     "current_location" : MessageLookupByLibrary.simpleMessage("Localisation actuelle"),
     "delete" : MessageLookupByLibrary.simpleMessage("Supprimer"),

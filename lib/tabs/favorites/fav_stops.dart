@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:utils/dialogs/choice.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 import 'package:utils/dialogs/input_dialog.dart';
@@ -22,8 +21,7 @@ class FavoriteStationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: const Icon(FontAwesomeIcons.solidStar),
-      onTap: () =>
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => SearchRoute.stop(stop))),
+      onTap: () => Navigator.of(context).pushNamed("/route", arguments: stop),
       trailing: IconButton(
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () async {

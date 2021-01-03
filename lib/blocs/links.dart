@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/utils/share.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
 
@@ -70,8 +69,7 @@ class DeepLinkBloc {
           title: const Text('Getting route infos ...'));
 
       final int i = int.parse(uri.queryParameters['i']);
-      navigatorKey.currentState
-          .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
+      navigatorKey.currentState.pushNamed("/routeDetails", arguments: {"route": route, "i": i});
     }
   }
 

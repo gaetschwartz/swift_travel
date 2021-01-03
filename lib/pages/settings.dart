@@ -118,8 +118,7 @@ class Settings extends StatelessWidget {
             ListTile(
               leading: const Icon(FontAwesomeIcons.users),
               title: Text(Strings.of(context).our_team),
-              onTap: () =>
-                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TeamPage())),
+              onTap: () => Navigator.of(context).pushNamed("/ourTeam"),
             ),
             ListTile(
                 leading: const Icon(Icons.restore),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:swift_travel/pages/tuto.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage();
@@ -96,8 +95,7 @@ class WelcomePage extends StatelessWidget {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
                         onPressed: () async {
-                          await Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (_) => Tuto()));
+                          await Navigator.of(context).pushNamed("/tuto");
                           Navigator.of(context).pop();
                         },
                         child: Row(

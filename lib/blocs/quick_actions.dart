@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:math' show min;
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +11,6 @@ import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/tabs/routes/route_tab.dart';
 
 class MyQuickActions {
   static const maxFavoriteRoutes = 5;
@@ -46,7 +44,7 @@ class MyQuickActions {
       final id = int.parse(idS);
       final route = stringList[id];
       final lr = LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
-      navigatorKey.currentState.push(MaterialPageRoute(builder: (_) => SearchRoute.route(lr)));
+      navigatorKey.currentState.pushNamed("/route", arguments: lr);
     } else if (first == 'fav') {
       log('Tapped fav $shortcutType', name: 'QuickActions');
       final prefs = await SharedPreferences.getInstance();
@@ -56,7 +54,7 @@ class MyQuickActions {
       final fav = stringList[id];
       final f = jsonDecode(fav) as Map<String, dynamic>;
       final f2 = FavoriteStop.fromJson(f);
-      navigatorKey.currentState.push(MaterialPageRoute(builder: (_) => SearchRoute.stop(f2)));
+      navigatorKey.currentState.pushNamed("/search_from_stop", arguments: f2);
     }
   }
 

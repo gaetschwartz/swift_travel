@@ -8,10 +8,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
+import 'package:swift_travel/apis/cff/models/local_route.dart';
+import 'package:swift_travel/apis/cff/models/route_connection.dart';
+import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/pages/loading.dart';
+import 'package:swift_travel/pages/settings.dart';
+import 'package:swift_travel/pages/tuto.dart';
 import 'package:swift_travel/pages/welcome.dart';
+import 'package:swift_travel/tabs/routes/details/route_details.dart';
+import 'package:swift_travel/tabs/routes/route_tab.dart';
+import 'package:swift_travel/tabs/stations/stop_details.dart';
+import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
@@ -27,10 +41,6 @@ String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operat
 const debugPlatformMap = {
   TargetPlatform.windows: TargetPlatform.macOS,
   TargetPlatform.android: TargetPlatform.iOS
-};
-
-const Map<String, WelcomePage> pagesMap = {
-  'welcome': WelcomePage(),
 };
 
 Future<void> main() async {
@@ -89,10 +99,71 @@ class _MyAppState extends State<MyApp> {
           ],
           builder: (context, child) => LocalizationAwareWidget(child: child),
           supportedLocales: Strings.delegate.supportedLocales,
-          home: LoadingPage(),
+          onGenerateRoute: onGenerateRoute,
+          initialRoute: "/loading",
         );
       }),
     );
+  }
+
+  Route onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case "/app":
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => MainApp());
+      case "/loading":
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => LoadingPage());
+      case "/settings":
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => Settings());
+      case "/routeDetails":
+        if (settings.arguments is Map) {
+          final map = settings.arguments as Map;
+          return MaterialWithModalsPageRoute(
+              settings: settings,
+              builder: (_) => RouteDetails(route: map["route"] as CffRoute, i: map["i"] as int));
+        }
+        break;
+      case "/tuto":
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => Tuto());
+      case "/welcome":
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => WelcomePage());
+      case "/route":
+        if (settings.arguments is LocalRoute)
+          return MaterialWithModalsPageRoute(
+              settings: settings,
+              builder: (_) => SearchRoute.route(settings.arguments as LocalRoute));
+        else if (settings.arguments is FavoriteStop)
+          return MaterialWithModalsPageRoute(
+              settings: settings,
+              builder: (_) => SearchRoute.stop(settings.arguments as FavoriteStop));
+        break;
+      case "/ourTeam":
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => TeamPage());
+      case "/liveRoute":
+        return MaterialWithModalsPageRoute(
+            settings: settings,
+            builder: (_) => LiveRoutePage(connection: settings.arguments as RouteConnection));
+      case "/stopDetails":
+        return MaterialWithModalsPageRoute(
+            settings: settings,
+            builder: (_) => StopDetails(stopName: settings.arguments as String));
+
+      case "/nextStops":
+        return MaterialWithModalsPageRoute(
+            settings: settings,
+            builder: (_) =>
+                NextStopsPage(connection: settings.arguments as StationboardConnection));
+      case "/error":
+        return MaterialWithModalsPageRoute(
+            settings: settings,
+            builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails));
+    }
+    log("Unknown page : `${settings.name}`");
+    return MaterialPageRoute(
+        builder: (_) => Scaffold(
+              body: Center(
+                child: Text("Unknown page"),
+              ),
+            ));
   }
 }
 

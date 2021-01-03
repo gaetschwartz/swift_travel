@@ -13,12 +13,9 @@ import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/blocs/quick_actions.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/pages/welcome.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
-
-import 'home_page.dart';
 
 const _tutoKey = 'hasAlreadySeenTuto';
 
@@ -148,7 +145,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
   Future<void> showTutoIfNeeded(SharedPreferences prefs) async {
     if (prefs.getBool(_tutoKey) != true) {
-      await Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WelcomePage()));
+      await Navigator.of(context).pushNamed("/welcome");
 
       await prefs.setBool(_tutoKey, true);
     }
@@ -157,10 +154,6 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   void route() {
     const String page = String.fromEnvironment('PAGE');
     log(page);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => pagesMap[page] ?? const MyHomePage(),
-      ),
-    );
+    Navigator.of(context).pushReplacementNamed(page ?? "/app");
   }
 }

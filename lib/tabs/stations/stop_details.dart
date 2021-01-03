@@ -8,22 +8,20 @@ import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/tabs/routes/route_tab.dart';
-import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 
-class DetailsStop extends StatefulWidget {
+class StopDetails extends StatefulWidget {
   final String stopName;
 
-  const DetailsStop({Key key, @required this.stopName}) : super(key: key);
+  const StopDetails({Key key, @required this.stopName}) : super(key: key);
 
   @override
-  _DetailsStopState createState() => _DetailsStopState();
+  _StopDetailsState createState() => _StopDetailsState();
 }
 
-class _DetailsStopState extends State<DetailsStop> {
+class _StopDetailsState extends State<StopDetails> {
   CffStationboard data;
 
   Timer timer;
@@ -50,9 +48,10 @@ class _DetailsStopState extends State<DetailsStop> {
           actions: [
             IconButton(
                 icon: Icon(FontAwesomeIcons.route),
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) =>
-                        SearchRoute.stop(FavoriteStop(data.stop.name, name: data.stop.name)))))
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/route",
+                      arguments: FavoriteStop(data.stop.name, name: data.stop.name));
+                })
           ],
         ),
         body: RefreshIndicator(
@@ -106,11 +105,7 @@ class ConnectionTile extends StatelessWidget {
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => NextStopsPage(
-          connection: c,
-        ),
-      )),
+      onTap: () => Navigator.of(context).pushNamed("/nextStop", arguments: c),
       title: Row(
         children: [
           if (i != -1)

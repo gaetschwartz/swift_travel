@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:swift_travel/apis/cff/models/types_enum.dart';
-import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
@@ -81,11 +80,8 @@ class RouteTile extends StatelessWidget {
                 const FaIcon(FontAwesomeIcons.chevronRight),
               ],
             ),
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (_) => RouteDetails(
-                      route: route,
-                      i: i,
-                    ))),
+            onTap: () => Navigator.of(context)
+                .pushNamed("/routeDetails", arguments: {"route": route, "i": i}),
           ),
         ),
       ),

@@ -8,7 +8,7 @@ import 'package:swift_travel/utils/format.dart';
 class NextStopsPage extends StatefulWidget {
   final StationboardConnection connection;
 
-  const NextStopsPage({Key key, @required this.connection}) : super(key: key);
+  const NextStopsPage({@required this.connection, Key key}) : super(key: key);
 
   @override
   _NextStopsPageState createState() => _NextStopsPageState();
