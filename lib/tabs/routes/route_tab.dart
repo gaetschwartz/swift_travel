@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
@@ -71,24 +71,24 @@ class Fetcher extends ChangeNotifier {
 
     Position p;
 
-    final departure = await from.state.when<FutureOr<String>>(
-      empty: () => null,
-      text: (t) => t,
-      useCurrentLocation: () async {
-        p ??= await Geolocator.getCurrentPosition();
-        return "${p.latitude},${p.longitude}";
-      },
-    );
-    final arrival = await to.state.when<FutureOr<String>>(
-      empty: () => null,
-      text: (t) => t,
-      useCurrentLocation: () async {
-        p ??= await Geolocator.getCurrentPosition();
-        return "${p.latitude},${p.longitude}";
-      },
-    );
-    log('Fetching route from $departure to $arrival');
     try {
+      final departure = await from.state.when<FutureOr<String>>(
+        empty: () => null,
+        text: (t) => t,
+        useCurrentLocation: () async {
+          p ??= await Geolocator.getCurrentPosition();
+          return "${p.latitude},${p.longitude}";
+        },
+      );
+      final arrival = await to.state.when<FutureOr<String>>(
+        empty: () => null,
+        text: (t) => t,
+        useCurrentLocation: () async {
+          p ??= await Geolocator.getCurrentPosition();
+          return "${p.latitude},${p.longitude}";
+        },
+      );
+      log('Fetching route from $departure to $arrival');
       final CffRoute it = await _cff.route(
         departure,
         arrival,
@@ -99,6 +99,8 @@ class Fetcher extends ChangeNotifier {
       state = RouteStates.routes(it);
     } on SocketException {
       state = const RouteStates.network();
+    } on MissingPluginException catch (e) {
+      state = RouteStates.exception(e);
     } on Exception catch (e, s) {
       state = RouteStates.exception(e);
       report(e, s, name: 'Fetch');
@@ -110,16 +112,25 @@ class Fetcher extends ChangeNotifier {
   }
 }
 
-class RouteSearchTab extends StatelessWidget {
+class RouteSearchTab extends StatefulWidget {
   const RouteSearchTab();
 
   @override
+  _RouteSearchTabState createState() => _RouteSearchTabState();
+}
+
+class _RouteSearchTabState extends State<RouteSearchTab> with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Navigator(
       pages: const [MyPage(SearchRoute())],
       onPopPage: (_, __) => false,
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class SearchRoute extends StatefulWidget {
@@ -575,28 +586,42 @@ class RoutesView extends StatelessWidget {
           network: (_) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const FaIcon(
-                    Icons.wifi_off,
-                    size: 48,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(
+                          child: Image.asset(
+                        "assets/pictures/server_down.png",
+                      )),
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Network Error',
-                    style: Theme.of(context).textTheme.headline6,
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "Network Error",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                 ],
               ),
           exception: (e) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const FaIcon(
-                    Icons.bug_report,
-                    size: 48,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(
+                          child: Image.asset(
+                        "assets/pictures/server_down.png",
+                      )),
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    e.exception.toString(),
-                    style: Theme.of(context).textTheme.headline6,
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      e.exception.toString(),
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                 ],
               ),
