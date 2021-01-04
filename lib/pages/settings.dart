@@ -60,29 +60,28 @@ class Settings extends StatelessWidget {
             ),
             _SectionTitle(title: Text("Font")),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Consumer(builder: (context, w, _) {
-                      final theme = w(dynamicTheme);
-                      return DropdownButton<Font>(
-                        value: theme.font,
-                        items: fonts
-                            .map((f) => DropdownMenuItem(
-                                  child: Text(f.name, style: f.textTheme().bodyText1),
-                                  value: f,
-                                ))
-                            .toList(),
-                        selectedItemBuilder: (context) =>
-                            fonts.map<Widget>((f) => Text(f.name)).toList(),
-                        onChanged: (f) => theme.font = f,
-                        isExpanded: true,
-                      );
-                    }),
-                  ),
-                  Spacer(flex: 3),
-                ],
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 300),
+                  child: Consumer(builder: (context, w, _) {
+                    final theme = w(dynamicTheme);
+                    return DropdownButton<Font>(
+                      value: theme.font,
+                      items: fonts
+                          .map((f) => DropdownMenuItem(
+                                child: Text(f.name, style: f.textTheme().bodyText1),
+                                value: f,
+                              ))
+                          .toList(),
+                      selectedItemBuilder: (context) =>
+                          fonts.map<Widget>((f) => Text(f.name)).toList(),
+                      onChanged: (f) => theme.font = f,
+                      isExpanded: true,
+                    );
+                  }),
+                ),
               ),
             ),
             _SectionTitle(title: Text(Strings.of(context).themes)),
