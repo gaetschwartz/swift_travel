@@ -13,8 +13,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
+import 'package:utils/blocs/theme/src/colorscheme.dart';
+import 'package:utils/blocs/theme/src/font.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 
 class Settings extends StatelessWidget {
@@ -54,6 +57,33 @@ class Settings extends StatelessWidget {
                   ],
                 );
               }),
+            ),
+            _SectionTitle(title: Text("Font")),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Consumer(builder: (context, w, _) {
+                      final theme = w(dynamicTheme);
+                      return DropdownButton<Font>(
+                        value: theme.font,
+                        items: fonts
+                            .map((f) => DropdownMenuItem(
+                                  child: Text(f.name, style: f.textTheme().bodyText1),
+                                  value: f,
+                                ))
+                            .toList(),
+                        selectedItemBuilder: (context) =>
+                            fonts.map<Widget>((f) => Text(f.name)).toList(),
+                        onChanged: (f) => theme.font = f,
+                        isExpanded: true,
+                      );
+                    }),
+                  ),
+                  Spacer(flex: 3),
+                ],
+              ),
             ),
             _SectionTitle(title: Text(Strings.of(context).themes)),
             const _ThemesSection(),
@@ -219,7 +249,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
               itemBuilder: (context, i) {
                 final FullTheme ft = list[i].value;
                 const BorderRadius radius = BorderRadius.all(Radius.circular(16));
-                final String fontFamily = ft.light.textTheme.headline6.fontFamily;
+
                 return Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8, bottom: 24),
                   child: SizedBox(
@@ -256,10 +286,8 @@ class __ThemesSectionState extends State<_ThemesSection> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   ft.name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(fontFamily: fontFamily),
+                                  style: Theme.of(context).textTheme.headline6,
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ],
@@ -281,7 +309,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
     );
   }
 
-  Widget buildColorRow(ThemeData d) {
+  Widget buildColorRow(SerializableColorScheme colorScheme) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ConstrainedBox(
@@ -295,7 +323,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
                 child: SizedBox.expand(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: d.primaryColor,
+                      color: colorScheme.primary,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -308,7 +336,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
                 child: SizedBox.expand(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: d.accentColor,
+                      color: colorScheme.secondary,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -321,7 +349,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
                 child: SizedBox.expand(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: d.cardColor,
+                      color: colorScheme.error,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -393,8 +421,8 @@ class _ModeWidget extends StatelessWidget {
       child: Builder(builder: (context) {
         final linearGradient =
             LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
-          theme.theme.light.cardColor,
-          theme.theme.dark.cardColor,
+          theme.theme.light.background,
+          theme.theme.dark.background,
         ], stops: const [
           0.5,
           0.5

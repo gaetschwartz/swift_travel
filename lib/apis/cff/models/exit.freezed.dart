@@ -21,13 +21,13 @@ class _$ExitTearOff {
       {DateTime arrival,
       String name,
       String stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       String sbbName,
       double lat,
       double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           int arrDelay}) {
     return _Exit(
       arrival: arrival,
@@ -57,13 +57,13 @@ mixin _$Exit {
   DateTime get arrival;
   String get name;
   String get stopid;
-  @JsonKey(name: "waittime", defaultValue: 0)
+  @JsonKey(name: 'waittime', defaultValue: 0)
   int get waitTime;
   bool get isaddress;
   String get sbbName;
   double get lat;
   double get lon;
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get arrDelay;
 
   Map<String, dynamic> toJson();
@@ -78,13 +78,13 @@ abstract class $ExitCopyWith<$Res> {
       {DateTime arrival,
       String name,
       String stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       String sbbName,
       double lat,
       double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           int arrDelay});
 }
 
@@ -131,13 +131,13 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
       {DateTime arrival,
       String name,
       String stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       String sbbName,
       double lat,
       double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           int arrDelay});
 }
 
@@ -184,13 +184,13 @@ class _$_Exit implements _Exit {
       {this.arrival,
       this.name,
       this.stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           this.waitTime,
       this.isaddress,
       this.sbbName,
       this.lat,
       this.lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           this.arrDelay});
 
   factory _$_Exit.fromJson(Map<String, dynamic> json) =>
@@ -203,7 +203,7 @@ class _$_Exit implements _Exit {
   @override
   final String stopid;
   @override
-  @JsonKey(name: "waittime", defaultValue: 0)
+  @JsonKey(name: 'waittime', defaultValue: 0)
   final int waitTime;
   @override
   final bool isaddress;
@@ -214,7 +214,7 @@ class _$_Exit implements _Exit {
   @override
   final double lon;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
   final int arrDelay;
 
   @override
@@ -279,13 +279,13 @@ abstract class _Exit implements Exit {
       {DateTime arrival,
       String name,
       String stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       String sbbName,
       double lat,
       double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           int arrDelay}) = _$_Exit;
 
   factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
@@ -297,7 +297,7 @@ abstract class _Exit implements Exit {
   @override
   String get stopid;
   @override
-  @JsonKey(name: "waittime", defaultValue: 0)
+  @JsonKey(name: 'waittime', defaultValue: 0)
   int get waitTime;
   @override
   bool get isaddress;
@@ -308,7 +308,7 @@ abstract class _Exit implements Exit {
   @override
   double get lon;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayFromJson)
+  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get arrDelay;
   @override
   _$ExitCopyWith<_Exit> get copyWith;

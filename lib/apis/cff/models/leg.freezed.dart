@@ -36,7 +36,7 @@ class _$LegTearOff {
       DateTime departure,
       DateTime arrival,
       int normalTime,
-      @JsonKey(name: "waittime")
+      @JsonKey(name: 'waittime')
           int waitTime,
       bool isaddress,
       double lat,
@@ -101,7 +101,7 @@ mixin _$Leg {
   DateTime get departure;
   DateTime get arrival;
   int get normalTime;
-  @JsonKey(name: "waittime")
+  @JsonKey(name: 'waittime')
   int get waitTime;
   bool get isaddress;
   double get lat;
@@ -137,7 +137,7 @@ abstract class $LegCopyWith<$Res> {
       DateTime departure,
       DateTime arrival,
       int normalTime,
-      @JsonKey(name: "waittime")
+      @JsonKey(name: 'waittime')
           int waitTime,
       bool isaddress,
       double lat,
@@ -249,7 +249,7 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       DateTime departure,
       DateTime arrival,
       int normalTime,
-      @JsonKey(name: "waittime")
+      @JsonKey(name: 'waittime')
           int waitTime,
       bool isaddress,
       double lat,
@@ -352,7 +352,7 @@ class _$_Leg implements _Leg {
       this.departure,
       this.arrival,
       this.normalTime,
-      @JsonKey(name: "waittime")
+      @JsonKey(name: 'waittime')
           this.waitTime,
       this.isaddress,
       this.lat,
@@ -402,7 +402,7 @@ class _$_Leg implements _Leg {
   @override
   final int normalTime;
   @override
-  @JsonKey(name: "waittime")
+  @JsonKey(name: 'waittime')
   final int waitTime;
   @override
   final bool isaddress;
@@ -543,7 +543,7 @@ abstract class _Leg implements Leg {
       DateTime departure,
       DateTime arrival,
       int normalTime,
-      @JsonKey(name: "waittime")
+      @JsonKey(name: 'waittime')
           int waitTime,
       bool isaddress,
       double lat,
@@ -590,7 +590,7 @@ abstract class _Leg implements Leg {
   @override
   int get normalTime;
   @override
-  @JsonKey(name: "waittime")
+  @JsonKey(name: 'waittime')
   int get waitTime;
   @override
   bool get isaddress;

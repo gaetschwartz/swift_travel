@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/all.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
+import 'package:utils/blocs/theme/src/colorscheme.dart';
 
 void main() {
   // This line enables the extension.
@@ -16,15 +17,11 @@ void main() {
       overrides: [
         dynamicTheme.overrideWithProvider(ChangeNotifierProvider((_) => DynamicTheme(
               ThemeConfiguration(
-                {
+                themes: {
                   'default': FullTheme(
                     name: 'Default theme',
-                    light: ThemeData(primarySwatch: Colors.red, primaryColor: Colors.red),
-                    dark: ThemeData(
-                      brightness: Brightness.dark,
-                      primarySwatch: Colors.red,
-                      primaryColor: Colors.red,
-                    ),
+                    light: SerializableColorScheme.light(),
+                    dark: SerializableColorScheme.dark(),
                     lightShadow: const ShadowTheme(
                       buttonShadow:
                           BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),

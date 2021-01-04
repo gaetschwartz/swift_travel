@@ -39,6 +39,6 @@ Map<String, dynamic> _$_$_ExitToJson(_$_Exit instance) {
   writeNotNull('sbbName', instance.sbbName);
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);
-  writeNotNull('arr_delay', delayFromJson(instance.arrDelay));
+  writeNotNull('arr_delay', delayToJson(instance.arrDelay));
   return val;
 }

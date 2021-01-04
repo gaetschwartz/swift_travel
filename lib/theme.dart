@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
+import 'package:utils/blocs/theme/src/colorscheme.dart';
+import 'package:utils/blocs/theme/src/font.dart';
 
 final MaterialColor purpleAbin = createMaterialColor(const Color(0xffcbaacb));
 final MaterialColor blueAbin = createMaterialColor(const Color(0xffabdee6));
@@ -17,106 +19,43 @@ const darkShadow = ShadowTheme(
   buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
 );
 
+final List<Font> fonts = [
+  Font("Muli", () => GoogleFonts.muliTextTheme(Typography.englishLike2018)),
+  Font("Lexend", () => GoogleFonts.lexendDecaTextTheme(Typography.englishLike2018)),
+  Font("Open Sans", () => GoogleFonts.openSansTextTheme(Typography.englishLike2018)),
+  Font("IBM Plex Mono", () => GoogleFonts.ibmPlexMonoTextTheme(Typography.englishLike2018)),
+  Font("Source Sans Pro", () => GoogleFonts.sourceSansProTextTheme(Typography.englishLike2018)),
+  Font("Cardo", () => GoogleFonts.cardoTextTheme(Typography.englishLike2018)),
+  Font("QuickSand", () => GoogleFonts.quicksandTextTheme(Typography.englishLike2018)),
+];
+
 ThemeConfiguration get themeConfiguration {
-  final String muli = GoogleFonts.muli().fontFamily;
-  return ThemeConfiguration({
-    'default': FullTheme(
-      name: 'Swift Travel',
-      light: ThemeData(
-        primarySwatch: redAccent,
-        fontFamily: muli,
-        appBarTheme: AppBarTheme(
-          color: Colors.white12,
-          elevation: 0,
-          titleTextStyle: TextStyle(color: Colors.black),
-          toolbarTextStyle: TextStyle(color: Colors.black),
-          textTheme: Typography.englishLike2018.apply(bodyColor: Colors.black, fontFamily: muli),
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
+  final light = ColorScheme.fromSwatch(
+    primarySwatch: createMaterialColor(Colors.white),
+    accentColor: Colors.red,
+  );
+  final dark = ColorScheme.dark();
+  return ThemeConfiguration(
+    themes: {
+      'default': FullTheme(
+        name: 'Swift Travel',
+        light: SerializableColorScheme.fromColorScheme(light),
+        dark: SerializableColorScheme.fromColorScheme(dark),
+        lightShadow: lightShadow,
+        darkShadow: darkShadow,
       ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: redAccent,
-        primaryColor: Colors.redAccent,
-        fontFamily: muli,
+      'abin': FullTheme(
+        name: 'Abin',
+        light: SerializableColorScheme.fromColorScheme(
+            ColorScheme.light(primary: purpleAbin, secondary: blueAbin)),
+        dark: SerializableColorScheme.fromColorScheme(
+            ColorScheme.dark(primary: purpleAbin, secondary: blueAbin)),
+        lightShadow: lightShadow,
+        darkShadow: darkShadow,
       ),
-      lightShadow: lightShadow,
-      darkShadow: darkShadow,
-    ),
-    'lexend': FullTheme(
-      name: 'Lexend',
-      light: ThemeData(
-        primarySwatch: redAccent,
-        fontFamily: GoogleFonts.lexendDeca().fontFamily,
-        appBarTheme: AppBarTheme(
-          color: Colors.white12,
-          elevation: 0,
-          titleTextStyle: TextStyle(color: Colors.black),
-          toolbarTextStyle: TextStyle(color: Colors.black),
-          textTheme: Typography.englishLike2018
-              .apply(bodyColor: Colors.black, fontFamily: GoogleFonts.lexendDeca().fontFamily),
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
-      ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: redAccent,
-        primaryColor: Colors.redAccent,
-        fontFamily: GoogleFonts.lexendDeca().fontFamily,
-      ),
-      lightShadow: lightShadow,
-      darkShadow: darkShadow,
-    ),
-    'abin': FullTheme(
-      name: 'Abin',
-      light: ThemeData(
-        primarySwatch: purpleAbin,
-        accentColor: blueAbin,
-        fontFamily: GoogleFonts.cardo().fontFamily,
-      ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: purpleAbin,
-        primarySwatch: purpleAbin,
-        accentColor: blueAbin,
-        fontFamily: GoogleFonts.cardo().fontFamily,
-      ),
-      lightShadow: lightShadow,
-      darkShadow: darkShadow,
-    ),
-    'code': FullTheme(
-      name: 'Code',
-      light: ThemeData(
-        primarySwatch: Colors.indigo,
-        accentColor: Colors.indigoAccent,
-        fontFamily: GoogleFonts.ibmPlexMono().fontFamily,
-      ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.indigo,
-        accentColor: Colors.indigoAccent,
-        fontFamily: GoogleFonts.ibmPlexMono().fontFamily,
-      ),
-      lightShadow: lightShadow,
-      darkShadow: darkShadow,
-    ),
-    'quicksand': FullTheme(
-      name: 'Quicksand',
-      light: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.purpleAccent,
-        fontFamily: GoogleFonts.quicksand().fontFamily,
-      ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.purple,
-        accentColor: Colors.purpleAccent,
-        fontFamily: GoogleFonts.quicksand().fontFamily,
-      ),
-      lightShadow: lightShadow,
-      darkShadow: darkShadow,
-    ),
-  });
+    },
+    fonts: fonts,
+  );
 }
 
 /// Utility method to create a material color from any given
