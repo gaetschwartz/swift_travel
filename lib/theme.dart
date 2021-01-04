@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
@@ -23,6 +25,14 @@ ThemeConfiguration get themeConfiguration {
       light: ThemeData(
         primarySwatch: redAccent,
         fontFamily: muli,
+        appBarTheme: AppBarTheme(
+          color: Colors.white12,
+          elevation: 0,
+          titleTextStyle: TextStyle(color: Colors.black),
+          toolbarTextStyle: TextStyle(color: Colors.black),
+          textTheme: Typography.englishLike2018.apply(bodyColor: Colors.black, fontFamily: muli),
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
       ),
       dark: ThemeData(
         brightness: Brightness.dark,
@@ -38,6 +48,15 @@ ThemeConfiguration get themeConfiguration {
       light: ThemeData(
         primarySwatch: redAccent,
         fontFamily: GoogleFonts.lexendDeca().fontFamily,
+        appBarTheme: AppBarTheme(
+          color: Colors.white12,
+          elevation: 0,
+          titleTextStyle: TextStyle(color: Colors.black),
+          toolbarTextStyle: TextStyle(color: Colors.black),
+          textTheme: Typography.englishLike2018
+              .apply(bodyColor: Colors.black, fontFamily: GoogleFonts.lexendDeca().fontFamily),
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
       ),
       dark: ThemeData(
         brightness: Brightness.dark,

@@ -25,6 +25,7 @@ import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/page.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
@@ -106,17 +107,6 @@ class Fetcher extends ChangeNotifier {
       state = RouteStates.exception(e);
       report(e, e.stackTrace, name: 'Fetch');
     }
-  }
-}
-
-class MyPage extends Page {
-  final Widget child;
-
-  const MyPage(this.child, {String name = 'myPage'}) : super(name: name);
-
-  @override
-  Route createRoute(BuildContext context) {
-    return PageRouteBuilder(pageBuilder: (context, a1, a2) => child, settings: this);
   }
 }
 
