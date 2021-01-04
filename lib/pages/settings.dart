@@ -19,6 +19,7 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/blocs/theme/src/colorscheme.dart';
 import 'package:utils/blocs/theme/src/font.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
+import 'package:vibration/vibration.dart';
 
 class Settings extends StatelessWidget {
   const Settings();
@@ -77,7 +78,10 @@ class Settings extends StatelessWidget {
                           .toList(),
                       selectedItemBuilder: (context) =>
                           fonts.map<Widget>((f) => Text(f.name)).toList(),
-                      onChanged: (f) => theme.font = f,
+                      onChanged: (f) {
+                        Vibration.select();
+                        theme.font = f;
+                      },
                       isExpanded: true,
                     );
                   }),
@@ -265,7 +269,10 @@ class __ThemesSectionState extends State<_ThemesSection> {
                       child: InkWell(
                         hoverColor: Theme.of(context).accentColor.withOpacity(0.2),
                         borderRadius: radius,
-                        onTap: () => theme.name = list[i].key,
+                        onTap: () {
+                          Vibration.select();
+                          theme.name = list[i].key;
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(

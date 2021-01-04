@@ -50,7 +50,6 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   final TextEditingController searchController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   Timer _debouncer;
-  bool _hasFocus = false;
 
   @override
   void initState() {
@@ -60,12 +59,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
   // ignore: avoid_positional_boolean_parameters
   void onFocusChanged() {
-    if (mounted) {
-      setState(() => _hasFocus = focusNode.hasFocus);
-    }
-    if (focusNode.hasFocus) {
-      Vibration.select();
-    }
+    if (focusNode.hasFocus) Vibration.select();
   }
 
   @override
@@ -108,7 +102,6 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                             isDense: true,
                             prefixIcon: Icon(
                               Icons.search,
-                              color: _hasFocus ? Colors.grey : Colors.black,
                             ),
                             hintText: Strings.of(context).search_station,
                             border: const OutlineInputBorder(
