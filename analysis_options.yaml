@@ -6,6 +6,7 @@ analyzer:
     #- lib/generated/l10n.dart
     - "**/*.g.dart"
     - "**/*.freezed.dart"
+    - "dependencies/**"
   errors:
     sort_pub_dependencies: ignore
 
