@@ -101,6 +101,7 @@ class CffCompletionTile extends ConsumerWidget {
         duration: Duration(milliseconds: 200),
         expand: false,
         backgroundColor: Colors.transparent,
+        useRootNavigator: true,
         builder: (context) => Material(
                 child: SafeArea(
               top: false,
