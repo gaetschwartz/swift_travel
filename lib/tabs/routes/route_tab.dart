@@ -227,19 +227,6 @@ class _SearchRouteState extends State<SearchRoute> {
               automaticallyImplyLeading: false,
             )
           : swiftTravelAppBar(context),
-      floatingActionButton: kReleaseMode
-          ? null
-          : FloatingActionButton(
-              onPressed: () {
-                unFocusFields();
-                _fromController.text = 'Université de Genève, Genève, Rue du Général-Dufour 24';
-                _toController.text = 'Badenerstrasse 549, 8048 Zürich';
-                context.read(_fromTextfieldProvider).state =
-                    RouteTextfieldState.text(_fromController.text);
-                context.read(_toTextfieldProvider).state =
-                    RouteTextfieldState.text(_toController.text);
-              },
-              child: const Icon(Icons.bug_report)),
       body: Column(
         children: <Widget>[
           Row(
@@ -327,6 +314,18 @@ class _SearchRouteState extends State<SearchRoute> {
                     child: Tooltip(
                       message: 'Change date and time',
                       child: TextButton(
+                        onLongPress: kDebugMode
+                            ? () {
+                                unFocusFields();
+                                _fromController.text =
+                                    'Université de Genève, Genève, Rue du Général-Dufour 24';
+                                _toController.text = 'Badenerstrasse 549, 8048 Zürich';
+                                context.read(_fromTextfieldProvider).state =
+                                    RouteTextfieldState.text(_fromController.text);
+                                context.read(_toTextfieldProvider).state =
+                                    RouteTextfieldState.text(_toController.text);
+                              }
+                            : null,
                         style: TextButton.styleFrom(
                             shape: const StadiumBorder(),
                             primary: Theme.of(context).textTheme.button.color),
