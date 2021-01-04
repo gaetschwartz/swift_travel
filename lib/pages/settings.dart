@@ -58,7 +58,7 @@ class Settings extends StatelessWidget {
                 );
               }),
             ),
-            _SectionTitle(title: Text("Font")),
+            _SectionTitle(title: Text(Strings.of(context).font)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Align(

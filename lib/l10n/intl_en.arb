@@ -42,5 +42,6 @@
 	"done": "Done",
 	"delete_fav": "Delete favourite ?",
 	"current_location": "Current location",
-	"close": "Close"
+	"close": "Close",
+	"font": "Font"
 }

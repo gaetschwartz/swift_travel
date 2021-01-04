@@ -42,5 +42,6 @@
 	"done": "Erledigt",
 	"delete_fav": "Favorit löschen?",
 	"current_location": "Aktueller Standort",
-	"close": "Schließen"
+	"close": "Schließen",
+	"font": "Schriftart"
 }
