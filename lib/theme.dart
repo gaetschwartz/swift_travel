@@ -40,6 +40,7 @@ ThemeConfiguration get themeConfiguration {
       'default': FullTheme(
         name: 'Swift Travel',
         light: SerializableColorScheme.fromColorScheme(light),
+        copyLight: (theme) => theme.copyWith(appBarTheme: theme.appBarTheme.copyWith(elevation: 0)),
         dark: SerializableColorScheme.fromColorScheme(dark),
         lightShadow: lightShadow,
         darkShadow: darkShadow,
