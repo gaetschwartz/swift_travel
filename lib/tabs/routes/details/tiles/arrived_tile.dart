@@ -38,15 +38,15 @@ class ArrivedTile extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .copyWith(fontWeight: FontWeight.bold)
-                            .apply(fontSizeFactor: 1.2)),
+                            .copyWith(fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
               Text.rich(parseDecoratedText(
-                  Strings.of(context).youll_be_there(Format.time(l.arrival)),
-                  Theme.of(context).textTheme.subtitle2)),
+                Strings.of(context).youll_be_there(Format.time(l.arrival)),
+                Theme.of(context).textTheme.subtitle2,
+              )),
             ],
           ),
         ),
