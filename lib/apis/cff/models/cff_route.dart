@@ -12,6 +12,7 @@ abstract class CffRoute with _$CffRoute {
     @JsonKey(name: 'min_duration') double minDuration,
     @JsonKey(name: 'max_duration') double maxDuration,
     @Default([]) List<RouteConnection> connections,
+    @Default([]) List<String> messages,
     String requestUrl,
   }) = _CffRoute;
 

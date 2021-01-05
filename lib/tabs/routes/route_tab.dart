@@ -581,7 +581,11 @@ class RoutesView extends StatelessWidget {
                         i: i,
                       ))
               : Center(
-                  child: Text("Couldn't find any routes :("),
+                  child: Text(
+                    data.routes.messages.join("\n"),
+                    style: Theme.of(context).textTheme.headline6,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
           network: (_) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
