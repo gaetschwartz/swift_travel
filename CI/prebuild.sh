@@ -4,7 +4,7 @@ set -e
 hash=$([[ $BITRISE_IO ]] && echo $GIT_CLONE_COMMIT_HASH || echo $GIT_HASH)
 msg=$([[ $BITRISE_IO ]] && echo $BITRISE_GIT_MESSAGE || echo $GIT_MSG)
 count=$([[ $BITRISE_IO ]] && echo $GIT_CLONE_COMMIT_COUNT || echo $COMMIT_COUNT)
-now=$(date +"%H:%M:%S - %A %d %B %Y")
+now=$(date +"%A %d %B %Y - %H:%M:%S")
 
 cat > lib/constants/build.dart <<- EOM
 const String commitBuildDate = "${now}";
