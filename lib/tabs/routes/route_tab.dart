@@ -133,6 +133,20 @@ class _RouteSearchTabState extends State<RouteSearchTab> with AutomaticKeepAlive
   bool get wantKeepAlive => true;
 }
 
+class MyTextFormatter extends TextInputFormatter {
+  final String currentLocation;
+
+  MyTextFormatter(this.currentLocation);
+
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    if (oldValue.text == currentLocation) {
+      return TextEditingValue.empty;
+    } else
+      return newValue;
+  }
+}
+
 class SearchRoute extends StatefulWidget {
   final LocalRoute localRoute;
   final FavoriteStop favStop;
@@ -159,6 +173,7 @@ class _SearchRouteState extends State<SearchRoute> {
   final FocusNode fnTo = FocusNode();
   final TextEditingController _fromController = TextEditingController();
   final TextEditingController _toController = TextEditingController();
+  MyTextFormatter inputFormatter;
   FavoritesSharedPreferencesStore _store;
 
   @override
@@ -175,6 +190,12 @@ class _SearchRouteState extends State<SearchRoute> {
 
     fnFrom.addListener(_onFocusFromChanged);
     fnTo.addListener(_onFocusToChanged);
+  }
+
+  @override
+  void didChangeDependencies() {
+    inputFormatter = MyTextFormatter(Strings.of(context).current_location);
+    super.didChangeDependencies();
   }
 
   void _onFocusToChanged() {
@@ -384,10 +405,6 @@ class _SearchRouteState extends State<SearchRoute> {
                       Vibration.select();
                       unFocusFields();
                       context.read(_dateProvider).state = DateTime.now();
-                      context.read(_fromTextfieldProvider).state =
-                          RouteTextfieldState.text(_fromController.text);
-                      context.read(_toTextfieldProvider).state =
-                          RouteTextfieldState.text(_toController.text);
                     },
                     icon: const Icon(Icons.restore),
                   ),
@@ -420,9 +437,16 @@ class _SearchRouteState extends State<SearchRoute> {
               key: const Key('route-first-textfield-key'),
               debounceDuration: const Duration(milliseconds: 500),
               textFieldConfiguration: TextFieldConfiguration(
+                inputFormatters: [inputFormatter],
                 focusNode: fnFrom,
                 controller: _fromController,
-                onSubmitted: (_) => fnTo.requestFocus(),
+                onSubmitted: (_) {
+                  fnTo.requestFocus();
+                  if (_fromController.text != currentLocationString) {
+                    context.read(_fromTextfieldProvider).state =
+                        RouteTextfieldState.text(_fromController.text);
+                  }
+                },
                 textInputAction: TextInputAction.next,
                 style: Theme.of(context).textTheme.bodyText1,
                 decoration: InputDecoration(
@@ -490,9 +514,16 @@ class _SearchRouteState extends State<SearchRoute> {
               key: const Key('route-second-textfield-key'),
               debounceDuration: const Duration(milliseconds: 500),
               textFieldConfiguration: TextFieldConfiguration(
+                inputFormatters: [inputFormatter],
                 textInputAction: TextInputAction.search,
                 focusNode: fnTo,
-                onSubmitted: (_) => unFocusFields(),
+                onSubmitted: (_) {
+                  unFocusFields();
+                  if (_toController.text != currentLocationString) {
+                    context.read(_toTextfieldProvider).state =
+                        RouteTextfieldState.text(_toController.text);
+                  }
+                },
                 controller: _toController,
                 style: Theme.of(context).textTheme.bodyText1,
                 decoration: InputDecoration(
