@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
@@ -30,9 +31,11 @@ final List<Font> fonts = [
 ];
 
 ThemeConfiguration get themeConfiguration {
-  final light = ColorScheme.fromSwatch(
-    primarySwatch: createMaterialColor(Colors.white),
-    accentColor: Colors.red,
+  final light = ColorScheme.light(
+    onPrimary: Colors.black,
+    primary: Colors.white,
+    secondary: Colors.redAccent,
+    onSecondary: Colors.white,
   );
   final dark = ColorScheme.dark();
   return ThemeConfiguration(
@@ -41,9 +44,11 @@ ThemeConfiguration get themeConfiguration {
         name: 'Swift Travel',
         light: SerializableColorScheme.fromColorScheme(light),
         copyLight: (theme) => theme.copyWith(
-            appBarTheme: theme.appBarTheme.copyWith(elevation: 0),
-            bottomNavigationBarTheme:
-                theme.bottomNavigationBarTheme.copyWith(selectedItemColor: Colors.red)),
+          appBarTheme: theme.appBarTheme.copyWith(elevation: 0),
+          bottomNavigationBarTheme:
+              theme.bottomNavigationBarTheme.copyWith(selectedItemColor: light.secondary),
+          cupertinoOverrideTheme: CupertinoThemeData(textTheme: CupertinoTextThemeData()),
+        ),
         dark: SerializableColorScheme.fromColorScheme(dark),
         lightShadow: lightShadow,
         darkShadow: darkShadow,

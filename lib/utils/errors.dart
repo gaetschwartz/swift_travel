@@ -12,7 +12,6 @@ void report(Object e, StackTrace s,
   }
   if (showSnackbar && (!kDebugMode || bool.fromEnvironment("DO_SHOW_ERRORS"))) {
     Vibration.error();
-
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text('$e'),
       action: SnackBarAction(

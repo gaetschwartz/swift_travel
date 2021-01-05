@@ -58,7 +58,7 @@ Future<void> main() async {
     log('We are on mobile ($platform)');
     await Firebase.initializeApp();
     FlutterError.onError = reportFlutterError;
-    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
+    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode);
     runZonedGuarded<Future<void>>(() async => _runApp(), FirebaseCrashlytics.instance.recordError);
   } else {
     log('We are not on mobile ($platform)');

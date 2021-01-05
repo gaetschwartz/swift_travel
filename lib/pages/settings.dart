@@ -455,16 +455,22 @@ class _ModeWidget extends StatelessWidget {
                 child: Center(
                   child: mode == ThemeMode.system
                       ? ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(4)),
+                          borderRadius: const BorderRadius.all(Radius.circular(8)),
                           child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-                              child: Text(label,
+                            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                            child: Container(
+                              color: Colors.white30,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 4),
+                                child: Text(
+                                  label,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline6
-                                      .copyWith(color: Colors.black)),
+                                      .copyWith(color: Colors.black),
+                                ),
+                              ),
                             ),
                           ),
                         )
