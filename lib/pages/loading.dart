@@ -14,6 +14,7 @@ import 'package:swift_travel/blocs/quick_actions.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 
@@ -31,7 +32,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   void initState() {
     super.initState();
 
-    if (const String.fromEnvironment('PAGE') != 'loading') {
+    if (Env.page != 'loading') {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) => init());
     }
 
@@ -97,7 +98,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   Future<void> initSettings(SharedPreferences prefs) async {
-    if (const bool.fromEnvironment('CORRUPT')) {
+    if (Env.corruptedFavorites) {
       await prefs.setStringList(FavoritesSharedPreferencesStore.routesKey, ['[', '}']);
     }
 
@@ -139,8 +140,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   void route() {
-    const String page = String.fromEnvironment('PAGE');
-    log(page);
-    Navigator.of(context).pushReplacementNamed(page.isEmpty ? "/" : page);
+    log(Env.page);
+    Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? "/" : Env.page);
   }
 }

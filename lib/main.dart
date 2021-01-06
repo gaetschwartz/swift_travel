@@ -29,6 +29,7 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 
@@ -47,7 +48,7 @@ const debugPlatformMap = {
 };
 
 Future<void> main() async {
-  if (const bool.fromEnvironment('OVERRIDE_PLATFORM')) {
+  if (Env.overridePlatform) {
     final TargetPlatform platform = debugPlatformMap[defaultTargetPlatform];
     log('Overriding $defaultTargetPlatform by $platform');
     debugDefaultTargetPlatformOverride = platform;

@@ -3,6 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/main.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:vibration/vibration.dart';
 
 void report(Object e, StackTrace s,
@@ -10,7 +11,7 @@ void report(Object e, StackTrace s,
   if (kDebugMode) {
     debugPrintStack(stackTrace: s, label: '[$name] $e $reason');
   }
-  if (showSnackbar && (!kDebugMode || bool.fromEnvironment("DO_SHOW_ERRORS"))) {
+  if (showSnackbar && (!kDebugMode || Env.doShowErrors)) {
     Vibration.error();
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text('$e'),
@@ -38,7 +39,7 @@ void reportFlutterError(FlutterErrorDetails details) {
   if (kDebugMode) {
     debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
   }
-  if (!kDebugMode || bool.fromEnvironment("DO_SHOW_ERRORS")) {
+  if (!kDebugMode || Env.doShowErrors) {
     Vibration.error();
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text(details.exception.toString()),
