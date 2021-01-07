@@ -21,7 +21,7 @@ class FavoriteStationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: const Icon(FontAwesomeIcons.solidStar),
-      onTap: () => Navigator.of(context).pushNamed("/route", arguments: stop),
+      onTap: () => Navigator.of(context, rootNavigator: true).pushNamed("/route", arguments: stop),
       onLongPress: () => edit(context),
       trailing: IconButton(icon: const Icon(CupertinoIcons.pencil), onPressed: () => edit(context)),
       title: Text(stop.name),

@@ -579,7 +579,8 @@ class TeamPage extends StatelessWidget {
         title: Text(Strings.of(context).our_team),
         actions: [
           TextButton(
-            style: TextButton.styleFrom(enableFeedback: true),
+            style: TextButton.styleFrom(
+                enableFeedback: true, padding: EdgeInsets.symmetric(horizontal: 8)),
             onPressed: () =>
                 showLicensePage(context: context, applicationIcon: const FlutterLogo()),
             child: Text(

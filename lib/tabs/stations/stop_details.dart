@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
@@ -105,7 +107,8 @@ class ConnectionTile extends StatelessWidget {
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      onTap: () => Navigator.of(context).pushNamed("/nextStop", arguments: c),
+      onTap: () => Navigator.of(context)
+          .push(MaterialWithModalsPageRoute(builder: (_) => NextStopsPage(connection: c))),
       title: Row(
         children: [
           if (i != -1)

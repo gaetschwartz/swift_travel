@@ -53,7 +53,7 @@ class _StopInputDialogState extends State<StopInputDialog> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TypeAheadField(
-            textFieldConfiguration: TextFieldConfiguration<void>(
+            textFieldConfiguration: TextFieldConfiguration(
               onSubmitted: (_) => submit(context),
               focusNode: node,
               controller: _controller,

@@ -6,6 +6,7 @@ import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';
+import 'package:swift_travel/utils/page.dart';
 import 'package:utils/widgets/responsive.dart';
 import 'package:vibration/vibration.dart';
 
@@ -48,8 +49,12 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
         return BottomNavigationBar(
           onTap: (i) {
             Vibration.selectSoft();
-            _pageController.animateToPage(i,
-                curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
+            if (_pageController.page != i) {
+              _pageController.animateToPage(i,
+                  curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
+            } else if (navigatorKeys[i] != null) {
+              navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
+            }
           },
           currentIndex: w(_tabProvider).state,
           items: [
@@ -84,15 +89,26 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       }),
       body: PageView(
         controller: _pageController,
-        children: const [
-          StationsTab(),
-          RouteSearchTab(),
-          FavoritesTab(),
+        children: [
+          for (var i = 0; i < children.length; i++)
+            Navigator(
+              key: navigatorKeys[i],
+              pages: [SinglePageNavigator(children[i])],
+              onPopPage: (_, __) => false,
+            )
         ],
       ),
     );
   }
+
+  final children = [
+    StationsTab(),
+    RouteSearchTab(),
+    FavoritesTab(),
+  ];
 }
+
+final navigatorKeys = <GlobalKey<NavigatorState>>[GlobalKey(), GlobalKey(), null];
 
 AppBar swiftTravelAppBar(BuildContext context, {bool isDarwin = true}) {
   return AppBar(

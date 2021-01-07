@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MyPage extends Page {
+class SinglePageNavigator extends Page {
   final Widget child;
 
-  const MyPage(this.child, {String name = 'myPage'}) : super(name: name);
+  const SinglePageNavigator(this.child, {String name = 'myPage'}) : super(name: name);
 
   @override
   Route createRoute(BuildContext context) {

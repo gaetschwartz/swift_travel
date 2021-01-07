@@ -17,7 +17,6 @@ import 'package:swift_travel/models/station_states.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
-import 'package:swift_travel/utils/page.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:utils/widgets/responsive.dart';
 import 'package:vibration/vibration.dart';
@@ -28,15 +27,22 @@ final _stateProvider = StateProvider<StationStates>((_) => const StationStates.e
 final _locatingProvider = StateProvider((_) => false);
 final _loadingProvider = StateProvider((_) => false);
 
-class StationsTab extends StatelessWidget {
+class StationsTab extends StatefulWidget {
   const StationsTab();
+
+  @override
+  _StationsTabState createState() => _StationsTabState();
+}
+
+class _StationsTabState extends State<StationsTab> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      pages: const [MyPage(_StationsTabWidget())],
-      onPopPage: (_, __) => false,
-    );
+    super.build(context);
+    return _StationsTabWidget();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _StationsTabWidget extends StatefulWidget {

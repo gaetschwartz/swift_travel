@@ -25,7 +25,6 @@ import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/page.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
@@ -123,10 +122,7 @@ class _RouteSearchTabState extends State<RouteSearchTab> with AutomaticKeepAlive
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Navigator(
-      pages: const [MyPage(SearchRoute())],
-      onPopPage: (_, __) => false,
-    );
+    return SearchRoute();
   }
 
   @override
@@ -625,8 +621,9 @@ class RoutesView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Center(
-                          child: Image.asset(
-                        "assets/pictures/server_down.png",
+                          child: Text(
+                        "😢",
+                        style: TextStyle(fontSize: 96),
                       )),
                     ),
                   ),
@@ -646,8 +643,9 @@ class RoutesView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Center(
-                          child: Image.asset(
-                        "assets/pictures/server_down.png",
+                          child: Text(
+                        "😢",
+                        style: TextStyle(fontSize: 96),
                       )),
                     ),
                   ),
