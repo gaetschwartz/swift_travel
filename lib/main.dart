@@ -53,6 +53,7 @@ Future<void> main() async {
     log('Overriding $defaultTargetPlatform by $platform');
     debugDefaultTargetPlatformOverride = platform;
   }
+  print(Env.doShowErrors);
   WidgetsFlutterBinding.ensureInitialized();
 
   if (isMobile) {
@@ -60,7 +61,7 @@ Future<void> main() async {
     await Firebase.initializeApp();
     FlutterError.onError = reportFlutterError;
     FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode);
-    runZonedGuarded<Future<void>>(() async => _runApp(), FirebaseCrashlytics.instance.recordError);
+    runZonedGuarded(_runApp, reportDartError);
   } else {
     log('We are not on mobile ($platform)');
     _runApp();
@@ -160,11 +161,12 @@ class _MyAppState extends State<MyApp> {
             builder: (_) =>
                 NextStopsPage(connection: settings.arguments as StationboardConnection));
       case "/error":
+      case "error":
         return MaterialWithModalsPageRoute(
             settings: settings,
             builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails));
     }
-    report("Unknown page : `${settings.name}`", StackTrace.current,
+    reportDartError("Unknown page : `${settings.name}`", StackTrace.current,
         name: "router", reason: "while trying to route", showSnackbar: false);
     return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
   }

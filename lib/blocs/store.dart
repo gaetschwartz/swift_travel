@@ -65,7 +65,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         final fs = FavoriteStop.fromJson(decode);
         favStops.add(fs);
       } on FormatException catch (e, s) {
-        report(e, s, name: 'Store', reason: 'Error while trying to decode stop');
+        reportDartError(e, s, name: 'Store', reason: 'Error while trying to decode stop');
       }
     }
     _stops.clear();
@@ -82,7 +82,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
         final r = LocalRoute.fromJson(decode);
         _routes.add(r);
       } on FormatException catch (e, s) {
-        report(e, s, name: 'Store', reason: 'Error while trying to decode route');
+        reportDartError(e, s, name: 'Store', reason: 'Error while trying to decode route');
       }
     }
 
@@ -134,7 +134,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       try {
         stops.add(jsonEncode(e.toJson()));
       } on FormatException catch (e, s) {
-        report(e, s, reason: 'Error while trying to encode stop', name: 'Store');
+        reportDartError(e, s, reason: 'Error while trying to encode stop', name: 'Store');
       }
     }
     await _prefs.setStringList(stopsKey, stops);
@@ -144,7 +144,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       try {
         routes.add(jsonEncode(e.toJson()));
       } on FormatException catch (e, s) {
-        report(e, s, reason: 'Error while trying to encode route', name: 'Store');
+        reportDartError(e, s, reason: 'Error while trying to encode route', name: 'Store');
       }
     }
     await _prefs.setStringList(routesKey, routes);

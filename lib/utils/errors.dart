@@ -2,12 +2,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:vibration/vibration.dart';
 
-void report(Object e, StackTrace s,
+void reportDartError(Object e, StackTrace s,
     {String name = '', String reason = '', bool showSnackbar = true}) {
+  print("Dart error : ${Env.doShowErrors}");
+
   if (kDebugMode) {
     debugPrintStack(stackTrace: s, label: '[$name] $e $reason');
   }
@@ -17,15 +21,13 @@ void report(Object e, StackTrace s,
       content: Text('$e'),
       action: SnackBarAction(
         label: 'Details',
-        onPressed: () => navigatorKey.currentState.pushNamed(
-          "error",
-          arguments: FlutterErrorDetails(
-            exception: e,
-            stack: s,
-            context: ErrorDescription(reason),
-            library: name,
-          ),
-        ),
+        onPressed: () => navigatorKey.currentState.push(MaterialWithModalsPageRoute(
+            builder: (_) => ErrorPage(FlutterErrorDetails(
+                  exception: e,
+                  stack: s,
+                  context: ErrorDescription(reason),
+                  library: name,
+                )))),
       ),
     ));
   }
@@ -36,6 +38,7 @@ void report(Object e, StackTrace s,
 }
 
 void reportFlutterError(FlutterErrorDetails details) {
+  print("Flutter error : ${Env.doShowErrors}");
   if (kDebugMode) {
     debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
   }
@@ -45,14 +48,15 @@ void reportFlutterError(FlutterErrorDetails details) {
       content: Text(details.exception.toString()),
       action: SnackBarAction(
         label: 'Details',
-        onPressed: () => navigatorKey.currentState.pushNamed("error", arguments: details),
+        onPressed: () => navigatorKey.currentState
+            .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details))),
       ),
     ));
   }
   if (Firebase.apps.isNotEmpty) FirebaseCrashlytics.instance.recordFlutterError(details);
 }
 
-class ErrorPage extends StatelessWidget {
+class ErrorPage extends StatefulWidget {
   const ErrorPage(
     this.details, {
     Key key,
@@ -61,10 +65,29 @@ class ErrorPage extends StatelessWidget {
   final FlutterErrorDetails details;
 
   @override
+  _ErrorPageState createState() => _ErrorPageState();
+}
+
+class _ErrorPageState extends State<ErrorPage> {
+  bool _wrapped = true;
+
+  @override
   Widget build(BuildContext context) {
+    final text = Text(
+      widget.details.stack.toString(),
+      style: Theme.of(context)
+          .textTheme
+          .bodyText2
+          .copyWith(fontFamily: GoogleFonts.firaCode().fontFamily, fontSize: 12),
+    );
     return Scaffold(
       appBar: AppBar(
-        title: Text(details.library ?? "Unknown library"),
+        title: Text(widget.details.library ?? "Unknown library"),
+        actions: [
+          IconButton(
+              icon: _wrapped ? Icon(Icons.wrap_text) : Icon(Icons.wrap_text_outlined),
+              onPressed: () => setState(() => _wrapped = !_wrapped))
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -76,9 +99,9 @@ class ErrorPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text.rich(
-              TextSpan(text: '${details.exception} ', children: [
+              TextSpan(text: '${widget.details.exception} ', children: [
                 TextSpan(
-                  text: details.context.toDescription(),
+                  text: widget.details.context.toDescription(),
                   style: const TextStyle(fontWeight: FontWeight.normal),
                 ),
               ]),
@@ -86,13 +109,16 @@ class ErrorPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Card(
-                margin: EdgeInsets.zero,
+                margin: EdgeInsets.all(4),
+                color: Colors.grey[100],
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    details.stack.toString(),
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
+                  child: _wrapped
+                      ? text
+                      : SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: text,
+                        ),
                 )),
           ],
         ),

@@ -33,7 +33,7 @@ class LocationRepository {
           );
           return p;
         } on Exception catch (e, s) {
-          report(e, s);
+          reportDartError(e, s);
           return null;
         }
       } else {

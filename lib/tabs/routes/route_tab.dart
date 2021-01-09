@@ -102,11 +102,11 @@ class Fetcher extends ChangeNotifier {
       state = RouteStates.exception(e);
     } on Exception catch (e, s) {
       state = RouteStates.exception(e);
-      report(e, s, name: 'Fetch');
+      reportDartError(e, s, name: 'Fetch');
       // ignore: avoid_catching_errors
     } on Error catch (e) {
       state = RouteStates.exception(e);
-      report(e, e.stackTrace, name: 'Fetch');
+      reportDartError(e, e.stackTrace, name: 'Fetch');
     }
   }
 }
