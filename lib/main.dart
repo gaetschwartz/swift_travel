@@ -107,10 +107,17 @@ class _MyAppState extends State<MyApp> {
           builder: (context, child) => LocalizationAwareWidget(child: child),
           supportedLocales: Strings.delegate.supportedLocales,
           onGenerateRoute: onGenerateRoute,
+          onUnknownRoute: onUnknownRoute,
           initialRoute: "loading",
         );
       }),
     );
+  }
+
+  Route onUnknownRoute(RouteSettings settings) {
+    reportDartError("Unknown page : `${settings.name}`", StackTrace.current,
+        name: "router", reason: "while trying to route", showSnackbar: false);
+    return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
   }
 
   Route onGenerateRoute(RouteSettings settings) {
@@ -166,9 +173,7 @@ class _MyAppState extends State<MyApp> {
             settings: settings,
             builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails));
     }
-    reportDartError("Unknown page : `${settings.name}`", StackTrace.current,
-        name: "router", reason: "while trying to route", showSnackbar: false);
-    return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
+    return null;
   }
 }
 

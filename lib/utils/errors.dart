@@ -10,8 +10,6 @@ import 'package:vibration/vibration.dart';
 
 void reportDartError(Object e, StackTrace s,
     {String name = '', String reason = '', bool showSnackbar = true}) {
-  print("Dart error : ${Env.doShowErrors}");
-
   if (kDebugMode) {
     debugPrintStack(stackTrace: s, label: '[$name] $e $reason');
   }
@@ -38,7 +36,6 @@ void reportDartError(Object e, StackTrace s,
 }
 
 void reportFlutterError(FlutterErrorDetails details) {
-  print("Flutter error : ${Env.doShowErrors}");
   if (kDebugMode) {
     debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
   }
