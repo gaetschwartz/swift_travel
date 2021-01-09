@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,7 +12,7 @@ class PageNotFound extends StatefulWidget {
 }
 
 class _PageNotFoundState extends State<PageNotFound> {
-  bool _wrapped = false;
+  bool _wrapped = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +20,7 @@ class _PageNotFoundState extends State<PageNotFound> {
         title: Text("Page not found"),
         actions: [
           IconButton(
-              icon: _wrapped ? Icon(Icons.wrap_text) : Icon(Icons.wrap_text_outlined),
+              icon: _wrapped ? Icon(Icons.wrap_text) : Icon(CupertinoIcons.text_badge_checkmark),
               onPressed: () => setState(() => _wrapped = !_wrapped))
         ],
       ),
@@ -59,7 +60,7 @@ class _DataWidget extends StatelessWidget {
     this.name,
     this.value, {
     Key key,
-    this.wrapped = false,
+    this.wrapped = true,
   }) : super(key: key);
 
   final String name;

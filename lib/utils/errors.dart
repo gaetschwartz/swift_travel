@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -82,7 +83,7 @@ class _ErrorPageState extends State<ErrorPage> {
         title: Text(widget.details.library ?? "Unknown library"),
         actions: [
           IconButton(
-              icon: _wrapped ? Icon(Icons.wrap_text) : Icon(Icons.wrap_text_outlined),
+              icon: _wrapped ? Icon(Icons.wrap_text) : Icon(CupertinoIcons.text_badge_checkmark),
               onPressed: () => setState(() => _wrapped = !_wrapped))
         ],
       ),
