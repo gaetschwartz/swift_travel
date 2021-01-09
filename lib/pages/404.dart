@@ -18,6 +18,7 @@ class _PageNotFoundState extends State<PageNotFound> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Page not found"),
+        leading: CloseButton(),
         actions: [
           IconButton(
               icon: _wrapped ? Icon(Icons.wrap_text) : Icon(CupertinoIcons.text_badge_checkmark),
@@ -28,22 +29,22 @@ class _PageNotFoundState extends State<PageNotFound> {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: ListView(
           children: [
-            _DataWidget(
+            ErrorDataWidget(
               "Name:",
               widget.settings.name,
               wrapped: _wrapped,
             ),
-            _DataWidget(
+            ErrorDataWidget(
               "Arguments:",
               widget.settings.arguments.toString(),
               wrapped: _wrapped,
             ),
-            _DataWidget(
+            ErrorDataWidget(
               "Arguments type:",
               widget.settings.arguments.runtimeType.toString(),
               wrapped: _wrapped,
             ),
-            _DataWidget(
+            ErrorDataWidget(
               "StackTrace:",
               StackTrace.current.toString(),
               wrapped: _wrapped,
@@ -55,8 +56,8 @@ class _PageNotFoundState extends State<PageNotFound> {
   }
 }
 
-class _DataWidget extends StatelessWidget {
-  const _DataWidget(
+class ErrorDataWidget extends StatelessWidget {
+  const ErrorDataWidget(
     this.name,
     this.value, {
     Key key,

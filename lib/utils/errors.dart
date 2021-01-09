@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/main.dart';
+import 'package:swift_travel/pages/404.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:vibration/vibration.dart';
 
@@ -17,7 +18,7 @@ void reportDartError(Object e, StackTrace s,
   if (showSnackbar && (!kDebugMode || Env.doShowErrors)) {
     Vibration.error();
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-      content: Text('$e'),
+      content: Text('The app encountered an issue.'),
       action: SnackBarAction(
         label: 'Details',
         onPressed: () => navigatorKey.currentState.push(MaterialWithModalsPageRoute(
@@ -43,7 +44,7 @@ void reportFlutterError(FlutterErrorDetails details) {
   if (!kDebugMode || Env.doShowErrors) {
     Vibration.error();
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-      content: Text(details.exception.toString()),
+      content: Text('The app encountered an issue.'),
       action: SnackBarAction(
         label: 'Details',
         onPressed: () => navigatorKey.currentState
@@ -80,7 +81,8 @@ class _ErrorPageState extends State<ErrorPage> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.details.library ?? "Unknown library"),
+        title: Text("Something went wrong"),
+        leading: CloseButton(),
         actions: [
           IconButton(
               icon: _wrapped ? Icon(Icons.wrap_text) : Icon(CupertinoIcons.text_badge_checkmark),
@@ -88,36 +90,34 @@ class _ErrorPageState extends State<ErrorPage> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(0.0),
         child: ListView(
           children: [
-            Text(
-              'The app encountered an issue, here are some details for the developer.',
-              style: Theme.of(context).textTheme.headline6,
+            ErrorDataWidget(
+              "Exception:",
+              widget.details.exception.toString(),
+              wrapped: _wrapped,
             ),
-            const SizedBox(height: 12),
-            Text.rich(
-              TextSpan(text: '${widget.details.exception} ', children: [
-                TextSpan(
-                  text: widget.details.context.toDescription(),
-                  style: const TextStyle(fontWeight: FontWeight.normal),
-                ),
-              ]),
-              style: Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold),
+            ErrorDataWidget(
+              "Context:",
+              widget.details.context.toString(),
+              wrapped: _wrapped,
             ),
-            const SizedBox(height: 12),
-            Card(
-                margin: EdgeInsets.all(4),
-                color: Colors.grey[100],
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: _wrapped
-                      ? text
-                      : SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: text,
-                        ),
-                )),
+            ErrorDataWidget(
+              "Library:",
+              widget.details.library,
+              wrapped: _wrapped,
+            ),
+            ErrorDataWidget(
+              "StackTrace:",
+              widget.details.stack.toString(),
+              wrapped: _wrapped,
+            ),
+            ErrorDataWidget(
+              "Silent:",
+              widget.details.silent.toString(),
+              wrapped: _wrapped,
+            ),
           ],
         ),
       ),
