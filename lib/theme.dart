@@ -20,14 +20,16 @@ const darkShadow = ShadowTheme(
   buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
 );
 
+final _eng = Typography.material2018().englishLike;
+
 final List<Font> fonts = [
-  Font("Muli", () => GoogleFonts.muliTextTheme(Typography.englishLike2018)),
-  Font("Lexend", () => GoogleFonts.lexendDecaTextTheme(Typography.englishLike2018)),
-  Font("Open Sans", () => GoogleFonts.openSansTextTheme(Typography.englishLike2018)),
-  Font("IBM Plex Mono", () => GoogleFonts.ibmPlexMonoTextTheme(Typography.englishLike2018)),
-  Font("Source Sans Pro", () => GoogleFonts.sourceSansProTextTheme(Typography.englishLike2018)),
-  Font("Cardo", () => GoogleFonts.cardoTextTheme(Typography.englishLike2018)),
-  Font("QuickSand", () => GoogleFonts.quicksandTextTheme(Typography.englishLike2018)),
+  Font("Muli", GoogleFonts.muliTextTheme),
+  Font("Lexend", GoogleFonts.lexendDecaTextTheme),
+  Font("Open Sans", GoogleFonts.openSansTextTheme),
+  Font("IBM Plex Mono", GoogleFonts.ibmPlexMonoTextTheme),
+  Font("Source Sans Pro", GoogleFonts.sourceSansProTextTheme),
+  Font("Cardo", GoogleFonts.cardoTextTheme),
+  Font("QuickSand", GoogleFonts.quicksandTextTheme),
 ];
 
 ThemeConfiguration get themeConfiguration {

@@ -72,7 +72,8 @@ class Settings extends StatelessWidget {
                       value: theme.font,
                       items: fonts
                           .map((f) => DropdownMenuItem(
-                                child: Text(f.name, style: f.textTheme().bodyText1),
+                                child: Text(f.name,
+                                    style: f.textTheme(Typography.blackMountainView).bodyText1),
                                 value: f,
                               ))
                           .toList(),

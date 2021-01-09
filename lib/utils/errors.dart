@@ -3,7 +3,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/404.dart';
@@ -17,17 +16,22 @@ void reportDartError(Object e, StackTrace s,
   }
   if (showSnackbar && (!kDebugMode || Env.doShowErrors)) {
     Vibration.error();
+    final details = FlutterErrorDetails(
+      exception: e,
+      stack: s,
+      context: ErrorDescription(reason),
+      library: name,
+    );
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text('The app encountered an issue.'),
       action: SnackBarAction(
+        key: Key(details.hashCode.toRadixString(16)),
         label: 'Details',
-        onPressed: () => navigatorKey.currentState.push(MaterialWithModalsPageRoute(
-            builder: (_) => ErrorPage(FlutterErrorDetails(
-                  exception: e,
-                  stack: s,
-                  context: ErrorDescription(reason),
-                  library: name,
-                )))),
+        onPressed: () {
+          scaffoldMessengerKey.currentState.removeCurrentSnackBar();
+          return navigatorKey.currentState
+              .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
+        },
       ),
     ));
   }
@@ -44,11 +48,15 @@ void reportFlutterError(FlutterErrorDetails details) {
   if (!kDebugMode || Env.doShowErrors) {
     Vibration.error();
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      key: Key(details.hashCode.toRadixString(16)),
       content: Text('The app encountered an issue.'),
       action: SnackBarAction(
         label: 'Details',
-        onPressed: () => navigatorKey.currentState
-            .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details))),
+        onPressed: () {
+          scaffoldMessengerKey.currentState.removeCurrentSnackBar();
+          return navigatorKey.currentState
+              .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
+        },
       ),
     ));
   }
@@ -72,13 +80,6 @@ class _ErrorPageState extends State<ErrorPage> {
 
   @override
   Widget build(BuildContext context) {
-    final text = Text(
-      widget.details.stack.toString(),
-      style: Theme.of(context)
-          .textTheme
-          .bodyText2
-          .copyWith(fontFamily: GoogleFonts.firaCode().fontFamily, fontSize: 12),
-    );
     return Scaffold(
       appBar: AppBar(
         title: Text("Something went wrong"),
@@ -95,7 +96,7 @@ class _ErrorPageState extends State<ErrorPage> {
           children: [
             ErrorDataWidget(
               "Exception:",
-              widget.details.exception.toString(),
+              widget.details.exceptionAsString(),
               wrapped: _wrapped,
             ),
             ErrorDataWidget(
