@@ -92,7 +92,7 @@ class _StopDetailsState extends State<StopDetails> {
 
   Future<void> reloadData() async {
     final stationBoard = await context.read(navigationAPIProvider).stationboard(widget.stopName);
-    setState(() => data = stationBoard);
+    if (mounted) setState(() => data = stationBoard);
   }
 }
 

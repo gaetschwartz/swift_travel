@@ -106,7 +106,6 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                               .copyWith(fontStyle: FontStyle.normal),
                           decoration: InputDecoration(
                             isDense: true,
-                            prefixIcon: const Icon(Icons.search),
                             hintText: Strings.of(context).search_station,
                             border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
