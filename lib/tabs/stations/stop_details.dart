@@ -49,7 +49,7 @@ class _StopDetailsState extends State<StopDetails> {
           title: Text(widget.stopName),
           actions: [
             IconButton(
-                icon: Icon(FontAwesomeIcons.route),
+                icon: const Icon(FontAwesomeIcons.route),
                 onPressed: () {
                   Navigator.of(context).pushNamed("/route",
                       arguments: FavoriteStop(data.stop.name, name: data.stop.name));

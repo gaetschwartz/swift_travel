@@ -9,9 +9,3 @@ analyzer:
     - "dependencies/**"
   errors:
     sort_pub_dependencies: ignore
-
-linter:
-  rules:
-    #- prefer_single_quotes
-  # enable-experiment:
-  #   - non-nullable

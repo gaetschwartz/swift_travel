@@ -122,7 +122,7 @@ class _RouteSearchTabState extends State<RouteSearchTab> with AutomaticKeepAlive
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SearchRoute();
+    return const SearchRoute();
   }
 
   @override
@@ -136,10 +136,7 @@ class MyTextFormatter extends TextInputFormatter {
 
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    if (oldValue.text == currentLocation) {
-      return TextEditingValue.empty;
-    } else
-      return newValue;
+    return oldValue.text == currentLocation ? TextEditingValue.empty : newValue;
   }
 }
 
@@ -421,8 +418,9 @@ class _SearchRouteState extends State<SearchRoute> {
 
     return ProviderListener<StateController<RouteTextfieldState>>(
       onChange: (context, value) {
-        if (value.state is UseCurrentLocation)
+        if (value.state is UseCurrentLocation) {
           _fromController.text = Strings.of(context).current_location;
+        }
       },
       provider: _fromTextfieldProvider,
       child: InputWrapperDecoration(
@@ -466,7 +464,7 @@ class _SearchRouteState extends State<SearchRoute> {
                 _fromController.text = suggestion.label;
                 if (suggestion.isCurrentLocation) {
                   context.read(_fromTextfieldProvider).state =
-                      RouteTextfieldState.useCurrentLocation();
+                      const RouteTextfieldState.useCurrentLocation();
                 } else {
                   context.read(_fromTextfieldProvider).state =
                       RouteTextfieldState.text(suggestion.label);
@@ -498,8 +496,9 @@ class _SearchRouteState extends State<SearchRoute> {
 
     return ProviderListener<StateController<RouteTextfieldState>>(
       onChange: (context, value) {
-        if (value.state is UseCurrentLocation)
+        if (value.state is UseCurrentLocation) {
           _toController.text = Strings.of(context).current_location;
+        }
       },
       provider: _toTextfieldProvider,
       child: InputWrapperDecoration(
@@ -543,7 +542,7 @@ class _SearchRouteState extends State<SearchRoute> {
                 _toController.text = suggestion.label;
                 if (suggestion.isCurrentLocation) {
                   context.read(_toTextfieldProvider).state =
-                      RouteTextfieldState.useCurrentLocation();
+                      const RouteTextfieldState.useCurrentLocation();
                 } else {
                   context.read(_toTextfieldProvider).state =
                       RouteTextfieldState.text(suggestion.label);
@@ -617,9 +616,9 @@ class RoutesView extends StatelessWidget {
           network: (_) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: Center(
                           child: Text(
                         "😢",
@@ -639,9 +638,9 @@ class RoutesView extends StatelessWidget {
           exception: (e) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: Center(
                           child: Text(
                         "😢",

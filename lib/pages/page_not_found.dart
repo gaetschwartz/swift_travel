@@ -17,11 +17,13 @@ class _PageNotFoundState extends State<PageNotFound> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Page not found"),
-        leading: CloseButton(),
+        title: const Text("Page not found"),
+        leading: const CloseButton(),
         actions: [
           IconButton(
-              icon: _wrapped ? Icon(Icons.wrap_text) : Icon(CupertinoIcons.text_badge_checkmark),
+              icon: _wrapped
+                  ? const Icon(Icons.wrap_text)
+                  : const Icon(CupertinoIcons.text_badge_checkmark),
               onPressed: () => setState(() => _wrapped = !_wrapped))
         ],
       ),
@@ -81,7 +83,7 @@ class ErrorDataWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(name, style: Theme.of(context).textTheme.bodyText1),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Card(
             color: Colors.grey[100],
             child: Padding(
@@ -91,8 +93,8 @@ class ErrorDataWidget extends StatelessWidget {
                 child: wrapped
                     ? text
                     : SingleChildScrollView(
-                        child: text,
                         scrollDirection: Axis.horizontal,
+                        child: text,
                       ),
               ),
             ),

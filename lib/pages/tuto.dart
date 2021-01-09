@@ -4,6 +4,8 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:swift_travel/generated/l10n.dart';
 
 class Tuto extends StatelessWidget {
+  const Tuto();
+
   static List<PageViewModel> listPagesViewModel = [
     PageViewModel(
       title: 'First page',
@@ -22,7 +24,7 @@ class Tuto extends StatelessWidget {
       showSkipButton: kDebugMode,
       skip: const Icon(Icons.skip_next),
       next: const Icon(Icons.arrow_forward_ios),
-      done: Text(Strings.of(context).done, style: TextStyle(fontWeight: FontWeight.w600)),
+      done: Text(Strings.of(context).done, style: const TextStyle(fontWeight: FontWeight.w600)),
       dotsDecorator: DotsDecorator(
         size: const Size.square(10.0),
         activeSize: const Size(20.0, 10.0),

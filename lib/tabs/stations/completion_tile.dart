@@ -48,11 +48,10 @@ class CffCompletionTile extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            isFav
-                ? isDarwin
-                    ? const Icon(CupertinoIcons.heart_fill)
-                    : const Icon(Icons.star)
-                : CffIcon.fromIconClass(iconClass),
+            if (isFav)
+              isDarwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star)
+            else
+              CffIcon.fromIconClass(iconClass),
           ],
         ),
         title: Text((isFav ? sugg.favoriteName : sugg.label) ?? '???'),
@@ -98,7 +97,7 @@ class CffCompletionTile extends ConsumerWidget {
   }) async {
     final c = await showCupertinoModalBottomSheet<_Actions>(
         context: context,
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         expand: false,
         backgroundColor: Colors.transparent,
         useRootNavigator: true,
@@ -112,12 +111,14 @@ class CffCompletionTile extends ConsumerWidget {
                     title: isFav
                         ? Text(Strings.of(context).remove_from_favoruites)
                         : Text(Strings.of(context).add_to_favs),
-                    leading: isFav ? Icon(CupertinoIcons.heart_slash) : Icon(CupertinoIcons.heart),
+                    leading: isFav
+                        ? const Icon(CupertinoIcons.heart_slash)
+                        : const Icon(CupertinoIcons.heart),
                     onTap: () => Navigator.of(context).pop(_Actions.favorite),
                   ),
                   ListTile(
                     title: Text(Strings.of(context).close),
-                    leading: Icon(CupertinoIcons.xmark),
+                    leading: const Icon(CupertinoIcons.xmark),
                     onTap: () => Navigator.of(context).pop(),
                   )
                 ],

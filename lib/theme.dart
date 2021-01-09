@@ -20,9 +20,7 @@ const darkShadow = ShadowTheme(
   buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
 );
 
-final _eng = Typography.material2018().englishLike;
-
-final List<Font> fonts = [
+const List<Font> fonts = [
   Font("Muli", GoogleFonts.muliTextTheme),
   Font("Lexend", GoogleFonts.lexendDecaTextTheme),
   Font("Open Sans", GoogleFonts.openSansTextTheme),
@@ -33,13 +31,13 @@ final List<Font> fonts = [
 ];
 
 ThemeConfiguration get themeConfiguration {
-  final light = ColorScheme.light(
+  const light = ColorScheme.light(
     onPrimary: Colors.black,
     primary: Colors.white,
     secondary: Colors.redAccent,
     onSecondary: Colors.white,
   );
-  final dark = ColorScheme.dark();
+  const dark = ColorScheme.dark();
   return ThemeConfiguration(
     themes: {
       'default': FullTheme(
@@ -49,7 +47,7 @@ ThemeConfiguration get themeConfiguration {
           appBarTheme: theme.appBarTheme.copyWith(elevation: 0),
           bottomNavigationBarTheme:
               theme.bottomNavigationBarTheme.copyWith(selectedItemColor: light.secondary),
-          cupertinoOverrideTheme: CupertinoThemeData(textTheme: CupertinoTextThemeData()),
+          cupertinoOverrideTheme: const CupertinoThemeData(textTheme: CupertinoTextThemeData()),
         ),
         dark: SerializableColorScheme.fromColorScheme(dark),
         lightShadow: lightShadow,

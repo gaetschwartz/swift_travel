@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/pages/404.dart';
+import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:vibration/vibration.dart';
 
@@ -23,13 +23,13 @@ void reportDartError(Object e, StackTrace s,
       library: name,
     );
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-      content: Text('The app encountered an issue.'),
+      content: const Text('The app encountered an issue.'),
       action: SnackBarAction(
         key: Key(details.hashCode.toRadixString(16)),
         label: 'Details',
         onPressed: () {
           scaffoldMessengerKey.currentState.removeCurrentSnackBar();
-          return navigatorKey.currentState
+          navigatorKey.currentState
               .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
         },
       ),
@@ -49,12 +49,12 @@ void reportFlutterError(FlutterErrorDetails details) {
     Vibration.error();
     scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       key: Key(details.hashCode.toRadixString(16)),
-      content: Text('The app encountered an issue.'),
+      content: const Text('The app encountered an issue.'),
       action: SnackBarAction(
         label: 'Details',
         onPressed: () {
           scaffoldMessengerKey.currentState.removeCurrentSnackBar();
-          return navigatorKey.currentState
+          navigatorKey.currentState
               .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
         },
       ),
@@ -82,11 +82,13 @@ class _ErrorPageState extends State<ErrorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Something went wrong"),
-        leading: CloseButton(),
+        title: const Text("Something went wrong"),
+        leading: const CloseButton(),
         actions: [
           IconButton(
-              icon: _wrapped ? Icon(Icons.wrap_text) : Icon(CupertinoIcons.text_badge_checkmark),
+              icon: _wrapped
+                  ? const Icon(Icons.wrap_text)
+                  : const Icon(CupertinoIcons.text_badge_checkmark),
               onPressed: () => setState(() => _wrapped = !_wrapped))
         ],
       ),

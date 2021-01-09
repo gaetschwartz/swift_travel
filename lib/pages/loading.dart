@@ -21,6 +21,8 @@ import 'package:utils/dialogs/confirmation_alert.dart';
 const _tutoKey = 'hasAlreadySeenTuto';
 
 class LoadingPage extends StatefulWidget {
+  const LoadingPage();
+
   @override
   _LoadingPageState createState() => _LoadingPageState();
 }
@@ -57,15 +59,15 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
           opacity: _controller2,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               SizedBox(
                 height: 64,
                 width: 64,
                 child: CircularProgressIndicator.adaptive(
                     valueColor: AlwaysStoppedAnimation(Colors.white)),
               ),
-              const SizedBox(height: 32),
-              const Text(
+              SizedBox(height: 32),
+              Text(
                 'Loading ...',
                 style: TextStyle(color: Colors.white, fontSize: 24),
               )
@@ -85,7 +87,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
     try {
       await Geolocator.requestPermission();
-    } on MissingPluginException {}
+    } on MissingPluginException catch (_) {}
 
     route();
 

@@ -38,7 +38,7 @@ class _StationsTabState extends State<StationsTab> with AutomaticKeepAliveClient
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _StationsTabWidget();
+    return const _StationsTabWidget();
   }
 
   @override
@@ -106,9 +106,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                               .copyWith(fontStyle: FontStyle.normal),
                           decoration: InputDecoration(
                             isDense: true,
-                            prefixIcon: Icon(
-                              Icons.search,
-                            ),
+                            prefixIcon: const Icon(Icons.search),
                             hintText: Strings.of(context).search_station,
                             border: const OutlineInputBorder(
                               borderSide: BorderSide.none,

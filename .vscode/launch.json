@@ -24,7 +24,7 @@
       "type": "dart",
       "args": [
         "--dart-define",
-        "CORRUPT=true"
+        "CORRUPT_FAVORITES=true"
       ]
     },
     {

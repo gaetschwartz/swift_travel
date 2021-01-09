@@ -32,7 +32,7 @@ class FavoriteStationTile extends StatelessWidget {
   void edit(BuildContext context) {
     showCupertinoModalBottomSheet(
       context: context,
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       expand: false,
       builder: (context) => Material(
           child: SafeArea(
@@ -42,17 +42,17 @@ class FavoriteStationTile extends StatelessWidget {
           children: <Widget>[
             ListTile(
               title: Text(Strings.of(context).rename),
-              leading: Icon(CupertinoIcons.pencil),
+              leading: const Icon(CupertinoIcons.pencil),
               onTap: () => rename(context),
             ),
             ListTile(
               title: Text(Strings.of(context).delete),
-              leading: Icon(CupertinoIcons.delete),
+              leading: const Icon(CupertinoIcons.delete),
               onTap: () => delete(context),
             ),
             ListTile(
               title: Text(Strings.of(context).close),
-              leading: Icon(CupertinoIcons.xmark),
+              leading: const Icon(CupertinoIcons.xmark),
               onTap: () => Navigator.of(context).pop(),
             ),
           ],

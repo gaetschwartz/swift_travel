@@ -101,7 +101,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     );
   }
 
-  final children = [
+  static const children = [
     StationsTab(),
     RouteSearchTab(),
     FavoritesTab(),

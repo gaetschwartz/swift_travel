@@ -65,16 +65,16 @@ class Settings extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 300),
+                  constraints: const BoxConstraints(maxWidth: 300),
                   child: Consumer(builder: (context, w, _) {
                     final theme = w(dynamicTheme);
                     return DropdownButton<Font>(
                       value: theme.font,
                       items: fonts
                           .map((f) => DropdownMenuItem(
+                                value: f,
                                 child: Text(f.name,
                                     style: f.textTheme(Typography.blackMountainView).bodyText1),
-                                value: f,
                               ))
                           .toList(),
                       selectedItemBuilder: (context) =>
@@ -581,7 +581,7 @@ class TeamPage extends StatelessWidget {
         actions: [
           TextButton(
             style: TextButton.styleFrom(
-                enableFeedback: true, padding: EdgeInsets.symmetric(horizontal: 8)),
+                enableFeedback: true, padding: const EdgeInsets.symmetric(horizontal: 8)),
             onPressed: () =>
                 showLicensePage(context: context, applicationIcon: const FlutterLogo()),
             child: Text(

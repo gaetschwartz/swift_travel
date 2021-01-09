@@ -17,10 +17,10 @@ import 'package:swift_travel/apis/cff/models/route_connection.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:swift_travel/pages/404.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/pages/loading.dart';
+import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/settings.dart';
 import 'package:swift_travel/pages/tuto.dart';
 import 'package:swift_travel/pages/welcome.dart';
@@ -53,7 +53,8 @@ Future<void> main() async {
     log('Overriding $defaultTargetPlatform by $platform');
     debugDefaultTargetPlatformOverride = platform;
   }
-  print(Env.doShowErrors);
+
+  if (kDebugMode) log(Env.env);
   WidgetsFlutterBinding.ensureInitialized();
 
   if (isMobile) {
@@ -80,7 +81,7 @@ class _MyAppState extends State<MyApp> {
   void reassemble() {
     super.reassemble();
     log('Reload theme');
-    context.read(dynamicTheme).configure(themeConfiguration, doLog: false);
+    context.read(dynamicTheme).configure(themeConfiguration);
   }
 
   @override
@@ -103,7 +104,6 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          navigatorObservers: [],
           builder: (context, child) => LocalizationAwareWidget(child: child),
           supportedLocales: Strings.delegate.supportedLocales,
           onGenerateRoute: onGenerateRoute,
@@ -124,11 +124,11 @@ class _MyAppState extends State<MyApp> {
     log("Routing to ${settings.name}");
     switch (settings.name) {
       case "/":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => MainApp());
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const MainApp());
       case "loading":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => LoadingPage());
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const LoadingPage());
       case "/settings":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => Settings());
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Settings());
       case "/routeDetails":
         if (settings.arguments is Map) {
           final map = settings.arguments as Map;
@@ -138,21 +138,22 @@ class _MyAppState extends State<MyApp> {
         }
         break;
       case "/tuto":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => Tuto());
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Tuto());
       case "/welcome":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => WelcomePage());
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const WelcomePage());
       case "/route":
-        if (settings.arguments is LocalRoute)
+        if (settings.arguments is LocalRoute) {
           return MaterialWithModalsPageRoute(
               settings: settings,
               builder: (_) => SearchRoute.route(settings.arguments as LocalRoute));
-        else if (settings.arguments is FavoriteStop)
+        } else if (settings.arguments is FavoriteStop) {
           return MaterialWithModalsPageRoute(
               settings: settings,
               builder: (_) => SearchRoute.stop(settings.arguments as FavoriteStop));
+        }
         break;
       case "/ourTeam":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => TeamPage());
+        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const TeamPage());
       case "/liveRoute":
         return MaterialWithModalsPageRoute(
             settings: settings,
