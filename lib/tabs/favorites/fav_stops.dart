@@ -8,6 +8,7 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:utils/dialogs/confirmation_alert.dart';
 import 'package:utils/dialogs/input_dialog.dart';
+import 'package:utils/widgets/responsive.dart';
 
 class FavoriteStationTile extends StatelessWidget {
   final FavoriteStop stop;
@@ -19,11 +20,15 @@ class FavoriteStationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darwin = ResponsiveWidget.isDarwin(context);
     return ListTile(
-      leading: const Icon(FontAwesomeIcons.solidStar),
+      leading:
+          darwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(FontAwesomeIcons.solidStar),
       onTap: () => Navigator.of(context, rootNavigator: true).pushNamed("/route", arguments: stop),
       onLongPress: () => edit(context),
-      trailing: IconButton(icon: const Icon(CupertinoIcons.pencil), onPressed: () => edit(context)),
+      trailing: IconButton(
+          icon: darwin ? const Icon(CupertinoIcons.pencil) : const Icon(Icons.edit),
+          onPressed: () => edit(context)),
       title: Text(stop.name),
       subtitle: Text(stop.stop),
     );

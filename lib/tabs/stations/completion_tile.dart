@@ -46,7 +46,6 @@ class CffCompletionTile extends ConsumerWidget {
         shape: const RoundedRectangleBorder(borderRadius: _kRadius),
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
           children: [
             if (isFav)
               isDarwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star)
@@ -95,6 +94,7 @@ class CffCompletionTile extends ConsumerWidget {
     @required FavoriteStop favoriteStop,
     @required FavoritesSharedPreferencesStore store,
   }) async {
+    FocusManager.instance.primaryFocus?.unfocus();
     final c = await showCupertinoModalBottomSheet<_Actions>(
         context: context,
         duration: const Duration(milliseconds: 200),

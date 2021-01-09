@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,6 +13,7 @@ import 'package:swift_travel/tabs/favorites/fav_stops.dart';
 import 'package:swift_travel/widgets/input.dart';
 import 'package:utils/dialogs/input_dialog.dart';
 import 'package:utils/dialogs/loading_dialog.dart';
+import 'package:utils/widgets/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 import 'fav_routes.dart';
@@ -28,52 +30,31 @@ class _FavoritesTabState extends State<FavoritesTab>
   @override
   bool get wantKeepAlive => true;
 
+  FavoritesSharedPreferencesStore store;
+  bool isDarwin = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    isDarwin = ResponsiveWidget.isDarwin(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     return Scaffold(
-      appBar: swiftTravelAppBar(context),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Add a favorite',
-        shape: const StadiumBorder(),
-        onPressed: () async {
-          Vibration.select();
-          final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
-            builder: (_) => const StopInputDialog(title: 'Add a favorite'),
-            fullscreenDialog: true,
-          ));
-          if (s == null) return;
-
-          await load(context, future: () async {
-            final cff = context.read(navigationAPIProvider);
-            List<CffCompletion> completions = await cff.complete(s, showIds: true);
-
-            if (completions.isEmpty) {
-              log("Didn't find a station, will try using routes as a hack...");
-              final CffRoute cffRoute =
-                  await cff.route(s, 'Geneva', date: DateTime.now(), time: TimeOfDay.now());
-              if (cffRoute.connections.isNotEmpty) {
-                final from = cffRoute.connections.first.from;
-                log('Found $from');
-                completions = await cff.complete(from, showIds: true);
-                log(completions.toString());
-              }
-            }
-
-            if (completions.isEmpty) {
-              log("Didn't find anything for string $s");
-              return;
-            }
-
-            final CffCompletion completion = completions.first;
-            final name = await input(context, title: const Text('What is the name of this stop'));
-            if (name == null) return;
-            await _store.addStop(completion.toFavoriteStop(name: name));
-          });
-        },
-        child: const FaIcon(FontAwesomeIcons.plus),
-      ),
+      appBar: swiftTravelAppBar(context, actions: [
+        if (isDarwin) IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav)
+      ]),
+      floatingActionButton: isDarwin
+          ? null
+          : FloatingActionButton(
+              tooltip: 'Add a favorite',
+              shape: const StadiumBorder(),
+              onPressed: addFav,
+              child: const FaIcon(FontAwesomeIcons.plus),
+            ),
       body: SizedBox(
         width: double.infinity,
         child: Consumer(builder: (context, w, _) {
@@ -149,5 +130,41 @@ class _FavoritesTabState extends State<FavoritesTab>
         }),
       ),
     );
+  }
+
+  Future<void> addFav() async {
+    Vibration.select();
+    final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
+      builder: (_) => const StopInputDialog(title: 'Add a favorite'),
+      fullscreenDialog: true,
+    ));
+    if (s == null) return;
+
+    await load(context, future: () async {
+      final cff = context.read(navigationAPIProvider);
+      List<CffCompletion> completions = await cff.complete(s, showIds: true);
+
+      if (completions.isEmpty) {
+        log("Didn't find a station, will try using routes as a hack...");
+        final CffRoute cffRoute =
+            await cff.route(s, 'Geneva', date: DateTime.now(), time: TimeOfDay.now());
+        if (cffRoute.connections.isNotEmpty) {
+          final from = cffRoute.connections.first.from;
+          log('Found $from');
+          completions = await cff.complete(from, showIds: true);
+          log(completions.toString());
+        }
+      }
+
+      if (completions.isEmpty) {
+        log("Didn't find anything for string $s");
+        return;
+      }
+
+      final CffCompletion completion = completions.first;
+      final name = await input(context, title: const Text('What is the name of this stop'));
+      if (name == null) return;
+      await store.addStop(completion.toFavoriteStop(name: name));
+    });
   }
 }

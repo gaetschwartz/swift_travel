@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -35,7 +36,7 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-final FirebaseAnalytics analytics = FirebaseAnalytics();
+final FirebaseAnalytics analytics = kIsWeb ? null : FirebaseAnalytics();
 
 bool get isMobile =>
     defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android;
@@ -98,6 +99,9 @@ class _MyAppState extends State<MyApp> {
           theme: theme.light,
           darkTheme: theme.dark,
           themeMode: theme.mode,
+          navigatorObservers: [
+            if (analytics != null) FirebaseAnalyticsObserver(analytics: analytics)
+          ],
           localizationsDelegates: const [
             Strings.delegate,
             GlobalMaterialLocalizations.delegate,

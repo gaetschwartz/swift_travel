@@ -42,90 +42,99 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final isDarwin = ResponsiveWidget.isDarwin(context);
-    return Scaffold(
-      key: const Key('home-scaffold'),
-      resizeToAvoidBottomInset: false,
-      bottomNavigationBar: Consumer(builder: (context, w, c) {
-        return BottomNavigationBar(
-          onTap: (i) {
-            Vibration.selectSoft();
-            if (_pageController.page != i) {
-              _pageController.animateToPage(i,
-                  curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
-            } else if (navigatorKeys[i] != null) {
-              navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
-            }
-          },
-          currentIndex: w(_tabProvider).state,
-          items: [
-            if (isDarwin)
-              BottomNavigationBarItem(
-                icon: const Icon(CupertinoIcons.search),
-                label: Strings.of(context).search,
-              )
-            else
-              BottomNavigationBarItem(
-                  icon: const Icon(Icons.search_sharp),
-                  activeIcon: const Icon(Icons.search),
-                  label: Strings.of(context).search),
-            BottomNavigationBarItem(
-              icon: const FaIcon(FontAwesomeIcons.route),
-              label: Strings.of(context).tabs_route,
-            ),
-            if (isDarwin)
-              BottomNavigationBarItem(
-                icon: const Icon(CupertinoIcons.square_favorites_alt),
-                activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
-                label: Strings.of(context).tabs_favourites,
-              )
-            else
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.star_border_sharp),
-                activeIcon: const Icon(Icons.star),
-                label: Strings.of(context).tabs_favourites,
+    return isDarwin
+        ? Material(
+            child: CupertinoTabScaffold(
+              resizeToAvoidBottomInset: false,
+              tabBar: CupertinoTabBar(
+                activeColor: CupertinoColors.activeBlue,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: const Icon(CupertinoIcons.search),
+                    label: Strings.of(context).search,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const FaIcon(FontAwesomeIcons.route),
+                    label: Strings.of(context).tabs_route,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(CupertinoIcons.square_favorites_alt),
+                    activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
+                    label: Strings.of(context).tabs_favourites,
+                  )
+                ],
               ),
-          ],
-        );
-      }),
-      body: PageView(
-        controller: _pageController,
-        children: [
-          for (var i = 0; i < children.length; i++)
-            Navigator(
-              key: navigatorKeys[i],
-              pages: [SinglePageNavigator(children[i])],
-              onPopPage: (_, __) => false,
-            )
-        ],
-      ),
-    );
+              tabBuilder: (context, i) => SafeArea(key: ValueKey(i), child: children[i]),
+            ),
+          )
+        : Scaffold(
+            key: const Key('home-scaffold'),
+            resizeToAvoidBottomInset: false,
+            bottomNavigationBar: Consumer(builder: (context, w, c) {
+              return BottomNavigationBar(
+                onTap: (i) {
+                  Vibration.selectSoft();
+                  if (_pageController.page != i) {
+                    _pageController.animateToPage(i,
+                        curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
+                  } else if (navigatorKeys[i] != null) {
+                    navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
+                  }
+                },
+                currentIndex: w(_tabProvider).state,
+                items: [
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.search_sharp),
+                      activeIcon: const Icon(Icons.search),
+                      label: Strings.of(context).search),
+                  BottomNavigationBarItem(
+                    icon: const FaIcon(FontAwesomeIcons.route),
+                    label: Strings.of(context).tabs_route,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(Icons.star_border_sharp),
+                    activeIcon: const Icon(Icons.star),
+                    label: Strings.of(context).tabs_favourites,
+                  ),
+                ],
+              );
+            }),
+            body: PageView(
+              controller: _pageController,
+              children: [
+                for (var i = 0; i < children.length; i++)
+                  Navigator(
+                    key: navigatorKeys[i],
+                    pages: [SinglePageNavigator(children[i])],
+                    onPopPage: (_, __) => false,
+                  )
+              ],
+            ),
+          );
   }
 
-  static const children = [
-    StationsTab(),
-    RouteSearchTab(),
-    FavoritesTab(),
-  ];
+  static const children = [StationsTab(), RouteSearchTab(), FavoritesTab()];
 }
 
 final navigatorKeys = <GlobalKey<NavigatorState>>[GlobalKey(), GlobalKey(), null];
 
-AppBar swiftTravelAppBar(BuildContext context, {bool isDarwin = true}) {
+AppBar swiftTravelAppBar(BuildContext context,
+    {List<Widget> actions = const [], bool addSettings = true, bool isDarwinOverride}) {
+  final isDarwin = isDarwinOverride ?? ResponsiveWidget.isDarwin(context);
   return AppBar(
     automaticallyImplyLeading: false,
-    title: const Text(
-      'Swift Travel',
-      key: Key('scaffold-title'),
-    ),
+    title: const Text('Swift Travel'),
     actions: [
-      IconButton(
-          key: const Key('settings'),
-          tooltip: Strings.of(context).settings,
-          icon: isDarwin ? const Icon(CupertinoIcons.gear_solid) : const Icon(Icons.settings),
-          onPressed: () {
-            Vibration.select();
-            Navigator.of(context, rootNavigator: true).pushNamed("/settings");
-          }),
+      ...actions,
+      if (addSettings)
+        IconButton(
+            key: const Key('settings'),
+            tooltip: Strings.of(context).settings,
+            icon: isDarwin ? const Icon(CupertinoIcons.settings) : const Icon(Icons.settings),
+            onPressed: () {
+              Vibration.select();
+              Navigator.of(context, rootNavigator: true).pushNamed("/settings");
+            }),
     ],
   );
 }
