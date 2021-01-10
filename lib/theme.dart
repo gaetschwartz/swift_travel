@@ -13,7 +13,7 @@ final MaterialColor redAccent = createMaterialColor(Colors.redAccent);
 final MaterialColor white = createMaterialColor(Colors.white);
 
 const lightShadow = ShadowTheme(
-  buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x260700b1), offset: Offset(0, 8)),
+  buttonShadow: BoxShadow(blurRadius: 8, color: Color(0x200700b1), offset: Offset(0, 4)),
 );
 
 const darkShadow = ShadowTheme(

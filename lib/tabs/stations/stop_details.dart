@@ -111,12 +111,7 @@ class ConnectionTile extends StatelessWidget {
           .push(MaterialWithModalsPageRoute(builder: (_) => NextStopsPage(connection: c))),
       title: Row(
         children: [
-          if (i != -1)
-            LineIcon(
-              background: c.color.substring(0, i),
-              foreground: c.color.substring(i + 1, c.color.length - 1),
-              line: c.line,
-            ),
+          if (i != -1) LineIcon.fromString(line: c.line, colors: c.color),
           const SizedBox(width: 8),
           Expanded(
             child: Align(

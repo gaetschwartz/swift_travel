@@ -47,6 +47,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             child: CupertinoTabScaffold(
               resizeToAvoidBottomInset: false,
               tabBar: CupertinoTabBar(
+                backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
                 activeColor: CupertinoColors.activeBlue,
                 items: [
                   BottomNavigationBarItem(
@@ -54,7 +55,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                     label: Strings.of(context).search,
                   ),
                   BottomNavigationBarItem(
-                    icon: const FaIcon(FontAwesomeIcons.route),
+                    icon: const FaIcon(CupertinoIcons.train_style_one),
                     label: Strings.of(context).tabs_route,
                   ),
                   BottomNavigationBarItem(

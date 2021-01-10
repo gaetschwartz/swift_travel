@@ -9,16 +9,22 @@ class LineIcon extends StatelessWidget {
     @required this.line,
   }) : super(key: key);
 
+  LineIcon.fromString({this.line, String colors})
+      : background = colors.substring(0, colors.indexOf("~")),
+        foreground = colors.substring(colors.indexOf("~") + 1, colors.lastIndexOf("~"));
+
   final String foreground;
   final String background;
   final String line;
 
   @override
   Widget build(BuildContext context) {
+    final color = parseColor(background, const Color(0xff000000));
     return DecoratedBox(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: parseColor(background, const Color(0xff000000))),
+            boxShadow: [BoxShadow(color: color.withOpacity(0.4), blurRadius: 8)],
+            borderRadius: BorderRadius.circular(32),
+            color: color),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
           child: Text(
@@ -26,6 +32,7 @@ class LineIcon extends StatelessWidget {
             style: TextStyle(
               color: parseColor(foreground, const Color(0xfff0f0f0)),
               fontWeight: FontWeight.bold,
+              fontSize: 12,
             ),
           ),
         ));

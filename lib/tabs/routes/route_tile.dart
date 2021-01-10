@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
@@ -67,7 +68,10 @@ class RouteTile extends StatelessWidget {
                 Expanded(child: Text(leg.exit.name)),
               ],
             ),
-            subtitle: rowIcon(),
+            subtitle: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: rowIcon(),
+            ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -78,7 +82,7 @@ class RouteTile extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
                   ),
                 const SizedBox(width: 16),
-                const FaIcon(FontAwesomeIcons.chevronRight),
+                const FaIcon(CupertinoIcons.chevron_right),
               ],
             ),
             onTap: () => Navigator.of(context)
