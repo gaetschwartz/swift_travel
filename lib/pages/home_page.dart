@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,7 +48,6 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             child: CupertinoTabScaffold(
               resizeToAvoidBottomInset: false,
               tabBar: CupertinoTabBar(
-                backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
                 activeColor: CupertinoColors.activeBlue,
                 items: [
                   BottomNavigationBarItem(
@@ -85,16 +85,16 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 currentIndex: w(_tabProvider).state,
                 items: [
                   BottomNavigationBarItem(
-                      icon: const Icon(Icons.search_sharp),
-                      activeIcon: const Icon(Icons.search),
+                      icon: const Icon(FluentIcons.search_24_regular),
+                      activeIcon: const Icon(FluentIcons.search_24_filled),
                       label: Strings.of(context).search),
                   BottomNavigationBarItem(
                     icon: const FaIcon(FontAwesomeIcons.route),
                     label: Strings.of(context).tabs_route,
                   ),
                   BottomNavigationBarItem(
-                    icon: const Icon(Icons.star_border_sharp),
-                    activeIcon: const Icon(Icons.star),
+                    icon: const Icon(FluentIcons.star_24_regular),
+                    activeIcon: const Icon(FluentIcons.star_24_filled),
                     label: Strings.of(context).tabs_favourites,
                   ),
                 ],

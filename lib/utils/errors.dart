@@ -80,48 +80,51 @@ class _ErrorPageState extends State<ErrorPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Something went wrong"),
-        leading: const CloseButton(),
-        actions: [
-          IconButton(
-              icon: _wrapped
-                  ? const Icon(Icons.wrap_text)
-                  : const Icon(CupertinoIcons.text_badge_checkmark),
-              onPressed: () => setState(() => _wrapped = !_wrapped))
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: ListView(
-          children: [
-            ErrorDataWidget(
-              "Exception:",
-              widget.details.exceptionAsString(),
-              wrapped: _wrapped,
-            ),
-            ErrorDataWidget(
-              "Context:",
-              widget.details.context.toString(),
-              wrapped: _wrapped,
-            ),
-            ErrorDataWidget(
-              "Library:",
-              widget.details.library,
-              wrapped: _wrapped,
-            ),
-            ErrorDataWidget(
-              "StackTrace:",
-              widget.details.stack.toString(),
-              wrapped: _wrapped,
-            ),
-            ErrorDataWidget(
-              "Silent:",
-              widget.details.silent.toString(),
-              wrapped: _wrapped,
-            ),
+    return Theme(
+      data: ThemeData(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Something went wrong"),
+          leading: const CloseButton(),
+          actions: [
+            IconButton(
+                icon: _wrapped
+                    ? const Icon(Icons.wrap_text)
+                    : const Icon(CupertinoIcons.text_badge_checkmark),
+                onPressed: () => setState(() => _wrapped = !_wrapped))
           ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: ListView(
+            children: [
+              ErrorDataWidget(
+                "Exception:",
+                widget.details.exceptionAsString(),
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
+                "Context:",
+                widget.details.context.toString(),
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
+                "Library:",
+                widget.details.library,
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
+                "StackTrace:",
+                widget.details.stack.toString(),
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
+                "Silent:",
+                widget.details.silent.toString(),
+                wrapped: _wrapped,
+              ),
+            ],
+          ),
         ),
       ),
     );

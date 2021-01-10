@@ -17,7 +17,7 @@ const lightShadow = ShadowTheme(
 );
 
 const darkShadow = ShadowTheme(
-  buttonShadow: BoxShadow(blurRadius: 16, color: Color(0x4C000000), offset: Offset(0, 8)),
+  buttonShadow: BoxShadow(blurRadius: 4, color: Color(0x4C000000), offset: Offset(0, 4)),
 );
 
 const List<Font> fonts = [
@@ -37,7 +37,10 @@ ThemeConfiguration get themeConfiguration {
     secondary: Colors.redAccent,
     onSecondary: Colors.white,
   );
-  const dark = ColorScheme.dark();
+  const dark = ColorScheme.dark(
+    secondary: Colors.red,
+    onSecondary: Colors.white,
+  );
   return ThemeConfiguration(
     themes: {
       'default': FullTheme(
@@ -55,6 +58,22 @@ ThemeConfiguration get themeConfiguration {
       ),
       'abin': FullTheme(
         name: 'Abin',
+        light: SerializableColorScheme.fromColorScheme(
+            ColorScheme.light(primary: purpleAbin, secondary: blueAbin)),
+        dark: SerializableColorScheme.fromColorScheme(
+            ColorScheme.dark(primary: purpleAbin, secondary: blueAbin)),
+        lightShadow: lightShadow,
+        darkShadow: darkShadow,
+      ),
+      'flutter': FullTheme(
+        name: 'Flutter',
+        light: SerializableColorScheme.fromColorScheme(const ColorScheme.light()),
+        dark: SerializableColorScheme.fromColorScheme(const ColorScheme.dark()),
+        lightShadow: lightShadow,
+        darkShadow: darkShadow,
+      ),
+      'david': FullTheme(
+        name: 'David',
         light: SerializableColorScheme.fromColorScheme(
             ColorScheme.light(primary: purpleAbin, secondary: blueAbin)),
         dark: SerializableColorScheme.fromColorScheme(

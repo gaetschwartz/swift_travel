@@ -36,7 +36,7 @@ import 'package:utils/blocs/theme/dynamic_theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-final FirebaseAnalytics analytics = kIsWeb ? null : FirebaseAnalytics();
+final FirebaseAnalytics analytics = isMobile ? FirebaseAnalytics() : null;
 
 bool get isMobile =>
     defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android;

@@ -242,7 +242,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
     return Column(
       children: [
         SizedBox(
-          height: 250,
+          height: 180,
           child: Consumer(builder: (context, w, _) {
             final theme = w(dynamicTheme);
             final list = theme.configuration.themes.entries.toList();
@@ -256,8 +256,8 @@ class __ThemesSectionState extends State<_ThemesSection> {
 
                 return Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8, bottom: 24),
-                  child: SizedBox(
-                    width: 160,
+                  child: AspectRatio(
+                    aspectRatio: 0.8,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
@@ -267,34 +267,36 @@ class __ThemesSectionState extends State<_ThemesSection> {
                             ? Border.all(width: 2, color: Theme.of(context).accentColor)
                             : null,
                       ),
-                      child: InkWell(
-                        hoverColor: Theme.of(context).accentColor.withOpacity(0.2),
-                        borderRadius: radius,
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
                         onTap: () {
                           Vibration.select();
                           theme.name = list[i].key;
                         },
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Column(
                             children: [
                               Expanded(
-                                child: Center(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      buildColorRow(ft.light),
-                                      buildColorRow(ft.dark),
-                                    ],
-                                  ),
+                                flex: 3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    buildColorRow(ft.light),
+                                    buildColorRow(ft.dark),
+                                  ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  ft.name,
-                                  style: Theme.of(context).textTheme.headline6,
-                                  textAlign: TextAlign.center,
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: Text(
+                                      ft.name,
+                                      style: Theme.of(context).textTheme.bodyText2,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -317,53 +319,37 @@ class __ThemesSectionState extends State<_ThemesSection> {
   }
 
   Widget buildColorRow(SerializableColorScheme colorScheme) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 40),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: SizedBox.expand(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: colorScheme.primary,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          newMethod(colorScheme.primary),
+          newMethod(colorScheme.secondary),
+          newMethod(colorScheme.error),
+        ],
+      ),
+    );
+  }
+
+  Expanded newMethod(Color color) {
+    return Expanded(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: SizedBox.fromSize(
+            size: const Size.square(30),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(color: color, blurRadius: 8)],
+                  color: color,
+                  shape: BoxShape.circle,
                 ),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: SizedBox.expand(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: colorScheme.secondary,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: SizedBox.expand(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: colorScheme.error,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -385,28 +371,40 @@ class _ScrollProgress extends StatefulWidget {
 
 class __ScrollProgressState extends State<_ScrollProgress> {
   double _progress = 0;
+  Color color;
 
   void update() {
     if (mounted) {
       final __progress =
           widget._controller.position.pixels / widget._controller.position.maxScrollExtent;
-      setState(() {
-        _progress = min(1, __progress);
-      });
+      setState(() => _progress = min(1, __progress));
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    color = Theme.of(context).colorScheme.onSurface;
   }
 
   @override
   void initState() {
     super.initState();
-
     widget._controller.addListener(update);
   }
 
   @override
-  Widget build(BuildContext context) {
-    return LinearProgressIndicator(value: _progress);
+  void dispose() {
+    widget._controller.removeListener(update);
+    super.dispose();
   }
+
+  @override
+  Widget build(BuildContext context) => LinearProgressIndicator(
+        value: _progress,
+        valueColor: AlwaysStoppedAnimation(color),
+        backgroundColor: Colors.transparent,
+      );
 }
 
 class _ModeWidget extends StatelessWidget {

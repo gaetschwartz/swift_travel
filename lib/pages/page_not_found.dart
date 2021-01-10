@@ -15,43 +15,46 @@ class _PageNotFoundState extends State<PageNotFound> {
   bool _wrapped = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Page not found"),
-        leading: const CloseButton(),
-        actions: [
-          IconButton(
-              icon: _wrapped
-                  ? const Icon(Icons.wrap_text)
-                  : const Icon(CupertinoIcons.text_badge_checkmark),
-              onPressed: () => setState(() => _wrapped = !_wrapped))
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: ListView(
-          children: [
-            ErrorDataWidget(
-              "Name:",
-              widget.settings.name,
-              wrapped: _wrapped,
-            ),
-            ErrorDataWidget(
-              "Arguments:",
-              widget.settings.arguments.toString(),
-              wrapped: _wrapped,
-            ),
-            ErrorDataWidget(
-              "Arguments type:",
-              widget.settings.arguments.runtimeType.toString(),
-              wrapped: _wrapped,
-            ),
-            ErrorDataWidget(
-              "StackTrace:",
-              StackTrace.current.toString(),
-              wrapped: _wrapped,
-            ),
+    return Theme(
+      data: ThemeData(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Page not found"),
+          leading: const CloseButton(),
+          actions: [
+            IconButton(
+                icon: _wrapped
+                    ? const Icon(Icons.wrap_text)
+                    : const Icon(CupertinoIcons.text_badge_checkmark),
+                onPressed: () => setState(() => _wrapped = !_wrapped))
           ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: ListView(
+            children: [
+              ErrorDataWidget(
+                "Name:",
+                widget.settings.name,
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
+                "Arguments:",
+                widget.settings.arguments.toString(),
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
+                "Arguments type:",
+                widget.settings.arguments.runtimeType.toString(),
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
+                "StackTrace:",
+                StackTrace.current.toString(),
+                wrapped: _wrapped,
+              ),
+            ],
+          ),
         ),
       ),
     );
