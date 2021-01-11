@@ -25,9 +25,9 @@ dependencies:
   cupertino_icons: ^1.0.0
   dio: ^3.0.10
   expandable: ^4.1.4
-  firebase_analytics: ^6.3.0
-  firebase_core: ^0.5.0
-  firebase_crashlytics: ^0.2.0
+  firebase_analytics: ^7.0.0
+  firebase_core: ^0.6.0
+  firebase_crashlytics: ^0.3.0
   flare_flutter: ^2.0.6
   fluentui_system_icons: ^1.1.90
   flutter_riverpod: ^0.12.0

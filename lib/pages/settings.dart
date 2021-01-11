@@ -14,6 +14,7 @@ import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/search.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/blocs/theme/src/colorscheme.dart';
@@ -178,6 +179,13 @@ class Settings extends StatelessWidget {
             ),
             if (kDebugMode) ...[
               _SectionTitle(title: Text(Strings.of(context).developer)),
+              ListTile(
+                  leading: const Icon(Icons.search),
+                  title: const Text('Search'),
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => SearchPage(
+                            controller: TextEditingController(),
+                          )))),
               ListTile(
                   leading: const Icon(Icons.warning_rounded),
                   title: const Text('Throw a Flutter error'),
