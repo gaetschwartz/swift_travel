@@ -28,6 +28,7 @@ import 'package:swift_travel/utils/errors.dart';
 import 'package:utils/blocs/theme/dynamic_theme.dart';
 import 'package:utils/dialogs/datepicker.dart';
 import 'package:utils/dialogs/input_dialog.dart';
+import 'package:utils/widgets/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 final _timeTypeProvider = StateProvider((_) => TimeType.depart);
@@ -100,6 +101,10 @@ class Fetcher extends ChangeNotifier {
       state = const RouteStates.network();
     } on MissingPluginException catch (e) {
       state = RouteStates.exception(e);
+    } on PermissionDeniedException {
+      state = const RouteStates.location();
+    } on LocationServiceDisabledException {
+      state = const RouteStates.location();
     } on Exception catch (e, s) {
       state = RouteStates.exception(e);
       reportDartError(e, s, name: 'Fetch');
@@ -596,85 +601,129 @@ class RoutesView extends StatelessWidget {
     return Consumer(builder: (context, w, _) {
       final Fetcher fetcher = w(_futureRouteProvider);
       return fetcher.state.map(
-          routes: (data) => data.routes.connections.isNotEmpty
-              ? ListView.builder(
-                  // separatorBuilder: (c, i) => const Divider(height: 0),
-                  shrinkWrap: true,
-                  itemCount: data.routes == null ? 0 : data.routes.connections.length,
-                  itemBuilder: (context, i) => RouteTile(
-                        key: Key('routetile-$i'),
-                        route: data.routes,
-                        i: i,
-                      ))
-              : Center(
-                  child: Text(
-                    data.routes.messages.join("\n"),
-                    style: Theme.of(context).textTheme.headline6,
-                    textAlign: TextAlign.center,
-                  ),
+        routes: (data) => data.routes.connections.isNotEmpty
+            ? ListView.builder(
+                // separatorBuilder: (c, i) => const Divider(height: 0),
+                shrinkWrap: true,
+                itemCount: data.routes == null ? 0 : data.routes.connections.length,
+                itemBuilder: (context, i) => RouteTile(
+                      key: Key('routetile-$i'),
+                      route: data.routes,
+                      i: i,
+                    ))
+            : Center(
+                child: Text(
+                  data.routes.messages.join("\n"),
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.center,
                 ),
-          network: (_) => Column(
+              ),
+        network: (_) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Center(
+                    child: Text(
+                  "😢",
+                  style: TextStyle(fontSize: 96),
+                )),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                "Network Error",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
+          ],
+        ),
+        location: (e) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Center(
-                          child: Text(
-                        "😢",
-                        style: TextStyle(fontSize: 96),
-                      )),
-                    ),
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Center(
+                        child: Text(
+                      "🗺",
+                      style: TextStyle(fontSize: 80),
+                    )),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      "Network Error",
+                      "This app requires location permissions !",
                       style: Theme.of(context).textTheme.headline6,
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                ],
-              ),
-          exception: (e) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Center(
-                          child: Text(
-                        "😢",
-                        style: TextStyle(fontSize: 96),
-                      )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      e.exception.toString(),
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
-                ],
-              ),
-          loading: (_) => const CustomScrollView(
-                slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
-              ),
-          empty: (_) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    '🔎',
-                    style: TextStyle(fontSize: 48),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    Strings.of(context).find_a_route,
-                    style: Theme.of(context).textTheme.headline6,
-                    textAlign: TextAlign.center,
                   )
                 ],
-              ));
+              ),
+            ),
+            Expanded(
+                child: Center(
+              child: ResponsiveWidget.isDarwin(context)
+                  ? CupertinoButton.filled(
+                      onPressed: () => Geolocator.openAppSettings(),
+                      child: const Text("Open settings"))
+                  : ElevatedButton(
+                      onPressed: () => Geolocator.openAppSettings(),
+                      child: const Text("Open settings")),
+            )),
+          ],
+        ),
+        exception: (e) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Expanded(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Center(
+                    child: Text(
+                  "😢",
+                  style: TextStyle(fontSize: 80),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  e.exception.toString(),
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ],
+        ),
+        loading: (_) => const CustomScrollView(
+          slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
+        ),
+        empty: (_) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              '🔎',
+              style: TextStyle(fontSize: 48),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              Strings.of(context).find_a_route,
+              style: Theme.of(context).textTheme.headline6,
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+      );
     });
   }
 }

@@ -69,7 +69,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
               SizedBox(height: 32),
               Text(
                 'Loading ...',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+                style: TextStyle(color: Colors.white, fontSize: 32),
               )
             ],
           ),
@@ -92,10 +92,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     route();
 
     if (isMobile) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        MyQuickActions.instance.init();
-        context.read(linksProvider).init(context.read(navigationAPIProvider));
-      });
+      MyQuickActions.instance.init();
+      context.read(linksProvider).init(context.read(navigationAPIProvider));
     }
   }
 

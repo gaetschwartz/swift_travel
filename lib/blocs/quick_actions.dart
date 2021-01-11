@@ -54,7 +54,7 @@ class MyQuickActions {
       final fav = stringList[id];
       final f = jsonDecode(fav) as Map<String, dynamic>;
       final f2 = FavoriteStop.fromJson(f);
-      navigatorKey.currentState.pushNamed("/search_from_stop", arguments: f2);
+      navigatorKey.currentState.pushNamed("/route", arguments: f2);
     }
   }
 

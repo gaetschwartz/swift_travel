@@ -182,6 +182,12 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+class Routes {
+  Routes._();
+
+  static const route = "/route";
+}
+
 class LocalizationAwareWidget extends StatefulWidget {
   final Widget child;
 
