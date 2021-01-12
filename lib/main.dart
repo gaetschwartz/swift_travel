@@ -149,11 +149,11 @@ class _MyAppState extends State<MyApp> {
         if (settings.arguments is LocalRoute) {
           return MaterialWithModalsPageRoute(
               settings: settings,
-              builder: (_) => SearchRoute.route(settings.arguments as LocalRoute));
+              builder: (_) => RoutePage.route(settings.arguments as LocalRoute));
         } else if (settings.arguments is FavoriteStop) {
           return MaterialWithModalsPageRoute(
               settings: settings,
-              builder: (_) => SearchRoute.stop(settings.arguments as FavoriteStop));
+              builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop));
         }
         break;
       case "/ourTeam":

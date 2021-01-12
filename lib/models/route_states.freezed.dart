@@ -14,37 +14,42 @@ class _$RouteStatesTearOff {
   const _$RouteStatesTearOff();
 
 // ignore: unused_element
-  RouteStatesData routes(CffRoute routes) {
-    return RouteStatesData(
+  RSData routes(CffRoute routes) {
+    return RSData(
       routes,
     );
   }
 
 // ignore: unused_element
-  RouteStatesNetwork network() {
-    return const RouteStatesNetwork();
+  RSNetworkException networkException() {
+    return const RSNetworkException();
   }
 
 // ignore: unused_element
-  RouteStatesLocationException location() {
-    return const RouteStatesLocationException();
+  RSLocationPermissionNotGranted locationPermissionNotGranted() {
+    return const RSLocationPermissionNotGranted();
   }
 
 // ignore: unused_element
-  RouteStatesException exception(Object exception) {
-    return RouteStatesException(
+  RSMissingPluginException missingPluginException() {
+    return const RSMissingPluginException();
+  }
+
+// ignore: unused_element
+  RSException exception(Object exception) {
+    return RSException(
       exception,
     );
   }
 
 // ignore: unused_element
-  RouteStatesEmpty empty() {
-    return const RouteStatesEmpty();
+  RSEmpty empty() {
+    return const RSEmpty();
   }
 
 // ignore: unused_element
-  RouteStatesLoading loading() {
-    return const RouteStatesLoading();
+  RSLoading loading() {
+    return const RSLoading();
   }
 }
 
@@ -57,8 +62,9 @@ mixin _$RouteStates {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult routes(CffRoute routes),
-    @required TResult network(),
-    @required TResult location(),
+    @required TResult networkException(),
+    @required TResult locationPermissionNotGranted(),
+    @required TResult missingPluginException(),
     @required TResult exception(Object exception),
     @required TResult empty(),
     @required TResult loading(),
@@ -66,8 +72,9 @@ mixin _$RouteStates {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult routes(CffRoute routes),
-    TResult network(),
-    TResult location(),
+    TResult networkException(),
+    TResult locationPermissionNotGranted(),
+    TResult missingPluginException(),
     TResult exception(Object exception),
     TResult empty(),
     TResult loading(),
@@ -75,21 +82,25 @@ mixin _$RouteStates {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult routes(RouteStatesData value),
-    @required TResult network(RouteStatesNetwork value),
-    @required TResult location(RouteStatesLocationException value),
-    @required TResult exception(RouteStatesException value),
-    @required TResult empty(RouteStatesEmpty value),
-    @required TResult loading(RouteStatesLoading value),
+    @required TResult routes(RSData value),
+    @required TResult networkException(RSNetworkException value),
+    @required
+        TResult locationPermissionNotGranted(
+            RSLocationPermissionNotGranted value),
+    @required TResult missingPluginException(RSMissingPluginException value),
+    @required TResult exception(RSException value),
+    @required TResult empty(RSEmpty value),
+    @required TResult loading(RSLoading value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult routes(RouteStatesData value),
-    TResult network(RouteStatesNetwork value),
-    TResult location(RouteStatesLocationException value),
-    TResult exception(RouteStatesException value),
-    TResult empty(RouteStatesEmpty value),
-    TResult loading(RouteStatesLoading value),
+    TResult routes(RSData value),
+    TResult networkException(RSNetworkException value),
+    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
+    TResult missingPluginException(RSMissingPluginException value),
+    TResult exception(RSException value),
+    TResult empty(RSEmpty value),
+    TResult loading(RSLoading value),
     @required TResult orElse(),
   });
 }
@@ -111,31 +122,28 @@ class _$RouteStatesCopyWithImpl<$Res> implements $RouteStatesCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $RouteStatesDataCopyWith<$Res> {
-  factory $RouteStatesDataCopyWith(
-          RouteStatesData value, $Res Function(RouteStatesData) then) =
-      _$RouteStatesDataCopyWithImpl<$Res>;
+abstract class $RSDataCopyWith<$Res> {
+  factory $RSDataCopyWith(RSData value, $Res Function(RSData) then) =
+      _$RSDataCopyWithImpl<$Res>;
   $Res call({CffRoute routes});
 
   $CffRouteCopyWith<$Res> get routes;
 }
 
 /// @nodoc
-class _$RouteStatesDataCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res>
-    implements $RouteStatesDataCopyWith<$Res> {
-  _$RouteStatesDataCopyWithImpl(
-      RouteStatesData _value, $Res Function(RouteStatesData) _then)
-      : super(_value, (v) => _then(v as RouteStatesData));
+class _$RSDataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RSDataCopyWith<$Res> {
+  _$RSDataCopyWithImpl(RSData _value, $Res Function(RSData) _then)
+      : super(_value, (v) => _then(v as RSData));
 
   @override
-  RouteStatesData get _value => super._value as RouteStatesData;
+  RSData get _value => super._value as RSData;
 
   @override
   $Res call({
     Object routes = freezed,
   }) {
-    return _then(RouteStatesData(
+    return _then(RSData(
       routes == freezed ? _value.routes : routes as CffRoute,
     ));
   }
@@ -152,8 +160,8 @@ class _$RouteStatesDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$RouteStatesData implements RouteStatesData {
-  const _$RouteStatesData(this.routes) : assert(routes != null);
+class _$RSData implements RSData {
+  const _$RSData(this.routes) : assert(routes != null);
 
   @override
   final CffRoute routes;
@@ -166,7 +174,7 @@ class _$RouteStatesData implements RouteStatesData {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is RouteStatesData &&
+        (other is RSData &&
             (identical(other.routes, routes) ||
                 const DeepCollectionEquality().equals(other.routes, routes)));
   }
@@ -176,22 +184,24 @@ class _$RouteStatesData implements RouteStatesData {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(routes);
 
   @override
-  $RouteStatesDataCopyWith<RouteStatesData> get copyWith =>
-      _$RouteStatesDataCopyWithImpl<RouteStatesData>(this, _$identity);
+  $RSDataCopyWith<RSData> get copyWith =>
+      _$RSDataCopyWithImpl<RSData>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult routes(CffRoute routes),
-    @required TResult network(),
-    @required TResult location(),
+    @required TResult networkException(),
+    @required TResult locationPermissionNotGranted(),
+    @required TResult missingPluginException(),
     @required TResult exception(Object exception),
     @required TResult empty(),
     @required TResult loading(),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
@@ -202,8 +212,9 @@ class _$RouteStatesData implements RouteStatesData {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult routes(CffRoute routes),
-    TResult network(),
-    TResult location(),
+    TResult networkException(),
+    TResult locationPermissionNotGranted(),
+    TResult missingPluginException(),
     TResult exception(Object exception),
     TResult empty(),
     TResult loading(),
@@ -219,16 +230,20 @@ class _$RouteStatesData implements RouteStatesData {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult routes(RouteStatesData value),
-    @required TResult network(RouteStatesNetwork value),
-    @required TResult location(RouteStatesLocationException value),
-    @required TResult exception(RouteStatesException value),
-    @required TResult empty(RouteStatesEmpty value),
-    @required TResult loading(RouteStatesLoading value),
+    @required TResult routes(RSData value),
+    @required TResult networkException(RSNetworkException value),
+    @required
+        TResult locationPermissionNotGranted(
+            RSLocationPermissionNotGranted value),
+    @required TResult missingPluginException(RSMissingPluginException value),
+    @required TResult exception(RSException value),
+    @required TResult empty(RSEmpty value),
+    @required TResult loading(RSLoading value),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
@@ -238,12 +253,13 @@ class _$RouteStatesData implements RouteStatesData {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult routes(RouteStatesData value),
-    TResult network(RouteStatesNetwork value),
-    TResult location(RouteStatesLocationException value),
-    TResult exception(RouteStatesException value),
-    TResult empty(RouteStatesEmpty value),
-    TResult loading(RouteStatesLoading value),
+    TResult routes(RSData value),
+    TResult networkException(RSNetworkException value),
+    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
+    TResult missingPluginException(RSMissingPluginException value),
+    TResult exception(RSException value),
+    TResult empty(RSEmpty value),
+    TResult loading(RSLoading value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -254,44 +270,44 @@ class _$RouteStatesData implements RouteStatesData {
   }
 }
 
-abstract class RouteStatesData implements RouteStates {
-  const factory RouteStatesData(CffRoute routes) = _$RouteStatesData;
+abstract class RSData implements RouteStates {
+  const factory RSData(CffRoute routes) = _$RSData;
 
   CffRoute get routes;
-  $RouteStatesDataCopyWith<RouteStatesData> get copyWith;
+  $RSDataCopyWith<RSData> get copyWith;
 }
 
 /// @nodoc
-abstract class $RouteStatesNetworkCopyWith<$Res> {
-  factory $RouteStatesNetworkCopyWith(
-          RouteStatesNetwork value, $Res Function(RouteStatesNetwork) then) =
-      _$RouteStatesNetworkCopyWithImpl<$Res>;
+abstract class $RSNetworkExceptionCopyWith<$Res> {
+  factory $RSNetworkExceptionCopyWith(
+          RSNetworkException value, $Res Function(RSNetworkException) then) =
+      _$RSNetworkExceptionCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$RouteStatesNetworkCopyWithImpl<$Res>
+class _$RSNetworkExceptionCopyWithImpl<$Res>
     extends _$RouteStatesCopyWithImpl<$Res>
-    implements $RouteStatesNetworkCopyWith<$Res> {
-  _$RouteStatesNetworkCopyWithImpl(
-      RouteStatesNetwork _value, $Res Function(RouteStatesNetwork) _then)
-      : super(_value, (v) => _then(v as RouteStatesNetwork));
+    implements $RSNetworkExceptionCopyWith<$Res> {
+  _$RSNetworkExceptionCopyWithImpl(
+      RSNetworkException _value, $Res Function(RSNetworkException) _then)
+      : super(_value, (v) => _then(v as RSNetworkException));
 
   @override
-  RouteStatesNetwork get _value => super._value as RouteStatesNetwork;
+  RSNetworkException get _value => super._value as RSNetworkException;
 }
 
 /// @nodoc
-class _$RouteStatesNetwork implements RouteStatesNetwork {
-  const _$RouteStatesNetwork();
+class _$RSNetworkException implements RSNetworkException {
+  const _$RSNetworkException();
 
   @override
   String toString() {
-    return 'RouteStates.network()';
+    return 'RouteStates.networkException()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RouteStatesNetwork);
+    return identical(this, other) || (other is RSNetworkException);
   }
 
   @override
@@ -301,35 +317,38 @@ class _$RouteStatesNetwork implements RouteStatesNetwork {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult routes(CffRoute routes),
-    @required TResult network(),
-    @required TResult location(),
+    @required TResult networkException(),
+    @required TResult locationPermissionNotGranted(),
+    @required TResult missingPluginException(),
     @required TResult exception(Object exception),
     @required TResult empty(),
     @required TResult loading(),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
-    return network();
+    return networkException();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult routes(CffRoute routes),
-    TResult network(),
-    TResult location(),
+    TResult networkException(),
+    TResult locationPermissionNotGranted(),
+    TResult missingPluginException(),
     TResult exception(Object exception),
     TResult empty(),
     TResult loading(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (network != null) {
-      return network();
+    if (networkException != null) {
+      return networkException();
     }
     return orElse();
   }
@@ -337,79 +356,85 @@ class _$RouteStatesNetwork implements RouteStatesNetwork {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult routes(RouteStatesData value),
-    @required TResult network(RouteStatesNetwork value),
-    @required TResult location(RouteStatesLocationException value),
-    @required TResult exception(RouteStatesException value),
-    @required TResult empty(RouteStatesEmpty value),
-    @required TResult loading(RouteStatesLoading value),
+    @required TResult routes(RSData value),
+    @required TResult networkException(RSNetworkException value),
+    @required
+        TResult locationPermissionNotGranted(
+            RSLocationPermissionNotGranted value),
+    @required TResult missingPluginException(RSMissingPluginException value),
+    @required TResult exception(RSException value),
+    @required TResult empty(RSEmpty value),
+    @required TResult loading(RSLoading value),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
-    return network(this);
+    return networkException(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult routes(RouteStatesData value),
-    TResult network(RouteStatesNetwork value),
-    TResult location(RouteStatesLocationException value),
-    TResult exception(RouteStatesException value),
-    TResult empty(RouteStatesEmpty value),
-    TResult loading(RouteStatesLoading value),
+    TResult routes(RSData value),
+    TResult networkException(RSNetworkException value),
+    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
+    TResult missingPluginException(RSMissingPluginException value),
+    TResult exception(RSException value),
+    TResult empty(RSEmpty value),
+    TResult loading(RSLoading value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (network != null) {
-      return network(this);
+    if (networkException != null) {
+      return networkException(this);
     }
     return orElse();
   }
 }
 
-abstract class RouteStatesNetwork implements RouteStates {
-  const factory RouteStatesNetwork() = _$RouteStatesNetwork;
+abstract class RSNetworkException implements RouteStates {
+  const factory RSNetworkException() = _$RSNetworkException;
 }
 
 /// @nodoc
-abstract class $RouteStatesLocationExceptionCopyWith<$Res> {
-  factory $RouteStatesLocationExceptionCopyWith(
-          RouteStatesLocationException value,
-          $Res Function(RouteStatesLocationException) then) =
-      _$RouteStatesLocationExceptionCopyWithImpl<$Res>;
+abstract class $RSLocationPermissionNotGrantedCopyWith<$Res> {
+  factory $RSLocationPermissionNotGrantedCopyWith(
+          RSLocationPermissionNotGranted value,
+          $Res Function(RSLocationPermissionNotGranted) then) =
+      _$RSLocationPermissionNotGrantedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$RouteStatesLocationExceptionCopyWithImpl<$Res>
+class _$RSLocationPermissionNotGrantedCopyWithImpl<$Res>
     extends _$RouteStatesCopyWithImpl<$Res>
-    implements $RouteStatesLocationExceptionCopyWith<$Res> {
-  _$RouteStatesLocationExceptionCopyWithImpl(
-      RouteStatesLocationException _value,
-      $Res Function(RouteStatesLocationException) _then)
-      : super(_value, (v) => _then(v as RouteStatesLocationException));
+    implements $RSLocationPermissionNotGrantedCopyWith<$Res> {
+  _$RSLocationPermissionNotGrantedCopyWithImpl(
+      RSLocationPermissionNotGranted _value,
+      $Res Function(RSLocationPermissionNotGranted) _then)
+      : super(_value, (v) => _then(v as RSLocationPermissionNotGranted));
 
   @override
-  RouteStatesLocationException get _value =>
-      super._value as RouteStatesLocationException;
+  RSLocationPermissionNotGranted get _value =>
+      super._value as RSLocationPermissionNotGranted;
 }
 
 /// @nodoc
-class _$RouteStatesLocationException implements RouteStatesLocationException {
-  const _$RouteStatesLocationException();
+class _$RSLocationPermissionNotGranted
+    implements RSLocationPermissionNotGranted {
+  const _$RSLocationPermissionNotGranted();
 
   @override
   String toString() {
-    return 'RouteStates.location()';
+    return 'RouteStates.locationPermissionNotGranted()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RouteStatesLocationException);
+    return identical(this, other) || (other is RSLocationPermissionNotGranted);
   }
 
   @override
@@ -419,35 +444,38 @@ class _$RouteStatesLocationException implements RouteStatesLocationException {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult routes(CffRoute routes),
-    @required TResult network(),
-    @required TResult location(),
+    @required TResult networkException(),
+    @required TResult locationPermissionNotGranted(),
+    @required TResult missingPluginException(),
     @required TResult exception(Object exception),
     @required TResult empty(),
     @required TResult loading(),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
-    return location();
+    return locationPermissionNotGranted();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult routes(CffRoute routes),
-    TResult network(),
-    TResult location(),
+    TResult networkException(),
+    TResult locationPermissionNotGranted(),
+    TResult missingPluginException(),
     TResult exception(Object exception),
     TResult empty(),
     TResult loading(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (location != null) {
-      return location();
+    if (locationPermissionNotGranted != null) {
+      return locationPermissionNotGranted();
     }
     return orElse();
   }
@@ -455,77 +483,206 @@ class _$RouteStatesLocationException implements RouteStatesLocationException {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult routes(RouteStatesData value),
-    @required TResult network(RouteStatesNetwork value),
-    @required TResult location(RouteStatesLocationException value),
-    @required TResult exception(RouteStatesException value),
-    @required TResult empty(RouteStatesEmpty value),
-    @required TResult loading(RouteStatesLoading value),
+    @required TResult routes(RSData value),
+    @required TResult networkException(RSNetworkException value),
+    @required
+        TResult locationPermissionNotGranted(
+            RSLocationPermissionNotGranted value),
+    @required TResult missingPluginException(RSMissingPluginException value),
+    @required TResult exception(RSException value),
+    @required TResult empty(RSEmpty value),
+    @required TResult loading(RSLoading value),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
-    return location(this);
+    return locationPermissionNotGranted(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult routes(RouteStatesData value),
-    TResult network(RouteStatesNetwork value),
-    TResult location(RouteStatesLocationException value),
-    TResult exception(RouteStatesException value),
-    TResult empty(RouteStatesEmpty value),
-    TResult loading(RouteStatesLoading value),
+    TResult routes(RSData value),
+    TResult networkException(RSNetworkException value),
+    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
+    TResult missingPluginException(RSMissingPluginException value),
+    TResult exception(RSException value),
+    TResult empty(RSEmpty value),
+    TResult loading(RSLoading value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (location != null) {
-      return location(this);
+    if (locationPermissionNotGranted != null) {
+      return locationPermissionNotGranted(this);
     }
     return orElse();
   }
 }
 
-abstract class RouteStatesLocationException implements RouteStates {
-  const factory RouteStatesLocationException() = _$RouteStatesLocationException;
+abstract class RSLocationPermissionNotGranted implements RouteStates {
+  const factory RSLocationPermissionNotGranted() =
+      _$RSLocationPermissionNotGranted;
 }
 
 /// @nodoc
-abstract class $RouteStatesExceptionCopyWith<$Res> {
-  factory $RouteStatesExceptionCopyWith(RouteStatesException value,
-          $Res Function(RouteStatesException) then) =
-      _$RouteStatesExceptionCopyWithImpl<$Res>;
+abstract class $RSMissingPluginExceptionCopyWith<$Res> {
+  factory $RSMissingPluginExceptionCopyWith(RSMissingPluginException value,
+          $Res Function(RSMissingPluginException) then) =
+      _$RSMissingPluginExceptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$RSMissingPluginExceptionCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RSMissingPluginExceptionCopyWith<$Res> {
+  _$RSMissingPluginExceptionCopyWithImpl(RSMissingPluginException _value,
+      $Res Function(RSMissingPluginException) _then)
+      : super(_value, (v) => _then(v as RSMissingPluginException));
+
+  @override
+  RSMissingPluginException get _value =>
+      super._value as RSMissingPluginException;
+}
+
+/// @nodoc
+class _$RSMissingPluginException implements RSMissingPluginException {
+  const _$RSMissingPluginException();
+
+  @override
+  String toString() {
+    return 'RouteStates.missingPluginException()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is RSMissingPluginException);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult routes(CffRoute routes),
+    @required TResult networkException(),
+    @required TResult locationPermissionNotGranted(),
+    @required TResult missingPluginException(),
+    @required TResult exception(Object exception),
+    @required TResult empty(),
+    @required TResult loading(),
+  }) {
+    assert(routes != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
+    assert(exception != null);
+    assert(empty != null);
+    assert(loading != null);
+    return missingPluginException();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult routes(CffRoute routes),
+    TResult networkException(),
+    TResult locationPermissionNotGranted(),
+    TResult missingPluginException(),
+    TResult exception(Object exception),
+    TResult empty(),
+    TResult loading(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (missingPluginException != null) {
+      return missingPluginException();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult routes(RSData value),
+    @required TResult networkException(RSNetworkException value),
+    @required
+        TResult locationPermissionNotGranted(
+            RSLocationPermissionNotGranted value),
+    @required TResult missingPluginException(RSMissingPluginException value),
+    @required TResult exception(RSException value),
+    @required TResult empty(RSEmpty value),
+    @required TResult loading(RSLoading value),
+  }) {
+    assert(routes != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
+    assert(exception != null);
+    assert(empty != null);
+    assert(loading != null);
+    return missingPluginException(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult routes(RSData value),
+    TResult networkException(RSNetworkException value),
+    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
+    TResult missingPluginException(RSMissingPluginException value),
+    TResult exception(RSException value),
+    TResult empty(RSEmpty value),
+    TResult loading(RSLoading value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (missingPluginException != null) {
+      return missingPluginException(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RSMissingPluginException implements RouteStates {
+  const factory RSMissingPluginException() = _$RSMissingPluginException;
+}
+
+/// @nodoc
+abstract class $RSExceptionCopyWith<$Res> {
+  factory $RSExceptionCopyWith(
+          RSException value, $Res Function(RSException) then) =
+      _$RSExceptionCopyWithImpl<$Res>;
   $Res call({Object exception});
 }
 
 /// @nodoc
-class _$RouteStatesExceptionCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res>
-    implements $RouteStatesExceptionCopyWith<$Res> {
-  _$RouteStatesExceptionCopyWithImpl(
-      RouteStatesException _value, $Res Function(RouteStatesException) _then)
-      : super(_value, (v) => _then(v as RouteStatesException));
+class _$RSExceptionCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RSExceptionCopyWith<$Res> {
+  _$RSExceptionCopyWithImpl(
+      RSException _value, $Res Function(RSException) _then)
+      : super(_value, (v) => _then(v as RSException));
 
   @override
-  RouteStatesException get _value => super._value as RouteStatesException;
+  RSException get _value => super._value as RSException;
 
   @override
   $Res call({
     Object exception = freezed,
   }) {
-    return _then(RouteStatesException(
+    return _then(RSException(
       exception == freezed ? _value.exception : exception,
     ));
   }
 }
 
 /// @nodoc
-class _$RouteStatesException implements RouteStatesException {
-  const _$RouteStatesException(this.exception) : assert(exception != null);
+class _$RSException implements RSException {
+  const _$RSException(this.exception) : assert(exception != null);
 
   @override
   final Object exception;
@@ -538,7 +695,7 @@ class _$RouteStatesException implements RouteStatesException {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is RouteStatesException &&
+        (other is RSException &&
             (identical(other.exception, exception) ||
                 const DeepCollectionEquality()
                     .equals(other.exception, exception)));
@@ -549,23 +706,24 @@ class _$RouteStatesException implements RouteStatesException {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
 
   @override
-  $RouteStatesExceptionCopyWith<RouteStatesException> get copyWith =>
-      _$RouteStatesExceptionCopyWithImpl<RouteStatesException>(
-          this, _$identity);
+  $RSExceptionCopyWith<RSException> get copyWith =>
+      _$RSExceptionCopyWithImpl<RSException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult routes(CffRoute routes),
-    @required TResult network(),
-    @required TResult location(),
+    @required TResult networkException(),
+    @required TResult locationPermissionNotGranted(),
+    @required TResult missingPluginException(),
     @required TResult exception(Object exception),
     @required TResult empty(),
     @required TResult loading(),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
@@ -576,8 +734,9 @@ class _$RouteStatesException implements RouteStatesException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult routes(CffRoute routes),
-    TResult network(),
-    TResult location(),
+    TResult networkException(),
+    TResult locationPermissionNotGranted(),
+    TResult missingPluginException(),
     TResult exception(Object exception),
     TResult empty(),
     TResult loading(),
@@ -593,16 +752,20 @@ class _$RouteStatesException implements RouteStatesException {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult routes(RouteStatesData value),
-    @required TResult network(RouteStatesNetwork value),
-    @required TResult location(RouteStatesLocationException value),
-    @required TResult exception(RouteStatesException value),
-    @required TResult empty(RouteStatesEmpty value),
-    @required TResult loading(RouteStatesLoading value),
+    @required TResult routes(RSData value),
+    @required TResult networkException(RSNetworkException value),
+    @required
+        TResult locationPermissionNotGranted(
+            RSLocationPermissionNotGranted value),
+    @required TResult missingPluginException(RSMissingPluginException value),
+    @required TResult exception(RSException value),
+    @required TResult empty(RSEmpty value),
+    @required TResult loading(RSLoading value),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
@@ -612,12 +775,13 @@ class _$RouteStatesException implements RouteStatesException {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult routes(RouteStatesData value),
-    TResult network(RouteStatesNetwork value),
-    TResult location(RouteStatesLocationException value),
-    TResult exception(RouteStatesException value),
-    TResult empty(RouteStatesEmpty value),
-    TResult loading(RouteStatesLoading value),
+    TResult routes(RSData value),
+    TResult networkException(RSNetworkException value),
+    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
+    TResult missingPluginException(RSMissingPluginException value),
+    TResult exception(RSException value),
+    TResult empty(RSEmpty value),
+    TResult loading(RSLoading value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -628,35 +792,32 @@ class _$RouteStatesException implements RouteStatesException {
   }
 }
 
-abstract class RouteStatesException implements RouteStates {
-  const factory RouteStatesException(Object exception) = _$RouteStatesException;
+abstract class RSException implements RouteStates {
+  const factory RSException(Object exception) = _$RSException;
 
   Object get exception;
-  $RouteStatesExceptionCopyWith<RouteStatesException> get copyWith;
+  $RSExceptionCopyWith<RSException> get copyWith;
 }
 
 /// @nodoc
-abstract class $RouteStatesEmptyCopyWith<$Res> {
-  factory $RouteStatesEmptyCopyWith(
-          RouteStatesEmpty value, $Res Function(RouteStatesEmpty) then) =
-      _$RouteStatesEmptyCopyWithImpl<$Res>;
+abstract class $RSEmptyCopyWith<$Res> {
+  factory $RSEmptyCopyWith(RSEmpty value, $Res Function(RSEmpty) then) =
+      _$RSEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$RouteStatesEmptyCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res>
-    implements $RouteStatesEmptyCopyWith<$Res> {
-  _$RouteStatesEmptyCopyWithImpl(
-      RouteStatesEmpty _value, $Res Function(RouteStatesEmpty) _then)
-      : super(_value, (v) => _then(v as RouteStatesEmpty));
+class _$RSEmptyCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RSEmptyCopyWith<$Res> {
+  _$RSEmptyCopyWithImpl(RSEmpty _value, $Res Function(RSEmpty) _then)
+      : super(_value, (v) => _then(v as RSEmpty));
 
   @override
-  RouteStatesEmpty get _value => super._value as RouteStatesEmpty;
+  RSEmpty get _value => super._value as RSEmpty;
 }
 
 /// @nodoc
-class _$RouteStatesEmpty implements RouteStatesEmpty {
-  const _$RouteStatesEmpty();
+class _$RSEmpty implements RSEmpty {
+  const _$RSEmpty();
 
   @override
   String toString() {
@@ -665,7 +826,7 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RouteStatesEmpty);
+    return identical(this, other) || (other is RSEmpty);
   }
 
   @override
@@ -675,15 +836,17 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult routes(CffRoute routes),
-    @required TResult network(),
-    @required TResult location(),
+    @required TResult networkException(),
+    @required TResult locationPermissionNotGranted(),
+    @required TResult missingPluginException(),
     @required TResult exception(Object exception),
     @required TResult empty(),
     @required TResult loading(),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
@@ -694,8 +857,9 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult routes(CffRoute routes),
-    TResult network(),
-    TResult location(),
+    TResult networkException(),
+    TResult locationPermissionNotGranted(),
+    TResult missingPluginException(),
     TResult exception(Object exception),
     TResult empty(),
     TResult loading(),
@@ -711,16 +875,20 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult routes(RouteStatesData value),
-    @required TResult network(RouteStatesNetwork value),
-    @required TResult location(RouteStatesLocationException value),
-    @required TResult exception(RouteStatesException value),
-    @required TResult empty(RouteStatesEmpty value),
-    @required TResult loading(RouteStatesLoading value),
+    @required TResult routes(RSData value),
+    @required TResult networkException(RSNetworkException value),
+    @required
+        TResult locationPermissionNotGranted(
+            RSLocationPermissionNotGranted value),
+    @required TResult missingPluginException(RSMissingPluginException value),
+    @required TResult exception(RSException value),
+    @required TResult empty(RSEmpty value),
+    @required TResult loading(RSLoading value),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
@@ -730,12 +898,13 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult routes(RouteStatesData value),
-    TResult network(RouteStatesNetwork value),
-    TResult location(RouteStatesLocationException value),
-    TResult exception(RouteStatesException value),
-    TResult empty(RouteStatesEmpty value),
-    TResult loading(RouteStatesLoading value),
+    TResult routes(RSData value),
+    TResult networkException(RSNetworkException value),
+    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
+    TResult missingPluginException(RSMissingPluginException value),
+    TResult exception(RSException value),
+    TResult empty(RSEmpty value),
+    TResult loading(RSLoading value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -746,32 +915,29 @@ class _$RouteStatesEmpty implements RouteStatesEmpty {
   }
 }
 
-abstract class RouteStatesEmpty implements RouteStates {
-  const factory RouteStatesEmpty() = _$RouteStatesEmpty;
+abstract class RSEmpty implements RouteStates {
+  const factory RSEmpty() = _$RSEmpty;
 }
 
 /// @nodoc
-abstract class $RouteStatesLoadingCopyWith<$Res> {
-  factory $RouteStatesLoadingCopyWith(
-          RouteStatesLoading value, $Res Function(RouteStatesLoading) then) =
-      _$RouteStatesLoadingCopyWithImpl<$Res>;
+abstract class $RSLoadingCopyWith<$Res> {
+  factory $RSLoadingCopyWith(RSLoading value, $Res Function(RSLoading) then) =
+      _$RSLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$RouteStatesLoadingCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res>
-    implements $RouteStatesLoadingCopyWith<$Res> {
-  _$RouteStatesLoadingCopyWithImpl(
-      RouteStatesLoading _value, $Res Function(RouteStatesLoading) _then)
-      : super(_value, (v) => _then(v as RouteStatesLoading));
+class _$RSLoadingCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
+    implements $RSLoadingCopyWith<$Res> {
+  _$RSLoadingCopyWithImpl(RSLoading _value, $Res Function(RSLoading) _then)
+      : super(_value, (v) => _then(v as RSLoading));
 
   @override
-  RouteStatesLoading get _value => super._value as RouteStatesLoading;
+  RSLoading get _value => super._value as RSLoading;
 }
 
 /// @nodoc
-class _$RouteStatesLoading implements RouteStatesLoading {
-  const _$RouteStatesLoading();
+class _$RSLoading implements RSLoading {
+  const _$RSLoading();
 
   @override
   String toString() {
@@ -780,7 +946,7 @@ class _$RouteStatesLoading implements RouteStatesLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RouteStatesLoading);
+    return identical(this, other) || (other is RSLoading);
   }
 
   @override
@@ -790,15 +956,17 @@ class _$RouteStatesLoading implements RouteStatesLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult routes(CffRoute routes),
-    @required TResult network(),
-    @required TResult location(),
+    @required TResult networkException(),
+    @required TResult locationPermissionNotGranted(),
+    @required TResult missingPluginException(),
     @required TResult exception(Object exception),
     @required TResult empty(),
     @required TResult loading(),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
@@ -809,8 +977,9 @@ class _$RouteStatesLoading implements RouteStatesLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult routes(CffRoute routes),
-    TResult network(),
-    TResult location(),
+    TResult networkException(),
+    TResult locationPermissionNotGranted(),
+    TResult missingPluginException(),
     TResult exception(Object exception),
     TResult empty(),
     TResult loading(),
@@ -826,16 +995,20 @@ class _$RouteStatesLoading implements RouteStatesLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult routes(RouteStatesData value),
-    @required TResult network(RouteStatesNetwork value),
-    @required TResult location(RouteStatesLocationException value),
-    @required TResult exception(RouteStatesException value),
-    @required TResult empty(RouteStatesEmpty value),
-    @required TResult loading(RouteStatesLoading value),
+    @required TResult routes(RSData value),
+    @required TResult networkException(RSNetworkException value),
+    @required
+        TResult locationPermissionNotGranted(
+            RSLocationPermissionNotGranted value),
+    @required TResult missingPluginException(RSMissingPluginException value),
+    @required TResult exception(RSException value),
+    @required TResult empty(RSEmpty value),
+    @required TResult loading(RSLoading value),
   }) {
     assert(routes != null);
-    assert(network != null);
-    assert(location != null);
+    assert(networkException != null);
+    assert(locationPermissionNotGranted != null);
+    assert(missingPluginException != null);
     assert(exception != null);
     assert(empty != null);
     assert(loading != null);
@@ -845,12 +1018,13 @@ class _$RouteStatesLoading implements RouteStatesLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult routes(RouteStatesData value),
-    TResult network(RouteStatesNetwork value),
-    TResult location(RouteStatesLocationException value),
-    TResult exception(RouteStatesException value),
-    TResult empty(RouteStatesEmpty value),
-    TResult loading(RouteStatesLoading value),
+    TResult routes(RSData value),
+    TResult networkException(RSNetworkException value),
+    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
+    TResult missingPluginException(RSMissingPluginException value),
+    TResult exception(RSException value),
+    TResult empty(RSEmpty value),
+    TResult loading(RSLoading value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -861,6 +1035,6 @@ class _$RouteStatesLoading implements RouteStatesLoading {
   }
 }
 
-abstract class RouteStatesLoading implements RouteStates {
-  const factory RouteStatesLoading() = _$RouteStatesLoading;
+abstract class RSLoading implements RouteStates {
+  const factory RSLoading() = _$RSLoading;
 }

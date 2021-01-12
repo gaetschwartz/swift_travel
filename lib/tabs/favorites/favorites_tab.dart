@@ -85,13 +85,13 @@ class _FavoritesTabState extends State<FavoritesTab>
                 )
               : Column(
                   children: [
-                    favs.state.map(
+                    favs.state.when(
                       data: (c) => ListView.builder(
                         shrinkWrap: true,
-                        itemCount: c.favorites.length,
-                        itemBuilder: (context, i) => FavoriteStationTile(c.favorites[i]),
+                        itemCount: c.length,
+                        itemBuilder: (context, i) => FavoriteStationTile(c[i]),
                       ),
-                      loading: (_) => const Center(
+                      loading: () => const Center(
                         child: CircularProgressIndicator(),
                       ),
                       exception: (e) => Center(

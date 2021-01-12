@@ -15,6 +15,7 @@ import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
@@ -56,9 +57,9 @@ class Fetcher extends ChangeNotifier {
   Future<void> fetch(ProviderReference ref) async {
     final from = ref.watch(_fromTextfieldProvider);
     final to = ref.watch(_toTextfieldProvider);
-    final _cff = ref.read(navigationAPIProvider);
     final date = ref.watch(_dateProvider).state;
     final timeType = ref.watch(_timeTypeProvider).state;
+    final _cff = ref.read(navigationAPIProvider);
 
     if (from.state is EmptyRouteState || to.state is EmptyRouteState) {
       if (from.state is EmptyRouteState && to.state is EmptyRouteState) {
@@ -98,16 +99,15 @@ class Fetcher extends ChangeNotifier {
       );
       state = RouteStates.routes(it);
     } on SocketException {
-      state = const RouteStates.network();
-    } on MissingPluginException catch (e) {
-      state = RouteStates.exception(e);
+      state = const RouteStates.networkException();
+    } on MissingPluginException {
+      state = const RouteStates.missingPluginException();
     } on PermissionDeniedException {
-      state = const RouteStates.location();
+      state = const RouteStates.locationPermissionNotGranted();
     } on LocationServiceDisabledException {
-      state = const RouteStates.location();
-    } on Exception catch (e, s) {
+      state = const RouteStates.locationPermissionNotGranted();
+    } on Exception catch (e) {
       state = RouteStates.exception(e);
-      reportDartError(e, s, name: 'Fetch');
       // ignore: avoid_catching_errors
     } on Error catch (e) {
       state = RouteStates.exception(e);
@@ -116,18 +116,18 @@ class Fetcher extends ChangeNotifier {
   }
 }
 
-class RouteSearchTab extends StatefulWidget {
-  const RouteSearchTab();
+class RouteTab extends StatefulWidget {
+  const RouteTab();
 
   @override
-  _RouteSearchTabState createState() => _RouteSearchTabState();
+  _RouteTabState createState() => _RouteTabState();
 }
 
-class _RouteSearchTabState extends State<RouteSearchTab> with AutomaticKeepAliveClientMixin {
+class _RouteTabState extends State<RouteTab> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return const SearchRoute();
+    return const RoutePage();
   }
 
   @override
@@ -145,55 +145,69 @@ class MyTextFormatter extends TextInputFormatter {
   }
 }
 
-class SearchRoute extends StatefulWidget {
+class RoutePage extends StatefulWidget {
   final LocalRoute localRoute;
   final FavoriteStop favStop;
 
-  const SearchRoute({Key key})
+  const RoutePage({Key key})
       : favStop = null,
         localRoute = null,
         super(key: key);
 
-  const SearchRoute.route(this.localRoute, {Key key})
+  const RoutePage.route(this.localRoute, {Key key})
       : favStop = null,
         super(key: key);
 
-  const SearchRoute.stop(this.favStop, {Key key})
+  const RoutePage.stop(this.favStop, {Key key})
       : localRoute = null,
         super(key: key);
 
   @override
-  _SearchRouteState createState() => _SearchRouteState();
+  _RoutePageState createState() => _RoutePageState();
 }
 
-class _SearchRouteState extends State<SearchRoute> {
+final TextControllerAndStateBinder from =
+    TextControllerAndStateBinder(TextEditingController(), _fromTextfieldProvider);
+final TextControllerAndStateBinder to =
+    TextControllerAndStateBinder(TextEditingController(), _toTextfieldProvider);
+
+class _RoutePageState extends State<RoutePage> {
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
-  final TextEditingController _fromController = TextEditingController();
-  final TextEditingController _toController = TextEditingController();
+
   MyTextFormatter inputFormatter;
-  FavoritesSharedPreferencesStore _store;
+  FavoritesSharedPreferencesStore store;
+  NavigationApi api;
 
   @override
   void initState() {
     super.initState();
-    _store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    log("initstate");
     if (widget.localRoute != null) {
       useLocalRoute();
     } else if (widget.favStop != null) {
       goToDest();
-    } else {
-      WidgetsBinding.instance.addPostFrameCallback((_) => clearProviders());
     }
 
     fnFrom.addListener(_onFocusFromChanged);
     fnTo.addListener(_onFocusToChanged);
   }
 
+  void clearProviders() {
+    context.read(_futureRouteProvider).state = const RouteStates.empty();
+    context.read(_dateProvider).state = DateTime.now();
+    context.read(_timeTypeProvider).state = TimeType.depart;
+  }
+
   @override
   void didChangeDependencies() {
-    inputFormatter = MyTextFormatter(Strings.of(context).current_location);
     super.didChangeDependencies();
+    log("did change deps");
+    inputFormatter = MyTextFormatter(Strings.of(context).current_location);
+    store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    api = context.read(navigationAPIProvider);
+    from.init(context);
+    to.init(context);
   }
 
   void _onFocusToChanged() {
@@ -209,37 +223,27 @@ class _SearchRouteState extends State<SearchRoute> {
   }
 
   void useLocalRoute() {
-    _fromController.text = widget.localRoute.from;
-    _toController.text = widget.localRoute.to;
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       unFocusFields();
-      context.read(_futureRouteProvider).state = const RouteStates.empty();
-      context.read(_dateProvider).state = DateTime.now();
-      context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(widget.localRoute.from);
-      context.read(_toTextfieldProvider).state = RouteTextfieldState.text(widget.localRoute.to);
+      clearProviders();
+      from.setString(context, widget.localRoute.from);
+      to.setString(context, widget.localRoute.to);
     });
   }
 
-  void clearProviders() {
-    context.read(_futureRouteProvider).state = const RouteStates.empty();
-    context.read(_dateProvider).state = DateTime.now();
-    context.read(_fromTextfieldProvider).state = const RouteTextfieldState.useCurrentLocation();
-    context.read(_toTextfieldProvider).state = const RouteTextfieldState.empty();
-  }
-
   void goToDest() {
-    _toController.text = widget.favStop.stop;
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      clearProviders();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       unFocusFields();
-      context.read(_toTextfieldProvider).state = RouteTextfieldState.text(widget.favStop.stop);
+      clearProviders();
+      from.useCurrentLocation(context);
+      to.setString(context, widget.favStop.stop);
     });
   }
 
   @override
   void dispose() {
-    _fromController.dispose();
-    _toController.dispose();
+    log("dispose");
+
     fnFrom.dispose();
     fnTo.dispose();
     super.dispose();
@@ -310,11 +314,10 @@ class _SearchRouteState extends State<SearchRoute> {
                       tooltip: Strings.of(context).fav_route,
                       onPressed: () async {
                         Vibration.select();
-                        final _store =
-                            context.read(storeProvider) as FavoritesSharedPreferencesStore;
-                        log(_store.routes.toString());
-                        if (_store.routes.any(
-                          (lr) => lr.from == _fromController.text && lr.to == _toController.text,
+
+                        log(store.routes.toString());
+                        if (store.routes.any(
+                          (lr) => lr.from == from.text && lr.to == to.text,
                         )) {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                               content: Text('This route is already in your favorites !')));
@@ -323,8 +326,7 @@ class _SearchRouteState extends State<SearchRoute> {
 
                         final s = await input(context, title: const Text('Enter route name'));
                         if (s == null) return;
-                        context.read(storeProvider).addRoute(
-                            LocalRoute(_fromController.text, _toController.text, displayName: s));
+                        store.addRoute(LocalRoute(from.text, to.text, displayName: s));
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(content: Text('Route starred !')));
                       },
@@ -332,8 +334,7 @@ class _SearchRouteState extends State<SearchRoute> {
                         final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
                         w(_futureRouteProvider);
 
-                        return _store.routes.any((lr) =>
-                                lr.from == _fromController.text && lr.to == _toController.text)
+                        return _store.routes.any((lr) => lr.from == from.text && lr.to == to.text)
                             ? const Icon(Icons.star)
                             : const Icon(Icons.star_border);
                       }),
@@ -347,13 +348,9 @@ class _SearchRouteState extends State<SearchRoute> {
                         onLongPress: kDebugMode
                             ? () {
                                 unFocusFields();
-                                _fromController.text =
-                                    'Université de Genève, Genève, Rue du Général-Dufour 24';
-                                _toController.text = 'Badenerstrasse 549, 8048 Zürich';
-                                context.read(_fromTextfieldProvider).state =
-                                    RouteTextfieldState.text(_fromController.text);
-                                context.read(_toTextfieldProvider).state =
-                                    RouteTextfieldState.text(_toController.text);
+                                from.setString(context,
+                                    'Université de Genève, Genève, Rue du Général-Dufour 24');
+                                to.setString(context, 'Badenerstrasse 549, 8048 Zürich');
                               }
                             : null,
                         style: TextButton.styleFrom(
@@ -418,171 +415,145 @@ class _SearchRouteState extends State<SearchRoute> {
   }
 
   Widget buildFromField(BuildContext context) {
-    final _api = context.read(navigationAPIProvider);
     final currentLocationString = Strings.of(context).current_location;
 
-    return ProviderListener<StateController<RouteTextfieldState>>(
-      onChange: (context, value) {
-        if (value.state is UseCurrentLocation) {
-          _fromController.text = Strings.of(context).current_location;
-        }
-      },
-      provider: _fromTextfieldProvider,
-      child: InputWrapperDecoration(
-        child: Stack(
-          alignment: Alignment.centerRight,
-          children: [
-            TypeAheadField<CffCompletion>(
-              key: const Key('route-first-textfield-key'),
-              debounceDuration: const Duration(milliseconds: 500),
-              textFieldConfiguration: TextFieldConfiguration(
-                inputFormatters: [inputFormatter],
-                focusNode: fnFrom,
-                controller: _fromController,
-                onSubmitted: (_) {
-                  fnTo.requestFocus();
-                  if (_fromController.text != currentLocationString) {
-                    context.read(_fromTextfieldProvider).state =
-                        RouteTextfieldState.text(_fromController.text);
-                  }
-                },
-                textInputAction: TextInputAction.next,
-                style: Theme.of(context).textTheme.bodyText1,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  labelText: Strings.of(context).departure,
-                  isDense: true,
-                  filled: true,
-                  fillColor: Theme.of(context).cardColor,
-                  contentPadding: const EdgeInsets.only(left: 8),
-                  suffixIcon: const SizedBox(),
-                ),
-              ),
-              suggestionsCallback: (s) async => completeWithFavorites(
-                  _store, await _api.complete(s), s,
-                  currentLocationString: currentLocationString),
-              itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-              onSuggestionSelected: (suggestion) {
-                _fromController.text = suggestion.label;
-                if (suggestion.isCurrentLocation) {
-                  context.read(_fromTextfieldProvider).state =
-                      const RouteTextfieldState.useCurrentLocation();
-                } else {
-                  context.read(_fromTextfieldProvider).state =
-                      RouteTextfieldState.text(suggestion.label);
+    return InputWrapperDecoration(
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          TypeAheadField<CffCompletion>(
+            key: const Key('route-first-textfield-key'),
+            debounceDuration: const Duration(milliseconds: 250),
+            textFieldConfiguration: TextFieldConfiguration(
+              inputFormatters: [inputFormatter],
+              focusNode: fnFrom,
+              controller: from.controller,
+              onChanged: (s) {
+                if (s != currentLocationString) {
+                  context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(s);
                 }
               },
-              noItemsFoundBuilder: (_) => const SizedBox(),
-              transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-                opacity: controller,
-                child: suggestionsBox,
+              onEditingComplete: () => fnTo.requestFocus(),
+              textInputAction: TextInputAction.next,
+              style: Theme.of(context).textTheme.bodyText1,
+              decoration: InputDecoration(
+                prefixIcon: Consumer(
+                    builder: (context, w, _) => iconForState(w(_fromTextfieldProvider).state)),
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                labelText: Strings.of(context).departure,
+                isDense: true,
+                filled: true,
+                fillColor: Theme.of(context).cardColor,
+                contentPadding: const EdgeInsets.only(left: 8),
+                suffixIcon: const SizedBox(),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: () {
-                Vibration.select();
-                _fromController.text = '';
-                context.read(_fromTextfieldProvider).state = const RouteTextfieldState.empty();
-              },
+            suggestionsCallback: (s) async => completeWithFavorites(store, await api.complete(s), s,
+                currentLocationString: currentLocationString),
+            itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+            onSuggestionSelected: (suggestion) {
+              if (suggestion.isCurrentLocation) {
+                from.useCurrentLocation(context);
+              } else {
+                from.setString(context, suggestion.label);
+              }
+            },
+            noItemsFoundBuilder: (_) => const SizedBox(),
+            transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+              opacity: controller,
+              child: suggestionsBox,
             ),
-          ],
-        ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              Vibration.select();
+              from.clear(context);
+            },
+          ),
+        ],
       ),
     );
   }
 
+  Widget iconForState(RouteTextfieldState state) => state.maybeWhen(
+        useCurrentLocation: () => const Icon(CupertinoIcons.location),
+        orElse: () => const Icon(CupertinoIcons.textbox),
+      );
+
   Widget buildToField(BuildContext context) {
-    final _api = context.read(navigationAPIProvider);
     final currentLocationString = Strings.of(context).current_location;
 
-    return ProviderListener<StateController<RouteTextfieldState>>(
-      onChange: (context, value) {
-        if (value.state is UseCurrentLocation) {
-          _toController.text = Strings.of(context).current_location;
-        }
-      },
-      provider: _toTextfieldProvider,
-      child: InputWrapperDecoration(
-        child: Stack(
-          alignment: Alignment.centerRight,
-          children: [
-            TypeAheadField<CffCompletion>(
-              key: const Key('route-second-textfield-key'),
-              debounceDuration: const Duration(milliseconds: 500),
-              textFieldConfiguration: TextFieldConfiguration(
-                inputFormatters: [inputFormatter],
-                textInputAction: TextInputAction.search,
-                focusNode: fnTo,
-                onSubmitted: (_) {
-                  unFocusFields();
-                  if (_toController.text != currentLocationString) {
-                    context.read(_toTextfieldProvider).state =
-                        RouteTextfieldState.text(_toController.text);
-                  }
-                },
-                controller: _toController,
-                style: Theme.of(context).textTheme.bodyText1,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  labelText: Strings.of(context).destination,
-                  isDense: true,
-                  filled: true,
-                  fillColor: Theme.of(context).cardColor,
-                  contentPadding: const EdgeInsets.only(left: 8),
-                  suffixIcon: const SizedBox(),
-                ),
-              ),
-              suggestionsCallback: (s) async => completeWithFavorites(
-                  _store, await _api.complete(s), s,
-                  currentLocationString: currentLocationString),
-              itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-              onSuggestionSelected: (suggestion) {
-                _toController.text = suggestion.label;
-                if (suggestion.isCurrentLocation) {
-                  context.read(_toTextfieldProvider).state =
-                      const RouteTextfieldState.useCurrentLocation();
-                } else {
-                  context.read(_toTextfieldProvider).state =
-                      RouteTextfieldState.text(suggestion.label);
+    return InputWrapperDecoration(
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          TypeAheadField<CffCompletion>(
+            key: const Key('route-second-textfield-key'),
+            debounceDuration: const Duration(milliseconds: 250),
+            textFieldConfiguration: TextFieldConfiguration(
+              inputFormatters: [inputFormatter],
+              textInputAction: TextInputAction.search,
+              focusNode: fnTo,
+              onChanged: (s) {
+                if (s != currentLocationString) {
+                  context.read(_toTextfieldProvider).state = RouteTextfieldState.text(s);
                 }
               },
-              noItemsFoundBuilder: (_) => const SizedBox(),
-              transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-                opacity: controller,
-                child: suggestionsBox,
+              onEditingComplete: () => unFocusFields(),
+              controller: to.controller,
+              style: Theme.of(context).textTheme.bodyText1,
+              decoration: InputDecoration(
+                prefixIcon: Consumer(
+                    builder: (context, w, _) => iconForState(w(_toTextfieldProvider).state)),
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                labelText: Strings.of(context).destination,
+                isDense: true,
+                filled: true,
+                fillColor: Theme.of(context).cardColor,
+                contentPadding: const EdgeInsets.only(left: 8),
+                suffixIcon: const SizedBox(),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: () {
-                Vibration.select();
-                _toController.text = '';
-                context.read(_toTextfieldProvider).state = const RouteTextfieldState.empty();
-              },
+            suggestionsCallback: (s) async => completeWithFavorites(store, await api.complete(s), s,
+                currentLocationString: currentLocationString),
+            itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+            onSuggestionSelected: (suggestion) {
+              if (suggestion.isCurrentLocation) {
+                to.useCurrentLocation(context);
+              } else {
+                to.setString(context, suggestion.label);
+              }
+            },
+            noItemsFoundBuilder: (_) => const SizedBox(),
+            transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+              opacity: controller,
+              child: suggestionsBox,
             ),
-          ],
-        ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              Vibration.select();
+              to.clear(context);
+            },
+          ),
+        ],
       ),
     );
   }
 
   void switchInputs() {
-    final String from = _fromController.text;
-    final String to = _toController.text;
-    _fromController.text = to;
-    _toController.text = from;
-    final StateController<RouteTextfieldState> fromState = context.read(_fromTextfieldProvider);
-    final StateController<RouteTextfieldState> toState = context.read(_toTextfieldProvider);
-    final RouteTextfieldState fromS = fromState.state;
-    fromState.state = toState.state;
-    toState.state = fromS;
+    final _from = from.state(context);
+
+    from.setState(context, to.state(context));
+    to.setState(context, _from);
   }
 
   void unFocusFields() {
@@ -600,25 +571,25 @@ class RoutesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, w, _) {
       final Fetcher fetcher = w(_futureRouteProvider);
-      return fetcher.state.map(
-        routes: (data) => data.routes.connections.isNotEmpty
+      return fetcher.state.when(
+        routes: (routes) => routes.connections.isNotEmpty
             ? ListView.builder(
                 // separatorBuilder: (c, i) => const Divider(height: 0),
                 shrinkWrap: true,
-                itemCount: data.routes == null ? 0 : data.routes.connections.length,
+                itemCount: routes == null ? 0 : routes.connections.length,
                 itemBuilder: (context, i) => RouteTile(
                       key: Key('routetile-$i'),
-                      route: data.routes,
+                      route: routes,
                       i: i,
                     ))
             : Center(
                 child: Text(
-                  data.routes.messages.join("\n"),
+                  routes.messages.join("\n"),
                   style: Theme.of(context).textTheme.headline6,
                   textAlign: TextAlign.center,
                 ),
               ),
-        network: (_) => Column(
+        networkException: () => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Expanded(
@@ -640,7 +611,7 @@ class RoutesView extends StatelessWidget {
             ),
           ],
         ),
-        location: (e) => Column(
+        locationPermissionNotGranted: () => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
@@ -697,7 +668,7 @@ class RoutesView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  e.exception.toString(),
+                  e.toString(),
                   style: Theme.of(context).textTheme.headline6,
                   textAlign: TextAlign.center,
                 ),
@@ -705,10 +676,8 @@ class RoutesView extends StatelessWidget {
             ),
           ],
         ),
-        loading: (_) => const CustomScrollView(
-          slivers: [SliverFillRemaining(child: Center(child: CircularProgressIndicator()))],
-        ),
-        empty: (_) => Column(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        empty: () => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
@@ -723,9 +692,84 @@ class RoutesView extends StatelessWidget {
             )
           ],
         ),
+        missingPluginException: () => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Expanded(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Center(
+                    child: Text(
+                  "😢",
+                  style: TextStyle(fontSize: 80),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "Location is not supported on this device",
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ],
+        ),
       );
     });
   }
+}
+
+class TextControllerAndStateBinder {
+  final TextEditingController controller;
+  final StateProvider<RouteTextfieldState> provider;
+  final String Function(BuildContext) computeCurrentLocation;
+
+  TextControllerAndStateBinder(
+    this.controller,
+    this.provider, [
+    this.computeCurrentLocation = _computeCurrentLocation,
+  ]);
+
+  void init(BuildContext context) => _setController(context.read(provider).state, context);
+
+  void clear(BuildContext context) {
+    context.read(provider).state = const RouteTextfieldState.empty();
+    controller.clear();
+  }
+
+  void setString(BuildContext context, String s) {
+    context.read(provider).state = RouteTextfieldState.text(s);
+    controller.text = s;
+  }
+
+  void setState(BuildContext context, RouteTextfieldState state) {
+    _setController(state, context);
+    context.read(provider).state = state;
+  }
+
+  void _setController(RouteTextfieldState state, BuildContext context) {
+    controller.text = state.when(
+      empty: () => "",
+      text: (t) => t,
+      useCurrentLocation: () => computeCurrentLocation(context),
+    );
+  }
+
+  void useCurrentLocation(BuildContext context) {
+    context.read(provider).state = const RouteTextfieldState.useCurrentLocation();
+    controller.text = computeCurrentLocation(context);
+  }
+
+  RouteTextfieldState state(BuildContext context) => context.read(provider).state;
+
+  String get text => controller.text;
+
+  static String _computeCurrentLocation(BuildContext context) =>
+      Strings.of(context).current_location;
 }
 
 class InputWrapperDecoration extends StatelessWidget {

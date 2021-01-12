@@ -31,7 +31,7 @@ dependencies:
   flare_flutter: ^2.0.6
   fluentui_system_icons: ^1.1.90
   flutter_riverpod: ^0.12.0
-  flutter_typeahead: ^1.8.0
+  flutter_typeahead: ^2.0.0
   font_awesome_flutter: ^9.0.0-nullsafety
   freezed_annotation: ^0.12.0
   geolocator: ^7.0.0-nullsafety.4
