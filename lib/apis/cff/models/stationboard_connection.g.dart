@@ -13,11 +13,11 @@ _$_StationboardConnection _$_$_StationboardConnectionFromJson(
     _$enumDecodeNullable(_$VehicleEnumMap, json['type']),
     json['line'] as String,
     json['color'] as String,
-    json['number'] as String,
     json['terminal'] == null
         ? null
         : Stop.fromJson(json['terminal'] as Map<String, dynamic>),
     json['operator'] as String,
+    number: json['number'] as String ?? '',
     g: json['*G'] as String,
     l: json['*L'] as String,
     subsequentStops: (json['subsequent_stops'] as List)
@@ -38,9 +38,9 @@ Map<String, dynamic> _$_$_StationboardConnectionToJson(
       'type': _$VehicleEnumMap[instance.type],
       'line': instance.line,
       'color': instance.color,
-      'number': instance.number,
       'terminal': instance.terminal?.toJson(),
       'operator': instance.operator,
+      'number': instance.number,
       '*G': instance.g,
       '*L': instance.l,
       'subsequent_stops':

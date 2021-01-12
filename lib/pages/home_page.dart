@@ -37,6 +37,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
   final CupertinoTabController _controller = CupertinoTabController();
+  int oldI = 0;
 
   @override
   void initState() {
@@ -67,6 +68,14 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 controller: _controller,
                 resizeToAvoidBottomInset: false,
                 tabBar: CupertinoTabBar(
+                  onTap: (i) {
+                    if (i == oldI) {
+                      if (navigatorKeys[i] != null) {
+                        navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
+                      }
+                    }
+                    oldI = i;
+                  },
                   activeColor: CupertinoColors.activeBlue,
                   items: [
                     BottomNavigationBarItem(

@@ -182,7 +182,6 @@ class _RoutePageState extends State<RoutePage> {
   @override
   void initState() {
     super.initState();
-    log("initstate");
     if (widget.localRoute != null) {
       useLocalRoute();
     } else if (widget.favStop != null) {
@@ -202,7 +201,6 @@ class _RoutePageState extends State<RoutePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    log("did change deps");
     inputFormatter = MyTextFormatter(Strings.of(context).current_location);
     store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     api = context.read(navigationAPIProvider);

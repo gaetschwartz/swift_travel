@@ -22,7 +22,7 @@ class _$DisruptionTearOff {
       String header,
       String lead,
       String text,
-      @JsonKey(name: "timerange") String timeRange,
+      @JsonKey(name: 'timerange') String timeRange,
       bool exact,
       int priority}) {
     return _Disruption(
@@ -52,7 +52,7 @@ mixin _$Disruption {
   String get header;
   String get lead;
   String get text;
-  @JsonKey(name: "timerange")
+  @JsonKey(name: 'timerange')
   String get timeRange;
   bool get exact;
   int get priority;
@@ -71,7 +71,7 @@ abstract class $DisruptionCopyWith<$Res> {
       String header,
       String lead,
       String text,
-      @JsonKey(name: "timerange") String timeRange,
+      @JsonKey(name: 'timerange') String timeRange,
       bool exact,
       int priority});
 }
@@ -117,7 +117,7 @@ abstract class _$DisruptionCopyWith<$Res> implements $DisruptionCopyWith<$Res> {
       String header,
       String lead,
       String text,
-      @JsonKey(name: "timerange") String timeRange,
+      @JsonKey(name: 'timerange') String timeRange,
       bool exact,
       int priority});
 }
@@ -163,7 +163,7 @@ class _$_Disruption implements _Disruption {
       this.header,
       this.lead,
       this.text,
-      @JsonKey(name: "timerange") this.timeRange,
+      @JsonKey(name: 'timerange') this.timeRange,
       this.exact,
       this.priority});
 
@@ -179,7 +179,7 @@ class _$_Disruption implements _Disruption {
   @override
   final String text;
   @override
-  @JsonKey(name: "timerange")
+  @JsonKey(name: 'timerange')
   final String timeRange;
   @override
   final bool exact;
@@ -240,7 +240,7 @@ abstract class _Disruption implements Disruption {
       String header,
       String lead,
       String text,
-      @JsonKey(name: "timerange") String timeRange,
+      @JsonKey(name: 'timerange') String timeRange,
       bool exact,
       int priority}) = _$_Disruption;
 
@@ -256,7 +256,7 @@ abstract class _Disruption implements Disruption {
   @override
   String get text;
   @override
-  @JsonKey(name: "timerange")
+  @JsonKey(name: 'timerange')
   String get timeRange;
   @override
   bool get exact;
