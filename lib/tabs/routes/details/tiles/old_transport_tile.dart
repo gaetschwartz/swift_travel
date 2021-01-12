@@ -7,7 +7,7 @@ import 'package:swift_travel/apis/cff/models/stop.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
-import 'package:utils/blocs/theme/dynamic_theme.dart';
+import 'package:theming/dynamic_theme.dart';
 
 @Deprecated('Use `NewTransportLegTile`')
 class OldTransportLegTile extends StatelessWidget {

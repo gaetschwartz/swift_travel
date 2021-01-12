@@ -18,7 +18,7 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
-import 'package:utils/widgets/responsive.dart';
+import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 import 'completion_tile.dart';
@@ -82,7 +82,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final isDarwin = ResponsiveWidget.isDarwin(context);
+    final isDarwin = Responsive.isDarwin(context);
     return Scaffold(
       appBar: swiftTravelAppBar(context),
       resizeToAvoidBottomInset: false,

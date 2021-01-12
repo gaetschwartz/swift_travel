@@ -974,6 +974,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.12-nullsafety.12"
+  theming:
+    dependency: "direct main"
+    description:
+      path: "../utils/theming"
+      relative: true
+    source: path
+    version: "0.0.1"
   timing:
     dependency: transitive
     description:

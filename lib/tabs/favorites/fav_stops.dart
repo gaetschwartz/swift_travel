@@ -6,9 +6,9 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:utils/dialogs/confirmation_alert.dart';
-import 'package:utils/dialogs/input_dialog.dart';
-import 'package:utils/widgets/responsive.dart';
+import 'package:theming/dialogs/confirmation_alert.dart';
+import 'package:theming/dialogs/input_dialog.dart';
+import 'package:theming/responsive.dart';
 
 class FavoriteStationTile extends StatelessWidget {
   final FavoriteStop stop;
@@ -20,7 +20,7 @@ class FavoriteStationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final darwin = ResponsiveWidget.isDarwin(context);
+    final darwin = Responsive.isDarwin(context);
     return ListTile(
       leading:
           darwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(FontAwesomeIcons.solidStar),

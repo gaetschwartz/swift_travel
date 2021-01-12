@@ -8,9 +8,9 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
-import 'package:utils/blocs/theme/dynamic_theme.dart';
-import 'package:utils/dialogs/input_dialog.dart';
-import 'package:utils/widgets/responsive.dart';
+import 'package:theming/dialogs/input_dialog.dart';
+import 'package:theming/dynamic_theme.dart';
+import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 enum _Actions { favorite }
@@ -34,7 +34,7 @@ class CffCompletionTile extends ConsumerWidget {
     final favStop = store.stops.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
     final isFav = sugg.favoriteName != null;
     final isFavInStore = favStop != null;
-    final isDarwin = ResponsiveWidget.isDarwin(context);
+    final isDarwin = Responsive.isDarwin(context);
 
     final Widget listTile = DecoratedBox(
       decoration: BoxDecoration(

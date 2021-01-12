@@ -11,9 +11,9 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/favorites/fav_stops.dart';
 import 'package:swift_travel/widgets/input.dart';
-import 'package:utils/dialogs/input_dialog.dart';
-import 'package:utils/dialogs/loading_dialog.dart';
-import 'package:utils/widgets/responsive.dart';
+import 'package:theming/dialogs/input_dialog.dart';
+import 'package:theming/dialogs/loading_dialog.dart';
+import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 import 'fav_routes.dart';
@@ -37,7 +37,7 @@ class _FavoritesTabState extends State<FavoritesTab>
   void didChangeDependencies() {
     super.didChangeDependencies();
     store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
-    isDarwin = ResponsiveWidget.isDarwin(context);
+    isDarwin = Responsive.isDarwin(context);
   }
 
   @override

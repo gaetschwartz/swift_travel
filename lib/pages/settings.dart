@@ -15,11 +15,9 @@ import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/search.dart';
+import 'package:theming/dialogs/confirmation_alert.dart';
+import 'package:theming/dynamic_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:utils/blocs/theme/dynamic_theme.dart';
-import 'package:utils/blocs/theme/src/colorscheme.dart';
-import 'package:utils/blocs/theme/src/font.dart';
-import 'package:utils/dialogs/confirmation_alert.dart';
 import 'package:vibration/vibration.dart';
 
 class Settings extends StatelessWidget {

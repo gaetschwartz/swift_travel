@@ -26,10 +26,10 @@ import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:utils/blocs/theme/dynamic_theme.dart';
-import 'package:utils/dialogs/datepicker.dart';
-import 'package:utils/dialogs/input_dialog.dart';
-import 'package:utils/widgets/responsive.dart';
+import 'package:theming/dialogs/datepicker.dart';
+import 'package:theming/dialogs/input_dialog.dart';
+import 'package:theming/dynamic_theme.dart';
+import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 final _timeTypeProvider = StateProvider((_) => TimeType.depart);
@@ -640,7 +640,7 @@ class RoutesView extends StatelessWidget {
             ),
             Expanded(
                 child: Center(
-              child: ResponsiveWidget.isDarwin(context)
+              child: Responsive.isDarwin(context)
                   ? CupertinoButton.filled(
                       onPressed: () => Geolocator.openAppSettings(),
                       child: const Text("Open settings"))

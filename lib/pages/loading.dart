@@ -15,8 +15,8 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
-import 'package:utils/blocs/theme/dynamic_theme.dart';
-import 'package:utils/dialogs/confirmation_alert.dart';
+import 'package:theming/dialogs/confirmation_alert.dart';
+import 'package:theming/dynamic_theme.dart';
 
 const _tutoKey = 'hasAlreadySeenTuto';
 

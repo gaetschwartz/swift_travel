@@ -14,7 +14,7 @@ import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/station_states.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
-import 'package:utils/widgets/responsive.dart';
+import 'package:theming/responsive.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 final _loadingProvider = StateProvider((_) => false);
@@ -104,7 +104,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (ResponsiveWidget.isDarwin(context)) {
+    if (Responsive.isDarwin(context)) {
       return Material(
         child: Builder(
             builder: (context) => CupertinoPageScaffold(
@@ -231,7 +231,7 @@ class _SuggestedTile extends StatelessWidget {
       title: Text(suggestion.favoriteName ?? suggestion.label),
       subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
       trailing: suggestion.favoriteName != null
-          ? (ResponsiveWidget.isDarwin(context)
+          ? (Responsive.isDarwin(context)
               ? const Icon(CupertinoIcons.heart_fill)
               : const Icon(Icons.star))
           : null,

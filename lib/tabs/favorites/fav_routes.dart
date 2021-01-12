@@ -5,8 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:utils/dialogs/choice.dart';
-import 'package:utils/dialogs/confirmation_alert.dart';
+import 'package:theming/dialogs/choice.dart';
+import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:vibration/vibration.dart';
 
 class FavoriteRouteTile extends StatelessWidget {

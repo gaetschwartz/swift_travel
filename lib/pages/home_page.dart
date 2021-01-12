@@ -8,7 +8,7 @@ import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';
 import 'package:swift_travel/utils/page.dart';
-import 'package:utils/widgets/responsive.dart';
+import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 final tabProvider = StateProvider((_) => 0);
@@ -57,7 +57,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final isDarwin = ResponsiveWidget.isDarwin(context);
+    final isDarwin = Responsive.isDarwin(context);
     return isDarwin
         ? ProviderListener<StateController<int>>(
             onChange: (context, value) => _controller.index = value.state,
@@ -145,7 +145,7 @@ final navigatorKeys = <GlobalKey<NavigatorState>>[GlobalKey(), GlobalKey(), null
 
 AppBar swiftTravelAppBar(BuildContext context,
     {List<Widget> actions = const [], bool addSettings = true, bool isDarwinOverride}) {
-  final isDarwin = isDarwinOverride ?? ResponsiveWidget.isDarwin(context);
+  final isDarwin = isDarwinOverride ?? Responsive.isDarwin(context);
   return AppBar(
     automaticallyImplyLeading: false,
     title: const Text('Swift Travel'),

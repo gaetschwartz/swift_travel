@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:utils/dialogs/confirmation_alert.dart';
+import 'package:theming/dialogs/confirmation_alert.dart';
 
 final locationProvider = Provider<LocationRepository>((ref) {
   return LocationRepository();

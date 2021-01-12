@@ -3,9 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:utils/blocs/theme/dynamic_theme.dart';
-import 'package:utils/blocs/theme/src/colorscheme.dart';
-import 'package:utils/blocs/theme/src/font.dart';
+import 'package:theming/dynamic_theme.dart';
 
 final MaterialColor purpleAbin = createMaterialColor(const Color(0xffcbaacb));
 final MaterialColor blueAbin = createMaterialColor(const Color(0xffabdee6));

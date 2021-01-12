@@ -8,7 +8,7 @@ import 'package:swift_travel/tabs/routes/details/tiles/expandable.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
-import 'package:utils/blocs/theme/dynamic_theme.dart';
+import 'package:theming/dynamic_theme.dart';
 
 class TransportLegTile extends StatefulWidget {
   const TransportLegTile({

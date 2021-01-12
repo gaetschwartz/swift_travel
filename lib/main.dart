@@ -32,7 +32,7 @@ import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:utils/blocs/theme/dynamic_theme.dart';
+import 'package:theming/dynamic_theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();

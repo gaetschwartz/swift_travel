@@ -8,7 +8,7 @@ import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/utils/share.dart';
-import 'package:utils/dialogs/loading_dialog.dart';
+import 'package:theming/dialogs/loading_dialog.dart';
 
 final linksProvider = Provider<DeepLinkBloc>((ref) {
   final deepLinkBloc = DeepLinkBloc();
