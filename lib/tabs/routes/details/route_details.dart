@@ -18,6 +18,7 @@ import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/share.dart';
+import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
@@ -33,11 +34,14 @@ class RouteDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final conn = route.connections[i];
+    final isDarwin = Responsive.isDarwin(context);
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => openLive(context, conn),
-          child: const Icon(Icons.play_arrow),
-        ),
+        floatingActionButton: isDarwin
+            ? null
+            : FloatingActionButton(
+                onPressed: () => openLive(context, conn),
+                child: const Icon(Icons.play_arrow),
+              ),
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -54,6 +58,10 @@ class RouteDetails extends StatelessWidget {
                         3),
                 flexibleSpace: const SizedBox(),
                 actions: <Widget>[
+                  if (isDarwin)
+                    IconButton(
+                        icon: const Icon(CupertinoIcons.play_fill),
+                        onPressed: () => openLive(context, conn)),
                   if (isMobile)
                     IconButton(
                         icon: Theme.of(context).platform == TargetPlatform.iOS

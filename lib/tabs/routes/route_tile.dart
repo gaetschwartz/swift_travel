@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -85,8 +87,11 @@ class RouteTile extends StatelessWidget {
                 const FaIcon(CupertinoIcons.chevron_right),
               ],
             ),
-            onTap: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i))),
+            onTap: () {
+              log("hello");
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
+            },
           ),
         ),
       ),

@@ -84,7 +84,11 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                     )
                   ],
                 ),
-                tabBuilder: (context, i) => SafeArea(key: ValueKey(i), child: children[i]),
+                tabBuilder: (context, i) => Navigator(
+                  key: navigatorKeys[i],
+                  pages: [SinglePageNavigator(tabs[i])],
+                  onPopPage: (_, __) => false,
+                ),
               ),
             ),
           )
@@ -126,10 +130,10 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               body: PageView(
                 controller: _pageController,
                 children: [
-                  for (var i = 0; i < children.length; i++)
+                  for (var i = 0; i < tabs.length; i++)
                     Navigator(
                       key: navigatorKeys[i],
-                      pages: [SinglePageNavigator(children[i])],
+                      pages: [SinglePageNavigator(tabs[i])],
                       onPopPage: (_, __) => false,
                     )
                 ],
@@ -138,7 +142,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           );
   }
 
-  static const children = [StationsTab(), RouteTab(), FavoritesTab()];
+  static const tabs = [StationsTab(), RouteTab(), FavoritesTab()];
 }
 
 final navigatorKeys = <GlobalKey<NavigatorState>>[GlobalKey(), GlobalKey(), null];
