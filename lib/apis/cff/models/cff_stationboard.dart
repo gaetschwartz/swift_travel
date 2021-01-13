@@ -12,6 +12,7 @@ abstract class CffStationboard with _$CffStationboard {
     @Default([]) List<StationboardConnection> connections,
     String request,
     @Default([]) List<String> messages,
+    String stopName,
   }) = _CffStationboard;
 
   factory CffStationboard.fromJson(Map<String, dynamic> json) => _$CffStationboardFromJson(json);

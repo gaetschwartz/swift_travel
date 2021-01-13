@@ -110,7 +110,7 @@ class CffRepository extends NavigationApi {
     }
     final decode = await compute(jsonDecode, response.body) as Map<String, dynamic>;
 
-    return CffStationboard.fromJson(decode);
+    return CffStationboard.fromJson(decode).copyWith(stopName: stopName);
   }
 
   @override

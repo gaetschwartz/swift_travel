@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,8 +52,10 @@ class _StopDetailsState extends State<StopDetails> {
             IconButton(
                 icon: const Icon(FontAwesomeIcons.route),
                 onPressed: () {
-                  Navigator.of(context).pushNamed("/route",
-                      arguments: FavoriteStop(data.stop.name, name: data.stop.name));
+                  log(data.toString());
+                  Navigator.of(context, rootNavigator: true).pushNamed("/route",
+                      arguments: FavoriteStop(data.stop?.name ?? data.stopName,
+                          name: data.stop?.name ?? data.stopName));
                 })
           ],
         ),
@@ -78,7 +81,9 @@ class _StopDetailsState extends State<StopDetails> {
                             ),
                             const SizedBox(height: 16),
                             Text(
-                              "We couldn't find any departures from this location",
+                              data.messages.isNotEmpty
+                                  ? data.messages.join("\n")
+                                  : "We couldn't find any departures from this location",
                               style: Theme.of(context).textTheme.headline6,
                               textAlign: TextAlign.center,
                             )

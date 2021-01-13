@@ -21,7 +21,7 @@ class _$ExitTearOff {
       {DateTime arrival,
       String name,
       String stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       String sbbName,
@@ -57,7 +57,7 @@ mixin _$Exit {
   DateTime get arrival;
   String get name;
   String get stopid;
-  @JsonKey(name: "waittime", defaultValue: 0)
+  @JsonKey(name: 'waittime', defaultValue: 0)
   int get waitTime;
   bool get isaddress;
   String get sbbName;
@@ -78,7 +78,7 @@ abstract class $ExitCopyWith<$Res> {
       {DateTime arrival,
       String name,
       String stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       String sbbName,
@@ -131,7 +131,7 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
       {DateTime arrival,
       String name,
       String stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       String sbbName,
@@ -184,7 +184,7 @@ class _$_Exit implements _Exit {
       {this.arrival,
       this.name,
       this.stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           this.waitTime,
       this.isaddress,
       this.sbbName,
@@ -203,7 +203,7 @@ class _$_Exit implements _Exit {
   @override
   final String stopid;
   @override
-  @JsonKey(name: "waittime", defaultValue: 0)
+  @JsonKey(name: 'waittime', defaultValue: 0)
   final int waitTime;
   @override
   final bool isaddress;
@@ -279,7 +279,7 @@ abstract class _Exit implements Exit {
       {DateTime arrival,
       String name,
       String stopid,
-      @JsonKey(name: "waittime", defaultValue: 0)
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       String sbbName,
@@ -297,7 +297,7 @@ abstract class _Exit implements Exit {
   @override
   String get stopid;
   @override
-  @JsonKey(name: "waittime", defaultValue: 0)
+  @JsonKey(name: 'waittime', defaultValue: 0)
   int get waitTime;
   @override
   bool get isaddress;
