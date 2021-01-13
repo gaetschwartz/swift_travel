@@ -73,9 +73,13 @@ ThemeConfiguration get themeConfiguration {
       'david': FullTheme(
         name: 'David',
         light: SerializableColorScheme.fromColorScheme(
-            ColorScheme.light(primary: purpleAbin, secondary: blueAbin)),
+            ColorScheme.light(primary: Colors.pink[900], secondary: Colors.yellow[800])),
         dark: SerializableColorScheme.fromColorScheme(
-            ColorScheme.dark(primary: purpleAbin, secondary: blueAbin)),
+            ColorScheme.dark(primary: Colors.pink[900], secondary: Colors.yellow[800])),
+        copyDark: (theme) => theme.copyWith(
+          appBarTheme:
+              theme.appBarTheme.copyWith(color: theme.colorScheme.primary, centerTitle: true),
+        ),
         lightShadow: lightShadow,
         darkShadow: darkShadow,
       ),

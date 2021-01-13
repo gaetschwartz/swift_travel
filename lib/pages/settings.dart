@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -330,15 +331,30 @@ class __ThemesSectionState extends State<_ThemesSection> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          newMethod(colorScheme.primary),
-          newMethod(colorScheme.secondary),
-          newMethod(colorScheme.error),
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: SizedBox.fromSize(
+                  size: const Size.square(30),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: colorScheme.brightness == Brightness.light
+                        ? const Icon(CupertinoIcons.brightness)
+                        : const Icon(CupertinoIcons.moon_stars),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          colorCircle(colorScheme.primary),
+          colorCircle(colorScheme.secondary),
         ],
       ),
     );
   }
 
-  Expanded newMethod(Color color) {
+  Expanded colorCircle(Color color) {
     return Expanded(
       child: Center(
         child: Padding(

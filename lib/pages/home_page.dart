@@ -38,15 +38,16 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
   final CupertinoTabController _controller = CupertinoTabController();
   int oldI = 0;
+  StateController<int> tab;
 
   @override
   void initState() {
     super.initState();
-    final _tab = context.read(tabProvider);
+    tab = context.read(tabProvider);
 
-    _pageController.addListener(() => _tab.state = _pageController.page.round());
+    _pageController.addListener(() => tab.state = _pageController.page.round());
 
-    _controller.addListener(() => _tab.state = _controller.index);
+    _controller.addListener(() => tab.state = _controller.index);
   }
 
   @override
@@ -60,93 +61,85 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
     return isDarwin
-        ? ProviderListener<StateController<int>>(
-            onChange: (context, value) => _controller.index = value.state,
-            provider: tabProvider,
-            child: Material(
-              child: CupertinoTabScaffold(
-                controller: _controller,
-                resizeToAvoidBottomInset: false,
-                tabBar: CupertinoTabBar(
-                  onTap: (i) {
-                    if (i == oldI) {
-                      if (navigatorKeys[i] != null) {
-                        navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
-                      }
+        ? Material(
+            child: CupertinoTabScaffold(
+              controller: _controller,
+              resizeToAvoidBottomInset: false,
+              tabBar: CupertinoTabBar(
+                onTap: (i) {
+                  if (i == oldI) {
+                    if (navigatorKeys[i] != null) {
+                      navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
                     }
-                    oldI = i;
-                  },
-                  activeColor: CupertinoColors.activeBlue,
-                  items: [
-                    BottomNavigationBarItem(
-                      icon: const Icon(CupertinoIcons.search),
-                      label: Strings.of(context).search,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const FaIcon(CupertinoIcons.train_style_one),
-                      label: Strings.of(context).tabs_route,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(CupertinoIcons.square_favorites_alt),
-                      activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
-                      label: Strings.of(context).tabs_favourites,
-                    )
-                  ],
-                ),
-                tabBuilder: (context, i) => Navigator(
-                  key: navigatorKeys[i],
-                  pages: [SinglePageNavigator(tabs[i])],
-                  onPopPage: (_, __) => false,
-                ),
+                  }
+                  oldI = i;
+                },
+                activeColor: CupertinoColors.activeBlue,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: const Icon(CupertinoIcons.search),
+                    label: Strings.of(context).search,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const FaIcon(CupertinoIcons.train_style_one),
+                    label: Strings.of(context).tabs_route,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(CupertinoIcons.square_favorites_alt),
+                    activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
+                    label: Strings.of(context).tabs_favourites,
+                  )
+                ],
+              ),
+              tabBuilder: (context, i) => Navigator(
+                key: navigatorKeys[i],
+                pages: [SinglePageNavigator(tabs[i])],
+                onPopPage: (_, __) => false,
               ),
             ),
           )
-        : ProviderListener<StateController<int>>(
-            onChange: (context, value) => _pageController.jumpToPage(value.state),
-            provider: tabProvider,
-            child: Scaffold(
-              key: const Key('home-scaffold'),
-              resizeToAvoidBottomInset: false,
-              bottomNavigationBar: Consumer(builder: (context, w, c) {
-                return BottomNavigationBar(
-                  onTap: (i) {
-                    Vibration.selectSoft();
-                    if (_pageController.page != i) {
-                      _pageController.animateToPage(i,
-                          curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
-                    } else if (navigatorKeys[i] != null) {
-                      navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
-                    }
-                  },
-                  currentIndex: w(tabProvider).state,
-                  items: [
-                    BottomNavigationBarItem(
-                        icon: const Icon(FluentIcons.search_24_regular),
-                        activeIcon: const Icon(FluentIcons.search_24_filled),
-                        label: Strings.of(context).search),
-                    BottomNavigationBarItem(
-                      icon: const FaIcon(FontAwesomeIcons.route),
-                      label: Strings.of(context).tabs_route,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(FluentIcons.star_24_regular),
-                      activeIcon: const Icon(FluentIcons.star_24_filled),
-                      label: Strings.of(context).tabs_favourites,
-                    ),
-                  ],
-                );
-              }),
-              body: PageView(
-                controller: _pageController,
-                children: [
-                  for (var i = 0; i < tabs.length; i++)
-                    Navigator(
-                      key: navigatorKeys[i],
-                      pages: [SinglePageNavigator(tabs[i])],
-                      onPopPage: (_, __) => false,
-                    )
+        : Scaffold(
+            key: const Key('home-scaffold'),
+            resizeToAvoidBottomInset: false,
+            bottomNavigationBar: Consumer(builder: (context, w, c) {
+              return BottomNavigationBar(
+                onTap: (i) {
+                  Vibration.selectSoft();
+                  if (_pageController.page != i) {
+                    _pageController.animateToPage(i,
+                        curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
+                  } else if (navigatorKeys[i] != null) {
+                    navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
+                  }
+                },
+                currentIndex: w(tabProvider).state,
+                items: [
+                  BottomNavigationBarItem(
+                      icon: const Icon(FluentIcons.search_24_regular),
+                      activeIcon: const Icon(FluentIcons.search_24_filled),
+                      label: Strings.of(context).search),
+                  BottomNavigationBarItem(
+                    icon: const FaIcon(FontAwesomeIcons.route),
+                    label: Strings.of(context).tabs_route,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(FluentIcons.star_24_regular),
+                    activeIcon: const Icon(FluentIcons.star_24_filled),
+                    label: Strings.of(context).tabs_favourites,
+                  ),
                 ],
-              ),
+              );
+            }),
+            body: PageView(
+              controller: _pageController,
+              children: [
+                for (var i = 0; i < tabs.length; i++)
+                  Navigator(
+                    key: navigatorKeys[i],
+                    pages: [SinglePageNavigator(tabs[i])],
+                    onPopPage: (_, __) => false,
+                  )
+              ],
             ),
           );
   }
