@@ -81,7 +81,10 @@ class Settings extends StatelessWidget {
                                   ? DropdownMenuItem(
                                       value: f,
                                       child: Text(f.name,
-                                          style: f.textTheme(Typography.englishLike2018).bodyText1),
+                                          style: f
+                                              .textTheme(Typography.englishLike2018)
+                                              .bodyText1
+                                              .copyWith(fontWeight: FontWeight.bold)),
                                     )
                                   : DropdownMenuItem(
                                       value: f,
@@ -104,6 +107,7 @@ class Settings extends StatelessWidget {
                 ),
               ),
             ),
+            const _FontWeightWidget(),
             _SectionTitle(title: Text(Strings.of(context).themes)),
             const _ThemesSection(),
             if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS)
@@ -239,6 +243,44 @@ class Settings extends StatelessWidget {
 
   void onMapsChanged(PreferencesBloc prefs, Maps m) => prefs.mapsApp = m;
   void onAPIChanged(PreferencesBloc prefs, NavigationApiType api) => prefs.api = api;
+}
+
+class _FontWeightWidget extends StatelessWidget {
+  const _FontWeightWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.read(dynamicTheme).font.textTheme(Typography.englishLike2018).bodyText1;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Consumer(builder: (context, w, _) {
+          final theme = w(dynamicTheme);
+          return CupertinoSlidingSegmentedControl<int>(children: {
+            -1: Text(
+              "Light",
+              style: t.apply(fontWeightDelta: -1),
+            ),
+            0: Text(
+              "Normal",
+              style: t.apply(fontWeightDelta: 0),
+            ),
+            2: Text(
+              "Heavy",
+              style: t.apply(fontWeightDelta: 2),
+            ),
+            3: Text(
+              "Iron Heavy",
+              style: t.apply(fontWeightDelta: 3),
+            ),
+          }, groupValue: theme.fontWeightDelta, onValueChanged: (i) => theme.fontWeightDelta = i);
+        }),
+      ),
+    );
+  }
 }
 
 class _ThemesSection extends StatefulWidget {

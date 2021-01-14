@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theming/dynamic_theme.dart';
@@ -19,6 +20,7 @@ const darkShadow = ShadowTheme(
 );
 
 const List<Font> fonts = [
+  Font("Platform", _i),
   Font("Muli", GoogleFonts.muliTextTheme),
   Font("Lexend", GoogleFonts.lexendDecaTextTheme),
   Font("Open Sans", GoogleFonts.openSansTextTheme),
@@ -27,6 +29,8 @@ const List<Font> fonts = [
   Font("Cardo", GoogleFonts.cardoTextTheme),
   Font("QuickSand", GoogleFonts.quicksandTextTheme),
 ];
+
+TextTheme _i(TextTheme t) => Typography.material2018(platform: defaultTargetPlatform).englishLike;
 
 ThemeConfiguration get themeConfiguration {
   const light = ColorScheme.light(
