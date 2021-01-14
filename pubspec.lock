@@ -327,7 +327,7 @@ packages:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   flutter_driver:
     dependency: "direct dev"
     description: flutter
@@ -576,7 +576,7 @@ packages:
       name: mockito
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.2"
+    version: "5.0.0-nullsafety.3"
   modal_bottom_sheet:
     dependency: "direct main"
     description:

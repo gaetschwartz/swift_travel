@@ -267,11 +267,11 @@ class _FontWeightWidget extends StatelessWidget {
                 style: t.apply(fontWeightDelta: 0),
               ),
               2: Text(
-                "Heavy",
+                "Medium",
                 style: t.apply(fontWeightDelta: 2),
               ),
               3: Text(
-                "Iron Heavy",
+                "Bold",
                 style: t.apply(fontWeightDelta: 3),
               ),
             },
