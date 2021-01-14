@@ -64,28 +64,43 @@ class Settings extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: Consumer(builder: (context, w, _) {
-                    final theme = w(dynamicTheme);
-                    return DropdownButton<Font>(
-                      value: theme.font,
-                      items: fonts
-                          .map((f) => DropdownMenuItem(
-                                value: f,
-                                child: Text(f.name,
-                                    style: f.textTheme(Typography.englishLike2018).bodyText1),
-                              ))
-                          .toList(),
-                      selectedItemBuilder: (context) =>
-                          fonts.map<Widget>((f) => Text(f.name)).toList(),
-                      onChanged: (f) {
-                        Vibration.select();
-                        theme.font = f;
-                      },
-                      isExpanded: true,
-                    );
-                  }),
+                child: Row(
+                  children: [
+                    const Icon(CupertinoIcons.textformat_abc),
+                    const SizedBox(width: 16),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 300),
+                      child: Consumer(builder: (context, w, _) {
+                        final theme = w(dynamicTheme);
+                        return DropdownButton<Font>(
+                          isExpanded: true,
+                          icon: const SizedBox(),
+                          value: theme.font,
+                          items: fonts
+                              .map((f) => f == theme.font
+                                  ? DropdownMenuItem(
+                                      value: f,
+                                      child: Text(f.name,
+                                          style: f.textTheme(Typography.englishLike2018).bodyText1),
+                                    )
+                                  : DropdownMenuItem(
+                                      value: f,
+                                      child: Text(f.name,
+                                          style: f.textTheme(Typography.englishLike2018).bodyText1),
+                                    ))
+                              .toList(),
+                          selectedItemBuilder: (context) => fonts
+                              .map<Widget>((f) =>
+                                  Align(alignment: Alignment.centerLeft, child: Text(f.name)))
+                              .toList(),
+                          onChanged: (f) {
+                            Vibration.select();
+                            theme.font = f;
+                          },
+                        );
+                      }),
+                    ),
+                  ],
                 ),
               ),
             ),
