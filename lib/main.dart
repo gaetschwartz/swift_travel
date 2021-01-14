@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -33,10 +31,10 @@ import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:theming/dynamic_theme.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-final FirebaseAnalytics analytics = isMobile ? FirebaseAnalytics() : null;
 
 bool get isMobile =>
     defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android;
@@ -57,6 +55,8 @@ Future<void> main() async {
 
   if (kDebugMode) log(Env.env);
   WidgetsFlutterBinding.ensureInitialized();
+
+  setPathUrlStrategy();
 
   if (isMobile) {
     log('We are on mobile ($platform)');
@@ -99,9 +99,6 @@ class _MyAppState extends State<MyApp> {
           theme: theme.light,
           darkTheme: theme.dark,
           themeMode: theme.mode,
-          navigatorObservers: [
-            if (analytics != null) FirebaseAnalyticsObserver(analytics: analytics)
-          ],
           localizationsDelegates: const [
             Strings.delegate,
             GlobalMaterialLocalizations.delegate,
