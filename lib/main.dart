@@ -43,7 +43,7 @@ String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operat
 
 const debugPlatformMap = {
   TargetPlatform.windows: TargetPlatform.macOS,
-  TargetPlatform.android: TargetPlatform.iOS
+  TargetPlatform.android: TargetPlatform.iOS,
 };
 
 Future<void> main() async {
