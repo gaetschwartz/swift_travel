@@ -276,7 +276,10 @@ class _FontWeightWidget extends StatelessWidget {
               ),
             },
             groupValue: theme.fontWeightDelta,
-            onValueChanged: (i) => theme.fontWeightDelta = i,
+            onValueChanged: (i) {
+              theme.fontWeightDelta = i;
+              Vibration.select();
+            },
           );
         }),
       ),
