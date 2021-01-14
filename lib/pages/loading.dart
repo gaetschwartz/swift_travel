@@ -15,6 +15,7 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 
@@ -83,11 +84,11 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
     await initSettings(prefs);
 
-    await showTutoIfNeeded(prefs);
-
     try {
       await Geolocator.requestPermission();
     } on MissingPluginException catch (_) {}
+
+    await showTutoIfNeeded(prefs);
 
     route();
 
@@ -106,8 +107,6 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       if (kDebugMode) {
         log('Disabling crash reports in debug mode', name: 'Loading');
         await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-      } else {
-        await FirebaseCrashlytics.instance.log('Loading page');
       }
     }
 
@@ -115,19 +114,34 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       await context.read(dynamicTheme).configure(themeConfiguration);
       await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
       await context.read(storeProvider).loadFromPreferences(prefs: prefs);
-    } on Exception {
-      final String data = prefs.getKeys().map((e) => '$e : ${prefs.get(e)}').join('\n');
-      await confirm(
+    } on Exception catch (e, s) {
+      reportDartError(e, s, name: "loading", reason: "while loading");
+      final bool delete = await confirm(
         context,
         title: const Text('Failed to load your previous settings !'),
-        content: SingleChildScrollView(
+        content: const SingleChildScrollView(
           child: Text(
-            'Here is what it previously was :\n$data',
+            'We are very sorry for this inconvenience. Reset settings ?',
             textAlign: TextAlign.center,
           ),
         ),
       );
-      rethrow;
+      if (delete) await prefs.clear();
+      // ignore: avoid_catching_errors
+    } on Error catch (e) {
+      reportDartError(e, e.stackTrace, name: "loading", reason: "while loading");
+
+      final delete = await confirm(
+        context,
+        title: const Text('Failed to load your previous settings !'),
+        content: const SingleChildScrollView(
+          child: Text(
+            'We are very sorry for this inconvenience. Reset settings ?',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+      if (delete) await prefs.clear();
     }
   }
 
