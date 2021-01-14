@@ -259,24 +259,28 @@ class _FontWeightWidget extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Consumer(builder: (context, w, _) {
           final theme = w(dynamicTheme);
-          return CupertinoSlidingSegmentedControl<int>(children: {
-            -1: Text(
-              "Light",
-              style: t.apply(fontWeightDelta: -1),
-            ),
-            0: Text(
-              "Normal",
-              style: t.apply(fontWeightDelta: 0),
-            ),
-            2: Text(
-              "Heavy",
-              style: t.apply(fontWeightDelta: 2),
-            ),
-            3: Text(
-              "Iron Heavy",
-              style: t.apply(fontWeightDelta: 3),
-            ),
-          }, groupValue: theme.fontWeightDelta, onValueChanged: (i) => theme.fontWeightDelta = i);
+          return CupertinoSlidingSegmentedControl<int>(
+            children: {
+              -1: Text(
+                "Light",
+                style: t.apply(fontWeightDelta: -1),
+              ),
+              0: Text(
+                "Normal",
+                style: t.apply(fontWeightDelta: 0),
+              ),
+              2: Text(
+                "Heavy",
+                style: t.apply(fontWeightDelta: 2),
+              ),
+              3: Text(
+                "Iron Heavy",
+                style: t.apply(fontWeightDelta: 3),
+              ),
+            },
+            groupValue: theme.fontWeightDelta,
+            onValueChanged: (i) => theme.fontWeightDelta = i,
+          );
         }),
       ),
     );
