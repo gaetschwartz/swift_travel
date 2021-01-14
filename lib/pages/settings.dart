@@ -77,20 +77,17 @@ class Settings extends StatelessWidget {
                           icon: const SizedBox(),
                           value: theme.font,
                           items: fonts
-                              .map((f) => f == theme.font
-                                  ? DropdownMenuItem(
-                                      value: f,
-                                      child: Text(f.name,
-                                          style: f
-                                              .textTheme(Typography.englishLike2018)
-                                              .bodyText1
-                                              .copyWith(fontWeight: FontWeight.bold)),
-                                    )
-                                  : DropdownMenuItem(
-                                      value: f,
-                                      child: Text(f.name,
-                                          style: f.textTheme(Typography.englishLike2018).bodyText1),
-                                    ))
+                              .map(
+                                (f) => DropdownMenuItem(
+                                    value: f,
+                                    child: Text(f.name,
+                                        style: f == theme.font
+                                            ? f
+                                                .textTheme(Typography.englishLike2018)
+                                                .bodyText1
+                                                .copyWith(fontWeight: FontWeight.bold)
+                                            : f.textTheme(Typography.englishLike2018).bodyText1)),
+                              )
                               .toList(),
                           selectedItemBuilder: (context) => fonts
                               .map<Widget>((f) =>
