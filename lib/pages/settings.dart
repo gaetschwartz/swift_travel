@@ -249,7 +249,11 @@ class _FontWeightWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.read(dynamicTheme).font.textTheme(Typography.englishLike2018).bodyText1;
+    final t = context
+        .read(dynamicTheme)
+        .font
+        .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
+        .bodyText1;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Align(
@@ -266,9 +270,9 @@ class _FontWeightWidget extends StatelessWidget {
                 "Normal",
                 style: t.apply(fontWeightDelta: 0),
               ),
-              2: Text(
+              1: Text(
                 "Medium",
-                style: t.apply(fontWeightDelta: 2),
+                style: t.apply(fontWeightDelta: 1),
               ),
               3: Text(
                 "Bold",
@@ -386,7 +390,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
     );
   }
 
-  Widget buildColorRow(SerializableColorScheme colorScheme) {
+  Widget buildColorRow(ColorScheme colorScheme) {
     return ConstrainedBox(
       constraints: const BoxConstraints(),
       child: Row(

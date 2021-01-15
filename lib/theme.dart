@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,43 +45,44 @@ ThemeConfiguration get themeConfiguration {
     onSecondary: Colors.white,
   );
   return ThemeConfiguration(
+    computeTextTheme: () => Typography.material2018(platform: defaultTargetPlatform).englishLike,
     themes: {
       'default': FullTheme(
         name: 'Swift Travel',
-        light: SerializableColorScheme.fromColorScheme(light),
-        copyLight: (theme) => theme.copyWith(
+        light: light,
+        applyToLight: (theme) => theme.copyWith(
           appBarTheme: theme.appBarTheme.copyWith(elevation: 0),
           bottomNavigationBarTheme:
               theme.bottomNavigationBarTheme.copyWith(selectedItemColor: light.secondary),
           cupertinoOverrideTheme: const CupertinoThemeData(textTheme: CupertinoTextThemeData()),
         ),
-        dark: SerializableColorScheme.fromColorScheme(dark),
+        dark: dark,
         lightShadow: lightShadow,
         darkShadow: darkShadow,
       ),
       'abin': FullTheme(
         name: 'Abin',
-        light: SerializableColorScheme.fromColorScheme(
-            ColorScheme.light(primary: purpleAbin, secondary: blueAbin)),
-        dark: SerializableColorScheme.fromColorScheme(
-            ColorScheme.dark(primary: purpleAbin, secondary: blueAbin)),
+        light: ColorScheme.light(primary: purpleAbin, secondary: blueAbin),
+        dark: ColorScheme.dark(primary: purpleAbin, secondary: blueAbin),
         lightShadow: lightShadow,
         darkShadow: darkShadow,
       ),
-      'flutter': FullTheme(
-        name: 'Flutter',
-        light: SerializableColorScheme.fromColorScheme(const ColorScheme.light()),
-        dark: SerializableColorScheme.fromColorScheme(const ColorScheme.dark()),
+      'material': FullTheme(
+        name: 'Material',
+        light: FlexColorScheme.light(
+          colors: FlexColor.schemes[FlexScheme.material].light,
+        ).toScheme,
+        dark: FlexColorScheme.dark(
+          colors: FlexColor.schemes[FlexScheme.material].dark,
+        ).toScheme,
         lightShadow: lightShadow,
         darkShadow: darkShadow,
       ),
       'david': FullTheme(
         name: 'David',
-        light: SerializableColorScheme.fromColorScheme(
-            ColorScheme.light(primary: Colors.pink[900], secondary: Colors.yellow[800])),
-        dark: SerializableColorScheme.fromColorScheme(
-            ColorScheme.dark(primary: Colors.pink[900], secondary: Colors.yellow[800])),
-        copyDark: (theme) => theme.copyWith(
+        light: ColorScheme.light(primary: Colors.pink[900], secondary: Colors.yellow[800]),
+        dark: ColorScheme.dark(primary: Colors.pink[900], secondary: Colors.yellow[800]),
+        applyToDark: (theme) => theme.copyWith(
           appBarTheme:
               theme.appBarTheme.copyWith(color: theme.colorScheme.primary, centerTitle: true),
         ),
