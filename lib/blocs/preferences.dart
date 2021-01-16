@@ -45,8 +45,14 @@ class PreferencesBloc extends ChangeNotifier {
   }
 }
 
-enum Maps { apple, google }
+enum Maps {
+  apple,
+  google,
+}
 
 enum QuickActionsDisplays { stops, routes, generic }
 
-enum NavigationApiType { sncf, cff }
+enum NavigationApiType {
+  cff,
+  sncf,
+}

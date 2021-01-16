@@ -48,13 +48,14 @@ ThemeConfiguration get themeConfiguration {
     computeTextTheme: () => Typography.material2018(platform: defaultTargetPlatform).englishLike,
     themes: {
       'default': FullTheme(
-        name: 'Swift Travel',
+        name: 'Swift',
         light: light,
         applyToLight: (theme) => theme.copyWith(
           appBarTheme: theme.appBarTheme.copyWith(elevation: 0),
           bottomNavigationBarTheme:
               theme.bottomNavigationBarTheme.copyWith(selectedItemColor: light.secondary),
-          cupertinoOverrideTheme: const CupertinoThemeData(textTheme: CupertinoTextThemeData()),
+          cupertinoOverrideTheme: const CupertinoThemeData(
+              textTheme: CupertinoTextThemeData(), primaryColor: CupertinoColors.activeBlue),
         ),
         dark: dark,
         lightShadow: lightShadow,

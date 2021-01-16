@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/choice_page.dart';
 import 'package:swift_travel/utils/search.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
@@ -80,13 +82,21 @@ class Settings extends StatelessWidget {
                               .map(
                                 (f) => DropdownMenuItem(
                                     value: f,
-                                    child: Text(f.name,
-                                        style: f == theme.font
-                                            ? f
-                                                .textTheme(Typography.englishLike2018)
-                                                .bodyText1
-                                                .copyWith(fontWeight: FontWeight.bold)
-                                            : f.textTheme(Typography.englishLike2018).bodyText1)),
+                                    child: f == theme.font
+                                        ? Row(
+                                            children: [
+                                              Expanded(
+                                                child: Text(f.name,
+                                                    style: f
+                                                        .textTheme(Typography.englishLike2018)
+                                                        .bodyText1),
+                                              ),
+                                              const Icon(FluentIcons.checkmark_24_filled)
+                                            ],
+                                          )
+                                        : Text(f.name,
+                                            style:
+                                                f.textTheme(Typography.englishLike2018).bodyText1)),
                               )
                               .toList(),
                           selectedItemBuilder: (context) => fonts
@@ -107,63 +117,73 @@ class Settings extends StatelessWidget {
             const _FontWeightWidget(),
             _SectionTitle(title: Text(Strings.of(context).themes)),
             const _ThemesSection(),
-            if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS)
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Consumer(builder: (context, w, _) {
-                  final maps = w(preferencesProvider);
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _SectionTitle(title: Text(Strings.of(context).maps_app)),
-                      RadioListTile<Maps>(
-                        dense: true,
-                        title: const Text('Apple Maps'),
-                        value: Maps.apple,
-                        groupValue: maps.mapsApp,
-                        onChanged: (m) => onMapsChanged(maps, m),
-                      ),
-                      RadioListTile<Maps>(
-                        dense: true,
-                        title: const Text('Google Maps'),
-                        value: Maps.google,
-                        groupValue: maps.mapsApp,
-                        onChanged: (m) => onMapsChanged(maps, m),
-                      ),
-                    ],
-                  );
-                }),
-              ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Consumer(builder: (context, w, _) {
-                final prefs = w(preferencesProvider);
+            if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS) ...[
+              const Divider(indent: 16, endIndent: 16),
+              Consumer(builder: (context, w, _) {
+                final maps = w(preferencesProvider);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _SectionTitle(title: Text(Strings.of(context).navigation_api)),
-                    RadioListTile<NavigationApiType>(
-                      dense: true,
-                      title: const Text('CFF'),
-                      value: NavigationApiType.cff,
-                      groupValue: prefs.api,
-                      onChanged: (api) => onAPIChanged(prefs, api),
-                    ),
-                    RadioListTile<NavigationApiType>(
-                      dense: true,
-                      title: const Text('SNCF'),
-                      value: NavigationApiType.sncf,
-                      groupValue: prefs.api,
-                      onChanged: (api) => onAPIChanged(prefs, api),
+                    ListTile(
+                      title: Text(Strings.of(context).maps_app),
+                      onTap: () async {
+                        await Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) => ChoicePage<Maps>(
+                                  items: const [
+                                    ChoicePageItem(value: Maps.apple, child: Text("Apple Maps")),
+                                    ChoicePageItem(value: Maps.google, child: Text("Google Maps")),
+                                  ],
+                                  value: maps.mapsApp,
+                                  title: Text(Strings.of(context).maps_app),
+                                  onChanged: (a) {
+                                    if (a != null) maps.mapsApp = a;
+                                  },
+                                )));
+                        log(maps.mapsApp.toString());
+                      },
+                      subtitle: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(_mapsName(maps.mapsApp)),
+                      ),
+                      trailing: const Icon(FluentIcons.chevron_right_24_regular),
                     ),
                   ],
                 );
-              }),
-            ),
-            const Divider(
-              indent: 16,
-              endIndent: 16,
-            ),
+              })
+            ],
+            const Divider(indent: 16, endIndent: 16),
+            Consumer(builder: (context, w, _) {
+              final prefs = w(preferencesProvider);
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListTile(
+                    title: Text(Strings.of(context).navigation_api),
+                    onTap: () async {
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => ChoicePage<NavigationApiType>(
+                                items: NavigationApiType.values
+                                    .map((e) => ChoicePageItem(child: Text(_apiName(e)), value: e))
+                                    .toList(),
+                                value: prefs.api,
+                                title: Text(Strings.of(context).navigation_api),
+                                description: const Text(
+                                    "BETA: In the future the goal is to add more countries."),
+                                onChanged: (a) {
+                                  if (a != null) prefs.api = a;
+                                },
+                              )));
+                    },
+                    subtitle: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(_apiName(prefs.api)),
+                    ),
+                    trailing: const Icon(FluentIcons.chevron_right_24_regular),
+                  ),
+                ],
+              );
+            }),
+            const Divider(indent: 16, endIndent: 16),
             _SectionTitle(title: Text(Strings.of(context).more)),
             ListTile(
               leading: const Icon(FontAwesomeIcons.users),
@@ -242,6 +262,26 @@ class Settings extends StatelessWidget {
   void onAPIChanged(PreferencesBloc prefs, NavigationApiType api) => prefs.api = api;
 }
 
+String _mapsName(Maps m) {
+  switch (m) {
+    case Maps.apple:
+      return "Apple Maps";
+    case Maps.google:
+      return "Google Maps";
+  }
+  return "";
+}
+
+String _apiName(NavigationApiType a) {
+  switch (a) {
+    case NavigationApiType.cff:
+      return "SBB CFF FFS";
+    case NavigationApiType.sncf:
+      return "SNCF (BETA)";
+  }
+  return "";
+}
+
 class _FontWeightWidget extends StatelessWidget {
   const _FontWeightWidget({
     Key key,
@@ -313,74 +353,77 @@ class __ThemesSectionState extends State<_ThemesSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 180,
-          child: Consumer(builder: (context, w, _) {
-            final theme = w(dynamicTheme);
-            final list = theme.configuration.themes.entries.toList();
-            return ListView.builder(
-              controller: _controller,
-              scrollDirection: Axis.horizontal,
-              itemCount: list.length,
-              itemBuilder: (context, i) {
-                final FullTheme ft = list[i].value;
-                const BorderRadius radius = BorderRadius.all(Radius.circular(16));
+        Padding(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: SizedBox(
+            height: 150,
+            child: Consumer(builder: (context, w, _) {
+              final theme = w(dynamicTheme);
+              final list = theme.configuration.themes.entries.toList();
+              return ListView.builder(
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                itemCount: list.length,
+                itemBuilder: (context, i) {
+                  final FullTheme ft = list[i].value;
+                  const BorderRadius radius = BorderRadius.all(Radius.circular(16));
 
-                return Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 24),
-                  child: AspectRatio(
-                    aspectRatio: 0.8,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
-                        color: Theme.of(context).cardColor,
-                        borderRadius: radius,
-                        border: ft == theme.theme
-                            ? Border.all(width: 2, color: Theme.of(context).accentColor)
-                            : null,
-                      ),
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          Vibration.select();
-                          theme.name = list[i].key;
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    buildColorRow(ft.light),
-                                    buildColorRow(ft.dark),
-                                  ],
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: SizedBox(
+                      width: 120,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                          color: Theme.of(context).cardColor,
+                          borderRadius: radius,
+                          border: ft == theme.theme
+                              ? Border.all(width: 2, color: Theme.of(context).accentColor)
+                              : null,
+                        ),
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {
+                            Vibration.select();
+                            theme.name = list[i].key;
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      buildColorRow(ft.light),
+                                      buildColorRow(ft.dark),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                    child: Text(
-                                      ft.name,
-                                      style: Theme.of(context).textTheme.bodyText2,
-                                      textAlign: TextAlign.center,
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(
+                                        ft.name,
+                                        style: Theme.of(context).textTheme.bodyText2,
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
-            );
-          }),
+                  );
+                },
+              );
+            }),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
