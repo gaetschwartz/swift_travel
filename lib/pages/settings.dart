@@ -125,6 +125,7 @@ class Settings extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
+                      leading: const Icon(CupertinoIcons.map),
                       title: Text(Strings.of(context).maps_app),
                       onTap: () async {
                         await Navigator.of(context).push(CupertinoPageRoute(
@@ -158,6 +159,7 @@ class Settings extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
+                    leading: const Icon(CupertinoIcons.link),
                     title: Text(Strings.of(context).navigation_api),
                     onTap: () async {
                       Navigator.of(context).push(CupertinoPageRoute(
@@ -186,7 +188,7 @@ class Settings extends StatelessWidget {
             const Divider(indent: 8, endIndent: 8),
             _SectionTitle(title: Text(Strings.of(context).more)),
             ListTile(
-              leading: const Icon(FontAwesomeIcons.users),
+              leading: const Icon(CupertinoIcons.person_3_fill),
               title: Text(Strings.of(context).our_team),
               onTap: () => Navigator.of(context).pushNamed("/ourTeam"),
             ),
