@@ -151,7 +151,7 @@ class Settings extends StatelessWidget {
                 );
               })
             ],
-            const Divider(indent: 16, endIndent: 16),
+            const Divider(indent: 8, endIndent: 8),
             Consumer(builder: (context, w, _) {
               final prefs = w(preferencesProvider);
               return Column(
@@ -183,7 +183,7 @@ class Settings extends StatelessWidget {
                 ],
               );
             }),
-            const Divider(indent: 16, endIndent: 16),
+            const Divider(indent: 8, endIndent: 8),
             _SectionTitle(title: Text(Strings.of(context).more)),
             ListTile(
               leading: const Icon(FontAwesomeIcons.users),
