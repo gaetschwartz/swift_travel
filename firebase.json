@@ -5,6 +5,12 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "public": "build/web"
+    "public": "build/web",
+    "rewrites": [
+      {
+        "destination": "/index.html",
+        "source": "**"
+      }
+    ]
   }
 }
