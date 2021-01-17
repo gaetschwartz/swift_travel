@@ -8,11 +8,9 @@ on:
 env:
   flutter_channel: dev
   java_version: 8.x
-  build_android: false
-  flutter_build_args: ""
 
 jobs:
-  build-android:
+  run-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     name: Run Flutter tests
@@ -26,11 +24,6 @@ jobs:
           git clone https://gaetschwartz:${{ secrets.ACCESS_TOKEN }}@github.com/gaetschwartz/utils.git
           git clone https://gaetschwartz:${{ secrets.ACCESS_TOKEN }}@github.com/vincenttarrit/vibration.git
         working-directory: ../
-      - name: Setup Java
-        if: env.build_android == 'true'
-        uses: actions/setup-java@v1
-        with:
-          java-version: ${{ env.java_version }}
       - name: Get latest Flutter release
         id: release_json
         run: echo "::set-output name=json::$(curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_linux.json" | jq -r ".current_release.${{ env.flutter_channel }}")"
@@ -96,58 +89,6 @@ jobs:
           asset_path: ./build/app/outputs/flutter-apk/app-release.apk
           asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
           asset_content_type: application/vnd.android.package-archive
-  build-web:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    name: Build web
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Clone dependencies
-        run: |
-          git clone https://gaetschwartz:${{ secrets.ACCESS_TOKEN }}@github.com/gaetschwartz/utils.git
-          git clone https://gaetschwartz:${{ secrets.ACCESS_TOKEN }}@github.com/vincenttarrit/vibration.git
-        working-directory: ../
-      - name: Get latest Flutter release
-        id: release_json
-        run: echo "::set-output name=json::$(curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_linux.json" | jq -r ".current_release.${{ env.flutter_channel }}")"
-      - name: Get Flutter from cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            /opt/hostedtoolcache/flutter
-            $HOME/.pub-cache
-          key: ${{ runner.OS }}-flutter-cache-${{ steps.release_json.outputs.json }}
-      - name: Install Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          channel: ${{ env.flutter_channel }}
-      - name: Get git infos
-        id: git-data
-        run: |
-          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
-          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=count::$(git rev-list --count HEAD)"
-      - name: Get dependencies
-        run: flutter packages get
-      - name: Pre-build configuration
-        env:
-          TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
-          GIT_MSG: ${{ steps.git-data.outputs.msg }}
-          GIT_HASH: ${{ steps.git-data.outputs.hash }}
-        run: bash CI/prebuild.sh
-      - name: Build
-        run: flutter build web --build-number ${{ steps.git-data.outputs.count }}
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SWISS_TRAVEL_36188 }}"
-          projectId: swiss-travel-36188
-        env:
-          FIREBASE_CLI_PREVIEWS: hostingchannels
   # deploy-testflight:
   #   timeout-minutes: 30
   #   name: Deploy to Testflight
