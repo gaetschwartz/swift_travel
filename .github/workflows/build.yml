@@ -44,7 +44,9 @@ jobs:
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
           echo "::set-output name=count::$(git rev-list --count HEAD)"
       - name: Get dependencies
-        run: flutter packages get
+        run: |
+          flutter config --enable-web
+          flutter packages get
       - name: Pre-build configuration
         env:
           TZ: Europe/Zurich
