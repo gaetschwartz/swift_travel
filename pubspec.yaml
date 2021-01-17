@@ -63,7 +63,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  generate: true # Add this line
 
   assets:
     - assets/profiles/
