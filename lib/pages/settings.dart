@@ -27,237 +27,258 @@ class Settings extends StatelessWidget {
   const Settings();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(Strings.of(context).settings),
-          leading: const CloseButton(),
-        ),
-        body: ListView(
-          children: [
-            _SectionTitle(title: Text(Strings.of(context).brightness)),
-            SizedBox(
-              height: 100,
-              child: Consumer(builder: (context, w, _) {
-                final theme = w(dynamicTheme);
-                return ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    _ModeWidget(
-                      theme: theme,
-                      label: Strings.of(context).brightness_system,
-                      mode: ThemeMode.system,
-                    ),
-                    _ModeWidget(
-                      theme: theme,
-                      label: Strings.of(context).brightness_light,
-                      mode: ThemeMode.light,
-                    ),
-                    _ModeWidget(
-                      theme: theme,
-                      label: Strings.of(context).brightness_dark,
-                      mode: ThemeMode.dark,
-                    ),
-                  ],
-                );
-              }),
-            ),
-            _SectionTitle(title: Text(Strings.of(context).font)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    const Icon(CupertinoIcons.textformat_abc),
-                    const SizedBox(width: 16),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 300),
-                      child: Consumer(builder: (context, w, _) {
-                        final theme = w(dynamicTheme);
-                        return DropdownButton<Font>(
-                          isExpanded: true,
-                          icon: const SizedBox(),
-                          value: theme.font,
-                          items: fonts
-                              .map(
-                                (f) => DropdownMenuItem(
-                                    value: f,
-                                    child: f == theme.font
-                                        ? Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(f.name,
-                                                    style: f
-                                                        .textTheme(Typography.englishLike2018)
-                                                        .bodyText1),
-                                              ),
-                                              const Icon(FluentIcons.checkmark_24_filled)
-                                            ],
-                                          )
-                                        : Text(f.name,
-                                            style:
-                                                f.textTheme(Typography.englishLike2018).bodyText1)),
-                              )
-                              .toList(),
-                          selectedItemBuilder: (context) => fonts
-                              .map<Widget>((f) =>
-                                  Align(alignment: Alignment.centerLeft, child: Text(f.name)))
-                              .toList(),
-                          onChanged: (f) {
-                            Vibration.select();
-                            theme.font = f;
-                          },
-                        );
-                      }),
-                    ),
-                  ],
+    return DividerTheme(
+      data: const DividerThemeData(indent: 16, endIndent: 16),
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text(Strings.of(context).settings),
+          ),
+          body: ListView(
+            children: [
+              _SectionTitle(title: Text(Strings.of(context).brightness)),
+              SizedBox(
+                height: 100,
+                child: Consumer(builder: (context, w, _) {
+                  final theme = w(dynamicTheme);
+                  return ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      _ModeWidget(
+                        theme: theme,
+                        label: Strings.of(context).brightness_system,
+                        mode: ThemeMode.system,
+                      ),
+                      _ModeWidget(
+                        theme: theme,
+                        label: Strings.of(context).brightness_light,
+                        mode: ThemeMode.light,
+                      ),
+                      _ModeWidget(
+                        theme: theme,
+                        label: Strings.of(context).brightness_dark,
+                        mode: ThemeMode.dark,
+                      ),
+                    ],
+                  );
+                }),
+              ),
+              _SectionTitle(title: Text(Strings.of(context).font)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      const Icon(CupertinoIcons.textformat_abc),
+                      const SizedBox(width: 16),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 300),
+                        child: Consumer(builder: (context, w, _) {
+                          final theme = w(dynamicTheme);
+                          return DropdownButton<Font>(
+                            isExpanded: true,
+                            icon: const SizedBox(),
+                            value: theme.font,
+                            items: fonts
+                                .map(
+                                  (f) => DropdownMenuItem(
+                                      value: f,
+                                      child: f == theme.font
+                                          ? Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(f.name,
+                                                      style: f
+                                                          .textTheme(Typography.englishLike2018)
+                                                          .bodyText1),
+                                                ),
+                                                const Icon(FluentIcons.checkmark_24_filled)
+                                              ],
+                                            )
+                                          : Text(f.name,
+                                              style: f
+                                                  .textTheme(Typography.englishLike2018)
+                                                  .bodyText1)),
+                                )
+                                .toList(),
+                            selectedItemBuilder: (context) => fonts
+                                .map<Widget>((f) =>
+                                    Align(alignment: Alignment.centerLeft, child: Text(f.name)))
+                                .toList(),
+                            onChanged: (f) {
+                              Vibration.select();
+                              theme.font = f;
+                            },
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const _FontWeightWidget(),
-            _SectionTitle(title: Text(Strings.of(context).themes)),
-            const _ThemesSection(),
-            if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS) ...[
-              const Divider(indent: 16, endIndent: 16, height: 0),
+              const _FontWeightWidget(),
+              _SectionTitle(title: Text(Strings.of(context).themes)),
+              const _ThemesSection(),
+              if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS) ...[
+                const Divider(),
+                Consumer(builder: (context, w, _) {
+                  final maps = w(preferencesProvider);
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        leading: const Icon(CupertinoIcons.map),
+                        title: Text(Strings.of(context).maps_app),
+                        onTap: () async {
+                          await Navigator.of(context).push(CupertinoPageRoute(
+                              builder: (context) => ChoicePage<Maps>(
+                                    items: const [
+                                      ChoicePageItem(value: Maps.apple, child: Text("Apple Maps")),
+                                      ChoicePageItem(
+                                          value: Maps.google, child: Text("Google Maps")),
+                                    ],
+                                    value: maps.mapsApp,
+                                    title: Text(Strings.of(context).maps_app),
+                                    onChanged: (a) {
+                                      if (a != null) maps.mapsApp = a;
+                                    },
+                                  )));
+                          log(maps.mapsApp.toString());
+                        },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              _mapsName(maps.mapsApp),
+                              style: CupertinoTheme.of(context)
+                                  .textTheme
+                                  .textStyle
+                                  .copyWith(color: CupertinoColors.systemGrey),
+                            ),
+                            const SizedBox(width: 8),
+                            const Icon(CupertinoIcons.chevron_right),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                })
+              ],
+              const Divider(),
               Consumer(builder: (context, w, _) {
-                final maps = w(preferencesProvider);
+                final prefs = w(preferencesProvider);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
-                      leading: const Icon(CupertinoIcons.map),
-                      title: Text(Strings.of(context).maps_app),
+                      leading: const Icon(CupertinoIcons.link),
+                      title: Text(Strings.of(context).navigation_api),
                       onTap: () async {
-                        await Navigator.of(context).push(CupertinoPageRoute(
-                            builder: (context) => ChoicePage<Maps>(
-                                  items: const [
-                                    ChoicePageItem(value: Maps.apple, child: Text("Apple Maps")),
-                                    ChoicePageItem(value: Maps.google, child: Text("Google Maps")),
-                                  ],
-                                  value: maps.mapsApp,
-                                  title: Text(Strings.of(context).maps_app),
+                        Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) => ChoicePage<NavigationApiType>(
+                                  items: NavigationApiType.values
+                                      .map(
+                                          (e) => ChoicePageItem(child: Text(_apiName(e)), value: e))
+                                      .toList(),
+                                  value: prefs.api,
+                                  title: Text(Strings.of(context).navigation_api),
+                                  description: const Text(
+                                      "BETA: In the future the goal is to add more countries."),
                                   onChanged: (a) {
-                                    if (a != null) maps.mapsApp = a;
+                                    if (a != null) prefs.api = a;
                                   },
                                 )));
-                        log(maps.mapsApp.toString());
                       },
-                      subtitle: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(_mapsName(maps.mapsApp)),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(_apiName(prefs.api),
+                              style: CupertinoTheme.of(context)
+                                  .textTheme
+                                  .textStyle
+                                  .copyWith(color: CupertinoColors.systemGrey)),
+                          const SizedBox(width: 8),
+                          const Icon(CupertinoIcons.chevron_right),
+                        ],
                       ),
-                      trailing: const Icon(FluentIcons.chevron_right_24_regular),
                     ),
                   ],
                 );
-              })
-            ],
-            const Divider(indent: 8, endIndent: 8),
-            Consumer(builder: (context, w, _) {
-              final prefs = w(preferencesProvider);
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    leading: const Icon(CupertinoIcons.link),
-                    title: Text(Strings.of(context).navigation_api),
-                    onTap: () async {
-                      Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (context) => ChoicePage<NavigationApiType>(
-                                items: NavigationApiType.values
-                                    .map((e) => ChoicePageItem(child: Text(_apiName(e)), value: e))
-                                    .toList(),
-                                value: prefs.api,
-                                title: Text(Strings.of(context).navigation_api),
-                                description: const Text(
-                                    "BETA: In the future the goal is to add more countries."),
-                                onChanged: (a) {
-                                  if (a != null) prefs.api = a;
-                                },
-                              )));
-                    },
-                    subtitle: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(_apiName(prefs.api)),
-                    ),
-                    trailing: const Icon(FluentIcons.chevron_right_24_regular),
-                  ),
-                ],
-              );
-            }),
-            const Divider(indent: 8, endIndent: 8),
-            _SectionTitle(title: Text(Strings.of(context).more)),
-            ListTile(
-              leading: const Icon(CupertinoIcons.person_3_fill),
-              title: Text(Strings.of(context).our_team),
-              onTap: () => Navigator.of(context).pushNamed("/ourTeam"),
-            ),
-            ListTile(
-                leading: const Icon(Icons.restore),
-                title: Text(Strings.of(context).reset_settings),
-                onTap: () async {
-                  final c = await confirm(
-                    context,
-                    title: const Text('Reset settings ?'),
-                    content: const Text('You will lose all of you favorites!'),
-                    isConfirmDestructive: true,
-                    confirm: Text(Strings.of(context).yes),
-                    cancel: Text(Strings.of(context).no),
-                  );
-                  if (c != true) return;
-                  final prefs = await SharedPreferences.getInstance();
-                  final b = await prefs.clear();
-                  log('Done : $b');
-                  SystemNavigator.pop(animated: true);
-                }),
-            const Divider(
-              indent: 16,
-              endIndent: 16,
-            ),
-            if (kDebugMode) ...[
-              _SectionTitle(title: Text(Strings.of(context).developer)),
+              }),
+              const Divider(),
+              _SectionTitle(title: Text(Strings.of(context).more)),
               ListTile(
-                  leading: const Icon(Icons.search),
-                  title: const Text('Search'),
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => SearchPage(
-                            controller: TextEditingController(),
-                          )))),
+                leading: const Icon(CupertinoIcons.person_3_fill),
+                title: Text(Strings.of(context).our_team),
+                onTap: () => Navigator.of(context).pushNamed("/ourTeam"),
+              ),
               ListTile(
-                  leading: const Icon(Icons.warning_rounded),
-                  title: const Text('Throw a Flutter error'),
-                  onTap: () => throw StateError('Debug error')),
-              ListTile(
-                  leading: const Icon(Icons.open_in_browser),
-                  title: const Text('Open incorrect page'),
-                  onTap: () => Navigator.of(context).pushNamed("/thisIsNotACorrectPage")),
-              ListTile(
-                  leading: const Icon(Icons.close),
-                  title: const Text('Trigger a crash'),
+                  leading: const Icon(Icons.restore),
+                  title: Text(Strings.of(context).reset_settings),
                   onTap: () async {
-                    await FirebaseCrashlytics.instance.log('We trigger a crash');
-                    FirebaseCrashlytics.instance.crash();
+                    final c = await confirm(
+                      context,
+                      title: const Text('Reset settings ?'),
+                      content: const Text('You will lose all of you favorites!'),
+                      isConfirmDestructive: true,
+                      confirm: Text(Strings.of(context).yes),
+                      cancel: Text(Strings.of(context).no),
+                    );
+                    if (c != true) return;
+                    final prefs = await SharedPreferences.getInstance();
+                    final b = await prefs.clear();
+                    log('Done : $b');
+                    SystemNavigator.pop(animated: true);
                   }),
-            ],
-            const ListTile(
-              isThreeLine: true,
-              dense: true,
-              title: Text(commitMessage),
-              subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
-            ),
-            const SizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Text(
-                  '© Copyright Gaëtan Schwartz 2020',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle2,
+              const Divider(
+                indent: 16,
+                endIndent: 16,
+              ),
+              if (kDebugMode) ...[
+                _SectionTitle(title: Text(Strings.of(context).developer)),
+                ListTile(
+                    leading: const Icon(Icons.search),
+                    title: const Text('Search'),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => SearchPage(
+                              controller: TextEditingController(),
+                            )))),
+                ListTile(
+                    leading: const Icon(Icons.warning_rounded),
+                    title: const Text('Throw a Flutter error'),
+                    onTap: () => throw StateError('Debug error')),
+                ListTile(
+                    leading: const Icon(Icons.open_in_browser),
+                    title: const Text('Open incorrect page'),
+                    onTap: () => Navigator.of(context).pushNamed("/thisIsNotACorrectPage")),
+                ListTile(
+                    leading: const Icon(Icons.close),
+                    title: const Text('Trigger a crash'),
+                    onTap: () async {
+                      await FirebaseCrashlytics.instance.log('We trigger a crash');
+                      FirebaseCrashlytics.instance.crash();
+                    }),
+              ],
+              const ListTile(
+                isThreeLine: true,
+                dense: true,
+                title: Text(commitMessage),
+                subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
+              ),
+              const SizedBox(height: 32),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    '© Copyright Gaëtan Schwartz 2020',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 
   void onMapsChanged(PreferencesBloc prefs, Maps m) => prefs.mapsApp = m;
@@ -362,7 +383,6 @@ class __ThemesSectionState extends State<_ThemesSection> {
             final theme = w(dynamicTheme);
             final list = theme.configuration.themes.entries.toList();
             return ListView.builder(
-              shrinkWrap: true,
               controller: _controller,
               scrollDirection: Axis.horizontal,
               itemCount: list.length,
@@ -422,7 +442,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
           }),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: _ScrollProgress(controller: _controller),
         ),
         const SizedBox(height: 8)

@@ -258,7 +258,7 @@ class _RoutePageState extends State<RoutePage> {
               title: Text(widget.localRoute?.displayName ?? Strings.of(context).tabs_route),
               automaticallyImplyLeading: false,
             )
-          : swiftTravelAppBar(context),
+          : swiftTravelAppBar(context, title: Text(Strings.of(context).tabs_route)),
       body: Column(
         children: <Widget>[
           Row(

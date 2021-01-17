@@ -8,6 +8,7 @@ import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/favorites/fav_stops.dart';
 import 'package:swift_travel/widgets/input.dart';
@@ -44,9 +45,11 @@ class _FavoritesTabState extends State<FavoritesTab>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: swiftTravelAppBar(context, actions: [
-        if (isDarwin) IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav)
-      ]),
+      appBar: swiftTravelAppBar(context,
+          actions: [
+            if (isDarwin) IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav)
+          ],
+          title: Text(Strings.of(context).tabs_favourites)),
       floatingActionButton: isDarwin
           ? null
           : FloatingActionButton(

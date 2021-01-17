@@ -16,12 +16,11 @@ import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/station_states.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
+import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
-
-import 'completion_tile.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 final _locatingProvider = StateProvider((_) => false);
@@ -84,7 +83,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     super.build(context);
     final isDarwin = Responsive.isDarwin(context);
     return Scaffold(
-      appBar: swiftTravelAppBar(context),
+      appBar: swiftTravelAppBar(context, title: Text(Strings.of(context).tabs_search)),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[

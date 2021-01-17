@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/pages/settings.dart';
 import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';
@@ -88,6 +89,11 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                     icon: const Icon(CupertinoIcons.square_favorites_alt),
                     activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
                     label: Strings.of(context).tabs_favourites,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(CupertinoIcons.settings),
+                    activeIcon: const Icon(CupertinoIcons.settings_solid),
+                    label: Strings.of(context).settings,
                   )
                 ],
               ),
@@ -144,20 +150,23 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           );
   }
 
-  static const tabs = [StationsTab(), RouteTab(), FavoritesTab()];
+  static const tabs = [StationsTab(), RouteTab(), FavoritesTab(), Settings()];
 }
 
-final navigatorKeys = <GlobalKey<NavigatorState>>[GlobalKey(), GlobalKey(), null];
+final navigatorKeys = <GlobalKey<NavigatorState>>[GlobalKey(), GlobalKey(), null, null];
 
 AppBar swiftTravelAppBar(BuildContext context,
-    {List<Widget> actions = const [], bool addSettings = true, bool isDarwinOverride}) {
+    {List<Widget> actions = const [],
+    bool addSettings = true,
+    bool isDarwinOverride,
+    Widget title}) {
   final isDarwin = isDarwinOverride ?? Responsive.isDarwin(context);
   return AppBar(
     automaticallyImplyLeading: false,
-    title: const Text('Swift Travel'),
+    title: title ?? const Text('Swift Travel'),
     actions: [
       ...actions,
-      if (addSettings)
+      if (!isDarwin && addSettings)
         IconButton(
             key: const Key('settings'),
             tooltip: Strings.of(context).settings,

@@ -57,6 +57,7 @@ ThemeConfiguration get themeConfiguration {
           cupertinoOverrideTheme: const CupertinoThemeData(
               textTheme: CupertinoTextThemeData(), primaryColor: CupertinoColors.activeBlue),
         ),
+        applyToDark: (theme) => theme.copyWith(),
         dark: dark,
         lightShadow: lightShadow,
         darkShadow: darkShadow,

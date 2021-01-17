@@ -60,58 +60,62 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: widget.title,
-        ),
-        backgroundColor: CupertinoTheme.of(context).barBackgroundColor,
-        child: ListView(
-          primary: true,
-          children: [
-            const SizedBox(height: 32),
-            divider(),
-            DecoratedBox(
-              decoration: BoxDecoration(color: Theme.of(context).cardColor),
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, i) {
-                  final item = widget.items[i];
-                  return item.child != null
-                      ? ListTile(
-                          onTap: () => tapped(i, item),
-                          title: item.child,
-                          leading: i == selected
-                              ? Icon(
-                                  FluentIcons.checkmark_24_regular,
-                                  color: CupertinoTheme.of(context).primaryColor,
-                                )
-                              : const SizedBox(),
-                        )
-                      : GestureDetector(
-                          onTap: () => tapped(i, item),
-                          child: item.builder(context, selected == i),
-                        );
-                },
-                itemCount: widget.items.length,
-                separatorBuilder: (context, index) => divider(),
-              ),
+    return Material(
+      child: CupertinoTheme(
+          data: CupertinoThemeData(brightness: CupertinoTheme.brightnessOf(context)),
+          child: CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              middle: widget.title,
             ),
-            divider(),
-            if (widget.description != null)
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: DefaultTextStyle(
-                  style: CupertinoTheme.of(context)
-                      .textTheme
-                      .tabLabelTextStyle
-                      .apply(fontSizeFactor: 1.5),
-                  child: widget.description,
+            backgroundColor: CupertinoTheme.brightnessOf(context) == Brightness.dark
+                ? CupertinoColors.darkBackgroundGray
+                : CupertinoColors.lightBackgroundGray,
+            child: ListView(
+              primary: true,
+              children: [
+                const SizedBox(height: 32),
+                divider(),
+                DecoratedBox(
+                  decoration: BoxDecoration(color: Theme.of(context).cardColor),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, i) {
+                      final item = widget.items[i];
+                      return item.child != null
+                          ? ListTile(
+                              onTap: () => tapped(i, item),
+                              title: item.child,
+                              leading: i == selected
+                                  ? Icon(
+                                      FluentIcons.checkmark_24_regular,
+                                      color: CupertinoTheme.of(context).primaryColor,
+                                    )
+                                  : const SizedBox(),
+                            )
+                          : GestureDetector(
+                              onTap: () => tapped(i, item),
+                              child: item.builder(context, selected == i),
+                            );
+                    },
+                    itemCount: widget.items.length,
+                    separatorBuilder: (context, index) => divider(),
+                  ),
                 ),
-              )
-          ],
-        ),
-      ),
+                divider(),
+                if (widget.description != null)
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: DefaultTextStyle(
+                      style: CupertinoTheme.of(context)
+                          .textTheme
+                          .textStyle
+                          .copyWith(color: CupertinoColors.systemGrey),
+                      child: widget.description,
+                    ),
+                  )
+              ],
+            ),
+          )),
     );
   }
 
