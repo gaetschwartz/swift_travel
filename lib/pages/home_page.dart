@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/settings.dart';
 import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
@@ -101,6 +102,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 key: navigatorKeys[i],
                 pages: [SinglePageNavigator(tabs[i])],
                 onPopPage: (_, __) => false,
+                onUnknownRoute: onUnknownRoute,
+                onGenerateRoute: onGenerateRoute,
               ),
             ),
           )
@@ -144,6 +147,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                     key: navigatorKeys[i],
                     pages: [SinglePageNavigator(tabs[i])],
                     onPopPage: (_, __) => false,
+                    onUnknownRoute: onUnknownRoute,
+                    onGenerateRoute: onGenerateRoute,
                   )
               ],
             ),

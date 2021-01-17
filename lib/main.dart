@@ -114,69 +114,64 @@ class _MyAppState extends State<MyApp> {
       }),
     );
   }
+}
 
-  Route onUnknownRoute(RouteSettings settings) {
-    reportDartError("Unknown page : `${settings.name}`", StackTrace.current,
-        name: "router", reason: "while trying to route", showSnackbar: false);
-    return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
+Route onUnknownRoute(RouteSettings settings) {
+  reportDartError("Unknown page : `${settings.name}`", StackTrace.current,
+      name: "router", reason: "while trying to route", showSnackbar: false);
+  return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
+}
+
+Route onGenerateRoute(RouteSettings settings) {
+  log("Routing to ${settings.name}");
+  switch (settings.name) {
+    case "/":
+      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const MainApp());
+    case "loading":
+      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const LoadingPage());
+    case "/settings":
+      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Settings());
+    case "/routeDetails":
+      if (settings.arguments is Map) {
+        final map = settings.arguments as Map;
+        return MaterialWithModalsPageRoute(
+            settings: settings,
+            builder: (_) => RouteDetails(route: map["route"] as CffRoute, i: map["i"] as int));
+      }
+      break;
+    case "/tuto":
+      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Tuto());
+    case "/welcome":
+      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const WelcomePage());
+    case "/route":
+      if (settings.arguments is LocalRoute) {
+        return MaterialWithModalsPageRoute(
+            settings: settings, builder: (_) => RoutePage.route(settings.arguments as LocalRoute));
+      } else if (settings.arguments is FavoriteStop) {
+        return MaterialWithModalsPageRoute(
+            settings: settings, builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop));
+      }
+      break;
+    case "/ourTeam":
+      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const TeamPage());
+    case "/liveRoute":
+      return MaterialWithModalsPageRoute(
+          settings: settings,
+          builder: (_) => LiveRoutePage(connection: settings.arguments as RouteConnection));
+    case "/stopDetails":
+      return MaterialWithModalsPageRoute(
+          settings: settings, builder: (_) => StopDetails(stopName: settings.arguments as String));
+
+    case "/nextStops":
+      return MaterialWithModalsPageRoute(
+          settings: settings,
+          builder: (_) => NextStopsPage(connection: settings.arguments as StationboardConnection));
+    case "/error":
+    case "error":
+      return MaterialWithModalsPageRoute(
+          settings: settings, builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails));
   }
-
-  Route onGenerateRoute(RouteSettings settings) {
-    log("Routing to ${settings.name}");
-    switch (settings.name) {
-      case "/":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const MainApp());
-      case "loading":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const LoadingPage());
-      case "/settings":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Settings());
-      case "/routeDetails":
-        if (settings.arguments is Map) {
-          final map = settings.arguments as Map;
-          return MaterialWithModalsPageRoute(
-              settings: settings,
-              builder: (_) => RouteDetails(route: map["route"] as CffRoute, i: map["i"] as int));
-        }
-        break;
-      case "/tuto":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Tuto());
-      case "/welcome":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const WelcomePage());
-      case "/route":
-        if (settings.arguments is LocalRoute) {
-          return MaterialWithModalsPageRoute(
-              settings: settings,
-              builder: (_) => RoutePage.route(settings.arguments as LocalRoute));
-        } else if (settings.arguments is FavoriteStop) {
-          return MaterialWithModalsPageRoute(
-              settings: settings,
-              builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop));
-        }
-        break;
-      case "/ourTeam":
-        return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const TeamPage());
-      case "/liveRoute":
-        return MaterialWithModalsPageRoute(
-            settings: settings,
-            builder: (_) => LiveRoutePage(connection: settings.arguments as RouteConnection));
-      case "/stopDetails":
-        return MaterialWithModalsPageRoute(
-            settings: settings,
-            builder: (_) => StopDetails(stopName: settings.arguments as String));
-
-      case "/nextStops":
-        return MaterialWithModalsPageRoute(
-            settings: settings,
-            builder: (_) =>
-                NextStopsPage(connection: settings.arguments as StationboardConnection));
-      case "/error":
-      case "error":
-        return MaterialWithModalsPageRoute(
-            settings: settings,
-            builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails));
-    }
-    return null;
-  }
+  return null;
 }
 
 class Routes {
