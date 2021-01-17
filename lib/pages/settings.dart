@@ -118,7 +118,7 @@ class Settings extends StatelessWidget {
             _SectionTitle(title: Text(Strings.of(context).themes)),
             const _ThemesSection(),
             if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS) ...[
-              const Divider(indent: 16, endIndent: 16),
+              const Divider(indent: 16, endIndent: 16, height: 0),
               Consumer(builder: (context, w, _) {
                 final maps = w(preferencesProvider);
                 return Column(
@@ -355,82 +355,77 @@ class __ThemesSectionState extends State<_ThemesSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 24),
-          child: SizedBox(
-            height: 150,
-            child: Consumer(builder: (context, w, _) {
-              final theme = w(dynamicTheme);
-              final list = theme.configuration.themes.entries.toList();
-              return ListView.builder(
-                controller: _controller,
-                scrollDirection: Axis.horizontal,
-                itemCount: list.length,
-                itemBuilder: (context, i) {
-                  final FullTheme ft = list[i].value;
-                  const BorderRadius radius = BorderRadius.all(Radius.circular(16));
-
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: SizedBox(
-                      width: 120,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
-                          color: Theme.of(context).cardColor,
-                          borderRadius: radius,
-                          border: ft == theme.theme
-                              ? Border.all(width: 2, color: Theme.of(context).accentColor)
-                              : null,
-                        ),
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: () {
-                            Vibration.select();
-                            theme.name = list[i].key;
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          height: 150,
+          child: Consumer(builder: (context, w, _) {
+            final theme = w(dynamicTheme);
+            final list = theme.configuration.themes.entries.toList();
+            return ListView.builder(
+              shrinkWrap: true,
+              controller: _controller,
+              scrollDirection: Axis.horizontal,
+              itemCount: list.length,
+              itemBuilder: (context, i) {
+                final FullTheme ft = list[i].value;
+                const BorderRadius radius = BorderRadius.all(Radius.circular(16));
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 16, right: 8, left: 8),
+                  width: 120,
+                  decoration: BoxDecoration(
+                    boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                    color: Theme.of(context).cardColor,
+                    borderRadius: radius,
+                    border: ft == theme.theme
+                        ? Border.all(width: 2, color: Theme.of(context).accentColor)
+                        : null,
+                  ),
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      Vibration.select();
+                      theme.name = list[i].key;
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 2,
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      buildColorRow(ft.light),
-                                      buildColorRow(ft.dark),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: Text(
-                                        ft.name,
-                                        style: Theme.of(context).textTheme.bodyText2,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                buildColorRow(ft.light),
+                                buildColorRow(ft.dark),
                               ],
                             ),
                           ),
-                        ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  ft.name,
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                },
-              );
-            }),
-          ),
+                  ),
+                );
+              },
+            );
+          }),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
           child: _ScrollProgress(controller: _controller),
         ),
+        const SizedBox(height: 8)
       ],
     );
   }
@@ -457,28 +452,26 @@ class __ThemesSectionState extends State<_ThemesSection> {
               ),
             ),
           ),
-          colorCircle(colorScheme.primary),
-          colorCircle(colorScheme.secondary),
+          Expanded(child: colorCircle(colorScheme.primary)),
+          Expanded(child: colorCircle(colorScheme.secondary)),
         ],
       ),
     );
   }
 
-  Expanded colorCircle(Color color) {
-    return Expanded(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: SizedBox.fromSize(
-            size: const Size.square(30),
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: color, blurRadius: 8)],
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+  Widget colorCircle(Color color) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: SizedBox.fromSize(
+          size: const Size.square(30),
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                boxShadow: [BoxShadow(color: color, blurRadius: 8)],
+                color: color,
+                shape: BoxShape.circle,
               ),
             ),
           ),
