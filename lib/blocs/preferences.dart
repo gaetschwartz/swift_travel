@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final preferencesProvider = ChangeNotifierProvider((r) => PreferencesBloc());
+final preferencesProvider = ChangeNotifierProvider((r) => PreferencesBloc("prefs_"));
 
 class PreferencesBloc extends ChangeNotifier {
   static const String mapsKey = 'maps_app';
   static const String navigationAPIKey = 'navigation_api';
+  final String prefix;
   SharedPreferences _prefs;
-  Maps _maps;
-  NavigationApiType _api;
 
-  NavigationApiType get api => _api;
+  Maps _maps = Maps.google;
+  NavigationApiType _api = NavigationApiType.cff;
 
-  set api(NavigationApiType api) {
-    _api = api;
-    _syncToPrefs(navigationAPIKey, api.index);
-  }
+  PreferencesBloc(this.prefix);
 
   Future<void> _syncToPrefs(String key, int index) async {
     notifyListeners();
@@ -30,18 +27,25 @@ class PreferencesBloc extends ChangeNotifier {
     _syncToPrefs(mapsKey, maps.index);
   }
 
+  NavigationApiType get api => _api;
+
+  set api(NavigationApiType api) {
+    _api = api;
+    _syncToPrefs(navigationAPIKey, api.index);
+  }
+
   Future<void> loadFromPreferences({SharedPreferences prefs}) async {
     _prefs = prefs ?? await SharedPreferences.getInstance();
 
-    _maps = _getEnum(mapsKey, Maps.values, Maps.google);
-    _api = _getEnum(navigationAPIKey, NavigationApiType.values, NavigationApiType.cff);
+    _maps = _getEnum(mapsKey, Maps.values) ?? _maps;
+    _api = _getEnum(navigationAPIKey, NavigationApiType.values) ?? _api;
 
     notifyListeners();
   }
 
-  T _getEnum<T>(String key, List<T> values, T defaultValue) {
+  T _getEnum<T>(String key, List<T> values) {
     final i = _prefs.getInt(key);
-    return i != null && i >= 0 && i < values.length ? values[i] : defaultValue;
+    return i != null && i >= 0 && i < values.length ? values[i] : null;
   }
 }
 
