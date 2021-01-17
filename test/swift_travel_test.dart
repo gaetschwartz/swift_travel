@@ -162,18 +162,18 @@ void main() {
 
       prefs.addListener(listener);
 
-      prefs.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      await prefs.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(listener()).called(1);
 
-      prefs.api = NavigationApiType.sncf;
+      prefs.api = NavigationApiType.cff;
       verify(listener()).called(1);
       prefs.mapsApp = Maps.apple;
       verify(listener()).called(1);
 
-      prefs.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      await prefs.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(listener()).called(1);
 
-      expect(prefs.api, NavigationApiType.sncf);
+      expect(prefs.api, NavigationApiType.cff);
       expect(prefs.mapsApp, Maps.apple);
 
       verifyNoMoreInteractions(listener);
