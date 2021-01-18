@@ -67,9 +67,12 @@ Future<void> main() async {
 
   setPathUrlStrategy();
 
+  if (kIsWeb || isMobile) {
+    await Firebase.initializeApp();
+  }
+
   if (isMobile) {
     log('We are on mobile ($platform)');
-    await Firebase.initializeApp();
     FlutterError.onError = reportFlutterError;
     FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode);
     runZonedGuarded(_runApp, reportDartError);
