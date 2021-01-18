@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:math' show min;
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -70,7 +71,7 @@ class MyQuickActions {
       shortcuts.add(ShortcutItem(
         type: 'fav_$i',
         localizedTitle: fav.stop,
-        icon: Platform.isIOS ? 'star' : 'ic_favorites_round',
+        icon: !kIsWeb && Platform.isIOS ? 'star' : 'ic_favorites_round',
       ));
     }
 
@@ -80,7 +81,7 @@ class MyQuickActions {
       shortcuts.add(ShortcutItem(
         type: 'route_$i',
         localizedTitle: route.displayName,
-        icon: Platform.isIOS ? 'route' : 'ic_route_round',
+        icon: !kIsWeb && Platform.isIOS ? 'route' : 'ic_route_round',
       ));
     }
     try {

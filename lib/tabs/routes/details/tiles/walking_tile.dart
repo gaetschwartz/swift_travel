@@ -91,7 +91,10 @@ class WalkingTile extends StatelessWidget {
 
     final suffix =
         '?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
-    if (Platform.isIOS) {
+    if (kIsWeb) {
+      final url = _google + suffix;
+      await launch(url);
+    } else if (Platform.isIOS) {
       final url = getMapsUrl(context, suffix);
       await launch(url);
     } else if (Platform.isAndroid) {
