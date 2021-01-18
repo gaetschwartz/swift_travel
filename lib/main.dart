@@ -55,6 +55,8 @@ Future<void> main() async {
       "Commit message: $commitMessage\n"
       "Commit hash: $commitHash",
     );
+    // ignore: avoid_print
+    print('Platform: $platform');
   }
   if (Env.overridePlatform) {
     final TargetPlatform platform = debugPlatformMap[defaultTargetPlatform];
@@ -68,13 +70,11 @@ Future<void> main() async {
   setPathUrlStrategy();
 
   if (isMobile) {
-    log('We are on mobile ($platform)');
     await Firebase.initializeApp();
     FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode);
     runZonedGuarded(_runApp, reportDartError);
     FlutterError.onError = reportFlutterError;
   } else {
-    log('We are not on mobile ($platform)');
     _runApp();
   }
 }
