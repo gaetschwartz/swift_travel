@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "appAssociation": "NONE",
     "ignore": [
       "firebase.json",
       "**/.*",
