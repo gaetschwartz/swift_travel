@@ -104,7 +104,6 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 onPopPage: (_, __) => true,
                 onUnknownRoute: onUnknownRoute,
                 onGenerateRoute: onGenerateRoute,
-                reportsRouteUpdateToEngine: true,
               ),
             ),
           )
@@ -150,7 +149,6 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                     onPopPage: (_, __) => true,
                     onUnknownRoute: onUnknownRoute,
                     onGenerateRoute: onGenerateRoute,
-                    reportsRouteUpdateToEngine: true,
                   )
               ],
             ),
