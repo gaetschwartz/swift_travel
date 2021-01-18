@@ -67,7 +67,7 @@ Future<void> main() async {
 
   setPathUrlStrategy();
 
-  if (kIsWeb || isMobile) {
+  if (isMobile) {
     await Firebase.initializeApp();
   }
 
