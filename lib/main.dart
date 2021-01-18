@@ -15,6 +15,7 @@ import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/apis/cff/models/route_connection.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
@@ -46,6 +47,15 @@ const debugPlatformMap = {
 };
 
 Future<void> main() async {
+  if (kReleaseMode) {
+    // ignore: avoid_print
+    print(
+      "=== Release mode ===\n"
+      "Build date: $commitBuildDate\n"
+      "Commit message: $commitMessage\n"
+      "Commit hash: $commitHash",
+    );
+  }
   if (Env.overridePlatform) {
     final TargetPlatform platform = debugPlatformMap[defaultTargetPlatform];
     log('Overriding $defaultTargetPlatform by $platform');
