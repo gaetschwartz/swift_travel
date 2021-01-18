@@ -40,6 +40,7 @@ mixin _$Coord {
   String get lon;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CoordCopyWith<Coord> get copyWith;
 }
 
@@ -134,6 +135,7 @@ class _$_Coord implements _Coord {
       const DeepCollectionEquality().hash(lat) ^
       const DeepCollectionEquality().hash(lon);
 
+  @JsonKey(ignore: true)
   @override
   _$CoordCopyWith<_Coord> get copyWith =>
       __$CoordCopyWithImpl<_Coord>(this, _$identity);
@@ -154,5 +156,6 @@ abstract class _Coord implements Coord {
   @override
   String get lon;
   @override
+  @JsonKey(ignore: true)
   _$CoordCopyWith<_Coord> get copyWith;
 }

@@ -64,6 +64,7 @@ mixin _$SubsequentStop {
   int get arrDelay;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SubsequentStopCopyWith<SubsequentStop> get copyWith;
 }
 
@@ -253,6 +254,7 @@ class _$_SubsequentStop implements _SubsequentStop {
       const DeepCollectionEquality().hash(depDelay) ^
       const DeepCollectionEquality().hash(arrDelay);
 
+  @JsonKey(ignore: true)
   @override
   _$SubsequentStopCopyWith<_SubsequentStop> get copyWith =>
       __$SubsequentStopCopyWithImpl<_SubsequentStop>(this, _$identity);
@@ -298,5 +300,6 @@ abstract class _SubsequentStop implements SubsequentStop {
   @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get arrDelay;
   @override
+  @JsonKey(ignore: true)
   _$SubsequentStopCopyWith<_SubsequentStop> get copyWith;
 }

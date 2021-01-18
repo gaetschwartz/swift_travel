@@ -138,6 +138,7 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(routes);
 
+  @JsonKey(ignore: true)
   @override
   $FavoritesRoutesStatesDataCopyWith<FavoritesRoutesStatesData> get copyWith =>
       _$FavoritesRoutesStatesDataCopyWithImpl<FavoritesRoutesStatesData>(
@@ -205,6 +206,7 @@ abstract class FavoritesRoutesStatesData implements FavoritesRoutesStates {
       _$FavoritesRoutesStatesData;
 
   List<LocalRoute> get routes;
+  @JsonKey(ignore: true)
   $FavoritesRoutesStatesDataCopyWith<FavoritesRoutesStatesData> get copyWith;
 }
 
@@ -364,6 +366,7 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
 
+  @JsonKey(ignore: true)
   @override
   $FavoritesRoutesStatesErrorCopyWith<FavoritesRoutesStatesError>
       get copyWith =>
@@ -432,5 +435,6 @@ abstract class FavoritesRoutesStatesError implements FavoritesRoutesStates {
       _$FavoritesRoutesStatesError;
 
   Exception get exception;
+  @JsonKey(ignore: true)
   $FavoritesRoutesStatesErrorCopyWith<FavoritesRoutesStatesError> get copyWith;
 }

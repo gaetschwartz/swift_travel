@@ -51,6 +51,7 @@ mixin _$SncfPlace {
   String get id;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SncfPlaceCopyWith<SncfPlace> get copyWith;
 }
 
@@ -215,6 +216,7 @@ class _$_SncfPlace implements _SncfPlace {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(id);
 
+  @JsonKey(ignore: true)
   @override
   _$SncfPlaceCopyWith<_SncfPlace> get copyWith =>
       __$SncfPlaceCopyWithImpl<_SncfPlace>(this, _$identity);
@@ -247,5 +249,6 @@ abstract class _SncfPlace implements SncfPlace {
   @override
   String get id;
   @override
+  @JsonKey(ignore: true)
   _$SncfPlaceCopyWith<_SncfPlace> get copyWith;
 }

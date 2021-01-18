@@ -138,6 +138,7 @@ class _$LegEntity implements LegEntity {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(leg);
 
+  @JsonKey(ignore: true)
   @override
   $LegEntityCopyWith<LegEntity> get copyWith =>
       _$LegEntityCopyWithImpl<LegEntity>(this, _$identity);
@@ -197,6 +198,7 @@ abstract class LegEntity implements LocatedCffEntitiy {
   factory LegEntity(Leg leg) = _$LegEntity;
 
   Leg get leg;
+  @JsonKey(ignore: true)
   $LegEntityCopyWith<LegEntity> get copyWith;
 }
 
@@ -264,6 +266,7 @@ class _$StopEntity implements StopEntity {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(stop);
 
+  @JsonKey(ignore: true)
   @override
   $StopEntityCopyWith<StopEntity> get copyWith =>
       _$StopEntityCopyWithImpl<StopEntity>(this, _$identity);
@@ -323,5 +326,6 @@ abstract class StopEntity implements LocatedCffEntitiy {
   factory StopEntity(Stop stop) = _$StopEntity;
 
   Stop get stop;
+  @JsonKey(ignore: true)
   $StopEntityCopyWith<StopEntity> get copyWith;
 }

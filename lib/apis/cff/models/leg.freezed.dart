@@ -111,6 +111,7 @@ mixin _$Leg {
   int get depDelay;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $LegCopyWith<Leg> get copyWith;
 }
 
@@ -513,6 +514,7 @@ class _$_Leg implements _Leg {
       const DeepCollectionEquality().hash(attributes) ^
       const DeepCollectionEquality().hash(depDelay);
 
+  @JsonKey(ignore: true)
   @override
   _$LegCopyWith<_Leg> get copyWith =>
       __$LegCopyWithImpl<_Leg>(this, _$identity);
@@ -604,5 +606,6 @@ abstract class _Leg implements Leg {
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get depDelay;
   @override
+  @JsonKey(ignore: true)
   _$LegCopyWith<_Leg> get copyWith;
 }

@@ -38,6 +38,7 @@ mixin _$GeoResponse {
   List<GeoResult> get results;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $GeoResponseCopyWith<GeoResponse> get copyWith;
 }
 
@@ -126,6 +127,7 @@ class _$_GeoResponse implements _GeoResponse {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(results);
 
+  @JsonKey(ignore: true)
   @override
   _$GeoResponseCopyWith<_GeoResponse> get copyWith =>
       __$GeoResponseCopyWithImpl<_GeoResponse>(this, _$identity);
@@ -145,5 +147,6 @@ abstract class _GeoResponse implements GeoResponse {
   @override
   List<GeoResult> get results;
   @override
+  @JsonKey(ignore: true)
   _$GeoResponseCopyWith<_GeoResponse> get copyWith;
 }

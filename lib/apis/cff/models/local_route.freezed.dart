@@ -42,6 +42,7 @@ mixin _$LocalRoute {
   String get displayName;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $LocalRouteCopyWith<LocalRoute> get copyWith;
 }
 
@@ -153,6 +154,7 @@ class _$_LocalRoute implements _LocalRoute {
       const DeepCollectionEquality().hash(to) ^
       const DeepCollectionEquality().hash(displayName);
 
+  @JsonKey(ignore: true)
   @override
   _$LocalRouteCopyWith<_LocalRoute> get copyWith =>
       __$LocalRouteCopyWithImpl<_LocalRoute>(this, _$identity);
@@ -177,5 +179,6 @@ abstract class _LocalRoute implements LocalRoute {
   @override
   String get displayName;
   @override
+  @JsonKey(ignore: true)
   _$LocalRouteCopyWith<_LocalRoute> get copyWith;
 }

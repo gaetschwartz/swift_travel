@@ -232,6 +232,7 @@ class _$TextRouteState implements TextRouteState {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(text);
 
+  @JsonKey(ignore: true)
   @override
   $TextRouteStateCopyWith<TextRouteState> get copyWith =>
       _$TextRouteStateCopyWithImpl<TextRouteState>(this, _$identity);
@@ -297,6 +298,7 @@ abstract class TextRouteState implements RouteTextfieldState {
   const factory TextRouteState(String text) = _$TextRouteState;
 
   String get text;
+  @JsonKey(ignore: true)
   $TextRouteStateCopyWith<TextRouteState> get copyWith;
 }
 

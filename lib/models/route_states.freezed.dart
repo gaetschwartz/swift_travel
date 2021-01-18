@@ -183,6 +183,7 @@ class _$RSData implements RSData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(routes);
 
+  @JsonKey(ignore: true)
   @override
   $RSDataCopyWith<RSData> get copyWith =>
       _$RSDataCopyWithImpl<RSData>(this, _$identity);
@@ -274,6 +275,7 @@ abstract class RSData implements RouteStates {
   const factory RSData(CffRoute routes) = _$RSData;
 
   CffRoute get routes;
+  @JsonKey(ignore: true)
   $RSDataCopyWith<RSData> get copyWith;
 }
 
@@ -705,6 +707,7 @@ class _$RSException implements RSException {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
 
+  @JsonKey(ignore: true)
   @override
   $RSExceptionCopyWith<RSException> get copyWith =>
       _$RSExceptionCopyWithImpl<RSException>(this, _$identity);
@@ -796,6 +799,7 @@ abstract class RSException implements RouteStates {
   const factory RSException(Object exception) = _$RSException;
 
   Object get exception;
+  @JsonKey(ignore: true)
   $RSExceptionCopyWith<RSException> get copyWith;
 }
 

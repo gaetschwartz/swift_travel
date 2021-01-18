@@ -56,6 +56,7 @@ mixin _$CffRoute {
   String get requestUrl;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CffRouteCopyWith<CffRoute> get copyWith;
 }
 
@@ -227,6 +228,7 @@ class _$_CffRoute implements _CffRoute {
       const DeepCollectionEquality().hash(messages) ^
       const DeepCollectionEquality().hash(requestUrl);
 
+  @JsonKey(ignore: true)
   @override
   _$CffRouteCopyWith<_CffRoute> get copyWith =>
       __$CffRouteCopyWithImpl<_CffRoute>(this, _$identity);
@@ -263,5 +265,6 @@ abstract class _CffRoute implements CffRoute {
   @override
   String get requestUrl;
   @override
+  @JsonKey(ignore: true)
   _$CffRouteCopyWith<_CffRoute> get copyWith;
 }

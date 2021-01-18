@@ -62,6 +62,7 @@ mixin _$RouteConnection {
   int get depDelay;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $RouteConnectionCopyWith<RouteConnection> get copyWith;
 }
 
@@ -259,6 +260,7 @@ class _$_RouteConnection implements _RouteConnection {
       const DeepCollectionEquality().hash(disruptions) ^
       const DeepCollectionEquality().hash(depDelay);
 
+  @JsonKey(ignore: true)
   @override
   _$RouteConnectionCopyWith<_RouteConnection> get copyWith =>
       __$RouteConnectionCopyWithImpl<_RouteConnection>(this, _$identity);
@@ -302,5 +304,6 @@ abstract class _RouteConnection implements RouteConnection {
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get depDelay;
   @override
+  @JsonKey(ignore: true)
   _$RouteConnectionCopyWith<_RouteConnection> get copyWith;
 }

@@ -42,6 +42,7 @@ mixin _$GeoError {
   int get code;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $GeoErrorCopyWith<GeoError> get copyWith;
 }
 
@@ -145,6 +146,7 @@ class _$_GeoError implements _GeoError {
       const DeepCollectionEquality().hash(detail) ^
       const DeepCollectionEquality().hash(code);
 
+  @JsonKey(ignore: true)
   @override
   _$GeoErrorCopyWith<_GeoError> get copyWith =>
       __$GeoErrorCopyWithImpl<_GeoError>(this, _$identity);
@@ -167,5 +169,6 @@ abstract class _GeoError implements GeoError {
   @override
   int get code;
   @override
+  @JsonKey(ignore: true)
   _$GeoErrorCopyWith<_GeoError> get copyWith;
 }

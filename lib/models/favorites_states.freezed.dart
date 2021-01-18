@@ -138,6 +138,7 @@ class _$FavoritesStatesData implements FavoritesStatesData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(favorites);
 
+  @JsonKey(ignore: true)
   @override
   $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith =>
       _$FavoritesStatesDataCopyWithImpl<FavoritesStatesData>(this, _$identity);
@@ -204,6 +205,7 @@ abstract class FavoritesStatesData implements FavoritesStates {
       _$FavoritesStatesData;
 
   List<FavoriteStop> get favorites;
+  @JsonKey(ignore: true)
   $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith;
 }
 
@@ -358,6 +360,7 @@ class _$FavoritesStatesError implements FavoritesStatesError {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
 
+  @JsonKey(ignore: true)
   @override
   $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith =>
       _$FavoritesStatesErrorCopyWithImpl<FavoritesStatesError>(
@@ -425,5 +428,6 @@ abstract class FavoritesStatesError implements FavoritesStates {
       _$FavoritesStatesError;
 
   Exception get exception;
+  @JsonKey(ignore: true)
   $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith;
 }

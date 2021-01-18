@@ -83,6 +83,7 @@ mixin _$StationboardConnection {
   int get arrDelay;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $StationboardConnectionCopyWith<StationboardConnection> get copyWith;
 }
 
@@ -361,6 +362,7 @@ class _$_StationboardConnection implements _StationboardConnection {
       const DeepCollectionEquality().hash(depDelay) ^
       const DeepCollectionEquality().hash(arrDelay);
 
+  @JsonKey(ignore: true)
   @override
   _$StationboardConnectionCopyWith<_StationboardConnection> get copyWith =>
       __$StationboardConnectionCopyWithImpl<_StationboardConnection>(
@@ -425,5 +427,6 @@ abstract class _StationboardConnection implements StationboardConnection {
   @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get arrDelay;
   @override
+  @JsonKey(ignore: true)
   _$StationboardConnectionCopyWith<_StationboardConnection> get copyWith;
 }

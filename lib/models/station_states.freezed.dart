@@ -140,6 +140,7 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(completions);
 
+  @JsonKey(ignore: true)
   @override
   $StationStatesCompletionsCopyWith<StationStatesCompletions> get copyWith =>
       _$StationStatesCompletionsCopyWithImpl<StationStatesCompletions>(
@@ -207,6 +208,7 @@ abstract class StationStatesCompletions implements StationStates {
       _$StationStatesCompletions;
 
   List<CffCompletion> get completions;
+  @JsonKey(ignore: true)
   $StationStatesCompletionsCopyWith<StationStatesCompletions> get copyWith;
 }
 

@@ -58,6 +58,7 @@ mixin _$SncfAdministrativeRegion {
   String get zipCode;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SncfAdministrativeRegionCopyWith<SncfAdministrativeRegion> get copyWith;
 }
 
@@ -241,6 +242,7 @@ class _$_SncfAdministrativeRegion extends _SncfAdministrativeRegion {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(zipCode);
 
+  @JsonKey(ignore: true)
   @override
   _$SncfAdministrativeRegionCopyWith<_SncfAdministrativeRegion> get copyWith =>
       __$SncfAdministrativeRegionCopyWithImpl<_SncfAdministrativeRegion>(
@@ -281,5 +283,6 @@ abstract class _SncfAdministrativeRegion extends SncfAdministrativeRegion {
   @override
   String get zipCode;
   @override
+  @JsonKey(ignore: true)
   _$SncfAdministrativeRegionCopyWith<_SncfAdministrativeRegion> get copyWith;
 }

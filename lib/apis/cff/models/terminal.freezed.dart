@@ -44,6 +44,7 @@ mixin _$Terminal {
   int get y;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $TerminalCopyWith<Terminal> get copyWith;
 }
 
@@ -156,6 +157,7 @@ class _$_Terminal implements _Terminal {
       const DeepCollectionEquality().hash(x) ^
       const DeepCollectionEquality().hash(y);
 
+  @JsonKey(ignore: true)
   @override
   _$TerminalCopyWith<_Terminal> get copyWith =>
       __$TerminalCopyWithImpl<_Terminal>(this, _$identity);
@@ -180,5 +182,6 @@ abstract class _Terminal implements Terminal {
   @override
   int get y;
   @override
+  @JsonKey(ignore: true)
   _$TerminalCopyWith<_Terminal> get copyWith;
 }

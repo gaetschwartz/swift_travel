@@ -67,6 +67,7 @@ mixin _$Exit {
   int get arrDelay;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ExitCopyWith<Exit> get copyWith;
 }
 
@@ -264,6 +265,7 @@ class _$_Exit implements _Exit {
       const DeepCollectionEquality().hash(lon) ^
       const DeepCollectionEquality().hash(arrDelay);
 
+  @JsonKey(ignore: true)
   @override
   _$ExitCopyWith<_Exit> get copyWith =>
       __$ExitCopyWithImpl<_Exit>(this, _$identity);
@@ -311,5 +313,6 @@ abstract class _Exit implements Exit {
   @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get arrDelay;
   @override
+  @JsonKey(ignore: true)
   _$ExitCopyWith<_Exit> get copyWith;
 }

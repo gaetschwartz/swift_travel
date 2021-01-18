@@ -51,6 +51,7 @@ mixin _$CffStationboard {
   String get stopName;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CffStationboardCopyWith<CffStationboard> get copyWith;
 }
 
@@ -222,6 +223,7 @@ class _$_CffStationboard implements _CffStationboard {
       const DeepCollectionEquality().hash(messages) ^
       const DeepCollectionEquality().hash(stopName);
 
+  @JsonKey(ignore: true)
   @override
   _$CffStationboardCopyWith<_CffStationboard> get copyWith =>
       __$CffStationboardCopyWithImpl<_CffStationboard>(this, _$identity);
@@ -254,5 +256,6 @@ abstract class _CffStationboard implements CffStationboard {
   @override
   String get stopName;
   @override
+  @JsonKey(ignore: true)
   _$CffStationboardCopyWith<_CffStationboard> get copyWith;
 }

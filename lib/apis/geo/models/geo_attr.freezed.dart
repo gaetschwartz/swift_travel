@@ -76,6 +76,7 @@ mixin _$GeoAttr {
   String get label;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $GeoAttrCopyWith<GeoAttr> get copyWith;
 }
 
@@ -319,6 +320,7 @@ class _$_GeoAttr implements _GeoAttr {
       const DeepCollectionEquality().hash(x) ^
       const DeepCollectionEquality().hash(label);
 
+  @JsonKey(ignore: true)
   @override
   _$GeoAttrCopyWith<_GeoAttr> get copyWith =>
       __$GeoAttrCopyWithImpl<_GeoAttr>(this, _$identity);
@@ -375,5 +377,6 @@ abstract class _GeoAttr implements GeoAttr {
   @override
   String get label;
   @override
+  @JsonKey(ignore: true)
   _$GeoAttrCopyWith<_GeoAttr> get copyWith;
 }

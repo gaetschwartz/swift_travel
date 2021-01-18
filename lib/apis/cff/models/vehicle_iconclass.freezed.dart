@@ -39,6 +39,7 @@ mixin _$VehicleIconclass {
   Vehicle get v;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $VehicleIconclassCopyWith<VehicleIconclass> get copyWith;
 }
 
@@ -130,6 +131,7 @@ class _$_VehicleIconclass implements _VehicleIconclass {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(v);
 
+  @JsonKey(ignore: true)
   @override
   _$VehicleIconclassCopyWith<_VehicleIconclass> get copyWith =>
       __$VehicleIconclassCopyWithImpl<_VehicleIconclass>(this, _$identity);
@@ -150,5 +152,6 @@ abstract class _VehicleIconclass implements VehicleIconclass {
   @nullable
   Vehicle get v;
   @override
+  @JsonKey(ignore: true)
   _$VehicleIconclassCopyWith<_VehicleIconclass> get copyWith;
 }

@@ -40,6 +40,7 @@ mixin _$FavoriteStop {
   String get name;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $FavoriteStopCopyWith<FavoriteStop> get copyWith;
 }
 
@@ -140,6 +141,7 @@ class _$_FavoriteStop extends _FavoriteStop {
       const DeepCollectionEquality().hash(stop) ^
       const DeepCollectionEquality().hash(name);
 
+  @JsonKey(ignore: true)
   @override
   _$FavoriteStopCopyWith<_FavoriteStop> get copyWith =>
       __$FavoriteStopCopyWithImpl<_FavoriteStop>(this, _$identity);
@@ -162,5 +164,6 @@ abstract class _FavoriteStop extends FavoriteStop {
   @override
   String get name;
   @override
+  @JsonKey(ignore: true)
   _$FavoriteStopCopyWith<_FavoriteStop> get copyWith;
 }

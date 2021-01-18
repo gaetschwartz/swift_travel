@@ -54,6 +54,7 @@ mixin _$Stop {
   double get lon;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $StopCopyWith<Stop> get copyWith;
 }
 
@@ -206,6 +207,7 @@ class _$_Stop implements _Stop {
       const DeepCollectionEquality().hash(lat) ^
       const DeepCollectionEquality().hash(lon);
 
+  @JsonKey(ignore: true)
   @override
   _$StopCopyWith<_Stop> get copyWith =>
       __$StopCopyWithImpl<_Stop>(this, _$identity);
@@ -240,5 +242,6 @@ abstract class _Stop implements Stop {
   @override
   double get lon;
   @override
+  @JsonKey(ignore: true)
   _$StopCopyWith<_Stop> get copyWith;
 }

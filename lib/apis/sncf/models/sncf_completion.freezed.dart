@@ -38,6 +38,7 @@ mixin _$SncfCompletion {
   List<SncfPlace> get places;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SncfCompletionCopyWith<SncfCompletion> get copyWith;
 }
 
@@ -129,6 +130,7 @@ class _$_SncfCompletion implements _SncfCompletion {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(places);
 
+  @JsonKey(ignore: true)
   @override
   _$SncfCompletionCopyWith<_SncfCompletion> get copyWith =>
       __$SncfCompletionCopyWithImpl<_SncfCompletion>(this, _$identity);
@@ -148,5 +150,6 @@ abstract class _SncfCompletion implements SncfCompletion {
   @override
   List<SncfPlace> get places;
   @override
+  @JsonKey(ignore: true)
   _$SncfCompletionCopyWith<_SncfCompletion> get copyWith;
 }

@@ -42,6 +42,7 @@ mixin _$GeoResult {
   GeoAttr get attrs;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $GeoResultCopyWith<GeoResult> get copyWith;
 }
 
@@ -161,6 +162,7 @@ class _$_GeoResult implements _GeoResult {
       const DeepCollectionEquality().hash(weight) ^
       const DeepCollectionEquality().hash(attrs);
 
+  @JsonKey(ignore: true)
   @override
   _$GeoResultCopyWith<_GeoResult> get copyWith =>
       __$GeoResultCopyWithImpl<_GeoResult>(this, _$identity);
@@ -184,5 +186,6 @@ abstract class _GeoResult implements GeoResult {
   @override
   GeoAttr get attrs;
   @override
+  @JsonKey(ignore: true)
   _$GeoResultCopyWith<_GeoResult> get copyWith;
 }

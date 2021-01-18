@@ -58,6 +58,7 @@ mixin _$Disruption {
   int get priority;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $DisruptionCopyWith<Disruption> get copyWith;
 }
 
@@ -224,6 +225,7 @@ class _$_Disruption implements _Disruption {
       const DeepCollectionEquality().hash(exact) ^
       const DeepCollectionEquality().hash(priority);
 
+  @JsonKey(ignore: true)
   @override
   _$DisruptionCopyWith<_Disruption> get copyWith =>
       __$DisruptionCopyWithImpl<_Disruption>(this, _$identity);
@@ -263,5 +265,6 @@ abstract class _Disruption implements Disruption {
   @override
   int get priority;
   @override
+  @JsonKey(ignore: true)
   _$DisruptionCopyWith<_Disruption> get copyWith;
 }
