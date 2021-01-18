@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -103,13 +101,6 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   Future<void> initSettings(SharedPreferences prefs) async {
     if (Env.corruptedFavorites) {
       await prefs.setStringList(FavoritesSharedPreferencesStore.routesKey, ['[', '}']);
-    }
-
-    if (isMobile) {
-      if (kDebugMode) {
-        log('Disabling crash reports in debug mode', name: 'Loading');
-        await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-      }
     }
 
     try {

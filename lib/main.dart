@@ -68,21 +68,20 @@ Future<void> main() async {
   setPathUrlStrategy();
 
   if (isMobile) {
-    await Firebase.initializeApp();
-  }
-
-  if (isMobile) {
     log('We are on mobile ($platform)');
-    FlutterError.onError = reportFlutterError;
+    await Firebase.initializeApp();
     FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode);
     runZonedGuarded(_runApp, reportDartError);
+    FlutterError.onError = reportFlutterError;
   } else {
     log('We are not on mobile ($platform)');
     _runApp();
   }
 }
 
-void _runApp() => runApp(ProviderScope(child: MyApp()));
+void _runApp() {
+  runApp(ProviderScope(child: MyApp()));
+}
 
 class MyApp extends StatefulWidget {
   @override
