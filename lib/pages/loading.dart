@@ -88,8 +88,6 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       await Geolocator.requestPermission();
     } on MissingPluginException catch (_) {}
 
-    await showTutoIfNeeded(prefs);
-
     await route();
 
     if (isMobile) {
