@@ -18,7 +18,6 @@ import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/share.dart';
-import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
@@ -36,52 +35,44 @@ class RouteDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final conn = route.connections[i];
-    final isDarwin = Responsive.isDarwin(context);
     return Scaffold(
-        floatingActionButton: isDarwin
-            ? null
-            : FloatingActionButton(
-                onPressed: () => openLive(context, conn),
-                child: const Icon(Icons.play_arrow),
-              ),
         body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-                title: Text(Strings.of(context).tabs_route),
-                pinned: true,
-                snap: true,
-                floating: true,
-                bottom: buildHeader(
-                    context,
-                    conn,
-                    Size.fromHeight((Theme.of(context).textTheme.bodyText1.fontSize *
-                                MediaQuery.of(context).textScaleFactor) +
-                            20) *
-                        3),
-                leading: doClose ? const CloseButton() : null,
-                flexibleSpace: const SizedBox(),
-                actions: <Widget>[
-                  if (isDarwin)
-                    IconButton(
-                        icon: const Icon(CupertinoIcons.play_fill),
-                        onPressed: () => openLive(context, conn)),
-                  if (isMobile || kIsWeb)
-                    IconButton(
-                        icon: Theme.of(context).platform == TargetPlatform.iOS
-                            ? const Icon(CupertinoIcons.share)
-                            : const Icon(Icons.share),
-                        onPressed: () => _shareRoute(context))
-                ]),
-            SliverSafeArea(
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (_, i) => LegTile(l: conn.legs[i]),
-                  childCount: conn.legs.length,
-                ),
-              ),
+      slivers: [
+        SliverAppBar(
+            title: Text(Strings.of(context).tabs_route),
+            pinned: true,
+            snap: true,
+            floating: true,
+            bottom: buildHeader(
+                context,
+                conn,
+                Size.fromHeight((Theme.of(context).textTheme.bodyText1.fontSize *
+                            MediaQuery.of(context).textScaleFactor) +
+                        20) *
+                    3),
+            leading: doClose ? const CloseButton() : null,
+            flexibleSpace: const SizedBox(),
+            actions: <Widget>[
+              IconButton(
+                  icon: const Icon(CupertinoIcons.play_fill),
+                  onPressed: () => openLive(context, conn)),
+              if (isMobile || kIsWeb)
+                IconButton(
+                    icon: Theme.of(context).platform == TargetPlatform.iOS
+                        ? const Icon(CupertinoIcons.share)
+                        : const Icon(Icons.share),
+                    onPressed: () => _shareRoute(context))
+            ]),
+        SliverSafeArea(
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (_, i) => LegTile(l: conn.legs[i]),
+              childCount: conn.legs.length,
             ),
-          ],
-        ));
+          ),
+        ),
+      ],
+    ));
   }
 
   String _format(String place) {

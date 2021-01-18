@@ -100,10 +100,11 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               ),
               tabBuilder: (context, i) => Navigator(
                 key: navigatorKeys[i],
-                pages: [SinglePageNavigator(tabs[i])],
-                onPopPage: (_, __) => false,
+                pages: [SingleWidgetPage(tabs[i])],
+                onPopPage: (_, __) => true,
                 onUnknownRoute: onUnknownRoute,
                 onGenerateRoute: onGenerateRoute,
+                reportsRouteUpdateToEngine: true,
               ),
             ),
           )
@@ -145,10 +146,11 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 for (var i = 0; i < tabs.length; i++)
                   Navigator(
                     key: navigatorKeys[i],
-                    pages: [SinglePageNavigator(tabs[i])],
-                    onPopPage: (_, __) => false,
+                    pages: [SingleWidgetPage(tabs[i])],
+                    onPopPage: (_, __) => true,
                     onUnknownRoute: onUnknownRoute,
                     onGenerateRoute: onGenerateRoute,
+                    reportsRouteUpdateToEngine: true,
                   )
               ],
             ),

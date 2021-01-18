@@ -6,7 +6,6 @@ import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dynamic_theme.dart';
@@ -74,8 +73,7 @@ class CffCompletionTile extends ConsumerWidget {
             ? null
             : () {
                 Vibration.select();
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => StopDetails(stopName: sugg.label)));
+                Navigator.of(context).pushNamed("/stopDetails", arguments: sugg.label);
               },
       ),
     );

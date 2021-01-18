@@ -9,6 +9,7 @@ import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:theming/dynamic_theme.dart';
+import 'package:theming/responsive.dart';
 
 class RouteTile extends StatelessWidget {
   const RouteTile({
@@ -86,8 +87,14 @@ class RouteTile extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => RouteDetails(route: route, i: i)));
+              final r = Responsive.isDarwin(context)
+                  ? CupertinoPageRoute(
+                      builder: (_) => RouteDetails(route: route, i: i),
+                      settings: const RouteSettings(name: "/routeDetails"))
+                  : MaterialPageRoute(
+                      builder: (_) => RouteDetails(route: route, i: i),
+                      settings: const RouteSettings(name: "/routeDetails"));
+              Navigator.of(context).push(r);
             },
           ),
         ),
