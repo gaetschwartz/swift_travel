@@ -24,11 +24,13 @@ import 'package:vibration/vibration.dart';
 class RouteDetails extends StatelessWidget {
   final CffRoute route;
   final int i;
+  final bool doClose;
 
   const RouteDetails({
     Key key,
     @required this.route,
     @required this.i,
+    this.doClose = false,
   }) : super(key: key);
 
   @override
@@ -56,6 +58,7 @@ class RouteDetails extends StatelessWidget {
                                 MediaQuery.of(context).textScaleFactor) +
                             20) *
                         3),
+                leading: doClose ? const CloseButton() : null,
                 flexibleSpace: const SizedBox(),
                 actions: <Widget>[
                   if (isDarwin)

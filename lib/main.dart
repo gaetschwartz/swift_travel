@@ -157,7 +157,11 @@ Route onGenerateRoute(RouteSettings settings) {
         final map = settings.arguments as Map;
         return MaterialWithModalsPageRoute(
             settings: settings,
-            builder: (_) => RouteDetails(route: map["route"] as CffRoute, i: map["i"] as int));
+            builder: (_) => RouteDetails(
+                  route: map["route"] as CffRoute,
+                  i: map["i"] as int,
+                  doClose: true,
+                ));
       }
       break;
     case "/tuto":
