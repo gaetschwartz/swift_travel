@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:share/share.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 
-const String routeUrl = 'gaetanschwartz.com';
+const String routeUrl = 'travel.gaetanschwartz.com';
 
 Future<void> shareRoute(CffRoute route, int i) async {
   final String requestUrl = route.requestUrl;

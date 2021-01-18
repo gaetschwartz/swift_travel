@@ -109,10 +109,30 @@ class _MyAppState extends State<MyApp> {
           supportedLocales: Strings.delegate.supportedLocales,
           onGenerateRoute: onGenerateRoute,
           onUnknownRoute: onUnknownRoute,
+          onGenerateInitialRoutes: onGenerateInitialRoutes,
           initialRoute: "loading",
         );
       }),
     );
+  }
+
+  List<Route> onGenerateInitialRoutes(String initialRoute) {
+    log("Initial route : $initialRoute");
+    final uri = Uri.tryParse(initialRoute);
+
+    final routes = <Route>[];
+
+    switch (uri.path) {
+      case "/route":
+        routes.add(MaterialWithModalsPageRoute(
+            settings: const RouteSettings(name: "/"), builder: (_) => LoadingPage(uri: uri)));
+        break;
+
+      default:
+        routes.add(MaterialWithModalsPageRoute(
+            settings: const RouteSettings(name: "/"), builder: (_) => const LoadingPage()));
+    }
+    return routes;
   }
 }
 
@@ -124,6 +144,7 @@ Route onUnknownRoute(RouteSettings settings) {
 
 Route onGenerateRoute(RouteSettings settings) {
   log("Routing to ${settings.name}");
+
   switch (settings.name) {
     case "/":
       return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const MainApp());

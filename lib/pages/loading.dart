@@ -22,7 +22,9 @@ import 'package:theming/dynamic_theme.dart';
 const _tutoKey = 'hasAlreadySeenTuto';
 
 class LoadingPage extends StatefulWidget {
-  const LoadingPage();
+  const LoadingPage({this.uri});
+
+  final Uri uri;
 
   @override
   _LoadingPageState createState() => _LoadingPageState();
@@ -90,7 +92,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
     await showTutoIfNeeded(prefs);
 
-    route();
+    await route();
 
     if (isMobile) {
       MyQuickActions.instance.init();
@@ -153,8 +155,19 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     }
   }
 
-  void route() {
+  Future<void> route() async {
     log(Env.page);
-    Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? "/" : Env.page);
+    if (widget.uri != null) {
+      try {
+        final args =
+            await DeepLinkBloc.parseRouteArguments(widget.uri, context.read(navigationAPIProvider));
+        Navigator.of(context).pushReplacementNamed("/routeDetails", arguments: args);
+      } on Exception catch (e, s) {
+        log("", error: e, stackTrace: s);
+        Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? "/" : Env.page);
+      }
+    } else {
+      Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? "/" : Env.page);
+    }
   }
 }

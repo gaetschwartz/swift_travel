@@ -8,6 +8,26 @@
     "public": "build/web",
     "rewrites": [
       {
+        "destination": "/well-known/apple.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "source": ".well-known/apple-app-site-association"
+      },
+      {
+        "destination": "/well-known/android.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "source": ".well-known/assetlinks.json"
+      },
+      {
         "destination": "/index.html",
         "source": "**"
       }

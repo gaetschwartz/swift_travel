@@ -47,30 +47,38 @@ class DeepLinkBloc {
     log(uri.toString());
     if (uri.path == '/route') {
       log('We have a new route $uri');
-      final params = <String, String>{};
 
-      for (final e in uri.queryParameters.entries) {
-        params[translate[e.key] ?? e.key] = translate[e.value] ?? e.value;
-      }
+      final Map<String, Object> map = await parseRouteArguments(uri, navApi);
 
-      params.remove('i');
-
-      if (!params.containsKey('from') ||
-          !params.containsKey('to') ||
-          !uri.queryParameters.containsKey('i')) {
-        throw InvalidRouteException(uri.queryParameters);
-      }
-
-      final qUri = Uri.https('timetable.search.ch', 'api/route.json', params);
-      log(qUri.toString());
-
-      final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
-          future: () => navApi.rawRoute(qUri.toString()),
-          title: const Text('Getting route infos ...'));
-
-      final int i = int.parse(uri.queryParameters['i']);
-      navigatorKey.currentState.pushNamed("/routeDetails", arguments: {"route": route, "i": i});
+      navigatorKey.currentState.pushNamed("/routeDetails", arguments: map);
     }
+  }
+
+  static Future<Map<String, Object>> parseRouteArguments(Uri uri, NavigationApi navApi) async {
+    final params = <String, String>{};
+
+    for (final e in uri.queryParameters.entries) {
+      params[translate[e.key] ?? e.key] = translate[e.value] ?? e.value;
+    }
+
+    params.remove('i');
+
+    if (!params.containsKey('from') ||
+        !params.containsKey('to') ||
+        !uri.queryParameters.containsKey('i')) {
+      throw InvalidRouteException(uri.queryParameters);
+    }
+
+    final qUri = Uri.https('timetable.search.ch', 'api/route.json', params);
+    log(qUri.toString());
+
+    final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
+        future: () => navApi.rawRoute(qUri.toString()),
+        title: const Text('Getting route infos ...'));
+
+    final int i = int.parse(uri.queryParameters['i']);
+    final map = {"route": route, "i": i};
+    return map;
   }
 
   void dispose() {
