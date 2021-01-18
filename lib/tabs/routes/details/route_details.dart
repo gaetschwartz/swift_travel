@@ -65,7 +65,7 @@ class RouteDetails extends StatelessWidget {
                     IconButton(
                         icon: const Icon(CupertinoIcons.play_fill),
                         onPressed: () => openLive(context, conn)),
-                  if (isMobile)
+                  if (isMobile || kIsWeb)
                     IconButton(
                         icon: Theme.of(context).platform == TargetPlatform.iOS
                             ? const Icon(CupertinoIcons.share)
@@ -137,7 +137,7 @@ class RouteDetails extends StatelessWidget {
 
   void _shareRoute(BuildContext context) {
     Vibration.select();
-    shareRoute(route, i);
+    shareRoute(context, route, i);
   }
 
   void openLive(BuildContext context, RouteConnection c) {

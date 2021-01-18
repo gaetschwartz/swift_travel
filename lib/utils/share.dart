@@ -1,11 +1,15 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:theming/dialogs/confirmation_alert.dart';
 
 const String routeUrl = 'travel.gaetanschwartz.com';
 
-Future<void> shareRoute(CffRoute route, int i) async {
+Future<void> shareRoute(BuildContext context, CffRoute route, int i) async {
   final String requestUrl = route.requestUrl;
   final Uri uri = Uri.parse(requestUrl);
   final params = <String, String>{};
@@ -22,12 +26,19 @@ Future<void> shareRoute(CffRoute route, int i) async {
       Uri(scheme: 'https', host: routeUrl, path: 'route', queryParameters: params);
   log(sharedUri.toString());
 
-  try {
-    Share.share(sharedUri.toString());
-  } on Exception catch (_) {
-    //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //  content: Text(e.toString()),
-    //));
+  if (kIsWeb) {
+    final b = await confirm(context,
+        title: const Text("Copy to  clipboard ?"),
+        content: Text(sharedUri.toString()),
+        cancel: const Text("No"),
+        confirm: const Text("Yes"));
+    if (b) {
+      await Clipboard.setData(ClipboardData(text: sharedUri.toString()));
+    }
+  } else {
+    try {
+      Share.share(sharedUri.toString());
+    } on Exception catch (_) {}
   }
 }
 
