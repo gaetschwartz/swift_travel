@@ -193,7 +193,7 @@ class Settings extends StatelessWidget {
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(_apiName(prefs.api),
+                          Text(_shortApiName(prefs.api),
                               style: CupertinoTheme.of(context)
                                   .textTheme
                                   .textStyle
@@ -299,9 +299,19 @@ String _mapsName(Maps m) {
 String _apiName(NavigationApiType a) {
   switch (a) {
     case NavigationApiType.cff:
-      return 'SBB CFF FFS';
+      return '🇨🇭 Switzerland - SBB CFF FFS';
     case NavigationApiType.sncf:
-      return 'SNCF (BETA)';
+      return '🇫🇷 France - SNCF (BETA)';
+  }
+  return '';
+}
+
+String _shortApiName(NavigationApiType a) {
+  switch (a) {
+    case NavigationApiType.cff:
+      return '🇨🇭 Switzerland';
+    case NavigationApiType.sncf:
+      return '🇫🇷 France';
   }
   return '';
 }
