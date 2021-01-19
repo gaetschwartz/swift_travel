@@ -5,6 +5,27 @@ import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/sncf/sncf.dart';
+import 'package:swift_travel/blocs/preferences.dart';
+
+@immutable
+class NavigationApiFactory<T extends NavigationApi> {
+  final String name;
+  final String shortName;
+  final String coutryEmoji;
+  final String coutryName;
+  final T Function() create;
+
+  const NavigationApiFactory(
+    this.create, {
+    @required this.name,
+    @required this.shortName,
+    @required this.coutryEmoji,
+    @required this.coutryName,
+  });
+
+  String get shortDesc => '$coutryEmoji $shortName';
+}
 
 abstract class NavigationApi {
   Locale _locale = const Locale('en');
@@ -14,6 +35,20 @@ abstract class NavigationApi {
   set locale(Locale locale) {
     _locale = locale;
     log('Set locale to $locale');
+  }
+
+  static NavigationApiFactory getFactory(NavigationApiType api) {
+    switch (api) {
+      case NavigationApiType.sncf:
+        log('Using sncf repository');
+        return sncfFactory;
+        break;
+      case NavigationApiType.cff:
+      default:
+        log('Using cff repository');
+        return cffFactory;
+        break;
+    }
   }
 
   Future<List<CffCompletion>> complete(

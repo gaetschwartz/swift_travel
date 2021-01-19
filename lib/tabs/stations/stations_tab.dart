@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -142,7 +143,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                         ? const CircularProgressIndicator()
                         : (isDarwin
                             ? const Icon(CupertinoIcons.location_fill)
-                            : const FaIcon(FontAwesomeIcons.locationArrow));
+                            : const FaIcon(FluentIcons.my_location_24_regular));
                   }),
                   tooltip: 'Use current location',
                   onPressed: () => getLocation(),

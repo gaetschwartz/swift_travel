@@ -9,12 +9,22 @@ import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 
-class CffRepository extends NavigationApi {
+final cffFactory = NavigationApiFactory(
+  () => CffApi._(),
+  name: 'SBB CFF FFS',
+  shortName: 'SBB',
+  coutryEmoji: '🇨🇭',
+  coutryName: 'Switzerland',
+);
+
+class CffApi extends NavigationApi {
+  CffApi._();
+
   final QueryBuilder queryBuilder =
       QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
   final http.Client _client = http.Client();
 
-  Map<String, String> get headers => {'accept-language': locale.toLanguageTag()};
+  Map<String, String> get headers => {'accept-language': super.locale.toLanguageTag()};
 
   @override
   Future<List<CffCompletion>> complete(

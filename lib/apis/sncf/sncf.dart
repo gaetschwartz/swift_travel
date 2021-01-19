@@ -10,7 +10,17 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/sncf/key.dart';
 import 'package:swift_travel/apis/sncf/models/sncf_completion.dart';
 
-class SncfRepository implements NavigationApi {
+final sncfFactory = NavigationApiFactory(
+  () => SncfApi._(),
+  name: 'SNCF',
+  shortName: 'SNCF',
+  coutryEmoji: '🇫🇷',
+  coutryName: 'France',
+);
+
+class SncfApi extends NavigationApi {
+  SncfApi._();
+
   final Dio _client = Dio(BaseOptions(
       baseUrl: 'https://api.navitia.io/v1/coverage/sncf', queryParameters: {'key': sncfKey}));
 
@@ -43,20 +53,17 @@ class SncfRepository implements NavigationApi {
   @override
   Future<List<CffCompletion>> findStation(double lat, double lon,
       {int accuracy, bool showCoordinates, bool showIds}) {
-    // TODO: implement findStation
     throw UnimplementedError();
   }
 
   @override
   Future<CffRoute> rawRoute(String query) {
-    // TODO: implement rawRoute
     throw UnimplementedError();
   }
 
   @override
   Future<CffRoute> route(String departure, String arrival,
       {DateTime date, TimeOfDay time, TimeType typeTime}) {
-    // TODO: implement route
     throw UnimplementedError();
   }
 
@@ -70,7 +77,6 @@ class SncfRepository implements NavigationApi {
       bool showDelays,
       bool showTrackchanges,
       List<TransportationTypes> transportationTypes}) {
-    // TODO: implement stationboard
     throw UnimplementedError();
   }
 

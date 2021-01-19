@@ -54,11 +54,11 @@ void main() {
 
       store.api = NavigationApiType.cff;
       var navApi = container.read(navigationAPIProvider);
-      expect(navApi is CffRepository, isTrue);
+      expect(navApi is CffApi, isTrue);
 
       store.api = NavigationApiType.sncf;
       navApi = container.read(navigationAPIProvider);
-      expect(navApi is SncfRepository, isTrue);
+      expect(navApi is SncfApi, isTrue);
     });
   });
 

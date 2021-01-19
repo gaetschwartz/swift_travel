@@ -13,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
@@ -178,8 +179,8 @@ class Settings extends StatelessWidget {
                         await Navigator.of(context).push(CupertinoPageRoute(
                             builder: (context) => ChoicePage<NavigationApiType>(
                                   items: NavigationApiType.values
-                                      .map(
-                                          (e) => ChoicePageItem(child: Text(_apiName(e)), value: e))
+                                      .map((e) => ChoicePageItem(
+                                          child: Text(NavigationApi.getFactory(e).name), value: e))
                                       .toList(),
                                   value: prefs.api,
                                   title: Text(Strings.of(context).navigation_api),
@@ -193,7 +194,7 @@ class Settings extends StatelessWidget {
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(_shortApiName(prefs.api),
+                          Text(NavigationApi.getFactory(prefs.api).shortDesc,
                               style: CupertinoTheme.of(context)
                                   .textTheme
                                   .textStyle
@@ -292,26 +293,6 @@ String _mapsName(Maps m) {
       return 'Apple Maps';
     case Maps.google:
       return 'Google Maps';
-  }
-  return '';
-}
-
-String _apiName(NavigationApiType a) {
-  switch (a) {
-    case NavigationApiType.cff:
-      return '🇨🇭 Switzerland - SBB CFF FFS';
-    case NavigationApiType.sncf:
-      return '🇫🇷 France - SNCF (BETA)';
-  }
-  return '';
-}
-
-String _shortApiName(NavigationApiType a) {
-  switch (a) {
-    case NavigationApiType.cff:
-      return '🇨🇭 Switzerland';
-    case NavigationApiType.sncf:
-      return '🇫🇷 France';
   }
   return '';
 }

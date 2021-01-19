@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -478,8 +479,8 @@ class _RoutePageState extends State<RoutePage> {
   }
 
   Widget iconForState(RouteTextfieldState state) => state.maybeWhen(
-        useCurrentLocation: () => const Icon(CupertinoIcons.location),
-        orElse: () => const Icon(CupertinoIcons.textbox),
+        useCurrentLocation: () => const Icon(FluentIcons.my_location_24_regular),
+        orElse: () => const Icon(CupertinoIcons.textformat),
       );
 
   Widget buildToField(BuildContext context) {
