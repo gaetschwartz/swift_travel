@@ -124,8 +124,8 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
   }
 
   Card _buildLeg(LiveRouteController controller, int i, Leg l) {
-    final bool selected = controller.currentStop == null && l.name == controller.currentLeg?.name;
-    final double dist = controller.legDistances[i][-1];
+    final selected = controller.currentStop == null && l.name == controller.currentLeg?.name;
+    final dist = controller.legDistances[i][-1];
     return Card(
       child: Column(
         children: [
@@ -144,8 +144,8 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
   }
 
   ListTile _buildStop(LiveRouteController controller, int i, int j, Stop s) {
-    final bool selected = s.name == controller.currentStop?.name;
-    final double dist = controller.legDistances[i][j];
+    final selected = s.name == controller.currentStop?.name;
+    final dist = controller.legDistances[i][j];
     return ListTile(
       selected: selected,
       dense: true,

@@ -8,7 +8,7 @@ import 'package:swift_travel/apis/geo/models/geo_error.dart';
 import 'package:swift_travel/apis/geo/models/geo_response.dart';
 
 final geoProvider = Provider.autoDispose((ref) {
-  final GeoRepository geoRepository = GeoRepository();
+  final geoRepository = GeoRepository();
   ref.onDispose(geoRepository.dispose);
   return geoRepository;
 });

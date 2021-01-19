@@ -28,7 +28,7 @@ abstract class Leg with _$Leg {
     DateTime departure,
     DateTime arrival,
     int normalTime,
-    @JsonKey(name: "waittime") int waitTime,
+    @JsonKey(name: 'waittime') int waitTime,
     bool isaddress,
     double lat,
     double lon,

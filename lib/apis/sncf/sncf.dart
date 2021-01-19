@@ -9,7 +9,6 @@ import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/sncf/key.dart';
 import 'package:swift_travel/apis/sncf/models/sncf_completion.dart';
-import 'package:swift_travel/apis/sncf/models/sncf_place.dart';
 
 class SncfRepository implements NavigationApi {
   final Dio _client = Dio(BaseOptions(
@@ -33,11 +32,10 @@ class SncfRepository implements NavigationApi {
 
     final decode = response.data as Map<String, dynamic>;
     //  log(decode.toString());
-    final SncfCompletion sncfCompletion = SncfCompletion.fromJson(decode);
-    final List<SncfPlace> places = sncfCompletion.places;
+    final sncfCompletion = SncfCompletion.fromJson(decode);
+    final places = sncfCompletion.places;
     log('Found ${places.length} places');
-    final List<CffCompletion> list =
-        places.map((e) => CffCompletion(label: e.name ?? '???')).toList();
+    final list = places.map((e) => CffCompletion(label: e.name ?? '???')).toList();
     log('Found ${list.length} completions');
     return list;
   }

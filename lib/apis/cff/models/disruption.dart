@@ -10,7 +10,7 @@ abstract class Disruption with _$Disruption {
     String header,
     String lead,
     String text,
-    @JsonKey(name: "timerange") String timeRange,
+    @JsonKey(name: 'timerange') String timeRange,
     bool exact,
     int priority,
   }) = _Disruption;

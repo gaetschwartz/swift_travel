@@ -42,7 +42,7 @@
       "type": "dart",
       "args": [
         "--dart-define",
-        "PAGE='loading'"
+        "PAGE=loading"
       ]
     },
     {

@@ -73,7 +73,7 @@ class CffCompletionTile extends ConsumerWidget {
             ? null
             : () {
                 Vibration.select();
-                Navigator.of(context).pushNamed("/stopDetails", arguments: sugg.label);
+                Navigator.of(context).pushNamed('/stopDetails', arguments: sugg.label);
               },
       ),
     );
@@ -130,18 +130,18 @@ class CffCompletionTile extends ConsumerWidget {
     }
   }
 
-  Future deleteOrAddToFav(
+  Future<void> deleteOrAddToFav(
     BuildContext context, {
     @required bool isFav,
     @required FavoriteStop favoriteStop,
     @required FavoritesSharedPreferencesStore store,
   }) async {
     if (isFav) {
-      store.removeStop(favoriteStop);
+      await store.removeStop(favoriteStop);
     } else {
       final name = await input(context, title: const Text('What is the name of this stop'));
       if (name == null) return;
-      store.addStop(sugg.toFavoriteStop(name: name));
+      await store.addStop(sugg.toFavoriteStop(name: name));
     }
   }
 }

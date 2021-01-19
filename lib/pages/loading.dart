@@ -105,8 +105,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
       await context.read(storeProvider).loadFromPreferences(prefs: prefs);
     } on Exception catch (e, s) {
-      reportDartError(e, s, name: "loading", reason: "while loading");
-      final bool delete = await confirm(
+      reportDartError(e, s, name: 'loading', reason: 'while loading');
+      final delete = await confirm(
         context,
         title: const Text('Failed to load your previous settings !'),
         content: const SingleChildScrollView(
@@ -119,7 +119,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       if (delete) await prefs.clear();
       // ignore: avoid_catching_errors
     } on Error catch (e) {
-      reportDartError(e, e.stackTrace, name: "loading", reason: "while loading");
+      reportDartError(e, e.stackTrace, name: 'loading', reason: 'while loading');
 
       final delete = await confirm(
         context,
@@ -137,7 +137,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
   Future<void> showTutoIfNeeded(SharedPreferences prefs) async {
     if (prefs.getBool(_tutoKey) != true) {
-      await Navigator.of(context).pushNamed("/welcome");
+      await Navigator.of(context).pushNamed('/welcome');
 
       await prefs.setBool(_tutoKey, true);
     }
@@ -149,15 +149,14 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       try {
         final args =
             await DeepLinkBloc.parseRouteArguments(widget.uri, context.read(navigationAPIProvider));
-        Navigator.of(context)
-          ..pushReplacementNamed("/")
-          ..pushNamed("/routeDetails", arguments: args);
+        await Navigator.of(context).pushReplacementNamed('/');
+        await Navigator.of(context).pushNamed('/routeDetails', arguments: args);
       } on Exception catch (e, s) {
-        log("", error: e, stackTrace: s);
-        Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? "/" : Env.page);
+        log('', error: e, stackTrace: s);
+        await Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
       }
     } else {
-      Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? "/" : Env.page);
+      await Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
     }
   }
 }

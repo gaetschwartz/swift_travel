@@ -35,11 +35,11 @@ dependencies:
   flutter_typeahead: ^2.0.0
   font_awesome_flutter: ^9.0.0-nullsafety
   freezed_annotation: ^0.12.0
-  geolocator: ^7.0.0-nullsafety.4
   google_fonts: ^1.0.0
   intl: ^0.17.0-nullsafety.2
   introduction_screen: ^1.0.9
   json_annotation: ^3.0.0
+  location: ^4.0.0-nullsafety.0
   modal_bottom_sheet: ^2.0.0-nullsafety.1
   pedantic: ^1.9.2
   quick_actions: ^0.4.0+8

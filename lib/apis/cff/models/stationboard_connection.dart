@@ -17,7 +17,7 @@ abstract class StationboardConnection with _$StationboardConnection {
     String color,
     Stop terminal,
     String operator, {
-    @Default("") String number,
+    @Default('') String number,
     @JsonKey(name: '*G') String g,
     @JsonKey(name: '*L') String l,
     @JsonKey(name: 'subsequent_stops', defaultValue: []) List<SubsequentStop> subsequentStops,

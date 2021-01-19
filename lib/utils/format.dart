@@ -33,8 +33,8 @@ abstract class Format {
     if (d == null) return null;
     final m = d.inMinutes;
     if (m > 60) {
-      final int hour = m ~/ 60;
-      final int minutes = m % 60;
+      final hour = m ~/ 60;
+      final minutes = m % 60;
       return '${hour.toString()}${_hs(locale)}${minutes.toString().padLeft(2, '0')}';
     }
     if (m == 0) return _now(locale);
@@ -84,7 +84,7 @@ abstract class Format {
 
   static String time(DateTime date, [Locale locale = const Locale('en')]) {
     if (date == null) return '';
-    final String min = date.minute < 10 ? '0${date.minute}' : date.minute.toString();
+    final min = date.minute < 10 ? '0${date.minute}' : date.minute.toString();
     return '${date.hour}:$min';
   }
 }

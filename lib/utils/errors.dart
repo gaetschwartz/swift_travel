@@ -84,7 +84,7 @@ class _ErrorPageState extends State<ErrorPage> {
       data: ThemeData(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Something went wrong"),
+          title: const Text('Something went wrong'),
           leading: const CloseButton(),
           actions: [
             IconButton(
@@ -99,27 +99,27 @@ class _ErrorPageState extends State<ErrorPage> {
           child: ListView(
             children: [
               ErrorDataWidget(
-                "Exception:",
+                'Exception:',
                 widget.details.exceptionAsString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
-                "Context:",
+                'Context:',
                 widget.details.context.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
-                "Library:",
+                'Library:',
                 widget.details.library,
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
-                "StackTrace:",
+                'StackTrace:',
                 widget.details.stack.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
-                "Silent:",
+                'Silent:',
                 widget.details.silent.toString(),
                 wrapped: _wrapped,
               ),

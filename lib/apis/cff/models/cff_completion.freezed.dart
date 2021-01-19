@@ -20,7 +20,7 @@ class _$CffCompletionTearOff {
   _CffCompletion call(
       {String label,
       double dist,
-      @JsonKey(name: "iconclass") String icon,
+      @JsonKey(name: 'iconclass') String icon,
       String html,
       String id,
       String favoriteName,
@@ -50,7 +50,7 @@ const $CffCompletion = _$CffCompletionTearOff();
 mixin _$CffCompletion {
   String get label;
   double get dist;
-  @JsonKey(name: "iconclass")
+  @JsonKey(name: 'iconclass')
   String get icon;
   String get html;
   String get id;
@@ -70,7 +70,7 @@ abstract class $CffCompletionCopyWith<$Res> {
   $Res call(
       {String label,
       double dist,
-      @JsonKey(name: "iconclass") String icon,
+      @JsonKey(name: 'iconclass') String icon,
       String html,
       String id,
       String favoriteName,
@@ -122,7 +122,7 @@ abstract class _$CffCompletionCopyWith<$Res>
   $Res call(
       {String label,
       double dist,
-      @JsonKey(name: "iconclass") String icon,
+      @JsonKey(name: 'iconclass') String icon,
       String html,
       String id,
       String favoriteName,
@@ -173,7 +173,7 @@ class _$_CffCompletion extends _CffCompletion {
   _$_CffCompletion(
       {this.label,
       this.dist,
-      @JsonKey(name: "iconclass") this.icon,
+      @JsonKey(name: 'iconclass') this.icon,
       this.html,
       this.id,
       this.favoriteName,
@@ -189,7 +189,7 @@ class _$_CffCompletion extends _CffCompletion {
   @override
   final double dist;
   @override
-  @JsonKey(name: "iconclass")
+  @JsonKey(name: 'iconclass')
   final String icon;
   @override
   final String html;
@@ -255,7 +255,7 @@ abstract class _CffCompletion extends CffCompletion {
   factory _CffCompletion(
       {String label,
       double dist,
-      @JsonKey(name: "iconclass") String icon,
+      @JsonKey(name: 'iconclass') String icon,
       String html,
       String id,
       String favoriteName,
@@ -269,7 +269,7 @@ abstract class _CffCompletion extends CffCompletion {
   @override
   double get dist;
   @override
-  @JsonKey(name: "iconclass")
+  @JsonKey(name: 'iconclass')
   String get icon;
   @override
   String get html;

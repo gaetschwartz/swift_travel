@@ -21,14 +21,14 @@ const darkShadow = ShadowTheme(
 );
 
 const List<Font> fonts = [
-  Font("Platform", _i),
-  Font("Muli", GoogleFonts.muliTextTheme),
-  Font("Lexend", GoogleFonts.lexendDecaTextTheme),
-  Font("Open Sans", GoogleFonts.openSansTextTheme),
-  Font("IBM Plex Mono", GoogleFonts.ibmPlexMonoTextTheme),
-  Font("Source Sans Pro", GoogleFonts.sourceSansProTextTheme),
-  Font("Cardo", GoogleFonts.cardoTextTheme),
-  Font("QuickSand", GoogleFonts.quicksandTextTheme),
+  Font('Platform', _i),
+  Font('Muli', GoogleFonts.muliTextTheme),
+  Font('Lexend', GoogleFonts.lexendDecaTextTheme),
+  Font('Open Sans', GoogleFonts.openSansTextTheme),
+  Font('IBM Plex Mono', GoogleFonts.ibmPlexMonoTextTheme),
+  Font('Source Sans Pro', GoogleFonts.sourceSansProTextTheme),
+  Font('Cardo', GoogleFonts.cardoTextTheme),
+  Font('QuickSand', GoogleFonts.quicksandTextTheme),
 ];
 
 TextTheme _i(TextTheme t) => Typography.material2018(platform: defaultTargetPlatform).englishLike;
@@ -99,8 +99,8 @@ ThemeConfiguration get themeConfiguration {
 /// Utility method to create a material color from any given
 /// color.
 MaterialColor createMaterialColor(Color color) {
-  final List<double> strengths = <double>[.05];
-  final Map<int, Color> swatch = <int, Color>{};
+  final strengths = <double>[.05];
+  final swatch = <int, Color>{};
   final r = color.red, g = color.green, b = color.blue;
 
   for (var i = 1; i < 10; i++) {

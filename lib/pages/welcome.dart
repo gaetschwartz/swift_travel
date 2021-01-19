@@ -95,7 +95,7 @@ class WelcomePage extends StatelessWidget {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
                         onPressed: () async {
-                          await Navigator.of(context).pushNamed("/tuto");
+                          await Navigator.of(context).pushNamed('/tuto');
                           Navigator.of(context).pop();
                         },
                         child: Row(
@@ -123,7 +123,7 @@ class BezierClipper2 extends CustomClipper<Path> {
   BezierClipper2();
 
   Path _getFinalClip(Size size) {
-    final Path path_0 = Path();
+    final path_0 = Path();
     path_0.moveTo(size.width, 0);
     path_0.quadraticBezierTo(size.width * 1.01, size.height * 0.40, size.width, size.height * 0.34);
     path_0.cubicTo(size.width * 0.49, size.height * 0.01, size.width * 0.54, size.height * 0.76,
@@ -146,7 +146,7 @@ class BezierClipper extends CustomClipper<Path> {
   BezierClipper();
 
   Path _getFinalClip(Size size) {
-    final Path path_0 = Path();
+    final path_0 = Path();
     path_0.moveTo(size.width, size.height);
     path_0.quadraticBezierTo(size.width * 1.00, size.height * 0.44, size.width, size.height * 0.37);
     path_0.cubicTo(size.width * 0.97, size.height * 0.34, size.width * 0.74, size.height * 0.20,

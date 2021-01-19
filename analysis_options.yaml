@@ -1,10 +1,11 @@
-include: package:lint/analysis_options.yaml
+include: package:pedantic/analysis_options.yaml
 
 analyzer:
   exclude:
-    - lib/generated/intl/**
     - "**/*.g.dart"
     - "**/*.freezed.dart"
-    - "dependencies/**"
-  errors:
-    sort_pub_dependencies: ignore
+    - "**/generated/**"
+
+linter:
+  rules:
+    - prefer_final_locals

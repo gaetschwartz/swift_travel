@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/blocs/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
@@ -280,7 +279,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
       final compls = await context.read(navigationAPIProvider).complete(query);
       final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
 
-      final List<CffCompletion> completionsWithFavs =
+      final completionsWithFavs =
           await completeWithFavorites(store, compls, query, currentLocationString: null);
 
       log('Completions : ${completionsWithFavs.length}');
@@ -290,7 +289,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
       if (isMobile) {
-        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+        await FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
       } else {
         log('', error: e, stackTrace: s);
       }

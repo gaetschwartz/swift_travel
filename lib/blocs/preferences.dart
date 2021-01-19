@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final preferencesProvider = ChangeNotifierProvider((r) => PreferencesBloc("prefs_"));
+final preferencesProvider = ChangeNotifierProvider((r) => PreferencesBloc('prefs_'));
 
 class PreferencesBloc extends ChangeNotifier {
   static const String mapsKey = 'maps_app';

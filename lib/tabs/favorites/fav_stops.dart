@@ -24,7 +24,7 @@ class FavoriteStationTile extends StatelessWidget {
     return ListTile(
       leading:
           darwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(FontAwesomeIcons.solidStar),
-      onTap: () => Navigator.of(context, rootNavigator: true).pushNamed("/route", arguments: stop),
+      onTap: () => Navigator.of(context, rootNavigator: true).pushNamed('/route', arguments: stop),
       onLongPress: () => edit(context),
       trailing: IconButton(
           icon: darwin ? const Icon(CupertinoIcons.pencil) : const Icon(Icons.edit),

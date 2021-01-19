@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
-import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:swift_travel/apis/cff/models/types_enum.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/utils/format.dart';
@@ -22,10 +21,10 @@ class RouteTile extends StatelessWidget {
   final int i;
 
   Widget rowIcon() {
-    final List<Widget> listWidget = [];
+    final listWidget = <Widget>[];
     final c = route.connections[i];
-    for (int i = 0; i < c.legs.length - 1; i++) {
-      final Leg l = c.legs[i];
+    for (var i = 0; i < c.legs.length - 1; i++) {
+      final l = c.legs[i];
       listWidget.add(CffIcon(l.type, size: 18));
     }
     return Column(
@@ -90,10 +89,10 @@ class RouteTile extends StatelessWidget {
               final r = Responsive.isDarwin(context)
                   ? CupertinoPageRoute(
                       builder: (_) => RouteDetails(route: route, i: i),
-                      settings: const RouteSettings(name: "/routeDetails"))
+                      settings: const RouteSettings(name: '/routeDetails'))
                   : MaterialPageRoute(
                       builder: (_) => RouteDetails(route: route, i: i),
-                      settings: const RouteSettings(name: "/routeDetails"));
+                      settings: const RouteSettings(name: '/routeDetails'));
               Navigator.of(context).push(r);
             },
           ),

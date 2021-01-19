@@ -19,7 +19,7 @@ class _PageNotFoundState extends State<PageNotFound> {
       data: ThemeData(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Page not found"),
+          title: const Text('Page not found'),
           leading: const CloseButton(),
           actions: [
             IconButton(
@@ -34,22 +34,22 @@ class _PageNotFoundState extends State<PageNotFound> {
           child: ListView(
             children: [
               ErrorDataWidget(
-                "Name:",
+                'Name:',
                 widget.settings.name,
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
-                "Arguments:",
+                'Arguments:',
                 widget.settings.arguments.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
-                "Arguments type:",
+                'Arguments type:',
                 widget.settings.arguments.runtimeType.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
-                "StackTrace:",
+                'StackTrace:',
                 StackTrace.current.toString(),
                 wrapped: _wrapped,
               ),

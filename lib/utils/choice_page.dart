@@ -52,7 +52,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
         setState(() {
           selected = i;
         });
-        log("Selected will be $i");
+        log('Selected will be $i');
         return;
       }
     }

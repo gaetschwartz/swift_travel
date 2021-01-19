@@ -43,14 +43,14 @@ class DeepLinkBloc {
   }
 
   Future<void> onLink(NavigationApi navApi, String link) async {
-    final Uri uri = Uri.parse(link);
+    final uri = Uri.parse(link);
     log(uri.toString());
     if (uri.path == '/route') {
       log('We have a new route $uri');
 
-      final Map<String, Object> map = await parseRouteArguments(uri, navApi);
+      final map = await parseRouteArguments(uri, navApi);
 
-      navigatorKey.currentState.pushNamed("/routeDetails", arguments: map);
+      await navigatorKey.currentState.pushNamed('/routeDetails', arguments: map);
     }
   }
 
@@ -72,12 +72,12 @@ class DeepLinkBloc {
     final qUri = Uri.https('timetable.search.ch', 'api/route.json', params);
     log(qUri.toString());
 
-    final CffRoute route = await load<CffRoute>(navigatorKey.currentContext,
+    final route = await load<CffRoute>(navigatorKey.currentContext,
         future: () => navApi.rawRoute(qUri.toString()),
         title: const Text('Getting route infos ...'));
 
-    final int i = int.parse(uri.queryParameters['i']);
-    final map = {"route": route, "i": i};
+    final i = int.parse(uri.queryParameters['i']);
+    final map = {'route': route, 'i': i};
     return map;
   }
 

@@ -10,8 +10,8 @@ import 'package:theming/dialogs/confirmation_alert.dart';
 const String routeUrl = 'travel.gaetanschwartz.com';
 
 Future<void> shareRoute(BuildContext context, CffRoute route, int i) async {
-  final String requestUrl = route.requestUrl;
-  final Uri uri = Uri.parse(requestUrl);
+  final requestUrl = route.requestUrl;
+  final uri = Uri.parse(requestUrl);
   final params = <String, String>{};
   for (final e in uri.queryParameters.entries) {
     final newKey =
@@ -22,22 +22,21 @@ Future<void> shareRoute(BuildContext context, CffRoute route, int i) async {
     params[newKey] = newValue;
   }
   params['i'] = i.toString();
-  final Uri sharedUri =
-      Uri(scheme: 'https', host: routeUrl, path: 'route', queryParameters: params);
+  final sharedUri = Uri(scheme: 'https', host: routeUrl, path: 'route', queryParameters: params);
   log(sharedUri.toString());
 
   if (kIsWeb) {
     final b = await confirm(context,
-        title: const Text("Copy to  clipboard ?"),
+        title: const Text('Copy to  clipboard ?'),
         content: Text(sharedUri.toString()),
-        cancel: const Text("No"),
-        confirm: const Text("Yes"));
+        cancel: const Text('No'),
+        confirm: const Text('Yes'));
     if (b) {
       await Clipboard.setData(ClipboardData(text: sharedUri.toString()));
     }
   } else {
     try {
-      Share.share(sharedUri.toString());
+      await Share.share(sharedUri.toString());
     } on Exception catch (_) {}
   }
 }

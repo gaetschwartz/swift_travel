@@ -45,7 +45,7 @@ class MyQuickActions {
       final id = int.parse(idS);
       final route = stringList[id];
       final lr = LocalRoute.fromJson(jsonDecode(route) as Map<String, dynamic>);
-      navigatorKey.currentState.pushNamed("/route", arguments: lr);
+      await navigatorKey.currentState.pushNamed('/route', arguments: lr);
     } else if (first == 'fav') {
       log('Tapped fav $shortcutType', name: 'QuickActions');
       final prefs = await SharedPreferences.getInstance();
@@ -55,7 +55,7 @@ class MyQuickActions {
       final fav = stringList[id];
       final f = jsonDecode(fav) as Map<String, dynamic>;
       final f2 = FavoriteStop.fromJson(f);
-      navigatorKey.currentState.pushNamed("/route", arguments: f2);
+      await navigatorKey.currentState.pushNamed('/route', arguments: f2);
     }
   }
 
@@ -63,7 +63,7 @@ class MyQuickActions {
     if (!isMobile) {
       log('Actions not supported for now on $platform');
     }
-    final List<ShortcutItem> shortcuts = [];
+    final shortcuts = <ShortcutItem>[];
 
     log('Add favorites $favorites', name: 'QuickActions');
     for (var i = 0; i < min(maxFavoriteStops, favorites.length); i++) {

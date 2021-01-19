@@ -13,11 +13,11 @@ const _kMaxFavoritesCount = 3;
 Future<List<CffCompletion>> completeWithFavorites(
     FavoritesSharedPreferencesStore store, List<CffCompletion> compls, String query,
     {@required String currentLocationString}) async {
-  final Map<FavoriteStop, double> levens = {};
+  final levens = <FavoriteStop, double>{};
 
   for (final c in store.stops) {
     if (c.stop == null) continue;
-    final double leven = _leven(query, c);
+    final leven = _leven(query, c);
     // Skip if above threshold
     if (leven < _kConfidenceThreshold) {
       // log("$query - ${c.label} => $leven");
@@ -25,7 +25,7 @@ Future<List<CffCompletion>> completeWithFavorites(
     }
   }
 
-  final List<MapEntry<FavoriteStop, double>> favs = levens.entries.toList(growable: false);
+  final favs = levens.entries.toList(growable: false);
   favs.sort((a, b) => a.value.compareTo(b.value));
 
   return [

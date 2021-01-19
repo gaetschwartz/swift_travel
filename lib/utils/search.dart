@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +12,7 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/station_states.dart';
 import 'package:swift_travel/utils/complete.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:theming/responsive.dart';
 
@@ -75,7 +75,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void onChanged(String s) {
-    log("Changed");
+    log('Changed');
     debouncer.debounce(() => fetch(s));
   }
 
@@ -83,7 +83,7 @@ class _SearchPageState extends State<SearchPage> {
     try {
       final compls = await api.complete(query);
 
-      final List<CffCompletion> completionsWithFavs =
+      final completionsWithFavs =
           await completeWithFavorites(store, compls, query, currentLocationString: null);
 
       log('Completions : ${completionsWithFavs.length}');
@@ -93,7 +93,7 @@ class _SearchPageState extends State<SearchPage> {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
       if (isMobile) {
-        FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
+        reportDartError(e, s, name: 'search', reason: 'while fetching');
       } else {
         log('', error: e, stackTrace: s);
       }

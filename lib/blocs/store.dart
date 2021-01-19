@@ -58,8 +58,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
     //? Stops
 
-    final List<FavoriteStop> favStops = [];
-    for (final String stopString in _prefs.getStringList(stopsKey) ?? []) {
+    final favStops = <FavoriteStop>[];
+    for (final stopString in _prefs.getStringList(stopsKey) ?? []) {
       try {
         final decode = jsonDecode(stopString) as Map<String, dynamic>;
         final fs = FavoriteStop.fromJson(decode);
@@ -74,7 +74,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
 
     //? Routes
-    final List<String> routes = _prefs.getStringList(routesKey) ?? [];
+    final routes = _prefs.getStringList(routesKey) ?? [];
     _routes.clear();
     for (final spr in routes) {
       try {

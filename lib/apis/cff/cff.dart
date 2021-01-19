@@ -166,9 +166,9 @@ class QueryBuilder {
   const QueryBuilder(this.baseUrl, this.actionBuilder);
 
   String call(String action, Map<String, dynamic> parameters) {
-    final StringBuffer url = StringBuffer('$baseUrl/${actionBuilder(action)}');
+    final url = StringBuffer('$baseUrl/${actionBuilder(action)}');
     if (parameters.isNotEmpty) {
-      final String params = parameters.keys
+      final params = parameters.keys
           .map((k) => '$k=${Uri.encodeQueryComponent(parameters[k].toString())}')
           .join('&');
       url.write('?$params');

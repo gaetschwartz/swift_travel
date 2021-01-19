@@ -13,7 +13,7 @@ abstract class Exit with _$Exit {
     DateTime arrival,
     String name,
     String stopid,
-    @JsonKey(name: "waittime", defaultValue: 0) int waitTime,
+    @JsonKey(name: 'waittime', defaultValue: 0) int waitTime,
     bool isaddress,
     String sbbName,
     double lat,

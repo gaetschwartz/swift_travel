@@ -10,7 +10,7 @@ abstract class CffCompletion implements _$CffCompletion {
   factory CffCompletion({
     String label,
     double dist,
-    @JsonKey(name: "iconclass") String icon,
+    @JsonKey(name: 'iconclass') String icon,
     String html,
     String id,
     String favoriteName,

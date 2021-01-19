@@ -42,9 +42,7 @@ class FavoriteRouteTile extends StatelessWidget {
               title: Text(Strings.of(context).what_to_do),
             );
           }),
-      onTap: () async {
-        Navigator.of(context).pushNamed("/route", arguments: route);
-      },
+      onTap: () => Navigator.of(context).pushNamed('/route', arguments: route),
     );
   }
 

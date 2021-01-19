@@ -178,7 +178,7 @@ AppBar swiftTravelAppBar(BuildContext context,
             icon: isDarwin ? const Icon(CupertinoIcons.settings) : const Icon(Icons.settings),
             onPressed: () {
               Vibration.select();
-              Navigator.of(context, rootNavigator: true).pushNamed("/settings");
+              Navigator.of(context, rootNavigator: true).pushNamed('/settings');
             }),
     ],
   );

@@ -10,9 +10,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
-import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -78,7 +78,7 @@ class Fetcher extends ChangeNotifier {
         text: (t) => t,
         useCurrentLocation: () async {
           p ??= await Geolocator.getCurrentPosition();
-          return "${p.latitude},${p.longitude}";
+          return '${p.latitude},${p.longitude}';
         },
       );
       final arrival = await to.state.when<FutureOr<String>>(
@@ -86,11 +86,11 @@ class Fetcher extends ChangeNotifier {
         text: (t) => t,
         useCurrentLocation: () async {
           p ??= await Geolocator.getCurrentPosition();
-          return "${p.latitude},${p.longitude}";
+          return '${p.latitude},${p.longitude}';
         },
       );
       log('Fetching route from $departure to $arrival');
-      final CffRoute it = await _cff.route(
+      final it = await _cff.route(
         departure,
         arrival,
         date: date,
@@ -240,7 +240,7 @@ class _RoutePageState extends State<RoutePage> {
 
   @override
   void dispose() {
-    log("dispose");
+    log('dispose');
 
     fnFrom.dispose();
     fnTo.dispose();
@@ -311,7 +311,7 @@ class _RoutePageState extends State<RoutePage> {
                     child: IconButton(
                       tooltip: Strings.of(context).fav_route,
                       onPressed: () async {
-                        Vibration.select();
+                        unawaited(Vibration.select());
 
                         log(store.routes.toString());
                         if (store.routes.any(
@@ -324,7 +324,7 @@ class _RoutePageState extends State<RoutePage> {
 
                         final s = await input(context, title: const Text('Enter route name'));
                         if (s == null) return;
-                        store.addRoute(LocalRoute(from.text, to.text, displayName: s));
+                        await store.addRoute(LocalRoute(from.text, to.text, displayName: s));
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(content: Text('Route starred !')));
                       },
@@ -355,8 +355,8 @@ class _RoutePageState extends State<RoutePage> {
                             shape: const StadiumBorder(),
                             primary: Theme.of(context).textTheme.button.color),
                         onPressed: () async {
-                          Vibration.select();
-                          TimeType type = context.read(_timeTypeProvider).state;
+                          unawaited(Vibration.select());
+                          var type = context.read(_timeTypeProvider).state;
                           final _date = context.read(_dateProvider);
                           final date = await pickDate(context,
                               initialDateTime:
@@ -568,7 +568,7 @@ class RoutesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, w, _) {
-      final Fetcher fetcher = w(_futureRouteProvider);
+      final fetcher = w(_futureRouteProvider);
       return fetcher.state.when(
         routes: (routes) => routes.connections.isNotEmpty
             ? ListView.builder(
@@ -582,7 +582,7 @@ class RoutesView extends StatelessWidget {
                     ))
             : Center(
                 child: Text(
-                  routes.messages.join("\n"),
+                  routes.messages.join('\n'),
                   style: Theme.of(context).textTheme.headline6,
                   textAlign: TextAlign.center,
                 ),
@@ -595,7 +595,7 @@ class RoutesView extends StatelessWidget {
                 padding: EdgeInsets.all(16.0),
                 child: Center(
                     child: Text(
-                  "😢",
+                  '😢',
                   style: TextStyle(fontSize: 96),
                 )),
               ),
@@ -603,7 +603,7 @@ class RoutesView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                "Network Error",
+                'Network Error',
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),
@@ -621,14 +621,14 @@ class RoutesView extends StatelessWidget {
                     padding: EdgeInsets.all(16.0),
                     child: Center(
                         child: Text(
-                      "🗺",
+                      '🗺',
                       style: TextStyle(fontSize: 80),
                     )),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      "This app requires location permissions !",
+                      'This app requires location permissions !',
                       style: Theme.of(context).textTheme.headline6,
                       textAlign: TextAlign.center,
                     ),
@@ -641,10 +641,10 @@ class RoutesView extends StatelessWidget {
               child: Responsive.isDarwin(context)
                   ? CupertinoButton.filled(
                       onPressed: () => Geolocator.openAppSettings(),
-                      child: const Text("Open settings"))
+                      child: const Text('Open settings'))
                   : ElevatedButton(
                       onPressed: () => Geolocator.openAppSettings(),
-                      child: const Text("Open settings")),
+                      child: const Text('Open settings')),
             )),
           ],
         ),
@@ -657,7 +657,7 @@ class RoutesView extends StatelessWidget {
                 padding: EdgeInsets.all(16.0),
                 child: Center(
                     child: Text(
-                  "😢",
+                  '😢',
                   style: TextStyle(fontSize: 80),
                 )),
               ),
@@ -699,7 +699,7 @@ class RoutesView extends StatelessWidget {
                 padding: EdgeInsets.all(16.0),
                 child: Center(
                     child: Text(
-                  "😢",
+                  '😢',
                   style: TextStyle(fontSize: 80),
                 )),
               ),
@@ -708,7 +708,7 @@ class RoutesView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  "Location is not supported on this device",
+                  'Location is not supported on this device',
                   style: Theme.of(context).textTheme.headline6,
                   textAlign: TextAlign.center,
                 ),
@@ -751,7 +751,7 @@ class TextControllerAndStateBinder {
 
   void _setController(RouteTextfieldState state, BuildContext context) {
     controller.text = state.when(
-      empty: () => "",
+      empty: () => '',
       text: (t) => t,
       useCurrentLocation: () => computeCurrentLocation(context),
     );

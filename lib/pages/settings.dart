@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
@@ -133,9 +134,9 @@ class Settings extends StatelessWidget {
                           await Navigator.of(context).push(CupertinoPageRoute(
                               builder: (context) => ChoicePage<Maps>(
                                     items: const [
-                                      ChoicePageItem(value: Maps.apple, child: Text("Apple Maps")),
+                                      ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
                                       ChoicePageItem(
-                                          value: Maps.google, child: Text("Google Maps")),
+                                          value: Maps.google, child: Text('Google Maps')),
                                     ],
                                     value: maps.mapsApp,
                                     title: Text(Strings.of(context).maps_app),
@@ -174,7 +175,7 @@ class Settings extends StatelessWidget {
                       leading: const Icon(CupertinoIcons.link),
                       title: Text(Strings.of(context).navigation_api),
                       onTap: () async {
-                        Navigator.of(context).push(CupertinoPageRoute(
+                        await Navigator.of(context).push(CupertinoPageRoute(
                             builder: (context) => ChoicePage<NavigationApiType>(
                                   items: NavigationApiType.values
                                       .map(
@@ -183,7 +184,7 @@ class Settings extends StatelessWidget {
                                   value: prefs.api,
                                   title: Text(Strings.of(context).navigation_api),
                                   description: const Text(
-                                      "BETA: In the future the goal is to add more countries."),
+                                      'BETA: In the future the goal is to add more countries.'),
                                   onChanged: (a) {
                                     if (a != null) prefs.api = a;
                                   },
@@ -210,7 +211,7 @@ class Settings extends StatelessWidget {
               ListTile(
                 leading: const Icon(CupertinoIcons.person_3_fill),
                 title: Text(Strings.of(context).our_team),
-                onTap: () => Navigator.of(context).pushNamed("/ourTeam"),
+                onTap: () => Navigator.of(context).pushNamed('/ourTeam'),
               ),
               ListTile(
                   leading: const Icon(Icons.restore),
@@ -228,7 +229,7 @@ class Settings extends StatelessWidget {
                     final prefs = await SharedPreferences.getInstance();
                     final b = await prefs.clear();
                     log('Done : $b');
-                    SystemNavigator.pop(animated: true);
+                    unawaited(SystemNavigator.pop(animated: true));
                   }),
               const Divider(
                 indent: 16,
@@ -250,7 +251,7 @@ class Settings extends StatelessWidget {
                 ListTile(
                     leading: const Icon(Icons.open_in_browser),
                     title: const Text('Open incorrect page'),
-                    onTap: () => Navigator.of(context).pushNamed("/thisIsNotACorrectPage")),
+                    onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
                 ListTile(
                     leading: const Icon(Icons.close),
                     title: const Text('Trigger a crash'),
@@ -288,21 +289,21 @@ class Settings extends StatelessWidget {
 String _mapsName(Maps m) {
   switch (m) {
     case Maps.apple:
-      return "Apple Maps";
+      return 'Apple Maps';
     case Maps.google:
-      return "Google Maps";
+      return 'Google Maps';
   }
-  return "";
+  return '';
 }
 
 String _apiName(NavigationApiType a) {
   switch (a) {
     case NavigationApiType.cff:
-      return "SBB CFF FFS";
+      return 'SBB CFF FFS';
     case NavigationApiType.sncf:
-      return "SNCF (BETA)";
+      return 'SNCF (BETA)';
   }
-  return "";
+  return '';
 }
 
 class _FontWeightWidget extends StatelessWidget {
@@ -326,19 +327,19 @@ class _FontWeightWidget extends StatelessWidget {
           return CupertinoSlidingSegmentedControl<int>(
             children: {
               -1: Text(
-                "Light",
+                'Light',
                 style: t.apply(fontWeightDelta: -1),
               ),
               0: Text(
-                "Normal",
+                'Normal',
                 style: t.apply(fontWeightDelta: 0),
               ),
               1: Text(
-                "Medium",
+                'Medium',
                 style: t.apply(fontWeightDelta: 1),
               ),
               3: Text(
-                "Bold",
+                'Bold',
                 style: t.apply(fontWeightDelta: 3),
               ),
             },
@@ -387,8 +388,8 @@ class __ThemesSectionState extends State<_ThemesSection> {
               scrollDirection: Axis.horizontal,
               itemCount: list.length,
               itemBuilder: (context, i) {
-                final FullTheme ft = list[i].value;
-                const BorderRadius radius = BorderRadius.all(Radius.circular(16));
+                final ft = list[i].value;
+                const radius = BorderRadius.all(Radius.circular(16));
                 return Container(
                   margin: const EdgeInsets.only(bottom: 16, right: 8, left: 8),
                   width: 120,

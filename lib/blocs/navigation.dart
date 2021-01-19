@@ -8,7 +8,7 @@ import 'package:swift_travel/apis/sncf/sncf.dart';
 import 'preferences.dart';
 
 final navigationAPIProvider = Provider<NavigationApi>((ref) {
-  final PreferencesBloc prefs = ref.watch(preferencesProvider);
+  final prefs = ref.watch(preferencesProvider);
 
   NavigationApi api;
   switch (prefs.api) {

@@ -10,8 +10,8 @@ class LineIcon extends StatelessWidget {
   }) : super(key: key);
 
   LineIcon.fromString({this.line, String colors})
-      : background = colors.substring(0, colors.indexOf("~")),
-        foreground = colors.substring(colors.indexOf("~") + 1, colors.lastIndexOf("~"));
+      : background = colors.substring(0, colors.indexOf('~')),
+        foreground = colors.substring(colors.indexOf('~') + 1, colors.lastIndexOf('~'));
 
   final String foreground;
   final String background;

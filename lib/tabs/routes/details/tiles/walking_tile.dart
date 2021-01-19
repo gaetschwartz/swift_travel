@@ -98,7 +98,7 @@ class WalkingTile extends StatelessWidget {
       final url = getMapsUrl(context, suffix);
       await launch(url);
     } else if (Platform.isAndroid) {
-      final AndroidIntent intent = AndroidIntent(
+      final intent = AndroidIntent(
         action: 'action_view',
         data: _google + suffix,
       );

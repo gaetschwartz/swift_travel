@@ -16,7 +16,6 @@ import 'package:shared_preferences_platform_interface/shared_preferences_platfor
 import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
-import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/sncf/sncf.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
@@ -40,21 +39,21 @@ class PrefsListener extends Mock {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final Random r = Random();
+  final r = Random();
 
   group('navigation api', () {
     setUp(() async {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
       final preferences = await SharedPreferences.getInstance();
-      preferences.clear();
+      await preferences.clear();
     });
     test('returns the right instance', () async {
-      final ProviderContainer container = ProviderContainer();
-      final PreferencesBloc store = container.read(preferencesProvider);
+      final container = ProviderContainer();
+      final store = container.read(preferencesProvider);
       await store.loadFromPreferences();
 
       store.api = NavigationApiType.cff;
-      NavigationApi navApi = container.read(navigationAPIProvider);
+      var navApi = container.read(navigationAPIProvider);
       expect(navApi is CffRepository, isTrue);
 
       store.api = NavigationApiType.sncf;
@@ -67,7 +66,7 @@ void main() {
     setUp(() async {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
       final preferences = await SharedPreferences.getInstance();
-      preferences.clear();
+      await preferences.clear();
     });
 
     test('favs and routes are persisted correctly', () async {
@@ -75,14 +74,14 @@ void main() {
 
       final store = container.read(storeProvider);
 
-      store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
 
       final bern = FavoriteStop('Bern');
       await store.addStop(bern);
       final route = LocalRoute('Bern', 'Bern');
       await store.addRoute(route);
 
-      store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
 
       expect(store.stops, [bern]);
       expect(store.routes, [route]);
@@ -93,7 +92,7 @@ void main() {
 
       final store = container.read(storeProvider);
 
-      store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       expect(store.stops, []);
       expect(store.routes, []);
     });
@@ -106,7 +105,7 @@ void main() {
 
       store.addListener(() => favsListener(store.stops));
 
-      store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(favsListener([])).called(1);
 
       final bern = FavoriteStop('Bern');
@@ -131,7 +130,7 @@ void main() {
 
       store.addListener(() => routesListener(store.routes));
 
-      store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(routesListener([])).called(1);
 
       final route = LocalRoute('Bern', 'Bern');

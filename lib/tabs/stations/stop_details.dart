@@ -51,7 +51,7 @@ class _StopDetailsState extends State<StopDetails> {
                 icon: const Icon(FontAwesomeIcons.route),
                 onPressed: () {
                   log(data.toString());
-                  Navigator.of(context, rootNavigator: true).pushNamed("/route",
+                  Navigator.of(context, rootNavigator: true).pushNamed('/route',
                       arguments: FavoriteStop(data.stop?.name ?? data.stopName,
                           name: data.stop?.name ?? data.stopName));
                 })
@@ -80,7 +80,7 @@ class _StopDetailsState extends State<StopDetails> {
                             const SizedBox(height: 16),
                             Text(
                               data.messages.isNotEmpty
-                                  ? data.messages.join("\n")
+                                  ? data.messages.join('\n')
                                   : "We couldn't find any departures from this location",
                               style: Theme.of(context).textTheme.headline6,
                               textAlign: TextAlign.center,
@@ -106,11 +106,11 @@ class ConnectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final diff = c.time.difference(DateTime.now());
-    final i = c.color.indexOf("~");
+    final i = c.color.indexOf('~');
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      onTap: () => Navigator.of(context).pushNamed("/nextStops", arguments: c),
+      onTap: () => Navigator.of(context).pushNamed('/nextStops', arguments: c),
       title: Row(
         children: [
           if (i != -1) LineIcon.fromString(line: c.line, colors: c.color),

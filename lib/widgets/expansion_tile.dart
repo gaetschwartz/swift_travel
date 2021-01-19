@@ -230,7 +230,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
 
   @override
   void didChangeDependencies() {
-    final ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
     _borderColorTween.end = theme.dividerColor;
     _headerColorTween
       ..begin = theme.textTheme.subtitle1.color
@@ -246,8 +246,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
 
   @override
   Widget build(BuildContext context) {
-    final bool closed = !_isExpanded && _controller.isDismissed;
-    final bool shouldRemoveChildren = closed && !widget.maintainState;
+    final closed = !_isExpanded && _controller.isDismissed;
+    final shouldRemoveChildren = closed && !widget.maintainState;
 
     final Widget result = Offstage(
       offstage: closed,

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
@@ -50,16 +51,16 @@ Future<void> main() async {
   if (kReleaseMode) {
     // ignore: avoid_print
     print(
-      "=== Release mode ===\n"
-      "Build date: $commitBuildDate\n"
-      "Commit message: $commitMessage\n"
-      "Commit hash: $commitHash",
+      '=== Release mode ===\n'
+      'Build date: $commitBuildDate\n'
+      'Commit message: $commitMessage\n'
+      'Commit hash: $commitHash',
     );
     // ignore: avoid_print
     print('Platform: $platform');
   }
   if (Env.overridePlatform) {
-    final TargetPlatform platform = debugPlatformMap[defaultTargetPlatform];
+    final platform = debugPlatformMap[defaultTargetPlatform];
     log('Overriding $defaultTargetPlatform by $platform');
     debugDefaultTargetPlatformOverride = platform;
   }
@@ -71,7 +72,7 @@ Future<void> main() async {
 
   if (isMobile) {
     await Firebase.initializeApp();
-    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode);
+    unawaited(FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode));
     runZonedGuarded(_runApp, reportDartError);
     FlutterError.onError = reportFlutterError;
   } else {
@@ -121,65 +122,65 @@ class _MyAppState extends State<MyApp> {
           onGenerateRoute: onGenerateRoute,
           onUnknownRoute: onUnknownRoute,
           onGenerateInitialRoutes: onGenerateInitialRoutes,
-          initialRoute: "loading",
+          initialRoute: 'loading',
         );
       }),
     );
   }
 
   List<Route> onGenerateInitialRoutes(String initialRoute) {
-    log("Initial route : $initialRoute");
+    log('Initial route : $initialRoute');
     final uri = Uri.tryParse(initialRoute);
 
     final routes = <Route>[];
 
     switch (uri.path) {
-      case "/route":
+      case '/route':
         routes.add(MaterialWithModalsPageRoute(
-            settings: const RouteSettings(name: "/"), builder: (_) => LoadingPage(uri: uri)));
+            settings: const RouteSettings(name: '/'), builder: (_) => LoadingPage(uri: uri)));
         break;
 
       default:
         routes.add(MaterialWithModalsPageRoute(
-            settings: const RouteSettings(name: "/"), builder: (_) => const LoadingPage()));
+            settings: const RouteSettings(name: '/'), builder: (_) => const LoadingPage()));
     }
     return routes;
   }
 }
 
 Route onUnknownRoute(RouteSettings settings) {
-  reportDartError("Unknown page : `${settings.name}`", StackTrace.current,
-      name: "router", reason: "while trying to route", showSnackbar: false);
+  reportDartError('Unknown page : `${settings.name}`', StackTrace.current,
+      name: 'router', reason: 'while trying to route', showSnackbar: false);
   return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
 }
 
 Route onGenerateRoute(RouteSettings settings) {
-  log("Routing to ${settings.name}");
+  log('Routing to ${settings.name}');
 
   switch (settings.name) {
-    case "/":
+    case '/':
       return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const MainApp());
-    case "loading":
+    case 'loading':
       return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const LoadingPage());
-    case "/settings":
+    case '/settings':
       return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Settings());
-    case "/routeDetails":
+    case '/routeDetails':
       if (settings.arguments is Map) {
         final map = settings.arguments as Map;
         return MaterialWithModalsPageRoute(
             settings: settings,
             builder: (_) => RouteDetails(
-                  route: map["route"] as CffRoute,
-                  i: map["i"] as int,
+                  route: map['route'] as CffRoute,
+                  i: map['i'] as int,
                   doClose: true,
                 ));
       }
       break;
-    case "/tuto":
+    case '/tuto':
       return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Tuto());
-    case "/welcome":
+    case '/welcome':
       return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const WelcomePage());
-    case "/route":
+    case '/route':
       if (settings.arguments is LocalRoute) {
         return MaterialWithModalsPageRoute(
             settings: settings, builder: (_) => RoutePage.route(settings.arguments as LocalRoute));
@@ -188,22 +189,22 @@ Route onGenerateRoute(RouteSettings settings) {
             settings: settings, builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop));
       }
       break;
-    case "/ourTeam":
+    case '/ourTeam':
       return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const TeamPage());
-    case "/liveRoute":
+    case '/liveRoute':
       return MaterialWithModalsPageRoute(
           settings: settings,
           builder: (_) => LiveRoutePage(connection: settings.arguments as RouteConnection));
-    case "/stopDetails":
+    case '/stopDetails':
       return MaterialWithModalsPageRoute(
           settings: settings, builder: (_) => StopDetails(stopName: settings.arguments as String));
 
-    case "/nextStops":
+    case '/nextStops':
       return MaterialWithModalsPageRoute(
           settings: settings,
           builder: (_) => NextStopsPage(connection: settings.arguments as StationboardConnection));
-    case "/error":
-    case "error":
+    case '/error':
+    case 'error':
       return MaterialWithModalsPageRoute(
           settings: settings, builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails));
   }
@@ -213,7 +214,7 @@ Route onGenerateRoute(RouteSettings settings) {
 class Routes {
   Routes._();
 
-  static const route = "/route";
+  static const route = '/route';
 }
 
 class LocalizationAwareWidget extends StatefulWidget {

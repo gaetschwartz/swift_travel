@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 TextSpan parseDecoratedText(String text, TextStyle style) {
-  final List<TextSpan> spans = [];
+  final spans = <TextSpan>[];
   final chars = text.characters;
-  bool bold = false;
-  bool italic = false;
+  var bold = false;
+  var italic = false;
   final buffer = StringBuffer();
 
   for (final c in chars) {
     switch (c) {
-      case "*":
+      case '*':
         _addSpan(spans, buffer, bold, italic);
         bold = !bold;
         break;
-      case "_":
+      case '_':
         _addSpan(spans, buffer, bold, italic);
         italic = !italic;
         break;

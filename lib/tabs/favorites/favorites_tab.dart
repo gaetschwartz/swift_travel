@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/cff/models/cff_completion.dart';
-import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
@@ -136,8 +135,8 @@ class _FavoritesTabState extends State<FavoritesTab>
   }
 
   Future<void> addFav() async {
-    Vibration.select();
-    final String s = await Navigator.of(context).push<String>(MaterialPageRoute(
+    unawaited(Vibration.select());
+    final s = await Navigator.of(context).push<String>(MaterialPageRoute(
       builder: (_) => const StopInputDialog(title: 'Add a favorite'),
       fullscreenDialog: true,
     ));
@@ -145,12 +144,11 @@ class _FavoritesTabState extends State<FavoritesTab>
 
     await load(context, future: () async {
       final cff = context.read(navigationAPIProvider);
-      List<CffCompletion> completions = await cff.complete(s, showIds: true);
+      var completions = await cff.complete(s, showIds: true);
 
       if (completions.isEmpty) {
         log("Didn't find a station, will try using routes as a hack...");
-        final CffRoute cffRoute =
-            await cff.route(s, 'Geneva', date: DateTime.now(), time: TimeOfDay.now());
+        final cffRoute = await cff.route(s, 'Geneva', date: DateTime.now(), time: TimeOfDay.now());
         if (cffRoute.connections.isNotEmpty) {
           final from = cffRoute.connections.first.from;
           log('Found $from');
@@ -164,7 +162,7 @@ class _FavoritesTabState extends State<FavoritesTab>
         return;
       }
 
-      final CffCompletion completion = completions.first;
+      final completion = completions.first;
       final name = await input(context, title: const Text('What is the name of this stop'));
       if (name == null) return;
       await store.addStop(completion.toFavoriteStop(name: name));
