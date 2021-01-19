@@ -252,7 +252,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     context.read(_locatingProvider).state = true;
 
     try {
-      final p = await context.read(locationProvider).getLocation(context: context);
+      final p = await LocationRepository.getLocation();
       if (p == null) return;
 
       final completions =

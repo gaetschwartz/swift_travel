@@ -10,6 +10,15 @@
       "type": "dart",
     },
     {
+      "name": "Launch (spoof loc)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "SPOOF_LOCATION=true"
+      ]
+    },
+    {
       "name": "Launch (override)",
       "request": "launch",
       "type": "dart",

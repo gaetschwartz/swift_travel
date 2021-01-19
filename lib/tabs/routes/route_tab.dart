@@ -17,6 +17,7 @@ import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/blocs/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
@@ -78,7 +79,7 @@ class Fetcher extends ChangeNotifier {
         empty: () => null,
         text: (t) => t,
         useCurrentLocation: () async {
-          p ??= await Geolocator.getCurrentPosition();
+          p ??= await LocationRepository.getLocation();
           return '${p.latitude},${p.longitude}';
         },
       );
@@ -86,7 +87,7 @@ class Fetcher extends ChangeNotifier {
         empty: () => null,
         text: (t) => t,
         useCurrentLocation: () async {
-          p ??= await Geolocator.getCurrentPosition();
+          p ??= await LocationRepository.getLocation();
           return '${p.latitude},${p.longitude}';
         },
       );

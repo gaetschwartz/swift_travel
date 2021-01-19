@@ -1,26 +1,50 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as l;
+import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:theming/dialogs/confirmation_alert.dart';
-
-final locationProvider = Provider<LocationRepository>((ref) {
-  return LocationRepository();
-});
 
 class LocationRepository {
-  Future<Position> getLocation({
-    BuildContext context,
+  static Future<Position> getLocation({
     LocationAccuracy desiredAccuracy = LocationAccuracy.bestForNavigation,
     bool forceAndroidLocationManager = false,
     Duration timeLimit,
   }) async {
-    if (kIsWeb) {
+    if (Env.spoofLocation) {
+      final location = l.Location();
+
+      bool _serviceEnabled;
+      l.PermissionStatus _permissionGranted;
+
+      _serviceEnabled = await location.serviceEnabled();
+      if (!_serviceEnabled) {
+        _serviceEnabled = await location.requestService();
+        if (!_serviceEnabled) {
+          return null;
+        }
+      }
+
+      _permissionGranted = await location.hasPermission();
+      if (_permissionGranted == l.PermissionStatus.denied) {
+        _permissionGranted = await location.requestPermission();
+        if (_permissionGranted != l.PermissionStatus.granted) {
+          return null;
+        }
+      }
+      return Position(
+        accuracy: 0,
+        altitude: 0,
+        heading: 0,
+        speed: 0,
+        speedAccuracy: 0,
+        timestamp: DateTime.now(),
+        latitude: 46.2225454,
+        longitude: 6.1385658,
+      );
+    } else if (kIsWeb) {
       final location = l.Location();
 
       bool _serviceEnabled;
@@ -75,21 +99,6 @@ class LocationRepository {
             return null;
           }
         } else {
-          if (context != null) {
-            log(permission.toString());
-            final b = await confirm(
-              context,
-              title: const Text('You need permissions !'),
-              content: const Text('Location permissions are needed to get your position !'),
-              confirm: const Text('Open Settings'),
-              defaultAction: DefaultAction.confirm,
-              isCancelDestructive: true,
-            );
-            if (!b) return null;
-            log('Opening settings ...');
-            final opened = await Geolocator.openAppSettings();
-            if (opened) log('Successfully opened settings');
-          }
           throw Exception("Failed to locate, didn't have the required permissions : $permission");
         }
       } on MissingPluginException {

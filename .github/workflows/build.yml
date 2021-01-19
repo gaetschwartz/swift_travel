@@ -55,13 +55,13 @@ jobs:
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
       - name: Build
-        run: flutter build web --web-renderer canvaskit 
+        run: flutter build web --web-renderer canvaskit
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SWISS_TRAVEL_36188 }}"
           projectId: swiss-travel-36188
-          channelId: live
+          channelId: dev
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
   run-tests:
