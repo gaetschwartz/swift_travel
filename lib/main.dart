@@ -49,14 +49,12 @@ const debugPlatformMap = {
 
 Future<void> main() async {
   if (kReleaseMode) {
-    // ignore: avoid_print
     print(
       '=== Release mode ===\n'
       'Build date: $commitBuildDate\n'
       'Commit message: $commitMessage\n'
       'Commit hash: $commitHash',
     );
-    // ignore: avoid_print
     print('Platform: $platform');
   }
   if (Env.overridePlatform) {
