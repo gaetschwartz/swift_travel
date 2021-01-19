@@ -53,7 +53,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.white,
       body: SizedBox(
         width: double.infinity,
         child: FadeTransition(
@@ -64,13 +64,12 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
               SizedBox(
                 height: 64,
                 width: 64,
-                child: CircularProgressIndicator.adaptive(
-                    valueColor: AlwaysStoppedAnimation(Colors.white)),
+                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.red)),
               ),
               SizedBox(height: 32),
               Text(
                 'Loading ...',
-                style: TextStyle(color: Colors.white, fontSize: 32),
+                style: TextStyle(color: Colors.black, fontSize: 32),
               )
             ],
           ),
