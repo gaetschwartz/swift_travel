@@ -12,19 +12,19 @@ import 'package:swift_travel/blocs/preferences.dart';
 class NavigationApiFactory<T extends NavigationApi> {
   final String name;
   final String shortName;
-  final String coutryEmoji;
-  final String coutryName;
+  final String countryEmoji;
+  final String countryName;
   final T Function() create;
 
   const NavigationApiFactory(
     this.create, {
     @required this.name,
     @required this.shortName,
-    @required this.coutryEmoji,
-    @required this.coutryName,
+    @required this.countryEmoji,
+    @required this.countryName,
   });
 
-  String get shortDesc => '$coutryEmoji $shortName';
+  String get shortDesc => '$countryEmoji $shortName';
 }
 
 abstract class NavigationApi {
@@ -42,12 +42,10 @@ abstract class NavigationApi {
       case NavigationApiType.sncf:
         log('Using sncf repository');
         return sncfFactory;
-        break;
       case NavigationApiType.cff:
       default:
         log('Using cff repository');
         return cffFactory;
-        break;
     }
   }
 

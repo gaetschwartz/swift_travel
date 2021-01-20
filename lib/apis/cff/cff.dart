@@ -13,8 +13,8 @@ final cffFactory = NavigationApiFactory(
   () => CffApi._(),
   name: 'SBB CFF FFS',
   shortName: 'SBB',
-  coutryEmoji: '🇨🇭',
-  coutryName: 'Switzerland',
+  countryEmoji: '🇨🇭',
+  countryName: 'Switzerland',
 );
 
 class CffApi extends NavigationApi {

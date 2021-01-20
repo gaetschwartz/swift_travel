@@ -14,8 +14,8 @@ final sncfFactory = NavigationApiFactory(
   () => SncfApi._(),
   name: 'SNCF',
   shortName: 'SNCF',
-  coutryEmoji: '🇫🇷',
-  coutryName: 'France',
+  countryEmoji: '🇫🇷',
+  countryName: 'France',
 );
 
 class SncfApi extends NavigationApi {
