@@ -43,13 +43,6 @@ class RouteDetails extends StatelessWidget {
             pinned: true,
             snap: true,
             floating: true,
-            bottom: buildHeader(
-                context,
-                conn,
-                Size.fromHeight((Theme.of(context).textTheme.bodyText1.fontSize *
-                            MediaQuery.of(context).textScaleFactor) +
-                        20) *
-                    3),
             leading: doClose ? const CloseButton() : null,
             flexibleSpace: const SizedBox(),
             actions: <Widget>[
@@ -63,12 +56,16 @@ class RouteDetails extends StatelessWidget {
                         : const Icon(Icons.share),
                     onPressed: () => _shareRoute(context))
             ]),
-        SliverSafeArea(
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (_, i) => LegTile(l: conn.legs[i]),
-              childCount: conn.legs.length,
-            ),
+        SliverToBoxAdapter(
+          child: buildHeader(
+            context,
+            conn,
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (_, i) => LegTile(l: conn.legs[i]),
+            childCount: conn.legs.length,
           ),
         ),
       ],
@@ -81,45 +78,45 @@ class RouteDetails extends StatelessWidget {
     return place.substring(0, i);
   }
 
-  PreferredSize buildHeader(BuildContext context, RouteConnection c, Size size) {
+  PreferredSize buildPreferred(BuildContext context, RouteConnection c, Size size) {
     return PreferredSize(
       preferredSize: size,
-      child: DecoratedBox(
-        decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
-        child: DefaultTextStyle(
-          style: Theme.of(context).textTheme.bodyText1,
-          child: SizedBox.fromSize(
-            size: size,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _dataRow(Strings.of(context).departure, _format(c.from)),
-                  _dataRow(Strings.of(context).destination, _format(c.to)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(Strings.of(context).travel_duration),
-                      const SizedBox(width: 8),
-                      Expanded(
-                          child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text.rich(
-                                TextSpan(children: [
-                                  TextSpan(
-                                      text:
-                                          '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
-                                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                                  TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
-                                ]),
-                                textAlign: TextAlign.end,
-                              )))
-                    ],
-                  ),
+      child: SizedBox.fromSize(size: size, child: buildHeader(context, c)),
+    );
+  }
+
+  Widget buildHeader(BuildContext context, RouteConnection c) {
+    return DecoratedBox(
+      decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
+      child: DefaultTextStyle(
+        style: Theme.of(context).textTheme.bodyText1,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _dataRow(Strings.of(context).departure, _format(c.from)),
+              _dataRow(Strings.of(context).destination, _format(c.to)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(Strings.of(context).travel_duration),
+                  const SizedBox(width: 8),
+                  Expanded(
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text.rich(
+                            TextSpan(children: [
+                              TextSpan(
+                                  text: '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
+                                  style: const TextStyle(fontWeight: FontWeight.bold)),
+                              TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
+                            ]),
+                            textAlign: TextAlign.end,
+                          )))
                 ],
               ),
-            ),
+            ],
           ),
         ),
       ),

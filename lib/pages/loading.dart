@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/blocs/links.dart';
 import 'package:swift_travel/blocs/navigation.dart';
@@ -87,7 +88,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       await Geolocator.requestPermission();
     } on MissingPluginException catch (_) {}
 
-    await route();
+    unawaited(route());
 
     if (isMobile) {
       MyQuickActions.instance.init();
@@ -150,13 +151,13 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
         final args =
             await DeepLinkBloc.parseRouteArguments(widget.uri, context.read(navigationAPIProvider));
         await Navigator.of(context).pushReplacementNamed('/');
-        await Navigator.of(context).pushNamed('/routeDetails', arguments: args);
+        return Navigator.of(context).pushNamed('/routeDetails', arguments: args);
       } on Exception catch (e, s) {
         log('', error: e, stackTrace: s);
-        await Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
+        return Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
       }
     } else {
-      await Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
+      return Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
     }
   }
 }

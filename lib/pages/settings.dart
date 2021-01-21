@@ -25,265 +25,286 @@ import 'package:theming/dynamic_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings();
+
+  @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  final children = <WidgetBuilder>[
+    (context) => _SectionTitle(title: Text(Strings.of(context).brightness)),
+    (_) => SizedBox(
+          height: 100,
+          child: Consumer(builder: (context, w, _) {
+            final theme = w(dynamicTheme);
+            return ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                _ModeWidget(
+                  theme: theme,
+                  label: Strings.of(context).brightness_system,
+                  mode: ThemeMode.system,
+                ),
+                _ModeWidget(
+                  theme: theme,
+                  label: Strings.of(context).brightness_light,
+                  mode: ThemeMode.light,
+                ),
+                _ModeWidget(
+                  theme: theme,
+                  label: Strings.of(context).brightness_dark,
+                  mode: ThemeMode.dark,
+                ),
+              ],
+            );
+          }),
+        ),
+    (context) => _SectionTitle(title: Text(Strings.of(context).font)),
+    (_) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                const Icon(CupertinoIcons.textformat_abc),
+                const SizedBox(width: 16),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: Consumer(builder: (context, w, _) {
+                    final theme = w(dynamicTheme);
+                    return DropdownButton<Font>(
+                      isExpanded: true,
+                      icon: const SizedBox(),
+                      value: theme.font,
+                      items: fonts
+                          .map(
+                            (f) => DropdownMenuItem(
+                                value: f,
+                                child: f == theme.font
+                                    ? Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(f.name,
+                                                style: f
+                                                    .textTheme(Typography.englishLike2018)
+                                                    .bodyText1),
+                                          ),
+                                          const Icon(FluentIcons.checkmark_24_filled)
+                                        ],
+                                      )
+                                    : Text(f.name,
+                                        style: f.textTheme(Typography.englishLike2018).bodyText1)),
+                          )
+                          .toList(),
+                      selectedItemBuilder: (context) => fonts
+                          .map<Widget>(
+                              (f) => Align(alignment: Alignment.centerLeft, child: Text(f.name)))
+                          .toList(),
+                      onChanged: (f) {
+                        Vibration.select();
+                        theme.font = f;
+                      },
+                    );
+                  }),
+                ),
+              ],
+            ),
+          ),
+        ),
+    (_) => const _FontWeightWidget(),
+    (context) => _SectionTitle(title: Text(Strings.of(context).themes)),
+    (_) => const _ThemesSection(),
+    (context) => (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS)
+        ? Column(children: [
+            const Divider(),
+            Consumer(builder: (context, w, _) {
+              final maps = w(preferencesProvider);
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListTile(
+                    leading: const Icon(CupertinoIcons.map),
+                    title: Text(Strings.of(context).maps_app),
+                    onTap: () async {
+                      await Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => ChoicePage<Maps>(
+                                items: const [
+                                  ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
+                                  ChoicePageItem(value: Maps.google, child: Text('Google Maps')),
+                                ],
+                                value: maps.mapsApp,
+                                title: Text(Strings.of(context).maps_app),
+                                onChanged: (a) {
+                                  if (a != null) maps.mapsApp = a;
+                                },
+                              )));
+                      log(maps.mapsApp.toString());
+                    },
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _mapsName(maps.mapsApp),
+                          style: CupertinoTheme.of(context)
+                              .textTheme
+                              .textStyle
+                              .copyWith(color: CupertinoColors.systemGrey),
+                        ),
+                        const SizedBox(width: 8),
+                        const Icon(CupertinoIcons.chevron_right),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            })
+          ])
+        : null,
+    (_) => const Divider(),
+    (_) => Consumer(builder: (context, w, _) {
+          final prefs = w(preferencesProvider);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                leading: const Icon(CupertinoIcons.link),
+                title: Text(Strings.of(context).navigation_api),
+                onTap: () async {
+                  await Navigator.of(context).push(CupertinoPageRoute(
+                      builder: (context) => ChoicePage<NavigationApiType>(
+                            items: NavigationApiType.values
+                                .map((e) => ChoicePageItem(
+                                    child: Text(NavigationApi.getFactory(e).name), value: e))
+                                .toList(),
+                            value: prefs.api,
+                            title: Text(Strings.of(context).navigation_api),
+                            description: const Text(
+                                'BETA: In the future the goal is to add more countries.'),
+                            onChanged: (a) {
+                              if (a != null) prefs.api = a;
+                            },
+                          )));
+                },
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(NavigationApi.getFactory(prefs.api).shortDesc,
+                        style: CupertinoTheme.of(context)
+                            .textTheme
+                            .textStyle
+                            .copyWith(color: CupertinoColors.systemGrey)),
+                    const SizedBox(width: 8),
+                    const Icon(CupertinoIcons.chevron_right),
+                  ],
+                ),
+              ),
+            ],
+          );
+        }),
+    (_) => const Divider(),
+    (context) => _SectionTitle(title: Text(Strings.of(context).more)),
+    (context) => ListTile(
+          leading: const Icon(CupertinoIcons.person_3_fill),
+          title: Text(Strings.of(context).our_team),
+          onTap: () => Navigator.of(context).pushNamed('/ourTeam'),
+        ),
+    (context) => ListTile(
+        leading: const Icon(Icons.restore),
+        title: Text(Strings.of(context).reset_settings),
+        onTap: () async {
+          final c = await confirm(
+            context,
+            title: const Text('Reset settings ?'),
+            content: const Text('You will lose all of you favorites!'),
+            isConfirmDestructive: true,
+            confirm: Text(Strings.of(context).yes),
+            cancel: Text(Strings.of(context).no),
+          );
+          if (c != true) return;
+          final prefs = await SharedPreferences.getInstance();
+          final b = await prefs.clear();
+          log('Done : $b');
+          unawaited(SystemNavigator.pop(animated: true));
+        }),
+    (_) => const Divider(),
+    (context) => (kDebugMode)
+        ? Column(children: [
+            _SectionTitle(title: Text(Strings.of(context).developer)),
+            ListTile(
+                leading: const Icon(Icons.search),
+                title: const Text('Search'),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => SearchPage(
+                          controller: TextEditingController(),
+                        )))),
+            ListTile(
+                leading: const Icon(Icons.warning_rounded),
+                title: const Text('Throw a Flutter error'),
+                onTap: () => throw StateError('Debug error')),
+            ListTile(
+                leading: const Icon(Icons.open_in_browser),
+                title: const Text('Open incorrect page'),
+                onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
+            ListTile(
+                leading: const Icon(Icons.close),
+                title: const Text('Trigger a crash'),
+                onTap: () async {
+                  await FirebaseCrashlytics.instance.log('We trigger a crash');
+                  FirebaseCrashlytics.instance.crash();
+                }),
+          ])
+        : null,
+    (_) => const ListTile(
+          isThreeLine: true,
+          dense: true,
+          title: Text(commitMessage),
+          subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
+        ),
+    (_) => const SizedBox(height: 32),
+    (context) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              '© Copyright Gaëtan Schwartz 2020',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
+          ),
+        ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return DividerTheme(
       data: const DividerThemeData(indent: 16, endIndent: 16),
       child: Scaffold(
-          appBar: AppBar(
+          body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
             title: Text(Strings.of(context).settings),
+            pinned: true,
+            snap: true,
+            floating: true,
+            flexibleSpace: const SizedBox(),
           ),
-          body: ListView(
-            children: [
-              _SectionTitle(title: Text(Strings.of(context).brightness)),
-              SizedBox(
-                height: 100,
-                child: Consumer(builder: (context, w, _) {
-                  final theme = w(dynamicTheme);
-                  return ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      _ModeWidget(
-                        theme: theme,
-                        label: Strings.of(context).brightness_system,
-                        mode: ThemeMode.system,
-                      ),
-                      _ModeWidget(
-                        theme: theme,
-                        label: Strings.of(context).brightness_light,
-                        mode: ThemeMode.light,
-                      ),
-                      _ModeWidget(
-                        theme: theme,
-                        label: Strings.of(context).brightness_dark,
-                        mode: ThemeMode.dark,
-                      ),
-                    ],
-                  );
-                }),
+          SliverSafeArea(
+            top: false,
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, i) => children[i](context),
+                childCount: children.length,
               ),
-              _SectionTitle(title: Text(Strings.of(context).font)),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      const Icon(CupertinoIcons.textformat_abc),
-                      const SizedBox(width: 16),
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 300),
-                        child: Consumer(builder: (context, w, _) {
-                          final theme = w(dynamicTheme);
-                          return DropdownButton<Font>(
-                            isExpanded: true,
-                            icon: const SizedBox(),
-                            value: theme.font,
-                            items: fonts
-                                .map(
-                                  (f) => DropdownMenuItem(
-                                      value: f,
-                                      child: f == theme.font
-                                          ? Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Text(f.name,
-                                                      style: f
-                                                          .textTheme(Typography.englishLike2018)
-                                                          .bodyText1),
-                                                ),
-                                                const Icon(FluentIcons.checkmark_24_filled)
-                                              ],
-                                            )
-                                          : Text(f.name,
-                                              style: f
-                                                  .textTheme(Typography.englishLike2018)
-                                                  .bodyText1)),
-                                )
-                                .toList(),
-                            selectedItemBuilder: (context) => fonts
-                                .map<Widget>((f) =>
-                                    Align(alignment: Alignment.centerLeft, child: Text(f.name)))
-                                .toList(),
-                            onChanged: (f) {
-                              Vibration.select();
-                              theme.font = f;
-                            },
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const _FontWeightWidget(),
-              _SectionTitle(title: Text(Strings.of(context).themes)),
-              const _ThemesSection(),
-              if (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS) ...[
-                const Divider(),
-                Consumer(builder: (context, w, _) {
-                  final maps = w(preferencesProvider);
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListTile(
-                        leading: const Icon(CupertinoIcons.map),
-                        title: Text(Strings.of(context).maps_app),
-                        onTap: () async {
-                          await Navigator.of(context).push(CupertinoPageRoute(
-                              builder: (context) => ChoicePage<Maps>(
-                                    items: const [
-                                      ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
-                                      ChoicePageItem(
-                                          value: Maps.google, child: Text('Google Maps')),
-                                    ],
-                                    value: maps.mapsApp,
-                                    title: Text(Strings.of(context).maps_app),
-                                    onChanged: (a) {
-                                      if (a != null) maps.mapsApp = a;
-                                    },
-                                  )));
-                          log(maps.mapsApp.toString());
-                        },
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              _mapsName(maps.mapsApp),
-                              style: CupertinoTheme.of(context)
-                                  .textTheme
-                                  .textStyle
-                                  .copyWith(color: CupertinoColors.systemGrey),
-                            ),
-                            const SizedBox(width: 8),
-                            const Icon(CupertinoIcons.chevron_right),
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
-                })
-              ],
-              const Divider(),
-              Consumer(builder: (context, w, _) {
-                final prefs = w(preferencesProvider);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      leading: const Icon(CupertinoIcons.link),
-                      title: Text(Strings.of(context).navigation_api),
-                      onTap: () async {
-                        await Navigator.of(context).push(CupertinoPageRoute(
-                            builder: (context) => ChoicePage<NavigationApiType>(
-                                  items: NavigationApiType.values
-                                      .map((e) => ChoicePageItem(
-                                          child: Text(NavigationApi.getFactory(e).name), value: e))
-                                      .toList(),
-                                  value: prefs.api,
-                                  title: Text(Strings.of(context).navigation_api),
-                                  description: const Text(
-                                      'BETA: In the future the goal is to add more countries.'),
-                                  onChanged: (a) {
-                                    if (a != null) prefs.api = a;
-                                  },
-                                )));
-                      },
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(NavigationApi.getFactory(prefs.api).shortDesc,
-                              style: CupertinoTheme.of(context)
-                                  .textTheme
-                                  .textStyle
-                                  .copyWith(color: CupertinoColors.systemGrey)),
-                          const SizedBox(width: 8),
-                          const Icon(CupertinoIcons.chevron_right),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              }),
-              const Divider(),
-              _SectionTitle(title: Text(Strings.of(context).more)),
-              ListTile(
-                leading: const Icon(CupertinoIcons.person_3_fill),
-                title: Text(Strings.of(context).our_team),
-                onTap: () => Navigator.of(context).pushNamed('/ourTeam'),
-              ),
-              ListTile(
-                  leading: const Icon(Icons.restore),
-                  title: Text(Strings.of(context).reset_settings),
-                  onTap: () async {
-                    final c = await confirm(
-                      context,
-                      title: const Text('Reset settings ?'),
-                      content: const Text('You will lose all of you favorites!'),
-                      isConfirmDestructive: true,
-                      confirm: Text(Strings.of(context).yes),
-                      cancel: Text(Strings.of(context).no),
-                    );
-                    if (c != true) return;
-                    final prefs = await SharedPreferences.getInstance();
-                    final b = await prefs.clear();
-                    log('Done : $b');
-                    unawaited(SystemNavigator.pop(animated: true));
-                  }),
-              const Divider(
-                indent: 16,
-                endIndent: 16,
-              ),
-              if (kDebugMode) ...[
-                _SectionTitle(title: Text(Strings.of(context).developer)),
-                ListTile(
-                    leading: const Icon(Icons.search),
-                    title: const Text('Search'),
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (_) => SearchPage(
-                              controller: TextEditingController(),
-                            )))),
-                ListTile(
-                    leading: const Icon(Icons.warning_rounded),
-                    title: const Text('Throw a Flutter error'),
-                    onTap: () => throw StateError('Debug error')),
-                ListTile(
-                    leading: const Icon(Icons.open_in_browser),
-                    title: const Text('Open incorrect page'),
-                    onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
-                ListTile(
-                    leading: const Icon(Icons.close),
-                    title: const Text('Trigger a crash'),
-                    onTap: () async {
-                      await FirebaseCrashlytics.instance.log('We trigger a crash');
-                      FirebaseCrashlytics.instance.crash();
-                    }),
-              ],
-              const ListTile(
-                isThreeLine: true,
-                dense: true,
-                title: Text(commitMessage),
-                subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
-              ),
-              const SizedBox(height: 32),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    '© Copyright Gaëtan Schwartz 2020',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                ),
-              ),
-            ],
-          )),
+            ),
+          ),
+        ],
+      )),
     );
   }
 
   void onMapsChanged(PreferencesBloc prefs, Maps m) => prefs.mapsApp = m;
+
   void onAPIChanged(PreferencesBloc prefs, NavigationApiType api) => prefs.api = api;
 }
 

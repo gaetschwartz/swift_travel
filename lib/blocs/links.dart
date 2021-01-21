@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/utils/share.dart';
-import 'package:theming/dialogs/loading_dialog.dart';
 
 final linksProvider = Provider<DeepLinkBloc>((ref) {
   final deepLinkBloc = DeepLinkBloc();
@@ -50,7 +47,9 @@ class DeepLinkBloc {
 
       final map = await parseRouteArguments(uri, navApi);
 
-      await navigatorKey.currentState.pushNamed('/routeDetails', arguments: map);
+      log(map.toString());
+
+      return navigatorKey.currentState.pushNamed('/routeDetails', arguments: map);
     }
   }
 
@@ -72,9 +71,7 @@ class DeepLinkBloc {
     final qUri = Uri.https('timetable.search.ch', 'api/route.json', params);
     log(qUri.toString());
 
-    final route = await load<CffRoute>(navigatorKey.currentContext,
-        future: () => navApi.rawRoute(qUri.toString()),
-        title: const Text('Getting route infos ...'));
+    final route = await navApi.rawRoute(qUri.toString());
 
     final i = int.parse(uri.queryParameters['i']);
     final map = {'route': route, 'i': i};
