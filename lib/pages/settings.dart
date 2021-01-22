@@ -19,8 +19,10 @@ import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/choice_page.dart';
+import 'package:swift_travel/utils/route_uri.dart';
 import 'package:swift_travel/utils/search.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
+import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
@@ -232,6 +234,16 @@ class _SettingsState extends State<Settings> {
     (context) => (kDebugMode)
         ? Column(children: [
             _SectionTitle(title: Text(Strings.of(context).developer)),
+            ListTile(
+                leading: const Icon(Icons.search),
+                title: const Text('texst'),
+                onTap: () async {
+                  final s = await input(context, title: Text('la question'));
+                  if (s == null) return;
+                  print(s);
+                  final out = decodeRouteUri(Uri.parse(s));
+                  print(out);
+                }),
             ListTile(
                 leading: const Icon(Icons.search),
                 title: const Text('Search'),

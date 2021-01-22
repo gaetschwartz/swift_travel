@@ -8,6 +8,7 @@ import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/utils/route_uri.dart';
 
 final cffFactory = NavigationApiFactory(
   () => CffApi._(),
@@ -22,6 +23,7 @@ class CffApi extends NavigationApi {
 
   final QueryBuilder queryBuilder =
       QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
+
   final http.Client _client = http.Client();
 
   Map<String, String> get headers => {'accept-language': super.locale.toLanguageTag()};
@@ -136,7 +138,7 @@ class CffApi extends NavigationApi {
     final params = {
       'from': departure,
       'to': arrival,
-      'date': '${date.month}/${date.day}/${date.year}',
+      'date': '${date.day}/${date.hour}/${date.year}',
       'time': '${time.hour}:${time.minute}',
       'time_type': describeEnum(typeTime),
       'show_trackchanges': 1,
@@ -156,11 +158,9 @@ class CffApi extends NavigationApi {
     }
     final stopwatch = Stopwatch()..start();
     final map = jsonDecode(response.body) as Map<String, dynamic>;
-    log('decode took ${stopwatch.elapsedMilliseconds} ms');
+    log('decode took ${stopwatch..stop()..elapsedMilliseconds} ms');
 
-    if (map['disruptions'] != null) log(map['disruptions'].toString());
-    map['requestUrl'] = query;
-    return CffRoute.fromJson(map);
+    return CffRoute.fromJson(map).copyWith(requestUrl: query);
   }
 
   @override
@@ -190,7 +190,3 @@ class QueryBuilder {
 enum TransportationTypes { train, tram, bus, ship, cableway }
 
 enum TimeType { depart, arrival }
-
-extension BoolX on bool {
-  int toInt() => this ? 1 : 0;
-}

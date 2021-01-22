@@ -14,6 +14,7 @@ abstract class CffRoute with _$CffRoute {
     @Default([]) List<RouteConnection> connections,
     @Default([]) List<String> messages,
     String requestUrl,
+    DateTime dateTime,
   }) = _CffRoute;
 
   factory CffRoute.fromJson(Map<String, dynamic> json) => _$CffRouteFromJson(json);

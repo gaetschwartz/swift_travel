@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/utils/share.dart';
+import 'package:swift_travel/utils/route_uri.dart';
 
 final linksProvider = Provider<DeepLinkBloc>((ref) {
   final deepLinkBloc = DeepLinkBloc();
@@ -54,19 +54,7 @@ class DeepLinkBloc {
   }
 
   static Future<Map<String, Object>> parseRouteArguments(Uri uri, NavigationApi navApi) async {
-    final params = <String, String>{};
-
-    for (final e in uri.queryParameters.entries) {
-      params[translate[e.key] ?? e.key] = translate[e.value] ?? e.value;
-    }
-
-    params.remove('i');
-
-    if (!params.containsKey('from') ||
-        !params.containsKey('to') ||
-        !uri.queryParameters.containsKey('i')) {
-      throw InvalidRouteException(uri.queryParameters);
-    }
+    final params = decodeRouteUri(uri);
 
     final qUri = Uri.https('timetable.search.ch', 'api/route.json', params);
     log(qUri.toString());

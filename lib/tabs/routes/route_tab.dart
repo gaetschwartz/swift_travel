@@ -102,7 +102,8 @@ class Fetcher extends ChangeNotifier {
         typeTime: timeType,
       );
       state = RouteStates.routes(it);
-    } on SocketException {
+    } on SocketException catch (e, s) {
+      log('', error: e, stackTrace: s);
       state = const RouteStates.networkException();
     } on MissingPluginException {
       state = const RouteStates.missingPluginException();
@@ -110,12 +111,12 @@ class Fetcher extends ChangeNotifier {
       state = const RouteStates.locationPermissionNotGranted();
     } on LocationServiceDisabledException {
       state = const RouteStates.locationPermissionNotGranted();
-    } on Exception catch (e) {
+    } on Exception catch (e, s) {
       state = RouteStates.exception(e);
-      // ignore: avoid_catching_errors
+      reportDartError(e, s, name: 'fetcher', reason: 'while fetching');
     } on Error catch (e) {
       state = RouteStates.exception(e);
-      reportDartError(e, e.stackTrace, name: 'Fetch');
+      reportDartError(e, e.stackTrace, name: 'fetcher', reason: 'while fetching');
     }
   }
 }

@@ -49,7 +49,6 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   @override
   Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true}) async {
-    log('Getting favorites', name: 'Store');
     if (notify) {
       ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
       ref.read(favoritesRoutesStatesProvider).state = const FavoritesRoutesStates.loading();

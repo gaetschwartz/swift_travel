@@ -5,23 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
+import 'package:swift_travel/utils/route_uri.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 
 const String routeUrl = 'travel.gaetanschwartz.com';
 
 Future<void> shareRoute(BuildContext context, CffRoute route, int i) async {
-  final requestUrl = route.requestUrl;
-  final uri = Uri.parse(requestUrl);
-  final params = <String, String>{};
-  for (final e in uri.queryParameters.entries) {
-    final newKey =
-        translate.entries.firstWhere((e2) => e.key == e2.value, orElse: () => null)?.key ?? e.key;
-    final newValue =
-        translate.entries.firstWhere((e2) => e.value == e2.value, orElse: () => null)?.key ??
-            e.value;
-    params[newKey] = newValue;
-  }
-  params['i'] = i.toString();
+  final params = encodeRouteUri(Uri.parse(route.requestUrl), i);
+  print(params);
   final sharedUri = Uri(scheme: 'https', host: routeUrl, path: 'route', queryParameters: params);
   log(sharedUri.toString());
 
@@ -40,14 +31,3 @@ Future<void> shareRoute(BuildContext context, CffRoute route, int i) async {
     } on Exception catch (_) {}
   }
 }
-
-const translate = <String, String>{
-  'fr': 'from',
-  'dt': 'date',
-  'to': 'to',
-  'tt': 'time_type',
-  'stc': 'show_trackchanges',
-  'sd': 'show_delays',
-  'dpt': 'depart',
-  'arv': 'arrival'
-};
