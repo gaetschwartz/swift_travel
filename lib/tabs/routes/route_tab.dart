@@ -63,6 +63,8 @@ class Fetcher extends ChangeNotifier {
     final timeType = ref.watch(_timeTypeProvider).state;
     final _cff = ref.read(navigationAPIProvider);
 
+    print('Something changed checking if we need to rebuild');
+
     if (from.state is EmptyRouteState || to.state is EmptyRouteState) {
       if (from.state is EmptyRouteState && to.state is EmptyRouteState) {
         state = const RouteStates.empty();
@@ -138,12 +140,19 @@ class _RouteTabState extends State<RouteTab> with AutomaticKeepAliveClientMixin 
 
 class MyTextFormatter extends TextInputFormatter {
   final String currentLocation;
+  final TextControllerAndStateBinder binder;
+  final StateController<RouteTextfieldState> state;
 
-  MyTextFormatter(this.currentLocation);
+  MyTextFormatter(this.currentLocation, this.binder, this.state);
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    return oldValue.text == currentLocation ? TextEditingValue.empty : newValue;
+  TextEditingValue formatEditUpdate(oldValue, newValue) {
+    if (newValue.text.length != oldValue.text.length && oldValue.text == currentLocation) {
+      binder.clearWithoutContext(state);
+      return TextEditingValue.empty;
+    } else {
+      return newValue;
+    }
   }
 }
 
@@ -177,7 +186,8 @@ class _RoutePageState extends State<RoutePage> {
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
 
-  MyTextFormatter inputFormatter;
+  MyTextFormatter fromFormatter;
+  MyTextFormatter toFormatter;
   FavoritesSharedPreferencesStore store;
   NavigationApi api;
 
@@ -203,7 +213,10 @@ class _RoutePageState extends State<RoutePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    inputFormatter = MyTextFormatter(Strings.of(context).current_location);
+    fromFormatter = MyTextFormatter(
+        Strings.of(context).current_location, from, context.read(_fromTextfieldProvider));
+    toFormatter = MyTextFormatter(
+        Strings.of(context).current_location, to, context.read(_fromTextfieldProvider));
     store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     api = context.read(navigationAPIProvider);
     from.init(context);
@@ -425,14 +438,9 @@ class _RoutePageState extends State<RoutePage> {
             key: const Key('route-first-textfield-key'),
             debounceDuration: const Duration(milliseconds: 250),
             textFieldConfiguration: TextFieldConfiguration(
-              inputFormatters: [inputFormatter],
+              inputFormatters: [fromFormatter],
               focusNode: fnFrom,
               controller: from.controller,
-              onChanged: (s) {
-                if (s != currentLocationString) {
-                  context.read(_fromTextfieldProvider).state = RouteTextfieldState.text(s);
-                }
-              },
               onEditingComplete: () => fnTo.requestFocus(),
               textInputAction: TextInputAction.next,
               style: Theme.of(context).textTheme.bodyText1,
@@ -495,14 +503,9 @@ class _RoutePageState extends State<RoutePage> {
             key: const Key('route-second-textfield-key'),
             debounceDuration: const Duration(milliseconds: 250),
             textFieldConfiguration: TextFieldConfiguration(
-              inputFormatters: [inputFormatter],
+              inputFormatters: [toFormatter],
               textInputAction: TextInputAction.search,
               focusNode: fnTo,
-              onChanged: (s) {
-                if (s != currentLocationString) {
-                  context.read(_toTextfieldProvider).state = RouteTextfieldState.text(s);
-                }
-              },
               onEditingComplete: () => unFocusFields(),
               controller: to.controller,
               style: Theme.of(context).textTheme.bodyText1,
@@ -569,157 +572,180 @@ class RoutesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, w, _) {
-      final fetcher = w(_futureRouteProvider);
-      return fetcher.state.when(
-        routes: (routes) => routes.connections.isNotEmpty
-            ? ListView.builder(
-                // separatorBuilder: (c, i) => const Divider(height: 0),
-                shrinkWrap: true,
-                itemCount: routes == null ? 0 : routes.connections.length,
-                itemBuilder: (context, i) => RouteTile(
-                      key: Key('routetile-$i'),
-                      route: routes,
-                      i: i,
-                    ))
-            : Center(
-                child: Text(
-                  routes.messages.join('\n'),
-                  style: Theme.of(context).textTheme.headline6,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-        networkException: () => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Center(
-                    child: Text(
-                  '😢',
-                  style: TextStyle(fontSize: 96),
-                )),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Network Error',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ),
-          ],
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          collapsedHeight: 8,
+          toolbarHeight: 8,
+          pinned: true,
         ),
-        locationPermissionNotGranted: () => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 2,
+        Consumer(builder: (context, w, _) {
+          final fetcher = w(_futureRouteProvider);
+          return fetcher.state.when(
+            routes: (routes) => routes.connections.isNotEmpty
+                ? SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, i) => RouteTile(
+                        key: Key('routetile-$i'),
+                        route: routes,
+                        i: i,
+                      ),
+                      childCount: routes == null ? 0 : routes.connections.length,
+                    ),
+                  )
+                : SliverFillRemaining(
+                    child: Center(
+                      child: Text(
+                        routes.messages.join('\n'),
+                        style: Theme.of(context).textTheme.headline6,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+            networkException: () => SliverFillRemaining(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Center(
-                        child: Text(
-                      '🗺',
-                      style: TextStyle(fontSize: 80),
-                    )),
+                  const Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(
+                          child: Text(
+                        '😢',
+                        style: TextStyle(fontSize: 96),
+                      )),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      'This app requires location permissions !',
+                      'Network Error',
                       style: Theme.of(context).textTheme.headline6,
-                      textAlign: TextAlign.center,
                     ),
+                  ),
+                ],
+              ),
+            ),
+            locationPermissionNotGranted: () => SliverFillRemaining(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Center(
+                              child: Text(
+                            '🗺',
+                            style: TextStyle(fontSize: 80),
+                          )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            'This app requires location permissions !',
+                            style: Theme.of(context).textTheme.headline6,
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                      child: Center(
+                    child: Responsive.isDarwin(context)
+                        ? CupertinoButton.filled(
+                            onPressed: () => Geolocator.openAppSettings(),
+                            child: const Text('Open settings'))
+                        : ElevatedButton(
+                            onPressed: () => Geolocator.openAppSettings(),
+                            child: const Text('Open settings')),
+                  )),
+                ],
+              ),
+            ),
+            exception: (e) => SliverFillRemaining(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(
+                          child: Text(
+                        '😢',
+                        style: TextStyle(fontSize: 80),
+                      )),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        e.toString(),
+                        style: Theme.of(context).textTheme.headline6,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            loading: () =>
+                SliverFillRemaining(child: const Center(child: CircularProgressIndicator())),
+            empty: () => SliverFillRemaining(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    '🔎',
+                    style: TextStyle(fontSize: 48),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    Strings.of(context).find_a_route,
+                    style: Theme.of(context).textTheme.headline6,
+                    textAlign: TextAlign.center,
                   )
                 ],
               ),
             ),
-            Expanded(
-                child: Center(
-              child: Responsive.isDarwin(context)
-                  ? CupertinoButton.filled(
-                      onPressed: () => Geolocator.openAppSettings(),
-                      child: const Text('Open settings'))
-                  : ElevatedButton(
-                      onPressed: () => Geolocator.openAppSettings(),
-                      child: const Text('Open settings')),
-            )),
-          ],
-        ),
-        exception: (e) => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Center(
-                    child: Text(
-                  '😢',
-                  style: TextStyle(fontSize: 80),
-                )),
+            missingPluginException: () => SliverFillRemaining(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(
+                          child: Text(
+                        '😢',
+                        style: TextStyle(fontSize: 80),
+                      )),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Location is not supported on this device',
+                        style: Theme.of(context).textTheme.headline6,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  e.toString(),
-                  style: Theme.of(context).textTheme.headline6,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ],
-        ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        empty: () => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              '🔎',
-              style: TextStyle(fontSize: 48),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              Strings.of(context).find_a_route,
-              style: Theme.of(context).textTheme.headline6,
-              textAlign: TextAlign.center,
-            )
-          ],
-        ),
-        missingPluginException: () => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Center(
-                    child: Text(
-                  '😢',
-                  style: TextStyle(fontSize: 80),
-                )),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Location is not supported on this device',
-                  style: Theme.of(context).textTheme.headline6,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    });
+          );
+        }),
+      ],
+    );
   }
 }
 
@@ -741,7 +767,13 @@ class TextControllerAndStateBinder {
     controller.clear();
   }
 
+  void clearWithoutContext(StateController<RouteTextfieldState> sc) {
+    sc.state = const RouteTextfieldState.empty();
+    controller.clear();
+  }
+
   void setString(BuildContext context, String s) {
+    print('------Setting string to $text');
     context.read(provider).state = RouteTextfieldState.text(s);
     controller.text = s;
   }

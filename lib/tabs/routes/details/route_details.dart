@@ -1,10 +1,13 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math' as m;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/leg.dart';
@@ -47,6 +50,10 @@ class RouteDetails extends StatelessWidget {
             flexibleSpace: const SizedBox(),
             actions: <Widget>[
               IconButton(
+                  icon: const Icon(CupertinoIcons.game_controller),
+                  onPressed: () =>
+                      Navigator.of(context).push(CupertinoPageRoute(builder: (_) => Snecc_c_c()))),
+              IconButton(
                   icon: const Icon(CupertinoIcons.play_fill),
                   onPressed: () => openLive(context, conn)),
               if (isMobile || kIsWeb)
@@ -57,10 +64,7 @@ class RouteDetails extends StatelessWidget {
                     onPressed: () => _shareRoute(context))
             ]),
         SliverToBoxAdapter(
-          child: buildHeader(
-            context,
-            conn,
-          ),
+          child: buildHeader(context, conn),
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
@@ -86,40 +90,46 @@ class RouteDetails extends StatelessWidget {
   }
 
   Widget buildHeader(BuildContext context, RouteConnection c) {
-    return DecoratedBox(
-      decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
-      child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.bodyText1,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _dataRow(Strings.of(context).departure, _format(c.from)),
-              _dataRow(Strings.of(context).destination, _format(c.to)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(Strings.of(context).travel_duration),
-                  const SizedBox(width: 8),
-                  Expanded(
-                      child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                  text: '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
-                            ]),
-                            textAlign: TextAlign.end,
-                          )))
+    return Column(
+      children: [
+        DecoratedBox(
+          decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
+          child: DefaultTextStyle(
+            style: Theme.of(context).textTheme.bodyText1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _dataRow(Strings.of(context).departure, _format(c.from)),
+                  _dataRow(Strings.of(context).destination, _format(c.to)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(Strings.of(context).travel_duration),
+                      const SizedBox(width: 8),
+                      Expanded(
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(
+                                      text:
+                                          '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
+                                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                                  TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
+                                ]),
+                                textAlign: TextAlign.end,
+                              )))
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
+        Divider(),
+      ],
     );
   }
 
@@ -162,6 +172,257 @@ class RouteDetails extends StatelessWidget {
                 )))
       ],
     );
+  }
+}
+
+class Snecc_c_c extends StatefulWidget {
+  const Snecc_c_c({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _Snecc_c_cState createState() => _Snecc_c_cState();
+}
+
+@immutable
+class Pos {
+  final int x;
+  final int y;
+
+  const Pos(this.x, this.y);
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+
+    return o is Pos && o.x == x && o.y == y;
+  }
+
+  @override
+  int get hashCode => x.hashCode ^ y.hashCode;
+
+  @override
+  String toString() => 'Pos(x: $x, y: $y)';
+
+  Pos move(Direction dir) {
+    switch (dir) {
+      case Direction.up:
+        return Pos(x, y - 1);
+        break;
+      case Direction.down:
+        return Pos(x, y + 1);
+        break;
+      case Direction.right:
+        return Pos(x + 1, y);
+        break;
+      case Direction.left:
+        return Pos(x - 1, y);
+        break;
+    }
+    throw Exception();
+  }
+}
+
+enum Direction {
+  up,
+  down,
+  right,
+  left,
+}
+
+class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMixin {
+  final r = m.Random();
+  final snecc = ListQueue<Pos>();
+  Ticker ticker;
+  int tick = 0;
+  int speed = 300;
+  bool started = false;
+
+  final gridSize = 20;
+
+  Pos food;
+
+  Pos head;
+  Direction dir = Direction.up;
+
+  @override
+  void initState() {
+    super.initState();
+    ticker = createTicker(update)..stop();
+  }
+
+  @override
+  void dispose() {
+    ticker.dispose();
+    super.dispose();
+  }
+
+  void start() {
+    setState(() {
+      started = true;
+      head = Pos((gridSize / 2).round(), (gridSize / 2).round());
+      snecc.addAll([for (var i = 0; i < 5; i++) head]);
+      food = Pos(r.nextInt(gridSize), r.nextInt(gridSize));
+      dir = Direction.up;
+      speed = 300;
+      tick = 0;
+    });
+    ticker.start();
+  }
+
+  void update(Duration elapsed) {
+    final t = elapsed.inMilliseconds ~/ speed;
+    if (t != tick) {
+      head = head.move(dir);
+
+      snecc.removeFirst();
+      snecc.add(head);
+      var isHead = true;
+
+      for (var i = snecc.length - 1; i >= 0; i--) {
+        final body = snecc.elementAt(i);
+        if (body != head) {
+          isHead = false;
+        } else if (body == head && !isHead) {
+          print(snecc);
+          showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                    title: Text('You ate yourself !'),
+                  ));
+          stop();
+          setState(() => tick = t);
+          return;
+        }
+      }
+
+      if (food == head) {
+        snecc.add(head);
+        food = Pos(r.nextInt(gridSize), r.nextInt(gridSize));
+        speed += 50;
+      } else if (head.x >= gridSize || head.x < 0 || head.y >= gridSize || head.y < 0) {
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+                  title: Text('You lost !'),
+                ));
+        stop();
+      }
+      setState(() => tick = t);
+    }
+  }
+
+  void stop() {
+    ticker.stop();
+    snecc.clear();
+    setState(() {
+      started = false;
+      food = null;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Snecc game'),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: started ? Icon(Icons.stop) : Icon(Icons.play_arrow),
+          onPressed: started ? stop : start,
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox.expand(
+                  child: CustomPaint(
+                    painter: MyPainter(gridSize, snecc, food),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+                child: Column(
+              children: [
+                FlatButton(
+                  child: Text(
+                    '⬆️',
+                    style: TextStyle(fontSize: 48),
+                  ),
+                  onPressed: () => dir = Direction.up,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    FlatButton(
+                      child: Text(
+                        '⬅️',
+                        style: TextStyle(fontSize: 48),
+                      ),
+                      onPressed: () => dir = Direction.left,
+                    ),
+                    FlatButton(
+                      child: Text(
+                        '➡️',
+                        style: TextStyle(fontSize: 48),
+                      ),
+                      onPressed: () => dir = Direction.right,
+                    ),
+                  ],
+                ),
+                FlatButton(
+                  child: Text(
+                    '⬇️',
+                    style: TextStyle(fontSize: 48),
+                  ),
+                  onPressed: () => dir = Direction.down,
+                ),
+              ],
+            ))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyPainter extends CustomPainter {
+  final int gridSize;
+  final Queue<Pos> snecc;
+  final Pos food;
+
+  MyPainter(this.gridSize, this.snecc, this.food);
+
+  final p2 = Paint()..color = Colors.pink;
+  final fud = Paint()..color = Colors.blue;
+  final p = Paint()
+    ..color = Colors.black
+    ..strokeWidth = 1;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final l = size.shortestSide;
+    final block = l / gridSize;
+
+    for (var i = 0; i <= gridSize; i++) {
+      canvas.drawLine(Offset(0, i * block), Offset(gridSize * block, i * block), p);
+      canvas.drawLine(Offset(i * block, 0), Offset(i * block, gridSize * block), p);
+    }
+    for (var p in snecc) {
+      canvas.drawRect(Offset(p.x * block, p.y * block) & Size(block, block), p2);
+    }
+    if (food != null) {
+      canvas.drawRect(Offset(food.x * block, food.y * block) & Size(block, block), fud);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }
 
