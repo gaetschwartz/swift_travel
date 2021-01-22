@@ -235,7 +235,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
   final snecc = ListQueue<Pos>();
   Ticker ticker;
   int tick = 0;
-  int speed = 300;
+  double period = 300;
   bool started = false;
 
   final gridSize = 20;
@@ -264,14 +264,14 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
       snecc.addAll([for (var i = 0; i < 5; i++) head]);
       food = Pos(r.nextInt(gridSize), r.nextInt(gridSize));
       dir = Direction.up;
-      speed = 300;
+      period = 300;
       tick = 0;
     });
     ticker.start();
   }
 
   void update(Duration elapsed) {
-    final t = elapsed.inMilliseconds ~/ speed;
+    final t = elapsed.inMilliseconds ~/ period;
     if (t != tick) {
       head = head.move(dir);
 
@@ -299,7 +299,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
       if (food == head) {
         snecc.add(head);
         food = Pos(r.nextInt(gridSize), r.nextInt(gridSize));
-        speed += 50;
+        period *= 0.8;
       } else if (head.x >= gridSize || head.x < 0 || head.y >= gridSize || head.y < 0) {
         showDialog(
             context: context,
@@ -345,13 +345,15 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                 ),
               ),
             ),
+            SizedBox(height: 32),
             Column(
               children: [
-                FlatButton(
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(shape: CircleBorder()),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '⬆️',
+                      '↑',
                       style: TextStyle(fontSize: 32),
                     ),
                   ),
@@ -360,21 +362,23 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    FlatButton(
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(shape: CircleBorder()),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '⬅️',
+                          '←',
                           style: TextStyle(fontSize: 32),
                         ),
                       ),
                       onPressed: () => dir = Direction.left,
                     ),
-                    FlatButton(
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(shape: CircleBorder()),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '➡️',
+                          '→',
                           style: TextStyle(fontSize: 32),
                         ),
                       ),
@@ -382,11 +386,12 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                     ),
                   ],
                 ),
-                FlatButton(
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(shape: CircleBorder()),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '⬇️',
+                      '↓',
                       style: TextStyle(fontSize: 32),
                     ),
                   ),
