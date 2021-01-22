@@ -332,12 +332,12 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
           child: started ? Icon(Icons.stop) : Icon(Icons.play_arrow),
           onPressed: started ? stop : start,
         ),
-        body: Column(
+        body: ListView(
           children: [
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AspectRatio(
+                aspectRatio: 1,
                 child: SizedBox.expand(
                   child: CustomPaint(
                     painter: MyPainter(gridSize, snecc, food),
@@ -345,13 +345,15 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                 ),
               ),
             ),
-            Expanded(
-                child: Column(
+            Column(
               children: [
                 FlatButton(
-                  child: Text(
-                    '⬆️',
-                    style: TextStyle(fontSize: 48),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '⬆️',
+                      style: TextStyle(fontSize: 32),
+                    ),
                   ),
                   onPressed: () => dir = Direction.up,
                 ),
@@ -359,30 +361,39 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     FlatButton(
-                      child: Text(
-                        '⬅️',
-                        style: TextStyle(fontSize: 48),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '⬅️',
+                          style: TextStyle(fontSize: 32),
+                        ),
                       ),
                       onPressed: () => dir = Direction.left,
                     ),
                     FlatButton(
-                      child: Text(
-                        '➡️',
-                        style: TextStyle(fontSize: 48),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '➡️',
+                          style: TextStyle(fontSize: 32),
+                        ),
                       ),
                       onPressed: () => dir = Direction.right,
                     ),
                   ],
                 ),
                 FlatButton(
-                  child: Text(
-                    '⬇️',
-                    style: TextStyle(fontSize: 48),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '⬇️',
+                      style: TextStyle(fontSize: 32),
+                    ),
                   ),
                   onPressed: () => dir = Direction.down,
                 ),
               ],
-            ))
+            )
           ],
         ),
       ),
