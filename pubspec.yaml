@@ -20,7 +20,7 @@ dependencies:
     path: ../utils/utils
   vibration:
     path: ../vibration
-  android_intent: ^0.3.7+3
+  android_intent: ^2.0.0-nullsafety.2
   animations: ^1.1.2
   async: ^2.4.2
   cached_network_image: ^2.3.2+1
@@ -43,10 +43,10 @@ dependencies:
   modal_bottom_sheet: ^2.0.0-nullsafety.1
   pedantic: ^1.9.2
   quick_actions: ^0.4.0+8
-  share: ^0.6.5+2
+  share: ^2.0.0-nullsafety.2
   shared_preferences: ^0.5.6+3
   url_launcher: ^6.0.0-nullsafety.1
-  url_strategy: ^0.1.1
+  url_strategy: ^0.2.0-nullsafety.0
 
 dev_dependencies:
   flutter_driver:

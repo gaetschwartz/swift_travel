@@ -21,7 +21,7 @@ packages:
       name: android_intent
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.7+7"
+    version: "2.0.0-nullsafety.2"
   animations:
     dependency: "direct main"
     description:
@@ -91,7 +91,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.13"
+    version: "1.11.0"
   build_runner_core:
     dependency: transitive
     description:
@@ -597,14 +597,14 @@ packages:
       name: mime
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.7"
+    version: "1.0.0-nullsafety.0"
   mockito:
     dependency: "direct dev"
     description:
       name: mockito
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.4"
+    version: "5.0.0-nullsafety.5"
   modal_bottom_sheet:
     dependency: "direct main"
     description:
@@ -779,7 +779,7 @@ packages:
       name: share
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.5+4"
+    version: "2.0.0-nullsafety.2"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1036,7 +1036,7 @@ packages:
       name: url_strategy
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.2.0-nullsafety.0"
   utils:
     dependency: "direct main"
     description:
