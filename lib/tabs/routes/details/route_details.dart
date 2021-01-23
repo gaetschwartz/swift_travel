@@ -299,7 +299,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
       if (food == head) {
         snecc.add(head);
         food = Pos(r.nextInt(gridSize), r.nextInt(gridSize));
-        period *= 0.8;
+        if (period >= 175) period -= 25;
       } else if (head.x >= gridSize || head.x < 0 || head.y >= gridSize || head.y < 0) {
         showDialog(
             context: context,

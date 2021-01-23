@@ -19,9 +19,10 @@ class _$RouteTextfieldStateTearOff {
   }
 
 // ignore: unused_element
-  TextRouteState text(String text) {
+  TextRouteState text(String text, {bool doLoad = true}) {
     return TextRouteState(
       text,
+      doLoad: doLoad,
     );
   }
 
@@ -40,13 +41,13 @@ mixin _$RouteTextfieldState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult empty(),
-    @required TResult text(String text),
+    @required TResult text(String text, bool doLoad),
     @required TResult useCurrentLocation(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult empty(),
-    TResult text(String text),
+    TResult text(String text, bool doLoad),
     TResult useCurrentLocation(),
     @required TResult orElse(),
   });
@@ -122,7 +123,7 @@ class _$EmptyRouteState implements EmptyRouteState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult empty(),
-    @required TResult text(String text),
+    @required TResult text(String text, bool doLoad),
     @required TResult useCurrentLocation(),
   }) {
     assert(empty != null);
@@ -135,7 +136,7 @@ class _$EmptyRouteState implements EmptyRouteState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult empty(),
-    TResult text(String text),
+    TResult text(String text, bool doLoad),
     TResult useCurrentLocation(),
     @required TResult orElse(),
   }) {
@@ -184,7 +185,7 @@ abstract class $TextRouteStateCopyWith<$Res> {
   factory $TextRouteStateCopyWith(
           TextRouteState value, $Res Function(TextRouteState) then) =
       _$TextRouteStateCopyWithImpl<$Res>;
-  $Res call({String text});
+  $Res call({String text, bool doLoad});
 }
 
 /// @nodoc
@@ -201,23 +202,30 @@ class _$TextRouteStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object text = freezed,
+    Object doLoad = freezed,
   }) {
     return _then(TextRouteState(
       text == freezed ? _value.text : text as String,
+      doLoad: doLoad == freezed ? _value.doLoad : doLoad as bool,
     ));
   }
 }
 
 /// @nodoc
 class _$TextRouteState implements TextRouteState {
-  const _$TextRouteState(this.text) : assert(text != null);
+  const _$TextRouteState(this.text, {this.doLoad = true})
+      : assert(text != null),
+        assert(doLoad != null);
 
   @override
   final String text;
+  @JsonKey(defaultValue: true)
+  @override
+  final bool doLoad;
 
   @override
   String toString() {
-    return 'RouteTextfieldState.text(text: $text)';
+    return 'RouteTextfieldState.text(text: $text, doLoad: $doLoad)';
   }
 
   @override
@@ -225,12 +233,16 @@ class _$TextRouteState implements TextRouteState {
     return identical(this, other) ||
         (other is TextRouteState &&
             (identical(other.text, text) ||
-                const DeepCollectionEquality().equals(other.text, text)));
+                const DeepCollectionEquality().equals(other.text, text)) &&
+            (identical(other.doLoad, doLoad) ||
+                const DeepCollectionEquality().equals(other.doLoad, doLoad)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(text);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(text) ^
+      const DeepCollectionEquality().hash(doLoad);
 
   @JsonKey(ignore: true)
   @override
@@ -241,26 +253,26 @@ class _$TextRouteState implements TextRouteState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult empty(),
-    @required TResult text(String text),
+    @required TResult text(String text, bool doLoad),
     @required TResult useCurrentLocation(),
   }) {
     assert(empty != null);
     assert(text != null);
     assert(useCurrentLocation != null);
-    return text(this.text);
+    return text(this.text, doLoad);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult empty(),
-    TResult text(String text),
+    TResult text(String text, bool doLoad),
     TResult useCurrentLocation(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (text != null) {
-      return text(this.text);
+      return text(this.text, doLoad);
     }
     return orElse();
   }
@@ -295,9 +307,10 @@ class _$TextRouteState implements TextRouteState {
 }
 
 abstract class TextRouteState implements RouteTextfieldState {
-  const factory TextRouteState(String text) = _$TextRouteState;
+  const factory TextRouteState(String text, {bool doLoad}) = _$TextRouteState;
 
   String get text;
+  bool get doLoad;
   @JsonKey(ignore: true)
   $TextRouteStateCopyWith<TextRouteState> get copyWith;
 }
@@ -342,7 +355,7 @@ class _$UseCurrentLocation implements UseCurrentLocation {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult empty(),
-    @required TResult text(String text),
+    @required TResult text(String text, bool doLoad),
     @required TResult useCurrentLocation(),
   }) {
     assert(empty != null);
@@ -355,7 +368,7 @@ class _$UseCurrentLocation implements UseCurrentLocation {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult empty(),
-    TResult text(String text),
+    TResult text(String text, bool doLoad),
     TResult useCurrentLocation(),
     @required TResult orElse(),
   }) {

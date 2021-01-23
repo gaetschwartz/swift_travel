@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -28,6 +29,7 @@ import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/mocking.dart';
 import 'package:theming/dialogs/datepicker.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dynamic_theme.dart';
@@ -68,7 +70,10 @@ class Fetcher extends ChangeNotifier {
     if (from.state is EmptyRouteState || to.state is EmptyRouteState) {
       if (from.state is EmptyRouteState && to.state is EmptyRouteState) {
         state = const RouteStates.empty();
+        return;
       }
+    } else if (from.state.maybeWhen(text: (_, l) => !l, orElse: () => false) ||
+        to.state.maybeWhen(text: (_, l) => !l, orElse: () => false)) {
       return;
     } else {
       state = const RouteStates.loading();
@@ -79,7 +84,7 @@ class Fetcher extends ChangeNotifier {
     try {
       final departure = await from.state.when<FutureOr<String>>(
         empty: () => null,
-        text: (t) => t,
+        text: (t, l) => t,
         useCurrentLocation: () async {
           p ??= await LocationRepository.getLocation();
           return '${p.latitude},${p.longitude}';
@@ -87,7 +92,7 @@ class Fetcher extends ChangeNotifier {
       );
       final arrival = await to.state.when<FutureOr<String>>(
         empty: () => null,
-        text: (t) => t,
+        text: (t, l) => t,
         useCurrentLocation: () async {
           p ??= await LocationRepository.getLocation();
           return '${p.latitude},${p.longitude}';
@@ -362,9 +367,19 @@ class _RoutePageState extends State<RoutePage> {
                         onLongPress: kDebugMode
                             ? () {
                                 unFocusFields();
-                                from.setString(context,
-                                    'Université de Genève, Genève, Rue du Général-Dufour 24');
-                                to.setString(context, 'Badenerstrasse 549, 8048 Zürich');
+                                from.setString(
+                                  context,
+                                  'Université de Genève, Genève, Rue du Général-Dufour 24',
+                                  doLoad: false,
+                                );
+                                to.setString(
+                                  context,
+                                  'Badenerstrasse 549, 8048 Zürich',
+                                  doLoad: false,
+                                );
+
+                                context.read(_futureRouteProvider).state =
+                                    RouteStates.routes(CffRoute.fromJson(mockRoute));
                               }
                             : null,
                         style: TextButton.styleFrom(
@@ -599,11 +614,14 @@ class RoutesView extends StatelessWidget {
                       ),
                     )
                   : SliverFillRemaining(
-                      child: Center(
-                        child: Text(
-                          routes.messages.join('\n'),
-                          style: Theme.of(context).textTheme.headline6,
-                          textAlign: TextAlign.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(
+                            routes.messages.join('\n'),
+                            style: Theme.of(context).textTheme.headline6,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
@@ -773,9 +791,8 @@ class TextControllerAndStateBinder {
     controller.clear();
   }
 
-  void setString(BuildContext context, String s) {
-    print('------Setting string to $text');
-    context.read(provider).state = RouteTextfieldState.text(s);
+  void setString(BuildContext context, String s, {bool doLoad = true}) {
+    context.read(provider).state = RouteTextfieldState.text(s, doLoad: doLoad);
     controller.text = s;
   }
 
@@ -787,7 +804,7 @@ class TextControllerAndStateBinder {
   void _setController(RouteTextfieldState state, BuildContext context) {
     controller.text = state.when(
       empty: () => '',
-      text: (t) => t,
+      text: (t, l) => t,
       useCurrentLocation: () => computeCurrentLocation(context),
     );
   }

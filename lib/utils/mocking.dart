@@ -7,7 +7,7 @@ const mockRoute = kDebugMode
         'rawtime': 13440,
         'max_duration': 14220,
         'maxtime': 14220,
-        'connections': [
+        'connections': <Map<String, dynamic>>[
           {
             'from': 'Université de Genève, Genève, Rue du Général-Dufour 24',
             'departure': '2021-01-23 19:09:00',
@@ -553,9 +553,6 @@ const mockRoute = kDebugMode
               }
             ]
           },
-          {},
-          {},
-          {}
         ],
         'url':
             'https://timetable.search.ch/Universit%C3%A9-de-Gen%C3%A8ve,Gen%C3%A8ve,Rue-du-G%C3%A9n%C3%A9ral-Dufour-24..Z%C3%BCrich,Badenerstr.549?time=19.6&date=1%2F23%2F2021',
