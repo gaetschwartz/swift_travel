@@ -10,6 +10,7 @@ class Env {
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
 
   static String get env => {
+        'RELEASE_MODE' : isReleaseMode,
         'OVERRIDE_PLATFORM': overridePlatform,
         'PAGE': page,
         'CORRUPT_FAVORITES': corruptedFavorites,
