@@ -19,6 +19,7 @@ import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/choice_page.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 import 'package:swift_travel/utils/search.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
@@ -118,7 +119,7 @@ class _SettingsState extends State<Settings> {
     (_) => const _FontWeightWidget(),
     (context) => _SectionTitle(title: Text(Strings.of(context).themes)),
     (_) => const _ThemesSection(),
-    (context) => (!kReleaseMode || Theme.of(context).platform == TargetPlatform.iOS)
+    (context) => (isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
         ? Column(children: [
             const Divider(),
             Consumer(builder: (context, w, _) {
@@ -163,7 +164,7 @@ class _SettingsState extends State<Settings> {
               );
             })
           ])
-        : null,
+        : SizedBox(),
     (_) => const Divider(),
     (_) => Consumer(builder: (context, w, _) {
           final prefs = w(preferencesProvider);
@@ -231,7 +232,7 @@ class _SettingsState extends State<Settings> {
           unawaited(SystemNavigator.pop(animated: true));
         }),
     (_) => const Divider(),
-    (context) => (kDebugMode)
+    (context) => (isDebugMode)
         ? Column(children: [
             _SectionTitle(title: Text(Strings.of(context).developer)),
             ListTile(
@@ -267,7 +268,7 @@ class _SettingsState extends State<Settings> {
                   FirebaseCrashlytics.instance.crash();
                 }),
           ])
-        : null,
+        : SizedBox(),
     (_) => const ListTile(
           isThreeLine: true,
           dense: true,

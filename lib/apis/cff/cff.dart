@@ -138,7 +138,7 @@ class CffApi extends NavigationApi {
     final params = {
       'from': departure,
       'to': arrival,
-      'date': '${date.day}/${date.hour}/${date.year}',
+      'date': '${date.month}/${date.day}/${date.year}',
       'time': '${time.hour}:${time.minute}',
       'time_type': describeEnum(typeTime),
       'show_trackchanges': 1,
@@ -158,7 +158,8 @@ class CffApi extends NavigationApi {
     }
     final stopwatch = Stopwatch()..start();
     final map = jsonDecode(response.body) as Map<String, dynamic>;
-    log('decode took ${stopwatch..stop()..elapsedMilliseconds} ms');
+    stopwatch.stop();
+    log('decode took ${stopwatch.elapsedMilliseconds} ms');
 
     return CffRoute.fromJson(map).copyWith(requestUrl: query);
   }

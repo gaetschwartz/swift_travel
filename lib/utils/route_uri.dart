@@ -41,7 +41,7 @@ Map<String, String> decodeRouteUri(Uri uri) {
     params[translate[e.key] ?? e.key] = translate[e.value] ?? e.value;
   }
 
-  params['date'] = '${date.day}/${date.month}/${date.year}';
+  params['date'] = '${date.month}/${date.day}/${date.year}';
   params['time'] = '${date.hour}:${date.minute}';
 
   if (!params.containsKey('from') ||
@@ -52,8 +52,10 @@ Map<String, String> decodeRouteUri(Uri uri) {
   return params;
 }
 
-DateTime parseDateTime(Map<String, String> oldParams) =>
-    DateTime.fromMillisecondsSinceEpoch(int.parse(oldParams['dtm'], radix: 32) * 1000);
+DateTime parseDateTime(Map<String, String> oldParams) {
+  final millis = int.parse(oldParams['dtm'], radix: 32) * 1000;
+  return DateTime.fromMillisecondsSinceEpoch(millis);
+}
 
 Map<String, String> encodeRouteUri(Uri uri, int i) {
   final params = <String, String>{};
@@ -64,10 +66,14 @@ Map<String, String> encodeRouteUri(Uri uri, int i) {
   final time = oldParams['time'].split(':');
   if (time.length != 2) throw FormatException('Time is supposed to contain 2 parts');
 
+  final year = int.parse(date[2]);
+  final month = int.parse(date[0]);
+  final day = int.parse(date[1]);
+
   final datetime = DateTime(
-    int.parse(date[2]),
-    int.parse(date[1]),
-    int.parse(date[0]),
+    year,
+    month,
+    day,
     int.parse(time[0]),
     int.parse(time[1]),
   );

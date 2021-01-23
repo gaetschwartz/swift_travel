@@ -99,7 +99,7 @@ class LocationRepository {
             return null;
           }
         } else {
-          throw Exception("Failed to locate, didn't have the required permissions : $permission");
+          throw PermissionDeniedException(permission.toString());
         }
       } on MissingPluginException {
         return null;

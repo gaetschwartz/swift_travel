@@ -40,13 +40,11 @@ abstract class NavigationApi {
   static NavigationApiFactory getFactory(NavigationApiType api) {
     switch (api) {
       case NavigationApiType.sncf:
-        log('Using sncf repository');
         return sncfFactory;
       case NavigationApiType.cff:
-      default:
-        log('Using cff repository');
         return cffFactory;
     }
+    throw Exception('Unexpected NavigationApiType value: $api');
   }
 
   Future<List<CffCompletion>> complete(

@@ -10,6 +10,15 @@
       "type": "dart",
     },
     {
+      "name": "Launch (release)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "RELEASE_MODE=true"
+      ]
+    },
+    {
       "name": "Launch (spoof loc)",
       "request": "launch",
       "type": "dart",

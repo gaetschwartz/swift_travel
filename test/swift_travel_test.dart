@@ -249,7 +249,7 @@ void main() {
         {
           'from': 'Genève Aéroport',
           'to': 'Berne',
-          'date': '30/1/2021',
+          'date': '1/30/2021',
           'time': '13:46',
           'time_type': describeEnum(TimeType.arrival),
           'show_trackchanges': 1,
@@ -258,7 +258,7 @@ void main() {
         {
           'from': 'Université de Genève, Genève, Rue du Général-Dufour 24',
           'to': 'Badenerstrasse 549, 8048 Zürich',
-          'date': '31/12/2021',
+          'date': '12/31/2021',
           'time': '0:0',
           'time_type': describeEnum(TimeType.depart),
           'show_trackchanges': 0,

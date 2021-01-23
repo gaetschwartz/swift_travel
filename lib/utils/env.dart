@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
+
 class Env {
   const Env._();
+  static const isReleaseMode = bool.fromEnvironment('RELEASE_MODE');
   static const overridePlatform = bool.fromEnvironment('OVERRIDE_PLATFORM');
   static const page = String.fromEnvironment('PAGE');
   static const corruptedFavorites = bool.fromEnvironment('CORRUPT_FAVORITES');
@@ -14,3 +17,5 @@ class Env {
         'SPOOF_LOCATION': spoofLocation,
       }.toString();
 }
+
+const isDebugMode = kDebugMode && !Env.isReleaseMode;
