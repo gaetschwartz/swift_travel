@@ -10,6 +10,7 @@ import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
+import 'package:vibration/vibration.dart';
 
 class FavoriteStationTile extends StatelessWidget {
   final FavoriteStop stop;
@@ -36,6 +37,7 @@ class FavoriteStationTile extends StatelessWidget {
   }
 
   void edit(BuildContext context) {
+    Vibration.select();
     showCupertinoModalBottomSheet(
       context: context,
       expand: false,

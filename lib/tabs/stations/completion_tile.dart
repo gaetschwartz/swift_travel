@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
@@ -97,6 +98,7 @@ class CffCompletionTile extends ConsumerWidget {
     @required FavoritesSharedPreferencesStore store,
   }) async {
     FocusManager.instance.primaryFocus?.unfocus();
+    unawaited(Vibration.select());
     final c = await showCupertinoModalBottomSheet<_Actions>(
         context: context,
         expand: false,
