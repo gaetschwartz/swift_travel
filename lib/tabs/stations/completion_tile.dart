@@ -3,15 +3,13 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:swift_travel/utils/no_splash.dart';
+import 'package:swift_travel/widgets/actionsheet.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
-import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -99,29 +97,20 @@ class CffCompletionTile extends ConsumerWidget {
   }) async {
     FocusManager.instance.primaryFocus?.unfocus();
     unawaited(Vibration.select());
-    final c = await showCupertinoModalBottomSheet<_Actions>(
-        context: context,
-        expand: false,
-        backgroundColor: Colors.transparent,
-        useRootNavigator: true,
-        builder: (context) => ActionsSheet(
-              actions: [
-                ActionsSheetAction(
-                  title: isFav
-                      ? Text(Strings.of(context).remove_from_favoruites)
-                      : Text(Strings.of(context).add_to_favs),
-                  icon: isFav
-                      ? const Icon(CupertinoIcons.heart_slash)
-                      : const Icon(CupertinoIcons.heart),
-                  onTap: () => Navigator.of(context).pop(_Actions.favorite),
-                ),
-                ActionsSheetAction(
-                  title: Text(Strings.of(context).close),
-                  icon: const Icon(CupertinoIcons.xmark),
-                  onTap: () => Navigator.of(context).pop(),
-                )
-              ],
-            ));
+    final c = await showActionSheet(context, [
+      ActionsSheetAction(
+        title: isFav
+            ? Text(Strings.of(context).remove_from_favoruites)
+            : Text(Strings.of(context).add_to_favs),
+        icon: isFav ? const Icon(CupertinoIcons.heart_slash) : const Icon(CupertinoIcons.heart),
+        onTap: () => Navigator.of(context).pop(_Actions.favorite),
+      ),
+      ActionsSheetAction(
+        title: Text(Strings.of(context).close),
+        icon: const Icon(CupertinoIcons.xmark),
+        onTap: () => Navigator.of(context).pop(),
+      )
+    ]);
 
     switch (c) {
       case _Actions.favorite:
@@ -143,62 +132,5 @@ class CffCompletionTile extends ConsumerWidget {
       if (name == null) return;
       await store.addStop(sugg.toFavoriteStop(name: name));
     }
-  }
-}
-
-@immutable
-class ActionsSheetAction {
-  final Widget title;
-  final VoidCallback onTap;
-  final Widget icon;
-
-  const ActionsSheetAction({@required this.title, this.onTap, this.icon});
-}
-
-class ActionsSheet extends StatelessWidget {
-  const ActionsSheet({
-    Key key,
-    @required this.actions,
-  }) : super(key: key);
-
-  final List<ActionsSheetAction> actions;
-
-  @override
-  Widget build(BuildContext context) {
-    final isDarwin = Responsive.isDarwin(context);
-
-    return IfWrapper(
-      condition: isDarwin,
-      builder: (context, child) =>
-          Theme(data: ThemeData(splashFactory: const NoSplashFactory()), child: child),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Material(
-          color: Theme.of(context).dialogBackgroundColor.withOpacity(0.8),
-          child: SafeArea(
-            top: false,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                for (var a in actions) ...[
-                  ListTile(
-                    leading: IconTheme(
-                        data: IconThemeData(color: CupertinoTheme.of(context).primaryColor),
-                        child: a.icon),
-                    title: isDarwin
-                        ? DefaultTextStyle(
-                            style: CupertinoTheme.of(context).textTheme.actionTextStyle,
-                            child: a.title)
-                        : a.title,
-                    onTap: a.onTap,
-                  ),
-                  const Divider(height: 0, indent: 8, endIndent: 8),
-                ]
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
