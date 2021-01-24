@@ -164,7 +164,7 @@ class _SettingsState extends State<Settings> {
               );
             })
           ])
-        : SizedBox(),
+        : const SizedBox(),
     (_) => const Divider(),
     (_) => Consumer(builder: (context, w, _) {
           final prefs = w(preferencesProvider);
@@ -239,7 +239,7 @@ class _SettingsState extends State<Settings> {
                 leading: const Icon(Icons.search),
                 title: const Text('texst'),
                 onTap: () async {
-                  final s = await input(context, title: Text('la question'));
+                  final s = await input(context, title: const Text('la question'));
                   if (s == null) return;
                   print(s);
                   final out = decodeRouteUri(Uri.parse(s));
@@ -268,7 +268,7 @@ class _SettingsState extends State<Settings> {
                   FirebaseCrashlytics.instance.crash();
                 }),
           ])
-        : SizedBox(),
+        : const SizedBox(),
     (_) => const ListTile(
           isThreeLine: true,
           dense: true,

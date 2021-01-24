@@ -52,8 +52,8 @@ class RouteDetails extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                   icon: const Icon(CupertinoIcons.game_controller),
-                  onPressed: () =>
-                      Navigator.of(context).push(CupertinoPageRoute(builder: (_) => Snecc_c_c()))),
+                  onPressed: () => Navigator.of(context)
+                      .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c()))),
               IconButton(
                   icon: const Icon(CupertinoIcons.play_fill),
                   onPressed: () => openLive(context, conn)),
@@ -127,7 +127,7 @@ class RouteDetails extends StatelessWidget {
             ),
           ),
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }
@@ -286,7 +286,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
           print(snecc);
           showDialog(
               context: context,
-              builder: (_) => AlertDialog(
+              builder: (_) => const AlertDialog(
                     title: Text('You ate yourself !'),
                   ));
           stop();
@@ -302,7 +302,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
       } else if (head.x >= gridSize || head.x < 0 || head.y >= gridSize || head.y < 0) {
         showDialog(
             context: context,
-            builder: (_) => AlertDialog(
+            builder: (_) => const AlertDialog(
                   title: Text('You lost !'),
                 ));
         stop();
@@ -325,10 +325,10 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Snecc game'),
+          title: const Text('Snecc game'),
         ),
         floatingActionButton: FloatingActionButton(
-          child: started ? Icon(Icons.stop) : Icon(Icons.play_arrow),
+          child: started ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
           onPressed: started ? stop : start,
         ),
         body: ListView(
@@ -344,13 +344,13 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                 ),
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             Column(
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(shape: CircleBorder()),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       '↑',
                       style: TextStyle(fontSize: 32),
@@ -362,9 +362,9 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(shape: CircleBorder()),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                           '←',
                           style: TextStyle(fontSize: 32),
@@ -373,9 +373,9 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                       onPressed: () => dir = Direction.left,
                     ),
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(shape: CircleBorder()),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                           '→',
                           style: TextStyle(fontSize: 32),
@@ -386,9 +386,9 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                   ],
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(shape: CircleBorder()),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       '↓',
                       style: TextStyle(fontSize: 32),

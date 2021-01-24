@@ -6,6 +6,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
@@ -37,32 +38,25 @@ class FavoriteStationTile extends StatelessWidget {
   void edit(BuildContext context) {
     showCupertinoModalBottomSheet(
       context: context,
-      duration: const Duration(milliseconds: 200),
       expand: false,
-      builder: (context) => Material(
-          child: SafeArea(
-        top: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              title: Text(Strings.of(context).rename),
-              leading: const Icon(CupertinoIcons.pencil),
-              onTap: () => rename(context),
-            ),
-            ListTile(
-              title: Text(Strings.of(context).delete),
-              leading: const Icon(CupertinoIcons.delete),
-              onTap: () => delete(context),
-            ),
-            ListTile(
-              title: Text(Strings.of(context).close),
-              leading: const Icon(CupertinoIcons.xmark),
-              onTap: () => Navigator.of(context).pop(),
-            ),
-          ],
+      useRootNavigator: true,
+      builder: (context) => ActionsSheet(actions: [
+        ActionsSheetAction(
+          title: Text(Strings.of(context).rename),
+          icon: const Icon(CupertinoIcons.pencil),
+          onTap: () => rename(context),
         ),
-      )),
+        ActionsSheetAction(
+          title: Text(Strings.of(context).delete),
+          icon: const Icon(CupertinoIcons.delete),
+          onTap: () => delete(context),
+        ),
+        ActionsSheetAction(
+          title: Text(Strings.of(context).close),
+          icon: const Icon(CupertinoIcons.xmark),
+          onTap: () => Navigator.of(context).pop(),
+        ),
+      ]),
     );
   }
 

@@ -593,7 +593,7 @@ class RoutesView extends StatelessWidget {
       return fetcher.state.when(
         routes: (routes) => CustomScrollView(
           slivers: [
-            SliverAppBar(
+            const SliverAppBar(
               collapsedHeight: 8,
               toolbarHeight: 8,
               pinned: true,
@@ -689,7 +689,7 @@ class RoutesView extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         shadowColor: DynamicTheme.shadowOf(context).buttonShadow.color,
                         elevation: 8,
-                        shape: StadiumBorder(),
+                        shape: const StadiumBorder(),
                       ),
                     ),
             )),
