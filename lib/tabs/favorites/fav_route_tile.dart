@@ -14,13 +14,16 @@ class FavoriteRouteTile extends StatelessWidget {
 
   final LocalRoute route;
 
+  String threeDots(String s, {int size = 16, String trailing = '...'}) =>
+      s.length > size - trailing.length ? s.substring(0, size - trailing.length) + trailing : s;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: const Icon(FontAwesomeIcons.route),
-      isThreeLine: true,
       title: Text(route.displayName),
-      subtitle: Text('${route.from} ➡ ${route.to}'),
+      dense: true,
+      subtitle: Text('${threeDots(route.from, size: 32)} ➡ ${threeDots(route.to, size: 32)}'),
       trailing: IconButton(
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () {

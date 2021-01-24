@@ -43,6 +43,40 @@ class ActionsSheet<T> extends StatelessWidget {
 
   final List<ActionsSheetAction<T>> actions;
 
+  List<Widget> buildChildren(BuildContext context, {@required bool isDarwin}) {
+    final l = <Widget>[];
+    for (var i = 0; i < actions.length; i++) {
+      final a = actions[i];
+      l.add(ListTile(
+        leading: a.icon == null
+            ? null
+            : isDarwin
+                ? IconTheme(
+                    data: IconThemeData(
+                        color: a.isDestructive
+                            ? CupertinoColors.destructiveRed
+                            : CupertinoTheme.of(context).primaryColor),
+                    child: a.icon,
+                  )
+                : a.icon,
+        title: isDarwin
+            ? DefaultTextStyle(
+                style: CupertinoTheme.of(context).textTheme.actionTextStyle.copyWith(
+                      color: a.isDestructive ? CupertinoColors.destructiveRed : null,
+                      fontWeight: a.isDefault ? FontWeight.bold : null,
+                    ),
+                child: a.title)
+            : a.title,
+        onTap: () async {
+          final value = await a.onTap?.call();
+          Navigator.of(context).pop<T>(value);
+        },
+      ));
+      if (i < actions.length - 1) l.add(const Divider(height: 0, indent: 8, endIndent: 8));
+    }
+    return l;
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
@@ -60,36 +94,7 @@ class ActionsSheet<T> extends StatelessWidget {
           top: false,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              for (var a in actions) ...[
-                ListTile(
-                  leading: a.icon == null
-                      ? null
-                      : isDarwin
-                          ? IconTheme(
-                              data: IconThemeData(
-                                  color: a.isDestructive
-                                      ? CupertinoColors.destructiveRed
-                                      : CupertinoTheme.of(context).primaryColor),
-                              child: a.icon,
-                            )
-                          : a.icon,
-                  title: isDarwin
-                      ? DefaultTextStyle(
-                          style: CupertinoTheme.of(context).textTheme.actionTextStyle.copyWith(
-                                color: a.isDestructive ? CupertinoColors.destructiveRed : null,
-                                fontWeight: a.isDefault ? FontWeight.bold : null,
-                              ),
-                          child: a.title)
-                      : a.title,
-                  onTap: () async {
-                    final value = await a.onTap?.call();
-                    Navigator.of(context).pop<T>(value);
-                  },
-                ),
-                const Divider(height: 0, indent: 8, endIndent: 8),
-              ]
-            ],
+            children: buildChildren(context, isDarwin: isDarwin),
           ),
         ),
       ),

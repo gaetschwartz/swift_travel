@@ -6,7 +6,6 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
-import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
@@ -23,33 +22,20 @@ class FavoriteStationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
-    return IfWrapper(
-      condition: isDarwin,
-      builder: (context, child) => Column(
+    return ListTile(
+      leading: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Divider(height: 0, indent: 8, endIndent: 8),
-          child,
-          const Divider(height: 0, indent: 8, endIndent: 8),
+          isDarwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(FontAwesomeIcons.solidStar),
         ],
       ),
-      child: ListTile(
-        leading: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            isDarwin
-                ? const Icon(CupertinoIcons.heart_fill)
-                : const Icon(FontAwesomeIcons.solidStar),
-          ],
-        ),
-        onTap: () =>
-            Navigator.of(context, rootNavigator: true).pushNamed('/route', arguments: stop),
-        onLongPress: () => edit(context),
-        trailing: IconButton(
-            icon: isDarwin ? const Icon(CupertinoIcons.pencil) : const Icon(Icons.edit),
-            onPressed: () => edit(context)),
-        title: Text(stop.name),
-        subtitle: Text(stop.stop),
-      ),
+      onTap: () => Navigator.of(context, rootNavigator: true).pushNamed('/route', arguments: stop),
+      onLongPress: () => edit(context),
+      trailing: IconButton(
+          icon: isDarwin ? const Icon(CupertinoIcons.pencil) : const Icon(Icons.edit),
+          onPressed: () => edit(context)),
+      title: Text(stop.name),
+      subtitle: Text(stop.stop),
     );
   }
 

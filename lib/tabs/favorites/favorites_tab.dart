@@ -63,46 +63,50 @@ class _FavoritesTabState extends State<FavoritesTab>
       body: IfWrapper(
         condition: isDarwin,
         builder: (context, child) => CupertinoPageScaffold(child: child),
-        child: SizedBox(
-          width: double.infinity,
-          child: Consumer(builder: (context, w, _) {
-            final favs = w(favoritesStatesProvider);
-            final favRoutes = w(favoritesRoutesStatesProvider);
-            final stops =
-                favs.state.maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
-            final routes =
-                favRoutes.state.maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
-            return stops.isEmpty && routes.isEmpty
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        '⭐',
-                        style: TextStyle(fontSize: 64),
-                      ),
-                      const SizedBox(height: 32),
-                      Text(
-                        'You have no favorites !',
-                        style: Theme.of(context).textTheme.headline5,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'You can add one by tapping the ➕ button.',
-                        style: Theme.of(context).textTheme.subtitle1,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  )
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: stops.length + routes.length,
-                    itemBuilder: (context, i) => i < stops.length
+        child: Consumer(builder: (context, w, _) {
+          final favs = w(favoritesStatesProvider);
+          final favRoutes = w(favoritesRoutesStatesProvider);
+          final stops = favs.state.maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
+          final routes =
+              favRoutes.state.maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
+          return stops.isEmpty && routes.isEmpty
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      '⭐',
+                      style: TextStyle(fontSize: 64),
+                    ),
+                    const SizedBox(height: 32),
+                    Text(
+                      'You have no favorites !',
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'You can add one by tapping the ➕ button.',
+                      style: Theme.of(context).textTheme.subtitle1,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                )
+              : ListView.builder(
+                  itemCount: stops.length + routes.length,
+                  itemBuilder: (context, i) => IfWrapper(
+                    condition: isDarwin,
+                    builder: (context, child) => Column(
+                      children: [
+                        const Divider(height: 0),
+                        child,
+                      ],
+                    ),
+                    child: i < stops.length
                         ? FavoriteStationTile(stops[i])
                         : FavoriteRouteTile(routes[i - stops.length]),
-                  );
-          }),
-        ),
+                  ),
+                );
+        }),
       ),
     );
   }

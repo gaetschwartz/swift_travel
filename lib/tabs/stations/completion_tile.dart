@@ -58,7 +58,7 @@ class CffCompletionTile extends ConsumerWidget {
         title: Text((isFav ? sugg.favoriteName : sugg.label) ?? '???'),
         subtitle: isFav
             ? sugg.label != null
-                ? Text(sugg.label)
+                ? Text(sugg.label, overflow: TextOverflow.ellipsis)
                 : null
             : sugg.dist != null
                 ? Text('${sugg.dist.round()}m')
