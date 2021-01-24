@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
-import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:swift_travel/widgets/actionsheet.dart';
+import 'package:swift_travel/models/favorite_stop.dart';
+import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dynamic_theme.dart';
@@ -97,40 +97,32 @@ class CffCompletionTile extends ConsumerWidget {
   }) async {
     FocusManager.instance.primaryFocus?.unfocus();
     unawaited(Vibration.select());
-    final c = await showActionSheet(context, [
+    final c = await showActionSheet<_Actions>(context, [
       ActionsSheetAction(
         title: isFav
             ? Text(Strings.of(context).remove_from_favoruites)
             : Text(Strings.of(context).add_to_favs),
         icon: isFav ? const Icon(CupertinoIcons.heart_slash) : const Icon(CupertinoIcons.heart),
-        onTap: () => Navigator.of(context).pop(_Actions.favorite),
+        onTap: () => _Actions.favorite,
+        isDestructive: isFav,
       ),
       ActionsSheetAction(
-        title: Text(Strings.of(context).close),
+        title: Text(Strings.of(context).cancel),
         icon: const Icon(CupertinoIcons.xmark),
-        onTap: () => Navigator.of(context).pop(),
+        onTap: () => null,
       )
     ]);
 
     switch (c) {
       case _Actions.favorite:
-        await deleteOrAddToFav(context, isFav: isFav, favoriteStop: favoriteStop, store: store);
+        if (isFav) {
+          await store.removeStop(favoriteStop);
+        } else {
+          final name = await input(context, title: const Text('What is the name of this stop'));
+          if (name == null) return;
+          await store.addStop(sugg.toFavoriteStop(name: name));
+        }
         break;
-    }
-  }
-
-  Future<void> deleteOrAddToFav(
-    BuildContext context, {
-    @required bool isFav,
-    @required FavoriteStop favoriteStop,
-    @required FavoritesSharedPreferencesStore store,
-  }) async {
-    if (isFav) {
-      await store.removeStop(favoriteStop);
-    } else {
-      final name = await input(context, title: const Text('What is the name of this stop'));
-      if (name == null) return;
-      await store.addStop(sugg.toFavoriteStop(name: name));
     }
   }
 }

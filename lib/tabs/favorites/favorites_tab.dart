@@ -3,20 +3,22 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/models/favorite_stop.dart';
+import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
-import 'package:swift_travel/tabs/favorites/fav_stops.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/input.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dialogs/loading_dialog.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
-import 'fav_routes.dart';
+import 'fav_route_tile.dart';
+import 'fav_stop_tile.dart';
 
 class FavoritesTab extends StatefulWidget {
   const FavoritesTab();
@@ -43,6 +45,7 @@ class _FavoritesTabState extends State<FavoritesTab>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final isDarwin = Responsive.isDarwin(context);
     return Scaffold(
       appBar: swiftTravelAppBar(context,
           actions: [
@@ -55,81 +58,51 @@ class _FavoritesTabState extends State<FavoritesTab>
               tooltip: 'Add a favorite',
               shape: const StadiumBorder(),
               onPressed: addFav,
-              child: const FaIcon(FontAwesomeIcons.plus),
+              child: const Icon(Icons.add),
             ),
-      body: SizedBox(
-        width: double.infinity,
-        child: Consumer(builder: (context, w, _) {
-          final favs = w(favoritesStatesProvider);
-          final favRoutes = w(favoritesRoutesStatesProvider);
-          return favs.state.maybeWhen<bool>(data: (d) => d.isEmpty, orElse: () => false) &&
-                  favRoutes.state.maybeWhen<bool>(data: (d) => d.isEmpty, orElse: () => false)
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      '⭐',
-                      style: TextStyle(fontSize: 64),
-                    ),
-                    const SizedBox(height: 32),
-                    Text(
-                      'You have no favorites !',
-                      style: Theme.of(context).textTheme.headline5,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'You can add one by tapping the ➕ button.',
-                      style: Theme.of(context).textTheme.subtitle1,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                )
-              : Column(
-                  children: [
-                    favs.state.when(
-                      data: (c) => ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: c.length,
-                        itemBuilder: (context, i) => FavoriteStationTile(c[i]),
+      body: IfWrapper(
+        condition: isDarwin,
+        builder: (context, child) => CupertinoPageScaffold(child: child),
+        child: SizedBox(
+          width: double.infinity,
+          child: Consumer(builder: (context, w, _) {
+            final favs = w(favoritesStatesProvider);
+            final favRoutes = w(favoritesRoutesStatesProvider);
+            final stops =
+                favs.state.maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
+            final routes =
+                favRoutes.state.maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
+            return stops.isEmpty && routes.isEmpty
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        '⭐',
+                        style: TextStyle(fontSize: 64),
                       ),
-                      loading: () => const Center(
-                        child: CircularProgressIndicator(),
+                      const SizedBox(height: 32),
+                      Text(
+                        'You have no favorites !',
+                        style: Theme.of(context).textTheme.headline5,
+                        textAlign: TextAlign.center,
                       ),
-                      exception: (e) => Center(
-                        child: Text(
-                          e.toString(),
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'You can add one by tapping the ➕ button.',
+                        style: Theme.of(context).textTheme.subtitle1,
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                    favRoutes.state.map(
-                      data: (c) => ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: c.routes.length,
-                        itemBuilder: (context, i) => FavoriteRouteTile(route: c.routes[i]),
-                      ),
-                      loading: (_) => const CustomScrollView(
-                        slivers: [
-                          SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
-                        ],
-                      ),
-                      exception: (e) => CustomScrollView(
-                        slivers: [
-                          SliverFillRemaining(
-                            child: Center(
-                              child: Text(
-                                e.toString(),
-                                style: Theme.of(context).textTheme.headline6,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-        }),
+                    ],
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: stops.length + routes.length,
+                    itemBuilder: (context, i) => i < stops.length
+                        ? FavoriteStationTile(stops[i])
+                        : FavoriteRouteTile(routes[i - stops.length]),
+                  );
+          }),
+        ),
       ),
     );
   }

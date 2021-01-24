@@ -15,16 +15,16 @@ import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
-import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
-import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:swift_travel/models/route_states.dart';
-import 'package:swift_travel/models/route_textfield_state.dart';
+import 'package:swift_travel/models/favorite_stop.dart';
+import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/states/route_states.dart';
+import 'package:swift_travel/states/route_textfield_state.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
@@ -72,8 +72,8 @@ class Fetcher extends ChangeNotifier {
         state = const RouteStates.empty();
         return;
       }
-    } else if (from.state.maybeWhen(text: (_, l) => !l, orElse: () => false) ||
-        to.state.maybeWhen(text: (_, l) => !l, orElse: () => false)) {
+    } else if (from.state.maybeWhen(text: (t, l) => t == null || !l, orElse: () => false) ||
+        to.state.maybeWhen(text: (t, l) => t == null || !l, orElse: () => false)) {
       return;
     } else {
       state = const RouteStates.loading();

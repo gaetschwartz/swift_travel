@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:swift_travel/widgets/actionsheet.dart';
+import 'package:swift_travel/models/favorite_stop.dart';
+import 'package:swift_travel/widgets/action_sheet.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
@@ -21,17 +22,34 @@ class FavoriteStationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final darwin = Responsive.isDarwin(context);
-    return ListTile(
-      leading:
-          darwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(FontAwesomeIcons.solidStar),
-      onTap: () => Navigator.of(context, rootNavigator: true).pushNamed('/route', arguments: stop),
-      onLongPress: () => edit(context),
-      trailing: IconButton(
-          icon: darwin ? const Icon(CupertinoIcons.pencil) : const Icon(Icons.edit),
-          onPressed: () => edit(context)),
-      title: Text(stop.name),
-      subtitle: Text(stop.stop),
+    final isDarwin = Responsive.isDarwin(context);
+    return IfWrapper(
+      condition: isDarwin,
+      builder: (context, child) => Column(
+        children: [
+          const Divider(height: 0, indent: 8, endIndent: 8),
+          child,
+          const Divider(height: 0, indent: 8, endIndent: 8),
+        ],
+      ),
+      child: ListTile(
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            isDarwin
+                ? const Icon(CupertinoIcons.heart_fill)
+                : const Icon(FontAwesomeIcons.solidStar),
+          ],
+        ),
+        onTap: () =>
+            Navigator.of(context, rootNavigator: true).pushNamed('/route', arguments: stop),
+        onLongPress: () => edit(context),
+        trailing: IconButton(
+            icon: isDarwin ? const Icon(CupertinoIcons.pencil) : const Icon(Icons.edit),
+            onPressed: () => edit(context)),
+        title: Text(stop.name),
+        subtitle: Text(stop.stop),
+      ),
     );
   }
 
@@ -47,11 +65,12 @@ class FavoriteStationTile extends StatelessWidget {
         title: Text(Strings.of(context).delete),
         icon: const Icon(CupertinoIcons.delete),
         onTap: () => delete(context),
+        isDestructive: true,
       ),
       ActionsSheetAction(
         title: Text(Strings.of(context).close),
         icon: const Icon(CupertinoIcons.xmark),
-        onTap: () => Navigator.of(context).pop(),
+        onTap: () => null,
       ),
     ]);
   }

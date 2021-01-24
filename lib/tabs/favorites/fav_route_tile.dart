@@ -2,18 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/cff/models/local_route.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
-import 'package:theming/dialogs/choice.dart';
+import 'package:swift_travel/models/local_route.dart';
+import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:vibration/vibration.dart';
 
 class FavoriteRouteTile extends StatelessWidget {
-  const FavoriteRouteTile({
-    Key key,
-    @required this.route,
-  }) : super(key: key);
+  const FavoriteRouteTile(this.route, {Key key}) : super(key: key);
 
   final LocalRoute route;
 
@@ -28,18 +25,20 @@ class FavoriteRouteTile extends StatelessWidget {
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () {
             Vibration.select();
-            choose<void>(
+            showActionSheet(
               context,
-              choices: [
-                Choice(
-                  isDestructive: true,
+              [
+                ActionsSheetAction(
                   onTap: () => deleteRoute(context),
-                  child: Text(Strings.of(context).delete),
-                  value: null,
-                )
+                  title: Text(Strings.of(context).delete),
+                  icon: const Icon(CupertinoIcons.delete),
+                  isDestructive: true,
+                ),
+                ActionsSheetAction(
+                  title: Text(Strings.of(context).cancel),
+                  icon: const Icon(CupertinoIcons.xmark),
+                ),
               ],
-              cancel: Choice.cancel(child: Text(Strings.of(context).cancel)),
-              title: Text(Strings.of(context).what_to_do),
             );
           }),
       onTap: () => Navigator.of(context).pushNamed('/route', arguments: route),

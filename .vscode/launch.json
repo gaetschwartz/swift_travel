@@ -10,6 +10,15 @@
       "type": "dart",
     },
     {
+      "name": "Launch (override)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "OVERRIDE_PLATFORM=true"
+      ]
+    },
+    {
       "name": "Launch (release)",
       "request": "launch",
       "type": "dart",
@@ -25,15 +34,6 @@
       "args": [
         "--dart-define",
         "SPOOF_LOCATION=true"
-      ]
-    },
-    {
-      "name": "Launch (override)",
-      "request": "launch",
-      "type": "dart",
-      "args": [
-        "--dart-define",
-        "OVERRIDE_PLATFORM=true"
       ]
     },
     {

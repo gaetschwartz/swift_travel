@@ -2,8 +2,8 @@ import 'dart:math' show min;
 
 import 'package:flutter/foundation.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
-import 'package:swift_travel/apis/cff/models/favorite_stop.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:utils/utils/levenshtein.dart';
 
 const _kConfidenceThreshold = .9;

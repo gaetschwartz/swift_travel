@@ -10,7 +10,7 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/models/station_states.dart';
+import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
