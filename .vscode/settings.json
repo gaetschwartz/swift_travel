@@ -24,4 +24,7 @@
   "dart.lineLength": 100,
   "python.formatting.provider": "autopep8",
   "python.pythonPath": "/usr/bin/python3",
+  "files.watcherExclude": {
+    "**/target": true
+  },
 }

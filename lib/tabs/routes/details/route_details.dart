@@ -21,6 +21,7 @@ import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/share.dart';
+import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
@@ -58,14 +59,12 @@ class RouteDetails extends StatelessWidget {
                   onPressed: () => openLive(context, conn)),
               if (isMobile || kIsWeb)
                 IconButton(
-                    icon: Theme.of(context).platform == TargetPlatform.iOS
+                    icon: Responsive.isDarwin(context)
                         ? const Icon(CupertinoIcons.share)
                         : const Icon(Icons.share),
                     onPressed: () => _shareRoute(context))
             ]),
-        SliverToBoxAdapter(
-          child: buildHeader(context, conn),
-        ),
+        SliverToBoxAdapter(child: buildHeader(context, conn)),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (_, i) => LegTile(l: conn.legs[i]),
