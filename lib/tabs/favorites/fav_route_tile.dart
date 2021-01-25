@@ -17,7 +17,7 @@ class FavoriteRouteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      actionPane: const SlidableScrollActionPane(),
+      actionPane: const SlidableDrawerActionPane(),
       secondaryActions: <Widget>[
         IconSlideAction(
           caption: Strings.of(context).delete,
