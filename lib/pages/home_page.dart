@@ -143,7 +143,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             body: PageView(
               controller: _pageController,
               children: [
-                for (var i = 0; i < tabs.length; i++)
+                for (var i = 0; i < tabs.length - 1; i++)
                   Navigator(
                     key: navigatorKeys[i],
                     pages: [SingleWidgetPage(tabs[i])],
