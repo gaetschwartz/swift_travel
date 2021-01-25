@@ -11,6 +11,8 @@ Future<T> showActionSheet<T>(
   List<ActionsSheetAction<T>> actions, {
   bool useRootNavigator = true,
   ActionsSheetAction<T> cancel,
+  Widget title,
+  Widget message,
 }) {
   final isDarwin = Responsive.isDarwin(context);
 
@@ -21,6 +23,8 @@ Future<T> showActionSheet<T>(
           builder: (context) => Material(
                 color: Colors.transparent,
                 child: CupertinoActionSheet(
+                  title: title,
+                  message: message,
                   actions: actions
                       .map((a) => ActionsSheet._buildListTile(a, isDarwin, context))
                       .toList(),
@@ -36,7 +40,12 @@ Future<T> showActionSheet<T>(
           useRootNavigator: useRootNavigator,
           duration: const Duration(milliseconds: 250),
           bounce: true,
-          builder: (context) => ActionsSheet<T>(actions: actions, cancel: cancel),
+          builder: (context) => ActionsSheet<T>(
+            actions: actions,
+            cancel: cancel,
+            title: title,
+            message: message,
+          ),
         );
 }
 
@@ -62,10 +71,14 @@ class ActionsSheet<T> extends StatelessWidget {
     Key key,
     @required this.actions,
     this.cancel,
+    this.title,
+    this.message,
   }) : super(key: key);
 
   final List<ActionsSheetAction<T>> actions;
   final ActionsSheetAction<T> cancel;
+  final Widget title;
+  final Widget message;
 
   List<Widget> buildChildren(BuildContext context) {
     final l = <Widget>[];
@@ -82,14 +95,22 @@ class ActionsSheet<T> extends StatelessWidget {
       leading: a.icon == null
           ? null
           : IconTheme(
-              data: IconThemeData(color: a.isDestructive ? CupertinoColors.destructiveRed : null),
+              data: IconThemeData(
+                  color: a.isDestructive
+                      ? CupertinoColors.destructiveRed
+                      : isDarwin
+                          ? CupertinoTheme.of(context).textTheme.actionTextStyle.color
+                          : null),
               child: a.icon,
             ),
       title: DefaultTextStyle(
-          style: Theme.of(context).textTheme.subtitle1.copyWith(
-                color: a.isDestructive ? CupertinoColors.destructiveRed : null,
-                fontWeight: a.isDefault ? FontWeight.bold : null,
-              ),
+          style: (isDarwin
+                  ? CupertinoTheme.of(context).textTheme.actionTextStyle
+                  : Theme.of(context).textTheme.subtitle1)
+              .copyWith(
+            color: a.isDestructive ? CupertinoColors.destructiveRed : null,
+            fontWeight: a.isDefault ? FontWeight.bold : null,
+          ),
           child: a.title),
       onTap: () async {
         final value = await a.onTap?.call();
@@ -111,7 +132,28 @@ class ActionsSheet<T> extends StatelessWidget {
               top: false,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: buildChildren(context),
+                children: [
+                  if (title != null || message != null) const SizedBox(height: 12),
+                  if (title != null)
+                    DefaultTextStyle(
+                        style: Theme.of(context).textTheme.subtitle1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 8),
+                          child: Center(child: title),
+                        )),
+                  if (message != null)
+                    DefaultTextStyle(
+                        style: Theme.of(context).textTheme.caption,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 8, right: 8, top: title != null ? 8 : 0),
+                          child: Center(child: message),
+                        )),
+                  if (title != null || message != null) ...[
+                    const SizedBox(height: 4),
+                    const Divider(indent: 16, endIndent: 16)
+                  ],
+                  ...buildChildren(context)
+                ],
               ),
             ),
           ),
