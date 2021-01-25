@@ -45,18 +45,18 @@ class FavoriteStationTile extends StatelessWidget {
       ActionsSheetAction(
         title: Text(Strings.of(context).rename),
         icon: const Icon(CupertinoIcons.pencil),
-        onTap: () => rename(context),
+        onPressed: () => rename(context),
       ),
       ActionsSheetAction(
         title: Text(Strings.of(context).delete),
         icon: const Icon(CupertinoIcons.delete),
-        onTap: () => delete(context),
+        onPressed: () => delete(context),
         isDestructive: true,
       ),
       ActionsSheetAction(
         title: Text(Strings.of(context).close),
         icon: const Icon(CupertinoIcons.xmark),
-        onTap: () => null,
+        onPressed: () => null,
       ),
     ]);
   }

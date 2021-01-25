@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
@@ -48,7 +47,7 @@ class _StopDetailsState extends State<StopDetails> {
           title: Text(widget.stopName),
           actions: [
             IconButton(
-                icon: const Icon(FontAwesomeIcons.route),
+                icon: const Icon(Icons.arrow_right),
                 onPressed: () {
                   log(data.toString());
                   Navigator.of(context, rootNavigator: true).pushNamed('/route',

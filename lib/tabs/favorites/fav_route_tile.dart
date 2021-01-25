@@ -32,7 +32,7 @@ class FavoriteRouteTile extends StatelessWidget {
               context,
               [
                 ActionsSheetAction(
-                  onTap: () => deleteRoute(context),
+                  onPressed: () => deleteRoute(context),
                   title: Text(Strings.of(context).delete),
                   icon: const Icon(CupertinoIcons.delete),
                   isDestructive: true,

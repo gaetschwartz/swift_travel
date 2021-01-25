@@ -103,8 +103,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 key: navigatorKeys[i],
                 pages: [SingleWidgetPage(tabs[i])],
                 onPopPage: (_, __) => true,
-                onUnknownRoute: onUnknownRoute,
-                onGenerateRoute: onGenerateRoute,
+                onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
+                onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
               ),
             ),
           )
@@ -148,8 +148,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                     key: navigatorKeys[i],
                     pages: [SingleWidgetPage(tabs[i])],
                     onPopPage: (_, __) => true,
-                    onUnknownRoute: onUnknownRoute,
-                    onGenerateRoute: onGenerateRoute,
+                    onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
+                    onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
                   )
               ],
             ),

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -33,6 +34,7 @@ import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:theming/dynamic_theme.dart';
+import 'package:theming/responsive.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -88,6 +90,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isDarwin = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    isDarwin = Responsive.isDarwin(context);
+  }
+
   @override
   void reassemble() {
     super.reassemble();
@@ -117,16 +127,16 @@ class _MyAppState extends State<MyApp> {
           ],
           builder: (context, child) => LocalizationAwareWidget(child: child),
           supportedLocales: Strings.delegate.supportedLocales,
-          onGenerateRoute: onGenerateRoute,
-          onUnknownRoute: onUnknownRoute,
-          onGenerateInitialRoutes: onGenerateInitialRoutes,
+          onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
+          onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
+          onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
           initialRoute: 'loading',
         );
       }),
     );
   }
 
-  List<Route> onGenerateInitialRoutes(String initialRoute) {
+  List<Route> onGenerateInitialRoutes(String initialRoute, bool isDarwin) {
     log('Initial route : $initialRoute');
     final uri = Uri.tryParse(initialRoute);
 
@@ -146,67 +156,128 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-Route onUnknownRoute(RouteSettings settings) {
+Route onUnknownRoute(RouteSettings settings, bool isDarwin) {
   reportDartError('Unknown page : `${settings.name}`', StackTrace.current,
       name: 'router', reason: 'while trying to route', showSnackbar: false);
   return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
 }
 
-Route onGenerateRoute(RouteSettings settings) {
+Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
   log('Routing to ${settings.name}');
 
   switch (settings.name) {
     case '/':
-      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const MainApp());
+      return platformRoute(
+        settings: settings,
+        builder: (_) => const MainApp(),
+        isDarwin: isDarwin,
+      );
     case 'loading':
-      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const LoadingPage());
+      return platformRoute(
+        settings: settings,
+        builder: (_) => const LoadingPage(),
+        isDarwin: isDarwin,
+      );
     case '/settings':
-      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Settings());
+      return platformRoute(
+        settings: settings,
+        builder: (_) => const Settings(),
+        fullscreenDialog: true,
+        isDarwin: isDarwin,
+      );
     case '/routeDetails':
       if (settings.arguments is Map) {
         final map = settings.arguments as Map;
-        return MaterialWithModalsPageRoute(
-            settings: settings,
-            builder: (_) => RouteDetails(
-                  route: map['route'] as CffRoute,
-                  i: map['i'] as int,
-                  doClose: true,
-                ));
+        return platformRoute(
+          settings: settings,
+          builder: (_) => RouteDetails(
+            route: map['route'] as CffRoute,
+            i: map['i'] as int,
+            doClose: true,
+          ),
+          isDarwin: isDarwin,
+        );
       }
       break;
     case '/tuto':
-      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const Tuto());
+      return platformRoute(
+        settings: settings,
+        builder: (_) => const Tuto(),
+        isDarwin: isDarwin,
+      );
     case '/welcome':
-      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const WelcomePage());
+      return platformRoute(
+        settings: settings,
+        builder: (_) => const WelcomePage(),
+        isDarwin: isDarwin,
+      );
     case '/route':
       if (settings.arguments is LocalRoute) {
-        return MaterialWithModalsPageRoute(
-            settings: settings, builder: (_) => RoutePage.route(settings.arguments as LocalRoute));
+        return platformRoute(
+          settings: settings,
+          builder: (_) => RoutePage.route(settings.arguments as LocalRoute),
+          isDarwin: isDarwin,
+        );
       } else if (settings.arguments is FavoriteStop) {
-        return MaterialWithModalsPageRoute(
-            settings: settings, builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop));
+        return platformRoute(
+          settings: settings,
+          builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop),
+          isDarwin: isDarwin,
+        );
       }
       break;
     case '/ourTeam':
-      return MaterialWithModalsPageRoute(settings: settings, builder: (_) => const TeamPage());
+      return platformRoute(
+          settings: settings, builder: (_) => const TeamPage(), isDarwin: isDarwin);
     case '/liveRoute':
-      return MaterialWithModalsPageRoute(
+      return platformRoute(
           settings: settings,
-          builder: (_) => LiveRoutePage(connection: settings.arguments as RouteConnection));
+          builder: (_) => LiveRoutePage(connection: settings.arguments as RouteConnection),
+          isDarwin: isDarwin);
     case '/stopDetails':
-      return MaterialWithModalsPageRoute(
-          settings: settings, builder: (_) => StopDetails(stopName: settings.arguments as String));
+      return platformRoute(
+          settings: settings,
+          builder: (_) => StopDetails(stopName: settings.arguments as String),
+          isDarwin: isDarwin);
 
     case '/nextStops':
-      return MaterialWithModalsPageRoute(
+      return platformRoute(
           settings: settings,
-          builder: (_) => NextStopsPage(connection: settings.arguments as StationboardConnection));
+          builder: (_) => NextStopsPage(connection: settings.arguments as StationboardConnection),
+          isDarwin: isDarwin);
     case '/error':
     case 'error':
-      return MaterialWithModalsPageRoute(
-          settings: settings, builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails));
+      return platformRoute(
+        settings: settings,
+        builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails),
+        isDarwin: isDarwin,
+      );
   }
   return null;
+}
+
+Route platformRoute({
+  @required Widget Function(BuildContext) builder,
+  @required bool isDarwin,
+  RouteSettings settings,
+  bool maintainState = true,
+  bool fullscreenDialog = false,
+  String title,
+}) {
+  return isDarwin
+      ? CupertinoPageRoute(
+          builder: builder,
+          settings: settings,
+          fullscreenDialog: fullscreenDialog,
+          title: title,
+          maintainState: maintainState,
+        )
+      : MaterialPageRoute(
+          builder: builder,
+          settings: settings,
+          fullscreenDialog: fullscreenDialog,
+          maintainState: maintainState,
+        );
 }
 
 class Routes {

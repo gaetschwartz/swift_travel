@@ -25,12 +25,10 @@ Future<T> showActionSheet<T>(
                 child: CupertinoActionSheet(
                   title: title,
                   message: message,
-                  actions: actions
-                      .map((a) => ActionsSheet._buildListTile(a, isDarwin, context))
-                      .toList(),
-                  cancelButton: cancel == null
-                      ? null
-                      : ActionsSheet._buildListTile(cancel, isDarwin, context),
+                  actions:
+                      actions.map((a) => ActionsSheet._buildListTile(context, a, true)).toList(),
+                  cancelButton:
+                      cancel == null ? null : ActionsSheet._buildListTile(context, cancel, true),
                 ),
               ))
       : showMaterialModalBottomSheet<T>(
@@ -52,14 +50,16 @@ Future<T> showActionSheet<T>(
 @immutable
 class ActionsSheetAction<T> {
   final Widget title;
-  final FutureOr<T> Function() onTap;
+  final FutureOr<T> Function() onPressed;
   final Widget icon;
+  final Widget cupertinoIcon;
   final bool isDestructive;
   final bool isDefault;
 
   const ActionsSheetAction({
+    this.cupertinoIcon,
     @required this.title,
-    this.onTap,
+    this.onPressed,
     this.icon,
     this.isDestructive = false,
     this.isDefault = false,
@@ -84,13 +84,13 @@ class ActionsSheet<T> extends StatelessWidget {
     final l = <Widget>[];
     for (var i = 0; i < actions.length; i++) {
       final a = actions[i];
-      l.add(_buildListTile<T>(a, false, context));
+      l.add(_buildListTile<T>(context, a, false));
       if (i < actions.length - 1) l.add(const Divider(height: 0, indent: 8, endIndent: 8));
     }
     return l;
   }
 
-  static Widget _buildListTile<T>(ActionsSheetAction a, bool isDarwin, BuildContext context) {
+  static Widget _buildListTile<T>(BuildContext context, ActionsSheetAction a, bool isDarwin) {
     return ListTile(
       leading: a.icon == null
           ? null
@@ -101,7 +101,7 @@ class ActionsSheet<T> extends StatelessWidget {
                       : isDarwin
                           ? CupertinoTheme.of(context).textTheme.actionTextStyle.color
                           : null),
-              child: a.icon,
+              child: isDarwin && a.cupertinoIcon != null ? a.cupertinoIcon : a.icon,
             ),
       title: DefaultTextStyle(
           style: (isDarwin
@@ -113,7 +113,7 @@ class ActionsSheet<T> extends StatelessWidget {
           ),
           child: a.title),
       onTap: () async {
-        final value = await a.onTap?.call();
+        final value = await a.onPressed?.call();
         Navigator.of(context).pop<T>(value);
       },
     );
@@ -163,7 +163,7 @@ class ActionsSheet<T> extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8, right: 8, left: 8),
             child: Material(
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
-                child: _buildListTile(cancel, false, context)),
+                child: _buildListTile(context, cancel, false)),
           )
       ],
     );
