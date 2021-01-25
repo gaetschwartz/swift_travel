@@ -107,7 +107,6 @@ class CffCompletionTile extends ConsumerWidget {
             icon: isFav ? const Icon(CupertinoIcons.heart_slash) : const Icon(CupertinoIcons.heart),
             onTap: () => _Actions.favorite,
             isDestructive: isFav,
-            isDefault: true,
           )
         ],
         cancel: ActionsSheetAction(
