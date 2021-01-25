@@ -51,6 +51,11 @@ ThemeConfiguration get themeConfiguration {
         name: 'Swift',
         light: light,
         applyToLight: (theme) => theme.copyWith(
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: theme.colorScheme.secondary,
+            selectionColor: theme.colorScheme.secondary.withOpacity(0.4),
+            selectionHandleColor: theme.colorScheme.secondary,
+          ),
           appBarTheme: theme.appBarTheme.copyWith(elevation: 0),
           bottomNavigationBarTheme:
               theme.bottomNavigationBarTheme.copyWith(selectedItemColor: light.secondary),

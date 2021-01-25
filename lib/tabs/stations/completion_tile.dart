@@ -97,21 +97,24 @@ class CffCompletionTile extends ConsumerWidget {
   }) async {
     FocusManager.instance.primaryFocus?.unfocus();
     unawaited(Vibration.select());
-    final c = await showActionSheet<_Actions>(context, [
-      ActionsSheetAction(
-        title: isFav
-            ? Text(Strings.of(context).remove_from_favoruites)
-            : Text(Strings.of(context).add_to_favs),
-        icon: isFav ? const Icon(CupertinoIcons.heart_slash) : const Icon(CupertinoIcons.heart),
-        onTap: () => _Actions.favorite,
-        isDestructive: isFav,
-      ),
-      ActionsSheetAction(
-        title: Text(Strings.of(context).cancel),
-        icon: const Icon(CupertinoIcons.xmark),
-        onTap: () => null,
-      )
-    ]);
+    final c = await showActionSheet<_Actions>(
+        context,
+        [
+          ActionsSheetAction(
+            title: isFav
+                ? Text(Strings.of(context).remove_from_favoruites)
+                : Text(Strings.of(context).add_to_favs),
+            icon: isFav ? const Icon(CupertinoIcons.heart_slash) : const Icon(CupertinoIcons.heart),
+            onTap: () => _Actions.favorite,
+            isDestructive: isFav,
+            isDefault: true,
+          )
+        ],
+        cancel: ActionsSheetAction(
+          title: Text(Strings.of(context).cancel),
+          icon: const Icon(CupertinoIcons.xmark),
+          onTap: () => null,
+        ));
 
     switch (c) {
       case _Actions.favorite:
