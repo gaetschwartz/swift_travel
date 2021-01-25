@@ -14,9 +14,6 @@ class FavoriteRouteTile extends StatelessWidget {
 
   final LocalRoute route;
 
-  String threeDots(String s, {int size = 16, String trailing = '...'}) =>
-      s.length > size - trailing.length ? s.substring(0, size - trailing.length) + trailing : s;
-
   @override
   Widget build(BuildContext context) {
     return Slidable(
@@ -32,9 +29,29 @@ class FavoriteRouteTile extends StatelessWidget {
       child: ListTile(
         leading: const Icon(CupertinoIcons.arrow_turn_up_right),
         title: Text(route.displayName),
-        dense: true,
+        horizontalTitleGap: 8,
         isThreeLine: true,
-        subtitle: Text('${threeDots(route.from, size: 32)} ➡ ${threeDots(route.to, size: 32)}'),
+        dense: true,
+        subtitle: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: Text(
+                route.from,
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: Text(
+                route.to,
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
         onLongPress: () => more(context),
         trailing: IconButton(
             icon: const Icon(CupertinoIcons.chevron_forward),

@@ -42,6 +42,7 @@ class FavoriteStationTile extends StatelessWidget {
         ),
       ],
       child: ListTile(
+        horizontalTitleGap: 8,
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -56,7 +57,7 @@ class FavoriteStationTile extends StatelessWidget {
         trailing: IconButton(
             icon: const Icon(CupertinoIcons.chevron_forward), onPressed: () => edit(context)),
         title: Text(stop.name),
-        subtitle: Text(stop.stop),
+        subtitle: Text(stop.stop, overflow: TextOverflow.ellipsis),
       ),
     );
   }
