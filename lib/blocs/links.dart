@@ -57,7 +57,7 @@ class DeepLinkBloc {
     final params = decodeRouteUri(uri);
 
     final qUri = Uri.https('timetable.search.ch', 'api/route.json', params);
-    log(qUri.toString());
+    print(qUri.toString());
 
     final route = await navApi.rawRoute(qUri.toString());
 

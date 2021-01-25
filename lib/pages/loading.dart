@@ -150,8 +150,9 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       try {
         final args =
             await DeepLinkBloc.parseRouteArguments(widget.uri, context.read(navigationAPIProvider));
-        await Navigator.of(context).pushReplacementNamed('/');
-        return Navigator.of(context).pushNamed('/routeDetails', arguments: args);
+        final nav = Navigator.of(context);
+        unawaited(nav.pushReplacementNamed('/'));
+        unawaited(nav.pushNamed('/routeDetails', arguments: args));
       } on Exception catch (e, s) {
         log('', error: e, stackTrace: s);
         return Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
