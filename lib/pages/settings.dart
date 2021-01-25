@@ -78,7 +78,6 @@ class _SettingsState extends State<Settings> {
                   child: Consumer(builder: (context, w, _) {
                     final theme = w(dynamicTheme);
                     return DropdownButton<Font>(
-                      isExpanded: true,
                       icon: const SizedBox(),
                       value: theme.font,
                       items: fonts
@@ -402,8 +401,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+        SizedBox(
           height: 150,
           child: Consumer(builder: (context, w, _) {
             final theme = w(dynamicTheme);

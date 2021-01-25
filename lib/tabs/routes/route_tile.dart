@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:theming/dynamic_theme.dart';
-import 'package:theming/responsive.dart';
 
 class RouteTile extends StatelessWidget {
   const RouteTile({
@@ -85,16 +85,7 @@ class RouteTile extends StatelessWidget {
                 const FaIcon(CupertinoIcons.chevron_forward),
               ],
             ),
-            onTap: () {
-              final r = Responsive.isDarwin(context)
-                  ? CupertinoPageRoute(
-                      builder: (_) => RouteDetails(route: route, i: i),
-                      settings: const RouteSettings(name: '/routeDetails'))
-                  : MaterialPageRoute(
-                      builder: (_) => RouteDetails(route: route, i: i),
-                      settings: const RouteSettings(name: '/routeDetails'));
-              Navigator.of(context).push(r);
-            },
+            onTap: () => Nav.push(context, (context) => RouteDetails(route: route, i: i)),
           ),
         ),
       ),

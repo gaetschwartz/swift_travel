@@ -15,7 +15,7 @@ import 'package:swift_travel/widgets/line_icon.dart';
 class StopDetails extends StatefulWidget {
   final String stopName;
 
-  const StopDetails({Key key, @required this.stopName}) : super(key: key);
+  StopDetails({@required this.stopName}) : super(key: Key(stopName));
 
   @override
   _StopDetailsState createState() => _StopDetailsState();
@@ -43,14 +43,13 @@ class _StopDetailsState extends State<StopDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: const BackButton(),
           title: Text(widget.stopName),
           actions: [
             IconButton(
                 icon: const Icon(Icons.arrow_right),
                 onPressed: () {
                   log(data.toString());
-                  Navigator.of(context, rootNavigator: true).pushNamed('/route',
+                  Navigator.of(context).pushNamed('/route',
                       arguments: FavoriteStop(data.stop?.name ?? data.stopName,
                           name: data.stop?.name ?? data.stopName));
                 })
