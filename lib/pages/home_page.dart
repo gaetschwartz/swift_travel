@@ -69,6 +69,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               resizeToAvoidBottomInset: false,
               tabBar: CupertinoTabBar(
                 onTap: (i) {
+                  Vibration.selectSoft();
                   if (i == oldI) {
                     if (navigatorKeys[i] != null) {
                       navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
