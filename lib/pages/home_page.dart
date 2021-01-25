@@ -101,7 +101,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               ),
               tabBuilder: (context, i) => Navigator(
                 key: navigatorKeys[i],
-                pages: [SingleWidgetPage(tabs[i])],
+                pages: [SingleWidgetPage(iosTabs[i])],
                 onPopPage: (_, __) => true,
                 onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
                 onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
@@ -143,7 +143,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             body: PageView(
               controller: _pageController,
               children: [
-                for (var i = 0; i < tabs.length - 1; i++)
+                for (var i = 0; i < tabs.length; i++)
                   Navigator(
                     key: navigatorKeys[i],
                     pages: [SingleWidgetPage(tabs[i])],
@@ -156,10 +156,16 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           );
   }
 
-  static const tabs = [StationsTab(), RouteTab(), FavoritesTab(), Settings()];
+  static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), Settings()];
+  static const tabs = [StationsTab(), RouteTab(), FavoritesTab()];
 }
 
-final navigatorKeys = <GlobalKey<NavigatorState>>[GlobalKey(), GlobalKey(), null, null];
+final navigatorKeys = <GlobalKey<NavigatorState>>[
+  GlobalKey(debugLabel: 'stations tab key'),
+  GlobalKey(debugLabel: 'route tab key'),
+  GlobalKey(debugLabel: 'favs tab key'),
+  GlobalKey(debugLabel: 'settings key'),
+];
 
 AppBar swiftTravelAppBar(BuildContext context,
     {List<Widget> actions = const [],

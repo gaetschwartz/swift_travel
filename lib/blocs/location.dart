@@ -1,11 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as l;
 import 'package:swift_travel/utils/env.dart';
-import 'package:swift_travel/utils/errors.dart';
 
 class LocationRepository {
   static Future<Position> getLocation({
@@ -80,29 +78,20 @@ class LocationRepository {
       );
     } else {
       LocationPermission permission;
-      try {
-        permission = await Geolocator.checkPermission();
-        if (permission == LocationPermission.denied) {
-          permission = await Geolocator.requestPermission();
-        }
-        if (permission == LocationPermission.whileInUse ||
-            permission == LocationPermission.always) {
-          try {
-            final p = await Geolocator.getCurrentPosition(
-              desiredAccuracy: desiredAccuracy,
-              forceAndroidLocationManager: forceAndroidLocationManager,
-              timeLimit: timeLimit,
-            );
-            return p;
-          } on Exception catch (e, s) {
-            reportDartError(e, s);
-            return null;
-          }
-        } else {
-          throw PermissionDeniedException(permission.toString());
-        }
-      } on MissingPluginException {
-        return null;
+
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+        final p = await Geolocator.getCurrentPosition(
+          desiredAccuracy: desiredAccuracy,
+          forceAndroidLocationManager: forceAndroidLocationManager,
+          timeLimit: timeLimit,
+        );
+        return p;
+      } else {
+        throw PermissionDeniedException(permission.toString());
       }
     }
   }

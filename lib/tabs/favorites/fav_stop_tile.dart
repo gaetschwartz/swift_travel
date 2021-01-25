@@ -51,8 +51,7 @@ class FavoriteStationTile extends StatelessWidget {
                 : const Icon(FontAwesomeIcons.solidStar),
           ],
         ),
-        onTap: () =>
-            Navigator.of(context, rootNavigator: true).pushNamed('/route', arguments: stop),
+        onTap: () => Navigator.of(context).pushNamed('/route', arguments: stop),
         onLongPress: () => edit(context),
         trailing: IconButton(
             icon: const Icon(CupertinoIcons.chevron_forward), onPressed: () => edit(context)),

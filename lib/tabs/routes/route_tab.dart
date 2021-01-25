@@ -280,10 +280,7 @@ class _RoutePageState extends State<RoutePage> {
       resizeToAvoidBottomInset: false,
       appBar: widget.localRoute != null || widget.favStop != null
           ? AppBar(
-              leading:
-                  widget.localRoute != null || widget.favStop != null ? const CloseButton() : null,
               title: Text(widget.localRoute?.displayName ?? Strings.of(context).tabs_route),
-              automaticallyImplyLeading: false,
             )
           : swiftTravelAppBar(context, title: Text(Strings.of(context).tabs_route)),
       body: Column(
