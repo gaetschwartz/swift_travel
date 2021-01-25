@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vibration/vibration.dart';
 
 @immutable
 class ChoicePageItem<T> {
@@ -123,6 +124,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
 
   void tapped(int i, ChoicePageItem<T> item) {
     setState(() => selected = i);
+    Vibration.select();
     widget.onChanged?.call(item.value);
   }
 }
