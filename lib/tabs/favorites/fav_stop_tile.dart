@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
@@ -22,43 +23,67 @@ class FavoriteStationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
-    return ListTile(
-      leading: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          isDarwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(FontAwesomeIcons.solidStar),
-        ],
+    return Slidable(
+      actionPane: const SlidableDrawerActionPane(),
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: Strings.of(context).delete,
+          color: Colors.red,
+          icon: CupertinoIcons.delete,
+          onTap: () => delete(context),
+        ),
+      ],
+      actions: [
+        IconSlideAction(
+          caption: Strings.of(context).rename,
+          color: Colors.blue,
+          icon: CupertinoIcons.pencil,
+          onTap: () => rename(context),
+        ),
+      ],
+      child: ListTile(
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            isDarwin
+                ? const Icon(CupertinoIcons.heart_fill)
+                : const Icon(FontAwesomeIcons.solidStar),
+          ],
+        ),
+        onTap: () =>
+            Navigator.of(context, rootNavigator: true).pushNamed('/route', arguments: stop),
+        onLongPress: () => edit(context),
+        trailing: IconButton(
+            icon: const Icon(CupertinoIcons.chevron_forward), onPressed: () => edit(context)),
+        title: Text(stop.name),
+        subtitle: Text(stop.stop),
       ),
-      onTap: () => Navigator.of(context, rootNavigator: true).pushNamed('/route', arguments: stop),
-      onLongPress: () => edit(context),
-      trailing: IconButton(
-          icon: isDarwin ? const Icon(CupertinoIcons.pencil) : const Icon(Icons.edit),
-          onPressed: () => edit(context)),
-      title: Text(stop.name),
-      subtitle: Text(stop.stop),
     );
   }
 
   void edit(BuildContext context) {
     Vibration.select();
-    showActionSheet(context, [
-      ActionsSheetAction(
-        title: Text(Strings.of(context).rename),
-        icon: const Icon(CupertinoIcons.pencil),
-        onPressed: () => rename(context),
-      ),
-      ActionsSheetAction(
-        title: Text(Strings.of(context).delete),
-        icon: const Icon(CupertinoIcons.delete),
-        onPressed: () => delete(context),
-        isDestructive: true,
-      ),
-      ActionsSheetAction(
+    showActionSheet(
+      context,
+      [
+        ActionsSheetAction(
+          title: Text(Strings.of(context).rename),
+          icon: const Icon(CupertinoIcons.pencil),
+          onPressed: () => rename(context),
+        ),
+        ActionsSheetAction(
+          title: Text(Strings.of(context).delete),
+          icon: const Icon(CupertinoIcons.delete),
+          onPressed: () => delete(context),
+          isDestructive: true,
+        ),
+      ],
+      cancel: ActionsSheetAction(
         title: Text(Strings.of(context).close),
         icon: const Icon(CupertinoIcons.xmark),
         onPressed: () => null,
       ),
-    ]);
+    );
   }
 
   Future<void> rename(BuildContext context) async {

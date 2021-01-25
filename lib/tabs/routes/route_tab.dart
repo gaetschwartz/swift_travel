@@ -12,6 +12,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
@@ -70,13 +71,18 @@ class Fetcher extends ChangeNotifier {
     if (from.state is EmptyRouteState || to.state is EmptyRouteState) {
       if (from.state is EmptyRouteState && to.state is EmptyRouteState) {
         state = const RouteStates.empty();
-        return;
       }
+      return;
     } else if (from.state.maybeWhen(text: (t, l) => t == null || !l, orElse: () => false) ||
         to.state.maybeWhen(text: (t, l) => t == null || !l, orElse: () => false)) {
       return;
     } else {
       state = const RouteStates.loading();
+    }
+
+    if (kDebugMode) {
+      print('From: ${from.state}');
+      print('To: ${to.state}');
     }
 
     Position p;
@@ -475,6 +481,12 @@ class _RoutePageState extends State<RoutePage> {
                 suffixIcon: const SizedBox(),
               ),
             ),
+            loadingBuilder: (context) => ListView.builder(
+                itemBuilder: (context, i) => Shimmer.fromColors(
+                      child: const SuggestedTile.empty(),
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.white,
+                    )),
             suggestionsCallback: (s) async => completeWithFavorites(store, await api.complete(s), s,
                 currentLocationString: currentLocationString),
             itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
@@ -485,7 +497,7 @@ class _RoutePageState extends State<RoutePage> {
                 from.setString(context, suggestion.label);
               }
             },
-            noItemsFoundBuilder: (_) => const SizedBox(),
+            hideOnEmpty: true,
             transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
               opacity: controller,
               child: suggestionsBox,
@@ -550,7 +562,13 @@ class _RoutePageState extends State<RoutePage> {
                 to.setString(context, suggestion.label);
               }
             },
-            noItemsFoundBuilder: (_) => const SizedBox(),
+            loadingBuilder: (context) => ListView.builder(
+                itemBuilder: (context, i) => Shimmer.fromColors(
+                      child: const SuggestedTile.empty(),
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.white,
+                    )),
+            hideOnEmpty: true,
             transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
               opacity: controller,
               child: suggestionsBox,

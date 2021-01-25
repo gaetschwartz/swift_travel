@@ -82,7 +82,7 @@ class RouteTile extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
                   ),
                 const SizedBox(width: 16),
-                const FaIcon(CupertinoIcons.chevron_right),
+                const FaIcon(CupertinoIcons.chevron_forward),
               ],
             ),
             onTap: () {

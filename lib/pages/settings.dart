@@ -156,7 +156,7 @@ class _SettingsState extends State<Settings> {
                               .copyWith(color: CupertinoColors.systemGrey),
                         ),
                         const SizedBox(width: 8),
-                        const Icon(CupertinoIcons.chevron_right),
+                        const Icon(CupertinoIcons.chevron_forward),
                       ],
                     ),
                   ),
@@ -199,7 +199,7 @@ class _SettingsState extends State<Settings> {
                             .textStyle
                             .copyWith(color: CupertinoColors.systemGrey)),
                     const SizedBox(width: 8),
-                    const Icon(CupertinoIcons.chevron_right),
+                    const Icon(CupertinoIcons.chevron_forward),
                   ],
                 ),
               ),

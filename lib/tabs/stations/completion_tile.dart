@@ -72,7 +72,7 @@ class CffCompletionTile extends ConsumerWidget {
                   Vibration.select();
                   more(context, favoriteStop: favStop, isFav: isFavInStore, store: store);
                 })
-            : const Icon(Icons.chevron_right),
+            : const Icon(CupertinoIcons.chevron_forward),
         onTap: isPrivate
             ? null
             : () {

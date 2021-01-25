@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/local_route.dart';
@@ -19,32 +19,49 @@ class FavoriteRouteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(FontAwesomeIcons.route),
-      title: Text(route.displayName),
-      dense: true,
-      subtitle: Text('${threeDots(route.from, size: 32)} ➡ ${threeDots(route.to, size: 32)}'),
-      trailing: IconButton(
-          icon: const Icon(CupertinoIcons.pencil),
-          onPressed: () {
-            Vibration.select();
-            showActionSheet(
-              context,
-              [
-                ActionsSheetAction(
-                  onPressed: () => deleteRoute(context),
-                  title: Text(Strings.of(context).delete),
-                  icon: const Icon(CupertinoIcons.delete),
-                  isDestructive: true,
-                ),
-                ActionsSheetAction(
-                  title: Text(Strings.of(context).cancel),
-                  icon: const Icon(CupertinoIcons.xmark),
-                ),
-              ],
-            );
-          }),
-      onTap: () => Navigator.of(context).pushNamed('/route', arguments: route),
+    return Slidable(
+      actionPane: const SlidableScrollActionPane(),
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: Strings.of(context).delete,
+          color: Colors.red,
+          icon: CupertinoIcons.delete,
+          onTap: () => deleteRoute(context),
+        ),
+      ],
+      child: ListTile(
+        leading: const Icon(CupertinoIcons.arrow_turn_up_right),
+        title: Text(route.displayName),
+        dense: true,
+        isThreeLine: true,
+        subtitle: Text('${threeDots(route.from, size: 32)} ➡ ${threeDots(route.to, size: 32)}'),
+        onLongPress: () => more(context),
+        trailing: IconButton(
+            icon: const Icon(CupertinoIcons.chevron_forward),
+            onPressed: () {
+              Vibration.select();
+              more(context);
+            }),
+        onTap: () => Navigator.of(context).pushNamed('/route', arguments: route),
+      ),
+    );
+  }
+
+  void more(BuildContext context) {
+    showActionSheet(
+      context,
+      [
+        ActionsSheetAction(
+          onPressed: () => deleteRoute(context),
+          title: Text(Strings.of(context).delete),
+          icon: const Icon(CupertinoIcons.delete),
+          isDestructive: true,
+        ),
+      ],
+      cancel: ActionsSheetAction(
+        title: Text(Strings.of(context).cancel),
+        icon: const Icon(CupertinoIcons.xmark),
+      ),
     );
   }
 

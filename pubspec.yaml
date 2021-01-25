@@ -32,6 +32,7 @@ dependencies:
   flare_flutter: ^2.0.6
   fluentui_system_icons: ^1.1.90
   flutter_riverpod: ^0.12.0
+  flutter_slidable: ^0.5.7
   flutter_typeahead: ^2.0.0
   font_awesome_flutter: ^9.0.0-nullsafety
   freezed_annotation: ^0.12.0
@@ -45,6 +46,7 @@ dependencies:
   quick_actions: ^0.4.0+8
   share: ^2.0.0-nullsafety.2
   shared_preferences: ^0.5.6+3
+  shimmer: ^1.1.2
   url_launcher: ^6.0.0-nullsafety.1
   url_strategy: ^0.2.0-nullsafety.0
 

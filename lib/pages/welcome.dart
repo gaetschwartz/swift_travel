@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/generated/l10n.dart';
 
@@ -102,7 +103,7 @@ class WelcomePage extends StatelessWidget {
                           children: [
                             Text(Strings.of(context).continue_),
                             const SizedBox(width: 8),
-                            const Icon(Icons.chevron_right),
+                            const Icon(CupertinoIcons.chevron_forward),
                           ],
                         ),
                       ),
