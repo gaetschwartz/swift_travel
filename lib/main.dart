@@ -171,7 +171,7 @@ class _MyAppState extends State<MyApp> {
 
 Route onUnknownRoute(RouteSettings settings, bool isDarwin) {
   reportDartError('Unknown page : `${settings.name}`', StackTrace.current,
-      name: 'router', reason: 'while trying to route', showSnackbar: false);
+      library: 'router', reason: 'while trying to route', showSnackbar: false);
   return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
 }
 

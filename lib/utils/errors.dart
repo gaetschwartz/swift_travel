@@ -10,15 +10,15 @@ import 'package:swift_travel/utils/env.dart';
 import 'package:vibration/vibration.dart';
 
 void reportDartError(Object e, StackTrace s,
-    {String name = '', String reason = '', bool showSnackbar = true}) {
+    {String library = '', String reason = '', bool showSnackbar = true}) {
   print('Caught an error: ');
-  debugPrintStack(stackTrace: s, label: '[$name] $e $reason');
+  debugPrintStack(stackTrace: s, label: '[$library] $e $reason');
 
   final details = FlutterErrorDetails(
     exception: e,
     stack: s,
     context: ErrorDescription(reason),
-    library: name,
+    library: library,
   );
 
   if (showSnackbar && (!kDebugMode || Env.doShowErrors)) {
@@ -111,27 +111,12 @@ class _ErrorPageState extends State<ErrorPage> {
             children: [
               ErrorDataWidget(
                 'Exception:',
-                widget.details.exceptionAsString(),
-                wrapped: _wrapped,
-              ),
-              ErrorDataWidget(
-                'Context:',
-                widget.details.context.toString(),
+                widget.details.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
                 'Library:',
                 widget.details.library,
-                wrapped: _wrapped,
-              ),
-              ErrorDataWidget(
-                'StackTrace:',
-                widget.details.stack.toString(),
-                wrapped: _wrapped,
-              ),
-              ErrorDataWidget(
-                'Silent:',
-                widget.details.silent.toString(),
                 wrapped: _wrapped,
               ),
             ],

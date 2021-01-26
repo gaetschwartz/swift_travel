@@ -106,7 +106,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
       await context.read(storeProvider).loadFromPreferences(prefs: prefs);
     } on Exception catch (e, s) {
-      reportDartError(e, s, name: 'loading', reason: 'while loading');
+      reportDartError(e, s, library: 'loading', reason: 'while loading');
       final delete = await confirm(
         context,
         title: const Text('Failed to load your previous settings !'),
@@ -120,7 +120,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       if (delete) await prefs.clear();
       // ignore: avoid_catching_errors
     } on Error catch (e) {
-      reportDartError(e, e.stackTrace, name: 'loading', reason: 'while loading');
+      reportDartError(e, e.stackTrace, library: 'loading', reason: 'while loading');
 
       final delete = await confirm(
         context,

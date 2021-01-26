@@ -72,5 +72,11 @@
         "PAGE=/welcome"
       ]
     },
+    {
+      "name": "Profile",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
   ]
 }

@@ -22,6 +22,7 @@ import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/choice_page.dart';
 import 'package:swift_travel/utils/env.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/search.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
@@ -261,6 +262,16 @@ class _SettingsState extends State<Settings> {
                 leading: const Icon(Icons.warning_rounded),
                 title: const Text('Throw a Flutter error'),
                 onTap: () => throw StateError('Debug error')),
+            ListTile(
+                leading: const Icon(Icons.warning_rounded),
+                title: const Text('Throw a Dart error'),
+                onTap: () {
+                  try {
+                    throw const IntegerDivisionByZeroException();
+                  } catch (e, s) {
+                    reportDartError(e, s, library: 'settings', reason: 'voluntarirly');
+                  }
+                }),
             ListTile(
                 leading: const Icon(Icons.open_in_browser),
                 title: const Text('Open incorrect page'),

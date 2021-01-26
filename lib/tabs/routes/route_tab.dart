@@ -125,10 +125,10 @@ class Fetcher extends ChangeNotifier {
       state = const RouteStates.locationPermissionNotGranted();
     } on Exception catch (e, s) {
       state = RouteStates.exception(e);
-      reportDartError(e, s, name: 'fetcher', reason: 'while fetching');
+      reportDartError(e, s, library: 'fetcher', reason: 'while fetching');
     } on Error catch (e) {
       state = RouteStates.exception(e);
-      reportDartError(e, e.stackTrace, name: 'fetcher', reason: 'while fetching');
+      reportDartError(e, e.stackTrace, library: 'fetcher', reason: 'while fetching');
     }
   }
 }

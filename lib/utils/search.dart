@@ -91,7 +91,7 @@ class _SearchPageState extends State<SearchPage> {
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
-      reportDartError(e, s, name: 'search', reason: 'while fetching');
+      reportDartError(e, s, library: 'search', reason: 'while fetching');
     }
   }
 

@@ -33,10 +33,12 @@ class LineIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = parseColor(background, const Color(0xff000000));
     return DecoratedBox(
-        decoration: BoxDecoration(
-            boxShadow: [BoxShadow(color: color.withOpacity(0.4), blurRadius: 8)],
-            borderRadius: BorderRadius.circular(32),
-            color: color),
+        decoration: BoxDecoration(boxShadow: [
+          if (small)
+            BoxShadow(color: color.withOpacity(0.4), blurRadius: 2)
+          else
+            BoxShadow(color: color.withOpacity(0.4), blurRadius: 8)
+        ], borderRadius: BorderRadius.circular(32), color: color),
         child: Padding(
           padding: small
               ? const EdgeInsets.symmetric(vertical: 2, horizontal: 5)

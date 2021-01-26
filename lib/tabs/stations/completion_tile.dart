@@ -166,7 +166,7 @@ final _cache = <String, List<Line>>{};
 
 final _queue = DoubleLinkedQueue<String>();
 
-const _maxCacheSize = 50;
+const _maxCacheSize = 100;
 
 class __LinesWidgetState extends State<_LinesWidget> {
   @override
@@ -203,7 +203,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
           .toList(growable: false);
       s.stop();
       //  print('End: ' + s.elapsedMilliseconds.toString() + ' ms');
-      setState(() => lines = l2);
+      if (mounted) setState(() => lines = l2);
       if (_cache.length > _maxCacheSize) {
         _cache.remove(_queue.removeFirst());
       }
@@ -217,7 +217,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
                 child: LineIcon.fromLine(l, small: true),
               ))
           .toList(growable: false);
-      setState(() => lines = l);
+      if (mounted) setState(() => lines = l);
     }
   }
 
@@ -230,11 +230,14 @@ class __LinesWidgetState extends State<_LinesWidget> {
             padding: EdgeInsets.only(top: 8),
             child: CupertinoActivityIndicator(),
           )
-        : OverflowView.flexible(
-            builder: (context, remainingItemCount) => const SizedBox(
-                height: 30, child: Align(alignment: Alignment.bottomCenter, child: Text(' ...'))),
-            spacing: 2,
-            children: lines,
+        : Padding(
+            padding: const EdgeInsets.only(right: 2),
+            child: OverflowView.flexible(
+              builder: (context, remainingItemCount) => const SizedBox(
+                  height: 30, child: Align(alignment: Alignment.bottomCenter, child: Text(' ...'))),
+              spacing: 2,
+              children: lines,
+            ),
           );
   }
 }
