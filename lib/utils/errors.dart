@@ -115,6 +115,11 @@ class _ErrorPageState extends State<ErrorPage> {
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
+                'Exception short:',
+                widget.details.exceptionAsString(),
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
                 'Library:',
                 widget.details.library,
                 wrapped: _wrapped,

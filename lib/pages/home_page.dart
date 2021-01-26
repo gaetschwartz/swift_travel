@@ -95,6 +95,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               Expanded(
                   child: ClipRect(
                 child: Navigator(
+                  key: sideBarNavigatorKey,
                   pages: const [SingleWidgetPage(_SideBar())],
                   onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
                   onPopPage: (_, __) => true,
@@ -255,12 +256,14 @@ extension BuildContextX on BuildContext {
     String title,
     bool rootNavigator = false,
   }) {
+    final isDarwin = Responsive.isDarwin(this);
     if (Responsive.isTablet(this)) {
       read(sideTabBarProvider).state = builder;
+      sideBarNavigatorKey.currentState..popUntil((route) => route.isFirst);
     } else {
       Navigator.of(this, rootNavigator: rootNavigator).push(platformRoute(
         builder: builder,
-        isDarwin: Responsive.isDarwin(this),
+        isDarwin: isDarwin,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState,
         title: title,
@@ -296,6 +299,8 @@ final navigatorKeys = <GlobalKey<NavigatorState>>[
   GlobalKey(debugLabel: 'favs tab key'),
   GlobalKey(debugLabel: 'settings key'),
 ];
+
+final sideBarNavigatorKey = GlobalKey<NavigatorState>();
 
 AppBar materialAppBar(BuildContext context,
     {List<Widget> actions = const [], bool addSettings = true, Widget title}) {
