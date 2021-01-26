@@ -47,10 +47,7 @@ class RouteDetails extends StatelessWidget {
         condition: darwin,
         builder: (context, child) {
           return CupertinoPageScaffold(
-            child: SafeArea(
-              child: child,
-              bottom: false,
-            ),
+            child: child,
             navigationBar: cupertinoBar(context,
                 middle: Text(Strings.of(context).tabs_route),
                 trailing: IconButton(
@@ -112,10 +109,13 @@ class RouteDetails extends StatelessWidget {
                           onPressed: () => _shareRoute(context))
                   ]),
             SliverToBoxAdapter(child: buildHeader(context, conn)),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (_, i) => LegTile(l: conn.legs[i]),
-                childCount: conn.legs.length,
+            SliverSafeArea(
+              top: false,
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (_, i) => LegTile(l: conn.legs[i]),
+                  childCount: conn.legs.length,
+                ),
               ),
             ),
           ],
