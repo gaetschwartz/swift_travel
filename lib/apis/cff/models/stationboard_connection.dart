@@ -13,10 +13,10 @@ abstract class StationboardConnection with _$StationboardConnection {
   factory StationboardConnection(
     DateTime time,
     Vehicle type,
-    String line,
     String color,
-    Stop terminal,
-    String operator, {
+    Stop terminal, {
+    String line,
+    String operator,
     @Default('') String number,
     @JsonKey(name: '*G') String g,
     @JsonKey(name: '*L') String l,

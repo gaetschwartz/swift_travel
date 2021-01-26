@@ -114,7 +114,7 @@ class _MyAppState extends State<MyApp> {
       behavior: HitTestBehavior.opaque,
       child: Consumer(builder: (context, w, _) {
         final theme = w(dynamicTheme);
-        final t = theme.ofBrightness(context);
+
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
@@ -135,7 +135,9 @@ class _MyAppState extends State<MyApp> {
           onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
           builder: (context, child) => IfWrapper(
             builder: (context, child) => CupertinoTheme(
-              data: CupertinoThemeData(brightness: t.brightness),
+              data: CupertinoThemeData(
+                brightness: DynamicTheme.resolveBrightness(context, theme.mode),
+              ),
               child: child,
             ),
             condition: isDarwin,

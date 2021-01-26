@@ -113,14 +113,13 @@ class CffApi extends NavigationApi {
     if (transportationTypes.isNotEmpty) {
       params['transportation_types'] = transportationTypes.join(',');
     }
-    if (when != null) throw UnimplementedError('Todo');
     final s = queryBuilder('stationboard', params);
-    log(s);
+    if (kDebugMode) log(s);
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve stationboard : ${response.body}");
     }
-    final decode = await compute(jsonDecode, response.body) as Map<String, dynamic>;
+    final decode = await Future.microtask(() => jsonDecode(response.body)) as Map<String, dynamic>;
 
     return CffStationboard.fromJson(decode).copyWith(stopName: stopName);
   }

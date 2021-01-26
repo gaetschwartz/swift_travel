@@ -86,7 +86,10 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     return IfWrapper(
       condition: isDarwin,
       builder: (context, child) => CupertinoPageScaffold(
-        navigationBar: cupertinoBar(context, middle: Text(Strings.of(context).tabs_search)),
+        navigationBar: cupertinoBar(
+          context,
+          middle: Text(Strings.of(context).tabs_search),
+        ),
         resizeToAvoidBottomInset: false,
         child: child,
       ),

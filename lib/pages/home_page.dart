@@ -261,8 +261,8 @@ extension BuildContextX on BuildContext {
       Navigator.of(this, rootNavigator: rootNavigator).push(platformRoute(
         builder: builder,
         isDarwin: Responsive.isDarwin(this),
-        fullscreenDialog: true,
-        maintainState: true,
+        fullscreenDialog: fullscreenDialog,
+        maintainState: maintainState,
         title: title,
         settings: settings,
       ));
