@@ -42,6 +42,7 @@ dependencies:
   json_annotation: ^3.0.0
   location: ^4.0.0-nullsafety.0
   modal_bottom_sheet: ^2.0.0-nullsafety.1
+  octo_image: ^0.3.0
   pedantic: ^1.9.2
   quick_actions: ^0.4.0+8
   share: ^2.0.0-nullsafety.2

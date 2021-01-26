@@ -17,13 +17,12 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/choice_page.dart';
 import 'package:swift_travel/utils/env.dart';
-import 'package:swift_travel/utils/route_uri.dart';
 import 'package:swift_travel/utils/search.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
-import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
@@ -231,43 +230,44 @@ class _SettingsState extends State<Settings> {
           unawaited(SystemNavigator.pop(animated: true));
         }),
     (_) => const Divider(),
-    (context) => (isDebugMode)
-        ? Column(children: [
-            _SectionTitle(title: Text(Strings.of(context).developer)),
-            ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('texst'),
-                onTap: () async {
-                  final s = await input(context, title: const Text('la question'));
-                  if (s == null) return;
-                  print(s);
-                  final out = decodeRouteUri(Uri.parse(s));
-                  print(out);
-                }),
-            ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('Search'),
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) => SearchPage(
-                          controller: TextEditingController(),
-                        )))),
-            ListTile(
-                leading: const Icon(Icons.warning_rounded),
-                title: const Text('Throw a Flutter error'),
-                onTap: () => throw StateError('Debug error')),
-            ListTile(
-                leading: const Icon(Icons.open_in_browser),
-                title: const Text('Open incorrect page'),
-                onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
-            ListTile(
-                leading: const Icon(Icons.close),
-                title: const Text('Trigger a crash'),
-                onTap: () async {
-                  await FirebaseCrashlytics.instance.log('We trigger a crash');
-                  FirebaseCrashlytics.instance.crash();
-                }),
-          ])
-        : const SizedBox(),
+    (context) => Column(children: [
+          _SectionTitle(title: Text(Strings.of(context).developer)),
+          ListTile(
+              leading: const Icon(Icons.screen_lock_landscape),
+              title: const Text('Screen info'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Theme(
+                      data: ThemeData.light(),
+                      child: Builder(builder: (context) => const _ScreenPage()),
+                    ),
+                  ),
+                );
+              }),
+          ListTile(
+              leading: const Icon(Icons.search),
+              title: const Text('Search'),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => SearchPage(
+                        controller: TextEditingController(),
+                      )))),
+          ListTile(
+              leading: const Icon(Icons.warning_rounded),
+              title: const Text('Throw a Flutter error'),
+              onTap: () => throw StateError('Debug error')),
+          ListTile(
+              leading: const Icon(Icons.open_in_browser),
+              title: const Text('Open incorrect page'),
+              onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
+          ListTile(
+              leading: const Icon(Icons.close),
+              title: const Text('Trigger a crash'),
+              onTap: () async {
+                await FirebaseCrashlytics.instance.log('We trigger a crash');
+                FirebaseCrashlytics.instance.crash();
+              }),
+        ]),
     (_) => const ListTile(
           isThreeLine: true,
           dense: true,
@@ -318,6 +318,27 @@ class _SettingsState extends State<Settings> {
   void onMapsChanged(PreferencesBloc prefs, Maps m) => prefs.mapsApp = m;
 
   void onAPIChanged(PreferencesBloc prefs, NavigationApiType api) => prefs.api = api;
+}
+
+class _ScreenPage extends StatelessWidget {
+  const _ScreenPage({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView(
+        children: [
+          ErrorDataWidget('Screen size:', MediaQuery.of(context).size.toString()),
+          ErrorDataWidget('Orientation:', MediaQuery.of(context).orientation.toString()),
+          ErrorDataWidget('Text scale factor:', MediaQuery.of(context).textScaleFactor.toString()),
+          ErrorDataWidget('Pixel ratio:', MediaQuery.of(context).devicePixelRatio.toString()),
+        ],
+      ),
+    );
+  }
 }
 
 String _mapsName(Maps m) {

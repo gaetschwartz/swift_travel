@@ -1,8 +1,12 @@
+import 'dart:ui';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:octo_image/octo_image.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/settings.dart';
@@ -197,7 +201,38 @@ class _SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-        builder: (context, w, _) => w(sideTabBarProvider).state?.call(context) ?? const SizedBox());
+        builder: (context, w, _) =>
+            w(sideTabBarProvider).state?.call(context) ??
+            Stack(
+              children: [
+                Positioned.fill(
+                  child: OctoImage(
+                    image: const CachedNetworkImageProvider(
+                        'https://images.unsplash.com/photo-1609920867613-054bfccf1829'),
+                    placeholderBuilder: OctoPlaceholder.blurHash(
+                      'qwJRdKRORjayoej[fja{_4Rjf5fQayj@fRj[%MkDaejtWCazj@j[%1tRfkWBj[f7azayWDj]ogayoejsayayoff5ogofWBWBayoe',
+                    ),
+                    errorBuilder: OctoError.icon(color: Colors.red),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned.fill(
+                    child: Center(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                        child: const Text(
+                            'Start searching a station or an itinerary to start using the app'),
+                      ),
+                    ),
+                  ),
+                )),
+              ],
+            ));
   }
 }
 
