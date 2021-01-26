@@ -153,8 +153,6 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 resizeToAvoidBottomInset: false,
                 bottomNavigationBar: Consumer(
                     builder: (context, w, _) => BottomNavigationBar(
-                          backgroundColor:
-                              CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
                           onTap: (i) {
                             Vibration.selectSoft();
                             if (_pageController.page != i) {
@@ -260,8 +258,14 @@ extension BuildContextX on BuildContext {
     if (Responsive.isTablet(this)) {
       read(sideTabBarProvider).state = builder;
     } else {
-      Navigator.of(this, rootNavigator: rootNavigator)
-          .push(platformRoute(builder: builder, isDarwin: Responsive.isDarwin(this)));
+      Navigator.of(this, rootNavigator: rootNavigator).push(platformRoute(
+        builder: builder,
+        isDarwin: Responsive.isDarwin(this),
+        fullscreenDialog: true,
+        maintainState: true,
+        title: title,
+        settings: settings,
+      ));
     }
   }
 }
@@ -309,7 +313,7 @@ AppBar materialAppBar(BuildContext context,
               Vibration.select();
               Nav.push(
                 context,
-                (context) => const Settings(showCloseButton: true),
+                (context) => const Settings(),
                 fullscreenDialog: true,
                 rootNavigator: true,
               );

@@ -31,9 +31,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({this.showCloseButton = false});
-
-  final bool showCloseButton;
+  const Settings();
 
   @override
   _SettingsState createState() => _SettingsState();
@@ -314,7 +312,6 @@ class _SettingsState extends State<Settings> {
                 SliverAppBar(
                   title: Text(Strings.of(context).settings),
                   pinned: true,
-                  leading: widget.showCloseButton ? const CloseButton() : null,
                 ),
               SliverSafeArea(
                 top: isDarwin,
