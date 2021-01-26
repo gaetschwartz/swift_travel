@@ -73,7 +73,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     final isDarwin = Responsive.isDarwin(context);
     return Material(
       child: IfWrapper(
-        condition: Responsive.isLargeScreen(context),
+        condition: Responsive.isTablet(context),
         builder: (context, child) {
           return LayoutBuilder(builder: (context, constraints) {
             return Row(children: [
@@ -244,7 +244,7 @@ extension BuildContextX on BuildContext {
     bool fullscreenDialog = false,
     String title,
   }) {
-    if (Responsive.isLargeScreen(this)) {
+    if (Responsive.isTablet(this)) {
       read(sideTabBarProvider).state = builder;
     } else {
       Navigator.of(this).push(platformRoute(builder: builder, isDarwin: Responsive.isDarwin(this)));
