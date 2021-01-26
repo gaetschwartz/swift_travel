@@ -31,6 +31,7 @@ import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/mocking.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/datepicker.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dynamic_theme.dart';
@@ -276,172 +277,183 @@ class _RoutePageState extends State<RoutePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: widget.localRoute != null || widget.favStop != null
-          ? AppBar(
-              title: Text(widget.localRoute?.displayName ?? Strings.of(context).tabs_route),
-            )
-          : swiftTravelAppBar(context, title: Text(Strings.of(context).tabs_route)),
-      body: Column(
-        children: <Widget>[
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 4, left: 8, top: 8, bottom: 4),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: buildFromField(context),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 4, left: 8, top: 4, bottom: 8),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: buildToField(context),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Center(
-                child: IconButton(
-                  tooltip: 'Switch inputs',
-                  icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
-                  onPressed: () {
-                    Vibration.select();
-                    switchInputs();
-                  },
-                ),
-              )
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            height: 40,
-            child: Stack(
+    return IfWrapper(
+      condition: Responsive.isDarwin(context),
+      builder: (context, child) => CupertinoPageScaffold(
+        navigationBar: cupertinoBar(context, middle: Text(Strings.of(context).tabs_route)),
+        resizeToAvoidBottomInset: false,
+        child: child,
+      ),
+      elseBuilder: (context, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: materialAppBar(context,
+              title: Text(widget.localRoute?.displayName ?? Strings.of(context).tabs_route)),
+          body: child,
+        );
+      },
+      child: SafeArea(
+        bottom: false,
+        child: Column(
+          children: <Widget>[
+            Row(
               children: [
-                Positioned(
-                    left: 0,
-                    child: IconButton(
-                      tooltip: Strings.of(context).fav_route,
-                      onPressed: () async {
-                        unawaited(Vibration.select());
-
-                        log(store.routes.toString());
-                        if (store.routes.any(
-                          (lr) => lr.from == from.text && lr.to == to.text,
-                        )) {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text('This route is already in your favorites !')));
-                          return;
-                        }
-
-                        final s = await input(context, title: const Text('Enter route name'));
-                        if (s == null) return;
-                        await store.addRoute(LocalRoute(from.text, to.text, displayName: s));
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(content: Text('Route starred !')));
-                      },
-                      icon: Consumer(builder: (context, w, _) {
-                        final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
-                        w(_futureRouteProvider);
-
-                        return _store.routes.any((lr) => lr.from == from.text && lr.to == to.text)
-                            ? const Icon(Icons.star)
-                            : const Icon(Icons.star_border);
-                      }),
-                    )),
-                Center(
-                  child: SizedBox(
-                    height: 48,
-                    child: Tooltip(
-                      message: 'Change date and time',
-                      child: TextButton(
-                        onLongPress: kDebugMode
-                            ? () {
-                                unFocusFields();
-                                from.setString(
-                                  context,
-                                  'Université de Genève, Genève, Rue du Général-Dufour 24',
-                                  doLoad: false,
-                                );
-                                to.setString(
-                                  context,
-                                  'Badenerstrasse 549, 8048 Zürich',
-                                  doLoad: false,
-                                );
-
-                                context.read(_futureRouteProvider).state =
-                                    RouteStates.routes(CffRoute.fromJson(mockRoute));
-                              }
-                            : null,
-                        style: TextButton.styleFrom(
-                            shape: const StadiumBorder(),
-                            primary: Theme.of(context).textTheme.button.color),
-                        onPressed: () async {
-                          unawaited(Vibration.select());
-                          var type = context.read(_timeTypeProvider).state;
-                          final _date = context.read(_dateProvider);
-                          final date = await pickDate(context,
-                              initialDateTime:
-                                  _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
-                              minuteInterval: 5,
-                              bottom: _Segmented(
-                                onChange: (v) => type = v,
-                                initialValue: type,
-                              ));
-                          if (date != null) _date.state = date;
-                          if (type != null) context.read(_timeTypeProvider).state = type;
-                        },
-                        child: Consumer(builder: (context, w, _) {
-                          final _date = w(_dateProvider);
-                          final _time = w(_timeTypeProvider);
-                          final dateFormatted = DateFormat('d MMM y').format(_date.state);
-                          final timeFormatted = DateFormat('H:mm').format(_date.state);
-                          final type = describeEnum(_time.state);
-                          return Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text('${type[0].toUpperCase()}${type.substring(1, 3)}.'),
-                              const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
-                              Text(dateFormatted),
-                              const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
-                              Text(timeFormatted),
-                            ],
-                          );
-                        }),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4, left: 8, top: 8, bottom: 4),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: buildFromField(context),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4, left: 8, top: 4, bottom: 8),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: buildToField(context),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  right: 0,
+                Center(
                   child: IconButton(
-                    tooltip: Strings.of(context).use_current_time,
+                    tooltip: 'Switch inputs',
+                    icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
                     onPressed: () {
                       Vibration.select();
-                      unFocusFields();
-                      context.read(_dateProvider).state = DateTime.now();
+                      switchInputs();
                     },
-                    icon: const Icon(Icons.restore),
                   ),
-                ),
+                )
               ],
             ),
-          ),
-          const SizedBox(height: 8),
-          const Expanded(child: RoutesView())
-        ],
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              height: 40,
+              child: Stack(
+                children: [
+                  Positioned(
+                      left: 0,
+                      child: IconButton(
+                        tooltip: Strings.of(context).fav_route,
+                        onPressed: () async {
+                          unawaited(Vibration.select());
+
+                          log(store.routes.toString());
+                          if (store.routes.any(
+                            (lr) => lr.from == from.text && lr.to == to.text,
+                          )) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                content: Text('This route is already in your favorites !')));
+                            return;
+                          }
+
+                          final s = await input(context, title: const Text('Enter route name'));
+                          if (s == null) return;
+                          await store.addRoute(LocalRoute(from.text, to.text, displayName: s));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(content: Text('Route starred !')));
+                        },
+                        icon: Consumer(builder: (context, w, _) {
+                          final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
+                          w(_futureRouteProvider);
+
+                          return _store.routes.any((lr) => lr.from == from.text && lr.to == to.text)
+                              ? const Icon(Icons.star)
+                              : const Icon(Icons.star_border);
+                        }),
+                      )),
+                  Center(
+                    child: SizedBox(
+                      height: 48,
+                      child: Tooltip(
+                        message: 'Change date and time',
+                        child: TextButton(
+                          onLongPress: kDebugMode
+                              ? () {
+                                  unFocusFields();
+                                  from.setString(
+                                    context,
+                                    'Université de Genève, Genève, Rue du Général-Dufour 24',
+                                    doLoad: false,
+                                  );
+                                  to.setString(
+                                    context,
+                                    'Badenerstrasse 549, 8048 Zürich',
+                                    doLoad: false,
+                                  );
+
+                                  context.read(_futureRouteProvider).state =
+                                      RouteStates.routes(CffRoute.fromJson(mockRoute));
+                                }
+                              : null,
+                          style: TextButton.styleFrom(
+                              shape: const StadiumBorder(),
+                              primary: Theme.of(context).textTheme.button.color),
+                          onPressed: () async {
+                            unawaited(Vibration.select());
+                            var type = context.read(_timeTypeProvider).state;
+                            final _date = context.read(_dateProvider);
+                            final date = await pickDate(context,
+                                initialDateTime:
+                                    _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
+                                minuteInterval: 5,
+                                bottom: _Segmented(
+                                  onChange: (v) => type = v,
+                                  initialValue: type,
+                                ));
+                            if (date != null) _date.state = date;
+                            if (type != null) context.read(_timeTypeProvider).state = type;
+                          },
+                          child: Consumer(builder: (context, w, _) {
+                            final _date = w(_dateProvider);
+                            final _time = w(_timeTypeProvider);
+                            final dateFormatted = DateFormat('d MMM y').format(_date.state);
+                            final timeFormatted = DateFormat('H:mm').format(_date.state);
+                            final type = describeEnum(_time.state);
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('${type[0].toUpperCase()}${type.substring(1, 3)}.'),
+                                const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
+                                Text(dateFormatted),
+                                const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
+                                Text(timeFormatted),
+                              ],
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    child: IconButton(
+                      tooltip: Strings.of(context).use_current_time,
+                      onPressed: () {
+                        Vibration.select();
+                        unFocusFields();
+                        context.read(_dateProvider).state = DateTime.now();
+                      },
+                      icon: const Icon(Icons.restore),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Expanded(child: RoutesView())
+          ],
+        ),
       ),
     );
   }
@@ -449,7 +461,7 @@ class _RoutePageState extends State<RoutePage> {
   Widget buildFromField(BuildContext context) {
     final currentLocationString = Strings.of(context).current_location;
 
-    return InputWrapperDecoration(
+    return ShadowsAround(
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
@@ -520,7 +532,7 @@ class _RoutePageState extends State<RoutePage> {
   Widget buildToField(BuildContext context) {
     final currentLocationString = Strings.of(context).current_location;
 
-    return InputWrapperDecoration(
+    return ShadowsAround(
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
@@ -837,10 +849,10 @@ class TextControllerAndStateBinder {
       Strings.of(context).current_location;
 }
 
-class InputWrapperDecoration extends StatelessWidget {
+class ShadowsAround extends StatelessWidget {
   final Widget child;
 
-  const InputWrapperDecoration({Key key, this.child}) : super(key: key);
+  const ShadowsAround({Key key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

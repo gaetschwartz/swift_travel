@@ -1,9 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/apis/cff/models/subsequent_stop.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:theming/responsive.dart';
 
 class NextStopsPage extends StatefulWidget {
   final StationboardConnection connection;
@@ -34,20 +38,37 @@ class _NextStopsPageState extends State<NextStopsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: Text(connection.terminal.name),
+    return IfWrapper(
+      condition: Responsive.isDarwin(context),
+      builder: (context, child) => CupertinoPageScaffold(
+        child: child,
+        navigationBar: cupertinoBar(context, middle: Text(connection.terminal.name)),
       ),
-      body: connection != null
+      elseBuilder: (context, child) => Scaffold(
+          appBar: AppBar(
+            leading: const BackButton(),
+            title: Text(connection.terminal.name),
+          ),
+          body: child),
+      child: connection != null
           ? ListView.builder(
-              itemCount: connection.subsequentStops.length,
-              itemBuilder: (context, i) => StopTile(
-                stop: connection.subsequentStops[i],
-                connection: connection,
-                isFirst: i == 0,
-                isLast: i == connection.subsequentStops.length - 1,
-              ),
+              itemCount: connection.subsequentStops.length + 1,
+              itemBuilder: (context, i) => i == 0
+                  ? StopTile(
+                      stop: SubsequentStop(
+                        connection.terminal.name,
+                        dep: connection.time,
+                        depDelay: connection.depDelay,
+                        arrDelay: connection.arrDelay,
+                      ),
+                      isFirst: true,
+                      connection: connection)
+                  : StopTile(
+                      stop: connection.subsequentStops[i - 1],
+                      connection: connection,
+                      isFirst: false,
+                      isLast: i - 1 == connection.subsequentStops.length - 1,
+                    ),
             )
           : const Center(child: CircularProgressIndicator()),
     );
@@ -116,9 +137,9 @@ class StopTile extends StatelessWidget {
                     text: Format.time(stop.dep ?? stop.arr),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  if (stop.depDelay > 0)
+                  if (stop.depDelay > 0 || stop.arrDelay > 0)
                     TextSpan(
-                      text: Format.delay(stop.dep != null ? stop.depDelay : stop.arrDelay),
+                      text: Format.delay(stop.arrDelay > 0 ? stop.arrDelay : stop.depDelay),
                       style: const TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,

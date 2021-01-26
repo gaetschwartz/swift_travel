@@ -11,7 +11,7 @@ import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
-import 'package:swift_travel/widgets/input.dart';
+import 'package:swift_travel/widgets/stop_input.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dialogs/loading_dialog.dart';
 import 'package:theming/responsive.dart';
@@ -46,76 +46,81 @@ class _FavoritesTabState extends State<FavoritesTab>
   Widget build(BuildContext context) {
     super.build(context);
     final isDarwin = Responsive.isDarwin(context);
-    return Scaffold(
-      appBar: swiftTravelAppBar(context,
-          actions: [
+    return IfWrapper(
+      condition: isDarwin,
+      builder: (context, child) => CupertinoPageScaffold(
+        child: child,
+        navigationBar: cupertinoBar(
+          context,
+          middle: Text(Strings.of(context).tabs_favourites),
+          trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
+        ),
+      ),
+      elseBuilder: (context, child) => Scaffold(
+          appBar: AppBar(actions: [
             if (isDarwin) IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav)
-          ],
-          title: Text(Strings.of(context).tabs_favourites)),
-      floatingActionButton: isDarwin
-          ? null
-          : FloatingActionButton(
-              tooltip: 'Add a favorite',
-              shape: const StadiumBorder(),
-              onPressed: addFav,
-              child: const Icon(Icons.add),
-            ),
-      body: IfWrapper(
-        condition: isDarwin,
-        builder: (context, child) => CupertinoPageScaffold(child: child),
-        child: Consumer(builder: (context, w, _) {
-          final favs = w(favoritesStatesProvider);
-          final favRoutes = w(favoritesRoutesStatesProvider);
-          final stops = favs.state.maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
-          final routes =
-              favRoutes.state.maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
-          return stops.isEmpty && routes.isEmpty
-              ? SizedBox.expand(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+          ], title: Text(Strings.of(context).tabs_favourites)),
+          floatingActionButton: isDarwin
+              ? null
+              : FloatingActionButton(
+                  tooltip: 'Add a favorite',
+                  shape: const StadiumBorder(),
+                  onPressed: addFav,
+                  child: const Icon(Icons.add),
+                ),
+          body: child),
+      child: Consumer(builder: (context, w, _) {
+        final favs = w(favoritesStatesProvider);
+        final favRoutes = w(favoritesRoutesStatesProvider);
+        final stops = favs.state.maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
+        final routes =
+            favRoutes.state.maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
+        return stops.isEmpty && routes.isEmpty
+            ? SizedBox.expand(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      '⭐',
+                      style: TextStyle(fontSize: 64),
+                    ),
+                    const SizedBox(height: 32),
+                    Text(
+                      'You have no favorites !',
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'You can add one by tapping the ➕ button.',
+                      style: Theme.of(context).textTheme.subtitle1,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              )
+            : ListView.builder(
+                itemCount: stops.length + routes.length,
+                itemBuilder: (context, i) => IfWrapper(
+                  condition: isDarwin,
+                  builder: (context, child) => Column(
                     children: [
-                      const Text(
-                        '⭐',
-                        style: TextStyle(fontSize: 64),
-                      ),
-                      const SizedBox(height: 32),
-                      Text(
-                        'You have no favorites !',
-                        style: Theme.of(context).textTheme.headline5,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'You can add one by tapping the ➕ button.',
-                        style: Theme.of(context).textTheme.subtitle1,
-                        textAlign: TextAlign.center,
-                      ),
+                      const Divider(height: 0),
+                      child,
                     ],
                   ),
-                )
-              : ListView.builder(
-                  itemCount: stops.length + routes.length,
-                  itemBuilder: (context, i) => IfWrapper(
-                    condition: isDarwin,
-                    builder: (context, child) => Column(
-                      children: [
-                        const Divider(height: 0),
-                        child,
-                      ],
-                    ),
-                    child: i < stops.length
-                        ? FavoriteStationTile(stops[i])
-                        : FavoriteRouteTile(routes[i - stops.length]),
-                  ),
-                );
-        }),
-      ),
+                  child: i < stops.length
+                      ? FavoriteStationTile(stops[i])
+                      : FavoriteRouteTile(routes[i - stops.length]),
+                ),
+              );
+      }),
     );
   }
 
   Future<void> addFav() async {
     unawaited(Vibration.select());
-    final s = await Navigator.of(context).push<String>(MaterialPageRoute(
+    final s = await Navigator.of(context, rootNavigator: true).push<String>(MaterialPageRoute(
       builder: (_) => const StopInputDialog(title: 'Add a favorite'),
       fullscreenDialog: true,
     ));
@@ -127,7 +132,7 @@ class _FavoritesTabState extends State<FavoritesTab>
 
       if (completions.isEmpty) {
         log("Didn't find a station, will try using routes as a hack...");
-        final cffRoute = await cff.route(s, 'Geneva', date: DateTime.now(), time: TimeOfDay.now());
+        final cffRoute = await cff.route(s, 'Bern', date: DateTime.now(), time: TimeOfDay.now());
         if (cffRoute.connections.isNotEmpty) {
           final from = cffRoute.connections.first.from;
           log('Found $from');

@@ -474,6 +474,16 @@ class Strings {
       args: [],
     );
   }
+
+  /// `Timetable`
+  String get timetable {
+    return Intl.message(
+      'Timetable',
+      name: 'timetable',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Strings> {

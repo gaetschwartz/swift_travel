@@ -11,29 +11,34 @@ import 'package:vibration/vibration.dart';
 
 void reportDartError(Object e, StackTrace s,
     {String name = '', String reason = '', bool showSnackbar = true}) {
-  if (kDebugMode) {
-    debugPrintStack(stackTrace: s, label: '[$name] $e $reason');
-  }
+  print('Caught an error: ');
+  debugPrintStack(stackTrace: s, label: '[$name] $e $reason');
+
+  final details = FlutterErrorDetails(
+    exception: e,
+    stack: s,
+    context: ErrorDescription(reason),
+    library: name,
+  );
+
   if (showSnackbar && (!kDebugMode || Env.doShowErrors)) {
-    Vibration.error();
-    final details = FlutterErrorDetails(
-      exception: e,
-      stack: s,
-      context: ErrorDescription(reason),
-      library: name,
-    );
-    scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-      content: const Text('The app encountered an issue.'),
-      action: SnackBarAction(
-        key: Key(details.hashCode.toRadixString(16)),
-        label: 'Details',
-        onPressed: () {
-          scaffoldMessengerKey.currentState.removeCurrentSnackBar();
-          navigatorKey.currentState
-              .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
-        },
-      ),
-    ));
+    try {
+      Vibration.error();
+      scaffoldMessengerKey.currentState
+        ..removeCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          content: const Text('The app encountered an issue.'),
+          action: SnackBarAction(
+            key: Key(details.hashCode.toRadixString(16)),
+            label: 'Details',
+            onPressed: () {
+              scaffoldMessengerKey.currentState.removeCurrentSnackBar();
+              navigatorKey.currentState
+                  .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
+            },
+          ),
+        ));
+    } finally {}
   }
 
   if (Firebase.apps.isNotEmpty) {
@@ -42,25 +47,31 @@ void reportDartError(Object e, StackTrace s,
 }
 
 void reportFlutterError(FlutterErrorDetails details) {
-  if (kDebugMode) {
-    debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
-  }
+  print('Caught a Flutter error: ${details.exception}');
+  debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
+
   if (!kDebugMode || Env.doShowErrors) {
-    Vibration.error();
-    scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-      key: Key(details.hashCode.toRadixString(16)),
-      content: const Text('The app encountered an issue.'),
-      action: SnackBarAction(
-        label: 'Details',
-        onPressed: () {
-          scaffoldMessengerKey.currentState.removeCurrentSnackBar();
-          navigatorKey.currentState
-              .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
-        },
-      ),
-    ));
+    try {
+      Vibration.error();
+      scaffoldMessengerKey.currentState
+        ..removeCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          key: Key(details.hashCode.toRadixString(16)),
+          content: const Text('The app encountered an issue.'),
+          action: SnackBarAction(
+            label: 'Details',
+            onPressed: () {
+              scaffoldMessengerKey.currentState.removeCurrentSnackBar();
+              navigatorKey.currentState
+                  .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
+            },
+          ),
+        ));
+    } on FlutterError catch (_) {}
   }
-  if (Firebase.apps.isNotEmpty) FirebaseCrashlytics.instance.recordFlutterError(details);
+  if (Firebase.apps.isNotEmpty) {
+    FirebaseCrashlytics.instance.recordFlutterError(details);
+  }
 }
 
 class ErrorPage extends StatefulWidget {

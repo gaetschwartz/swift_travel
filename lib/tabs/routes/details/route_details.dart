@@ -15,12 +15,15 @@ import 'package:swift_travel/apis/cff/models/route_connection.dart';
 import 'package:swift_travel/apis/cff/models/types_enum.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/main.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/arrived_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/share.dart';
+import 'package:swift_travel/widgets/action_sheet.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
@@ -39,40 +42,84 @@ class RouteDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final conn = route.connections[i];
-    return Scaffold(
-        body: CustomScrollView(
-      slivers: [
-        SliverAppBar(
-            title: Text(Strings.of(context).tabs_route),
-            pinned: true,
-            snap: true,
-            floating: true,
-            leading: doClose ? const CloseButton() : null,
-            flexibleSpace: const SizedBox(),
-            actions: <Widget>[
-              IconButton(
-                  icon: const Icon(CupertinoIcons.game_controller),
-                  onPressed: () => Navigator.of(context)
-                      .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c()))),
-              IconButton(
-                  icon: const Icon(CupertinoIcons.play_fill),
-                  onPressed: () => openLive(context, conn)),
-              if (isMobile || kIsWeb)
-                IconButton(
-                    icon: Responsive.isDarwin(context)
-                        ? const Icon(CupertinoIcons.share)
-                        : const Icon(Icons.share),
-                    onPressed: () => _shareRoute(context))
-            ]),
-        SliverToBoxAdapter(child: buildHeader(context, conn)),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (_, i) => LegTile(l: conn.legs[i]),
-            childCount: conn.legs.length,
-          ),
-        ),
-      ],
-    ));
+    final darwin = Responsive.isDarwin(context);
+    return IfWrapper(
+        condition: darwin,
+        builder: (context, child) {
+          return CupertinoPageScaffold(
+            child: SafeArea(
+              child: child,
+              bottom: false,
+            ),
+            navigationBar: cupertinoBar(context,
+                middle: Text(Strings.of(context).tabs_route),
+                trailing: IconButton(
+                    icon: const Icon(Icons.more_horiz),
+                    onPressed: () {
+                      showActionSheet<void>(
+                          context,
+                          [
+                            ActionsSheetAction(
+                              icon: const Icon(CupertinoIcons.play_fill),
+                              onPressed: () => openLive(context, conn),
+                              title: const Text('Live Route'),
+                            ),
+                            ActionsSheetAction(
+                              icon: const Icon(CupertinoIcons.game_controller),
+                              onPressed: () => Navigator.of(context)
+                                  .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c())),
+                              title: const Text('Snake'),
+                            ),
+                            if (isMobile || kIsWeb)
+                              ActionsSheetAction(
+                                icon: const Icon(CupertinoIcons.share),
+                                onPressed: () => _shareRoute(context),
+                                title: const Text('Share'),
+                              )
+                          ],
+                          cancel: ActionsSheetAction(
+                              icon: const Icon(CupertinoIcons.xmark),
+                              title: Text(Strings.of(context).close)));
+                    })),
+          );
+        },
+        elseBuilder: (context, child) => Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: child,
+            ),
+        child: CustomScrollView(
+          slivers: [
+            if (!darwin)
+              SliverAppBar(
+                  title: Text(Strings.of(context).tabs_route),
+                  pinned: true,
+                  floating: true,
+                  leading: doClose ? const CloseButton() : null,
+                  flexibleSpace: const SizedBox(),
+                  actions: <Widget>[
+                    IconButton(
+                        icon: const Icon(CupertinoIcons.game_controller),
+                        onPressed: () => Navigator.of(context)
+                            .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c()))),
+                    IconButton(
+                        icon: const Icon(CupertinoIcons.play_fill),
+                        onPressed: () => openLive(context, conn)),
+                    if (isMobile || kIsWeb)
+                      IconButton(
+                          icon: Responsive.isDarwin(context)
+                              ? const Icon(CupertinoIcons.share)
+                              : const Icon(Icons.share),
+                          onPressed: () => _shareRoute(context))
+                  ]),
+            SliverToBoxAdapter(child: buildHeader(context, conn)),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (_, i) => LegTile(l: conn.legs[i]),
+                childCount: conn.legs.length,
+              ),
+            ),
+          ],
+        ));
   }
 
   String _format(String place) {
@@ -91,43 +138,40 @@ class RouteDetails extends StatelessWidget {
   Widget buildHeader(BuildContext context, RouteConnection c) {
     return Column(
       children: [
-        DecoratedBox(
-          decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
-          child: DefaultTextStyle(
-            style: Theme.of(context).textTheme.bodyText1,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _dataRow(Strings.of(context).departure, _format(c.from)),
-                  _dataRow(Strings.of(context).destination, _format(c.to)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(Strings.of(context).travel_duration),
-                      const SizedBox(width: 8),
-                      Expanded(
-                          child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text.rich(
-                                TextSpan(children: [
-                                  TextSpan(
-                                      text:
-                                          '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
-                                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                                  TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
-                                ]),
-                                textAlign: TextAlign.end,
-                              )))
-                    ],
-                  ),
-                ],
-              ),
+        const SizedBox(height: 8),
+        DefaultTextStyle(
+          style: Theme.of(context).textTheme.bodyText1,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _dataRow(Strings.of(context).departure, _format(c.from)),
+                _dataRow(Strings.of(context).destination, _format(c.to)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(Strings.of(context).travel_duration),
+                    const SizedBox(width: 8),
+                    Expanded(
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text.rich(
+                              TextSpan(children: [
+                                TextSpan(
+                                    text: '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
+                                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                                TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
+                              ]),
+                              textAlign: TextAlign.end,
+                            )))
+                  ],
+                ),
+              ],
             ),
           ),
         ),
-        const Divider(),
+        const Divider(height: 8),
       ],
     );
   }
@@ -331,20 +375,22 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
           child: started ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
           onPressed: started ? stop : start,
         ),
-        body: ListView(
+        body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: SizedBox.expand(
-                  child: CustomPaint(
-                    painter: MyPainter(gridSize, snecc, food),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: CustomPaint(
+                      painter: MyPainter(gridSize, snecc, food),
+                    ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 16),
             Column(
               children: [
                 ElevatedButton(
@@ -359,7 +405,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                   onPressed: () => dir = Direction.up,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(shape: const CircleBorder()),
@@ -372,6 +418,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                       ),
                       onPressed: () => dir = Direction.left,
                     ),
+                    const SizedBox(width: 32),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(shape: const CircleBorder()),
                       child: const Padding(
@@ -397,7 +444,8 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                   onPressed: () => dir = Direction.down,
                 ),
               ],
-            )
+            ),
+            const SizedBox(height: 16),
           ],
         ),
       ),

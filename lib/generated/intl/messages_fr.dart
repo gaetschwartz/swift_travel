@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tabs_route" : MessageLookupByLibrary.simpleMessage("Itinéraire"),
     "tabs_search" : MessageLookupByLibrary.simpleMessage("Recherche"),
     "themes" : MessageLookupByLibrary.simpleMessage("Thèmes"),
+    "timetable" : MessageLookupByLibrary.simpleMessage("Horaire"),
     "to" : MessageLookupByLibrary.simpleMessage("à"),
     "travel_duration" : MessageLookupByLibrary.simpleMessage("Durée du voyage"),
     "use_current_location" : MessageLookupByLibrary.simpleMessage("Utiliser l\'emplacement actuel"),

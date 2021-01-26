@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/settings.dart';
@@ -50,6 +51,13 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   StateController<int> tab;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final locale = Localizations.localeOf(context);
+    context.read(navigationAPIProvider).locale = locale;
+  }
+
+  @override
   void initState() {
     super.initState();
     tab = context.read(tabProvider);
@@ -71,8 +79,9 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
-    return Material(
-      child: IfWrapper(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: IfWrapper(
         condition: Responsive.isTablet(context),
         builder: (context, child) {
           return LayoutBuilder(builder: (context, constraints) {
@@ -105,14 +114,15 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                       if (navigatorKeys[i] != null) {
                         navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
                       }
+                      context.read(sideTabBarProvider).state = null;
                     }
                     oldI = i;
                   },
-                  activeColor: CupertinoColors.activeBlue,
+                  backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
                   items: [
                     BottomNavigationBarItem(
                       icon: const Icon(CupertinoIcons.search),
-                      label: Strings.of(context).search,
+                      label: Strings.of(context).timetable,
                     ),
                     BottomNavigationBarItem(
                       icon: const FaIcon(CupertinoIcons.train_style_one),
@@ -141,36 +151,38 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             : Scaffold(
                 key: const Key('home-scaffold'),
                 resizeToAvoidBottomInset: false,
-                bottomNavigationBar: Consumer(builder: (context, w, c) {
-                  return BottomNavigationBar(
-                    onTap: (i) {
-                      Vibration.selectSoft();
-                      if (_pageController.page != i) {
-                        _pageController.animateToPage(i,
-                            curve: Curves.fastOutSlowIn,
-                            duration: const Duration(milliseconds: 250));
-                      } else if (navigatorKeys[i] != null) {
-                        navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
-                      }
-                    },
-                    currentIndex: w(tabProvider).state,
-                    items: [
-                      BottomNavigationBarItem(
-                          icon: const Icon(FluentIcons.search_24_regular),
-                          activeIcon: const Icon(FluentIcons.search_24_filled),
-                          label: Strings.of(context).search),
-                      BottomNavigationBarItem(
-                        icon: const FaIcon(FontAwesomeIcons.route),
-                        label: Strings.of(context).tabs_route,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: const Icon(FluentIcons.star_24_regular),
-                        activeIcon: const Icon(FluentIcons.star_24_filled),
-                        label: Strings.of(context).tabs_favourites,
-                      ),
-                    ],
-                  );
-                }),
+                bottomNavigationBar: Consumer(
+                    builder: (context, w, _) => BottomNavigationBar(
+                          backgroundColor:
+                              CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
+                          onTap: (i) {
+                            Vibration.selectSoft();
+                            if (_pageController.page != i) {
+                              _pageController.animateToPage(i,
+                                  curve: Curves.fastOutSlowIn,
+                                  duration: const Duration(milliseconds: 250));
+                            } else if (navigatorKeys[i] != null) {
+                              navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
+                              context.read(sideTabBarProvider).state = null;
+                            }
+                          },
+                          currentIndex: w(tabProvider).state,
+                          items: [
+                            BottomNavigationBarItem(
+                                icon: const Icon(FluentIcons.search_24_regular),
+                                activeIcon: const Icon(FluentIcons.search_24_filled),
+                                label: Strings.of(context).timetable),
+                            BottomNavigationBarItem(
+                              icon: const FaIcon(FontAwesomeIcons.route),
+                              label: Strings.of(context).tabs_route,
+                            ),
+                            BottomNavigationBarItem(
+                              icon: const Icon(FluentIcons.star_24_regular),
+                              activeIcon: const Icon(FluentIcons.star_24_filled),
+                              label: Strings.of(context).tabs_favourites,
+                            ),
+                          ],
+                        )),
                 body: PageView(
                   controller: _pageController,
                   children: [
@@ -243,11 +255,13 @@ extension BuildContextX on BuildContext {
     bool maintainState = true,
     bool fullscreenDialog = false,
     String title,
+    bool rootNavigator = false,
   }) {
     if (Responsive.isTablet(this)) {
       read(sideTabBarProvider).state = builder;
     } else {
-      Navigator.of(this).push(platformRoute(builder: builder, isDarwin: Responsive.isDarwin(this)));
+      Navigator.of(this, rootNavigator: rootNavigator)
+          .push(platformRoute(builder: builder, isDarwin: Responsive.isDarwin(this)));
     }
   }
 }
@@ -260,12 +274,16 @@ class Nav {
     bool maintainState = true,
     bool fullscreenDialog = false,
     String title,
+    bool rootNavigator = false,
   }) =>
-      context.push(builder,
-          settings: settings,
-          maintainState: maintainState,
-          fullscreenDialog: fullscreenDialog,
-          title: title);
+      context.push(
+        builder,
+        settings: settings,
+        maintainState: maintainState,
+        fullscreenDialog: fullscreenDialog,
+        title: title,
+        rootNavigator: rootNavigator,
+      );
 }
 
 final navigatorKeys = <GlobalKey<NavigatorState>>[
@@ -275,26 +293,58 @@ final navigatorKeys = <GlobalKey<NavigatorState>>[
   GlobalKey(debugLabel: 'settings key'),
 ];
 
-AppBar swiftTravelAppBar(BuildContext context,
-    {List<Widget> actions = const [],
-    bool addSettings = true,
-    bool isDarwinOverride,
-    Widget title}) {
-  final isDarwin = isDarwinOverride ?? Responsive.isDarwin(context);
+AppBar materialAppBar(BuildContext context,
+    {List<Widget> actions = const [], bool addSettings = true, Widget title}) {
   return AppBar(
     automaticallyImplyLeading: false,
-    title: title ?? const Text('Swift Travel'),
+    title: title,
     actions: [
       ...actions,
-      if (!isDarwin && addSettings)
+      if (addSettings)
         IconButton(
             key: const Key('settings'),
             tooltip: Strings.of(context).settings,
-            icon: isDarwin ? const Icon(CupertinoIcons.settings) : const Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Vibration.select();
-              Nav.push(context, (context) => const Settings());
+              Nav.push(
+                context,
+                (context) => const Settings(showCloseButton: true),
+                fullscreenDialog: true,
+                rootNavigator: true,
+              );
             }),
     ],
+  );
+}
+
+CupertinoNavigationBar cupertinoBar(
+  BuildContext context, {
+  Key key,
+  Widget leading,
+  bool automaticallyImplyLeading = true,
+  bool automaticallyImplyMiddle = true,
+  String previousPageTitle,
+  Widget middle,
+  Widget trailing,
+  Brightness brightness,
+  EdgeInsetsDirectional padding,
+  Color actionsForegroundColor,
+  bool transitionBetweenRoutes = true,
+  double opacity = 0.5,
+}) {
+  return CupertinoNavigationBar(
+    key: key,
+    leading: leading,
+    automaticallyImplyLeading: automaticallyImplyLeading,
+    automaticallyImplyMiddle: automaticallyImplyMiddle,
+    previousPageTitle: previousPageTitle,
+    middle: middle,
+    trailing: trailing,
+    backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(opacity),
+    brightness: brightness,
+    padding: padding,
+    actionsForegroundColor: actionsForegroundColor,
+    transitionBetweenRoutes: transitionBetweenRoutes,
   );
 }

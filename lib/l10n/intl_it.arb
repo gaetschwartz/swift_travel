@@ -43,5 +43,6 @@
 	"delete_fav": "Eliminare il preferito?",
 	"current_location": "Posizione attuale",
 	"close": "Chiudere",
-	"font": "Font"
+	"font": "Font",
+	"timetable": "Orario"
 }

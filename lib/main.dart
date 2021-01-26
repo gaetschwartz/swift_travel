@@ -14,7 +14,6 @@ import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/route_connection.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
-import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
@@ -33,6 +32,7 @@ import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -65,7 +65,7 @@ Future<void> main() async {
     debugDefaultTargetPlatformOverride = platform;
   }
 
-  if (kDebugMode) log(Env.env);
+  if (kDebugMode) print(Env.env);
   WidgetsFlutterBinding.ensureInitialized();
 
   setPathUrlStrategy();
@@ -73,11 +73,10 @@ Future<void> main() async {
   if (isMobile) {
     await Firebase.initializeApp();
     unawaited(FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode));
-    runZonedGuarded(_runApp, reportDartError);
-    FlutterError.onError = reportFlutterError;
-  } else {
-    _runApp();
   }
+
+  FlutterError.onError = reportFlutterError;
+  runZonedGuarded(_runApp, reportDartError);
 }
 
 void _runApp() {
@@ -108,9 +107,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      excludeFromSemantics: true,
+      behavior: HitTestBehavior.opaque,
       child: Consumer(builder: (context, w, _) {
         final theme = w(dynamicTheme);
+        final t = theme.ofBrightness(context);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
@@ -125,11 +129,18 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          builder: (context, child) => LocalizationAwareWidget(child: child),
           supportedLocales: Strings.delegate.supportedLocales,
           onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
           onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
           onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
+          builder: (context, child) => IfWrapper(
+            builder: (context, child) => CupertinoTheme(
+              data: CupertinoThemeData(brightness: t.brightness),
+              child: child,
+            ),
+            condition: isDarwin,
+            child: child,
+          ),
           initialRoute: 'loading',
         );
       }),
@@ -284,27 +295,6 @@ class Routes {
   Routes._();
 
   static const route = '/route';
-}
-
-class LocalizationAwareWidget extends StatefulWidget {
-  final Widget child;
-
-  const LocalizationAwareWidget({Key key, this.child}) : super(key: key);
-
-  @override
-  _LocalizationAwareWidgetState createState() => _LocalizationAwareWidgetState();
-}
-
-class _LocalizationAwareWidgetState extends State<LocalizationAwareWidget> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final locale = Localizations.localeOf(context);
-    context.read(navigationAPIProvider).locale = locale;
-  }
-
-  @override
-  Widget build(BuildContext context) => widget.child;
 }
 
 class Unfocus extends StatelessWidget {

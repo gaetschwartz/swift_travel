@@ -40,10 +40,7 @@ ThemeConfiguration get themeConfiguration {
     secondary: Colors.redAccent,
     onSecondary: Colors.white,
   );
-  const dark = ColorScheme.dark(
-    secondary: Colors.red,
-    onSecondary: Colors.white,
-  );
+  const dark = ColorScheme.dark();
   return ThemeConfiguration(
     computeTextTheme: () => Typography.material2018(platform: defaultTargetPlatform).englishLike,
     themes: {
@@ -59,10 +56,7 @@ ThemeConfiguration get themeConfiguration {
           appBarTheme: theme.appBarTheme.copyWith(elevation: 0),
           bottomNavigationBarTheme:
               theme.bottomNavigationBarTheme.copyWith(selectedItemColor: light.secondary),
-          cupertinoOverrideTheme: const CupertinoThemeData(
-              textTheme: CupertinoTextThemeData(), primaryColor: CupertinoColors.activeBlue),
         ),
-        applyToDark: (theme) => theme.copyWith(),
         dark: dark,
         lightShadow: lightShadow,
         darkShadow: darkShadow,

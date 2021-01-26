@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/cff/models/cff_completion.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/widgets/cff_icon.dart';
+import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/tabs/routes/suggested.dart';
 
 class StopInputDialog extends StatefulWidget {
   final String title;
@@ -22,6 +22,7 @@ class StopInputDialog extends StatefulWidget {
 
 class _StopInputDialogState extends State<StopInputDialog> {
   final TextEditingController _controller = TextEditingController();
+  NavigationApi api;
 
   final node = FocusNode();
 
@@ -34,8 +35,15 @@ class _StopInputDialogState extends State<StopInputDialog> {
   @override
   void dispose() {
     node.dispose();
-    FocusManager.instance.primaryFocus.unfocus();
+    FocusManager.instance.primaryFocus?.unfocus();
+    _controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    api = context.read(navigationAPIProvider);
   }
 
   @override
@@ -44,32 +52,24 @@ class _StopInputDialogState extends State<StopInputDialog> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => submit(context),
-        child: const FaIcon(FontAwesomeIcons.save),
-      ),
       body: Align(
-        alignment: const AlignmentDirectional(0.5, -0.8),
+        alignment: Alignment.topCenter,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
-              onSubmitted: (_) => submit(context),
+              onSubmitted: submit,
               focusNode: node,
               controller: _controller,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'To',
+              decoration: InputDecoration(
+                hintText: Strings.of(context).search_station,
               ),
             ),
-            suggestionsCallback: (pattern) => context.read(navigationAPIProvider).complete(pattern),
-            itemBuilder: (context, CffCompletion suggestion) => ListTile(
-              leading: CffIcon.fromIconClass(suggestion.icon),
-              title: Text(suggestion.label),
-            ),
-            onSuggestionSelected: (CffCompletion suggestion) {
-              node.unfocus();
+            suggestionsCallback: (pattern) => api.complete(pattern),
+            itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+            onSuggestionSelected: (suggestion) {
               Navigator.of(context).pop<String>(suggestion.label);
+              node.unfocus();
             },
             noItemsFoundBuilder: (_) => const SizedBox(),
             transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
@@ -82,7 +82,5 @@ class _StopInputDialogState extends State<StopInputDialog> {
     );
   }
 
-  Future submit(BuildContext context) async {
-    Navigator.of(context).pop<String>(_controller.text);
-  }
+  void submit(String s) => Navigator.of(context).pop<String>(s);
 }

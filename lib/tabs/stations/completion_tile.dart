@@ -35,7 +35,6 @@ class CffCompletionTile extends ConsumerWidget {
     final iconClass = sugg.icon;
     final isPrivate = CffIcon.isPrivate(iconClass);
     final store = watch(storeProvider) as FavoritesSharedPreferencesStore;
-    @Deprecated('')
     final favStop = store.stops.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
     final isFav = sugg.favoriteName != null;
     final isFavInStore = favStop != null;
@@ -80,6 +79,7 @@ class CffCompletionTile extends ConsumerWidget {
             : () {
                 Vibration.select();
                 Nav.push(context, (context) => StopDetails(stopName: sugg.label));
+                FocusManager.instance.primaryFocus?.unfocus();
               },
       ),
     );

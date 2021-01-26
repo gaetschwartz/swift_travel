@@ -30,7 +30,7 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
-  AnimationController _controller2;
+  AnimationController _controller;
 
   @override
   void initState() {
@@ -40,14 +40,14 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) => init());
     }
 
-    _controller2 = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
-    _controller2.forward();
+    _controller.forward();
   }
 
   @override
   void dispose() {
-    _controller2.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -58,7 +58,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       body: SizedBox(
         width: double.infinity,
         child: FadeTransition(
-          opacity: _controller2,
+          opacity: _controller,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [

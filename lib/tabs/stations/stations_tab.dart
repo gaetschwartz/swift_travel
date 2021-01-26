@@ -19,6 +19,7 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
@@ -82,155 +83,168 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   Widget build(BuildContext context) {
     super.build(context);
     final isDarwin = Responsive.isDarwin(context);
-    return Scaffold(
-      appBar: swiftTravelAppBar(context, title: Text(Strings.of(context).tabs_search)),
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: <Widget>[
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: InputWrapperDecoration(
-                    child: Stack(
-                      children: [
-                        TextField(
-                          key: const Key('stations-textfield'),
-                          focusNode: focusNode,
-                          controller: searchController,
-                          style: DefaultTextStyle.of(context)
-                              .style
-                              .copyWith(fontStyle: FontStyle.normal),
-                          decoration: InputDecoration(
-                            isDense: true,
-                            hintText: Strings.of(context).search_station,
-                            border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
+    return IfWrapper(
+      condition: isDarwin,
+      builder: (context, child) => CupertinoPageScaffold(
+        navigationBar: cupertinoBar(context, middle: Text(Strings.of(context).tabs_search)),
+        resizeToAvoidBottomInset: false,
+        child: child,
+      ),
+      elseBuilder: (context, child) => Scaffold(
+        appBar: materialAppBar(context, title: Text(Strings.of(context).tabs_search)),
+        resizeToAvoidBottomInset: false,
+        body: child,
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: Column(
+          children: <Widget>[
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ShadowsAround(
+                      child: Stack(
+                        children: [
+                          TextField(
+                            key: const Key('stations-textfield'),
+                            focusNode: focusNode,
+                            controller: searchController,
+                            style: DefaultTextStyle.of(context)
+                                .style
+                                .copyWith(fontStyle: FontStyle.normal),
+                            decoration: InputDecoration(
+                              isDense: true,
+                              hintText: Strings.of(context).search_station,
+                              border: const OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                              ),
+                              //labelText: "Look for a station",
+                              filled: true,
+                              fillColor: Theme.of(context).cardColor,
                             ),
-                            //labelText: "Look for a station",
-                            filled: true,
-                            fillColor: Theme.of(context).cardColor,
+                            onChanged: (s) => debounce(context, s),
                           ),
-                          onChanged: (s) => debounce(context, s),
-                        ),
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          bottom: 0,
-                          child: Center(
-                            child: IconButton(
-                                icon: const Icon(Icons.clear),
-                                onPressed: () {
-                                  Vibration.select();
-                                  searchController.text = '';
-                                  focusNode.unfocus();
-                                  context.read(_stateProvider).state = const StationStates.empty();
-                                }),
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            child: Center(
+                              child: IconButton(
+                                  icon: const Icon(Icons.clear),
+                                  onPressed: () {
+                                    Vibration.select();
+                                    searchController.text = '';
+                                    focusNode.unfocus();
+                                    context.read(_stateProvider).state =
+                                        const StationStates.empty();
+                                  }),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: Consumer(builder: (context, w, _) {
-                    final loading = w(_locatingProvider).state;
-                    return loading
-                        ? const CircularProgressIndicator()
-                        : (isDarwin
-                            ? const Icon(CupertinoIcons.location_fill)
-                            : const FaIcon(FluentIcons.my_location_24_regular));
-                  }),
-                  tooltip: 'Use current location',
-                  onPressed: () => getLocation(),
-                )
-              ],
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: Consumer(builder: (context, w, _) {
+                      final loading = w(_locatingProvider).state;
+                      return loading
+                          ? const CircularProgressIndicator()
+                          : (isDarwin
+                              ? const Icon(CupertinoIcons.location_fill)
+                              : const FaIcon(FluentIcons.my_location_24_regular));
+                    }),
+                    tooltip: Strings.of(context).use_current_location,
+                    onPressed: () => getLocation(),
+                  )
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: Consumer(builder: (context, w, _) {
-              return w(_stateProvider).state.map(
-                    completions: (c) => Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: SizedBox(
-                            height: 4,
-                            child: Center(
-                              child: Consumer(
-                                  builder: (context, w, _) => w(_loadingProvider).state
-                                      ? const LinearProgressIndicator()
-                                      : const SizedBox()),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                            itemBuilder: (context, i) => CffCompletionTile(
-                              sugg: c.completions[i],
-                              key: Key('stations-key-$i'),
-                            ),
-                            itemCount: c.completions == null ? 0 : c.completions.length,
-                          ),
-                        ),
-                      ],
-                    ),
-                    empty: (_) => Consumer(
-                        builder: (context, w, _) => w(favoritesStatesProvider).state.map(
-                              data: (c) => c.favorites.isEmpty
-                                  ? Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          '🔎',
-                                          style: TextStyle(fontSize: 48),
-                                        ),
-                                        const SizedBox(height: 24),
-                                        Text(
-                                          'Search a station',
-                                          style: Theme.of(context).textTheme.headline6,
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ],
-                                    )
-                                  : ListView.builder(
-                                      itemBuilder: (context, i) =>
-                                          CffCompletionTile(sugg: c.favorites[i].toCompletion()),
-                                      itemCount: c.favorites == null ? 0 : c.favorites.length,
-                                    ),
-                              loading: (_) => const Center(
-                                child: CircularProgressIndicator(),
+            const SizedBox(height: 8),
+            Expanded(
+              child: Consumer(builder: (context, w, _) {
+                return w(_stateProvider).state.map(
+                      completions: (c) => Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: SizedBox(
+                              height: 4,
+                              child: Center(
+                                child: Consumer(
+                                    builder: (context, w, _) => w(_loadingProvider).state
+                                        ? const LinearProgressIndicator()
+                                        : const SizedBox()),
                               ),
-                              exception: (e) => Center(
-                                child: Text(
-                                  e.exception.toString(),
-                                  style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              itemBuilder: (context, i) => CffCompletionTile(
+                                sugg: c.completions[i],
+                                key: Key('stations-key-$i'),
+                              ),
+                              itemCount: c.completions == null ? 0 : c.completions.length,
+                            ),
+                          ),
+                        ],
+                      ),
+                      empty: (_) => Consumer(
+                          builder: (context, w, _) => w(favoritesStatesProvider).state.map(
+                                data: (c) => c.favorites.isEmpty
+                                    ? Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            '🔎',
+                                            style: TextStyle(fontSize: 48),
+                                          ),
+                                          const SizedBox(height: 24),
+                                          Text(
+                                            'Search a station',
+                                            style: Theme.of(context).textTheme.headline6,
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      )
+                                    : ListView.builder(
+                                        itemBuilder: (context, i) =>
+                                            CffCompletionTile(sugg: c.favorites[i].toCompletion()),
+                                        itemCount: c.favorites == null ? 0 : c.favorites.length,
+                                      ),
+                                loading: (_) => const Center(
+                                  child: CircularProgressIndicator(),
                                 ),
-                              ),
-                            )),
-                    network: (value) => Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const FaIcon(
-                          Icons.wifi_off,
-                          size: 48,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'Network Error',
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ],
-                    ),
-                  );
-            }),
-          ),
-        ],
+                                exception: (e) => Center(
+                                  child: Text(
+                                    e.exception.toString(),
+                                    style: Theme.of(context).textTheme.headline6,
+                                  ),
+                                ),
+                              )),
+                      network: (value) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            Icons.wifi_off,
+                            size: 48,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Network Error',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ],
+                      ),
+                    );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

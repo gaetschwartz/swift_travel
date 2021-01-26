@@ -17,18 +17,23 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/choice_page.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/search.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
+import 'package:theming/responsive.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 
 class Settings extends StatefulWidget {
-  const Settings();
+  const Settings({this.showCloseButton = false});
+
+  final bool showCloseButton;
 
   @override
   _SettingsState createState() => _SettingsState();
@@ -230,44 +235,47 @@ class _SettingsState extends State<Settings> {
           unawaited(SystemNavigator.pop(animated: true));
         }),
     (_) => const Divider(),
-    (context) => Column(children: [
-          _SectionTitle(title: Text(Strings.of(context).developer)),
-          ListTile(
-              leading: const Icon(Icons.screen_lock_landscape),
-              title: const Text('Screen info'),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => Theme(
-                      data: ThemeData.light(),
-                      child: Builder(builder: (context) => const _ScreenPage()),
+    (context) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _SectionTitle(title: Text(Strings.of(context).developer)),
+            ListTile(
+                leading: const Icon(Icons.screen_lock_landscape),
+                title: const Text('Screen info'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Theme(
+                        data: ThemeData.light(),
+                        child: Builder(builder: (context) => const _ScreenPage()),
+                      ),
                     ),
-                  ),
-                );
-              }),
-          ListTile(
-              leading: const Icon(Icons.search),
-              title: const Text('Search'),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => SearchPage(
-                        controller: TextEditingController(),
-                      )))),
-          ListTile(
-              leading: const Icon(Icons.warning_rounded),
-              title: const Text('Throw a Flutter error'),
-              onTap: () => throw StateError('Debug error')),
-          ListTile(
-              leading: const Icon(Icons.open_in_browser),
-              title: const Text('Open incorrect page'),
-              onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
-          ListTile(
-              leading: const Icon(Icons.close),
-              title: const Text('Trigger a crash'),
-              onTap: () async {
-                await FirebaseCrashlytics.instance.log('We trigger a crash');
-                FirebaseCrashlytics.instance.crash();
-              }),
-        ]),
+                  );
+                }),
+            ListTile(
+                leading: const Icon(Icons.search),
+                title: const Text('Search'),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => SearchPage(
+                          controller: TextEditingController(),
+                        )))),
+            ListTile(
+                leading: const Icon(Icons.warning_rounded),
+                title: const Text('Throw a Flutter error'),
+                onTap: () => throw StateError('Debug error')),
+            ListTile(
+                leading: const Icon(Icons.open_in_browser),
+                title: const Text('Open incorrect page'),
+                onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
+            ListTile(
+                leading: const Icon(Icons.close),
+                title: const Text('Trigger a crash'),
+                onTap: () async {
+                  await FirebaseCrashlytics.instance.log('We trigger a crash');
+                  FirebaseCrashlytics.instance.crash();
+                }),
+          ],
+        ),
     (_) => const ListTile(
           isThreeLine: true,
           dense: true,
@@ -289,29 +297,36 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarwin = Responsive.isDarwin(context);
     return DividerTheme(
       data: const DividerThemeData(indent: 16, endIndent: 16),
-      child: Scaffold(
-          body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text(Strings.of(context).settings),
-            pinned: true,
-            snap: true,
-            floating: true,
-            flexibleSpace: const SizedBox(),
-          ),
-          SliverSafeArea(
-            top: false,
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, i) => children[i](context),
-                childCount: children.length,
+      child: IfWrapper(
+          condition: isDarwin,
+          builder: (context, child) => CupertinoPageScaffold(
+                child: child,
+                resizeToAvoidBottomInset: false,
+                navigationBar: cupertinoBar(context, middle: Text(Strings.of(context).settings)),
               ),
-            ),
-          ),
-        ],
-      )),
+          elseBuilder: (context, child) => Scaffold(body: child),
+          child: CustomScrollView(
+            slivers: [
+              if (!isDarwin)
+                SliverAppBar(
+                  title: Text(Strings.of(context).settings),
+                  pinned: true,
+                  leading: widget.showCloseButton ? const CloseButton() : null,
+                ),
+              SliverSafeArea(
+                top: isDarwin,
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, i) => children[i](context),
+                    childCount: children.length,
+                  ),
+                ),
+              ),
+            ],
+          )),
     );
   }
 
@@ -867,11 +882,12 @@ class _SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: DefaultTextStyle(
-          style:
-              Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).accentColor),
-          child: title),
+        style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).accentColor),
+        textAlign: TextAlign.left,
+        child: title,
+      ),
     );
   }
 }

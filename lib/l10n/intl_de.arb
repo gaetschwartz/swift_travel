@@ -43,5 +43,6 @@
 	"delete_fav": "Favorit löschen?",
 	"current_location": "Aktueller Standort",
 	"close": "Schließen",
-	"font": "Schriftart"
+	"font": "Schriftart",
+	"timetable": "Fahrplan"
 }

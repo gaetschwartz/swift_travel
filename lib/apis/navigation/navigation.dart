@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/cff/cff.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
@@ -32,10 +30,7 @@ abstract class NavigationApi {
 
   Locale get locale => _locale;
 
-  set locale(Locale locale) {
-    _locale = locale;
-    log('Set locale to $locale');
-  }
+  set locale(Locale locale) => _locale = locale;
 
   static NavigationApiFactory getFactory(NavigationApiType api) {
     switch (api) {

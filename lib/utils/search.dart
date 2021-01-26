@@ -9,7 +9,6 @@ import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -92,13 +91,7 @@ class _SearchPageState extends State<SearchPage> {
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
-      if (isMobile) {
-        reportDartError(e, s, name: 'search', reason: 'while fetching');
-      } else {
-        log('', error: e, stackTrace: s);
-      }
-    } finally {
-      // context.read(_loadingProvider).state = false;
+      reportDartError(e, s, name: 'search', reason: 'while fetching');
     }
   }
 
@@ -132,6 +125,7 @@ class _SearchPageState extends State<SearchPage> {
       );
     } else {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const TextField(),
           actions: [CloseButton(onPressed: () {})],

@@ -6,11 +6,11 @@ class Env {
   static const overridePlatform = bool.fromEnvironment('OVERRIDE_PLATFORM');
   static const page = String.fromEnvironment('PAGE');
   static const corruptedFavorites = bool.fromEnvironment('CORRUPT_FAVORITES');
-  static const doShowErrors = bool.fromEnvironment('DO_SHOW_ERRORS');
+  static const doShowErrors = bool.fromEnvironment('DO_SHOW_ERRORS', defaultValue: true);
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
 
   static String get env => {
-        'RELEASE_MODE' : isReleaseMode,
+        'RELEASE_MODE': isReleaseMode,
         'OVERRIDE_PLATFORM': overridePlatform,
         'PAGE': page,
         'CORRUPT_FAVORITES': corruptedFavorites,

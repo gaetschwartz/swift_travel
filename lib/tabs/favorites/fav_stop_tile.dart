@@ -6,6 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
+import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -40,6 +42,12 @@ class FavoriteStationTile extends StatelessWidget {
           icon: CupertinoIcons.pencil,
           onTap: () => rename(context),
         ),
+        IconSlideAction(
+          caption: Strings.of(context).timetable,
+          color: Colors.blue,
+          icon: CupertinoIcons.list_number,
+          onTap: () => Nav.push(context, (context) => StopDetails(stopName: stop.stop)),
+        ),
       ],
       child: ListTile(
         horizontalTitleGap: 8,
@@ -66,6 +74,11 @@ class FavoriteStationTile extends StatelessWidget {
     showActionSheet(
       context,
       [
+        ActionsSheetAction(
+          title: Text(Strings.of(context).timetable),
+          icon: const Icon(CupertinoIcons.list_number),
+          onPressed: () => Nav.push(context, (context) => StopDetails(stopName: stop.stop)),
+        ),
         ActionsSheetAction(
           title: Text(Strings.of(context).rename),
           icon: const Icon(CupertinoIcons.pencil),
