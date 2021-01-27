@@ -111,12 +111,22 @@ class _ErrorPageState extends State<ErrorPage> {
             children: [
               ErrorDataWidget(
                 'Exception:',
-                widget.details.toString(),
+                widget.details.exception.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
-                'Exception short:',
-                widget.details.exceptionAsString(),
+                'StackTrace:',
+                widget.details.stack.toString(),
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
+                'Context:',
+                widget.details.context.toString(),
+                wrapped: _wrapped,
+              ),
+              ErrorDataWidget(
+                'Summary:',
+                widget.details.summary.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
