@@ -110,7 +110,6 @@ class RouteDetails extends StatelessWidget {
                   ]),
             SliverToBoxAdapter(child: buildHeader(context, conn)),
             SliverSafeArea(
-              top: false,
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (_, i) => LegTile(l: conn.legs[i]),
