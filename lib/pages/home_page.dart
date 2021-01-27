@@ -172,7 +172,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             }
           },
           currentIndex:
-              index >= 0 && index < tabs.length ? index : _pageController.page.round() ?? 0,
+              index >= 0 && index < tabs.length ? index : _pageController.page?.round() ?? 0,
           items: [
             BottomNavigationBarItem(
                 icon: const Icon(FluentIcons.search_24_regular),
