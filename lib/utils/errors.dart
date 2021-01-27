@@ -41,7 +41,7 @@ void reportDartError(Object e, StackTrace s,
     } finally {}
   }
 
-  if (Firebase.apps.isNotEmpty) {
+  if (Firebase.apps.isNotEmpty && !kIsWeb) {
     FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
   }
 }
@@ -69,7 +69,7 @@ void reportFlutterError(FlutterErrorDetails details) {
         ));
     } on FlutterError catch (_) {}
   }
-  if (Firebase.apps.isNotEmpty) {
+  if (Firebase.apps.isNotEmpty && !kIsWeb) {
     FirebaseCrashlytics.instance.recordFlutterError(details);
   }
 }
