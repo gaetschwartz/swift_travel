@@ -57,9 +57,7 @@ class _FavoritesTabState extends State<FavoritesTab>
         ),
       ),
       elseBuilder: (context, child) => Scaffold(
-          appBar: AppBar(actions: [
-            if (isDarwin) IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav)
-          ], title: Text(Strings.of(context).tabs_favourites)),
+          appBar: materialAppBar(context, title: Text(Strings.of(context).tabs_favourites)),
           floatingActionButton: isDarwin
               ? null
               : FloatingActionButton(

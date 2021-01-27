@@ -149,58 +149,64 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                   onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
                 ),
               )
-            : Scaffold(
-                key: const Key('home-scaffold'),
-                resizeToAvoidBottomInset: false,
-                bottomNavigationBar: Consumer(
-                    builder: (context, w, _) => BottomNavigationBar(
-                          onTap: (i) {
-                            Vibration.selectSoft();
-                            if (_pageController.page != i) {
-                              _pageController.animateToPage(i,
-                                  curve: Curves.fastOutSlowIn,
-                                  duration: const Duration(milliseconds: 250));
-                            } else if (navigatorKeys[i] != null) {
-                              navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
-                              context.read(sideTabBarProvider).state = null;
-                            }
-                          },
-                          currentIndex: w(tabProvider).state,
-                          items: [
-                            BottomNavigationBarItem(
-                                icon: const Icon(FluentIcons.search_24_regular),
-                                activeIcon: const Icon(FluentIcons.search_24_filled),
-                                label: Strings.of(context).timetable),
-                            BottomNavigationBarItem(
-                              icon: const FaIcon(FontAwesomeIcons.route),
-                              label: Strings.of(context).tabs_route,
-                            ),
-                            BottomNavigationBarItem(
-                              icon: const Icon(FluentIcons.star_24_regular),
-                              activeIcon: const Icon(FluentIcons.star_24_filled),
-                              label: Strings.of(context).tabs_favourites,
-                            ),
-                          ],
-                        )),
-                body: PageView(
-                  controller: _pageController,
-                  children: [
-                    for (var i = 0; i < tabs.length; i++)
-                      Navigator(
-                        key: navigatorKeys[i],
-                        pages: [SingleWidgetPage(tabs[i])],
-                        onPopPage: (_, __) => true,
-                        onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
-                        onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
-                      )
-                  ],
-                ),
-              ),
+            : buildScaffold(isDarwin),
       ),
     );
   }
 
-  static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), Settings()];
+  Scaffold buildScaffold(bool isDarwin) {
+    return Scaffold(
+      key: const Key('home-scaffold'),
+      resizeToAvoidBottomInset: false,
+      bottomNavigationBar: Consumer(builder: (context, w, _) {
+        final index = w(tabProvider).state;
+        return BottomNavigationBar(
+          onTap: (i) {
+            Vibration.selectSoft();
+            if (_pageController.page != i) {
+              _pageController.animateToPage(i,
+                  curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
+            } else if (navigatorKeys[i] != null) {
+              navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
+              context.read(sideTabBarProvider).state = null;
+            }
+          },
+          currentIndex:
+              index >= 0 && index < tabs.length ? index : _pageController.page.round() ?? 0,
+          items: [
+            BottomNavigationBarItem(
+                icon: const Icon(FluentIcons.search_24_regular),
+                activeIcon: const Icon(FluentIcons.search_24_filled),
+                label: Strings.of(context).timetable),
+            BottomNavigationBarItem(
+              icon: const FaIcon(FontAwesomeIcons.route),
+              label: Strings.of(context).tabs_route,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(FluentIcons.star_24_regular),
+              activeIcon: const Icon(FluentIcons.star_24_filled),
+              label: Strings.of(context).tabs_favourites,
+            ),
+          ],
+        );
+      }),
+      body: PageView(
+        controller: _pageController,
+        children: [
+          for (var i = 0; i < tabs.length; i++)
+            Navigator(
+              key: navigatorKeys[i],
+              pages: [SingleWidgetPage(tabs[i])],
+              onPopPage: (_, __) => true,
+              onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
+              onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
+            )
+        ],
+      ),
+    );
+  }
+
+  static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), SettingsPage()];
   static const tabs = [StationsTab(), RouteTab(), FavoritesTab()];
 }
 
@@ -318,7 +324,7 @@ AppBar materialAppBar(BuildContext context,
               Vibration.select();
               Nav.push(
                 context,
-                (context) => const Settings(),
+                (context) => const SettingsPage(),
                 fullscreenDialog: true,
                 rootNavigator: true,
               );

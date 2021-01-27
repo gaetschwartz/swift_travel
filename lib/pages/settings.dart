@@ -31,14 +31,14 @@ import 'package:theming/responsive.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 
-class Settings extends StatefulWidget {
-  const Settings();
+class SettingsPage extends StatefulWidget {
+  const SettingsPage();
 
   @override
-  _SettingsState createState() => _SettingsState();
+  _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingsPageState extends State<SettingsPage> {
   final children = <WidgetBuilder>[
     (context) => _SectionTitle(title: Text(Strings.of(context).brightness)),
     (_) => SizedBox(
@@ -118,6 +118,7 @@ class _SettingsState extends State<Settings> {
             ),
           ),
         ),
+    (_) => const _PlaformChoiceWidget(),
     (_) => const _FontWeightWidget(),
     (context) => _SectionTitle(title: Text(Strings.of(context).themes)),
     (_) => const _ThemesSection(),
@@ -311,10 +312,12 @@ class _SettingsState extends State<Settings> {
       data: const DividerThemeData(indent: 16, endIndent: 16),
       child: IfWrapper(
           condition: isDarwin,
-          builder: (context, child) => CupertinoPageScaffold(
-                child: child,
-                resizeToAvoidBottomInset: false,
-                navigationBar: cupertinoBar(context, middle: Text(Strings.of(context).settings)),
+          builder: (context, child) => Material(
+                child: CupertinoPageScaffold(
+                  child: child,
+                  resizeToAvoidBottomInset: false,
+                  navigationBar: cupertinoBar(context, middle: Text(Strings.of(context).settings)),
+                ),
               ),
           elseBuilder: (context, child) => Scaffold(body: child),
           child: CustomScrollView(
@@ -372,6 +375,47 @@ String _mapsName(Maps m) {
       return 'Google Maps';
   }
   return '';
+}
+
+class _PlaformChoiceWidget extends StatelessWidget {
+  const _PlaformChoiceWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Consumer(builder: (context, w, _) {
+          final theme = w(dynamicTheme);
+          final p = defaultTargetPlatform;
+
+          return CupertinoSlidingSegmentedControl<TargetPlatform>(
+            children: p == TargetPlatform.android || p == TargetPlatform.iOS
+                ? {
+                    TargetPlatform.android: const Text('Android'),
+                    TargetPlatform.iOS: const Text('iOS'),
+                  }
+                : {
+                    TargetPlatform.windows: const Text('Windows'),
+                    TargetPlatform.macOS: const Text('MacOS'),
+                  },
+            groupValue: theme.platform,
+            onValueChanged: (i) {
+              if (i == TargetPlatform.android) {
+                Navigator.of(context, rootNavigator: true)
+                    .push(MaterialPageRoute(builder: (context) => const SettingsPage()));
+              }
+              theme.platform = i;
+              Vibration.select();
+            },
+          );
+        }),
+      ),
+    );
+  }
 }
 
 class _FontWeightWidget extends StatelessWidget {

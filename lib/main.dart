@@ -89,14 +89,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isDarwin = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    isDarwin = Responsive.isDarwin(context);
-  }
-
   @override
   void reassemble() {
     super.reassemble();
@@ -114,7 +106,8 @@ class _MyAppState extends State<MyApp> {
       behavior: HitTestBehavior.opaque,
       child: Consumer(builder: (context, w, _) {
         final theme = w(dynamicTheme);
-
+        final isDarwin = Responsive.isDarwin(context);
+        print(theme.ofBrightness(context).platform);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
@@ -134,13 +127,13 @@ class _MyAppState extends State<MyApp> {
           onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
           onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
           builder: (context, child) => IfWrapper(
+            condition: Responsive.isDarwin(context),
             builder: (context, child) => CupertinoTheme(
               data: CupertinoThemeData(
                 brightness: DynamicTheme.resolveBrightness(context, theme.mode),
               ),
               child: child,
             ),
-            condition: isDarwin,
             child: child,
           ),
           initialRoute: 'loading',
@@ -194,7 +187,7 @@ Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
     case '/settings':
       return platformRoute(
         settings: settings,
-        builder: (_) => const Settings(),
+        builder: (_) => const SettingsPage(),
         fullscreenDialog: true,
         isDarwin: isDarwin,
       );
