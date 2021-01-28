@@ -20,7 +20,6 @@ import 'package:swift_travel/tabs/routes/details/tiles/arrived_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/format.dart';
-import 'package:swift_travel/utils/page.dart';
 import 'package:swift_travel/utils/share.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -63,7 +62,8 @@ class RouteDetails extends StatelessWidget {
                           ),
                           ActionsSheetAction(
                             icon: const Icon(CupertinoIcons.game_controller),
-                            onPressed: () => openSnecc(context),
+                            onPressed: () => Navigator.of(context)
+                                .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c())),
                             title: const Text('Snake'),
                           ),
                           if (isMobile || kIsWeb)
@@ -97,7 +97,8 @@ class RouteDetails extends StatelessWidget {
                   actions: <Widget>[
                     IconButton(
                         icon: const Icon(CupertinoIcons.game_controller),
-                        onPressed: () => openSnecc(context)),
+                        onPressed: () => Navigator.of(context)
+                            .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c()))),
                     IconButton(
                         icon: const Icon(CupertinoIcons.play_fill),
                         onPressed: () => openLive(context, conn)),
@@ -124,11 +125,6 @@ class RouteDetails extends StatelessWidget {
             ),
           ],
         ));
-  }
-
-  Future<Object> openSnecc(BuildContext context) {
-    return Navigator.of(context)
-        .push(PlatformPageRoute(builder: (_) => const Snecc_c_c(), title: 'Snecc Game'));
   }
 
   String _format(String place) {

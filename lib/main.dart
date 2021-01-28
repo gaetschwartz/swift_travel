@@ -29,7 +29,6 @@ import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -171,81 +170,112 @@ Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
 
   switch (settings.name) {
     case '/':
-      return PlatformPageRoute(
+      return platformRoute(
         settings: settings,
         builder: (_) => const MainApp(),
+        isDarwin: isDarwin,
       );
     case 'loading':
-      return PlatformPageRoute(
+      return platformRoute(
         settings: settings,
         builder: (_) => const LoadingPage(),
+        isDarwin: isDarwin,
       );
     case '/settings':
-      return PlatformPageRoute(
+      return platformRoute(
         settings: settings,
         builder: (_) => const SettingsPage(),
         fullscreenDialog: true,
+        isDarwin: isDarwin,
       );
     case '/routeDetails':
       if (settings.arguments is Map) {
         final map = settings.arguments as Map;
-        return PlatformPageRoute(
+        return platformRoute(
           settings: settings,
           builder: (_) => RouteDetails(
             route: map['route'] as CffRoute,
             i: map['i'] as int,
             doClose: true,
           ),
+          isDarwin: isDarwin,
         );
       }
       break;
     case '/tuto':
-      return PlatformPageRoute(
+      return platformRoute(
         settings: settings,
         builder: (_) => const Tuto(),
+        isDarwin: isDarwin,
       );
     case '/welcome':
-      return PlatformPageRoute(
+      return platformRoute(
         settings: settings,
         builder: (_) => const WelcomePage(),
+        isDarwin: isDarwin,
       );
     case '/route':
       if (settings.arguments is LocalRoute) {
-        return PlatformPageRoute(
+        return platformRoute(
           settings: settings,
           builder: (_) => RoutePage.route(settings.arguments as LocalRoute),
+          isDarwin: isDarwin,
         );
       } else if (settings.arguments is FavoriteStop) {
-        return PlatformPageRoute(
+        return platformRoute(
           settings: settings,
           builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop),
+          isDarwin: isDarwin,
         );
       }
       break;
     case '/ourTeam':
-      return PlatformPageRoute(
-        settings: settings,
-        builder: (_) => const TeamPage(),
-      );
+      return platformRoute(
+          settings: settings, builder: (_) => const TeamPage(), isDarwin: isDarwin);
     case '/liveRoute':
-      return PlatformPageRoute(
-        settings: settings,
-        builder: (_) => LiveRoutePage(connection: settings.arguments as RouteConnection),
-      );
+      return platformRoute(
+          settings: settings,
+          builder: (_) => LiveRoutePage(connection: settings.arguments as RouteConnection),
+          isDarwin: isDarwin);
     case '/stopDetails':
-      return PlatformPageRoute(
-        settings: settings,
-        builder: (_) => StopDetails(stopName: settings.arguments as String),
-      );
+      return platformRoute(
+          settings: settings,
+          builder: (_) => StopDetails(stopName: settings.arguments as String),
+          isDarwin: isDarwin);
 
     case '/error':
     case 'error':
-      return PlatformPageRoute(
+      return platformRoute(
         settings: settings,
         builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails),
+        isDarwin: isDarwin,
       );
   }
   return null;
+}
+
+Route platformRoute({
+  @required Widget Function(BuildContext) builder,
+  @required bool isDarwin,
+  RouteSettings settings,
+  bool maintainState = true,
+  bool fullscreenDialog = false,
+  String title,
+}) {
+  return isDarwin
+      ? CupertinoPageRoute(
+          builder: builder,
+          settings: settings,
+          fullscreenDialog: fullscreenDialog,
+          title: title,
+          maintainState: maintainState,
+        )
+      : MaterialPageRoute(
+          builder: builder,
+          settings: settings,
+          fullscreenDialog: fullscreenDialog,
+          maintainState: maintainState,
+        );
 }
 
 class Routes {

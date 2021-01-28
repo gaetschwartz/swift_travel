@@ -269,12 +269,14 @@ extension BuildContextX on BuildContext {
     String title,
     bool rootNavigator = false,
   }) {
+    final isDarwin = Responsive.isDarwin(this);
     if (Responsive.isTablet(this)) {
       read(sideTabBarProvider).state = builder;
       sideBarNavigatorKey.currentState..popUntil((route) => route.isFirst);
     } else {
-      Navigator.of(this, rootNavigator: rootNavigator).push(PlatformPageRoute(
+      Navigator.of(this, rootNavigator: rootNavigator).push(platformRoute(
         builder: builder,
+        isDarwin: isDarwin,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState,
         title: title,

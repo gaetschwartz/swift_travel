@@ -16,7 +16,6 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/page.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -175,8 +174,9 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   Future<void> _routeToDefault() {
     if (Env.page.isEmpty) {
       return Navigator.of(context).pushReplacement(
-        PlatformPageRoute(
+        platformRoute(
           builder: (context) => const MainApp(),
+          isDarwin: isDarwin,
           settings: const RouteSettings(name: '/'),
         ),
       );
