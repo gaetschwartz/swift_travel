@@ -105,8 +105,9 @@ class _SearchPageState extends State<SearchPage> {
         currentLocationString: currentLocation,
       );
 
-      if (mounted)
+      if (mounted) {
         context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
+      }
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {

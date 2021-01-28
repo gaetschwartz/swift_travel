@@ -233,8 +233,8 @@ class _RoutePageState extends State<RoutePage> {
         MyTextFormatter(S.of(context).current_location, to, context.read(_fromTextfieldProvider));
     store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     api = context.read(navigationAPIProvider);
-    from.init(context);
-    to.init(context);
+    from.syncState(context);
+    to.syncState(context);
   }
 
   void _onFocusToChanged() {
@@ -468,24 +468,24 @@ class _RoutePageState extends State<RoutePage> {
         ? Hero(
             tag: _fromHeroTag,
             child: CupertinoTextField(
-              inputFormatters: [fromFormatter],
-              focusNode: fnFrom,
               controller: from.controller,
+              focusNode: fnFrom,
               onEditingComplete: () => fnTo.requestFocus(),
-              textInputAction: TextInputAction.next,
               placeholder: S.of(context).departure,
-              onTap: () {
-                Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+              textInputAction: TextInputAction.next,
+              onTap: () async {
+                await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
                     builder: (context) => SearchPage(
                           controller: from.controller,
                           focus: fnFrom,
                           heroTag: _fromHeroTag,
                           configuration: CupertinoTextFieldConfiguration(
-                            placeholder: S.of(context).departure,
                             inputFormatters: [fromFormatter],
+                            placeholder: S.of(context).departure,
                             textInputAction: TextInputAction.next,
                           ),
                         )));
+                from.syncToState(context);
               },
             ),
           )
@@ -566,23 +566,23 @@ class _RoutePageState extends State<RoutePage> {
         ? Hero(
             tag: _toHeroTag,
             child: CupertinoTextField(
-              inputFormatters: [toFormatter],
               focusNode: fnTo,
               controller: to.controller,
-              textInputAction: TextInputAction.search,
               placeholder: S.of(context).destination,
-              onTap: () {
-                Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+              textInputAction: TextInputAction.search,
+              onTap: () async {
+                await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
                     builder: (context) => SearchPage(
                           controller: to.controller,
                           focus: fnTo,
                           heroTag: _toHeroTag,
                           configuration: CupertinoTextFieldConfiguration(
+                            inputFormatters: [toFormatter],
                             placeholder: S.of(context).destination,
-                            inputFormatters: [fromFormatter],
                             textInputAction: TextInputAction.search,
                           ),
                         )));
+                to.syncToState(context);
               },
             ),
           )
@@ -653,8 +653,8 @@ class _RoutePageState extends State<RoutePage> {
   void switchInputs() {
     final _from = from.state(context);
 
-    from.setState(context, to.state(context));
-    to.setState(context, _from);
+    from.init(context, to.state(context));
+    to.init(context, _from);
   }
 
   void unFocusFields() {
@@ -861,7 +861,7 @@ class TextControllerAndStateBinder {
     this.computeCurrentLocation = _computeCurrentLocation,
   ]);
 
-  void init(BuildContext context) => _setController(context.read(provider).state, context);
+  void syncState(BuildContext context) => _setController(context.read(provider).state, context);
 
   void clear(BuildContext context) {
     context.read(provider).state = const RouteTextfieldState.empty();
@@ -878,7 +878,11 @@ class TextControllerAndStateBinder {
     controller.text = s;
   }
 
-  void setState(BuildContext context, RouteTextfieldState state) {
+  void syncToState(BuildContext context, {bool doLoad = true}) {
+    context.read(provider).state = RouteTextfieldState.text(controller.text, doLoad: doLoad);
+  }
+
+  void init(BuildContext context, RouteTextfieldState state) {
     _setController(state, context);
     context.read(provider).state = state;
   }
