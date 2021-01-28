@@ -7,10 +7,10 @@ import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/apis/cff/models/stop.dart';
 import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/utils/page.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:theming/responsive.dart';
@@ -162,9 +162,8 @@ class ConnectionTile extends StatelessWidget {
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      onTap: () => Navigator.of(context).push(platformRoute(
+      onTap: () => Navigator.of(context).push(PlatformPageRoute(
         builder: (context) => NextStopsPage(c: c, s: s),
-        isDarwin: Responsive.isDarwin(context),
         title: s.name,
       )),
       title: Row(

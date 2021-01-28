@@ -13,7 +13,7 @@ class SingleWidgetPage extends Page {
 
   @override
   Route createRoute(BuildContext context) {
-    return CupertinoPageBuilder(
+    return PlatformPageRoute(
       builder: (context) => child,
       settings: this,
       title: title,
@@ -21,26 +21,37 @@ class SingleWidgetPage extends Page {
   }
 }
 
-class CupertinoPageBuilder extends PageRoute with CupertinoRouteTransitionMixin {
-  final Widget Function(BuildContext) builder;
+class PlatformPageRoute<T> extends PageRoute<T>
+    with CupertinoRouteTransitionMixin<T>
+    implements MaterialRouteTransitionMixin<T> {
+  /// Construct a MaterialPageRoute whose contents are defined by [builder].
+  ///
+  /// The values of [builder], [maintainState], and [PageRoute.fullscreenDialog]
+  /// must not be null.
+  PlatformPageRoute({
+    this.title,
+    @required this.builder,
+    RouteSettings settings,
+    this.maintainState = true,
+    bool fullscreenDialog = false,
+  })  : assert(builder != null),
+        assert(maintainState != null),
+        assert(fullscreenDialog != null),
+        super(settings: settings, fullscreenDialog: fullscreenDialog) {
+    assert(opaque);
+  }
+
+  final WidgetBuilder builder;
+
   @override
-  final String title;
+  Widget buildContent(BuildContext context) => builder(context);
+
   @override
   final bool maintainState;
 
-  CupertinoPageBuilder({
-    @required this.builder,
-    RouteSettings settings,
-    bool fullscreenDialog = false,
-    this.title = '',
-    this.maintainState = true,
-  }) : super(
-          fullscreenDialog: fullscreenDialog,
-          settings: settings,
-        );
+  @override
+  String get debugLabel => '${super.debugLabel}(${settings.name})';
 
   @override
-  Widget buildContent(BuildContext context) {
-    return builder(context);
-  }
+  final String title;
 }

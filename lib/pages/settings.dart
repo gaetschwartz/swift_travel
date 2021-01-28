@@ -22,6 +22,7 @@ import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/page.dart';
 import 'package:swift_travel/utils/search.dart';
 import 'package:swift_travel/widgets/choice_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -135,14 +136,14 @@ class _SettingsPageState extends State<SettingsPage> {
                     leading: const Icon(CupertinoIcons.map),
                     title: Text(S.of(context).maps_app),
                     onTap: () async {
-                      await Navigator.of(context).push(CupertinoPageRoute(
+                      await Navigator.of(context).push(PlatformPageRoute(
+                          title: S.of(context).maps_app,
                           builder: (context) => ChoicePage<Maps>(
                                 items: const [
                                   ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
                                   ChoicePageItem(value: Maps.google, child: Text('Google Maps')),
                                 ],
                                 value: maps.mapsApp,
-                                title: Text(S.of(context).maps_app),
                                 onChanged: (a) {
                                   if (a != null) maps.mapsApp = a;
                                 },
@@ -179,14 +180,14 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: const Icon(CupertinoIcons.link),
                 title: Text(S.of(context).navigation_api),
                 onTap: () async {
-                  await Navigator.of(context).push(CupertinoPageRoute(
+                  await Navigator.of(context).push(PlatformPageRoute(
+                      title: S.of(context).navigation_api,
                       builder: (context) => ChoicePage<NavigationApiType>(
                             items: NavigationApiType.values
                                 .map((e) => ChoicePageItem(
                                     child: Text(NavigationApi.getFactory(e).name), value: e))
                                 .toList(),
                             value: prefs.api,
-                            title: Text(S.of(context).navigation_api),
                             description: const Text(
                                 'BETA: In the future the goal is to add more countries.'),
                             onChanged: (a) {
@@ -317,7 +318,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           icon: const Icon(Icons.search),
                           onPressed: () async {
                             await Navigator.of(context)
-                                .push(CupertinoPageRoute(builder: (_) => const _TestWidget()));
+                                .push(PlatformPageRoute(builder: (_) => const _TestWidget()));
                           })),
                 ),
               ),
