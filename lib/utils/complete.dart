@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
-import 'package:utils/utils/levenshtein.dart';
+import 'package:utils/levenshtein.dart';
 
 const _kConfidenceThreshold = .9;
 const _kMaxFavoritesCount = 3;
@@ -17,7 +17,7 @@ Future<List<CffCompletion>> completeWithFavorites(
 
   for (final c in store.stops) {
     if (c.stop == null) continue;
-    final leven = _leven(query, c);
+    final leven = scaledLevenshtein(query, c.name.replaceAll(',', ''));
     // Skip if above threshold
     if (leven < _kConfidenceThreshold) {
       // log("$query - ${c.label} => $leven");
@@ -35,6 +35,3 @@ Future<List<CffCompletion>> completeWithFavorites(
     ...compls.where((c) => c.label != null),
   ];
 }
-
-double _leven(String query, FavoriteStop c) =>
-    levenshtein(query, c.name.replaceAll(',', '')) / c.name.length;

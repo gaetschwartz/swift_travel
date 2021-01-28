@@ -23,7 +23,7 @@ import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/route_uri.dart';
-import 'package:utils/utils/levenshtein.dart';
+import 'package:utils/levenshtein.dart';
 
 final storeProvider = ChangeNotifierProvider((r) => FavoritesSharedPreferencesStore(r));
 
