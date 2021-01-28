@@ -20,10 +20,10 @@ import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/theme.dart';
-import 'package:swift_travel/utils/choice_page.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/search.dart';
+import 'package:swift_travel/widgets/choice_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
@@ -40,8 +40,9 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final children = <WidgetBuilder>[
-    (context) => _SectionTitle(title: Text(Strings.of(context).brightness)),
+    (context) => _SectionTitle(title: Text(S.of(context).brightness)),
     (_) => SizedBox(
+          key: const Key('settings-top-theme-section'),
           height: 100,
           child: Consumer(builder: (context, w, _) {
             final theme = w(dynamicTheme);
@@ -50,24 +51,24 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 _ModeWidget(
                   theme: theme,
-                  label: Strings.of(context).brightness_system,
+                  label: S.of(context).brightness_system,
                   mode: ThemeMode.system,
                 ),
                 _ModeWidget(
                   theme: theme,
-                  label: Strings.of(context).brightness_light,
+                  label: S.of(context).brightness_light,
                   mode: ThemeMode.light,
                 ),
                 _ModeWidget(
                   theme: theme,
-                  label: Strings.of(context).brightness_dark,
+                  label: S.of(context).brightness_dark,
                   mode: ThemeMode.dark,
                 ),
               ],
             );
           }),
         ),
-    (context) => _SectionTitle(title: Text(Strings.of(context).font)),
+    (context) => _SectionTitle(title: Text(S.of(context).font)),
     (_) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Align(
@@ -120,7 +121,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
     (_) => const _PlaformChoiceWidget(),
     (_) => const _FontWeightWidget(),
-    (context) => _SectionTitle(title: Text(Strings.of(context).themes)),
+    (context) => _SectionTitle(title: Text(S.of(context).themes)),
     (_) => const _ThemesSection(),
     (context) => (isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
         ? Column(children: [
@@ -132,7 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: [
                   ListTile(
                     leading: const Icon(CupertinoIcons.map),
-                    title: Text(Strings.of(context).maps_app),
+                    title: Text(S.of(context).maps_app),
                     onTap: () async {
                       await Navigator.of(context).push(CupertinoPageRoute(
                           builder: (context) => ChoicePage<Maps>(
@@ -141,7 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ChoicePageItem(value: Maps.google, child: Text('Google Maps')),
                                 ],
                                 value: maps.mapsApp,
-                                title: Text(Strings.of(context).maps_app),
+                                title: Text(S.of(context).maps_app),
                                 onChanged: (a) {
                                   if (a != null) maps.mapsApp = a;
                                 },
@@ -176,7 +177,7 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               ListTile(
                 leading: const Icon(CupertinoIcons.link),
-                title: Text(Strings.of(context).navigation_api),
+                title: Text(S.of(context).navigation_api),
                 onTap: () async {
                   await Navigator.of(context).push(CupertinoPageRoute(
                       builder: (context) => ChoicePage<NavigationApiType>(
@@ -185,7 +186,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     child: Text(NavigationApi.getFactory(e).name), value: e))
                                 .toList(),
                             value: prefs.api,
-                            title: Text(Strings.of(context).navigation_api),
+                            title: Text(S.of(context).navigation_api),
                             description: const Text(
                                 'BETA: In the future the goal is to add more countries.'),
                             onChanged: (a) {
@@ -210,23 +211,23 @@ class _SettingsPageState extends State<SettingsPage> {
           );
         }),
     (_) => const Divider(),
-    (context) => _SectionTitle(title: Text(Strings.of(context).more)),
+    (context) => _SectionTitle(title: Text(S.of(context).more)),
     (context) => ListTile(
           leading: const Icon(CupertinoIcons.person_3_fill),
-          title: Text(Strings.of(context).our_team),
+          title: Text(S.of(context).our_team),
           onTap: () => Navigator.of(context).pushNamed('/ourTeam'),
         ),
     (context) => ListTile(
         leading: const Icon(Icons.restore),
-        title: Text(Strings.of(context).reset_settings),
+        title: Text(S.of(context).reset_settings),
         onTap: () async {
           final c = await confirm(
             context,
             title: const Text('Reset settings ?'),
             content: const Text('You will lose all of you favorites!'),
             isConfirmDestructive: true,
-            confirm: Text(Strings.of(context).yes),
-            cancel: Text(Strings.of(context).no),
+            confirm: Text(S.of(context).yes),
+            cancel: Text(S.of(context).no),
           );
           if (c != true) return;
           final prefs = await SharedPreferences.getInstance();
@@ -238,7 +239,7 @@ class _SettingsPageState extends State<SettingsPage> {
     (context) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _SectionTitle(title: Text(Strings.of(context).developer)),
+            _SectionTitle(title: Text(S.of(context).developer)),
             ListTile(
                 leading: const Icon(Icons.screen_lock_landscape),
                 title: const Text('Screen info'),
@@ -252,13 +253,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   );
                 }),
-            ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('Search'),
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) => SearchPage(
-                          controller: TextEditingController(),
-                        )))),
             ListTile(
                 leading: const Icon(Icons.warning_rounded),
                 title: const Text('Throw a Flutter error'),
@@ -294,6 +288,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
     (_) => const SizedBox(height: 32),
     (context) => Padding(
+          key: const Key('settings-bottom-info'),
           padding: const EdgeInsets.all(8.0),
           child: Center(
             child: Text(
@@ -316,15 +311,23 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: CupertinoPageScaffold(
                   child: child,
                   resizeToAvoidBottomInset: false,
-                  navigationBar: cupertinoBar(context, middle: Text(Strings.of(context).settings)),
+                  navigationBar: cupertinoBar(context,
+                      middle: Text(S.of(context).settings),
+                      trailing: IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () async {
+                            await Navigator.of(context)
+                                .push(CupertinoPageRoute(builder: (_) => const _TestWidget()));
+                          })),
                 ),
               ),
           elseBuilder: (context, child) => Scaffold(body: child),
           child: CustomScrollView(
+            key: const Key('settings-scrollview'),
             slivers: [
               if (!isDarwin)
                 SliverAppBar(
-                  title: Text(Strings.of(context).settings),
+                  title: Text(S.of(context).settings),
                   pinned: true,
                 ),
               SliverSafeArea(
@@ -345,6 +348,62 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void onAPIChanged(PreferencesBloc prefs, NavigationApiType api) => prefs.api = api;
 }
+
+class _TestWidget extends StatefulWidget {
+  const _TestWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  __TestWidgetState createState() => __TestWidgetState();
+}
+
+class __TestWidgetState extends State<_TestWidget> {
+  final controller = TextEditingController();
+  final tag = 'heniu';
+  final focus = FocusNode();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    focus.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+        navigationBar: const CupertinoNavigationBar(transitionBetweenRoutes: false),
+        child: SafeArea(
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Hero(
+                tag: tag,
+                child: CupertinoTextField(
+                  controller: controller,
+                  focusNode: focus,
+                  placeholder: S.of(context).search_station,
+                  onTap: () {
+                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                        builder: (_) => SearchPage(
+                              controller: controller,
+                              heroTag: tag,
+                              focus: focus,
+                            )));
+                  },
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
+}
+
+Color primaryColor(BuildContext context) => Responsive.isDarwin(context)
+    ? CupertinoTheme.of(context).primaryColor
+    : Theme.of(context).accentColor;
 
 class _ScreenPage extends StatelessWidget {
   const _ScreenPage({
@@ -395,8 +454,14 @@ class _PlaformChoiceWidget extends StatelessWidget {
           return CupertinoSlidingSegmentedControl<TargetPlatform>(
             children: p == TargetPlatform.android || p == TargetPlatform.iOS
                 ? {
-                    TargetPlatform.android: const Text('Android'),
-                    TargetPlatform.iOS: const Text('iOS'),
+                    TargetPlatform.android: const Text(
+                      'Android',
+                      key: Key('platform-choice-android'),
+                    ),
+                    TargetPlatform.iOS: const Text(
+                      'iOS',
+                      key: Key('platform-choice-ios'),
+                    ),
                   }
                 : {
                     TargetPlatform.windows: const Text('Windows'),
@@ -404,10 +469,6 @@ class _PlaformChoiceWidget extends StatelessWidget {
                   },
             groupValue: theme.platform,
             onValueChanged: (i) {
-              if (i == TargetPlatform.android) {
-                Navigator.of(context, rootNavigator: true)
-                    .push(MaterialPageRoute(builder: (context) => const SettingsPage()));
-              }
               theme.platform = i;
               Vibration.select();
             },
@@ -502,6 +563,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
                 final ft = list[i].value;
                 const radius = BorderRadius.all(Radius.circular(16));
                 return Container(
+                  key: const Key('theme-card'),
                   margin: const EdgeInsets.only(bottom: 16, right: 8, left: 8),
                   width: 120,
                   decoration: BoxDecoration(
@@ -509,7 +571,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
                     color: Theme.of(context).cardColor,
                     borderRadius: radius,
                     border: ft == theme.theme
-                        ? Border.all(width: 2, color: Theme.of(context).accentColor)
+                        ? Border.all(width: 2, color: primaryColor(context))
                         : null,
                   ),
                   child: GestureDetector(
@@ -678,70 +740,63 @@ class _ModeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: DynamicTheme.resolve(context, mode, theme.theme),
-      child: Builder(builder: (context) {
-        final linearGradient =
-            LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
-          theme.theme.light.background,
-          theme.theme.dark.background,
-        ], stops: const [
-          0.5,
-          0.5
-        ]);
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: InkWell(
-            onTap: () => theme.mode = mode,
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                key: Key('mode-$label'),
-                decoration: BoxDecoration(
-                    boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
-                    color: mode == ThemeMode.system ? null : Theme.of(context).cardColor,
-                    border: theme.mode == mode
-                        ? Border.all(
-                            width: 2,
-                            color: Theme.of(context).accentColor,
-                          )
-                        : null,
-                    gradient: mode == ThemeMode.system ? linearGradient : null,
-                    borderRadius: const BorderRadius.all(Radius.circular(16))),
-                child: Center(
-                  child: mode == ThemeMode.system
-                      ? ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(8)),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                            child: Container(
-                              color: Colors.white30,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 4),
-                                child: Text(
-                                  label,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(color: Colors.black),
-                                ),
-                              ),
+    final t = DynamicTheme.resolve(
+      context,
+      mode,
+      theme.theme,
+      textTheme: Typography.englishLike2018,
+    );
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: InkWell(
+        onTap: () => theme.mode = mode,
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Container(
+            key: Key('mode-${describeEnum(mode).toLowerCase()}'),
+            decoration: BoxDecoration(
+                boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                color: mode == ThemeMode.system ? null : t.cardColor,
+                border: theme.mode == mode
+                    ? Border.all(
+                        width: 2,
+                        color: primaryColor(context),
+                      )
+                    : null,
+                gradient: mode == ThemeMode.system
+                    ? LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
+                        theme.theme.light.background,
+                        theme.theme.dark.background,
+                      ], stops: const [
+                        0.5,
+                        0.5
+                      ])
+                    : null,
+                borderRadius: const BorderRadius.all(Radius.circular(16))),
+            child: Center(
+              child: mode == ThemeMode.system
+                  ? ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                        child: Container(
+                          color: Colors.white30,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 4),
+                            child: Text(
+                              label,
+                              style: t.textTheme.headline6.copyWith(color: Colors.black),
                             ),
                           ),
-                        )
-                      : buildText(context),
-                ),
-              ),
+                        ),
+                      ),
+                    )
+                  : Text(label, style: t.textTheme.headline6),
             ),
           ),
-        );
-      }),
+        ),
+      ),
     );
-  }
-
-  Text buildText(BuildContext context) {
-    return Text(label, style: Theme.of(context).textTheme.headline6);
   }
 }
 
@@ -832,7 +887,7 @@ class TeamPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.of(context).our_team),
+        title: Text(S.of(context).our_team),
         actions: [
           TextButton(
             style: TextButton.styleFrom(
@@ -936,7 +991,7 @@ class _SectionTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).accentColor),
+        style: Theme.of(context).textTheme.headline6.copyWith(color: primaryColor(context)),
         textAlign: TextAlign.left,
         child: title,
       ),

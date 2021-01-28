@@ -52,12 +52,12 @@ class _FavoritesTabState extends State<FavoritesTab>
         child: child,
         navigationBar: cupertinoBar(
           context,
-          middle: Text(Strings.of(context).tabs_favourites),
           trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
         ),
+        resizeToAvoidBottomInset: false,
       ),
       elseBuilder: (context, child) => Scaffold(
-          appBar: materialAppBar(context, title: Text(Strings.of(context).tabs_favourites)),
+          appBar: materialAppBar(context, title: Text(S.of(context).tabs_favourites)),
           floatingActionButton: isDarwin
               ? null
               : FloatingActionButton(

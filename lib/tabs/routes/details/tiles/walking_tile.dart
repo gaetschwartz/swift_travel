@@ -52,8 +52,7 @@ class WalkingTile extends StatelessWidget {
                   if (l.exit.waitTime > 0)
                     Text.rich(
                       parseDecoratedText(
-                        Strings.of(context).walk_and_wait(
-                            Format.intToDuration(l.runningTime.round()),
+                        S.of(context).walk_and_wait(Format.intToDuration(l.runningTime.round()),
                             Format.intToDuration(l.exit.waitTime)),
                         Theme.of(context).textTheme.subtitle2,
                       ),
@@ -61,7 +60,7 @@ class WalkingTile extends StatelessWidget {
                   else
                     Text.rich(
                       parseDecoratedText(
-                        Strings.of(context).walk(Format.intToDuration(l.runningTime.round())),
+                        S.of(context).walk(Format.intToDuration(l.runningTime.round())),
                         Theme.of(context).textTheme.subtitle2,
                       ),
                     ),
@@ -69,10 +68,7 @@ class WalkingTile extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            FaIcon(
-              FontAwesomeIcons.map,
-              color: Theme.of(context).accentColor,
-            ),
+            const FaIcon(FontAwesomeIcons.map),
           ],
         ),
       ),

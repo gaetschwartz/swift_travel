@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
 import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
@@ -45,10 +48,7 @@ class _StopDetailsState extends State<StopDetails> {
     if (Responsive.isDarwin(context)) {
       return CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
-        navigationBar: cupertinoBar(
-          context,
-          middle: Text(widget.stopName),
-        ),
+        navigationBar: cupertinoBar(context),
         child: buildIOSList(),
       );
     } else {
@@ -74,8 +74,12 @@ class _StopDetailsState extends State<StopDetails> {
     return RefreshIndicator(
       child: data != null
           ? ListView.builder(
-              itemBuilder: (context, i) =>
-                  i.isEven ? const Divider(height: 0) : ConnectionTile(c: data.connections[i ~/ 2]),
+              itemBuilder: (context, i) => i.isEven
+                  ? const Divider(height: 0)
+                  : ConnectionTile(
+                      c: data.connections[i ~/ 2],
+                      s: data.stop,
+                    ),
               itemCount: data.connections.length * 2 + 1,
             )
           : const Center(child: CupertinoActivityIndicator()),
@@ -93,7 +97,10 @@ class _StopDetailsState extends State<StopDetails> {
               delegate: SliverChildBuilderDelegate(
                 (context, i) => i.isEven
                     ? const Divider(height: 0)
-                    : ConnectionTile(c: data.connections[i ~/ 2]),
+                    : ConnectionTile(
+                        c: data.connections[i ~/ 2],
+                        s: data.stop,
+                      ),
                 childCount: data.connections.length * 2 + 1,
               ),
             ),
@@ -140,8 +147,14 @@ class _StopDetailsState extends State<StopDetails> {
 
 class ConnectionTile extends StatelessWidget {
   final StationboardConnection c;
+  final Stop s;
 
-  const ConnectionTile({Key key, @required this.c}) : super(key: key);
+  const ConnectionTile({
+    Key key,
+    @required this.c,
+    @required this.s,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final diff = c.time.difference(DateTime.now());
@@ -149,7 +162,11 @@ class ConnectionTile extends StatelessWidget {
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      onTap: () => Navigator.of(context).pushNamed('/nextStops', arguments: c),
+      onTap: () => Navigator.of(context).push(platformRoute(
+        builder: (context) => NextStopsPage(c: c, s: s),
+        isDarwin: Responsive.isDarwin(context),
+        title: s.name,
+      )),
       title: Row(
         children: [
           if (i != -1) LineIcon.fromString(line: c.line, colors: c.color),

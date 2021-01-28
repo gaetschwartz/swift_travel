@@ -44,7 +44,7 @@ class ArrivedTile extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text.rich(parseDecoratedText(
-                Strings.of(context).youll_be_there(Format.time(l.arrival)),
+                S.of(context).youll_be_there(Format.time(l.arrival)),
                 Theme.of(context).textTheme.subtitle2,
               )),
             ],

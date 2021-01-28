@@ -29,7 +29,7 @@ class FavoriteStationTile extends StatelessWidget {
       actionPane: const SlidableDrawerActionPane(),
       secondaryActions: <Widget>[
         IconSlideAction(
-          caption: Strings.of(context).delete,
+          caption: S.of(context).delete,
           color: Colors.red,
           icon: CupertinoIcons.delete,
           onTap: () => delete(context),
@@ -37,13 +37,13 @@ class FavoriteStationTile extends StatelessWidget {
       ],
       actions: [
         IconSlideAction(
-          caption: Strings.of(context).rename,
+          caption: S.of(context).rename,
           color: Colors.blue,
           icon: CupertinoIcons.pencil,
           onTap: () => rename(context),
         ),
         IconSlideAction(
-          caption: Strings.of(context).timetable,
+          caption: S.of(context).timetable,
           color: Colors.blue,
           icon: CupertinoIcons.list_number,
           onTap: () => Nav.push(context, (context) => StopDetails(stopName: stop.stop)),
@@ -75,24 +75,24 @@ class FavoriteStationTile extends StatelessWidget {
       context,
       [
         ActionsSheetAction(
-          title: Text(Strings.of(context).timetable),
+          title: Text(S.of(context).timetable),
           icon: const Icon(CupertinoIcons.list_number),
           onPressed: () => Nav.push(context, (context) => StopDetails(stopName: stop.stop)),
         ),
         ActionsSheetAction(
-          title: Text(Strings.of(context).rename),
+          title: Text(S.of(context).rename),
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () => rename(context),
         ),
         ActionsSheetAction(
-          title: Text(Strings.of(context).delete),
+          title: Text(S.of(context).delete),
           icon: const Icon(CupertinoIcons.delete),
           onPressed: () => delete(context),
           isDestructive: true,
         ),
       ],
       cancel: ActionsSheetAction(
-        title: Text(Strings.of(context).close),
+        title: Text(S.of(context).close),
         icon: const Icon(CupertinoIcons.xmark),
         onPressed: () => null,
       ),
@@ -110,15 +110,15 @@ class FavoriteStationTile extends StatelessWidget {
   Future<void> delete(BuildContext context) async {
     final b = await confirm(
       context,
-      title: Text(Strings.of(context).delete_fav),
+      title: Text(S.of(context).delete_fav),
       content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
         TextSpan(
             text: '${stop.name} (${stop.stop})',
             style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(text: '?'),
       ])),
-      confirm: Text(Strings.of(context).yes),
-      cancel: Text(Strings.of(context).no),
+      confirm: Text(S.of(context).yes),
+      cancel: Text(S.of(context).no),
       isConfirmDestructive: true,
     );
     if (!b) return;

@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/leg.dart';
 import 'package:swift_travel/apis/cff/models/route_connection.dart';
@@ -49,34 +48,36 @@ class RouteDetails extends StatelessWidget {
           return CupertinoPageScaffold(
             child: child,
             navigationBar: cupertinoBar(context,
-                middle: Text(Strings.of(context).tabs_route),
+                middle: Text(S.of(context).tabs_route),
                 trailing: IconButton(
                     icon: const Icon(Icons.more_horiz),
                     onPressed: () {
                       showActionSheet<void>(
-                          context,
-                          [
+                        context,
+                        [
+                          ActionsSheetAction(
+                            icon: const Icon(CupertinoIcons.play_fill),
+                            onPressed: () => openLive(context, conn),
+                            title: const Text('Live Route'),
+                          ),
+                          ActionsSheetAction(
+                            icon: const Icon(CupertinoIcons.game_controller),
+                            onPressed: () => Navigator.of(context)
+                                .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c())),
+                            title: const Text('Snake'),
+                          ),
+                          if (isMobile || kIsWeb)
                             ActionsSheetAction(
-                              icon: const Icon(CupertinoIcons.play_fill),
-                              onPressed: () => openLive(context, conn),
-                              title: const Text('Live Route'),
-                            ),
-                            ActionsSheetAction(
-                              icon: const Icon(CupertinoIcons.game_controller),
-                              onPressed: () => Navigator.of(context)
-                                  .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c())),
-                              title: const Text('Snake'),
-                            ),
-                            if (isMobile || kIsWeb)
-                              ActionsSheetAction(
-                                icon: const Icon(CupertinoIcons.share),
-                                onPressed: () => _shareRoute(context),
-                                title: const Text('Share'),
-                              )
-                          ],
-                          cancel: ActionsSheetAction(
-                              icon: const Icon(CupertinoIcons.xmark),
-                              title: Text(Strings.of(context).close)));
+                              icon: const Icon(CupertinoIcons.share),
+                              onPressed: () => _shareRoute(context),
+                              title: const Text('Share'),
+                            )
+                        ],
+                        cancel: ActionsSheetAction(
+                            icon: const Icon(CupertinoIcons.xmark),
+                            title: Text(S.of(context).close)),
+                        popBeforeReturn: true,
+                      );
                     })),
           );
         },
@@ -88,7 +89,7 @@ class RouteDetails extends StatelessWidget {
           slivers: [
             if (!darwin)
               SliverAppBar(
-                  title: Text(Strings.of(context).tabs_route),
+                  title: Text(S.of(context).tabs_route),
                   pinned: true,
                   floating: true,
                   leading: doClose ? const CloseButton() : null,
@@ -108,8 +109,13 @@ class RouteDetails extends StatelessWidget {
                               : const Icon(Icons.share),
                           onPressed: () => _shareRoute(context))
                   ]),
-            SliverToBoxAdapter(child: buildHeader(context, conn)),
             SliverSafeArea(
+              sliver: SliverToBoxAdapter(child: buildHeader(context, conn)),
+              bottom: false,
+              top: darwin,
+            ),
+            SliverSafeArea(
+              top: false,
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (_, i) => LegTile(l: conn.legs[i]),
@@ -145,12 +151,12 @@ class RouteDetails extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _dataRow(Strings.of(context).departure, _format(c.from)),
-                _dataRow(Strings.of(context).destination, _format(c.to)),
+                _dataRow(S.of(context).departure, _format(c.from)),
+                _dataRow(S.of(context).destination, _format(c.to)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(Strings.of(context).travel_duration),
+                    Text(S.of(context).travel_duration),
                     const SizedBox(width: 8),
                     Expanded(
                         child: Align(
@@ -182,8 +188,7 @@ class RouteDetails extends StatelessWidget {
 
   void openLive(BuildContext context, RouteConnection c) {
     Vibration.select();
-    Navigator.of(context)
-        .push(MaterialWithModalsPageRoute(builder: (_) => LiveRoutePage(connection: c)));
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c)));
   }
 
   void base64Experiment() {

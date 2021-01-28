@@ -3,7 +3,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/utils/env.dart';
@@ -24,21 +23,23 @@ void reportDartError(Object e, StackTrace s,
   if (showSnackbar && (!kDebugMode || Env.doShowErrors)) {
     try {
       Vibration.error();
-      scaffoldMessengerKey.currentState
-        ..removeCurrentSnackBar()
-        ..showSnackBar(SnackBar(
-          content: const Text('The app encountered an issue.'),
-          action: SnackBarAction(
-            key: Key(details.hashCode.toRadixString(16)),
-            label: 'Details',
-            onPressed: () {
-              scaffoldMessengerKey.currentState.removeCurrentSnackBar();
-              navigatorKey.currentState
-                  .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
-            },
-          ),
-        ));
-    } finally {}
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        scaffoldMessengerKey.currentState
+          ..removeCurrentSnackBar()
+          ..showSnackBar(SnackBar(
+            content: const Text('The app encountered an issue.'),
+            key: Key(details.hashCode.toRadixString(32)),
+            action: SnackBarAction(
+              label: 'Details',
+              onPressed: () {
+                scaffoldMessengerKey.currentState.removeCurrentSnackBar();
+                navigatorKey.currentState
+                    .push(MaterialPageRoute(builder: (_) => ErrorPage(details)));
+              },
+            ),
+          ));
+      });
+    } on FlutterError catch (_) {}
   }
 
   if (Firebase.apps.isNotEmpty && !kIsWeb) {
@@ -53,20 +54,22 @@ void reportFlutterError(FlutterErrorDetails details) {
   if (!kDebugMode || Env.doShowErrors) {
     try {
       Vibration.error();
-      scaffoldMessengerKey.currentState
-        ..removeCurrentSnackBar()
-        ..showSnackBar(SnackBar(
-          key: Key(details.hashCode.toRadixString(16)),
-          content: const Text('The app encountered an issue.'),
-          action: SnackBarAction(
-            label: 'Details',
-            onPressed: () {
-              scaffoldMessengerKey.currentState.removeCurrentSnackBar();
-              navigatorKey.currentState
-                  .push(MaterialWithModalsPageRoute(builder: (_) => ErrorPage(details)));
-            },
-          ),
-        ));
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        scaffoldMessengerKey.currentState
+          ..removeCurrentSnackBar()
+          ..showSnackBar(SnackBar(
+            key: Key(details.hashCode.toRadixString(32)),
+            content: const Text('The app encountered an issue.'),
+            action: SnackBarAction(
+              label: 'Details',
+              onPressed: () {
+                scaffoldMessengerKey.currentState.removeCurrentSnackBar();
+                navigatorKey.currentState
+                    .push(MaterialPageRoute(builder: (_) => ErrorPage(details)));
+              },
+            ),
+          ));
+      });
     } on FlutterError catch (_) {}
   }
   if (Firebase.apps.isNotEmpty && !kIsWeb) {

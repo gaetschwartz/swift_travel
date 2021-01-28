@@ -62,7 +62,7 @@ class _StopInputDialogState extends State<StopInputDialog> {
               focusNode: node,
               controller: _controller,
               decoration: InputDecoration(
-                hintText: Strings.of(context).search_station,
+                hintText: S.of(context).search_station,
               ),
             ),
             suggestionsCallback: (pattern) => api.complete(pattern),

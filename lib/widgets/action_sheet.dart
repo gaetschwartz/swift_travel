@@ -13,6 +13,7 @@ Future<T> showActionSheet<T>(
   ActionsSheetAction<T> cancel,
   Widget title,
   Widget message,
+  bool popBeforeReturn = false,
 }) {
   final isDarwin = Responsive.isDarwin(context);
 
@@ -25,10 +26,22 @@ Future<T> showActionSheet<T>(
                 child: CupertinoActionSheet(
                   title: title,
                   message: message,
-                  actions:
-                      actions.map((a) => ActionsSheet._buildListTile(context, a, true)).toList(),
-                  cancelButton:
-                      cancel == null ? null : ActionsSheet._buildListTile(context, cancel, true),
+                  actions: actions
+                      .map((a) => ActionsSheet._buildListTile(
+                            context,
+                            a,
+                            true,
+                            popBeforeReturn: popBeforeReturn,
+                          ))
+                      .toList(),
+                  cancelButton: cancel == null
+                      ? null
+                      : ActionsSheet._buildListTile(
+                          context,
+                          cancel,
+                          true,
+                          popBeforeReturn: popBeforeReturn,
+                        ),
                 ),
               ))
       : showMaterialModalBottomSheet<T>(
@@ -43,6 +56,63 @@ Future<T> showActionSheet<T>(
             cancel: cancel,
             title: title,
             message: message,
+            popBeforeReturn: popBeforeReturn,
+          ),
+        );
+}
+
+Future<T> showChoiceSheet<T>(
+  BuildContext context,
+  List<ActionsSheetAction<T>> actions, {
+  bool useRootNavigator = true,
+  ActionsSheetAction<T> cancel,
+  Widget title,
+  Widget message,
+  bool popBeforeReturn = false,
+  T defaultValue,
+}) {
+  final isDarwin = Responsive.isDarwin(context);
+
+  return isDarwin
+      ? showCupertinoModalPopup(
+          context: context,
+          useRootNavigator: useRootNavigator,
+          builder: (context) => Material(
+                color: Colors.transparent,
+                child: CupertinoActionSheet(
+                  title: title,
+                  message: message,
+                  actions: actions
+                      .map((a) => ActionsSheet._buildListTile(
+                            context,
+                            a,
+                            true,
+                            popBeforeReturn: popBeforeReturn,
+                          ))
+                      .toList(),
+                  cancelButton: cancel == null
+                      ? null
+                      : ActionsSheet._buildListTile(
+                          context,
+                          cancel,
+                          true,
+                          popBeforeReturn: popBeforeReturn,
+                        ),
+                ),
+              ))
+      : showMaterialModalBottomSheet<T>(
+          context: context,
+          expand: false,
+          backgroundColor: Colors.transparent,
+          useRootNavigator: useRootNavigator,
+          duration: const Duration(milliseconds: 250),
+          bounce: true,
+          builder: (context) => ActionsSheet<T>(
+            actions: actions,
+            cancel: cancel,
+            title: title,
+            message: message,
+            popBeforeReturn: popBeforeReturn,
           ),
         );
 }
@@ -73,24 +143,31 @@ class ActionsSheet<T> extends StatelessWidget {
     this.cancel,
     this.title,
     this.message,
+    this.popBeforeReturn = false,
   }) : super(key: key);
 
   final List<ActionsSheetAction<T>> actions;
   final ActionsSheetAction<T> cancel;
   final Widget title;
   final Widget message;
+  final bool popBeforeReturn;
 
   List<Widget> buildChildren(BuildContext context) {
     final l = <Widget>[];
     for (var i = 0; i < actions.length; i++) {
       final a = actions[i];
-      l.add(_buildListTile<T>(context, a, false));
+      l.add(_buildListTile<T>(context, a, false, popBeforeReturn: popBeforeReturn));
       if (i < actions.length - 1) l.add(const Divider(height: 0, indent: 8, endIndent: 8));
     }
     return l;
   }
 
-  static Widget _buildListTile<T>(BuildContext context, ActionsSheetAction a, bool isDarwin) {
+  static Widget _buildListTile<T>(
+    BuildContext context,
+    ActionsSheetAction a,
+    bool isDarwin, {
+    @required bool popBeforeReturn,
+  }) {
     return ListTile(
       leading: a.icon == null
           ? null
@@ -113,8 +190,13 @@ class ActionsSheet<T> extends StatelessWidget {
           ),
           child: a.title),
       onTap: () async {
-        final value = await a.onPressed?.call();
-        Navigator.of(context).pop<T>(value);
+        if (popBeforeReturn) {
+          Navigator.of(context).pop<void>();
+          a.onPressed?.call();
+        } else {
+          final value = await a.onPressed?.call();
+          Navigator.of(context).pop<T>(value);
+        }
       },
     );
   }
@@ -163,7 +245,12 @@ class ActionsSheet<T> extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8, right: 8, left: 8),
             child: Material(
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
-                child: _buildListTile(context, cancel, false)),
+                child: _buildListTile(
+                  context,
+                  cancel,
+                  false,
+                  popBeforeReturn: popBeforeReturn,
+                )),
           )
       ],
     );

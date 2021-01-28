@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -9,6 +8,7 @@ import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -18,12 +18,18 @@ import 'package:theming/responsive.dart';
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 final _loadingProvider = StateProvider((_) => false);
 
+const _heroTag = 0xabcd;
+
 class SearchPage extends StatefulWidget {
   final TextEditingController controller;
+  final Object heroTag;
+  final FocusNode focus;
 
   const SearchPage({
     @required this.controller,
     Key key,
+    this.heroTag = _heroTag,
+    @required this.focus,
   }) : super(key: key);
 
   @override
@@ -52,17 +58,14 @@ class Debouncer {
 
 class _SearchPageState extends State<SearchPage> {
   final debouncer = Debouncer();
+
   FavoritesSharedPreferencesStore store;
   NavigationApi api;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     debouncer.dispose();
+    widget.controller.removeListener(onChanged);
     super.dispose();
   }
 
@@ -73,9 +76,8 @@ class _SearchPageState extends State<SearchPage> {
     store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
   }
 
-  void onChanged(String s) {
-    log('Changed');
-    debouncer.debounce(() => fetch(s));
+  void onChanged() {
+    debouncer.debounce(() => fetch(widget.controller.text));
   }
 
   Future<void> fetch(String query) async {
@@ -84,8 +86,6 @@ class _SearchPageState extends State<SearchPage> {
 
       final completionsWithFavs =
           await completeWithFavorites(store, compls, query, currentLocationString: null);
-
-      log('Completions : ${completionsWithFavs.length}');
 
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
@@ -96,39 +96,53 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(onChanged);
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (Responsive.isDarwin(context)) {
       return Material(
-        child: Builder(
-            builder: (context) => CupertinoPageScaffold(
-                  resizeToAvoidBottomInset: false,
-                  navigationBar: CupertinoNavigationBar(
-                    backgroundColor: CupertinoTheme.of(context).barBackgroundColor,
-                    leading: BackButton(
-                      color: CupertinoTheme.of(context).primaryColor,
-                      onPressed: () =>
-                          Navigator.of(context).pop(CffCompletion(label: widget.controller.text)),
-                    ),
-                    middle: CupertinoTextField(
-                      controller: widget.controller,
-                      onChanged: onChanged,
-                      style: CupertinoTheme.of(context).textTheme.textStyle,
-                    ),
-                    trailing: CloseButton(
-                      color: CupertinoTheme.of(context).primaryColor,
-                      onPressed: () =>
-                          context.read(_stateProvider).state = const StationStates.empty(),
-                    ),
-                  ),
-                  child: const _Results(),
-                )),
+        child: CupertinoPageScaffold(
+          resizeToAvoidBottomInset: false,
+          navigationBar: CupertinoNavigationBar(
+            transitionBetweenRoutes: false,
+            middle: Hero(
+              tag: widget.heroTag,
+              child: CupertinoTextField(
+                focusNode: widget.focus,
+                controller: widget.controller,
+                placeholder: S.of(context).search_station,
+              ),
+            ),
+            trailing: IconButton(
+              color: CupertinoTheme.of(context).primaryColor,
+              onPressed: () => widget.controller.clear(),
+              icon: const Icon(CupertinoIcons.clear),
+            ),
+          ),
+          child: SafeArea(
+            child: _Results(
+              onTap: (c) {
+                widget.controller.text = c.label;
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ),
       );
     } else {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const TextField(),
-          actions: [CloseButton(onPressed: () {})],
+          actions: [
+            CloseButton(onPressed: () {
+              Navigator.of(context).pop();
+            })
+          ],
         ),
       );
     }
@@ -138,7 +152,10 @@ class _SearchPageState extends State<SearchPage> {
 class _Results extends StatelessWidget {
   const _Results({
     Key key,
+    @required this.onTap,
   }) : super(key: key);
+
+  final void Function(CffCompletion completion) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -161,8 +178,7 @@ class _Results extends StatelessWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemBuilder: (context, i) =>
-                    _SuggestedTile(c.completions[i], onTap: (c) => Navigator.of(context).pop(c)),
+                itemBuilder: (context, i) => _SuggestedTile(c.completions[i], onTap: onTap),
                 itemCount: c.completions == null ? 0 : c.completions.length,
               ),
             ),

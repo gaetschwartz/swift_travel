@@ -10,6 +10,12 @@
       "type": "dart",
     },
     {
+      "name": "Integration Tests: Launch Driver",
+      "request": "launch",
+      "type": "dart",
+      "program": "integration_test/app_test.dart",
+    },
+    {
       "name": "Launch (override)",
       "request": "launch",
       "type": "dart",

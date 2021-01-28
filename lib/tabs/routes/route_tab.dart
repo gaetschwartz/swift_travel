@@ -226,10 +226,10 @@ class _RoutePageState extends State<RoutePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    fromFormatter = MyTextFormatter(
-        Strings.of(context).current_location, from, context.read(_fromTextfieldProvider));
-    toFormatter = MyTextFormatter(
-        Strings.of(context).current_location, to, context.read(_fromTextfieldProvider));
+    fromFormatter =
+        MyTextFormatter(S.of(context).current_location, from, context.read(_fromTextfieldProvider));
+    toFormatter =
+        MyTextFormatter(S.of(context).current_location, to, context.read(_fromTextfieldProvider));
     store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     api = context.read(navigationAPIProvider);
     from.init(context);
@@ -268,8 +268,6 @@ class _RoutePageState extends State<RoutePage> {
 
   @override
   void dispose() {
-    log('dispose');
-
     fnFrom.dispose();
     fnTo.dispose();
     super.dispose();
@@ -280,7 +278,7 @@ class _RoutePageState extends State<RoutePage> {
     return IfWrapper(
       condition: Responsive.isDarwin(context),
       builder: (context, child) => CupertinoPageScaffold(
-        navigationBar: cupertinoBar(context, middle: Text(Strings.of(context).tabs_route)),
+        navigationBar: cupertinoBar(context),
         resizeToAvoidBottomInset: false,
         child: child,
       ),
@@ -288,7 +286,7 @@ class _RoutePageState extends State<RoutePage> {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: materialAppBar(context,
-              title: Text(widget.localRoute?.displayName ?? Strings.of(context).tabs_route)),
+              title: Text(widget.localRoute?.displayName ?? S.of(context).tabs_route)),
           body: child,
         );
       },
@@ -344,7 +342,7 @@ class _RoutePageState extends State<RoutePage> {
                   Positioned(
                       left: 0,
                       child: IconButton(
-                        tooltip: Strings.of(context).fav_route,
+                        tooltip: S.of(context).fav_route,
                         onPressed: () async {
                           unawaited(Vibration.select());
 
@@ -438,7 +436,7 @@ class _RoutePageState extends State<RoutePage> {
                   Positioned(
                     right: 0,
                     child: IconButton(
-                      tooltip: Strings.of(context).use_current_time,
+                      tooltip: S.of(context).use_current_time,
                       onPressed: () {
                         Vibration.select();
                         unFocusFields();
@@ -459,7 +457,7 @@ class _RoutePageState extends State<RoutePage> {
   }
 
   Widget buildFromField(BuildContext context) {
-    final currentLocationString = Strings.of(context).current_location;
+    final currentLocationString = S.of(context).current_location;
 
     return ShadowsAround(
       child: Stack(
@@ -482,7 +480,7 @@ class _RoutePageState extends State<RoutePage> {
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
-                labelText: Strings.of(context).departure,
+                labelText: S.of(context).departure,
                 isDense: true,
                 filled: true,
                 fillColor: Theme.of(context).cardColor,
@@ -530,7 +528,7 @@ class _RoutePageState extends State<RoutePage> {
       );
 
   Widget buildToField(BuildContext context) {
-    final currentLocationString = Strings.of(context).current_location;
+    final currentLocationString = S.of(context).current_location;
 
     return ShadowsAround(
       child: Stack(
@@ -553,7 +551,7 @@ class _RoutePageState extends State<RoutePage> {
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
-                labelText: Strings.of(context).destination,
+                labelText: S.of(context).destination,
                 isDense: true,
                 filled: true,
                 fillColor: Theme.of(context).cardColor,
@@ -758,7 +756,7 @@ class RoutesView extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              Strings.of(context).find_a_route,
+              S.of(context).find_a_route,
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
             )
@@ -845,8 +843,7 @@ class TextControllerAndStateBinder {
 
   String get text => controller.text;
 
-  static String _computeCurrentLocation(BuildContext context) =>
-      Strings.of(context).current_location;
+  static String _computeCurrentLocation(BuildContext context) => S.of(context).current_location;
 }
 
 class ShadowsAround extends StatelessWidget {
@@ -898,11 +895,11 @@ class __SegmentedState extends State<_Segmented> {
       },
       children: {
         TimeType.depart: Text(
-          Strings.of(context).departure,
+          S.of(context).departure,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
         TimeType.arrival: Text(
-          Strings.of(context).arrival,
+          S.of(context).arrival,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
       },

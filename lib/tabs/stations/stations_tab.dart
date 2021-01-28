@@ -88,13 +88,12 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
       builder: (context, child) => CupertinoPageScaffold(
         navigationBar: cupertinoBar(
           context,
-          middle: Text(Strings.of(context).tabs_search),
         ),
         resizeToAvoidBottomInset: false,
         child: child,
       ),
       elseBuilder: (context, child) => Scaffold(
-        appBar: materialAppBar(context, title: Text(Strings.of(context).tabs_search)),
+        appBar: materialAppBar(context, title: Text(S.of(context).tabs_search)),
         resizeToAvoidBottomInset: false,
         body: child,
       ),
@@ -120,7 +119,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                 .copyWith(fontStyle: FontStyle.normal),
                             decoration: InputDecoration(
                               isDense: true,
-                              hintText: Strings.of(context).search_station,
+                              hintText: S.of(context).search_station,
                               border: const OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -161,7 +160,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                               ? const Icon(CupertinoIcons.location_fill)
                               : const FaIcon(FluentIcons.my_location_24_regular));
                     }),
-                    tooltip: Strings.of(context).use_current_location,
+                    tooltip: S.of(context).use_current_location,
                     onPressed: () => getLocation(),
                   )
                 ],
@@ -299,8 +298,6 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
       final completionsWithFavs =
           await completeWithFavorites(store, compls, query, currentLocationString: null);
-
-      log('Completions : ${completionsWithFavs.length}');
 
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {

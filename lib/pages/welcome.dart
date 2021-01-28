@@ -101,7 +101,7 @@ class WelcomePage extends StatelessWidget {
                         },
                         child: Row(
                           children: [
-                            Text(Strings.of(context).continue_),
+                            Text(S.of(context).continue_),
                             const SizedBox(width: 8),
                             const Icon(CupertinoIcons.chevron_forward),
                           ],

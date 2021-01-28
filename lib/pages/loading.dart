@@ -12,11 +12,13 @@ import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/blocs/quick_actions.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
+import 'package:theming/responsive.dart';
 
 const _tutoKey = 'hasAlreadySeenTuto';
 
@@ -31,6 +33,7 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
   AnimationController _controller;
+  bool isDarwin = false;
 
   @override
   void initState() {
@@ -43,6 +46,12 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
     _controller.forward();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    isDarwin = Responsive.isDarwin(context);
   }
 
   @override
@@ -155,8 +164,22 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
         unawaited(nav.pushNamed('/routeDetails', arguments: args));
       } on Exception catch (e, s) {
         log('', error: e, stackTrace: s);
-        return Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
+        return _routeToDefault();
       }
+    } else {
+      return _routeToDefault();
+    }
+  }
+
+  Future<void> _routeToDefault() {
+    if (Env.page.isEmpty) {
+      return Navigator.of(context).pushReplacement(
+        platformRoute(
+          builder: (context) => const MainApp(),
+          isDarwin: isDarwin,
+          settings: const RouteSettings(name: '/'),
+        ),
+      );
     } else {
       return Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
     }

@@ -92,7 +92,12 @@ class CffCompletionTile extends ConsumerWidget {
             ? null
             : () {
                 Vibration.select();
-                Nav.push(context, (context) => StopDetails(stopName: sugg.label));
+
+                Nav.push(
+                  context,
+                  (context) => StopDetails(stopName: sugg.label),
+                  title: sugg.label,
+                );
                 FocusManager.instance.primaryFocus?.unfocus();
               },
       ),
@@ -119,8 +124,8 @@ class CffCompletionTile extends ConsumerWidget {
         [
           ActionsSheetAction(
             title: isFav
-                ? Text(Strings.of(context).remove_from_favoruites)
-                : Text(Strings.of(context).add_to_favs),
+                ? Text(S.of(context).remove_from_favoruites)
+                : Text(S.of(context).add_to_favs),
             icon: isFav
                 ? const Icon(FluentIcons.star_off_24_regular)
                 : const Icon(FluentIcons.star_add_24_regular),
@@ -131,7 +136,7 @@ class CffCompletionTile extends ConsumerWidget {
           )
         ],
         cancel: ActionsSheetAction(
-          title: Text(Strings.of(context).cancel),
+          title: Text(S.of(context).cancel),
           icon: const Icon(CupertinoIcons.xmark),
           onPressed: () => null,
         ));
@@ -172,15 +177,25 @@ class __LinesWidgetState extends State<_LinesWidget> {
   @override
   void initState() {
     super.initState();
-    stationboard();
+    getData();
+  }
+
+  Future<void> getData() async {
+    try {
+      await stationboard();
+    } catch (e) {
+      setState(() => lines = []);
+    }
   }
 
   Future<void> stationboard() async {
     final s = Stopwatch();
     s.start();
     if (!_cache.containsKey(widget.sugg.label)) {
-      final stationboard =
-          await context.read(navigationAPIProvider).stationboard(widget.sugg.label);
+      final stationboard = await context
+          .read(navigationAPIProvider)
+          .stationboard(widget.sugg.label)
+          .timeout(const Duration(seconds: 1));
       // print('End network call: ' + s.elapsedMilliseconds.toString() + ' ms');
       final l = stationboard.connections
           .where((c) => c.line != null)

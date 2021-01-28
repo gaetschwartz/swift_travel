@@ -20,7 +20,7 @@ class FavoriteRouteTile extends StatelessWidget {
       actionPane: const SlidableDrawerActionPane(),
       secondaryActions: <Widget>[
         IconSlideAction(
-          caption: Strings.of(context).delete,
+          caption: S.of(context).delete,
           color: Colors.red,
           icon: CupertinoIcons.delete,
           onTap: () => deleteRoute(context),
@@ -70,13 +70,13 @@ class FavoriteRouteTile extends StatelessWidget {
       [
         ActionsSheetAction(
           onPressed: () => deleteRoute(context),
-          title: Text(Strings.of(context).delete),
+          title: Text(S.of(context).delete),
           icon: const Icon(CupertinoIcons.delete),
           isDestructive: true,
         ),
       ],
       cancel: ActionsSheetAction(
-        title: Text(Strings.of(context).cancel),
+        title: Text(S.of(context).cancel),
         icon: const Icon(CupertinoIcons.xmark),
       ),
     );
@@ -93,7 +93,7 @@ class FavoriteRouteTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            Strings.of(context).from,
+            S.of(context).from,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -101,7 +101,7 @@ class FavoriteRouteTile extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            Strings.of(context).to,
+            S.of(context).to,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -110,8 +110,8 @@ class FavoriteRouteTile extends StatelessWidget {
           ),
         ],
       ),
-      confirm: Text(Strings.of(context).yes),
-      cancel: Text(Strings.of(context).no),
+      confirm: Text(S.of(context).yes),
+      cancel: Text(S.of(context).no),
       isConfirmDestructive: true,
     );
     if (!b) return;

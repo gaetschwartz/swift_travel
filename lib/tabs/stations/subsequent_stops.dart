@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
+import 'package:swift_travel/apis/cff/models/stop.dart';
 import 'package:swift_travel/apis/cff/models/subsequent_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/utils/format.dart';
@@ -10,24 +11,22 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 
 class NextStopsPage extends StatefulWidget {
-  final StationboardConnection connection;
+  final StationboardConnection c;
+  final Stop s;
 
-  const NextStopsPage({@required this.connection, Key key}) : super(key: key);
+  const NextStopsPage({@required this.c, Key key, @required this.s}) : super(key: key);
 
   @override
   _NextStopsPageState createState() => _NextStopsPageState();
 }
 
 class _NextStopsPageState extends State<NextStopsPage> {
-  StationboardConnection connection;
-
   Timer timer;
 
   @override
   void initState() {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 15), (_) => setState(() {}));
-    connection = widget.connection;
   }
 
   @override
@@ -42,32 +41,32 @@ class _NextStopsPageState extends State<NextStopsPage> {
       condition: Responsive.isDarwin(context),
       builder: (context, child) => CupertinoPageScaffold(
         child: child,
-        navigationBar: cupertinoBar(context, middle: Text(connection.terminal.name)),
+        navigationBar: cupertinoBar(context),
       ),
       elseBuilder: (context, child) => Scaffold(
           appBar: AppBar(
             leading: const BackButton(),
-            title: Text(connection.terminal.name),
+            title: Text(widget.c.terminal.name),
           ),
           body: child),
-      child: connection != null
+      child: widget.c != null
           ? ListView.builder(
-              itemCount: connection.subsequentStops.length + 1,
+              itemCount: widget.c.subsequentStops.length + 1,
               itemBuilder: (context, i) => i == 0
                   ? StopTile(
                       stop: SubsequentStop(
-                        connection.terminal.name,
-                        dep: connection.time,
-                        depDelay: connection.depDelay,
-                        arrDelay: connection.arrDelay,
+                        widget.s.name,
+                        dep: widget.c.time,
+                        depDelay: widget.c.depDelay,
+                        arrDelay: widget.c.arrDelay,
                       ),
                       isFirst: true,
-                      connection: connection)
+                      connection: widget.c)
                   : StopTile(
-                      stop: connection.subsequentStops[i - 1],
-                      connection: connection,
+                      stop: widget.c.subsequentStops[i - 1],
+                      connection: widget.c,
                       isFirst: false,
-                      isLast: i - 1 == connection.subsequentStops.length - 1,
+                      isLast: i - 1 == widget.c.subsequentStops.length - 1,
                     ),
             )
           : const Center(child: CircularProgressIndicator()),

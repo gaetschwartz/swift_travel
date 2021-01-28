@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/utils/format.dart';
@@ -85,7 +86,11 @@ class RouteTile extends StatelessWidget {
                 const FaIcon(CupertinoIcons.chevron_forward),
               ],
             ),
-            onTap: () => Nav.push(context, (context) => RouteDetails(route: route, i: i)),
+            onTap: () => Nav.push(
+              context,
+              (context) => RouteDetails(route: route, i: i),
+              title: S.of(context).tabs_route,
+            ),
           ),
         ),
       ),

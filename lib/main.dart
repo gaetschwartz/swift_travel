@@ -9,11 +9,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/cff/models/cff_route.dart';
 import 'package:swift_travel/apis/cff/models/route_connection.dart';
-import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
@@ -28,7 +26,6 @@ import 'package:swift_travel/pages/welcome.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
-import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -117,12 +114,12 @@ class _MyAppState extends State<MyApp> {
           darkTheme: theme.dark,
           themeMode: theme.mode,
           localizationsDelegates: const [
-            Strings.delegate,
+            S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: Strings.delegate.supportedLocales,
+          supportedLocales: S.delegate.supportedLocales,
           onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
           onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
           onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
@@ -150,12 +147,12 @@ class _MyAppState extends State<MyApp> {
 
     switch (uri.path) {
       case '/route':
-        routes.add(MaterialWithModalsPageRoute(
+        routes.add(MaterialPageRoute(
             settings: const RouteSettings(name: '/'), builder: (_) => LoadingPage(uri: uri)));
         break;
 
       default:
-        routes.add(MaterialWithModalsPageRoute(
+        routes.add(MaterialPageRoute(
             settings: const RouteSettings(name: '/'), builder: (_) => const LoadingPage()));
     }
     return routes;
@@ -246,11 +243,6 @@ Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
           builder: (_) => StopDetails(stopName: settings.arguments as String),
           isDarwin: isDarwin);
 
-    case '/nextStops':
-      return platformRoute(
-          settings: settings,
-          builder: (_) => NextStopsPage(connection: settings.arguments as StationboardConnection),
-          isDarwin: isDarwin);
     case '/error':
     case 'error':
       return platformRoute(
