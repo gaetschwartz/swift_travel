@@ -3,37 +3,29 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/cff/models/cff_completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/main.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:theming/responsive.dart';
 
-final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
-final _loadingProvider = StateProvider((_) => false);
-
 const _heroTag = 0xabcd;
 
-class SearchPage extends StatefulWidget {
-  final TextEditingController controller;
-  final Object heroTag;
-  final FocusNode focus;
+class CupertinoTextFieldConfiguration {
+  final String placeholder;
+  final List<TextInputFormatter> inputFormatters;
+  final TextInputAction textInputAction;
 
-  const SearchPage({
-    @required this.controller,
-    Key key,
-    this.heroTag = _heroTag,
-    @required this.focus,
-  }) : super(key: key);
-
-  @override
-  _SearchPageState createState() => _SearchPageState();
+  const CupertinoTextFieldConfiguration(
+      {this.textInputAction, this.inputFormatters, this.placeholder});
 }
 
 class Debouncer {
@@ -56,11 +48,32 @@ class Debouncer {
   }
 }
 
+final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
+
+class SearchPage extends StatefulWidget {
+  final TextEditingController controller;
+  final Object heroTag;
+  final FocusNode focus;
+  final CupertinoTextFieldConfiguration configuration;
+
+  const SearchPage({
+    @required this.controller,
+    Key key,
+    this.heroTag = _heroTag,
+    @required this.focus,
+    this.configuration = const CupertinoTextFieldConfiguration(),
+  }) : super(key: key);
+
+  @override
+  _SearchPageState createState() => _SearchPageState();
+}
+
 class _SearchPageState extends State<SearchPage> {
   final debouncer = Debouncer();
 
   FavoritesSharedPreferencesStore store;
   NavigationApi api;
+  String currentLocation;
 
   @override
   void dispose() {
@@ -74,6 +87,7 @@ class _SearchPageState extends State<SearchPage> {
     super.didChangeDependencies();
     api = context.read(navigationAPIProvider);
     store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    currentLocation = S.of(context).current_location;
   }
 
   void onChanged() {
@@ -84,21 +98,27 @@ class _SearchPageState extends State<SearchPage> {
     try {
       final compls = await api.complete(query);
 
-      final completionsWithFavs =
-          await completeWithFavorites(store, compls, query, currentLocationString: null);
+      final completionsWithFavs = completeWithFavorites(
+        store,
+        compls,
+        query,
+        currentLocationString: currentLocation,
+      );
 
-      context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
+      if (mounted)
+        context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
       reportDartError(e, s, library: 'search', reason: 'while fetching');
-    }
+    } finally {}
   }
 
   @override
   void initState() {
     super.initState();
     widget.controller.addListener(onChanged);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => onChanged());
   }
 
   @override
@@ -107,14 +127,17 @@ class _SearchPageState extends State<SearchPage> {
       return Material(
         child: CupertinoPageScaffold(
           resizeToAvoidBottomInset: false,
-          navigationBar: CupertinoNavigationBar(
+          navigationBar: cupertinoBar(
+            context,
             transitionBetweenRoutes: false,
             middle: Hero(
               tag: widget.heroTag,
               child: CupertinoTextField(
                 focusNode: widget.focus,
                 controller: widget.controller,
-                placeholder: S.of(context).search_station,
+                placeholder: widget.configuration.placeholder,
+                textInputAction: widget.configuration.textInputAction,
+                inputFormatters: widget.configuration.inputFormatters,
               ),
             ),
             trailing: IconButton(
@@ -123,13 +146,11 @@ class _SearchPageState extends State<SearchPage> {
               icon: const Icon(CupertinoIcons.clear),
             ),
           ),
-          child: SafeArea(
-            child: _Results(
-              onTap: (c) {
-                widget.controller.text = c.label;
-                Navigator.of(context).pop();
-              },
-            ),
+          child: _Results(
+            onTap: (c) {
+              widget.controller.text = c.label;
+              Navigator.of(context).pop();
+            },
           ),
         ),
       );
@@ -159,27 +180,31 @@ class _Results extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Consumer(builder: (context, w, _) {
+    return Consumer(builder: (context, w, _) {
       final state = w(_stateProvider);
       return state.state.map(
-        completions: (c) => Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: SizedBox(
-                height: 4,
-                child: Center(
-                  child: Consumer(
-                      builder: (context, w, _) => w(_loadingProvider).state
-                          ? const LinearProgressIndicator()
-                          : const SizedBox()),
+        completions: (c) => CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: SizedBox(
+                  height: 4,
+                  child: Center(
+                    child: Consumer(
+                      builder: (context, w, _) => const SizedBox(),
+                    ),
+                  ),
                 ),
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, i) => _SuggestedTile(c.completions[i], onTap: onTap),
-                itemCount: c.completions == null ? 0 : c.completions.length,
+            SliverSafeArea(
+              bottom: false,
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, i) => _SuggestedTile(c.completions[i], onTap: onTap),
+                  childCount: c.completions == null ? 0 : c.completions.length,
+                ),
               ),
             ),
           ],
@@ -216,7 +241,7 @@ class _Results extends StatelessWidget {
           ],
         ),
       );
-    }));
+    });
   }
 }
 

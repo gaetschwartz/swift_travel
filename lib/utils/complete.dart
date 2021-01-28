@@ -10,9 +10,9 @@ const _kConfidenceThreshold = .9;
 const _kMaxFavoritesCount = 3;
 
 /// Add similar favorites to the completions
-Future<List<CffCompletion>> completeWithFavorites(
+List<CffCompletion> completeWithFavorites(
     FavoritesSharedPreferencesStore store, List<CffCompletion> compls, String query,
-    {@required String currentLocationString}) async {
+    {@required String currentLocationString}) {
   final levens = <FavoriteStop, double>{};
 
   for (final c in store.stops) {

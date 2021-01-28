@@ -34,6 +34,8 @@ import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:url_strategy/url_strategy.dart';
 
+export 'package:swift_travel/generated/l10n.dart';
+
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 

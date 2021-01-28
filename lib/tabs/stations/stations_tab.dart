@@ -297,7 +297,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
       final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
 
       final completionsWithFavs =
-          await completeWithFavorites(store, compls, query, currentLocationString: null);
+          completeWithFavorites(store, compls, query, currentLocationString: null);
 
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {

@@ -31,6 +31,7 @@ import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/mocking.dart';
+import 'package:swift_travel/utils/search.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/datepicker.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -275,8 +276,9 @@ class _RoutePageState extends State<RoutePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarwin = Responsive.isDarwin(context);
     return IfWrapper(
-      condition: Responsive.isDarwin(context),
+      condition: isDarwin,
       builder: (context, child) => CupertinoPageScaffold(
         navigationBar: cupertinoBar(context),
         resizeToAvoidBottomInset: false,
@@ -304,7 +306,7 @@ class _RoutePageState extends State<RoutePage> {
                         child: Row(
                           children: [
                             Expanded(
-                              child: buildFromField(context),
+                              child: buildFromField(context, isDarwin: isDarwin),
                             ),
                           ],
                         ),
@@ -314,7 +316,7 @@ class _RoutePageState extends State<RoutePage> {
                         child: Row(
                           children: [
                             Expanded(
-                              child: buildToField(context),
+                              child: buildToField(context, isDarwin: isDarwin),
                             ),
                           ],
                         ),
@@ -456,70 +458,100 @@ class _RoutePageState extends State<RoutePage> {
     );
   }
 
-  Widget buildFromField(BuildContext context) {
+  static const _fromHeroTag = 'fromHeroTag';
+  static const _toHeroTag = 'toHeroTag';
+
+  Widget buildFromField(BuildContext context, {@required bool isDarwin}) {
     final currentLocationString = S.of(context).current_location;
 
-    return ShadowsAround(
-      child: Stack(
-        alignment: Alignment.centerRight,
-        children: [
-          TypeAheadField<CffCompletion>(
-            key: const Key('route-first-textfield-key'),
-            debounceDuration: const Duration(milliseconds: 250),
-            textFieldConfiguration: TextFieldConfiguration(
+    return isDarwin
+        ? Hero(
+            tag: _fromHeroTag,
+            child: CupertinoTextField(
               inputFormatters: [fromFormatter],
               focusNode: fnFrom,
               controller: from.controller,
               onEditingComplete: () => fnTo.requestFocus(),
               textInputAction: TextInputAction.next,
-              style: Theme.of(context).textTheme.bodyText1,
-              decoration: InputDecoration(
-                prefixIcon: Consumer(
-                    builder: (context, w, _) => iconForState(w(_fromTextfieldProvider).state)),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+              placeholder: S.of(context).departure,
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+                    builder: (context) => SearchPage(
+                          controller: from.controller,
+                          focus: fnFrom,
+                          heroTag: _fromHeroTag,
+                          configuration: CupertinoTextFieldConfiguration(
+                            placeholder: S.of(context).departure,
+                            inputFormatters: [fromFormatter],
+                            textInputAction: TextInputAction.next,
+                          ),
+                        )));
+              },
+            ),
+          )
+        : ShadowsAround(
+            child: Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                TypeAheadField<CffCompletion>(
+                  key: const Key('route-first-textfield-key'),
+                  debounceDuration: const Duration(milliseconds: 250),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    inputFormatters: [fromFormatter],
+                    focusNode: fnFrom,
+                    controller: from.controller,
+                    onEditingComplete: () => fnTo.requestFocus(),
+                    textInputAction: TextInputAction.next,
+                    style: Theme.of(context).textTheme.bodyText1,
+                    decoration: InputDecoration(
+                      prefixIcon: Consumer(
+                          builder: (context, w, _) =>
+                              iconForState(w(_fromTextfieldProvider).state)),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      ),
+                      labelText: S.of(context).departure,
+                      isDense: true,
+                      filled: true,
+                      fillColor: Theme.of(context).cardColor,
+                      contentPadding: const EdgeInsets.only(left: 8),
+                      suffixIcon: const SizedBox(),
+                    ),
+                  ),
+                  loadingBuilder: (context) => ListView.builder(
+                      itemBuilder: (context, i) => Shimmer.fromColors(
+                            child: const SuggestedTile.empty(),
+                            baseColor: Colors.grey[300],
+                            highlightColor: Colors.white,
+                          )),
+                  suggestionsCallback: (s) async => completeWithFavorites(
+                      store, await api.complete(s), s,
+                      currentLocationString: currentLocationString),
+                  itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+                  onSuggestionSelected: (suggestion) {
+                    if (suggestion.isCurrentLocation) {
+                      from.useCurrentLocation(context);
+                    } else {
+                      from.setString(context, suggestion.label);
+                    }
+                  },
+                  hideOnEmpty: true,
+                  transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+                    opacity: controller,
+                    child: suggestionsBox,
+                  ),
                 ),
-                labelText: S.of(context).departure,
-                isDense: true,
-                filled: true,
-                fillColor: Theme.of(context).cardColor,
-                contentPadding: const EdgeInsets.only(left: 8),
-                suffixIcon: const SizedBox(),
-              ),
+                IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    Vibration.select();
+                    from.clear(context);
+                  },
+                ),
+              ],
             ),
-            loadingBuilder: (context) => ListView.builder(
-                itemBuilder: (context, i) => Shimmer.fromColors(
-                      child: const SuggestedTile.empty(),
-                      baseColor: Colors.grey[300],
-                      highlightColor: Colors.white,
-                    )),
-            suggestionsCallback: (s) async => completeWithFavorites(store, await api.complete(s), s,
-                currentLocationString: currentLocationString),
-            itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-            onSuggestionSelected: (suggestion) {
-              if (suggestion.isCurrentLocation) {
-                from.useCurrentLocation(context);
-              } else {
-                from.setString(context, suggestion.label);
-              }
-            },
-            hideOnEmpty: true,
-            transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-              opacity: controller,
-              child: suggestionsBox,
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.clear),
-            onPressed: () {
-              Vibration.select();
-              from.clear(context);
-            },
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   Widget iconForState(RouteTextfieldState state) => state.maybeWhen(
@@ -527,70 +559,95 @@ class _RoutePageState extends State<RoutePage> {
         orElse: () => const Icon(CupertinoIcons.textformat),
       );
 
-  Widget buildToField(BuildContext context) {
+  Widget buildToField(BuildContext context, {@required bool isDarwin}) {
     final currentLocationString = S.of(context).current_location;
 
-    return ShadowsAround(
-      child: Stack(
-        alignment: Alignment.centerRight,
-        children: [
-          TypeAheadField<CffCompletion>(
-            key: const Key('route-second-textfield-key'),
-            debounceDuration: const Duration(milliseconds: 250),
-            textFieldConfiguration: TextFieldConfiguration(
+    return isDarwin
+        ? Hero(
+            tag: _toHeroTag,
+            child: CupertinoTextField(
               inputFormatters: [toFormatter],
-              textInputAction: TextInputAction.search,
               focusNode: fnTo,
-              onEditingComplete: () => unFocusFields(),
               controller: to.controller,
-              style: Theme.of(context).textTheme.bodyText1,
-              decoration: InputDecoration(
-                prefixIcon: Consumer(
-                    builder: (context, w, _) => iconForState(w(_toTextfieldProvider).state)),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+              textInputAction: TextInputAction.search,
+              placeholder: S.of(context).destination,
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+                    builder: (context) => SearchPage(
+                          controller: to.controller,
+                          focus: fnTo,
+                          heroTag: _toHeroTag,
+                          configuration: CupertinoTextFieldConfiguration(
+                            placeholder: S.of(context).destination,
+                            inputFormatters: [fromFormatter],
+                            textInputAction: TextInputAction.search,
+                          ),
+                        )));
+              },
+            ),
+          )
+        : ShadowsAround(
+            child: Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                TypeAheadField<CffCompletion>(
+                  key: const Key('route-second-textfield-key'),
+                  debounceDuration: const Duration(milliseconds: 250),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    inputFormatters: [toFormatter],
+                    textInputAction: TextInputAction.search,
+                    focusNode: fnTo,
+                    onEditingComplete: () => unFocusFields(),
+                    controller: to.controller,
+                    style: Theme.of(context).textTheme.bodyText1,
+                    decoration: InputDecoration(
+                      prefixIcon: Consumer(
+                          builder: (context, w, _) => iconForState(w(_toTextfieldProvider).state)),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      ),
+                      labelText: S.of(context).destination,
+                      isDense: true,
+                      filled: true,
+                      fillColor: Theme.of(context).cardColor,
+                      contentPadding: const EdgeInsets.only(left: 8),
+                      suffixIcon: const SizedBox(),
+                    ),
+                  ),
+                  suggestionsCallback: (s) async => completeWithFavorites(
+                      store, await api.complete(s), s,
+                      currentLocationString: currentLocationString),
+                  itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+                  onSuggestionSelected: (suggestion) {
+                    if (suggestion.isCurrentLocation) {
+                      to.useCurrentLocation(context);
+                    } else {
+                      to.setString(context, suggestion.label);
+                    }
+                  },
+                  loadingBuilder: (context) => ListView.builder(
+                      itemBuilder: (context, i) => Shimmer.fromColors(
+                            child: const SuggestedTile.empty(),
+                            baseColor: Colors.grey[300],
+                            highlightColor: Colors.white,
+                          )),
+                  hideOnEmpty: true,
+                  transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
+                    opacity: controller,
+                    child: suggestionsBox,
+                  ),
                 ),
-                labelText: S.of(context).destination,
-                isDense: true,
-                filled: true,
-                fillColor: Theme.of(context).cardColor,
-                contentPadding: const EdgeInsets.only(left: 8),
-                suffixIcon: const SizedBox(),
-              ),
+                IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    Vibration.select();
+                    to.clear(context);
+                  },
+                ),
+              ],
             ),
-            suggestionsCallback: (s) async => completeWithFavorites(store, await api.complete(s), s,
-                currentLocationString: currentLocationString),
-            itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-            onSuggestionSelected: (suggestion) {
-              if (suggestion.isCurrentLocation) {
-                to.useCurrentLocation(context);
-              } else {
-                to.setString(context, suggestion.label);
-              }
-            },
-            loadingBuilder: (context) => ListView.builder(
-                itemBuilder: (context, i) => Shimmer.fromColors(
-                      child: const SuggestedTile.empty(),
-                      baseColor: Colors.grey[300],
-                      highlightColor: Colors.white,
-                    )),
-            hideOnEmpty: true,
-            transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-              opacity: controller,
-              child: suggestionsBox,
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.clear),
-            onPressed: () {
-              Vibration.select();
-              to.clear(context);
-            },
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   void switchInputs() {

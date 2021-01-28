@@ -39,6 +39,7 @@ class SuggestedTile extends StatelessWidget {
             trailing: suggestion.favoriteName != null ? const Text('⭐') : null,
             horizontalTitleGap: 0,
             dense: true,
+            tileColor: Colors.transparent,
           );
   }
 }
