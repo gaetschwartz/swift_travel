@@ -78,9 +78,9 @@ flutter:
 flutter_icons:
   ios: true
   android: true
-  image_path: "assets/logo/logo.png"
+  image_path: "assets/logo/swift-white.png"
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/logo/logo.png"
+  adaptive_icon_foreground: "assets/logo/swift.png"
 
 flutter_intl:
   enabled: true

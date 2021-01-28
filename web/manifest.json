@@ -5,12 +5,12 @@
     "icons": [
         {
             "sizes": "192x192",
-            "src": "icons/Icon-192.png",
+            "src": "icons/swift-192.png",
             "type": "image/png"
         },
         {
             "sizes": "512x512",
-            "src": "icons/Icon-512.png",
+            "src": "icons/swift-512.png",
             "type": "image/png"
         }
     ],
