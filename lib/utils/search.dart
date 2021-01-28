@@ -23,9 +23,14 @@ class CupertinoTextFieldConfiguration {
   final String placeholder;
   final List<TextInputFormatter> inputFormatters;
   final TextInputAction textInputAction;
+  final Widget prefix;
 
-  const CupertinoTextFieldConfiguration(
-      {this.textInputAction, this.inputFormatters, this.placeholder});
+  const CupertinoTextFieldConfiguration({
+    this.prefix,
+    this.textInputAction,
+    this.inputFormatters,
+    this.placeholder,
+  });
 }
 
 class Debouncer {

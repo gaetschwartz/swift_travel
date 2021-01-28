@@ -473,6 +473,12 @@ class _RoutePageState extends State<RoutePage> {
               onEditingComplete: () => fnTo.requestFocus(),
               placeholder: S.of(context).departure,
               textInputAction: TextInputAction.next,
+              prefix: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Consumer(
+                    builder: (context, w, _) =>
+                        iconForState(w(_fromTextfieldProvider).state, iconSize: 16)),
+              ),
               onTap: () async {
                 await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
                     builder: (context) => SearchPage(
@@ -554,9 +560,9 @@ class _RoutePageState extends State<RoutePage> {
           );
   }
 
-  Widget iconForState(RouteTextfieldState state) => state.maybeWhen(
-        useCurrentLocation: () => const Icon(FluentIcons.my_location_24_regular),
-        orElse: () => const Icon(CupertinoIcons.textformat),
+  Widget iconForState(RouteTextfieldState state, {double iconSize = 24}) => state.maybeWhen(
+        useCurrentLocation: () => Icon(FluentIcons.my_location_24_regular, size: iconSize),
+        orElse: () => Icon(CupertinoIcons.textformat, size: iconSize),
       );
 
   Widget buildToField(BuildContext context, {@required bool isDarwin}) {
@@ -570,6 +576,12 @@ class _RoutePageState extends State<RoutePage> {
               controller: to.controller,
               placeholder: S.of(context).destination,
               textInputAction: TextInputAction.search,
+              prefix: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Consumer(
+                    builder: (context, w, _) =>
+                        iconForState(w(_toTextfieldProvider).state, iconSize: 16)),
+              ),
               onTap: () async {
                 await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
                     builder: (context) => SearchPage(
