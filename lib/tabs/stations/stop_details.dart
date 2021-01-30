@@ -90,9 +90,11 @@ class _StopDetailsState extends State<StopDetails> {
   Widget buildIOSList() {
     return CustomScrollView(
       slivers: [
-        CupertinoSliverRefreshControl(onRefresh: refreshData),
+        SliverSafeArea(
+            bottom: false, sliver: CupertinoSliverRefreshControl(onRefresh: refreshData)),
         if (data != null)
           SliverSafeArea(
+            top: false,
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, i) => i.isEven

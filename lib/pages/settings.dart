@@ -19,6 +19,7 @@ import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
+import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -311,14 +312,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: CupertinoPageScaffold(
                   child: child,
                   resizeToAvoidBottomInset: false,
-                  navigationBar: cupertinoBar(context,
-                      middle: Text(S.of(context).settings),
-                      trailing: IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: () async {
-                            await Navigator.of(context)
-                                .push(CupertinoPageRoute(builder: (_) => const _TestWidget()));
-                          })),
+                  navigationBar: cupertinoBar(
+                    context,
+                    middle: Text(S.of(context).settings),
+                  ),
                 ),
               ),
           elseBuilder: (context, child) => Scaffold(body: child),
@@ -388,9 +385,9 @@ class __TestWidgetState extends State<_TestWidget> {
                   onTap: () {
                     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
                         builder: (_) => SearchPage(
-                              controller: controller,
+                              binder: TextStateBinder(controller, null),
                               heroTag: tag,
-                              focus: focus,
+                              configuration: CupertinoTextFieldConfiguration(focusNode: focus),
                             )));
                   },
                 ),

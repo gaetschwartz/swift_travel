@@ -351,7 +351,6 @@ CupertinoNavigationBar cupertinoBar(
   Widget trailing,
   Brightness brightness,
   EdgeInsetsDirectional padding,
-  Color actionsForegroundColor,
   bool transitionBetweenRoutes = true,
   double opacity = 0.5,
 }) {
@@ -366,7 +365,6 @@ CupertinoNavigationBar cupertinoBar(
     backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(opacity),
     brightness: brightness,
     padding: padding,
-    actionsForegroundColor: actionsForegroundColor,
     transitionBetweenRoutes: transitionBetweenRoutes,
   );
 }

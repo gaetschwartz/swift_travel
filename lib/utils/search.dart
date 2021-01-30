@@ -12,6 +12,7 @@ import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
+import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
@@ -24,13 +25,30 @@ class CupertinoTextFieldConfiguration {
   final List<TextInputFormatter> inputFormatters;
   final TextInputAction textInputAction;
   final Widget prefix;
+  final FocusNode focusNode;
 
   const CupertinoTextFieldConfiguration({
+    this.focusNode,
     this.prefix,
     this.textInputAction,
     this.inputFormatters,
     this.placeholder,
   });
+
+  CupertinoTextField toTextField({TextEditingController controller}) {
+    return CupertinoTextField(
+      placeholder: placeholder,
+      inputFormatters: inputFormatters,
+      textInputAction: textInputAction,
+      prefix: prefix,
+      focusNode: focusNode,
+      controller: controller,
+    );
+  }
+}
+
+extension CupertinoTextFieldX on CupertinoTextField {
+  static CupertinoTextField fromConfiguration(CupertinoTextFieldConfiguration c) => c.toTextField();
 }
 
 class Debouncer {
@@ -56,16 +74,14 @@ class Debouncer {
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 
 class SearchPage extends StatefulWidget {
-  final TextEditingController controller;
+  final TextStateBinder binder;
   final Object heroTag;
-  final FocusNode focus;
   final CupertinoTextFieldConfiguration configuration;
 
   const SearchPage({
-    @required this.controller,
+    @required this.binder,
     Key key,
     this.heroTag = _heroTag,
-    @required this.focus,
     this.configuration = const CupertinoTextFieldConfiguration(),
   }) : super(key: key);
 
@@ -81,9 +97,16 @@ class _SearchPageState extends State<SearchPage> {
   String currentLocation;
 
   @override
+  void initState() {
+    super.initState();
+    widget.binder.controller.addListener(onChanged);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => onChanged());
+  }
+
+  @override
   void dispose() {
     debouncer.dispose();
-    widget.controller.removeListener(onChanged);
+    widget.binder.controller.removeListener(onChanged);
     super.dispose();
   }
 
@@ -96,7 +119,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void onChanged() {
-    debouncer.debounce(() => fetch(widget.controller.text));
+    debouncer.debounce(() => fetch(widget.binder.text));
   }
 
   Future<void> fetch(String query) async {
@@ -121,13 +144,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    widget.controller.addListener(onChanged);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => onChanged());
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (Responsive.isDarwin(context)) {
       return Material(
@@ -138,23 +154,22 @@ class _SearchPageState extends State<SearchPage> {
             transitionBetweenRoutes: false,
             middle: Hero(
               tag: widget.heroTag,
-              child: CupertinoTextField(
-                focusNode: widget.focus,
-                controller: widget.controller,
-                placeholder: widget.configuration.placeholder,
-                textInputAction: widget.configuration.textInputAction,
-                inputFormatters: widget.configuration.inputFormatters,
-              ),
+              child: widget.configuration.toTextField(controller: widget.binder.controller),
             ),
             trailing: IconButton(
               color: CupertinoTheme.of(context).primaryColor,
-              onPressed: () => widget.controller.clear(),
+              onPressed: () => widget.binder.controller.clear(),
               icon: const Icon(CupertinoIcons.clear),
             ),
           ),
           child: _Results(
             onTap: (c) {
-              widget.controller.text = c.label;
+              if (c.isCurrentLocation) {
+                print('It is current location');
+                widget.binder.useCurrentLocation(context);
+              } else {
+                widget.binder.setString(context, c.label);
+              }
               Navigator.of(context).pop();
             },
           ),
@@ -226,7 +241,7 @@ class _Results extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'Search a station',
+              S.of(context).search_station,
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
             )
@@ -259,16 +274,20 @@ class _SuggestedTile extends StatelessWidget {
   }) : super(key: key);
 
   final CffCompletion suggestion;
-
   final ValueChanged<CffCompletion> onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => onTap(suggestion),
+      onTap: () => onTap?.call(suggestion),
       leading: suggestion.isCurrentLocation
-          ? const Icon(CupertinoIcons.location_fill, size: 20)
+          ? Icon(
+              CupertinoIcons.location_fill,
+              size: 20,
+              color: IconTheme.of(context).color,
+            )
           : CffIcon.fromIconClass(suggestion.icon, size: 20),
+      horizontalTitleGap: 8,
       title: Text(suggestion.favoriteName ?? suggestion.label),
       subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
       trailing: suggestion.favoriteName != null

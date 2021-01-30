@@ -44,43 +44,43 @@ class RouteDetails extends StatelessWidget {
     final darwin = Responsive.isDarwin(context);
     return IfWrapper(
         condition: darwin,
-        builder: (context, child) {
-          return CupertinoPageScaffold(
-            child: child,
-            navigationBar: cupertinoBar(context,
-                middle: Text(S.of(context).tabs_route),
-                trailing: IconButton(
-                    icon: const Icon(Icons.more_horiz),
-                    onPressed: () {
-                      showActionSheet<void>(
-                        context,
-                        [
-                          ActionsSheetAction(
-                            icon: const Icon(CupertinoIcons.play_fill),
-                            onPressed: () => openLive(context, conn),
-                            title: const Text('Live Route'),
-                          ),
-                          ActionsSheetAction(
-                            icon: const Icon(CupertinoIcons.game_controller),
-                            onPressed: () => Navigator.of(context)
-                                .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c())),
-                            title: const Text('Snake'),
-                          ),
-                          if (isMobile || kIsWeb)
-                            ActionsSheetAction(
-                              icon: const Icon(CupertinoIcons.share),
-                              onPressed: () => _shareRoute(context),
-                              title: const Text('Share'),
-                            )
-                        ],
-                        cancel: ActionsSheetAction(
-                            icon: const Icon(CupertinoIcons.xmark),
-                            title: Text(S.of(context).close)),
-                        popBeforeReturn: true,
-                      );
-                    })),
-          );
-        },
+        builder: (context, child) => Material(
+              child: CupertinoPageScaffold(
+                child: child,
+                navigationBar: cupertinoBar(context,
+                    middle: Text(S.of(context).tabs_route),
+                    trailing: IconButton(
+                        icon: const Icon(Icons.more_horiz),
+                        onPressed: () {
+                          showActionSheet<void>(
+                            context,
+                            [
+                              ActionsSheetAction(
+                                icon: const Icon(CupertinoIcons.play_fill),
+                                onPressed: () => openLive(context, conn),
+                                title: const Text('Live Route'),
+                              ),
+                              ActionsSheetAction(
+                                icon: const Icon(CupertinoIcons.game_controller),
+                                onPressed: () => Navigator.of(context)
+                                    .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c())),
+                                title: const Text('Snake'),
+                              ),
+                              if (isMobile || kIsWeb)
+                                ActionsSheetAction(
+                                  icon: const Icon(CupertinoIcons.share),
+                                  onPressed: () => _shareRoute(context),
+                                  title: const Text('Share'),
+                                )
+                            ],
+                            cancel: ActionsSheetAction(
+                                icon: const Icon(CupertinoIcons.xmark),
+                                title: Text(S.of(context).close)),
+                            popBeforeReturn: true,
+                          );
+                        })),
+              ),
+            ),
         elseBuilder: (context, child) => Scaffold(
               resizeToAvoidBottomInset: false,
               body: child,

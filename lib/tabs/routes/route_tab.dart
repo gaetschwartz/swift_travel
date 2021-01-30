@@ -45,13 +45,13 @@ final _dateProvider = StateProvider((_) => DateTime.now());
 final _fromTextfieldProvider = StateProvider((_) => const RouteTextfieldState.useCurrentLocation());
 final _toTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
 
-final _fetcher = Fetcher();
-final _futureRouteProvider = ChangeNotifierProvider<Fetcher>((ref) {
-  _fetcher.fetch(ref);
-  return _fetcher;
-});
+final _futureRouteProvider = Provider((_) => Fetcher._());
+final fetcherProvider =
+    ChangeNotifierProvider((ref) => ref.watch(_futureRouteProvider)..fetch(ref));
 
 class Fetcher extends ChangeNotifier {
+  Fetcher._();
+
   RouteStates _state = const RouteStates.empty();
 
   RouteStates get state => _state;
@@ -154,7 +154,7 @@ class _RouteTabState extends State<RouteTab> with AutomaticKeepAliveClientMixin 
 
 class MyTextFormatter extends TextInputFormatter {
   final String currentLocation;
-  final TextControllerAndStateBinder binder;
+  final TextStateBinder binder;
   final StateController<RouteTextfieldState> state;
 
   MyTextFormatter(this.currentLocation, this.binder, this.state);
@@ -191,10 +191,8 @@ class RoutePage extends StatefulWidget {
   _RoutePageState createState() => _RoutePageState();
 }
 
-final TextControllerAndStateBinder from =
-    TextControllerAndStateBinder(TextEditingController(), _fromTextfieldProvider);
-final TextControllerAndStateBinder to =
-    TextControllerAndStateBinder(TextEditingController(), _toTextfieldProvider);
+final TextStateBinder from = TextStateBinder(TextEditingController(), _fromTextfieldProvider);
+final TextStateBinder to = TextStateBinder(TextEditingController(), _toTextfieldProvider);
 
 class _RoutePageState extends State<RoutePage> {
   final FocusNode fnFrom = FocusNode();
@@ -219,7 +217,7 @@ class _RoutePageState extends State<RoutePage> {
   }
 
   void clearProviders() {
-    context.read(_futureRouteProvider).state = const RouteStates.empty();
+    context.read(fetcherProvider).state = const RouteStates.empty();
     context.read(_dateProvider).state = DateTime.now();
     context.read(_timeTypeProvider).state = TimeType.depart;
   }
@@ -365,7 +363,7 @@ class _RoutePageState extends State<RoutePage> {
                         },
                         icon: Consumer(builder: (context, w, _) {
                           final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
-                          w(_futureRouteProvider);
+                          w(fetcherProvider);
 
                           return _store.routes.any((lr) => lr.from == from.text && lr.to == to.text)
                               ? const Icon(Icons.star)
@@ -392,7 +390,7 @@ class _RoutePageState extends State<RoutePage> {
                                     doLoad: false,
                                   );
 
-                                  context.read(_futureRouteProvider).state =
+                                  context.read(fetcherProvider).state =
                                       RouteStates.routes(CffRoute.fromJson(mockRoute));
                                 }
                               : null,
@@ -482,16 +480,15 @@ class _RoutePageState extends State<RoutePage> {
               onTap: () async {
                 await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
                     builder: (context) => SearchPage(
-                          controller: from.controller,
-                          focus: fnFrom,
+                          binder: from,
                           heroTag: _fromHeroTag,
                           configuration: CupertinoTextFieldConfiguration(
+                            focusNode: fnFrom,
                             inputFormatters: [fromFormatter],
                             placeholder: S.of(context).departure,
                             textInputAction: TextInputAction.next,
                           ),
                         )));
-                from.syncToState(context);
               },
             ),
           )
@@ -585,16 +582,15 @@ class _RoutePageState extends State<RoutePage> {
               onTap: () async {
                 await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
                     builder: (context) => SearchPage(
-                          controller: to.controller,
-                          focus: fnTo,
+                          binder: to,
                           heroTag: _toHeroTag,
                           configuration: CupertinoTextFieldConfiguration(
+                            focusNode: fnTo,
                             inputFormatters: [toFormatter],
                             placeholder: S.of(context).destination,
                             textInputAction: TextInputAction.search,
                           ),
                         )));
-                to.syncToState(context);
               },
             ),
           )
@@ -675,6 +671,8 @@ class _RoutePageState extends State<RoutePage> {
   }
 }
 
+final _locationNotFound = RegExp('Stop ([\d\.,-]*) not found.');
+
 class RoutesView extends StatelessWidget {
   const RoutesView({
     Key key,
@@ -683,7 +681,7 @@ class RoutesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, w, _) {
-      final fetcher = w(_futureRouteProvider);
+      final fetcher = w(fetcherProvider);
       return fetcher.state.when(
         routes: (routes) => CustomScrollView(
           slivers: [
@@ -711,11 +709,17 @@ class RoutesView extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
-                          child: Text(
-                            routes.messages.join('\n'),
-                            style: Theme.of(context).textTheme.headline6,
-                            textAlign: TextAlign.center,
-                          ),
+                          child: _locationNotFound.hasMatch(routes.messages.first)
+                              ? Text(
+                                  'You don\' seem to be in a supported area.',
+                                  style: Theme.of(context).textTheme.headline6,
+                                  textAlign: TextAlign.center,
+                                )
+                              : Text(
+                                  routes.messages.join('\n'),
+                                  style: Theme.of(context).textTheme.headline6,
+                                  textAlign: TextAlign.center,
+                                ),
                         ),
                       ),
                     ),
@@ -862,12 +866,12 @@ class RoutesView extends StatelessWidget {
   }
 }
 
-class TextControllerAndStateBinder {
+class TextStateBinder {
   final TextEditingController controller;
   final StateProvider<RouteTextfieldState> provider;
   final String Function(BuildContext) computeCurrentLocation;
 
-  TextControllerAndStateBinder(
+  const TextStateBinder(
     this.controller,
     this.provider, [
     this.computeCurrentLocation = _computeCurrentLocation,
@@ -888,10 +892,6 @@ class TextControllerAndStateBinder {
   void setString(BuildContext context, String s, {bool doLoad = true}) {
     context.read(provider).state = RouteTextfieldState.text(s, doLoad: doLoad);
     controller.text = s;
-  }
-
-  void syncToState(BuildContext context, {bool doLoad = true}) {
-    context.read(provider).state = RouteTextfieldState.text(controller.text, doLoad: doLoad);
   }
 
   void init(BuildContext context, RouteTextfieldState state) {
