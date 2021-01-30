@@ -149,13 +149,19 @@ class _MyAppState extends State<MyApp> {
 
     switch (uri.path) {
       case '/route':
-        routes.add(MaterialPageRoute(
-            settings: const RouteSettings(name: '/'), builder: (_) => LoadingPage(uri: uri)));
+        routes.add(platformRoute(
+          settings: const RouteSettings(name: '/'),
+          builder: (_) => LoadingPage(uri: uri),
+          isDarwin: isDarwin,
+        ));
         break;
 
       default:
-        routes.add(MaterialPageRoute(
-            settings: const RouteSettings(name: '/'), builder: (_) => const LoadingPage()));
+        routes.add(platformRoute(
+          settings: const RouteSettings(name: '/'),
+          builder: (_) => const LoadingPage(),
+          isDarwin: isDarwin,
+        ));
     }
     return routes;
   }
