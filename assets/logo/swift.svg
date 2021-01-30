@@ -13,9 +13,9 @@
    height="4096.00"
    viewBox="0 0 4096.0 4096.0"
    id="svg44"
-   sodipodi:docname="Swift.svg"
-   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)"
-   inkscape:export-filename="C:\Users\Gaetan\Developer\Projects\swift_travel\assets\logo\Swift white.png"
+   sodipodi:docname="swift.svg"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
+   inkscape:export-filename="/Users/gaetan/Developer/Projects/swift_travel/assets/logo/swift-white.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
   <metadata
@@ -26,7 +26,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -52,7 +52,8 @@
        x1="2255.4211"
        y1="1834.3656"
        x2="1935.3667"
-       y2="2010.6655" />
+       y2="2010.6655"
+       gradientTransform="matrix(1.296,0,0,1.296,-540.62069,-464.25214)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient11035"
@@ -62,7 +63,7 @@
        y1="1834.3656"
        x2="1935.3667"
        y2="2010.6655"
-       gradientTransform="matrix(-1,0,0,1,3950.6516,-560.19082)" />
+       gradientTransform="matrix(-1.296,0,0,1.296,4579.4237,-1190.2594)" />
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -73,18 +74,18 @@
      guidetolerance="10"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-width="1680"
+     inkscape:window-height="917"
      id="namedview46"
      showgrid="false"
      inkscape:snap-bbox="true"
      inkscape:bbox-paths="true"
      inkscape:bbox-nodes="true"
-     inkscape:zoom="0.11313709"
-     inkscape:cx="3529.4194"
-     inkscape:cy="2861.021"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:zoom="0.16000001"
+     inkscape:cx="1349.4873"
+     inkscape:cy="2024.774"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer2"
      inkscape:pagecheckerboard="true"
@@ -95,17 +96,21 @@
      inkscape:label="Top"
      style="display:inline">
     <path
-       d="M -29.4792,4.48365e-7 38.8772,-68.3563 11.5504,-95.6831 -56.8059,-27.3268 Z"
+       d="M 1656.3962,2154.1586 2865.9434,944.61297 2382.4035,461.0729 1172.8579,1670.6184 Z"
        fill="#780902"
        fill-opacity="1"
        id="path33"
-       transform="matrix(13.653333,0,0,13.653333,2097.7184,2020.3786)" />
+       style="stroke-width:17.6947"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
     <path
-       d="m 11.2688,-95.6831 27.3423,27.3423 27.3423,-27.3423 z"
+       d="M 2377.4205,461.0729 2861.235,944.88723 3345.0492,461.0729 Z"
        fill="#780902"
        fill-opacity="1"
        id="path35"
-       transform="matrix(13.653333,0,0,13.653333,2097.7184,2020.3786)" />
+       style="stroke-width:17.6947"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -114,7 +119,9 @@
      style="display:inline">
     <g
        id="document"
-       transform="matrix(13.653333,0,0,13.653333,2097.7184,2020.3786)">
+       transform="matrix(17.69472,0,0,17.69472,2178.0223,2154.1586)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
       <path
          d="m 38.8773,13.7027 -68.3564,-68.3563 -27.3268,27.3268 68.3564,68.3563 z"
          fill="#aa170b"
@@ -128,17 +135,21 @@
      inkscape:label="Bottom"
      style="display:inline">
     <path
-       d="M -29.5684,81.9697 -56.8058,54.7323 -84.0432,81.9697 Z"
+       d="M 1654.8178,3604.5894 1172.8596,3122.6313 690.90148,3604.5894 Z"
        fill="#fb0e00"
        fill-opacity="1"
        id="path41"
-       transform="matrix(13.653333,0,0,13.653333,2097.7184,2020.3786)" />
+       style="stroke-width:17.6947"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
     <path
-       d="M -29.4791,82.0591 38.8773,13.7027 11.5505,-13.624 -56.8058,54.7323 Z"
+       d="M 1656.3979,3606.1713 2865.9453,2396.624 2382.4052,1913.0856 1172.8596,3122.6313 Z"
        fill="#fb0e00"
        fill-opacity="1"
        id="path39"
-       transform="matrix(13.653333,0,0,13.653333,2097.7184,2020.3786)" />
+       style="stroke-width:17.6947"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -146,17 +157,21 @@
      inkscape:label="Shades"
      style="display:inline">
     <path
-       style="display:inline;opacity:0.150327;fill:url(#linearGradient11083);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 2255.4212,1834.3656 -744.3256,293.4113 371.8033,78.4005 z"
+       style="display:inline;opacity:0.150327;fill:url(#linearGradient11083);fill-opacity:1;stroke:none;stroke-width:1.296px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 2382.4052,1913.0856 -964.6461,380.2612 481.8571,101.607 z"
        id="path10189"
        sodipodi:nodetypes="cccc"
-       inkscape:label="path10189" />
+       inkscape:label="path10189"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
     <path
-       style="display:inline;opacity:0.150327;fill:url(#linearGradient11112);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1695.2304,1274.1748 744.3256,293.4113 -371.8033,78.4005 z"
+       style="display:inline;opacity:0.150327;fill:url(#linearGradient11112);fill-opacity:1;stroke:none;stroke-width:1.296px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1656.3979,1187.0783 964.6459,380.2612 -481.8569,101.607 z"
        id="path10189-4"
        sodipodi:nodetypes="cccc"
-       inkscape:label="path10189" />
+       inkscape:label="path10189"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
   <script
      id="mesh_polyfill"

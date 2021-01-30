@@ -78,7 +78,7 @@ flutter:
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:
   ios: true
-  android: true
+  android: false
   image_path: "assets/logo/swift-white.png"
   adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "assets/logo/swift.png"
