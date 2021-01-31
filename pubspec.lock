@@ -301,7 +301,7 @@ packages:
       name: flex_color_scheme
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.1"
   fluentui_system_icons:
     dependency: "direct main"
     description:

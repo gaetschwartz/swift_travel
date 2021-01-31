@@ -401,14 +401,17 @@ class _RoutePageState extends State<RoutePage> {
                             unawaited(Vibration.select());
                             var type = context.read(_timeTypeProvider).state;
                             final _date = context.read(_dateProvider);
-                            final date = await pickDate(context,
-                                initialDateTime:
-                                    _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
-                                minuteInterval: 5,
-                                bottom: _Segmented(
-                                  onChange: (v) => type = v,
-                                  initialValue: type,
-                                ));
+                            final date = await pickDate(
+                              context,
+                              initialDateTime:
+                                  _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
+                              minuteInterval: 5,
+                              bottom: _Segmented(
+                                onChange: (v) => type = v,
+                                initialValue: type,
+                              ),
+                              textColor: CupertinoColors.activeBlue,
+                            );
                             if (date != null) _date.state = date;
                             if (type != null) context.read(_timeTypeProvider).state = type;
                           },

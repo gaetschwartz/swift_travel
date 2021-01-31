@@ -33,20 +33,21 @@ const List<Font> fonts = [
 
 TextTheme _i(TextTheme t) => Typography.material2018(platform: defaultTargetPlatform).englishLike;
 
+const _light = ColorScheme.light(
+  onPrimary: Colors.black,
+  primary: Colors.white,
+  secondary: Colors.redAccent,
+  onSecondary: Colors.white,
+);
+const _dark = ColorScheme.dark();
+
 ThemeConfiguration get themeConfiguration {
-  const light = ColorScheme.light(
-    onPrimary: Colors.black,
-    primary: Colors.white,
-    secondary: Colors.redAccent,
-    onSecondary: Colors.white,
-  );
-  const dark = ColorScheme.dark();
   return ThemeConfiguration(
     computeTextTheme: () => Typography.material2018(platform: defaultTargetPlatform).englishLike,
     themes: {
       'default': FullTheme(
         name: 'Swift',
-        light: light,
+        light: _light,
         applyToLight: (theme) => theme.copyWith(
           textSelectionTheme: TextSelectionThemeData(
             cursorColor: theme.colorScheme.secondary,
@@ -55,9 +56,9 @@ ThemeConfiguration get themeConfiguration {
           ),
           appBarTheme: theme.appBarTheme.copyWith(elevation: 0),
           bottomNavigationBarTheme:
-              theme.bottomNavigationBarTheme.copyWith(selectedItemColor: light.secondary),
+              theme.bottomNavigationBarTheme.copyWith(selectedItemColor: _light.secondary),
         ),
-        dark: dark,
+        dark: _dark,
         lightShadow: lightShadow,
         darkShadow: darkShadow,
       ),

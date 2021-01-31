@@ -35,6 +35,11 @@ class PageNotifier extends StateNotifier<int> {
   int get state => super.state;
 }
 
+bool isTablet(BuildContext context) {
+  final mq = MediaQuery.of(context);
+  return mq.size.longestSide > 640 && mq.orientation == Orientation.landscape;
+}
+
 class MainApp extends StatefulWidget {
   const MainApp();
 
@@ -74,8 +79,6 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  static const _ratio = 9 / 19.5;
-
   @override
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
@@ -83,27 +86,24 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: IfWrapper(
-        condition: Responsive.isTablet(context),
+        condition: isTablet(context),
         builder: (context, child) {
-          return LayoutBuilder(builder: (context, constraints) {
-            return Row(children: [
-              SizedBox(
-                child: child,
-                height: constraints.maxHeight,
-                width: constraints.maxHeight * _ratio,
+          return Row(children: [
+            ConstrainedBox(
+              child: child,
+              constraints: const BoxConstraints(maxWidth: 320),
+            ),
+            const SafeArea(child: VerticalDivider(width: 0)),
+            Expanded(
+                child: ClipRect(
+              child: Navigator(
+                key: sideBarNavigatorKey,
+                pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
+                onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
+                onPopPage: (_, __) => true,
               ),
-              const SafeArea(child: VerticalDivider(width: 0)),
-              Expanded(
-                  child: ClipRect(
-                child: Navigator(
-                  key: sideBarNavigatorKey,
-                  pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
-                  onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
-                  onPopPage: (_, __) => true,
-                ),
-              )),
-            ]);
-          });
+            )),
+          ]);
         },
         child: isDarwin ? buildCupertinoTabScaffold(context) : buildScaffold(context),
       ),
@@ -270,7 +270,7 @@ extension BuildContextX on BuildContext {
     bool rootNavigator = false,
   }) {
     final isDarwin = Responsive.isDarwin(this);
-    if (Responsive.isTablet(this)) {
+    if (isTablet(this)) {
       read(sideTabBarProvider).state = builder;
       sideBarNavigatorKey.currentState..popUntil((route) => route.isFirst);
     } else {
