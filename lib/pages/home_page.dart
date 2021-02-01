@@ -37,7 +37,7 @@ class PageNotifier extends StateNotifier<int> {
 
 bool isTablet(BuildContext context) {
   final mq = MediaQuery.of(context);
-  return mq.size.longestSide > 640 && mq.orientation == Orientation.landscape;
+  return mq.size.longestSide > 640 / mq.devicePixelRatio && mq.orientation == Orientation.landscape;
 }
 
 class MainApp extends StatefulWidget {
