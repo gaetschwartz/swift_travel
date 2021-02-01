@@ -822,7 +822,7 @@ class RoutesView extends StatelessWidget {
             ),
           ],
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const Center(child: CircularProgressIndicator.adaptive()),
         empty: () => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

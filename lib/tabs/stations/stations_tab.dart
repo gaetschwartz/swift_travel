@@ -155,7 +155,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                     icon: Consumer(builder: (context, w, _) {
                       final loading = w(_locatingProvider).state;
                       return loading
-                          ? const CircularProgressIndicator()
+                          ? const CircularProgressIndicator.adaptive()
                           : (isDarwin
                               ? const Icon(CupertinoIcons.location_fill)
                               : const FaIcon(FluentIcons.my_location_24_regular));
@@ -218,9 +218,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                             CffCompletionTile(sugg: c.favorites[i].toCompletion()),
                                         itemCount: c.favorites == null ? 0 : c.favorites.length,
                                       ),
-                                loading: (_) => const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
+                                loading: (_) =>
+                                    const Center(child: CircularProgressIndicator.adaptive()),
                                 exception: (e) => Center(
                                   child: Text(
                                     e.exception.toString(),

@@ -33,30 +33,25 @@ const List<Font> fonts = [
 
 TextTheme _i(TextTheme t) => Typography.material2018(platform: defaultTargetPlatform).englishLike;
 
-const _light = ColorScheme.light(
-  onPrimary: Colors.black,
-  primary: Colors.white,
-  secondary: Colors.redAccent,
-  onSecondary: Colors.white,
-);
-const _dark = ColorScheme.dark();
+final _light = FlexColorScheme.light(scheme: FlexScheme.mandyRed).toScheme;
+final _dark = FlexColorScheme.dark(scheme: FlexScheme.mandyRed).toScheme;
 
 ThemeConfiguration get themeConfiguration {
   return ThemeConfiguration(
-    computeTextTheme: () => Typography.material2018(platform: defaultTargetPlatform).englishLike,
     themes: {
       'default': FullTheme(
         name: 'Swift',
         light: _light,
         applyToLight: (theme) => theme.copyWith(
-          textSelectionTheme: TextSelectionThemeData(
-            cursorColor: theme.colorScheme.secondary,
-            selectionColor: theme.colorScheme.secondary.withOpacity(0.4),
-            selectionHandleColor: theme.colorScheme.secondary,
+          appBarTheme: AppBarTheme(
+            color: Colors.white,
+            foregroundColor: Colors.black,
+            textTheme: Typography.englishLike2018.apply(bodyColor: Colors.black),
+            iconTheme: const IconThemeData(color: Colors.black),
+            actionsIconTheme: const IconThemeData(color: Colors.black),
+            elevation: .0,
           ),
-          appBarTheme: theme.appBarTheme.copyWith(elevation: 0),
-          bottomNavigationBarTheme:
-              theme.bottomNavigationBarTheme.copyWith(selectedItemColor: _light.secondary),
+          cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(),
         ),
         dark: _dark,
         lightShadow: lightShadow,

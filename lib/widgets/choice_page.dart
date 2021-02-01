@@ -1,6 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:vibration/vibration.dart';
 
 @immutable
@@ -57,7 +58,10 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: widget.title),
+      navigationBar: cupertinoBar(context, middle: widget.title),
+      backgroundColor: CupertinoTheme.brightnessOf(context) == Brightness.dark
+          ? null
+          : CupertinoColors.systemGroupedBackground,
       child: ListView(
         primary: true,
         children: [
@@ -65,9 +69,10 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
           divider(),
           DecoratedBox(
             decoration: BoxDecoration(
-                color: CupertinoTheme.brightnessOf(context) == Brightness.dark
-                    ? CupertinoColors.darkBackgroundGray
-                    : CupertinoColors.lightBackgroundGray),
+              color: CupertinoTheme.brightnessOf(context) == Brightness.dark
+                  ? CupertinoColors.darkBackgroundGray
+                  : CupertinoColors.white,
+            ),
             child: ListView.separated(
               shrinkWrap: true,
               itemBuilder: (context, i) {
@@ -77,7 +82,10 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
                         onTap: () => tapped(i, item),
                         title: item.child,
                         leading: i == selected
-                            ? const Icon(FluentIcons.checkmark_24_regular)
+                            ? Icon(
+                                FluentIcons.checkmark_24_regular,
+                                color: CupertinoTheme.of(context).primaryColor,
+                              )
                             : const SizedBox(),
                       )
                     : GestureDetector(

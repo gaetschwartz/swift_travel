@@ -78,9 +78,7 @@ Future<void> main() async {
   runZonedGuarded(_runApp, reportDartError);
 }
 
-void _runApp() {
-  runApp(ProviderScope(child: MyApp()));
-}
+void _runApp() => runApp(ProviderScope(child: MyApp()));
 
 class MyApp extends StatefulWidget {
   @override
@@ -127,12 +125,22 @@ class _MyAppState extends State<MyApp> {
           onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
           builder: (context, child) => IfWrapper(
             condition: Responsive.isDarwin(context),
-            builder: (context, child) => CupertinoTheme(
-              data: CupertinoThemeData(
-                brightness: DynamicTheme.resolveBrightness(context, theme.mode),
-              ),
-              child: child,
-            ),
+            builder: (context, child) {
+              final t = Theme.of(context);
+              final cupertinoOverride =
+                  t.cupertinoOverrideTheme ?? const NoDefaultCupertinoThemeData();
+              return CupertinoTheme(
+                data: CupertinoThemeData(
+                  brightness: t.brightness,
+                  primaryColor: cupertinoOverride.primaryColor,
+                  primaryContrastingColor: cupertinoOverride.primaryContrastingColor,
+                  textTheme: cupertinoOverride.textTheme,
+                  barBackgroundColor: cupertinoOverride.barBackgroundColor,
+                  scaffoldBackgroundColor: cupertinoOverride.scaffoldBackgroundColor,
+                ),
+                child: child,
+              );
+            },
             child: child,
           ),
           initialRoute: 'loading',

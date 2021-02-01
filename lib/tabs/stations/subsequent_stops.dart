@@ -26,7 +26,7 @@ class _NextStopsPageState extends State<NextStopsPage> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 15), (_) => setState(() {}));
+    timer = Timer.periodic(const Duration(seconds: 10), (_) => setState(() {}));
   }
 
   @override
@@ -37,39 +37,43 @@ class _NextStopsPageState extends State<NextStopsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return IfWrapper(
-      condition: Responsive.isDarwin(context),
-      builder: (context, child) => CupertinoPageScaffold(
-        child: child,
-        navigationBar: cupertinoBar(context),
-      ),
-      elseBuilder: (context, child) => Scaffold(
-          appBar: AppBar(
-            leading: const BackButton(),
-            title: Text(widget.c.terminal.name),
-          ),
-          body: child),
-      child: widget.c != null
-          ? ListView.builder(
-              itemCount: widget.c.subsequentStops.length + 1,
-              itemBuilder: (context, i) => i == 0
-                  ? StopTile(
-                      stop: SubsequentStop(
-                        widget.s.name,
-                        dep: widget.c.time,
-                        depDelay: widget.c.depDelay,
-                        arrDelay: widget.c.arrDelay,
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: IfWrapper(
+        condition: Responsive.isDarwin(context),
+        builder: (context, child) => CupertinoPageScaffold(
+          child: child,
+          navigationBar: cupertinoBar(context),
+        ),
+        elseBuilder: (context, child) => Scaffold(
+            appBar: AppBar(
+              leading: const BackButton(),
+              title: Text(widget.c.terminal.name),
+            ),
+            body: child),
+        child: widget.c != null
+            ? ListView.builder(
+                itemCount: widget.c.subsequentStops.length + 1,
+                itemBuilder: (context, i) => i == 0
+                    ? StopTile(
+                        stop: SubsequentStop(
+                          widget.s.name,
+                          dep: widget.c.time,
+                          depDelay: widget.c.depDelay,
+                          arrDelay: widget.c.arrDelay,
+                        ),
+                        isFirst: true,
+                        connection: widget.c)
+                    : StopTile(
+                        stop: widget.c.subsequentStops[i - 1],
+                        connection: widget.c,
+                        isFirst: false,
+                        isLast: i - 1 == widget.c.subsequentStops.length - 1,
                       ),
-                      isFirst: true,
-                      connection: widget.c)
-                  : StopTile(
-                      stop: widget.c.subsequentStops[i - 1],
-                      connection: widget.c,
-                      isFirst: false,
-                      isLast: i - 1 == widget.c.subsequentStops.length - 1,
-                    ),
-            )
-          : const Center(child: CircularProgressIndicator()),
+              )
+            : const Center(child: CircularProgressIndicator.adaptive()),
+      ),
     );
   }
 }

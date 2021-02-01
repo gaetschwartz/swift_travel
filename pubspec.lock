@@ -296,7 +296,7 @@ packages:
     source: hosted
     version: "2.0.6"
   flex_color_scheme:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flex_color_scheme
       url: "https://pub.dartlang.org"
@@ -410,7 +410,7 @@ packages:
       name: font_awesome_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.0.0-nullsafety"
+    version: "8.11.0"
   freezed:
     dependency: "direct dev"
     description:
