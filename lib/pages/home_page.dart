@@ -1,9 +1,13 @@
 import 'dart:ui';
 
+import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:octo_image/octo_image.dart';
@@ -19,26 +23,61 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
-final tabProvider = StateProvider((_) => 0);
+class CombinedPageController extends ChangeNotifier {
+  final CupertinoTabController cupertinoTabController;
 
-class PageNotifier extends StateNotifier<int> {
-  final CupertinoTabController controller;
-  PageNotifier(int state, this.controller) : super(state);
+  CombinedPageController() : cupertinoTabController = CupertinoTabController() {
+    cupertinoTabController.addListener(() {
+      _page = cupertinoTabController.index;
+      notifyListeners();
+    });
+  }
 
-  @override
-  set state(int value) {
-    super.state = value;
-    controller.index = value;
+  int _page = 0;
+  int get page => _page;
+
+  void setPage(int page, bool isDarwin) {
+    if (isDarwin) {
+      cupertinoTabController.index = page;
+    } else {
+      _page = page;
+      notifyListeners();
+    }
+  }
+
+  void animateTo(
+    int page,
+    bool isDarwin, {
+    Curve curve = Curves.fastOutSlowIn,
+    Duration duration = const Duration(milliseconds: 250),
+  }) {
+    if (isDarwin) {
+      cupertinoTabController.index = page;
+    } else {
+      _page = page;
+      notifyListeners();
+    }
   }
 
   @override
-  int get state => super.state;
+  void dispose() {
+    cupertinoTabController.dispose();
+    super.dispose();
+  }
 }
+
+final tabProvider = ChangeNotifierProvider.autoDispose((ref) {
+  final combinedPageController = CombinedPageController();
+  ref.onDispose(() => combinedPageController.dispose());
+  return combinedPageController;
+});
 
 bool isTablet(BuildContext context) {
   final mq = MediaQuery.of(context);
   return mq.size.longestSide / mq.devicePixelRatio > 600 && mq.orientation == Orientation.landscape;
 }
+
+class EscapeIntent extends Intent {}
 
 class MainApp extends StatefulWidget {
   const MainApp();
@@ -50,34 +89,22 @@ class MainApp extends StatefulWidget {
 final sideTabBarProvider = StateProvider<WidgetBuilder>((_) => null);
 
 class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
-  final PageController _pageController = PageController();
-  final CupertinoTabController _controller = CupertinoTabController();
+  CombinedPageController combinedPageController = CombinedPageController();
   int oldI = 0;
-  StateController<int> tab;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final locale = Localizations.localeOf(context);
-    context.read(navigationAPIProvider).locale = locale;
+    context.read(navigationAPIProvider).locale = Localizations.localeOf(context);
   }
 
   @override
   void initState() {
     super.initState();
-    tab = context.read(tabProvider);
-
-    _pageController.addListener(() => tab.state = _pageController.page.round());
-
-    _controller.addListener(() => tab.state = _controller.index);
+    combinedPageController = context.read(tabProvider);
   }
 
-  @override
-  void dispose() {
-    _pageController.dispose();
-    _controller.dispose();
-    super.dispose();
-  }
+  final shortcuts = {LogicalKeySet(LogicalKeyboardKey.escape): EscapeIntent()};
 
   @override
   Widget build(BuildContext context) {
@@ -88,22 +115,41 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       body: IfWrapper(
         condition: isTablet(context),
         builder: (context, child) {
-          return Row(children: [
-            ConstrainedBox(
-              child: child,
-              constraints: const BoxConstraints(maxWidth: 320),
-            ),
-            const SafeArea(child: VerticalDivider(width: 0)),
-            Expanded(
-                child: ClipRect(
-              child: Navigator(
-                key: sideBarNavigatorKey,
-                pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
-                onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
-                onPopPage: (_, __) => true,
+          return FocusableActionDetector(
+            autofocus: true,
+            shortcuts: shortcuts,
+            actions: {
+              EscapeIntent: CallbackAction(onInvoke: (e) {
+                if (kDebugMode) {
+                  print('Clearing sidebar');
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('ESC pressed'),
+                    behavior: SnackBarBehavior.floating,
+                    duration: Duration(milliseconds: 500),
+                  ));
+                }
+                context.read(sideTabBarProvider).state = null;
+                sideBarNavigatorKey.currentState.popUntil((route) => route.isFirst);
+                return null;
+              })
+            },
+            child: Row(children: [
+              ConstrainedBox(
+                child: child,
+                constraints: const BoxConstraints(maxWidth: 320),
               ),
-            )),
-          ]);
+              const SafeArea(child: VerticalDivider(width: 0)),
+              Expanded(
+                  child: ClipRect(
+                child: Navigator(
+                  key: sideBarNavigatorKey,
+                  pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
+                  onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
+                  onPopPage: (_, __) => true,
+                ),
+              )),
+            ]),
+          );
         },
         child: isDarwin ? buildCupertinoTabScaffold(context) : buildScaffold(context),
       ),
@@ -133,7 +179,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     ];
 
     return CupertinoTabScaffold(
-      controller: _controller,
+      controller: combinedPageController.cupertinoTabController,
       resizeToAvoidBottomInset: false,
       tabBar: CupertinoTabBar(
         onTap: (i) {
@@ -159,7 +205,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     );
   }
 
-  Scaffold buildScaffold(BuildContext context) {
+  Widget buildScaffold(BuildContext context) {
     final items = [
       BottomNavigationBarItem(
           icon: const Icon(FluentIcons.search_24_regular),
@@ -175,42 +221,43 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
         label: S.of(context).tabs_favourites,
       ),
     ];
-    return Scaffold(
-      key: const Key('home-scaffold'),
-      resizeToAvoidBottomInset: false,
-      bottomNavigationBar: Consumer(builder: (context, w, _) {
-        final index = w(tabProvider).state;
+    return Consumer(builder: (context, w, _) {
+      final combined = w(tabProvider);
 
-        return BottomNavigationBar(
+      return Scaffold(
+        key: const Key('home-scaffold'),
+        resizeToAvoidBottomInset: false,
+        bottomNavigationBar: BottomNavigationBar(
           onTap: (i) {
             Vibration.selectSoft();
-            if (_pageController.page != i) {
-              _pageController.animateToPage(i,
-                  curve: Curves.fastOutSlowIn, duration: const Duration(milliseconds: 250));
+            if (combined.page != i) {
+              combined.animateTo(i, false);
             } else if (navigatorKeys[i] != null) {
               navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
               context.read(sideTabBarProvider).state = null;
             }
           },
-          currentIndex:
-              index >= 0 && index < tabs.length ? index : _pageController.page?.round() ?? 0,
+          currentIndex: combined.page >= 0 && combined.page < tabs.length
+              ? combined.page
+              : combined.page?.round() ?? 0,
           items: items,
-        );
-      }),
-      body: PageView(
-        controller: _pageController,
-        children: [
-          for (var i = 0; i < tabs.length; i++)
-            Navigator(
-              key: navigatorKeys[i],
-              pages: [SingleWidgetPage(tabs[i], name: items[i].label)],
-              onPopPage: (_, __) => true,
-              onUnknownRoute: (settings) => onUnknownRoute(settings, false),
-              onGenerateRoute: (settings) => onGenerateRoute(settings, false),
-            )
-        ],
-      ),
-    );
+        ),
+        body: PageTransitionSwitcher(
+          transitionBuilder: (child, primaryAnimation, secondaryAnimation) => FadeThroughTransition(
+            animation: primaryAnimation,
+            secondaryAnimation: secondaryAnimation,
+            child: child,
+          ),
+          child: Navigator(
+            key: navigatorKeys[combined.page],
+            pages: [SingleWidgetPage(tabs[combined.page], name: items[combined.page].label)],
+            onPopPage: (_, __) => true,
+            onUnknownRoute: (settings) => onUnknownRoute(settings, false),
+            onGenerateRoute: (settings) => onGenerateRoute(settings, false),
+          ),
+        ),
+      );
+    });
   }
 
   static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), SettingsPage()];

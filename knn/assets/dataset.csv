@@ -1,0 +1,29 @@
+src | day | time| dest   
+Genève | 0   | 450| Zürich 
+Zürich | 0 | 110| Bern   
+Genève | 1 | 450| Zürich 
+Zürich | 1 | 110| Bern   
+Genève | 2 | 450| Zürich 
+Zürich | 2 | 110| Bern   
+Genève | 3 | 450| Zürich 
+Zürich | 3 | 110| Bern   
+Genève | 4 | 450| Zürich 
+Zürich | 4 | 110| Bern   
+Genève | 5 | 450| Zürich 
+Zürich | 5 | 110| Bern   
+Genève  | 6 | 660| Versoix
+Versoix | 6 | 1170 | Genève
+Genève | 0   | 450| Zürich 
+Zürich | 0 | 110| Bern   
+Genève | 1 | 450| Zürich 
+Zürich | 1 | 110| Bern   
+Genève | 2 | 450| Zürich 
+Zürich | 2 | 110| Bern   
+Genève | 3 | 450| Zürich 
+Zürich | 3 | 110| Bern   
+Genève | 4 | 450| Zürich 
+Zürich | 4 | 110| Bern   
+Genève | 5 | 450| Zürich 
+Zürich | 5 | 110| Bern   
+Genève  | 6 | 660| Versoix
+Versoix | 6 | 1170 | Genève
