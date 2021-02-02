@@ -77,13 +77,14 @@ bool isTablet(BuildContext context) {
   return mq.size.longestSide / mq.devicePixelRatio > 600 && mq.orientation == Orientation.landscape;
 }
 
-class EscapeIntent extends Intent {}
-
 class MainApp extends StatefulWidget {
   const MainApp();
 
   @override
   _MainAppState createState() => _MainAppState();
+
+  static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), SettingsPage()];
+  static const tabs = [StationsTab(), RouteTab(), FavoritesTab()];
 }
 
 final sideTabBarProvider = StateProvider<WidgetBuilder>((_) => null);
@@ -104,8 +105,6 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     combinedPageController = context.read(tabProvider);
   }
 
-  final shortcuts = {LogicalKeySet(LogicalKeyboardKey.escape): EscapeIntent()};
-
   @override
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
@@ -115,41 +114,22 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       body: IfWrapper(
         condition: isTablet(context),
         builder: (context, child) {
-          return FocusableActionDetector(
-            autofocus: true,
-            shortcuts: shortcuts,
-            actions: {
-              EscapeIntent: CallbackAction(onInvoke: (e) {
-                if (kDebugMode) {
-                  print('Clearing sidebar');
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('ESC pressed'),
-                    behavior: SnackBarBehavior.floating,
-                    duration: Duration(milliseconds: 500),
-                  ));
-                }
-                context.read(sideTabBarProvider).state = null;
-                sideBarNavigatorKey.currentState.popUntil((route) => route.isFirst);
-                return null;
-              })
-            },
-            child: Row(children: [
-              ConstrainedBox(
-                child: child,
-                constraints: const BoxConstraints(maxWidth: 320),
+          return Row(children: [
+            ConstrainedBox(
+              child: child,
+              constraints: const BoxConstraints(maxWidth: 320),
+            ),
+            const SafeArea(child: VerticalDivider(width: 0)),
+            Expanded(
+                child: ClipRect(
+              child: Navigator(
+                key: sideBarNavigatorKey,
+                pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
+                onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
+                onPopPage: (_, __) => true,
               ),
-              const SafeArea(child: VerticalDivider(width: 0)),
-              Expanded(
-                  child: ClipRect(
-                child: Navigator(
-                  key: sideBarNavigatorKey,
-                  pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
-                  onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
-                  onPopPage: (_, __) => true,
-                ),
-              )),
-            ]),
-          );
+            )),
+          ]);
         },
         child: isDarwin ? buildCupertinoTabScaffold(context) : buildScaffold(context),
       ),
@@ -197,7 +177,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       ),
       tabBuilder: (context, i) => Navigator(
         key: navigatorKeys[i],
-        pages: [SingleWidgetPage(iosTabs[i], title: items[i].label)],
+        pages: [SingleWidgetPage(MainApp.iosTabs[i], title: items[i].label)],
         onPopPage: (_, __) => true,
         onUnknownRoute: (settings) => onUnknownRoute(settings, true),
         onGenerateRoute: (settings) => onGenerateRoute(settings, true),
@@ -237,9 +217,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               context.read(sideTabBarProvider).state = null;
             }
           },
-          currentIndex: combined.page >= 0 && combined.page < tabs.length
-              ? combined.page
-              : combined.page?.round() ?? 0,
+          currentIndex: combined.page,
           items: items,
         ),
         body: PageTransitionSwitcher(
@@ -250,7 +228,9 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           ),
           child: Navigator(
             key: navigatorKeys[combined.page],
-            pages: [SingleWidgetPage(tabs[combined.page], name: items[combined.page].label)],
+            pages: [
+              SingleWidgetPage(MainApp.tabs[combined.page], name: items[combined.page].label)
+            ],
             onPopPage: (_, __) => true,
             onUnknownRoute: (settings) => onUnknownRoute(settings, false),
             onGenerateRoute: (settings) => onGenerateRoute(settings, false),
@@ -259,9 +239,6 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       );
     });
   }
-
-  static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), SettingsPage()];
-  static const tabs = [StationsTab(), RouteTab(), FavoritesTab()];
 }
 
 class _SideBar extends StatelessWidget {

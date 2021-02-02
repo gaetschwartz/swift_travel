@@ -27,8 +27,10 @@ void reportDartError(Object e, StackTrace s,
         scaffoldMessengerKey.currentState
           ..removeCurrentSnackBar()
           ..showSnackBar(SnackBar(
-            content: const Text('The app encountered an issue.'),
             key: Key(details.hashCode.toRadixString(32)),
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 1),
+            content: const Text('The app encountered an issue.'),
             action: SnackBarAction(
               label: 'Details',
               onPressed: () {
@@ -59,6 +61,8 @@ void reportFlutterError(FlutterErrorDetails details) {
           ..removeCurrentSnackBar()
           ..showSnackBar(SnackBar(
             key: Key(details.hashCode.toRadixString(32)),
+            duration: const Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
             content: const Text('The app encountered an issue.'),
             action: SnackBarAction(
               label: 'Details',
