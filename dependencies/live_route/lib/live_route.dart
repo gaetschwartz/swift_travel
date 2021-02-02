@@ -241,11 +241,11 @@ class LiveRouteController extends ChangeNotifier {
       final split = leg.name.split(',');
       for (var i = split.length; i >= 0; i--) {
         final pos = await geo.getPosition(split.sublist(i).join());
-        if (pos.results.isEmpty) continue;
-        log('Found position ${pos.results.first.attrs.lat}, ${pos.results.first.attrs.lon} for ${leg.name}');
+        if (pos.records.isEmpty) continue;
+        log('Found position ${pos.records.first.geometry.coordinates} for ${leg.name}');
         return leg.copyWith(
-          lat: pos.results.first.attrs.lat,
-          lon: pos.results.first.attrs.lon,
+          lat: pos.records.first.geometry.coordinates.first,
+          lon: pos.records.first.geometry.coordinates.last,
         );
       }
       return leg;

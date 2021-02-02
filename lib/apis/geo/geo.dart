@@ -1,31 +1,29 @@
 import 'dart:convert';
-import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
-import 'package:swift_travel/apis/geo/models/geo_error.dart';
-import 'package:swift_travel/apis/geo/models/geo_response.dart';
+import 'package:swift_travel/apis/geo/models/sbb_models.dart';
 
-final geoProvider = Provider.autoDispose((ref) {
-  final geoRepository = GeoRepository();
-  ref.onDispose(geoRepository.dispose);
-  return geoRepository;
-});
+final geoProvider = Provider((ref) => GeoRepository());
 
 class GeoRepository {
-  static const String baseUrl = 'https://api3.geo.admin.ch/rest/services/apis/SearchServer';
-  final Client _client = Client();
+  static const String baseUrl = 'https://data.sbb.ch/api/records/1.0/search/';
+  final _client = Dio();
 
-  Future<GeoResponse> getPosition(String location) async {
-    final url = '$baseUrl?type=locations&searchText=${Uri.encodeComponent(location)}';
-    log(url);
-    final response = await _client.get(url);
-    final decoded = await compute(jsonDecode, response.body) as Map<String, dynamic>;
+  Future<SbbStationResponse> getPosition(String location) async {
+    final response = await _client.get(baseUrl,
+        queryParameters: {
+          'dataset': 'dienststellen-gemass-opentransportdataswiss',
+          'rows': 5,
+          'q': location,
+        },
+        options: Options(responseType: ResponseType.plain));
+    final decoded = await compute(jsonDecode, response.toString()) as Map<String, dynamic>;
     if (response.statusCode == 200) {
-      return GeoResponse.fromJson(decoded);
+      return SbbStationResponse.fromJson(decoded);
     } else {
-      throw GeoError.fromJson(decoded);
+      throw SbbStationResponse.fromJson(decoded);
     }
   }
 

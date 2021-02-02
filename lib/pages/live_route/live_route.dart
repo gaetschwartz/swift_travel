@@ -62,7 +62,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
                             text: 'Get off at ',
                             children: [
                               TextSpan(
-                                  text: controller.currentLeg.exit.name,
+                                  text: controller.currentLeg?.exit?.name,
                                   style: const TextStyle(fontWeight: FontWeight.bold)),
                               const TextSpan(text: ' in '),
                               TextSpan(
@@ -125,7 +125,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
 
   Card _buildLeg(LiveRouteController controller, int i, Leg l) {
     final selected = controller.currentStop == null && l.name == controller.currentLeg?.name;
-    final dist = controller.legDistances[i][-1];
+    final dist = controller.legDistances[i] == null ? .0 : controller.legDistances[i][-1];
     return Card(
       child: Column(
         children: [
