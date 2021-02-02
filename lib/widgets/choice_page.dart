@@ -79,6 +79,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
                 final item = widget.items[i];
                 return item.child != null
                     ? ListTile(
+                        dense: true,
                         onTap: () => tapped(i, item),
                         title: item.child,
                         leading: i == selected

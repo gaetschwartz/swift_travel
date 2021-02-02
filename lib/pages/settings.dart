@@ -26,6 +26,7 @@ import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/search.dart';
 import 'package:swift_travel/widgets/choice_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/modal.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -241,6 +242,19 @@ class _SettingsPageState extends State<SettingsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _SectionTitle(title: Text(S.of(context).developer)),
+            ListTile(
+                leading: const Icon(Icons.slideshow),
+                title: const Text('Test dialog'),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(
+                    BlurryModalRoute(
+                      const AlertDialog(
+                        title: Text('Hello'),
+                        content: Text('World'),
+                      ),
+                    ),
+                  );
+                }),
             ListTile(
                 leading: const Icon(Icons.screen_lock_landscape),
                 title: const Text('Screen info'),

@@ -21,7 +21,6 @@ import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/pages/loading.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/settings.dart';
-import 'package:swift_travel/pages/tuto.dart';
 import 'package:swift_travel/pages/welcome.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
@@ -218,12 +217,7 @@ Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
         );
       }
       break;
-    case '/tuto':
-      return platformRoute(
-        settings: settings,
-        builder: (_) => const Tuto(),
-        isDarwin: isDarwin,
-      );
+
     case '/welcome':
       return platformRoute(
         settings: settings,
