@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'geo_models.freezed.dart';
+part 'geo_models.g.dart';
 
 @freezed
 abstract class GeoResponse with _$GeoResponse {

@@ -9,43 +9,15 @@ part of 'mocking.dart';
 const _$mockRouteJsonLiteral = {
   'connections': [
     {
-      'arrival': '2021-01-23 22: 53: 00',
-      'dep_delay': '+0',
-      'departure': '2021-01-23 19: 09: 00',
-      'disruptions': {
-        'http: //fahrplan.sbb.ch/bin/help.exe/en?tpl=showmap_external&messageID=1160985&mti=1&hMap=false#hfsShm':
-            {
-          'exact': false,
-          'header':
-              'Bern: Restricted access to platform 12 from 2 November 2020 until 7 March 2021',
-          'id': '1160985',
-          'lead':
-              'Bern: Restricted access to platform 12 from 2 November 2020 until 7 March 2021',
-          'priority': 60,
-          'text':
-              'Passengers travelling via platform 12 at Bern railway station will not have access to all entry and exit points on the platform until March 2021.<br />You can find more information at <a href="http://www.sbb.ch/bern">www.sbb.ch/bern</a> .<br /><p>Further information:<br /> <a href="http://www.sbb.ch/bern">Info Bern</a><br /> </p> ',
-          'timerange': '11/02/2020 00: 00 - 01/24/2021 23: 59'
-        },
-        'http: //fahrplan.sbb.ch/bin/help.exe/en?tpl=showmap_external&messageID=1166030&mti=1&hMap=false#hfsShm':
-            {
-          'exact': false,
-          'header': 'Construction work: Lausanne - Genève-Aéroport',
-          'id': '1166030',
-          'lead':
-              'Between Lausanne and Genève-Aéroport, construction work is in progress.',
-          'priority': 60,
-          'text':
-              'Between Lausanne and Genève-Aéroport, construction work is in progress.<br /><br /> You must expect changed travel times and changed connections.<br /><br /> Duration from 23.01.2021 05: 00 until 25.01.2021 04: 00.',
-          'timerange': '01/23/2021 05: 00 - 01/25/2021 04: 00'
-        }
-      },
+      'arrival': '2021-01-23 22:53:00',
+      'departure': '2021-01-23 19:09:00',
       'duration': 13440,
       'from': 'Université de Genève, Genève, Rue du Général-Dufour 24',
       'legs': [
         {
-          'departure': '2021-01-23 19: 09: 00',
+          'departure': '2021-01-23 19:09:00',
           'exit': {
-            'arrival': '2021-01-23 19: 14: 00',
+            'arrival': '2021-01-23 19:14:00',
             'lat': 46.198163,
             'lon': 6.143149,
             'name': 'Genève, Plainpalais',
@@ -65,13 +37,11 @@ const _$mockRouteJsonLiteral = {
         {
           '*G': 'T',
           '*L': '15',
-          'arrival': '2021-01-23 19: 14: 00',
+          'arrival': '2021-01-23 19:14:00',
           'bgcolor': '996633',
-          'dep_delay': '+0',
-          'departure': '2021-01-23 19: 14: 00',
+          'departure': '2021-01-23 19:14:00',
           'exit': {
-            'arr_delay': '+0',
-            'arrival': '2021-01-23 19: 22: 00',
+            'arrival': '2021-01-23 19:22:00',
             'lat': 46.209751,
             'lon': 6.14242,
             'name': 'Genève, Cornavin',
@@ -86,16 +56,15 @@ const _$mockRouteJsonLiteral = {
           'line': '15',
           'lon': 6.143149,
           'name': 'Genève, Plainpalais',
-          'number': 'T 64274',
+          'number': 'T 91361',
           'operator': 'TPG',
           'runningtime': 480,
           'sbb_name': 'Genève, Plainpalais',
           'stopid': '8587907',
           'stops': [
             {
-              'arrival': '2021-01-23 19: 15: 00',
-              'dep_delay': '+0',
-              'departure': '2021-01-23 19: 15: 00',
+              'arrival': '2021-01-23 19:15:00',
+              'departure': '2021-01-23 19:15:00',
               'lat': 46.200669,
               'lon': 6.140472,
               'name': 'Genève, Cirque',
@@ -104,9 +73,8 @@ const _$mockRouteJsonLiteral = {
               'y': 117408
             },
             {
-              'arrival': '2021-01-23 19: 17: 00',
-              'dep_delay': '+0',
-              'departure': '2021-01-23 19: 17: 00',
+              'arrival': '2021-01-23 19:17:00',
+              'departure': '2021-01-23 19:17:00',
               'lat': 46.203703,
               'lon': 6.139869,
               'name': 'Genève, Stand',
@@ -115,9 +83,8 @@ const _$mockRouteJsonLiteral = {
               'y': 117746
             },
             {
-              'arrival': '2021-01-23 19: 19: 00',
-              'dep_delay': '+0',
-              'departure': '2021-01-23 19: 19: 00',
+              'arrival': '2021-01-23 19:19:00',
+              'departure': '2021-01-23 19:19:00',
               'lat': 46.207554,
               'lon': 6.141436,
               'name': 'Genève, Goulart',
@@ -127,7 +94,7 @@ const _$mockRouteJsonLiteral = {
             }
           ],
           'terminal': 'Genève, Cornavin',
-          'tripid': 'T2021_064274_000881_001_0b36172_0',
+          'tripid': 'T2021_091361_000881_001_b10bfb0_0',
           'type': 'tram',
           'type_name': 'Tram',
           'waittime': 0,
@@ -135,10 +102,10 @@ const _$mockRouteJsonLiteral = {
           'y': 117126
         },
         {
-          'arrival': '2021-01-23 19: 22: 00',
-          'departure': '2021-01-23 19: 22: 00',
+          'arrival': '2021-01-23 19:22:00',
+          'departure': '2021-01-23 19:22:00',
           'exit': {
-            'arrival': '2021-01-23 19: 27: 00',
+            'arrival': '2021-01-23 19:27:00',
             'lat': 46.210228,
             'lon': 6.142435,
             'name': 'Genève',
@@ -165,31 +132,15 @@ const _$mockRouteJsonLiteral = {
         {
           '*G': 'IR',
           '*L': '90',
-          'arrival': '2021-01-23 19: 27: 00',
+          'arrival': '2021-01-23 19:27:00',
           'attributes': {
             '1_1.1_OM': 'Masks mandatory for travellers aged 12 and over',
             '1_4.7_FS': 'Free Internet with the SBB FreeSurf app'
           },
           'bgcolor': 'f00',
-          'dep_delay': '+0',
-          'departure': '2021-01-23 19: 29: 00',
-          'disruptions': {
-            'http: //fahrplan.sbb.ch/bin/help.exe/en?tpl=showmap_external&messageID=1166030&mti=1&hMap=false#hfsShm':
-                {
-              'exact': false,
-              'header': 'Construction work: Lausanne - Genève-Aéroport',
-              'id': '1166030',
-              'lead':
-                  'Between Lausanne and Genève-Aéroport, construction work is in progress.',
-              'priority': 60,
-              'text':
-                  'Between Lausanne and Genève-Aéroport, construction work is in progress.<br /><br /> You must expect changed travel times and changed connections.<br /><br /> Duration from 23.01.2021 05: 00 until 25.01.2021 04: 00.',
-              'timerange': '01/23/2021 05: 00 - 01/25/2021 04: 00'
-            }
-          },
+          'departure': '2021-01-23 19:29:00',
           'exit': {
-            'arr_delay': '+0',
-            'arrival': '2021-01-23 20: 12: 00',
+            'arrival': '2021-01-23 20:12:00',
             'lat': 46.516795,
             'lon': 6.629087,
             'name': 'Lausanne',
@@ -212,9 +163,8 @@ const _$mockRouteJsonLiteral = {
           'stopid': '8501008',
           'stops': [
             {
-              'arrival': '2021-01-23 19: 43: 00',
-              'dep_delay': '+1',
-              'departure': '2021-01-23 19: 44: 00',
+              'arrival': '2021-01-23 19:43:00',
+              'departure': '2021-01-23 19:44:00',
               'lat': 46.38443,
               'lon': 6.235963,
               'name': 'Nyon',
@@ -223,9 +173,8 @@ const _$mockRouteJsonLiteral = {
               'y': 137716
             },
             {
-              'arrival': '2021-01-23 19: 59: 00',
-              'dep_delay': '+1',
-              'departure': '2021-01-23 20: 00: 00',
+              'arrival': '2021-01-23 19:59:00',
+              'departure': '2021-01-23 20:00:00',
               'lat': 46.511111,
               'lon': 6.493958,
               'name': 'Morges',
@@ -236,7 +185,7 @@ const _$mockRouteJsonLiteral = {
           ],
           'terminal': 'Brig',
           'track': '3',
-          'tripid': 'T2021_001735_000011_101_067915b_0',
+          'tripid': 'T2021_001735_000011_101_a66c6f2_0',
           'type': 'express_train',
           'type_name': 'Railway',
           'waittime': 120,
@@ -246,7 +195,7 @@ const _$mockRouteJsonLiteral = {
         {
           '*G': 'IC',
           '*L': '1',
-          'arrival': '2021-01-23 20: 12: 00',
+          'arrival': '2021-01-23 20:12:00',
           'attributes': {
             '0_1.4_WR': 'Restaurant',
             '0_4.8_RZ': 'Quiet zone in 1st class',
@@ -257,24 +206,9 @@ const _$mockRouteJsonLiteral = {
             '1_4.7_FS': 'Free Internet with the SBB FreeSurf app'
           },
           'bgcolor': 'f00',
-          'departure': '2021-01-23 20: 20: 00',
-          'disruptions': {
-            'http: //fahrplan.sbb.ch/bin/help.exe/en?tpl=showmap_external&messageID=1160985&mti=1&hMap=false#hfsShm':
-                {
-              'exact': false,
-              'header':
-                  'Bern: Restricted access to platform 12 from 2 November 2020 until 7 March 2021',
-              'id': '1160985',
-              'lead':
-                  'Bern: Restricted access to platform 12 from 2 November 2020 until 7 March 2021',
-              'priority': 60,
-              'text':
-                  'Passengers travelling via platform 12 at Bern railway station will not have access to all entry and exit points on the platform until March 2021.<br />You can find more information at <a href="http://www.sbb.ch/bern">www.sbb.ch/bern</a> .<br /><p>Further information:<br /> <a href="http://www.sbb.ch/bern">Info Bern</a><br /> </p> ',
-              'timerange': '11/02/2020 00: 00 - 01/24/2021 23: 59'
-            }
-          },
+          'departure': '2021-01-23 20:20:00',
           'exit': {
-            'arrival': '2021-01-23 22: 28: 00',
+            'arrival': '2021-01-23 22:28:00',
             'lat': 47.377847,
             'lon': 8.540502,
             'name': 'Zürich HB',
@@ -298,8 +232,8 @@ const _$mockRouteJsonLiteral = {
           'stopid': '8501120',
           'stops': [
             {
-              'arrival': '2021-01-23 21: 03: 00',
-              'departure': '2021-01-23 21: 04: 00',
+              'arrival': '2021-01-23 21:03:00',
+              'departure': '2021-01-23 21:04:00',
               'lat': 46.803151,
               'lon': 7.151052,
               'name': 'Fribourg/Freiburg',
@@ -308,8 +242,8 @@ const _$mockRouteJsonLiteral = {
               'y': 183595
             },
             {
-              'arrival': '2021-01-23 21: 26: 00',
-              'departure': '2021-01-23 21: 31: 00',
+              'arrival': '2021-01-23 21:26:00',
+              'departure': '2021-01-23 21:31:00',
               'lat': 46.948832,
               'lon': 7.439136,
               'name': 'Bern',
@@ -328,7 +262,7 @@ const _$mockRouteJsonLiteral = {
           ],
           'terminal': 'St. Gallen',
           'track': '1',
-          'tripid': 'T2021_000735_000011_106_d82b198_0',
+          'tripid': 'T2021_000735_000011_106_684334b_0',
           'type': 'express_train',
           'type_name': 'Railway',
           'waittime': 480,
@@ -336,10 +270,10 @@ const _$mockRouteJsonLiteral = {
           'y': 152042
         },
         {
-          'arrival': '2021-01-23 22: 28: 00',
-          'departure': '2021-01-23 22: 28: 00',
+          'arrival': '2021-01-23 22:28:00',
+          'departure': '2021-01-23 22:28:00',
           'exit': {
-            'arrival': '2021-01-23 22: 35: 00',
+            'arrival': '2021-01-23 22:35:00',
             'lat': 47.377237,
             'lon': 8.539337,
             'name': 'Zürich, Bahnhofplatz/HB',
@@ -366,15 +300,15 @@ const _$mockRouteJsonLiteral = {
         {
           '*G': 'T',
           '*L': '14',
-          'arrival': '2021-01-23 22: 35: 00',
+          'arrival': '2021-01-23 22:35:00',
           'attributes': {
             '1_0_NF': 'Low-floor access',
             '1_1.1_OM': 'Masks mandatory for travellers aged 12 and over'
           },
           'bgcolor': '008dc5',
-          'departure': '2021-01-23 22: 35: 00',
+          'departure': '2021-01-23 22:35:00',
           'exit': {
-            'arrival': '2021-01-23 22: 40: 00',
+            'arrival': '2021-01-23 22:40:00',
             'lat': 47.37342,
             'lon': 8.529248,
             'name': 'Zürich, Stauffacher',
@@ -396,8 +330,8 @@ const _$mockRouteJsonLiteral = {
           'stopid': '8587348',
           'stops': [
             {
-              'arrival': '2021-01-23 22: 36: 00',
-              'departure': '2021-01-23 22: 36: 00',
+              'arrival': '2021-01-23 22:36:00',
+              'departure': '2021-01-23 22:36:00',
               'lat': 47.375888,
               'lon': 8.537416,
               'name': 'Zürich, Löwenplatz',
@@ -406,8 +340,8 @@ const _$mockRouteJsonLiteral = {
               'y': 247809
             },
             {
-              'arrival': '2021-01-23 22: 38: 00',
-              'departure': '2021-01-23 22: 38: 00',
+              'arrival': '2021-01-23 22:38:00',
+              'departure': '2021-01-23 22:38:00',
               'lat': 47.37609,
               'lon': 8.534202,
               'name': 'Zürich, Sihlpost/HB',
@@ -417,7 +351,7 @@ const _$mockRouteJsonLiteral = {
             }
           ],
           'terminal': 'Zürich, Triemli',
-          'tripid': 'T2021_007169_003849_004_e82e9a9_0',
+          'tripid': 'T2021_007169_003849_005_347330c_0',
           'type': 'tram',
           'type_name': 'Tram',
           'waittime': 0,
@@ -427,15 +361,15 @@ const _$mockRouteJsonLiteral = {
         {
           '*G': 'T',
           '*L': '2',
-          'arrival': '2021-01-23 22: 40: 00',
+          'arrival': '2021-01-23 22:40:00',
           'attributes': {
             '1_0_NF': 'Low-floor access',
             '1_1.1_OM': 'Masks mandatory for travellers aged 12 and over'
           },
           'bgcolor': 'e20a16',
-          'departure': '2021-01-23 22: 42: 00',
+          'departure': '2021-01-23 22:42:00',
           'exit': {
-            'arrival': '2021-01-23 22: 51: 00',
+            'arrival': '2021-01-23 22:51:00',
             'lat': 47.383224,
             'lon': 8.499372,
             'name': 'Zürich, Freihofstrasse',
@@ -457,8 +391,8 @@ const _$mockRouteJsonLiteral = {
           'stopid': '8591381',
           'stops': [
             {
-              'arrival': '2021-01-23 22: 43: 00',
-              'departure': '2021-01-23 22: 43: 00',
+              'arrival': '2021-01-23 22:43:00',
+              'departure': '2021-01-23 22:43:00',
               'lat': 47.374165,
               'lon': 8.525555,
               'name': 'Zürich, Bezirksgebäude',
@@ -467,8 +401,8 @@ const _$mockRouteJsonLiteral = {
               'y': 247605
             },
             {
-              'arrival': '2021-01-23 22: 44: 00',
-              'departure': '2021-01-23 22: 44: 00',
+              'arrival': '2021-01-23 22:44:00',
+              'departure': '2021-01-23 22:44:00',
               'lat': 47.374421,
               'lon': 8.521337,
               'name': 'Zürich, Kalkbreite/Bahnhof.Wiedikon',
@@ -477,8 +411,8 @@ const _$mockRouteJsonLiteral = {
               'y': 247629
             },
             {
-              'arrival': '2021-01-23 22: 46: 00',
-              'departure': '2021-01-23 22: 46: 00',
+              'arrival': '2021-01-23 22:46:00',
+              'departure': '2021-01-23 22:46:00',
               'lat': 47.37541,
               'lon': 8.517517,
               'name': 'Zürich, Lochergut',
@@ -487,8 +421,8 @@ const _$mockRouteJsonLiteral = {
               'y': 247735
             },
             {
-              'arrival': '2021-01-23 22: 47: 00',
-              'departure': '2021-01-23 22: 47: 00',
+              'arrival': '2021-01-23 22:47:00',
+              'departure': '2021-01-23 22:47:00',
               'lat': 47.376686,
               'lon': 8.513768,
               'name': 'Zürich, Zypressenstrasse',
@@ -497,8 +431,8 @@ const _$mockRouteJsonLiteral = {
               'y': 247873
             },
             {
-              'arrival': '2021-01-23 22: 48: 00',
-              'departure': '2021-01-23 22: 48: 00',
+              'arrival': '2021-01-23 22:48:00',
+              'departure': '2021-01-23 22:48:00',
               'lat': 47.378211,
               'lon': 8.510396,
               'name': 'Zürich, Albisriederplatz',
@@ -507,8 +441,8 @@ const _$mockRouteJsonLiteral = {
               'y': 248039
             },
             {
-              'arrival': '2021-01-23 22: 50: 00',
-              'departure': '2021-01-23 22: 50: 00',
+              'arrival': '2021-01-23 22:50:00',
+              'departure': '2021-01-23 22:50:00',
               'lat': 47.381232,
               'lon': 8.503729,
               'name': 'Zürich, Letzigrund',
@@ -518,7 +452,7 @@ const _$mockRouteJsonLiteral = {
             }
           ],
           'terminal': 'Schlieren, Geissweid',
-          'tripid': 'T2021_009301_003849_003_72148b9_0',
+          'tripid': 'T2021_009301_003849_003_4df988b_0',
           'type': 'tram',
           'type_name': 'Tram',
           'waittime': 120,
@@ -526,10 +460,10 @@ const _$mockRouteJsonLiteral = {
           'y': 247526
         },
         {
-          'arrival': '2021-01-23 22: 51: 00',
-          'departure': '2021-01-23 22: 51: 00',
+          'arrival': '2021-01-23 22:51:00',
+          'departure': '2021-01-23 22:51:00',
           'exit': {
-            'arrival': '2021-01-23 22: 53: 00',
+            'arrival': '2021-01-23 22:53:00',
             'isaddress': true,
             'name': 'Zürich, Badenerstr. 549'
           },
@@ -547,7 +481,7 @@ const _$mockRouteJsonLiteral = {
           'y': 248585
         },
         {
-          'arrival': '2021-01-23 22: 53: 00',
+          'arrival': '2021-01-23 22:53:00',
           'isaddress': true,
           'name': 'Zürich, Badenerstr. 549'
         }
@@ -566,15 +500,15 @@ const _$mockRouteJsonLiteral = {
     {
       'text': 'Genève, Rue du Général-Dufour 24',
       'url':
-          'https: //map.search.ch/Gen%C3%A8ve,Rue-du-G%C3%A9n%C3%A9ral-Dufour-24'
+          'https://map.search.ch/Gen%C3%A8ve,Rue-du-G%C3%A9n%C3%A9ral-Dufour-24'
     },
     {
       'text': 'Zürich, Badenerstr. 549',
-      'url': 'https: //map.search.ch/Z%C3%BCrich,Badenerstr.549'
+      'url': 'https://map.search.ch/Z%C3%BCrich,Badenerstr.549'
     }
   ],
   'rawtime': 13440,
   'request': 'route',
   'url':
-      'https: //timetable.search.ch/Universit%C3%A9-de-Gen%C3%A8ve,Gen%C3%A8ve,Rue-du-G%C3%A9n%C3%A9ral-Dufour-24..Z%C3%BCrich,Badenerstr.549?time=19.6&date=1%2F23%2F2021'
+      'https://timetable.search.ch/Universit%C3%A9-de-Gen%C3%A8ve,Gen%C3%A8ve,Rue-du-G%C3%A9n%C3%A9ral-Dufour-24..Z%C3%BCrich,Badenerstr.549?time=19.6&date=1%2F23%2F2021'
 };
