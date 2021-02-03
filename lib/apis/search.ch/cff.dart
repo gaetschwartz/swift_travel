@@ -4,10 +4,10 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:swift_travel/apis/cff/models/cff_completion.dart';
-import 'package:swift_travel/apis/cff/models/cff_route.dart';
-import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_stationboard.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
 final cffFactory = NavigationApiFactory(

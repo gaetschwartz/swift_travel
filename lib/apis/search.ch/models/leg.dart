@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/cff/models/stop.dart';
-import 'package:swift_travel/apis/cff/models/types_enum.dart';
+import 'package:swift_travel/apis/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
 
 import 'exit.dart';
 

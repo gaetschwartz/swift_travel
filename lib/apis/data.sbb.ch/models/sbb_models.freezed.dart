@@ -8,6 +8,160 @@ part of 'sbb_models.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+LatLong _$LatLongFromJson(Map<String, dynamic> json) {
+  return _LatLong.fromJson(json);
+}
+
+/// @nodoc
+class _$LatLongTearOff {
+  const _$LatLongTearOff();
+
+// ignore: unused_element
+  _LatLong call(double lat, double long) {
+    return _LatLong(
+      lat,
+      long,
+    );
+  }
+
+// ignore: unused_element
+  LatLong fromJson(Map<String, Object> json) {
+    return LatLong.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $LatLong = _$LatLongTearOff();
+
+/// @nodoc
+mixin _$LatLong {
+  double get lat;
+  double get long;
+
+  Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
+  $LatLongCopyWith<LatLong> get copyWith;
+}
+
+/// @nodoc
+abstract class $LatLongCopyWith<$Res> {
+  factory $LatLongCopyWith(LatLong value, $Res Function(LatLong) then) =
+      _$LatLongCopyWithImpl<$Res>;
+  $Res call({double lat, double long});
+}
+
+/// @nodoc
+class _$LatLongCopyWithImpl<$Res> implements $LatLongCopyWith<$Res> {
+  _$LatLongCopyWithImpl(this._value, this._then);
+
+  final LatLong _value;
+  // ignore: unused_field
+  final $Res Function(LatLong) _then;
+
+  @override
+  $Res call({
+    Object lat = freezed,
+    Object long = freezed,
+  }) {
+    return _then(_value.copyWith(
+      lat: lat == freezed ? _value.lat : lat as double,
+      long: long == freezed ? _value.long : long as double,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$LatLongCopyWith<$Res> implements $LatLongCopyWith<$Res> {
+  factory _$LatLongCopyWith(_LatLong value, $Res Function(_LatLong) then) =
+      __$LatLongCopyWithImpl<$Res>;
+  @override
+  $Res call({double lat, double long});
+}
+
+/// @nodoc
+class __$LatLongCopyWithImpl<$Res> extends _$LatLongCopyWithImpl<$Res>
+    implements _$LatLongCopyWith<$Res> {
+  __$LatLongCopyWithImpl(_LatLong _value, $Res Function(_LatLong) _then)
+      : super(_value, (v) => _then(v as _LatLong));
+
+  @override
+  _LatLong get _value => super._value as _LatLong;
+
+  @override
+  $Res call({
+    Object lat = freezed,
+    Object long = freezed,
+  }) {
+    return _then(_LatLong(
+      lat == freezed ? _value.lat : lat as double,
+      long == freezed ? _value.long : long as double,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_LatLong implements _LatLong {
+  const _$_LatLong(this.lat, this.long)
+      : assert(lat != null),
+        assert(long != null);
+
+  factory _$_LatLong.fromJson(Map<String, dynamic> json) =>
+      _$_$_LatLongFromJson(json);
+
+  @override
+  final double lat;
+  @override
+  final double long;
+
+  @override
+  String toString() {
+    return 'LatLong(lat: $lat, long: $long)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _LatLong &&
+            (identical(other.lat, lat) ||
+                const DeepCollectionEquality().equals(other.lat, lat)) &&
+            (identical(other.long, long) ||
+                const DeepCollectionEquality().equals(other.long, long)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(lat) ^
+      const DeepCollectionEquality().hash(long);
+
+  @JsonKey(ignore: true)
+  @override
+  _$LatLongCopyWith<_LatLong> get copyWith =>
+      __$LatLongCopyWithImpl<_LatLong>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_LatLongToJson(this);
+  }
+}
+
+abstract class _LatLong implements LatLong {
+  const factory _LatLong(double lat, double long) = _$_LatLong;
+
+  factory _LatLong.fromJson(Map<String, dynamic> json) = _$_LatLong.fromJson;
+
+  @override
+  double get lat;
+  @override
+  double get long;
+  @override
+  @JsonKey(ignore: true)
+  _$LatLongCopyWith<_LatLong> get copyWith;
+}
+
 SbbStationResponse _$SbbStationResponseFromJson(Map<String, dynamic> json) {
   return _SbbStationResponse.fromJson(json);
 }

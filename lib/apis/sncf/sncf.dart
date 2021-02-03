@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:swift_travel/apis/cff/cff.dart';
-import 'package:swift_travel/apis/cff/models/cff_completion.dart';
-import 'package:swift_travel/apis/cff/models/cff_route.dart';
-import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/apis/search.ch/cff.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/sncf/key.dart';
 import 'package:swift_travel/apis/sncf/models/sncf_completion.dart';
 

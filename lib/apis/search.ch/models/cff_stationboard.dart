@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
-import 'package:swift_travel/apis/cff/models/stop.dart';
+import 'package:swift_travel/apis/search.ch/models/stationboard_connection.dart';
+import 'package:swift_travel/apis/search.ch/models/stop.dart';
 
 part 'cff_stationboard.freezed.dart';
 part 'cff_stationboard.g.dart';

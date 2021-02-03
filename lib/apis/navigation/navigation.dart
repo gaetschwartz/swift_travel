@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:swift_travel/apis/cff/cff.dart';
-import 'package:swift_travel/apis/cff/models/cff_completion.dart';
-import 'package:swift_travel/apis/cff/models/cff_route.dart';
-import 'package:swift_travel/apis/cff/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/search.ch/cff.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/sncf/sncf.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 

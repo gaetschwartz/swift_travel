@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/cff/models/disruption.dart';
-import 'package:swift_travel/apis/cff/models/exit.dart';
+import 'package:swift_travel/apis/search.ch/models/disruption.dart';
+import 'package:swift_travel/apis/search.ch/models/exit.dart';
 
 import 'leg.dart';
 

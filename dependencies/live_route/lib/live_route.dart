@@ -5,14 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:swift_travel/apis/cff/models/leg.dart';
-import 'package:swift_travel/apis/cff/models/route_connection.dart';
-import 'package:swift_travel/apis/cff/models/stop.dart';
-import 'package:swift_travel/apis/cff/models/types_enum.dart';
-import 'package:swift_travel/apis/geo/geo.dart';
+import 'package:swift_travel/apis/data.sbb.ch/data_sbb_ch.dart';
+import 'package:swift_travel/apis/search.ch/models/leg.dart';
+import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
+import 'package:swift_travel/apis/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
 
 final liveRouteControllerProvider =
-    ChangeNotifierProvider((r) => LiveRouteController(r.read(geoProvider)));
+    ChangeNotifierProvider((r) => LiveRouteController(r.read(sbbDataProvider)));
 
 @immutable
 class RouteData {
@@ -44,8 +44,8 @@ class RouteData {
 }
 
 class LiveRouteController extends ChangeNotifier {
-  final GeoRepository geo;
-  LiveRouteController(this.geo);
+  final SbbDataRepository sbbData;
+  LiveRouteController(this.sbbData);
 
   StreamSubscription<Position>? _sub;
 
@@ -238,17 +238,16 @@ class LiveRouteController extends ChangeNotifier {
     if (leg.lat != null && leg.lon != null) {
       return leg;
     } else {
-      final split = leg.name.split(',');
-      for (var i = split.length; i >= 0; i--) {
-        final pos = await geo.getPosition(split.sublist(i).join());
-        if (pos.records.isEmpty) continue;
-        log('Found position ${pos.records.first.geometry.coordinates} for ${leg.name}');
+      final pos = await sbbData.getPosition(leg.name);
+      // ignore: unnecessary_null_comparison
+      if (pos == null) {
+        return leg;
+      } else {
         return leg.copyWith(
-          lat: pos.records.first.geometry.coordinates.first,
-          lon: pos.records.first.geometry.coordinates.last,
+          lat: pos.lat,
+          lon: pos.long,
         );
       }
-      return leg;
     }
   }
 

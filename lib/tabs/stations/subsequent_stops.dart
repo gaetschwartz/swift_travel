@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swift_travel/apis/cff/models/stationboard_connection.dart';
-import 'package:swift_travel/apis/cff/models/stop.dart';
-import 'package:swift_travel/apis/cff/models/subsequent_stop.dart';
+import 'package:swift_travel/apis/search.ch/models/stationboard_connection.dart';
+import 'package:swift_travel/apis/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/search.ch/models/subsequent_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
