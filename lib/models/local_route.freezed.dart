@@ -115,7 +115,7 @@ class __$LocalRouteCopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_LocalRoute implements _LocalRoute {
-  _$_LocalRoute(this.from, this.to, {this.displayName})
+  const _$_LocalRoute(this.from, this.to, {this.displayName})
       : assert(from != null),
         assert(to != null);
 
@@ -166,7 +166,7 @@ class _$_LocalRoute implements _LocalRoute {
 }
 
 abstract class _LocalRoute implements LocalRoute {
-  factory _LocalRoute(String from, String to, {String displayName}) =
+  const factory _LocalRoute(String from, String to, {String displayName}) =
       _$_LocalRoute;
 
   factory _LocalRoute.fromJson(Map<String, dynamic> json) =

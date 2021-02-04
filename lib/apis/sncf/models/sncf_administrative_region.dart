@@ -6,7 +6,7 @@ part 'sncf_administrative_region.freezed.dart';
 part 'sncf_administrative_region.g.dart';
 
 @freezed
-abstract class SncfAdministrativeRegion implements _$SncfAdministrativeRegion {
+abstract class SncfAdministrativeRegion with _$SncfAdministrativeRegion {
   @JsonSerializable(explicitToJson: true)
   factory SncfAdministrativeRegion({
     String insee,
@@ -17,7 +17,6 @@ abstract class SncfAdministrativeRegion implements _$SncfAdministrativeRegion {
     String id,
     String zipCode,
   }) = _SncfAdministrativeRegion;
-  const SncfAdministrativeRegion._();
 
   factory SncfAdministrativeRegion.fromJson(Map<String, dynamic> json) =>
       _$SncfAdministrativeRegionFromJson(json);

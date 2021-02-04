@@ -5,7 +5,7 @@ part 'disruption.g.dart';
 
 @freezed
 abstract class Disruption with _$Disruption {
-  factory Disruption({
+  const factory Disruption({
     String id,
     String header,
     String lead,

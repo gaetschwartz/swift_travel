@@ -181,7 +181,7 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Exit implements _Exit {
-  _$_Exit(
+  const _$_Exit(
       {this.arrival,
       this.name,
       this.stopid,
@@ -277,7 +277,7 @@ class _$_Exit implements _Exit {
 }
 
 abstract class _Exit implements Exit {
-  factory _Exit(
+  const factory _Exit(
       {DateTime arrival,
       String name,
       String stopid,

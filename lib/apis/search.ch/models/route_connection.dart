@@ -10,7 +10,7 @@ part 'route_connection.g.dart';
 @freezed
 abstract class RouteConnection with _$RouteConnection {
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
-  factory RouteConnection({
+  const factory RouteConnection({
     String from,
     DateTime departure,
     String to,

@@ -169,7 +169,7 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_CffRoute implements _CffRoute {
-  _$_CffRoute(
+  const _$_CffRoute(
       {this.count,
       @JsonKey(name: 'min_duration') this.minDuration,
       @JsonKey(name: 'max_duration') this.maxDuration,
@@ -256,7 +256,7 @@ class _$_CffRoute implements _CffRoute {
 }
 
 abstract class _CffRoute implements CffRoute {
-  factory _CffRoute(
+  const factory _CffRoute(
       {int count,
       @JsonKey(name: 'min_duration') double minDuration,
       @JsonKey(name: 'max_duration') double maxDuration,

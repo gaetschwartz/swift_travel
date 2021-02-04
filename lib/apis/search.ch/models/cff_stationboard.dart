@@ -7,7 +7,7 @@ part 'cff_stationboard.g.dart';
 
 @freezed
 abstract class CffStationboard with _$CffStationboard {
-  factory CffStationboard({
+  const factory CffStationboard({
     Stop stop,
     @Default([]) List<StationboardConnection> connections,
     String request,

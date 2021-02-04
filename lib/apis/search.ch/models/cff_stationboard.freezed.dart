@@ -164,7 +164,7 @@ class __$CffStationboardCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_CffStationboard implements _CffStationboard {
-  _$_CffStationboard(
+  const _$_CffStationboard(
       {this.stop,
       this.connections = const [],
       this.request,
@@ -235,7 +235,7 @@ class _$_CffStationboard implements _CffStationboard {
 }
 
 abstract class _CffStationboard implements CffStationboard {
-  factory _CffStationboard(
+  const factory _CffStationboard(
       {Stop stop,
       List<StationboardConnection> connections,
       String request,

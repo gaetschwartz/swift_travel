@@ -10,7 +10,7 @@ part 'leg.g.dart';
 @freezed
 abstract class Leg with _$Leg {
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
-  factory Leg({
+  const factory Leg({
     Vehicle type,
     String track,
     String terminal,

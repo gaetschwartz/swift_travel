@@ -5,7 +5,7 @@ part 'vehicle_iconclass.g.dart';
 
 @freezed
 abstract class VehicleIconclass with _$VehicleIconclass {
-  factory VehicleIconclass(@nullable Vehicle v) = _VehicleIconclass;
+  const factory VehicleIconclass(@nullable Vehicle v) = _VehicleIconclass;
 
   factory VehicleIconclass.fromJson(Map<String, dynamic> json) => _$VehicleIconclassFromJson(json);
 }

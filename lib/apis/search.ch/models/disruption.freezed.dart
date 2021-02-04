@@ -159,7 +159,7 @@ class __$DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Disruption implements _Disruption {
-  _$_Disruption(
+  const _$_Disruption(
       {this.id,
       this.header,
       this.lead,
@@ -237,7 +237,7 @@ class _$_Disruption implements _Disruption {
 }
 
 abstract class _Disruption implements Disruption {
-  factory _Disruption(
+  const factory _Disruption(
       {String id,
       String header,
       String lead,

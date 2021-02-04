@@ -334,7 +334,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Leg implements _Leg {
-  _$_Leg(
+  const _$_Leg(
       {this.type,
       this.track,
       this.terminal,
@@ -526,7 +526,7 @@ class _$_Leg implements _Leg {
 }
 
 abstract class _Leg implements Leg {
-  factory _Leg(
+  const factory _Leg(
       {Vehicle type,
       String track,
       String terminal,

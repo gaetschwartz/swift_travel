@@ -107,10 +107,8 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_FavoriteStop extends _FavoriteStop {
-  _$_FavoriteStop(this.stop, {this.name})
-      : assert(stop != null),
-        super._();
+class _$_FavoriteStop implements _FavoriteStop {
+  const _$_FavoriteStop(this.stop, {this.name}) : assert(stop != null);
 
   factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
       _$_$_FavoriteStopFromJson(json);
@@ -152,9 +150,8 @@ class _$_FavoriteStop extends _FavoriteStop {
   }
 }
 
-abstract class _FavoriteStop extends FavoriteStop {
-  _FavoriteStop._() : super._();
-  factory _FavoriteStop(String stop, {String name}) = _$_FavoriteStop;
+abstract class _FavoriteStop implements FavoriteStop {
+  const factory _FavoriteStop(String stop, {String name}) = _$_FavoriteStop;
 
   factory _FavoriteStop.fromJson(Map<String, dynamic> json) =
       _$_FavoriteStop.fromJson;

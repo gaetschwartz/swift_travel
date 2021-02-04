@@ -178,7 +178,7 @@ class __$SubsequentStopCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SubsequentStop implements _SubsequentStop {
-  _$_SubsequentStop(
+  const _$_SubsequentStop(
       this.name,
       {this.id,
       this.dep,
@@ -266,7 +266,7 @@ class _$_SubsequentStop implements _SubsequentStop {
 }
 
 abstract class _SubsequentStop implements SubsequentStop {
-  factory _SubsequentStop(
+  const factory _SubsequentStop(
       String name,
       {String id,
       DateTime dep,

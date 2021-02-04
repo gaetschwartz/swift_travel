@@ -148,7 +148,7 @@ class CffCompletionTile extends ConsumerWidget {
         } else {
           final name = await input(context, title: const Text('What is the name of this stop'));
           if (name == null) return;
-          await store.addStop(sugg.toFavoriteStop(name: name));
+          await store.addStop(FavoriteStop.fromCompletion(sugg, name: name));
         }
         break;
     }

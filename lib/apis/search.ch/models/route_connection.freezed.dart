@@ -180,7 +180,7 @@ class __$RouteConnectionCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_RouteConnection implements _RouteConnection {
-  _$_RouteConnection(
+  const _$_RouteConnection(
       {this.from,
       this.departure,
       this.to,
@@ -272,7 +272,7 @@ class _$_RouteConnection implements _RouteConnection {
 }
 
 abstract class _RouteConnection implements RouteConnection {
-  factory _RouteConnection(
+  const factory _RouteConnection(
       {String from,
       DateTime departure,
       String to,

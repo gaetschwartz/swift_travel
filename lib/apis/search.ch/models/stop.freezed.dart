@@ -148,7 +148,7 @@ class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Stop implements _Stop {
-  _$_Stop(this.name,
+  const _$_Stop(this.name,
       {this.id,
       this.stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) this.departure,
@@ -219,7 +219,7 @@ class _$_Stop implements _Stop {
 }
 
 abstract class _Stop implements Stop {
-  factory _Stop(String name,
+  const factory _Stop(String name,
       {String id,
       String stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,

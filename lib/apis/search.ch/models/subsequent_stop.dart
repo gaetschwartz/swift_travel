@@ -6,7 +6,7 @@ part 'subsequent_stop.g.dart';
 
 @freezed
 abstract class SubsequentStop with _$SubsequentStop {
-  factory SubsequentStop(
+  const factory SubsequentStop(
     String name, {
     String id,
     DateTime dep,

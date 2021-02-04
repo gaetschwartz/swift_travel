@@ -63,7 +63,7 @@ packages:
       name: build
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.1"
+    version: "1.6.2"
   build_config:
     dependency: transitive
     description:
@@ -77,28 +77,28 @@ packages:
       name: build_daemon
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   build_resolvers:
     dependency: transitive
     description:
       name: build_resolvers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.2"
+    version: "1.5.3"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.13"
+    version: "1.11.1"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.6"
+    version: "6.1.7"
   built_collection:
     dependency: transitive
     description:
@@ -281,27 +281,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.11"
-  flare_dart:
+  flex_color_scheme:
     dependency: transitive
     description:
-      name: flare_dart
+      name: flex_color_scheme
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.4"
-  flare_flutter:
-    dependency: transitive
-    description:
-      name: flare_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.6"
+    version: "2.0.0-nullsafety.1"
   fluentui_system_icons:
     dependency: transitive
     description:
       name: fluentui_system_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.92"
+    version: "1.1.94"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -334,7 +327,7 @@ packages:
       name: flutter_keyboard_visibility
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.2"
+    version: "4.0.3"
   flutter_keyboard_visibility_platform_interface:
     dependency: transitive
     description:
@@ -360,7 +353,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.12.3"
   flutter_slidable:
     dependency: transitive
     description:
@@ -412,7 +405,7 @@ packages:
       name: geolocator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0-nullsafety.4"
+    version: "7.0.0-nullsafety.5"
   geolocator_platform_interface:
     dependency: transitive
     description:
@@ -433,7 +426,7 @@ packages:
       name: google_fonts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   graphs:
     dependency: transitive
     description:
@@ -671,7 +664,7 @@ packages:
       name: platform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0-nullsafety.4"
+    version: "3.0.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -727,7 +720,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.12.3"
   rxdart:
     dependency: transitive
     description:
@@ -783,7 +776,7 @@ packages:
       name: shared_preferences_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+3"
+    version: "0.0.2+2"
   shelf:
     dependency: transitive
     description:
@@ -797,7 +790,7 @@ packages:
       name: shelf_web_socket
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.3"
+    version: "0.2.4"
   shimmer:
     dependency: transitive
     description:
@@ -830,14 +823,14 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.2+2"
+    version: "1.3.2+3"
   sqflite_common:
     dependency: transitive
     description:
       name: sqflite_common
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.3+1"
   stack_trace:
     dependency: transitive
     description:
@@ -928,7 +921,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0-nullsafety.4"
+    version: "6.0.0-nullsafety.6"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -1012,14 +1005,14 @@ packages:
       name: web_socket_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   win32:
     dependency: transitive
     description:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.4"
+    version: "1.7.4+1"
   xdg_directories:
     dependency: transitive
     description:

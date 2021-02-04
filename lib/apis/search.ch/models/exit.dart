@@ -18,7 +18,7 @@ String delayToJson(int d) => d > 0 ? '+$d' : d.toString();
 @freezed
 abstract class Exit with _$Exit {
   @JsonSerializable(includeIfNull: false)
-  factory Exit({
+  const factory Exit({
     DateTime arrival,
     String name,
     String stopid,

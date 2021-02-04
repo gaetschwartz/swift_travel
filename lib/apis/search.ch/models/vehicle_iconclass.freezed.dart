@@ -105,7 +105,7 @@ class __$VehicleIconclassCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_VehicleIconclass implements _VehicleIconclass {
-  _$_VehicleIconclass(@nullable this.v);
+  const _$_VehicleIconclass(@nullable this.v);
 
   factory _$_VehicleIconclass.fromJson(Map<String, dynamic> json) =>
       _$_$_VehicleIconclassFromJson(json);
@@ -143,7 +143,7 @@ class _$_VehicleIconclass implements _VehicleIconclass {
 }
 
 abstract class _VehicleIconclass implements VehicleIconclass {
-  factory _VehicleIconclass(@nullable Vehicle v) = _$_VehicleIconclass;
+  const factory _VehicleIconclass(@nullable Vehicle v) = _$_VehicleIconclass;
 
   factory _VehicleIconclass.fromJson(Map<String, dynamic> json) =
       _$_VehicleIconclass.fromJson;

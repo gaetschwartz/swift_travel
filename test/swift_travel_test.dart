@@ -78,9 +78,9 @@ void main() {
 
       await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
 
-      final bern = FavoriteStop('Bern');
+      const bern = FavoriteStop('Bern');
       await store.addStop(bern);
-      final route = LocalRoute('Bern', 'Bern');
+      const route = LocalRoute('Bern', 'Bern');
       await store.addRoute(route);
 
       await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
@@ -110,8 +110,8 @@ void main() {
       await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(favsListener([])).called(1);
 
-      final bern = FavoriteStop('Bern');
-      final nowhere = FavoriteStop('Nowhere');
+      const bern = FavoriteStop('Bern');
+      const nowhere = FavoriteStop('Nowhere');
 
       await store.addStop(bern);
       expect(store.stops, [bern]);
@@ -135,8 +135,8 @@ void main() {
       await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(routesListener([])).called(1);
 
-      final route = LocalRoute('Bern', 'Bern');
-      final routeNever = LocalRoute('Nowhere', 'Everywhere');
+      const route = LocalRoute('Bern', 'Bern');
+      const routeNever = LocalRoute('Nowhere', 'Everywhere');
 
       await store.addRoute(route);
       expect(store.routes, [route]);

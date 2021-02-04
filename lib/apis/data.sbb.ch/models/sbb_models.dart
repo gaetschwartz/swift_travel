@@ -49,7 +49,7 @@ abstract class SbbParameters with _$SbbParameters {
 @freezed
 abstract class SbbRecord with _$SbbRecord {
   @JsonSerializable(explicitToJson: true)
-  factory SbbRecord({
+  const factory SbbRecord({
     String datasetid,
     String recordid,
     SbbFields fields,
@@ -63,7 +63,7 @@ abstract class SbbRecord with _$SbbRecord {
 @freezed
 abstract class SbbFields with _$SbbFields {
   @JsonSerializable(explicitToJson: true)
-  factory SbbFields({
+  const factory SbbFields({
     int bpuic,
     int isHaltestelle,
     double zLv03,
@@ -103,7 +103,7 @@ abstract class SbbFields with _$SbbFields {
 
 @freezed
 abstract class SbbGeometry with _$SbbGeometry {
-  factory SbbGeometry({
+  const factory SbbGeometry({
     String type,
     List<double> coordinates,
   }) = _SbbGeometry;

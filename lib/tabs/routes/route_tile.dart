@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/all.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/utils/format.dart';
@@ -86,11 +89,16 @@ class RouteTile extends StatelessWidget {
                 const FaIcon(CupertinoIcons.chevron_forward),
               ],
             ),
-            onTap: () => Nav.push(
-              context,
-              (context) => RouteDetails(route: route, i: i),
-              title: S.of(context).tabs_route,
-            ),
+            onTap: () {
+              Nav.push(
+                context,
+                (context) => RouteDetails(route: route, i: i),
+                title: S.of(context).tabs_route,
+              );
+              context
+                  .read(routeHistoryProvider)
+                  .add(LocalRoute.fromRouteConnection(route.connections[i]));
+            },
           ),
         ),
       ),

@@ -8,7 +8,7 @@ String _toJson(DateTime d) => d.toIso8601String();
 
 @freezed
 abstract class Stop with _$Stop {
-  factory Stop(
+  const factory Stop(
     String name, {
     String id,
     String stopid,

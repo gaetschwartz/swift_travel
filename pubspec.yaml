@@ -30,7 +30,7 @@ dependencies:
   expandable: ^4.1.4
   firebase_core: ^0.8.0-1.0.nullsafety
   firebase_crashlytics: ^0.5.0-1.0.nullsafety
-  flex_color_scheme: ^1.4.1
+  flex_color_scheme: ^2.0.0-nullsafety.1
   fluentui_system_icons: ^1.1.90
   flutter_hooks: ^0.16.0-nullsafety.0
   flutter_riverpod: ^0.12.0
@@ -39,6 +39,7 @@ dependencies:
   font_awesome_flutter: ^9.0.0-nullsafety
   freezed_annotation: ^0.12.0
   google_fonts: ^1.0.0
+  hive: ^1.4.4+1
   intl: ^0.17.0-nullsafety.2
   introduction_screen: ^1.0.9
   json_annotation: ^3.0.0

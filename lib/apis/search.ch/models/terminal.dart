@@ -5,7 +5,7 @@ part 'terminal.g.dart';
 
 @freezed
 abstract class Terminal with _$Terminal {
-  factory Terminal({
+  const factory Terminal({
     String id,
     String name,
     int x,

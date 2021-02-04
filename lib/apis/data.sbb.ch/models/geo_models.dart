@@ -6,15 +6,15 @@ part 'geo_models.g.dart';
 @freezed
 abstract class GeoResponse with _$GeoResponse {
   @JsonSerializable(explicitToJson: true)
-  factory GeoResponse(List<GeoResult> results) = _GeoResponse;
-  factory GeoResponse.empty() => _GeoResponse([]);
+  const factory GeoResponse(List<GeoResult> results) = _GeoResponse;
+  factory GeoResponse.empty() => const _GeoResponse([]);
 
   factory GeoResponse.fromJson(Map<String, dynamic> json) => _$GeoResponseFromJson(json);
 }
 
 @freezed
 abstract class GeoAttr with _$GeoAttr {
-  factory GeoAttr({
+  const factory GeoAttr({
     String origin,
     String geomQuadindex,
     int zoomlevel,
@@ -36,7 +36,7 @@ abstract class GeoAttr with _$GeoAttr {
 @freezed
 abstract class GeoResult with _$GeoResult {
   @JsonSerializable(explicitToJson: true)
-  factory GeoResult({
+  const factory GeoResult({
     int id,
     int weight,
     GeoAttr attrs,
@@ -47,7 +47,7 @@ abstract class GeoResult with _$GeoResult {
 
 @freezed
 abstract class GeoError with _$GeoError {
-  factory GeoError({
+  const factory GeoError({
     String status,
     String detail,
     int code,

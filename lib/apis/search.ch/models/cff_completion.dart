@@ -6,8 +6,8 @@ part 'cff_completion.freezed.dart';
 part 'cff_completion.g.dart';
 
 @freezed
-abstract class CffCompletion implements _$CffCompletion {
-  factory CffCompletion({
+abstract class CffCompletion with _$CffCompletion {
+  const factory CffCompletion({
     String label,
     double dist,
     @JsonKey(name: 'iconclass') String icon,
@@ -16,9 +16,9 @@ abstract class CffCompletion implements _$CffCompletion {
     String favoriteName,
     @Default(false) bool isCurrentLocation,
   }) = _CffCompletion;
-  const CffCompletion._();
+
+  factory CffCompletion.fromFavorite(FavoriteStop stop) =>
+      _CffCompletion(label: stop.stop, favoriteName: stop.name, icon: 'favorite');
 
   factory CffCompletion.fromJson(Map<String, dynamic> json) => _$CffCompletionFromJson(json);
-
-  FavoriteStop toFavoriteStop({String name}) => FavoriteStop(label, name: name ?? label);
 }

@@ -177,7 +177,7 @@ class __$SncfAdministrativeRegionCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 
 /// @nodoc
-class _$_SncfAdministrativeRegion extends _SncfAdministrativeRegion {
+class _$_SncfAdministrativeRegion implements _SncfAdministrativeRegion {
   _$_SncfAdministrativeRegion(
       {this.insee,
       this.name,
@@ -185,8 +185,7 @@ class _$_SncfAdministrativeRegion extends _SncfAdministrativeRegion {
       this.coord,
       this.label,
       this.id,
-      this.zipCode})
-      : super._();
+      this.zipCode});
 
   factory _$_SncfAdministrativeRegion.fromJson(Map<String, dynamic> json) =>
       _$_$_SncfAdministrativeRegionFromJson(json);
@@ -254,8 +253,7 @@ class _$_SncfAdministrativeRegion extends _SncfAdministrativeRegion {
   }
 }
 
-abstract class _SncfAdministrativeRegion extends SncfAdministrativeRegion {
-  _SncfAdministrativeRegion._() : super._();
+abstract class _SncfAdministrativeRegion implements SncfAdministrativeRegion {
   factory _SncfAdministrativeRegion(
       {String insee,
       String name,

@@ -102,7 +102,7 @@ class __$GeoResponseCopyWithImpl<$Res> extends _$GeoResponseCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_GeoResponse implements _GeoResponse {
-  _$_GeoResponse(this.results) : assert(results != null);
+  const _$_GeoResponse(this.results) : assert(results != null);
 
   factory _$_GeoResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_GeoResponseFromJson(json);
@@ -139,7 +139,7 @@ class _$_GeoResponse implements _GeoResponse {
 }
 
 abstract class _GeoResponse implements GeoResponse {
-  factory _GeoResponse(List<GeoResult> results) = _$_GeoResponse;
+  const factory _GeoResponse(List<GeoResult> results) = _$_GeoResponse;
 
   factory _GeoResponse.fromJson(Map<String, dynamic> json) =
       _$_GeoResponse.fromJson;
@@ -359,7 +359,7 @@ class __$GeoAttrCopyWithImpl<$Res> extends _$GeoAttrCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_GeoAttr implements _GeoAttr {
-  _$_GeoAttr(
+  const _$_GeoAttr(
       {this.origin,
       this.geomQuadindex,
       this.zoomlevel,
@@ -475,7 +475,7 @@ class _$_GeoAttr implements _GeoAttr {
 }
 
 abstract class _GeoAttr implements GeoAttr {
-  factory _GeoAttr(
+  const factory _GeoAttr(
       {String origin,
       String geomQuadindex,
       int zoomlevel,
@@ -642,7 +642,7 @@ class __$GeoResultCopyWithImpl<$Res> extends _$GeoResultCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_GeoResult implements _GeoResult {
-  _$_GeoResult({this.id, this.weight, this.attrs});
+  const _$_GeoResult({this.id, this.weight, this.attrs});
 
   factory _$_GeoResult.fromJson(Map<String, dynamic> json) =>
       _$_$_GeoResultFromJson(json);
@@ -690,7 +690,7 @@ class _$_GeoResult implements _GeoResult {
 }
 
 abstract class _GeoResult implements GeoResult {
-  factory _GeoResult({int id, int weight, GeoAttr attrs}) = _$_GeoResult;
+  const factory _GeoResult({int id, int weight, GeoAttr attrs}) = _$_GeoResult;
 
   factory _GeoResult.fromJson(Map<String, dynamic> json) =
       _$_GeoResult.fromJson;
@@ -808,7 +808,7 @@ class __$GeoErrorCopyWithImpl<$Res> extends _$GeoErrorCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_GeoError implements _GeoError {
-  _$_GeoError({this.status, this.detail, this.code});
+  const _$_GeoError({this.status, this.detail, this.code});
 
   factory _$_GeoError.fromJson(Map<String, dynamic> json) =>
       _$_$_GeoErrorFromJson(json);
@@ -856,7 +856,8 @@ class _$_GeoError implements _GeoError {
 }
 
 abstract class _GeoError implements GeoError {
-  factory _GeoError({String status, String detail, int code}) = _$_GeoError;
+  const factory _GeoError({String status, String detail, int code}) =
+      _$_GeoError;
 
   factory _GeoError.fromJson(Map<String, dynamic> json) = _$_GeoError.fromJson;
 

@@ -147,7 +147,7 @@ class _FavoritesTabState extends State<FavoritesTab>
       final completion = completions.first;
       final name = await input(context, title: const Text('What is the name of this stop'));
       if (name == null) return;
-      await store.addStop(completion.toFavoriteStop(name: name));
+      await store.addStop(FavoriteStop.fromCompletion(completion, name: name));
     });
   }
 }

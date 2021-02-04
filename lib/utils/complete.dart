@@ -31,7 +31,9 @@ List<CffCompletion> completeWithFavorites(
   return [
     if (currentLocationString != null)
       CffCompletion(label: currentLocationString, isCurrentLocation: true),
-    ...favs.sublist(0, min(favs.length, _kMaxFavoritesCount)).map((e) => e.key.toCompletion()),
+    ...favs
+        .sublist(0, min(favs.length, _kMaxFavoritesCount))
+        .map((e) => CffCompletion.fromFavorite(e.key)),
     ...compls.where((c) => c.label != null),
   ];
 }

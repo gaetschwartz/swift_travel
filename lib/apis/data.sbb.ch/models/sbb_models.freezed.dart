@@ -763,7 +763,7 @@ class __$SbbRecordCopyWithImpl<$Res> extends _$SbbRecordCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SbbRecord implements _SbbRecord {
-  _$_SbbRecord(
+  const _$_SbbRecord(
       {this.datasetid,
       this.recordid,
       this.fields,
@@ -830,7 +830,7 @@ class _$_SbbRecord implements _SbbRecord {
 }
 
 abstract class _SbbRecord implements SbbRecord {
-  factory _SbbRecord(
+  const factory _SbbRecord(
       {String datasetid,
       String recordid,
       SbbFields fields,
@@ -1278,7 +1278,7 @@ class __$SbbFieldsCopyWithImpl<$Res> extends _$SbbFieldsCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SbbFields implements _SbbFields {
-  _$_SbbFields(
+  const _$_SbbFields(
       {this.bpuic,
       this.isHaltestelle,
       this.zLv03,
@@ -1510,7 +1510,7 @@ class _$_SbbFields implements _SbbFields {
 }
 
 abstract class _SbbFields implements SbbFields {
-  factory _SbbFields(
+  const factory _SbbFields(
       {int bpuic,
       int isHaltestelle,
       double zLv03,
@@ -1720,7 +1720,7 @@ class __$SbbGeometryCopyWithImpl<$Res> extends _$SbbGeometryCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SbbGeometry implements _SbbGeometry {
-  _$_SbbGeometry({this.type, this.coordinates});
+  const _$_SbbGeometry({this.type, this.coordinates});
 
   factory _$_SbbGeometry.fromJson(Map<String, dynamic> json) =>
       _$_$_SbbGeometryFromJson(json);
@@ -1764,7 +1764,7 @@ class _$_SbbGeometry implements _SbbGeometry {
 }
 
 abstract class _SbbGeometry implements SbbGeometry {
-  factory _SbbGeometry({String type, List<double> coordinates}) =
+  const factory _SbbGeometry({String type, List<double> coordinates}) =
       _$_SbbGeometry;
 
   factory _SbbGeometry.fromJson(Map<String, dynamic> json) =

@@ -10,7 +10,7 @@ part 'stationboard_connection.g.dart';
 @freezed
 abstract class StationboardConnection with _$StationboardConnection {
   @JsonSerializable(explicitToJson: true)
-  factory StationboardConnection(
+  const factory StationboardConnection(
     DateTime time,
     Vehicle type,
     String color,

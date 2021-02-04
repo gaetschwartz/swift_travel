@@ -116,7 +116,7 @@ class __$TerminalCopyWithImpl<$Res> extends _$TerminalCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Terminal implements _Terminal {
-  _$_Terminal({this.id, this.name, this.x, this.y});
+  const _$_Terminal({this.id, this.name, this.x, this.y});
 
   factory _$_Terminal.fromJson(Map<String, dynamic> json) =>
       _$_$_TerminalFromJson(json);
@@ -169,7 +169,7 @@ class _$_Terminal implements _Terminal {
 }
 
 abstract class _Terminal implements Terminal {
-  factory _Terminal({String id, String name, int x, int y}) = _$_Terminal;
+  const factory _Terminal({String id, String name, int x, int y}) = _$_Terminal;
 
   factory _Terminal.fromJson(Map<String, dynamic> json) = _$_Terminal.fromJson;
 
