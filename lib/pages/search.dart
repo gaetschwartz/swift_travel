@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
@@ -95,6 +97,7 @@ class _SearchPageState extends State<SearchPage> {
   FavoritesSharedPreferencesStore store;
   NavigationApi api;
   String currentLocation;
+  final hist = RouteHistoryRepository.i;
 
   @override
   void initState() {
@@ -127,10 +130,11 @@ class _SearchPageState extends State<SearchPage> {
       final compls = await api.complete(query);
 
       final completionsWithFavs = completeWithFavorites(
-        store,
-        compls,
-        query,
+        favorites: store.stops,
+        completions: compls,
+        query: query,
         currentLocationString: currentLocation,
+        history: hist.routes,
       );
 
       if (mounted) {
@@ -164,7 +168,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
           child: _Results(
             onTap: (c) {
-              if (c.isCurrentLocation) {
+              if (c.origin == DataOrigin.currentLocation) {
                 print('It is current location');
                 widget.binder.useCurrentLocation(context);
               } else {
@@ -276,17 +280,39 @@ class _SuggestedTile extends StatelessWidget {
   final CffCompletion suggestion;
   final ValueChanged<CffCompletion> onTap;
 
+  Widget buildIcon(BuildContext context) {
+    switch (suggestion.origin) {
+      case DataOrigin.favorites:
+        return Icon(
+          CupertinoIcons.heart_fill,
+          size: 20,
+          color: IconTheme.of(context).color,
+        );
+        break;
+      case DataOrigin.history:
+        return Icon(
+          CupertinoIcons.clock,
+          size: 20,
+          color: IconTheme.of(context).color,
+        );
+        break;
+      case DataOrigin.data:
+        return CffIcon.fromIconClass(suggestion.icon, size: 20);
+      case DataOrigin.currentLocation:
+        return Icon(
+          FluentIcons.my_location_24_regular,
+          size: 20,
+          color: IconTheme.of(context).color,
+        );
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () => onTap?.call(suggestion),
-      leading: suggestion.isCurrentLocation
-          ? Icon(
-              CupertinoIcons.location_fill,
-              size: 20,
-              color: IconTheme.of(context).color,
-            )
-          : CffIcon.fromIconClass(suggestion.icon, size: 20),
+      leading: buildIcon(context),
       horizontalTitleGap: 8,
       title: Text(suggestion.favoriteName ?? suggestion.label),
       subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,

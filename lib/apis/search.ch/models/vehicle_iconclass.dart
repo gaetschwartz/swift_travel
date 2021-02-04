@@ -28,6 +28,5 @@ enum Vehicle {
   gondola,
   cablecar,
   chairlift,
-  favorite,
   ship
 }

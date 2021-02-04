@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
@@ -41,6 +44,43 @@ class RouteData {
         portionOfLegDone = null,
         portionFromCurrentToExit = null,
         timeUntilNextLeg = null;
+}
+
+class LiveRoutePlugin {
+  const LiveRoutePlugin._();
+
+  static const _channel = MethodChannel('gaetanschwartz.com/liveroute_plugin');
+
+  static Future<bool?> initialize() async {
+    final callback = PluginUtilities.getCallbackHandle(callbackDispatcher);
+    final res =
+        await _channel.invokeMethod<bool>('LiveRoute.initializeService', [callback!.toRawHandle()]);
+    return res;
+  }
+
+  static void callbackDispatcher() {
+    // 1. Initialize MethodChannel used to communicate with the platform portion of the plugin.
+    const MethodChannel _backgroundChannel =
+        MethodChannel('gaetanschwartz.com/liveroute_plugin_background');
+
+    // 2. Setup internal state needed for MethodChannels.
+    WidgetsFlutterBinding.ensureInitialized();
+
+    // 3. Listen for background events from the platform portion of the plugin.
+    _backgroundChannel.setMethodCallHandler((MethodCall call) async {
+      final args = call.arguments;
+
+      // 3.1. Retrieve callback instance for handle.
+      final Function callback =
+          PluginUtilities.getCallbackFromHandle(CallbackHandle.fromRawHandle(args[0] as int))!;
+
+      // 3.3. Invoke callback.
+      callback();
+    });
+
+    // 4. Alert plugin that the callback handler is ready for events.
+    _backgroundChannel.invokeMethod('GeofencingService.initialized');
+  }
 }
 
 class LiveRouteController extends ChangeNotifier {

@@ -11,12 +11,24 @@ _$_LocalRoute _$_$_LocalRouteFromJson(Map<String, dynamic> json) {
     json['from'] as String,
     json['to'] as String,
     displayName: json['displayName'] as String,
+    timestamp: json['timestamp'] == null
+        ? null
+        : DateTime.parse(json['timestamp'] as String),
   );
 }
 
-Map<String, dynamic> _$_$_LocalRouteToJson(_$_LocalRoute instance) =>
-    <String, dynamic>{
-      'from': instance.from,
-      'to': instance.to,
-      'displayName': instance.displayName,
-    };
+Map<String, dynamic> _$_$_LocalRouteToJson(_$_LocalRoute instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('from', instance.from);
+  writeNotNull('to', instance.to);
+  writeNotNull('displayName', instance.displayName);
+  writeNotNull('timestamp', instance.timestamp?.toIso8601String());
+  return val;
+}

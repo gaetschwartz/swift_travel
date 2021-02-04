@@ -20,18 +20,19 @@ import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/blocs/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/pages/search.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/states/route_textfield_state.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/search.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/datepicker.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -200,8 +201,9 @@ class _RoutePageState extends State<RoutePage> {
 
   MyTextFormatter fromFormatter;
   MyTextFormatter toFormatter;
-  FavoritesSharedPreferencesStore store;
+  FavoritesSharedPreferencesStore favorites;
   NavigationApi api;
+  final historyRepository = RouteHistoryRepository.i;
 
   @override
   void initState() {
@@ -229,7 +231,7 @@ class _RoutePageState extends State<RoutePage> {
         MyTextFormatter(S.of(context).current_location, from, context.read(_fromTextfieldProvider));
     toFormatter =
         MyTextFormatter(S.of(context).current_location, to, context.read(_fromTextfieldProvider));
-    store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    favorites = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     api = context.read(navigationAPIProvider);
     from.syncState(context);
     to.syncState(context);
@@ -346,8 +348,8 @@ class _RoutePageState extends State<RoutePage> {
                         onPressed: () async {
                           unawaited(Vibration.select());
 
-                          log(store.routes.toString());
-                          if (store.routes.any(
+                          log(favorites.routes.toString());
+                          if (favorites.routes.any(
                             (lr) => lr.from == from.text && lr.to == to.text,
                           )) {
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -357,7 +359,7 @@ class _RoutePageState extends State<RoutePage> {
 
                           final s = await input(context, title: const Text('Enter route name'));
                           if (s == null) return;
-                          await store.addRoute(LocalRoute(from.text, to.text, displayName: s));
+                          await favorites.addRoute(LocalRoute(from.text, to.text, displayName: s));
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(content: Text('Route starred !')));
                         },
@@ -531,12 +533,16 @@ class _RoutePageState extends State<RoutePage> {
                             baseColor: Colors.grey[300],
                             highlightColor: Colors.white,
                           )),
-                  suggestionsCallback: (s) async => completeWithFavorites(
-                      store, await api.complete(s), s,
-                      currentLocationString: currentLocationString),
+                  suggestionsCallback: (query) async => completeWithFavorites(
+                    favorites: favorites.stops,
+                    completions: await api.complete(query),
+                    query: query,
+                    currentLocationString: currentLocationString,
+                    history: historyRepository.routes,
+                  ),
                   itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
                   onSuggestionSelected: (suggestion) {
-                    if (suggestion.isCurrentLocation) {
+                    if (suggestion.origin == DataOrigin.currentLocation) {
                       from.useCurrentLocation(context);
                     } else {
                       from.setString(context, suggestion.label);
@@ -626,12 +632,16 @@ class _RoutePageState extends State<RoutePage> {
                       suffixIcon: const SizedBox(),
                     ),
                   ),
-                  suggestionsCallback: (s) async => completeWithFavorites(
-                      store, await api.complete(s), s,
-                      currentLocationString: currentLocationString),
+                  suggestionsCallback: (query) async => completeWithFavorites(
+                    favorites: favorites.stops,
+                    completions: await api.complete(query),
+                    query: query,
+                    currentLocationString: currentLocationString,
+                    history: historyRepository.routes,
+                  ),
                   itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
                   onSuggestionSelected: (suggestion) {
-                    if (suggestion.isCurrentLocation) {
+                    if (suggestion.origin == DataOrigin.currentLocation) {
                       to.useCurrentLocation(context);
                     } else {
                       to.setString(context, suggestion.label);

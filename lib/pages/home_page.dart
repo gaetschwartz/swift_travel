@@ -87,7 +87,7 @@ class MainApp extends StatefulWidget {
   _MainAppState createState() => _MainAppState();
 
   static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), SettingsPage()];
-  static const tabs = [StationsTab(), RouteTab(), FavoritesTab()];
+  static const androidTabs = [StationsTab(), RouteTab(), FavoritesTab()];
 }
 
 final sideTabBarProvider = StateProvider<WidgetBuilder>((_) => null);
@@ -220,7 +220,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               context.read(sideTabBarProvider).state = null;
             }
           },
-          currentIndex: combined.page,
+          currentIndex: combined.page % MainApp.androidTabs.length,
           items: items,
         ),
         body: PageTransitionSwitcher(
@@ -232,7 +232,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           child: Navigator(
             key: navigatorKeys[combined.page],
             pages: [
-              SingleWidgetPage(MainApp.tabs[combined.page], name: items[combined.page].label)
+              SingleWidgetPage(MainApp.androidTabs[combined.page], name: items[combined.page].label)
             ],
             onPopPage: (_, __) => true,
             onUnknownRoute: (settings) => onUnknownRoute(settings, false),

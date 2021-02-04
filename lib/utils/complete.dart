@@ -1,39 +1,59 @@
 import 'dart:math' show min;
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
-import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
+import 'package:swift_travel/models/local_route.dart';
 import 'package:utils/levenshtein.dart';
 
 const _kConfidenceThreshold = .9;
 const _kMaxFavoritesCount = 3;
 
 /// Add similar favorites to the completions
-List<CffCompletion> completeWithFavorites(
-    FavoritesSharedPreferencesStore store, List<CffCompletion> compls, String query,
-    {@required String currentLocationString}) {
+List<CffCompletion> completeWithFavorites({
+  @required Iterable<FavoriteStop> favorites,
+  @required List<CffCompletion> completions,
+  @required String query,
+  List<LocalRoute> history = const [],
+  String currentLocationString,
+}) {
   final levens = <FavoriteStop, double>{};
 
-  for (final c in store.stops) {
+  for (final c in favorites) {
     if (c.stop == null) continue;
     final leven = scaledLevenshtein(query, c.name.replaceAll(',', ''));
-    // Skip if above threshold
     if (leven < _kConfidenceThreshold) {
-      // log("$query - ${c.label} => $leven");
       levens[c] = leven;
     }
   }
 
-  final favs = levens.entries.toList(growable: false);
-  favs.sort((a, b) => a.value.compareTo(b.value));
+  final favs = levens.entries.toList(growable: false)..sort((a, b) => a.value.compareTo(b.value));
 
   return [
     if (currentLocationString != null)
-      CffCompletion(label: currentLocationString, isCurrentLocation: true),
+      CffCompletion(label: currentLocationString, origin: DataOrigin.currentLocation),
+    if (history.isNotEmpty)
+      ...history
+          .flatMap((e) => [
+                CffCompletion(label: e.from, origin: DataOrigin.history),
+                CffCompletion(label: e.to, origin: DataOrigin.history),
+              ])
+          .take(3)
+          .toSet(),
     ...favs
-        .sublist(0, min(favs.length, _kMaxFavoritesCount))
+        .take(min(favs.length, _kMaxFavoritesCount))
         .map((e) => CffCompletion.fromFavorite(e.key)),
-    ...compls.where((c) => c.label != null),
+    ...completions.where((c) => c.label != null),
   ];
+}
+
+extension IterableX<T> on Iterable<T> {
+  Iterable<R> flatMap<R>(Iterable<R> Function(T e) map) sync* {
+    for (final e in this) {
+      for (final e2 in map(e)) {
+        yield e2;
+      }
+    }
+    ;
+  }
 }

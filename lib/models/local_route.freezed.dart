@@ -17,11 +17,13 @@ class _$LocalRouteTearOff {
   const _$LocalRouteTearOff();
 
 // ignore: unused_element
-  _LocalRoute call(String from, String to, {String displayName}) {
+  _LocalRoute call(String from, String to,
+      {String displayName, DateTime timestamp}) {
     return _LocalRoute(
       from,
       to,
       displayName: displayName,
+      timestamp: timestamp,
     );
   }
 
@@ -40,6 +42,7 @@ mixin _$LocalRoute {
   String get from;
   String get to;
   String get displayName;
+  DateTime get timestamp;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -51,7 +54,7 @@ abstract class $LocalRouteCopyWith<$Res> {
   factory $LocalRouteCopyWith(
           LocalRoute value, $Res Function(LocalRoute) then) =
       _$LocalRouteCopyWithImpl<$Res>;
-  $Res call({String from, String to, String displayName});
+  $Res call({String from, String to, String displayName, DateTime timestamp});
 }
 
 /// @nodoc
@@ -67,12 +70,15 @@ class _$LocalRouteCopyWithImpl<$Res> implements $LocalRouteCopyWith<$Res> {
     Object from = freezed,
     Object to = freezed,
     Object displayName = freezed,
+    Object timestamp = freezed,
   }) {
     return _then(_value.copyWith(
       from: from == freezed ? _value.from : from as String,
       to: to == freezed ? _value.to : to as String,
       displayName:
           displayName == freezed ? _value.displayName : displayName as String,
+      timestamp:
+          timestamp == freezed ? _value.timestamp : timestamp as DateTime,
     ));
   }
 }
@@ -83,7 +89,7 @@ abstract class _$LocalRouteCopyWith<$Res> implements $LocalRouteCopyWith<$Res> {
           _LocalRoute value, $Res Function(_LocalRoute) then) =
       __$LocalRouteCopyWithImpl<$Res>;
   @override
-  $Res call({String from, String to, String displayName});
+  $Res call({String from, String to, String displayName, DateTime timestamp});
 }
 
 /// @nodoc
@@ -101,23 +107,27 @@ class __$LocalRouteCopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
     Object from = freezed,
     Object to = freezed,
     Object displayName = freezed,
+    Object timestamp = freezed,
   }) {
     return _then(_LocalRoute(
       from == freezed ? _value.from : from as String,
       to == freezed ? _value.to : to as String,
       displayName:
           displayName == freezed ? _value.displayName : displayName as String,
+      timestamp:
+          timestamp == freezed ? _value.timestamp : timestamp as DateTime,
     ));
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 
 /// @nodoc
-class _$_LocalRoute implements _LocalRoute {
-  const _$_LocalRoute(this.from, this.to, {this.displayName})
+class _$_LocalRoute extends _LocalRoute {
+  const _$_LocalRoute(this.from, this.to, {this.displayName, this.timestamp})
       : assert(from != null),
-        assert(to != null);
+        assert(to != null),
+        super._();
 
   factory _$_LocalRoute.fromJson(Map<String, dynamic> json) =>
       _$_$_LocalRouteFromJson(json);
@@ -128,10 +138,12 @@ class _$_LocalRoute implements _LocalRoute {
   final String to;
   @override
   final String displayName;
+  @override
+  final DateTime timestamp;
 
   @override
   String toString() {
-    return 'LocalRoute(from: $from, to: $to, displayName: $displayName)';
+    return 'LocalRoute(from: $from, to: $to, displayName: $displayName, timestamp: $timestamp)';
   }
 
   @override
@@ -144,7 +156,10 @@ class _$_LocalRoute implements _LocalRoute {
                 const DeepCollectionEquality().equals(other.to, to)) &&
             (identical(other.displayName, displayName) ||
                 const DeepCollectionEquality()
-                    .equals(other.displayName, displayName)));
+                    .equals(other.displayName, displayName)) &&
+            (identical(other.timestamp, timestamp) ||
+                const DeepCollectionEquality()
+                    .equals(other.timestamp, timestamp)));
   }
 
   @override
@@ -152,7 +167,8 @@ class _$_LocalRoute implements _LocalRoute {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(from) ^
       const DeepCollectionEquality().hash(to) ^
-      const DeepCollectionEquality().hash(displayName);
+      const DeepCollectionEquality().hash(displayName) ^
+      const DeepCollectionEquality().hash(timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -165,9 +181,10 @@ class _$_LocalRoute implements _LocalRoute {
   }
 }
 
-abstract class _LocalRoute implements LocalRoute {
-  const factory _LocalRoute(String from, String to, {String displayName}) =
-      _$_LocalRoute;
+abstract class _LocalRoute extends LocalRoute {
+  const _LocalRoute._() : super._();
+  const factory _LocalRoute(String from, String to,
+      {String displayName, DateTime timestamp}) = _$_LocalRoute;
 
   factory _LocalRoute.fromJson(Map<String, dynamic> json) =
       _$_LocalRoute.fromJson;
@@ -178,6 +195,8 @@ abstract class _LocalRoute implements LocalRoute {
   String get to;
   @override
   String get displayName;
+  @override
+  DateTime get timestamp;
   @override
   @JsonKey(ignore: true)
   _$LocalRouteCopyWith<_LocalRoute> get copyWith;

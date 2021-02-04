@@ -365,7 +365,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.3"
+    version: "0.12.3+1"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -458,6 +458,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.4+1"
+  hive_flutter:
+    dependency: "direct main"
+    description:
+      name: hive_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.1"
   http:
     dependency: transitive
     description:
@@ -604,7 +611,7 @@ packages:
       name: mockito
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.6"
+    version: "5.0.0-nullsafety.7"
   modal_bottom_sheet:
     dependency: "direct main"
     description:
@@ -821,7 +828,7 @@ packages:
       name: shared_preferences_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2+2"
+    version: "0.0.2+3"
   shelf:
     dependency: transitive
     description:

@@ -11,16 +11,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 import 'package:swift_travel/apis/search.ch/cff.dart';
+import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/apis/sncf/sncf.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
+import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 import 'package:utils/levenshtein.dart';
@@ -39,9 +44,10 @@ class PrefsListener extends Mock {
   void call();
 }
 
+final r = Random();
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final r = Random();
 
   group('navigation api', () {
     setUp(() async {
@@ -61,6 +67,76 @@ void main() {
       store.api = NavigationApiType.sncf;
       navApi = container.read(navigationAPIProvider);
       expect(navApi is SncfApi, isTrue);
+    });
+  });
+
+  group('route history', () {
+    const route1 = LocalRoute('Genève', 'Lausanne');
+    const route2 = LocalRoute('Lausanne', 'Genève');
+    const route3 = LocalRoute('Zürich', 'Bern');
+
+    setUpAll(() async => await Hive.initFlutter());
+
+    setUp(() async => await Hive.close());
+
+    test('add route', () async {
+      final hist = RouteHistoryRepository.newInstance();
+
+      await hist.open();
+
+      await hist.clear();
+      expect(hist.routes, isEmpty);
+
+      await hist.add(route1);
+      expect(hist.routes, [route1]);
+
+      await hist.add(route2);
+      expect(hist.routes, [route1, route2]);
+
+      await hist.box.deleteAt(0);
+      expect(hist.routes, [route2]);
+
+      await hist.clear();
+      expect(hist.routes, isEmpty);
+    });
+
+    test('throws when not accessed properly', () async {
+      final hist = RouteHistoryRepository.newInstance();
+
+      expect(() async => await hist.add(route1), throwsAssertionError);
+    });
+    test('safe add works', () async {
+      final hist = RouteHistoryRepository.newInstance();
+
+      await hist.safeAdd(route1);
+      expect(hist.routes, [route1]);
+    });
+
+    test('completion', () async {
+      final hist = RouteHistoryRepository.newInstance();
+
+      await hist.open();
+
+      final c = completeWithFavorites(
+          favorites: [],
+          completions: [],
+          query: 'query',
+          history: [
+            route1,
+            route3,
+            route1,
+            route3,
+          ]);
+
+      expect(
+        c,
+        [
+          CffCompletion(label: route1.from, origin: DataOrigin.history),
+          CffCompletion(label: route1.to, origin: DataOrigin.history),
+          CffCompletion(label: route3.from, origin: DataOrigin.history),
+          CffCompletion(label: route3.to, origin: DataOrigin.history),
+        ],
+      );
     });
   });
 

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/all.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
@@ -95,9 +94,8 @@ class RouteTile extends StatelessWidget {
                 (context) => RouteDetails(route: route, i: i),
                 title: S.of(context).tabs_route,
               );
-              context
-                  .read(routeHistoryProvider)
-                  .add(LocalRoute.fromRouteConnection(route.connections[i]));
+              RouteHistoryRepository.i.safeAdd(
+                  LocalRoute.fromRouteConnection(route.connections[i], timestamp: DateTime.now()));
             },
           ),
         ),

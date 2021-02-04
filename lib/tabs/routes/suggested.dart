@@ -13,6 +13,22 @@ class SuggestedTile extends StatelessWidget {
 
   const SuggestedTile.empty() : suggestion = null;
 
+  Widget buildIcon(BuildContext context) {
+    switch (suggestion.origin) {
+      case DataOrigin.favorites:
+        return const Icon(CupertinoIcons.heart_fill, size: 20);
+        break;
+      case DataOrigin.history:
+        return const Icon(CupertinoIcons.clock, size: 20);
+        break;
+      case DataOrigin.data:
+        return CffIcon.fromIconClass(suggestion.icon, size: 20);
+      case DataOrigin.currentLocation:
+        return const Icon(FluentIcons.my_location_24_regular, size: 20);
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return suggestion == null
@@ -31,9 +47,7 @@ class SuggestedTile extends StatelessWidget {
             dense: true,
           )
         : ListTile(
-            leading: suggestion.isCurrentLocation
-                ? const Icon(FluentIcons.my_location_24_regular, size: 20)
-                : CffIcon.fromIconClass(suggestion.icon, size: 20),
+            leading: buildIcon(context),
             title: Text(suggestion.favoriteName ?? suggestion.label),
             subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
             trailing: suggestion.favoriteName != null ? const Text('⭐') : null,
