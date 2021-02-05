@@ -50,10 +50,13 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('navigation api', () {
-    setUp(() async {
+    setUpAll(() async {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
-      final preferences = await SharedPreferences.getInstance();
-      await preferences.clear();
+    });
+
+    tearDown(() async {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
     });
     test('returns the right instance', () async {
       final container = ProviderContainer();
@@ -70,11 +73,42 @@ void main() {
     });
   });
 
-  group('route history', () {
-    const route1 = LocalRoute('Genève', 'Lausanne');
-    const route2 = LocalRoute('Lausanne', 'Genève');
-    const route3 = LocalRoute('Zürich', 'Bern');
+  const route1 = LocalRoute('Genève', 'Lausanne');
+  const route2 = LocalRoute('Lausanne', 'Genève');
+  const route3 = LocalRoute('Zürich', 'Bern');
 
+  test('completion', () {
+    const currentLocation = 'Current location';
+
+    final c = completeWithFavorites(
+      favorites: [
+        FavoriteStop.fromStop('Genève'),
+        FavoriteStop.fromStop('Genève gare'),
+        FavoriteStop.fromStop('Genève nord'),
+        FavoriteStop.fromStop('Lausanne Aéroport'),
+      ],
+      completions: [
+        const CffCompletion(label: 'Genève'),
+      ],
+      query: 'Genève',
+      currentLocationString: currentLocation,
+      history: [
+        route1,
+      ],
+    );
+
+    expect(c, [
+      const CffCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
+      CffCompletion(label: route1.from, origin: DataOrigin.history),
+      CffCompletion(label: route1.to, origin: DataOrigin.history),
+      CffCompletion.fromFavorite(FavoriteStop.fromStop('Genève')),
+      CffCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare')),
+      CffCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord')),
+      const CffCompletion(label: 'Genève')
+    ]);
+  });
+
+  group('route history', () {
     setUpAll(() async => await Hive.initFlutter());
 
     setUp(() async {});
@@ -117,6 +151,13 @@ void main() {
 
       await hist.box.close();
     });
+
+    test(
+      'instance is a singleton',
+      () {
+        expect(RouteHistoryRepository.i, RouteHistoryRepository.i);
+      },
+    );
 
     test('throws when not accessed properly', () async {
       final hist = RouteHistoryRepository.newInstance();

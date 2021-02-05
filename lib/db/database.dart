@@ -20,10 +20,6 @@ class RouteHistoryRepository {
     assert(_debugInitialized,
         '$runtimeType needs to be initiated using open() before accessing the underlying box');
 
-    if (_box == null) {
-      throw StateError('This $runtimeType doesn\'t seem to be initialized');
-    }
-
     return _box;
   }
 

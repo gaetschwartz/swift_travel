@@ -54,6 +54,12 @@ jobs:
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
+      - name: Test
+        run: flutter test --coverage
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Build
         run: flutter build web --web-renderer canvaskit
       - uses: FirebaseExtended/action-hosting-deploy@v0
@@ -107,15 +113,11 @@ jobs:
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
-      - name: Test
-        run: flutter test --coverage
+
       - name: Build
         if: env.build_android == 'true'
         run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
-      - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+
       - name: Create Release
         if: env.build_android == 'true'
         id: create_release
