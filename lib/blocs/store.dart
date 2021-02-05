@@ -11,7 +11,6 @@ import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/states/favorites_routes_states.dart';
 import 'package:swift_travel/states/favorites_states.dart';
-import 'package:swift_travel/utils/errors.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
   Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true});
@@ -59,13 +58,9 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
     final favStops = <FavoriteStop>[];
     for (final stopString in _prefs.getStringList(stopsKey) ?? []) {
-      try {
-        final decode = jsonDecode(stopString) as Map<String, dynamic>;
-        final fs = FavoriteStop.fromJson(decode);
-        favStops.add(fs);
-      } on FormatException catch (e, s) {
-        reportDartError(e, s, library: 'Store', reason: 'Error while trying to decode stop');
-      }
+      final decode = jsonDecode(stopString) as Map<String, dynamic>;
+      final fs = FavoriteStop.fromJson(decode);
+      favStops.add(fs);
     }
     _stops.clear();
     _stops.addAll(favStops);
@@ -76,13 +71,9 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     final routes = _prefs.getStringList(routesKey) ?? [];
     _routes.clear();
     for (final spr in routes) {
-      try {
-        final decode = jsonDecode(spr) as Map<String, dynamic>;
-        final r = LocalRoute.fromJson(decode);
-        _routes.add(r);
-      } on FormatException catch (e, s) {
-        reportDartError(e, s, library: 'Store', reason: 'Error while trying to decode route');
-      }
+      final decode = jsonDecode(spr) as Map<String, dynamic>;
+      final r = LocalRoute.fromJson(decode);
+      _routes.add(r);
     }
 
     ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
@@ -132,20 +123,15 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     for (final e in _stops) {
       try {
         stops.add(jsonEncode(e.toJson()));
-      } on FormatException catch (e, s) {
-        reportDartError(e, s, reason: 'Error while trying to encode stop', library: 'Store');
+      } on FormatException {
+        await _prefs.setStringList(stopsKey, []);
+        rethrow;
       }
     }
     await _prefs.setStringList(stopsKey, stops);
 
-    final routes = <String>[];
-    for (final e in _routes) {
-      try {
-        routes.add(jsonEncode(e.toJson()));
-      } on FormatException catch (e, s) {
-        reportDartError(e, s, reason: 'Error while trying to encode route', library: 'Store');
-      }
-    }
+    final routes = _routes.map((e) => jsonEncode(e.toJson())).toList();
+
     await _prefs.setStringList(routesKey, routes);
 
     if (isMobile) await MyQuickActions.instance.setActions(_routes.toList(), _stops.toList());

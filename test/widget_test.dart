@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 
 void main() {
@@ -18,6 +19,33 @@ void main() {
         final lineIcon = LineIcon.fromLine(const Line('5', '72c1f0~ffffff~'));
         await _testLineIcon(t, lineIcon);
       });
+    });
+
+    testWidgets('ifWrapper', (t) async {
+      Widget buildWrapper(bool condition, {bool addElseBuilder = true}) => MaterialApp(
+            home: IfWrapper(
+                condition: condition,
+                builder: (_, c) => SizedBox(key: const Key('true-key'), child: c),
+                elseBuilder: addElseBuilder
+                    ? (_, c) => SizedBox(key: const Key('false-key'), child: c)
+                    : null,
+                child: const Text('child')),
+          );
+
+      await t.pumpWidget(buildWrapper(true));
+
+      expect(find.text('child'), findsOneWidget);
+      expect(find.byKey(const Key('true-key')), findsOneWidget);
+
+      await t.pumpWidget(buildWrapper(false));
+
+      expect(find.text('child'), findsOneWidget);
+      expect(find.byKey(const Key('false-key')), findsOneWidget);
+
+      await t.pumpWidget(buildWrapper(false, addElseBuilder: false));
+
+      expect(find.text('child'), findsOneWidget);
+      expect(find.byType(SizedBox), findsNothing);
     });
 
     group('cffIcon', () {
@@ -41,6 +69,13 @@ void main() {
           final icon = [find.byType(FaIcon), find.byType(Icon)];
           expect(icon, anyElement(findsOneWidget));
         }
+      });
+
+      test('make sure getIcon throws when null (deprecated)', () {
+        Widget getIcon() => CffIcon.getIcon(null);
+
+        expect(getIcon, returnsNormally);
+        expect(getIcon(), isNotNull);
       });
     });
   });

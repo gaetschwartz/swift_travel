@@ -76,6 +76,13 @@ void main() {
       store.api = NavigationApiType.sncf;
       navApi = container.read(navigationAPIProvider);
       expect(navApi, isA<SncfApi>());
+
+      expect(() => NavigationApi.getFactory(null), throwsStateError);
+
+      for (final a in NavigationApiType.values) {
+        final f = NavigationApi.getFactory(a);
+        expect(f.shortDesc, isNotEmpty);
+      }
     });
   });
 }

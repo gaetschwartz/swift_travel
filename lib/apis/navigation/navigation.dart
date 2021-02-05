@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/search.ch/cff.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
@@ -26,11 +27,10 @@ class NavigationApiFactory<T extends NavigationApi> {
 }
 
 abstract class NavigationApi {
-  Locale _locale = const Locale('en');
+  Locale locale = const Locale('en');
 
-  Locale get locale => _locale;
-
-  set locale(Locale locale) => _locale = locale;
+  @visibleForOverriding
+  NavigationApi();
 
   static NavigationApiFactory getFactory(NavigationApiType api) {
     switch (api) {
@@ -39,7 +39,7 @@ abstract class NavigationApi {
       case NavigationApiType.cff:
         return cffFactory;
     }
-    throw Exception('Unexpected NavigationApiType value: $api');
+    throw StateError('Unexpected NavigationApiType value: $api');
   }
 
   Future<List<CffCompletion>> complete(

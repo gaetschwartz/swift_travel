@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
@@ -56,7 +54,6 @@ class CffIcon extends StatelessWidget {
         return const FaIcon(FontAwesomeIcons.tram);
     }
 
-    log('Unknown icon type : `$v`');
     return const FaIcon(FontAwesomeIcons.question);
   }
 
