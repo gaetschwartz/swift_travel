@@ -30,7 +30,8 @@ class RouteHistoryRepository {
 
   Future<int> add(LocalRoute route) {
     if (box.length >= _maxSize) box.deleteAll([for (var i = 0; i < 10; i++) i]);
-    return box.add(route.toJson());
+    final r = route.timestamp == null ? route.copyWith(timestamp: DateTime.now()) : route;
+    return box.add(r.toJson());
   }
 
   Future<int> safeAdd(LocalRoute route) async {

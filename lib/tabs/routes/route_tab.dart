@@ -33,6 +33,7 @@ import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/datepicker.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -686,6 +687,9 @@ class _RoutePageState extends State<RoutePage> {
 
 final _locationNotFound = RegExp('Stop ([\d\.,-]*) not found.');
 
+final _predictionProvider = Provider.family<Prediction<LocalRoute>, DateTime>(
+    (_, date) => predictRoute(RouteHistoryRepository.i.routes, date));
+
 class RoutesView extends StatelessWidget {
   const RoutesView({
     Key key,
@@ -833,21 +837,59 @@ class RoutesView extends StatelessWidget {
           ],
         ),
         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
-        empty: () => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              '🔎',
-              style: TextStyle(fontSize: 48),
+        empty: () {
+          return Consumer(
+            builder: (context, watch, child) {
+              final date = watch(_dateProvider).state;
+              final pred = watch(_predictionProvider(date));
+              if (pred.confidence > .75) {
+                return Align(
+                  alignment: Alignment.topCenter,
+                  child: ListTile(
+                    leading: const Text('💡', style: TextStyle(fontSize: 18)),
+                    horizontalTitleGap: 8,
+                    title: const Text('Suggestion'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${S.of(context).from} ${pred.prediction.from}',
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          '${S.of(context).to} ${pred.prediction.to}',
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    isThreeLine: true,
+                    onTap: () {
+                      from.setString(context, pred.prediction.from);
+                      to.setString(context, pred.prediction.to);
+                    },
+                  ),
+                );
+              } else {
+                return child;
+              }
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '🔎',
+                  style: TextStyle(fontSize: 48),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  S.of(context).find_a_route,
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.center,
+                )
+              ],
             ),
-            const SizedBox(height: 24),
-            Text(
-              S.of(context).find_a_route,
-              style: Theme.of(context).textTheme.headline6,
-              textAlign: TextAlign.center,
-            )
-          ],
-        ),
+          );
+        },
         missingPluginException: () => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

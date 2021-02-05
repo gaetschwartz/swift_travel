@@ -12,6 +12,8 @@ abstract class LocalRoute implements _$LocalRoute {
     String to, {
     String displayName,
     DateTime timestamp,
+    int fromI,
+    int toI,
   }) = _LocalRoute;
 
   factory LocalRoute.now(

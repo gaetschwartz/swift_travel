@@ -46,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fav_route" : MessageLookupByLibrary.simpleMessage("Ajouter la route aux favoris"),
     "find_a_route" : MessageLookupByLibrary.simpleMessage("Faire un itinéraire"),
     "font" : MessageLookupByLibrary.simpleMessage("Police"),
-    "from" : MessageLookupByLibrary.simpleMessage("De"),
+    "from" : MessageLookupByLibrary.simpleMessage("de"),
     "maps_app" : MessageLookupByLibrary.simpleMessage("Application de cartes"),
     "more" : MessageLookupByLibrary.simpleMessage("Plus"),
     "navigation_api" : MessageLookupByLibrary.simpleMessage("API de navigation"),

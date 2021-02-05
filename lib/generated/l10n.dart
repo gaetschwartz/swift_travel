@@ -405,10 +405,10 @@ class S {
     );
   }
 
-  /// `From`
+  /// `from`
   String get from {
     return Intl.message(
-      'From',
+      'from',
       name: 'from',
       desc: '',
       args: [],

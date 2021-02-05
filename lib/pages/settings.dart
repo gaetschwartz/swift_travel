@@ -16,7 +16,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
+import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/search.dart';
@@ -24,6 +26,7 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/choice_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/modal.dart';
@@ -256,6 +259,22 @@ class _SettingsPageState extends State<SettingsPage> {
                   );
                 }),
             ListTile(
+                leading: const Icon(CupertinoIcons.clock),
+                title: const Text('Route history'),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(
+                    platformRoute(
+                        builder: (context) => const RouteHistoryPage(),
+                        isDarwin: Responsive.isDarwin(context)),
+                  );
+                }),
+            ListTile(
+                leading: const Icon(CupertinoIcons.clear),
+                title: const Text('Clear history'),
+                onTap: () {
+                  RouteHistoryRepository.i.clear();
+                }),
+            ListTile(
                 leading: const Icon(Icons.screen_lock_landscape),
                 title: const Text('Screen info'),
                 onTap: () {
@@ -358,6 +377,61 @@ class _SettingsPageState extends State<SettingsPage> {
   void onMapsChanged(PreferencesBloc prefs, Maps m) => prefs.mapsApp = m;
 
   void onAPIChanged(PreferencesBloc prefs, NavigationApiType api) => prefs.api = api;
+}
+
+class RouteHistoryPage extends StatefulWidget {
+  const RouteHistoryPage({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _RouteHistoryPageState createState() => _RouteHistoryPageState();
+}
+
+const _days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+class _RouteHistoryPageState extends State<RouteHistoryPage> {
+  @override
+  Widget build(BuildContext context) {
+    final routes = RouteHistoryRepository.i.routes;
+    final pred = predictRoute(routes, DateTime.now());
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () async {
+                await RouteHistoryRepository.i.clear();
+                setState(() {});
+              })
+        ],
+      ),
+      body: Column(
+        children: [
+          const Text('Predicted route :'),
+          ListTile(
+              title: Text('Confidence : ${(pred.confidence * 100).toStringAsFixed(2)} %'),
+              subtitle: Text(pred.arguments.toString())),
+          ListTile(
+            title: Text(pred.prediction.from),
+            subtitle: Text(pred.prediction.to),
+          ),
+          const Divider(),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, i) => ListTile(
+                title: Text(routes[i].from),
+                subtitle: Text(routes[i].to),
+                trailing: Text(
+                    '${TimeOfDay.fromDateTime(routes[i].timestamp).format(context)}, ${_days[routes[i].timestamp.weekday - 1]}'),
+              ),
+              itemCount: routes.length,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _TestWidget extends StatefulWidget {
