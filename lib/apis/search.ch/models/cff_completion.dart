@@ -7,6 +7,7 @@ part 'cff_completion.g.dart';
 
 @freezed
 abstract class CffCompletion with _$CffCompletion {
+  @JsonSerializable(includeIfNull: false)
   const factory CffCompletion({
     @required String label,
     double dist,

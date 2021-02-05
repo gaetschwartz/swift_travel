@@ -19,16 +19,24 @@ _$_CffCompletion _$_$_CffCompletionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_CffCompletionToJson(_$_CffCompletion instance) =>
-    <String, dynamic>{
-      'label': instance.label,
-      'dist': instance.dist,
-      'iconclass': instance.icon,
-      'html': instance.html,
-      'id': instance.id,
-      'favoriteName': instance.favoriteName,
-      'origin': _$DataOriginEnumMap[instance.origin],
-    };
+Map<String, dynamic> _$_$_CffCompletionToJson(_$_CffCompletion instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('label', instance.label);
+  writeNotNull('dist', instance.dist);
+  writeNotNull('iconclass', instance.icon);
+  writeNotNull('html', instance.html);
+  writeNotNull('id', instance.id);
+  writeNotNull('favoriteName', instance.favoriteName);
+  writeNotNull('origin', _$DataOriginEnumMap[instance.origin]);
+  return val;
+}
 
 T _$enumDecode<T>(
   Map<T, dynamic> enumValues,

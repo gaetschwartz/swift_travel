@@ -16,6 +16,15 @@
       "program": "integration_test/app_test.dart",
     },
     {
+      "name": "Dart: Run all Tests",
+      "type": "dart",
+      "request": "launch",
+      "program": "./test/",
+      "args": [
+        "--coverage"
+      ]
+    },
+    {
       "name": "Launch (override)",
       "request": "launch",
       "type": "dart",

@@ -162,7 +162,7 @@ class __$CffCompletionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 
 /// @nodoc
 class _$_CffCompletion implements _CffCompletion {

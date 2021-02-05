@@ -77,7 +77,12 @@ void main() {
 
     setUpAll(() async => await Hive.initFlutter());
 
-    setUp(() async => await Hive.close());
+    setUp(() async {});
+
+    tearDown(() async {
+      await Hive.close();
+      await Hive.deleteBoxFromDisk(RouteHistoryRepository.boxKey);
+    });
 
     test('add route', () async {
       final hist = RouteHistoryRepository.newInstance();
@@ -93,11 +98,22 @@ void main() {
       await hist.add(route2);
       expect(hist.routes, [route1, route2]);
 
+      await hist.add(route3);
+      expect(hist.routes, [route1, route2, route3]);
+
+      expect(hist.first, route1);
+      expect(hist.last, route3);
+
       await hist.box.deleteAt(0);
+      expect(hist.routes, [route2, route3]);
+
+      await hist.box.deleteAt(hist.size - 1);
       expect(hist.routes, [route2]);
 
       await hist.clear();
       expect(hist.routes, isEmpty);
+
+      expect(hist.watch(), emits(anything));
     });
 
     test('throws when not accessed properly', () async {
@@ -134,7 +150,6 @@ void main() {
           CffCompletion(label: route1.from, origin: DataOrigin.history),
           CffCompletion(label: route1.to, origin: DataOrigin.history),
           CffCompletion(label: route3.from, origin: DataOrigin.history),
-          CffCompletion(label: route3.to, origin: DataOrigin.history),
         ],
       );
     });

@@ -8,6 +8,7 @@ class RouteHistoryRepository {
 
   // ignore: prefer_constructors_over_static_methods
   static RouteHistoryRepository get i => _instance ?? (_instance = (RouteHistoryRepository._()));
+  static const boxKey = 'route_history';
 
   RouteHistoryRepository._();
 
@@ -30,8 +31,7 @@ class RouteHistoryRepository {
 
   Future<int> add(LocalRoute route) {
     if (box.length >= _maxSize) box.deleteAll([for (var i = 0; i < 10; i++) i]);
-    final r = route.timestamp == null ? route.copyWith(timestamp: DateTime.now()) : route;
-    return box.add(r.toJson());
+    return box.add(route.toJson());
   }
 
   Future<int> safeAdd(LocalRoute route) async {
@@ -48,7 +48,7 @@ class RouteHistoryRepository {
       _debugInitialized = true;
       return true;
     }());
-    _box = await Hive.openBox<Map>('route_history');
+    _box = await Hive.openBox<Map>(boxKey);
     return this;
   }
 
@@ -59,4 +59,6 @@ class RouteHistoryRepository {
   LocalRoute get last => LocalRoute.fromJson(box.getAt(box.length - 1));
 
   Stream<BoxEvent> watch() => box.watch();
+
+  int get size => box.length;
 }

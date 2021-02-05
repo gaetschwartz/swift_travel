@@ -8,6 +8,7 @@ import 'package:utils/levenshtein.dart';
 
 const _kConfidenceThreshold = .9;
 const _kMaxFavoritesCount = 3;
+const _kMaxHistoryCount = 3;
 
 /// Add similar favorites to the completions
 List<CffCompletion> completeWithFavorites({
@@ -38,7 +39,7 @@ List<CffCompletion> completeWithFavorites({
                 CffCompletion(label: e.from, origin: DataOrigin.history),
                 CffCompletion(label: e.to, origin: DataOrigin.history),
               ])
-          .take(3)
+          .take(_kMaxHistoryCount)
           .toSet(),
     ...favs
         .take(min(favs.length, _kMaxFavoritesCount))
