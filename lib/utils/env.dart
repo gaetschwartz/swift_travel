@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class Env {
-  const Env._();
+mixin Env {
   static const isReleaseMode = bool.fromEnvironment('RELEASE_MODE');
   static const overridePlatform = bool.fromEnvironment('OVERRIDE_PLATFORM');
   static const page = String.fromEnvironment('PAGE');

@@ -1,10 +1,16 @@
 import 'package:flutter/src/material/time.dart';
+import 'package:flutter_riverpod/all.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/search.ch/cff.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/sncf/sncf.dart';
+import 'package:swift_travel/blocs/navigation.dart';
+import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 
 class MockNavigationApi extends NavigationApi {
@@ -49,7 +55,27 @@ class MockNavigationApi extends NavigationApi {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('always true', () {
-    expect(true, isTrue);
+  group('navigation api', () {
+    setUpAll(() async {
+      SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
+    });
+
+    tearDown(() async {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+    });
+    test('returns the right instance', () async {
+      final container = ProviderContainer();
+      final store = container.read(preferencesProvider);
+      await store.loadFromPreferences();
+
+      store.api = NavigationApiType.cff;
+      var navApi = container.read(navigationAPIProvider);
+      expect(navApi, isA<CffApi>());
+
+      store.api = NavigationApiType.sncf;
+      navApi = container.read(navigationAPIProvider);
+      expect(navApi, isA<SncfApi>());
+    });
   });
 }

@@ -5,22 +5,27 @@ TextSpan parseDecoratedText(String text, TextStyle style) {
   final chars = text.characters;
   var bold = false;
   var italic = false;
+  var lastWasMod = false;
   final buffer = StringBuffer();
 
   for (final c in chars) {
     switch (c) {
       case '*':
-        _addSpan(spans, buffer, bold, italic);
+        if (!lastWasMod) _addSpan(spans, buffer, bold, italic);
         bold = !bold;
+        lastWasMod = true;
         break;
       case '_':
-        _addSpan(spans, buffer, bold, italic);
+        if (!lastWasMod) _addSpan(spans, buffer, bold, italic);
         italic = !italic;
+        lastWasMod = true;
         break;
       default:
         buffer.write(c);
+        lastWasMod = false;
     }
   }
+  _addSpan(spans, buffer, bold, italic);
   return TextSpan(children: spans, style: style);
 }
 

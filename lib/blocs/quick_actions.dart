@@ -23,16 +23,20 @@ class MyQuickActions {
   // ignore: prefer_constructors_over_static_methods
   static MyQuickActions get instance => _instance ?? (_instance = MyQuickActions._());
 
+  bool _debugInitialized = false;
+
   void init() {
     log('Initialize', name: 'QuickActions');
     try {
       quickActions.initialize(_init);
     } on MissingPluginException {
       log('Unsupported for now on $platform');
+      _debugInitialized = true;
     }
   }
 
   Future<void> _init(String shortcutType) async {
+    assert(!_debugInitialized, 'Quick Actions aren\'t initialized.');
     await FirebaseCrashlytics.instance.log('User tapped a quick action : `$shortcutType`');
     log('Tapped shortcut $shortcutType', name: 'QuickActions');
     final split = shortcutType.split('_');
