@@ -113,7 +113,9 @@ void main() {
       await hist.clear();
       expect(hist.routes, isEmpty);
 
-      expect(hist.watch(), emits(anything));
+      expect(hist.watch(), emitsDone);
+
+      await hist.box.close();
     });
 
     test('throws when not accessed properly', () async {
