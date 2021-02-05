@@ -69,8 +69,6 @@ abstract class Format {
       case 'fr':
       case 'en':
         return m == 1 ? 'min' : 'mins';
-      case 'de':
-        return 'min';
       default:
         return 'min';
     }

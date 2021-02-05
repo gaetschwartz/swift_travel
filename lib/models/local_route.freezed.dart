@@ -147,12 +147,11 @@ class __$LocalRouteCopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 
 /// @nodoc
-class _$_LocalRoute extends _LocalRoute {
+class _$_LocalRoute implements _LocalRoute {
   const _$_LocalRoute(this.from, this.to,
       {this.displayName, this.timestamp, this.fromI, this.toI})
       : assert(from != null),
-        assert(to != null),
-        super._();
+        assert(to != null);
 
   factory _$_LocalRoute.fromJson(Map<String, dynamic> json) =>
       _$_$_LocalRouteFromJson(json);
@@ -216,8 +215,7 @@ class _$_LocalRoute extends _LocalRoute {
   }
 }
 
-abstract class _LocalRoute extends LocalRoute {
-  const _LocalRoute._() : super._();
+abstract class _LocalRoute implements LocalRoute {
   const factory _LocalRoute(String from, String to,
       {String displayName,
       DateTime timestamp,

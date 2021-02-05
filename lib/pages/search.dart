@@ -162,7 +162,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             trailing: IconButton(
               color: CupertinoTheme.of(context).primaryColor,
-              onPressed: () => widget.binder.controller.clear(),
+              onPressed: () => widget.binder.clear(context),
               icon: const Icon(CupertinoIcons.clear),
             ),
           ),

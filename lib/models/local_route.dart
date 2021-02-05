@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
+import 'package:swift_travel/mocking/mocking.dart';
 
 part 'local_route.freezed.dart';
 part 'local_route.g.dart';
 
 @freezed
-abstract class LocalRoute implements _$LocalRoute {
+abstract class LocalRoute with _$LocalRoute {
   @JsonSerializable(includeIfNull: false)
   const factory LocalRoute(
     String from,
@@ -21,22 +22,19 @@ abstract class LocalRoute implements _$LocalRoute {
     String to, {
     String displayName,
   }) =>
-      _LocalRoute(from, to, displayName: displayName, timestamp: DateTime.now());
-
-  // ignore: unused_element
-  const LocalRoute._();
+      _LocalRoute(from, to, displayName: displayName, timestamp: CustomizableDateTime.current);
 
   factory LocalRoute.fromRouteConnection(
     RouteConnection connection, {
     DateTime timestamp,
+    String displayName,
   }) =>
       _LocalRoute(
         connection.from,
         connection.to,
         timestamp: timestamp,
+        displayName: displayName,
       );
 
   factory LocalRoute.fromJson(Map<String, dynamic> json) => _$LocalRouteFromJson(json);
-
-  LocalRoute get reversed => LocalRoute(to, from, displayName: displayName);
 }

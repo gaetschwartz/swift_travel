@@ -13,7 +13,7 @@ int delayFromJson(dynamic s) {
 
 const _defaultDelay = 0;
 
-String delayToJson(int d) => d > 0 ? '+$d' : d.toString();
+String delayToJson(int d) => d >= 0 ? '+$d' : d.toString();
 
 @freezed
 abstract class Exit with _$Exit {

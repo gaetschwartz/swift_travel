@@ -61,7 +61,7 @@ Future<void> main() async {
     );
     print('Platform: $platform');
   }
-  if (kDebugMode) print(Env.env);
+  if (kDebugMode) print(Env.summary);
 
   overridePlatform();
   setPathUrlStrategy();
