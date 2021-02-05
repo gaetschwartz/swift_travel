@@ -54,12 +54,6 @@ jobs:
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
-      - name: Test
-        run: flutter test --coverage
-      - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Build
         run: flutter build web --web-renderer canvaskit
       - uses: FirebaseExtended/action-hosting-deploy@v0
@@ -113,35 +107,9 @@ jobs:
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
-
-      - name: Build
-        if: env.build_android == 'true'
-        run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
-
-      - name: Create Release
-        if: env.build_android == 'true'
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      - name: Test
+        run: flutter test --coverage
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v1
         with:
-          tag_name: ci-build-${{ steps.git-data.outputs.count }}
-          release_name: |
-            CI Build #${{ steps.git-data.outputs.count }}
-          body: |
-            *This is an automated CI build for ${{ steps.git-data.outputs.hash }}.*
-
-            `${{ steps.git-data.outputs.msg }}`
-          draft: false
-          prerelease: true
-      - name: Upload Release Asset
-        if: env.build_android == 'true'
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./build/app/outputs/flutter-apk/app-release.apk
-          asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
-          asset_content_type: application/vnd.android.package-archive
+          token: ${{ secrets.CODECOV_TOKEN }}
