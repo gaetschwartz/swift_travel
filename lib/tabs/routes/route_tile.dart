@@ -8,10 +8,10 @@ import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
+import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
-import 'package:theming/dynamic_theme.dart';
 
 class RouteTile extends StatelessWidget {
   const RouteTile({
@@ -53,7 +53,7 @@ class RouteTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+          boxShadow: shadowListOf(context),
           color: Theme.of(context).cardColor,
           borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),

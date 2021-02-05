@@ -2,3 +2,5 @@ ignore:
   - "**/*.g.dart"
   - "**/*.freezed.dart"
   - "lib/generated/"
+  - "lib/utils/errors.dart"
+  - "lib/utils/share.dart"

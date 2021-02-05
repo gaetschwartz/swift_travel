@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/apis/search.ch/models/stop.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/expandable.dart';
+import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
-import 'package:theming/dynamic_theme.dart';
 
 class TransportLegTile extends StatefulWidget {
   const TransportLegTile({
@@ -45,7 +45,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
       padding: const EdgeInsets.all(8.0),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+          boxShadow: shadowListOf(context),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
           color: Theme.of(context).cardColor,
         ),

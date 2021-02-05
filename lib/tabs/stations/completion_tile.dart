@@ -15,11 +15,11 @@ import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
+import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:theming/dialogs/input_dialog.dart';
-import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
@@ -47,7 +47,7 @@ class CffCompletionTile extends ConsumerWidget {
 
     final Widget listTile = DecoratedBox(
       decoration: BoxDecoration(
-        boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+        boxShadow: shadowListOf(context),
         color: Theme.of(context).cardColor,
         borderRadius: _kRadius,
       ),

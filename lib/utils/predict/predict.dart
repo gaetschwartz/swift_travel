@@ -9,7 +9,7 @@ const _useKThreshold = 10;
 const _minutesPerDay = 24 * 60;
 
 Prediction<LocalRoute> predictRoute(List<LocalRoute> routes, DateTime dateTime) {
-  if (routes.isEmpty) return null;
+  if (routes.isEmpty) return const Prediction(null, double.negativeInfinity, null);
 
   final s = <String, int>{};
   final pr = <LocalRoute>[];

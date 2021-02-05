@@ -7,6 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theming/dynamic_theme.dart';
 
+List<BoxShadow> shadowListOf(BuildContext context) {
+  final s = DynamicTheme.shadowOf(context).buttonShadow;
+  return s == null ? [] : [s];
+}
+
 final MaterialColor purpleAbin = createMaterialColor(const Color(0xffcbaacb));
 final MaterialColor blueAbin = createMaterialColor(const Color(0xffabdee6));
 final MaterialColor redAccent = createMaterialColor(Colors.redAccent);

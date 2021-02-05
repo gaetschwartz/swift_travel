@@ -31,6 +31,7 @@ import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/states/route_textfield_state.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
+import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
@@ -41,33 +42,39 @@ import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
-final _timeTypeProvider = StateProvider((_) => TimeType.depart);
-final _dateProvider = StateProvider((_) => DateTime.now());
+final timeTypeProvider = StateProvider((_) => TimeType.depart);
+final dateProvider = StateProvider((_) => DateTime.now());
 
-final _fromTextfieldProvider = StateProvider((_) => const RouteTextfieldState.useCurrentLocation());
-final _toTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
+final fromTextfieldProvider = StateProvider((_) => const RouteTextfieldState.useCurrentLocation());
+final toTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
 
-final _futureRouteProvider = Provider((_) => Fetcher._());
-final fetcherProvider =
-    ChangeNotifierProvider((ref) => ref.watch(_futureRouteProvider)..fetch(ref));
+final fetcherProvider = Provider<FetcherBase>((_) => Fetcher());
+final routeStatesProvider = ChangeNotifierProvider((ref) => ref.watch(fetcherProvider)..fetch(ref));
 
-class Fetcher extends ChangeNotifier {
-  Fetcher._();
+abstract class FetcherBase extends ChangeNotifier {
+  Future<void> fetch(ProviderReference ref);
 
+  RouteStates state;
+}
+
+class Fetcher extends FetcherBase {
   RouteStates _state = const RouteStates.empty();
 
+  @override
   RouteStates get state => _state;
 
+  @override
   set state(RouteStates state) {
     _state = state;
     notifyListeners();
   }
 
+  @override
   Future<void> fetch(ProviderReference ref) async {
-    final from = ref.watch(_fromTextfieldProvider);
-    final to = ref.watch(_toTextfieldProvider);
-    final date = ref.watch(_dateProvider).state;
-    final timeType = ref.watch(_timeTypeProvider).state;
+    final from = ref.watch(fromTextfieldProvider);
+    final to = ref.watch(toTextfieldProvider);
+    final date = ref.watch(dateProvider).state;
+    final timeType = ref.watch(timeTypeProvider).state;
     final _cff = ref.read(navigationAPIProvider);
 
     print('Something changed checking if we need to rebuild');
@@ -193,8 +200,8 @@ class RoutePage extends StatefulWidget {
   _RoutePageState createState() => _RoutePageState();
 }
 
-final TextStateBinder from = TextStateBinder(TextEditingController(), _fromTextfieldProvider);
-final TextStateBinder to = TextStateBinder(TextEditingController(), _toTextfieldProvider);
+final TextStateBinder from = TextStateBinder(TextEditingController(), fromTextfieldProvider);
+final TextStateBinder to = TextStateBinder(TextEditingController(), toTextfieldProvider);
 
 class _RoutePageState extends State<RoutePage> {
   final FocusNode fnFrom = FocusNode();
@@ -220,18 +227,18 @@ class _RoutePageState extends State<RoutePage> {
   }
 
   void clearProviders() {
-    context.read(fetcherProvider).state = const RouteStates.empty();
-    context.read(_dateProvider).state = DateTime.now();
-    context.read(_timeTypeProvider).state = TimeType.depart;
+    context.read(routeStatesProvider).state = const RouteStates.empty();
+    context.read(dateProvider).state = DateTime.now();
+    context.read(timeTypeProvider).state = TimeType.depart;
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     fromFormatter =
-        MyTextFormatter(S.of(context).current_location, from, context.read(_fromTextfieldProvider));
+        MyTextFormatter(S.of(context).current_location, from, context.read(fromTextfieldProvider));
     toFormatter =
-        MyTextFormatter(S.of(context).current_location, to, context.read(_fromTextfieldProvider));
+        MyTextFormatter(S.of(context).current_location, to, context.read(fromTextfieldProvider));
     favorites = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     api = context.read(navigationAPIProvider);
     from.syncState(context);
@@ -366,7 +373,7 @@ class _RoutePageState extends State<RoutePage> {
                         },
                         icon: Consumer(builder: (context, w, _) {
                           final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
-                          w(fetcherProvider);
+                          w(routeStatesProvider);
 
                           return _store.routes.any((lr) => lr.from == from.text && lr.to == to.text)
                               ? const Icon(Icons.star)
@@ -393,7 +400,7 @@ class _RoutePageState extends State<RoutePage> {
                                     doLoad: false,
                                   );
 
-                                  context.read(fetcherProvider).state =
+                                  context.read(routeStatesProvider).state =
                                       RouteStates.routes(CffRoute.fromJson(mockRoute));
                                 }
                               : null,
@@ -402,8 +409,8 @@ class _RoutePageState extends State<RoutePage> {
                               primary: Theme.of(context).textTheme.button.color),
                           onPressed: () async {
                             unawaited(Vibration.select());
-                            var type = context.read(_timeTypeProvider).state;
-                            final _date = context.read(_dateProvider);
+                            var type = context.read(timeTypeProvider).state;
+                            final _date = context.read(dateProvider);
                             final date = await pickDate(
                               context,
                               initialDateTime:
@@ -416,11 +423,11 @@ class _RoutePageState extends State<RoutePage> {
                               textColor: CupertinoColors.activeBlue,
                             );
                             if (date != null) _date.state = date;
-                            if (type != null) context.read(_timeTypeProvider).state = type;
+                            if (type != null) context.read(timeTypeProvider).state = type;
                           },
                           child: Consumer(builder: (context, w, _) {
-                            final _date = w(_dateProvider);
-                            final _time = w(_timeTypeProvider);
+                            final _date = w(dateProvider);
+                            final _time = w(timeTypeProvider);
                             final dateFormatted = DateFormat('d MMM y').format(_date.state);
                             final timeFormatted = DateFormat('H:mm').format(_date.state);
                             final type = describeEnum(_time.state);
@@ -446,7 +453,7 @@ class _RoutePageState extends State<RoutePage> {
                       onPressed: () {
                         Vibration.select();
                         unFocusFields();
-                        context.read(_dateProvider).state = DateTime.now();
+                        context.read(dateProvider).state = DateTime.now();
                       },
                       icon: const Icon(Icons.restore),
                     ),
@@ -481,7 +488,7 @@ class _RoutePageState extends State<RoutePage> {
                 padding: const EdgeInsets.only(left: 8),
                 child: Consumer(
                     builder: (context, w, _) =>
-                        iconForState(w(_fromTextfieldProvider).state, iconSize: 16)),
+                        iconForState(w(fromTextfieldProvider).state, iconSize: 16)),
               ),
               onTap: () async {
                 await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
@@ -514,8 +521,7 @@ class _RoutePageState extends State<RoutePage> {
                     style: Theme.of(context).textTheme.bodyText1,
                     decoration: InputDecoration(
                       prefixIcon: Consumer(
-                          builder: (context, w, _) =>
-                              iconForState(w(_fromTextfieldProvider).state)),
+                          builder: (context, w, _) => iconForState(w(fromTextfieldProvider).state)),
                       border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -587,7 +593,7 @@ class _RoutePageState extends State<RoutePage> {
                 padding: const EdgeInsets.only(left: 8),
                 child: Consumer(
                     builder: (context, w, _) =>
-                        iconForState(w(_toTextfieldProvider).state, iconSize: 16)),
+                        iconForState(w(toTextfieldProvider).state, iconSize: 16)),
               ),
               onTap: () async {
                 await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
@@ -620,7 +626,7 @@ class _RoutePageState extends State<RoutePage> {
                     style: Theme.of(context).textTheme.bodyText1,
                     decoration: InputDecoration(
                       prefixIcon: Consumer(
-                          builder: (context, w, _) => iconForState(w(_toTextfieldProvider).state)),
+                          builder: (context, w, _) => iconForState(w(toTextfieldProvider).state)),
                       border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -698,7 +704,7 @@ class RoutesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, w, _) {
-      final fetcher = w(fetcherProvider);
+      final fetcher = w(routeStatesProvider);
       return fetcher.state.when(
         routes: (routes) => CustomScrollView(
           slivers: [
@@ -802,7 +808,7 @@ class RoutesView extends StatelessWidget {
                       onPressed: () => Geolocator.openAppSettings(),
                       child: const Text('Open settings'),
                       style: ElevatedButton.styleFrom(
-                        shadowColor: DynamicTheme.shadowOf(context).buttonShadow.color,
+                        shadowColor: DynamicTheme.shadowOf(context).buttonShadow?.color,
                         elevation: 8,
                         shape: const StadiumBorder(),
                       ),
@@ -840,7 +846,7 @@ class RoutesView extends StatelessWidget {
         empty: () {
           return Consumer(
             builder: (context, watch, child) {
-              final date = watch(_dateProvider).state;
+              final date = watch(dateProvider).state;
               final pred = watch(_predictionProvider(date));
               if (pred.confidence > .75) {
                 return Align(
@@ -983,7 +989,7 @@ class ShadowsAround extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+        boxShadow: shadowListOf(context),
       ),
       child: child,
     );

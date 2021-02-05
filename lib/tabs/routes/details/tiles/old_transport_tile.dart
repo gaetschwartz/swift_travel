@@ -4,10 +4,10 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/apis/search.ch/models/stop.dart';
+import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
-import 'package:theming/dynamic_theme.dart';
 
 @Deprecated('Use `NewTransportLegTile`')
 class OldTransportLegTile extends StatelessWidget {
@@ -25,7 +25,7 @@ class OldTransportLegTile extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+          boxShadow: shadowListOf(context),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
           color: Theme.of(context).cardColor,
         ),

@@ -171,6 +171,7 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
+          supportedLocales: S.delegate.supportedLocales,
           shortcuts: shortcuts2,
           actions: {
             EscapeIntent: CallbackAction(onInvoke: (e) {
@@ -195,7 +196,6 @@ class _MyAppState extends State<MyApp> {
               return null;
             })
           },
-          supportedLocales: S.delegate.supportedLocales,
           onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
           onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
           onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),

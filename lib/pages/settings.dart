@@ -652,7 +652,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
                   margin: const EdgeInsets.only(bottom: 16, right: 8, left: 8),
                   width: 120,
                   decoration: BoxDecoration(
-                    boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                    boxShadow: shadowListOf(context),
                     color: Theme.of(context).cardColor,
                     borderRadius: radius,
                     border: ft == theme.theme
@@ -840,7 +840,7 @@ class _ModeWidget extends StatelessWidget {
           child: Container(
             key: Key('mode-${describeEnum(mode).toLowerCase()}'),
             decoration: BoxDecoration(
-                boxShadow: [DynamicTheme.shadowOf(context).buttonShadow],
+                boxShadow: shadowListOf(context),
                 color: mode == ThemeMode.system ? null : t.cardColor,
                 border: theme.mode == mode
                     ? Border.all(
