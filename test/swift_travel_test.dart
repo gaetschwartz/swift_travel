@@ -11,7 +11,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 import 'package:swift_travel/apis/search.ch/cff.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
@@ -31,10 +30,11 @@ const route3 = LocalRoute('Zürich', 'Bern');
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  final dir = path.join('test', 'test_results', 'route_history');
+
   group('route history >', () {
     setUpAll(() async {
-      final temporaryDirectory = await getTemporaryDirectory();
-      await Hive.init(path.join(temporaryDirectory.path, 'route_history_test'));
+      await Hive.init(dir);
     });
 
     tearDown(() async {

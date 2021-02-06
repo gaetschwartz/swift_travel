@@ -63,6 +63,8 @@ Future<void> main() async {
   overridePlatform();
   setPathUrlStrategy();
 
+  WidgetsFlutterBinding.ensureInitialized();
+
   if (isMobile) {
     await Firebase.initializeApp();
     unawaited(FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode));
