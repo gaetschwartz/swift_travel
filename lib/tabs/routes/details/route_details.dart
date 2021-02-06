@@ -479,7 +479,7 @@ class MyPainter extends CustomPainter {
       canvas.drawLine(Offset(0, i * block), Offset(gridSize * block, i * block), p);
       canvas.drawLine(Offset(i * block, 0), Offset(i * block, gridSize * block), p);
     }
-    for (var p in snecc) {
+    for (final p in snecc) {
       canvas.drawRect(Offset(p.x * block, p.y * block) & Size(block, block), p2);
     }
     if (food != null) {

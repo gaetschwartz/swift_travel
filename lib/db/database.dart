@@ -25,14 +25,17 @@ class RouteHistoryRepository {
 
   bool _debugInitialized = false;
 
-  Future<int> add(LocalRoute route) {
-    if (box.length >= _maxSize) box.deleteAll([for (var i = 0; i < 10; i++) i]);
-    return box.add(route.toJson());
+  Future<int> add(LocalRoute route, {bool guardNullValues = true}) async {
+    if (box.length >= _maxSize) {
+      await box.deleteAll(List.generate(_maxSize ~/ 8, (i) => i));
+    }
+    if (route.from == null || route.to == null || route.timestamp == null) return box.length;
+    return await box.add(route.toJson());
   }
 
-  Future<int> safeAdd(LocalRoute route) async {
+  Future<int> safeAdd(LocalRoute route, {bool guardNullValues = true}) async {
     if (_box == null) await open();
-    return box.add(route.toJson());
+    return await add(route, guardNullValues: guardNullValues);
   }
 
   List<LocalRoute> get routes => values.toList();

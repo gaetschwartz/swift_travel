@@ -26,7 +26,7 @@ Prediction<LocalRoute> predictRoute(List<LocalRoute> routes, DateTime dateTime) 
 
   final distances = <Pair<LocalRoute, double>>[];
 
-  for (var r in pr) {
+  for (final r in pr) {
     final dof = r.timestamp.weekday;
     final d = math.sqrt(math.pow((dayOfWeek - dof) / 7, 2) +
         math.pow((_timeOfDay(r.timestamp) - time) / _minutesPerDay, 2));

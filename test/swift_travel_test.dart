@@ -243,7 +243,7 @@ void main() {
       ].map((e) => e.map((key, value) => MapEntry(key, value.toString())));
       final builder = QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
 
-      for (var params in paramList) {
+      for (final params in paramList) {
         final url = builder('route', params);
         expect(() => encodeRouteUri(Uri.parse(url), 0), throwsFormatException);
       }
@@ -271,7 +271,7 @@ void main() {
       ].map((e) => e.map((key, value) => MapEntry(key, value.toString())));
       final builder = QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
 
-      for (var params in paramList) {
+      for (final params in paramList) {
         final url = builder('route', params);
 
         final encoded = encodeRouteUri(Uri.parse(url), 0);

@@ -408,15 +408,17 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
       ),
       body: Column(
         children: [
-          const Text('Predicted route :'),
-          ListTile(
-              title: Text('Confidence : ${(pred.confidence * 100).toStringAsFixed(2)} %'),
-              subtitle: Text(pred.arguments.toString())),
-          ListTile(
-            title: Text(pred.prediction.from),
-            subtitle: Text(pred.prediction.to),
-          ),
-          const Divider(),
+          if (pred.prediction != null) ...[
+            const Text('Predicted route :'),
+            ListTile(
+                title: Text('Confidence : ${(pred.confidence * 100).toStringAsFixed(2)} %'),
+                subtitle: Text(pred.arguments.toString())),
+            ListTile(
+              title: Text(pred.prediction.from),
+              subtitle: Text(pred.prediction.to),
+            ),
+            const Divider(),
+          ],
           Expanded(
             child: ListView.builder(
               itemBuilder: (context, i) => ListTile(
