@@ -61,15 +61,6 @@
       ]
     },
     {
-      "name": "Launch (corrupt)",
-      "request": "launch",
-      "type": "dart",
-      "args": [
-        "--dart-define",
-        "CORRUPT_FAVORITES=true"
-      ]
-    },
-    {
       "name": "Launch (loading)",
       "request": "launch",
       "type": "dart",

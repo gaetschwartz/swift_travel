@@ -55,7 +55,7 @@ class MockNavigationApi extends NavigationApi {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('navigation api', () {
+  group('navigation api >', () {
     setUpAll(() async {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
     });

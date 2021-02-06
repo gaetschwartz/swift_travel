@@ -22,7 +22,7 @@ class PrefsListener extends Mock {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  group('favorites store', () {
+  group('favorites store >', () {
     setUpAll(() async {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
     });
@@ -124,7 +124,7 @@ void main() {
     });
   });
 
-  group('preferences store', () {
+  group('preferences store >', () {
     setUp(() {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
     });

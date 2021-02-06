@@ -54,21 +54,17 @@ final routeStatesProvider = ChangeNotifierProvider((ref) => ref.watch(fetcherPro
 abstract class FetcherBase extends ChangeNotifier {
   Future<void> fetch(ProviderReference ref);
 
-  RouteStates state;
-}
-
-class Fetcher extends FetcherBase {
   RouteStates _state = const RouteStates.empty();
 
-  @override
   RouteStates get state => _state;
 
-  @override
   set state(RouteStates state) {
     _state = state;
     notifyListeners();
   }
+}
 
+class Fetcher extends FetcherBase {
   @override
   Future<void> fetch(ProviderReference ref) async {
     final from = ref.watch(fromTextfieldProvider);

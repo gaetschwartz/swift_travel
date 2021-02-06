@@ -28,6 +28,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   dio: ^3.0.10
   expandable: ^4.1.4
+  file: ^6.0.0-nullsafety.4
   firebase_core: ^0.8.0-1.0.nullsafety
   firebase_crashlytics: ^0.5.0-1.0.nullsafety
   flex_color_scheme: ^2.0.0-nullsafety.1
@@ -48,6 +49,7 @@ dependencies:
   modal_bottom_sheet: ^2.0.0-nullsafety.1
   octo_image: ^0.3.0
   overflow_view: ^0.2.2
+  path_provider: ^1.6.27
   pedantic: ^1.10.0-nullsafety.3
   quick_actions: ^0.4.0+8
   share: ^2.0.0-nullsafety.2

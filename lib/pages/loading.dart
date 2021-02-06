@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/blocs/links.dart';
@@ -11,6 +13,7 @@ import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/blocs/quick_actions.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/theme.dart';
@@ -106,9 +109,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   Future<void> initSettings(SharedPreferences prefs) async {
-    if (Env.corruptedFavorites) {
-      await prefs.setStringList(FavoritesSharedPreferencesStore.routesKey, ['[', '}']);
-    }
+    await Hive.initFlutter('swift_travel/db/');
+    await RouteHistoryRepository.i.open();
 
     try {
       await context.read(dynamicTheme).configure(themeConfiguration);

@@ -10,7 +10,9 @@ import 'package:utils/levenshtein.dart';
 
 void main() {
   final r = Random();
-  group('format', () {
+
+  TestWidgetsFlutterBinding.ensureInitialized();
+  group('format >', () {
     test('distance', () {
       expect(Format.distance(0), '0 m');
       expect(Format.distance(10), '10 m');
@@ -58,7 +60,7 @@ void main() {
         '&f3=%26%3F');
   });
 
-  group('parse color', () {
+  group('parse color >', () {
     const iterCount = 50;
     test('works correctly ', () {
       for (var i = 0; i < iterCount; i++) {

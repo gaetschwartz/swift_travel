@@ -10,7 +10,8 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:swift_travel/apis/search.ch/cff.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
@@ -22,93 +23,24 @@ import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
+const geneva = 'Genève';
+const route1 = LocalRoute(geneva, 'Lausanne');
+const route2 = LocalRoute('Lausanne', geneva);
+const route3 = LocalRoute('Zürich', 'Bern');
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  const geneva = 'Genève';
-  group('models', () {
-    setUpAll(() {
-      CustomizableDateTime.customTime = DateTime(2021);
+  group('route history >', () {
+    setUpAll(() async {
+      final temporaryDirectory = await getTemporaryDirectory();
+      await Hive.init(path.join(temporaryDirectory.path, 'route_history_test'));
     });
-    test('localRoute', () {
-      final route1 =
-          LocalRoute('from', 'to', displayName: 'name', timestamp: CustomizableDateTime.current);
-      final route2 = LocalRoute.fromRouteConnection(const RouteConnection(from: 'from', to: 'to'),
-          displayName: 'name', timestamp: CustomizableDateTime.current);
-      final route3 = LocalRoute.now('from', 'to', displayName: 'name');
-      final route4 = LocalRoute.fromJson({
-        'from': 'from',
-        'to': 'to',
-        'displayName': 'name',
-        'timestamp': '2021-01-01T00:00:00.000'
-      });
-      expect(route1, equals(route2));
-      expect(route2, equals(route3));
-      expect(route3, equals(route4));
-    });
-
-    test('favoriteStop', () {
-      const stop1 = FavoriteStop(geneva, name: geneva);
-      final stop2 = FavoriteStop.fromStop(geneva);
-      final stop3 = FavoriteStop.fromCompletion(const CffCompletion(label: geneva));
-      final stop4 = FavoriteStop.fromJson({'stop': geneva, 'name': geneva});
-
-      expect(stop1, equals(stop2));
-      expect(stop2, equals(stop3));
-      expect(stop3, equals(stop4));
-    });
-  });
-
-  test('env', () {
-    expect(Env.map.keys.length, 6);
-    expect(Env.summary, isNotEmpty);
-  });
-
-  const route1 = LocalRoute(geneva, 'Lausanne');
-  const route2 = LocalRoute('Lausanne', geneva);
-  const route3 = LocalRoute('Zürich', 'Bern');
-
-  test('completion', () {
-    const currentLocation = 'Current location';
-
-    final c = completeWithFavorites(
-      favorites: [
-        FavoriteStop.fromStop(geneva),
-        FavoriteStop.fromStop('Genève gare'),
-        FavoriteStop.fromStop('Genève nord'),
-        FavoriteStop.fromStop('Lausanne Aéroport'),
-      ],
-      completions: [
-        const CffCompletion(label: geneva),
-      ],
-      query: geneva,
-      currentLocationString: currentLocation,
-      history: [
-        route1,
-      ],
-    );
-
-    expect(c, [
-      const CffCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
-      CffCompletion(label: route1.from, origin: DataOrigin.history),
-      CffCompletion(label: route1.to, origin: DataOrigin.history),
-      CffCompletion.fromFavorite(FavoriteStop.fromStop(geneva)),
-      CffCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare')),
-      CffCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord')),
-      const CffCompletion(label: 'Genève')
-    ]);
-  });
-
-  group('route history', () {
-    setUpAll(() async => await Hive.initFlutter());
-
-    setUp(() async {});
 
     tearDown(() async {
       await Hive.close();
       await Hive.deleteBoxFromDisk(RouteHistoryRepository.boxKey);
     });
-
     test('add route', () async {
       final hist = RouteHistoryRepository.newInstance();
 
@@ -189,19 +121,87 @@ void main() {
     });
   });
 
-  group('route uri', () {
-    group('ints <-> list<bool>', () {
-      final r = Random();
-      test('encode/decoded', () {
-        for (var i = 0; i < 10000; i++) {
-          final l = List.generate(r.nextInt(10), (_) => r.nextBool());
-          final encoded = encodeArgsToInt(l);
-          final decoded = decodeIntToArgs(encoded, l.length);
-
-          expect(decoded, l);
-        }
-      });
+  group('models >', () {
+    setUpAll(() {
+      CustomizableDateTime.customTime = DateTime(2021);
     });
+    test('localRoute', () {
+      final route1 =
+          LocalRoute('from', 'to', displayName: 'name', timestamp: CustomizableDateTime.current);
+      final route2 = LocalRoute.fromRouteConnection(const RouteConnection(from: 'from', to: 'to'),
+          displayName: 'name', timestamp: CustomizableDateTime.current);
+      final route3 = LocalRoute.now('from', 'to', displayName: 'name');
+      final route4 = LocalRoute.fromJson({
+        'from': 'from',
+        'to': 'to',
+        'displayName': 'name',
+        'timestamp': '2021-01-01T00:00:00.000'
+      });
+      expect(route1, equals(route2));
+      expect(route2, equals(route3));
+      expect(route3, equals(route4));
+    });
+
+    test('favoriteStop', () {
+      const stop1 = FavoriteStop(geneva, name: geneva);
+      final stop2 = FavoriteStop.fromStop(geneva);
+      final stop3 = FavoriteStop.fromCompletion(const CffCompletion(label: geneva));
+      final stop4 = FavoriteStop.fromJson({'stop': geneva, 'name': geneva});
+
+      expect(stop1, equals(stop2));
+      expect(stop2, equals(stop3));
+      expect(stop3, equals(stop4));
+    });
+  });
+
+  test('env', () {
+    expect(Env.map.keys.length, 5);
+    expect(Env.summary, isNotEmpty);
+  });
+
+  test('completion', () {
+    const currentLocation = 'Current location';
+
+    final c = completeWithFavorites(
+      favorites: [
+        FavoriteStop.fromStop(geneva),
+        FavoriteStop.fromStop('Genève gare'),
+        FavoriteStop.fromStop('Genève nord'),
+        FavoriteStop.fromStop('Lausanne Aéroport'),
+      ],
+      completions: [
+        const CffCompletion(label: geneva),
+      ],
+      query: geneva,
+      currentLocationString: currentLocation,
+      history: [
+        route1,
+      ],
+    );
+
+    expect(c, [
+      const CffCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
+      CffCompletion(label: route1.from, origin: DataOrigin.history),
+      CffCompletion(label: route1.to, origin: DataOrigin.history),
+      CffCompletion.fromFavorite(FavoriteStop.fromStop(geneva)),
+      CffCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare')),
+      CffCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord')),
+      const CffCompletion(label: 'Genève')
+    ]);
+  });
+
+  group('route uri >', () {
+    final r = Random();
+    test('encode/decoded', () {
+      for (var i = 0; i < 10000; i++) {
+        final l = List.generate(r.nextInt(10), (_) => r.nextBool());
+        final encoded = encodeArgsToInt(l);
+        final decoded = decodeIntToArgs(encoded, l.length);
+
+        expect(decoded, l);
+      }
+    });
+
     test("encode malformed data doesn't work", () {
       final paramList = [
         {

@@ -9,8 +9,9 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 
 void main() {
-  group('widgets', () {
-    group('lineIcon', () {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  group('widgets >', () {
+    group('lineIcon >', () {
       testWidgets('.constructor()', (t) async {
         const lineIcon = LineIcon(foreground: 'ffffff', background: '72c1f0', line: '5');
         await _testLineIcon(t, lineIcon);
@@ -48,7 +49,7 @@ void main() {
       expect(find.byType(SizedBox), findsNothing);
     });
 
-    group('cffIcon', () {
+    group('cffIcon >', () {
       testWidgets('.constructor()', (t) async {
         for (final v in Vehicle.values) {
           final cffIcon = CffIcon(v);

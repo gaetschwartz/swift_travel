@@ -10,13 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
 import 'package:swift_travel/constants/build.dart';
-import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
@@ -65,9 +62,6 @@ Future<void> main() async {
 
   overridePlatform();
   setPathUrlStrategy();
-
-  await Hive.initFlutter();
-  await RouteHistoryRepository.i.open();
 
   if (isMobile) {
     await Firebase.initializeApp();

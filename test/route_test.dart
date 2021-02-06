@@ -3,7 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/db/database.dart';
@@ -16,17 +17,6 @@ import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'apis_test.dart';
 
 class MockFetcher extends FetcherBase {
-  RouteStates _state;
-
-  @override
-  RouteStates get state => _state;
-
-  @override
-  set state(RouteStates state) {
-    notifyListeners();
-    _state = state;
-  }
-
   @override
   Future<void> fetch(ProviderReference ref) async {
     state = RouteStates.routes(CffRoute.fromJson(mockRoute));
@@ -35,13 +25,24 @@ class MockFetcher extends FetcherBase {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-
-  group('route tab', () {
+  group('route tab >', () {
     setUpAll(() async {
-      await Hive.initFlutter();
-      await RouteHistoryRepository.i.open();
+      final temporaryDirectory = await getTemporaryDirectory();
+      await Hive.init(path.join(temporaryDirectory.path, 'route_tab_test'));
     });
-    testWidgets('main widget', (t) async {
+
+    tearDown(() async {
+      await Hive.deleteBoxFromDisk(RouteHistoryRepository.boxKey);
+    });
+
+    _testRouteTab();
+  });
+}
+
+Future<void> _testRouteTab() async {
+  testWidgets(
+    'main tab',
+    (t) async {
       await t.pumpWidget(ProviderScope(
           overrides: [
             navigationAPIProvider.overrideWithValue(MockNavigationApi()),
@@ -83,6 +84,11 @@ void main() {
 
       expect(tile, findsOneWidget);
       expect(text, findsOneWidget);
-    });
-  });
+      print('test done');
+
+      await t.idle();
+
+      await Hive.close();
+    },
+  );
 }
