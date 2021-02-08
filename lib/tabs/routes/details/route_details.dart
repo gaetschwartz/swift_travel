@@ -371,86 +371,88 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Snecc game'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: started ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
-          onPressed: started ? stop : start,
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: CustomPaint(
-                      painter: MyPainter(gridSize, snecc, food),
+      child: FocusableActionDetector(
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Snecc game'),
+          ),
+          floatingActionButton: FloatingActionButton(
+            child: started ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
+            onPressed: started ? stop : start,
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: CustomPaint(
+                        painter: MyPainter(gridSize, snecc, food),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Column(
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(shape: const CircleBorder()),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      '↑',
-                      style: TextStyle(fontSize: 32),
-                    ),
-                  ),
-                  onPressed: () => dir = Direction.up,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(shape: const CircleBorder()),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          '←',
-                          style: TextStyle(fontSize: 32),
-                        ),
+              const SizedBox(height: 16),
+              Column(
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        '↑',
+                        style: TextStyle(fontSize: 32),
                       ),
-                      onPressed: () => dir = Direction.left,
                     ),
-                    const SizedBox(width: 32),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(shape: const CircleBorder()),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          '→',
-                          style: TextStyle(fontSize: 32),
-                        ),
-                      ),
-                      onPressed: () => dir = Direction.right,
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(shape: const CircleBorder()),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      '↓',
-                      style: TextStyle(fontSize: 32),
-                    ),
+                    onPressed: () => dir = Direction.up,
                   ),
-                  onPressed: () => dir = Direction.down,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-          ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            '←',
+                            style: TextStyle(fontSize: 32),
+                          ),
+                        ),
+                        onPressed: () => dir = Direction.left,
+                      ),
+                      const SizedBox(width: 32),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            '→',
+                            style: TextStyle(fontSize: 32),
+                          ),
+                        ),
+                        onPressed: () => dir = Direction.right,
+                      ),
+                    ],
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        '↓',
+                        style: TextStyle(fontSize: 32),
+                      ),
+                    ),
+                    onPressed: () => dir = Direction.down,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );
