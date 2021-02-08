@@ -22,10 +22,11 @@ import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
+final timestamp = DateTime(2021);
 const geneva = 'Genève';
-const route1 = LocalRoute(geneva, 'Lausanne');
-const route2 = LocalRoute('Lausanne', geneva);
-const route3 = LocalRoute('Zürich', 'Bern');
+final route1 = LocalRoute(geneva, 'Lausanne', timestamp: timestamp);
+final route2 = LocalRoute('Lausanne', geneva, timestamp: timestamp);
+final route3 = LocalRoute('Zürich', 'Bern', timestamp: timestamp);
 
 final testResultFolder = path.join('test', 'test_results');
 
