@@ -232,17 +232,17 @@ class Snecc_c_c extends StatefulWidget {
 }
 
 @immutable
-class Pos {
+class Point {
   final int x;
   final int y;
 
-  const Pos(this.x, this.y);
+  const Point(this.x, this.y);
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is Pos && o.x == x && o.y == y;
+    return o is Point && o.x == x && o.y == y;
   }
 
   @override
@@ -251,19 +251,19 @@ class Pos {
   @override
   String toString() => 'Pos(x: $x, y: $y)';
 
-  Pos move(Direction dir) {
+  Point move(Direction dir) {
     switch (dir) {
       case Direction.up:
-        return Pos(x, y - 1);
+        return Point(x, y - 1);
         break;
       case Direction.down:
-        return Pos(x, y + 1);
+        return Point(x, y + 1);
         break;
       case Direction.right:
-        return Pos(x + 1, y);
+        return Point(x + 1, y);
         break;
       case Direction.left:
-        return Pos(x - 1, y);
+        return Point(x - 1, y);
         break;
     }
     throw Exception();
@@ -279,7 +279,7 @@ enum Direction {
 
 class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMixin {
   final r = m.Random();
-  final snecc = ListQueue<Pos>();
+  final snecc = ListQueue<Point>();
   Ticker ticker;
   int tick = 0;
   double period = 300;
@@ -287,9 +287,9 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
 
   final gridSize = 20;
 
-  Pos food;
+  Point food;
 
-  Pos head;
+  Point head;
   Direction dir = Direction.up;
 
   @override
@@ -307,9 +307,9 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
   void start() {
     setState(() {
       started = true;
-      head = Pos((gridSize / 2).round(), (gridSize / 2).round());
+      head = Point((gridSize / 2).round(), (gridSize / 2).round());
       snecc.addAll([for (var i = 0; i < 5; i++) head]);
-      food = Pos(r.nextInt(gridSize), r.nextInt(gridSize));
+      food = Point(r.nextInt(gridSize), r.nextInt(gridSize));
       dir = Direction.up;
       period = 300;
       tick = 0;
@@ -345,7 +345,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
 
       if (food == head) {
         snecc.add(head);
-        food = Pos(r.nextInt(gridSize), r.nextInt(gridSize));
+        food = Point(r.nextInt(gridSize), r.nextInt(gridSize));
         if (period >= 175) period -= 25;
       } else if (head.x >= gridSize || head.x < 0 || head.y >= gridSize || head.y < 0) {
         showDialog(
@@ -459,8 +459,8 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
 
 class MyPainter extends CustomPainter {
   final int gridSize;
-  final Queue<Pos> snecc;
-  final Pos food;
+  final Queue<Point> snecc;
+  final Point food;
 
   MyPainter(this.gridSize, this.snecc, this.food);
 

@@ -27,10 +27,12 @@ const route1 = LocalRoute(geneva, 'Lausanne');
 const route2 = LocalRoute('Lausanne', geneva);
 const route3 = LocalRoute('Zürich', 'Bern');
 
+final testResultFolder = path.join('test', 'test_results');
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final dir = path.join('test', 'test_results', 'route_history');
+  final dir = path.join(testResultFolder, 'route_history');
 
   group('route history >', () {
     setUpAll(() async {

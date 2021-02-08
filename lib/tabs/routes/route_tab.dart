@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart' hide Position;
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shimmer/shimmer.dart';
@@ -17,7 +17,8 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/search.ch/cff.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
-import 'package:swift_travel/blocs/location.dart';
+import 'package:swift_travel/blocs/location/location.dart';
+import 'package:swift_travel/blocs/location/models/models.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/database.dart';
@@ -844,7 +845,7 @@ class RoutesView extends StatelessWidget {
             builder: (context, watch, child) {
               final date = watch(dateProvider).state;
               final pred = watch(_predictionProvider(date));
-              if (pred.confidence > .75) {
+              if (pred.confidence > .25) {
                 return Align(
                   alignment: Alignment.topCenter,
                   child: ListTile(

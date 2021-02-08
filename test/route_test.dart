@@ -14,6 +14,7 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 
 import 'apis_test.dart';
+import 'swift_travel_test.dart';
 
 class MockFetcher extends FetcherBase {
   @override
@@ -25,7 +26,7 @@ class MockFetcher extends FetcherBase {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final dir = path.join('test', 'test_results', 'route_tab');
+  final dir = path.join(testResultFolder, 'route_tab');
   group('route tab >', () {
     setUpAll(() async {
       await Hive.init(dir);

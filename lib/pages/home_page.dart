@@ -77,7 +77,7 @@ final tabProvider = ChangeNotifierProvider.autoDispose<CombinedPageController>((
 
 bool isTablet(BuildContext context) {
   final mq = MediaQuery.of(context);
-  return mq.size.longestSide / mq.devicePixelRatio > 600 && mq.orientation == Orientation.landscape;
+  return mq.size.longestSide / mq.devicePixelRatio > 400 && mq.orientation == Orientation.landscape;
 }
 
 class MainApp extends StatefulWidget {
@@ -120,7 +120,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           return Row(children: [
             ConstrainedBox(
               child: child,
-              constraints: const BoxConstraints(maxWidth: 320),
+              constraints: const BoxConstraints(maxWidth: 350),
             ),
             const SafeArea(child: VerticalDivider(width: 0)),
             Expanded(
@@ -207,6 +207,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     return Consumer(builder: (context, w, _) {
       final combined = w(tabProvider);
 
+      final page = combined.page % MainApp.androidTabs.length;
+
       return Scaffold(
         key: const Key('home-scaffold'),
         resizeToAvoidBottomInset: false,
@@ -220,7 +222,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               context.read(sideTabBarProvider).state = null;
             }
           },
-          currentIndex: combined.page % MainApp.androidTabs.length,
+          currentIndex: page,
           items: items,
         ),
         body: PageTransitionSwitcher(
@@ -231,9 +233,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           ),
           child: Navigator(
             key: navigatorKeys[combined.page],
-            pages: [
-              SingleWidgetPage(MainApp.androidTabs[combined.page], name: items[combined.page].label)
-            ],
+            pages: [SingleWidgetPage(MainApp.androidTabs[page], name: items[page].label)],
             onPopPage: (_, __) => true,
             onUnknownRoute: (settings) => onUnknownRoute(settings, false),
             onGenerateRoute: (settings) => onGenerateRoute(settings, false),
