@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/blocs/links.dart';
@@ -108,7 +110,10 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   Future<void> initSettings(SharedPreferences prefs) async {
-    await Hive.initFlutter('swift_travel/db/');
+    if (!kIsWeb) {
+      final appDir = await getApplicationDocumentsDirectory();
+      Hive.init(path.join(appDir.path, 'hive_data'));
+    }
     await RouteHistoryRepository.i.open();
 
     try {

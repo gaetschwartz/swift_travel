@@ -42,7 +42,6 @@ dependencies:
   freezed_annotation: ^0.12.0
   google_fonts: ^1.0.0
   hive: ^1.4.4+1
-  hive_flutter: ^0.3.1
   intl: ^0.17.0-nullsafety.2
   introduction_screen: ^1.0.9
   json_annotation: ^3.0.0
@@ -52,7 +51,7 @@ dependencies:
   path_provider: ^1.6.27
   path_provider_macos: ">=0.0.4+8 <2.0.0"
   pedantic: ^1.10.0-nullsafety.3
-  quick_actions: ^0.4.0+8
+  quick_actions: ^0.5.0-nullsafety
   share: ^2.0.0-nullsafety.2
   shared_preferences: ^0.5.6+3
   shimmer: ^2.0.0-nullsafety.0

@@ -43,6 +43,9 @@ final _dark = FlexColorScheme.dark(scheme: FlexScheme.mandyRed).toScheme;
 
 ThemeConfiguration get themeConfiguration {
   return ThemeConfiguration(
+    applyToAllThemes: (t) {
+      return t.copyWith(fixTextFieldOutlineLabel: true);
+    },
     themes: {
       'default': FullTheme(
         name: 'Swift',

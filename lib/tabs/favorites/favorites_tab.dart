@@ -14,6 +14,7 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/stop_input.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dialogs/loading_dialog.dart';
+import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
@@ -60,11 +61,17 @@ class _FavoritesTabState extends State<FavoritesTab>
           appBar: materialAppBar(context, title: Text(S.of(context).tabs_favourites)),
           floatingActionButton: isDarwin
               ? null
-              : FloatingActionButton(
-                  tooltip: 'Add a favorite',
-                  shape: const StadiumBorder(),
+              : ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    shape: const StadiumBorder(),
+                    primary: Theme.of(context).colorScheme.onPrimary,
+                    onPrimary: Theme.of(context).colorScheme.primary,
+                    elevation: 4,
+                    shadowColor: DynamicTheme.shadowOf(context).buttonShadow.color,
+                  ),
                   onPressed: addFav,
-                  child: const Icon(Icons.add),
+                  icon: const Icon(Icons.add),
+                  label: Text(S.of(context).add_to_favs),
                 ),
           body: child),
       child: Consumer(builder: (context, w, _) {

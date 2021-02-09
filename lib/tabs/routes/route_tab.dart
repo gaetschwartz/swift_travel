@@ -469,6 +469,8 @@ class _RoutePageState extends State<RoutePage> {
   static const _fromHeroTag = 'fromHeroTag';
   static const _toHeroTag = 'toHeroTag';
 
+  static const _suggestionsBoxDecoration =
+      SuggestionsBoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16)));
   Widget buildFromField(BuildContext context, {@required bool isDarwin}) {
     final currentLocationString = S.of(context).current_location;
 
@@ -552,6 +554,7 @@ class _RoutePageState extends State<RoutePage> {
                       from.setString(context, suggestion.label);
                     }
                   },
+                  suggestionsBoxDecoration: _suggestionsBoxDecoration,
                   hideOnEmpty: true,
                   transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
                     opacity: controller,
@@ -613,6 +616,7 @@ class _RoutePageState extends State<RoutePage> {
               children: [
                 TypeAheadField<CffCompletion>(
                   key: const Key('route-second-textfield-key'),
+                  suggestionsBoxDecoration: _suggestionsBoxDecoration,
                   debounceDuration: const Duration(milliseconds: 250),
                   textFieldConfiguration: TextFieldConfiguration(
                     inputFormatters: [toFormatter],

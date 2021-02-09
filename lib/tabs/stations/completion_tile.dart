@@ -34,7 +34,7 @@ class CffCompletionTile extends ConsumerWidget {
 
   final CffCompletion sugg;
 
-  static const _kRadius = BorderRadius.all(Radius.circular(16));
+  static const _kRadius = BorderRadius.all(Radius.circular(24));
   @override
   Widget build(BuildContext context, Reader watch) {
     final iconClass = sugg.icon;

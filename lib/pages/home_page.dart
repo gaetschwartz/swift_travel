@@ -19,6 +19,7 @@ import 'package:swift_travel/pages/settings.dart';
 import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';
+import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/utils/page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
@@ -113,34 +114,31 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: IfWrapper(
-        condition: isTablet(context),
-        builder: (context, child) {
-          return Row(children: [
-            ConstrainedBox(
-              child: child,
-              constraints: const BoxConstraints(maxWidth: 350),
+    return IfWrapper(
+      condition: isTablet(context),
+      builder: (context, child) {
+        return Row(children: [
+          ConstrainedBox(
+            child: child,
+            constraints: const BoxConstraints(maxWidth: 350),
+          ),
+          const SafeArea(child: VerticalDivider(width: 0)),
+          Expanded(
+              child: ClipRect(
+            child: Navigator(
+              key: sideBarNavigatorKey,
+              pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
+              onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
+              onPopPage: (_, __) => true,
             ),
-            const SafeArea(child: VerticalDivider(width: 0)),
-            Expanded(
-                child: ClipRect(
-              child: Navigator(
-                key: sideBarNavigatorKey,
-                pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
-                onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
-                onPopPage: (_, __) => true,
-              ),
-            )),
-          ]);
-        },
-        child: isDarwin ? buildCupertinoTabScaffold(context) : buildScaffold(context),
-      ),
+          )),
+        ]);
+      },
+      child: isDarwin ? buildCupertinoTabScaffold(context) : buildScaffold(context),
     );
   }
 
-  CupertinoTabScaffold buildCupertinoTabScaffold(BuildContext context) {
+  Widget buildCupertinoTabScaffold(BuildContext context) {
     final items = [
       BottomNavigationBarItem(
         icon: const Icon(CupertinoIcons.search),
@@ -162,32 +160,39 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       )
     ];
 
-    return CupertinoTabScaffold(
-      controller: combinedPageController.cupertinoTabController,
-      resizeToAvoidBottomInset: false,
-      tabBar: CupertinoTabBar(
-        onTap: (i) {
-          Vibration.selectSoft();
-          if (i == oldI) {
-            if (navigatorKeys[i] != null) {
-              navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
+    return Scaffold(
+      body: CupertinoTabScaffold(
+        controller: combinedPageController.cupertinoTabController,
+        resizeToAvoidBottomInset: false,
+        tabBar: CupertinoTabBar(
+          onTap: (i) {
+            Vibration.selectSoft();
+            if (i == oldI) {
+              if (navigatorKeys[i] != null) {
+                navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
+              }
+              context.read(sideTabBarProvider).state = null;
             }
-            context.read(sideTabBarProvider).state = null;
-          }
-          oldI = i;
-        },
-        backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
-        items: items,
-      ),
-      tabBuilder: (context, i) => Navigator(
-        key: navigatorKeys[i],
-        pages: [SingleWidgetPage(MainApp.iosTabs[i], title: items[i].label)],
-        onPopPage: (_, __) => true,
-        onUnknownRoute: (settings) => onUnknownRoute(settings, true),
-        onGenerateRoute: (settings) => onGenerateRoute(settings, true),
+            oldI = i;
+          },
+          backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
+          items: items,
+        ),
+        tabBuilder: (context, i) => Navigator(
+          key: navigatorKeys[i],
+          pages: [SingleWidgetPage(MainApp.iosTabs[i], title: items[i].label)],
+          onPopPage: (_, __) => true,
+          onUnknownRoute: (settings) => onUnknownRoute(settings, true),
+          onGenerateRoute: (settings) => onGenerateRoute(settings, true),
+        ),
       ),
     );
   }
+
+  List<Color> gradient(Color c) => [
+        augment(c),
+        c,
+      ];
 
   Widget buildScaffold(BuildContext context) {
     final titles = [
@@ -212,14 +217,13 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     ];
     return Consumer(builder: (context, w, _) {
       final combined = w(tabProvider);
-
       final page = combined.page % MainApp.androidTabs.length;
 
       return Scaffold(
         key: const Key('home-scaffold'),
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: CustomNavigationBar(
-          blurEffect: true,
+          backgroundColor: Colors.transparent,
           strokeColor: Theme.of(context).accentColor,
           selectedColor: Theme.of(context).accentColor,
           onTap: (i) {
@@ -236,11 +240,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           elevation: 0,
         ),
         body: PageTransitionSwitcher(
-          transitionBuilder: (child, primaryAnimation, secondaryAnimation) => FadeThroughTransition(
-            animation: primaryAnimation,
-            secondaryAnimation: secondaryAnimation,
-            child: child,
-          ),
+          transitionBuilder: (child, primaryAnimation, secondaryAnimation) => child,
+          duration: Duration.zero,
           child: Navigator(
             key: navigatorKeys[combined.page],
             pages: [SingleWidgetPage(MainApp.androidTabs[page], name: titles[page])],
@@ -358,6 +359,7 @@ AppBar materialAppBar(BuildContext context,
     automaticallyImplyLeading: false,
     title: title,
     backgroundColor: Colors.transparent,
+    elevation: .0,
     actions: [
       ...actions,
       if (addSettings)

@@ -213,6 +213,8 @@ class _MyAppState extends State<MyApp> {
                 child: child,
               );
             },
+            elseBuilder: (context, child) =>
+                ScrollConfiguration(behavior: const NoOverscrollGlowBehavior(), child: child),
             child: child,
           ),
           initialRoute: 'loading',
@@ -378,4 +380,10 @@ class Unfocus extends StatelessWidget {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: child,
       );
+}
+
+class NoOverscrollGlowBehavior extends ScrollBehavior {
+  const NoOverscrollGlowBehavior();
+  @override
+  Widget buildViewportChrome(context, child, axisDirection) => child;
 }

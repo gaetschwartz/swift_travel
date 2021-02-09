@@ -1,13 +1,14 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/generated/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
+import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -55,8 +56,26 @@ class FavoriteStationTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             isDarwin
-                ? const Icon(CupertinoIcons.heart_fill)
-                : const Icon(FontAwesomeIcons.solidStar),
+                ? const GradientMask(
+                    child: Icon(CupertinoIcons.heart_fill, size: 32),
+                    gradient: RadialGradient(
+                      colors: [
+                        Colors.red,
+                        Colors.redAccent,
+                      ],
+                      center: Alignment.center,
+                      tileMode: TileMode.mirror,
+                    ))
+                : const GradientMask(
+                    child: Icon(FluentIcons.star_24_filled, size: 32),
+                    gradient: RadialGradient(
+                      colors: [
+                        Colors.yellow,
+                        Colors.orange,
+                      ],
+                      center: Alignment.center,
+                      tileMode: TileMode.mirror,
+                    )),
           ],
         ),
         onTap: () => Navigator.of(context).pushNamed('/route', arguments: stop),
