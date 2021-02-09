@@ -26,6 +26,7 @@ dependencies:
   cached_network_image: ^2.3.2+1
   collection: ^1.14.13
   cupertino_icons: ^1.0.0
+  custom_navigation_bar: ^0.7.1
   dio: ^3.0.10
   expandable: ^4.1.4
   file: ^6.0.0-nullsafety.4

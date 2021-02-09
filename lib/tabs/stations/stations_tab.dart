@@ -18,7 +18,9 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
+import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/utils/complete.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
@@ -93,11 +95,29 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
         resizeToAvoidBottomInset: false,
         child: child,
       ),
-      elseBuilder: (context, child) => Scaffold(
-        appBar: materialAppBar(context, title: Text(S.of(context).tabs_search)),
-        resizeToAvoidBottomInset: false,
-        body: child,
-      ),
+      elseBuilder: (context, child) {
+        List<Color> gradient(Color c) => [
+              augment(c),
+              c,
+            ];
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: isDebugMode
+                ? LinearGradient(
+                    colors: gradient(Colors.blue),
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  )
+                : null,
+          ),
+          child: Scaffold(
+            appBar: materialAppBar(context, title: Text(S.of(context).tabs_search)),
+            resizeToAvoidBottomInset: false,
+            body: child,
+            backgroundColor: Colors.transparent,
+          ),
+        );
+      },
       child: SafeArea(
         bottom: false,
         child: Column(

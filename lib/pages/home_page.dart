@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -189,19 +190,24 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   }
 
   Widget buildScaffold(BuildContext context) {
+    final titles = [
+      S.of(context).timetable,
+      S.of(context).tabs_route,
+      S.of(context).tabs_favourites,
+    ];
     final items = [
-      BottomNavigationBarItem(
+      CustomNavigationBarItem(
           icon: const Icon(FluentIcons.search_24_regular),
-          activeIcon: const Icon(FluentIcons.search_24_filled),
-          label: S.of(context).timetable),
-      BottomNavigationBarItem(
+          selectedIcon: const Icon(FluentIcons.search_24_filled),
+          title: Text(titles[0])),
+      CustomNavigationBarItem(
         icon: const FaIcon(FontAwesomeIcons.route),
-        label: S.of(context).tabs_route,
+        title: Text(titles[1]),
       ),
-      BottomNavigationBarItem(
+      CustomNavigationBarItem(
         icon: const Icon(FluentIcons.star_24_regular),
-        activeIcon: const Icon(FluentIcons.star_24_filled),
-        label: S.of(context).tabs_favourites,
+        selectedIcon: const Icon(FluentIcons.star_24_filled),
+        title: Text(titles[2]),
       ),
     ];
     return Consumer(builder: (context, w, _) {
@@ -212,7 +218,10 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       return Scaffold(
         key: const Key('home-scaffold'),
         resizeToAvoidBottomInset: false,
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: CustomNavigationBar(
+          blurEffect: true,
+          strokeColor: Theme.of(context).accentColor,
+          selectedColor: Theme.of(context).accentColor,
           onTap: (i) {
             Vibration.selectSoft();
             if (combined.page != i) {
@@ -224,6 +233,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           },
           currentIndex: page,
           items: items,
+          elevation: 0,
         ),
         body: PageTransitionSwitcher(
           transitionBuilder: (child, primaryAnimation, secondaryAnimation) => FadeThroughTransition(
@@ -233,7 +243,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           ),
           child: Navigator(
             key: navigatorKeys[combined.page],
-            pages: [SingleWidgetPage(MainApp.androidTabs[page], name: items[page].label)],
+            pages: [SingleWidgetPage(MainApp.androidTabs[page], name: titles[page])],
             onPopPage: (_, __) => true,
             onUnknownRoute: (settings) => onUnknownRoute(settings, false),
             onGenerateRoute: (settings) => onGenerateRoute(settings, false),
@@ -347,6 +357,7 @@ AppBar materialAppBar(BuildContext context,
   return AppBar(
     automaticallyImplyLeading: false,
     title: title,
+    backgroundColor: Colors.transparent,
     actions: [
       ...actions,
       if (addSettings)

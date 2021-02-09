@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
@@ -277,6 +278,23 @@ enum Direction {
   left,
 }
 
+class ValueIntent<T> extends Intent {
+  final T value;
+
+  const ValueIntent(this.value);
+}
+
+class ValueAction<T> extends Action {
+  final Object Function(T value) onInvoke;
+
+  ValueAction(this.onInvoke);
+
+  @override
+  Object invoke(covariant ValueIntent<T> intent) {
+    return onInvoke(intent.value);
+  }
+}
+
 class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMixin {
   final r = m.Random();
   final snecc = ListQueue<Point>();
@@ -372,6 +390,13 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
   Widget build(BuildContext context) {
     return SafeArea(
       child: FocusableActionDetector(
+        shortcuts: {
+          LogicalKeySet(LogicalKeyboardKey.arrowUp): const ValueIntent(Direction.up),
+          LogicalKeySet(LogicalKeyboardKey.arrowDown): const ValueIntent(Direction.down),
+          LogicalKeySet(LogicalKeyboardKey.arrowRight): const ValueIntent(Direction.right),
+          LogicalKeySet(LogicalKeyboardKey.arrowLeft): const ValueIntent(Direction.left),
+        },
+        actions: {ValueIntent: ValueAction((value) => dir = value)},
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Snecc game'),
@@ -388,9 +413,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                   child: Center(
                     child: AspectRatio(
                       aspectRatio: 1,
-                      child: CustomPaint(
-                        painter: MyPainter(gridSize, snecc, food),
-                      ),
+                      child: CustomPaint(painter: MyPainter(gridSize, snecc, food)),
                     ),
                   ),
                 ),
