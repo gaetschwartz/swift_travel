@@ -30,16 +30,16 @@ class CffApi extends NavigationApi {
 
   @override
   Future<List<CffCompletion>> complete(
-    String? string, {
-    bool? showCoordinates = false,
-    bool? showIds = false,
-    bool? noFavorites = true,
-    bool? filterNull = true,
+    String string, {
+    bool showCoordinates = false,
+    bool showIds = false,
+    bool noFavorites = true,
+    bool filterNull = true,
   }) async {
     final String? uri = queryBuilder('completion', {
-      'show_ids': showIds!.toInt(),
-      'show_coordinates': showCoordinates!.toInt(),
-      'nofavorites': noFavorites!.toInt(),
+      'show_ids': showIds.toInt(),
+      'show_coordinates': showCoordinates.toInt(),
+      'nofavorites': noFavorites.toInt(),
       'term': string,
     });
 
@@ -56,7 +56,7 @@ class CffApi extends NavigationApi {
     final completions = <CffCompletion>[];
 
     for (final item in decode) {
-      if (!filterNull! || item['label'] != null) {
+      if (!filterNull || item['label'] != null) {
         completions.add(CffCompletion.fromJson(item as Map<String, dynamic>));
       }
     }

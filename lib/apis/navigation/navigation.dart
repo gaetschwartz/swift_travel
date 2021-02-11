@@ -42,11 +42,11 @@ abstract class NavigationApi {
   }
 
   Future<List<CffCompletion>> complete(
-    String? string, {
-    bool? showCoordinates,
-    bool? showIds,
-    bool? noFavorites,
-    bool? filterNull,
+    String string, {
+    bool showCoordinates,
+    bool showIds,
+    bool noFavorites,
+    bool filterNull,
   });
 
   Future<List<CffCompletion>> findStation(
@@ -79,5 +79,5 @@ abstract class NavigationApi {
 
   void dispose();
 
-  Future<CffRoute?> rawRoute(String query);
+  Future<CffRoute> rawRoute(String query);
 }

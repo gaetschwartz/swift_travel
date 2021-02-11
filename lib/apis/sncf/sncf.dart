@@ -1,7 +1,8 @@
+import 'dart:convert';
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/search.ch/cff.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
@@ -9,6 +10,7 @@ import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_stationboard.dart';
 import 'package:swift_travel/apis/sncf/key.dart';
 import 'package:swift_travel/apis/sncf/models/sncf_completion.dart';
+import 'package:swift_travel/utils/typed_data.dart';
 
 final sncfFactory = NavigationApiFactory(
   () => SncfApi._(),
@@ -21,27 +23,32 @@ final sncfFactory = NavigationApiFactory(
 class SncfApi extends NavigationApi {
   SncfApi._();
 
-  final Dio _client = Dio(BaseOptions(
-      baseUrl: 'https://api.navitia.io/v1/coverage/sncf', queryParameters: {'key': sncfKey}));
-
   @override
   Locale locale = const Locale('en');
 
+  static const baseUrl = 'https://api.navitia.io/v1/coverage/sncf/';
+  static const _queryParameters = UnmodifiableMap({'key': sncfKey});
+
+  final _client = http.Client();
+
   @override
-  Future<List<CffCompletion>> complete(String? string,
-      {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) async {
-    if (string!.isEmpty) return [];
+  Future<List<CffCompletion>> complete(String string,
+      {bool showCoordinates = true,
+      bool showIds = true,
+      bool noFavorites = true,
+      bool filterNull = true}) async {
+    if (string.isEmpty) return [];
+
+    final queryParameters = {'q': string, ..._queryParameters};
 
     final response = await _client.get(
-      '/places',
-      queryParameters: {'q': string},
-      options: Options(responseType: ResponseType.json),
+      baseUrl + 'places?' + queryParameters.entries.map((e) => '${e.key}=${e.value}').join('&'),
     );
 
-    log(response.request.uri.toString());
+    log(response.request.url.toString());
 
-    final decode = response.data as Map<String, dynamic>;
-    //  log(decode.toString());
+    final decode = jsonDecode(response.body) as Map<String, dynamic>;
+
     final sncfCompletion = SncfCompletion.fromJson(decode);
     final places = sncfCompletion.places;
     log('Found ${places.length} places');
