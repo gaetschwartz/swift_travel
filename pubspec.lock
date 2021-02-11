@@ -506,7 +506,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0-nullsafety.0"
+    version: "4.0.0"
   json_serializable:
     dependency: "direct dev"
     description:
@@ -975,14 +975,12 @@ packages:
     source: hosted
     version: "3.0.0"
   win32:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "25db6f1428cdd979caf156fccdd63d27c0894a89"
-      url: "https://github.com/gaetschwartz/win32"
-    source: git
-    version: "2.0.0-nullsafety.10"
+      name: win32
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0-nullsafety.11"
   xdg_directories:
     dependency: transitive
     description:
