@@ -12,8 +12,8 @@ import 'package:swift_travel/widgets/line_icon.dart';
 @Deprecated('Use `NewTransportLegTile`')
 class OldTransportLegTile extends StatelessWidget {
   const OldTransportLegTile({
-    Key key,
-    @required this.l,
+    Key? key,
+    required this.l,
   }) : super(key: key);
 
   final Leg l;
@@ -52,7 +52,7 @@ class OldTransportLegTile extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            l.exit.name,
+                            l.exit!.name,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -65,7 +65,7 @@ class OldTransportLegTile extends StatelessWidget {
                     ],
                   ),
                   DefaultTextStyle(
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.subtitle2!,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Column(
@@ -87,18 +87,18 @@ class OldTransportLegTile extends StatelessWidget {
                                     TextSpan(
                                       text: Format.time(l.departure),
                                     ),
-                                    if (l.depDelay != null && l.depDelay > 0)
+                                    if (l.depDelay > 0)
                                       TextSpan(
                                         text: Format.delay(l.depDelay),
                                         style: const TextStyle(color: Color(0xFFFF5252)),
                                       ),
                                     const TextSpan(text: ' ⇢ '),
                                     TextSpan(
-                                      text: Format.time(l.exit.arrival),
+                                      text: Format.time(l.exit!.arrival),
                                     ),
                                   ])),
                                   const Spacer(),
-                                  Text(Format.intToDuration(l.runningTime.round())),
+                                  Text(Format.intToDuration(l.runningTime!.round())),
                                 ],
                               ),
                             ),
@@ -121,14 +121,14 @@ class OldTransportLegTile extends StatelessWidget {
   List<Widget> _stops(Leg l, BuildContext context) {
     return [
       _buildStop(
-        Stop(l.name, departure: l.departure),
+        Stop(l.name!, departure: l.departure),
         context,
         bold: true,
         isFirst: true,
       ),
       ...l.stops.map((s) => _buildStop(s, context)),
       _buildStop(
-        Stop(l.exit.name, departure: l.exit.arrival),
+        Stop(l.exit!.name, departure: l.exit!.arrival),
         context,
         bold: true,
         isLast: true,

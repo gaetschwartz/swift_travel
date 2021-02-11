@@ -8,11 +8,11 @@ part 'sncf_place.g.dart';
 abstract class SncfPlace with _$SncfPlace {
   @JsonSerializable(explicitToJson: true)
   factory SncfPlace({
-    String embeddedType,
-    int quality,
-    SncfAdministrativeRegion administrativeRegion,
-    String name,
-    String id,
+    String? embeddedType,
+    int? quality,
+    SncfAdministrativeRegion? administrativeRegion,
+    String? name,
+    String? id,
   }) = _SncfPlace;
 
   factory SncfPlace.fromJson(Map<String, dynamic> json) => _$SncfPlaceFromJson(json);

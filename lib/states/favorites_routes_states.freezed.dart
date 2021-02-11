@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'favorites_routes_states.dart';
 
@@ -13,19 +13,16 @@ T _$identity<T>(T value) => value;
 class _$FavoritesRoutesStatesTearOff {
   const _$FavoritesRoutesStatesTearOff();
 
-// ignore: unused_element
   FavoritesRoutesStatesData data(List<LocalRoute> routes) {
     return FavoritesRoutesStatesData(
       routes,
     );
   }
 
-// ignore: unused_element
   FavoritesRoutesStatesLoading loading() {
     return const FavoritesRoutesStatesLoading();
   }
 
-// ignore: unused_element
   FavoritesRoutesStatesError exception(Exception exception) {
     return FavoritesRoutesStatesError(
       exception,
@@ -34,36 +31,35 @@ class _$FavoritesRoutesStatesTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $FavoritesRoutesStates = _$FavoritesRoutesStatesTearOff();
 
 /// @nodoc
 mixin _$FavoritesRoutesStates {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult data(List<LocalRoute> routes),
-    @required TResult loading(),
-    @required TResult exception(Exception exception),
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<LocalRoute> routes) data,
+    required TResult Function() loading,
+    required TResult Function(Exception exception) exception,
   });
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult data(List<LocalRoute> routes),
-    TResult loading(),
-    TResult exception(Exception exception),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<LocalRoute> routes)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+    required TResult orElse(),
   });
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult data(FavoritesRoutesStatesData value),
-    @required TResult loading(FavoritesRoutesStatesLoading value),
-    @required TResult exception(FavoritesRoutesStatesError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(FavoritesRoutesStatesData value) data,
+    required TResult Function(FavoritesRoutesStatesLoading value) loading,
+    required TResult Function(FavoritesRoutesStatesError value) exception,
   });
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult data(FavoritesRoutesStatesData value),
-    TResult loading(FavoritesRoutesStatesLoading value),
-    TResult exception(FavoritesRoutesStatesError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FavoritesRoutesStatesData value)? data,
+    TResult Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult Function(FavoritesRoutesStatesError value)? exception,
+    required TResult orElse(),
   });
 }
 
@@ -106,7 +102,7 @@ class _$FavoritesRoutesStatesDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object routes = freezed,
+    Object? routes = freezed,
   }) {
     return _then(FavoritesRoutesStatesData(
       routes == freezed ? _value.routes : routes as List<LocalRoute>,
@@ -116,7 +112,7 @@ class _$FavoritesRoutesStatesDataCopyWithImpl<$Res>
 
 /// @nodoc
 class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
-  const _$FavoritesRoutesStatesData(this.routes) : assert(routes != null);
+  const _$FavoritesRoutesStatesData(this.routes);
 
   @override
   final List<LocalRoute> routes;
@@ -146,26 +142,22 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult data(List<LocalRoute> routes),
-    @required TResult loading(),
-    @required TResult exception(Exception exception),
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<LocalRoute> routes) data,
+    required TResult Function() loading,
+    required TResult Function(Exception exception) exception,
   }) {
-    assert(data != null);
-    assert(loading != null);
-    assert(exception != null);
     return data(routes);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult data(List<LocalRoute> routes),
-    TResult loading(),
-    TResult exception(Exception exception),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<LocalRoute> routes)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (data != null) {
       return data(routes);
     }
@@ -174,26 +166,22 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult data(FavoritesRoutesStatesData value),
-    @required TResult loading(FavoritesRoutesStatesLoading value),
-    @required TResult exception(FavoritesRoutesStatesError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(FavoritesRoutesStatesData value) data,
+    required TResult Function(FavoritesRoutesStatesLoading value) loading,
+    required TResult Function(FavoritesRoutesStatesError value) exception,
   }) {
-    assert(data != null);
-    assert(loading != null);
-    assert(exception != null);
     return data(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult data(FavoritesRoutesStatesData value),
-    TResult loading(FavoritesRoutesStatesLoading value),
-    TResult exception(FavoritesRoutesStatesError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FavoritesRoutesStatesData value)? data,
+    TResult Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult Function(FavoritesRoutesStatesError value)? exception,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (data != null) {
       return data(this);
     }
@@ -251,26 +239,22 @@ class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult data(List<LocalRoute> routes),
-    @required TResult loading(),
-    @required TResult exception(Exception exception),
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<LocalRoute> routes) data,
+    required TResult Function() loading,
+    required TResult Function(Exception exception) exception,
   }) {
-    assert(data != null);
-    assert(loading != null);
-    assert(exception != null);
     return loading();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult data(List<LocalRoute> routes),
-    TResult loading(),
-    TResult exception(Exception exception),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<LocalRoute> routes)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loading != null) {
       return loading();
     }
@@ -279,26 +263,22 @@ class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult data(FavoritesRoutesStatesData value),
-    @required TResult loading(FavoritesRoutesStatesLoading value),
-    @required TResult exception(FavoritesRoutesStatesError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(FavoritesRoutesStatesData value) data,
+    required TResult Function(FavoritesRoutesStatesLoading value) loading,
+    required TResult Function(FavoritesRoutesStatesError value) exception,
   }) {
-    assert(data != null);
-    assert(loading != null);
-    assert(exception != null);
     return loading(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult data(FavoritesRoutesStatesData value),
-    TResult loading(FavoritesRoutesStatesLoading value),
-    TResult exception(FavoritesRoutesStatesError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FavoritesRoutesStatesData value)? data,
+    TResult Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult Function(FavoritesRoutesStatesError value)? exception,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loading != null) {
       return loading(this);
     }
@@ -332,7 +312,7 @@ class _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object exception = freezed,
+    Object? exception = freezed,
   }) {
     return _then(FavoritesRoutesStatesError(
       exception == freezed ? _value.exception : exception as Exception,
@@ -342,8 +322,7 @@ class _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
 
 /// @nodoc
 class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
-  const _$FavoritesRoutesStatesError(this.exception)
-      : assert(exception != null);
+  const _$FavoritesRoutesStatesError(this.exception);
 
   @override
   final Exception exception;
@@ -375,26 +354,22 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult data(List<LocalRoute> routes),
-    @required TResult loading(),
-    @required TResult exception(Exception exception),
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<LocalRoute> routes) data,
+    required TResult Function() loading,
+    required TResult Function(Exception exception) exception,
   }) {
-    assert(data != null);
-    assert(loading != null);
-    assert(exception != null);
     return exception(this.exception);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult data(List<LocalRoute> routes),
-    TResult loading(),
-    TResult exception(Exception exception),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<LocalRoute> routes)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (exception != null) {
       return exception(this.exception);
     }
@@ -403,26 +378,22 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult data(FavoritesRoutesStatesData value),
-    @required TResult loading(FavoritesRoutesStatesLoading value),
-    @required TResult exception(FavoritesRoutesStatesError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(FavoritesRoutesStatesData value) data,
+    required TResult Function(FavoritesRoutesStatesLoading value) loading,
+    required TResult Function(FavoritesRoutesStatesError value) exception,
   }) {
-    assert(data != null);
-    assert(loading != null);
-    assert(exception != null);
     return exception(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult data(FavoritesRoutesStatesData value),
-    TResult loading(FavoritesRoutesStatesLoading value),
-    TResult exception(FavoritesRoutesStatesError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FavoritesRoutesStatesData value)? data,
+    TResult Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult Function(FavoritesRoutesStatesError value)? exception,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (exception != null) {
       return exception(this);
     }

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'geo_models.dart';
 
@@ -16,21 +16,18 @@ GeoResponse _$GeoResponseFromJson(Map<String, dynamic> json) {
 class _$GeoResponseTearOff {
   const _$GeoResponseTearOff();
 
-// ignore: unused_element
   _GeoResponse call(List<GeoResult> results) {
     return _GeoResponse(
       results,
     );
   }
 
-// ignore: unused_element
   GeoResponse fromJson(Map<String, Object> json) {
     return GeoResponse.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $GeoResponse = _$GeoResponseTearOff();
 
 /// @nodoc
@@ -60,7 +57,7 @@ class _$GeoResponseCopyWithImpl<$Res> implements $GeoResponseCopyWith<$Res> {
 
   @override
   $Res call({
-    Object results = freezed,
+    Object? results = freezed,
   }) {
     return _then(_value.copyWith(
       results: results == freezed ? _value.results : results as List<GeoResult>,
@@ -90,7 +87,7 @@ class __$GeoResponseCopyWithImpl<$Res> extends _$GeoResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object results = freezed,
+    Object? results = freezed,
   }) {
     return _then(_GeoResponse(
       results == freezed ? _value.results : results as List<GeoResult>,
@@ -102,7 +99,7 @@ class __$GeoResponseCopyWithImpl<$Res> extends _$GeoResponseCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_GeoResponse implements _GeoResponse {
-  const _$_GeoResponse(this.results) : assert(results != null);
+  const _$_GeoResponse(this.results);
 
   factory _$_GeoResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_GeoResponseFromJson(json);
@@ -159,21 +156,20 @@ GeoAttr _$GeoAttrFromJson(Map<String, dynamic> json) {
 class _$GeoAttrTearOff {
   const _$GeoAttrTearOff();
 
-// ignore: unused_element
   _GeoAttr call(
-      {String origin,
-      String geomQuadindex,
-      int zoomlevel,
-      String featureId,
-      double lon,
-      String detail,
-      int rank,
-      String geomStBox2d,
-      double lat,
-      @JsonKey(name: 'num') int number,
-      double y,
-      double x,
-      String label}) {
+      {String? origin,
+      String? geomQuadindex,
+      int? zoomlevel,
+      String? featureId,
+      double? lon,
+      String? detail,
+      int? rank,
+      String? geomStBox2d,
+      double? lat,
+      @JsonKey(name: 'num') int? number,
+      double? y,
+      double? x,
+      String? label}) {
     return _GeoAttr(
       origin: origin,
       geomQuadindex: geomQuadindex,
@@ -191,32 +187,30 @@ class _$GeoAttrTearOff {
     );
   }
 
-// ignore: unused_element
   GeoAttr fromJson(Map<String, Object> json) {
     return GeoAttr.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $GeoAttr = _$GeoAttrTearOff();
 
 /// @nodoc
 mixin _$GeoAttr {
-  String get origin;
-  String get geomQuadindex;
-  int get zoomlevel;
-  String get featureId;
-  double get lon;
-  String get detail;
-  int get rank;
-  String get geomStBox2d;
-  double get lat;
+  String? get origin;
+  String? get geomQuadindex;
+  int? get zoomlevel;
+  String? get featureId;
+  double? get lon;
+  String? get detail;
+  int? get rank;
+  String? get geomStBox2d;
+  double? get lat;
   @JsonKey(name: 'num')
-  int get number;
-  double get y;
-  double get x;
-  String get label;
+  int? get number;
+  double? get y;
+  double? get x;
+  String? get label;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -228,19 +222,19 @@ abstract class $GeoAttrCopyWith<$Res> {
   factory $GeoAttrCopyWith(GeoAttr value, $Res Function(GeoAttr) then) =
       _$GeoAttrCopyWithImpl<$Res>;
   $Res call(
-      {String origin,
-      String geomQuadindex,
-      int zoomlevel,
-      String featureId,
-      double lon,
-      String detail,
-      int rank,
-      String geomStBox2d,
-      double lat,
-      @JsonKey(name: 'num') int number,
-      double y,
-      double x,
-      String label});
+      {String? origin,
+      String? geomQuadindex,
+      int? zoomlevel,
+      String? featureId,
+      double? lon,
+      String? detail,
+      int? rank,
+      String? geomStBox2d,
+      double? lat,
+      @JsonKey(name: 'num') int? number,
+      double? y,
+      double? x,
+      String? label});
 }
 
 /// @nodoc
@@ -253,37 +247,37 @@ class _$GeoAttrCopyWithImpl<$Res> implements $GeoAttrCopyWith<$Res> {
 
   @override
   $Res call({
-    Object origin = freezed,
-    Object geomQuadindex = freezed,
-    Object zoomlevel = freezed,
-    Object featureId = freezed,
-    Object lon = freezed,
-    Object detail = freezed,
-    Object rank = freezed,
-    Object geomStBox2d = freezed,
-    Object lat = freezed,
-    Object number = freezed,
-    Object y = freezed,
-    Object x = freezed,
-    Object label = freezed,
+    Object? origin = freezed,
+    Object? geomQuadindex = freezed,
+    Object? zoomlevel = freezed,
+    Object? featureId = freezed,
+    Object? lon = freezed,
+    Object? detail = freezed,
+    Object? rank = freezed,
+    Object? geomStBox2d = freezed,
+    Object? lat = freezed,
+    Object? number = freezed,
+    Object? y = freezed,
+    Object? x = freezed,
+    Object? label = freezed,
   }) {
     return _then(_value.copyWith(
-      origin: origin == freezed ? _value.origin : origin as String,
+      origin: origin == freezed ? _value.origin : origin as String?,
       geomQuadindex: geomQuadindex == freezed
           ? _value.geomQuadindex
-          : geomQuadindex as String,
-      zoomlevel: zoomlevel == freezed ? _value.zoomlevel : zoomlevel as int,
-      featureId: featureId == freezed ? _value.featureId : featureId as String,
-      lon: lon == freezed ? _value.lon : lon as double,
-      detail: detail == freezed ? _value.detail : detail as String,
-      rank: rank == freezed ? _value.rank : rank as int,
+          : geomQuadindex as String?,
+      zoomlevel: zoomlevel == freezed ? _value.zoomlevel : zoomlevel as int?,
+      featureId: featureId == freezed ? _value.featureId : featureId as String?,
+      lon: lon == freezed ? _value.lon : lon as double?,
+      detail: detail == freezed ? _value.detail : detail as String?,
+      rank: rank == freezed ? _value.rank : rank as int?,
       geomStBox2d:
-          geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String,
-      lat: lat == freezed ? _value.lat : lat as double,
-      number: number == freezed ? _value.number : number as int,
-      y: y == freezed ? _value.y : y as double,
-      x: x == freezed ? _value.x : x as double,
-      label: label == freezed ? _value.label : label as String,
+          geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String?,
+      lat: lat == freezed ? _value.lat : lat as double?,
+      number: number == freezed ? _value.number : number as int?,
+      y: y == freezed ? _value.y : y as double?,
+      x: x == freezed ? _value.x : x as double?,
+      label: label == freezed ? _value.label : label as String?,
     ));
   }
 }
@@ -294,19 +288,19 @@ abstract class _$GeoAttrCopyWith<$Res> implements $GeoAttrCopyWith<$Res> {
       __$GeoAttrCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String origin,
-      String geomQuadindex,
-      int zoomlevel,
-      String featureId,
-      double lon,
-      String detail,
-      int rank,
-      String geomStBox2d,
-      double lat,
-      @JsonKey(name: 'num') int number,
-      double y,
-      double x,
-      String label});
+      {String? origin,
+      String? geomQuadindex,
+      int? zoomlevel,
+      String? featureId,
+      double? lon,
+      String? detail,
+      int? rank,
+      String? geomStBox2d,
+      double? lat,
+      @JsonKey(name: 'num') int? number,
+      double? y,
+      double? x,
+      String? label});
 }
 
 /// @nodoc
@@ -320,37 +314,37 @@ class __$GeoAttrCopyWithImpl<$Res> extends _$GeoAttrCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object origin = freezed,
-    Object geomQuadindex = freezed,
-    Object zoomlevel = freezed,
-    Object featureId = freezed,
-    Object lon = freezed,
-    Object detail = freezed,
-    Object rank = freezed,
-    Object geomStBox2d = freezed,
-    Object lat = freezed,
-    Object number = freezed,
-    Object y = freezed,
-    Object x = freezed,
-    Object label = freezed,
+    Object? origin = freezed,
+    Object? geomQuadindex = freezed,
+    Object? zoomlevel = freezed,
+    Object? featureId = freezed,
+    Object? lon = freezed,
+    Object? detail = freezed,
+    Object? rank = freezed,
+    Object? geomStBox2d = freezed,
+    Object? lat = freezed,
+    Object? number = freezed,
+    Object? y = freezed,
+    Object? x = freezed,
+    Object? label = freezed,
   }) {
     return _then(_GeoAttr(
-      origin: origin == freezed ? _value.origin : origin as String,
+      origin: origin == freezed ? _value.origin : origin as String?,
       geomQuadindex: geomQuadindex == freezed
           ? _value.geomQuadindex
-          : geomQuadindex as String,
-      zoomlevel: zoomlevel == freezed ? _value.zoomlevel : zoomlevel as int,
-      featureId: featureId == freezed ? _value.featureId : featureId as String,
-      lon: lon == freezed ? _value.lon : lon as double,
-      detail: detail == freezed ? _value.detail : detail as String,
-      rank: rank == freezed ? _value.rank : rank as int,
+          : geomQuadindex as String?,
+      zoomlevel: zoomlevel == freezed ? _value.zoomlevel : zoomlevel as int?,
+      featureId: featureId == freezed ? _value.featureId : featureId as String?,
+      lon: lon == freezed ? _value.lon : lon as double?,
+      detail: detail == freezed ? _value.detail : detail as String?,
+      rank: rank == freezed ? _value.rank : rank as int?,
       geomStBox2d:
-          geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String,
-      lat: lat == freezed ? _value.lat : lat as double,
-      number: number == freezed ? _value.number : number as int,
-      y: y == freezed ? _value.y : y as double,
-      x: x == freezed ? _value.x : x as double,
-      label: label == freezed ? _value.label : label as String,
+          geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String?,
+      lat: lat == freezed ? _value.lat : lat as double?,
+      number: number == freezed ? _value.number : number as int?,
+      y: y == freezed ? _value.y : y as double?,
+      x: x == freezed ? _value.x : x as double?,
+      label: label == freezed ? _value.label : label as String?,
     ));
   }
 }
@@ -378,32 +372,32 @@ class _$_GeoAttr implements _GeoAttr {
       _$_$_GeoAttrFromJson(json);
 
   @override
-  final String origin;
+  final String? origin;
   @override
-  final String geomQuadindex;
+  final String? geomQuadindex;
   @override
-  final int zoomlevel;
+  final int? zoomlevel;
   @override
-  final String featureId;
+  final String? featureId;
   @override
-  final double lon;
+  final double? lon;
   @override
-  final String detail;
+  final String? detail;
   @override
-  final int rank;
+  final int? rank;
   @override
-  final String geomStBox2d;
+  final String? geomStBox2d;
   @override
-  final double lat;
+  final double? lat;
   @override
   @JsonKey(name: 'num')
-  final int number;
+  final int? number;
   @override
-  final double y;
+  final double? y;
   @override
-  final double x;
+  final double? x;
   @override
-  final String label;
+  final String? label;
 
   @override
   String toString() {
@@ -476,49 +470,49 @@ class _$_GeoAttr implements _GeoAttr {
 
 abstract class _GeoAttr implements GeoAttr {
   const factory _GeoAttr(
-      {String origin,
-      String geomQuadindex,
-      int zoomlevel,
-      String featureId,
-      double lon,
-      String detail,
-      int rank,
-      String geomStBox2d,
-      double lat,
-      @JsonKey(name: 'num') int number,
-      double y,
-      double x,
-      String label}) = _$_GeoAttr;
+      {String? origin,
+      String? geomQuadindex,
+      int? zoomlevel,
+      String? featureId,
+      double? lon,
+      String? detail,
+      int? rank,
+      String? geomStBox2d,
+      double? lat,
+      @JsonKey(name: 'num') int? number,
+      double? y,
+      double? x,
+      String? label}) = _$_GeoAttr;
 
   factory _GeoAttr.fromJson(Map<String, dynamic> json) = _$_GeoAttr.fromJson;
 
   @override
-  String get origin;
+  String? get origin;
   @override
-  String get geomQuadindex;
+  String? get geomQuadindex;
   @override
-  int get zoomlevel;
+  int? get zoomlevel;
   @override
-  String get featureId;
+  String? get featureId;
   @override
-  double get lon;
+  double? get lon;
   @override
-  String get detail;
+  String? get detail;
   @override
-  int get rank;
+  int? get rank;
   @override
-  String get geomStBox2d;
+  String? get geomStBox2d;
   @override
-  double get lat;
+  double? get lat;
   @override
   @JsonKey(name: 'num')
-  int get number;
+  int? get number;
   @override
-  double get y;
+  double? get y;
   @override
-  double get x;
+  double? get x;
   @override
-  String get label;
+  String? get label;
   @override
   @JsonKey(ignore: true)
   _$GeoAttrCopyWith<_GeoAttr> get copyWith;
@@ -532,8 +526,7 @@ GeoResult _$GeoResultFromJson(Map<String, dynamic> json) {
 class _$GeoResultTearOff {
   const _$GeoResultTearOff();
 
-// ignore: unused_element
-  _GeoResult call({int id, int weight, GeoAttr attrs}) {
+  _GeoResult call({int? id, int? weight, GeoAttr? attrs}) {
     return _GeoResult(
       id: id,
       weight: weight,
@@ -541,21 +534,19 @@ class _$GeoResultTearOff {
     );
   }
 
-// ignore: unused_element
   GeoResult fromJson(Map<String, Object> json) {
     return GeoResult.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $GeoResult = _$GeoResultTearOff();
 
 /// @nodoc
 mixin _$GeoResult {
-  int get id;
-  int get weight;
-  GeoAttr get attrs;
+  int? get id;
+  int? get weight;
+  GeoAttr? get attrs;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -566,9 +557,9 @@ mixin _$GeoResult {
 abstract class $GeoResultCopyWith<$Res> {
   factory $GeoResultCopyWith(GeoResult value, $Res Function(GeoResult) then) =
       _$GeoResultCopyWithImpl<$Res>;
-  $Res call({int id, int weight, GeoAttr attrs});
+  $Res call({int? id, int? weight, GeoAttr? attrs});
 
-  $GeoAttrCopyWith<$Res> get attrs;
+  $GeoAttrCopyWith<$Res>? get attrs;
 }
 
 /// @nodoc
@@ -581,23 +572,24 @@ class _$GeoResultCopyWithImpl<$Res> implements $GeoResultCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
-    Object weight = freezed,
-    Object attrs = freezed,
+    Object? id = freezed,
+    Object? weight = freezed,
+    Object? attrs = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
-      weight: weight == freezed ? _value.weight : weight as int,
-      attrs: attrs == freezed ? _value.attrs : attrs as GeoAttr,
+      id: id == freezed ? _value.id : id as int?,
+      weight: weight == freezed ? _value.weight : weight as int?,
+      attrs: attrs == freezed ? _value.attrs : attrs as GeoAttr?,
     ));
   }
 
   @override
-  $GeoAttrCopyWith<$Res> get attrs {
+  $GeoAttrCopyWith<$Res>? get attrs {
     if (_value.attrs == null) {
       return null;
     }
-    return $GeoAttrCopyWith<$Res>(_value.attrs, (value) {
+
+    return $GeoAttrCopyWith<$Res>(_value.attrs!, (value) {
       return _then(_value.copyWith(attrs: value));
     });
   }
@@ -609,10 +601,10 @@ abstract class _$GeoResultCopyWith<$Res> implements $GeoResultCopyWith<$Res> {
           _GeoResult value, $Res Function(_GeoResult) then) =
       __$GeoResultCopyWithImpl<$Res>;
   @override
-  $Res call({int id, int weight, GeoAttr attrs});
+  $Res call({int? id, int? weight, GeoAttr? attrs});
 
   @override
-  $GeoAttrCopyWith<$Res> get attrs;
+  $GeoAttrCopyWith<$Res>? get attrs;
 }
 
 /// @nodoc
@@ -626,14 +618,14 @@ class __$GeoResultCopyWithImpl<$Res> extends _$GeoResultCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object weight = freezed,
-    Object attrs = freezed,
+    Object? id = freezed,
+    Object? weight = freezed,
+    Object? attrs = freezed,
   }) {
     return _then(_GeoResult(
-      id: id == freezed ? _value.id : id as int,
-      weight: weight == freezed ? _value.weight : weight as int,
-      attrs: attrs == freezed ? _value.attrs : attrs as GeoAttr,
+      id: id == freezed ? _value.id : id as int?,
+      weight: weight == freezed ? _value.weight : weight as int?,
+      attrs: attrs == freezed ? _value.attrs : attrs as GeoAttr?,
     ));
   }
 }
@@ -648,11 +640,11 @@ class _$_GeoResult implements _GeoResult {
       _$_$_GeoResultFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final int weight;
+  final int? weight;
   @override
-  final GeoAttr attrs;
+  final GeoAttr? attrs;
 
   @override
   String toString() {
@@ -690,17 +682,18 @@ class _$_GeoResult implements _GeoResult {
 }
 
 abstract class _GeoResult implements GeoResult {
-  const factory _GeoResult({int id, int weight, GeoAttr attrs}) = _$_GeoResult;
+  const factory _GeoResult({int? id, int? weight, GeoAttr? attrs}) =
+      _$_GeoResult;
 
   factory _GeoResult.fromJson(Map<String, dynamic> json) =
       _$_GeoResult.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
-  int get weight;
+  int? get weight;
   @override
-  GeoAttr get attrs;
+  GeoAttr? get attrs;
   @override
   @JsonKey(ignore: true)
   _$GeoResultCopyWith<_GeoResult> get copyWith;
@@ -714,8 +707,7 @@ GeoError _$GeoErrorFromJson(Map<String, dynamic> json) {
 class _$GeoErrorTearOff {
   const _$GeoErrorTearOff();
 
-// ignore: unused_element
-  _GeoError call({String status, String detail, int code}) {
+  _GeoError call({String? status, String? detail, int? code}) {
     return _GeoError(
       status: status,
       detail: detail,
@@ -723,21 +715,19 @@ class _$GeoErrorTearOff {
     );
   }
 
-// ignore: unused_element
   GeoError fromJson(Map<String, Object> json) {
     return GeoError.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $GeoError = _$GeoErrorTearOff();
 
 /// @nodoc
 mixin _$GeoError {
-  String get status;
-  String get detail;
-  int get code;
+  String? get status;
+  String? get detail;
+  int? get code;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -748,7 +738,7 @@ mixin _$GeoError {
 abstract class $GeoErrorCopyWith<$Res> {
   factory $GeoErrorCopyWith(GeoError value, $Res Function(GeoError) then) =
       _$GeoErrorCopyWithImpl<$Res>;
-  $Res call({String status, String detail, int code});
+  $Res call({String? status, String? detail, int? code});
 }
 
 /// @nodoc
@@ -761,14 +751,14 @@ class _$GeoErrorCopyWithImpl<$Res> implements $GeoErrorCopyWith<$Res> {
 
   @override
   $Res call({
-    Object status = freezed,
-    Object detail = freezed,
-    Object code = freezed,
+    Object? status = freezed,
+    Object? detail = freezed,
+    Object? code = freezed,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed ? _value.status : status as String,
-      detail: detail == freezed ? _value.detail : detail as String,
-      code: code == freezed ? _value.code : code as int,
+      status: status == freezed ? _value.status : status as String?,
+      detail: detail == freezed ? _value.detail : detail as String?,
+      code: code == freezed ? _value.code : code as int?,
     ));
   }
 }
@@ -778,7 +768,7 @@ abstract class _$GeoErrorCopyWith<$Res> implements $GeoErrorCopyWith<$Res> {
   factory _$GeoErrorCopyWith(_GeoError value, $Res Function(_GeoError) then) =
       __$GeoErrorCopyWithImpl<$Res>;
   @override
-  $Res call({String status, String detail, int code});
+  $Res call({String? status, String? detail, int? code});
 }
 
 /// @nodoc
@@ -792,14 +782,14 @@ class __$GeoErrorCopyWithImpl<$Res> extends _$GeoErrorCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object status = freezed,
-    Object detail = freezed,
-    Object code = freezed,
+    Object? status = freezed,
+    Object? detail = freezed,
+    Object? code = freezed,
   }) {
     return _then(_GeoError(
-      status: status == freezed ? _value.status : status as String,
-      detail: detail == freezed ? _value.detail : detail as String,
-      code: code == freezed ? _value.code : code as int,
+      status: status == freezed ? _value.status : status as String?,
+      detail: detail == freezed ? _value.detail : detail as String?,
+      code: code == freezed ? _value.code : code as int?,
     ));
   }
 }
@@ -814,11 +804,11 @@ class _$_GeoError implements _GeoError {
       _$_$_GeoErrorFromJson(json);
 
   @override
-  final String status;
+  final String? status;
   @override
-  final String detail;
+  final String? detail;
   @override
-  final int code;
+  final int? code;
 
   @override
   String toString() {
@@ -856,17 +846,17 @@ class _$_GeoError implements _GeoError {
 }
 
 abstract class _GeoError implements GeoError {
-  const factory _GeoError({String status, String detail, int code}) =
+  const factory _GeoError({String? status, String? detail, int? code}) =
       _$_GeoError;
 
   factory _GeoError.fromJson(Map<String, dynamic> json) = _$_GeoError.fromJson;
 
   @override
-  String get status;
+  String? get status;
   @override
-  String get detail;
+  String? get detail;
   @override
-  int get code;
+  int? get code;
   @override
   @JsonKey(ignore: true)
   _$GeoErrorCopyWith<_GeoError> get copyWith;

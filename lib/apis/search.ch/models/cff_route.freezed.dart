@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'cff_route.dart';
 
@@ -16,15 +16,14 @@ CffRoute _$CffRouteFromJson(Map<String, dynamic> json) {
 class _$CffRouteTearOff {
   const _$CffRouteTearOff();
 
-// ignore: unused_element
   _CffRoute call(
-      {int count,
-      @JsonKey(name: 'min_duration') double minDuration,
-      @JsonKey(name: 'max_duration') double maxDuration,
+      {int count = 0,
+      @JsonKey(name: 'min_duration') double? minDuration,
+      @JsonKey(name: 'max_duration') double? maxDuration,
       List<RouteConnection> connections = const [],
       List<String> messages = const [],
-      String requestUrl,
-      DateTime dateTime}) {
+      String? requestUrl,
+      DateTime? dateTime}) {
     return _CffRoute(
       count: count,
       minDuration: minDuration,
@@ -36,27 +35,25 @@ class _$CffRouteTearOff {
     );
   }
 
-// ignore: unused_element
   CffRoute fromJson(Map<String, Object> json) {
     return CffRoute.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $CffRoute = _$CffRouteTearOff();
 
 /// @nodoc
 mixin _$CffRoute {
   int get count;
   @JsonKey(name: 'min_duration')
-  double get minDuration;
+  double? get minDuration;
   @JsonKey(name: 'max_duration')
-  double get maxDuration;
+  double? get maxDuration;
   List<RouteConnection> get connections;
   List<String> get messages;
-  String get requestUrl;
-  DateTime get dateTime;
+  String? get requestUrl;
+  DateTime? get dateTime;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -69,12 +66,12 @@ abstract class $CffRouteCopyWith<$Res> {
       _$CffRouteCopyWithImpl<$Res>;
   $Res call(
       {int count,
-      @JsonKey(name: 'min_duration') double minDuration,
-      @JsonKey(name: 'max_duration') double maxDuration,
+      @JsonKey(name: 'min_duration') double? minDuration,
+      @JsonKey(name: 'max_duration') double? maxDuration,
       List<RouteConnection> connections,
       List<String> messages,
-      String requestUrl,
-      DateTime dateTime});
+      String? requestUrl,
+      DateTime? dateTime});
 }
 
 /// @nodoc
@@ -87,28 +84,28 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
 
   @override
   $Res call({
-    Object count = freezed,
-    Object minDuration = freezed,
-    Object maxDuration = freezed,
-    Object connections = freezed,
-    Object messages = freezed,
-    Object requestUrl = freezed,
-    Object dateTime = freezed,
+    Object? count = freezed,
+    Object? minDuration = freezed,
+    Object? maxDuration = freezed,
+    Object? connections = freezed,
+    Object? messages = freezed,
+    Object? requestUrl = freezed,
+    Object? dateTime = freezed,
   }) {
     return _then(_value.copyWith(
       count: count == freezed ? _value.count : count as int,
       minDuration:
-          minDuration == freezed ? _value.minDuration : minDuration as double,
+          minDuration == freezed ? _value.minDuration : minDuration as double?,
       maxDuration:
-          maxDuration == freezed ? _value.maxDuration : maxDuration as double,
+          maxDuration == freezed ? _value.maxDuration : maxDuration as double?,
       connections: connections == freezed
           ? _value.connections
           : connections as List<RouteConnection>,
       messages:
           messages == freezed ? _value.messages : messages as List<String>,
       requestUrl:
-          requestUrl == freezed ? _value.requestUrl : requestUrl as String,
-      dateTime: dateTime == freezed ? _value.dateTime : dateTime as DateTime,
+          requestUrl == freezed ? _value.requestUrl : requestUrl as String?,
+      dateTime: dateTime == freezed ? _value.dateTime : dateTime as DateTime?,
     ));
   }
 }
@@ -120,12 +117,12 @@ abstract class _$CffRouteCopyWith<$Res> implements $CffRouteCopyWith<$Res> {
   @override
   $Res call(
       {int count,
-      @JsonKey(name: 'min_duration') double minDuration,
-      @JsonKey(name: 'max_duration') double maxDuration,
+      @JsonKey(name: 'min_duration') double? minDuration,
+      @JsonKey(name: 'max_duration') double? maxDuration,
       List<RouteConnection> connections,
       List<String> messages,
-      String requestUrl,
-      DateTime dateTime});
+      String? requestUrl,
+      DateTime? dateTime});
 }
 
 /// @nodoc
@@ -139,58 +136,57 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object count = freezed,
-    Object minDuration = freezed,
-    Object maxDuration = freezed,
-    Object connections = freezed,
-    Object messages = freezed,
-    Object requestUrl = freezed,
-    Object dateTime = freezed,
+    Object? count = freezed,
+    Object? minDuration = freezed,
+    Object? maxDuration = freezed,
+    Object? connections = freezed,
+    Object? messages = freezed,
+    Object? requestUrl = freezed,
+    Object? dateTime = freezed,
   }) {
     return _then(_CffRoute(
       count: count == freezed ? _value.count : count as int,
       minDuration:
-          minDuration == freezed ? _value.minDuration : minDuration as double,
+          minDuration == freezed ? _value.minDuration : minDuration as double?,
       maxDuration:
-          maxDuration == freezed ? _value.maxDuration : maxDuration as double,
+          maxDuration == freezed ? _value.maxDuration : maxDuration as double?,
       connections: connections == freezed
           ? _value.connections
           : connections as List<RouteConnection>,
       messages:
           messages == freezed ? _value.messages : messages as List<String>,
       requestUrl:
-          requestUrl == freezed ? _value.requestUrl : requestUrl as String,
-      dateTime: dateTime == freezed ? _value.dateTime : dateTime as DateTime,
+          requestUrl == freezed ? _value.requestUrl : requestUrl as String?,
+      dateTime: dateTime == freezed ? _value.dateTime : dateTime as DateTime?,
     ));
   }
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 
 /// @nodoc
 class _$_CffRoute implements _CffRoute {
   const _$_CffRoute(
-      {this.count,
+      {this.count = 0,
       @JsonKey(name: 'min_duration') this.minDuration,
       @JsonKey(name: 'max_duration') this.maxDuration,
       this.connections = const [],
       this.messages = const [],
       this.requestUrl,
-      this.dateTime})
-      : assert(connections != null),
-        assert(messages != null);
+      this.dateTime});
 
   factory _$_CffRoute.fromJson(Map<String, dynamic> json) =>
       _$_$_CffRouteFromJson(json);
 
+  @JsonKey(defaultValue: 0)
   @override
   final int count;
   @override
   @JsonKey(name: 'min_duration')
-  final double minDuration;
+  final double? minDuration;
   @override
   @JsonKey(name: 'max_duration')
-  final double maxDuration;
+  final double? maxDuration;
   @JsonKey(defaultValue: const [])
   @override
   final List<RouteConnection> connections;
@@ -198,9 +194,9 @@ class _$_CffRoute implements _CffRoute {
   @override
   final List<String> messages;
   @override
-  final String requestUrl;
+  final String? requestUrl;
   @override
-  final DateTime dateTime;
+  final DateTime? dateTime;
 
   @override
   String toString() {
@@ -258,12 +254,12 @@ class _$_CffRoute implements _CffRoute {
 abstract class _CffRoute implements CffRoute {
   const factory _CffRoute(
       {int count,
-      @JsonKey(name: 'min_duration') double minDuration,
-      @JsonKey(name: 'max_duration') double maxDuration,
+      @JsonKey(name: 'min_duration') double? minDuration,
+      @JsonKey(name: 'max_duration') double? maxDuration,
       List<RouteConnection> connections,
       List<String> messages,
-      String requestUrl,
-      DateTime dateTime}) = _$_CffRoute;
+      String? requestUrl,
+      DateTime? dateTime}) = _$_CffRoute;
 
   factory _CffRoute.fromJson(Map<String, dynamic> json) = _$_CffRoute.fromJson;
 
@@ -271,18 +267,18 @@ abstract class _CffRoute implements CffRoute {
   int get count;
   @override
   @JsonKey(name: 'min_duration')
-  double get minDuration;
+  double? get minDuration;
   @override
   @JsonKey(name: 'max_duration')
-  double get maxDuration;
+  double? get maxDuration;
   @override
   List<RouteConnection> get connections;
   @override
   List<String> get messages;
   @override
-  String get requestUrl;
+  String? get requestUrl;
   @override
-  DateTime get dateTime;
+  DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
   _$CffRouteCopyWith<_CffRoute> get copyWith;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/search.ch/models/exit.dart';
 
-int parseColorInt(String s) {
+int? parseColorInt(String? s) {
   if (s == null || s.isEmpty) {
     return null;
   } else if (s.length == 3) {
@@ -13,7 +13,7 @@ int parseColorInt(String s) {
   }
 }
 
-Color parseColor(String s, Color defaultColor) {
+Color parseColor(String? s, Color defaultColor) {
   final c = parseColorInt(s);
   return c == null ? defaultColor : Color(c);
 }
@@ -22,7 +22,7 @@ String ellipsis(String s, {int length = 16, String trailing = '...'}) =>
     s.length > length - trailing.length ? s.substring(0, length - trailing.length) + trailing : s;
 
 abstract class Format {
-  static String distance(double d) {
+  static String distance(double? d) {
     return d == null
         ? ''
         : d >= 1000
@@ -32,7 +32,7 @@ abstract class Format {
 
   static String delay(int d) => delayToJson(d);
 
-  static String duration(Duration d, {Locale locale = const Locale('en')}) {
+  static String? duration(Duration? d, {Locale locale = const Locale('en')}) {
     if (d == null) return null;
     final m = d.inMinutes;
     if (m > 60) {
@@ -83,7 +83,7 @@ abstract class Format {
     return "$hrs$mins${h == 0 ? " ${_mins(locale, m)}" : ""}";
   }
 
-  static String time(DateTime date, [Locale locale = const Locale('en')]) {
+  static String time(DateTime? date, [Locale locale = const Locale('en')]) {
     if (date == null) return '';
     final min = date.minute < 10 ? '0${date.minute}' : date.minute.toString();
     return '${date.hour}:$min';

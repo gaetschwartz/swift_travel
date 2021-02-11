@@ -8,14 +8,14 @@ part of 'sncf_place.dart';
 
 _$_SncfPlace _$_$_SncfPlaceFromJson(Map<String, dynamic> json) {
   return _$_SncfPlace(
-    embeddedType: json['embeddedType'] as String,
-    quality: json['quality'] as int,
+    embeddedType: json['embeddedType'] as String?,
+    quality: json['quality'] as int?,
     administrativeRegion: json['administrativeRegion'] == null
         ? null
         : SncfAdministrativeRegion.fromJson(
             json['administrativeRegion'] as Map<String, dynamic>),
-    name: json['name'] as String,
-    id: json['id'] as String,
+    name: json['name'] as String?,
+    id: json['id'] as String?,
   );
 }
 

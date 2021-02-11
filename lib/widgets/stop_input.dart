@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 
 class StopInputDialog extends StatefulWidget {
@@ -11,7 +11,7 @@ class StopInputDialog extends StatefulWidget {
   final TextInputType inputType;
 
   const StopInputDialog({
-    Key key,
+    Key? key,
     this.title = '',
     this.inputType = TextInputType.text,
   }) : super(key: key);
@@ -22,7 +22,7 @@ class StopInputDialog extends StatefulWidget {
 
 class _StopInputDialogState extends State<StopInputDialog> {
   final TextEditingController _controller = TextEditingController();
-  NavigationApi api;
+  late NavigationApi api;
 
   final node = FocusNode();
 
@@ -62,18 +62,18 @@ class _StopInputDialogState extends State<StopInputDialog> {
               focusNode: node,
               controller: _controller,
               decoration: InputDecoration(
-                hintText: S.of(context).search_station,
+                hintText: AppLoc.of(context).search_station,
               ),
             ),
             suggestionsCallback: (pattern) => api.complete(pattern),
-            itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
-            onSuggestionSelected: (suggestion) {
+            itemBuilder: (context, dynamic suggestion) => SuggestedTile(suggestion),
+            onSuggestionSelected: (dynamic suggestion) {
               Navigator.of(context).pop<String>(suggestion.label);
               node.unfocus();
             },
             noItemsFoundBuilder: (_) => const SizedBox(),
             transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-              opacity: controller,
+              opacity: controller!,
               child: suggestionsBox,
             ),
           ),

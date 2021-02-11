@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'route_connection.dart';
 
@@ -16,21 +16,20 @@ RouteConnection _$RouteConnectionFromJson(Map<String, dynamic> json) {
 class _$RouteConnectionTearOff {
   const _$RouteConnectionTearOff();
 
-// ignore: unused_element
   _RouteConnection call(
-      {String from,
-      DateTime departure,
-      String to,
-      DateTime arrival,
-      double duration,
+      {required String from,
+      required String to,
+      DateTime? departure,
+      DateTime? arrival,
+      double? duration,
       List<Leg> legs = const [],
       Map<String, Disruption> disruptions = const {},
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay}) {
+          required int depDelay}) {
     return _RouteConnection(
       from: from,
-      departure: departure,
       to: to,
+      departure: departure,
       arrival: arrival,
       duration: duration,
       legs: legs,
@@ -39,23 +38,21 @@ class _$RouteConnectionTearOff {
     );
   }
 
-// ignore: unused_element
   RouteConnection fromJson(Map<String, Object> json) {
     return RouteConnection.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RouteConnection = _$RouteConnectionTearOff();
 
 /// @nodoc
 mixin _$RouteConnection {
   String get from;
-  DateTime get departure;
   String get to;
-  DateTime get arrival;
-  double get duration;
+  DateTime? get departure;
+  DateTime? get arrival;
+  double? get duration;
   List<Leg> get legs;
   Map<String, Disruption> get disruptions;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -73,10 +70,10 @@ abstract class $RouteConnectionCopyWith<$Res> {
       _$RouteConnectionCopyWithImpl<$Res>;
   $Res call(
       {String from,
-      DateTime departure,
       String to,
-      DateTime arrival,
-      double duration,
+      DateTime? departure,
+      DateTime? arrival,
+      double? duration,
       List<Leg> legs,
       Map<String, Disruption> disruptions,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -94,22 +91,22 @@ class _$RouteConnectionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object from = freezed,
-    Object departure = freezed,
-    Object to = freezed,
-    Object arrival = freezed,
-    Object duration = freezed,
-    Object legs = freezed,
-    Object disruptions = freezed,
-    Object depDelay = freezed,
+    Object? from = freezed,
+    Object? to = freezed,
+    Object? departure = freezed,
+    Object? arrival = freezed,
+    Object? duration = freezed,
+    Object? legs = freezed,
+    Object? disruptions = freezed,
+    Object? depDelay = freezed,
   }) {
     return _then(_value.copyWith(
       from: from == freezed ? _value.from : from as String,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime,
       to: to == freezed ? _value.to : to as String,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
-      duration: duration == freezed ? _value.duration : duration as double,
+      departure:
+          departure == freezed ? _value.departure : departure as DateTime?,
+      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
+      duration: duration == freezed ? _value.duration : duration as double?,
       legs: legs == freezed ? _value.legs : legs as List<Leg>,
       disruptions: disruptions == freezed
           ? _value.disruptions
@@ -128,10 +125,10 @@ abstract class _$RouteConnectionCopyWith<$Res>
   @override
   $Res call(
       {String from,
-      DateTime departure,
       String to,
-      DateTime arrival,
-      double duration,
+      DateTime? departure,
+      DateTime? arrival,
+      double? duration,
       List<Leg> legs,
       Map<String, Disruption> disruptions,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -151,22 +148,22 @@ class __$RouteConnectionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object from = freezed,
-    Object departure = freezed,
-    Object to = freezed,
-    Object arrival = freezed,
-    Object duration = freezed,
-    Object legs = freezed,
-    Object disruptions = freezed,
-    Object depDelay = freezed,
+    Object? from = freezed,
+    Object? to = freezed,
+    Object? departure = freezed,
+    Object? arrival = freezed,
+    Object? duration = freezed,
+    Object? legs = freezed,
+    Object? disruptions = freezed,
+    Object? depDelay = freezed,
   }) {
     return _then(_RouteConnection(
       from: from == freezed ? _value.from : from as String,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime,
       to: to == freezed ? _value.to : to as String,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
-      duration: duration == freezed ? _value.duration : duration as double,
+      departure:
+          departure == freezed ? _value.departure : departure as DateTime?,
+      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
+      duration: duration == freezed ? _value.duration : duration as double?,
       legs: legs == freezed ? _value.legs : legs as List<Leg>,
       disruptions: disruptions == freezed
           ? _value.disruptions
@@ -181,17 +178,15 @@ class __$RouteConnectionCopyWithImpl<$Res>
 /// @nodoc
 class _$_RouteConnection implements _RouteConnection {
   const _$_RouteConnection(
-      {this.from,
+      {required this.from,
+      required this.to,
       this.departure,
-      this.to,
       this.arrival,
       this.duration,
       this.legs = const [],
       this.disruptions = const {},
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.depDelay})
-      : assert(legs != null),
-        assert(disruptions != null);
+          required this.depDelay});
 
   factory _$_RouteConnection.fromJson(Map<String, dynamic> json) =>
       _$_$_RouteConnectionFromJson(json);
@@ -199,13 +194,13 @@ class _$_RouteConnection implements _RouteConnection {
   @override
   final String from;
   @override
-  final DateTime departure;
-  @override
   final String to;
   @override
-  final DateTime arrival;
+  final DateTime? departure;
   @override
-  final double duration;
+  final DateTime? arrival;
+  @override
+  final double? duration;
   @JsonKey(defaultValue: const [])
   @override
   final List<Leg> legs;
@@ -218,7 +213,7 @@ class _$_RouteConnection implements _RouteConnection {
 
   @override
   String toString() {
-    return 'RouteConnection(from: $from, departure: $departure, to: $to, arrival: $arrival, duration: $duration, legs: $legs, disruptions: $disruptions, depDelay: $depDelay)';
+    return 'RouteConnection(from: $from, to: $to, departure: $departure, arrival: $arrival, duration: $duration, legs: $legs, disruptions: $disruptions, depDelay: $depDelay)';
   }
 
   @override
@@ -227,11 +222,11 @@ class _$_RouteConnection implements _RouteConnection {
         (other is _RouteConnection &&
             (identical(other.from, from) ||
                 const DeepCollectionEquality().equals(other.from, from)) &&
+            (identical(other.to, to) ||
+                const DeepCollectionEquality().equals(other.to, to)) &&
             (identical(other.departure, departure) ||
                 const DeepCollectionEquality()
                     .equals(other.departure, departure)) &&
-            (identical(other.to, to) ||
-                const DeepCollectionEquality().equals(other.to, to)) &&
             (identical(other.arrival, arrival) ||
                 const DeepCollectionEquality()
                     .equals(other.arrival, arrival)) &&
@@ -252,8 +247,8 @@ class _$_RouteConnection implements _RouteConnection {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(from) ^
-      const DeepCollectionEquality().hash(departure) ^
       const DeepCollectionEquality().hash(to) ^
+      const DeepCollectionEquality().hash(departure) ^
       const DeepCollectionEquality().hash(arrival) ^
       const DeepCollectionEquality().hash(duration) ^
       const DeepCollectionEquality().hash(legs) ^
@@ -273,15 +268,15 @@ class _$_RouteConnection implements _RouteConnection {
 
 abstract class _RouteConnection implements RouteConnection {
   const factory _RouteConnection(
-      {String from,
-      DateTime departure,
-      String to,
-      DateTime arrival,
-      double duration,
+      {required String from,
+      required String to,
+      DateTime? departure,
+      DateTime? arrival,
+      double? duration,
       List<Leg> legs,
       Map<String, Disruption> disruptions,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay}) = _$_RouteConnection;
+          required int depDelay}) = _$_RouteConnection;
 
   factory _RouteConnection.fromJson(Map<String, dynamic> json) =
       _$_RouteConnection.fromJson;
@@ -289,13 +284,13 @@ abstract class _RouteConnection implements RouteConnection {
   @override
   String get from;
   @override
-  DateTime get departure;
-  @override
   String get to;
   @override
-  DateTime get arrival;
+  DateTime? get departure;
   @override
-  double get duration;
+  DateTime? get arrival;
+  @override
+  double? get duration;
   @override
   List<Leg> get legs;
   @override

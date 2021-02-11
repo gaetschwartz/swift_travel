@@ -3,7 +3,7 @@ import 'package:live_route/lazy.dart';
 
 void main() {
   test('lazy value', () {
-    int i = 0;
+    var i = 0;
     final n = Lazy(() => i++)();
     final n2 = () => i++.lazy();
     expect(n, 0);

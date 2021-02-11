@@ -9,26 +9,26 @@ import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
 import 'package:swift_travel/apis/search.ch/models/stop.dart';
 import 'package:swift_travel/utils/format.dart';
 
-final positionProvider = StreamProvider.autoDispose((_) => Geolocator.getPositionStream());
+final AutoDisposeStreamProvider<Position>? positionProvider =
+    StreamProvider.autoDispose((_) => Geolocator.getPositionStream());
 
 class LiveRoutePage extends StatefulWidget {
   final RouteConnection connection;
 
-  const LiveRoutePage({Key key, @required this.connection}) : super(key: key);
+  const LiveRoutePage({Key? key, required this.connection}) : super(key: key);
 
   @override
   _LiveRoutePageState createState() => _LiveRoutePageState();
 }
 
 class _LiveRoutePageState extends State<LiveRoutePage> {
-  LiveRouteController _controller;
+  late final LiveRouteController _controller = context.read(liveRouteControllerProvider);
+
   @override
   void initState() {
     super.initState();
-    _controller = context.read(liveRouteControllerProvider);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _controller.startRoute(widget.connection);
-    });
+    WidgetsBinding.instance!
+        .addPostFrameCallback((timeStamp) => _controller.startRoute(widget.connection));
   }
 
   @override
@@ -72,7 +72,8 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
                                   text:
                                       ' (${Format.distance(controller.routeData.distUntilExit)})'),
                             ],
-                            style: Theme.of(context).textTheme.headline6.apply(fontSizeFactor: 0.8),
+                            style:
+                                Theme.of(context).textTheme.headline6!.apply(fontSizeFactor: 0.8),
                           )),
                           Text(
                             controller.routeData.currentStopIndex == 2
@@ -99,14 +100,14 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
                   Text(
                     'Closest stop : ${controller.closestStop?.name}\n'
                     'Current stop : ${controller.currentStop?.name}\n'
-                    'Closest leg : ${controller.closestLeg.name}\n'
-                    'Current leg : ${controller.currentLeg.name}\n'
+                    'Closest leg : ${controller.closestLeg!.name}\n'
+                    'Current leg : ${controller.currentLeg!.name}\n'
                     '---\n'
-                    'Stops until ${controller.currentLeg.exit.name} : ${controller.routeData.currentStopIndex}\n'
-                    'Distance from ${controller.currentStop?.name} to ${controller.currentLeg.exit.name} : ${Format.distance(controller.routeData.distFromCurrToNext)}\n'
-                    'Distance until ${controller.currentLeg.exit.name} : ${Format.distance(controller.routeData.distUntilExit)} (${controller.currentStop == null || controller.routeData.portionOfLegDone == null ? null : (100 * controller.routeData.portionOfLegDone).toStringAsFixed(1)}%)\n'
-                    'Time until ${controller.currentLeg.exit.name} : ${controller.routeData.timeUntilNextLeg} min\n'
-                    'Portion of trip complete (${controller.currentStop == null || controller.routeData.portionFromCurrentToExit == null ? null : (100 * controller.routeData.portionFromCurrentToExit).toStringAsFixed(1)}%)',
+                    'Stops until ${controller.currentLeg!.exit!.name} : ${controller.routeData.currentStopIndex}\n'
+                    'Distance from ${controller.currentStop?.name} to ${controller.currentLeg!.exit!.name} : ${Format.distance(controller.routeData.distFromCurrToNext)}\n'
+                    'Distance until ${controller.currentLeg!.exit!.name} : ${Format.distance(controller.routeData.distUntilExit)} (${controller.currentStop == null || controller.routeData.portionOfLegDone == null ? null : (100 * controller.routeData.portionOfLegDone!).toStringAsFixed(1)}%)\n'
+                    'Time until ${controller.currentLeg!.exit!.name} : ${controller.routeData.timeUntilNextLeg} min\n'
+                    'Portion of trip complete (${controller.currentStop == null || controller.routeData.portionFromCurrentToExit == null ? null : (100 * controller.routeData.portionFromCurrentToExit!).toStringAsFixed(1)}%)',
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -125,14 +126,14 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
 
   Card _buildLeg(LiveRouteController controller, int i, Leg l) {
     final selected = controller.currentStop == null && l.name == controller.currentLeg?.name;
-    final dist = controller.legDistances[i] == null ? .0 : controller.legDistances[i][-1];
+    final dist = controller.legDistances[i] == null ? .0 : controller.legDistances[i]![-1];
     return Card(
       child: Column(
         children: [
           ListTile(
             selected: selected,
             title: Text(
-              l.name,
+              l.name!,
               style: TextStyle(fontWeight: selected ? FontWeight.bold : null),
             ),
             subtitle: dist != null ? Text(Format.distance(dist)) : null,
@@ -145,7 +146,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
 
   ListTile _buildStop(LiveRouteController controller, int i, int j, Stop s) {
     final selected = s.name == controller.currentStop?.name;
-    final dist = controller.legDistances[i][j];
+    final dist = controller.legDistances[i]![j];
     return ListTile(
       selected: selected,
       dense: true,

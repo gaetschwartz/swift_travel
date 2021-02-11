@@ -10,8 +10,8 @@ import 'package:theming/dialogs/confirmation_alert.dart';
 
 const String routeUrl = 'travel.gaetanschwartz.com';
 
-Future<void> shareRoute(BuildContext context, CffRoute route, int i) async {
-  final params = encodeRouteUri(Uri.parse(route.requestUrl), i);
+Future<void> shareRoute(BuildContext context, CffRoute route, int? i) async {
+  final params = encodeRouteUri(Uri.parse(route.requestUrl!), i);
   print(params);
   final sharedUri = Uri(scheme: 'https', host: routeUrl, path: 'route', queryParameters: params);
   log(sharedUri.toString());

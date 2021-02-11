@@ -13,7 +13,7 @@ import 'package:swift_travel/states/favorites_routes_states.dart';
 import 'package:swift_travel/states/favorites_states.dart';
 
 abstract class FavoritesStoreBase extends ChangeNotifier {
-  Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true});
+  Future<void> loadFromPreferences({SharedPreferences? prefs, bool notify = true});
   Future<void> addStop(FavoriteStop stop);
   Future<void> removeStop(FavoriteStop favoriteStop);
   Future<void> addRoute(LocalRoute route);
@@ -34,20 +34,20 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   final ProviderReference ref;
   FavoritesSharedPreferencesStore(this.ref);
 
-  SharedPreferences _prefs;
+  SharedPreferences? _prefs;
 
   final Set<FavoriteStop> _stops = {};
   final Set<LocalRoute> _routes = {};
 
   Set<LocalRoute> get routes => _routes;
-  Iterable<FavoriteStop> get stops => _stops;
+  Set<FavoriteStop> get stops => _stops;
 
   Future<void> _checkState() async {
     _prefs ??= await SharedPreferences.getInstance();
   }
 
   @override
-  Future<void> loadFromPreferences({SharedPreferences prefs, bool notify = true}) async {
+  Future<void> loadFromPreferences({SharedPreferences? prefs, bool notify = true}) async {
     if (notify) {
       ref.read(favoritesStatesProvider).state = const FavoritesStates.loading();
       ref.read(favoritesRoutesStatesProvider).state = const FavoritesRoutesStates.loading();
@@ -57,7 +57,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     //? Stops
 
     final favStops = <FavoriteStop>[];
-    for (final stopString in _prefs.getStringList(stopsKey) ?? []) {
+    for (final stopString in _prefs!.getStringList(stopsKey) ?? []) {
       final decode = jsonDecode(stopString) as Map<String, dynamic>;
       final fs = FavoriteStop.fromJson(decode);
       favStops.add(fs);
@@ -68,7 +68,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
 
     //? Routes
-    final routes = _prefs.getStringList(routesKey) ?? [];
+    final routes = _prefs!.getStringList(routesKey) ?? [];
     _routes.clear();
     for (final spr in routes) {
       final decode = jsonDecode(spr) as Map<String, dynamic>;
@@ -106,7 +106,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   }
 
   @override
-  Future<void> removeStop(FavoriteStop favoriteStop) async {
+  Future<void> removeStop(FavoriteStop? favoriteStop) async {
     await _checkState();
 
     if (!_stops.remove(favoriteStop)) {
@@ -124,15 +124,15 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       try {
         stops.add(jsonEncode(e.toJson()));
       } on FormatException {
-        await _prefs.setStringList(stopsKey, []);
+        await _prefs!.setStringList(stopsKey, []);
         rethrow;
       }
     }
-    await _prefs.setStringList(stopsKey, stops);
+    await _prefs!.setStringList(stopsKey, stops);
 
     final routes = _routes.map((e) => jsonEncode(e.toJson())).toList();
 
-    await _prefs.setStringList(routesKey, routes);
+    await _prefs!.setStringList(routesKey, routes);
 
     if (isMobile) await MyQuickActions.instance.setActions(_routes.toList(), _stops.toList());
   }

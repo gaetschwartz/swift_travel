@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'stop.dart';
 
@@ -16,13 +16,12 @@ Stop _$StopFromJson(Map<String, dynamic> json) {
 class _$StopTearOff {
   const _$StopTearOff();
 
-// ignore: unused_element
   _Stop call(String name,
-      {String id,
-      String stopid,
-      @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
-      double lat,
-      double lon}) {
+      {String? id,
+      String? stopid,
+      @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
+      double? lat,
+      double? lon}) {
     return _Stop(
       name,
       id: id,
@@ -33,25 +32,23 @@ class _$StopTearOff {
     );
   }
 
-// ignore: unused_element
   Stop fromJson(Map<String, Object> json) {
     return Stop.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Stop = _$StopTearOff();
 
 /// @nodoc
 mixin _$Stop {
   String get name;
-  String get id;
-  String get stopid;
+  String? get id;
+  String? get stopid;
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
-  DateTime get departure;
-  double get lat;
-  double get lon;
+  DateTime? get departure;
+  double? get lat;
+  double? get lon;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -64,11 +61,11 @@ abstract class $StopCopyWith<$Res> {
       _$StopCopyWithImpl<$Res>;
   $Res call(
       {String name,
-      String id,
-      String stopid,
-      @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
-      double lat,
-      double lon});
+      String? id,
+      String? stopid,
+      @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
+      double? lat,
+      double? lon});
 }
 
 /// @nodoc
@@ -81,21 +78,21 @@ class _$StopCopyWithImpl<$Res> implements $StopCopyWith<$Res> {
 
   @override
   $Res call({
-    Object name = freezed,
-    Object id = freezed,
-    Object stopid = freezed,
-    Object departure = freezed,
-    Object lat = freezed,
-    Object lon = freezed,
+    Object? name = freezed,
+    Object? id = freezed,
+    Object? stopid = freezed,
+    Object? departure = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String,
-      stopid: stopid == freezed ? _value.stopid : stopid as String,
+      id: id == freezed ? _value.id : id as String?,
+      stopid: stopid == freezed ? _value.stopid : stopid as String?,
       departure:
-          departure == freezed ? _value.departure : departure as DateTime,
-      lat: lat == freezed ? _value.lat : lat as double,
-      lon: lon == freezed ? _value.lon : lon as double,
+          departure == freezed ? _value.departure : departure as DateTime?,
+      lat: lat == freezed ? _value.lat : lat as double?,
+      lon: lon == freezed ? _value.lon : lon as double?,
     ));
   }
 }
@@ -107,11 +104,11 @@ abstract class _$StopCopyWith<$Res> implements $StopCopyWith<$Res> {
   @override
   $Res call(
       {String name,
-      String id,
-      String stopid,
-      @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
-      double lat,
-      double lon});
+      String? id,
+      String? stopid,
+      @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
+      double? lat,
+      double? lon});
 }
 
 /// @nodoc
@@ -125,26 +122,26 @@ class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object name = freezed,
-    Object id = freezed,
-    Object stopid = freezed,
-    Object departure = freezed,
-    Object lat = freezed,
-    Object lon = freezed,
+    Object? name = freezed,
+    Object? id = freezed,
+    Object? stopid = freezed,
+    Object? departure = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
   }) {
     return _then(_Stop(
       name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String,
-      stopid: stopid == freezed ? _value.stopid : stopid as String,
+      id: id == freezed ? _value.id : id as String?,
+      stopid: stopid == freezed ? _value.stopid : stopid as String?,
       departure:
-          departure == freezed ? _value.departure : departure as DateTime,
-      lat: lat == freezed ? _value.lat : lat as double,
-      lon: lon == freezed ? _value.lon : lon as double,
+          departure == freezed ? _value.departure : departure as DateTime?,
+      lat: lat == freezed ? _value.lat : lat as double?,
+      lon: lon == freezed ? _value.lon : lon as double?,
     ));
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 
 /// @nodoc
 class _$_Stop implements _Stop {
@@ -153,8 +150,7 @@ class _$_Stop implements _Stop {
       this.stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) this.departure,
       this.lat,
-      this.lon})
-      : assert(name != null);
+      this.lon});
 
   factory _$_Stop.fromJson(Map<String, dynamic> json) =>
       _$_$_StopFromJson(json);
@@ -162,16 +158,16 @@ class _$_Stop implements _Stop {
   @override
   final String name;
   @override
-  final String id;
+  final String? id;
   @override
-  final String stopid;
+  final String? stopid;
   @override
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
-  final DateTime departure;
+  final DateTime? departure;
   @override
-  final double lat;
+  final double? lat;
   @override
-  final double lon;
+  final double? lon;
 
   @override
   String toString() {
@@ -220,27 +216,27 @@ class _$_Stop implements _Stop {
 
 abstract class _Stop implements Stop {
   const factory _Stop(String name,
-      {String id,
-      String stopid,
-      @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime departure,
-      double lat,
-      double lon}) = _$_Stop;
+      {String? id,
+      String? stopid,
+      @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
+      double? lat,
+      double? lon}) = _$_Stop;
 
   factory _Stop.fromJson(Map<String, dynamic> json) = _$_Stop.fromJson;
 
   @override
   String get name;
   @override
-  String get id;
+  String? get id;
   @override
-  String get stopid;
+  String? get stopid;
   @override
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
-  DateTime get departure;
+  DateTime? get departure;
   @override
-  double get lat;
+  double? get lat;
   @override
-  double get lon;
+  double? get lon;
   @override
   @JsonKey(ignore: true)
   _$StopCopyWith<_Stop> get copyWith;

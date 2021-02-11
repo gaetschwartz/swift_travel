@@ -19,15 +19,15 @@ String delayToJson(int d) => d >= 0 ? '+$d' : d.toString();
 abstract class Exit with _$Exit {
   @JsonSerializable(includeIfNull: false)
   const factory Exit({
-    DateTime arrival,
-    String name,
-    String stopid,
-    @JsonKey(name: 'waittime', defaultValue: 0) int waitTime,
-    bool isaddress,
-    String sbbName,
-    double lat,
-    double lon,
-    @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson) int arrDelay,
+    @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson) required int arrDelay,
+    required String name,
+    DateTime? arrival,
+    String? stopid,
+    @JsonKey(name: 'waittime') int? waitTime,
+    bool? isaddress,
+    String? sbbName,
+    double? lat,
+    double? lon,
   }) = _Exit;
 
   factory Exit.fromJson(Map<String, dynamic> json) => _$ExitFromJson(json);

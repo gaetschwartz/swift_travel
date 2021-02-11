@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'sncf_administrative_region.dart';
 
@@ -17,15 +17,14 @@ SncfAdministrativeRegion _$SncfAdministrativeRegionFromJson(
 class _$SncfAdministrativeRegionTearOff {
   const _$SncfAdministrativeRegionTearOff();
 
-// ignore: unused_element
   _SncfAdministrativeRegion call(
-      {String insee,
-      String name,
-      int level,
-      Coord coord,
-      String label,
-      String id,
-      String zipCode}) {
+      {String? insee,
+      String? name,
+      int? level,
+      Coord? coord,
+      String? label,
+      String? id,
+      String? zipCode}) {
     return _SncfAdministrativeRegion(
       insee: insee,
       name: name,
@@ -37,25 +36,23 @@ class _$SncfAdministrativeRegionTearOff {
     );
   }
 
-// ignore: unused_element
   SncfAdministrativeRegion fromJson(Map<String, Object> json) {
     return SncfAdministrativeRegion.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SncfAdministrativeRegion = _$SncfAdministrativeRegionTearOff();
 
 /// @nodoc
 mixin _$SncfAdministrativeRegion {
-  String get insee;
-  String get name;
-  int get level;
-  Coord get coord;
-  String get label;
-  String get id;
-  String get zipCode;
+  String? get insee;
+  String? get name;
+  int? get level;
+  Coord? get coord;
+  String? get label;
+  String? get id;
+  String? get zipCode;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -68,15 +65,15 @@ abstract class $SncfAdministrativeRegionCopyWith<$Res> {
           $Res Function(SncfAdministrativeRegion) then) =
       _$SncfAdministrativeRegionCopyWithImpl<$Res>;
   $Res call(
-      {String insee,
-      String name,
-      int level,
-      Coord coord,
-      String label,
-      String id,
-      String zipCode});
+      {String? insee,
+      String? name,
+      int? level,
+      Coord? coord,
+      String? label,
+      String? id,
+      String? zipCode});
 
-  $CoordCopyWith<$Res> get coord;
+  $CoordCopyWith<$Res>? get coord;
 }
 
 /// @nodoc
@@ -90,31 +87,32 @@ class _$SncfAdministrativeRegionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object insee = freezed,
-    Object name = freezed,
-    Object level = freezed,
-    Object coord = freezed,
-    Object label = freezed,
-    Object id = freezed,
-    Object zipCode = freezed,
+    Object? insee = freezed,
+    Object? name = freezed,
+    Object? level = freezed,
+    Object? coord = freezed,
+    Object? label = freezed,
+    Object? id = freezed,
+    Object? zipCode = freezed,
   }) {
     return _then(_value.copyWith(
-      insee: insee == freezed ? _value.insee : insee as String,
-      name: name == freezed ? _value.name : name as String,
-      level: level == freezed ? _value.level : level as int,
-      coord: coord == freezed ? _value.coord : coord as Coord,
-      label: label == freezed ? _value.label : label as String,
-      id: id == freezed ? _value.id : id as String,
-      zipCode: zipCode == freezed ? _value.zipCode : zipCode as String,
+      insee: insee == freezed ? _value.insee : insee as String?,
+      name: name == freezed ? _value.name : name as String?,
+      level: level == freezed ? _value.level : level as int?,
+      coord: coord == freezed ? _value.coord : coord as Coord?,
+      label: label == freezed ? _value.label : label as String?,
+      id: id == freezed ? _value.id : id as String?,
+      zipCode: zipCode == freezed ? _value.zipCode : zipCode as String?,
     ));
   }
 
   @override
-  $CoordCopyWith<$Res> get coord {
+  $CoordCopyWith<$Res>? get coord {
     if (_value.coord == null) {
       return null;
     }
-    return $CoordCopyWith<$Res>(_value.coord, (value) {
+
+    return $CoordCopyWith<$Res>(_value.coord!, (value) {
       return _then(_value.copyWith(coord: value));
     });
   }
@@ -128,16 +126,16 @@ abstract class _$SncfAdministrativeRegionCopyWith<$Res>
       __$SncfAdministrativeRegionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String insee,
-      String name,
-      int level,
-      Coord coord,
-      String label,
-      String id,
-      String zipCode});
+      {String? insee,
+      String? name,
+      int? level,
+      Coord? coord,
+      String? label,
+      String? id,
+      String? zipCode});
 
   @override
-  $CoordCopyWith<$Res> get coord;
+  $CoordCopyWith<$Res>? get coord;
 }
 
 /// @nodoc
@@ -154,22 +152,22 @@ class __$SncfAdministrativeRegionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object insee = freezed,
-    Object name = freezed,
-    Object level = freezed,
-    Object coord = freezed,
-    Object label = freezed,
-    Object id = freezed,
-    Object zipCode = freezed,
+    Object? insee = freezed,
+    Object? name = freezed,
+    Object? level = freezed,
+    Object? coord = freezed,
+    Object? label = freezed,
+    Object? id = freezed,
+    Object? zipCode = freezed,
   }) {
     return _then(_SncfAdministrativeRegion(
-      insee: insee == freezed ? _value.insee : insee as String,
-      name: name == freezed ? _value.name : name as String,
-      level: level == freezed ? _value.level : level as int,
-      coord: coord == freezed ? _value.coord : coord as Coord,
-      label: label == freezed ? _value.label : label as String,
-      id: id == freezed ? _value.id : id as String,
-      zipCode: zipCode == freezed ? _value.zipCode : zipCode as String,
+      insee: insee == freezed ? _value.insee : insee as String?,
+      name: name == freezed ? _value.name : name as String?,
+      level: level == freezed ? _value.level : level as int?,
+      coord: coord == freezed ? _value.coord : coord as Coord?,
+      label: label == freezed ? _value.label : label as String?,
+      id: id == freezed ? _value.id : id as String?,
+      zipCode: zipCode == freezed ? _value.zipCode : zipCode as String?,
     ));
   }
 }
@@ -191,19 +189,19 @@ class _$_SncfAdministrativeRegion implements _SncfAdministrativeRegion {
       _$_$_SncfAdministrativeRegionFromJson(json);
 
   @override
-  final String insee;
+  final String? insee;
   @override
-  final String name;
+  final String? name;
   @override
-  final int level;
+  final int? level;
   @override
-  final Coord coord;
+  final Coord? coord;
   @override
-  final String label;
+  final String? label;
   @override
-  final String id;
+  final String? id;
   @override
-  final String zipCode;
+  final String? zipCode;
 
   @override
   String toString() {
@@ -255,31 +253,31 @@ class _$_SncfAdministrativeRegion implements _SncfAdministrativeRegion {
 
 abstract class _SncfAdministrativeRegion implements SncfAdministrativeRegion {
   factory _SncfAdministrativeRegion(
-      {String insee,
-      String name,
-      int level,
-      Coord coord,
-      String label,
-      String id,
-      String zipCode}) = _$_SncfAdministrativeRegion;
+      {String? insee,
+      String? name,
+      int? level,
+      Coord? coord,
+      String? label,
+      String? id,
+      String? zipCode}) = _$_SncfAdministrativeRegion;
 
   factory _SncfAdministrativeRegion.fromJson(Map<String, dynamic> json) =
       _$_SncfAdministrativeRegion.fromJson;
 
   @override
-  String get insee;
+  String? get insee;
   @override
-  String get name;
+  String? get name;
   @override
-  int get level;
+  int? get level;
   @override
-  Coord get coord;
+  Coord? get coord;
   @override
-  String get label;
+  String? get label;
   @override
-  String get id;
+  String? get id;
   @override
-  String get zipCode;
+  String? get zipCode;
   @override
   @JsonKey(ignore: true)
   _$SncfAdministrativeRegionCopyWith<_SncfAdministrativeRegion> get copyWith;

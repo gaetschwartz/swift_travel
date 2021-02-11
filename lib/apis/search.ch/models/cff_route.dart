@@ -6,15 +6,15 @@ part 'cff_route.g.dart';
 
 @freezed
 abstract class CffRoute with _$CffRoute {
-  @JsonSerializable(explicitToJson: true)
+  @JsonSerializable(explicitToJson: true, includeIfNull: false)
   const factory CffRoute({
-    int count,
-    @JsonKey(name: 'min_duration') double minDuration,
-    @JsonKey(name: 'max_duration') double maxDuration,
+    @Default(0) int count,
+    @JsonKey(name: 'min_duration') double? minDuration,
+    @JsonKey(name: 'max_duration') double? maxDuration,
     @Default([]) List<RouteConnection> connections,
     @Default([]) List<String> messages,
-    String requestUrl,
-    DateTime dateTime,
+    String? requestUrl,
+    DateTime? dateTime,
   }) = _CffRoute;
 
   factory CffRoute.fromJson(Map<String, dynamic> json) => _$CffRouteFromJson(json);

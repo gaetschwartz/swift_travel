@@ -135,7 +135,7 @@ void main() {
       final listener = PrefsListener();
       final prefs = container.read(preferencesProvider);
 
-      prefs.addListener(listener);
+      prefs.addListener(listener as void Function());
 
       await prefs.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(listener()).called(1);

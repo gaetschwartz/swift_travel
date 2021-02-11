@@ -10,7 +10,7 @@ import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:vibration/vibration.dart';
 
-void reportDartError(Object e, StackTrace s,
+void reportDartError(Object e, StackTrace? s,
     {String library = '', String reason = '', bool showSnackbar = true}) {
   print('Caught an error: ');
   debugPrintStack(stackTrace: s, label: '[$library] $e $reason');
@@ -27,8 +27,8 @@ void reportDartError(Object e, StackTrace s,
   if (showSnackbar && (!kDebugMode || Env.doShowErrors)) {
     try {
       Vibration.error();
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        scaffoldMessengerKey.currentState
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        scaffoldMessengerKey.currentState!
           ..removeCurrentSnackBar()
           ..showSnackBar(SnackBar(
             key: Key(details.hashCode.toRadixString(32)),
@@ -38,8 +38,8 @@ void reportDartError(Object e, StackTrace s,
             action: SnackBarAction(
               label: 'Details',
               onPressed: () {
-                scaffoldMessengerKey.currentState.removeCurrentSnackBar();
-                navigatorKey.currentState
+                scaffoldMessengerKey.currentState!.removeCurrentSnackBar();
+                navigatorKey.currentState!
                     .push(MaterialPageRoute(builder: (_) => ErrorPage(details)));
               },
             ),
@@ -62,8 +62,8 @@ void reportFlutterError(FlutterErrorDetails details) {
   if (!kDebugMode || Env.doShowErrors) {
     try {
       Vibration.error();
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        scaffoldMessengerKey.currentState
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        scaffoldMessengerKey.currentState!
           ..removeCurrentSnackBar()
           ..showSnackBar(SnackBar(
             key: Key(details.hashCode.toRadixString(32)),
@@ -73,8 +73,8 @@ void reportFlutterError(FlutterErrorDetails details) {
             action: SnackBarAction(
               label: 'Details',
               onPressed: () {
-                scaffoldMessengerKey.currentState.removeCurrentSnackBar();
-                navigatorKey.currentState
+                scaffoldMessengerKey.currentState!.removeCurrentSnackBar();
+                navigatorKey.currentState!
                     .push(MaterialPageRoute(builder: (_) => ErrorPage(details)));
               },
             ),
@@ -90,10 +90,10 @@ void reportFlutterError(FlutterErrorDetails details) {
 class ErrorPage extends StatefulWidget {
   const ErrorPage(
     this.details, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
-  final FlutterErrorDetails details;
+  final FlutterErrorDetails? details;
 
   @override
   _ErrorPageState createState() => _ErrorPageState();
@@ -124,27 +124,27 @@ class _ErrorPageState extends State<ErrorPage> {
             children: [
               ErrorDataWidget(
                 'Exception:',
-                widget.details.exception.toString(),
+                widget.details!.exception.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
                 'StackTrace:',
-                widget.details.stack.toString(),
+                widget.details!.stack.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
                 'Context:',
-                widget.details.context.toString(),
+                widget.details!.context.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
                 'Summary:',
-                widget.details.summary.toString(),
+                widget.details!.summary.toString(),
                 wrapped: _wrapped,
               ),
               ErrorDataWidget(
                 'Library:',
-                widget.details.library,
+                widget.details!.library,
                 wrapped: _wrapped,
               ),
             ],

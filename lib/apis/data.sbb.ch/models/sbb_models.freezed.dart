@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'sbb_models.dart';
 
@@ -16,7 +16,6 @@ LatLong _$LatLongFromJson(Map<String, dynamic> json) {
 class _$LatLongTearOff {
   const _$LatLongTearOff();
 
-// ignore: unused_element
   _LatLong call(double lat, double long) {
     return _LatLong(
       lat,
@@ -24,14 +23,12 @@ class _$LatLongTearOff {
     );
   }
 
-// ignore: unused_element
   LatLong fromJson(Map<String, Object> json) {
     return LatLong.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $LatLong = _$LatLongTearOff();
 
 /// @nodoc
@@ -61,8 +58,8 @@ class _$LatLongCopyWithImpl<$Res> implements $LatLongCopyWith<$Res> {
 
   @override
   $Res call({
-    Object lat = freezed,
-    Object long = freezed,
+    Object? lat = freezed,
+    Object? long = freezed,
   }) {
     return _then(_value.copyWith(
       lat: lat == freezed ? _value.lat : lat as double,
@@ -90,8 +87,8 @@ class __$LatLongCopyWithImpl<$Res> extends _$LatLongCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object lat = freezed,
-    Object long = freezed,
+    Object? lat = freezed,
+    Object? long = freezed,
   }) {
     return _then(_LatLong(
       lat == freezed ? _value.lat : lat as double,
@@ -104,9 +101,7 @@ class __$LatLongCopyWithImpl<$Res> extends _$LatLongCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_LatLong implements _LatLong {
-  const _$_LatLong(this.lat, this.long)
-      : assert(lat != null),
-        assert(long != null);
+  const _$_LatLong(this.lat, this.long);
 
   factory _$_LatLong.fromJson(Map<String, dynamic> json) =>
       _$_$_LatLongFromJson(json);
@@ -170,9 +165,8 @@ SbbStationResponse _$SbbStationResponseFromJson(Map<String, dynamic> json) {
 class _$SbbStationResponseTearOff {
   const _$SbbStationResponseTearOff();
 
-// ignore: unused_element
   _SbbStationResponse call(
-      {int nhits, SbbParameters parameters, List<SbbRecord> records}) {
+      {int? nhits, SbbParameters? parameters, List<SbbRecord>? records}) {
     return _SbbStationResponse(
       nhits: nhits,
       parameters: parameters,
@@ -180,21 +174,19 @@ class _$SbbStationResponseTearOff {
     );
   }
 
-// ignore: unused_element
   SbbStationResponse fromJson(Map<String, Object> json) {
     return SbbStationResponse.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SbbStationResponse = _$SbbStationResponseTearOff();
 
 /// @nodoc
 mixin _$SbbStationResponse {
-  int get nhits;
-  SbbParameters get parameters;
-  List<SbbRecord> get records;
+  int? get nhits;
+  SbbParameters? get parameters;
+  List<SbbRecord>? get records;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -206,9 +198,9 @@ abstract class $SbbStationResponseCopyWith<$Res> {
   factory $SbbStationResponseCopyWith(
           SbbStationResponse value, $Res Function(SbbStationResponse) then) =
       _$SbbStationResponseCopyWithImpl<$Res>;
-  $Res call({int nhits, SbbParameters parameters, List<SbbRecord> records});
+  $Res call({int? nhits, SbbParameters? parameters, List<SbbRecord>? records});
 
-  $SbbParametersCopyWith<$Res> get parameters;
+  $SbbParametersCopyWith<$Res>? get parameters;
 }
 
 /// @nodoc
@@ -222,25 +214,27 @@ class _$SbbStationResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object nhits = freezed,
-    Object parameters = freezed,
-    Object records = freezed,
+    Object? nhits = freezed,
+    Object? parameters = freezed,
+    Object? records = freezed,
   }) {
     return _then(_value.copyWith(
-      nhits: nhits == freezed ? _value.nhits : nhits as int,
+      nhits: nhits == freezed ? _value.nhits : nhits as int?,
       parameters: parameters == freezed
           ? _value.parameters
-          : parameters as SbbParameters,
-      records: records == freezed ? _value.records : records as List<SbbRecord>,
+          : parameters as SbbParameters?,
+      records:
+          records == freezed ? _value.records : records as List<SbbRecord>?,
     ));
   }
 
   @override
-  $SbbParametersCopyWith<$Res> get parameters {
+  $SbbParametersCopyWith<$Res>? get parameters {
     if (_value.parameters == null) {
       return null;
     }
-    return $SbbParametersCopyWith<$Res>(_value.parameters, (value) {
+
+    return $SbbParametersCopyWith<$Res>(_value.parameters!, (value) {
       return _then(_value.copyWith(parameters: value));
     });
   }
@@ -253,10 +247,10 @@ abstract class _$SbbStationResponseCopyWith<$Res>
           _SbbStationResponse value, $Res Function(_SbbStationResponse) then) =
       __$SbbStationResponseCopyWithImpl<$Res>;
   @override
-  $Res call({int nhits, SbbParameters parameters, List<SbbRecord> records});
+  $Res call({int? nhits, SbbParameters? parameters, List<SbbRecord>? records});
 
   @override
-  $SbbParametersCopyWith<$Res> get parameters;
+  $SbbParametersCopyWith<$Res>? get parameters;
 }
 
 /// @nodoc
@@ -272,16 +266,17 @@ class __$SbbStationResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object nhits = freezed,
-    Object parameters = freezed,
-    Object records = freezed,
+    Object? nhits = freezed,
+    Object? parameters = freezed,
+    Object? records = freezed,
   }) {
     return _then(_SbbStationResponse(
-      nhits: nhits == freezed ? _value.nhits : nhits as int,
+      nhits: nhits == freezed ? _value.nhits : nhits as int?,
       parameters: parameters == freezed
           ? _value.parameters
-          : parameters as SbbParameters,
-      records: records == freezed ? _value.records : records as List<SbbRecord>,
+          : parameters as SbbParameters?,
+      records:
+          records == freezed ? _value.records : records as List<SbbRecord>?,
     ));
   }
 }
@@ -296,11 +291,11 @@ class _$_SbbStationResponse implements _SbbStationResponse {
       _$_$_SbbStationResponseFromJson(json);
 
   @override
-  final int nhits;
+  final int? nhits;
   @override
-  final SbbParameters parameters;
+  final SbbParameters? parameters;
   @override
-  final List<SbbRecord> records;
+  final List<SbbRecord>? records;
 
   @override
   String toString() {
@@ -340,19 +335,19 @@ class _$_SbbStationResponse implements _SbbStationResponse {
 
 abstract class _SbbStationResponse implements SbbStationResponse {
   const factory _SbbStationResponse(
-      {int nhits,
-      SbbParameters parameters,
-      List<SbbRecord> records}) = _$_SbbStationResponse;
+      {int? nhits,
+      SbbParameters? parameters,
+      List<SbbRecord>? records}) = _$_SbbStationResponse;
 
   factory _SbbStationResponse.fromJson(Map<String, dynamic> json) =
       _$_SbbStationResponse.fromJson;
 
   @override
-  int get nhits;
+  int? get nhits;
   @override
-  SbbParameters get parameters;
+  SbbParameters? get parameters;
   @override
-  List<SbbRecord> get records;
+  List<SbbRecord>? get records;
   @override
   @JsonKey(ignore: true)
   _$SbbStationResponseCopyWith<_SbbStationResponse> get copyWith;
@@ -366,14 +361,13 @@ SbbParameters _$SbbParametersFromJson(Map<String, dynamic> json) {
 class _$SbbParametersTearOff {
   const _$SbbParametersTearOff();
 
-// ignore: unused_element
   _SbbParameters call(
-      {String dataset,
-      String timezone,
-      String q,
-      int rows,
-      int start,
-      String format}) {
+      {String? dataset,
+      String? timezone,
+      String? q,
+      int? rows,
+      int? start,
+      String? format}) {
     return _SbbParameters(
       dataset: dataset,
       timezone: timezone,
@@ -384,24 +378,22 @@ class _$SbbParametersTearOff {
     );
   }
 
-// ignore: unused_element
   SbbParameters fromJson(Map<String, Object> json) {
     return SbbParameters.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SbbParameters = _$SbbParametersTearOff();
 
 /// @nodoc
 mixin _$SbbParameters {
-  String get dataset;
-  String get timezone;
-  String get q;
-  int get rows;
-  int get start;
-  String get format;
+  String? get dataset;
+  String? get timezone;
+  String? get q;
+  int? get rows;
+  int? get start;
+  String? get format;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -414,12 +406,12 @@ abstract class $SbbParametersCopyWith<$Res> {
           SbbParameters value, $Res Function(SbbParameters) then) =
       _$SbbParametersCopyWithImpl<$Res>;
   $Res call(
-      {String dataset,
-      String timezone,
-      String q,
-      int rows,
-      int start,
-      String format});
+      {String? dataset,
+      String? timezone,
+      String? q,
+      int? rows,
+      int? start,
+      String? format});
 }
 
 /// @nodoc
@@ -433,20 +425,20 @@ class _$SbbParametersCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object dataset = freezed,
-    Object timezone = freezed,
-    Object q = freezed,
-    Object rows = freezed,
-    Object start = freezed,
-    Object format = freezed,
+    Object? dataset = freezed,
+    Object? timezone = freezed,
+    Object? q = freezed,
+    Object? rows = freezed,
+    Object? start = freezed,
+    Object? format = freezed,
   }) {
     return _then(_value.copyWith(
-      dataset: dataset == freezed ? _value.dataset : dataset as String,
-      timezone: timezone == freezed ? _value.timezone : timezone as String,
-      q: q == freezed ? _value.q : q as String,
-      rows: rows == freezed ? _value.rows : rows as int,
-      start: start == freezed ? _value.start : start as int,
-      format: format == freezed ? _value.format : format as String,
+      dataset: dataset == freezed ? _value.dataset : dataset as String?,
+      timezone: timezone == freezed ? _value.timezone : timezone as String?,
+      q: q == freezed ? _value.q : q as String?,
+      rows: rows == freezed ? _value.rows : rows as int?,
+      start: start == freezed ? _value.start : start as int?,
+      format: format == freezed ? _value.format : format as String?,
     ));
   }
 }
@@ -459,12 +451,12 @@ abstract class _$SbbParametersCopyWith<$Res>
       __$SbbParametersCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String dataset,
-      String timezone,
-      String q,
-      int rows,
-      int start,
-      String format});
+      {String? dataset,
+      String? timezone,
+      String? q,
+      int? rows,
+      int? start,
+      String? format});
 }
 
 /// @nodoc
@@ -480,20 +472,20 @@ class __$SbbParametersCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object dataset = freezed,
-    Object timezone = freezed,
-    Object q = freezed,
-    Object rows = freezed,
-    Object start = freezed,
-    Object format = freezed,
+    Object? dataset = freezed,
+    Object? timezone = freezed,
+    Object? q = freezed,
+    Object? rows = freezed,
+    Object? start = freezed,
+    Object? format = freezed,
   }) {
     return _then(_SbbParameters(
-      dataset: dataset == freezed ? _value.dataset : dataset as String,
-      timezone: timezone == freezed ? _value.timezone : timezone as String,
-      q: q == freezed ? _value.q : q as String,
-      rows: rows == freezed ? _value.rows : rows as int,
-      start: start == freezed ? _value.start : start as int,
-      format: format == freezed ? _value.format : format as String,
+      dataset: dataset == freezed ? _value.dataset : dataset as String?,
+      timezone: timezone == freezed ? _value.timezone : timezone as String?,
+      q: q == freezed ? _value.q : q as String?,
+      rows: rows == freezed ? _value.rows : rows as int?,
+      start: start == freezed ? _value.start : start as int?,
+      format: format == freezed ? _value.format : format as String?,
     ));
   }
 }
@@ -514,17 +506,17 @@ class _$_SbbParameters implements _SbbParameters {
       _$_$_SbbParametersFromJson(json);
 
   @override
-  final String dataset;
+  final String? dataset;
   @override
-  final String timezone;
+  final String? timezone;
   @override
-  final String q;
+  final String? q;
   @override
-  final int rows;
+  final int? rows;
   @override
-  final int start;
+  final int? start;
   @override
-  final String format;
+  final String? format;
 
   @override
   String toString() {
@@ -574,28 +566,28 @@ class _$_SbbParameters implements _SbbParameters {
 
 abstract class _SbbParameters implements SbbParameters {
   const factory _SbbParameters(
-      {String dataset,
-      String timezone,
-      String q,
-      int rows,
-      int start,
-      String format}) = _$_SbbParameters;
+      {String? dataset,
+      String? timezone,
+      String? q,
+      int? rows,
+      int? start,
+      String? format}) = _$_SbbParameters;
 
   factory _SbbParameters.fromJson(Map<String, dynamic> json) =
       _$_SbbParameters.fromJson;
 
   @override
-  String get dataset;
+  String? get dataset;
   @override
-  String get timezone;
+  String? get timezone;
   @override
-  String get q;
+  String? get q;
   @override
-  int get rows;
+  int? get rows;
   @override
-  int get start;
+  int? get start;
   @override
-  String get format;
+  String? get format;
   @override
   @JsonKey(ignore: true)
   _$SbbParametersCopyWith<_SbbParameters> get copyWith;
@@ -609,13 +601,12 @@ SbbRecord _$SbbRecordFromJson(Map<String, dynamic> json) {
 class _$SbbRecordTearOff {
   const _$SbbRecordTearOff();
 
-// ignore: unused_element
   _SbbRecord call(
-      {String datasetid,
-      String recordid,
-      SbbFields fields,
-      SbbGeometry geometry,
-      String recordTimeStanp}) {
+      {String? datasetid,
+      String? recordid,
+      SbbFields? fields,
+      SbbGeometry? geometry,
+      String? recordTimeStanp}) {
     return _SbbRecord(
       datasetid: datasetid,
       recordid: recordid,
@@ -625,23 +616,21 @@ class _$SbbRecordTearOff {
     );
   }
 
-// ignore: unused_element
   SbbRecord fromJson(Map<String, Object> json) {
     return SbbRecord.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SbbRecord = _$SbbRecordTearOff();
 
 /// @nodoc
 mixin _$SbbRecord {
-  String get datasetid;
-  String get recordid;
-  SbbFields get fields;
-  SbbGeometry get geometry;
-  String get recordTimeStanp;
+  String? get datasetid;
+  String? get recordid;
+  SbbFields? get fields;
+  SbbGeometry? get geometry;
+  String? get recordTimeStanp;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -653,14 +642,14 @@ abstract class $SbbRecordCopyWith<$Res> {
   factory $SbbRecordCopyWith(SbbRecord value, $Res Function(SbbRecord) then) =
       _$SbbRecordCopyWithImpl<$Res>;
   $Res call(
-      {String datasetid,
-      String recordid,
-      SbbFields fields,
-      SbbGeometry geometry,
-      String recordTimeStanp});
+      {String? datasetid,
+      String? recordid,
+      SbbFields? fields,
+      SbbGeometry? geometry,
+      String? recordTimeStanp});
 
-  $SbbFieldsCopyWith<$Res> get fields;
-  $SbbGeometryCopyWith<$Res> get geometry;
+  $SbbFieldsCopyWith<$Res>? get fields;
+  $SbbGeometryCopyWith<$Res>? get geometry;
 }
 
 /// @nodoc
@@ -673,39 +662,42 @@ class _$SbbRecordCopyWithImpl<$Res> implements $SbbRecordCopyWith<$Res> {
 
   @override
   $Res call({
-    Object datasetid = freezed,
-    Object recordid = freezed,
-    Object fields = freezed,
-    Object geometry = freezed,
-    Object recordTimeStanp = freezed,
+    Object? datasetid = freezed,
+    Object? recordid = freezed,
+    Object? fields = freezed,
+    Object? geometry = freezed,
+    Object? recordTimeStanp = freezed,
   }) {
     return _then(_value.copyWith(
-      datasetid: datasetid == freezed ? _value.datasetid : datasetid as String,
-      recordid: recordid == freezed ? _value.recordid : recordid as String,
-      fields: fields == freezed ? _value.fields : fields as SbbFields,
-      geometry: geometry == freezed ? _value.geometry : geometry as SbbGeometry,
+      datasetid: datasetid == freezed ? _value.datasetid : datasetid as String?,
+      recordid: recordid == freezed ? _value.recordid : recordid as String?,
+      fields: fields == freezed ? _value.fields : fields as SbbFields?,
+      geometry:
+          geometry == freezed ? _value.geometry : geometry as SbbGeometry?,
       recordTimeStanp: recordTimeStanp == freezed
           ? _value.recordTimeStanp
-          : recordTimeStanp as String,
+          : recordTimeStanp as String?,
     ));
   }
 
   @override
-  $SbbFieldsCopyWith<$Res> get fields {
+  $SbbFieldsCopyWith<$Res>? get fields {
     if (_value.fields == null) {
       return null;
     }
-    return $SbbFieldsCopyWith<$Res>(_value.fields, (value) {
+
+    return $SbbFieldsCopyWith<$Res>(_value.fields!, (value) {
       return _then(_value.copyWith(fields: value));
     });
   }
 
   @override
-  $SbbGeometryCopyWith<$Res> get geometry {
+  $SbbGeometryCopyWith<$Res>? get geometry {
     if (_value.geometry == null) {
       return null;
     }
-    return $SbbGeometryCopyWith<$Res>(_value.geometry, (value) {
+
+    return $SbbGeometryCopyWith<$Res>(_value.geometry!, (value) {
       return _then(_value.copyWith(geometry: value));
     });
   }
@@ -718,16 +710,16 @@ abstract class _$SbbRecordCopyWith<$Res> implements $SbbRecordCopyWith<$Res> {
       __$SbbRecordCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String datasetid,
-      String recordid,
-      SbbFields fields,
-      SbbGeometry geometry,
-      String recordTimeStanp});
+      {String? datasetid,
+      String? recordid,
+      SbbFields? fields,
+      SbbGeometry? geometry,
+      String? recordTimeStanp});
 
   @override
-  $SbbFieldsCopyWith<$Res> get fields;
+  $SbbFieldsCopyWith<$Res>? get fields;
   @override
-  $SbbGeometryCopyWith<$Res> get geometry;
+  $SbbGeometryCopyWith<$Res>? get geometry;
 }
 
 /// @nodoc
@@ -741,20 +733,21 @@ class __$SbbRecordCopyWithImpl<$Res> extends _$SbbRecordCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object datasetid = freezed,
-    Object recordid = freezed,
-    Object fields = freezed,
-    Object geometry = freezed,
-    Object recordTimeStanp = freezed,
+    Object? datasetid = freezed,
+    Object? recordid = freezed,
+    Object? fields = freezed,
+    Object? geometry = freezed,
+    Object? recordTimeStanp = freezed,
   }) {
     return _then(_SbbRecord(
-      datasetid: datasetid == freezed ? _value.datasetid : datasetid as String,
-      recordid: recordid == freezed ? _value.recordid : recordid as String,
-      fields: fields == freezed ? _value.fields : fields as SbbFields,
-      geometry: geometry == freezed ? _value.geometry : geometry as SbbGeometry,
+      datasetid: datasetid == freezed ? _value.datasetid : datasetid as String?,
+      recordid: recordid == freezed ? _value.recordid : recordid as String?,
+      fields: fields == freezed ? _value.fields : fields as SbbFields?,
+      geometry:
+          geometry == freezed ? _value.geometry : geometry as SbbGeometry?,
       recordTimeStanp: recordTimeStanp == freezed
           ? _value.recordTimeStanp
-          : recordTimeStanp as String,
+          : recordTimeStanp as String?,
     ));
   }
 }
@@ -774,15 +767,15 @@ class _$_SbbRecord implements _SbbRecord {
       _$_$_SbbRecordFromJson(json);
 
   @override
-  final String datasetid;
+  final String? datasetid;
   @override
-  final String recordid;
+  final String? recordid;
   @override
-  final SbbFields fields;
+  final SbbFields? fields;
   @override
-  final SbbGeometry geometry;
+  final SbbGeometry? geometry;
   @override
-  final String recordTimeStanp;
+  final String? recordTimeStanp;
 
   @override
   String toString() {
@@ -831,25 +824,25 @@ class _$_SbbRecord implements _SbbRecord {
 
 abstract class _SbbRecord implements SbbRecord {
   const factory _SbbRecord(
-      {String datasetid,
-      String recordid,
-      SbbFields fields,
-      SbbGeometry geometry,
-      String recordTimeStanp}) = _$_SbbRecord;
+      {String? datasetid,
+      String? recordid,
+      SbbFields? fields,
+      SbbGeometry? geometry,
+      String? recordTimeStanp}) = _$_SbbRecord;
 
   factory _SbbRecord.fromJson(Map<String, dynamic> json) =
       _$_SbbRecord.fromJson;
 
   @override
-  String get datasetid;
+  String? get datasetid;
   @override
-  String get recordid;
+  String? get recordid;
   @override
-  SbbFields get fields;
+  SbbFields? get fields;
   @override
-  SbbGeometry get geometry;
+  SbbGeometry? get geometry;
   @override
-  String get recordTimeStanp;
+  String? get recordTimeStanp;
   @override
   @JsonKey(ignore: true)
   _$SbbRecordCopyWith<_SbbRecord> get copyWith;
@@ -863,40 +856,39 @@ SbbFields _$SbbFieldsFromJson(Map<String, dynamic> json) {
 class _$SbbFieldsTearOff {
   const _$SbbFieldsTearOff();
 
-// ignore: unused_element
   _SbbFields call(
-      {int bpuic,
-      int isHaltestelle,
-      double zLv03,
-      String kantonsname,
-      double eWgs84,
-      List<double> geopos,
-      double eLv03,
-      double zWgs84,
-      String abkuerzung,
-      String kantonskuerzel,
-      String lod,
-      String bezirksnum,
-      String landIso2Geo,
-      int goNummer,
-      String bpvhVerkehrsmittelTextDe,
-      int kantonsnum,
-      double zLv95,
-      double nWgs84,
-      String bezeichnungOffiziell,
-      int bfsNummer,
-      String gemeindename,
-      double nLv03,
-      double eLv95,
-      double nLv95,
-      String goAbkuerzungDe,
-      String bezirksname,
-      String ortschaftsname,
-      String goBezeichnungDe,
-      String bpvhVerkehrsmittel,
-      int nummer,
-      String dstAbk,
-      int goIdentifikation}) {
+      {int? bpuic,
+      int? isHaltestelle,
+      double? zLv03,
+      String? kantonsname,
+      double? eWgs84,
+      List<double>? geopos,
+      double? eLv03,
+      double? zWgs84,
+      String? abkuerzung,
+      String? kantonskuerzel,
+      String? lod,
+      String? bezirksnum,
+      String? landIso2Geo,
+      int? goNummer,
+      String? bpvhVerkehrsmittelTextDe,
+      int? kantonsnum,
+      double? zLv95,
+      double? nWgs84,
+      String? bezeichnungOffiziell,
+      int? bfsNummer,
+      String? gemeindename,
+      double? nLv03,
+      double? eLv95,
+      double? nLv95,
+      String? goAbkuerzungDe,
+      String? bezirksname,
+      String? ortschaftsname,
+      String? goBezeichnungDe,
+      String? bpvhVerkehrsmittel,
+      int? nummer,
+      String? dstAbk,
+      int? goIdentifikation}) {
     return _SbbFields(
       bpuic: bpuic,
       isHaltestelle: isHaltestelle,
@@ -933,50 +925,48 @@ class _$SbbFieldsTearOff {
     );
   }
 
-// ignore: unused_element
   SbbFields fromJson(Map<String, Object> json) {
     return SbbFields.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SbbFields = _$SbbFieldsTearOff();
 
 /// @nodoc
 mixin _$SbbFields {
-  int get bpuic;
-  int get isHaltestelle;
-  double get zLv03;
-  String get kantonsname;
-  double get eWgs84;
-  List<double> get geopos;
-  double get eLv03;
-  double get zWgs84;
-  String get abkuerzung;
-  String get kantonskuerzel;
-  String get lod;
-  String get bezirksnum;
-  String get landIso2Geo;
-  int get goNummer;
-  String get bpvhVerkehrsmittelTextDe;
-  int get kantonsnum;
-  double get zLv95;
-  double get nWgs84;
-  String get bezeichnungOffiziell;
-  int get bfsNummer;
-  String get gemeindename;
-  double get nLv03;
-  double get eLv95;
-  double get nLv95;
-  String get goAbkuerzungDe;
-  String get bezirksname;
-  String get ortschaftsname;
-  String get goBezeichnungDe;
-  String get bpvhVerkehrsmittel;
-  int get nummer;
-  String get dstAbk;
-  int get goIdentifikation;
+  int? get bpuic;
+  int? get isHaltestelle;
+  double? get zLv03;
+  String? get kantonsname;
+  double? get eWgs84;
+  List<double>? get geopos;
+  double? get eLv03;
+  double? get zWgs84;
+  String? get abkuerzung;
+  String? get kantonskuerzel;
+  String? get lod;
+  String? get bezirksnum;
+  String? get landIso2Geo;
+  int? get goNummer;
+  String? get bpvhVerkehrsmittelTextDe;
+  int? get kantonsnum;
+  double? get zLv95;
+  double? get nWgs84;
+  String? get bezeichnungOffiziell;
+  int? get bfsNummer;
+  String? get gemeindename;
+  double? get nLv03;
+  double? get eLv95;
+  double? get nLv95;
+  String? get goAbkuerzungDe;
+  String? get bezirksname;
+  String? get ortschaftsname;
+  String? get goBezeichnungDe;
+  String? get bpvhVerkehrsmittel;
+  int? get nummer;
+  String? get dstAbk;
+  int? get goIdentifikation;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -988,38 +978,38 @@ abstract class $SbbFieldsCopyWith<$Res> {
   factory $SbbFieldsCopyWith(SbbFields value, $Res Function(SbbFields) then) =
       _$SbbFieldsCopyWithImpl<$Res>;
   $Res call(
-      {int bpuic,
-      int isHaltestelle,
-      double zLv03,
-      String kantonsname,
-      double eWgs84,
-      List<double> geopos,
-      double eLv03,
-      double zWgs84,
-      String abkuerzung,
-      String kantonskuerzel,
-      String lod,
-      String bezirksnum,
-      String landIso2Geo,
-      int goNummer,
-      String bpvhVerkehrsmittelTextDe,
-      int kantonsnum,
-      double zLv95,
-      double nWgs84,
-      String bezeichnungOffiziell,
-      int bfsNummer,
-      String gemeindename,
-      double nLv03,
-      double eLv95,
-      double nLv95,
-      String goAbkuerzungDe,
-      String bezirksname,
-      String ortschaftsname,
-      String goBezeichnungDe,
-      String bpvhVerkehrsmittel,
-      int nummer,
-      String dstAbk,
-      int goIdentifikation});
+      {int? bpuic,
+      int? isHaltestelle,
+      double? zLv03,
+      String? kantonsname,
+      double? eWgs84,
+      List<double>? geopos,
+      double? eLv03,
+      double? zWgs84,
+      String? abkuerzung,
+      String? kantonskuerzel,
+      String? lod,
+      String? bezirksnum,
+      String? landIso2Geo,
+      int? goNummer,
+      String? bpvhVerkehrsmittelTextDe,
+      int? kantonsnum,
+      double? zLv95,
+      double? nWgs84,
+      String? bezeichnungOffiziell,
+      int? bfsNummer,
+      String? gemeindename,
+      double? nLv03,
+      double? eLv95,
+      double? nLv95,
+      String? goAbkuerzungDe,
+      String? bezirksname,
+      String? ortschaftsname,
+      String? goBezeichnungDe,
+      String? bpvhVerkehrsmittel,
+      int? nummer,
+      String? dstAbk,
+      int? goIdentifikation});
 }
 
 /// @nodoc
@@ -1032,97 +1022,98 @@ class _$SbbFieldsCopyWithImpl<$Res> implements $SbbFieldsCopyWith<$Res> {
 
   @override
   $Res call({
-    Object bpuic = freezed,
-    Object isHaltestelle = freezed,
-    Object zLv03 = freezed,
-    Object kantonsname = freezed,
-    Object eWgs84 = freezed,
-    Object geopos = freezed,
-    Object eLv03 = freezed,
-    Object zWgs84 = freezed,
-    Object abkuerzung = freezed,
-    Object kantonskuerzel = freezed,
-    Object lod = freezed,
-    Object bezirksnum = freezed,
-    Object landIso2Geo = freezed,
-    Object goNummer = freezed,
-    Object bpvhVerkehrsmittelTextDe = freezed,
-    Object kantonsnum = freezed,
-    Object zLv95 = freezed,
-    Object nWgs84 = freezed,
-    Object bezeichnungOffiziell = freezed,
-    Object bfsNummer = freezed,
-    Object gemeindename = freezed,
-    Object nLv03 = freezed,
-    Object eLv95 = freezed,
-    Object nLv95 = freezed,
-    Object goAbkuerzungDe = freezed,
-    Object bezirksname = freezed,
-    Object ortschaftsname = freezed,
-    Object goBezeichnungDe = freezed,
-    Object bpvhVerkehrsmittel = freezed,
-    Object nummer = freezed,
-    Object dstAbk = freezed,
-    Object goIdentifikation = freezed,
+    Object? bpuic = freezed,
+    Object? isHaltestelle = freezed,
+    Object? zLv03 = freezed,
+    Object? kantonsname = freezed,
+    Object? eWgs84 = freezed,
+    Object? geopos = freezed,
+    Object? eLv03 = freezed,
+    Object? zWgs84 = freezed,
+    Object? abkuerzung = freezed,
+    Object? kantonskuerzel = freezed,
+    Object? lod = freezed,
+    Object? bezirksnum = freezed,
+    Object? landIso2Geo = freezed,
+    Object? goNummer = freezed,
+    Object? bpvhVerkehrsmittelTextDe = freezed,
+    Object? kantonsnum = freezed,
+    Object? zLv95 = freezed,
+    Object? nWgs84 = freezed,
+    Object? bezeichnungOffiziell = freezed,
+    Object? bfsNummer = freezed,
+    Object? gemeindename = freezed,
+    Object? nLv03 = freezed,
+    Object? eLv95 = freezed,
+    Object? nLv95 = freezed,
+    Object? goAbkuerzungDe = freezed,
+    Object? bezirksname = freezed,
+    Object? ortschaftsname = freezed,
+    Object? goBezeichnungDe = freezed,
+    Object? bpvhVerkehrsmittel = freezed,
+    Object? nummer = freezed,
+    Object? dstAbk = freezed,
+    Object? goIdentifikation = freezed,
   }) {
     return _then(_value.copyWith(
-      bpuic: bpuic == freezed ? _value.bpuic : bpuic as int,
+      bpuic: bpuic == freezed ? _value.bpuic : bpuic as int?,
       isHaltestelle: isHaltestelle == freezed
           ? _value.isHaltestelle
-          : isHaltestelle as int,
-      zLv03: zLv03 == freezed ? _value.zLv03 : zLv03 as double,
+          : isHaltestelle as int?,
+      zLv03: zLv03 == freezed ? _value.zLv03 : zLv03 as double?,
       kantonsname:
-          kantonsname == freezed ? _value.kantonsname : kantonsname as String,
-      eWgs84: eWgs84 == freezed ? _value.eWgs84 : eWgs84 as double,
-      geopos: geopos == freezed ? _value.geopos : geopos as List<double>,
-      eLv03: eLv03 == freezed ? _value.eLv03 : eLv03 as double,
-      zWgs84: zWgs84 == freezed ? _value.zWgs84 : zWgs84 as double,
+          kantonsname == freezed ? _value.kantonsname : kantonsname as String?,
+      eWgs84: eWgs84 == freezed ? _value.eWgs84 : eWgs84 as double?,
+      geopos: geopos == freezed ? _value.geopos : geopos as List<double>?,
+      eLv03: eLv03 == freezed ? _value.eLv03 : eLv03 as double?,
+      zWgs84: zWgs84 == freezed ? _value.zWgs84 : zWgs84 as double?,
       abkuerzung:
-          abkuerzung == freezed ? _value.abkuerzung : abkuerzung as String,
+          abkuerzung == freezed ? _value.abkuerzung : abkuerzung as String?,
       kantonskuerzel: kantonskuerzel == freezed
           ? _value.kantonskuerzel
-          : kantonskuerzel as String,
-      lod: lod == freezed ? _value.lod : lod as String,
+          : kantonskuerzel as String?,
+      lod: lod == freezed ? _value.lod : lod as String?,
       bezirksnum:
-          bezirksnum == freezed ? _value.bezirksnum : bezirksnum as String,
+          bezirksnum == freezed ? _value.bezirksnum : bezirksnum as String?,
       landIso2Geo:
-          landIso2Geo == freezed ? _value.landIso2Geo : landIso2Geo as String,
-      goNummer: goNummer == freezed ? _value.goNummer : goNummer as int,
+          landIso2Geo == freezed ? _value.landIso2Geo : landIso2Geo as String?,
+      goNummer: goNummer == freezed ? _value.goNummer : goNummer as int?,
       bpvhVerkehrsmittelTextDe: bpvhVerkehrsmittelTextDe == freezed
           ? _value.bpvhVerkehrsmittelTextDe
-          : bpvhVerkehrsmittelTextDe as String,
-      kantonsnum: kantonsnum == freezed ? _value.kantonsnum : kantonsnum as int,
-      zLv95: zLv95 == freezed ? _value.zLv95 : zLv95 as double,
-      nWgs84: nWgs84 == freezed ? _value.nWgs84 : nWgs84 as double,
+          : bpvhVerkehrsmittelTextDe as String?,
+      kantonsnum:
+          kantonsnum == freezed ? _value.kantonsnum : kantonsnum as int?,
+      zLv95: zLv95 == freezed ? _value.zLv95 : zLv95 as double?,
+      nWgs84: nWgs84 == freezed ? _value.nWgs84 : nWgs84 as double?,
       bezeichnungOffiziell: bezeichnungOffiziell == freezed
           ? _value.bezeichnungOffiziell
-          : bezeichnungOffiziell as String,
-      bfsNummer: bfsNummer == freezed ? _value.bfsNummer : bfsNummer as int,
+          : bezeichnungOffiziell as String?,
+      bfsNummer: bfsNummer == freezed ? _value.bfsNummer : bfsNummer as int?,
       gemeindename: gemeindename == freezed
           ? _value.gemeindename
-          : gemeindename as String,
-      nLv03: nLv03 == freezed ? _value.nLv03 : nLv03 as double,
-      eLv95: eLv95 == freezed ? _value.eLv95 : eLv95 as double,
-      nLv95: nLv95 == freezed ? _value.nLv95 : nLv95 as double,
+          : gemeindename as String?,
+      nLv03: nLv03 == freezed ? _value.nLv03 : nLv03 as double?,
+      eLv95: eLv95 == freezed ? _value.eLv95 : eLv95 as double?,
+      nLv95: nLv95 == freezed ? _value.nLv95 : nLv95 as double?,
       goAbkuerzungDe: goAbkuerzungDe == freezed
           ? _value.goAbkuerzungDe
-          : goAbkuerzungDe as String,
+          : goAbkuerzungDe as String?,
       bezirksname:
-          bezirksname == freezed ? _value.bezirksname : bezirksname as String,
+          bezirksname == freezed ? _value.bezirksname : bezirksname as String?,
       ortschaftsname: ortschaftsname == freezed
           ? _value.ortschaftsname
-          : ortschaftsname as String,
+          : ortschaftsname as String?,
       goBezeichnungDe: goBezeichnungDe == freezed
           ? _value.goBezeichnungDe
-          : goBezeichnungDe as String,
+          : goBezeichnungDe as String?,
       bpvhVerkehrsmittel: bpvhVerkehrsmittel == freezed
           ? _value.bpvhVerkehrsmittel
-          : bpvhVerkehrsmittel as String,
-      nummer: nummer == freezed ? _value.nummer : nummer as int,
-      dstAbk: dstAbk == freezed ? _value.dstAbk : dstAbk as String,
+          : bpvhVerkehrsmittel as String?,
+      nummer: nummer == freezed ? _value.nummer : nummer as int?,
+      dstAbk: dstAbk == freezed ? _value.dstAbk : dstAbk as String?,
       goIdentifikation: goIdentifikation == freezed
           ? _value.goIdentifikation
-          : goIdentifikation as int,
+          : goIdentifikation as int?,
     ));
   }
 }
@@ -1134,38 +1125,38 @@ abstract class _$SbbFieldsCopyWith<$Res> implements $SbbFieldsCopyWith<$Res> {
       __$SbbFieldsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int bpuic,
-      int isHaltestelle,
-      double zLv03,
-      String kantonsname,
-      double eWgs84,
-      List<double> geopos,
-      double eLv03,
-      double zWgs84,
-      String abkuerzung,
-      String kantonskuerzel,
-      String lod,
-      String bezirksnum,
-      String landIso2Geo,
-      int goNummer,
-      String bpvhVerkehrsmittelTextDe,
-      int kantonsnum,
-      double zLv95,
-      double nWgs84,
-      String bezeichnungOffiziell,
-      int bfsNummer,
-      String gemeindename,
-      double nLv03,
-      double eLv95,
-      double nLv95,
-      String goAbkuerzungDe,
-      String bezirksname,
-      String ortschaftsname,
-      String goBezeichnungDe,
-      String bpvhVerkehrsmittel,
-      int nummer,
-      String dstAbk,
-      int goIdentifikation});
+      {int? bpuic,
+      int? isHaltestelle,
+      double? zLv03,
+      String? kantonsname,
+      double? eWgs84,
+      List<double>? geopos,
+      double? eLv03,
+      double? zWgs84,
+      String? abkuerzung,
+      String? kantonskuerzel,
+      String? lod,
+      String? bezirksnum,
+      String? landIso2Geo,
+      int? goNummer,
+      String? bpvhVerkehrsmittelTextDe,
+      int? kantonsnum,
+      double? zLv95,
+      double? nWgs84,
+      String? bezeichnungOffiziell,
+      int? bfsNummer,
+      String? gemeindename,
+      double? nLv03,
+      double? eLv95,
+      double? nLv95,
+      String? goAbkuerzungDe,
+      String? bezirksname,
+      String? ortschaftsname,
+      String? goBezeichnungDe,
+      String? bpvhVerkehrsmittel,
+      int? nummer,
+      String? dstAbk,
+      int? goIdentifikation});
 }
 
 /// @nodoc
@@ -1179,97 +1170,98 @@ class __$SbbFieldsCopyWithImpl<$Res> extends _$SbbFieldsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object bpuic = freezed,
-    Object isHaltestelle = freezed,
-    Object zLv03 = freezed,
-    Object kantonsname = freezed,
-    Object eWgs84 = freezed,
-    Object geopos = freezed,
-    Object eLv03 = freezed,
-    Object zWgs84 = freezed,
-    Object abkuerzung = freezed,
-    Object kantonskuerzel = freezed,
-    Object lod = freezed,
-    Object bezirksnum = freezed,
-    Object landIso2Geo = freezed,
-    Object goNummer = freezed,
-    Object bpvhVerkehrsmittelTextDe = freezed,
-    Object kantonsnum = freezed,
-    Object zLv95 = freezed,
-    Object nWgs84 = freezed,
-    Object bezeichnungOffiziell = freezed,
-    Object bfsNummer = freezed,
-    Object gemeindename = freezed,
-    Object nLv03 = freezed,
-    Object eLv95 = freezed,
-    Object nLv95 = freezed,
-    Object goAbkuerzungDe = freezed,
-    Object bezirksname = freezed,
-    Object ortschaftsname = freezed,
-    Object goBezeichnungDe = freezed,
-    Object bpvhVerkehrsmittel = freezed,
-    Object nummer = freezed,
-    Object dstAbk = freezed,
-    Object goIdentifikation = freezed,
+    Object? bpuic = freezed,
+    Object? isHaltestelle = freezed,
+    Object? zLv03 = freezed,
+    Object? kantonsname = freezed,
+    Object? eWgs84 = freezed,
+    Object? geopos = freezed,
+    Object? eLv03 = freezed,
+    Object? zWgs84 = freezed,
+    Object? abkuerzung = freezed,
+    Object? kantonskuerzel = freezed,
+    Object? lod = freezed,
+    Object? bezirksnum = freezed,
+    Object? landIso2Geo = freezed,
+    Object? goNummer = freezed,
+    Object? bpvhVerkehrsmittelTextDe = freezed,
+    Object? kantonsnum = freezed,
+    Object? zLv95 = freezed,
+    Object? nWgs84 = freezed,
+    Object? bezeichnungOffiziell = freezed,
+    Object? bfsNummer = freezed,
+    Object? gemeindename = freezed,
+    Object? nLv03 = freezed,
+    Object? eLv95 = freezed,
+    Object? nLv95 = freezed,
+    Object? goAbkuerzungDe = freezed,
+    Object? bezirksname = freezed,
+    Object? ortschaftsname = freezed,
+    Object? goBezeichnungDe = freezed,
+    Object? bpvhVerkehrsmittel = freezed,
+    Object? nummer = freezed,
+    Object? dstAbk = freezed,
+    Object? goIdentifikation = freezed,
   }) {
     return _then(_SbbFields(
-      bpuic: bpuic == freezed ? _value.bpuic : bpuic as int,
+      bpuic: bpuic == freezed ? _value.bpuic : bpuic as int?,
       isHaltestelle: isHaltestelle == freezed
           ? _value.isHaltestelle
-          : isHaltestelle as int,
-      zLv03: zLv03 == freezed ? _value.zLv03 : zLv03 as double,
+          : isHaltestelle as int?,
+      zLv03: zLv03 == freezed ? _value.zLv03 : zLv03 as double?,
       kantonsname:
-          kantonsname == freezed ? _value.kantonsname : kantonsname as String,
-      eWgs84: eWgs84 == freezed ? _value.eWgs84 : eWgs84 as double,
-      geopos: geopos == freezed ? _value.geopos : geopos as List<double>,
-      eLv03: eLv03 == freezed ? _value.eLv03 : eLv03 as double,
-      zWgs84: zWgs84 == freezed ? _value.zWgs84 : zWgs84 as double,
+          kantonsname == freezed ? _value.kantonsname : kantonsname as String?,
+      eWgs84: eWgs84 == freezed ? _value.eWgs84 : eWgs84 as double?,
+      geopos: geopos == freezed ? _value.geopos : geopos as List<double>?,
+      eLv03: eLv03 == freezed ? _value.eLv03 : eLv03 as double?,
+      zWgs84: zWgs84 == freezed ? _value.zWgs84 : zWgs84 as double?,
       abkuerzung:
-          abkuerzung == freezed ? _value.abkuerzung : abkuerzung as String,
+          abkuerzung == freezed ? _value.abkuerzung : abkuerzung as String?,
       kantonskuerzel: kantonskuerzel == freezed
           ? _value.kantonskuerzel
-          : kantonskuerzel as String,
-      lod: lod == freezed ? _value.lod : lod as String,
+          : kantonskuerzel as String?,
+      lod: lod == freezed ? _value.lod : lod as String?,
       bezirksnum:
-          bezirksnum == freezed ? _value.bezirksnum : bezirksnum as String,
+          bezirksnum == freezed ? _value.bezirksnum : bezirksnum as String?,
       landIso2Geo:
-          landIso2Geo == freezed ? _value.landIso2Geo : landIso2Geo as String,
-      goNummer: goNummer == freezed ? _value.goNummer : goNummer as int,
+          landIso2Geo == freezed ? _value.landIso2Geo : landIso2Geo as String?,
+      goNummer: goNummer == freezed ? _value.goNummer : goNummer as int?,
       bpvhVerkehrsmittelTextDe: bpvhVerkehrsmittelTextDe == freezed
           ? _value.bpvhVerkehrsmittelTextDe
-          : bpvhVerkehrsmittelTextDe as String,
-      kantonsnum: kantonsnum == freezed ? _value.kantonsnum : kantonsnum as int,
-      zLv95: zLv95 == freezed ? _value.zLv95 : zLv95 as double,
-      nWgs84: nWgs84 == freezed ? _value.nWgs84 : nWgs84 as double,
+          : bpvhVerkehrsmittelTextDe as String?,
+      kantonsnum:
+          kantonsnum == freezed ? _value.kantonsnum : kantonsnum as int?,
+      zLv95: zLv95 == freezed ? _value.zLv95 : zLv95 as double?,
+      nWgs84: nWgs84 == freezed ? _value.nWgs84 : nWgs84 as double?,
       bezeichnungOffiziell: bezeichnungOffiziell == freezed
           ? _value.bezeichnungOffiziell
-          : bezeichnungOffiziell as String,
-      bfsNummer: bfsNummer == freezed ? _value.bfsNummer : bfsNummer as int,
+          : bezeichnungOffiziell as String?,
+      bfsNummer: bfsNummer == freezed ? _value.bfsNummer : bfsNummer as int?,
       gemeindename: gemeindename == freezed
           ? _value.gemeindename
-          : gemeindename as String,
-      nLv03: nLv03 == freezed ? _value.nLv03 : nLv03 as double,
-      eLv95: eLv95 == freezed ? _value.eLv95 : eLv95 as double,
-      nLv95: nLv95 == freezed ? _value.nLv95 : nLv95 as double,
+          : gemeindename as String?,
+      nLv03: nLv03 == freezed ? _value.nLv03 : nLv03 as double?,
+      eLv95: eLv95 == freezed ? _value.eLv95 : eLv95 as double?,
+      nLv95: nLv95 == freezed ? _value.nLv95 : nLv95 as double?,
       goAbkuerzungDe: goAbkuerzungDe == freezed
           ? _value.goAbkuerzungDe
-          : goAbkuerzungDe as String,
+          : goAbkuerzungDe as String?,
       bezirksname:
-          bezirksname == freezed ? _value.bezirksname : bezirksname as String,
+          bezirksname == freezed ? _value.bezirksname : bezirksname as String?,
       ortschaftsname: ortschaftsname == freezed
           ? _value.ortschaftsname
-          : ortschaftsname as String,
+          : ortschaftsname as String?,
       goBezeichnungDe: goBezeichnungDe == freezed
           ? _value.goBezeichnungDe
-          : goBezeichnungDe as String,
+          : goBezeichnungDe as String?,
       bpvhVerkehrsmittel: bpvhVerkehrsmittel == freezed
           ? _value.bpvhVerkehrsmittel
-          : bpvhVerkehrsmittel as String,
-      nummer: nummer == freezed ? _value.nummer : nummer as int,
-      dstAbk: dstAbk == freezed ? _value.dstAbk : dstAbk as String,
+          : bpvhVerkehrsmittel as String?,
+      nummer: nummer == freezed ? _value.nummer : nummer as int?,
+      dstAbk: dstAbk == freezed ? _value.dstAbk : dstAbk as String?,
       goIdentifikation: goIdentifikation == freezed
           ? _value.goIdentifikation
-          : goIdentifikation as int,
+          : goIdentifikation as int?,
     ));
   }
 }
@@ -1316,69 +1308,69 @@ class _$_SbbFields implements _SbbFields {
       _$_$_SbbFieldsFromJson(json);
 
   @override
-  final int bpuic;
+  final int? bpuic;
   @override
-  final int isHaltestelle;
+  final int? isHaltestelle;
   @override
-  final double zLv03;
+  final double? zLv03;
   @override
-  final String kantonsname;
+  final String? kantonsname;
   @override
-  final double eWgs84;
+  final double? eWgs84;
   @override
-  final List<double> geopos;
+  final List<double>? geopos;
   @override
-  final double eLv03;
+  final double? eLv03;
   @override
-  final double zWgs84;
+  final double? zWgs84;
   @override
-  final String abkuerzung;
+  final String? abkuerzung;
   @override
-  final String kantonskuerzel;
+  final String? kantonskuerzel;
   @override
-  final String lod;
+  final String? lod;
   @override
-  final String bezirksnum;
+  final String? bezirksnum;
   @override
-  final String landIso2Geo;
+  final String? landIso2Geo;
   @override
-  final int goNummer;
+  final int? goNummer;
   @override
-  final String bpvhVerkehrsmittelTextDe;
+  final String? bpvhVerkehrsmittelTextDe;
   @override
-  final int kantonsnum;
+  final int? kantonsnum;
   @override
-  final double zLv95;
+  final double? zLv95;
   @override
-  final double nWgs84;
+  final double? nWgs84;
   @override
-  final String bezeichnungOffiziell;
+  final String? bezeichnungOffiziell;
   @override
-  final int bfsNummer;
+  final int? bfsNummer;
   @override
-  final String gemeindename;
+  final String? gemeindename;
   @override
-  final double nLv03;
+  final double? nLv03;
   @override
-  final double eLv95;
+  final double? eLv95;
   @override
-  final double nLv95;
+  final double? nLv95;
   @override
-  final String goAbkuerzungDe;
+  final String? goAbkuerzungDe;
   @override
-  final String bezirksname;
+  final String? bezirksname;
   @override
-  final String ortschaftsname;
+  final String? ortschaftsname;
   @override
-  final String goBezeichnungDe;
+  final String? goBezeichnungDe;
   @override
-  final String bpvhVerkehrsmittel;
+  final String? bpvhVerkehrsmittel;
   @override
-  final int nummer;
+  final int? nummer;
   @override
-  final String dstAbk;
+  final String? dstAbk;
   @override
-  final int goIdentifikation;
+  final int? goIdentifikation;
 
   @override
   String toString() {
@@ -1511,106 +1503,106 @@ class _$_SbbFields implements _SbbFields {
 
 abstract class _SbbFields implements SbbFields {
   const factory _SbbFields(
-      {int bpuic,
-      int isHaltestelle,
-      double zLv03,
-      String kantonsname,
-      double eWgs84,
-      List<double> geopos,
-      double eLv03,
-      double zWgs84,
-      String abkuerzung,
-      String kantonskuerzel,
-      String lod,
-      String bezirksnum,
-      String landIso2Geo,
-      int goNummer,
-      String bpvhVerkehrsmittelTextDe,
-      int kantonsnum,
-      double zLv95,
-      double nWgs84,
-      String bezeichnungOffiziell,
-      int bfsNummer,
-      String gemeindename,
-      double nLv03,
-      double eLv95,
-      double nLv95,
-      String goAbkuerzungDe,
-      String bezirksname,
-      String ortschaftsname,
-      String goBezeichnungDe,
-      String bpvhVerkehrsmittel,
-      int nummer,
-      String dstAbk,
-      int goIdentifikation}) = _$_SbbFields;
+      {int? bpuic,
+      int? isHaltestelle,
+      double? zLv03,
+      String? kantonsname,
+      double? eWgs84,
+      List<double>? geopos,
+      double? eLv03,
+      double? zWgs84,
+      String? abkuerzung,
+      String? kantonskuerzel,
+      String? lod,
+      String? bezirksnum,
+      String? landIso2Geo,
+      int? goNummer,
+      String? bpvhVerkehrsmittelTextDe,
+      int? kantonsnum,
+      double? zLv95,
+      double? nWgs84,
+      String? bezeichnungOffiziell,
+      int? bfsNummer,
+      String? gemeindename,
+      double? nLv03,
+      double? eLv95,
+      double? nLv95,
+      String? goAbkuerzungDe,
+      String? bezirksname,
+      String? ortschaftsname,
+      String? goBezeichnungDe,
+      String? bpvhVerkehrsmittel,
+      int? nummer,
+      String? dstAbk,
+      int? goIdentifikation}) = _$_SbbFields;
 
   factory _SbbFields.fromJson(Map<String, dynamic> json) =
       _$_SbbFields.fromJson;
 
   @override
-  int get bpuic;
+  int? get bpuic;
   @override
-  int get isHaltestelle;
+  int? get isHaltestelle;
   @override
-  double get zLv03;
+  double? get zLv03;
   @override
-  String get kantonsname;
+  String? get kantonsname;
   @override
-  double get eWgs84;
+  double? get eWgs84;
   @override
-  List<double> get geopos;
+  List<double>? get geopos;
   @override
-  double get eLv03;
+  double? get eLv03;
   @override
-  double get zWgs84;
+  double? get zWgs84;
   @override
-  String get abkuerzung;
+  String? get abkuerzung;
   @override
-  String get kantonskuerzel;
+  String? get kantonskuerzel;
   @override
-  String get lod;
+  String? get lod;
   @override
-  String get bezirksnum;
+  String? get bezirksnum;
   @override
-  String get landIso2Geo;
+  String? get landIso2Geo;
   @override
-  int get goNummer;
+  int? get goNummer;
   @override
-  String get bpvhVerkehrsmittelTextDe;
+  String? get bpvhVerkehrsmittelTextDe;
   @override
-  int get kantonsnum;
+  int? get kantonsnum;
   @override
-  double get zLv95;
+  double? get zLv95;
   @override
-  double get nWgs84;
+  double? get nWgs84;
   @override
-  String get bezeichnungOffiziell;
+  String? get bezeichnungOffiziell;
   @override
-  int get bfsNummer;
+  int? get bfsNummer;
   @override
-  String get gemeindename;
+  String? get gemeindename;
   @override
-  double get nLv03;
+  double? get nLv03;
   @override
-  double get eLv95;
+  double? get eLv95;
   @override
-  double get nLv95;
+  double? get nLv95;
   @override
-  String get goAbkuerzungDe;
+  String? get goAbkuerzungDe;
   @override
-  String get bezirksname;
+  String? get bezirksname;
   @override
-  String get ortschaftsname;
+  String? get ortschaftsname;
   @override
-  String get goBezeichnungDe;
+  String? get goBezeichnungDe;
   @override
-  String get bpvhVerkehrsmittel;
+  String? get bpvhVerkehrsmittel;
   @override
-  int get nummer;
+  int? get nummer;
   @override
-  String get dstAbk;
+  String? get dstAbk;
   @override
-  int get goIdentifikation;
+  int? get goIdentifikation;
   @override
   @JsonKey(ignore: true)
   _$SbbFieldsCopyWith<_SbbFields> get copyWith;
@@ -1624,28 +1616,25 @@ SbbGeometry _$SbbGeometryFromJson(Map<String, dynamic> json) {
 class _$SbbGeometryTearOff {
   const _$SbbGeometryTearOff();
 
-// ignore: unused_element
-  _SbbGeometry call({String type, List<double> coordinates}) {
+  _SbbGeometry call({String? type, List<double>? coordinates}) {
     return _SbbGeometry(
       type: type,
       coordinates: coordinates,
     );
   }
 
-// ignore: unused_element
   SbbGeometry fromJson(Map<String, Object> json) {
     return SbbGeometry.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SbbGeometry = _$SbbGeometryTearOff();
 
 /// @nodoc
 mixin _$SbbGeometry {
-  String get type;
-  List<double> get coordinates;
+  String? get type;
+  List<double>? get coordinates;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -1657,7 +1646,7 @@ abstract class $SbbGeometryCopyWith<$Res> {
   factory $SbbGeometryCopyWith(
           SbbGeometry value, $Res Function(SbbGeometry) then) =
       _$SbbGeometryCopyWithImpl<$Res>;
-  $Res call({String type, List<double> coordinates});
+  $Res call({String? type, List<double>? coordinates});
 }
 
 /// @nodoc
@@ -1670,14 +1659,14 @@ class _$SbbGeometryCopyWithImpl<$Res> implements $SbbGeometryCopyWith<$Res> {
 
   @override
   $Res call({
-    Object type = freezed,
-    Object coordinates = freezed,
+    Object? type = freezed,
+    Object? coordinates = freezed,
   }) {
     return _then(_value.copyWith(
-      type: type == freezed ? _value.type : type as String,
+      type: type == freezed ? _value.type : type as String?,
       coordinates: coordinates == freezed
           ? _value.coordinates
-          : coordinates as List<double>,
+          : coordinates as List<double>?,
     ));
   }
 }
@@ -1689,7 +1678,7 @@ abstract class _$SbbGeometryCopyWith<$Res>
           _SbbGeometry value, $Res Function(_SbbGeometry) then) =
       __$SbbGeometryCopyWithImpl<$Res>;
   @override
-  $Res call({String type, List<double> coordinates});
+  $Res call({String? type, List<double>? coordinates});
 }
 
 /// @nodoc
@@ -1704,14 +1693,14 @@ class __$SbbGeometryCopyWithImpl<$Res> extends _$SbbGeometryCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object type = freezed,
-    Object coordinates = freezed,
+    Object? type = freezed,
+    Object? coordinates = freezed,
   }) {
     return _then(_SbbGeometry(
-      type: type == freezed ? _value.type : type as String,
+      type: type == freezed ? _value.type : type as String?,
       coordinates: coordinates == freezed
           ? _value.coordinates
-          : coordinates as List<double>,
+          : coordinates as List<double>?,
     ));
   }
 }
@@ -1726,9 +1715,9 @@ class _$_SbbGeometry implements _SbbGeometry {
       _$_$_SbbGeometryFromJson(json);
 
   @override
-  final String type;
+  final String? type;
   @override
-  final List<double> coordinates;
+  final List<double>? coordinates;
 
   @override
   String toString() {
@@ -1764,16 +1753,16 @@ class _$_SbbGeometry implements _SbbGeometry {
 }
 
 abstract class _SbbGeometry implements SbbGeometry {
-  const factory _SbbGeometry({String type, List<double> coordinates}) =
+  const factory _SbbGeometry({String? type, List<double>? coordinates}) =
       _$_SbbGeometry;
 
   factory _SbbGeometry.fromJson(Map<String, dynamic> json) =
       _$_SbbGeometry.fromJson;
 
   @override
-  String get type;
+  String? get type;
   @override
-  List<double> get coordinates;
+  List<double>? get coordinates;
   @override
   @JsonKey(ignore: true)
   _$SbbGeometryCopyWith<_SbbGeometry> get copyWith;

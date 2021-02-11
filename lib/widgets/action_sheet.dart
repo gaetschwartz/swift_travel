@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:theming/responsive.dart';
 
-Future<T> showActionSheet<T>(
+Future<T?> showActionSheet<T>(
   BuildContext context,
   List<ActionsSheetAction<T>> actions, {
   bool useRootNavigator = true,
-  ActionsSheetAction<T> cancel,
-  Widget title,
-  Widget message,
+  ActionsSheetAction<T>? cancel,
+  Widget? title,
+  Widget? message,
   bool popBeforeReturn = false,
 }) {
   final isDarwin = Responsive.isDarwin(context);
@@ -61,15 +61,15 @@ Future<T> showActionSheet<T>(
         );
 }
 
-Future<T> showChoiceSheet<T>(
+Future<T?> showChoiceSheet<T>(
   BuildContext context,
   List<ActionsSheetAction<T>> actions, {
   bool useRootNavigator = true,
-  ActionsSheetAction<T> cancel,
-  Widget title,
-  Widget message,
+  ActionsSheetAction<T>? cancel,
+  Widget? title,
+  Widget? message,
   bool popBeforeReturn = false,
-  T defaultValue,
+  T? defaultValue,
 }) {
   final isDarwin = Responsive.isDarwin(context);
 
@@ -120,15 +120,15 @@ Future<T> showChoiceSheet<T>(
 @immutable
 class ActionsSheetAction<T> {
   final Widget title;
-  final FutureOr<T> Function() onPressed;
-  final Widget icon;
-  final Widget cupertinoIcon;
+  final FutureOr<T>? Function()? onPressed;
+  final Widget? icon;
+  final Widget? cupertinoIcon;
   final bool isDestructive;
   final bool isDefault;
 
   const ActionsSheetAction({
     this.cupertinoIcon,
-    @required this.title,
+    required this.title,
     this.onPressed,
     this.icon,
     this.isDestructive = false,
@@ -138,8 +138,8 @@ class ActionsSheetAction<T> {
 
 class ActionsSheet<T> extends StatelessWidget {
   const ActionsSheet({
-    Key key,
-    @required this.actions,
+    Key? key,
+    required this.actions,
     this.cancel,
     this.title,
     this.message,
@@ -147,9 +147,9 @@ class ActionsSheet<T> extends StatelessWidget {
   }) : super(key: key);
 
   final List<ActionsSheetAction<T>> actions;
-  final ActionsSheetAction<T> cancel;
-  final Widget title;
-  final Widget message;
+  final ActionsSheetAction<T>? cancel;
+  final Widget? title;
+  final Widget? message;
   final bool popBeforeReturn;
 
   List<Widget> buildChildren(BuildContext context) {
@@ -166,7 +166,7 @@ class ActionsSheet<T> extends StatelessWidget {
     BuildContext context,
     ActionsSheetAction a,
     bool isDarwin, {
-    @required bool popBeforeReturn,
+    required bool popBeforeReturn,
   }) {
     return ListTile(
       leading: a.icon == null
@@ -178,12 +178,12 @@ class ActionsSheet<T> extends StatelessWidget {
                       : isDarwin
                           ? CupertinoTheme.of(context).textTheme.actionTextStyle.color
                           : null),
-              child: isDarwin && a.cupertinoIcon != null ? a.cupertinoIcon : a.icon,
+              child: isDarwin && a.cupertinoIcon != null ? a.cupertinoIcon! : a.icon!,
             ),
       title: DefaultTextStyle(
           style: (isDarwin
                   ? CupertinoTheme.of(context).textTheme.actionTextStyle
-                  : Theme.of(context).textTheme.subtitle1)
+                  : Theme.of(context).textTheme.subtitle1)!
               .copyWith(
             color: a.isDestructive ? CupertinoColors.destructiveRed : null,
             fontWeight: a.isDefault ? FontWeight.bold : null,
@@ -218,14 +218,14 @@ class ActionsSheet<T> extends StatelessWidget {
                   if (title != null || message != null) const SizedBox(height: 12),
                   if (title != null)
                     DefaultTextStyle(
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.subtitle1!,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8, right: 8),
                           child: Center(child: title),
                         )),
                   if (message != null)
                     DefaultTextStyle(
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.caption!,
                         child: Padding(
                           padding: EdgeInsets.only(left: 8, right: 8, top: title != null ? 8 : 0),
                           child: Center(child: message),
@@ -247,7 +247,7 @@ class ActionsSheet<T> extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
                 child: _buildListTile(
                   context,
-                  cancel,
+                  cancel!,
                   false,
                   popBeforeReturn: popBeforeReturn,
                 )),

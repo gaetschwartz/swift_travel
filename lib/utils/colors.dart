@@ -22,7 +22,7 @@ Color augment(Color c) {
 }
 
 class GradientMask extends StatelessWidget {
-  const GradientMask({@required this.child, @required this.gradient});
+  const GradientMask({required this.child, required this.gradient});
   final Widget child;
   final Gradient gradient;
 

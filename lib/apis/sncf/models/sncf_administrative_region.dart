@@ -9,13 +9,13 @@ part 'sncf_administrative_region.g.dart';
 abstract class SncfAdministrativeRegion with _$SncfAdministrativeRegion {
   @JsonSerializable(explicitToJson: true)
   factory SncfAdministrativeRegion({
-    String insee,
-    String name,
-    int level,
-    Coord coord,
-    String label,
-    String id,
-    String zipCode,
+    String? insee,
+    String? name,
+    int? level,
+    Coord? coord,
+    String? label,
+    String? id,
+    String? zipCode,
   }) = _SncfAdministrativeRegion;
 
   factory SncfAdministrativeRegion.fromJson(Map<String, dynamic> json) =>

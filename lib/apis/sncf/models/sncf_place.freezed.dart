@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'sncf_place.dart';
 
@@ -16,13 +16,12 @@ SncfPlace _$SncfPlaceFromJson(Map<String, dynamic> json) {
 class _$SncfPlaceTearOff {
   const _$SncfPlaceTearOff();
 
-// ignore: unused_element
   _SncfPlace call(
-      {String embeddedType,
-      int quality,
-      SncfAdministrativeRegion administrativeRegion,
-      String name,
-      String id}) {
+      {String? embeddedType,
+      int? quality,
+      SncfAdministrativeRegion? administrativeRegion,
+      String? name,
+      String? id}) {
     return _SncfPlace(
       embeddedType: embeddedType,
       quality: quality,
@@ -32,23 +31,21 @@ class _$SncfPlaceTearOff {
     );
   }
 
-// ignore: unused_element
   SncfPlace fromJson(Map<String, Object> json) {
     return SncfPlace.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SncfPlace = _$SncfPlaceTearOff();
 
 /// @nodoc
 mixin _$SncfPlace {
-  String get embeddedType;
-  int get quality;
-  SncfAdministrativeRegion get administrativeRegion;
-  String get name;
-  String get id;
+  String? get embeddedType;
+  int? get quality;
+  SncfAdministrativeRegion? get administrativeRegion;
+  String? get name;
+  String? get id;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -60,13 +57,13 @@ abstract class $SncfPlaceCopyWith<$Res> {
   factory $SncfPlaceCopyWith(SncfPlace value, $Res Function(SncfPlace) then) =
       _$SncfPlaceCopyWithImpl<$Res>;
   $Res call(
-      {String embeddedType,
-      int quality,
-      SncfAdministrativeRegion administrativeRegion,
-      String name,
-      String id});
+      {String? embeddedType,
+      int? quality,
+      SncfAdministrativeRegion? administrativeRegion,
+      String? name,
+      String? id});
 
-  $SncfAdministrativeRegionCopyWith<$Res> get administrativeRegion;
+  $SncfAdministrativeRegionCopyWith<$Res>? get administrativeRegion;
 }
 
 /// @nodoc
@@ -79,31 +76,32 @@ class _$SncfPlaceCopyWithImpl<$Res> implements $SncfPlaceCopyWith<$Res> {
 
   @override
   $Res call({
-    Object embeddedType = freezed,
-    Object quality = freezed,
-    Object administrativeRegion = freezed,
-    Object name = freezed,
-    Object id = freezed,
+    Object? embeddedType = freezed,
+    Object? quality = freezed,
+    Object? administrativeRegion = freezed,
+    Object? name = freezed,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       embeddedType: embeddedType == freezed
           ? _value.embeddedType
-          : embeddedType as String,
-      quality: quality == freezed ? _value.quality : quality as int,
+          : embeddedType as String?,
+      quality: quality == freezed ? _value.quality : quality as int?,
       administrativeRegion: administrativeRegion == freezed
           ? _value.administrativeRegion
-          : administrativeRegion as SncfAdministrativeRegion,
-      name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String,
+          : administrativeRegion as SncfAdministrativeRegion?,
+      name: name == freezed ? _value.name : name as String?,
+      id: id == freezed ? _value.id : id as String?,
     ));
   }
 
   @override
-  $SncfAdministrativeRegionCopyWith<$Res> get administrativeRegion {
+  $SncfAdministrativeRegionCopyWith<$Res>? get administrativeRegion {
     if (_value.administrativeRegion == null) {
       return null;
     }
-    return $SncfAdministrativeRegionCopyWith<$Res>(_value.administrativeRegion,
+
+    return $SncfAdministrativeRegionCopyWith<$Res>(_value.administrativeRegion!,
         (value) {
       return _then(_value.copyWith(administrativeRegion: value));
     });
@@ -117,14 +115,14 @@ abstract class _$SncfPlaceCopyWith<$Res> implements $SncfPlaceCopyWith<$Res> {
       __$SncfPlaceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String embeddedType,
-      int quality,
-      SncfAdministrativeRegion administrativeRegion,
-      String name,
-      String id});
+      {String? embeddedType,
+      int? quality,
+      SncfAdministrativeRegion? administrativeRegion,
+      String? name,
+      String? id});
 
   @override
-  $SncfAdministrativeRegionCopyWith<$Res> get administrativeRegion;
+  $SncfAdministrativeRegionCopyWith<$Res>? get administrativeRegion;
 }
 
 /// @nodoc
@@ -138,22 +136,22 @@ class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object embeddedType = freezed,
-    Object quality = freezed,
-    Object administrativeRegion = freezed,
-    Object name = freezed,
-    Object id = freezed,
+    Object? embeddedType = freezed,
+    Object? quality = freezed,
+    Object? administrativeRegion = freezed,
+    Object? name = freezed,
+    Object? id = freezed,
   }) {
     return _then(_SncfPlace(
       embeddedType: embeddedType == freezed
           ? _value.embeddedType
-          : embeddedType as String,
-      quality: quality == freezed ? _value.quality : quality as int,
+          : embeddedType as String?,
+      quality: quality == freezed ? _value.quality : quality as int?,
       administrativeRegion: administrativeRegion == freezed
           ? _value.administrativeRegion
-          : administrativeRegion as SncfAdministrativeRegion,
-      name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String,
+          : administrativeRegion as SncfAdministrativeRegion?,
+      name: name == freezed ? _value.name : name as String?,
+      id: id == freezed ? _value.id : id as String?,
     ));
   }
 }
@@ -173,15 +171,15 @@ class _$_SncfPlace implements _SncfPlace {
       _$_$_SncfPlaceFromJson(json);
 
   @override
-  final String embeddedType;
+  final String? embeddedType;
   @override
-  final int quality;
+  final int? quality;
   @override
-  final SncfAdministrativeRegion administrativeRegion;
+  final SncfAdministrativeRegion? administrativeRegion;
   @override
-  final String name;
+  final String? name;
   @override
-  final String id;
+  final String? id;
 
   @override
   String toString() {
@@ -229,25 +227,25 @@ class _$_SncfPlace implements _SncfPlace {
 
 abstract class _SncfPlace implements SncfPlace {
   factory _SncfPlace(
-      {String embeddedType,
-      int quality,
-      SncfAdministrativeRegion administrativeRegion,
-      String name,
-      String id}) = _$_SncfPlace;
+      {String? embeddedType,
+      int? quality,
+      SncfAdministrativeRegion? administrativeRegion,
+      String? name,
+      String? id}) = _$_SncfPlace;
 
   factory _SncfPlace.fromJson(Map<String, dynamic> json) =
       _$_SncfPlace.fromJson;
 
   @override
-  String get embeddedType;
+  String? get embeddedType;
   @override
-  int get quality;
+  int? get quality;
   @override
-  SncfAdministrativeRegion get administrativeRegion;
+  SncfAdministrativeRegion? get administrativeRegion;
   @override
-  String get name;
+  String? get name;
   @override
-  String get id;
+  String? get id;
   @override
   @JsonKey(ignore: true)
   _$SncfPlaceCopyWith<_SncfPlace> get copyWith;

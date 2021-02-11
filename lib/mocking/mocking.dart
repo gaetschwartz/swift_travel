@@ -10,7 +10,7 @@ const mockRoute = kDebugMode ? _$mockRouteJsonLiteral : null;
 const mockStationboard = kDebugMode ? _$mockStationboardJsonLiteral : null;
 
 extension CustomizableDateTime on DateTime {
-  static DateTime _customTime;
+  static DateTime? _customTime;
   static DateTime get current {
     return _customTime ?? DateTime.now();
   }

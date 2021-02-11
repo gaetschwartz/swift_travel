@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:vibration/vibration.dart';
 
 class FavoriteRouteTile extends StatelessWidget {
-  const FavoriteRouteTile(this.route, {Key key}) : super(key: key);
+  const FavoriteRouteTile(this.route, {Key? key}) : super(key: key);
 
   final LocalRoute route;
 
@@ -20,7 +20,7 @@ class FavoriteRouteTile extends StatelessWidget {
       actionPane: const SlidableDrawerActionPane(),
       secondaryActions: <Widget>[
         IconSlideAction(
-          caption: S.of(context).delete,
+          caption: AppLoc.of(context).delete,
           color: Colors.red,
           icon: CupertinoIcons.delete,
           onTap: () => deleteRoute(context),
@@ -28,7 +28,7 @@ class FavoriteRouteTile extends StatelessWidget {
       ],
       child: ListTile(
         leading: const Icon(CupertinoIcons.arrow_turn_up_right),
-        title: Text(route.displayName),
+        title: Text(route.displayName!),
         horizontalTitleGap: 8,
         isThreeLine: true,
         dense: true,
@@ -70,13 +70,13 @@ class FavoriteRouteTile extends StatelessWidget {
       [
         ActionsSheetAction(
           onPressed: () => deleteRoute(context),
-          title: Text(S.of(context).delete),
+          title: Text(AppLoc.of(context).delete),
           icon: const Icon(CupertinoIcons.delete),
           isDestructive: true,
         ),
       ],
       cancel: ActionsSheetAction(
-        title: Text(S.of(context).cancel),
+        title: Text(AppLoc.of(context).cancel),
         icon: const Icon(CupertinoIcons.xmark),
       ),
     );
@@ -93,7 +93,7 @@ class FavoriteRouteTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            S.of(context).from,
+            AppLoc.of(context).from,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -101,7 +101,7 @@ class FavoriteRouteTile extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            S.of(context).to,
+            AppLoc.of(context).to,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -110,8 +110,8 @@ class FavoriteRouteTile extends StatelessWidget {
           ),
         ],
       ),
-      confirm: Text(S.of(context).yes),
-      cancel: Text(S.of(context).no),
+      confirm: Text(AppLoc.of(context).yes),
+      cancel: Text(AppLoc.of(context).no),
       isConfirmDestructive: true,
     );
     if (!b) return;

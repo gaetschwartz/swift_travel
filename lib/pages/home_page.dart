@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:animations/animations.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/settings.dart';
 import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
@@ -70,7 +69,8 @@ class CombinedPageController extends ChangeNotifier {
   }
 }
 
-final tabProvider = ChangeNotifierProvider.autoDispose<CombinedPageController>((ref) {
+final AutoDisposeChangeNotifierProvider<CombinedPageController> tabProvider =
+    ChangeNotifierProvider.autoDispose<CombinedPageController>((ref) {
   final combinedPageController = CombinedPageController();
   ref.onDispose(() => combinedPageController.dispose());
   ref.maintainState = true;
@@ -92,22 +92,16 @@ class MainApp extends StatefulWidget {
   static const androidTabs = [StationsTab(), RouteTab(), FavoritesTab()];
 }
 
-final sideTabBarProvider = StateProvider<WidgetBuilder>((_) => null);
+final sideTabBarProvider = StateProvider<WidgetBuilder?>((_) => null);
 
 class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
-  CombinedPageController combinedPageController = CombinedPageController();
+  late final CombinedPageController combinedPageController = context.read(tabProvider);
   int oldI = 0;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     context.read(navigationAPIProvider).locale = Localizations.localeOf(context);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    combinedPageController = context.read(tabProvider);
   }
 
   @override
@@ -142,21 +136,21 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     final items = [
       BottomNavigationBarItem(
         icon: const Icon(CupertinoIcons.search),
-        label: S.of(context).timetable,
+        label: AppLoc.of(context).timetable,
       ),
       BottomNavigationBarItem(
         icon: const FaIcon(CupertinoIcons.train_style_one),
-        label: S.of(context).tabs_route,
+        label: AppLoc.of(context).tabs_route,
       ),
       BottomNavigationBarItem(
         icon: const Icon(CupertinoIcons.square_favorites_alt),
         activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
-        label: S.of(context).tabs_favourites,
+        label: AppLoc.of(context).tabs_favourites,
       ),
       BottomNavigationBarItem(
         icon: const Icon(CupertinoIcons.settings),
         activeIcon: const Icon(CupertinoIcons.settings_solid),
-        label: S.of(context).settings,
+        label: AppLoc.of(context).settings,
       )
     ];
 
@@ -168,9 +162,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           onTap: (i) {
             Vibration.selectSoft();
             if (i == oldI) {
-              if (navigatorKeys[i] != null) {
-                navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
-              }
+              navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
               context.read(sideTabBarProvider).state = null;
             }
             oldI = i;
@@ -196,9 +188,9 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
 
   Widget buildScaffold(BuildContext context) {
     final titles = [
-      S.of(context).timetable,
-      S.of(context).tabs_route,
-      S.of(context).tabs_favourites,
+      AppLoc.of(context).timetable,
+      AppLoc.of(context).tabs_route,
+      AppLoc.of(context).tabs_favourites,
     ];
     final items = [
       CustomNavigationBarItem(
@@ -230,8 +222,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             Vibration.selectSoft();
             if (combined.page != i) {
               combined.animateTo(i, false);
-            } else if (navigatorKeys[i] != null) {
-              navigatorKeys[i].currentState.popUntil((route) => route.isFirst);
+            } else {
+              navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
               context.read(sideTabBarProvider).state = null;
             }
           },
@@ -257,20 +249,19 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
 
 class _SideBar extends StatelessWidget {
   const _SideBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-        builder: (context, w, _) =>
+        builder: ((context, w, _) =>
             w(sideTabBarProvider).state?.call(context) ??
             Stack(
               children: [
                 Positioned.fill(
                   child: OctoImage(
-                    image: const CachedNetworkImageProvider(
-                        'https://images.unsplash.com/photo-1609920867613-054bfccf1829'),
+                    image: const AssetImage('assets/pictures/train.jfif'),
                     placeholderBuilder: OctoPlaceholder.blurHash(
                       'qwJRdKRORjayoej[fja{_4Rjf5fQayj@fRj[%MkDaejtWCazj@j[%1tRfkWBj[f7azayWDj]ogayoejsayayoff5ogofWBWBayoe',
                     ),
@@ -294,23 +285,23 @@ class _SideBar extends StatelessWidget {
                   ),
                 )),
               ],
-            ));
+            )) as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
   }
 }
 
 extension BuildContextX on BuildContext {
   void push(
     WidgetBuilder builder, {
-    RouteSettings settings,
+    RouteSettings? settings,
     bool maintainState = true,
     bool fullscreenDialog = false,
-    String title,
+    String? title,
     bool rootNavigator = false,
   }) {
     final isDarwin = Responsive.isDarwin(this);
     if (isTablet(this)) {
       read(sideTabBarProvider).state = builder;
-      sideBarNavigatorKey.currentState..popUntil((route) => route.isFirst);
+      sideBarNavigatorKey.currentState!..popUntil((route) => route.isFirst);
     } else {
       Navigator.of(this, rootNavigator: rootNavigator).push(platformRoute(
         builder: builder,
@@ -328,10 +319,10 @@ class Nav {
   static void push(
     BuildContext context,
     WidgetBuilder builder, {
-    RouteSettings settings,
+    RouteSettings? settings,
     bool maintainState = true,
     bool fullscreenDialog = false,
-    String title,
+    String? title,
     bool rootNavigator = false,
   }) =>
       context.push(
@@ -354,7 +345,7 @@ final navigatorKeys = <GlobalKey<NavigatorState>>[
 final sideBarNavigatorKey = GlobalKey<NavigatorState>();
 
 AppBar materialAppBar(BuildContext context,
-    {List<Widget> actions = const [], bool addSettings = true, Widget title}) {
+    {List<Widget> actions = const [], bool addSettings = true, Widget? title}) {
   return AppBar(
     automaticallyImplyLeading: false,
     title: title,
@@ -365,7 +356,7 @@ AppBar materialAppBar(BuildContext context,
       if (addSettings)
         IconButton(
             key: const Key('settings-button'),
-            tooltip: S.of(context).settings,
+            tooltip: AppLoc.of(context).settings,
             icon: const Icon(Icons.settings),
             onPressed: () {
               Vibration.select();
@@ -382,15 +373,15 @@ AppBar materialAppBar(BuildContext context,
 
 CupertinoNavigationBar cupertinoBar(
   BuildContext context, {
-  Key key,
-  Widget leading,
+  Key? key,
+  Widget? leading,
   bool automaticallyImplyLeading = true,
   bool automaticallyImplyMiddle = true,
-  String previousPageTitle,
-  Widget middle,
-  Widget trailing,
-  Brightness brightness,
-  EdgeInsetsDirectional padding,
+  String? previousPageTitle,
+  Widget? middle,
+  Widget? trailing,
+  Brightness? brightness,
+  EdgeInsetsDirectional? padding,
   bool transitionBetweenRoutes = true,
   double opacity = 0.5,
 }) {

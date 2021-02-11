@@ -22,7 +22,7 @@ import 'package:swift_travel/blocs/location/models/models.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/database.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
@@ -81,8 +81,8 @@ class Fetcher extends FetcherBase {
         state = const RouteStates.empty();
       }
       return;
-    } else if (from.state.maybeWhen(text: (t, l) => t == null || !l, orElse: () => false) ||
-        to.state.maybeWhen(text: (t, l) => t == null || !l, orElse: () => false)) {
+    } else if (from.state.maybeWhen(text: (t, l) => t.isEmpty || !l, orElse: () => false) ||
+        to.state.maybeWhen(text: (t, l) => t.isEmpty || !l, orElse: () => false)) {
       return;
     } else {
       state = const RouteStates.loading();
@@ -93,25 +93,25 @@ class Fetcher extends FetcherBase {
       print('To: ${to.state}');
     }
 
-    Position p;
+    Position? p;
 
     try {
-      final departure = await from.state.when<FutureOr<String>>(
+      final departure = await from.state.when<FutureOr<String>?>(
         empty: () => null,
         text: (t, l) => t,
         useCurrentLocation: () async {
           p ??= await LocationRepository.getLocation();
-          return '${p.latitude},${p.longitude}';
+          return '${p!.latitude},${p!.longitude}';
         },
-      );
-      final arrival = await to.state.when<FutureOr<String>>(
+      )!;
+      final arrival = await to.state.when<FutureOr<String>?>(
         empty: () => null,
         text: (t, l) => t,
         useCurrentLocation: () async {
           p ??= await LocationRepository.getLocation();
-          return '${p.latitude},${p.longitude}';
+          return '${p!.latitude},${p!.longitude}';
         },
-      );
+      )!;
       log('Fetching route from $departure to $arrival');
       final it = await _cff.route(
         departure,
@@ -177,19 +177,19 @@ class MyTextFormatter extends TextInputFormatter {
 }
 
 class RoutePage extends StatefulWidget {
-  final LocalRoute localRoute;
-  final FavoriteStop favStop;
+  final LocalRoute? localRoute;
+  final FavoriteStop? favStop;
 
-  const RoutePage({Key key})
+  const RoutePage({Key? key})
       : favStop = null,
         localRoute = null,
         super(key: key);
 
-  const RoutePage.route(this.localRoute, {Key key})
+  const RoutePage.route(this.localRoute, {Key? key})
       : favStop = null,
         super(key: key);
 
-  const RoutePage.stop(this.favStop, {Key key})
+  const RoutePage.stop(this.favStop, {Key? key})
       : localRoute = null,
         super(key: key);
 
@@ -204,10 +204,10 @@ class _RoutePageState extends State<RoutePage> {
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
 
-  MyTextFormatter fromFormatter;
-  MyTextFormatter toFormatter;
-  FavoritesSharedPreferencesStore favorites;
-  NavigationApi api;
+  MyTextFormatter? fromFormatter;
+  MyTextFormatter? toFormatter;
+  late FavoritesSharedPreferencesStore favorites;
+  late NavigationApi api;
   final historyRepository = RouteHistoryRepository.i;
 
   @override
@@ -232,10 +232,10 @@ class _RoutePageState extends State<RoutePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    fromFormatter =
-        MyTextFormatter(S.of(context).current_location, from, context.read(fromTextfieldProvider));
-    toFormatter =
-        MyTextFormatter(S.of(context).current_location, to, context.read(fromTextfieldProvider));
+    fromFormatter = MyTextFormatter(
+        AppLoc.of(context).current_location, from, context.read(fromTextfieldProvider));
+    toFormatter = MyTextFormatter(
+        AppLoc.of(context).current_location, to, context.read(fromTextfieldProvider));
     favorites = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     api = context.read(navigationAPIProvider);
     from.syncState(context);
@@ -255,20 +255,20 @@ class _RoutePageState extends State<RoutePage> {
   }
 
   void useLocalRoute() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
-      from.setString(context, widget.localRoute.from);
-      to.setString(context, widget.localRoute.to);
+      from.setString(context, widget.localRoute!.from);
+      to.setString(context, widget.localRoute!.to);
     });
   }
 
   void goToDest() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
       from.useCurrentLocation(context);
-      to.setString(context, widget.favStop.stop);
+      to.setString(context, widget.favStop!.stop);
     });
   }
 
@@ -287,13 +287,13 @@ class _RoutePageState extends State<RoutePage> {
       builder: (context, child) => CupertinoPageScaffold(
         navigationBar: cupertinoBar(context),
         resizeToAvoidBottomInset: false,
-        child: child,
+        child: child!,
       ),
       elseBuilder: (context, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: materialAppBar(context,
-              title: Text(widget.localRoute?.displayName ?? S.of(context).tabs_route)),
+              title: Text(widget.localRoute?.displayName ?? AppLoc.of(context).tabs_route)),
           body: child,
         );
       },
@@ -349,7 +349,7 @@ class _RoutePageState extends State<RoutePage> {
                   Positioned(
                       left: 0,
                       child: IconButton(
-                        tooltip: S.of(context).fav_route,
+                        tooltip: AppLoc.of(context).fav_route,
                         onPressed: () async {
                           unawaited(Vibration.select());
 
@@ -398,12 +398,12 @@ class _RoutePageState extends State<RoutePage> {
                                   );
 
                                   context.read(routeStatesProvider).state =
-                                      RouteStates.routes(CffRoute.fromJson(mockRoute));
+                                      RouteStates.routes(CffRoute.fromJson(mockRoute!));
                                 }
                               : null,
                           style: TextButton.styleFrom(
                               shape: const StadiumBorder(),
-                              primary: Theme.of(context).textTheme.button.color),
+                              primary: Theme.of(context).textTheme.button!.color),
                           onPressed: () async {
                             unawaited(Vibration.select());
                             var type = context.read(timeTypeProvider).state;
@@ -420,7 +420,7 @@ class _RoutePageState extends State<RoutePage> {
                               textColor: CupertinoColors.activeBlue,
                             );
                             if (date != null) _date.state = date;
-                            if (type != null) context.read(timeTypeProvider).state = type;
+                            context.read(timeTypeProvider).state = type;
                           },
                           child: Consumer(builder: (context, w, _) {
                             final _date = w(dateProvider);
@@ -446,7 +446,7 @@ class _RoutePageState extends State<RoutePage> {
                   Positioned(
                     right: 0,
                     child: IconButton(
-                      tooltip: S.of(context).use_current_time,
+                      tooltip: AppLoc.of(context).use_current_time,
                       onPressed: () {
                         Vibration.select();
                         unFocusFields();
@@ -471,8 +471,8 @@ class _RoutePageState extends State<RoutePage> {
 
   static const _suggestionsBoxDecoration =
       SuggestionsBoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16)));
-  Widget buildFromField(BuildContext context, {@required bool isDarwin}) {
-    final currentLocationString = S.of(context).current_location;
+  Widget buildFromField(BuildContext context, {required bool isDarwin}) {
+    final currentLocationString = AppLoc.of(context).current_location;
 
     return isDarwin
         ? Hero(
@@ -481,7 +481,7 @@ class _RoutePageState extends State<RoutePage> {
               controller: from.controller,
               focusNode: fnFrom,
               onEditingComplete: () => fnTo.requestFocus(),
-              placeholder: S.of(context).departure,
+              placeholder: AppLoc.of(context).departure,
               textInputAction: TextInputAction.next,
               prefix: Padding(
                 padding: const EdgeInsets.only(left: 8),
@@ -497,7 +497,7 @@ class _RoutePageState extends State<RoutePage> {
                           configuration: CupertinoTextFieldConfiguration(
                             focusNode: fnFrom,
                             inputFormatters: [fromFormatter],
-                            placeholder: S.of(context).departure,
+                            placeholder: AppLoc.of(context).departure,
                             textInputAction: TextInputAction.next,
                           ),
                         )));
@@ -512,7 +512,7 @@ class _RoutePageState extends State<RoutePage> {
                   key: const Key('route-first-textfield-key'),
                   debounceDuration: const Duration(milliseconds: 250),
                   textFieldConfiguration: TextFieldConfiguration(
-                    inputFormatters: [fromFormatter],
+                    inputFormatters: [fromFormatter!],
                     focusNode: fnFrom,
                     controller: from.controller,
                     onEditingComplete: () => fnTo.requestFocus(),
@@ -525,7 +525,7 @@ class _RoutePageState extends State<RoutePage> {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
-                      labelText: S.of(context).departure,
+                      labelText: AppLoc.of(context).departure,
                       isDense: true,
                       filled: true,
                       fillColor: Theme.of(context).cardColor,
@@ -536,7 +536,7 @@ class _RoutePageState extends State<RoutePage> {
                   loadingBuilder: (context) => ListView.builder(
                       itemBuilder: (context, i) => Shimmer.fromColors(
                             child: const SuggestedTile.empty(),
-                            baseColor: Colors.grey[300],
+                            baseColor: Colors.grey[300]!,
                             highlightColor: Colors.white,
                           )),
                   suggestionsCallback: (query) async => completeWithFavorites(
@@ -557,7 +557,7 @@ class _RoutePageState extends State<RoutePage> {
                   suggestionsBoxDecoration: _suggestionsBoxDecoration,
                   hideOnEmpty: true,
                   transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-                    opacity: controller,
+                    opacity: controller!,
                     child: suggestionsBox,
                   ),
                 ),
@@ -578,8 +578,8 @@ class _RoutePageState extends State<RoutePage> {
         orElse: () => Icon(CupertinoIcons.textformat, size: iconSize),
       );
 
-  Widget buildToField(BuildContext context, {@required bool isDarwin}) {
-    final currentLocationString = S.of(context).current_location;
+  Widget buildToField(BuildContext context, {required bool isDarwin}) {
+    final currentLocationString = AppLoc.of(context).current_location;
 
     return isDarwin
         ? Hero(
@@ -587,7 +587,7 @@ class _RoutePageState extends State<RoutePage> {
             child: CupertinoTextField(
               focusNode: fnTo,
               controller: to.controller,
-              placeholder: S.of(context).destination,
+              placeholder: AppLoc.of(context).destination,
               textInputAction: TextInputAction.search,
               prefix: Padding(
                 padding: const EdgeInsets.only(left: 8),
@@ -603,7 +603,7 @@ class _RoutePageState extends State<RoutePage> {
                           configuration: CupertinoTextFieldConfiguration(
                             focusNode: fnTo,
                             inputFormatters: [toFormatter],
-                            placeholder: S.of(context).destination,
+                            placeholder: AppLoc.of(context).destination,
                             textInputAction: TextInputAction.search,
                           ),
                         )));
@@ -619,7 +619,7 @@ class _RoutePageState extends State<RoutePage> {
                   suggestionsBoxDecoration: _suggestionsBoxDecoration,
                   debounceDuration: const Duration(milliseconds: 250),
                   textFieldConfiguration: TextFieldConfiguration(
-                    inputFormatters: [toFormatter],
+                    inputFormatters: [toFormatter!],
                     textInputAction: TextInputAction.search,
                     focusNode: fnTo,
                     onEditingComplete: () => unFocusFields(),
@@ -632,7 +632,7 @@ class _RoutePageState extends State<RoutePage> {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
-                      labelText: S.of(context).destination,
+                      labelText: AppLoc.of(context).destination,
                       isDense: true,
                       filled: true,
                       fillColor: Theme.of(context).cardColor,
@@ -658,12 +658,12 @@ class _RoutePageState extends State<RoutePage> {
                   loadingBuilder: (context) => ListView.builder(
                       itemBuilder: (context, i) => Shimmer.fromColors(
                             child: const SuggestedTile.empty(),
-                            baseColor: Colors.grey[300],
+                            baseColor: Colors.grey[300]!,
                             highlightColor: Colors.white,
                           )),
                   hideOnEmpty: true,
                   transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-                    opacity: controller,
+                    opacity: controller!,
                     child: suggestionsBox,
                   ),
                 ),
@@ -694,17 +694,18 @@ class _RoutePageState extends State<RoutePage> {
 
 final _locationNotFound = RegExp('Stop ([\d\.,-]*) not found.');
 
-final _predictionProvider = Provider.family<Prediction<LocalRoute>, DateTime>(
+final _predictionProvider = Provider.family<Prediction<LocalRoute?>, DateTime>(
     (_, date) => predictRoute(RouteHistoryRepository.i.routes, date));
 
 class RoutesView extends StatelessWidget {
   const RoutesView({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, w, _) {
+    return Consumer(
+        builder: (context, w, _) {
       final fetcher = w(routeStatesProvider);
       return fetcher.state.when(
         routes: (routes) => CustomScrollView(
@@ -860,11 +861,11 @@ class RoutesView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${S.of(context).from} ${pred.prediction.from}',
+                          '${AppLoc.of(context).from} ${pred.prediction.from}',
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          '${S.of(context).to} ${pred.prediction.to}',
+                          '${AppLoc.of(context).to} ${pred.prediction.to}',
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -877,9 +878,9 @@ class RoutesView extends StatelessWidget {
                   ),
                 );
               } else {
-                return child;
+                return child!;
               }
-            },
+            } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -889,7 +890,7 @@ class RoutesView extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  S.of(context).find_a_route,
+                  AppLoc.of(context).find_a_route,
                   style: Theme.of(context).textTheme.headline6,
                   textAlign: TextAlign.center,
                 )
@@ -924,13 +925,13 @@ class RoutesView extends StatelessWidget {
           ],
         ),
       );
-    });
+    } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
   }
 }
 
 class TextStateBinder {
   final TextEditingController controller;
-  final StateProvider<RouteTextfieldState> provider;
+  final StateProvider<RouteTextfieldState>? provider;
   final String Function(BuildContext) computeCurrentLocation;
 
   const TextStateBinder(
@@ -939,10 +940,10 @@ class TextStateBinder {
     this.computeCurrentLocation = _computeCurrentLocation,
   ]);
 
-  void syncState(BuildContext context) => _setController(context.read(provider).state, context);
+  void syncState(BuildContext context) => _setController(context.read(provider!).state, context);
 
   void clear(BuildContext context) {
-    context.read(provider).state = const RouteTextfieldState.empty();
+    context.read(provider!).state = const RouteTextfieldState.empty();
     controller.clear();
   }
 
@@ -952,13 +953,13 @@ class TextStateBinder {
   }
 
   void setString(BuildContext context, String s, {bool doLoad = true}) {
-    context.read(provider).state = RouteTextfieldState.text(s, doLoad: doLoad);
+    context.read(provider!).state = RouteTextfieldState.text(s, doLoad: doLoad);
     controller.text = s;
   }
 
   void init(BuildContext context, RouteTextfieldState state) {
     _setController(state, context);
-    context.read(provider).state = state;
+    context.read(provider!).state = state;
   }
 
   void _setController(RouteTextfieldState state, BuildContext context) {
@@ -970,21 +971,22 @@ class TextStateBinder {
   }
 
   void useCurrentLocation(BuildContext context) {
-    context.read(provider).state = const RouteTextfieldState.useCurrentLocation();
+    context.read(provider!).state = const RouteTextfieldState.useCurrentLocation();
     controller.text = computeCurrentLocation(context);
   }
 
-  RouteTextfieldState state(BuildContext context) => context.read(provider).state;
+  RouteTextfieldState state(BuildContext context) => context.read(provider!).state;
 
   String get text => controller.text;
 
-  static String _computeCurrentLocation(BuildContext context) => S.of(context).current_location;
+  static String _computeCurrentLocation(BuildContext context) =>
+      AppLoc.of(context).current_location;
 }
 
 class ShadowsAround extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
-  const ShadowsAround({Key key, this.child}) : super(key: key);
+  const ShadowsAround({Key? key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -999,9 +1001,9 @@ class ShadowsAround extends StatelessWidget {
 
 class _Segmented extends StatefulWidget {
   const _Segmented({
-    Key key,
-    @required this.onChange,
-    @required this.initialValue,
+    Key? key,
+    required this.onChange,
+    required this.initialValue,
   }) : super(key: key);
 
   final ValueChanged<TimeType> onChange;
@@ -1012,29 +1014,25 @@ class _Segmented extends StatefulWidget {
 }
 
 class __SegmentedState extends State<_Segmented> {
-  TimeType _type;
-
-  @override
-  void initState() {
-    super.initState();
-    _type = widget.initialValue;
-  }
+  late TimeType _type = widget.initialValue;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<TimeType>(
       groupValue: _type,
       onValueChanged: (v) {
-        setState(() => _type = v);
-        widget.onChange(v);
+        if (v != null) {
+          setState(() => _type = v);
+          widget.onChange(v);
+        }
       },
       children: {
         TimeType.depart: Text(
-          S.of(context).departure,
+          AppLoc.of(context).departure,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
         TimeType.arrival: Text(
-          S.of(context).arrival,
+          AppLoc.of(context).arrival,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
       },

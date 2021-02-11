@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 
 class MyExpandable extends StatelessWidget {
   /// Whe widget to show when collapsed
-  final Widget collapsed;
+  final Widget? collapsed;
 
   /// The widget to show when expanded
-  final Widget expanded;
+  final Widget? expanded;
 
   /// If the controller is not specified, it will be retrieved from the context
-  final ExpandableController controller;
+  final ExpandableController? controller;
 
   final ExpandableThemeData _theme;
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   MyExpandable({
-    Key key,
+    Key? key,
     this.collapsed,
     this.expanded,
     this.controller,
-    ExpandableThemeData theme,
+    required ExpandableThemeData theme,
     this.backgroundColor,
   })  : _theme = ExpandableThemeData.combine(theme, const ExpandableThemeData()).nullIfEmpty(),
         super(key: key);

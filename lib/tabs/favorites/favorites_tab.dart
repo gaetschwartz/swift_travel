@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -33,7 +33,7 @@ class _FavoritesTabState extends State<FavoritesTab>
   @override
   bool get wantKeepAlive => true;
 
-  FavoritesSharedPreferencesStore store;
+  late FavoritesSharedPreferencesStore store;
   bool isDarwin = false;
 
   @override
@@ -50,7 +50,7 @@ class _FavoritesTabState extends State<FavoritesTab>
     return IfWrapper(
       condition: isDarwin,
       builder: (context, child) => CupertinoPageScaffold(
-        child: child,
+        child: child!,
         navigationBar: cupertinoBar(
           context,
           trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
@@ -58,7 +58,7 @@ class _FavoritesTabState extends State<FavoritesTab>
         resizeToAvoidBottomInset: false,
       ),
       elseBuilder: (context, child) => Scaffold(
-          appBar: materialAppBar(context, title: Text(S.of(context).tabs_favourites)),
+          appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_favourites)),
           floatingActionButton: isDarwin
               ? null
               : ElevatedButton.icon(
@@ -67,11 +67,11 @@ class _FavoritesTabState extends State<FavoritesTab>
                     primary: Theme.of(context).colorScheme.onPrimary,
                     onPrimary: Theme.of(context).colorScheme.primary,
                     elevation: 4,
-                    shadowColor: DynamicTheme.shadowOf(context).buttonShadow.color,
+                    shadowColor: DynamicTheme.shadowOf(context).buttonShadow!.color,
                   ),
                   onPressed: addFav,
                   icon: const Icon(Icons.add),
-                  label: Text(S.of(context).add_to_favs),
+                  label: Text(AppLoc.of(context).add_to_favs),
                 ),
           body: child),
       child: Consumer(builder: (context, w, _) {
@@ -111,7 +111,7 @@ class _FavoritesTabState extends State<FavoritesTab>
                   builder: (context, child) => Column(
                     children: [
                       const Divider(height: 0),
-                      child,
+                      child!,
                     ],
                   ),
                   child: i < stops.length

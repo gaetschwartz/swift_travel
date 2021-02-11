@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'disruption.dart';
 
@@ -16,15 +16,14 @@ Disruption _$DisruptionFromJson(Map<String, dynamic> json) {
 class _$DisruptionTearOff {
   const _$DisruptionTearOff();
 
-// ignore: unused_element
   _Disruption call(
-      {String id,
-      String header,
-      String lead,
-      String text,
-      @JsonKey(name: 'timerange') String timeRange,
-      bool exact,
-      int priority}) {
+      {String? id,
+      String? header,
+      String? lead,
+      String? text,
+      @JsonKey(name: 'timerange') String? timeRange,
+      bool? exact,
+      int? priority}) {
     return _Disruption(
       id: id,
       header: header,
@@ -36,26 +35,24 @@ class _$DisruptionTearOff {
     );
   }
 
-// ignore: unused_element
   Disruption fromJson(Map<String, Object> json) {
     return Disruption.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Disruption = _$DisruptionTearOff();
 
 /// @nodoc
 mixin _$Disruption {
-  String get id;
-  String get header;
-  String get lead;
-  String get text;
+  String? get id;
+  String? get header;
+  String? get lead;
+  String? get text;
   @JsonKey(name: 'timerange')
-  String get timeRange;
-  bool get exact;
-  int get priority;
+  String? get timeRange;
+  bool? get exact;
+  int? get priority;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -68,13 +65,13 @@ abstract class $DisruptionCopyWith<$Res> {
           Disruption value, $Res Function(Disruption) then) =
       _$DisruptionCopyWithImpl<$Res>;
   $Res call(
-      {String id,
-      String header,
-      String lead,
-      String text,
-      @JsonKey(name: 'timerange') String timeRange,
-      bool exact,
-      int priority});
+      {String? id,
+      String? header,
+      String? lead,
+      String? text,
+      @JsonKey(name: 'timerange') String? timeRange,
+      bool? exact,
+      int? priority});
 }
 
 /// @nodoc
@@ -87,22 +84,22 @@ class _$DisruptionCopyWithImpl<$Res> implements $DisruptionCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
-    Object header = freezed,
-    Object lead = freezed,
-    Object text = freezed,
-    Object timeRange = freezed,
-    Object exact = freezed,
-    Object priority = freezed,
+    Object? id = freezed,
+    Object? header = freezed,
+    Object? lead = freezed,
+    Object? text = freezed,
+    Object? timeRange = freezed,
+    Object? exact = freezed,
+    Object? priority = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      header: header == freezed ? _value.header : header as String,
-      lead: lead == freezed ? _value.lead : lead as String,
-      text: text == freezed ? _value.text : text as String,
-      timeRange: timeRange == freezed ? _value.timeRange : timeRange as String,
-      exact: exact == freezed ? _value.exact : exact as bool,
-      priority: priority == freezed ? _value.priority : priority as int,
+      id: id == freezed ? _value.id : id as String?,
+      header: header == freezed ? _value.header : header as String?,
+      lead: lead == freezed ? _value.lead : lead as String?,
+      text: text == freezed ? _value.text : text as String?,
+      timeRange: timeRange == freezed ? _value.timeRange : timeRange as String?,
+      exact: exact == freezed ? _value.exact : exact as bool?,
+      priority: priority == freezed ? _value.priority : priority as int?,
     ));
   }
 }
@@ -114,13 +111,13 @@ abstract class _$DisruptionCopyWith<$Res> implements $DisruptionCopyWith<$Res> {
       __$DisruptionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
-      String header,
-      String lead,
-      String text,
-      @JsonKey(name: 'timerange') String timeRange,
-      bool exact,
-      int priority});
+      {String? id,
+      String? header,
+      String? lead,
+      String? text,
+      @JsonKey(name: 'timerange') String? timeRange,
+      bool? exact,
+      int? priority});
 }
 
 /// @nodoc
@@ -135,22 +132,22 @@ class __$DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object header = freezed,
-    Object lead = freezed,
-    Object text = freezed,
-    Object timeRange = freezed,
-    Object exact = freezed,
-    Object priority = freezed,
+    Object? id = freezed,
+    Object? header = freezed,
+    Object? lead = freezed,
+    Object? text = freezed,
+    Object? timeRange = freezed,
+    Object? exact = freezed,
+    Object? priority = freezed,
   }) {
     return _then(_Disruption(
-      id: id == freezed ? _value.id : id as String,
-      header: header == freezed ? _value.header : header as String,
-      lead: lead == freezed ? _value.lead : lead as String,
-      text: text == freezed ? _value.text : text as String,
-      timeRange: timeRange == freezed ? _value.timeRange : timeRange as String,
-      exact: exact == freezed ? _value.exact : exact as bool,
-      priority: priority == freezed ? _value.priority : priority as int,
+      id: id == freezed ? _value.id : id as String?,
+      header: header == freezed ? _value.header : header as String?,
+      lead: lead == freezed ? _value.lead : lead as String?,
+      text: text == freezed ? _value.text : text as String?,
+      timeRange: timeRange == freezed ? _value.timeRange : timeRange as String?,
+      exact: exact == freezed ? _value.exact : exact as bool?,
+      priority: priority == freezed ? _value.priority : priority as int?,
     ));
   }
 }
@@ -172,20 +169,20 @@ class _$_Disruption implements _Disruption {
       _$_$_DisruptionFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
-  final String header;
+  final String? header;
   @override
-  final String lead;
+  final String? lead;
   @override
-  final String text;
+  final String? text;
   @override
   @JsonKey(name: 'timerange')
-  final String timeRange;
+  final String? timeRange;
   @override
-  final bool exact;
+  final bool? exact;
   @override
-  final int priority;
+  final int? priority;
 
   @override
   String toString() {
@@ -238,32 +235,32 @@ class _$_Disruption implements _Disruption {
 
 abstract class _Disruption implements Disruption {
   const factory _Disruption(
-      {String id,
-      String header,
-      String lead,
-      String text,
-      @JsonKey(name: 'timerange') String timeRange,
-      bool exact,
-      int priority}) = _$_Disruption;
+      {String? id,
+      String? header,
+      String? lead,
+      String? text,
+      @JsonKey(name: 'timerange') String? timeRange,
+      bool? exact,
+      int? priority}) = _$_Disruption;
 
   factory _Disruption.fromJson(Map<String, dynamic> json) =
       _$_Disruption.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
-  String get header;
+  String? get header;
   @override
-  String get lead;
+  String? get lead;
   @override
-  String get text;
+  String? get text;
   @override
   @JsonKey(name: 'timerange')
-  String get timeRange;
+  String? get timeRange;
   @override
-  bool get exact;
+  bool? get exact;
   @override
-  int get priority;
+  int? get priority;
   @override
   @JsonKey(ignore: true)
   _$DisruptionCopyWith<_Disruption> get copyWith;

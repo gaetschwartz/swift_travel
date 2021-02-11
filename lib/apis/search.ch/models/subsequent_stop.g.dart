@@ -8,12 +8,12 @@ part of 'subsequent_stop.dart';
 
 _$_SubsequentStop _$_$_SubsequentStopFromJson(Map<String, dynamic> json) {
   return _$_SubsequentStop(
-    json['name'] as String,
-    id: json['id'] as String,
+    name: json['name'] as String,
+    id: json['id'] as String?,
     dep: json['dep'] == null ? null : DateTime.parse(json['dep'] as String),
     arr: json['arr'] == null ? null : DateTime.parse(json['arr'] as String),
-    lat: (json['lat'] as num)?.toDouble(),
-    lon: (json['lon'] as num)?.toDouble(),
+    lat: (json['lat'] as num?)?.toDouble(),
+    lon: (json['lon'] as num?)?.toDouble(),
     depDelay: delayFromJson(json['dep_delay']),
     arrDelay: delayFromJson(json['arr_delay']),
   );

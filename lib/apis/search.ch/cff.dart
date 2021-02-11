@@ -30,16 +30,16 @@ class CffApi extends NavigationApi {
 
   @override
   Future<List<CffCompletion>> complete(
-    String string, {
-    bool showCoordinates = false,
-    bool showIds = false,
-    bool noFavorites = true,
-    bool filterNull = true,
+    String? string, {
+    bool? showCoordinates = false,
+    bool? showIds = false,
+    bool? noFavorites = true,
+    bool? filterNull = true,
   }) async {
-    final uri = queryBuilder('completion', {
-      'show_ids': showIds.toInt(),
-      'show_coordinates': showCoordinates.toInt(),
-      'nofavorites': noFavorites.toInt(),
+    final String? uri = queryBuilder('completion', {
+      'show_ids': showIds!.toInt(),
+      'show_coordinates': showCoordinates!.toInt(),
+      'nofavorites': noFavorites!.toInt(),
       'term': string,
     });
 
@@ -56,7 +56,7 @@ class CffApi extends NavigationApi {
     final completions = <CffCompletion>[];
 
     for (final item in decode) {
-      if (!filterNull || item['label'] != null) {
+      if (!filterNull! || item['label'] != null) {
         completions.add(CffCompletion.fromJson(item as Map<String, dynamic>));
       }
     }
@@ -68,15 +68,15 @@ class CffApi extends NavigationApi {
   Future<List<CffCompletion>> findStation(
     double lat,
     double lon, {
-    int accuracy = 10,
-    bool showCoordinates = true,
-    bool showIds = false,
+    int? accuracy = 10,
+    bool? showCoordinates = true,
+    bool? showIds = false,
   }) async {
     final uri = queryBuilder('completion', {
       'latlon': '$lat,$lon',
       'accuracy': accuracy,
-      'show_ids': showIds.toInt(),
-      'show_coordinates': showCoordinates.toInt()
+      'show_ids': showIds!.toInt(),
+      'show_coordinates': showCoordinates!.toInt()
     });
     log(uri);
     final response = await _client.get(uri, headers: headers);
@@ -93,28 +93,28 @@ class CffApi extends NavigationApi {
 
   @override
   Future<CffStationboard> stationboard(String stopName,
-      {DateTime when,
-      bool arrival = false,
-      int limit = 32,
-      bool showTracks = false,
-      bool showSubsequentStops = true,
-      bool showDelays = true,
-      bool showTrackchanges = false,
-      List<TransportationTypes> transportationTypes = const []}) async {
+      {DateTime? when,
+      bool? arrival = false,
+      int? limit = 32,
+      bool? showTracks = false,
+      bool? showSubsequentStops = true,
+      bool? showDelays = true,
+      bool? showTrackchanges = false,
+      List<TransportationTypes>? transportationTypes = const []}) async {
     final params = {
       'stop': stopName,
       'limit': limit,
-      'show_tracks': showTracks.toInt(),
-      'show_subsequent_stops': showSubsequentStops.toInt(),
-      'show_delays': showDelays.toInt(),
-      'show_trackchanges': showTrackchanges.toInt(),
-      'mode': arrival ? 'arrival' : 'depart'
+      'show_tracks': showTracks!.toInt(),
+      'show_subsequent_stops': showSubsequentStops!.toInt(),
+      'show_delays': showDelays!.toInt(),
+      'show_trackchanges': showTrackchanges!.toInt(),
+      'mode': arrival! ? 'arrival' : 'depart'
     };
-    if (transportationTypes.isNotEmpty) {
+    if (transportationTypes!.isNotEmpty) {
       params['transportation_types'] = transportationTypes.join(',');
     }
-    final s = queryBuilder('stationboard', params);
-    if (kDebugMode) log(s);
+    final String? s = queryBuilder('stationboard', params);
+    if (kDebugMode) log(s!);
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve stationboard : ${response.body}");
@@ -128,29 +128,28 @@ class CffApi extends NavigationApi {
   Future<CffRoute> route(
     String departure,
     String arrival, {
-    @required DateTime date,
-    @required TimeOfDay time,
-    TimeType typeTime = TimeType.depart,
+    required DateTime date,
+    required TimeOfDay time,
+    TimeType? typeTime = TimeType.depart,
     bool showDelays = true,
   }) async {
-    assert(date != null && time != null);
     final params = {
       'from': departure,
       'to': arrival,
       'date': '${date.month}/${date.day}/${date.year}',
       'time': '${time.hour}:${time.minute}',
-      'time_type': describeEnum(typeTime),
+      'time_type': describeEnum(typeTime!),
       'show_trackchanges': 1,
       'show_delays': showDelays.toInt(),
     };
 
-    final s = queryBuilder('route', params);
+    final String? s = queryBuilder('route', params);
     log('builder : $s');
-    return rawRoute(s);
+    return await rawRoute(s);
   }
 
   @override
-  Future<CffRoute> rawRoute(String query) async {
+  Future<CffRoute> rawRoute(String? query) async {
     final response = await _client.get(query, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve raw route : ${response.body}");

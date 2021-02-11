@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'cff_stationboard.dart';
 
@@ -16,39 +16,36 @@ CffStationboard _$CffStationboardFromJson(Map<String, dynamic> json) {
 class _$CffStationboardTearOff {
   const _$CffStationboardTearOff();
 
-// ignore: unused_element
   _CffStationboard call(
-      {Stop stop,
+      {required Stop stop,
+      required String stopName,
       List<StationboardConnection> connections = const [],
-      String request,
-      List<String> messages = const [],
-      String stopName}) {
+      String? request,
+      List<String> messages = const []}) {
     return _CffStationboard(
       stop: stop,
+      stopName: stopName,
       connections: connections,
       request: request,
       messages: messages,
-      stopName: stopName,
     );
   }
 
-// ignore: unused_element
   CffStationboard fromJson(Map<String, Object> json) {
     return CffStationboard.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $CffStationboard = _$CffStationboardTearOff();
 
 /// @nodoc
 mixin _$CffStationboard {
   Stop get stop;
-  List<StationboardConnection> get connections;
-  String get request;
-  List<String> get messages;
   String get stopName;
+  List<StationboardConnection> get connections;
+  String? get request;
+  List<String> get messages;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -62,10 +59,10 @@ abstract class $CffStationboardCopyWith<$Res> {
       _$CffStationboardCopyWithImpl<$Res>;
   $Res call(
       {Stop stop,
+      String stopName,
       List<StationboardConnection> connections,
-      String request,
-      List<String> messages,
-      String stopName});
+      String? request,
+      List<String> messages});
 
   $StopCopyWith<$Res> get stop;
 }
@@ -81,29 +78,26 @@ class _$CffStationboardCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object stop = freezed,
-    Object connections = freezed,
-    Object request = freezed,
-    Object messages = freezed,
-    Object stopName = freezed,
+    Object? stop = freezed,
+    Object? stopName = freezed,
+    Object? connections = freezed,
+    Object? request = freezed,
+    Object? messages = freezed,
   }) {
     return _then(_value.copyWith(
       stop: stop == freezed ? _value.stop : stop as Stop,
+      stopName: stopName == freezed ? _value.stopName : stopName as String,
       connections: connections == freezed
           ? _value.connections
           : connections as List<StationboardConnection>,
-      request: request == freezed ? _value.request : request as String,
+      request: request == freezed ? _value.request : request as String?,
       messages:
           messages == freezed ? _value.messages : messages as List<String>,
-      stopName: stopName == freezed ? _value.stopName : stopName as String,
     ));
   }
 
   @override
   $StopCopyWith<$Res> get stop {
-    if (_value.stop == null) {
-      return null;
-    }
     return $StopCopyWith<$Res>(_value.stop, (value) {
       return _then(_value.copyWith(stop: value));
     });
@@ -119,10 +113,10 @@ abstract class _$CffStationboardCopyWith<$Res>
   @override
   $Res call(
       {Stop stop,
+      String stopName,
       List<StationboardConnection> connections,
-      String request,
-      List<String> messages,
-      String stopName});
+      String? request,
+      List<String> messages});
 
   @override
   $StopCopyWith<$Res> get stop;
@@ -141,21 +135,21 @@ class __$CffStationboardCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object stop = freezed,
-    Object connections = freezed,
-    Object request = freezed,
-    Object messages = freezed,
-    Object stopName = freezed,
+    Object? stop = freezed,
+    Object? stopName = freezed,
+    Object? connections = freezed,
+    Object? request = freezed,
+    Object? messages = freezed,
   }) {
     return _then(_CffStationboard(
       stop: stop == freezed ? _value.stop : stop as Stop,
+      stopName: stopName == freezed ? _value.stopName : stopName as String,
       connections: connections == freezed
           ? _value.connections
           : connections as List<StationboardConnection>,
-      request: request == freezed ? _value.request : request as String,
+      request: request == freezed ? _value.request : request as String?,
       messages:
           messages == freezed ? _value.messages : messages as List<String>,
-      stopName: stopName == freezed ? _value.stopName : stopName as String,
     ));
   }
 }
@@ -165,33 +159,31 @@ class __$CffStationboardCopyWithImpl<$Res>
 /// @nodoc
 class _$_CffStationboard implements _CffStationboard {
   const _$_CffStationboard(
-      {this.stop,
+      {required this.stop,
+      required this.stopName,
       this.connections = const [],
       this.request,
-      this.messages = const [],
-      this.stopName})
-      : assert(connections != null),
-        assert(messages != null);
+      this.messages = const []});
 
   factory _$_CffStationboard.fromJson(Map<String, dynamic> json) =>
       _$_$_CffStationboardFromJson(json);
 
   @override
   final Stop stop;
+  @override
+  final String stopName;
   @JsonKey(defaultValue: const [])
   @override
   final List<StationboardConnection> connections;
   @override
-  final String request;
+  final String? request;
   @JsonKey(defaultValue: const [])
   @override
   final List<String> messages;
-  @override
-  final String stopName;
 
   @override
   String toString() {
-    return 'CffStationboard(stop: $stop, connections: $connections, request: $request, messages: $messages, stopName: $stopName)';
+    return 'CffStationboard(stop: $stop, stopName: $stopName, connections: $connections, request: $request, messages: $messages)';
   }
 
   @override
@@ -200,6 +192,9 @@ class _$_CffStationboard implements _CffStationboard {
         (other is _CffStationboard &&
             (identical(other.stop, stop) ||
                 const DeepCollectionEquality().equals(other.stop, stop)) &&
+            (identical(other.stopName, stopName) ||
+                const DeepCollectionEquality()
+                    .equals(other.stopName, stopName)) &&
             (identical(other.connections, connections) ||
                 const DeepCollectionEquality()
                     .equals(other.connections, connections)) &&
@@ -208,20 +203,17 @@ class _$_CffStationboard implements _CffStationboard {
                     .equals(other.request, request)) &&
             (identical(other.messages, messages) ||
                 const DeepCollectionEquality()
-                    .equals(other.messages, messages)) &&
-            (identical(other.stopName, stopName) ||
-                const DeepCollectionEquality()
-                    .equals(other.stopName, stopName)));
+                    .equals(other.messages, messages)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(stop) ^
+      const DeepCollectionEquality().hash(stopName) ^
       const DeepCollectionEquality().hash(connections) ^
       const DeepCollectionEquality().hash(request) ^
-      const DeepCollectionEquality().hash(messages) ^
-      const DeepCollectionEquality().hash(stopName);
+      const DeepCollectionEquality().hash(messages);
 
   @JsonKey(ignore: true)
   @override
@@ -236,11 +228,11 @@ class _$_CffStationboard implements _CffStationboard {
 
 abstract class _CffStationboard implements CffStationboard {
   const factory _CffStationboard(
-      {Stop stop,
+      {required Stop stop,
+      required String stopName,
       List<StationboardConnection> connections,
-      String request,
-      List<String> messages,
-      String stopName}) = _$_CffStationboard;
+      String? request,
+      List<String> messages}) = _$_CffStationboard;
 
   factory _CffStationboard.fromJson(Map<String, dynamic> json) =
       _$_CffStationboard.fromJson;
@@ -248,13 +240,13 @@ abstract class _CffStationboard implements CffStationboard {
   @override
   Stop get stop;
   @override
+  String get stopName;
+  @override
   List<StationboardConnection> get connections;
   @override
-  String get request;
+  String? get request;
   @override
   List<String> get messages;
-  @override
-  String get stopName;
   @override
   @JsonKey(ignore: true)
   _$CffStationboardCopyWith<_CffStationboard> get copyWith;

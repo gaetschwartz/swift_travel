@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SingleWidgetPage extends Page {
   final Widget child;
-  final String title;
+  final String? title;
 
   const SingleWidgetPage(
     this.child, {
@@ -24,13 +24,13 @@ class SingleWidgetPage extends Page {
 class CupertinoPageBuilder extends PageRoute with CupertinoRouteTransitionMixin {
   final Widget Function(BuildContext) builder;
   @override
-  final String title;
+  final String? title;
   @override
   final bool maintainState;
 
   CupertinoPageBuilder({
-    @required this.builder,
-    RouteSettings settings,
+    required this.builder,
+    RouteSettings? settings,
     bool fullscreenDialog = false,
     this.title = '',
     this.maintainState = true,

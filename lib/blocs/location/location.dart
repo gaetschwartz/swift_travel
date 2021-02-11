@@ -7,7 +7,7 @@ class LocationRepository {
   static Future<Position> getLocation({
     g.LocationAccuracy desiredAccuracy = g.LocationAccuracy.bestForNavigation,
     bool forceAndroidLocationManager = false,
-    Duration timeLimit,
+    Duration? timeLimit,
   }) async {
     if (Env.spoofLocation) {
       return Position(

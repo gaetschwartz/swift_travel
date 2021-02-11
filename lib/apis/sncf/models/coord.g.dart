@@ -8,8 +8,8 @@ part of 'coord.dart';
 
 _$_Coord _$_$_CoordFromJson(Map<String, dynamic> json) {
   return _$_Coord(
-    lat: json['lat'] as String,
-    lon: json['lon'] as String,
+    lat: json['lat'] as String?,
+    lon: json['lon'] as String?,
   );
 }
 

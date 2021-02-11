@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/foundation.dart';
 import 'package:swift_travel/blocs/links.dart';
 
@@ -53,17 +54,17 @@ Map<String, String> decodeRouteUri(Uri uri) {
 }
 
 DateTime parseDateTime(Map<String, String> oldParams) {
-  final millis = int.parse(oldParams['dtm'], radix: 32) * 1000;
+  final millis = int.parse(oldParams['dtm']!, radix: 32) * 1000;
   return DateTime.fromMillisecondsSinceEpoch(millis);
 }
 
-Map<String, String> encodeRouteUri(Uri uri, int i) {
+Map<String, String> encodeRouteUri(Uri uri, int? i) {
   final params = <String, String>{};
   final oldParams = Map.from(uri.queryParameters).cast<String, String>();
 
-  final date = oldParams['date'].split('/');
+  final date = oldParams['date']!.split('/');
   if (date.length != 3) throw const FormatException('Date is supposed to contain 3 parts');
-  final time = oldParams['time'].split(':');
+  final time = oldParams['time']!.split(':');
   if (time.length != 2) throw const FormatException('Time is supposed to contain 2 parts');
 
   final year = int.parse(date[2]);
@@ -83,9 +84,9 @@ Map<String, String> encodeRouteUri(Uri uri, int i) {
 
   for (final e in oldParams.entries) {
     final newKey =
-        translate.entries.firstWhere((e2) => e.key == e2.value, orElse: () => null)?.key ?? e.key;
+        translate.entries.firstWhereOrNull((e2) => e.key == e2.value)?.key ?? e.key;
     final newValue =
-        translate.entries.firstWhere((e2) => e.value == e2.value, orElse: () => null)?.key ??
+        translate.entries.firstWhereOrNull((e2) => e.value == e2.value)?.key ??
             e.value;
     params[newKey] = newValue;
   }

@@ -8,15 +8,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/blocs/preferences.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WalkingTile extends StatelessWidget {
   const WalkingTile({
-    Key key,
-    @required this.l,
+    Key? key,
+    required this.l,
   }) : super(key: key);
 
   final Leg l;
@@ -39,28 +39,29 @@ class WalkingTile extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          l.exit.name,
+                          l.exit!.name,
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1
+                              .subtitle1!
                               .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  if (l.exit.waitTime > 0)
+                  if (l.exit!.waitTime! > 0)
                     Text.rich(
                       parseDecoratedText(
-                        S.of(context).walk_and_wait(Format.intToDuration(l.runningTime.round()),
-                            Format.intToDuration(l.exit.waitTime)),
+                        AppLoc.of(context).walk_and_wait(
+                            Format.intToDuration(l.runningTime!.round()),
+                            Format.intToDuration(l.exit!.waitTime!)),
                         Theme.of(context).textTheme.subtitle2,
                       ),
                     )
                   else
                     Text.rich(
                       parseDecoratedText(
-                        S.of(context).walk(Format.intToDuration(l.runningTime.round())),
+                        AppLoc.of(context).walk(Format.intToDuration(l.runningTime!.round())),
                         Theme.of(context).textTheme.subtitle2,
                       ),
                     ),
@@ -80,9 +81,10 @@ class WalkingTile extends StatelessWidget {
 
   Future<void> openRoute(BuildContext context) async {
     log(l.toString());
-    final departure = l.lat != null && l.lon != null ? '${l.lat}, ${l.lon}' : l.name;
-    final arrival =
-        l.exit.lat != null && l.exit.lon != null ? '${l.exit.lat}, ${l.exit.lon}' : l.exit.name;
+    final departure = l.lat != null && l.lon != null ? '${l.lat}, ${l.lon}' : l.name!;
+    final arrival = l.exit!.lat != null && l.exit!.lon != null
+        ? '${l.exit!.lat}, ${l.exit!.lon}'
+        : l.exit!.name;
     log('($departure) => ($arrival)');
 
     final suffix =
@@ -115,6 +117,5 @@ class WalkingTile extends StatelessWidget {
         log('Using Google Maps');
         return _google + suffix;
     }
-    throw UnsupportedError('Unsupported : `$m`');
   }
 }

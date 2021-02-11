@@ -11,23 +11,23 @@ abstract class LocalRoute with _$LocalRoute {
   const factory LocalRoute(
     String from,
     String to, {
-    String displayName,
-    DateTime timestamp,
-    int fromI,
-    int toI,
+    String? displayName,
+    DateTime? timestamp,
+    int? fromI,
+    int? toI,
   }) = _LocalRoute;
 
   factory LocalRoute.now(
     String from,
     String to, {
-    String displayName,
+    String? displayName,
   }) =>
       _LocalRoute(from, to, displayName: displayName, timestamp: CustomizableDateTime.current);
 
   factory LocalRoute.fromRouteConnection(
     RouteConnection connection, {
-    DateTime timestamp,
-    String displayName,
+    DateTime? timestamp,
+    String? displayName,
   }) =>
       _LocalRoute(
         connection.from,

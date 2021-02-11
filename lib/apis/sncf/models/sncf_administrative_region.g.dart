@@ -9,15 +9,15 @@ part of 'sncf_administrative_region.dart';
 _$_SncfAdministrativeRegion _$_$_SncfAdministrativeRegionFromJson(
     Map<String, dynamic> json) {
   return _$_SncfAdministrativeRegion(
-    insee: json['insee'] as String,
-    name: json['name'] as String,
-    level: json['level'] as int,
+    insee: json['insee'] as String?,
+    name: json['name'] as String?,
+    level: json['level'] as int?,
     coord: json['coord'] == null
         ? null
         : Coord.fromJson(json['coord'] as Map<String, dynamic>),
-    label: json['label'] as String,
-    id: json['id'] as String,
-    zipCode: json['zipCode'] as String,
+    label: json['label'] as String?,
+    id: json['id'] as String?,
+    zipCode: json['zipCode'] as String?,
   );
 }
 

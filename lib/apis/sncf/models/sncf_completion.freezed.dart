@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'sncf_completion.dart';
 
@@ -16,21 +16,18 @@ SncfCompletion _$SncfCompletionFromJson(Map<String, dynamic> json) {
 class _$SncfCompletionTearOff {
   const _$SncfCompletionTearOff();
 
-// ignore: unused_element
   _SncfCompletion call({List<SncfPlace> places = const []}) {
     return _SncfCompletion(
       places: places,
     );
   }
 
-// ignore: unused_element
   SncfCompletion fromJson(Map<String, Object> json) {
     return SncfCompletion.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SncfCompletion = _$SncfCompletionTearOff();
 
 /// @nodoc
@@ -61,7 +58,7 @@ class _$SncfCompletionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object places = freezed,
+    Object? places = freezed,
   }) {
     return _then(_value.copyWith(
       places: places == freezed ? _value.places : places as List<SncfPlace>,
@@ -92,7 +89,7 @@ class __$SncfCompletionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object places = freezed,
+    Object? places = freezed,
   }) {
     return _then(_SncfCompletion(
       places: places == freezed ? _value.places : places as List<SncfPlace>,
@@ -104,7 +101,7 @@ class __$SncfCompletionCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SncfCompletion implements _SncfCompletion {
-  _$_SncfCompletion({this.places = const []}) : assert(places != null);
+  _$_SncfCompletion({this.places = const []});
 
   factory _$_SncfCompletion.fromJson(Map<String, dynamic> json) =>
       _$_$_SncfCompletionFromJson(json);

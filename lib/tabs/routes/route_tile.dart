@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/db/database.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
@@ -15,9 +15,9 @@ import 'package:swift_travel/widgets/line_icon.dart';
 
 class RouteTile extends StatelessWidget {
   const RouteTile({
-    Key key,
-    @required this.route,
-    @required this.i,
+    Key? key,
+    required this.route,
+    required this.i,
   }) : super(key: key);
 
   final CffRoute route;
@@ -68,7 +68,7 @@ class RouteTile extends StatelessWidget {
                 else
                   LineIcon(foreground: leg.fgcolor, background: leg.bgcolor, line: leg.line),
                 const SizedBox(width: 8),
-                Expanded(child: Text(leg.exit.name)),
+                Expanded(child: Text(leg.exit!.name)),
               ],
             ),
             subtitle: Padding(
@@ -78,7 +78,7 @@ class RouteTile extends StatelessWidget {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(Format.intToDuration(c.duration.round())),
+                Text(Format.intToDuration(c.duration!.round())),
                 if (c.depDelay > 0)
                   Text(
                     Format.delay(c.depDelay),
@@ -92,7 +92,7 @@ class RouteTile extends StatelessWidget {
               Nav.push(
                 context,
                 (context) => RouteDetails(route: route, i: i),
-                title: S.of(context).tabs_route,
+                title: AppLoc.of(context).tabs_route,
               );
               RouteHistoryRepository.i.safeAdd(
                   LocalRoute.fromRouteConnection(route.connections[i], timestamp: DateTime.now()));

@@ -8,7 +8,7 @@ class PreferencesBloc extends ChangeNotifier {
   static const String mapsKey = 'maps_app';
   static const String navigationAPIKey = 'navigation_api';
   final String prefix;
-  SharedPreferences _prefs;
+  late SharedPreferences _prefs;
 
   Maps _maps = Maps.google;
   NavigationApiType _api = NavigationApiType.cff;
@@ -34,7 +34,7 @@ class PreferencesBloc extends ChangeNotifier {
     _syncToPrefs(navigationAPIKey, api.index);
   }
 
-  Future<void> loadFromPreferences({SharedPreferences prefs}) async {
+  Future<void> loadFromPreferences({SharedPreferences? prefs}) async {
     _prefs = prefs ?? await SharedPreferences.getInstance();
 
     _maps = _getEnum(mapsKey, Maps.values) ?? _maps;
@@ -43,7 +43,7 @@ class PreferencesBloc extends ChangeNotifier {
     notifyListeners();
   }
 
-  T _getEnum<T>(String key, List<T> values) {
+  T? _getEnum<T>(String key, List<T> values) {
     final i = _prefs.getInt(key);
     return i != null && i >= 0 && i < values.length ? values[i] : null;
   }

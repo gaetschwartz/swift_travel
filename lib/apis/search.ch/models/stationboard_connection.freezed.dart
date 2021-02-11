@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'stationboard_connection.dart';
 
@@ -17,32 +17,32 @@ StationboardConnection _$StationboardConnectionFromJson(
 class _$StationboardConnectionTearOff {
   const _$StationboardConnectionTearOff();
 
-// ignore: unused_element
   _StationboardConnection call(
-      DateTime time,
-      Vehicle type,
-      String color,
-      Stop terminal,
-      {String line,
-      String operator,
+      {required DateTime time,
+      required Vehicle type,
+      required String color,
+      required Stop terminal,
+      String? line,
+      @JsonKey(name: 'operator')
+          String? operator_,
       String number = '',
       @JsonKey(name: '*G')
-          String g,
+          String? g,
       @JsonKey(name: '*L')
-          String l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: [])
-          List<SubsequentStop> subsequentStops,
+          String? l,
+      @JsonKey(name: 'subsequent_stops')
+          List<SubsequentStop> subsequentStops = const [],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
+          required int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay}) {
+          required int arrDelay}) {
     return _StationboardConnection(
-      time,
-      type,
-      color,
-      terminal,
+      time: time,
+      type: type,
+      color: color,
+      terminal: terminal,
       line: line,
-      operator: operator,
+      operator_: operator_,
       number: number,
       g: g,
       l: l,
@@ -52,14 +52,12 @@ class _$StationboardConnectionTearOff {
     );
   }
 
-// ignore: unused_element
   StationboardConnection fromJson(Map<String, Object> json) {
     return StationboardConnection.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $StationboardConnection = _$StationboardConnectionTearOff();
 
 /// @nodoc
@@ -68,14 +66,15 @@ mixin _$StationboardConnection {
   Vehicle get type;
   String get color;
   Stop get terminal;
-  String get line;
-  String get operator;
+  String? get line;
+  @JsonKey(name: 'operator')
+  String? get operator_;
   String get number;
   @JsonKey(name: '*G')
-  String get g;
+  String? get g;
   @JsonKey(name: '*L')
-  String get l;
-  @JsonKey(name: 'subsequent_stops', defaultValue: [])
+  String? get l;
+  @JsonKey(name: 'subsequent_stops')
   List<SubsequentStop> get subsequentStops;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get depDelay;
@@ -97,14 +96,15 @@ abstract class $StationboardConnectionCopyWith<$Res> {
       Vehicle type,
       String color,
       Stop terminal,
-      String line,
-      String operator,
+      String? line,
+      @JsonKey(name: 'operator')
+          String? operator_,
       String number,
       @JsonKey(name: '*G')
-          String g,
+          String? g,
       @JsonKey(name: '*L')
-          String l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: [])
+          String? l,
+      @JsonKey(name: 'subsequent_stops')
           List<SubsequentStop> subsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -125,29 +125,29 @@ class _$StationboardConnectionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object time = freezed,
-    Object type = freezed,
-    Object color = freezed,
-    Object terminal = freezed,
-    Object line = freezed,
-    Object operator = freezed,
-    Object number = freezed,
-    Object g = freezed,
-    Object l = freezed,
-    Object subsequentStops = freezed,
-    Object depDelay = freezed,
-    Object arrDelay = freezed,
+    Object? time = freezed,
+    Object? type = freezed,
+    Object? color = freezed,
+    Object? terminal = freezed,
+    Object? line = freezed,
+    Object? operator_ = freezed,
+    Object? number = freezed,
+    Object? g = freezed,
+    Object? l = freezed,
+    Object? subsequentStops = freezed,
+    Object? depDelay = freezed,
+    Object? arrDelay = freezed,
   }) {
     return _then(_value.copyWith(
       time: time == freezed ? _value.time : time as DateTime,
       type: type == freezed ? _value.type : type as Vehicle,
       color: color == freezed ? _value.color : color as String,
       terminal: terminal == freezed ? _value.terminal : terminal as Stop,
-      line: line == freezed ? _value.line : line as String,
-      operator: operator == freezed ? _value.operator : operator as String,
+      line: line == freezed ? _value.line : line as String?,
+      operator_: operator_ == freezed ? _value.operator_ : operator_ as String?,
       number: number == freezed ? _value.number : number as String,
-      g: g == freezed ? _value.g : g as String,
-      l: l == freezed ? _value.l : l as String,
+      g: g == freezed ? _value.g : g as String?,
+      l: l == freezed ? _value.l : l as String?,
       subsequentStops: subsequentStops == freezed
           ? _value.subsequentStops
           : subsequentStops as List<SubsequentStop>,
@@ -158,9 +158,6 @@ class _$StationboardConnectionCopyWithImpl<$Res>
 
   @override
   $StopCopyWith<$Res> get terminal {
-    if (_value.terminal == null) {
-      return null;
-    }
     return $StopCopyWith<$Res>(_value.terminal, (value) {
       return _then(_value.copyWith(terminal: value));
     });
@@ -179,14 +176,15 @@ abstract class _$StationboardConnectionCopyWith<$Res>
       Vehicle type,
       String color,
       Stop terminal,
-      String line,
-      String operator,
+      String? line,
+      @JsonKey(name: 'operator')
+          String? operator_,
       String number,
       @JsonKey(name: '*G')
-          String g,
+          String? g,
       @JsonKey(name: '*L')
-          String l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: [])
+          String? l,
+      @JsonKey(name: 'subsequent_stops')
           List<SubsequentStop> subsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -210,29 +208,29 @@ class __$StationboardConnectionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object time = freezed,
-    Object type = freezed,
-    Object color = freezed,
-    Object terminal = freezed,
-    Object line = freezed,
-    Object operator = freezed,
-    Object number = freezed,
-    Object g = freezed,
-    Object l = freezed,
-    Object subsequentStops = freezed,
-    Object depDelay = freezed,
-    Object arrDelay = freezed,
+    Object? time = freezed,
+    Object? type = freezed,
+    Object? color = freezed,
+    Object? terminal = freezed,
+    Object? line = freezed,
+    Object? operator_ = freezed,
+    Object? number = freezed,
+    Object? g = freezed,
+    Object? l = freezed,
+    Object? subsequentStops = freezed,
+    Object? depDelay = freezed,
+    Object? arrDelay = freezed,
   }) {
     return _then(_StationboardConnection(
-      time == freezed ? _value.time : time as DateTime,
-      type == freezed ? _value.type : type as Vehicle,
-      color == freezed ? _value.color : color as String,
-      terminal == freezed ? _value.terminal : terminal as Stop,
-      line: line == freezed ? _value.line : line as String,
-      operator: operator == freezed ? _value.operator : operator as String,
+      time: time == freezed ? _value.time : time as DateTime,
+      type: type == freezed ? _value.type : type as Vehicle,
+      color: color == freezed ? _value.color : color as String,
+      terminal: terminal == freezed ? _value.terminal : terminal as Stop,
+      line: line == freezed ? _value.line : line as String?,
+      operator_: operator_ == freezed ? _value.operator_ : operator_ as String?,
       number: number == freezed ? _value.number : number as String,
-      g: g == freezed ? _value.g : g as String,
-      l: l == freezed ? _value.l : l as String,
+      g: g == freezed ? _value.g : g as String?,
+      l: l == freezed ? _value.l : l as String?,
       subsequentStops: subsequentStops == freezed
           ? _value.subsequentStops
           : subsequentStops as List<SubsequentStop>,
@@ -247,28 +245,24 @@ class __$StationboardConnectionCopyWithImpl<$Res>
 /// @nodoc
 class _$_StationboardConnection implements _StationboardConnection {
   const _$_StationboardConnection(
-      this.time,
-      this.type,
-      this.color,
-      this.terminal,
-      {this.line,
-      this.operator,
+      {required this.time,
+      required this.type,
+      required this.color,
+      required this.terminal,
+      this.line,
+      @JsonKey(name: 'operator')
+          this.operator_,
       this.number = '',
       @JsonKey(name: '*G')
           this.g,
       @JsonKey(name: '*L')
           this.l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: [])
-          this.subsequentStops,
+      @JsonKey(name: 'subsequent_stops')
+          this.subsequentStops = const [],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.depDelay,
+          required this.depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.arrDelay})
-      : assert(time != null),
-        assert(type != null),
-        assert(color != null),
-        assert(terminal != null),
-        assert(number != null);
+          required this.arrDelay});
 
   factory _$_StationboardConnection.fromJson(Map<String, dynamic> json) =>
       _$_$_StationboardConnectionFromJson(json);
@@ -282,20 +276,21 @@ class _$_StationboardConnection implements _StationboardConnection {
   @override
   final Stop terminal;
   @override
-  final String line;
+  final String? line;
   @override
-  final String operator;
+  @JsonKey(name: 'operator')
+  final String? operator_;
   @JsonKey(defaultValue: '')
   @override
   final String number;
   @override
   @JsonKey(name: '*G')
-  final String g;
+  final String? g;
   @override
   @JsonKey(name: '*L')
-  final String l;
+  final String? l;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: [])
+  @JsonKey(name: 'subsequent_stops')
   final List<SubsequentStop> subsequentStops;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -306,7 +301,7 @@ class _$_StationboardConnection implements _StationboardConnection {
 
   @override
   String toString() {
-    return 'StationboardConnection(time: $time, type: $type, color: $color, terminal: $terminal, line: $line, operator: $operator, number: $number, g: $g, l: $l, subsequentStops: $subsequentStops, depDelay: $depDelay, arrDelay: $arrDelay)';
+    return 'StationboardConnection(time: $time, type: $type, color: $color, terminal: $terminal, line: $line, operator_: $operator_, number: $number, g: $g, l: $l, subsequentStops: $subsequentStops, depDelay: $depDelay, arrDelay: $arrDelay)';
   }
 
   @override
@@ -324,9 +319,9 @@ class _$_StationboardConnection implements _StationboardConnection {
                     .equals(other.terminal, terminal)) &&
             (identical(other.line, line) ||
                 const DeepCollectionEquality().equals(other.line, line)) &&
-            (identical(other.operator, operator) ||
+            (identical(other.operator_, operator_) ||
                 const DeepCollectionEquality()
-                    .equals(other.operator, operator)) &&
+                    .equals(other.operator_, operator_)) &&
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
             (identical(other.g, g) ||
@@ -352,7 +347,7 @@ class _$_StationboardConnection implements _StationboardConnection {
       const DeepCollectionEquality().hash(color) ^
       const DeepCollectionEquality().hash(terminal) ^
       const DeepCollectionEquality().hash(line) ^
-      const DeepCollectionEquality().hash(operator) ^
+      const DeepCollectionEquality().hash(operator_) ^
       const DeepCollectionEquality().hash(number) ^
       const DeepCollectionEquality().hash(g) ^
       const DeepCollectionEquality().hash(l) ^
@@ -374,23 +369,24 @@ class _$_StationboardConnection implements _StationboardConnection {
 
 abstract class _StationboardConnection implements StationboardConnection {
   const factory _StationboardConnection(
-      DateTime time,
-      Vehicle type,
-      String color,
-      Stop terminal,
-      {String line,
-      String operator,
+      {required DateTime time,
+      required Vehicle type,
+      required String color,
+      required Stop terminal,
+      String? line,
+      @JsonKey(name: 'operator')
+          String? operator_,
       String number,
       @JsonKey(name: '*G')
-          String g,
+          String? g,
       @JsonKey(name: '*L')
-          String l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: [])
+          String? l,
+      @JsonKey(name: 'subsequent_stops')
           List<SubsequentStop> subsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
+          required int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay}) = _$_StationboardConnection;
+          required int arrDelay}) = _$_StationboardConnection;
 
   factory _StationboardConnection.fromJson(Map<String, dynamic> json) =
       _$_StationboardConnection.fromJson;
@@ -404,19 +400,20 @@ abstract class _StationboardConnection implements StationboardConnection {
   @override
   Stop get terminal;
   @override
-  String get line;
+  String? get line;
   @override
-  String get operator;
+  @JsonKey(name: 'operator')
+  String? get operator_;
   @override
   String get number;
   @override
   @JsonKey(name: '*G')
-  String get g;
+  String? get g;
   @override
   @JsonKey(name: '*L')
-  String get l;
+  String? get l;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: [])
+  @JsonKey(name: 'subsequent_stops')
   List<SubsequentStop> get subsequentStops;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)

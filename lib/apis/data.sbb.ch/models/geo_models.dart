@@ -15,19 +15,19 @@ abstract class GeoResponse with _$GeoResponse {
 @freezed
 abstract class GeoAttr with _$GeoAttr {
   const factory GeoAttr({
-    String origin,
-    String geomQuadindex,
-    int zoomlevel,
-    String featureId,
-    double lon,
-    String detail,
-    int rank,
-    String geomStBox2d,
-    double lat,
-    @JsonKey(name: 'num') int number,
-    double y,
-    double x,
-    String label,
+    String? origin,
+    String? geomQuadindex,
+    int? zoomlevel,
+    String? featureId,
+    double? lon,
+    String? detail,
+    int? rank,
+    String? geomStBox2d,
+    double? lat,
+    @JsonKey(name: 'num') int? number,
+    double? y,
+    double? x,
+    String? label,
   }) = _GeoAttr;
 
   factory GeoAttr.fromJson(Map<String, dynamic> json) => _$GeoAttrFromJson(json);
@@ -37,9 +37,9 @@ abstract class GeoAttr with _$GeoAttr {
 abstract class GeoResult with _$GeoResult {
   @JsonSerializable(explicitToJson: true)
   const factory GeoResult({
-    int id,
-    int weight,
-    GeoAttr attrs,
+    int? id,
+    int? weight,
+    GeoAttr? attrs,
   }) = _GeoResult;
 
   factory GeoResult.fromJson(Map<String, dynamic> json) => _$GeoResultFromJson(json);
@@ -48,9 +48,9 @@ abstract class GeoResult with _$GeoResult {
 @freezed
 abstract class GeoError with _$GeoError {
   const factory GeoError({
-    String status,
-    String detail,
-    int code,
+    String? status,
+    String? detail,
+    int? code,
   }) = _GeoError;
 
   factory GeoError.fromJson(Map<String, dynamic> json) => _$GeoErrorFromJson(json);

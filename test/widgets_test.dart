@@ -63,7 +63,7 @@ void main() {
         for (final v in Vehicle.values) {
           final text = describeEnum(v);
           final exp = RegExp(r'(?<=[a-z])[A-Z]');
-          final result = text.replaceAllMapped(exp, (Match m) => ('_' + m.group(0))).toLowerCase();
+          final result = text.replaceAllMapped(exp, (Match m) => ('_' + m.group(0)!)).toLowerCase();
           final cffIcon = CffIcon.fromIconClass(result);
 
           await t.pumpWidget(MaterialApp(home: Center(child: cffIcon)));
@@ -89,7 +89,7 @@ Future<void> _testLineIcon(WidgetTester t, LineIcon lineIcon) async {
   final text = find.text('5');
   final textWidget = t.firstWidget(text) as Text;
   expect(text, findsOneWidget);
-  expect(textWidget.style.color, isSameColorAs(Colors.white));
+  expect(textWidget.style!.color, isSameColorAs(Colors.white));
 
   final dBox = find.byType(DecoratedBox);
   final dBoxWidget = t.firstWidget(dBox) as DecoratedBox;

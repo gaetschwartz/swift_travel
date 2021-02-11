@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'models.dart';
 
@@ -16,16 +16,15 @@ Position _$PositionFromJson(Map<String, dynamic> json) {
 class _$PositionTearOff {
   const _$PositionTearOff();
 
-// ignore: unused_element
   _Position call(
-      {@required double latitude,
-      @required double longitude,
-      double accuracy,
-      double altitude,
-      double heading,
-      double speed,
-      double speedAccuracy,
-      DateTime timestamp}) {
+      {required double latitude,
+      required double longitude,
+      double? accuracy,
+      double? altitude,
+      double? heading,
+      double? speed,
+      double? speedAccuracy,
+      DateTime? timestamp}) {
     return _Position(
       latitude: latitude,
       longitude: longitude,
@@ -38,26 +37,24 @@ class _$PositionTearOff {
     );
   }
 
-// ignore: unused_element
   Position fromJson(Map<String, Object> json) {
     return Position.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Position = _$PositionTearOff();
 
 /// @nodoc
 mixin _$Position {
   double get latitude;
   double get longitude;
-  double get accuracy;
-  double get altitude;
-  double get heading;
-  double get speed;
-  double get speedAccuracy;
-  DateTime get timestamp;
+  double? get accuracy;
+  double? get altitude;
+  double? get heading;
+  double? get speed;
+  double? get speedAccuracy;
+  DateTime? get timestamp;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -71,12 +68,12 @@ abstract class $PositionCopyWith<$Res> {
   $Res call(
       {double latitude,
       double longitude,
-      double accuracy,
-      double altitude,
-      double heading,
-      double speed,
-      double speedAccuracy,
-      DateTime timestamp});
+      double? accuracy,
+      double? altitude,
+      double? heading,
+      double? speed,
+      double? speedAccuracy,
+      DateTime? timestamp});
 }
 
 /// @nodoc
@@ -89,27 +86,27 @@ class _$PositionCopyWithImpl<$Res> implements $PositionCopyWith<$Res> {
 
   @override
   $Res call({
-    Object latitude = freezed,
-    Object longitude = freezed,
-    Object accuracy = freezed,
-    Object altitude = freezed,
-    Object heading = freezed,
-    Object speed = freezed,
-    Object speedAccuracy = freezed,
-    Object timestamp = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? accuracy = freezed,
+    Object? altitude = freezed,
+    Object? heading = freezed,
+    Object? speed = freezed,
+    Object? speedAccuracy = freezed,
+    Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
       latitude: latitude == freezed ? _value.latitude : latitude as double,
       longitude: longitude == freezed ? _value.longitude : longitude as double,
-      accuracy: accuracy == freezed ? _value.accuracy : accuracy as double,
-      altitude: altitude == freezed ? _value.altitude : altitude as double,
-      heading: heading == freezed ? _value.heading : heading as double,
-      speed: speed == freezed ? _value.speed : speed as double,
+      accuracy: accuracy == freezed ? _value.accuracy : accuracy as double?,
+      altitude: altitude == freezed ? _value.altitude : altitude as double?,
+      heading: heading == freezed ? _value.heading : heading as double?,
+      speed: speed == freezed ? _value.speed : speed as double?,
       speedAccuracy: speedAccuracy == freezed
           ? _value.speedAccuracy
-          : speedAccuracy as double,
+          : speedAccuracy as double?,
       timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime,
+          timestamp == freezed ? _value.timestamp : timestamp as DateTime?,
     ));
   }
 }
@@ -122,12 +119,12 @@ abstract class _$PositionCopyWith<$Res> implements $PositionCopyWith<$Res> {
   $Res call(
       {double latitude,
       double longitude,
-      double accuracy,
-      double altitude,
-      double heading,
-      double speed,
-      double speedAccuracy,
-      DateTime timestamp});
+      double? accuracy,
+      double? altitude,
+      double? heading,
+      double? speed,
+      double? speedAccuracy,
+      DateTime? timestamp});
 }
 
 /// @nodoc
@@ -141,27 +138,27 @@ class __$PositionCopyWithImpl<$Res> extends _$PositionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object latitude = freezed,
-    Object longitude = freezed,
-    Object accuracy = freezed,
-    Object altitude = freezed,
-    Object heading = freezed,
-    Object speed = freezed,
-    Object speedAccuracy = freezed,
-    Object timestamp = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? accuracy = freezed,
+    Object? altitude = freezed,
+    Object? heading = freezed,
+    Object? speed = freezed,
+    Object? speedAccuracy = freezed,
+    Object? timestamp = freezed,
   }) {
     return _then(_Position(
       latitude: latitude == freezed ? _value.latitude : latitude as double,
       longitude: longitude == freezed ? _value.longitude : longitude as double,
-      accuracy: accuracy == freezed ? _value.accuracy : accuracy as double,
-      altitude: altitude == freezed ? _value.altitude : altitude as double,
-      heading: heading == freezed ? _value.heading : heading as double,
-      speed: speed == freezed ? _value.speed : speed as double,
+      accuracy: accuracy == freezed ? _value.accuracy : accuracy as double?,
+      altitude: altitude == freezed ? _value.altitude : altitude as double?,
+      heading: heading == freezed ? _value.heading : heading as double?,
+      speed: speed == freezed ? _value.speed : speed as double?,
       speedAccuracy: speedAccuracy == freezed
           ? _value.speedAccuracy
-          : speedAccuracy as double,
+          : speedAccuracy as double?,
       timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime,
+          timestamp == freezed ? _value.timestamp : timestamp as DateTime?,
     ));
   }
 }
@@ -171,16 +168,14 @@ class __$PositionCopyWithImpl<$Res> extends _$PositionCopyWithImpl<$Res>
 /// @nodoc
 class _$_Position implements _Position {
   const _$_Position(
-      {@required this.latitude,
-      @required this.longitude,
+      {required this.latitude,
+      required this.longitude,
       this.accuracy,
       this.altitude,
       this.heading,
       this.speed,
       this.speedAccuracy,
-      this.timestamp})
-      : assert(latitude != null),
-        assert(longitude != null);
+      this.timestamp});
 
   factory _$_Position.fromJson(Map<String, dynamic> json) =>
       _$_$_PositionFromJson(json);
@@ -190,17 +185,17 @@ class _$_Position implements _Position {
   @override
   final double longitude;
   @override
-  final double accuracy;
+  final double? accuracy;
   @override
-  final double altitude;
+  final double? altitude;
   @override
-  final double heading;
+  final double? heading;
   @override
-  final double speed;
+  final double? speed;
   @override
-  final double speedAccuracy;
+  final double? speedAccuracy;
   @override
-  final DateTime timestamp;
+  final DateTime? timestamp;
 
   @override
   String toString() {
@@ -261,14 +256,14 @@ class _$_Position implements _Position {
 
 abstract class _Position implements Position {
   const factory _Position(
-      {@required double latitude,
-      @required double longitude,
-      double accuracy,
-      double altitude,
-      double heading,
-      double speed,
-      double speedAccuracy,
-      DateTime timestamp}) = _$_Position;
+      {required double latitude,
+      required double longitude,
+      double? accuracy,
+      double? altitude,
+      double? heading,
+      double? speed,
+      double? speedAccuracy,
+      DateTime? timestamp}) = _$_Position;
 
   factory _Position.fromJson(Map<String, dynamic> json) = _$_Position.fromJson;
 
@@ -277,17 +272,17 @@ abstract class _Position implements Position {
   @override
   double get longitude;
   @override
-  double get accuracy;
+  double? get accuracy;
   @override
-  double get altitude;
+  double? get altitude;
   @override
-  double get heading;
+  double? get heading;
   @override
-  double get speed;
+  double? get speed;
   @override
-  double get speedAccuracy;
+  double? get speedAccuracy;
   @override
-  DateTime get timestamp;
+  DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
   _$PositionCopyWith<_Position> get copyWith;

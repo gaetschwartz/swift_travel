@@ -14,7 +14,7 @@ import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
 import 'package:swift_travel/constants/build.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -33,8 +33,6 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:url_strategy/url_strategy.dart';
-
-export 'package:swift_travel/generated/l10n.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -105,7 +103,7 @@ class TabAction extends Action {
   TabAction(this.changeTab);
 
   @override
-  Object invoke(covariant TabIntent intent) {
+  Object? invoke(covariant TabIntent intent) {
     changeTab(intent.tab);
     return null;
   }
@@ -160,14 +158,14 @@ class _MyAppState extends State<MyApp> {
           title: 'Swift Travel',
           theme: theme.light,
           darkTheme: theme.dark,
-          themeMode: theme.mode,
+          themeMode: theme.themeMode,
           localizationsDelegates: const [
-            S.delegate,
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: S.delegate.supportedLocales,
+          supportedLocales: AppLocalizations.supportedLocales,
           shortcuts: shortcuts2,
           actions: {
             EscapeIntent: CallbackAction(onInvoke: (e) {
@@ -175,7 +173,7 @@ class _MyAppState extends State<MyApp> {
                 print('Clearing sidebar');
               }
               context.read(sideTabBarProvider).state = null;
-              sideBarNavigatorKey.currentState.popUntil((route) => route.isFirst);
+              sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
               return null;
             }),
             TabIntent: TabAction((tab) {
@@ -210,11 +208,11 @@ class _MyAppState extends State<MyApp> {
                   barBackgroundColor: cupertinoOverride.barBackgroundColor,
                   scaffoldBackgroundColor: cupertinoOverride.scaffoldBackgroundColor,
                 ),
-                child: child,
+                child: child!,
               );
             },
             elseBuilder: (context, child) =>
-                ScrollConfiguration(behavior: const NoOverscrollGlowBehavior(), child: child),
+                ScrollConfiguration(behavior: const NoOverscrollGlowBehavior(), child: child!),
             child: child,
           ),
           initialRoute: 'loading',
@@ -225,7 +223,7 @@ class _MyAppState extends State<MyApp> {
 
   List<Route> onGenerateInitialRoutes(String initialRoute, bool isDarwin) {
     log('Initial route : $initialRoute');
-    final uri = Uri.tryParse(initialRoute);
+    final uri = Uri.tryParse(initialRoute)!;
 
     final routes = <Route>[];
 
@@ -255,7 +253,7 @@ Route onUnknownRoute(RouteSettings settings, bool isDarwin) {
   return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
 }
 
-Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
+Route? onGenerateRoute(RouteSettings settings, bool isDarwin) {
   log('Routing to ${settings.name}');
 
   switch (settings.name) {
@@ -280,12 +278,12 @@ Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
       );
     case '/routeDetails':
       if (settings.arguments is Map) {
-        final map = settings.arguments as Map;
+        final map = settings.arguments as Map?;
         return platformRoute(
           settings: settings,
           builder: (_) => RouteDetails(
-            route: map['route'] as CffRoute,
-            i: map['i'] as int,
+            route: map!['route'] as CffRoute?,
+            i: map['i'] as int?,
             doClose: true,
           ),
           isDarwin: isDarwin,
@@ -303,13 +301,13 @@ Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
       if (settings.arguments is LocalRoute) {
         return platformRoute(
           settings: settings,
-          builder: (_) => RoutePage.route(settings.arguments as LocalRoute),
+          builder: (_) => RoutePage.route(settings.arguments as LocalRoute?),
           isDarwin: isDarwin,
         );
       } else if (settings.arguments is FavoriteStop) {
         return platformRoute(
           settings: settings,
-          builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop),
+          builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop?),
           isDarwin: isDarwin,
         );
       }
@@ -332,7 +330,7 @@ Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
     case 'error':
       return platformRoute(
         settings: settings,
-        builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails),
+        builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails?),
         isDarwin: isDarwin,
       );
   }
@@ -340,12 +338,12 @@ Route onGenerateRoute(RouteSettings settings, bool isDarwin) {
 }
 
 Route platformRoute({
-  @required Widget Function(BuildContext) builder,
-  @required bool isDarwin,
-  RouteSettings settings,
+  required Widget Function(BuildContext) builder,
+  required bool isDarwin,
+  RouteSettings? settings,
   bool maintainState = true,
   bool fullscreenDialog = false,
-  String title,
+  String? title,
 }) {
   return isDarwin
       ? CupertinoPageRoute(
@@ -370,9 +368,9 @@ class Routes {
 }
 
 class Unfocus extends StatelessWidget {
-  const Unfocus({Key key, this.child}) : super(key: key);
+  const Unfocus({Key? key, this.child}) : super(key: key);
 
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) => GestureDetector(

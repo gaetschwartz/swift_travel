@@ -13,7 +13,7 @@ import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
 import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
@@ -28,28 +28,28 @@ import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
-  final CffRoute route;
-  final int i;
+  final CffRoute? route;
+  final int? i;
   final bool doClose;
 
   const RouteDetails({
-    Key key,
-    @required this.route,
-    @required this.i,
+    Key? key,
+    required this.route,
+    required this.i,
     this.doClose = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final conn = route.connections[i];
+    final conn = route!.connections[i!];
     final darwin = Responsive.isDarwin(context);
     return IfWrapper(
         condition: darwin,
         builder: (context, child) => Material(
               child: CupertinoPageScaffold(
-                child: child,
+                child: child!,
                 navigationBar: cupertinoBar(context,
-                    middle: Text(S.of(context).tabs_route),
+                    middle: Text(AppLoc.of(context).tabs_route),
                     trailing: IconButton(
                         icon: const Icon(Icons.more_horiz),
                         onPressed: () {
@@ -76,7 +76,7 @@ class RouteDetails extends StatelessWidget {
                             ],
                             cancel: ActionsSheetAction(
                                 icon: const Icon(CupertinoIcons.xmark),
-                                title: Text(S.of(context).close)),
+                                title: Text(AppLoc.of(context).close)),
                             popBeforeReturn: true,
                           );
                         })),
@@ -90,7 +90,7 @@ class RouteDetails extends StatelessWidget {
           slivers: [
             if (!darwin)
               SliverAppBar(
-                  title: Text(S.of(context).tabs_route),
+                  title: Text(AppLoc.of(context).tabs_route),
                   pinned: true,
                   floating: true,
                   leading: doClose ? const CloseButton() : null,
@@ -146,18 +146,18 @@ class RouteDetails extends StatelessWidget {
       children: [
         const SizedBox(height: 8),
         DefaultTextStyle(
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyText1!,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _dataRow(S.of(context).departure, _format(c.from)),
-                _dataRow(S.of(context).destination, _format(c.to)),
+                _dataRow(AppLoc.of(context).departure, _format(c.from)),
+                _dataRow(AppLoc.of(context).destination, _format(c.to)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(S.of(context).travel_duration),
+                    Text(AppLoc.of(context).travel_duration),
                     const SizedBox(width: 8),
                     Expanded(
                         child: Align(
@@ -167,7 +167,7 @@ class RouteDetails extends StatelessWidget {
                                 TextSpan(
                                     text: '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
                                     style: const TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: ' (${Format.intToDuration(c.duration.round())})')
+                                TextSpan(text: ' (${Format.intToDuration(c.duration!.round())})')
                               ]),
                               textAlign: TextAlign.end,
                             )))
@@ -184,7 +184,7 @@ class RouteDetails extends StatelessWidget {
 
   void _shareRoute(BuildContext context) {
     Vibration.select();
-    shareRoute(context, route, i);
+    shareRoute(context, route!, i);
   }
 
   void openLive(BuildContext context, RouteConnection c) {
@@ -193,7 +193,7 @@ class RouteDetails extends StatelessWidget {
   }
 
   void base64Experiment() {
-    final connection = route.connections[i];
+    final connection = route!.connections[i!];
     final json = connection.toJson().toString();
     log(json);
     final bytes = ascii.encode(json);
@@ -225,7 +225,7 @@ class RouteDetails extends StatelessWidget {
 
 class Snecc_c_c extends StatefulWidget {
   const Snecc_c_c({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -256,18 +256,13 @@ class Point {
     switch (dir) {
       case Direction.up:
         return Point(x, y - 1);
-        break;
       case Direction.down:
         return Point(x, y + 1);
-        break;
       case Direction.right:
         return Point(x + 1, y);
-        break;
       case Direction.left:
         return Point(x - 1, y);
-        break;
     }
-    throw Exception();
   }
 }
 
@@ -297,24 +292,19 @@ class ValueAction<T> extends Action {
 
 class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMixin {
   final r = m.Random();
-  final snecc = ListQueue<Point>();
-  Ticker ticker;
+  final snecc = ListQueue<Point?>();
   int tick = 0;
   double period = 300;
   bool started = false;
 
   final gridSize = 20;
 
-  Point food;
+  Point? food;
 
-  Point head;
+  Point? head;
   Direction dir = Direction.up;
 
-  @override
-  void initState() {
-    super.initState();
-    ticker = createTicker(update)..stop();
-  }
+  late final Ticker ticker = createTicker(update)..stop();
 
   @override
   void dispose() {
@@ -338,7 +328,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
   void update(Duration elapsed) {
     final t = elapsed.inMilliseconds ~/ period;
     if (t != tick) {
-      head = head.move(dir);
+      head = head!.move(dir);
 
       snecc.removeFirst();
       snecc.add(head);
@@ -365,7 +355,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
         snecc.add(head);
         food = Point(r.nextInt(gridSize), r.nextInt(gridSize));
         if (period >= 175) period -= 25;
-      } else if (head.x >= gridSize || head.x < 0 || head.y >= gridSize || head.y < 0) {
+      } else if (head!.x >= gridSize || head!.x < 0 || head!.y >= gridSize || head!.y < 0) {
         showDialog(
             context: context,
             builder: (_) => const AlertDialog(
@@ -396,7 +386,7 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
           LogicalKeySet(LogicalKeyboardKey.arrowRight): const ValueIntent(Direction.right),
           LogicalKeySet(LogicalKeyboardKey.arrowLeft): const ValueIntent(Direction.left),
         },
-        actions: {ValueIntent: ValueAction((value) => dir = value)},
+        actions: {ValueIntent: ValueAction(((Direction value) => dir = value))},
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Snecc game'),
@@ -484,8 +474,8 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
 
 class MyPainter extends CustomPainter {
   final int gridSize;
-  final Queue<Point> snecc;
-  final Point food;
+  final Queue<Point?> snecc;
+  final Point? food;
 
   MyPainter(this.gridSize, this.snecc, this.food);
 
@@ -505,10 +495,10 @@ class MyPainter extends CustomPainter {
       canvas.drawLine(Offset(i * block, 0), Offset(i * block, gridSize * block), p);
     }
     for (final p in snecc) {
-      canvas.drawRect(Offset(p.x * block, p.y * block) & Size(block, block), p2);
+      canvas.drawRect(Offset(p!.x * block, p.y * block) & Size(block, block), p2);
     }
     if (food != null) {
-      canvas.drawRect(Offset(food.x * block, food.y * block) & Size(block, block), fud);
+      canvas.drawRect(Offset(food!.x * block, food!.y * block) & Size(block, block), fud);
     }
   }
 
@@ -520,8 +510,8 @@ class MyPainter extends CustomPainter {
 
 class LegTile extends StatelessWidget {
   const LegTile({
-    Key key,
-    @required this.l,
+    Key? key,
+    required this.l,
   }) : super(key: key);
 
   final Leg l;

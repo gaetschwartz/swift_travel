@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-TextSpan parseDecoratedText(String text, TextStyle style) {
+TextSpan parseDecoratedText(String text, TextStyle? style) {
   final spans = <TextSpan>[];
   final chars = text.characters;
   var bold = false;

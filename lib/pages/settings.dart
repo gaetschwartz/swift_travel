@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:math' show min;
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,7 +16,7 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/db/database.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
@@ -45,7 +44,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final children = <WidgetBuilder>[
-    (context) => _SectionTitle(title: Text(S.of(context).brightness)),
+    (context) => _SectionTitle(title: Text(AppLoc.of(context).brightness)),
     (_) => SizedBox(
           key: const Key('settings-top-theme-section'),
           height: 100,
@@ -56,24 +55,24 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 _ModeWidget(
                   theme: theme,
-                  label: S.of(context).brightness_system,
+                  label: AppLoc.of(context).brightness_system,
                   mode: ThemeMode.system,
                 ),
                 _ModeWidget(
                   theme: theme,
-                  label: S.of(context).brightness_light,
+                  label: AppLoc.of(context).brightness_light,
                   mode: ThemeMode.light,
                 ),
                 _ModeWidget(
                   theme: theme,
-                  label: S.of(context).brightness_dark,
+                  label: AppLoc.of(context).brightness_dark,
                   mode: ThemeMode.dark,
                 ),
               ],
             );
           }),
         ),
-    (context) => _SectionTitle(title: Text(S.of(context).font)),
+    (context) => _SectionTitle(title: Text(AppLoc.of(context).font)),
     (_) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Align(
@@ -115,7 +114,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           .toList(),
                       onChanged: (f) {
                         Vibration.select();
-                        theme.font = f;
+                        theme.font = f!;
                       },
                     );
                   }),
@@ -126,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
     (_) => const _PlaformChoiceWidget(),
     (_) => const _FontWeightWidget(),
-    (context) => _SectionTitle(title: Text(S.of(context).themes)),
+    (context) => _SectionTitle(title: Text(AppLoc.of(context).themes)),
     (_) => const _ThemesSection(),
     (context) => (isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
         ? Column(children: [
@@ -138,7 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: [
                   ListTile(
                     leading: const Icon(CupertinoIcons.map),
-                    title: Text(S.of(context).maps_app),
+                    title: Text(AppLoc.of(context).maps_app),
                     onTap: () async {
                       await Navigator.of(context).push(CupertinoPageRoute(
                           builder: (context) => ChoicePage<Maps>(
@@ -147,10 +146,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ChoicePageItem(value: Maps.google, child: Text('Google Maps')),
                                 ],
                                 value: maps.mapsApp,
-                                title: Text(S.of(context).maps_app),
-                                onChanged: (a) {
-                                  if (a != null) maps.mapsApp = a;
-                                },
+                                title: Text(AppLoc.of(context).maps_app),
+                                onChanged: (a) => maps.mapsApp = a,
                               )));
                       log(maps.mapsApp.toString());
                     },
@@ -182,7 +179,7 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               ListTile(
                 leading: const Icon(CupertinoIcons.link),
-                title: Text(S.of(context).navigation_api),
+                title: Text(AppLoc.of(context).navigation_api),
                 onTap: () async {
                   await Navigator.of(context).push(CupertinoPageRoute(
                       builder: (context) => ChoicePage<NavigationApiType>(
@@ -191,12 +188,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                     child: Text(NavigationApi.getFactory(e).name), value: e))
                                 .toList(),
                             value: prefs.api,
-                            title: Text(S.of(context).navigation_api),
+                            title: Text(AppLoc.of(context).navigation_api),
                             description: const Text(
                                 'BETA: In the future the goal is to add more countries.'),
-                            onChanged: (a) {
-                              if (a != null) prefs.api = a;
-                            },
+                            onChanged: (a) => prefs.api = a,
                           )));
                 },
                 trailing: Row(
@@ -216,23 +211,23 @@ class _SettingsPageState extends State<SettingsPage> {
           );
         }),
     (_) => const Divider(),
-    (context) => _SectionTitle(title: Text(S.of(context).more)),
+    (context) => _SectionTitle(title: Text(AppLoc.of(context).more)),
     (context) => ListTile(
           leading: const Icon(CupertinoIcons.person_3_fill),
-          title: Text(S.of(context).our_team),
+          title: Text(AppLoc.of(context).our_team),
           onTap: () => Navigator.of(context).pushNamed('/ourTeam'),
         ),
     (context) => ListTile(
         leading: const Icon(Icons.restore),
-        title: Text(S.of(context).reset_settings),
+        title: Text(AppLoc.of(context).reset_settings),
         onTap: () async {
           final c = await confirm(
             context,
             title: const Text('Reset settings ?'),
             content: const Text('You will lose all of you favorites!'),
             isConfirmDestructive: true,
-            confirm: Text(S.of(context).yes),
-            cancel: Text(S.of(context).no),
+            confirm: Text(AppLoc.of(context).yes),
+            cancel: Text(AppLoc.of(context).no),
           );
           if (c != true) return;
           final prefs = await SharedPreferences.getInstance();
@@ -244,7 +239,7 @@ class _SettingsPageState extends State<SettingsPage> {
     (context) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _SectionTitle(title: Text(S.of(context).developer)),
+            _SectionTitle(title: Text(AppLoc.of(context).developer)),
             ListTile(
                 leading: const Icon(Icons.slideshow),
                 title: const Text('Test dialog'),
@@ -343,11 +338,11 @@ class _SettingsPageState extends State<SettingsPage> {
           condition: isDarwin,
           builder: (context, child) => Material(
                 child: CupertinoPageScaffold(
-                  child: child,
+                  child: child!,
                   resizeToAvoidBottomInset: false,
                   navigationBar: cupertinoBar(
                     context,
-                    middle: Text(S.of(context).settings),
+                    middle: Text(AppLoc.of(context).settings),
                   ),
                 ),
               ),
@@ -357,7 +352,7 @@ class _SettingsPageState extends State<SettingsPage> {
             slivers: [
               if (!isDarwin)
                 SliverAppBar(
-                  title: Text(S.of(context).settings),
+                  title: Text(AppLoc.of(context).settings),
                   pinned: true,
                 ),
               SliverSafeArea(
@@ -381,7 +376,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
 class RouteHistoryPage extends StatefulWidget {
   const RouteHistoryPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -414,8 +409,8 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
                 title: Text('Confidence : ${(pred.confidence * 100).toStringAsFixed(2)} %'),
                 subtitle: Text(pred.arguments.toString())),
             ListTile(
-              title: Text(pred.prediction.from),
-              subtitle: Text(pred.prediction.to),
+              title: Text(pred.prediction!.from),
+              subtitle: Text(pred.prediction!.to),
             ),
             const Divider(),
           ],
@@ -425,7 +420,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
                 title: Text(routes[i].from),
                 subtitle: Text(routes[i].to),
                 trailing: Text(
-                    '${TimeOfDay.fromDateTime(routes[i].timestamp).format(context)}, ${_days[routes[i].timestamp.weekday - 1]}'),
+                    '${TimeOfDay.fromDateTime(routes[i].timestamp!).format(context)}, ${_days[routes[i].timestamp!.weekday - 1]}'),
               ),
               itemCount: routes.length,
             ),
@@ -438,7 +433,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
 
 class _TestWidget extends StatefulWidget {
   const _TestWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -471,7 +466,7 @@ class __TestWidgetState extends State<_TestWidget> {
                 child: CupertinoTextField(
                   controller: controller,
                   focusNode: focus,
-                  placeholder: S.of(context).search_station,
+                  placeholder: AppLoc.of(context).search_station,
                   onTap: () {
                     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
                         builder: (_) => SearchPage(
@@ -494,7 +489,7 @@ Color primaryColor(BuildContext context) => Responsive.isDarwin(context)
 
 class _ScreenPage extends StatelessWidget {
   const _ScreenPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -520,12 +515,11 @@ String _mapsName(Maps m) {
     case Maps.google:
       return 'Google Maps';
   }
-  return '';
 }
 
 class _PlaformChoiceWidget extends StatelessWidget {
   const _PlaformChoiceWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -556,7 +550,7 @@ class _PlaformChoiceWidget extends StatelessWidget {
                   },
             groupValue: theme.platform,
             onValueChanged: (i) {
-              theme.platform = i;
+              theme.platform = i!;
               Vibration.select();
             },
           );
@@ -568,7 +562,7 @@ class _PlaformChoiceWidget extends StatelessWidget {
 
 class _FontWeightWidget extends StatelessWidget {
   const _FontWeightWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -588,7 +582,7 @@ class _FontWeightWidget extends StatelessWidget {
             children: {
               -1: Text(
                 'Light',
-                style: t.apply(fontWeightDelta: -1),
+                style: t!.apply(fontWeightDelta: -1),
               ),
               0: Text(
                 'Normal',
@@ -605,7 +599,7 @@ class _FontWeightWidget extends StatelessWidget {
             },
             groupValue: theme.fontWeightDelta,
             onValueChanged: (i) {
-              theme.fontWeightDelta = i;
+              theme.fontWeightDelta = i!;
               Vibration.select();
             },
           );
@@ -617,7 +611,7 @@ class _FontWeightWidget extends StatelessWidget {
 
 class _ThemesSection extends StatefulWidget {
   const _ThemesSection({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -764,9 +758,9 @@ class __ThemesSectionState extends State<_ThemesSection> {
 
 class _ScrollProgress extends StatefulWidget {
   const _ScrollProgress({
-    Key key,
-    @required ScrollController controller,
-  })  : _controller = controller,
+    Key? key,
+    required ScrollController controller,
+  })   : _controller = controller,
         super(key: key);
 
   final ScrollController _controller;
@@ -777,7 +771,7 @@ class _ScrollProgress extends StatefulWidget {
 
 class __ScrollProgressState extends State<_ScrollProgress> {
   double _progress = 0;
-  Color color;
+  Color? color;
 
   void update() {
     if (mounted) {
@@ -808,17 +802,17 @@ class __ScrollProgressState extends State<_ScrollProgress> {
   @override
   Widget build(BuildContext context) => LinearProgressIndicator(
         value: _progress,
-        valueColor: AlwaysStoppedAnimation(color),
+        valueColor: AlwaysStoppedAnimation(color!),
         backgroundColor: Colors.transparent,
       );
 }
 
 class _ModeWidget extends StatelessWidget {
   const _ModeWidget({
-    Key key,
-    @required this.theme,
-    @required this.mode,
-    @required this.label,
+    Key? key,
+    required this.theme,
+    required this.mode,
+    required this.label,
   }) : super(key: key);
 
   final DynamicTheme theme;
@@ -836,7 +830,7 @@ class _ModeWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: InkWell(
-        onTap: () => theme.mode = mode,
+        onTap: () => theme.themeMode = mode,
         child: AspectRatio(
           aspectRatio: 1,
           child: Container(
@@ -844,7 +838,7 @@ class _ModeWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 boxShadow: shadowListOf(context),
                 color: mode == ThemeMode.system ? null : t.cardColor,
-                border: theme.mode == mode
+                border: theme.themeMode == mode
                     ? Border.all(
                         width: 2,
                         color: primaryColor(context),
@@ -872,7 +866,7 @@ class _ModeWidget extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 4),
                             child: Text(
                               label,
-                              style: t.textTheme.headline6.copyWith(color: Colors.black),
+                              style: t.textTheme.headline6!.copyWith(color: Colors.black),
                             ),
                           ),
                         ),
@@ -888,16 +882,16 @@ class _ModeWidget extends StatelessWidget {
 }
 
 class DiagonalPainter extends CustomPainter {
-  final Color black;
-  final Color white;
-  final String label;
+  final Color? black;
+  final Color? white;
+  final String? label;
 
   DiagonalPainter({this.label, this.black, this.white});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final lightP = Paint()..color = white;
-    final blackP = Paint()..color = black;
+    final lightP = Paint()..color = white!;
+    final blackP = Paint()..color = black!;
 
     canvas.drawRect(Offset.zero & size, lightP);
 
@@ -936,7 +930,7 @@ class DiagonalPainter extends CustomPainter {
 
 class TeamPage extends StatelessWidget {
   const TeamPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   static const primaryCoders = <Coder>[
@@ -974,7 +968,7 @@ class TeamPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).our_team),
+        title: Text(AppLoc.of(context).our_team),
         actions: [
           TextButton(
             style: TextButton.styleFrom(
@@ -1005,8 +999,8 @@ class TeamPage extends StatelessWidget {
 
 class _CoderTile extends StatelessWidget {
   const _CoderTile({
-    Key key,
-    @required this.c,
+    Key? key,
+    required this.c,
   }) : super(key: key);
 
   final Coder c;
@@ -1022,19 +1016,19 @@ class _CoderTile extends StatelessWidget {
           backgroundImage: c.imageUrl == null
               ? null
               : c.isAssets
-                  ? AssetImage(c.imageUrl) as ImageProvider
-                  : CachedNetworkImageProvider(c.imageUrl),
+                  ? AssetImage(c.imageUrl!) as ImageProvider
+                  : NetworkImage(c.imageUrl!),
           child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user) : null,
         ),
       ),
-      subtitle: c.role == null ? null : Text(c.role),
+      subtitle: c.role == null ? null : Text(c.role!),
       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
         if (c.website != null)
           IconButton(
-              icon: const FaIcon(FontAwesomeIcons.paperclip), onPressed: () => launch(c.website)),
+              icon: const FaIcon(FontAwesomeIcons.paperclip), onPressed: () => launch(c.website!)),
         if (c.twitterUrl != null)
           IconButton(
-              icon: const FaIcon(FontAwesomeIcons.twitter), onPressed: () => launch(c.twitterUrl)),
+              icon: const FaIcon(FontAwesomeIcons.twitter), onPressed: () => launch(c.twitterUrl!)),
         if (c.email != null)
           IconButton(
               icon: const FaIcon(FontAwesomeIcons.envelope),
@@ -1048,11 +1042,11 @@ class _CoderTile extends StatelessWidget {
 @immutable
 class Coder {
   final String name;
-  final String twitterUrl;
-  final String role;
-  final String imageUrl;
-  final String website;
-  final String email;
+  final String? twitterUrl;
+  final String? role;
+  final String? imageUrl;
+  final String? website;
+  final String? email;
   final bool isAssets;
 
   const Coder(
@@ -1068,8 +1062,8 @@ class Coder {
 
 class _SectionTitle extends StatelessWidget {
   const _SectionTitle({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
   final Widget title;
 
@@ -1078,7 +1072,7 @@ class _SectionTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.headline6.copyWith(color: primaryColor(context)),
+        style: Theme.of(context).textTheme.headline6!.copyWith(color: primaryColor(context)),
         textAlign: TextAlign.left,
         child: title,
       ),

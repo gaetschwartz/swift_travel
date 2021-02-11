@@ -25,7 +25,7 @@ class DeepLinkBloc {
   static const stream = EventChannel('com.gaetanschwartz.swift_travel.deeplink/events');
   static const platform = MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
 
-  StreamSubscription _sub;
+  late StreamSubscription _sub;
 
   void init(NavigationApi navApi) {
     log('Initialize', name: 'LinksBloc');
@@ -49,11 +49,11 @@ class DeepLinkBloc {
 
       log(map.toString());
 
-      return navigatorKey.currentState.pushNamed('/routeDetails', arguments: map);
+      await navigatorKey.currentState!.pushNamed('/routeDetails', arguments: map);
     }
   }
 
-  static Future<Map<String, Object>> parseRouteArguments(Uri uri, NavigationApi navApi) async {
+  static Future<Map<String, Object?>> parseRouteArguments(Uri uri, NavigationApi navApi) async {
     final params = decodeRouteUri(uri);
 
     final qUri = Uri.https('timetable.search.ch', 'api/route.json', params);
@@ -61,7 +61,7 @@ class DeepLinkBloc {
 
     final route = await navApi.rawRoute(qUri.toString());
 
-    final i = int.parse(uri.queryParameters['i']);
+    final i = int.parse(uri.queryParameters['i']!);
     final map = {'route': route, 'i': i};
     return map;
   }
@@ -70,7 +70,7 @@ class DeepLinkBloc {
     _sub.cancel();
   }
 
-  Future<String> get initialLink async {
+  Future<String?> get initialLink async {
     try {
       return platform.invokeMethod<String>('initialLink');
     } on MissingPluginException {

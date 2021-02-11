@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'local_route.dart';
 
@@ -16,9 +16,8 @@ LocalRoute _$LocalRouteFromJson(Map<String, dynamic> json) {
 class _$LocalRouteTearOff {
   const _$LocalRouteTearOff();
 
-// ignore: unused_element
   _LocalRoute call(String from, String to,
-      {String displayName, DateTime timestamp, int fromI, int toI}) {
+      {String? displayName, DateTime? timestamp, int? fromI, int? toI}) {
     return _LocalRoute(
       from,
       to,
@@ -29,24 +28,22 @@ class _$LocalRouteTearOff {
     );
   }
 
-// ignore: unused_element
   LocalRoute fromJson(Map<String, Object> json) {
     return LocalRoute.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $LocalRoute = _$LocalRouteTearOff();
 
 /// @nodoc
 mixin _$LocalRoute {
   String get from;
   String get to;
-  String get displayName;
-  DateTime get timestamp;
-  int get fromI;
-  int get toI;
+  String? get displayName;
+  DateTime? get timestamp;
+  int? get fromI;
+  int? get toI;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -61,10 +58,10 @@ abstract class $LocalRouteCopyWith<$Res> {
   $Res call(
       {String from,
       String to,
-      String displayName,
-      DateTime timestamp,
-      int fromI,
-      int toI});
+      String? displayName,
+      DateTime? timestamp,
+      int? fromI,
+      int? toI});
 }
 
 /// @nodoc
@@ -77,22 +74,22 @@ class _$LocalRouteCopyWithImpl<$Res> implements $LocalRouteCopyWith<$Res> {
 
   @override
   $Res call({
-    Object from = freezed,
-    Object to = freezed,
-    Object displayName = freezed,
-    Object timestamp = freezed,
-    Object fromI = freezed,
-    Object toI = freezed,
+    Object? from = freezed,
+    Object? to = freezed,
+    Object? displayName = freezed,
+    Object? timestamp = freezed,
+    Object? fromI = freezed,
+    Object? toI = freezed,
   }) {
     return _then(_value.copyWith(
       from: from == freezed ? _value.from : from as String,
       to: to == freezed ? _value.to : to as String,
       displayName:
-          displayName == freezed ? _value.displayName : displayName as String,
+          displayName == freezed ? _value.displayName : displayName as String?,
       timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime,
-      fromI: fromI == freezed ? _value.fromI : fromI as int,
-      toI: toI == freezed ? _value.toI : toI as int,
+          timestamp == freezed ? _value.timestamp : timestamp as DateTime?,
+      fromI: fromI == freezed ? _value.fromI : fromI as int?,
+      toI: toI == freezed ? _value.toI : toI as int?,
     ));
   }
 }
@@ -106,10 +103,10 @@ abstract class _$LocalRouteCopyWith<$Res> implements $LocalRouteCopyWith<$Res> {
   $Res call(
       {String from,
       String to,
-      String displayName,
-      DateTime timestamp,
-      int fromI,
-      int toI});
+      String? displayName,
+      DateTime? timestamp,
+      int? fromI,
+      int? toI});
 }
 
 /// @nodoc
@@ -124,22 +121,22 @@ class __$LocalRouteCopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object from = freezed,
-    Object to = freezed,
-    Object displayName = freezed,
-    Object timestamp = freezed,
-    Object fromI = freezed,
-    Object toI = freezed,
+    Object? from = freezed,
+    Object? to = freezed,
+    Object? displayName = freezed,
+    Object? timestamp = freezed,
+    Object? fromI = freezed,
+    Object? toI = freezed,
   }) {
     return _then(_LocalRoute(
       from == freezed ? _value.from : from as String,
       to == freezed ? _value.to : to as String,
       displayName:
-          displayName == freezed ? _value.displayName : displayName as String,
+          displayName == freezed ? _value.displayName : displayName as String?,
       timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime,
-      fromI: fromI == freezed ? _value.fromI : fromI as int,
-      toI: toI == freezed ? _value.toI : toI as int,
+          timestamp == freezed ? _value.timestamp : timestamp as DateTime?,
+      fromI: fromI == freezed ? _value.fromI : fromI as int?,
+      toI: toI == freezed ? _value.toI : toI as int?,
     ));
   }
 }
@@ -149,9 +146,7 @@ class __$LocalRouteCopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 /// @nodoc
 class _$_LocalRoute implements _LocalRoute {
   const _$_LocalRoute(this.from, this.to,
-      {this.displayName, this.timestamp, this.fromI, this.toI})
-      : assert(from != null),
-        assert(to != null);
+      {this.displayName, this.timestamp, this.fromI, this.toI});
 
   factory _$_LocalRoute.fromJson(Map<String, dynamic> json) =>
       _$_$_LocalRouteFromJson(json);
@@ -161,13 +156,13 @@ class _$_LocalRoute implements _LocalRoute {
   @override
   final String to;
   @override
-  final String displayName;
+  final String? displayName;
   @override
-  final DateTime timestamp;
+  final DateTime? timestamp;
   @override
-  final int fromI;
+  final int? fromI;
   @override
-  final int toI;
+  final int? toI;
 
   @override
   String toString() {
@@ -217,10 +212,10 @@ class _$_LocalRoute implements _LocalRoute {
 
 abstract class _LocalRoute implements LocalRoute {
   const factory _LocalRoute(String from, String to,
-      {String displayName,
-      DateTime timestamp,
-      int fromI,
-      int toI}) = _$_LocalRoute;
+      {String? displayName,
+      DateTime? timestamp,
+      int? fromI,
+      int? toI}) = _$_LocalRoute;
 
   factory _LocalRoute.fromJson(Map<String, dynamic> json) =
       _$_LocalRoute.fromJson;
@@ -230,13 +225,13 @@ abstract class _LocalRoute implements LocalRoute {
   @override
   String get to;
   @override
-  String get displayName;
+  String? get displayName;
   @override
-  DateTime get timestamp;
+  DateTime? get timestamp;
   @override
-  int get fromI;
+  int? get fromI;
   @override
-  int get toI;
+  int? get toI;
   @override
   @JsonKey(ignore: true)
   _$LocalRouteCopyWith<_LocalRoute> get copyWith;

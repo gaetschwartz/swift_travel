@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'subsequent_stop.dart';
 
@@ -16,20 +16,19 @@ SubsequentStop _$SubsequentStopFromJson(Map<String, dynamic> json) {
 class _$SubsequentStopTearOff {
   const _$SubsequentStopTearOff();
 
-// ignore: unused_element
   _SubsequentStop call(
-      String name,
-      {String id,
-      DateTime dep,
-      DateTime arr,
-      double lat,
-      double lon,
+      {required String name,
+      String? id,
+      DateTime? dep,
+      DateTime? arr,
+      double? lat,
+      double? lon,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
+          required int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay}) {
+          required int arrDelay}) {
     return _SubsequentStop(
-      name,
+      name: name,
       id: id,
       dep: dep,
       arr: arr,
@@ -40,24 +39,22 @@ class _$SubsequentStopTearOff {
     );
   }
 
-// ignore: unused_element
   SubsequentStop fromJson(Map<String, Object> json) {
     return SubsequentStop.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SubsequentStop = _$SubsequentStopTearOff();
 
 /// @nodoc
 mixin _$SubsequentStop {
   String get name;
-  String get id;
-  DateTime get dep;
-  DateTime get arr;
-  double get lat;
-  double get lon;
+  String? get id;
+  DateTime? get dep;
+  DateTime? get arr;
+  double? get lat;
+  double? get lon;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get depDelay;
   @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -75,11 +72,11 @@ abstract class $SubsequentStopCopyWith<$Res> {
       _$SubsequentStopCopyWithImpl<$Res>;
   $Res call(
       {String name,
-      String id,
-      DateTime dep,
-      DateTime arr,
-      double lat,
-      double lon,
+      String? id,
+      DateTime? dep,
+      DateTime? arr,
+      double? lat,
+      double? lon,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -97,22 +94,22 @@ class _$SubsequentStopCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object name = freezed,
-    Object id = freezed,
-    Object dep = freezed,
-    Object arr = freezed,
-    Object lat = freezed,
-    Object lon = freezed,
-    Object depDelay = freezed,
-    Object arrDelay = freezed,
+    Object? name = freezed,
+    Object? id = freezed,
+    Object? dep = freezed,
+    Object? arr = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
+    Object? depDelay = freezed,
+    Object? arrDelay = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String,
-      dep: dep == freezed ? _value.dep : dep as DateTime,
-      arr: arr == freezed ? _value.arr : arr as DateTime,
-      lat: lat == freezed ? _value.lat : lat as double,
-      lon: lon == freezed ? _value.lon : lon as double,
+      id: id == freezed ? _value.id : id as String?,
+      dep: dep == freezed ? _value.dep : dep as DateTime?,
+      arr: arr == freezed ? _value.arr : arr as DateTime?,
+      lat: lat == freezed ? _value.lat : lat as double?,
+      lon: lon == freezed ? _value.lon : lon as double?,
       depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
       arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
     ));
@@ -128,11 +125,11 @@ abstract class _$SubsequentStopCopyWith<$Res>
   @override
   $Res call(
       {String name,
-      String id,
-      DateTime dep,
-      DateTime arr,
-      double lat,
-      double lon,
+      String? id,
+      DateTime? dep,
+      DateTime? arr,
+      double? lat,
+      double? lon,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -152,22 +149,22 @@ class __$SubsequentStopCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object name = freezed,
-    Object id = freezed,
-    Object dep = freezed,
-    Object arr = freezed,
-    Object lat = freezed,
-    Object lon = freezed,
-    Object depDelay = freezed,
-    Object arrDelay = freezed,
+    Object? name = freezed,
+    Object? id = freezed,
+    Object? dep = freezed,
+    Object? arr = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
+    Object? depDelay = freezed,
+    Object? arrDelay = freezed,
   }) {
     return _then(_SubsequentStop(
-      name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String,
-      dep: dep == freezed ? _value.dep : dep as DateTime,
-      arr: arr == freezed ? _value.arr : arr as DateTime,
-      lat: lat == freezed ? _value.lat : lat as double,
-      lon: lon == freezed ? _value.lon : lon as double,
+      name: name == freezed ? _value.name : name as String,
+      id: id == freezed ? _value.id : id as String?,
+      dep: dep == freezed ? _value.dep : dep as DateTime?,
+      arr: arr == freezed ? _value.arr : arr as DateTime?,
+      lat: lat == freezed ? _value.lat : lat as double?,
+      lon: lon == freezed ? _value.lon : lon as double?,
       depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
       arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
     ));
@@ -179,17 +176,16 @@ class __$SubsequentStopCopyWithImpl<$Res>
 /// @nodoc
 class _$_SubsequentStop implements _SubsequentStop {
   const _$_SubsequentStop(
-      this.name,
-      {this.id,
+      {required this.name,
+      this.id,
       this.dep,
       this.arr,
       this.lat,
       this.lon,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.depDelay,
+          required this.depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.arrDelay})
-      : assert(name != null);
+          required this.arrDelay});
 
   factory _$_SubsequentStop.fromJson(Map<String, dynamic> json) =>
       _$_$_SubsequentStopFromJson(json);
@@ -197,15 +193,15 @@ class _$_SubsequentStop implements _SubsequentStop {
   @override
   final String name;
   @override
-  final String id;
+  final String? id;
   @override
-  final DateTime dep;
+  final DateTime? dep;
   @override
-  final DateTime arr;
+  final DateTime? arr;
   @override
-  final double lat;
+  final double? lat;
   @override
-  final double lon;
+  final double? lon;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
   final int depDelay;
@@ -267,16 +263,16 @@ class _$_SubsequentStop implements _SubsequentStop {
 
 abstract class _SubsequentStop implements SubsequentStop {
   const factory _SubsequentStop(
-      String name,
-      {String id,
-      DateTime dep,
-      DateTime arr,
-      double lat,
-      double lon,
+      {required String name,
+      String? id,
+      DateTime? dep,
+      DateTime? arr,
+      double? lat,
+      double? lon,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
+          required int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay}) = _$_SubsequentStop;
+          required int arrDelay}) = _$_SubsequentStop;
 
   factory _SubsequentStop.fromJson(Map<String, dynamic> json) =
       _$_SubsequentStop.fromJson;
@@ -284,15 +280,15 @@ abstract class _SubsequentStop implements SubsequentStop {
   @override
   String get name;
   @override
-  String get id;
+  String? get id;
   @override
-  DateTime get dep;
+  DateTime? get dep;
   @override
-  DateTime get arr;
+  DateTime? get arr;
   @override
-  double get lat;
+  double? get lat;
   @override
-  double get lon;
+  double? get lon;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get depDelay;

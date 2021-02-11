@@ -8,13 +8,13 @@ part of 'models.dart';
 
 _$_Position _$_$_PositionFromJson(Map<String, dynamic> json) {
   return _$_Position(
-    latitude: (json['latitude'] as num)?.toDouble(),
-    longitude: (json['longitude'] as num)?.toDouble(),
-    accuracy: (json['accuracy'] as num)?.toDouble(),
-    altitude: (json['altitude'] as num)?.toDouble(),
-    heading: (json['heading'] as num)?.toDouble(),
-    speed: (json['speed'] as num)?.toDouble(),
-    speedAccuracy: (json['speedAccuracy'] as num)?.toDouble(),
+    latitude: (json['latitude'] as num).toDouble(),
+    longitude: (json['longitude'] as num).toDouble(),
+    accuracy: (json['accuracy'] as num?)?.toDouble(),
+    altitude: (json['altitude'] as num?)?.toDouble(),
+    heading: (json['heading'] as num?)?.toDouble(),
+    speed: (json['speed'] as num?)?.toDouble(),
+    speedAccuracy: (json['speedAccuracy'] as num?)?.toDouble(),
     timestamp: json['timestamp'] == null
         ? null
         : DateTime.parse(json['timestamp'] as String),

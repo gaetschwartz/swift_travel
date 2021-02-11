@@ -1,17 +1,17 @@
 import 'dart:collection';
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:overflow_view/overflow_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
@@ -27,10 +27,9 @@ enum _Actions { favorite }
 
 class CffCompletionTile extends ConsumerWidget {
   const CffCompletionTile({
-    Key key,
-    @required this.sugg,
-  })  : assert(sugg != null),
-        super(key: key);
+    Key? key,
+    required this.sugg,
+  }) : super(key: key);
 
   final CffCompletion sugg;
 
@@ -40,7 +39,7 @@ class CffCompletionTile extends ConsumerWidget {
     final iconClass = sugg.icon;
     final isPrivate = CffIcon.isPrivate(iconClass);
     final store = watch(storeProvider) as FavoritesSharedPreferencesStore;
-    final favStop = store.stops.firstWhere((f) => f.stop == sugg.label, orElse: () => null);
+    final favStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
     final isFav = sugg.favoriteName != null;
     final isFavInStore = favStop != null;
     final isDarwin = Responsive.isDarwin(context);
@@ -62,15 +61,12 @@ class CffCompletionTile extends ConsumerWidget {
               CffIcon.fromIconClass(iconClass),
           ],
         ),
-        title: Text(isFav ? sugg.favoriteName : sugg.label),
+        title: Text(isFav ? sugg.favoriteName! : sugg.label),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (isFav)
-              if (sugg.label != null)
-                Text(sugg.label, overflow: TextOverflow.ellipsis)
-              else if (sugg.dist != null)
-                Text('${sugg.dist.round()}m'),
+            if (isFav) Text(sugg.label, overflow: TextOverflow.ellipsis),
+            if (sugg.dist != null) Text('${sugg.dist!.round()}m'),
             if (!isPrivate)
               _LinesWidget(
                 sugg: sugg,
@@ -78,7 +74,7 @@ class CffCompletionTile extends ConsumerWidget {
               )
           ],
         ),
-        isThreeLine: isFav && (sugg.label != null || sugg.dist != null),
+        isThreeLine: isFav && sugg.dist != null,
         onLongPress: () => more(context, isFav: isFavInStore, favoriteStop: favStop, store: store),
         trailing: isPrivate
             ? IconButton(
@@ -113,9 +109,9 @@ class CffCompletionTile extends ConsumerWidget {
 
   Future<void> more(
     BuildContext context, {
-    @required bool isFav,
-    @required FavoriteStop favoriteStop,
-    @required FavoritesSharedPreferencesStore store,
+    required bool isFav,
+    required FavoriteStop? favoriteStop,
+    required FavoritesSharedPreferencesStore store,
   }) async {
     FocusManager.instance.primaryFocus?.unfocus();
     unawaited(Vibration.select());
@@ -124,8 +120,8 @@ class CffCompletionTile extends ConsumerWidget {
         [
           ActionsSheetAction(
             title: isFav
-                ? Text(S.of(context).remove_from_favoruites)
-                : Text(S.of(context).add_to_favs),
+                ? Text(AppLoc.of(context).remove_from_favoruites)
+                : Text(AppLoc.of(context).add_to_favs),
             icon: isFav
                 ? const Icon(FluentIcons.star_off_24_regular)
                 : const Icon(FluentIcons.star_add_24_regular),
@@ -136,7 +132,7 @@ class CffCompletionTile extends ConsumerWidget {
           )
         ],
         cancel: ActionsSheetAction(
-          title: Text(S.of(context).cancel),
+          title: Text(AppLoc.of(context).cancel),
           icon: const Icon(CupertinoIcons.xmark),
           onPressed: () => null,
         ));
@@ -151,14 +147,16 @@ class CffCompletionTile extends ConsumerWidget {
           await store.addStop(FavoriteStop.fromCompletion(sugg, name: name));
         }
         break;
+      case null:
+        break;
     }
   }
 }
 
 class _LinesWidget extends StatefulWidget {
   const _LinesWidget({
-    Key key,
-    @required this.sugg,
+    Key? key,
+    required this.sugg,
   }) : super(key: key);
 
   final CffCompletion sugg;
@@ -203,10 +201,10 @@ class __LinesWidgetState extends State<_LinesWidget> {
           .toSet()
           .toList(growable: false)
             ..sort((a, b) {
-              final ai = int.tryParse(a.line);
-              final bi = int.tryParse(b.line);
+              final ai = int.tryParse(a.line!);
+              final bi = int.tryParse(b.line!);
               return ai == null && bi == null
-                  ? a.line.compareTo(b.line)
+                  ? a.line!.compareTo(b.line!)
                   : (ai ?? double.infinity).compareTo(bi ?? double.infinity);
             });
 
@@ -226,7 +224,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
       _queue.removeWhere((e) => e == widget.sugg.label);
       _queue.add(widget.sugg.label);
     } else {
-      final l = _cache[widget.sugg.label]
+      final l = _cache[widget.sugg.label]!
           .map((l) => Padding(
                 padding: const EdgeInsets.only(top: 8),
                 child: LineIcon.fromLine(l, small: true),
@@ -236,7 +234,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
     }
   }
 
-  List<Widget> lines;
+  List<Widget>? lines;
 
   @override
   Widget build(BuildContext context) {
@@ -251,14 +249,14 @@ class __LinesWidgetState extends State<_LinesWidget> {
               builder: (context, remainingItemCount) => const SizedBox(
                   height: 30, child: Align(alignment: Alignment.bottomCenter, child: Text(' ...'))),
               spacing: 2,
-              children: lines,
+              children: lines!,
             ),
           );
   }
 }
 
 class Line {
-  final String line;
+  final String? line;
   final String colors;
 
   const Line(this.line, this.colors);

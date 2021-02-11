@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:swift_travel/models/local_route.dart';
 
 class RouteHistoryRepository {
-  static RouteHistoryRepository _instance;
+  static RouteHistoryRepository? _instance;
   static const _maxSize = 50;
 
   // ignore: prefer_constructors_over_static_methods
@@ -15,8 +15,8 @@ class RouteHistoryRepository {
   @visibleForTesting
   factory RouteHistoryRepository.newInstance() => RouteHistoryRepository._();
 
-  Box<Map> _box;
-  Box<Map> get box {
+  Box<Map>? _box;
+  Box<Map>? get box {
     assert(_debugInitialized,
         '$runtimeType needs to be initiated using open() before accessing the underlying box');
 
@@ -26,11 +26,11 @@ class RouteHistoryRepository {
   bool _debugInitialized = false;
 
   Future<int> add(LocalRoute route, {bool guardNullValues = true}) async {
-    if (box.length >= _maxSize) {
-      await box.deleteAll(List.generate(_maxSize ~/ 8, (i) => i));
+    if (box!.length >= _maxSize) {
+      await box!.deleteAll(List.generate(_maxSize ~/ 8, (i) => i));
     }
-    if (route.from == null || route.to == null || route.timestamp == null) return box.length;
-    return await box.add(route.toJson());
+    if (route.timestamp == null) return box!.length;
+    return await box!.add(route.toJson());
   }
 
   Future<int> safeAdd(LocalRoute route, {bool guardNullValues = true}) async {
@@ -40,7 +40,7 @@ class RouteHistoryRepository {
 
   List<LocalRoute> get routes => values.toList();
 
-  Future<int> clear() => box.clear();
+  Future<int> clear() => box!.clear();
 
   Future<RouteHistoryRepository> open() async {
     assert(() {
@@ -52,12 +52,12 @@ class RouteHistoryRepository {
   }
 
   Iterable<LocalRoute> get values =>
-      box.values.map((e) => LocalRoute.fromJson(e.cast<String, Object>()));
+      box!.values.map((e) => LocalRoute.fromJson(e.cast<String, Object>()));
 
-  LocalRoute get first => LocalRoute.fromJson(box.getAt(0));
-  LocalRoute get last => LocalRoute.fromJson(box.getAt(box.length - 1));
+  LocalRoute get first => LocalRoute.fromJson(box!.getAt(0) as Map<String, dynamic>);
+  LocalRoute get last => LocalRoute.fromJson(box!.getAt(box!.length - 1) as Map<String, dynamic>);
 
-  Stream<BoxEvent> watch() => box.watch();
+  Stream<BoxEvent> watch() => box!.watch();
 
-  int get size => box.length;
+  int get size => box!.length;
 }

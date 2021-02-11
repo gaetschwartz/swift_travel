@@ -37,7 +37,7 @@ void main() {
 
       await t.idle();
 
-      await t.verifyTickersWereDisposed();
+      t.verifyTickersWereDisposed();
     });
   });
 }

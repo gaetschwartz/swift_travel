@@ -8,11 +8,11 @@ part 'cff_stationboard.g.dart';
 @freezed
 abstract class CffStationboard with _$CffStationboard {
   const factory CffStationboard({
-    Stop stop,
+    required Stop stop,
+    required String stopName,
     @Default([]) List<StationboardConnection> connections,
-    String request,
+    String? request,
     @Default([]) List<String> messages,
-    String stopName,
   }) = _CffStationboard;
 
   factory CffStationboard.fromJson(Map<String, dynamic> json) => _$CffStationboardFromJson(json);

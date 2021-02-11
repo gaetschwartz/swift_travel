@@ -7,6 +7,7 @@ import 'package:path/path.dart' as path;
 import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/db/database.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/states/route_states.dart';
@@ -19,7 +20,7 @@ import 'swift_travel_test.dart';
 class MockFetcher extends FetcherBase {
   @override
   Future<void> fetch(ProviderReference ref) async {
-    state = RouteStates.routes(CffRoute.fromJson(mockRoute));
+    state = RouteStates.routes(CffRoute.fromJson(mockRoute!));
   }
 }
 
@@ -29,7 +30,7 @@ void main() {
   final dir = path.join(testResultFolder, 'route_tab');
   group('route tab >', () {
     setUpAll(() async {
-      await Hive.init(dir);
+      Hive.init(dir);
     });
 
     tearDown(() async {
@@ -53,12 +54,12 @@ Future<void> _testRouteTab() async {
             home: const RoutePage(),
             navigatorKey: navigatorKey,
             localizationsDelegates: const [
-              S.delegate,
+              AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: S.delegate.supportedLocales,
+            supportedLocales: AppLocalizations.supportedLocales,
           )));
       await t.pumpAndSettle();
 
@@ -80,7 +81,7 @@ Future<void> _testRouteTab() async {
 
       expect(find.text('Itinerary'), findsOneWidget);
 
-      navigatorKey.currentState.pop();
+      navigatorKey.currentState!.pop();
       await t.pumpAndSettle();
 
       expect(tile, findsOneWidget);

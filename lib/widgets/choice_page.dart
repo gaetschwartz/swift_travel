@@ -7,11 +7,11 @@ import 'package:vibration/vibration.dart';
 @immutable
 class ChoicePageItem<T> {
   final T value;
-  final Widget Function(BuildContext, bool) builder;
-  final Widget child;
+  final Widget Function(BuildContext, bool)? builder;
+  final Widget? child;
 
   const ChoicePageItem({
-    @required this.value,
+    required this.value,
     this.builder,
     this.child,
   }) : assert(builder != null || child != null);
@@ -19,14 +19,14 @@ class ChoicePageItem<T> {
 
 class ChoicePage<T> extends StatefulWidget {
   final List<ChoicePageItem<T>> items;
-  final T value;
-  final Widget title;
-  final void Function(T) onChanged;
-  final Widget description;
+  final T? value;
+  final Widget? title;
+  final void Function(T)? onChanged;
+  final Widget? description;
 
   const ChoicePage({
-    Key key,
-    @required this.items,
+    Key? key,
+    required this.items,
     this.value,
     this.title,
     this.onChanged,
@@ -91,7 +91,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
                       )
                     : GestureDetector(
                         onTap: () => tapped(i, item),
-                        child: item.builder(context, selected == i),
+                        child: item.builder!(context, selected == i),
                       );
               },
               itemCount: widget.items.length,
@@ -107,7 +107,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
                     .textTheme
                     .textStyle
                     .copyWith(color: CupertinoColors.systemGrey),
-                child: widget.description,
+                child: widget.description!,
               ),
             )
         ],

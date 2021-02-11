@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'route_states.dart';
 
@@ -13,95 +13,88 @@ T _$identity<T>(T value) => value;
 class _$RouteStatesTearOff {
   const _$RouteStatesTearOff();
 
-// ignore: unused_element
   RSData routes(CffRoute routes) {
     return RSData(
       routes,
     );
   }
 
-// ignore: unused_element
   RSNetworkException networkException() {
     return const RSNetworkException();
   }
 
-// ignore: unused_element
   RSLocationPermissionNotGranted locationPermissionNotGranted() {
     return const RSLocationPermissionNotGranted();
   }
 
-// ignore: unused_element
   RSMissingPluginException missingPluginException() {
     return const RSMissingPluginException();
   }
 
-// ignore: unused_element
   RSException exception(Object exception) {
     return RSException(
       exception,
     );
   }
 
-// ignore: unused_element
   RSEmpty empty() {
     return const RSEmpty();
   }
 
-// ignore: unused_element
   RSLoading loading() {
     return const RSLoading();
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RouteStates = _$RouteStatesTearOff();
 
 /// @nodoc
 mixin _$RouteStates {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult routes(CffRoute routes),
-    @required TResult networkException(),
-    @required TResult locationPermissionNotGranted(),
-    @required TResult missingPluginException(),
-    @required TResult exception(Object exception),
-    @required TResult empty(),
-    @required TResult loading(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(CffRoute routes) routes,
+    required TResult Function() networkException,
+    required TResult Function() locationPermissionNotGranted,
+    required TResult Function() missingPluginException,
+    required TResult Function(Object exception) exception,
+    required TResult Function() empty,
+    required TResult Function() loading,
   });
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult routes(CffRoute routes),
-    TResult networkException(),
-    TResult locationPermissionNotGranted(),
-    TResult missingPluginException(),
-    TResult exception(Object exception),
-    TResult empty(),
-    TResult loading(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CffRoute routes)? routes,
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+    required TResult orElse(),
   });
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult routes(RSData value),
-    @required TResult networkException(RSNetworkException value),
-    @required
-        TResult locationPermissionNotGranted(
-            RSLocationPermissionNotGranted value),
-    @required TResult missingPluginException(RSMissingPluginException value),
-    @required TResult exception(RSException value),
-    @required TResult empty(RSEmpty value),
-    @required TResult loading(RSLoading value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(RSData value) routes,
+    required TResult Function(RSNetworkException value) networkException,
+    required TResult Function(RSLocationPermissionNotGranted value)
+        locationPermissionNotGranted,
+    required TResult Function(RSMissingPluginException value)
+        missingPluginException,
+    required TResult Function(RSException value) exception,
+    required TResult Function(RSEmpty value) empty,
+    required TResult Function(RSLoading value) loading,
   });
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult routes(RSData value),
-    TResult networkException(RSNetworkException value),
-    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
-    TResult missingPluginException(RSMissingPluginException value),
-    TResult exception(RSException value),
-    TResult empty(RSEmpty value),
-    TResult loading(RSLoading value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RSData value)? routes,
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+    required TResult orElse(),
   });
 }
 
@@ -141,7 +134,7 @@ class _$RSDataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object routes = freezed,
+    Object? routes = freezed,
   }) {
     return _then(RSData(
       routes == freezed ? _value.routes : routes as CffRoute,
@@ -150,9 +143,6 @@ class _$RSDataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
 
   @override
   $CffRouteCopyWith<$Res> get routes {
-    if (_value.routes == null) {
-      return null;
-    }
     return $CffRouteCopyWith<$Res>(_value.routes, (value) {
       return _then(_value.copyWith(routes: value));
     });
@@ -161,7 +151,7 @@ class _$RSDataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
 
 /// @nodoc
 class _$RSData implements RSData {
-  const _$RSData(this.routes) : assert(routes != null);
+  const _$RSData(this.routes);
 
   @override
   final CffRoute routes;
@@ -190,38 +180,30 @@ class _$RSData implements RSData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult routes(CffRoute routes),
-    @required TResult networkException(),
-    @required TResult locationPermissionNotGranted(),
-    @required TResult missingPluginException(),
-    @required TResult exception(Object exception),
-    @required TResult empty(),
-    @required TResult loading(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(CffRoute routes) routes,
+    required TResult Function() networkException,
+    required TResult Function() locationPermissionNotGranted,
+    required TResult Function() missingPluginException,
+    required TResult Function(Object exception) exception,
+    required TResult Function() empty,
+    required TResult Function() loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return routes(this.routes);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult routes(CffRoute routes),
-    TResult networkException(),
-    TResult locationPermissionNotGranted(),
-    TResult missingPluginException(),
-    TResult exception(Object exception),
-    TResult empty(),
-    TResult loading(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CffRoute routes)? routes,
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (routes != null) {
       return routes(this.routes);
     }
@@ -230,40 +212,33 @@ class _$RSData implements RSData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult routes(RSData value),
-    @required TResult networkException(RSNetworkException value),
-    @required
-        TResult locationPermissionNotGranted(
-            RSLocationPermissionNotGranted value),
-    @required TResult missingPluginException(RSMissingPluginException value),
-    @required TResult exception(RSException value),
-    @required TResult empty(RSEmpty value),
-    @required TResult loading(RSLoading value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(RSData value) routes,
+    required TResult Function(RSNetworkException value) networkException,
+    required TResult Function(RSLocationPermissionNotGranted value)
+        locationPermissionNotGranted,
+    required TResult Function(RSMissingPluginException value)
+        missingPluginException,
+    required TResult Function(RSException value) exception,
+    required TResult Function(RSEmpty value) empty,
+    required TResult Function(RSLoading value) loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return routes(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult routes(RSData value),
-    TResult networkException(RSNetworkException value),
-    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
-    TResult missingPluginException(RSMissingPluginException value),
-    TResult exception(RSException value),
-    TResult empty(RSEmpty value),
-    TResult loading(RSLoading value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RSData value)? routes,
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (routes != null) {
       return routes(this);
     }
@@ -317,38 +292,30 @@ class _$RSNetworkException implements RSNetworkException {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult routes(CffRoute routes),
-    @required TResult networkException(),
-    @required TResult locationPermissionNotGranted(),
-    @required TResult missingPluginException(),
-    @required TResult exception(Object exception),
-    @required TResult empty(),
-    @required TResult loading(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(CffRoute routes) routes,
+    required TResult Function() networkException,
+    required TResult Function() locationPermissionNotGranted,
+    required TResult Function() missingPluginException,
+    required TResult Function(Object exception) exception,
+    required TResult Function() empty,
+    required TResult Function() loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return networkException();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult routes(CffRoute routes),
-    TResult networkException(),
-    TResult locationPermissionNotGranted(),
-    TResult missingPluginException(),
-    TResult exception(Object exception),
-    TResult empty(),
-    TResult loading(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CffRoute routes)? routes,
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (networkException != null) {
       return networkException();
     }
@@ -357,40 +324,33 @@ class _$RSNetworkException implements RSNetworkException {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult routes(RSData value),
-    @required TResult networkException(RSNetworkException value),
-    @required
-        TResult locationPermissionNotGranted(
-            RSLocationPermissionNotGranted value),
-    @required TResult missingPluginException(RSMissingPluginException value),
-    @required TResult exception(RSException value),
-    @required TResult empty(RSEmpty value),
-    @required TResult loading(RSLoading value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(RSData value) routes,
+    required TResult Function(RSNetworkException value) networkException,
+    required TResult Function(RSLocationPermissionNotGranted value)
+        locationPermissionNotGranted,
+    required TResult Function(RSMissingPluginException value)
+        missingPluginException,
+    required TResult Function(RSException value) exception,
+    required TResult Function(RSEmpty value) empty,
+    required TResult Function(RSLoading value) loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return networkException(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult routes(RSData value),
-    TResult networkException(RSNetworkException value),
-    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
-    TResult missingPluginException(RSMissingPluginException value),
-    TResult exception(RSException value),
-    TResult empty(RSEmpty value),
-    TResult loading(RSLoading value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RSData value)? routes,
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (networkException != null) {
       return networkException(this);
     }
@@ -444,38 +404,30 @@ class _$RSLocationPermissionNotGranted
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult routes(CffRoute routes),
-    @required TResult networkException(),
-    @required TResult locationPermissionNotGranted(),
-    @required TResult missingPluginException(),
-    @required TResult exception(Object exception),
-    @required TResult empty(),
-    @required TResult loading(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(CffRoute routes) routes,
+    required TResult Function() networkException,
+    required TResult Function() locationPermissionNotGranted,
+    required TResult Function() missingPluginException,
+    required TResult Function(Object exception) exception,
+    required TResult Function() empty,
+    required TResult Function() loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return locationPermissionNotGranted();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult routes(CffRoute routes),
-    TResult networkException(),
-    TResult locationPermissionNotGranted(),
-    TResult missingPluginException(),
-    TResult exception(Object exception),
-    TResult empty(),
-    TResult loading(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CffRoute routes)? routes,
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (locationPermissionNotGranted != null) {
       return locationPermissionNotGranted();
     }
@@ -484,40 +436,33 @@ class _$RSLocationPermissionNotGranted
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult routes(RSData value),
-    @required TResult networkException(RSNetworkException value),
-    @required
-        TResult locationPermissionNotGranted(
-            RSLocationPermissionNotGranted value),
-    @required TResult missingPluginException(RSMissingPluginException value),
-    @required TResult exception(RSException value),
-    @required TResult empty(RSEmpty value),
-    @required TResult loading(RSLoading value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(RSData value) routes,
+    required TResult Function(RSNetworkException value) networkException,
+    required TResult Function(RSLocationPermissionNotGranted value)
+        locationPermissionNotGranted,
+    required TResult Function(RSMissingPluginException value)
+        missingPluginException,
+    required TResult Function(RSException value) exception,
+    required TResult Function(RSEmpty value) empty,
+    required TResult Function(RSLoading value) loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return locationPermissionNotGranted(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult routes(RSData value),
-    TResult networkException(RSNetworkException value),
-    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
-    TResult missingPluginException(RSMissingPluginException value),
-    TResult exception(RSException value),
-    TResult empty(RSEmpty value),
-    TResult loading(RSLoading value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RSData value)? routes,
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (locationPermissionNotGranted != null) {
       return locationPermissionNotGranted(this);
     }
@@ -569,38 +514,30 @@ class _$RSMissingPluginException implements RSMissingPluginException {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult routes(CffRoute routes),
-    @required TResult networkException(),
-    @required TResult locationPermissionNotGranted(),
-    @required TResult missingPluginException(),
-    @required TResult exception(Object exception),
-    @required TResult empty(),
-    @required TResult loading(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(CffRoute routes) routes,
+    required TResult Function() networkException,
+    required TResult Function() locationPermissionNotGranted,
+    required TResult Function() missingPluginException,
+    required TResult Function(Object exception) exception,
+    required TResult Function() empty,
+    required TResult Function() loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return missingPluginException();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult routes(CffRoute routes),
-    TResult networkException(),
-    TResult locationPermissionNotGranted(),
-    TResult missingPluginException(),
-    TResult exception(Object exception),
-    TResult empty(),
-    TResult loading(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CffRoute routes)? routes,
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (missingPluginException != null) {
       return missingPluginException();
     }
@@ -609,40 +546,33 @@ class _$RSMissingPluginException implements RSMissingPluginException {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult routes(RSData value),
-    @required TResult networkException(RSNetworkException value),
-    @required
-        TResult locationPermissionNotGranted(
-            RSLocationPermissionNotGranted value),
-    @required TResult missingPluginException(RSMissingPluginException value),
-    @required TResult exception(RSException value),
-    @required TResult empty(RSEmpty value),
-    @required TResult loading(RSLoading value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(RSData value) routes,
+    required TResult Function(RSNetworkException value) networkException,
+    required TResult Function(RSLocationPermissionNotGranted value)
+        locationPermissionNotGranted,
+    required TResult Function(RSMissingPluginException value)
+        missingPluginException,
+    required TResult Function(RSException value) exception,
+    required TResult Function(RSEmpty value) empty,
+    required TResult Function(RSLoading value) loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return missingPluginException(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult routes(RSData value),
-    TResult networkException(RSNetworkException value),
-    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
-    TResult missingPluginException(RSMissingPluginException value),
-    TResult exception(RSException value),
-    TResult empty(RSEmpty value),
-    TResult loading(RSLoading value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RSData value)? routes,
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (missingPluginException != null) {
       return missingPluginException(this);
     }
@@ -674,17 +604,17 @@ class _$RSExceptionCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object exception = freezed,
+    Object? exception = freezed,
   }) {
     return _then(RSException(
-      exception == freezed ? _value.exception : exception,
+      exception == freezed ? _value.exception : exception as Object,
     ));
   }
 }
 
 /// @nodoc
 class _$RSException implements RSException {
-  const _$RSException(this.exception) : assert(exception != null);
+  const _$RSException(this.exception);
 
   @override
   final Object exception;
@@ -714,38 +644,30 @@ class _$RSException implements RSException {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult routes(CffRoute routes),
-    @required TResult networkException(),
-    @required TResult locationPermissionNotGranted(),
-    @required TResult missingPluginException(),
-    @required TResult exception(Object exception),
-    @required TResult empty(),
-    @required TResult loading(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(CffRoute routes) routes,
+    required TResult Function() networkException,
+    required TResult Function() locationPermissionNotGranted,
+    required TResult Function() missingPluginException,
+    required TResult Function(Object exception) exception,
+    required TResult Function() empty,
+    required TResult Function() loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return exception(this.exception);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult routes(CffRoute routes),
-    TResult networkException(),
-    TResult locationPermissionNotGranted(),
-    TResult missingPluginException(),
-    TResult exception(Object exception),
-    TResult empty(),
-    TResult loading(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CffRoute routes)? routes,
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (exception != null) {
       return exception(this.exception);
     }
@@ -754,40 +676,33 @@ class _$RSException implements RSException {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult routes(RSData value),
-    @required TResult networkException(RSNetworkException value),
-    @required
-        TResult locationPermissionNotGranted(
-            RSLocationPermissionNotGranted value),
-    @required TResult missingPluginException(RSMissingPluginException value),
-    @required TResult exception(RSException value),
-    @required TResult empty(RSEmpty value),
-    @required TResult loading(RSLoading value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(RSData value) routes,
+    required TResult Function(RSNetworkException value) networkException,
+    required TResult Function(RSLocationPermissionNotGranted value)
+        locationPermissionNotGranted,
+    required TResult Function(RSMissingPluginException value)
+        missingPluginException,
+    required TResult Function(RSException value) exception,
+    required TResult Function(RSEmpty value) empty,
+    required TResult Function(RSLoading value) loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return exception(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult routes(RSData value),
-    TResult networkException(RSNetworkException value),
-    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
-    TResult missingPluginException(RSMissingPluginException value),
-    TResult exception(RSException value),
-    TResult empty(RSEmpty value),
-    TResult loading(RSLoading value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RSData value)? routes,
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (exception != null) {
       return exception(this);
     }
@@ -838,38 +753,30 @@ class _$RSEmpty implements RSEmpty {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult routes(CffRoute routes),
-    @required TResult networkException(),
-    @required TResult locationPermissionNotGranted(),
-    @required TResult missingPluginException(),
-    @required TResult exception(Object exception),
-    @required TResult empty(),
-    @required TResult loading(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(CffRoute routes) routes,
+    required TResult Function() networkException,
+    required TResult Function() locationPermissionNotGranted,
+    required TResult Function() missingPluginException,
+    required TResult Function(Object exception) exception,
+    required TResult Function() empty,
+    required TResult Function() loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return empty();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult routes(CffRoute routes),
-    TResult networkException(),
-    TResult locationPermissionNotGranted(),
-    TResult missingPluginException(),
-    TResult exception(Object exception),
-    TResult empty(),
-    TResult loading(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CffRoute routes)? routes,
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (empty != null) {
       return empty();
     }
@@ -878,40 +785,33 @@ class _$RSEmpty implements RSEmpty {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult routes(RSData value),
-    @required TResult networkException(RSNetworkException value),
-    @required
-        TResult locationPermissionNotGranted(
-            RSLocationPermissionNotGranted value),
-    @required TResult missingPluginException(RSMissingPluginException value),
-    @required TResult exception(RSException value),
-    @required TResult empty(RSEmpty value),
-    @required TResult loading(RSLoading value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(RSData value) routes,
+    required TResult Function(RSNetworkException value) networkException,
+    required TResult Function(RSLocationPermissionNotGranted value)
+        locationPermissionNotGranted,
+    required TResult Function(RSMissingPluginException value)
+        missingPluginException,
+    required TResult Function(RSException value) exception,
+    required TResult Function(RSEmpty value) empty,
+    required TResult Function(RSLoading value) loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return empty(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult routes(RSData value),
-    TResult networkException(RSNetworkException value),
-    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
-    TResult missingPluginException(RSMissingPluginException value),
-    TResult exception(RSException value),
-    TResult empty(RSEmpty value),
-    TResult loading(RSLoading value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RSData value)? routes,
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (empty != null) {
       return empty(this);
     }
@@ -958,38 +858,30 @@ class _$RSLoading implements RSLoading {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult routes(CffRoute routes),
-    @required TResult networkException(),
-    @required TResult locationPermissionNotGranted(),
-    @required TResult missingPluginException(),
-    @required TResult exception(Object exception),
-    @required TResult empty(),
-    @required TResult loading(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(CffRoute routes) routes,
+    required TResult Function() networkException,
+    required TResult Function() locationPermissionNotGranted,
+    required TResult Function() missingPluginException,
+    required TResult Function(Object exception) exception,
+    required TResult Function() empty,
+    required TResult Function() loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return loading();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult routes(CffRoute routes),
-    TResult networkException(),
-    TResult locationPermissionNotGranted(),
-    TResult missingPluginException(),
-    TResult exception(Object exception),
-    TResult empty(),
-    TResult loading(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CffRoute routes)? routes,
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loading != null) {
       return loading();
     }
@@ -998,40 +890,33 @@ class _$RSLoading implements RSLoading {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult routes(RSData value),
-    @required TResult networkException(RSNetworkException value),
-    @required
-        TResult locationPermissionNotGranted(
-            RSLocationPermissionNotGranted value),
-    @required TResult missingPluginException(RSMissingPluginException value),
-    @required TResult exception(RSException value),
-    @required TResult empty(RSEmpty value),
-    @required TResult loading(RSLoading value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(RSData value) routes,
+    required TResult Function(RSNetworkException value) networkException,
+    required TResult Function(RSLocationPermissionNotGranted value)
+        locationPermissionNotGranted,
+    required TResult Function(RSMissingPluginException value)
+        missingPluginException,
+    required TResult Function(RSException value) exception,
+    required TResult Function(RSEmpty value) empty,
+    required TResult Function(RSLoading value) loading,
   }) {
-    assert(routes != null);
-    assert(networkException != null);
-    assert(locationPermissionNotGranted != null);
-    assert(missingPluginException != null);
-    assert(exception != null);
-    assert(empty != null);
-    assert(loading != null);
     return loading(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult routes(RSData value),
-    TResult networkException(RSNetworkException value),
-    TResult locationPermissionNotGranted(RSLocationPermissionNotGranted value),
-    TResult missingPluginException(RSMissingPluginException value),
-    TResult exception(RSException value),
-    TResult empty(RSEmpty value),
-    TResult loading(RSLoading value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RSData value)? routes,
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loading != null) {
       return loading(this);
     }

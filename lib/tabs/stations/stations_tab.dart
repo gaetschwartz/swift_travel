@@ -12,7 +12,7 @@ import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/blocs/location/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
@@ -56,7 +56,7 @@ class _StationsTabWidget extends StatefulWidget {
 class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
   final FocusNode focusNode = FocusNode();
-  Timer _debouncer;
+  Timer? _debouncer;
 
   @override
   void initState() {
@@ -91,11 +91,11 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
           context,
         ),
         resizeToAvoidBottomInset: false,
-        child: child,
+        child: child!,
       ),
       elseBuilder: (context, child) {
         return Scaffold(
-          appBar: materialAppBar(context, title: Text(S.of(context).tabs_search)),
+          appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_search)),
           resizeToAvoidBottomInset: false,
           body: child,
         );
@@ -122,7 +122,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                 .copyWith(fontStyle: FontStyle.normal),
                             decoration: InputDecoration(
                               isDense: true,
-                              hintText: S.of(context).search_station,
+                              hintText: AppLoc.of(context).search_station,
                               border: const OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -163,7 +163,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                               ? const Icon(CupertinoIcons.location_fill)
                               : const FaIcon(FluentIcons.my_location_24_regular));
                     }),
-                    tooltip: S.of(context).use_current_location,
+                    tooltip: AppLoc.of(context).use_current_location,
                     onPressed: () => getLocation(),
                   )
                 ],
@@ -171,7 +171,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
             ),
             const SizedBox(height: 8),
             Expanded(
-              child: Consumer(builder: (context, w, _) {
+              child: Consumer(
+                  builder: (context, w, _) {
                 return w(_stateProvider).state.map(
                       completions: (c) => Column(
                         children: [
@@ -199,37 +200,39 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                         ],
                       ),
                       empty: (_) => Consumer(
-                          builder: (context, w, _) => w(favoritesStatesProvider).state.map(
-                                data: (c) => c.favorites.isEmpty
-                                    ? Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                            '🔎',
-                                            style: TextStyle(fontSize: 48),
-                                          ),
-                                          const SizedBox(height: 24),
-                                          Text(
-                                            'Search a station',
-                                            style: Theme.of(context).textTheme.headline6,
-                                            textAlign: TextAlign.center,
+                          builder: ((context, w, _) => w(favoritesStatesProvider).state.map(
+                                    data: (c) => c.favorites.isEmpty
+                                        ? Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              const Text(
+                                                '🔎',
+                                                style: TextStyle(fontSize: 48),
+                                              ),
+                                              const SizedBox(height: 24),
+                                              Text(
+                                                'Search a station',
+                                                style: Theme.of(context).textTheme.headline6,
+                                                textAlign: TextAlign.center,
+                                              )
+                                            ],
                                           )
-                                        ],
-                                      )
-                                    : ListView.builder(
-                                        itemBuilder: (context, i) => CffCompletionTile(
-                                            sugg: CffCompletion.fromFavorite(c.favorites[i])),
-                                        itemCount: c.favorites == null ? 0 : c.favorites.length,
+                                        : ListView.builder(
+                                            itemBuilder: (context, i) => CffCompletionTile(
+                                                sugg: CffCompletion.fromFavorite(c.favorites[i]!)),
+                                            itemCount: c.favorites == null ? 0 : c.favorites.length,
+                                          ),
+                                    loading: (_) =>
+                                        const Center(child: CircularProgressIndicator.adaptive()),
+                                    exception: (e) => Center(
+                                      child: Text(
+                                        e.exception.toString(),
+                                        style: Theme.of(context).textTheme.headline6,
                                       ),
-                                loading: (_) =>
-                                    const Center(child: CircularProgressIndicator.adaptive()),
-                                exception: (e) => Center(
-                                  child: Text(
-                                    e.exception.toString(),
-                                    style: Theme.of(context).textTheme.headline6,
-                                  ),
-                                ),
-                              )),
+                                    ),
+                                  ))
+                              as Widget Function(
+                                  BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?)),
                       network: (value) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -245,7 +248,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                         ],
                       ),
                     );
-              }),
+              } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?)),
             ),
           ],
         ),
@@ -271,7 +274,6 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
     try {
       final p = await LocationRepository.getLocation();
-      if (p == null) return;
 
       final completions =
           await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
@@ -279,7 +281,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
       final first = completions.first;
       if (first.dist != null) {
         final public = completions
-            .where((c) => !CffIcon.isPrivate(c.icon.substring(c.icon.lastIndexOf('_') + 1)));
+            .where((c) => !CffIcon.isPrivate(c.icon!.substring(c.icon!.lastIndexOf('_') + 1)));
         context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log('Found : ${public.first}');

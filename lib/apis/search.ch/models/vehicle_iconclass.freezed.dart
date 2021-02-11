@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'vehicle_iconclass.dart';
 
@@ -16,26 +16,22 @@ VehicleIconclass _$VehicleIconclassFromJson(Map<String, dynamic> json) {
 class _$VehicleIconclassTearOff {
   const _$VehicleIconclassTearOff();
 
-// ignore: unused_element
-  _VehicleIconclass call(@nullable Vehicle v) {
+  _VehicleIconclass call(Vehicle v) {
     return _VehicleIconclass(
       v,
     );
   }
 
-// ignore: unused_element
   VehicleIconclass fromJson(Map<String, Object> json) {
     return VehicleIconclass.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $VehicleIconclass = _$VehicleIconclassTearOff();
 
 /// @nodoc
 mixin _$VehicleIconclass {
-  @nullable
   Vehicle get v;
 
   Map<String, dynamic> toJson();
@@ -48,7 +44,7 @@ abstract class $VehicleIconclassCopyWith<$Res> {
   factory $VehicleIconclassCopyWith(
           VehicleIconclass value, $Res Function(VehicleIconclass) then) =
       _$VehicleIconclassCopyWithImpl<$Res>;
-  $Res call({@nullable Vehicle v});
+  $Res call({Vehicle v});
 }
 
 /// @nodoc
@@ -62,7 +58,7 @@ class _$VehicleIconclassCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object v = freezed,
+    Object? v = freezed,
   }) {
     return _then(_value.copyWith(
       v: v == freezed ? _value.v : v as Vehicle,
@@ -77,7 +73,7 @@ abstract class _$VehicleIconclassCopyWith<$Res>
           _VehicleIconclass value, $Res Function(_VehicleIconclass) then) =
       __$VehicleIconclassCopyWithImpl<$Res>;
   @override
-  $Res call({@nullable Vehicle v});
+  $Res call({Vehicle v});
 }
 
 /// @nodoc
@@ -93,7 +89,7 @@ class __$VehicleIconclassCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object v = freezed,
+    Object? v = freezed,
   }) {
     return _then(_VehicleIconclass(
       v == freezed ? _value.v : v as Vehicle,
@@ -105,13 +101,12 @@ class __$VehicleIconclassCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_VehicleIconclass implements _VehicleIconclass {
-  const _$_VehicleIconclass(@nullable this.v);
+  const _$_VehicleIconclass(this.v);
 
   factory _$_VehicleIconclass.fromJson(Map<String, dynamic> json) =>
       _$_$_VehicleIconclassFromJson(json);
 
   @override
-  @nullable
   final Vehicle v;
 
   @override
@@ -143,13 +138,12 @@ class _$_VehicleIconclass implements _VehicleIconclass {
 }
 
 abstract class _VehicleIconclass implements VehicleIconclass {
-  const factory _VehicleIconclass(@nullable Vehicle v) = _$_VehicleIconclass;
+  const factory _VehicleIconclass(Vehicle v) = _$_VehicleIconclass;
 
   factory _VehicleIconclass.fromJson(Map<String, dynamic> json) =
       _$_VehicleIconclass.fromJson;
 
   @override
-  @nullable
   Vehicle get v;
   @override
   @JsonKey(ignore: true)

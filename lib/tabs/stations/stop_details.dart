@@ -18,22 +18,24 @@ import 'package:theming/responsive.dart';
 class StopDetails extends StatefulWidget {
   final String stopName;
 
-  StopDetails({@required this.stopName}) : super(key: Key(stopName));
+  StopDetails({required this.stopName}) : super(key: Key(stopName));
 
   @override
   _StopDetailsState createState() => _StopDetailsState();
 }
 
 class _StopDetailsState extends State<StopDetails> {
-  CffStationboard data;
+  CffStationboard? data;
 
-  Timer timer;
+  late Timer timer;
   bool _elevate = false;
 
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 15), (_) => setState(() {}));
+    timer = Timer.periodic(const Duration(seconds: 15), (_) {
+      if (mounted) setState(() {});
+    });
     refreshData();
   }
 
@@ -77,10 +79,10 @@ class _StopDetailsState extends State<StopDetails> {
               itemBuilder: (context, i) => i.isEven
                   ? const Divider(height: 0)
                   : ConnectionTile(
-                      c: data.connections[i ~/ 2],
-                      s: data.stop,
+                      c: data!.connections[i ~/ 2],
+                      s: data!.stop,
                     ),
-              itemCount: data.connections.length * 2 + 1,
+              itemCount: data!.connections.length * 2 + 1,
             )
           : const Center(child: CupertinoActivityIndicator()),
       onRefresh: refreshData,
@@ -100,10 +102,10 @@ class _StopDetailsState extends State<StopDetails> {
                 (context, i) => i.isEven
                     ? const Divider(height: 0)
                     : ConnectionTile(
-                        c: data.connections[i ~/ 2],
-                        s: data.stop,
+                        c: data!.connections[i ~/ 2],
+                        s: data!.stop,
                       ),
-                childCount: data.connections.length * 2 + 1,
+                childCount: data!.connections.length * 2 + 1,
               ),
             ),
           )
@@ -129,8 +131,8 @@ class _StopDetailsState extends State<StopDetails> {
             ),
             const SizedBox(height: 16),
             Text(
-              data.messages.isNotEmpty
-                  ? data.messages.join('\n')
+              data!.messages.isNotEmpty
+                  ? data!.messages.join('\n')
                   : "We couldn't find any departures from this location",
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
@@ -149,12 +151,12 @@ class _StopDetailsState extends State<StopDetails> {
 
 class ConnectionTile extends StatelessWidget {
   final StationboardConnection c;
-  final Stop s;
+  final Stop? s;
 
   const ConnectionTile({
-    Key key,
-    @required this.c,
-    @required this.s,
+    Key? key,
+    required this.c,
+    required this.s,
   }) : super(key: key);
 
   @override
@@ -167,7 +169,7 @@ class ConnectionTile extends StatelessWidget {
       onTap: () => Navigator.of(context).push(platformRoute(
         builder: (context) => NextStopsPage(c: c, s: s),
         isDarwin: Responsive.isDarwin(context),
-        title: s.name,
+        title: s!.name,
       )),
       title: Row(
         children: [
@@ -210,13 +212,13 @@ class ConnectionTile extends StatelessWidget {
       ),
       trailing: (c.depDelay > 0)
           ? Text(
-              Format.duration(diff + Duration(minutes: c.depDelay)),
+              Format.duration(diff + Duration(minutes: c.depDelay))!,
               style: const TextStyle(
                 color: Colors.red,
                 fontWeight: FontWeight.bold,
               ),
             )
-          : Text(Format.duration(diff)),
+          : Text(Format.duration(diff)!),
     );
   }
 }

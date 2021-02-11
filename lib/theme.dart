@@ -36,7 +36,7 @@ const List<Font> fonts = [
   Font('QuickSand', GoogleFonts.quicksandTextTheme),
 ];
 
-TextTheme _i(TextTheme t) => Typography.material2018(platform: defaultTargetPlatform).englishLike;
+TextTheme _i(TextTheme? t) => Typography.material2018(platform: defaultTargetPlatform).englishLike;
 
 final _light = FlexColorScheme.light(scheme: FlexScheme.mandyRed).toScheme;
 final _dark = FlexColorScheme.dark(scheme: FlexScheme.mandyRed).toScheme;
@@ -75,18 +75,18 @@ ThemeConfiguration get themeConfiguration {
       'material': FullTheme(
         name: 'Material',
         light: FlexColorScheme.light(
-          colors: FlexColor.schemes[FlexScheme.material].light,
+          colors: FlexColor.schemes[FlexScheme.material]!.light,
         ).toScheme,
         dark: FlexColorScheme.dark(
-          colors: FlexColor.schemes[FlexScheme.material].dark,
+          colors: FlexColor.schemes[FlexScheme.material]!.dark,
         ).toScheme,
         lightShadow: lightShadow,
         darkShadow: darkShadow,
       ),
       'david': FullTheme(
         name: 'David',
-        light: ColorScheme.light(primary: Colors.pink[900], secondary: Colors.yellow[800]),
-        dark: ColorScheme.dark(primary: Colors.pink[900], secondary: Colors.yellow[800]),
+        light: ColorScheme.light(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),
+        dark: ColorScheme.dark(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),
         applyToDark: (theme) => theme.copyWith(
           appBarTheme:
               theme.appBarTheme.copyWith(color: theme.colorScheme.primary, centerTitle: true),

@@ -60,8 +60,7 @@ class LiveRoutePlugin {
 
   static void callbackDispatcher() {
     // 1. Initialize MethodChannel used to communicate with the platform portion of the plugin.
-    const MethodChannel _backgroundChannel =
-        MethodChannel('gaetanschwartz.com/liveroute_plugin_background');
+    const _backgroundChannel = MethodChannel('gaetanschwartz.com/liveroute_plugin_background');
 
     // 2. Setup internal state needed for MethodChannels.
     WidgetsFlutterBinding.ensureInitialized();
@@ -71,7 +70,7 @@ class LiveRoutePlugin {
       final args = call.arguments;
 
       // 3.1. Retrieve callback instance for handle.
-      final Function callback =
+      final callback =
           PluginUtilities.getCallbackFromHandle(CallbackHandle.fromRawHandle(args[0] as int))!;
 
       // 3.3. Invoke callback.
@@ -186,23 +185,25 @@ class LiveRouteController extends ChangeNotifier {
     int? closestStop;
     int? closestLeg;
 
-    double dist = double.infinity;
-    for (int i = 0; i < _connection!.legs.length; i++) {
+    var dist = double.infinity;
+    for (var i = 0; i < _connection!.legs.length; i++) {
       final l = _connection!.legs[i];
       _legDistances[i] ??= {};
-      final d = Geolocator.distanceBetween(l.lat, l.lon, p.latitude, p.longitude);
+      if (l.lat == null || l.lon == null) continue;
+      final d = Geolocator.distanceBetween(l.lat!, l.lon!, p.latitude, p.longitude);
       if (l.lat == null || l.lon == null) {
         _legDistances[i]![-1] = double.infinity;
       } else {
         _legDistances[i]![-1] = d;
       }
       if (l.stops.isNotEmpty) {
-        for (int j = 0; j < l.stops.length; j++) {
+        for (var j = 0; j < l.stops.length; j++) {
           final s = l.stops[j];
           if (s.lat == null || s.lon == null) {
             _legDistances[i]![j] = double.infinity;
           } else {
-            final d = Geolocator.distanceBetween(s.lat, s.lon, p.latitude, p.longitude);
+            if (s.lat == null || s.lon == null) continue;
+            final d = Geolocator.distanceBetween(s.lat!, s.lon!, p.latitude, p.longitude);
             _legDistances[i]![j] = d;
             if (d < dist) {
               closestLeg = i;
@@ -227,16 +228,15 @@ class LiveRouteController extends ChangeNotifier {
     if (currentLeg == null) return;
 
     if (currentStop != null) {
-      final double distFromCurrToExt = Geolocator.distanceBetween(
-          currentStop!.lat, currentStop!.lon, currentLeg!.exit.lat, currentLeg!.exit.lon);
-      final double distUntilExit = Geolocator.distanceBetween(
-          currentLeg!.exit.lat, currentLeg!.exit.lon, position!.latitude, position!.longitude);
+      final distFromCurrToExt = Geolocator.distanceBetween(
+          currentStop!.lat!, currentStop!.lon!, currentLeg!.exit!.lat!, currentLeg!.exit!.lon!);
+      final distUntilExit = Geolocator.distanceBetween(
+          currentLeg!.exit!.lat!, currentLeg!.exit!.lon!, position!.latitude, position!.longitude);
 
-      final double d = distUntilExit / distFromCurrToExt;
-      final double perc = (currentLeg!.stops.length - _currentStop! * d) / currentLeg!.stops.length;
+      final d = distUntilExit / distFromCurrToExt;
+      final perc = (currentLeg!.stops.length - _currentStop! * d) / currentLeg!.stops.length;
 
-      final Duration timeUntilNextLeg =
-          currentLeg!.exit.arrival.difference(currentStop!.departure) * d;
+      final timeUntilNextLeg = currentLeg!.exit!.arrival!.difference(currentStop!.departure!) * d;
 
       _routeData = RouteData(
         currentStopIndex: _currentStop,
@@ -262,7 +262,7 @@ class LiveRouteController extends ChangeNotifier {
     if (!isRunning) throw StateError('Live route not running');
     log("Computing distances we didn't find");
 
-    final List<Leg> legs = [];
+    final legs = <Leg>[];
 
     for (final e in _connection!.legs) {
       legs.add(await _computeLeg(e));
@@ -278,7 +278,7 @@ class LiveRouteController extends ChangeNotifier {
     if (leg.lat != null && leg.lon != null) {
       return leg;
     } else {
-      final pos = await sbbData.getPosition(leg.name);
+      final pos = await sbbData.getPosition(leg.name!);
       // ignore: unnecessary_null_comparison
       if (pos == null) {
         return leg;

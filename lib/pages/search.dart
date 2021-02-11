@@ -11,7 +11,7 @@ import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/database.dart';
-import 'package:swift_travel/main.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
@@ -23,11 +23,11 @@ import 'package:theming/responsive.dart';
 const _heroTag = 0xabcd;
 
 class CupertinoTextFieldConfiguration {
-  final String placeholder;
-  final List<TextInputFormatter> inputFormatters;
-  final TextInputAction textInputAction;
-  final Widget prefix;
-  final FocusNode focusNode;
+  final String? placeholder;
+  final List<TextInputFormatter?>? inputFormatters;
+  final TextInputAction? textInputAction;
+  final Widget? prefix;
+  final FocusNode? focusNode;
 
   const CupertinoTextFieldConfiguration({
     this.focusNode,
@@ -37,10 +37,10 @@ class CupertinoTextFieldConfiguration {
     this.placeholder,
   });
 
-  CupertinoTextField toTextField({TextEditingController controller}) {
+  CupertinoTextField toTextField({TextEditingController? controller}) {
     return CupertinoTextField(
       placeholder: placeholder,
-      inputFormatters: inputFormatters,
+      inputFormatters: inputFormatters as List<TextInputFormatter>?,
       textInputAction: textInputAction,
       prefix: prefix,
       focusNode: focusNode,
@@ -54,7 +54,7 @@ extension CupertinoTextFieldX on CupertinoTextField {
 }
 
 class Debouncer {
-  Timer _debouncer;
+  Timer? _debouncer;
 
   Future<void> debounce(FutureOr<void> Function() fn) async {
     // Debounce
@@ -81,8 +81,8 @@ class SearchPage extends StatefulWidget {
   final CupertinoTextFieldConfiguration configuration;
 
   const SearchPage({
-    @required this.binder,
-    Key key,
+    required this.binder,
+    Key? key,
     this.heroTag = _heroTag,
     this.configuration = const CupertinoTextFieldConfiguration(),
   }) : super(key: key);
@@ -94,16 +94,16 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final debouncer = Debouncer();
 
-  FavoritesSharedPreferencesStore store;
-  NavigationApi api;
-  String currentLocation;
+  late FavoritesSharedPreferencesStore store;
+  late NavigationApi api;
+  String? currentLocation;
   final hist = RouteHistoryRepository.i;
 
   @override
   void initState() {
     super.initState();
     widget.binder.controller.addListener(onChanged);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => onChanged());
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) => onChanged());
   }
 
   @override
@@ -118,7 +118,7 @@ class _SearchPageState extends State<SearchPage> {
     super.didChangeDependencies();
     api = context.read(navigationAPIProvider);
     store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
-    currentLocation = S.of(context).current_location;
+    currentLocation = AppLoc.of(context).current_location;
   }
 
   void onChanged() {
@@ -197,15 +197,16 @@ class _SearchPageState extends State<SearchPage> {
 
 class _Results extends StatelessWidget {
   const _Results({
-    Key key,
-    @required this.onTap,
+    Key? key,
+    required this.onTap,
   }) : super(key: key);
 
   final void Function(CffCompletion completion) onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, w, _) {
+    return Consumer(
+        builder: (context, w, _) {
       final state = w(_stateProvider);
       return state.state.map(
         completions: (c) => CustomScrollView(
@@ -245,7 +246,7 @@ class _Results extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              S.of(context).search_station,
+              AppLoc.of(context).search_station,
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
             )
@@ -266,19 +267,19 @@ class _Results extends StatelessWidget {
           ],
         ),
       );
-    });
+    } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
   }
 }
 
 class _SuggestedTile extends StatelessWidget {
   const _SuggestedTile(
     this.suggestion, {
-    Key key,
+    Key? key,
     this.onTap,
   }) : super(key: key);
 
   final CffCompletion suggestion;
-  final ValueChanged<CffCompletion> onTap;
+  final ValueChanged<CffCompletion>? onTap;
 
   Widget buildIcon(BuildContext context) {
     switch (suggestion.origin) {
@@ -288,14 +289,12 @@ class _SuggestedTile extends StatelessWidget {
           size: 20,
           color: IconTheme.of(context).color,
         );
-        break;
       case DataOrigin.history:
         return Icon(
           CupertinoIcons.clock,
           size: 20,
           color: IconTheme.of(context).color,
         );
-        break;
       case DataOrigin.data:
         return CffIcon.fromIconClass(suggestion.icon, size: 20);
       case DataOrigin.currentLocation:
@@ -305,7 +304,6 @@ class _SuggestedTile extends StatelessWidget {
           color: IconTheme.of(context).color,
         );
     }
-    return null;
   }
 
   @override

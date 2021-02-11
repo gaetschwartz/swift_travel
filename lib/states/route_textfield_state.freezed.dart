@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'route_textfield_state.dart';
 
@@ -13,12 +13,10 @@ T _$identity<T>(T value) => value;
 class _$RouteTextfieldStateTearOff {
   const _$RouteTextfieldStateTearOff();
 
-// ignore: unused_element
   EmptyRouteState empty() {
     return const EmptyRouteState();
   }
 
-// ignore: unused_element
   TextRouteState text(String text, {bool doLoad = true}) {
     return TextRouteState(
       text,
@@ -26,43 +24,41 @@ class _$RouteTextfieldStateTearOff {
     );
   }
 
-// ignore: unused_element
   UseCurrentLocation useCurrentLocation() {
     return const UseCurrentLocation();
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RouteTextfieldState = _$RouteTextfieldStateTearOff();
 
 /// @nodoc
 mixin _$RouteTextfieldState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult empty(),
-    @required TResult text(String text, bool doLoad),
-    @required TResult useCurrentLocation(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(String text, bool doLoad) text,
+    required TResult Function() useCurrentLocation,
   });
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult empty(),
-    TResult text(String text, bool doLoad),
-    TResult useCurrentLocation(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String text, bool doLoad)? text,
+    TResult Function()? useCurrentLocation,
+    required TResult orElse(),
   });
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult empty(EmptyRouteState value),
-    @required TResult text(TextRouteState value),
-    @required TResult useCurrentLocation(UseCurrentLocation value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyRouteState value) empty,
+    required TResult Function(TextRouteState value) text,
+    required TResult Function(UseCurrentLocation value) useCurrentLocation,
   });
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult empty(EmptyRouteState value),
-    TResult text(TextRouteState value),
-    TResult useCurrentLocation(UseCurrentLocation value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyRouteState value)? empty,
+    TResult Function(TextRouteState value)? text,
+    TResult Function(UseCurrentLocation value)? useCurrentLocation,
+    required TResult orElse(),
   });
 }
 
@@ -121,26 +117,22 @@ class _$EmptyRouteState implements EmptyRouteState {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult empty(),
-    @required TResult text(String text, bool doLoad),
-    @required TResult useCurrentLocation(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(String text, bool doLoad) text,
+    required TResult Function() useCurrentLocation,
   }) {
-    assert(empty != null);
-    assert(text != null);
-    assert(useCurrentLocation != null);
     return empty();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult empty(),
-    TResult text(String text, bool doLoad),
-    TResult useCurrentLocation(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String text, bool doLoad)? text,
+    TResult Function()? useCurrentLocation,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (empty != null) {
       return empty();
     }
@@ -149,26 +141,22 @@ class _$EmptyRouteState implements EmptyRouteState {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult empty(EmptyRouteState value),
-    @required TResult text(TextRouteState value),
-    @required TResult useCurrentLocation(UseCurrentLocation value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyRouteState value) empty,
+    required TResult Function(TextRouteState value) text,
+    required TResult Function(UseCurrentLocation value) useCurrentLocation,
   }) {
-    assert(empty != null);
-    assert(text != null);
-    assert(useCurrentLocation != null);
     return empty(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult empty(EmptyRouteState value),
-    TResult text(TextRouteState value),
-    TResult useCurrentLocation(UseCurrentLocation value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyRouteState value)? empty,
+    TResult Function(TextRouteState value)? text,
+    TResult Function(UseCurrentLocation value)? useCurrentLocation,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (empty != null) {
       return empty(this);
     }
@@ -201,8 +189,8 @@ class _$TextRouteStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object text = freezed,
-    Object doLoad = freezed,
+    Object? text = freezed,
+    Object? doLoad = freezed,
   }) {
     return _then(TextRouteState(
       text == freezed ? _value.text : text as String,
@@ -213,9 +201,7 @@ class _$TextRouteStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$TextRouteState implements TextRouteState {
-  const _$TextRouteState(this.text, {this.doLoad = true})
-      : assert(text != null),
-        assert(doLoad != null);
+  const _$TextRouteState(this.text, {this.doLoad = true});
 
   @override
   final String text;
@@ -251,26 +237,22 @@ class _$TextRouteState implements TextRouteState {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult empty(),
-    @required TResult text(String text, bool doLoad),
-    @required TResult useCurrentLocation(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(String text, bool doLoad) text,
+    required TResult Function() useCurrentLocation,
   }) {
-    assert(empty != null);
-    assert(text != null);
-    assert(useCurrentLocation != null);
     return text(this.text, doLoad);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult empty(),
-    TResult text(String text, bool doLoad),
-    TResult useCurrentLocation(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String text, bool doLoad)? text,
+    TResult Function()? useCurrentLocation,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (text != null) {
       return text(this.text, doLoad);
     }
@@ -279,26 +261,22 @@ class _$TextRouteState implements TextRouteState {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult empty(EmptyRouteState value),
-    @required TResult text(TextRouteState value),
-    @required TResult useCurrentLocation(UseCurrentLocation value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyRouteState value) empty,
+    required TResult Function(TextRouteState value) text,
+    required TResult Function(UseCurrentLocation value) useCurrentLocation,
   }) {
-    assert(empty != null);
-    assert(text != null);
-    assert(useCurrentLocation != null);
     return text(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult empty(EmptyRouteState value),
-    TResult text(TextRouteState value),
-    TResult useCurrentLocation(UseCurrentLocation value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyRouteState value)? empty,
+    TResult Function(TextRouteState value)? text,
+    TResult Function(UseCurrentLocation value)? useCurrentLocation,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (text != null) {
       return text(this);
     }
@@ -353,26 +331,22 @@ class _$UseCurrentLocation implements UseCurrentLocation {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult empty(),
-    @required TResult text(String text, bool doLoad),
-    @required TResult useCurrentLocation(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(String text, bool doLoad) text,
+    required TResult Function() useCurrentLocation,
   }) {
-    assert(empty != null);
-    assert(text != null);
-    assert(useCurrentLocation != null);
     return useCurrentLocation();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult empty(),
-    TResult text(String text, bool doLoad),
-    TResult useCurrentLocation(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String text, bool doLoad)? text,
+    TResult Function()? useCurrentLocation,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (useCurrentLocation != null) {
       return useCurrentLocation();
     }
@@ -381,26 +355,22 @@ class _$UseCurrentLocation implements UseCurrentLocation {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult empty(EmptyRouteState value),
-    @required TResult text(TextRouteState value),
-    @required TResult useCurrentLocation(UseCurrentLocation value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyRouteState value) empty,
+    required TResult Function(TextRouteState value) text,
+    required TResult Function(UseCurrentLocation value) useCurrentLocation,
   }) {
-    assert(empty != null);
-    assert(text != null);
-    assert(useCurrentLocation != null);
     return useCurrentLocation(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult empty(EmptyRouteState value),
-    TResult text(TextRouteState value),
-    TResult useCurrentLocation(UseCurrentLocation value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyRouteState value)? empty,
+    TResult Function(TextRouteState value)? text,
+    TResult Function(UseCurrentLocation value)? useCurrentLocation,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (useCurrentLocation != null) {
       return useCurrentLocation(this);
     }

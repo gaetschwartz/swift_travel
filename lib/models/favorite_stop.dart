@@ -7,10 +7,10 @@ part 'favorite_stop.g.dart';
 
 @freezed
 abstract class FavoriteStop with _$FavoriteStop {
-  const factory FavoriteStop(String stop, {String name}) = _FavoriteStop;
+  const factory FavoriteStop(String stop, {String? name}) = _FavoriteStop;
   factory FavoriteStop.fromStop(String stop) => _FavoriteStop(stop, name: stop);
 
-  factory FavoriteStop.fromCompletion(CffCompletion completion, {String name}) =>
+  factory FavoriteStop.fromCompletion(CffCompletion completion, {String? name}) =>
       _FavoriteStop(completion.label, name: name ?? completion.label);
 
   factory FavoriteStop.fromJson(Map<String, dynamic> json) => _$FavoriteStopFromJson(json);

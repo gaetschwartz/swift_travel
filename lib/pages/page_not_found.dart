@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class PageNotFound extends StatefulWidget {
   final RouteSettings settings;
 
-  const PageNotFound({Key key, @required this.settings}) : super(key: key);
+  const PageNotFound({Key? key, required this.settings}) : super(key: key);
 
   @override
   _PageNotFoundState createState() => _PageNotFoundState();
@@ -65,20 +65,20 @@ class ErrorDataWidget extends StatelessWidget {
   const ErrorDataWidget(
     this.name,
     this.value, {
-    Key key,
+    Key? key,
     this.wrapped = true,
   }) : super(key: key);
 
   final String name;
-  final String value;
+  final String? value;
   final bool wrapped;
 
   @override
   Widget build(BuildContext context) {
-    final text = Text(value,
+    final text = Text(value!,
         style: Theme.of(context)
             .textTheme
-            .bodyText2
+            .bodyText2!
             .copyWith(fontFamily: GoogleFonts.firaCode().fontFamily));
     return Padding(
       padding: const EdgeInsets.all(8.0),

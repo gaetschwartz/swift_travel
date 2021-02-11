@@ -17,10 +17,10 @@ class NavigationApiFactory<T extends NavigationApi> {
 
   const NavigationApiFactory(
     this.create, {
-    @required this.name,
-    @required this.shortName,
-    @required this.countryEmoji,
-    @required this.countryName,
+    required this.name,
+    required this.shortName,
+    required this.countryEmoji,
+    required this.countryName,
   });
 
   String get shortDesc => '$countryEmoji $shortName';
@@ -39,46 +39,45 @@ abstract class NavigationApi {
       case NavigationApiType.cff:
         return cffFactory;
     }
-    throw StateError('Unexpected NavigationApiType value: $api');
   }
 
   Future<List<CffCompletion>> complete(
-    String string, {
-    bool showCoordinates,
-    bool showIds,
-    bool noFavorites,
-    bool filterNull,
+    String? string, {
+    bool? showCoordinates,
+    bool? showIds,
+    bool? noFavorites,
+    bool? filterNull,
   });
 
   Future<List<CffCompletion>> findStation(
     double lat,
     double lon, {
-    int accuracy,
-    bool showCoordinates,
-    bool showIds,
+    int? accuracy,
+    bool? showCoordinates,
+    bool? showIds,
   });
 
   Future<CffStationboard> stationboard(
     String stopName, {
-    DateTime when,
-    bool arrival,
-    int limit,
-    bool showTracks,
-    bool showSubsequentStops,
-    bool showDelays,
-    bool showTrackchanges,
-    List<TransportationTypes> transportationTypes,
+    DateTime? when,
+    bool? arrival,
+    int? limit,
+    bool? showTracks,
+    bool? showSubsequentStops,
+    bool? showDelays,
+    bool? showTrackchanges,
+    List<TransportationTypes>? transportationTypes,
   });
 
   Future<CffRoute> route(
     String departure,
     String arrival, {
-    DateTime date,
-    TimeOfDay time,
-    TimeType typeTime,
+    required DateTime date,
+    required TimeOfDay time,
+    TimeType? typeTime,
   });
 
   void dispose();
 
-  Future<CffRoute> rawRoute(String query);
+  Future<CffRoute?> rawRoute(String query);
 }

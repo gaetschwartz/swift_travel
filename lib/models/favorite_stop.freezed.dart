@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'favorite_stop.dart';
 
@@ -16,28 +16,25 @@ FavoriteStop _$FavoriteStopFromJson(Map<String, dynamic> json) {
 class _$FavoriteStopTearOff {
   const _$FavoriteStopTearOff();
 
-// ignore: unused_element
-  _FavoriteStop call(String stop, {String name}) {
+  _FavoriteStop call(String stop, {String? name}) {
     return _FavoriteStop(
       stop,
       name: name,
     );
   }
 
-// ignore: unused_element
   FavoriteStop fromJson(Map<String, Object> json) {
     return FavoriteStop.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $FavoriteStop = _$FavoriteStopTearOff();
 
 /// @nodoc
 mixin _$FavoriteStop {
   String get stop;
-  String get name;
+  String? get name;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -49,7 +46,7 @@ abstract class $FavoriteStopCopyWith<$Res> {
   factory $FavoriteStopCopyWith(
           FavoriteStop value, $Res Function(FavoriteStop) then) =
       _$FavoriteStopCopyWithImpl<$Res>;
-  $Res call({String stop, String name});
+  $Res call({String stop, String? name});
 }
 
 /// @nodoc
@@ -62,12 +59,12 @@ class _$FavoriteStopCopyWithImpl<$Res> implements $FavoriteStopCopyWith<$Res> {
 
   @override
   $Res call({
-    Object stop = freezed,
-    Object name = freezed,
+    Object? stop = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
       stop: stop == freezed ? _value.stop : stop as String,
-      name: name == freezed ? _value.name : name as String,
+      name: name == freezed ? _value.name : name as String?,
     ));
   }
 }
@@ -79,7 +76,7 @@ abstract class _$FavoriteStopCopyWith<$Res>
           _FavoriteStop value, $Res Function(_FavoriteStop) then) =
       __$FavoriteStopCopyWithImpl<$Res>;
   @override
-  $Res call({String stop, String name});
+  $Res call({String stop, String? name});
 }
 
 /// @nodoc
@@ -94,12 +91,12 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object stop = freezed,
-    Object name = freezed,
+    Object? stop = freezed,
+    Object? name = freezed,
   }) {
     return _then(_FavoriteStop(
       stop == freezed ? _value.stop : stop as String,
-      name: name == freezed ? _value.name : name as String,
+      name: name == freezed ? _value.name : name as String?,
     ));
   }
 }
@@ -108,7 +105,7 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_FavoriteStop implements _FavoriteStop {
-  const _$_FavoriteStop(this.stop, {this.name}) : assert(stop != null);
+  const _$_FavoriteStop(this.stop, {this.name});
 
   factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
       _$_$_FavoriteStopFromJson(json);
@@ -116,7 +113,7 @@ class _$_FavoriteStop implements _FavoriteStop {
   @override
   final String stop;
   @override
-  final String name;
+  final String? name;
 
   @override
   String toString() {
@@ -151,7 +148,7 @@ class _$_FavoriteStop implements _FavoriteStop {
 }
 
 abstract class _FavoriteStop implements FavoriteStop {
-  const factory _FavoriteStop(String stop, {String name}) = _$_FavoriteStop;
+  const factory _FavoriteStop(String stop, {String? name}) = _$_FavoriteStop;
 
   factory _FavoriteStop.fromJson(Map<String, dynamic> json) =
       _$_FavoriteStop.fromJson;
@@ -159,7 +156,7 @@ abstract class _FavoriteStop implements FavoriteStop {
   @override
   String get stop;
   @override
-  String get name;
+  String? get name;
   @override
   @JsonKey(ignore: true)
   _$FavoriteStopCopyWith<_FavoriteStop> get copyWith;

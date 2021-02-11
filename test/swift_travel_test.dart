@@ -37,7 +37,7 @@ void main() {
 
   group('route history >', () {
     setUpAll(() async {
-      await Hive.init(dir);
+      Hive.init(dir);
     });
 
     tearDown(() async {
@@ -64,10 +64,10 @@ void main() {
       expect(hist.first, route1);
       expect(hist.last, route3);
 
-      await hist.box.deleteAt(0);
+      await hist.box!.deleteAt(0);
       expect(hist.routes, [route2, route3]);
 
-      await hist.box.deleteAt(hist.size - 1);
+      await hist.box!.deleteAt(hist.size - 1);
       expect(hist.routes, [route2]);
 
       await hist.clear();
@@ -75,7 +75,7 @@ void main() {
 
       expect(hist.watch(), emitsDone);
 
-      await hist.box.close();
+      await hist.box!.close();
     });
 
     test(
@@ -131,8 +131,10 @@ void main() {
     test('localRoute', () {
       final route1 =
           LocalRoute('from', 'to', displayName: 'name', timestamp: CustomizableDateTime.current);
-      final route2 = LocalRoute.fromRouteConnection(const RouteConnection(from: 'from', to: 'to'),
-          displayName: 'name', timestamp: CustomizableDateTime.current);
+      final route2 = LocalRoute.fromRouteConnection(
+          const RouteConnection(from: 'from', to: 'to', depDelay: 0),
+          displayName: 'name',
+          timestamp: CustomizableDateTime.current);
       final route3 = LocalRoute.now('from', 'to', displayName: 'name');
       final route4 = LocalRoute.fromJson({
         'from': 'from',
@@ -247,8 +249,8 @@ void main() {
       final builder = QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
 
       for (final params in paramList) {
-        final url = builder('route', params);
-        expect(() => encodeRouteUri(Uri.parse(url), 0), throwsFormatException);
+        final String? url = builder('route', params);
+        expect(() => encodeRouteUri(Uri.parse(url!), 0), throwsFormatException);
       }
     });
     test('encode(decode(x)) == x', () {

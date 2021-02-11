@@ -15,8 +15,8 @@ import 'package:swift_travel/mocking/mocking.dart';
 
 class MockNavigationApi extends NavigationApi {
   @override
-  Future<List<CffCompletion>> complete(String string,
-      {bool showCoordinates, bool showIds, bool noFavorites, bool filterNull}) {
+  Future<List<CffCompletion>> complete(String? string,
+      {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) {
     throw UnimplementedError();
   }
 
@@ -25,31 +25,31 @@ class MockNavigationApi extends NavigationApi {
 
   @override
   Future<List<CffCompletion>> findStation(double lat, double lon,
-          {int accuracy, bool showCoordinates, bool showIds}) =>
+          {int? accuracy, bool? showCoordinates, bool? showIds}) =>
       Future.value([
         const CffCompletion(label: 'Genève'),
         const CffCompletion(label: 'Genève Cornavin'),
       ]);
 
   @override
-  Future<CffRoute> rawRoute(String query) => Future.value(CffRoute.fromJson(mockRoute));
+  Future<CffRoute> rawRoute(String query) => Future.value(CffRoute.fromJson(mockRoute!));
 
   @override
   Future<CffRoute> route(String departure, String arrival,
-          {DateTime date, TimeOfDay time, TimeType typeTime}) =>
-      Future.value(CffRoute.fromJson(mockRoute));
+          {DateTime? date, TimeOfDay? time, TimeType? typeTime}) =>
+      Future.value(CffRoute.fromJson(mockRoute!));
 
   @override
   Future<CffStationboard> stationboard(String stopName,
-          {DateTime when,
-          bool arrival,
-          int limit,
-          bool showTracks,
-          bool showSubsequentStops,
-          bool showDelays,
-          bool showTrackchanges,
-          List<TransportationTypes> transportationTypes}) =>
-      Future.value(CffStationboard.fromJson(mockStationboard));
+          {DateTime? when,
+          bool? arrival,
+          int? limit,
+          bool? showTracks,
+          bool? showSubsequentStops,
+          bool? showDelays,
+          bool? showTrackchanges,
+          List<TransportationTypes>? transportationTypes}) =>
+      Future.value(CffStationboard.fromJson(mockStationboard!));
 }
 
 void main() {
@@ -76,8 +76,6 @@ void main() {
       store.api = NavigationApiType.sncf;
       navApi = container.read(navigationAPIProvider);
       expect(navApi, isA<SncfApi>());
-
-      expect(() => NavigationApi.getFactory(null), throwsStateError);
 
       for (final a in NavigationApiType.values) {
         final f = NavigationApi.getFactory(a);

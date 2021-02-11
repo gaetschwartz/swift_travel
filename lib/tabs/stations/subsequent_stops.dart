@@ -12,21 +12,23 @@ import 'package:theming/responsive.dart';
 
 class NextStopsPage extends StatefulWidget {
   final StationboardConnection c;
-  final Stop s;
+  final Stop? s;
 
-  const NextStopsPage({@required this.c, Key key, @required this.s}) : super(key: key);
+  const NextStopsPage({required this.c, Key? key, required this.s}) : super(key: key);
 
   @override
   _NextStopsPageState createState() => _NextStopsPageState();
 }
 
 class _NextStopsPageState extends State<NextStopsPage> {
-  Timer timer;
+  late Timer timer;
 
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 10), (_) => setState(() {}));
+    timer = Timer.periodic(const Duration(seconds: 10), (_) {
+      if (mounted) setState(() {});
+    });
   }
 
   @override
@@ -43,7 +45,7 @@ class _NextStopsPageState extends State<NextStopsPage> {
       child: IfWrapper(
         condition: Responsive.isDarwin(context),
         builder: (context, child) => CupertinoPageScaffold(
-          child: child,
+          child: child!,
           navigationBar: cupertinoBar(context),
         ),
         elseBuilder: (context, child) => Scaffold(
@@ -52,27 +54,25 @@ class _NextStopsPageState extends State<NextStopsPage> {
               title: Text(widget.c.terminal.name),
             ),
             body: child),
-        child: widget.c != null
-            ? ListView.builder(
-                itemCount: widget.c.subsequentStops.length + 1,
-                itemBuilder: (context, i) => i == 0
-                    ? StopTile(
-                        stop: SubsequentStop(
-                          widget.s.name,
-                          dep: widget.c.time,
-                          depDelay: widget.c.depDelay,
-                          arrDelay: widget.c.arrDelay,
-                        ),
-                        isFirst: true,
-                        connection: widget.c)
-                    : StopTile(
-                        stop: widget.c.subsequentStops[i - 1],
-                        connection: widget.c,
-                        isFirst: false,
-                        isLast: i - 1 == widget.c.subsequentStops.length - 1,
-                      ),
-              )
-            : const Center(child: CircularProgressIndicator.adaptive()),
+        child: ListView.builder(
+          itemCount: widget.c.subsequentStops.length + 1,
+          itemBuilder: (context, i) => i == 0
+              ? StopTile(
+                  stop: SubsequentStop(
+                    name: widget.s!.name,
+                    dep: widget.c.time,
+                    depDelay: widget.c.depDelay,
+                    arrDelay: widget.c.arrDelay,
+                  ),
+                  isFirst: true,
+                  connection: widget.c)
+              : StopTile(
+                  stop: widget.c.subsequentStops[i - 1],
+                  connection: widget.c,
+                  isFirst: false,
+                  isLast: i - 1 == widget.c.subsequentStops.length - 1,
+                ),
+        ),
       ),
     );
   }
@@ -105,9 +105,9 @@ class StopTile extends StatelessWidget {
   }
 
   const StopTile({
-    Key key,
-    @required this.stop,
-    @required this.connection,
+    Key? key,
+    required this.stop,
+    required this.connection,
     this.isFirst = false,
     this.isLast = false,
   }) : super(key: key);

@@ -28,9 +28,9 @@ class SncfApi extends NavigationApi {
   Locale locale = const Locale('en');
 
   @override
-  Future<List<CffCompletion>> complete(String string,
-      {bool showCoordinates, bool showIds, bool noFavorites, bool filterNull}) async {
-    if (string.isEmpty) return [];
+  Future<List<CffCompletion>> complete(String? string,
+      {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) async {
+    if (string!.isEmpty) return [];
 
     final response = await _client.get(
       '/places',
@@ -52,7 +52,7 @@ class SncfApi extends NavigationApi {
 
   @override
   Future<List<CffCompletion>> findStation(double lat, double lon,
-      {int accuracy, bool showCoordinates, bool showIds}) {
+      {int? accuracy, bool? showCoordinates, bool? showIds}) {
     throw UnimplementedError();
   }
 
@@ -63,20 +63,20 @@ class SncfApi extends NavigationApi {
 
   @override
   Future<CffRoute> route(String departure, String arrival,
-      {DateTime date, TimeOfDay time, TimeType typeTime}) {
+      {DateTime? date, TimeOfDay? time, TimeType? typeTime}) {
     throw UnimplementedError();
   }
 
   @override
   Future<CffStationboard> stationboard(String stopName,
-      {DateTime when,
-      bool arrival,
-      int limit,
-      bool showTracks,
-      bool showSubsequentStops,
-      bool showDelays,
-      bool showTrackchanges,
-      List<TransportationTypes> transportationTypes}) {
+      {DateTime? when,
+      bool? arrival,
+      int? limit,
+      bool? showTracks,
+      bool? showSubsequentStops,
+      bool? showDelays,
+      bool? showTrackchanges,
+      List<TransportationTypes>? transportationTypes}) {
     throw UnimplementedError();
   }
 

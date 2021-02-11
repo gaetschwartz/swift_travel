@@ -12,8 +12,8 @@ import 'package:swift_travel/widgets/line_icon.dart';
 
 class TransportLegTile extends StatefulWidget {
   const TransportLegTile({
-    Key key,
-    @required this.l,
+    Key? key,
+    required this.l,
   }) : super(key: key);
 
   final Leg l;
@@ -82,7 +82,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.l.terminal,
+                            widget.l.terminal!,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -100,7 +100,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                 children: _stops(widget.l, context),
               ),
               collapsed: DefaultTextStyle(
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.subtitle2!,
                 child: Padding(
                   padding: EdgeInsets.zero,
                   child: Builder(builder: (context) {
@@ -126,7 +126,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                   ),
                               ])),
                               const SizedBox(width: 16),
-                              Expanded(child: Text(widget.l.name)),
+                              Expanded(child: Text(widget.l.name!)),
                             ],
                           ),
                         ),
@@ -137,12 +137,12 @@ class _TransportLegTileState extends State<TransportLegTile> {
                               children: [
                                 Text.rich(TextSpan(children: [
                                   TextSpan(
-                                    text: Format.time(widget.l.exit.arrival),
+                                    text: Format.time(widget.l.exit!.arrival),
                                     style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  if (widget.l.exit.arrDelay > 0)
+                                  if (widget.l.exit!.arrDelay > 0)
                                     TextSpan(
-                                      text: Format.delay(widget.l.exit.arrDelay),
+                                      text: Format.delay(widget.l.exit!.arrDelay),
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: _red,
@@ -150,8 +150,8 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                     ),
                                 ])),
                                 const SizedBox(width: 16),
-                                Expanded(child: Text(widget.l.exit.name)),
-                                Text(Format.intToDuration(widget.l.runningTime.round())),
+                                Expanded(child: Text(widget.l.exit!.name)),
+                                Text(Format.intToDuration(widget.l.runningTime!.round())),
                                 const SizedBox(width: 32),
                               ],
                             ),
@@ -172,7 +172,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
     return [
       _buildStop(
         l,
-        Stop(l.name, departure: l.departure),
+        Stop(l.name!, departure: l.departure),
         context,
         bold: true,
         isFirst: true,
@@ -180,7 +180,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
       ...l.stops.map((s) => _buildStop(l, s, context)),
       _buildStop(
         l,
-        Stop(l.exit.name, departure: l.exit.arrival),
+        Stop(l.exit!.name, departure: l.exit!.arrival),
         context,
         bold: true,
         isLast: true,

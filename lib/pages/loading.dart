@@ -30,14 +30,15 @@ const _tutoKey = 'hasAlreadySeenTuto';
 class LoadingPage extends StatefulWidget {
   const LoadingPage({this.uri});
 
-  final Uri uri;
+  final Uri? uri;
 
   @override
   _LoadingPageState createState() => _LoadingPageState();
 }
 
 class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
-  AnimationController _controller;
+  late final _controller =
+      AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
   bool isDarwin = false;
 
   @override
@@ -45,10 +46,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     super.initState();
 
     if (Env.page != 'loading') {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) => init());
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) => init());
     }
-
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
     _controller.forward();
   }
@@ -112,7 +111,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   Future<void> initSettings(SharedPreferences prefs) async {
     if (!kIsWeb) {
       final appDir = await getApplicationDocumentsDirectory();
-      Hive.init(path.join(appDir.path, 'hive_data'));
+      Hive.init(path.join(appDir!.path, 'hive_data'));
     }
     await RouteHistoryRepository.i.open();
 
@@ -163,8 +162,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     log(Env.page);
     if (widget.uri != null) {
       try {
-        final args =
-            await DeepLinkBloc.parseRouteArguments(widget.uri, context.read(navigationAPIProvider));
+        final args = await DeepLinkBloc.parseRouteArguments(
+            widget.uri!, context.read(navigationAPIProvider));
         final nav = Navigator.of(context);
         unawaited(nav.pushReplacementNamed('/'));
         unawaited(nav.pushNamed('/routeDetails', arguments: args));

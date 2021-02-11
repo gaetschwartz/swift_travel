@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
-import 'package:swift_travel/generated/l10n.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/markdown.dart';
 
 class ArrivedTile extends StatelessWidget {
   const ArrivedTile({
-    Key key,
-    @required this.l,
+    Key? key,
+    required this.l,
   }) : super(key: key);
 
   final Leg l;
@@ -34,17 +34,17 @@ class ArrivedTile extends StatelessWidget {
                   const FaIcon(FontAwesomeIcons.mapPin),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(l.name,
+                    child: Text(l.name!,
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText1
+                            .bodyText1!
                             .copyWith(fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
               Text.rich(parseDecoratedText(
-                S.of(context).youll_be_there(Format.time(l.arrival)),
+                AppLoc.of(context).youll_be_there(Format.time(l.arrival)),
                 Theme.of(context).textTheme.subtitle2,
               )),
             ],

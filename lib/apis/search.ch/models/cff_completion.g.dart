@@ -9,18 +9,20 @@ part of 'cff_completion.dart';
 _$_CffCompletion _$_$_CffCompletionFromJson(Map<String, dynamic> json) {
   return _$_CffCompletion(
     label: json['label'] as String,
-    dist: (json['dist'] as num)?.toDouble(),
-    icon: json['iconclass'] as String,
-    html: json['html'] as String,
-    id: json['id'] as String,
-    favoriteName: json['favoriteName'] as String,
+    dist: (json['dist'] as num?)?.toDouble(),
+    icon: json['iconclass'] as String?,
+    html: json['html'] as String?,
+    id: json['id'] as String?,
+    favoriteName: json['favoriteName'] as String?,
     origin: _$enumDecodeNullable(_$DataOriginEnumMap, json['origin']) ??
         DataOrigin.data,
   );
 }
 
 Map<String, dynamic> _$_$_CffCompletionToJson(_$_CffCompletion instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'label': instance.label,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -28,46 +30,50 @@ Map<String, dynamic> _$_$_CffCompletionToJson(_$_CffCompletion instance) {
     }
   }
 
-  writeNotNull('label', instance.label);
   writeNotNull('dist', instance.dist);
   writeNotNull('iconclass', instance.icon);
   writeNotNull('html', instance.html);
   writeNotNull('id', instance.id);
   writeNotNull('favoriteName', instance.favoriteName);
-  writeNotNull('origin', _$DataOriginEnumMap[instance.origin]);
+  val['origin'] = _$DataOriginEnumMap[instance.origin];
   return val;
 }
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
   dynamic source, {
-  T unknownValue,
+  K? unknownValue,
 }) {
   if (source == null) {
     return null;
   }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$DataOriginEnumMap = {

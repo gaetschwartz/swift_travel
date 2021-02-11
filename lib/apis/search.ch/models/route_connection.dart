@@ -11,14 +11,14 @@ part 'route_connection.g.dart';
 abstract class RouteConnection with _$RouteConnection {
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
   const factory RouteConnection({
-    String from,
-    DateTime departure,
-    String to,
-    DateTime arrival,
-    double duration,
+    required String from,
+    required String to,
+    DateTime? departure,
+    DateTime? arrival,
+    double? duration,
     @Default([]) List<Leg> legs,
     @Default({}) Map<String, Disruption> disruptions,
-    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) int depDelay,
+    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) required int depDelay,
   }) = _RouteConnection;
 
   factory RouteConnection.fromJson(Map<String, dynamic> json) => _$RouteConnectionFromJson(json);

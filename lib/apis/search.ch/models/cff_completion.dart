@@ -9,12 +9,12 @@ part 'cff_completion.g.dart';
 abstract class CffCompletion with _$CffCompletion {
   @JsonSerializable(includeIfNull: false)
   const factory CffCompletion({
-    @required String label,
-    double dist,
-    @JsonKey(name: 'iconclass') String icon,
-    String html,
-    String id,
-    String favoriteName,
+    required String label,
+    double? dist,
+    @JsonKey(name: 'iconclass') String? icon,
+    String? html,
+    String? id,
+    String? favoriteName,
     @Default(DataOrigin.data) DataOrigin origin,
   }) = _CffCompletion;
 

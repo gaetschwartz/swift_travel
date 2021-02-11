@@ -1,6 +1,5 @@
 import 'dart:math' show min;
 
-import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
@@ -12,17 +11,19 @@ const _kMaxHistoryCount = 3;
 
 /// Add similar favorites to the completions
 List<CffCompletion> completeWithFavorites({
-  @required Iterable<FavoriteStop> favorites,
-  @required List<CffCompletion> completions,
-  @required String query,
+  required Iterable<FavoriteStop?> favorites,
+  required List<CffCompletion> completions,
+  required String query,
   List<LocalRoute> history = const [],
-  String currentLocationString,
+  String? currentLocationString,
 }) {
-  final levens = <FavoriteStop, double>{};
+  final levens = <FavoriteStop?, double>{};
 
   for (final c in favorites) {
-    if (c.stop == null) continue;
-    final leven = scaledLevenshtein(query, c.name.replaceAll(',', ''));
+    if (c == null) {
+      continue;
+    }
+    final leven = scaledLevenshtein(query, c.name!.replaceAll(',', ''));
     if (leven < _kConfidenceThreshold) {
       levens[c] = leven;
     }
@@ -43,8 +44,8 @@ List<CffCompletion> completeWithFavorites({
           .toSet(),
     ...favs
         .take(min(favs.length, _kMaxFavoritesCount))
-        .map((e) => CffCompletion.fromFavorite(e.key)),
-    ...completions.where((c) => c.label != null),
+        .map((e) => CffCompletion.fromFavorite(e.key!)),
+    ...completions,
   ];
 }
 

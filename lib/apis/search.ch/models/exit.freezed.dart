@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'exit.dart';
 
@@ -16,55 +16,52 @@ Exit _$ExitFromJson(Map<String, dynamic> json) {
 class _$ExitTearOff {
   const _$ExitTearOff();
 
-// ignore: unused_element
   _Exit call(
-      {DateTime arrival,
-      String name,
-      String stopid,
-      @JsonKey(name: 'waittime', defaultValue: 0)
-          int waitTime,
-      bool isaddress,
-      String sbbName,
-      double lat,
-      double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay}) {
+      {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
+          required int arrDelay,
+      required String name,
+      DateTime? arrival,
+      String? stopid,
+      @JsonKey(name: 'waittime')
+          int? waitTime,
+      bool? isaddress,
+      String? sbbName,
+      double? lat,
+      double? lon}) {
     return _Exit(
-      arrival: arrival,
+      arrDelay: arrDelay,
       name: name,
+      arrival: arrival,
       stopid: stopid,
       waitTime: waitTime,
       isaddress: isaddress,
       sbbName: sbbName,
       lat: lat,
       lon: lon,
-      arrDelay: arrDelay,
     );
   }
 
-// ignore: unused_element
   Exit fromJson(Map<String, Object> json) {
     return Exit.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Exit = _$ExitTearOff();
 
 /// @nodoc
 mixin _$Exit {
-  DateTime get arrival;
-  String get name;
-  String get stopid;
-  @JsonKey(name: 'waittime', defaultValue: 0)
-  int get waitTime;
-  bool get isaddress;
-  String get sbbName;
-  double get lat;
-  double get lon;
   @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get arrDelay;
+  String get name;
+  DateTime? get arrival;
+  String? get stopid;
+  @JsonKey(name: 'waittime')
+  int? get waitTime;
+  bool? get isaddress;
+  String? get sbbName;
+  double? get lat;
+  double? get lon;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -76,17 +73,17 @@ abstract class $ExitCopyWith<$Res> {
   factory $ExitCopyWith(Exit value, $Res Function(Exit) then) =
       _$ExitCopyWithImpl<$Res>;
   $Res call(
-      {DateTime arrival,
+      {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
+          int arrDelay,
       String name,
-      String stopid,
-      @JsonKey(name: 'waittime', defaultValue: 0)
-          int waitTime,
-      bool isaddress,
-      String sbbName,
-      double lat,
-      double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay});
+      DateTime? arrival,
+      String? stopid,
+      @JsonKey(name: 'waittime')
+          int? waitTime,
+      bool? isaddress,
+      String? sbbName,
+      double? lat,
+      double? lon});
 }
 
 /// @nodoc
@@ -99,26 +96,26 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
 
   @override
   $Res call({
-    Object arrival = freezed,
-    Object name = freezed,
-    Object stopid = freezed,
-    Object waitTime = freezed,
-    Object isaddress = freezed,
-    Object sbbName = freezed,
-    Object lat = freezed,
-    Object lon = freezed,
-    Object arrDelay = freezed,
+    Object? arrDelay = freezed,
+    Object? name = freezed,
+    Object? arrival = freezed,
+    Object? stopid = freezed,
+    Object? waitTime = freezed,
+    Object? isaddress = freezed,
+    Object? sbbName = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
   }) {
     return _then(_value.copyWith(
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
-      name: name == freezed ? _value.name : name as String,
-      stopid: stopid == freezed ? _value.stopid : stopid as String,
-      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
-      sbbName: sbbName == freezed ? _value.sbbName : sbbName as String,
-      lat: lat == freezed ? _value.lat : lat as double,
-      lon: lon == freezed ? _value.lon : lon as double,
       arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
+      name: name == freezed ? _value.name : name as String,
+      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
+      stopid: stopid == freezed ? _value.stopid : stopid as String?,
+      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int?,
+      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool?,
+      sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
+      lat: lat == freezed ? _value.lat : lat as double?,
+      lon: lon == freezed ? _value.lon : lon as double?,
     ));
   }
 }
@@ -129,17 +126,17 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
       __$ExitCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime arrival,
+      {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
+          int arrDelay,
       String name,
-      String stopid,
-      @JsonKey(name: 'waittime', defaultValue: 0)
-          int waitTime,
-      bool isaddress,
-      String sbbName,
-      double lat,
-      double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay});
+      DateTime? arrival,
+      String? stopid,
+      @JsonKey(name: 'waittime')
+          int? waitTime,
+      bool? isaddress,
+      String? sbbName,
+      double? lat,
+      double? lon});
 }
 
 /// @nodoc
@@ -153,26 +150,26 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object arrival = freezed,
-    Object name = freezed,
-    Object stopid = freezed,
-    Object waitTime = freezed,
-    Object isaddress = freezed,
-    Object sbbName = freezed,
-    Object lat = freezed,
-    Object lon = freezed,
-    Object arrDelay = freezed,
+    Object? arrDelay = freezed,
+    Object? name = freezed,
+    Object? arrival = freezed,
+    Object? stopid = freezed,
+    Object? waitTime = freezed,
+    Object? isaddress = freezed,
+    Object? sbbName = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
   }) {
     return _then(_Exit(
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime,
-      name: name == freezed ? _value.name : name as String,
-      stopid: stopid == freezed ? _value.stopid : stopid as String,
-      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
-      sbbName: sbbName == freezed ? _value.sbbName : sbbName as String,
-      lat: lat == freezed ? _value.lat : lat as double,
-      lon: lon == freezed ? _value.lon : lon as double,
       arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
+      name: name == freezed ? _value.name : name as String,
+      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
+      stopid: stopid == freezed ? _value.stopid : stopid as String?,
+      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int?,
+      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool?,
+      sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
+      lat: lat == freezed ? _value.lat : lat as double?,
+      lon: lon == freezed ? _value.lon : lon as double?,
     ));
   }
 }
@@ -182,56 +179,59 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
 /// @nodoc
 class _$_Exit implements _Exit {
   const _$_Exit(
-      {this.arrival,
-      this.name,
+      {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
+          required this.arrDelay,
+      required this.name,
+      this.arrival,
       this.stopid,
-      @JsonKey(name: 'waittime', defaultValue: 0)
+      @JsonKey(name: 'waittime')
           this.waitTime,
       this.isaddress,
       this.sbbName,
       this.lat,
-      this.lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.arrDelay});
+      this.lon});
 
   factory _$_Exit.fromJson(Map<String, dynamic> json) =>
       _$_$_ExitFromJson(json);
 
   @override
-  final DateTime arrival;
+  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
+  final int arrDelay;
   @override
   final String name;
   @override
-  final String stopid;
+  final DateTime? arrival;
   @override
-  @JsonKey(name: 'waittime', defaultValue: 0)
-  final int waitTime;
+  final String? stopid;
   @override
-  final bool isaddress;
+  @JsonKey(name: 'waittime')
+  final int? waitTime;
   @override
-  final String sbbName;
+  final bool? isaddress;
   @override
-  final double lat;
+  final String? sbbName;
   @override
-  final double lon;
+  final double? lat;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  final int arrDelay;
+  final double? lon;
 
   @override
   String toString() {
-    return 'Exit(arrival: $arrival, name: $name, stopid: $stopid, waitTime: $waitTime, isaddress: $isaddress, sbbName: $sbbName, lat: $lat, lon: $lon, arrDelay: $arrDelay)';
+    return 'Exit(arrDelay: $arrDelay, name: $name, arrival: $arrival, stopid: $stopid, waitTime: $waitTime, isaddress: $isaddress, sbbName: $sbbName, lat: $lat, lon: $lon)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Exit &&
+            (identical(other.arrDelay, arrDelay) ||
+                const DeepCollectionEquality()
+                    .equals(other.arrDelay, arrDelay)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.arrival, arrival) ||
                 const DeepCollectionEquality()
                     .equals(other.arrival, arrival)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.stopid, stopid) ||
                 const DeepCollectionEquality().equals(other.stopid, stopid)) &&
             (identical(other.waitTime, waitTime) ||
@@ -246,24 +246,21 @@ class _$_Exit implements _Exit {
             (identical(other.lat, lat) ||
                 const DeepCollectionEquality().equals(other.lat, lat)) &&
             (identical(other.lon, lon) ||
-                const DeepCollectionEquality().equals(other.lon, lon)) &&
-            (identical(other.arrDelay, arrDelay) ||
-                const DeepCollectionEquality()
-                    .equals(other.arrDelay, arrDelay)));
+                const DeepCollectionEquality().equals(other.lon, lon)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(arrival) ^
+      const DeepCollectionEquality().hash(arrDelay) ^
       const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(arrival) ^
       const DeepCollectionEquality().hash(stopid) ^
       const DeepCollectionEquality().hash(waitTime) ^
       const DeepCollectionEquality().hash(isaddress) ^
       const DeepCollectionEquality().hash(sbbName) ^
       const DeepCollectionEquality().hash(lat) ^
-      const DeepCollectionEquality().hash(lon) ^
-      const DeepCollectionEquality().hash(arrDelay);
+      const DeepCollectionEquality().hash(lon);
 
   @JsonKey(ignore: true)
   @override
@@ -278,40 +275,40 @@ class _$_Exit implements _Exit {
 
 abstract class _Exit implements Exit {
   const factory _Exit(
-      {DateTime arrival,
-      String name,
-      String stopid,
-      @JsonKey(name: 'waittime', defaultValue: 0)
-          int waitTime,
-      bool isaddress,
-      String sbbName,
-      double lat,
-      double lon,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay}) = _$_Exit;
+      {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
+          required int arrDelay,
+      required String name,
+      DateTime? arrival,
+      String? stopid,
+      @JsonKey(name: 'waittime')
+          int? waitTime,
+      bool? isaddress,
+      String? sbbName,
+      double? lat,
+      double? lon}) = _$_Exit;
 
   factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
 
   @override
-  DateTime get arrival;
+  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
+  int get arrDelay;
   @override
   String get name;
   @override
-  String get stopid;
+  DateTime? get arrival;
   @override
-  @JsonKey(name: 'waittime', defaultValue: 0)
-  int get waitTime;
+  String? get stopid;
   @override
-  bool get isaddress;
+  @JsonKey(name: 'waittime')
+  int? get waitTime;
   @override
-  String get sbbName;
+  bool? get isaddress;
   @override
-  double get lat;
+  String? get sbbName;
   @override
-  double get lon;
+  double? get lat;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay;
+  double? get lon;
   @override
   @JsonKey(ignore: true)
   _$ExitCopyWith<_Exit> get copyWith;

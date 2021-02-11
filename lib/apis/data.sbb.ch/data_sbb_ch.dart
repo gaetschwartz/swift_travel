@@ -43,23 +43,23 @@ class SbbDataRepository {
         options: Options(responseType: ResponseType.plain));
     final decoded = (useCompute
         ? await compute(jsonDecode, response.data.toString())
-        : jsonDecode(response.data)) as Map<String, dynamic>;
+        : jsonDecode(response.data)) as Map<String, dynamic>?;
     if (response.statusCode == 200) {
-      return GeoResponse.fromJson(decoded);
+      return GeoResponse.fromJson(decoded!);
     } else {
       return GeoResponse.empty();
     }
   }
 
-  Future<LatLong> getPosition(String name) async {
+  Future<LatLong?> getPosition(String name) async {
     final split = name.split(',');
     for (var i = split.length; i >= 0; i--) {
       final n = split.sublist(i).join();
       final pos = await _getGeo(n);
-      if (pos.results.isNotEmpty) return LatLong.fromGeoAttr(pos.results.first.attrs);
+      if (pos.results.isNotEmpty) return LatLong.fromGeoAttr(pos.results.first.attrs!);
       final pos2 = await _getSbb(n);
-      if (pos2.records.isNotEmpty) {
-        return LatLong.fromCoordinates(pos2.records.first.geometry.coordinates);
+      if (pos2.records!.isNotEmpty) {
+        return LatLong.fromCoordinates(pos2.records!.first.geometry!.coordinates!);
       }
     }
     return null;

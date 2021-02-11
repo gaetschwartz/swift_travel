@@ -4,14 +4,14 @@ import 'package:swift_travel/utils/format.dart';
 
 class LineIcon extends StatelessWidget {
   const LineIcon({
-    Key key,
-    @required this.foreground,
-    @required this.background,
-    @required this.line,
+    Key? key,
+    required this.foreground,
+    required this.background,
+    required this.line,
     this.small = false,
   }) : super(key: key);
 
-  LineIcon.fromString({@required this.line, @required String colors, this.small = false})
+  LineIcon.fromString({required this.line, required String colors, this.small = false})
       : background = _computeBackground(colors),
         foreground = _computeForeground(colors);
 
@@ -24,9 +24,9 @@ class LineIcon extends StatelessWidget {
         foreground = _computeForeground(l.colors),
         line = l.line;
 
-  final String foreground;
-  final String background;
-  final String line;
+  final String? foreground;
+  final String? background;
+  final String? line;
   final bool small;
 
   @override
