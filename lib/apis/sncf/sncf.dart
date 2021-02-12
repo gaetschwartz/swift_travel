@@ -69,12 +69,6 @@ class SncfApi extends NavigationApi {
   }
 
   @override
-  Future<CffRoute> route(String departure, String arrival,
-      {DateTime? date, TimeOfDay? time, TimeType? typeTime}) {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<CffStationboard> stationboard(String stopName,
       {DateTime? when,
       bool? arrival,
@@ -91,4 +85,15 @@ class SncfApi extends NavigationApi {
   void dispose() {
     _client.close();
   }
+
+  @override
+  Future<CffRoute> route(
+    String departure,
+    String arrival, {
+    required DateTime date,
+    required TimeOfDay time,
+    TimeType? typeTime,
+    bool showDelays = true,
+  }) =>
+      throw UnimplementedError();
 }

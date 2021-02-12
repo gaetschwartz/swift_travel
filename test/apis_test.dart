@@ -17,7 +17,10 @@ class MockNavigationApi extends NavigationApi {
   @override
   Future<List<CffCompletion>> complete(String? string,
       {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) {
-    throw UnimplementedError();
+    return Future.value([
+      const CffCompletion(label: 'Genève'),
+      const CffCompletion(label: 'Genève Cornavin'),
+    ]);
   }
 
   @override
@@ -35,11 +38,6 @@ class MockNavigationApi extends NavigationApi {
   Future<CffRoute> rawRoute(String query) => Future.value(CffRoute.fromJson(mockRoute!));
 
   @override
-  Future<CffRoute> route(String departure, String arrival,
-          {DateTime? date, TimeOfDay? time, TimeType? typeTime}) =>
-      Future.value(CffRoute.fromJson(mockRoute!));
-
-  @override
   Future<CffStationboard> stationboard(String stopName,
           {DateTime? when,
           bool? arrival,
@@ -50,6 +48,14 @@ class MockNavigationApi extends NavigationApi {
           bool? showTrackchanges,
           List<TransportationTypes>? transportationTypes}) =>
       Future.value(CffStationboard.fromJson(mockStationboard!));
+
+  @override
+  Future<CffRoute> route(String departure, String arrival,
+          {required DateTime date,
+          required TimeOfDay time,
+          TimeType? typeTime,
+          bool? showDelays}) =>
+      Future.value(CffRoute.fromJson(mockRoute!));
 }
 
 void main() {

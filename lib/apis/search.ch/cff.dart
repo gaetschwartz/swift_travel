@@ -69,14 +69,14 @@ class CffApi extends NavigationApi {
     double lat,
     double lon, {
     int? accuracy = 10,
-    bool? showCoordinates = true,
-    bool? showIds = false,
+    bool showCoordinates = true,
+    bool showIds = false,
   }) async {
     final uri = queryBuilder('completion', {
       'latlon': '$lat,$lon',
       'accuracy': accuracy,
-      'show_ids': showIds!.toInt(),
-      'show_coordinates': showCoordinates!.toInt()
+      'show_ids': showIds.toInt(),
+      'show_coordinates': showCoordinates.toInt()
     });
     log(uri);
     final response = await _client.get(uri, headers: headers);
@@ -94,23 +94,23 @@ class CffApi extends NavigationApi {
   @override
   Future<CffStationboard> stationboard(String stopName,
       {DateTime? when,
-      bool? arrival = false,
+      bool arrival = false,
       int? limit = 32,
-      bool? showTracks = false,
-      bool? showSubsequentStops = true,
-      bool? showDelays = true,
-      bool? showTrackchanges = false,
-      List<TransportationTypes>? transportationTypes = const []}) async {
+      bool showTracks = false,
+      bool showSubsequentStops = true,
+      bool showDelays = true,
+      bool showTrackchanges = false,
+      List<TransportationTypes> transportationTypes = const []}) async {
     final params = {
       'stop': stopName,
       'limit': limit,
-      'show_tracks': showTracks!.toInt(),
-      'show_subsequent_stops': showSubsequentStops!.toInt(),
-      'show_delays': showDelays!.toInt(),
-      'show_trackchanges': showTrackchanges!.toInt(),
-      'mode': arrival! ? 'arrival' : 'depart'
+      'show_tracks': showTracks.toInt(),
+      'show_subsequent_stops': showSubsequentStops.toInt(),
+      'show_delays': showDelays.toInt(),
+      'show_trackchanges': showTrackchanges.toInt(),
+      'mode': arrival ? 'arrival' : 'depart'
     };
-    if (transportationTypes!.isNotEmpty) {
+    if (transportationTypes.isNotEmpty) {
       params['transportation_types'] = transportationTypes.join(',');
     }
     final String? s = queryBuilder('stationboard', params);
@@ -130,7 +130,7 @@ class CffApi extends NavigationApi {
     String arrival, {
     required DateTime date,
     required TimeOfDay time,
-    TimeType? typeTime = TimeType.depart,
+    TimeType typeTime = TimeType.depart,
     bool showDelays = true,
   }) async {
     final params = {
@@ -138,7 +138,7 @@ class CffApi extends NavigationApi {
       'to': arrival,
       'date': '${date.month}/${date.day}/${date.year}',
       'time': '${time.hour}:${time.minute}',
-      'time_type': describeEnum(typeTime!),
+      'time_type': describeEnum(typeTime),
       'show_trackchanges': 1,
       'show_delays': showDelays.toInt(),
     };

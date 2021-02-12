@@ -69,8 +69,7 @@ class CombinedPageController extends ChangeNotifier {
   }
 }
 
-final AutoDisposeChangeNotifierProvider<CombinedPageController> tabProvider =
-    ChangeNotifierProvider.autoDispose<CombinedPageController>((ref) {
+final tabProvider = ChangeNotifierProvider.autoDispose<CombinedPageController>((ref) {
   final combinedPageController = CombinedPageController();
   ref.onDispose(() => combinedPageController.dispose());
   ref.maintainState = true;

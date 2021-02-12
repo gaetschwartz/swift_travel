@@ -52,21 +52,21 @@ abstract class NavigationApi {
   Future<List<CffCompletion>> findStation(
     double lat,
     double lon, {
-    int? accuracy,
-    bool? showCoordinates,
-    bool? showIds,
+    int accuracy,
+    bool showCoordinates,
+    bool showIds,
   });
 
   Future<CffStationboard> stationboard(
     String stopName, {
-    DateTime? when,
-    bool? arrival,
-    int? limit,
-    bool? showTracks,
-    bool? showSubsequentStops,
-    bool? showDelays,
-    bool? showTrackchanges,
-    List<TransportationTypes>? transportationTypes,
+    DateTime when,
+    bool arrival,
+    int limit,
+    bool showTracks,
+    bool showSubsequentStops,
+    bool showDelays,
+    bool showTrackchanges,
+    List<TransportationTypes> transportationTypes,
   });
 
   Future<CffRoute> route(
@@ -74,7 +74,8 @@ abstract class NavigationApi {
     String arrival, {
     required DateTime date,
     required TimeOfDay time,
-    TimeType? typeTime,
+    TimeType typeTime,
+    bool showDelays,
   });
 
   void dispose();

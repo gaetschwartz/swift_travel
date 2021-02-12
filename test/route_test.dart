@@ -86,7 +86,6 @@ Future<void> _testRouteTab() async {
 
       expect(tile, findsOneWidget);
       expect(text, findsOneWidget);
-      print('test done');
 
       await t.idle();
 

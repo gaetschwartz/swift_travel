@@ -45,10 +45,10 @@ class SbbDataRepository {
     );
     final decoded = (useCompute
         ? await compute(jsonDecode, response.body)
-        : jsonDecode(response.body)) as Map<String, dynamic>?;
+        : jsonDecode(response.body)) as Map<String, dynamic>;
 
     if (response.statusCode == 200) {
-      return GeoResponse.fromJson(decoded!);
+      return GeoResponse.fromJson(decoded);
     } else {
       return GeoResponse.empty();
     }
