@@ -63,10 +63,7 @@ class RouteTile extends StatelessWidget {
             isThreeLine: true,
             title: Row(
               children: [
-                if (leg.line == null)
-                  CffIcon(leg.type)
-                else
-                  LineIcon(foreground: leg.fgcolor, background: leg.bgcolor, line: leg.line),
+                if (LineIcon.isValidLeg(leg)) LineIcon.fromLeg(leg) else CffIcon(leg.type),
                 const SizedBox(width: 8),
                 Expanded(child: Text(leg.exit!.name)),
               ],

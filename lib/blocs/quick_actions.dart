@@ -19,9 +19,8 @@ class MyQuickActions {
   final quickActions = QuickActions();
 
   MyQuickActions._();
-  static MyQuickActions? _instance;
-  // ignore: prefer_constructors_over_static_methods
-  static MyQuickActions get instance => _instance ?? (_instance = MyQuickActions._());
+
+  static late final i = MyQuickActions._();
 
   bool _debugInitialized = false;
 

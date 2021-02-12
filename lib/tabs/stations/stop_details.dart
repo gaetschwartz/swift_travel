@@ -73,6 +73,14 @@ class _StopDetailsState extends State<StopDetails> {
           appBar: AppBar(
             title: Text(widget.stopName),
             elevation: _elevate ? 8 : 0,
+            actions: [
+              IconButton(
+                  icon: const Icon(Icons.double_arrow_rounded),
+                  onPressed: () {
+                    Nav.push(
+                        context, (context) => RoutePage.stop(FavoriteStop(stop: widget.stopName)));
+                  })
+            ],
           ),
           body: buildAndroidList(),
         ),
@@ -170,7 +178,6 @@ class ConnectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final diff = c.time.difference(DateTime.now());
-    final i = c.color.indexOf('~');
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -181,8 +188,10 @@ class ConnectionTile extends StatelessWidget {
       )),
       title: Row(
         children: [
-          if (i != -1) LineIcon.fromString(line: c.line, colors: c.color),
-          const SizedBox(width: 8),
+          if (c.color.contains('~')) ...[
+            LineIcon.fromString(line: c.line!, colors: c.color),
+            const SizedBox(width: 8),
+          ],
           Expanded(
             child: Align(
               alignment: Alignment.centerLeft,

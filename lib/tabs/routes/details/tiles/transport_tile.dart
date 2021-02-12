@@ -69,14 +69,10 @@ class _TransportLegTileState extends State<TransportLegTile> {
                 children: [
                   Row(
                     children: <Widget>[
-                      if (widget.l.line != null) ...[
-                        LineIcon(
-                            foreground: widget.l.fgcolor,
-                            background: widget.l.bgcolor,
-                            line: widget.l.line),
-                      ] else ...[
+                      if (LineIcon.isValidLeg(widget.l))
+                        LineIcon.fromLeg(widget.l)
+                      else
                         CffIcon(widget.l.type),
-                      ],
                       const SizedBox(width: 8),
                       Expanded(
                         child: Align(

@@ -11,11 +11,7 @@ const mockStationboard = kDebugMode ? _$mockStationboardJsonLiteral : null;
 
 extension CustomizableDateTime on DateTime {
   static DateTime? _customTime;
-  static DateTime get current {
-    return _customTime ?? DateTime.now();
-  }
 
-  static set customTime(DateTime customTime) {
-    _customTime = customTime;
-  }
+  static DateTime get current => _customTime ?? DateTime.now();
+  static set current(DateTime customTime) => _customTime = customTime;
 }

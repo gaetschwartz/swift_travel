@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
@@ -97,12 +98,12 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
     try {
       await Geolocator.requestPermission();
-    } catch (_) {}
+    } on MissingPluginException catch (_) {}
 
     unawaited(route());
 
     if (isMobile) {
-      MyQuickActions.instance.init();
+      MyQuickActions.i.init();
       context.read(linksProvider).init(context.read(navigationAPIProvider));
     }
   }

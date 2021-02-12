@@ -12,13 +12,39 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   group('widgets >', () {
     group('lineIcon >', () {
-      testWidgets('.constructor()', (t) async {
-        const lineIcon = LineIcon(foreground: 'ffffff', background: '72c1f0', line: '5');
-        await _testLineIcon(t, lineIcon);
+      const lineIcon =
+          LineIcon.raw(foreground: Color(0xffffffff), background: Color(0xff72c1f0), line: '5');
+      final lineIcon2 = LineIcon.fromLine(const Line('5', '72c1f0~ffffff~'));
+
+      Future<void> testLineIcon(WidgetTester t, LineIcon lineIcon) async {
+        await t.pumpWidget(MaterialApp(home: Center(child: lineIcon)));
+
+        final text = find.text(lineIcon.line!);
+        final textWidget = t.firstWidget(text) as Text;
+        expect(text, findsOneWidget);
+        expect(textWidget.style!.color, isSameColorAs(lineIcon.foreground));
+
+        final dBox = find.byType(DecoratedBox);
+        final dBoxWidget = t.firstWidget(dBox) as DecoratedBox;
+        final decoration = dBoxWidget.decoration as BoxDecoration;
+        expect(decoration.color, isSameColorAs(lineIcon.background));
+        expect(
+          decoration.boxShadow,
+          anyElement(
+            predicate<BoxShadow>(
+              (s) => (s.color.value ^ lineIcon.background.value) & 0xffffff == 0x000000,
+            ),
+          ),
+        );
+      }
+
+      test('constructs correctly', () {
+        expect(lineIcon.background, lineIcon2.background);
+        expect(lineIcon.foreground, lineIcon2.foreground);
+        expect(lineIcon.line, lineIcon2.line);
       });
-      testWidgets('.fromLine()', (t) async {
-        final lineIcon = LineIcon.fromLine(const Line('5', '72c1f0~ffffff~'));
-        await _testLineIcon(t, lineIcon);
+      testWidgets('test widget', (t) async {
+        await testLineIcon(t, lineIcon);
       });
     });
 
@@ -80,18 +106,4 @@ void main() {
       });
     });
   });
-}
-
-Future<void> _testLineIcon(WidgetTester t, LineIcon lineIcon) async {
-  await t.pumpWidget(MaterialApp(
-    home: Center(child: lineIcon),
-  ));
-  final text = find.text('5');
-  final textWidget = t.firstWidget(text) as Text;
-  expect(text, findsOneWidget);
-  expect(textWidget.style!.color, isSameColorAs(Colors.white));
-
-  final dBox = find.byType(DecoratedBox);
-  final dBoxWidget = t.firstWidget(dBox) as DecoratedBox;
-  expect((dBoxWidget.decoration as BoxDecoration).color, isSameColorAs(const Color(0xff72c1f0)));
 }

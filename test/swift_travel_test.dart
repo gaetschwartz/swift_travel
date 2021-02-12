@@ -36,17 +36,20 @@ void main() {
   final dir = path.join(testResultFolder, 'route_history');
 
   group('route history >', () {
+    late RouteHistoryRepository hist;
     setUpAll(() async {
       Hive.init(dir);
     });
 
+    setUp(() {
+      hist = RouteHistoryRepository();
+    });
+
     tearDown(() async {
-      await Hive.close();
       await Hive.deleteBoxFromDisk(RouteHistoryRepository.boxKey);
     });
-    test('add route', () async {
-      final hist = RouteHistoryRepository.newInstance();
 
+    test('add route', () async {
       await hist.open();
 
       await hist.clear();
@@ -64,10 +67,10 @@ void main() {
       expect(hist.first, route1);
       expect(hist.last, route3);
 
-      await hist.box!.deleteAt(0);
+      await hist.box.deleteAt(0);
       expect(hist.routes, [route2, route3]);
 
-      await hist.box!.deleteAt(hist.size - 1);
+      await hist.box.deleteAt(hist.size - 1);
       expect(hist.routes, [route2]);
 
       await hist.clear();
@@ -75,31 +78,28 @@ void main() {
 
       expect(hist.watch(), emitsDone);
 
-      await hist.box!.close();
+      await hist.box.close();
     });
 
     test(
       'instance is a singleton',
-      () {
-        expect(RouteHistoryRepository.i, RouteHistoryRepository.i);
-      },
+      () => expect(RouteHistoryRepository.i, RouteHistoryRepository.i),
     );
 
-    test('throws when not accessed properly', () async {
-      final hist = RouteHistoryRepository.newInstance();
+    test(
+      'singleton != new instance',
+      () => expect(RouteHistoryRepository.i, isNot(hist)),
+    );
 
+    test('throws when not accessed properly', () {
       expect(() async => await hist.add(route1), throwsAssertionError);
     });
     test('safe add works', () async {
-      final hist = RouteHistoryRepository.newInstance();
-
       await hist.safeAdd(route1);
       expect(hist.routes, [route1]);
     });
 
     test('completion', () async {
-      final hist = RouteHistoryRepository.newInstance();
-
       await hist.open();
 
       final c = completeWithFavorites(
@@ -125,8 +125,8 @@ void main() {
   });
 
   group('models >', () {
-    setUpAll(() {
-      CustomizableDateTime.customTime = DateTime(2021);
+    setUp(() {
+      CustomizableDateTime.current = DateTime(2021);
     });
     test('localRoute', () {
       final route1 =

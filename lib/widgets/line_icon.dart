@@ -1,44 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:swift_travel/utils/format.dart';
 
 class LineIcon extends StatelessWidget {
-  const LineIcon({
-    Key? key,
+  static const defaultForeground = Color(0xfff0f0f0);
+  static const defaultBackground = Color(0xff000000);
+
+  static bool isValidLeg(Leg l) => l.line != null && l.fgcolor != null && l.bgcolor != null;
+
+  factory LineIcon({
+    required String? line,
+    required String background,
+    required String foreground,
+    bool small = false,
+  }) =>
+      LineIcon.raw(
+        line: line,
+        foreground: parseColor(foreground, defaultForeground),
+        background: parseColor(background, defaultBackground),
+        small: small,
+      );
+
+  const LineIcon.raw({
+    required this.line,
     required this.foreground,
     required this.background,
-    required this.line,
     this.small = false,
-  }) : super(key: key);
+  });
 
-  LineIcon.fromString({required this.line, required String colors, this.small = false})
-      : background = _computeBackground(colors),
-        foreground = _computeForeground(colors);
+  factory LineIcon.fromString({required String? line, required String colors, bool small = false}) {
+    final i = colors.indexOf('~');
+    final bg = colors.substring(0, i);
+    final fg = colors.substring(i + 1, colors.lastIndexOf('~'));
+    return LineIcon(
+      line: line,
+      foreground: fg,
+      background: bg,
+      small: small,
+    );
+  }
 
-  static String _computeBackground(String colors) => colors.substring(0, colors.indexOf('~'));
-  static String _computeForeground(String colors) =>
-      colors.substring(colors.indexOf('~') + 1, colors.lastIndexOf('~'));
+  factory LineIcon.fromLine(Line l, {bool small = false}) => LineIcon.fromString(
+        line: l.line,
+        colors: l.colors,
+        small: small,
+      );
 
-  LineIcon.fromLine(Line l, {this.small = false})
-      : background = _computeBackground(l.colors),
-        foreground = _computeForeground(l.colors),
-        line = l.line;
+  factory LineIcon.fromLeg(Leg l, {bool small = false}) => LineIcon(
+        line: l.line,
+        background: ArgumentError.checkNotNull(l.bgcolor, 'leg.bgcolor'),
+        foreground: ArgumentError.checkNotNull(l.fgcolor, 'leg.fgcolor'),
+      );
 
-  final String? foreground;
-  final String? background;
+  final Color foreground;
+  final Color background;
   final String? line;
   final bool small;
 
   @override
   Widget build(BuildContext context) {
-    final color = parseColor(background, const Color(0xff000000));
     return DecoratedBox(
-        decoration: BoxDecoration(boxShadow: [
-          if (small)
-            BoxShadow(color: color.withOpacity(0.4), blurRadius: 2)
-          else
-            BoxShadow(color: color.withOpacity(0.4), blurRadius: 8)
-        ], borderRadius: BorderRadius.circular(32), color: color),
+        decoration: BoxDecoration(
+          boxShadow: [BoxShadow(color: background.withOpacity(0.4), blurRadius: small ? 2 : 8)],
+          borderRadius: BorderRadius.circular(32),
+          color: background,
+        ),
         child: Padding(
           padding: small
               ? const EdgeInsets.symmetric(vertical: 2, horizontal: 5)
@@ -46,7 +73,7 @@ class LineIcon extends StatelessWidget {
           child: Text(
             line ?? '',
             style: TextStyle(
-              color: parseColor(foreground, const Color(0xfff0f0f0)),
+              color: foreground,
               fontWeight: FontWeight.bold,
               fontSize: 12,
             ),
