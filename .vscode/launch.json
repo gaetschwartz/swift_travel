@@ -8,18 +8,14 @@
       "name": "Launch",
       "request": "launch",
       "type": "dart",
-      "args": [
-        "--no-sound-null-safety",
-      ]
+      "args": []
     },
     {
       "name": "Integration Tests: Launch Driver",
       "request": "launch",
       "type": "dart",
       "program": "integration_test/app_test.dart",
-      "args": [
-        "--no-sound-null-safety",
-      ]
+      "args": []
     },
     {
       "name": "Dart: Run all Tests",
@@ -28,7 +24,6 @@
       "program": "./test/",
       "args": [
         "--coverage",
-        "--no-sound-null-safety",
       ]
     },
     {
