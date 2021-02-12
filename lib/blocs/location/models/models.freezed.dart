@@ -8,15 +8,15 @@ part of 'models.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-Position _$PositionFromJson(Map<String, dynamic> json) {
-  return _Position.fromJson(json);
+Location _$LocationFromJson(Map<String, dynamic> json) {
+  return _Location.fromJson(json);
 }
 
 /// @nodoc
-class _$PositionTearOff {
-  const _$PositionTearOff();
+class _$LocationTearOff {
+  const _$LocationTearOff();
 
-  _Position call(
+  _Location call(
       {required double latitude,
       required double longitude,
       double? accuracy,
@@ -25,7 +25,7 @@ class _$PositionTearOff {
       double? speed,
       double? speedAccuracy,
       DateTime? timestamp}) {
-    return _Position(
+    return _Location(
       latitude: latitude,
       longitude: longitude,
       accuracy: accuracy,
@@ -37,16 +37,16 @@ class _$PositionTearOff {
     );
   }
 
-  Position fromJson(Map<String, Object> json) {
-    return Position.fromJson(json);
+  Location fromJson(Map<String, Object> json) {
+    return Location.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Position = _$PositionTearOff();
+const $Location = _$LocationTearOff();
 
 /// @nodoc
-mixin _$Position {
+mixin _$Location {
   double get latitude;
   double get longitude;
   double? get accuracy;
@@ -58,13 +58,13 @@ mixin _$Position {
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $PositionCopyWith<Position> get copyWith;
+  $LocationCopyWith<Location> get copyWith;
 }
 
 /// @nodoc
-abstract class $PositionCopyWith<$Res> {
-  factory $PositionCopyWith(Position value, $Res Function(Position) then) =
-      _$PositionCopyWithImpl<$Res>;
+abstract class $LocationCopyWith<$Res> {
+  factory $LocationCopyWith(Location value, $Res Function(Location) then) =
+      _$LocationCopyWithImpl<$Res>;
   $Res call(
       {double latitude,
       double longitude,
@@ -77,12 +77,12 @@ abstract class $PositionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PositionCopyWithImpl<$Res> implements $PositionCopyWith<$Res> {
-  _$PositionCopyWithImpl(this._value, this._then);
+class _$LocationCopyWithImpl<$Res> implements $LocationCopyWith<$Res> {
+  _$LocationCopyWithImpl(this._value, this._then);
 
-  final Position _value;
+  final Location _value;
   // ignore: unused_field
-  final $Res Function(Position) _then;
+  final $Res Function(Location) _then;
 
   @override
   $Res call({
@@ -112,9 +112,9 @@ class _$PositionCopyWithImpl<$Res> implements $PositionCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$PositionCopyWith<$Res> implements $PositionCopyWith<$Res> {
-  factory _$PositionCopyWith(_Position value, $Res Function(_Position) then) =
-      __$PositionCopyWithImpl<$Res>;
+abstract class _$LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
+  factory _$LocationCopyWith(_Location value, $Res Function(_Location) then) =
+      __$LocationCopyWithImpl<$Res>;
   @override
   $Res call(
       {double latitude,
@@ -128,13 +128,13 @@ abstract class _$PositionCopyWith<$Res> implements $PositionCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$PositionCopyWithImpl<$Res> extends _$PositionCopyWithImpl<$Res>
-    implements _$PositionCopyWith<$Res> {
-  __$PositionCopyWithImpl(_Position _value, $Res Function(_Position) _then)
-      : super(_value, (v) => _then(v as _Position));
+class __$LocationCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res>
+    implements _$LocationCopyWith<$Res> {
+  __$LocationCopyWithImpl(_Location _value, $Res Function(_Location) _then)
+      : super(_value, (v) => _then(v as _Location));
 
   @override
-  _Position get _value => super._value as _Position;
+  _Location get _value => super._value as _Location;
 
   @override
   $Res call({
@@ -147,7 +147,7 @@ class __$PositionCopyWithImpl<$Res> extends _$PositionCopyWithImpl<$Res>
     Object? speedAccuracy = freezed,
     Object? timestamp = freezed,
   }) {
-    return _then(_Position(
+    return _then(_Location(
       latitude: latitude == freezed ? _value.latitude : latitude as double,
       longitude: longitude == freezed ? _value.longitude : longitude as double,
       accuracy: accuracy == freezed ? _value.accuracy : accuracy as double?,
@@ -166,8 +166,8 @@ class __$PositionCopyWithImpl<$Res> extends _$PositionCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Position implements _Position {
-  const _$_Position(
+class _$_Location implements _Location {
+  const _$_Location(
       {required this.latitude,
       required this.longitude,
       this.accuracy,
@@ -177,8 +177,8 @@ class _$_Position implements _Position {
       this.speedAccuracy,
       this.timestamp});
 
-  factory _$_Position.fromJson(Map<String, dynamic> json) =>
-      _$_$_PositionFromJson(json);
+  factory _$_Location.fromJson(Map<String, dynamic> json) =>
+      _$_$_LocationFromJson(json);
 
   @override
   final double latitude;
@@ -199,13 +199,13 @@ class _$_Position implements _Position {
 
   @override
   String toString() {
-    return 'Position(latitude: $latitude, longitude: $longitude, accuracy: $accuracy, altitude: $altitude, heading: $heading, speed: $speed, speedAccuracy: $speedAccuracy, timestamp: $timestamp)';
+    return 'Location(latitude: $latitude, longitude: $longitude, accuracy: $accuracy, altitude: $altitude, heading: $heading, speed: $speed, speedAccuracy: $speedAccuracy, timestamp: $timestamp)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Position &&
+        (other is _Location &&
             (identical(other.latitude, latitude) ||
                 const DeepCollectionEquality()
                     .equals(other.latitude, latitude)) &&
@@ -245,17 +245,17 @@ class _$_Position implements _Position {
 
   @JsonKey(ignore: true)
   @override
-  _$PositionCopyWith<_Position> get copyWith =>
-      __$PositionCopyWithImpl<_Position>(this, _$identity);
+  _$LocationCopyWith<_Location> get copyWith =>
+      __$LocationCopyWithImpl<_Location>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_PositionToJson(this);
+    return _$_$_LocationToJson(this);
   }
 }
 
-abstract class _Position implements Position {
-  const factory _Position(
+abstract class _Location implements Location {
+  const factory _Location(
       {required double latitude,
       required double longitude,
       double? accuracy,
@@ -263,9 +263,9 @@ abstract class _Position implements Position {
       double? heading,
       double? speed,
       double? speedAccuracy,
-      DateTime? timestamp}) = _$_Position;
+      DateTime? timestamp}) = _$_Location;
 
-  factory _Position.fromJson(Map<String, dynamic> json) = _$_Position.fromJson;
+  factory _Location.fromJson(Map<String, dynamic> json) = _$_Location.fromJson;
 
   @override
   double get latitude;
@@ -285,5 +285,5 @@ abstract class _Position implements Position {
   DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
-  _$PositionCopyWith<_Position> get copyWith;
+  _$LocationCopyWith<_Location> get copyWith;
 }

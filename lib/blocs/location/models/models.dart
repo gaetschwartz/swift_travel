@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:geolocator/geolocator.dart' as g;
+import 'package:geolocator/geolocator.dart';
 
 part 'models.freezed.dart';
 part 'models.g.dart';
 
 @freezed
-abstract class Position with _$Position {
-  const factory Position({
+abstract class Location with _$Location {
+  const factory Location({
     required double latitude,
     required double longitude,
     double? accuracy,
@@ -15,9 +15,9 @@ abstract class Position with _$Position {
     double? speed,
     double? speedAccuracy,
     DateTime? timestamp,
-  }) = _Position;
+  }) = _Location;
 
-  factory Position.fromPosition(g.Position p) => _Position(
+  factory Location.fromPosition(Position p) => _Location(
         latitude: p.latitude,
         longitude: p.longitude,
         accuracy: p.accuracy,
@@ -28,5 +28,5 @@ abstract class Position with _$Position {
         timestamp: p.timestamp,
       );
 
-  factory Position.fromJson(Map<String, dynamic> json) => _$PositionFromJson(json);
+  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 }

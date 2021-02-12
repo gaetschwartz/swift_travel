@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/search.ch/models/stationboard.dart';
 import 'package:swift_travel/apis/search.ch/models/stationboard_connection.dart';
 import 'package:swift_travel/apis/search.ch/models/stop.dart';
 import 'package:swift_travel/blocs/navigation.dart';
@@ -27,7 +27,7 @@ class StopDetails extends StatefulWidget {
 }
 
 class _StopDetailsState extends State<StopDetails> {
-  CffStationboard? data;
+  CffStationboardData? data;
 
   late Timer timer;
   bool _elevate = false;
@@ -153,7 +153,7 @@ class _StopDetailsState extends State<StopDetails> {
 
   Future<void> refreshData() async {
     final stationBoard = await context.read(navigationAPIProvider).stationboard(widget.stopName);
-    if (mounted) setState(() => data = stationBoard);
+    if (mounted && stationBoard is CffStationboardData) setState(() => data = stationBoard);
   }
 }
 

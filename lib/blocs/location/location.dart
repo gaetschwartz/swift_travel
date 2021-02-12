@@ -1,16 +1,15 @@
-import 'package:flutter/foundation.dart';
-import 'package:geolocator/geolocator.dart' as g;
+import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/blocs/location/models/models.dart';
 import 'package:swift_travel/utils/env.dart';
 
 class LocationRepository {
-  static Future<Position> getLocation({
-    g.LocationAccuracy desiredAccuracy = g.LocationAccuracy.bestForNavigation,
+  static Future<Location> getLocation({
+    LocationAccuracy desiredAccuracy = LocationAccuracy.bestForNavigation,
     bool forceAndroidLocationManager = false,
     Duration? timeLimit,
   }) async {
     if (Env.spoofLocation) {
-      return Position(
+      return Location(
         accuracy: 0,
         altitude: 0,
         heading: 0,
@@ -20,25 +19,22 @@ class LocationRepository {
         latitude: 46.2225454,
         longitude: 6.1385658,
       );
-    } else if (kIsWeb) {
-      throw UnsupportedError('We location is unsupported');
     } else {
-      g.LocationPermission permission;
+      LocationPermission permission;
 
-      permission = await g.Geolocator.checkPermission();
-      if (permission == g.LocationPermission.denied) {
-        permission = await g.Geolocator.requestPermission();
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
       }
-      if (permission == g.LocationPermission.whileInUse ||
-          permission == g.LocationPermission.always) {
-        final p = await g.Geolocator.getCurrentPosition(
+      if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+        final p = await Geolocator.getCurrentPosition(
           desiredAccuracy: desiredAccuracy,
           forceAndroidLocationManager: forceAndroidLocationManager,
           timeLimit: timeLimit,
         );
-        return Position.fromPosition(p);
+        return Location.fromPosition(p);
       } else {
-        throw g.PermissionDeniedException(permission.toString());
+        throw PermissionDeniedException(permission.toString());
       }
     }
   }

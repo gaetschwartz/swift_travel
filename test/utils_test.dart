@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:swift_travel/apis/search.ch/cff.dart';
+import 'package:swift_travel/apis/search.ch/search_ch.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/utils/markdown.dart';
 import 'package:utils/levenshtein.dart';
@@ -48,16 +48,16 @@ void main() {
     expect(levenshtein('hello!!!', 'hello'), 3);
   });
   test('query builder', () {
-    final builder = QueryBuilder('https://example.com', (s) => '$s.json');
-    expect(builder('compute', {}), 'https://example.com/compute.json');
+    final builder = QueryBuilder<String>('example.com', (s) => '$s.json');
+    expect(builder('compute', {}), Uri.parse('https://example.com/compute.json'));
     expect(builder('delete', {'test1': true, 'test2': false}),
-        'https://example.com/delete.json?test1=true&test2=false');
+        Uri.parse('https://example.com/delete.json?test1=true&test2=false'));
     expect(
         builder('encode', {'f1': '¦@#°§', 'f2': '¬|¢´', 'f3': '&?'}),
-        'https://example.com/encode.json?'
-        'f1=%C2%A6%40%23%C2%B0%C2%A7'
-        '&f2=%C2%AC%7C%C2%A2%C2%B4'
-        '&f3=%26%3F');
+        Uri.parse('https://example.com/encode.json?'
+            'f1=%C2%A6%40%23%C2%B0%C2%A7'
+            '&f2=%C2%AC%7C%C2%A2%C2%B4'
+            '&f3=%26%3F'));
   });
 
   group('parse color >', () {

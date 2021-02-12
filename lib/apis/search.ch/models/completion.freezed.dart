@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'cff_completion.dart';
+part of 'completion.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-CffCompletion _$CffCompletionFromJson(Map<String, dynamic> json) {
-  return _CffCompletion.fromJson(json);
+NavCompletion _$NavCompletionFromJson(Map<String, dynamic> json) {
+  return _NavCompletion.fromJson(json);
 }
 
 /// @nodoc
-class _$CffCompletionTearOff {
-  const _$CffCompletionTearOff();
+class _$NavCompletionTearOff {
+  const _$NavCompletionTearOff();
 
-  _CffCompletion call(
+  _NavCompletion call(
       {required String label,
       double? dist,
       @JsonKey(name: 'iconclass') String? icon,
@@ -24,7 +24,7 @@ class _$CffCompletionTearOff {
       String? id,
       String? favoriteName,
       DataOrigin origin = DataOrigin.data}) {
-    return _CffCompletion(
+    return _NavCompletion(
       label: label,
       dist: dist,
       icon: icon,
@@ -35,16 +35,16 @@ class _$CffCompletionTearOff {
     );
   }
 
-  CffCompletion fromJson(Map<String, Object> json) {
-    return CffCompletion.fromJson(json);
+  NavCompletion fromJson(Map<String, Object> json) {
+    return NavCompletion.fromJson(json);
   }
 }
 
 /// @nodoc
-const $CffCompletion = _$CffCompletionTearOff();
+const $NavCompletion = _$NavCompletionTearOff();
 
 /// @nodoc
-mixin _$CffCompletion {
+mixin _$NavCompletion {
   String get label;
   double? get dist;
   @JsonKey(name: 'iconclass')
@@ -56,14 +56,14 @@ mixin _$CffCompletion {
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $CffCompletionCopyWith<CffCompletion> get copyWith;
+  $NavCompletionCopyWith<NavCompletion> get copyWith;
 }
 
 /// @nodoc
-abstract class $CffCompletionCopyWith<$Res> {
-  factory $CffCompletionCopyWith(
-          CffCompletion value, $Res Function(CffCompletion) then) =
-      _$CffCompletionCopyWithImpl<$Res>;
+abstract class $NavCompletionCopyWith<$Res> {
+  factory $NavCompletionCopyWith(
+          NavCompletion value, $Res Function(NavCompletion) then) =
+      _$NavCompletionCopyWithImpl<$Res>;
   $Res call(
       {String label,
       double? dist,
@@ -75,13 +75,13 @@ abstract class $CffCompletionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CffCompletionCopyWithImpl<$Res>
-    implements $CffCompletionCopyWith<$Res> {
-  _$CffCompletionCopyWithImpl(this._value, this._then);
+class _$NavCompletionCopyWithImpl<$Res>
+    implements $NavCompletionCopyWith<$Res> {
+  _$NavCompletionCopyWithImpl(this._value, this._then);
 
-  final CffCompletion _value;
+  final NavCompletion _value;
   // ignore: unused_field
-  final $Res Function(CffCompletion) _then;
+  final $Res Function(NavCompletion) _then;
 
   @override
   $Res call({
@@ -108,11 +108,11 @@ class _$CffCompletionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$CffCompletionCopyWith<$Res>
-    implements $CffCompletionCopyWith<$Res> {
-  factory _$CffCompletionCopyWith(
-          _CffCompletion value, $Res Function(_CffCompletion) then) =
-      __$CffCompletionCopyWithImpl<$Res>;
+abstract class _$NavCompletionCopyWith<$Res>
+    implements $NavCompletionCopyWith<$Res> {
+  factory _$NavCompletionCopyWith(
+          _NavCompletion value, $Res Function(_NavCompletion) then) =
+      __$NavCompletionCopyWithImpl<$Res>;
   @override
   $Res call(
       {String label,
@@ -125,15 +125,15 @@ abstract class _$CffCompletionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$CffCompletionCopyWithImpl<$Res>
-    extends _$CffCompletionCopyWithImpl<$Res>
-    implements _$CffCompletionCopyWith<$Res> {
-  __$CffCompletionCopyWithImpl(
-      _CffCompletion _value, $Res Function(_CffCompletion) _then)
-      : super(_value, (v) => _then(v as _CffCompletion));
+class __$NavCompletionCopyWithImpl<$Res>
+    extends _$NavCompletionCopyWithImpl<$Res>
+    implements _$NavCompletionCopyWith<$Res> {
+  __$NavCompletionCopyWithImpl(
+      _NavCompletion _value, $Res Function(_NavCompletion) _then)
+      : super(_value, (v) => _then(v as _NavCompletion));
 
   @override
-  _CffCompletion get _value => super._value as _CffCompletion;
+  _NavCompletion get _value => super._value as _NavCompletion;
 
   @override
   $Res call({
@@ -145,7 +145,7 @@ class __$CffCompletionCopyWithImpl<$Res>
     Object? favoriteName = freezed,
     Object? origin = freezed,
   }) {
-    return _then(_CffCompletion(
+    return _then(_NavCompletion(
       label: label == freezed ? _value.label : label as String,
       dist: dist == freezed ? _value.dist : dist as double?,
       icon: icon == freezed ? _value.icon : icon as String?,
@@ -162,8 +162,8 @@ class __$CffCompletionCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 
 /// @nodoc
-class _$_CffCompletion implements _CffCompletion {
-  const _$_CffCompletion(
+class _$_NavCompletion implements _NavCompletion {
+  const _$_NavCompletion(
       {required this.label,
       this.dist,
       @JsonKey(name: 'iconclass') this.icon,
@@ -172,8 +172,8 @@ class _$_CffCompletion implements _CffCompletion {
       this.favoriteName,
       this.origin = DataOrigin.data});
 
-  factory _$_CffCompletion.fromJson(Map<String, dynamic> json) =>
-      _$_$_CffCompletionFromJson(json);
+  factory _$_NavCompletion.fromJson(Map<String, dynamic> json) =>
+      _$_$_NavCompletionFromJson(json);
 
   @override
   final String label;
@@ -194,13 +194,13 @@ class _$_CffCompletion implements _CffCompletion {
 
   @override
   String toString() {
-    return 'CffCompletion(label: $label, dist: $dist, icon: $icon, html: $html, id: $id, favoriteName: $favoriteName, origin: $origin)';
+    return 'NavCompletion(label: $label, dist: $dist, icon: $icon, html: $html, id: $id, favoriteName: $favoriteName, origin: $origin)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _CffCompletion &&
+        (other is _NavCompletion &&
             (identical(other.label, label) ||
                 const DeepCollectionEquality().equals(other.label, label)) &&
             (identical(other.dist, dist) ||
@@ -231,27 +231,27 @@ class _$_CffCompletion implements _CffCompletion {
 
   @JsonKey(ignore: true)
   @override
-  _$CffCompletionCopyWith<_CffCompletion> get copyWith =>
-      __$CffCompletionCopyWithImpl<_CffCompletion>(this, _$identity);
+  _$NavCompletionCopyWith<_NavCompletion> get copyWith =>
+      __$NavCompletionCopyWithImpl<_NavCompletion>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_CffCompletionToJson(this);
+    return _$_$_NavCompletionToJson(this);
   }
 }
 
-abstract class _CffCompletion implements CffCompletion {
-  const factory _CffCompletion(
+abstract class _NavCompletion implements NavCompletion {
+  const factory _NavCompletion(
       {required String label,
       double? dist,
       @JsonKey(name: 'iconclass') String? icon,
       String? html,
       String? id,
       String? favoriteName,
-      DataOrigin origin}) = _$_CffCompletion;
+      DataOrigin origin}) = _$_NavCompletion;
 
-  factory _CffCompletion.fromJson(Map<String, dynamic> json) =
-      _$_CffCompletion.fromJson;
+  factory _NavCompletion.fromJson(Map<String, dynamic> json) =
+      _$_NavCompletion.fromJson;
 
   @override
   String get label;
@@ -270,5 +270,5 @@ abstract class _CffCompletion implements CffCompletion {
   DataOrigin get origin;
   @override
   @JsonKey(ignore: true)
-  _$CffCompletionCopyWith<_CffCompletion> get copyWith;
+  _$NavCompletionCopyWith<_NavCompletion> get copyWith;
 }

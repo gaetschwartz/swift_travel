@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/cff.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/search.ch/models/route.dart';
+import 'package:swift_travel/apis/search.ch/models/stationboard.dart';
+import 'package:swift_travel/apis/search.ch/search_ch.dart';
 import 'package:swift_travel/apis/sncf/key.dart';
 import 'package:swift_travel/apis/sncf/models/sncf_completion.dart';
 import 'package:swift_travel/utils/typed_data.dart';
@@ -32,39 +33,36 @@ class SncfApi extends NavigationApi {
   final _client = http.Client();
 
   @override
-  Future<List<CffCompletion>> complete(String string,
+  Future<List<NavCompletion>> complete(String string,
       {bool showCoordinates = true,
       bool showIds = true,
       bool noFavorites = true,
       bool filterNull = true}) async {
     if (string.isEmpty) return [];
 
-    final queryParameters = {'q': string, ..._queryParameters};
-
-    final response = await _client.get(
-      baseUrl + 'places?' + queryParameters.entries.map((e) => '${e.key}=${e.value}').join('&'),
-    );
-
-    log(response.request.url.toString());
+    final uri =
+        Uri.https('api.navitia.io', '/v1/coverage/sncf/places', {'q': string, ..._queryParameters});
+    if (kDebugMode) print(uri.toString());
+    final response = await _client.get(uri);
 
     final decode = jsonDecode(response.body) as Map<String, dynamic>;
 
     final sncfCompletion = SncfCompletion.fromJson(decode);
     final places = sncfCompletion.places;
     log('Found ${places.length} places');
-    final list = places.map((e) => CffCompletion(label: e.name ?? '???')).toList();
+    final list = places.map((e) => NavCompletion(label: e.name ?? '???')).toList();
     log('Found ${list.length} completions');
     return list;
   }
 
   @override
-  Future<List<CffCompletion>> findStation(double lat, double lon,
+  Future<List<NavCompletion>> findStation(double lat, double lon,
       {int? accuracy, bool? showCoordinates, bool? showIds}) {
     throw UnimplementedError();
   }
 
   @override
-  Future<CffRoute> rawRoute(String query) {
+  Future<CffRoute> rawRoute(Uri query) {
     throw UnimplementedError();
   }
 

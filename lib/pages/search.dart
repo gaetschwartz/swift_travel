@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/database.dart';
@@ -201,7 +201,7 @@ class _Results extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  final void Function(CffCompletion completion) onTap;
+  final void Function(NavCompletion completion) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -277,8 +277,8 @@ class _SuggestedTile extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
-  final CffCompletion suggestion;
-  final ValueChanged<CffCompletion>? onTap;
+  final NavCompletion suggestion;
+  final ValueChanged<NavCompletion>? onTap;
 
   Widget buildIcon(BuildContext context) {
     switch (suggestion.origin) {

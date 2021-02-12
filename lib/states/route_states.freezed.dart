@@ -13,7 +13,7 @@ T _$identity<T>(T value) => value;
 class _$RouteStatesTearOff {
   const _$RouteStatesTearOff();
 
-  RSData routes(CffRoute routes) {
+  RSData call(CffRoute routes) {
     return RSData(
       routes,
     );
@@ -52,8 +52,8 @@ const $RouteStates = _$RouteStatesTearOff();
 /// @nodoc
 mixin _$RouteStates {
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(CffRoute routes) routes,
+  TResult when<TResult extends Object?>(
+    TResult Function(CffRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -62,8 +62,8 @@ mixin _$RouteStates {
     required TResult Function() loading,
   });
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CffRoute routes)? routes,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(CffRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -73,8 +73,8 @@ mixin _$RouteStates {
     required TResult orElse(),
   });
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RSData value) routes,
+  TResult map<TResult extends Object?>(
+    TResult Function(RSData value) $default, {
     required TResult Function(RSNetworkException value) networkException,
     required TResult Function(RSLocationPermissionNotGranted value)
         locationPermissionNotGranted,
@@ -85,8 +85,8 @@ mixin _$RouteStates {
     required TResult Function(RSLoading value) loading,
   });
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RSData value)? routes,
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
     TResult Function(RSNetworkException value)? networkException,
     TResult Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
@@ -158,7 +158,7 @@ class _$RSData implements RSData {
 
   @override
   String toString() {
-    return 'RouteStates.routes(routes: $routes)';
+    return 'RouteStates(routes: $routes)';
   }
 
   @override
@@ -180,8 +180,8 @@ class _$RSData implements RSData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(CffRoute routes) routes,
+  TResult when<TResult extends Object?>(
+    TResult Function(CffRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -189,13 +189,13 @@ class _$RSData implements RSData {
     required TResult Function() empty,
     required TResult Function() loading,
   }) {
-    return routes(this.routes);
+    return $default(routes);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CffRoute routes)? routes,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(CffRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -204,16 +204,16 @@ class _$RSData implements RSData {
     TResult Function()? loading,
     required TResult orElse(),
   }) {
-    if (routes != null) {
-      return routes(this.routes);
+    if ($default != null) {
+      return $default(routes);
     }
     return orElse();
   }
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RSData value) routes,
+  TResult map<TResult extends Object?>(
+    TResult Function(RSData value) $default, {
     required TResult Function(RSNetworkException value) networkException,
     required TResult Function(RSLocationPermissionNotGranted value)
         locationPermissionNotGranted,
@@ -223,13 +223,13 @@ class _$RSData implements RSData {
     required TResult Function(RSEmpty value) empty,
     required TResult Function(RSLoading value) loading,
   }) {
-    return routes(this);
+    return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RSData value)? routes,
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
     TResult Function(RSNetworkException value)? networkException,
     TResult Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
@@ -239,8 +239,8 @@ class _$RSData implements RSData {
     TResult Function(RSLoading value)? loading,
     required TResult orElse(),
   }) {
-    if (routes != null) {
-      return routes(this);
+    if ($default != null) {
+      return $default(this);
     }
     return orElse();
   }
@@ -292,8 +292,8 @@ class _$RSNetworkException implements RSNetworkException {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(CffRoute routes) routes,
+  TResult when<TResult extends Object?>(
+    TResult Function(CffRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -306,8 +306,8 @@ class _$RSNetworkException implements RSNetworkException {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CffRoute routes)? routes,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(CffRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -324,8 +324,8 @@ class _$RSNetworkException implements RSNetworkException {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RSData value) routes,
+  TResult map<TResult extends Object?>(
+    TResult Function(RSData value) $default, {
     required TResult Function(RSNetworkException value) networkException,
     required TResult Function(RSLocationPermissionNotGranted value)
         locationPermissionNotGranted,
@@ -340,8 +340,8 @@ class _$RSNetworkException implements RSNetworkException {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RSData value)? routes,
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
     TResult Function(RSNetworkException value)? networkException,
     TResult Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
@@ -404,8 +404,8 @@ class _$RSLocationPermissionNotGranted
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(CffRoute routes) routes,
+  TResult when<TResult extends Object?>(
+    TResult Function(CffRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -418,8 +418,8 @@ class _$RSLocationPermissionNotGranted
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CffRoute routes)? routes,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(CffRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -436,8 +436,8 @@ class _$RSLocationPermissionNotGranted
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RSData value) routes,
+  TResult map<TResult extends Object?>(
+    TResult Function(RSData value) $default, {
     required TResult Function(RSNetworkException value) networkException,
     required TResult Function(RSLocationPermissionNotGranted value)
         locationPermissionNotGranted,
@@ -452,8 +452,8 @@ class _$RSLocationPermissionNotGranted
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RSData value)? routes,
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
     TResult Function(RSNetworkException value)? networkException,
     TResult Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
@@ -514,8 +514,8 @@ class _$RSMissingPluginException implements RSMissingPluginException {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(CffRoute routes) routes,
+  TResult when<TResult extends Object?>(
+    TResult Function(CffRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -528,8 +528,8 @@ class _$RSMissingPluginException implements RSMissingPluginException {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CffRoute routes)? routes,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(CffRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -546,8 +546,8 @@ class _$RSMissingPluginException implements RSMissingPluginException {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RSData value) routes,
+  TResult map<TResult extends Object?>(
+    TResult Function(RSData value) $default, {
     required TResult Function(RSNetworkException value) networkException,
     required TResult Function(RSLocationPermissionNotGranted value)
         locationPermissionNotGranted,
@@ -562,8 +562,8 @@ class _$RSMissingPluginException implements RSMissingPluginException {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RSData value)? routes,
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
     TResult Function(RSNetworkException value)? networkException,
     TResult Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
@@ -644,8 +644,8 @@ class _$RSException implements RSException {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(CffRoute routes) routes,
+  TResult when<TResult extends Object?>(
+    TResult Function(CffRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -658,8 +658,8 @@ class _$RSException implements RSException {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CffRoute routes)? routes,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(CffRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -676,8 +676,8 @@ class _$RSException implements RSException {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RSData value) routes,
+  TResult map<TResult extends Object?>(
+    TResult Function(RSData value) $default, {
     required TResult Function(RSNetworkException value) networkException,
     required TResult Function(RSLocationPermissionNotGranted value)
         locationPermissionNotGranted,
@@ -692,8 +692,8 @@ class _$RSException implements RSException {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RSData value)? routes,
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
     TResult Function(RSNetworkException value)? networkException,
     TResult Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
@@ -753,8 +753,8 @@ class _$RSEmpty implements RSEmpty {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(CffRoute routes) routes,
+  TResult when<TResult extends Object?>(
+    TResult Function(CffRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -767,8 +767,8 @@ class _$RSEmpty implements RSEmpty {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CffRoute routes)? routes,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(CffRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -785,8 +785,8 @@ class _$RSEmpty implements RSEmpty {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RSData value) routes,
+  TResult map<TResult extends Object?>(
+    TResult Function(RSData value) $default, {
     required TResult Function(RSNetworkException value) networkException,
     required TResult Function(RSLocationPermissionNotGranted value)
         locationPermissionNotGranted,
@@ -801,8 +801,8 @@ class _$RSEmpty implements RSEmpty {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RSData value)? routes,
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
     TResult Function(RSNetworkException value)? networkException,
     TResult Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
@@ -858,8 +858,8 @@ class _$RSLoading implements RSLoading {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(CffRoute routes) routes,
+  TResult when<TResult extends Object?>(
+    TResult Function(CffRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -872,8 +872,8 @@ class _$RSLoading implements RSLoading {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CffRoute routes)? routes,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(CffRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -890,8 +890,8 @@ class _$RSLoading implements RSLoading {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RSData value) routes,
+  TResult map<TResult extends Object?>(
+    TResult Function(RSData value) $default, {
     required TResult Function(RSNetworkException value) networkException,
     required TResult Function(RSLocationPermissionNotGranted value)
         locationPermissionNotGranted,
@@ -906,8 +906,8 @@ class _$RSLoading implements RSLoading {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RSData value)? routes,
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
     TResult Function(RSNetworkException value)? networkException,
     TResult Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,

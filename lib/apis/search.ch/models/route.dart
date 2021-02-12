@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
 
-part 'cff_route.freezed.dart';
-part 'cff_route.g.dart';
+part 'route.freezed.dart';
+part 'route.g.dart';
 
 @freezed
 abstract class CffRoute with _$CffRoute {

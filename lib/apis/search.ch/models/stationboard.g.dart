@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cff_stationboard.dart';
+part of 'stationboard.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CffStationboard _$_$_CffStationboardFromJson(Map<String, dynamic> json) {
-  return _$_CffStationboard(
+_$CffStationboardData _$_$CffStationboardDataFromJson(
+    Map<String, dynamic> json) {
+  return _$CffStationboardData(
     stop: Stop.fromJson(json['stop'] as Map<String, dynamic>),
     stopName: json['stopName'] as String,
     connections: (json['connections'] as List<dynamic>?)
@@ -15,7 +16,6 @@ _$_CffStationboard _$_$_CffStationboardFromJson(Map<String, dynamic> json) {
                 StationboardConnection.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [],
-    request: json['request'] as String?,
     messages: (json['messages'] as List<dynamic>?)
             ?.map((e) => e as String)
             .toList() ??
@@ -23,11 +23,24 @@ _$_CffStationboard _$_$_CffStationboardFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_CffStationboardToJson(_$_CffStationboard instance) =>
+Map<String, dynamic> _$_$CffStationboardDataToJson(
+        _$CffStationboardData instance) =>
     <String, dynamic>{
       'stop': instance.stop,
       'stopName': instance.stopName,
       'connections': instance.connections,
-      'request': instance.request,
+      'messages': instance.messages,
+    };
+
+_$CffStationboardError _$_$CffStationboardErrorFromJson(
+    Map<String, dynamic> json) {
+  return _$CffStationboardError(
+    (json['messages'] as List<dynamic>).map((e) => e as String).toList(),
+  );
+}
+
+Map<String, dynamic> _$_$CffStationboardErrorToJson(
+        _$CffStationboardError instance) =>
+    <String, dynamic>{
       'messages': instance.messages,
     };

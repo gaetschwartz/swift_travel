@@ -11,13 +11,6 @@
       "args": []
     },
     {
-      "name": "Integration Tests: Launch Driver",
-      "request": "launch",
-      "type": "dart",
-      "program": "integration_test/app_test.dart",
-      "args": []
-    },
-    {
       "name": "Dart: Run all Tests",
       "type": "dart",
       "request": "launch",
@@ -79,6 +72,13 @@
         "--dart-define",
         "PAGE=/welcome"
       ]
+    },
+    {
+      "name": "Integration Tests: Launch Driver",
+      "request": "launch",
+      "type": "dart",
+      "program": "integration_test/app_test.dart",
+      "args": []
     },
     {
       "name": "Profile",

@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/blocs/location/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
@@ -189,7 +189,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemBuilder: (context, i) => CffCompletionTile(
+                              itemBuilder: (context, i) => NavCompletionTile(
                                 sugg: c.completions[i],
                                 key: Key('stations-key-$i'),
                               ),
@@ -217,8 +217,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                         ],
                                       )
                                     : ListView.builder(
-                                        itemBuilder: (context, i) => CffCompletionTile(
-                                            sugg: CffCompletion.fromFavorite(c.favorites[i])),
+                                        itemBuilder: (context, i) => NavCompletionTile(
+                                            sugg: NavCompletion.fromFavorite(c.favorites[i])),
                                         itemCount: c.favorites.length,
                                       ),
                                 loading: (_) =>

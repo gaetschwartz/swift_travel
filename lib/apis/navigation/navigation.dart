@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/search.ch/cff.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/search.ch/models/route.dart';
+import 'package:swift_travel/apis/search.ch/models/stationboard.dart';
+import 'package:swift_travel/apis/search.ch/search_ch.dart';
 import 'package:swift_travel/apis/sncf/sncf.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 
@@ -37,11 +37,11 @@ abstract class NavigationApi {
       case NavigationApiType.sncf:
         return sncfFactory;
       case NavigationApiType.cff:
-        return cffFactory;
+        return searchChApi;
     }
   }
 
-  Future<List<CffCompletion>> complete(
+  Future<List<NavCompletion>> complete(
     String string, {
     bool showCoordinates,
     bool showIds,
@@ -49,7 +49,7 @@ abstract class NavigationApi {
     bool filterNull,
   });
 
-  Future<List<CffCompletion>> findStation(
+  Future<List<NavCompletion>> findStation(
     double lat,
     double lon, {
     int accuracy,
@@ -80,5 +80,5 @@ abstract class NavigationApi {
 
   void dispose();
 
-  Future<CffRoute> rawRoute(String query);
+  Future<CffRoute> rawRoute(Uri query);
 }

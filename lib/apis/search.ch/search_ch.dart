@@ -5,38 +5,38 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_stationboard.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/search.ch/models/route.dart';
+import 'package:swift_travel/apis/search.ch/models/stationboard.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
-final cffFactory = NavigationApiFactory(
-  () => CffApi._(),
+final searchChApi = NavigationApiFactory(
+  () => SearchChApi._(),
   name: 'SBB CFF FFS',
   shortName: 'SBB',
   countryEmoji: '🇨🇭',
   countryName: 'Switzerland',
 );
 
-class CffApi extends NavigationApi {
-  CffApi._();
+class SearchChApi extends NavigationApi {
+  SearchChApi._();
 
-  final QueryBuilder queryBuilder =
-      QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
+  static const queryBuilder = QueryBuilder<String>('timetable.search.ch', _json);
+  static String _json(String s) => '/api/$s.json';
 
   final http.Client _client = http.Client();
 
   Map<String, String> get headers => {'accept-language': super.locale.toLanguageTag()};
 
   @override
-  Future<List<CffCompletion>> complete(
+  Future<List<NavCompletion>> complete(
     String string, {
     bool showCoordinates = false,
     bool showIds = false,
     bool noFavorites = true,
     bool filterNull = true,
   }) async {
-    final String? uri = queryBuilder('completion', {
+    final uri = queryBuilder('completion', {
       'show_ids': showIds.toInt(),
       'show_coordinates': showCoordinates.toInt(),
       'nofavorites': noFavorites.toInt(),
@@ -53,11 +53,11 @@ class CffApi extends NavigationApi {
 
     final decode = jsonDecode(response.body) as List;
 
-    final completions = <CffCompletion>[];
+    final completions = <NavCompletion>[];
 
     for (final item in decode) {
       if (!filterNull || item['label'] != null) {
-        completions.add(CffCompletion.fromJson(item as Map<String, dynamic>));
+        completions.add(NavCompletion.fromJson(item as Map<String, dynamic>));
       }
     }
 
@@ -65,7 +65,7 @@ class CffApi extends NavigationApi {
   }
 
   @override
-  Future<List<CffCompletion>> findStation(
+  Future<List<NavCompletion>> findStation(
     double lat,
     double lon, {
     int? accuracy = 10,
@@ -78,7 +78,7 @@ class CffApi extends NavigationApi {
       'show_ids': showIds.toInt(),
       'show_coordinates': showCoordinates.toInt()
     });
-    log(uri);
+    if (kDebugMode) log(uri.toString());
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't find station : ${response.body}");
@@ -86,7 +86,7 @@ class CffApi extends NavigationApi {
     final decode = jsonDecode(response.body) as List;
 
     final completions = decode
-        .map<CffCompletion>((e) => CffCompletion.fromJson(e as Map<String, dynamic>))
+        .map<NavCompletion>((e) => NavCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
     return completions;
   }
@@ -113,15 +113,16 @@ class CffApi extends NavigationApi {
     if (transportationTypes.isNotEmpty) {
       params['transportation_types'] = transportationTypes.join(',');
     }
-    final String? s = queryBuilder('stationboard', params);
-    if (kDebugMode) log(s!);
+    final s = queryBuilder('stationboard', params);
+    if (kDebugMode) log(s.toString());
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve stationboard : ${response.body}");
     }
     final decode = await Future.microtask(() => jsonDecode(response.body)) as Map<String, dynamic>;
 
-    return CffStationboard.fromJson(decode).copyWith(stopName: stopName);
+    final cffStationboard = CffStationboard.parse(decode);
+    return cffStationboard.map((value) => value.copyWith(stopName: stopName), error: (e) => e);
   }
 
   @override
@@ -143,13 +144,13 @@ class CffApi extends NavigationApi {
       'show_delays': showDelays.toInt(),
     };
 
-    final String? s = queryBuilder('route', params);
+    final s = queryBuilder('route', params);
     log('builder : $s');
     return await rawRoute(s);
   }
 
   @override
-  Future<CffRoute> rawRoute(String? query) async {
+  Future<CffRoute> rawRoute(Uri query) async {
     final response = await _client.get(query, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve raw route : ${response.body}");
@@ -159,7 +160,7 @@ class CffApi extends NavigationApi {
     stopwatch.stop();
     log('decode took ${stopwatch.elapsedMilliseconds} ms');
 
-    return CffRoute.fromJson(map).copyWith(requestUrl: query);
+    return CffRoute.fromJson(map).copyWith(requestUrl: query.toString());
   }
 
   @override
@@ -168,21 +169,25 @@ class CffApi extends NavigationApi {
   }
 }
 
-class QueryBuilder {
-  final String baseUrl;
-  final String Function(String action) actionBuilder;
+class QueryBuilder<T> {
+  final String authority;
+  final bool https;
+  final String Function(T input) pathBuilder;
 
-  const QueryBuilder(this.baseUrl, this.actionBuilder);
+  const QueryBuilder(this.authority, this.pathBuilder, {this.https = true});
 
-  String call(String action, Map<String, dynamic> parameters) {
-    final url = StringBuffer('$baseUrl/${actionBuilder(action)}');
-    if (parameters.isNotEmpty) {
-      final params = parameters.keys
-          .map((k) => '$k=${Uri.encodeQueryComponent(parameters[k].toString())}')
-          .join('&');
-      url.write('?$params');
-    }
-    return url.toString();
+  Uri call(T input, Map<String, Object?>? parameters) {
+    final p = pathBuilder(input);
+    final params = parameters != null && parameters.isEmpty
+        ? null
+        : parameters?.map((key, value) => MapEntry(key, value.toString()));
+    return https
+        ? params == null
+            ? Uri.https(authority, p)
+            : Uri.https(authority, p, params)
+        : params == null
+            ? Uri.http(authority, p)
+            : Uri.http(authority, p, params);
   }
 }
 

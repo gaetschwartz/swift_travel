@@ -14,9 +14,9 @@ import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/cff.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/search.ch/models/route.dart';
+import 'package:swift_travel/apis/search.ch/search_ch.dart';
 import 'package:swift_travel/blocs/location/location.dart';
 import 'package:swift_travel/blocs/location/models/models.dart';
 import 'package:swift_travel/blocs/navigation.dart';
@@ -93,7 +93,7 @@ class Fetcher extends FetcherBase {
       print('To: ${to.state}');
     }
 
-    Position? p;
+    Location? p;
 
     try {
       final departure = await from.state.when<FutureOr<String>?>(
@@ -120,7 +120,7 @@ class Fetcher extends FetcherBase {
         time: TimeOfDay.fromDateTime(date),
         typeTime: timeType,
       );
-      state = RouteStates.routes(it);
+      state = RouteStates(it);
     } on SocketException catch (e, s) {
       log('', error: e, stackTrace: s);
       state = const RouteStates.networkException();
@@ -398,7 +398,7 @@ class _RoutePageState extends State<RoutePage> {
                                   );
 
                                   context.read(routeStatesProvider).state =
-                                      RouteStates.routes(CffRoute.fromJson(mockRoute!));
+                                      RouteStates(CffRoute.fromJson(mockRoute!));
                                 }
                               : null,
                           style: TextButton.styleFrom(
@@ -508,7 +508,7 @@ class _RoutePageState extends State<RoutePage> {
             child: Stack(
               alignment: Alignment.centerRight,
               children: [
-                TypeAheadField<CffCompletion>(
+                TypeAheadField<NavCompletion>(
                   key: const Key('route-first-textfield-key'),
                   debounceDuration: const Duration(milliseconds: 250),
                   textFieldConfiguration: TextFieldConfiguration(
@@ -614,7 +614,7 @@ class _RoutePageState extends State<RoutePage> {
             child: Stack(
               alignment: Alignment.centerRight,
               children: [
-                TypeAheadField<CffCompletion>(
+                TypeAheadField<NavCompletion>(
                   key: const Key('route-second-textfield-key'),
                   suggestionsBoxDecoration: _suggestionsBoxDecoration,
                   debounceDuration: const Duration(milliseconds: 250),
@@ -708,7 +708,7 @@ class RoutesView extends StatelessWidget {
       final fetcher = w(routeStatesProvider);
 
       return fetcher.state.when(
-        routes: (routes) => CustomScrollView(
+        (routes) => CustomScrollView(
           slivers: [
             const SliverAppBar(
               collapsedHeight: 8,

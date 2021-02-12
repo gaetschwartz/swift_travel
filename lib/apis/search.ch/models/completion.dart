@@ -2,13 +2,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 
-part 'cff_completion.freezed.dart';
-part 'cff_completion.g.dart';
+part 'completion.freezed.dart';
+part 'completion.g.dart';
 
 @freezed
-abstract class CffCompletion with _$CffCompletion {
+abstract class NavCompletion with _$NavCompletion {
   @JsonSerializable(includeIfNull: false)
-  const factory CffCompletion({
+  const factory NavCompletion({
     required String label,
     double? dist,
     @JsonKey(name: 'iconclass') String? icon,
@@ -16,15 +16,15 @@ abstract class CffCompletion with _$CffCompletion {
     String? id,
     String? favoriteName,
     @Default(DataOrigin.data) DataOrigin origin,
-  }) = _CffCompletion;
+  }) = _NavCompletion;
 
-  factory CffCompletion.fromFavorite(FavoriteStop stop) => _CffCompletion(
+  factory NavCompletion.fromFavorite(FavoriteStop stop) => _NavCompletion(
         label: stop.stop,
         favoriteName: stop.name,
         origin: DataOrigin.favorites,
       );
 
-  factory CffCompletion.fromJson(Map<String, dynamic> json) => _$CffCompletionFromJson(json);
+  factory NavCompletion.fromJson(Map<String, dynamic> json) => _$NavCompletionFromJson(json);
 }
 
 enum DataOrigin {

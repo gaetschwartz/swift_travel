@@ -11,8 +11,6 @@ final sbbDataProvider = Provider((ref) => SbbDataRepository());
 
 class SbbDataRepository {
   //static const imagesBaseUrl = 'https://data.sbb.ch/explore/dataset/bilder-von-bahnhofen/files/';
-  static const baseUrl = 'https://data.sbb.ch/api/records/1.0/search/';
-  static const geoBaseUrl = 'https://api3.geo.admin.ch/rest/services/apis/SearchServer';
 
   final _client = http.Client();
   final bool useCompute;
@@ -20,13 +18,12 @@ class SbbDataRepository {
   SbbDataRepository({this.useCompute = false});
 
   Future<SbbStationResponse> _getSbb(String location) async {
-    final queryParameters = {
-      'dataset': 'dienststellen-gemass-opentransportdataswiss',
-      'rows': 1,
-      'q': location,
-    };
     final response = await _client.get(
-      baseUrl + '?' + queryParameters.entries.map((e) => '${e.key}?${e.value}').join('&'),
+      Uri.https('data.sbb.ch', '/api/records/1.0/search/', {
+        'dataset': 'dienststellen-gemass-opentransportdataswiss',
+        'rows': 1,
+        'q': location,
+      }),
     );
     final decoded = (useCompute
         ? await compute(jsonDecode, response.body)
@@ -36,12 +33,11 @@ class SbbDataRepository {
   }
 
   Future<GeoResponse> _getGeo(String location) async {
-    final queryParameters2 = {
-      'type': 'locations',
-      'searchText': location,
-    };
     final response = await _client.get(
-      geoBaseUrl + '?' + queryParameters2.entries.map((e) => '${e.key}?${e.value}').join('&'),
+      Uri.https('api3.geo.admin.ch', '/rest/services/apis/SearchServer', {
+        'type': 'locations',
+        'searchText': location,
+      }),
     );
     final decoded = (useCompute
         ? await compute(jsonDecode, response.body)

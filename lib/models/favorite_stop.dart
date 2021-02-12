@@ -1,6 +1,6 @@
 // ignore_for_file: unused_element
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
 
 part 'favorite_stop.freezed.dart';
 part 'favorite_stop.g.dart';
@@ -13,7 +13,7 @@ abstract class FavoriteStop with _$FavoriteStop {
   }) = _FavoriteStop;
   factory FavoriteStop.fromStop(String stop) => _FavoriteStop(stop: stop, name: stop);
 
-  factory FavoriteStop.fromCompletion(CffCompletion completion, {String? name}) =>
+  factory FavoriteStop.fromCompletion(NavCompletion completion, {String? name}) =>
       _FavoriteStop(stop: completion.label, name: name ?? completion.label);
 
   factory FavoriteStop.fromJson(Map<String, dynamic> json) => _$FavoriteStopFromJson(json);

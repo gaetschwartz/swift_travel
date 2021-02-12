@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
+import 'package:swift_travel/apis/search.ch/models/route.dart';
 import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/l10n.dart';

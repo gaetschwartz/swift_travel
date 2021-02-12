@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:overflow_view/overflow_view.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/l10n.dart';
@@ -25,13 +25,13 @@ import 'package:vibration/vibration.dart';
 
 enum _Actions { favorite }
 
-class CffCompletionTile extends ConsumerWidget {
-  const CffCompletionTile({
+class NavCompletionTile extends ConsumerWidget {
+  const NavCompletionTile({
     Key? key,
     required this.sugg,
   }) : super(key: key);
 
-  final CffCompletion sugg;
+  final NavCompletion sugg;
 
   static const _kRadius = BorderRadius.all(Radius.circular(24));
   @override
@@ -159,7 +159,7 @@ class _LinesWidget extends StatefulWidget {
     required this.sugg,
   }) : super(key: key);
 
-  final CffCompletion sugg;
+  final NavCompletion sugg;
 
   @override
   __LinesWidgetState createState() => __LinesWidgetState();
@@ -190,23 +190,25 @@ class __LinesWidgetState extends State<_LinesWidget> {
     final s = Stopwatch();
     s.start();
     if (!_cache.containsKey(widget.sugg.label)) {
-      final stationboard = await context
+      final sData = await context
           .read(navigationAPIProvider)
           .stationboard(widget.sugg.label)
           .timeout(const Duration(seconds: 1));
-      // print('End network call: ' + s.elapsedMilliseconds.toString() + ' ms');
-      final l = stationboard.connections
-          .where((c) => c.line != null)
-          .map((c) => Line(c.line, c.color))
-          .toSet()
-          .toList(growable: false)
-            ..sort((a, b) {
-              final ai = int.tryParse(a.line!);
-              final bi = int.tryParse(b.line!);
-              return ai == null && bi == null
-                  ? a.line!.compareTo(b.line!)
-                  : (ai ?? double.infinity).compareTo(bi ?? double.infinity);
-            });
+
+      final l = sData.map<List<Line>>(
+        (board) => board.connections
+            .where((c) => c.line != null)
+            .map((c) => Line(c.line, c.color))
+            .toSet()
+            .sorted((a, b) {
+          final ai = int.tryParse(a.line!);
+          final bi = int.tryParse(b.line!);
+          return ai == null && bi == null
+              ? a.line!.compareTo(b.line!)
+              : (ai ?? double.infinity).compareTo(bi ?? double.infinity);
+        }),
+        error: (_) => [],
+      );
 
       final l2 = l
           .map((l) => Padding(

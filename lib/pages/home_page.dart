@@ -118,11 +118,13 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           const SafeArea(child: VerticalDivider(width: 0)),
           Expanded(
               child: ClipRect(
-            child: Navigator(
-              key: sideBarNavigatorKey,
-              pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
-              onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
-              onPopPage: (_, __) => true,
+            child: Material(
+              child: Navigator(
+                key: sideBarNavigatorKey,
+                pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
+                onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
+                onPopPage: (_, __) => true,
+              ),
             ),
           )),
         ]);

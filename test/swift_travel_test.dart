@@ -11,9 +11,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
-import 'package:swift_travel/apis/search.ch/cff.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
+import 'package:swift_travel/apis/search.ch/search_ch.dart';
 import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
@@ -116,9 +116,9 @@ void main() {
       expect(
         c,
         [
-          CffCompletion(label: route1.from, origin: DataOrigin.history),
-          CffCompletion(label: route1.to, origin: DataOrigin.history),
-          CffCompletion(label: route3.from, origin: DataOrigin.history),
+          NavCompletion(label: route1.from, origin: DataOrigin.history),
+          NavCompletion(label: route1.to, origin: DataOrigin.history),
+          NavCompletion(label: route3.from, origin: DataOrigin.history),
         ],
       );
     });
@@ -150,7 +150,7 @@ void main() {
     test('favoriteStop', () {
       const stop1 = FavoriteStop(stop: geneva, name: geneva);
       final stop2 = FavoriteStop.fromStop(geneva);
-      final stop3 = FavoriteStop.fromCompletion(const CffCompletion(label: geneva));
+      final stop3 = FavoriteStop.fromCompletion(const NavCompletion(label: geneva));
       final stop4 = FavoriteStop.fromJson({'stop': geneva, 'name': geneva});
 
       expect(stop1, equals(stop2));
@@ -175,7 +175,7 @@ void main() {
         FavoriteStop.fromStop('Lausanne Aéroport'),
       ],
       completions: [
-        const CffCompletion(label: geneva),
+        const NavCompletion(label: geneva),
       ],
       query: geneva,
       currentLocationString: currentLocation,
@@ -185,13 +185,13 @@ void main() {
     );
 
     expect(c, [
-      const CffCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
-      CffCompletion(label: route1.from, origin: DataOrigin.history),
-      CffCompletion(label: route1.to, origin: DataOrigin.history),
-      CffCompletion.fromFavorite(FavoriteStop.fromStop(geneva)),
-      CffCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare')),
-      CffCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord')),
-      const CffCompletion(label: 'Genève')
+      const NavCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
+      NavCompletion(label: route1.from, origin: DataOrigin.history),
+      NavCompletion(label: route1.to, origin: DataOrigin.history),
+      NavCompletion.fromFavorite(FavoriteStop.fromStop(geneva)),
+      NavCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare')),
+      NavCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord')),
+      const NavCompletion(label: 'Genève')
     ]);
   });
 
@@ -246,11 +246,10 @@ void main() {
           'show_delays': 1,
         },
       ].map((e) => e.map((key, value) => MapEntry(key, value.toString())));
-      final builder = QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
 
       for (final params in paramList) {
-        final String? url = builder('route', params);
-        expect(() => encodeRouteUri(Uri.parse(url!), 0), throwsFormatException);
+        final uri = SearchChApi.queryBuilder('route', params);
+        expect(() => encodeRouteUri(uri, 0), throwsFormatException);
       }
     });
     test('encode(decode(x)) == x', () {
@@ -274,13 +273,13 @@ void main() {
           'show_delays': 0,
         },
       ].map((e) => e.map((key, value) => MapEntry(key, value.toString())));
-      final builder = QueryBuilder('https://timetable.search.ch/api', (s) => '$s.json');
+      const builder = SearchChApi.queryBuilder;
 
       for (final params in paramList) {
         final url = builder('route', params);
 
-        final encoded = encodeRouteUri(Uri.parse(url), 0);
-        final decoded = decodeRouteUri(Uri.parse(builder('route', encoded)));
+        final encoded = encodeRouteUri(url, 0);
+        final decoded = decodeRouteUri(builder('route', encoded));
 
         expect(decoded, params);
       }

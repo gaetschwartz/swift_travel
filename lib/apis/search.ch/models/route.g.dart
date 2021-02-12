@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cff_route.dart';
+part of 'route.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_route.dart';
+import 'package:swift_travel/apis/search.ch/models/route.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/l10n.dart';

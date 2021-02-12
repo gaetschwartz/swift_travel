@@ -1,7 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swift_travel/apis/search.ch/models/cff_completion.dart';
+import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 
 class SuggestedTile extends StatelessWidget {
@@ -9,7 +9,7 @@ class SuggestedTile extends StatelessWidget {
     this.suggestion, {
     Key? key,
   }) : super(key: key);
-  final CffCompletion? suggestion;
+  final NavCompletion? suggestion;
 
   const SuggestedTile.empty() : suggestion = null;
 
