@@ -16,9 +16,9 @@ FavoriteStop _$FavoriteStopFromJson(Map<String, dynamic> json) {
 class _$FavoriteStopTearOff {
   const _$FavoriteStopTearOff();
 
-  _FavoriteStop call(String stop, {String? name}) {
+  _FavoriteStop call({required String stop, String? name}) {
     return _FavoriteStop(
-      stop,
+      stop: stop,
       name: name,
     );
   }
@@ -95,7 +95,7 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
     Object? name = freezed,
   }) {
     return _then(_FavoriteStop(
-      stop == freezed ? _value.stop : stop as String,
+      stop: stop == freezed ? _value.stop : stop as String,
       name: name == freezed ? _value.name : name as String?,
     ));
   }
@@ -105,7 +105,7 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_FavoriteStop implements _FavoriteStop {
-  const _$_FavoriteStop(this.stop, {this.name});
+  const _$_FavoriteStop({required this.stop, this.name});
 
   factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
       _$_$_FavoriteStopFromJson(json);
@@ -148,7 +148,8 @@ class _$_FavoriteStop implements _FavoriteStop {
 }
 
 abstract class _FavoriteStop implements FavoriteStop {
-  const factory _FavoriteStop(String stop, {String? name}) = _$_FavoriteStop;
+  const factory _FavoriteStop({required String stop, String? name}) =
+      _$_FavoriteStop;
 
   factory _FavoriteStop.fromJson(Map<String, dynamic> json) =
       _$_FavoriteStop.fromJson;

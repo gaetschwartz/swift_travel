@@ -66,7 +66,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
         primary: true,
         children: [
           const SizedBox(height: 32),
-          divider(),
+          const Divider(height: 0),
           DecoratedBox(
             decoration: BoxDecoration(
               color: CupertinoTheme.brightnessOf(context) == Brightness.dark
@@ -82,12 +82,12 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
                         dense: true,
                         onTap: () => tapped(i, item),
                         title: item.child,
-                        leading: i == selected
+                        trailing: i == selected
                             ? Icon(
                                 FluentIcons.checkmark_24_regular,
                                 color: CupertinoTheme.of(context).primaryColor,
                               )
-                            : const SizedBox(),
+                            : null,
                       )
                     : GestureDetector(
                         onTap: () => tapped(i, item),
@@ -95,10 +95,11 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
                       );
               },
               itemCount: widget.items.length,
-              separatorBuilder: (context, index) => divider(),
+              separatorBuilder: (context, index) =>
+                  const Divider(height: 0, indent: 12, endIndent: 12),
             ),
           ),
-          divider(),
+          const Divider(height: 0),
           if (widget.description != null)
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -114,8 +115,6 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
       ),
     );
   }
-
-  Divider divider() => const Divider(height: 0, indent: 8, endIndent: 8);
 
   void tapped(int i, ChoicePageItem<T> item) {
     setState(() => selected = i);

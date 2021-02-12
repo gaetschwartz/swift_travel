@@ -148,7 +148,7 @@ void main() {
     });
 
     test('favoriteStop', () {
-      const stop1 = FavoriteStop(geneva, name: geneva);
+      const stop1 = FavoriteStop(stop: geneva, name: geneva);
       final stop2 = FavoriteStop.fromStop(geneva);
       final stop3 = FavoriteStop.fromCompletion(const CffCompletion(label: geneva));
       final stop4 = FavoriteStop.fromJson({'stop': geneva, 'name': geneva});

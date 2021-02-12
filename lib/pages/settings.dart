@@ -123,8 +123,8 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
         ),
-    (_) => const _PlaformChoiceWidget(),
     (_) => const _FontWeightWidget(),
+    (_) => const _PlaformChoiceWidget(),
     (context) => _SectionTitle(title: Text(AppLoc.of(context).themes)),
     (_) => const _ThemesSection(),
     (context) => (isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)

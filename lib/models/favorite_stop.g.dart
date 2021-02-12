@@ -8,7 +8,7 @@ part of 'favorite_stop.dart';
 
 _$_FavoriteStop _$_$_FavoriteStopFromJson(Map<String, dynamic> json) {
   return _$_FavoriteStop(
-    json['stop'] as String,
+    stop: json['stop'] as String,
     name: json['name'] as String?,
   );
 }

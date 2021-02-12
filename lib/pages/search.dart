@@ -205,8 +205,7 @@ class _Results extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-        builder: (context, w, _) {
+    return Consumer(builder: (context, w, _) {
       final state = w(_stateProvider);
       return state.state.map(
         completions: (c) => CustomScrollView(
@@ -229,7 +228,7 @@ class _Results extends StatelessWidget {
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, i) => _SuggestedTile(c.completions[i], onTap: onTap),
-                  childCount: c.completions == null ? 0 : c.completions.length,
+                  childCount: c.completions.length,
                 ),
               ),
             ),
@@ -267,7 +266,7 @@ class _Results extends StatelessWidget {
           ],
         ),
       );
-    } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
+    });
   }
 }
 

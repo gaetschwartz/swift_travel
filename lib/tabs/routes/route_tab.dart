@@ -692,10 +692,10 @@ class _RoutePageState extends State<RoutePage> {
   }
 }
 
-final _locationNotFound = RegExp('Stop ([\d\.,-]*) not found.');
-
 final _predictionProvider = Provider.family<Prediction<LocalRoute?>, DateTime>(
     (_, date) => predictRoute(RouteHistoryRepository.i.routes, date));
+
+final _locationNotFound = RegExp('Stop ([\d\.,-\s]*) not found\.');
 
 class RoutesView extends StatelessWidget {
   const RoutesView({
@@ -704,9 +704,9 @@ class RoutesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-        builder: (context, w, _) {
+    return Consumer(builder: (context, w, _) {
       final fetcher = w(routeStatesProvider);
+
       return fetcher.state.when(
         routes: (routes) => CustomScrollView(
           slivers: [
@@ -727,7 +727,7 @@ class RoutesView extends StatelessWidget {
                           route: routes,
                           i: i,
                         ),
-                        childCount: routes == null ? 0 : routes.connections.length,
+                        childCount: routes.connections.length,
                       ),
                     )
                   : SliverFillRemaining(
@@ -736,7 +736,7 @@ class RoutesView extends StatelessWidget {
                         child: Center(
                           child: _locationNotFound.hasMatch(routes.messages.first)
                               ? Text(
-                                  'You don\' seem to be in a supported area.',
+                                  "You don't seem to be in a supported area.",
                                   style: Theme.of(context).textTheme.headline6,
                                   textAlign: TextAlign.center,
                                 )
@@ -850,7 +850,7 @@ class RoutesView extends StatelessWidget {
             builder: (context, watch, child) {
               final date = watch(dateProvider).state;
               final pred = watch(_predictionProvider(date));
-              if (pred.confidence > .25) {
+              if (pred.prediction != null && pred.confidence > .25) {
                 return Align(
                   alignment: Alignment.topCenter,
                   child: ListTile(
@@ -861,26 +861,26 @@ class RoutesView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${AppLoc.of(context).from} ${pred.prediction.from}',
+                          '${AppLoc.of(context).from} ${pred.prediction!.from}',
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          '${AppLoc.of(context).to} ${pred.prediction.to}',
+                          '${AppLoc.of(context).to} ${pred.prediction!.to}',
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
                     isThreeLine: true,
                     onTap: () {
-                      from.setString(context, pred.prediction.from);
-                      to.setString(context, pred.prediction.to);
+                      from.setString(context, pred.prediction!.from);
+                      to.setString(context, pred.prediction!.to);
                     },
                   ),
                 );
               } else {
                 return child!;
               }
-            } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?),
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -925,7 +925,7 @@ class RoutesView extends StatelessWidget {
           ],
         ),
       );
-    } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
+    });
   }
 }
 

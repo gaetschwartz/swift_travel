@@ -8,7 +8,9 @@ import 'package:swift_travel/apis/search.ch/models/stationboard_connection.dart'
 import 'package:swift_travel/apis/search.ch/models/stop.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/main.dart';
+import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
@@ -50,7 +52,13 @@ class _StopDetailsState extends State<StopDetails> {
     if (Responsive.isDarwin(context)) {
       return CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
-        navigationBar: cupertinoBar(context),
+        navigationBar: cupertinoBar(context,
+            trailing: IconButton(
+                icon: const Icon(Icons.double_arrow_rounded),
+                onPressed: () {
+                  Nav.push(
+                      context, (context) => RoutePage.stop(FavoriteStop(stop: widget.stopName)));
+                })),
         child: buildIOSList(),
       );
     } else {

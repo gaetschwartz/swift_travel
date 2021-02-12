@@ -154,8 +154,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       )
     ];
 
-    return Scaffold(
-      body: CupertinoTabScaffold(
+    return Material(
+      child: CupertinoTabScaffold(
         controller: combinedPageController.cupertinoTabController,
         resizeToAvoidBottomInset: false,
         tabBar: CupertinoTabBar(
@@ -285,7 +285,7 @@ class _SideBar extends StatelessWidget {
                   ),
                 )),
               ],
-            )) as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
+            )));
   }
 }
 

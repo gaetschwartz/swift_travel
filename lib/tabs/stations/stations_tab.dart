@@ -171,8 +171,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
             ),
             const SizedBox(height: 8),
             Expanded(
-              child: Consumer(
-                  builder: (context, w, _) {
+              child: Consumer(builder: (context, w, _) {
                 return w(_stateProvider).state.map(
                       completions: (c) => Column(
                         children: [
@@ -194,45 +193,43 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                 sugg: c.completions[i],
                                 key: Key('stations-key-$i'),
                               ),
-                              itemCount: c.completions == null ? 0 : c.completions.length,
+                              itemCount: c.completions.length,
                             ),
                           ),
                         ],
                       ),
                       empty: (_) => Consumer(
                           builder: ((context, w, _) => w(favoritesStatesProvider).state.map(
-                                    data: (c) => c.favorites.isEmpty
-                                        ? Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              const Text(
-                                                '🔎',
-                                                style: TextStyle(fontSize: 48),
-                                              ),
-                                              const SizedBox(height: 24),
-                                              Text(
-                                                'Search a station',
-                                                style: Theme.of(context).textTheme.headline6,
-                                                textAlign: TextAlign.center,
-                                              )
-                                            ],
-                                          )
-                                        : ListView.builder(
-                                            itemBuilder: (context, i) => CffCompletionTile(
-                                                sugg: CffCompletion.fromFavorite(c.favorites[i]!)),
-                                            itemCount: c.favorites == null ? 0 : c.favorites.length,
+                                data: (c) => c.favorites.isEmpty
+                                    ? Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            '🔎',
+                                            style: TextStyle(fontSize: 48),
                                           ),
-                                    loading: (_) =>
-                                        const Center(child: CircularProgressIndicator.adaptive()),
-                                    exception: (e) => Center(
-                                      child: Text(
-                                        e.exception.toString(),
-                                        style: Theme.of(context).textTheme.headline6,
+                                          const SizedBox(height: 24),
+                                          Text(
+                                            'Search a station',
+                                            style: Theme.of(context).textTheme.headline6,
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      )
+                                    : ListView.builder(
+                                        itemBuilder: (context, i) => CffCompletionTile(
+                                            sugg: CffCompletion.fromFavorite(c.favorites[i])),
+                                        itemCount: c.favorites.length,
                                       ),
-                                    ),
-                                  ))
-                              as Widget Function(
-                                  BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?)),
+                                loading: (_) =>
+                                    const Center(child: CircularProgressIndicator.adaptive()),
+                                exception: (e) => Center(
+                                  child: Text(
+                                    e.exception.toString(),
+                                    style: Theme.of(context).textTheme.headline6,
+                                  ),
+                                ),
+                              ))),
                       network: (value) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -248,7 +245,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                         ],
                       ),
                     );
-              } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?)),
+              }),
             ),
           ],
         ),
