@@ -18,9 +18,10 @@ _$_StationboardConnection _$_$_StationboardConnectionFromJson(
     number: json['number'] as String? ?? '',
     g: json['*G'] as String?,
     l: json['*L'] as String?,
-    subsequentStops: (json['subsequent_stops'] as List<dynamic>)
-        .map((e) => SubsequentStop.fromJson(e as Map<String, dynamic>))
-        .toList(),
+    subsequentStops: (json['subsequent_stops'] as List<dynamic>?)
+            ?.map((e) => SubsequentStop.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
     depDelay: delayFromJson(json['dep_delay']),
     arrDelay: delayFromJson(json['arr_delay']),
   );

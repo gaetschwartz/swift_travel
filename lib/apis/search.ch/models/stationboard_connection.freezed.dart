@@ -30,12 +30,12 @@ class _$StationboardConnectionTearOff {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops')
+      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
           List<SubsequentStop> subsequentStops = const [],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int depDelay,
+          int depDelay = 0,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int arrDelay}) {
+          int arrDelay = 0}) {
     return _StationboardConnection(
       time: time,
       type: type,
@@ -74,7 +74,7 @@ mixin _$StationboardConnection {
   String? get g;
   @JsonKey(name: '*L')
   String? get l;
-  @JsonKey(name: 'subsequent_stops')
+  @JsonKey(name: 'subsequent_stops', defaultValue: const [])
   List<SubsequentStop> get subsequentStops;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get depDelay;
@@ -104,7 +104,7 @@ abstract class $StationboardConnectionCopyWith<$Res> {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops')
+      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
           List<SubsequentStop> subsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -184,7 +184,7 @@ abstract class _$StationboardConnectionCopyWith<$Res>
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops')
+      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
           List<SubsequentStop> subsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -257,12 +257,12 @@ class _$_StationboardConnection implements _StationboardConnection {
           this.g,
       @JsonKey(name: '*L')
           this.l,
-      @JsonKey(name: 'subsequent_stops')
+      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
           this.subsequentStops = const [],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required this.depDelay,
+          this.depDelay = 0,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required this.arrDelay});
+          this.arrDelay = 0});
 
   factory _$_StationboardConnection.fromJson(Map<String, dynamic> json) =>
       _$_$_StationboardConnectionFromJson(json);
@@ -290,7 +290,7 @@ class _$_StationboardConnection implements _StationboardConnection {
   @JsonKey(name: '*L')
   final String? l;
   @override
-  @JsonKey(name: 'subsequent_stops')
+  @JsonKey(name: 'subsequent_stops', defaultValue: const [])
   final List<SubsequentStop> subsequentStops;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -381,12 +381,12 @@ abstract class _StationboardConnection implements StationboardConnection {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops')
+      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
           List<SubsequentStop> subsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int depDelay,
+          int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int arrDelay}) = _$_StationboardConnection;
+          int arrDelay}) = _$_StationboardConnection;
 
   factory _StationboardConnection.fromJson(Map<String, dynamic> json) =
       _$_StationboardConnection.fromJson;
@@ -413,7 +413,7 @@ abstract class _StationboardConnection implements StationboardConnection {
   @JsonKey(name: '*L')
   String? get l;
   @override
-  @JsonKey(name: 'subsequent_stops')
+  @JsonKey(name: 'subsequent_stops', defaultValue: const [])
   List<SubsequentStop> get subsequentStops;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)

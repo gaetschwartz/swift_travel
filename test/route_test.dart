@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:swift_travel/apis/search.ch/models/route.dart';
 import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/db/database.dart';
+import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/mocking/mocking.dart';
@@ -34,7 +34,7 @@ void main() {
     });
 
     tearDown(() async {
-      await Hive.deleteBoxFromDisk(RouteHistoryRepository.boxKey);
+      await Hive.deleteBoxFromDisk(RouteHistoryRepository.i.boxKey);
     });
 
     _testRouteTab();

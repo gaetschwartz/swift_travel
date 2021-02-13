@@ -14,7 +14,7 @@ import 'package:path/path.dart' as path;
 import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
 import 'package:swift_travel/apis/search.ch/search_ch.dart';
-import 'package:swift_travel/db/database.dart';
+import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
@@ -46,7 +46,7 @@ void main() {
     });
 
     tearDown(() async {
-      await Hive.deleteBoxFromDisk(RouteHistoryRepository.boxKey);
+      await Hive.deleteBoxFromDisk(RouteHistoryRepository.i.boxKey);
     });
 
     test('add route', () async {

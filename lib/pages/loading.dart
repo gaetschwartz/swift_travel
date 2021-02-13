@@ -6,8 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/blocs/links.dart';
@@ -15,12 +13,14 @@ import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/blocs/quick_actions.dart';
 import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/db/database.dart';
+import 'package:swift_travel/db/cache.dart';
+import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/path.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -109,14 +109,11 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   Future<void> initSettings(SharedPreferences prefs) async {
-    if (!kIsWeb) {
-      final appDir = await getApplicationDocumentsDirectory();
-      if (appDir == null) {
-        throw Exception('Failed to get application documents directory to store Hive data in.');
-      }
-      Hive.init(path.join(appDir.path, 'hive_data'));
-    }
-    await RouteHistoryRepository.i.open();
+    await initHive();
+    await Future.wait([
+      RouteHistoryRepository.i.open(),
+      LineCache.i.open(),
+    ]);
 
     try {
       await context.read(dynamicTheme).configure(themeConfiguration);
@@ -150,6 +147,14 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
         ),
       );
       if (delete) await prefs.clear();
+    }
+  }
+
+  Future<void> initHive() async {
+    if (!kIsWeb) {
+      final appDir = await getApplicationPath();
+      final finalPath = await getHivePathOf(appDir);
+      Hive.init(finalPath);
     }
   }
 

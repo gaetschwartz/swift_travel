@@ -10,7 +10,7 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/db/database.dart';
+import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';

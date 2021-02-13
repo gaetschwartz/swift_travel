@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
-import 'package:swift_travel/tabs/stations/completion_tile.dart';
+import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/utils/format.dart';
 
 class LineIcon extends StatelessWidget {

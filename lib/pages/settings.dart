@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/constants/build.dart';
-import 'package:swift_travel/db/database.dart';
+import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';

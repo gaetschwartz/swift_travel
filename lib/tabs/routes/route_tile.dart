@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/route.dart';
 import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
-import 'package:swift_travel/db/database.dart';
+import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';

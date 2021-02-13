@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
@@ -11,6 +10,8 @@ import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/db/cache.dart';
+import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -44,6 +45,15 @@ class NavCompletionTile extends ConsumerWidget {
     final isFavInStore = favStop != null;
     final isDarwin = Responsive.isDarwin(context);
 
+    final children = [
+      if (isFav) Text(sugg.label, overflow: TextOverflow.ellipsis),
+      if (sugg.dist != null) Text('${sugg.dist!.round()}m'),
+      if (!isPrivate)
+        _LinesWidget(
+          sugg: sugg,
+          key: Key(sugg.label),
+        )
+    ];
     final Widget listTile = DecoratedBox(
       decoration: BoxDecoration(
         boxShadow: shadowListOf(context),
@@ -62,19 +72,8 @@ class NavCompletionTile extends ConsumerWidget {
           ],
         ),
         title: Text(isFav ? sugg.favoriteName! : sugg.label),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (isFav) Text(sugg.label, overflow: TextOverflow.ellipsis),
-            if (sugg.dist != null) Text('${sugg.dist!.round()}m'),
-            if (!isPrivate)
-              _LinesWidget(
-                sugg: sugg,
-                key: Key(sugg.label),
-              )
-          ],
-        ),
-        isThreeLine: isFav && sugg.dist != null,
+        subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: children),
+        isThreeLine: children.length > 1,
         onLongPress: () => more(context, isFav: isFavInStore, favoriteStop: favStop, store: store),
         trailing: isPrivate
             ? IconButton(
@@ -165,13 +164,9 @@ class _LinesWidget extends StatefulWidget {
   __LinesWidgetState createState() => __LinesWidgetState();
 }
 
-final _cache = <String, List<Line>>{};
-
-final _queue = DoubleLinkedQueue<String>();
-
-const _maxCacheSize = 100;
-
 class __LinesWidgetState extends State<_LinesWidget> {
+  final _cache = LineCache.i;
+
   @override
   void initState() {
     super.initState();
@@ -181,7 +176,8 @@ class __LinesWidgetState extends State<_LinesWidget> {
   Future<void> getData() async {
     try {
       await stationboard();
-    } catch (e) {
+    } catch (e, s) {
+      debugPrintStack(stackTrace: s, label: e.toString());
       setState(() => lines = []);
     }
   }
@@ -189,13 +185,15 @@ class __LinesWidgetState extends State<_LinesWidget> {
   Future<void> stationboard() async {
     final s = Stopwatch();
     s.start();
-    if (!_cache.containsKey(widget.sugg.label)) {
+    if (_cache.containsKey(widget.sugg.label)) {
+      final l = _cache.get(widget.sugg.label).lines.map(buildPadding).toList(growable: false);
+      if (mounted) setState(() => lines = l);
+    } else {
       final sData = await context
           .read(navigationAPIProvider)
-          .stationboard(widget.sugg.label)
+          .stationboard(widget.sugg.label, showSubsequentStops: false, showDelays: false)
           .timeout(const Duration(seconds: 1));
-
-      final l = sData.map<List<Line>>(
+      final l = sData.map<List<Line>?>(
         (board) => board.connections
             .where((c) => c.line != null)
             .map((c) => Line(c.line, c.color))
@@ -207,69 +205,56 @@ class __LinesWidgetState extends State<_LinesWidget> {
               ? a.line!.compareTo(b.line!)
               : (ai ?? double.infinity).compareTo(bi ?? double.infinity);
         }),
-        error: (_) => [],
+        error: (e) {
+          print('CffStationboardError while fetching lines: ' + e.messages.toString());
+          return null;
+        },
       );
 
-      final l2 = l
-          .map((l) => Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: LineIcon.fromLine(l, small: true),
-              ))
-          .toList(growable: false);
       s.stop();
-      //  print('End: ' + s.elapsedMilliseconds.toString() + ' ms');
-      if (mounted) setState(() => lines = l2);
-      if (_cache.length > _maxCacheSize) {
-        _cache.remove(_queue.removeFirst());
+
+      if (l != null) {
+        final l2 = l.map(buildPadding).toList(growable: false);
+
+        if (mounted) setState(() => lines = l2);
+
+        await _cache.put(
+            widget.sugg.label,
+            LineCacheEntry(
+              timestamp: DateTime.now(),
+              stop: widget.sugg.label,
+              lines: l,
+            ));
+      } else {
+        if (mounted) setState(() => lines = []);
+
+        final entry = LineCacheEntry(
+          timestamp: DateTime.now(),
+          stop: widget.sugg.label,
+          lines: [],
+          ttl: Duration.minutesPerHour * 6,
+        );
+
+        await _cache.put(widget.sugg.label, entry);
       }
-      _cache[widget.sugg.label] = l;
-      _queue.removeWhere((e) => e == widget.sugg.label);
-      _queue.add(widget.sugg.label);
-    } else {
-      final l = _cache[widget.sugg.label]!
-          .map((l) => Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: LineIcon.fromLine(l, small: true),
-              ))
-          .toList(growable: false);
-      if (mounted) setState(() => lines = l);
     }
   }
+
+  Widget buildPadding(Line l) => LineIcon.fromLine(l, small: true);
 
   List<Widget>? lines;
 
   @override
   Widget build(BuildContext context) {
     return lines == null
-        ? const Padding(
-            padding: EdgeInsets.only(top: 8),
-            child: CupertinoActivityIndicator(),
-          )
+        ? const Padding(padding: EdgeInsets.only(top: 4), child: CupertinoActivityIndicator())
         : Padding(
-            padding: const EdgeInsets.only(right: 2),
+            padding: const EdgeInsets.only(top: 4),
             child: OverflowView.flexible(
-              builder: (context, remainingItemCount) => const SizedBox(
-                  height: 30, child: Align(alignment: Alignment.bottomCenter, child: Text(' ...'))),
+              builder: (context, r) => SizedBox(child: Center(child: Text('+$r'))),
               spacing: 2,
-              children: lines!,
+              children: lines,
             ),
           );
   }
-}
-
-class Line {
-  final String? line;
-  final String colors;
-
-  const Line(this.line, this.colors);
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is Line && o.line == line && o.colors == colors;
-  }
-
-  @override
-  int get hashCode => line.hashCode ^ colors.hashCode;
 }

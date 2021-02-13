@@ -21,7 +21,7 @@ import 'package:swift_travel/blocs/location/location.dart';
 import 'package:swift_travel/blocs/location/models/models.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/db/database.dart';
+import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorite_stop.dart';

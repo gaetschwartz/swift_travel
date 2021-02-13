@@ -12,7 +12,7 @@ import 'package:process_run/shell.dart';
 import 'package:share/share.dart';
 import 'package:swift_travel/apis/search.ch/models/attribute.dart';
 import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/db/database.dart';
+import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/main.dart';
 
 class CrawlerPage extends StatefulWidget {
