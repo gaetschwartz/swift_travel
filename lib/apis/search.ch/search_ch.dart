@@ -146,7 +146,7 @@ class SearchChApi extends NavigationApi {
     };
 
     final s = queryBuilder('route', params);
-    if (isDebugMode) print('builder : $s');
+    if (isDebugMode) print('builder: $s');
     return await rawRoute(s);
   }
 

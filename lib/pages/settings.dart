@@ -260,8 +260,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).push(
                     platformRoute(
-                        builder: (context) => const CrawlerPage(),
-                        isDarwin: Responsive.isDarwin(context)),
+                      builder: (context) => const CrawlerPage(),
+                      isDarwin: Responsive.isDarwin(context),
+                      fullscreenDialog: true,
+                    ),
                   );
                 }),
             ListTile(

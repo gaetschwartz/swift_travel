@@ -15,8 +15,6 @@ import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/db/database.dart';
 import 'package:swift_travel/main.dart';
 
-import 'format.dart';
-
 class CrawlerPage extends StatefulWidget {
   const CrawlerPage();
 
@@ -30,6 +28,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
   Map<String, String> unHandled = {};
 
   String current = '';
+  String current2 = '';
   String currentSub = '';
   bool isRunning = false;
   int currentI = 1;
@@ -66,58 +65,63 @@ class _CrawlerPageState extends State<CrawlerPage> {
                   }
                 }),
           IconButton(
-              onPressed: () async {
-                setState(() {
-                  unHandled = {};
-                  handled = {};
-                  isRunning = true;
-                  currentI = 1;
-                });
-                try {
-                  for (final lr in routes) {
-                    print('Fetching ${lr.from} -> ${lr.to}');
-                    for (var i = 0; i < 6; i++) {
-                      final timeOfDay = TimeOfDay(hour: 8 + 2 * i, minute: 0);
+              onPressed: isRunning
+                  ? () => setState(() => isRunning = false)
+                  : () async {
                       setState(() {
-                        current = ellipsis(lr.from) + ' > ' + ellipsis(lr.to);
-                        currentSub = timeOfDay.toString();
+                        unHandled = {};
+                        handled = {};
+                        isRunning = true;
+                        currentI = 1;
                       });
-                      final r = await context.read(navigationAPIProvider).route(
-                            lr.from,
-                            lr.to,
-                            date: DateTime.now(),
-                            time: timeOfDay,
-                          );
-                      for (final c in r.connections) {
-                        for (final l in c.legs) {
-                          for (final e in l.attributes.entries) {
-                            if (Attribute.attributes.containsKey(e.key)) {
-                              handled[e.key] = e.value;
-                            } else {
-                              unHandled[e.key] = e.value;
+                      try {
+                        for (final lr in routes) {
+                          print('Fetching ${lr.from} -> ${lr.to}');
+                          for (var i = 0; i < 6; i++) {
+                            final timeOfDay = TimeOfDay(hour: 8 + 2 * i, minute: 0);
+                            if (mounted) {
+                              setState(() {
+                                current = lr.from;
+                                current2 = lr.to;
+                                currentSub = timeOfDay.toString();
+                              });
+                            }
+                            final r = await context.read(navigationAPIProvider).route(
+                                  lr.from,
+                                  lr.to,
+                                  date: DateTime.now(),
+                                  time: timeOfDay,
+                                );
+                            for (final c in r.connections) {
+                              for (final l in c.legs) {
+                                for (final e in l.attributes.entries) {
+                                  if (Attribute.attributes.containsKey(e.key)) {
+                                    handled[e.key] = e.value;
+                                  } else {
+                                    unHandled[e.key] = e.value;
+                                  }
+                                  if (!isRunning) return;
+                                }
+                              }
                             }
                           }
+                          if (mounted) setState(() => currentI++);
+                          print('Done fetching ${lr.from} -> ${lr.to}');
                         }
+                      } finally {
+                        if (mounted) setState(() => isRunning = false);
                       }
-                    }
-                    setState(() {
-                      currentI++;
-                    });
-                    print('Done fetching ${lr.from} -> ${lr.to}');
-                  }
-                } finally {
-                  setState(() => isRunning = false);
-                }
-              },
+                    },
               icon: isRunning ? const Icon(Icons.stop) : const Icon(Icons.play_arrow))
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListTile(
-            title: Text(current),
-            subtitle: Text(currentSub),
-          ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(current)),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(current2)),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(currentSub)),
+          const SizedBox(height: 8),
           if (isRunning)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
