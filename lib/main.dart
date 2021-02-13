@@ -37,7 +37,7 @@ import 'package:url_strategy/url_strategy.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
-bool get isMobile => !kIsWeb && (Platform.isIOS || Platform.isIOS);
+bool get isMobile => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
 String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
 

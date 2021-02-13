@@ -2,13 +2,18 @@ import 'dart:math' as math;
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:swift_travel/apis/search.ch/models/attribute.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/apis/search.ch/models/stop.dart';
+import 'package:swift_travel/tabs/routes/details/tiles/attributes_page.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/expandable.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
+import 'package:theming/responsive.dart';
 
 class TransportLegTile extends StatefulWidget {
   const TransportLegTile({
@@ -92,9 +97,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                   ),
                 ],
               ),
-              expanded: Column(
-                children: _stops(widget.l, context),
-              ),
+              expanded: Column(children: _stops(widget.l, context)),
               collapsed: DefaultTextStyle(
                 style: Theme.of(context).textTheme.subtitle2!,
                 child: Padding(
@@ -122,34 +125,103 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                   ),
                               ])),
                               const SizedBox(width: 16),
-                              Expanded(child: Text(widget.l.name!)),
+                              Expanded(child: Text(widget.l.name)),
                             ],
                           ),
                         ),
                         if (widget.l.exit != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Text.rich(TextSpan(children: [
-                                  TextSpan(
-                                    text: Format.time(widget.l.exit!.arrival),
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  if (widget.l.exit!.arrDelay > 0)
+                          IconTheme(
+                            data: const IconThemeData(size: 16, color: Colors.white),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Row(
+                                children: [
+                                  Text.rich(TextSpan(children: [
                                     TextSpan(
-                                      text: Format.delay(widget.l.exit!.arrDelay),
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: _red,
-                                      ),
+                                      text: Format.time(widget.l.exit!.arrival),
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
                                     ),
-                                ])),
-                                const SizedBox(width: 16),
-                                Expanded(child: Text(widget.l.exit!.name)),
-                                Text(Format.intToDuration(widget.l.runningTime!.round())),
-                                const SizedBox(width: 32),
-                              ],
+                                    if (widget.l.exit!.arrDelay > 0)
+                                      TextSpan(
+                                        text: Format.delay(widget.l.exit!.arrDelay),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: _red,
+                                        ),
+                                      ),
+                                  ])),
+                                  const SizedBox(width: 16),
+                                  Expanded(child: Text(widget.l.exit!.name)),
+                                  InkWell(
+                                    onTap: () {
+                                      final darwin = Responsive.isDarwin(context);
+                                      final list = widget.l.attributes.entries
+                                          .map((e) =>
+                                              Attribute.attributes[e.key]
+                                                  ?.copyWith(message: e.value) ??
+                                              Attribute(code: e.key, message: e.value))
+                                          .toList();
+                                      if (isDebugMode) {
+                                        list.add(const Attribute(
+                                          code: 'dummy_code',
+                                          message: 'This is a dummy unhandled attribute',
+                                        ));
+                                      }
+                                      if (darwin) {
+                                        showCupertinoModalBottomSheet(
+                                            context: context,
+                                            backgroundColor: Colors.white,
+                                            builder: (context) => Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    const SizedBox(height: 8),
+                                                    ...list.map(AttributesPage.buildAttributeTile),
+                                                    const SizedBox(height: 8),
+                                                  ],
+                                                ),
+                                            expand: false);
+                                      } else {
+                                        showMaterialModalBottomSheet(
+                                            context: context,
+                                            backgroundColor: Colors.white,
+                                            builder: (context) => Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    const SizedBox(height: 8),
+                                                    ...list.map(AttributesPage.buildAttributeTile),
+                                                    const SizedBox(height: 8),
+                                                  ],
+                                                ),
+                                            expand: false);
+                                      }
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        ...widget.l.attributes.entries.map((e) {
+                                          final att = Attribute.attributes[e.key];
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 1),
+                                            child: DecoratedBox(
+                                              decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                color: Colors.red,
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(2.0),
+                                                child: att == null
+                                                    ? const Icon(Icons.announcement)
+                                                    : att.icon,
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: 32),
+                                ],
+                              ),
                             ),
                           ),
                       ],
@@ -168,7 +240,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
     return [
       _buildStop(
         l,
-        Stop(l.name!, departure: l.departure),
+        Stop(l.name, departure: l.departure),
         context,
         bold: true,
         isFirst: true,

@@ -11,6 +11,7 @@ part 'leg.g.dart';
 abstract class Leg with _$Leg {
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
   const factory Leg({
+    required String name,
     Exit? exit,
     @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) required int depDelay,
     Vehicle? type,
@@ -20,17 +21,16 @@ abstract class Leg with _$Leg {
     String? number,
     String? bgcolor,
     String? tripid,
-    @JsonKey(name: 'runningtime') double? runningTime,
     String? stopid,
+    @JsonKey(name: 'runningtime') double? runningTime,
     String? line,
     @Default([]) List<Stop> stops,
     String? sbbName,
-    String? name,
     DateTime? departure,
     DateTime? arrival,
     int? normalTime,
     @JsonKey(name: 'waittime') int? waitTime,
-    bool? isaddress,
+    @Default(false) bool isaddress,
     double? lat,
     double? lon,
     @Default({}) Map<String, String> attributes,

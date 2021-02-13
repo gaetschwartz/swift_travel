@@ -317,6 +317,8 @@ extension BuildContextX on BuildContext {
 }
 
 class Nav {
+  Nav._();
+
   static void push(
     BuildContext context,
     WidgetBuilder builder, {

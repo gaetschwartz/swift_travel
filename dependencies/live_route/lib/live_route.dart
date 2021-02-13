@@ -278,7 +278,7 @@ class LiveRouteController extends ChangeNotifier {
     if (leg.lat != null && leg.lon != null) {
       return leg;
     } else {
-      final pos = await sbbData.getPosition(leg.name!);
+      final pos = await sbbData.getPosition(leg.name);
       // ignore: unnecessary_null_comparison
       if (pos == null) {
         return leg;

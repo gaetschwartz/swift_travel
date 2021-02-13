@@ -859,6 +859,7 @@ class RoutesView extends StatelessWidget {
                     title: const Text('Suggestion'),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           '${AppLoc.of(context).from} ${pred.prediction!.from}',

@@ -18,13 +18,13 @@ class _$ExitTearOff {
 
   _Exit call(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int arrDelay,
+          int arrDelay = 0,
       required String name,
       DateTime? arrival,
       String? stopid,
       @JsonKey(name: 'waittime')
           int? waitTime,
-      bool? isaddress,
+      bool isaddress = false,
       String? sbbName,
       double? lat,
       double? lon}) {
@@ -58,7 +58,7 @@ mixin _$Exit {
   String? get stopid;
   @JsonKey(name: 'waittime')
   int? get waitTime;
-  bool? get isaddress;
+  bool get isaddress;
   String? get sbbName;
   double? get lat;
   double? get lon;
@@ -80,7 +80,7 @@ abstract class $ExitCopyWith<$Res> {
       String? stopid,
       @JsonKey(name: 'waittime')
           int? waitTime,
-      bool? isaddress,
+      bool isaddress,
       String? sbbName,
       double? lat,
       double? lon});
@@ -112,7 +112,7 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
       stopid: stopid == freezed ? _value.stopid : stopid as String?,
       waitTime: waitTime == freezed ? _value.waitTime : waitTime as int?,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool?,
+      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
@@ -133,7 +133,7 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
       String? stopid,
       @JsonKey(name: 'waittime')
           int? waitTime,
-      bool? isaddress,
+      bool isaddress,
       String? sbbName,
       double? lat,
       double? lon});
@@ -166,7 +166,7 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
       stopid: stopid == freezed ? _value.stopid : stopid as String?,
       waitTime: waitTime == freezed ? _value.waitTime : waitTime as int?,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool?,
+      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
@@ -180,13 +180,13 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
 class _$_Exit implements _Exit {
   const _$_Exit(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required this.arrDelay,
+          this.arrDelay = 0,
       required this.name,
       this.arrival,
       this.stopid,
       @JsonKey(name: 'waittime')
           this.waitTime,
-      this.isaddress,
+      this.isaddress = false,
       this.sbbName,
       this.lat,
       this.lon});
@@ -206,8 +206,9 @@ class _$_Exit implements _Exit {
   @override
   @JsonKey(name: 'waittime')
   final int? waitTime;
+  @JsonKey(defaultValue: false)
   @override
-  final bool? isaddress;
+  final bool isaddress;
   @override
   final String? sbbName;
   @override
@@ -276,13 +277,13 @@ class _$_Exit implements _Exit {
 abstract class _Exit implements Exit {
   const factory _Exit(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int arrDelay,
+          int arrDelay,
       required String name,
       DateTime? arrival,
       String? stopid,
       @JsonKey(name: 'waittime')
           int? waitTime,
-      bool? isaddress,
+      bool isaddress,
       String? sbbName,
       double? lat,
       double? lon}) = _$_Exit;
@@ -302,7 +303,7 @@ abstract class _Exit implements Exit {
   @JsonKey(name: 'waittime')
   int? get waitTime;
   @override
-  bool? get isaddress;
+  bool get isaddress;
   @override
   String? get sbbName;
   @override

@@ -15,7 +15,7 @@ _$_Exit _$_$_ExitFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['arrival'] as String),
     stopid: json['stopid'] as String?,
     waitTime: json['waittime'] as int?,
-    isaddress: json['isaddress'] as bool?,
+    isaddress: json['isaddress'] as bool? ?? false,
     sbbName: json['sbbName'] as String?,
     lat: (json['lat'] as num?)?.toDouble(),
     lon: (json['lon'] as num?)?.toDouble(),
@@ -36,7 +36,7 @@ Map<String, dynamic> _$_$_ExitToJson(_$_Exit instance) {
   writeNotNull('arrival', instance.arrival?.toIso8601String());
   writeNotNull('stopid', instance.stopid);
   writeNotNull('waittime', instance.waitTime);
-  writeNotNull('isaddress', instance.isaddress);
+  val['isaddress'] = instance.isaddress;
   writeNotNull('sbbName', instance.sbbName);
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);

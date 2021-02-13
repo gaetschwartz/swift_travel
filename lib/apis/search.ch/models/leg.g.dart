@@ -8,6 +8,7 @@ part of 'leg.dart';
 
 _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
   return _$_Leg(
+    name: json['name'] as String,
     exit: json['exit'] == null
         ? null
         : Exit.fromJson(json['exit'] as Map<String, dynamic>),
@@ -19,15 +20,14 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
     number: json['number'] as String?,
     bgcolor: json['bgcolor'] as String?,
     tripid: json['tripid'] as String?,
-    runningTime: (json['runningtime'] as num?)?.toDouble(),
     stopid: json['stopid'] as String?,
+    runningTime: (json['runningtime'] as num?)?.toDouble(),
     line: json['line'] as String?,
     stops: (json['stops'] as List<dynamic>?)
             ?.map((e) => Stop.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [],
     sbbName: json['sbbName'] as String?,
-    name: json['name'] as String?,
     departure: json['departure'] == null
         ? null
         : DateTime.parse(json['departure'] as String),
@@ -36,7 +36,7 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['arrival'] as String),
     normalTime: json['normalTime'] as int?,
     waitTime: json['waittime'] as int?,
-    isaddress: json['isaddress'] as bool?,
+    isaddress: json['isaddress'] as bool? ?? false,
     lat: (json['lat'] as num?)?.toDouble(),
     lon: (json['lon'] as num?)?.toDouble(),
     attributes: (json['attributes'] as Map<String, dynamic>?)?.map(
@@ -47,7 +47,9 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'name': instance.name,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -64,17 +66,16 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
   writeNotNull('number', instance.number);
   writeNotNull('bgcolor', instance.bgcolor);
   writeNotNull('tripid', instance.tripid);
-  writeNotNull('runningtime', instance.runningTime);
   writeNotNull('stopid', instance.stopid);
+  writeNotNull('runningtime', instance.runningTime);
   writeNotNull('line', instance.line);
   val['stops'] = instance.stops.map((e) => e.toJson()).toList();
   writeNotNull('sbbName', instance.sbbName);
-  writeNotNull('name', instance.name);
   writeNotNull('departure', instance.departure?.toIso8601String());
   writeNotNull('arrival', instance.arrival?.toIso8601String());
   writeNotNull('normalTime', instance.normalTime);
   writeNotNull('waittime', instance.waitTime);
-  writeNotNull('isaddress', instance.isaddress);
+  val['isaddress'] = instance.isaddress;
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);
   val['attributes'] = instance.attributes;

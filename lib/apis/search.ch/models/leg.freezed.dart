@@ -17,7 +17,8 @@ class _$LegTearOff {
   const _$LegTearOff();
 
   _Leg call(
-      {Exit? exit,
+      {required String name,
+      Exit? exit,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           required int depDelay,
       Vehicle? type,
@@ -27,23 +28,23 @@ class _$LegTearOff {
       String? number,
       String? bgcolor,
       String? tripid,
+      String? stopid,
       @JsonKey(name: 'runningtime')
           double? runningTime,
-      String? stopid,
       String? line,
       List<Stop> stops = const [],
       String? sbbName,
-      String? name,
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
       @JsonKey(name: 'waittime')
           int? waitTime,
-      bool? isaddress,
+      bool isaddress = false,
       double? lat,
       double? lon,
       Map<String, String> attributes = const {}}) {
     return _Leg(
+      name: name,
       exit: exit,
       depDelay: depDelay,
       type: type,
@@ -53,12 +54,11 @@ class _$LegTearOff {
       number: number,
       bgcolor: bgcolor,
       tripid: tripid,
-      runningTime: runningTime,
       stopid: stopid,
+      runningTime: runningTime,
       line: line,
       stops: stops,
       sbbName: sbbName,
-      name: name,
       departure: departure,
       arrival: arrival,
       normalTime: normalTime,
@@ -80,6 +80,7 @@ const $Leg = _$LegTearOff();
 
 /// @nodoc
 mixin _$Leg {
+  String get name;
   Exit? get exit;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get depDelay;
@@ -90,19 +91,18 @@ mixin _$Leg {
   String? get number;
   String? get bgcolor;
   String? get tripid;
+  String? get stopid;
   @JsonKey(name: 'runningtime')
   double? get runningTime;
-  String? get stopid;
   String? get line;
   List<Stop> get stops;
   String? get sbbName;
-  String? get name;
   DateTime? get departure;
   DateTime? get arrival;
   int? get normalTime;
   @JsonKey(name: 'waittime')
   int? get waitTime;
-  bool? get isaddress;
+  bool get isaddress;
   double? get lat;
   double? get lon;
   Map<String, String> get attributes;
@@ -117,7 +117,8 @@ abstract class $LegCopyWith<$Res> {
   factory $LegCopyWith(Leg value, $Res Function(Leg) then) =
       _$LegCopyWithImpl<$Res>;
   $Res call(
-      {Exit? exit,
+      {String name,
+      Exit? exit,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
       Vehicle? type,
@@ -127,19 +128,18 @@ abstract class $LegCopyWith<$Res> {
       String? number,
       String? bgcolor,
       String? tripid,
+      String? stopid,
       @JsonKey(name: 'runningtime')
           double? runningTime,
-      String? stopid,
       String? line,
       List<Stop> stops,
       String? sbbName,
-      String? name,
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
       @JsonKey(name: 'waittime')
           int? waitTime,
-      bool? isaddress,
+      bool isaddress,
       double? lat,
       double? lon,
       Map<String, String> attributes});
@@ -157,6 +157,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? name = freezed,
     Object? exit = freezed,
     Object? depDelay = freezed,
     Object? type = freezed,
@@ -166,12 +167,11 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
     Object? number = freezed,
     Object? bgcolor = freezed,
     Object? tripid = freezed,
-    Object? runningTime = freezed,
     Object? stopid = freezed,
+    Object? runningTime = freezed,
     Object? line = freezed,
     Object? stops = freezed,
     Object? sbbName = freezed,
-    Object? name = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
     Object? normalTime = freezed,
@@ -182,6 +182,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
     Object? attributes = freezed,
   }) {
     return _then(_value.copyWith(
+      name: name == freezed ? _value.name : name as String,
       exit: exit == freezed ? _value.exit : exit as Exit?,
       depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
       type: type == freezed ? _value.type : type as Vehicle?,
@@ -191,20 +192,19 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
       number: number == freezed ? _value.number : number as String?,
       bgcolor: bgcolor == freezed ? _value.bgcolor : bgcolor as String?,
       tripid: tripid == freezed ? _value.tripid : tripid as String?,
+      stopid: stopid == freezed ? _value.stopid : stopid as String?,
       runningTime:
           runningTime == freezed ? _value.runningTime : runningTime as double?,
-      stopid: stopid == freezed ? _value.stopid : stopid as String?,
       line: line == freezed ? _value.line : line as String?,
       stops: stops == freezed ? _value.stops : stops as List<Stop>,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
-      name: name == freezed ? _value.name : name as String?,
       departure:
           departure == freezed ? _value.departure : departure as DateTime?,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
       normalTime:
           normalTime == freezed ? _value.normalTime : normalTime as int?,
       waitTime: waitTime == freezed ? _value.waitTime : waitTime as int?,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool?,
+      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
       attributes: attributes == freezed
@@ -231,7 +231,8 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       __$LegCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Exit? exit,
+      {String name,
+      Exit? exit,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
       Vehicle? type,
@@ -241,19 +242,18 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       String? number,
       String? bgcolor,
       String? tripid,
+      String? stopid,
       @JsonKey(name: 'runningtime')
           double? runningTime,
-      String? stopid,
       String? line,
       List<Stop> stops,
       String? sbbName,
-      String? name,
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
       @JsonKey(name: 'waittime')
           int? waitTime,
-      bool? isaddress,
+      bool isaddress,
       double? lat,
       double? lon,
       Map<String, String> attributes});
@@ -273,6 +273,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? name = freezed,
     Object? exit = freezed,
     Object? depDelay = freezed,
     Object? type = freezed,
@@ -282,12 +283,11 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
     Object? number = freezed,
     Object? bgcolor = freezed,
     Object? tripid = freezed,
-    Object? runningTime = freezed,
     Object? stopid = freezed,
+    Object? runningTime = freezed,
     Object? line = freezed,
     Object? stops = freezed,
     Object? sbbName = freezed,
-    Object? name = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
     Object? normalTime = freezed,
@@ -298,6 +298,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
     Object? attributes = freezed,
   }) {
     return _then(_Leg(
+      name: name == freezed ? _value.name : name as String,
       exit: exit == freezed ? _value.exit : exit as Exit?,
       depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
       type: type == freezed ? _value.type : type as Vehicle?,
@@ -307,20 +308,19 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
       number: number == freezed ? _value.number : number as String?,
       bgcolor: bgcolor == freezed ? _value.bgcolor : bgcolor as String?,
       tripid: tripid == freezed ? _value.tripid : tripid as String?,
+      stopid: stopid == freezed ? _value.stopid : stopid as String?,
       runningTime:
           runningTime == freezed ? _value.runningTime : runningTime as double?,
-      stopid: stopid == freezed ? _value.stopid : stopid as String?,
       line: line == freezed ? _value.line : line as String?,
       stops: stops == freezed ? _value.stops : stops as List<Stop>,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
-      name: name == freezed ? _value.name : name as String?,
       departure:
           departure == freezed ? _value.departure : departure as DateTime?,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
       normalTime:
           normalTime == freezed ? _value.normalTime : normalTime as int?,
       waitTime: waitTime == freezed ? _value.waitTime : waitTime as int?,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool?,
+      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
       attributes: attributes == freezed
@@ -335,7 +335,8 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
 /// @nodoc
 class _$_Leg implements _Leg {
   const _$_Leg(
-      {this.exit,
+      {required this.name,
+      this.exit,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           required this.depDelay,
       this.type,
@@ -345,25 +346,26 @@ class _$_Leg implements _Leg {
       this.number,
       this.bgcolor,
       this.tripid,
+      this.stopid,
       @JsonKey(name: 'runningtime')
           this.runningTime,
-      this.stopid,
       this.line,
       this.stops = const [],
       this.sbbName,
-      this.name,
       this.departure,
       this.arrival,
       this.normalTime,
       @JsonKey(name: 'waittime')
           this.waitTime,
-      this.isaddress,
+      this.isaddress = false,
       this.lat,
       this.lon,
       this.attributes = const {}});
 
   factory _$_Leg.fromJson(Map<String, dynamic> json) => _$_$_LegFromJson(json);
 
+  @override
+  final String name;
   @override
   final Exit? exit;
   @override
@@ -384,10 +386,10 @@ class _$_Leg implements _Leg {
   @override
   final String? tripid;
   @override
+  final String? stopid;
+  @override
   @JsonKey(name: 'runningtime')
   final double? runningTime;
-  @override
-  final String? stopid;
   @override
   final String? line;
   @JsonKey(defaultValue: const [])
@@ -395,8 +397,6 @@ class _$_Leg implements _Leg {
   final List<Stop> stops;
   @override
   final String? sbbName;
-  @override
-  final String? name;
   @override
   final DateTime? departure;
   @override
@@ -406,8 +406,9 @@ class _$_Leg implements _Leg {
   @override
   @JsonKey(name: 'waittime')
   final int? waitTime;
+  @JsonKey(defaultValue: false)
   @override
-  final bool? isaddress;
+  final bool isaddress;
   @override
   final double? lat;
   @override
@@ -418,13 +419,15 @@ class _$_Leg implements _Leg {
 
   @override
   String toString() {
-    return 'Leg(exit: $exit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, runningTime: $runningTime, stopid: $stopid, line: $line, stops: $stops, sbbName: $sbbName, name: $name, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isaddress: $isaddress, lat: $lat, lon: $lon, attributes: $attributes)';
+    return 'Leg(name: $name, exit: $exit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, stopid: $stopid, runningTime: $runningTime, line: $line, stops: $stops, sbbName: $sbbName, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isaddress: $isaddress, lat: $lat, lon: $lon, attributes: $attributes)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Leg &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.exit, exit) ||
                 const DeepCollectionEquality().equals(other.exit, exit)) &&
             (identical(other.depDelay, depDelay) ||
@@ -447,11 +450,11 @@ class _$_Leg implements _Leg {
                     .equals(other.bgcolor, bgcolor)) &&
             (identical(other.tripid, tripid) ||
                 const DeepCollectionEquality().equals(other.tripid, tripid)) &&
+            (identical(other.stopid, stopid) ||
+                const DeepCollectionEquality().equals(other.stopid, stopid)) &&
             (identical(other.runningTime, runningTime) ||
                 const DeepCollectionEquality()
                     .equals(other.runningTime, runningTime)) &&
-            (identical(other.stopid, stopid) ||
-                const DeepCollectionEquality().equals(other.stopid, stopid)) &&
             (identical(other.line, line) ||
                 const DeepCollectionEquality().equals(other.line, line)) &&
             (identical(other.stops, stops) ||
@@ -459,8 +462,6 @@ class _$_Leg implements _Leg {
             (identical(other.sbbName, sbbName) ||
                 const DeepCollectionEquality()
                     .equals(other.sbbName, sbbName)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.departure, departure) ||
                 const DeepCollectionEquality()
                     .equals(other.departure, departure)) &&
@@ -488,6 +489,7 @@ class _$_Leg implements _Leg {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(exit) ^
       const DeepCollectionEquality().hash(depDelay) ^
       const DeepCollectionEquality().hash(type) ^
@@ -497,12 +499,11 @@ class _$_Leg implements _Leg {
       const DeepCollectionEquality().hash(number) ^
       const DeepCollectionEquality().hash(bgcolor) ^
       const DeepCollectionEquality().hash(tripid) ^
-      const DeepCollectionEquality().hash(runningTime) ^
       const DeepCollectionEquality().hash(stopid) ^
+      const DeepCollectionEquality().hash(runningTime) ^
       const DeepCollectionEquality().hash(line) ^
       const DeepCollectionEquality().hash(stops) ^
       const DeepCollectionEquality().hash(sbbName) ^
-      const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(departure) ^
       const DeepCollectionEquality().hash(arrival) ^
       const DeepCollectionEquality().hash(normalTime) ^
@@ -525,7 +526,8 @@ class _$_Leg implements _Leg {
 
 abstract class _Leg implements Leg {
   const factory _Leg(
-      {Exit? exit,
+      {required String name,
+      Exit? exit,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           required int depDelay,
       Vehicle? type,
@@ -535,25 +537,26 @@ abstract class _Leg implements Leg {
       String? number,
       String? bgcolor,
       String? tripid,
+      String? stopid,
       @JsonKey(name: 'runningtime')
           double? runningTime,
-      String? stopid,
       String? line,
       List<Stop> stops,
       String? sbbName,
-      String? name,
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
       @JsonKey(name: 'waittime')
           int? waitTime,
-      bool? isaddress,
+      bool isaddress,
       double? lat,
       double? lon,
       Map<String, String> attributes}) = _$_Leg;
 
   factory _Leg.fromJson(Map<String, dynamic> json) = _$_Leg.fromJson;
 
+  @override
+  String get name;
   @override
   Exit? get exit;
   @override
@@ -574,18 +577,16 @@ abstract class _Leg implements Leg {
   @override
   String? get tripid;
   @override
+  String? get stopid;
+  @override
   @JsonKey(name: 'runningtime')
   double? get runningTime;
-  @override
-  String? get stopid;
   @override
   String? get line;
   @override
   List<Stop> get stops;
   @override
   String? get sbbName;
-  @override
-  String? get name;
   @override
   DateTime? get departure;
   @override
@@ -596,7 +597,7 @@ abstract class _Leg implements Leg {
   @JsonKey(name: 'waittime')
   int? get waitTime;
   @override
-  bool? get isaddress;
+  bool get isaddress;
   @override
   double? get lat;
   @override

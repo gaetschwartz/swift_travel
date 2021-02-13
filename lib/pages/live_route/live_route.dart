@@ -133,7 +133,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
           ListTile(
             selected: selected,
             title: Text(
-              l.name!,
+              l.name,
               style: TextStyle(fontWeight: selected ? FontWeight.bold : null),
             ),
             subtitle: dist != null ? Text(Format.distance(dist)) : null,

@@ -8,6 +8,7 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/search.ch/models/route.dart';
 import 'package:swift_travel/apis/search.ch/models/stationboard.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
 final searchChApi = NavigationApiFactory(
@@ -145,7 +146,7 @@ class SearchChApi extends NavigationApi {
     };
 
     final s = queryBuilder('route', params);
-    log('builder : $s');
+    if (isDebugMode) print('builder : $s');
     return await rawRoute(s);
   }
 
@@ -153,12 +154,12 @@ class SearchChApi extends NavigationApi {
   Future<CffRoute> rawRoute(Uri query) async {
     final response = await _client.get(query, headers: headers);
     if (response.statusCode != 200) {
-      throw Exception("Couldn't retrieve raw route : ${response.body}");
+      throw Exception("Couldn't retrieve raw route: ${response.body}");
     }
-    final stopwatch = Stopwatch()..start();
+    // final stopwatch = Stopwatch()..start();
     final map = jsonDecode(response.body) as Map<String, dynamic>;
-    stopwatch.stop();
-    log('decode took ${stopwatch.elapsedMilliseconds} ms');
+    // stopwatch.stop();
+    // log('decode took ${stopwatch.elapsedMilliseconds} ms');
 
     return CffRoute.fromJson(map).copyWith(requestUrl: query.toString());
   }

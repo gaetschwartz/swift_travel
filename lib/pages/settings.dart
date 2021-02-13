@@ -23,6 +23,7 @@ import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/search.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/crawler.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
@@ -251,6 +252,16 @@ class _SettingsPageState extends State<SettingsPage> {
                         content: Text('World'),
                       ),
                     ),
+                  );
+                }),
+            ListTile(
+                leading: const Icon(CupertinoIcons.search),
+                title: const Text('Attributes crawler'),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(
+                    platformRoute(
+                        builder: (context) => const CrawlerPage(),
+                        isDarwin: Responsive.isDarwin(context)),
                   );
                 }),
             ListTile(
