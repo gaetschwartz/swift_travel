@@ -38,7 +38,7 @@ class _$LegTearOff {
       DateTime? arrival,
       int? normalTime,
       @JsonKey(name: 'waittime')
-          int? waitTime,
+          int waitTime = 0,
       bool isaddress = false,
       double? lat,
       double? lon,
@@ -101,7 +101,7 @@ mixin _$Leg {
   DateTime? get arrival;
   int? get normalTime;
   @JsonKey(name: 'waittime')
-  int? get waitTime;
+  int get waitTime;
   bool get isaddress;
   double? get lat;
   double? get lon;
@@ -138,7 +138,7 @@ abstract class $LegCopyWith<$Res> {
       DateTime? arrival,
       int? normalTime,
       @JsonKey(name: 'waittime')
-          int? waitTime,
+          int waitTime,
       bool isaddress,
       double? lat,
       double? lon,
@@ -203,7 +203,7 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
       normalTime:
           normalTime == freezed ? _value.normalTime : normalTime as int?,
-      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int?,
+      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
@@ -252,7 +252,7 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       DateTime? arrival,
       int? normalTime,
       @JsonKey(name: 'waittime')
-          int? waitTime,
+          int waitTime,
       bool isaddress,
       double? lat,
       double? lon,
@@ -319,7 +319,7 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
       normalTime:
           normalTime == freezed ? _value.normalTime : normalTime as int?,
-      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int?,
+      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
@@ -356,7 +356,7 @@ class _$_Leg implements _Leg {
       this.arrival,
       this.normalTime,
       @JsonKey(name: 'waittime')
-          this.waitTime,
+          this.waitTime = 0,
       this.isaddress = false,
       this.lat,
       this.lon,
@@ -405,7 +405,7 @@ class _$_Leg implements _Leg {
   final int? normalTime;
   @override
   @JsonKey(name: 'waittime')
-  final int? waitTime;
+  final int waitTime;
   @JsonKey(defaultValue: false)
   @override
   final bool isaddress;
@@ -547,7 +547,7 @@ abstract class _Leg implements Leg {
       DateTime? arrival,
       int? normalTime,
       @JsonKey(name: 'waittime')
-          int? waitTime,
+          int waitTime,
       bool isaddress,
       double? lat,
       double? lon,
@@ -595,7 +595,7 @@ abstract class _Leg implements Leg {
   int? get normalTime;
   @override
   @JsonKey(name: 'waittime')
-  int? get waitTime;
+  int get waitTime;
   @override
   bool get isaddress;
   @override

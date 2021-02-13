@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:swift_travel/apis/search.ch/models/attribute.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 
@@ -39,9 +41,7 @@ class AttributesPage extends StatelessWidget {
               top: false,
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (context, i) {
-                    return buildAttributeTile(attributes[i]);
-                  },
+                  (context, i) => buildAttributeTile(attributes[i]),
                   childCount: attributes.length,
                 ),
               ),
@@ -67,6 +67,9 @@ class AttributesPage extends StatelessWidget {
       ),
       title: Text(att.message!),
       dense: true,
+      subtitle: isDebugMode ? Text(att.code) : null,
+      onTap: isDebugMode ? () => Clipboard.setData(ClipboardData(text: att.code)) : null,
+      trailing: isDebugMode && att.icon == null ? const Text('Unhandled') : null,
     );
   }
 }

@@ -459,6 +459,7 @@ class _RoutePageState extends State<RoutePage> {
               ),
             ),
             const SizedBox(height: 8),
+            const Divider(height: 0),
             const Expanded(child: RoutesView())
           ],
         ),
@@ -710,14 +711,7 @@ class RoutesView extends StatelessWidget {
       return fetcher.state.when(
         (routes) => CustomScrollView(
           slivers: [
-            const SliverAppBar(
-              collapsedHeight: 8,
-              toolbarHeight: 8,
-              pinned: true,
-              floating: true,
-              snap: true,
-              backgroundColor: Colors.transparent,
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 8)),
             SliverSafeArea(
               sliver: routes.connections.isNotEmpty
                   ? SliverList(

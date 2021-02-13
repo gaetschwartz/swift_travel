@@ -160,7 +160,9 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                               Attribute.attributes[e.key]
                                                   ?.copyWith(message: e.value) ??
                                               Attribute(code: e.key, message: e.value))
+                                          .where((e) => !e.ignore)
                                           .toList();
+                                      list.sort((a, b) => a.code.compareTo(b.code));
                                       if (isDebugMode) {
                                         list.add(const Attribute(
                                           code: 'dummy_code',
@@ -171,13 +173,16 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                         showCupertinoModalBottomSheet(
                                             context: context,
                                             backgroundColor: Colors.white,
-                                            builder: (context) => Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: [
-                                                    const SizedBox(height: 8),
-                                                    ...list.map(AttributesPage.buildAttributeTile),
-                                                    const SizedBox(height: 8),
-                                                  ],
+                                            builder: (context) => SafeArea(
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      const SizedBox(height: 8),
+                                                      ...list
+                                                          .map(AttributesPage.buildAttributeTile),
+                                                      const SizedBox(height: 8),
+                                                    ],
+                                                  ),
                                                 ),
                                             expand: false);
                                       } else {
@@ -197,25 +202,33 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        ...widget.l.attributes.entries.map((e) {
-                                          final att = Attribute.attributes[e.key];
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 1),
-                                            child: DecoratedBox(
-                                              decoration: const BoxDecoration(
-                                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                color: Colors.red,
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(2.0),
-                                                child: att == null
-                                                    ? const Icon(Icons.announcement)
-                                                    : att.icon,
-                                              ),
-                                            ),
-                                          );
-                                        }),
+                                        ...widget.l.attributes.entries
+                                            .map((e) => Attribute.attributes[e.key])
+                                            .where((e) => e == null || !e.ignore)
+                                            .map((att) => Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(horizontal: 1),
+                                                  child: DecoratedBox(
+                                                    decoration: const BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.all(Radius.circular(5)),
+                                                      color: Colors.red,
+                                                    ),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(2),
+                                                      child: att == null
+                                                          ? Attribute.defaultIcon
+                                                          : att.icon,
+                                                    ),
+                                                  ),
+                                                ))
+                                            .take(3),
+                                        if (widget.l.attributes.length > 3) ...[
+                                          const SizedBox(width: 2),
+                                          Text('+${widget.l.attributes.length - 3}'),
+                                        ]
                                       ],
                                     ),
                                   ),

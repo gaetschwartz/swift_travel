@@ -25,7 +25,7 @@ abstract class Exit with _$Exit {
     required String name,
     DateTime? arrival,
     String? stopid,
-    @JsonKey(name: 'waittime') int? waitTime,
+    @Default(0) int waittime,
     @Default(false) bool isaddress,
     String? sbbName,
     double? lat,

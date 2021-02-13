@@ -35,7 +35,7 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
         ? null
         : DateTime.parse(json['arrival'] as String),
     normalTime: json['normalTime'] as int?,
-    waitTime: json['waittime'] as int?,
+    waitTime: json['waittime'] as int,
     isaddress: json['isaddress'] as bool? ?? false,
     lat: (json['lat'] as num?)?.toDouble(),
     lon: (json['lon'] as num?)?.toDouble(),
@@ -74,7 +74,7 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
   writeNotNull('departure', instance.departure?.toIso8601String());
   writeNotNull('arrival', instance.arrival?.toIso8601String());
   writeNotNull('normalTime', instance.normalTime);
-  writeNotNull('waittime', instance.waitTime);
+  val['waittime'] = instance.waitTime;
   val['isaddress'] = instance.isaddress;
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);

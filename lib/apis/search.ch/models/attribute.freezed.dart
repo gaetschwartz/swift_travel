@@ -13,11 +13,16 @@ T _$identity<T>(T value) => value;
 class _$AttributeTearOff {
   const _$AttributeTearOff();
 
-  _Attribute call({required String code, Widget? icon, String? message}) {
+  _Attribute call(
+      {required String code,
+      Widget? icon,
+      String? message,
+      bool ignore = false}) {
     return _Attribute(
       code: code,
       icon: icon,
       message: message,
+      ignore: ignore,
     );
   }
 }
@@ -30,6 +35,7 @@ mixin _$Attribute {
   String get code;
   Widget? get icon;
   String? get message;
+  bool get ignore;
 
   @JsonKey(ignore: true)
   $AttributeCopyWith<Attribute> get copyWith;
@@ -39,7 +45,7 @@ mixin _$Attribute {
 abstract class $AttributeCopyWith<$Res> {
   factory $AttributeCopyWith(Attribute value, $Res Function(Attribute) then) =
       _$AttributeCopyWithImpl<$Res>;
-  $Res call({String code, Widget? icon, String? message});
+  $Res call({String code, Widget? icon, String? message, bool ignore});
 }
 
 /// @nodoc
@@ -55,11 +61,13 @@ class _$AttributeCopyWithImpl<$Res> implements $AttributeCopyWith<$Res> {
     Object? code = freezed,
     Object? icon = freezed,
     Object? message = freezed,
+    Object? ignore = freezed,
   }) {
     return _then(_value.copyWith(
       code: code == freezed ? _value.code : code as String,
       icon: icon == freezed ? _value.icon : icon as Widget?,
       message: message == freezed ? _value.message : message as String?,
+      ignore: ignore == freezed ? _value.ignore : ignore as bool,
     ));
   }
 }
@@ -70,7 +78,7 @@ abstract class _$AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
           _Attribute value, $Res Function(_Attribute) then) =
       __$AttributeCopyWithImpl<$Res>;
   @override
-  $Res call({String code, Widget? icon, String? message});
+  $Res call({String code, Widget? icon, String? message, bool ignore});
 }
 
 /// @nodoc
@@ -87,18 +95,21 @@ class __$AttributeCopyWithImpl<$Res> extends _$AttributeCopyWithImpl<$Res>
     Object? code = freezed,
     Object? icon = freezed,
     Object? message = freezed,
+    Object? ignore = freezed,
   }) {
     return _then(_Attribute(
       code: code == freezed ? _value.code : code as String,
       icon: icon == freezed ? _value.icon : icon as Widget?,
       message: message == freezed ? _value.message : message as String?,
+      ignore: ignore == freezed ? _value.ignore : ignore as bool,
     ));
   }
 }
 
 /// @nodoc
 class _$_Attribute implements _Attribute {
-  const _$_Attribute({required this.code, this.icon, this.message});
+  const _$_Attribute(
+      {required this.code, this.icon, this.message, this.ignore = false});
 
   @override
   final String code;
@@ -106,10 +117,13 @@ class _$_Attribute implements _Attribute {
   final Widget? icon;
   @override
   final String? message;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool ignore;
 
   @override
   String toString() {
-    return 'Attribute(code: $code, icon: $icon, message: $message)';
+    return 'Attribute(code: $code, icon: $icon, message: $message, ignore: $ignore)';
   }
 
   @override
@@ -121,7 +135,10 @@ class _$_Attribute implements _Attribute {
             (identical(other.icon, icon) ||
                 const DeepCollectionEquality().equals(other.icon, icon)) &&
             (identical(other.message, message) ||
-                const DeepCollectionEquality().equals(other.message, message)));
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.ignore, ignore) ||
+                const DeepCollectionEquality().equals(other.ignore, ignore)));
   }
 
   @override
@@ -129,7 +146,8 @@ class _$_Attribute implements _Attribute {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(icon) ^
-      const DeepCollectionEquality().hash(message);
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(ignore);
 
   @JsonKey(ignore: true)
   @override
@@ -139,7 +157,10 @@ class _$_Attribute implements _Attribute {
 
 abstract class _Attribute implements Attribute {
   const factory _Attribute(
-      {required String code, Widget? icon, String? message}) = _$_Attribute;
+      {required String code,
+      Widget? icon,
+      String? message,
+      bool ignore}) = _$_Attribute;
 
   @override
   String get code;
@@ -147,6 +168,8 @@ abstract class _Attribute implements Attribute {
   Widget? get icon;
   @override
   String? get message;
+  @override
+  bool get ignore;
   @override
   @JsonKey(ignore: true)
   _$AttributeCopyWith<_Attribute> get copyWith;
