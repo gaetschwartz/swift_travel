@@ -36,6 +36,7 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
         toDelete.add(e.key);
       }
     }
+    print('Found these outdated cache entries: $toDelete');
     await deleteAll(toDelete);
   }
 }
