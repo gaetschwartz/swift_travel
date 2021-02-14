@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/models/local_route.dart';
-import 'package:utils/levenshtein.dart';
+import 'package:swift_travel/utils/string_utils/string_utils.dart';
 
 const _k = 5;
 const _useKThreshold = 10;
