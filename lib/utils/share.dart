@@ -28,6 +28,6 @@ Future<void> shareRoute(BuildContext context, CffRoute route, int? i) async {
   } else {
     try {
       await Share.share(sharedUri.toString());
-    } on Exception catch (_) {}
+    } catch (_) {}
   }
 }

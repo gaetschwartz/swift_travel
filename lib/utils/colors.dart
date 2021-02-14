@@ -3,9 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-Color lighten(Color c) {
-  return Color.fromARGB(c.alpha, c.red * 3 ~/ 4, c.green * 3 ~/ 4, c.blue * 3 ~/ 4);
-}
+Color lighten(Color c) =>
+    Color.fromARGB(c.alpha, c.red * 3 ~/ 4, c.green * 3 ~/ 4, c.blue * 3 ~/ 4);
 
 int _sgnOfSub(num a, num b) => a > b ? -1 : 1;
 

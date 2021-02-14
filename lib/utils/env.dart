@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 
 mixin Env {
@@ -7,7 +9,7 @@ mixin Env {
   static const doShowErrors = bool.fromEnvironment('DO_SHOW_ERRORS', defaultValue: true);
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
 
-  static String get summary => map.toString();
+  static String get summary => Platform.environment.toString();
 
   static Map<String, Object> get map {
     return {

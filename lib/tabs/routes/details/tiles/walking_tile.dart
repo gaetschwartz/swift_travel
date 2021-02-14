@@ -9,8 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/l10n.dart';
-import 'package:swift_travel/utils/format.dart';
-import 'package:swift_travel/utils/markdown.dart';
+import 'package:swift_travel/utils/string_utils/format.dart';
+import 'package:swift_travel/utils/string_utils/markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WalkingTile extends StatelessWidget {
@@ -55,14 +55,14 @@ class WalkingTile extends StatelessWidget {
                         AppLoc.of(context).walk_and_wait(
                             Format.intToDuration(l.runningTime!.round()),
                             Format.intToDuration(l.exit!.waittime)),
-                        Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.subtitle2,
                       ),
                     )
                   else
                     Text.rich(
                       parseDecoratedText(
                         AppLoc.of(context).walk(Format.intToDuration(l.runningTime!.round())),
-                        Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.subtitle2,
                       ),
                     ),
                 ],

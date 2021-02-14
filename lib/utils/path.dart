@@ -3,10 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-Future<String> getHivePathOf(
-  Directory? appDir, [
-  List<String> paths = const ['hive_data'],
-]) async {
+Future<String> getHivePathOf(Directory? appDir, [List<String> paths = const ['hive_data']]) async {
   if (appDir == null) throw Exception('Failed to get application path.');
 
   final finalPath = path.joinAll([appDir.path, ...paths]);

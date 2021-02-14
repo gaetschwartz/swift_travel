@@ -7,14 +7,10 @@ class LineConverter implements JsonConverter<Line, Map> {
   const LineConverter();
 
   @override
-  Line fromJson(Map json) {
-    return Line.fromJson(json.cast<String, dynamic>());
-  }
+  Line fromJson(Map json) => Line.fromJson(json.cast<String, dynamic>());
 
   @override
-  Map toJson(Line object) {
-    return object.toJson();
-  }
+  Map toJson(Line object) => object.toJson();
 }
 
 @freezed

@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swift_travel/apis/search.ch/search_ch.dart';
-import 'package:swift_travel/utils/format.dart';
-import 'package:swift_travel/utils/markdown.dart';
+import 'package:swift_travel/utils/string_utils/format.dart';
+import 'package:swift_travel/utils/string_utils/string_utils.dart';
 import 'package:utils/levenshtein.dart';
 
 void main() {
@@ -94,15 +94,13 @@ void main() {
   });
 
   test('ellipsis', () {
-    expect(ellipsis('Hello World this is a String'), 'Hello World t...');
-    expect(ellipsis('Hello World'), 'Hello World');
+    expect('Hello World this is a String qwertzuiop'.ellipsis(16), 'Hello World t...');
+    expect('Hello World this is a String'.ellipsis(16), 'Hello World t...');
+    expect('Hello World'.ellipsis(16), 'Hello World');
   });
 
   test('markdown', () {
-    final textSpan = parseDecoratedText(
-      'Text in *bold*, text in _italic_, and _*bold-italic*_.',
-      const TextStyle(),
-    );
+    final textSpan = parseDecoratedText('Text in *bold*, text in _italic_, and _*bold-italic*_.');
     expect(textSpan.children, [
       const TextSpan(text: 'Text in ', style: TextStyle()),
       const TextSpan(text: 'bold', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -110,8 +108,9 @@ void main() {
       const TextSpan(text: 'italic', style: TextStyle(fontStyle: FontStyle.italic)),
       const TextSpan(text: ', and ', style: TextStyle()),
       const TextSpan(
-          text: 'bold-italic',
-          style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+        text: 'bold-italic',
+        style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+      ),
       const TextSpan(text: '.', style: TextStyle()),
     ]);
   });

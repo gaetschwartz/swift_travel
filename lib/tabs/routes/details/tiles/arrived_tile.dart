@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/theme.dart';
-import 'package:swift_travel/utils/format.dart';
-import 'package:swift_travel/utils/markdown.dart';
+import 'package:swift_travel/utils/string_utils/format.dart';
+import 'package:swift_travel/utils/string_utils/markdown.dart';
 
 class ArrivedTile extends StatelessWidget {
   const ArrivedTile({
@@ -45,7 +45,7 @@ class ArrivedTile extends StatelessWidget {
               const SizedBox(height: 8),
               Text.rich(parseDecoratedText(
                 AppLoc.of(context).youll_be_there(Format.time(l.arrival)),
-                Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.subtitle2,
               )),
             ],
           ),

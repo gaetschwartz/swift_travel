@@ -16,12 +16,11 @@ class NoSplashFactory extends InteractiveInkFeatureFactory {
     ShapeBorder? customBorder,
     double? radius,
     VoidCallback? onRemoved,
-  }) {
-    return NoSplash(
-      controller: controller,
-      referenceBox: referenceBox,
-    );
-  }
+  }) =>
+      NoSplash(
+        controller: controller,
+        referenceBox: referenceBox,
+      );
 }
 
 class NoSplash extends InteractiveInkFeature {

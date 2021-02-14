@@ -7,7 +7,7 @@ import 'package:live_route/live_route.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
 import 'package:swift_travel/apis/search.ch/models/stop.dart';
-import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/utils/string_utils/format.dart';
 
 final AutoDisposeStreamProvider<Position>? positionProvider =
     StreamProvider.autoDispose((_) => Geolocator.getPositionStream());

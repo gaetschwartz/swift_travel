@@ -18,10 +18,7 @@ Color parseColor(String? s, Color defaultColor) {
   return c == null ? defaultColor : Color(c);
 }
 
-String ellipsis(String s, {int length = 16, String trailing = '...'}) =>
-    s.length > length - trailing.length ? s.substring(0, length - trailing.length) + trailing : s;
-
-abstract class Format {
+mixin Format {
   static String distance(double? d) {
     return d == null
         ? ''

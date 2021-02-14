@@ -30,12 +30,14 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
   @override
   Future<void> open({String? path}) async {
     await super.open(path: path);
-    final toDelete = <String>[];
-    for (final e in map.entries) {
-      if (CustomizableDateTime.current.difference(e.value.timestamp).inMinutes > e.value.ttl) {
-        toDelete.add(e.key);
-      }
-    }
+    await cleanOutdated();
+  }
+
+  Future<void> cleanOutdated() async {
+    final toDelete = map.entries
+        .where((e) =>
+            CustomizableDateTime.current.difference(e.value.timestamp).inMinutes > e.value.ttl)
+        .map((e) => e.key);
     print('Found these outdated cache entries: $toDelete');
     await deleteAll(toDelete);
   }

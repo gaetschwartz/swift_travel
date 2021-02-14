@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/search.ch/models/leg.dart';
 import 'package:swift_travel/db/models/cache.dart';
-import 'package:swift_travel/utils/format.dart';
+import 'package:swift_travel/utils/string_utils/format.dart';
 
 class LineIcon extends StatelessWidget {
   static const defaultForeground = Color(0xfff0f0f0);
