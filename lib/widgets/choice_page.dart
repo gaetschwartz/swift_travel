@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -84,7 +83,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
                         title: item.child,
                         trailing: i == selected
                             ? Icon(
-                                FluentIcons.checkmark_24_regular,
+                                CupertinoIcons.checkmark_alt,
                                 color: CupertinoTheme.of(context).primaryColor,
                               )
                             : null,

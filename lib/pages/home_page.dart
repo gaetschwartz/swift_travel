@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -195,16 +194,16 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     ];
     final items = [
       CustomNavigationBarItem(
-          icon: const Icon(FluentIcons.search_24_regular),
-          selectedIcon: const Icon(FluentIcons.search_24_filled),
+          icon: const Icon(CupertinoIcons.search_circle),
+          selectedIcon: const Icon(CupertinoIcons.search_circle_fill),
           title: Text(titles[0])),
       CustomNavigationBarItem(
         icon: const FaIcon(FontAwesomeIcons.route),
         title: Text(titles[1]),
       ),
       CustomNavigationBarItem(
-        icon: const Icon(FluentIcons.star_24_regular),
-        selectedIcon: const Icon(FluentIcons.star_24_filled),
+        icon: const Icon(CupertinoIcons.star),
+        selectedIcon: const Icon(CupertinoIcons.star_fill),
         title: Text(titles[2]),
       ),
     ];

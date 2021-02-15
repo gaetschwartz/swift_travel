@@ -3,7 +3,6 @@ import 'dart:math' show min;
 import 'dart:ui';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +103,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     .textTheme(Typography.englishLike2018)
                                                     .bodyText1),
                                           ),
-                                          const Icon(FluentIcons.checkmark_24_filled)
+                                          const Icon(CupertinoIcons.checkmark_alt)
                                         ],
                                       )
                                     : Text(f.name,

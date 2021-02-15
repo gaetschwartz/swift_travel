@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/search.ch/models/completion.dart';
@@ -22,9 +21,9 @@ class SuggestedTile extends StatelessWidget {
       case DataOrigin.data:
         return CffIcon.fromIconClass(suggestion!.icon, size: 20);
       case DataOrigin.currentLocation:
-        return const Icon(FluentIcons.my_location_24_regular, size: 20);
+        return const Icon(CupertinoIcons.location_fill, size: 20);
       case DataOrigin.prediction:
-        return const Icon(FluentIcons.magic_wand_20_regular, size: 20);
+        return const Icon(CupertinoIcons.wand_stars, size: 20);
     }
   }
 

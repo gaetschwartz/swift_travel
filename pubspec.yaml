@@ -31,7 +31,6 @@ dependencies:
   firebase_core: ^0.8.0-1.0.nullsafety
   firebase_crashlytics: ^0.5.0-1.0.nullsafety
   flex_color_scheme: ^2.0.0-nullsafety.1
-  fluentui_system_icons: ^1.1.90
   flutter_hooks: ^0.16.0-nullsafety.0
   flutter_riverpod: ^0.13.0-nullsafety.3
   flutter_slidable: ^0.6.0-nullsafety.0

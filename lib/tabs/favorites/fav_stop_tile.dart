@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -67,7 +66,7 @@ class FavoriteStationTile extends StatelessWidget {
                       tileMode: TileMode.mirror,
                     ))
                 : const GradientMask(
-                    child: Icon(FluentIcons.star_24_filled, size: 32),
+                    child: Icon(CupertinoIcons.star_fill, size: 32),
                     gradient: RadialGradient(
                       colors: [
                         Colors.yellow,

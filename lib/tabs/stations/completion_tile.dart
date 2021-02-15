@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -122,8 +121,8 @@ class NavCompletionTile extends ConsumerWidget {
                 ? Text(AppLoc.of(context).remove_from_favoruites)
                 : Text(AppLoc.of(context).add_to_favs),
             icon: isFav
-                ? const Icon(FluentIcons.star_off_24_regular)
-                : const Icon(FluentIcons.star_add_24_regular),
+                ? const Icon(CupertinoIcons.heart_slash)
+                : const Icon(CupertinoIcons.heart_fill),
             cupertinoIcon:
                 isFav ? const Icon(CupertinoIcons.heart_slash) : const Icon(CupertinoIcons.heart),
             onPressed: () => _Actions.favorite,
