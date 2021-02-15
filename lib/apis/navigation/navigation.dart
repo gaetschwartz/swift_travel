@@ -76,6 +76,7 @@ abstract class NavigationApi {
     required TimeOfDay time,
     TimeType typeTime,
     bool showDelays,
+    int previous,
   });
 
   void dispose();

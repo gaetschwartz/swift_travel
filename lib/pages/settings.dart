@@ -18,6 +18,7 @@ import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
+import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/search.dart';
@@ -30,6 +31,7 @@ import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/choice_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/modal.dart';
+import 'package:swift_travel/widgets/route_widget.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -262,7 +264,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     platformRoute(
                       builder: (context) => const CrawlerPage(),
                       isDarwin: Responsive.isDarwin(context),
-                      fullscreenDialog: true,
                     ),
                   );
                 }),
@@ -272,8 +273,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).push(
                     platformRoute(
-                        builder: (context) => const RouteHistoryPage(),
-                        isDarwin: Responsive.isDarwin(context)),
+                      builder: (context) => const RouteHistoryPage(),
+                      isDarwin: Responsive.isDarwin(context),
+                    ),
                   );
                 }),
             ListTile(
@@ -401,8 +403,8 @@ const _days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 class _RouteHistoryPageState extends State<RouteHistoryPage> {
   @override
   Widget build(BuildContext context) {
-    final routes = RouteHistoryRepository.i.routes;
-    final pred = predictRoute(routes, DateTime.now());
+    final routes = RouteHistoryRepository.i.history;
+    final pred = predictRoute(routes, PredictionArguments(MockableDateTime.now()));
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -425,17 +427,18 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
               title: Text(pred.prediction!.from),
               subtitle: Text(pred.prediction!.to),
             ),
-            const Divider(),
+            const Divider(height: 0),
           ],
           Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, i) => ListTile(
-                title: Text(routes[i].from),
-                subtitle: Text(routes[i].to),
+            child: ListView.separated(
+              itemBuilder: (context, i) => RouteWidget(
+                from: Text(routes[i].from),
+                to: Text(routes[i].to),
                 trailing: Text(
                     '${TimeOfDay.fromDateTime(routes[i].timestamp!).format(context)}, ${_days[routes[i].timestamp!.weekday - 1]}'),
               ),
               itemCount: routes.length,
+              separatorBuilder: (BuildContext context, int index) => const Divider(height: 4),
             ),
           ),
         ],

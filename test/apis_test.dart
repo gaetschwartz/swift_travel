@@ -88,6 +88,7 @@ class MockNavigationApi extends NavigationApi {
           {required DateTime date,
           required TimeOfDay time,
           TimeType? typeTime,
-          bool? showDelays}) =>
+          bool? showDelays,
+          int? previous}) =>
       Future.value(CffRoute.fromJson(mockRoute!));
 }

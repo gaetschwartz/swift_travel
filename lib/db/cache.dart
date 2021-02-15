@@ -35,10 +35,9 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
 
   Future<void> cleanOutdated() async {
     final toDelete = map.entries
-        .where((e) =>
-            CustomizableDateTime.current.difference(e.value.timestamp).inMinutes > e.value.ttl)
+        .where((e) => MockableDateTime.now().difference(e.value.timestamp).inMinutes > e.value.ttl)
         .map((e) => e.key);
-    print('Found these outdated cache entries: $toDelete');
+    if (toDelete.isNotEmpty) print('Found these outdated cache entries: $toDelete');
     await deleteAll(toDelete);
   }
 }

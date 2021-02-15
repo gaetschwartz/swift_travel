@@ -13,8 +13,6 @@ abstract class LocalRoute with _$LocalRoute {
     String to, {
     String? displayName,
     DateTime? timestamp,
-    int? fromI,
-    int? toI,
   }) = _LocalRoute;
 
   factory LocalRoute.now(
@@ -22,7 +20,7 @@ abstract class LocalRoute with _$LocalRoute {
     String to, {
     String? displayName,
   }) =>
-      _LocalRoute(from, to, displayName: displayName, timestamp: CustomizableDateTime.current);
+      _LocalRoute(from, to, displayName: displayName, timestamp: MockableDateTime.now());
 
   factory LocalRoute.fromRouteConnection(
     RouteConnection connection, {

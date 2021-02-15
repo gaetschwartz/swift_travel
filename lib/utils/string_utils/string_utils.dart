@@ -18,4 +18,13 @@ extension StringUtils on String {
   int distanceTo(String other, {bool caseSensitive = false}) => levenshtein(this, other);
   double scaledDistanceTo(String other, {bool caseSensitive = false}) =>
       scaledLevenshtein(this, other);
+
+  String toCamelCase() =>
+      this[0].toUpperCase() +
+      substring(1).replaceAllMapped(RegExp('\s(\w)'), (m) => m[1]!.toUpperCase());
+
+  String stripAt() {
+    final i = indexOf('@');
+    return i == -1 ? this : substring(0, i).trimRight();
+  }
 }

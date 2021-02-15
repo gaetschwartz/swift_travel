@@ -53,28 +53,28 @@ void main() {
       await hist.open();
 
       await hist.clear();
-      expect(hist.routes, isEmpty);
+      expect(hist.history, isEmpty);
 
       await hist.add(route1);
-      expect(hist.routes, [route1]);
+      expect(hist.history, [route1]);
 
       await hist.add(route2);
-      expect(hist.routes, [route1, route2]);
+      expect(hist.history, [route1, route2]);
 
       await hist.add(route3);
-      expect(hist.routes, [route1, route2, route3]);
+      expect(hist.history, [route1, route2, route3]);
 
       expect(hist.first, route1);
       expect(hist.last, route3);
 
       await hist.box.deleteAt(0);
-      expect(hist.routes, [route2, route3]);
+      expect(hist.history, [route2, route3]);
 
       await hist.box.deleteAt(hist.size - 1);
-      expect(hist.routes, [route2]);
+      expect(hist.history, [route2]);
 
       await hist.clear();
-      expect(hist.routes, isEmpty);
+      expect(hist.history, isEmpty);
 
       expect(hist.watch(), emitsDone);
 
@@ -96,7 +96,7 @@ void main() {
     });
     test('safe add works', () async {
       await hist.safeAdd(route1);
-      expect(hist.routes, [route1]);
+      expect(hist.history, [route1]);
     });
 
     test('completion', () async {
@@ -126,15 +126,15 @@ void main() {
 
   group('models >', () {
     setUp(() {
-      CustomizableDateTime.current = DateTime(2021);
+      MockableDateTime.mocked = DateTime(2021);
     });
     test('localRoute', () {
       final route1 =
-          LocalRoute('from', 'to', displayName: 'name', timestamp: CustomizableDateTime.current);
+          LocalRoute('from', 'to', displayName: 'name', timestamp: MockableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
           const RouteConnection(from: 'from', to: 'to', depDelay: 0),
           displayName: 'name',
-          timestamp: CustomizableDateTime.current);
+          timestamp: MockableDateTime.now());
       final route3 = LocalRoute.now('from', 'to', displayName: 'name');
       final route4 = LocalRoute.fromJson({
         'from': 'from',

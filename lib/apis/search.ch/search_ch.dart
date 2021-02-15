@@ -134,6 +134,7 @@ class SearchChApi extends NavigationApi {
     required TimeOfDay time,
     TimeType typeTime = TimeType.depart,
     bool showDelays = true,
+    int previous = 1,
   }) async {
     final params = {
       'from': departure,
@@ -143,6 +144,7 @@ class SearchChApi extends NavigationApi {
       'time_type': describeEnum(typeTime),
       'show_trackchanges': 1,
       'show_delays': showDelays.toInt(),
+      'pre': previous,
     };
 
     final s = queryBuilder('route', params);
@@ -156,10 +158,12 @@ class SearchChApi extends NavigationApi {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve raw route: ${response.body}");
     }
-    // final stopwatch = Stopwatch()..start();
+    final stopwatch = Stopwatch()..start();
     final map = jsonDecode(response.body) as Map<String, dynamic>;
-    // stopwatch.stop();
-    // log('decode took ${stopwatch.elapsedMilliseconds} ms');
+    stopwatch.stop();
+
+    if (stopwatch.elapsedMilliseconds > 16) print('⚠ Decoding took more than a frame');
+    print('Decoding ${response.body.length} characters took ${stopwatch.elapsedMilliseconds} ms');
 
     return CffRoute.fromJson(map).copyWith(requestUrl: query.toString());
   }

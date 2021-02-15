@@ -23,6 +23,8 @@ class SuggestedTile extends StatelessWidget {
         return CffIcon.fromIconClass(suggestion!.icon, size: 20);
       case DataOrigin.currentLocation:
         return const Icon(FluentIcons.my_location_24_regular, size: 20);
+      case DataOrigin.prediction:
+        return const Icon(FluentIcons.magic_wand_20_regular, size: 20);
     }
   }
 

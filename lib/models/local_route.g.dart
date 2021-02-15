@@ -14,8 +14,6 @@ _$_LocalRoute _$_$_LocalRouteFromJson(Map<String, dynamic> json) {
     timestamp: json['timestamp'] == null
         ? null
         : DateTime.parse(json['timestamp'] as String),
-    fromI: json['fromI'] as int?,
-    toI: json['toI'] as int?,
   );
 }
 
@@ -33,7 +31,5 @@ Map<String, dynamic> _$_$_LocalRouteToJson(_$_LocalRoute instance) {
 
   writeNotNull('displayName', instance.displayName);
   writeNotNull('timestamp', instance.timestamp?.toIso8601String());
-  writeNotNull('fromI', instance.fromI);
-  writeNotNull('toI', instance.toI);
   return val;
 }

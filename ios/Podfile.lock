@@ -33,10 +33,7 @@ PODS:
   - Flutter (1.0.0)
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
-  - FMDB (2.7.5):
-    - FMDB/standard (= 2.7.5)
-  - FMDB/standard (2.7.5)
-  - geolocator (6.1.9):
+  - geolocator (6.2.0):
     - Flutter
   - GoogleDataTransport (8.1.0):
     - nanopb (~> 2.30906.0)
@@ -62,9 +59,6 @@ PODS:
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
-  - sqflite (0.0.2):
-    - Flutter
-    - FMDB (>= 2.7.5)
   - url_launcher (0.0.1):
     - Flutter
   - vibration (0.0.1):
@@ -81,7 +75,6 @@ DEPENDENCIES:
   - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
   - share (from `.symlinks/plugins/share/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
-  - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - vibration (from `.symlinks/plugins/vibration/ios`)
 
@@ -92,7 +85,6 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseCrashlytics
     - FirebaseInstallations
-    - FMDB
     - GoogleDataTransport
     - GoogleUtilities
     - nanopb
@@ -119,8 +111,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/share/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
-  sqflite:
-    :path: ".symlinks/plugins/sqflite/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
   vibration:
@@ -136,8 +126,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 30646fc9a61c6f4ee3cd7a8b7231721842b40c95
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
-  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  geolocator: 057a0c63a43e9c5296d8ad845a3ac8e6df23d899
+  geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
   GoogleUtilities: d866834472f1324d080496bc67ab3ce5d0d46027
   integration_test: 5ed24a436eb7ec17b6a13046e9bf7ca4a404e59e
@@ -147,7 +136,6 @@ SPEC CHECKSUMS:
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
-  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   vibration: 08bf1a7e0b797d662a5027a161404fdcbe3ba168
 

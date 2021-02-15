@@ -92,6 +92,7 @@ class SncfApi extends NavigationApi {
     required TimeOfDay time,
     TimeType? typeTime,
     bool showDelays = true,
+    int previous = 1,
   }) =>
       throw UnimplementedError();
 }

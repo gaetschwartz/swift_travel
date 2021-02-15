@@ -39,6 +39,7 @@ class CffIcon extends StatelessWidget {
       case Vehicle.train:
       case Vehicle.expressTrain:
       case Vehicle.funicular:
+      case Vehicle.str:
         return const FaIcon(FontAwesomeIcons.train);
       case Vehicle.business:
         return const FaIcon(FontAwesomeIcons.store);

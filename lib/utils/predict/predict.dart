@@ -6,39 +6,27 @@ import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/utils/string_utils/string_utils.dart';
 
 const _k = 5;
-const _useKThreshold = 10;
 
 const _daysFactor = 1 / (2 * 7);
 const _minutesFactor = 1 / Duration.minutesPerDay;
 
 Prediction<LocalRoute?> predictRoute(
   List<LocalRoute> routes,
-  DateTime dateTime, {
-  String? from,
-}) {
-  if (routes.isEmpty) return const Prediction(null, double.negativeInfinity, null);
-
-  final s = <String, int>{};
-  final processedRoutes = <LocalRoute>[];
-
-  final time = dateTime.minutesOfDay;
-  final weekday = dateTime.weekday;
-
-  var i = 0;
-  for (final r in routes) {
-    if (!s.containsKey(r.from)) s[r.from] = ++i;
-    if (!s.containsKey(r.to)) s[r.to] = ++i;
-    processedRoutes.add(r.copyWith(fromI: s[r.from], toI: s[r.to]));
-  }
+  PredictionArguments arguments,
+) {
+  if (routes.isEmpty) return Prediction(null, 0, arguments);
 
   final distances = <Pair<LocalRoute, double>>[];
 
-  for (final route in processedRoutes) {
+  final time = arguments.dateTime.minutesOfDay;
+  final weekday = arguments.dateTime.weekday;
+
+  for (final route in routes) {
     var sqrd_dist = math.pow((weekday - route.timestamp!.weekday) * _daysFactor, 2) +
         math.pow((route.timestamp!.minutesOfDay - time) * _minutesFactor, 2);
 
-    if (from != null) {
-      sqrd_dist += math.pow(from.scaledDistanceTo(route.from), 2);
+    if (arguments is SourceDateArguments) {
+      sqrd_dist += math.pow(arguments.source.scaledDistanceTo(route.from), 2);
     }
 
     distances.add(Pair(route, sqrd_dist.toDouble()));
@@ -46,36 +34,33 @@ Prediction<LocalRoute?> predictRoute(
 
   distances.sort((a, b) => a.second.compareTo(b.second));
 
-  if (routes.length < _useKThreshold) {
-    return Prediction(distances.first.first, 1 - distances.first.second, Arguments(dateTime));
-  } else {
-    final map = <LocalRoute, int>{};
+  final map = <LocalRoute, int>{};
 
-    final top = distances.take(_k);
+  final top = distances.take(_k);
 
-    int? max = 0;
-    LocalRoute? majRoute;
-    for (final r in top) {
-      final route = LocalRoute(r.first.from, r.first.to);
-      map[route] ??= 0;
-      map[route] = map[route]! + 1;
-      if (map[route]! > max!) {
-        max = map[route];
-        majRoute = route;
-      }
+  var max = 0;
+  var majRoute = top.first.first;
+  for (final r in top) {
+    final route = LocalRoute(r.first.from, r.first.to);
+    map[route] ??= 0;
+    map[route] = map[route]! + 1;
+    if (map[route]! > max) {
+      max = map[route]!;
+      majRoute = route;
     }
-    print('Winner is $majRoute with $max votes');
-    var sum = .0;
-    for (final r in top) {
-      if (r.first.from == majRoute!.from && r.first.to == majRoute.to) {
-        sum += r.second;
-      }
-    }
-
-    sum /= _k;
-
-    return Prediction(majRoute, 1 - sum, Arguments(dateTime));
   }
+
+  // print('Winner is $majRoute with $max votes');
+
+  var sum = .0;
+  for (final r in top) {
+    if (r.first.from == majRoute.from && r.first.to == majRoute.to) {
+      sum += r.second;
+    }
+  }
+  sum /= _k;
+
+  return Prediction(majRoute, 1 - sum, arguments);
 }
 
 extension on DateTime {
@@ -97,8 +82,7 @@ class Pair<R, S> {
 class Prediction<T> {
   final T prediction;
   final double confidence;
-
-  final Arguments? arguments;
+  final PredictionArguments arguments;
 
   const Prediction(this.prediction, this.confidence, this.arguments);
 
@@ -109,11 +93,28 @@ class Prediction<T> {
 }
 
 @immutable
-class Arguments {
+class PredictionArguments {
   final DateTime dateTime;
 
-  const Arguments(this.dateTime);
+  const PredictionArguments(this.dateTime);
+
+  factory PredictionArguments.of(DateTime dateTime, String? source) {
+    if (source != null) {
+      return SourceDateArguments(dateTime, source);
+    } else {
+      return PredictionArguments(dateTime);
+    }
+  }
 
   @override
-  String toString() => 'Args($dateTime)';
+  String toString() => 'PredictionArguments(dateTime: $dateTime)';
+}
+
+class SourceDateArguments extends PredictionArguments {
+  final String source;
+
+  const SourceDateArguments(DateTime dateTime, this.source) : super(dateTime);
+
+  @override
+  String toString() => 'SourceDateArguments(dateTime: $dateTime, source: $source)';
 }

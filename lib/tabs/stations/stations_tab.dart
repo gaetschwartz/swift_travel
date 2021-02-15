@@ -301,7 +301,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
         favorites: favorites.stops,
         completions: compls,
         query: query,
-        currentLocationString: null,
+        history: [],
       );
 
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);

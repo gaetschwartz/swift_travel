@@ -22,14 +22,15 @@ abstract class Exit with _$Exit {
     @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
     @Default(0)
         int arrDelay,
-    required String name,
     DateTime? arrival,
-    String? stopid,
-    @Default(0) int waittime,
-    @Default(false) bool isaddress,
-    String? sbbName,
     double? lat,
     double? lon,
+    required String name,
+    String? sbbName,
+    String? stopid,
+    String? track,
+    @Default(0) int waittime,
+    @Default(false) bool isaddress,
   }) = _Exit;
 
   factory Exit.fromJson(Map<String, dynamic> json) => _$ExitFromJson(json);

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,9 @@ import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
+import 'package:swift_travel/utils/string_utils/string_utils.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/route_widget.dart';
 import 'package:theming/dialogs/datepicker.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dynamic_theme.dart';
@@ -386,19 +387,21 @@ class _RoutePageState extends State<RoutePage> {
                           onLongPress: kDebugMode
                               ? () {
                                   unFocusFields();
+
+                                  final cffRoute = CffRoute.fromJson(mockRoute!);
+
                                   from.setString(
                                     context,
-                                    'Université de Genève, Genève, Rue du Général-Dufour 24',
+                                    cffRoute.connections.first.from,
                                     doLoad: false,
                                   );
                                   to.setString(
                                     context,
-                                    'Badenerstrasse 549, 8048 Zürich',
+                                    cffRoute.connections.first.to,
                                     doLoad: false,
                                   );
 
-                                  context.read(routeStatesProvider).state =
-                                      RouteStates(CffRoute.fromJson(mockRoute!));
+                                  context.read(routeStatesProvider).state = RouteStates(cffRoute);
                                 }
                               : null,
                           style: TextButton.styleFrom(
@@ -545,7 +548,7 @@ class _RoutePageState extends State<RoutePage> {
                     completions: await api.complete(query),
                     query: query,
                     currentLocationString: currentLocationString,
-                    history: historyRepository.routes,
+                    history: historyRepository.history,
                   ),
                   itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
                   onSuggestionSelected: (suggestion) {
@@ -574,11 +577,6 @@ class _RoutePageState extends State<RoutePage> {
           );
   }
 
-  Widget iconForState(RouteTextfieldState state, {double iconSize = 24}) => state.maybeWhen(
-        useCurrentLocation: () => Icon(FluentIcons.my_location_24_regular, size: iconSize),
-        orElse: () => Icon(CupertinoIcons.textformat, size: iconSize),
-      );
-
   Widget buildToField(BuildContext context, {required bool isDarwin}) {
     final currentLocationString = AppLoc.of(context).current_location;
 
@@ -598,16 +596,19 @@ class _RoutePageState extends State<RoutePage> {
               ),
               onTap: () async {
                 await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
-                    builder: (context) => SearchPage(
-                          binder: to,
-                          heroTag: _toHeroTag,
-                          configuration: CupertinoTextFieldConfiguration(
-                            focusNode: fnTo,
-                            inputFormatters: [toFormatter],
-                            placeholder: AppLoc.of(context).destination,
-                            textInputAction: TextInputAction.search,
-                          ),
-                        )));
+                    builder: (context) => Consumer(
+                        builder: (context, w, _) => SearchPage(
+                              binder: to,
+                              isDestination: true,
+                              dateTime: w(dateProvider).state,
+                              heroTag: _toHeroTag,
+                              configuration: CupertinoTextFieldConfiguration(
+                                focusNode: fnTo,
+                                inputFormatters: [toFormatter],
+                                placeholder: AppLoc.of(context).destination,
+                                textInputAction: TextInputAction.search,
+                              ),
+                            ))));
               },
             ),
           )
@@ -646,7 +647,7 @@ class _RoutePageState extends State<RoutePage> {
                     completions: await api.complete(query),
                     query: query,
                     currentLocationString: currentLocationString,
-                    history: historyRepository.routes,
+                    history: historyRepository.history,
                   ),
                   itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
                   onSuggestionSelected: (suggestion) {
@@ -680,6 +681,11 @@ class _RoutePageState extends State<RoutePage> {
           );
   }
 
+  Widget iconForState(RouteTextfieldState state, {double iconSize = 24}) => state.maybeWhen(
+        useCurrentLocation: () => Icon(CupertinoIcons.location_fill, size: iconSize),
+        orElse: () => Icon(CupertinoIcons.textformat, size: iconSize),
+      );
+
   void switchInputs() {
     final _from = from.state(context);
 
@@ -694,7 +700,7 @@ class _RoutePageState extends State<RoutePage> {
 }
 
 final _predictionProvider = Provider.family<Prediction<LocalRoute?>, DateTime>(
-    (_, date) => predictRoute(RouteHistoryRepository.i.routes, date));
+    (_, date) => predictRoute(RouteHistoryRepository.i.history, PredictionArguments(date)));
 
 final _locationNotFound = RegExp('Stop ([\d\.,-\s]*) not found\.');
 
@@ -844,32 +850,18 @@ class RoutesView extends StatelessWidget {
             builder: (context, watch, child) {
               final date = watch(dateProvider).state;
               final pred = watch(_predictionProvider(date));
-              if (pred.prediction != null && pred.confidence > .25) {
+              if (pred.prediction != null && pred.confidence > .2) {
                 return Align(
                   alignment: Alignment.topCenter,
-                  child: ListTile(
-                    leading: const Text('💡', style: TextStyle(fontSize: 18)),
-                    horizontalTitleGap: 8,
-                    title: const Text('Suggestion'),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          '${AppLoc.of(context).from} ${pred.prediction!.from}',
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          '${AppLoc.of(context).to} ${pred.prediction!.to}',
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                    isThreeLine: true,
+                  child: RouteWidget(
+                    from: Text('${pred.prediction!.from.stripAt()}'),
+                    to: Text('${pred.prediction!.to.stripAt()}'),
                     onTap: () {
                       from.setString(context, pred.prediction!.from);
                       to.setString(context, pred.prediction!.to);
                     },
+                    icon: const Text('💡', style: TextStyle(fontSize: 24)),
+                    title: const Text('Suggestion'),
                   ),
                 );
               } else {

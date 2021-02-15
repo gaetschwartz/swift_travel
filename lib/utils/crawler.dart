@@ -23,7 +23,7 @@ class CrawlerPage extends StatefulWidget {
 }
 
 class _CrawlerPageState extends State<CrawlerPage> {
-  final routes = RouteHistoryRepository.i.routes;
+  final routes = RouteHistoryRepository.i.history;
   Map<String, String> handled = {};
   Map<String, String> unHandled = {};
 

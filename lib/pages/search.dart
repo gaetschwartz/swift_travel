@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +16,7 @@ import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:theming/responsive.dart';
 
@@ -80,11 +80,17 @@ class SearchPage extends StatefulWidget {
   final Object heroTag;
   final CupertinoTextFieldConfiguration configuration;
 
+  final bool isDestination;
+
+  final DateTime? dateTime;
+
   const SearchPage({
     required this.binder,
     Key? key,
     this.heroTag = _heroTag,
     this.configuration = const CupertinoTextFieldConfiguration(),
+    this.isDestination = false,
+    this.dateTime,
   }) : super(key: key);
 
   @override
@@ -96,7 +102,7 @@ class _SearchPageState extends State<SearchPage> {
 
   late FavoritesSharedPreferencesStore store;
   late NavigationApi api;
-  String? currentLocation;
+  late String currentLocation;
   final hist = RouteHistoryRepository.i;
 
   @override
@@ -127,14 +133,19 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> fetch(String query) async {
     try {
-      final compls = await api.complete(query);
+      final results =
+          await Future.wait([api.complete(query), Future.microtask(() => getPrediction(query))]);
+
+      final compls = results[0]! as List<NavCompletion>;
+      final pred = results[1] as String?;
 
       final completionsWithFavs = completeWithFavorites(
         favorites: store.stops,
         completions: compls,
         query: query,
         currentLocationString: currentLocation,
-        history: hist.routes,
+        history: hist.history,
+        prediction: pred,
       );
 
       if (mounted) {
@@ -145,6 +156,18 @@ class _SearchPageState extends State<SearchPage> {
     } on Exception catch (e, s) {
       reportDartError(e, s, library: 'search', reason: 'while fetching');
     } finally {}
+  }
+
+  String? getPrediction(String query) {
+    if (widget.isDestination) {
+      final args = SourceDateArguments(widget.dateTime!, query);
+      print('Predicting the destination with $args');
+      final prediction = predictRoute(hist.history, args);
+      print(prediction);
+      if (prediction.prediction != null && prediction.confidence > .2) {
+        return prediction.prediction!.to;
+      }
+    }
   }
 
   @override
@@ -298,7 +321,13 @@ class _SuggestedTile extends StatelessWidget {
         return CffIcon.fromIconClass(suggestion.icon, size: 20);
       case DataOrigin.currentLocation:
         return Icon(
-          FluentIcons.my_location_24_regular,
+          CupertinoIcons.location_fill,
+          size: 20,
+          color: IconTheme.of(context).color,
+        );
+      case DataOrigin.prediction:
+        return Icon(
+          CupertinoIcons.wand_stars,
           size: 20,
           color: IconTheme.of(context).color,
         );

@@ -14,8 +14,9 @@ List<NavCompletion> completeWithFavorites({
   required Iterable<FavoriteStop?> favorites,
   required List<NavCompletion> completions,
   required String query,
-  List<LocalRoute> history = const [],
+  required List<LocalRoute> history,
   String? currentLocationString,
+  String? prediction,
 }) {
   final levens = <FavoriteStop?, double>{};
 
@@ -34,6 +35,7 @@ List<NavCompletion> completeWithFavorites({
   return [
     if (currentLocationString != null)
       NavCompletion(label: currentLocationString, origin: DataOrigin.currentLocation),
+    if (prediction != null) NavCompletion(label: prediction, origin: DataOrigin.prediction),
     if (history.isNotEmpty)
       ...history
           .flatMap((e) => [

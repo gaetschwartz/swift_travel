@@ -32,4 +32,5 @@ enum DataOrigin {
   history,
   data,
   currentLocation,
+  prediction,
 }

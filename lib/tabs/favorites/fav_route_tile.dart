@@ -5,9 +5,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/local_route.dart';
+import 'package:swift_travel/utils/string_utils/string_utils.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
+import 'package:swift_travel/widgets/route_widget.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
-import 'package:vibration/vibration.dart';
 
 class FavoriteRouteTile extends StatelessWidget {
   const FavoriteRouteTile(this.route, {Key? key}) : super(key: key);
@@ -26,39 +27,13 @@ class FavoriteRouteTile extends StatelessWidget {
           onTap: () => deleteRoute(context),
         ),
       ],
-      child: ListTile(
-        leading: const Icon(CupertinoIcons.arrow_turn_up_right),
+      child: RouteWidget(
+        icon: const Text('🛣', style: TextStyle(fontSize: 32)),
         title: Text(route.displayName!),
-        horizontalTitleGap: 8,
-        isThreeLine: true,
-        dense: true,
-        subtitle: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: Text(
-                route.from,
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: Text(
-                route.to,
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
-        ),
+        from: Text(route.from.stripAt()),
+        to: Text(route.to.stripAt()),
         onLongPress: () => more(context),
-        trailing: IconButton(
-            icon: const Icon(CupertinoIcons.chevron_forward),
-            onPressed: () {
-              Vibration.select();
-              more(context);
-            }),
+        trailing: const Icon(CupertinoIcons.chevron_forward),
         onTap: () => Navigator.of(context).pushNamed('/route', arguments: route),
       ),
     );
