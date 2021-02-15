@@ -37,13 +37,19 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   SharedPreferences? _prefs;
 
   final Set<FavoriteStop> _stops = {};
-  final Set<LocalRoute> _routes = {};
+  Set<LocalRoute> _routes = {};
 
   Set<LocalRoute> get routes => _routes;
   Set<FavoriteStop> get stops => _stops;
 
   Future<void> _checkState() async {
     _prefs ??= await SharedPreferences.getInstance();
+  }
+
+  Future<void> editRoutes(Set<LocalRoute> Function(Set<LocalRoute> routes) editRoutes) async {
+    _routes = editRoutes(_routes);
+    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    await sync();
   }
 
   @override
@@ -79,7 +85,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
 
     if (notify) {
-      await _sync();
+      await sync();
     }
   }
 
@@ -88,21 +94,21 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     _routes.add(route);
 
     ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
-    await _sync();
+    await sync();
   }
 
   @override
   Future<void> removeRoute(LocalRoute route) async {
     _routes.remove(route);
     ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
-    await _sync();
+    await sync();
   }
 
   @override
   Future<void> addStop(FavoriteStop stop) async {
     _stops.add(stop);
     ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
-    await _sync();
+    await sync();
   }
 
   @override
@@ -113,10 +119,10 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       log('$favoriteStop was not in favorites ?', name: 'Store');
     }
     ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
-    await _sync();
+    await sync();
   }
 
-  Future<void> _sync() async {
+  Future<void> sync() async {
     notifyListeners();
 
     final stops = <String>[];

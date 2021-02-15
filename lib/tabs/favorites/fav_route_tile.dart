@@ -9,6 +9,7 @@ import 'package:swift_travel/utils/string_utils/string_utils.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/route_widget.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
+import 'package:theming/dialogs/input_dialog.dart';
 
 class FavoriteRouteTile extends StatelessWidget {
   const FavoriteRouteTile(this.route, {Key? key}) : super(key: key);
@@ -27,6 +28,14 @@ class FavoriteRouteTile extends StatelessWidget {
           onTap: () => deleteRoute(context),
         ),
       ],
+      actions: [
+        IconSlideAction(
+          caption: AppLoc.of(context).rename,
+          color: Colors.blue,
+          icon: CupertinoIcons.pencil,
+          onTap: () => rename(context),
+        ),
+      ],
       child: RouteWidget(
         icon: const Text('🛣', style: TextStyle(fontSize: 32)),
         title: Text(route.displayName!),
@@ -39,10 +48,24 @@ class FavoriteRouteTile extends StatelessWidget {
     );
   }
 
+  Future<void> rename(BuildContext context) async {
+    final s = await input(context, title: Text('How to rename "${route.displayName}" ?'));
+    if (s == null) return;
+    final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    await store.editRoutes(
+        (routes) => routes.map((r) => r == route ? route.copyWith(displayName: s) : r).toSet());
+    return;
+  }
+
   void more(BuildContext context) {
     showActionSheet(
       context,
       [
+        ActionsSheetAction(
+          title: Text(AppLoc.of(context).rename),
+          icon: const Icon(CupertinoIcons.pencil),
+          onPressed: () => rename(context),
+        ),
         ActionsSheetAction(
           onPressed: () => deleteRoute(context),
           title: Text(AppLoc.of(context).delete),
@@ -50,6 +73,7 @@ class FavoriteRouteTile extends StatelessWidget {
           isDestructive: true,
         ),
       ],
+      popBeforeReturn: true,
       cancel: ActionsSheetAction(
         title: Text(AppLoc.of(context).cancel),
         icon: const Icon(CupertinoIcons.xmark),
