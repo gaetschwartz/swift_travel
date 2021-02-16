@@ -74,7 +74,7 @@ Future<void> _testRouteTab() async {
       final tile = find.byType(RouteTile).first;
       final text = find.text('Genève, Cornavin');
       expect(tile, findsOneWidget);
-      expect(text, findsOneWidget);
+      expect(text.first, findsOneWidget);
 
       await t.tap(tile);
       await t.pumpAndSettle();
@@ -85,7 +85,7 @@ Future<void> _testRouteTab() async {
       await t.pumpAndSettle();
 
       expect(tile, findsOneWidget);
-      expect(text, findsOneWidget);
+      expect(text.first, findsOneWidget);
 
       await t.idle();
 

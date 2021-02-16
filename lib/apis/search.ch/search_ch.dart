@@ -134,6 +134,7 @@ class SearchChApi extends NavigationApi {
     required TimeOfDay time,
     TimeType typeTime = TimeType.depart,
     bool showDelays = true,
+    int number = 4,
     int previous = 1,
   }) async {
     final params = {
@@ -145,6 +146,7 @@ class SearchChApi extends NavigationApi {
       'show_trackchanges': 1,
       'show_delays': showDelays.toInt(),
       'pre': previous,
+      'num': number,
     };
 
     final s = queryBuilder('route', params);

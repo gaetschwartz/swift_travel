@@ -37,7 +37,7 @@ class FavoriteRouteTile extends StatelessWidget {
         ),
       ],
       child: RouteWidget(
-        icon: const Text('🛣', style: TextStyle(fontSize: 32)),
+        icon: const Text('🛣', style: TextStyle(fontSize: 24)),
         title: Text(route.displayName!),
         from: Text(route.from.stripAt()),
         to: Text(route.to.stripAt()),

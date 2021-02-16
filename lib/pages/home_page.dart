@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:animations/animations.dart';
-import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -193,19 +192,12 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       AppLoc.of(context).tabs_favourites,
     ];
     final items = [
-      CustomNavigationBarItem(
-          icon: const Icon(CupertinoIcons.search_circle),
-          selectedIcon: const Icon(CupertinoIcons.search_circle_fill),
-          title: Text(titles[0])),
-      CustomNavigationBarItem(
-        icon: const FaIcon(FontAwesomeIcons.route),
-        title: Text(titles[1]),
-      ),
-      CustomNavigationBarItem(
-        icon: const Icon(CupertinoIcons.star),
-        selectedIcon: const Icon(CupertinoIcons.star_fill),
-        title: Text(titles[2]),
-      ),
+      BottomNavigationBarItem(icon: const Icon(CupertinoIcons.search), label: titles[0]),
+      BottomNavigationBarItem(icon: const FaIcon(FontAwesomeIcons.route), label: titles[1]),
+      BottomNavigationBarItem(
+          icon: const Icon(CupertinoIcons.star),
+          activeIcon: const Icon(CupertinoIcons.star_fill),
+          label: titles[2]),
     ];
     return Consumer(builder: (context, w, _) {
       final combined = w(tabProvider);
@@ -214,10 +206,9 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       return Scaffold(
         key: const Key('home-scaffold'),
         resizeToAvoidBottomInset: false,
-        bottomNavigationBar: CustomNavigationBar(
+        bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.transparent,
-          strokeColor: Theme.of(context).accentColor,
-          selectedColor: Theme.of(context).accentColor,
+          selectedItemColor: Theme.of(context).accentColor,
           onTap: (i) {
             Vibration.selectSoft();
             if (combined.page != i) {
