@@ -70,14 +70,14 @@ packages:
       name: build_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5"
+    version: "0.4.6"
   build_daemon:
     dependency: transitive
     description:
       name: build_daemon
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.7"
+    version: "2.1.8"
   build_resolvers:
     dependency: transitive
     description:
@@ -91,14 +91,14 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.11.1"
+    version: "1.11.3"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.7"
+    version: "6.1.9"
   built_collection:
     dependency: transitive
     description:
@@ -373,7 +373,7 @@ packages:
       name: geolocator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0-nullsafety.7"
+    version: "7.0.0-nullsafety.8"
   geolocator_platform_interface:
     dependency: transitive
     description:
@@ -394,7 +394,7 @@ packages:
       name: glob
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "2.0.0"
   google_fonts:
     dependency: "direct main"
     description:
@@ -535,20 +535,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0-nullsafety.1"
-  node_interop:
-    dependency: transitive
-    description:
-      name: node_interop
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.1"
-  node_io:
-    dependency: transitive
-    description:
-      name: node_io
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
   octo_image:
     dependency: "direct main"
     description:
@@ -556,13 +542,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0-nullsafety.1"
-  overflow_view:
-    dependency: "direct main"
-    description:
-      name: overflow_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2"
   package_config:
     dependency: transitive
     description:
@@ -583,7 +562,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety"
+    version: "2.0.0-nullsafety.1"
   path_provider_linux:
     dependency: transitive
     description:
@@ -653,7 +632,7 @@ packages:
       name: process_run
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.0-nullsafety.0"
+    version: "0.12.0"
   pub_semver:
     dependency: transitive
     description:
@@ -819,7 +798,7 @@ packages:
       name: synchronized
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0-nullsafety.1"
+    version: "3.0.0"
   term_glyph:
     dependency: transitive
     description:
@@ -861,7 +840,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0-nullsafety.6"
+    version: "6.0.0-nullsafety.7"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -883,6 +862,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0-nullsafety.1"
+  url_launcher_web:
+    dependency: transitive
+    description:
+      name: url_launcher_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0-nullsafety"
   url_launcher_windows:
     dependency: transitive
     description:
@@ -904,13 +890,6 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  value_layout_builder:
-    dependency: transitive
-    description:
-      name: value_layout_builder
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   vector_math:
     dependency: transitive
     description:

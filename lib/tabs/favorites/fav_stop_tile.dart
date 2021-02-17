@@ -56,7 +56,7 @@ class FavoriteStationTile extends StatelessWidget {
           children: [
             isDarwin
                 ? const GradientMask(
-                    child: Icon(CupertinoIcons.heart_fill, size: 32, color: Colors.black),
+                    child: Icon(CupertinoIcons.heart_fill, size: 32),
                     gradient: RadialGradient(
                       colors: [
                         Color(0xFFB71C1C),
@@ -66,7 +66,7 @@ class FavoriteStationTile extends StatelessWidget {
                       center: Alignment.center,
                     ))
                 : const GradientMask(
-                    child: Icon(CupertinoIcons.star_fill, size: 32, color: Colors.black),
+                    child: Icon(CupertinoIcons.star_fill, size: 32),
                     gradient: RadialGradient(
                       colors: [
                         Colors.yellow,

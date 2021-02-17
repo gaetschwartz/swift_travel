@@ -28,56 +28,57 @@ class FavoritesTab extends StatefulWidget {
   _FavoritesTabState createState() => _FavoritesTabState();
 }
 
-class _FavoritesTabState extends State<FavoritesTab>
-    with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
+class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
-  late FavoritesSharedPreferencesStore store;
+  late final store = context.read(storeProvider);
   bool isDarwin = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
     isDarwin = Responsive.isDarwin(context);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final isDarwin = Responsive.isDarwin(context);
     return IfWrapper(
       condition: isDarwin,
       builder: (context, child) => CupertinoPageScaffold(
+        resizeToAvoidBottomInset: false,
         child: child!,
         navigationBar: cupertinoBar(
           context,
           trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
         ),
-        resizeToAvoidBottomInset: false,
       ),
       elseBuilder: (context, child) => Scaffold(
-          appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_favourites)),
-          floatingActionButton: isDarwin
-              ? null
-              : ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    shape: const StadiumBorder(),
-                    elevation: 4,
-                    shadowColor: DynamicTheme.shadowOf(context).buttonShadow!.color,
-                  ),
-                  onPressed: addFav,
-                  icon: const Icon(Icons.add),
-                  label: Text(AppLoc.of(context).tabs_favourites),
+        resizeToAvoidBottomInset: false,
+        appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_favourites)),
+        floatingActionButton: isDarwin
+            ? null
+            : ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  elevation: 4,
+                  shadowColor: DynamicTheme.shadowOf(context).buttonShadow!.color,
                 ),
-          body: child),
+                onPressed: addFav,
+                icon: const Icon(Icons.add),
+                label: Text(AppLoc.of(context).tabs_favourites),
+              ),
+        body: child,
+      ),
       child: Consumer(builder: (context, w, _) {
-        final favs = w(favoritesStatesProvider);
-        final favRoutes = w(favoritesRoutesStatesProvider);
-        final stops = favs.state.maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
-        final routes =
-            favRoutes.state.maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
+        final stops = w(favoritesStatesProvider)
+            .state
+            .maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
+        final routes = w(favoritesRoutesStatesProvider)
+            .state
+            .maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
+
         return stops.isEmpty && routes.isEmpty
             ? SizedBox.expand(
                 child: Column(

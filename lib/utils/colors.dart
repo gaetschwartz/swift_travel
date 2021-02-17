@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 Color lighten(Color c) =>
@@ -27,10 +28,18 @@ class GradientMask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShaderMask(
-      blendMode: BlendMode.srcIn, // Add this
-      shaderCallback: (bounds) => gradient.createShader(bounds),
-      child: child,
-    );
+    return kIsWeb
+        ? IconTheme(
+            data: IconThemeData(color: gradient.colors.first),
+            child: child,
+          )
+        : IconTheme(
+            data: const IconThemeData(color: Colors.black),
+            child: ShaderMask(
+              blendMode: BlendMode.srcIn, // Add this
+              shaderCallback: (bounds) => gradient.createShader(bounds),
+              child: child,
+            ),
+          );
   }
 }

@@ -58,12 +58,12 @@ class SncfApi extends NavigationApi {
   @override
   Future<List<NavCompletion>> findStation(double lat, double lon,
       {int? accuracy, bool? showCoordinates, bool? showIds}) {
-    throw UnimplementedError();
+    throw UnimplementedError('SNCF.findStation is not supported yet.');
   }
 
   @override
   Future<CffRoute> rawRoute(Uri query) {
-    throw UnimplementedError();
+    throw UnimplementedError('SNCF.rawRoute is not supported yet.');
   }
 
   @override
@@ -76,7 +76,7 @@ class SncfApi extends NavigationApi {
       bool? showDelays,
       bool? showTrackchanges,
       List<TransportationTypes>? transportationTypes}) {
-    throw UnimplementedError();
+    throw UnimplementedError('SNCF.stationboard is not supported yet.');
   }
 
   @override
@@ -94,5 +94,5 @@ class SncfApi extends NavigationApi {
     bool showDelays = true,
     int previous = 1,
   }) =>
-      throw UnimplementedError();
+      throw UnimplementedError('SNCF.route is not supported yet.');
 }
