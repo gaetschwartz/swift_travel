@@ -64,14 +64,12 @@ class _FavoritesTabState extends State<FavoritesTab>
               : ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
-                    primary: Theme.of(context).colorScheme.onPrimary,
-                    onPrimary: Theme.of(context).colorScheme.primary,
                     elevation: 4,
                     shadowColor: DynamicTheme.shadowOf(context).buttonShadow!.color,
                   ),
                   onPressed: addFav,
                   icon: const Icon(Icons.add),
-                  label: Text(AppLoc.of(context).add_to_favs),
+                  label: Text(AppLoc.of(context).tabs_favourites),
                 ),
           body: child),
       child: Consumer(builder: (context, w, _) {
