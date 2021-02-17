@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,8 +12,6 @@ void reportDartError(Object e, StackTrace? s,
     {String library = '', String reason = '', bool showSnackbar = true}) {
   print('Caught an error: ');
   debugPrintStack(stackTrace: s, label: '[$library] $e $reason');
-
-  if (Platform.environment.containsKey('FLUTTER_TEST')) return;
 
   final details = FlutterErrorDetails(
     exception: e,
@@ -45,10 +41,12 @@ void reportDartError(Object e, StackTrace? s,
             ),
           ));
       });
-    } on FlutterError catch (_) {}
+    } catch (e, s) {
+      debugPrintStack(stackTrace: s, label: e.toString());
+    }
   }
 
-  if (Firebase.apps.isNotEmpty && !kIsWeb) {
+  if (!kIsWeb && Firebase.apps.isNotEmpty) {
     FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
   }
 }
@@ -56,8 +54,6 @@ void reportDartError(Object e, StackTrace? s,
 void reportFlutterError(FlutterErrorDetails details) {
   print('Caught a Flutter error: ${details.exception}');
   debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
-
-  if (Platform.environment.containsKey('FLUTTER_TEST')) return;
 
   if (!kDebugMode || Env.doShowErrors) {
     try {
@@ -80,9 +76,11 @@ void reportFlutterError(FlutterErrorDetails details) {
             ),
           ));
       });
-    } on FlutterError catch (_) {}
+    } catch (e, s) {
+      debugPrintStack(stackTrace: s, label: e.toString());
+    }
   }
-  if (Firebase.apps.isNotEmpty && !kIsWeb) {
+  if (!kIsWeb && Firebase.apps.isNotEmpty) {
     FirebaseCrashlytics.instance.recordFlutterError(details);
   }
 }

@@ -55,7 +55,7 @@ jobs:
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
       - name: Build
-        run: flutter build web --no-sound-null-safety --web-renderer html
+        run: flutter build web --no-sound-null-safety
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
