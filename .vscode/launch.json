@@ -11,15 +11,6 @@
       "args": []
     },
     {
-      "name": "Dart: Run all Tests",
-      "type": "dart",
-      "request": "launch",
-      "program": "./test/",
-      "args": [
-        "--coverage",
-      ]
-    },
-    {
       "name": "Launch (override)",
       "request": "launch",
       "type": "dart",
@@ -38,12 +29,12 @@
       ]
     },
     {
-      "name": "Launch (spoof loc)",
+      "name": "Launch (dont cache lines)",
       "request": "launch",
       "type": "dart",
       "args": [
         "--dart-define",
-        "SPOOF_LOCATION=true"
+        "DONT_CACHE=lines"
       ]
     },
     {

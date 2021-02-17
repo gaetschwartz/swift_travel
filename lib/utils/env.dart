@@ -8,6 +8,7 @@ mixin Env {
   static const page = String.fromEnvironment('PAGE');
   static const doShowErrors = bool.fromEnvironment('DO_SHOW_ERRORS', defaultValue: true);
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
+  static late final dontCache = const String.fromEnvironment('DONT_CACHE').split('|');
 
   static String get summary => Platform.environment.toString();
 
@@ -18,6 +19,7 @@ mixin Env {
       'PAGE': page,
       'DO_SHOW_ERRORS': doShowErrors,
       'SPOOF_LOCATION': spoofLocation,
+      'DONT_CACHE': dontCache,
     };
   }
 }

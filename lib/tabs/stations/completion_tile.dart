@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:overflow_view/overflow_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/cache.dart';
@@ -16,6 +17,7 @@ import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
@@ -164,6 +166,7 @@ class _LinesWidget extends StatefulWidget {
 }
 
 class __LinesWidgetState extends State<_LinesWidget> {
+  static late final doCache = !Env.dontCache.contains('lines');
   final _cache = LineCache.i;
 
   @override
@@ -184,7 +187,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
   Future<void> stationboard() async {
     final s = Stopwatch();
     s.start();
-    if (_cache.containsKey(widget.sugg.label)) {
+    if (doCache && _cache.containsKey(widget.sugg.label)) {
       final l = _cache.get(widget.sugg.label).lines.map(buildPadding).toList(growable: false);
       if (mounted) setState(() => lines = l);
     } else {
@@ -195,15 +198,39 @@ class __LinesWidgetState extends State<_LinesWidget> {
       final l = sData.map<List<Line>?>(
         (board) => board.connections
             .where((c) => c.line != null)
+            .where((c) {
+              switch (c.type) {
+                case Vehicle.bus:
+                case Vehicle.post:
+                case Vehicle.nightBus:
+                case Vehicle.tram:
+                case Vehicle.strain:
+                case Vehicle.funicular:
+                case Vehicle.gondola:
+                case Vehicle.cablecar:
+                case Vehicle.chairlift:
+                case Vehicle.ship:
+                case Vehicle.str:
+                case Vehicle.walk:
+                  return true;
+
+                case Vehicle.train:
+                case Vehicle.expressTrain:
+                case Vehicle.business:
+                case Vehicle.adr:
+                case Vehicle.private:
+                  return false;
+              }
+            })
             .map((c) => Line(c.line, c.color))
             .toSet()
             .sorted((a, b) {
-          final ai = int.tryParse(a.line!);
-          final bi = int.tryParse(b.line!);
-          return ai == null && bi == null
-              ? a.line!.compareTo(b.line!)
-              : (ai ?? double.infinity).compareTo(bi ?? double.infinity);
-        }),
+              final ai = int.tryParse(a.line!);
+              final bi = int.tryParse(b.line!);
+              return ai == null && bi == null
+                  ? a.line!.compareTo(b.line!)
+                  : (ai ?? double.infinity).compareTo(bi ?? double.infinity);
+            }),
         error: (e) {
           print('CffStationboardError while fetching lines: ' + e.messages.toString());
           return null;
@@ -227,14 +254,16 @@ class __LinesWidgetState extends State<_LinesWidget> {
       } else {
         if (mounted) setState(() => lines = []);
 
-        final entry = LineCacheEntry(
-          timestamp: DateTime.now(),
-          stop: widget.sugg.label,
-          lines: [],
-          ttl: Duration.minutesPerHour * 6,
-        );
+        if (doCache) {
+          final entry = LineCacheEntry(
+            timestamp: DateTime.now(),
+            stop: widget.sugg.label,
+            lines: [],
+            ttl: Duration.minutesPerHour * 6,
+          );
 
-        await _cache.put(widget.sugg.label, entry);
+          await _cache.put(widget.sugg.label, entry);
+        }
       }
     }
   }
