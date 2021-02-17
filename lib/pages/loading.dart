@@ -81,7 +81,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
               SizedBox(height: 32),
               Text(
                 'Loading ...',
-                style: TextStyle(color: Colors.black, fontSize: 32),
+                style: TextStyle(fontSize: 32),
               )
             ],
           ),
