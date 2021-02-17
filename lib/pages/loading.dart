@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
@@ -98,7 +97,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
     try {
       await Geolocator.requestPermission();
-    } on MissingPluginException catch (_) {}
+    } catch (_) {}
 
     unawaited(route());
 

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 
 mixin Env {
@@ -10,7 +8,7 @@ mixin Env {
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
   static late final doCacheInDebug = const String.fromEnvironment('CACHE_DEBUG').split('|');
 
-  static String get summary => Platform.environment.toString();
+  static String get summary => map.toString();
 
   static Map<String, Object> get map {
     return {

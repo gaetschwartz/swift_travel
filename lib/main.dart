@@ -54,14 +54,15 @@ Future<void> main() async {
       'Commit message: $commitMessage\n'
       'Commit hash: $commitHash',
     );
-    print('Platform: $platform');
   }
-  if (kDebugMode) print(Env.summary);
+  if (kDebugMode) print(Env.map);
+
+  WidgetsFlutterBinding.ensureInitialized();
 
   overridePlatform();
   setPathUrlStrategy();
 
-  WidgetsFlutterBinding.ensureInitialized();
+  print('Platform: $platform');
 
   if (isMobile) {
     await Firebase.initializeApp();
