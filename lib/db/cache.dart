@@ -19,7 +19,7 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
   @visibleForTesting
   factory LineCache() => LineCache._();
 
-  List<LineCacheEntry> get entries => values.toList();
+  List<LineCacheEntry> get entries => values.toList(growable: false);
 
   @override
   Future<void> clean() async {
@@ -30,10 +30,10 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
   @override
   Future<void> open({String? path}) async {
     await super.open(path: path);
-    await cleanOutdated();
+    await deleteOutdatedEntries();
   }
 
-  Future<void> cleanOutdated() async {
+  Future<void> deleteOutdatedEntries() async {
     final toDelete = map.entries
         .where((e) => MockableDateTime.now().difference(e.value.timestamp).inMinutes > e.value.ttl)
         .map((e) => e.key);

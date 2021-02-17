@@ -21,6 +21,10 @@ abstract class LineCacheEntry with _$LineCacheEntry {
     required DateTime timestamp,
     required String stop,
     required List<Line> lines,
+
+    /// Time to live for this entry in minutes.
+    ///
+    /// Defaults to `7 days`.
     @Default(Duration.minutesPerDay * 7) int ttl,
   }) = _LineCacheEntry;
 

@@ -159,7 +159,7 @@ void main() {
   });
 
   test('env', () {
-    expect(Env.map.keys.length, 5);
+    expect(Env.map.keys.length, 6);
     expect(Env.summary, isNotEmpty);
   });
 

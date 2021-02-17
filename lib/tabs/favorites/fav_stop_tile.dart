@@ -56,31 +56,29 @@ class FavoriteStationTile extends StatelessWidget {
           children: [
             isDarwin
                 ? const GradientMask(
-                    child: Icon(CupertinoIcons.heart_fill, size: 32),
+                    child: Icon(CupertinoIcons.heart_fill, size: 32, color: Colors.black),
                     gradient: RadialGradient(
                       colors: [
+                        Color(0xFFB71C1C),
                         Colors.red,
-                        Colors.redAccent,
                       ],
+                      radius: 0.4,
                       center: Alignment.center,
-                      tileMode: TileMode.mirror,
                     ))
                 : const GradientMask(
-                    child: Icon(CupertinoIcons.star_fill, size: 32),
+                    child: Icon(CupertinoIcons.star_fill, size: 32, color: Colors.black),
                     gradient: RadialGradient(
                       colors: [
                         Colors.yellow,
                         Colors.orange,
                       ],
                       center: Alignment.center,
-                      tileMode: TileMode.mirror,
                     )),
           ],
         ),
         onTap: () => Navigator.of(context).pushNamed('/route', arguments: stop),
         onLongPress: () => edit(context),
-        trailing: IconButton(
-            icon: const Icon(CupertinoIcons.chevron_forward), onPressed: () => edit(context)),
+        trailing: Icon(CupertinoIcons.chevron_forward, color: IconTheme.of(context).color),
         title: Text(stop.name!),
         subtitle: Text(stop.stop, overflow: TextOverflow.ellipsis),
       ),

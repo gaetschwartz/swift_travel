@@ -48,7 +48,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
 
   Future<void> editRoutes(Set<LocalRoute> Function(Set<LocalRoute> routes) editRoutes) async {
     _routes = editRoutes(_routes);
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList(growable: false));
     await sync();
   }
 
@@ -71,7 +72,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     _stops.clear();
     _stops.addAll(favStops);
 
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList(growable: false));
 
     //? Routes
     final routes = _prefs!.getStringList(routesKey) ?? [];
@@ -82,7 +83,8 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
       _routes.add(r);
     }
 
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList(growable: false));
 
     if (notify) {
       await sync();
@@ -93,21 +95,23 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
   Future<void> addRoute(LocalRoute route) async {
     _routes.add(route);
 
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList(growable: false));
     await sync();
   }
 
   @override
   Future<void> removeRoute(LocalRoute route) async {
     _routes.remove(route);
-    ref.read(favoritesRoutesStatesProvider).state = FavoritesRoutesStates.data(_routes.toList());
+    ref.read(favoritesRoutesStatesProvider).state =
+        FavoritesRoutesStates.data(_routes.toList(growable: false));
     await sync();
   }
 
   @override
   Future<void> addStop(FavoriteStop stop) async {
     _stops.add(stop);
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList(growable: false));
     await sync();
   }
 
@@ -118,7 +122,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     if (!_stops.remove(favoriteStop)) {
       log('$favoriteStop was not in favorites ?', name: 'Store');
     }
-    ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList());
+    ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList(growable: false));
     await sync();
   }
 
@@ -136,10 +140,13 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     }
     await _prefs!.setStringList(stopsKey, stops);
 
-    final routes = _routes.map((e) => jsonEncode(e.toJson())).toList();
+    final routes = _routes.map((e) => jsonEncode(e.toJson())).toList(growable: false);
 
     await _prefs!.setStringList(routesKey, routes);
 
-    if (isMobile) await MyQuickActions.i.setActions(_routes.toList(), _stops.toList());
+    if (isMobile) {
+      await MyQuickActions.i
+          .setActions(_routes.toList(growable: false), _stops.toList(growable: false));
+    }
   }
 }

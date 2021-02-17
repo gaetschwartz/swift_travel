@@ -30,7 +30,7 @@ class _$StationboardConnectionTearOff {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
+      @JsonKey(name: 'subsequent_stops', defaultValue: [])
           List<SubsequentStop> subsequentStops = const [],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay = 0,
@@ -74,7 +74,7 @@ mixin _$StationboardConnection {
   String? get g;
   @JsonKey(name: '*L')
   String? get l;
-  @JsonKey(name: 'subsequent_stops', defaultValue: const [])
+  @JsonKey(name: 'subsequent_stops', defaultValue: [])
   List<SubsequentStop> get subsequentStops;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
   int get depDelay;
@@ -104,7 +104,7 @@ abstract class $StationboardConnectionCopyWith<$Res> {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
+      @JsonKey(name: 'subsequent_stops', defaultValue: [])
           List<SubsequentStop> subsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -184,7 +184,7 @@ abstract class _$StationboardConnectionCopyWith<$Res>
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
+      @JsonKey(name: 'subsequent_stops', defaultValue: [])
           List<SubsequentStop> subsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -257,7 +257,7 @@ class _$_StationboardConnection implements _StationboardConnection {
           this.g,
       @JsonKey(name: '*L')
           this.l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
+      @JsonKey(name: 'subsequent_stops', defaultValue: [])
           this.subsequentStops = const [],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           this.depDelay = 0,
@@ -290,7 +290,7 @@ class _$_StationboardConnection implements _StationboardConnection {
   @JsonKey(name: '*L')
   final String? l;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: const [])
+  @JsonKey(name: 'subsequent_stops', defaultValue: [])
   final List<SubsequentStop> subsequentStops;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -381,7 +381,7 @@ abstract class _StationboardConnection implements StationboardConnection {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const [])
+      @JsonKey(name: 'subsequent_stops', defaultValue: [])
           List<SubsequentStop> subsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -413,7 +413,7 @@ abstract class _StationboardConnection implements StationboardConnection {
   @JsonKey(name: '*L')
   String? get l;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: const [])
+  @JsonKey(name: 'subsequent_stops', defaultValue: [])
   List<SubsequentStop> get subsequentStops;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)

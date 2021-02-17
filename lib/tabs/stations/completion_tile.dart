@@ -4,10 +4,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:overflow_view/overflow_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/search.ch/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/cache.dart';
@@ -166,7 +165,7 @@ class _LinesWidget extends StatefulWidget {
 }
 
 class __LinesWidgetState extends State<_LinesWidget> {
-  static late final doCache = !Env.dontCache.contains('lines');
+  static late final doCache = !isDebugMode || Env.doCacheInDebug.contains('lines');
   final _cache = LineCache.i;
 
   @override
@@ -185,90 +184,75 @@ class __LinesWidgetState extends State<_LinesWidget> {
   }
 
   Future<void> stationboard() async {
-    final s = Stopwatch();
-    s.start();
     if (doCache && _cache.containsKey(widget.sugg.label)) {
-      final l = _cache.get(widget.sugg.label).lines.map(buildPadding).toList(growable: false);
+      final l = _cache.get(widget.sugg.label).lines.map(buildLine).toList(growable: false);
       if (mounted) setState(() => lines = l);
     } else {
       final sData = await context
           .read(navigationAPIProvider)
           .stationboard(widget.sugg.label, showSubsequentStops: false, showDelays: false)
           .timeout(const Duration(seconds: 1));
-      final l = sData.map<List<Line>?>(
-        (board) => board.connections
-            .where((c) => c.line != null)
-            .where((c) {
-              switch (c.type) {
-                case Vehicle.bus:
-                case Vehicle.post:
-                case Vehicle.nightBus:
-                case Vehicle.tram:
-                case Vehicle.strain:
-                case Vehicle.funicular:
-                case Vehicle.gondola:
-                case Vehicle.cablecar:
-                case Vehicle.chairlift:
-                case Vehicle.ship:
-                case Vehicle.str:
-                case Vehicle.walk:
-                  return true;
 
-                case Vehicle.train:
-                case Vehicle.expressTrain:
-                case Vehicle.business:
-                case Vehicle.adr:
-                case Vehicle.private:
-                  return false;
-              }
-            })
-            .map((c) => Line(c.line, c.color))
-            .toSet()
-            .sorted((a, b) {
-              final ai = int.tryParse(a.line!);
-              final bi = int.tryParse(b.line!);
-              return ai == null && bi == null
-                  ? a.line!.compareTo(b.line!)
-                  : (ai ?? double.infinity).compareTo(bi ?? double.infinity);
-            }),
+      final connections = sData.map<Iterable<StationboardConnection>?>(
+        (board) => board.connections.where((c) => c.line != null),
         error: (e) {
           print('CffStationboardError while fetching lines: ' + e.messages.toString());
           return null;
         },
       );
 
-      s.stop();
+      if (connections == null) {
+        await cacheShortLivedErrorEntry();
+        return;
+      }
 
-      if (l != null) {
-        final l2 = l.map(buildPadding).toList(growable: false);
+      final l = connections
+          .sorted((a, b) {
+            final la = int.tryParse((a.l ?? a.line)!);
+            final lb = int.tryParse((b.l ?? b.line)!);
+            if (la == null && lb == null) {
+              return a.line!.compareTo(b.line!);
+            } else {
+              return (la ?? double.infinity).compareTo(lb ?? double.infinity);
+            }
+          })
+          .map((c) => Line(c.line, c.color))
+          .toSet()
+          .take(6);
 
-        if (mounted) setState(() => lines = l2);
+      final l2 = l.map(buildLine).toList(growable: false);
 
+      if (mounted) setState(() => lines = l2);
+
+      if (doCache) {
         await _cache.put(
             widget.sugg.label,
             LineCacheEntry(
-              timestamp: DateTime.now(),
-              stop: widget.sugg.label,
-              lines: l,
-            ));
-      } else {
-        if (mounted) setState(() => lines = []);
-
-        if (doCache) {
-          final entry = LineCacheEntry(
-            timestamp: DateTime.now(),
-            stop: widget.sugg.label,
-            lines: [],
-            ttl: Duration.minutesPerHour * 6,
-          );
-
-          await _cache.put(widget.sugg.label, entry);
-        }
+                timestamp: DateTime.now(),
+                stop: widget.sugg.label,
+                lines: l.toList(growable: false)));
       }
     }
   }
 
-  Widget buildPadding(Line l) => LineIcon.fromLine(l, small: true);
+  Future<void> cacheShortLivedErrorEntry() async {
+    if (mounted) setState(() => lines = []);
+    if (doCache) {
+      final entry = LineCacheEntry(
+        timestamp: DateTime.now(),
+        stop: widget.sugg.label,
+        lines: [],
+        ttl: Duration.minutesPerHour * 6,
+      );
+
+      await _cache.put(widget.sugg.label, entry);
+    }
+  }
+
+  Widget buildLine(Line l) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 1),
+        child: LineIcon.fromLine(l, small: true),
+      );
 
   List<Widget>? lines;
 
@@ -278,10 +262,8 @@ class __LinesWidgetState extends State<_LinesWidget> {
         ? const Padding(padding: EdgeInsets.only(top: 4), child: CupertinoActivityIndicator())
         : Padding(
             padding: const EdgeInsets.only(top: 4),
-            child: OverflowView.flexible(
-              builder: (context, r) => SizedBox(child: Center(child: Text('+$r'))),
-              spacing: 2,
-              children: lines,
+            child: Wrap(
+              children: lines!,
             ),
           );
   }

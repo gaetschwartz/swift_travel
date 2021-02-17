@@ -50,7 +50,7 @@ class SncfApi extends NavigationApi {
     final sncfCompletion = SncfCompletion.fromJson(decode);
     final places = sncfCompletion.places;
     log('Found ${places.length} places');
-    final list = places.map((e) => NavCompletion(label: e.name ?? '???')).toList();
+    final list = places.map((e) => NavCompletion(label: e.name ?? '???')).toList(growable: false);
     log('Found ${list.length} completions');
     return list;
   }

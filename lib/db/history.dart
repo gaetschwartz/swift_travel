@@ -17,5 +17,5 @@ class RouteHistoryRepository extends LocalDatabase<int, Map, LocalRoute> with In
   @visibleForTesting
   factory RouteHistoryRepository() => RouteHistoryRepository._();
 
-  List<LocalRoute> get history => values.toList();
+  List<LocalRoute> get history => values.toList(growable: false);
 }

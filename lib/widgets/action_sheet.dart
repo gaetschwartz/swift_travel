@@ -33,7 +33,7 @@ Future<T?> showActionSheet<T>(
                             true,
                             popBeforeReturn: popBeforeReturn,
                           ))
-                      .toList(),
+                      .toList(growable: false),
                   cancelButton: cancel == null
                       ? null
                       : ActionsSheet._buildListTile(
@@ -89,7 +89,7 @@ Future<T?> showChoiceSheet<T>(
                             true,
                             popBeforeReturn: popBeforeReturn,
                           ))
-                      .toList(),
+                      .toList(growable: false),
                   cancelButton: cancel == null
                       ? null
                       : ActionsSheet._buildListTile(

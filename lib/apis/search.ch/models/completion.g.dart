@@ -81,4 +81,5 @@ const _$DataOriginEnumMap = {
   DataOrigin.history: 'history',
   DataOrigin.data: 'data',
   DataOrigin.currentLocation: 'currentLocation',
+  DataOrigin.prediction: 'prediction',
 };

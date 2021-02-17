@@ -29,15 +29,6 @@
       ]
     },
     {
-      "name": "Launch (dont cache lines)",
-      "request": "launch",
-      "type": "dart",
-      "args": [
-        "--dart-define",
-        "DONT_CACHE=lines"
-      ]
-    },
-    {
       "name": "Launch (errors)",
       "request": "launch",
       "type": "dart",

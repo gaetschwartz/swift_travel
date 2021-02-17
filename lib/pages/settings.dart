@@ -109,11 +109,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                     : Text(f.name,
                                         style: f.textTheme(Typography.englishLike2018).bodyText1)),
                           )
-                          .toList(),
+                          .toList(growable: false),
                       selectedItemBuilder: (context) => fonts
                           .map<Widget>(
                               (f) => Align(alignment: Alignment.centerLeft, child: Text(f.name)))
-                          .toList(),
+                          .toList(growable: false),
                       onChanged: (f) {
                         Vibration.select();
                         theme.font = f!;
@@ -188,7 +188,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             items: NavigationApiType.values
                                 .map((e) => ChoicePageItem(
                                     child: Text(NavigationApi.getFactory(e).name), value: e))
-                                .toList(),
+                                .toList(growable: false),
                             value: prefs.api,
                             title: Text(AppLoc.of(context).navigation_api),
                             description: const Text(
@@ -650,7 +650,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
           height: 150,
           child: Consumer(builder: (context, w, _) {
             final theme = w(dynamicTheme);
-            final list = theme.configuration.themes.entries.toList();
+            final list = theme.configuration.themes.entries.toList(growable: false);
             return ListView.builder(
               controller: _controller,
               scrollDirection: Axis.horizontal,
@@ -1000,11 +1000,11 @@ class TeamPage extends StatelessWidget {
       body: ListView(
         children: [
           Column(
-            children: primaryCoders.map((c) => _CoderTile(c: c)).toList(),
+            children: primaryCoders.map((c) => _CoderTile(c: c)).toList(growable: false),
           ),
           ExpansionTile(
             title: const Text('Helpers'),
-            children: secondaryCoders.map((c) => _CoderTile(c: c)).toList(),
+            children: secondaryCoders.map((c) => _CoderTile(c: c)).toList(growable: false),
           ),
         ],
       ),

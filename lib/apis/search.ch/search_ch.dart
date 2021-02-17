@@ -86,10 +86,9 @@ class SearchChApi extends NavigationApi {
     }
     final decode = jsonDecode(response.body) as List;
 
-    final completions = decode
-        .map<NavCompletion>((e) => NavCompletion.fromJson(e as Map<String, dynamic>))
-        .toList();
-    return completions;
+    return decode
+        .map((e) => NavCompletion.fromJson(e as Map<String, dynamic>))
+        .toList(growable: false);
   }
 
   @override

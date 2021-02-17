@@ -28,7 +28,7 @@ class GradientMask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
-      blendMode: BlendMode.srcATop, // Add this
+      blendMode: BlendMode.srcIn, // Add this
       shaderCallback: (bounds) => gradient.createShader(bounds),
       child: child,
     );

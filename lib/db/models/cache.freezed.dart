@@ -42,6 +42,10 @@ mixin _$LineCacheEntry {
   DateTime get timestamp;
   String get stop;
   List<Line> get lines;
+
+  /// Time to live for this entry in minutes.
+  ///
+  /// Defaults to `7 days`.
   int get ttl;
 
   Map<String, dynamic> toJson();
@@ -143,6 +147,10 @@ class _$_LineCacheEntry implements _LineCacheEntry {
   final List<Line> lines;
   @JsonKey(defaultValue: Duration.minutesPerDay * 7)
   @override
+
+  /// Time to live for this entry in minutes.
+  ///
+  /// Defaults to `7 days`.
   final int ttl;
 
   @override
@@ -201,6 +209,10 @@ abstract class _LineCacheEntry implements LineCacheEntry {
   @override
   List<Line> get lines;
   @override
+
+  /// Time to live for this entry in minutes.
+  ///
+  /// Defaults to `7 days`.
   int get ttl;
   @override
   @JsonKey(ignore: true)

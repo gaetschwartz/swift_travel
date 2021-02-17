@@ -258,7 +258,7 @@ class _TransportDetailsState extends State<TransportDetails> {
           Attribute.attributes[e.key]?.copyWith(message: e.value) ??
           Attribute(code: e.key, message: e.value))
       .where((e) => !e.ignore)
-      .toList();
+      .toList(growable: false);
 
   @override
   Widget build(BuildContext context) {
