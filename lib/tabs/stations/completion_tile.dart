@@ -167,6 +167,7 @@ class _LinesWidget extends StatefulWidget {
 class __LinesWidgetState extends State<_LinesWidget> {
   static late final doCache = !isDebugMode || Env.doCacheInDebug.contains('lines');
   final _cache = LineCache.i;
+  static const numberOfLines = 6;
 
   @override
   void initState() {
@@ -185,7 +186,12 @@ class __LinesWidgetState extends State<_LinesWidget> {
 
   Future<void> stationboard() async {
     if (doCache && _cache.containsKey(widget.sugg.label)) {
-      final l = _cache.get(widget.sugg.label).lines.map(buildLine).toList(growable: false);
+      final l = _cache
+          .get(widget.sugg.label)
+          .lines
+          .map(buildLine)
+          .take(numberOfLines + 1)
+          .toList(growable: false);
       if (mounted) setState(() => lines = l);
     } else {
       final sData = await context
@@ -218,7 +224,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
           })
           .map((c) => Line(c.line, c.color))
           .toSet()
-          .take(6);
+          .take(numberOfLines + 1);
 
       final l2 = l.map(buildLine).toList(growable: false);
 
@@ -262,8 +268,11 @@ class __LinesWidgetState extends State<_LinesWidget> {
         ? const Padding(padding: EdgeInsets.only(top: 4), child: CupertinoActivityIndicator())
         : Padding(
             padding: const EdgeInsets.only(top: 4),
-            child: Wrap(
-              children: lines!,
+            child: Row(
+              children: [
+                ...lines!.take(numberOfLines),
+                if (lines!.length > numberOfLines) const Text(' ...', overflow: TextOverflow.fade)
+              ],
             ),
           );
   }
