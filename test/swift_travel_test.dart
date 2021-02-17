@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:swift_travel/apis/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
 import 'package:swift_travel/apis/search.ch/search_ch.dart';
@@ -28,16 +29,14 @@ final route1 = LocalRoute(geneva, 'Lausanne', timestamp: timestamp);
 final route2 = LocalRoute('Lausanne', geneva, timestamp: timestamp);
 final route3 = LocalRoute('Zürich', 'Bern', timestamp: timestamp);
 
-final testResultFolder = path.join('test', 'test_results');
-
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-
-  final dir = path.join(testResultFolder, 'route_history');
 
   group('route history >', () {
     late RouteHistoryRepository hist;
     setUpAll(() async {
+      final temp = await getTemporaryDirectory();
+      final dir = path.join(temp!.path, 'swift_travel', 'test_results', 'route_history');
       Hive.init(dir);
     });
 

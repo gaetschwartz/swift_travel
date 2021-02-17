@@ -135,7 +135,7 @@ class SearchChApi extends NavigationApi {
     TimeType typeTime = TimeType.depart,
     bool showDelays = true,
     int number = 4,
-    int previous = 1,
+    int previous = 0,
   }) async {
     final params = {
       'from': departure,
@@ -184,17 +184,17 @@ class QueryBuilder<T> {
   const QueryBuilder(this.authority, this.pathBuilder, {this.https = true});
 
   Uri call(T input, Map<String, Object?>? parameters) {
-    final p = pathBuilder(input);
-    final params = parameters != null && parameters.isEmpty
+    final path = pathBuilder(input);
+    final params = parameters == null || parameters.isEmpty
         ? null
-        : parameters?.map((key, value) => MapEntry(key, value.toString()));
+        : parameters.map((key, value) => MapEntry(key, value.toString()));
     return https
         ? params == null
-            ? Uri.https(authority, p)
-            : Uri.https(authority, p, params)
+            ? Uri.https(authority, path)
+            : Uri.https(authority, path, params)
         : params == null
-            ? Uri.http(authority, p)
-            : Uri.http(authority, p, params);
+            ? Uri.http(authority, path)
+            : Uri.http(authority, path, params);
   }
 }
 
