@@ -6,11 +6,11 @@ part of 'completion.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_NavCompletion _$_$_NavCompletionFromJson(Map<String, dynamic> json) {
-  return _$_NavCompletion(
+_$_SbbCompletion _$_$_SbbCompletionFromJson(Map<String, dynamic> json) {
+  return _$_SbbCompletion(
     label: json['label'] as String,
     dist: (json['dist'] as num?)?.toDouble(),
-    icon: json['iconclass'] as String?,
+    iconClass: json['iconclass'] as String?,
     html: json['html'] as String?,
     id: json['id'] as String?,
     favoriteName: json['favoriteName'] as String?,
@@ -19,7 +19,7 @@ _$_NavCompletion _$_$_NavCompletionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_NavCompletionToJson(_$_NavCompletion instance) {
+Map<String, dynamic> _$_$_SbbCompletionToJson(_$_SbbCompletion instance) {
   final val = <String, dynamic>{
     'label': instance.label,
   };
@@ -31,7 +31,7 @@ Map<String, dynamic> _$_$_NavCompletionToJson(_$_NavCompletion instance) {
   }
 
   writeNotNull('dist', instance.dist);
-  writeNotNull('iconclass', instance.icon);
+  writeNotNull('iconclass', instance.iconClass);
   writeNotNull('html', instance.html);
   writeNotNull('id', instance.id);
   writeNotNull('favoriteName', instance.favoriteName);

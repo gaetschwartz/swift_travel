@@ -56,8 +56,8 @@ void main() {
       final store = container.read(storeProvider) as FavoritesSharedPreferencesStore;
 
       await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
-      expect(store.stops, []);
-      expect(store.routes, []);
+      expect(store.stops, <FavoriteStop>{});
+      expect(store.routes, <LocalRoute>{});
     });
 
     test('add favs and remove', () async {
@@ -78,7 +78,7 @@ void main() {
       expect(store.stops, [bern]);
       verify(favsListener([bern])).called(1);
       await store.removeStop(bern);
-      expect(store.stops, []);
+      expect(store.stops, <FavoriteStop>{});
       verify(favsListener([])).called(1);
 
       verifyNever(favsListener([nowhere]));
@@ -103,7 +103,7 @@ void main() {
       expect(store.routes, [route]);
       verify(routesListener([route])).called(1);
       await store.removeRoute(route);
-      expect(store.routes, []);
+      expect(store.routes, <LocalRoute>{});
       verify(routesListener([])).called(1);
 
       verifyNever(routesListener([routeNever]));

@@ -36,7 +36,7 @@ void reportDartError(Object e, StackTrace? s,
               onPressed: () {
                 scaffoldMessengerKey.currentState!.removeCurrentSnackBar();
                 navigatorKey.currentState!
-                    .push(MaterialPageRoute(builder: (_) => ErrorPage(details)));
+                    .push<void>(MaterialPageRoute(builder: (_) => ErrorPage(details)));
               },
             ),
           ));
@@ -71,7 +71,7 @@ void reportFlutterError(FlutterErrorDetails details) {
               onPressed: () {
                 scaffoldMessengerKey.currentState!.removeCurrentSnackBar();
                 navigatorKey.currentState!
-                    .push(MaterialPageRoute(builder: (_) => ErrorPage(details)));
+                    .push<void>(MaterialPageRoute(builder: (_) => ErrorPage(details)));
               },
             ),
           ));

@@ -9,10 +9,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:swift_travel/apis/search.ch/models/leg.dart';
-import 'package:swift_travel/apis/search.ch/models/route.dart';
-import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
-import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -99,7 +99,7 @@ class RouteDetails extends StatelessWidget {
                     IconButton(
                         icon: const Icon(CupertinoIcons.game_controller),
                         onPressed: () => Navigator.of(context)
-                            .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c()))),
+                            .push<void>(CupertinoPageRoute(builder: (_) => const Snecc_c_c()))),
                     IconButton(
                         icon: const Icon(CupertinoIcons.play_fill),
                         onPressed: () => openLive(context, conn)),
@@ -189,7 +189,8 @@ class RouteDetails extends StatelessWidget {
 
   void openLive(BuildContext context, RouteConnection c) {
     Vibration.select();
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c)));
+    Navigator.of(context)
+        .push<void>(MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c)));
   }
 
   void base64Experiment() {
@@ -340,11 +341,9 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
           isHead = false;
         } else if (body == head && !isHead) {
           print(snecc);
-          showDialog(
+          showDialog<void>(
               context: context,
-              builder: (_) => const AlertDialog(
-                    title: Text('You ate yourself !'),
-                  ));
+              builder: (_) => const AlertDialog(title: Text('You ate yourself !')));
           stop();
           setState(() => tick = t);
           return;
@@ -356,11 +355,8 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
         food = Point(r.nextInt(gridSize), r.nextInt(gridSize));
         if (period >= 175) period -= 25;
       } else if (head!.x >= gridSize || head!.x < 0 || head!.y >= gridSize || head!.y < 0) {
-        showDialog(
-            context: context,
-            builder: (_) => const AlertDialog(
-                  title: Text('You lost !'),
-                ));
+        showDialog<void>(
+            context: context, builder: (_) => const AlertDialog(title: Text('You lost !')));
         stop();
       }
       setState(() => tick = t);

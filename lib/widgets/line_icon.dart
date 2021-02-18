@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swift_travel/apis/search.ch/models/leg.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
 import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/utils/string_utils/format.dart';
 

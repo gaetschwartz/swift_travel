@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 
 typedef DataConverter<R, S> = S Function(R data);
 
-abstract class LocalDatabase<TKey, TEncValue, TValue> {
+abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TValue extends Object> {
   final String boxKey;
   final int maxSize;
   final DataConverter<TValue, TEncValue> encoder;
@@ -78,22 +78,24 @@ abstract class LocalDatabase<TKey, TEncValue, TValue> {
     return decoder(at);
   }
 
-  Object formatKey(key) => key is String ? _maxStringSize(Uri.encodeComponent(key)) : key;
+  Object formatKey(Object key) => key is String ? _maxStringSize(Uri.encodeComponent(key)) : key;
 
   Map<TKey, TValue> get map {
     final _map = box.toMap();
-    return _map.map((key, value) => MapEntry(key as TKey, decoder(value)));
+    return _map.map((Object? key, value) => MapEntry(key as TKey, decoder(value)));
   }
 }
 
-mixin KeyedDatabaseMixin<TKey, TEncValue, TValue> on LocalDatabase<TKey, TEncValue, TValue> {
+mixin KeyedDatabaseMixin<TKey extends Object, TEncValue extends Object, TValue extends Object>
+    on LocalDatabase<TKey, TEncValue, TValue> {
   Future<void> safePut(TKey key, TValue value) async {
     if (_box == null) await open();
     return await put(key, value);
   }
 }
 
-mixin IndexedDatabaseMixin<TEncValue, TValue> on LocalDatabase<int, TEncValue, TValue> {
+mixin IndexedDatabaseMixin<TEncValue extends Object, TValue extends Object>
+    on LocalDatabase<int, TEncValue, TValue> {
   TValue get last => decoder(box.getAt(size - 1)!);
 
   Future<int> safeAdd(TValue data) async {
@@ -108,7 +110,7 @@ mixin IndexedDatabaseMixin<TEncValue, TValue> on LocalDatabase<int, TEncValue, T
   }
 
   @override
-  FutureOr<void> clean() async => await box.deleteAll(List.generate(10, (i) => i));
+  FutureOr<void> clean() async => await box.deleteAll(<int>[for (var i = 0; i < 10; i++) i]);
 }
 
 extension StringX on String {

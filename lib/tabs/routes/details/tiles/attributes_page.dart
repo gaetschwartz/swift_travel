@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:swift_travel/apis/search.ch/models/attribute.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';

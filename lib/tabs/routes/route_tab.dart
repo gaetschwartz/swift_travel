@@ -12,10 +12,11 @@ import 'package:geolocator/geolocator.dart' hide Position;
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/search.ch/models/route.dart';
-import 'package:swift_travel/apis/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/blocs/location/location.dart';
 import 'package:swift_travel/blocs/location/models/models.dart';
 import 'package:swift_travel/blocs/navigation.dart';
@@ -494,7 +495,7 @@ class _RoutePageState extends State<RoutePage> {
                         iconForState(w(fromTextfieldProvider).state, iconSize: 16)),
               ),
               onTap: () async {
-                await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+                await Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
                     builder: (context) => SearchPage(
                           binder: from,
                           heroTag: _fromHeroTag,
@@ -512,7 +513,7 @@ class _RoutePageState extends State<RoutePage> {
             child: Stack(
               alignment: Alignment.centerRight,
               children: [
-                TypeAheadField<NavCompletion>(
+                TypeAheadField<SbbCompletion>(
                   key: const Key('route-first-textfield-key'),
                   debounceDuration: const Duration(milliseconds: 250),
                   textFieldConfiguration: TextFieldConfiguration(
@@ -595,7 +596,7 @@ class _RoutePageState extends State<RoutePage> {
                         iconForState(w(toTextfieldProvider).state, iconSize: 16)),
               ),
               onTap: () async {
-                await Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+                await Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
                     builder: (context) => Consumer(
                         builder: (context, w, _) => SearchPage(
                               binder: to,
@@ -616,7 +617,7 @@ class _RoutePageState extends State<RoutePage> {
             child: Stack(
               alignment: Alignment.centerRight,
               children: [
-                TypeAheadField<NavCompletion>(
+                TypeAheadField<SbbCompletion>(
                   key: const Key('route-second-textfield-key'),
                   suggestionsBoxDecoration: _suggestionsBoxDecoration,
                   debounceDuration: const Duration(milliseconds: 250),

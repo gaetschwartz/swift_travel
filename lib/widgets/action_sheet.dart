@@ -18,7 +18,7 @@ Future<T?> showActionSheet<T>(
   final isDarwin = Responsive.isDarwin(context);
 
   return isDarwin
-      ? showCupertinoModalPopup(
+      ? showCupertinoModalPopup<T>(
           context: context,
           useRootNavigator: useRootNavigator,
           builder: (context) => Material(
@@ -27,7 +27,7 @@ Future<T?> showActionSheet<T>(
                   title: title,
                   message: message,
                   actions: actions
-                      .map((a) => ActionsSheet._buildListTile(
+                      .map((a) => ActionsSheet._buildListTile<T>(
                             context,
                             a,
                             true,
@@ -36,7 +36,7 @@ Future<T?> showActionSheet<T>(
                       .toList(growable: false),
                   cancelButton: cancel == null
                       ? null
-                      : ActionsSheet._buildListTile(
+                      : ActionsSheet._buildListTile<T>(
                           context,
                           cancel,
                           true,
@@ -74,7 +74,7 @@ Future<T?> showChoiceSheet<T>(
   final isDarwin = Responsive.isDarwin(context);
 
   return isDarwin
-      ? showCupertinoModalPopup(
+      ? showCupertinoModalPopup<T>(
           context: context,
           useRootNavigator: useRootNavigator,
           builder: (context) => Material(
@@ -83,7 +83,7 @@ Future<T?> showChoiceSheet<T>(
                   title: title,
                   message: message,
                   actions: actions
-                      .map((a) => ActionsSheet._buildListTile(
+                      .map((a) => ActionsSheet._buildListTile<T>(
                             context,
                             a,
                             true,
@@ -92,7 +92,7 @@ Future<T?> showChoiceSheet<T>(
                       .toList(growable: false),
                   cancelButton: cancel == null
                       ? null
-                      : ActionsSheet._buildListTile(
+                      : ActionsSheet._buildListTile<T>(
                           context,
                           cancel,
                           true,
@@ -164,7 +164,7 @@ class ActionsSheet<T> extends StatelessWidget {
 
   static Widget _buildListTile<T>(
     BuildContext context,
-    ActionsSheetAction a,
+    ActionsSheetAction<T> a,
     bool isDarwin, {
     required bool popBeforeReturn,
   }) {

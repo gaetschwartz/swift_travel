@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:swift_travel/apis/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';

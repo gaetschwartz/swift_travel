@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SingleWidgetPage extends Page {
+class SingleWidgetPage<T> extends Page<T> {
   final Widget child;
   final String? title;
 
@@ -12,8 +12,8 @@ class SingleWidgetPage extends Page {
   }) : super(name: name);
 
   @override
-  Route createRoute(BuildContext context) {
-    return CupertinoPageBuilder(
+  Route<T> createRoute(BuildContext context) {
+    return CupertinoPageBuilder<T>(
       builder: (context) => child,
       settings: this,
       title: title,
@@ -21,7 +21,7 @@ class SingleWidgetPage extends Page {
   }
 }
 
-class CupertinoPageBuilder extends PageRoute with CupertinoRouteTransitionMixin {
+class CupertinoPageBuilder<T> extends PageRoute<T> with CupertinoRouteTransitionMixin<T> {
   final Widget Function(BuildContext) builder;
   @override
   final String? title;
@@ -40,7 +40,5 @@ class CupertinoPageBuilder extends PageRoute with CupertinoRouteTransitionMixin 
         );
 
   @override
-  Widget buildContent(BuildContext context) {
-    return builder(context);
-  }
+  Widget buildContent(BuildContext context) => builder(context);
 }

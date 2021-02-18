@@ -5,12 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/search.ch/models/route.dart';
-import 'package:swift_travel/apis/search.ch/models/stationboard.dart';
-import 'package:swift_travel/apis/search.ch/search_ch.dart';
-import 'package:swift_travel/apis/sncf/key.dart';
-import 'package:swift_travel/apis/sncf/models/sncf_completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/sncf/key.dart';
+import 'package:swift_travel/apis/navigation/sncf/models/sncf_completion.dart';
 import 'package:swift_travel/utils/typed_data.dart';
 
 final sncfFactory = NavigationApiFactory(
@@ -33,15 +33,17 @@ class SncfApi extends NavigationApi {
   final _client = http.Client();
 
   @override
-  Future<List<NavCompletion>> complete(String string,
+  Future<List<SbbCompletion>> complete(String string,
       {bool showCoordinates = true,
       bool showIds = true,
       bool noFavorites = true,
       bool filterNull = true}) async {
     if (string.isEmpty) return [];
 
-    final uri =
-        Uri.https('api.navitia.io', '/v1/coverage/sncf/places', {'q': string, ..._queryParameters});
+    final queryParameters = {'q': string, ..._queryParameters};
+
+    final uri = Uri.https('api.navitia.io', '/v1/coverage/sncf/places', queryParameters);
+
     if (kDebugMode) print(uri.toString());
     final response = await _client.get(uri);
 
@@ -50,13 +52,13 @@ class SncfApi extends NavigationApi {
     final sncfCompletion = SncfCompletion.fromJson(decode);
     final places = sncfCompletion.places;
     log('Found ${places.length} places');
-    final list = places.map((e) => NavCompletion(label: e.name ?? '???')).toList(growable: false);
+    final list = places.map((e) => SbbCompletion(label: e.name ?? '???')).toList(growable: false);
     log('Found ${list.length} completions');
     return list;
   }
 
   @override
-  Future<List<NavCompletion>> findStation(double lat, double lon,
+  Future<List<SbbCompletion>> findStation(double lat, double lon,
       {int? accuracy, bool? showCoordinates, bool? showIds}) {
     throw UnimplementedError('SNCF.findStation is not supported yet.');
   }

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BlurryModalRoute extends ModalRoute {
+class BlurryModalRoute<T> extends ModalRoute<T> {
   @override
   final Color barrierColor;
 

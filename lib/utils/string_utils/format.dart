@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swift_travel/apis/search.ch/models/exit.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 
 int? parseColorInt(String? s) {
   if (s == null || s.isEmpty) {

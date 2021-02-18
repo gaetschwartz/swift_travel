@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
 class CffIcon extends StatelessWidget {
   const CffIcon(
@@ -17,7 +17,7 @@ class CffIcon extends StatelessWidget {
   static Vehicle? getVehicle(String? iconclass) {
     if (iconclass == null) return null;
     final substring = iconclass.substring(iconclass.lastIndexOf('-') + 1);
-    return VehicleIconclass.fromJson({'v': substring}).v;
+    return VehicleIconclass.fromJson(<String, Object?>{'v': substring}).v;
   }
 
   final Vehicle? vehicle;

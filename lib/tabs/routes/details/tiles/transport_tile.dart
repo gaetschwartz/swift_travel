@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:swift_travel/apis/search.ch/models/attribute.dart';
-import 'package:swift_travel/apis/search.ch/models/leg.dart';
-import 'package:swift_travel/apis/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/attributes_page.dart';
@@ -143,9 +143,8 @@ class _TransportLegTileState extends State<TransportLegTile> {
                             ));
                           }
                           if (darwin) {
-                            showCupertinoModalBottomSheet(
+                            showCupertinoModalBottomSheet<void>(
                                 context: context,
-                                backgroundColor: Colors.white,
                                 builder: (context) => SafeArea(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
@@ -158,9 +157,8 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                     ),
                                 expand: false);
                           } else {
-                            showMaterialModalBottomSheet(
+                            showMaterialModalBottomSheet<void>(
                                 context: context,
-                                backgroundColor: Colors.white,
                                 builder: (context) => Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [

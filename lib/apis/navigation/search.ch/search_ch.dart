@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/search.ch/models/route.dart';
-import 'package:swift_travel/apis/search.ch/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
@@ -30,7 +30,7 @@ class SearchChApi extends NavigationApi {
   Map<String, String> get headers => {'accept-language': super.locale.toLanguageTag()};
 
   @override
-  Future<List<NavCompletion>> complete(
+  Future<List<SbbCompletion>> complete(
     String string, {
     bool showCoordinates = false,
     bool showIds = false,
@@ -54,11 +54,11 @@ class SearchChApi extends NavigationApi {
 
     final decode = jsonDecode(response.body) as List;
 
-    final completions = <NavCompletion>[];
+    final completions = <SbbCompletion>[];
 
     for (final item in decode) {
       if (!filterNull || item['label'] != null) {
-        completions.add(NavCompletion.fromJson(item as Map<String, dynamic>));
+        completions.add(SbbCompletion.fromJson(item as Map<String, dynamic>));
       }
     }
 
@@ -66,7 +66,7 @@ class SearchChApi extends NavigationApi {
   }
 
   @override
-  Future<List<NavCompletion>> findStation(
+  Future<List<SbbCompletion>> findStation(
     double lat,
     double lon, {
     int? accuracy = 10,
@@ -84,10 +84,10 @@ class SearchChApi extends NavigationApi {
     if (response.statusCode != 200) {
       throw Exception("Couldn't find station : ${response.body}");
     }
-    final decode = jsonDecode(response.body) as List;
+    final decode = jsonDecode(response.body) as List<Object?>;
 
     return decode
-        .map((e) => NavCompletion.fromJson(e as Map<String, dynamic>))
+        .map((e) => SbbCompletion.fromJson(e as Map<String, dynamic>))
         .toList(growable: false);
   }
 
@@ -119,7 +119,7 @@ class SearchChApi extends NavigationApi {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve stationboard : ${response.body}");
     }
-    final decode = await Future.microtask(() => jsonDecode(response.body)) as Map<String, dynamic>;
+    final decode = await Future.microtask(() => jsonDecode(response.body) as Map<String, dynamic>);
 
     final cffStationboard = CffStationboard.parse(decode);
     return cffStationboard.map((value) => value.copyWith(stopName: stopName), error: (e) => e);

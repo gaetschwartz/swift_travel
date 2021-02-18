@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/search.ch/models/disruption.dart';
-import 'package:swift_travel/apis/search.ch/models/exit.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/disruption.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 
 import 'leg.dart';
 
@@ -16,8 +16,8 @@ abstract class RouteConnection with _$RouteConnection {
     DateTime? departure,
     DateTime? arrival,
     double? duration,
-    @Default([]) List<Leg> legs,
-    @Default({}) Map<String, Disruption> disruptions,
+    @Default(<Leg>[]) List<Leg> legs,
+    @Default(<String, Disruption>{}) Map<String, Disruption> disruptions,
     @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) required int depDelay,
   }) = _RouteConnection;
 

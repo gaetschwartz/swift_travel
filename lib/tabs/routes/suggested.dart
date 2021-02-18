@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 
 class SuggestedTile extends StatelessWidget {
@@ -8,7 +9,7 @@ class SuggestedTile extends StatelessWidget {
     this.suggestion, {
     Key? key,
   }) : super(key: key);
-  final NavCompletion? suggestion;
+  final SbbCompletion? suggestion;
 
   const SuggestedTile.empty() : suggestion = null;
 
@@ -19,7 +20,7 @@ class SuggestedTile extends StatelessWidget {
       case DataOrigin.history:
         return const Icon(CupertinoIcons.clock, size: 20);
       case DataOrigin.data:
-        return CffIcon.fromIconClass(suggestion!.icon, size: 20);
+        return CffIcon.fromIconClass(suggestion!.iconClass, size: 20);
       case DataOrigin.currentLocation:
         return const Icon(CupertinoIcons.location_fill, size: 20);
       case DataOrigin.prediction:

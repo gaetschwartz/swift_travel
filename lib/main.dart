@@ -11,8 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:swift_travel/apis/search.ch/models/route.dart';
-import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
@@ -192,7 +192,7 @@ class _MyAppState extends State<MyApp> {
             })
           },
           onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
-          onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin),
+          onUnknownRoute: (settings) => onUnknownRoute<void>(settings, isDarwin),
           onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
           builder: (context, child) => IfWrapper(
             condition: Responsive.isDarwin(context),
@@ -248,10 +248,10 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-Route onUnknownRoute(RouteSettings settings, bool isDarwin) {
+Route<T> onUnknownRoute<T extends Object?>(RouteSettings settings, bool isDarwin) {
   reportDartError('Unknown page : `${settings.name}`', StackTrace.current,
       library: 'router', reason: 'while trying to route', showSnackbar: false);
-  return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
+  return MaterialPageRoute<T>(builder: (_) => PageNotFound(settings: settings));
 }
 
 Route? onGenerateRoute(RouteSettings settings, bool isDarwin) {
@@ -338,7 +338,7 @@ Route? onGenerateRoute(RouteSettings settings, bool isDarwin) {
   return null;
 }
 
-Route platformRoute({
+Route<T> platformRoute<T extends Object?>({
   required Widget Function(BuildContext) builder,
   required bool isDarwin,
   RouteSettings? settings,
@@ -347,14 +347,14 @@ Route platformRoute({
   String? title,
 }) {
   return isDarwin
-      ? CupertinoPageRoute(
+      ? CupertinoPageRoute<T>(
           builder: builder,
           settings: settings,
           fullscreenDialog: fullscreenDialog,
           title: title,
           maintainState: maintainState,
         )
-      : MaterialPageRoute(
+      : MaterialPageRoute<T>(
           builder: builder,
           settings: settings,
           fullscreenDialog: fullscreenDialog,

@@ -12,9 +12,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
-import 'package:swift_travel/apis/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
+import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
@@ -115,9 +116,9 @@ void main() {
       expect(
         c,
         [
-          NavCompletion(label: route1.from, origin: DataOrigin.history),
-          NavCompletion(label: route1.to, origin: DataOrigin.history),
-          NavCompletion(label: route3.from, origin: DataOrigin.history),
+          SbbCompletion(label: route1.from, origin: DataOrigin.history),
+          SbbCompletion(label: route1.to, origin: DataOrigin.history),
+          SbbCompletion(label: route3.from, origin: DataOrigin.history),
         ],
       );
     });
@@ -135,12 +136,13 @@ void main() {
           displayName: 'name',
           timestamp: MockableDateTime.now());
       final route3 = LocalRoute.now('from', 'to', displayName: 'name');
-      final route4 = LocalRoute.fromJson({
+      final json = {
         'from': 'from',
         'to': 'to',
         'displayName': 'name',
         'timestamp': '2021-01-01T00:00:00.000'
-      });
+      };
+      final route4 = LocalRoute.fromJson(json);
       expect(route1, equals(route2));
       expect(route2, equals(route3));
       expect(route3, equals(route4));
@@ -149,8 +151,8 @@ void main() {
     test('favoriteStop', () {
       const stop1 = FavoriteStop(stop: geneva, name: geneva);
       final stop2 = FavoriteStop.fromStop(geneva);
-      final stop3 = FavoriteStop.fromCompletion(const NavCompletion(label: geneva));
-      final stop4 = FavoriteStop.fromJson({'stop': geneva, 'name': geneva});
+      final stop3 = FavoriteStop.fromCompletion(const SbbCompletion(label: geneva));
+      final stop4 = FavoriteStop.fromJson(<String, Object>{'stop': geneva, 'name': geneva});
 
       expect(stop1, equals(stop2));
       expect(stop2, equals(stop3));
@@ -174,7 +176,7 @@ void main() {
         FavoriteStop.fromStop('Lausanne Aéroport'),
       ],
       completions: [
-        const NavCompletion(label: geneva),
+        const SbbCompletion(label: geneva),
       ],
       query: geneva,
       currentLocationString: currentLocation,
@@ -184,13 +186,13 @@ void main() {
     );
 
     expect(c, [
-      const NavCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
-      NavCompletion(label: route1.from, origin: DataOrigin.history),
-      NavCompletion(label: route1.to, origin: DataOrigin.history),
-      NavCompletion.fromFavorite(FavoriteStop.fromStop(geneva)),
-      NavCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare')),
-      NavCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord')),
-      const NavCompletion(label: 'Genève')
+      const SbbCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
+      SbbCompletion(label: route1.from, origin: DataOrigin.history),
+      SbbCompletion(label: route1.to, origin: DataOrigin.history),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare')),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord')),
+      const SbbCompletion(label: 'Genève')
     ]);
   });
 

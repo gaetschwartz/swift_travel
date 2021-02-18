@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/search.ch/models/stationboard_connection.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/cache.dart';
@@ -26,18 +26,18 @@ import 'package:vibration/vibration.dart';
 
 enum _Actions { favorite }
 
-class NavCompletionTile extends ConsumerWidget {
-  const NavCompletionTile({
+class SbbCompletionTile extends ConsumerWidget {
+  const SbbCompletionTile({
     Key? key,
     required this.sugg,
   }) : super(key: key);
 
-  final NavCompletion sugg;
+  final SbbCompletion sugg;
 
   static const _kRadius = BorderRadius.all(Radius.circular(24));
   @override
   Widget build(BuildContext context, Reader watch) {
-    final iconClass = sugg.icon;
+    final iconClass = sugg.iconClass;
     final isPrivate = CffIcon.isPrivate(iconClass);
     final store = watch(storeProvider) as FavoritesSharedPreferencesStore;
     final favStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
@@ -158,7 +158,7 @@ class _LinesWidget extends StatefulWidget {
     required this.sugg,
   }) : super(key: key);
 
-  final NavCompletion sugg;
+  final SbbCompletion sugg;
 
   @override
   __LinesWidgetState createState() => __LinesWidgetState();

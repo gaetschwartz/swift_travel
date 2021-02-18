@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:swift_travel/apis/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/utils/string_utils/format.dart';
 import 'package:swift_travel/utils/string_utils/string_utils.dart';
 import 'package:utils/levenshtein.dart';

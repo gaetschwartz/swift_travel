@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/search.ch/models/stop.dart';
-import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
 import 'exit.dart';
 
@@ -24,7 +24,7 @@ abstract class Leg with _$Leg {
     String? stopid,
     @JsonKey(name: 'runningtime') double? runningTime,
     String? line,
-    @Default([]) List<Stop> stops,
+    @Default(<Stop>[]) List<Stop> stops,
     String? sbbName,
     DateTime? departure,
     DateTime? arrival,
@@ -33,7 +33,7 @@ abstract class Leg with _$Leg {
     @Default(false) bool isaddress,
     double? lat,
     double? lon,
-    @Default({}) Map<String, String> attributes,
+    @Default(<String, String>{}) Map<String, String> attributes,
   }) = _Leg;
 
   factory Leg.fromJson(Map<String, dynamic> json) => _$LegFromJson(json);

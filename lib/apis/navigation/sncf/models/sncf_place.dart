@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/sncf/models/sncf_administrative_region.dart';
+import 'package:swift_travel/apis/navigation/sncf/models/sncf_administrative_region.dart';
 
 part 'sncf_place.freezed.dart';
 part 'sncf_place.g.dart';

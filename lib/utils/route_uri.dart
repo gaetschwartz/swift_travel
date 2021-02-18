@@ -29,7 +29,10 @@ extension BoolX on bool {
 }
 
 Map<String, String> decodeRouteUri(Uri uri) {
-  final oldParams = Map.from(uri.queryParameters).cast<String, String>();
+  final oldParams = {
+    ...uri.queryParameters,
+  };
+
   oldParams.remove('i');
 
   final params = <String, String>{};
@@ -60,7 +63,7 @@ DateTime parseDateTime(Map<String, String> oldParams) {
 
 Map<String, String> encodeRouteUri(Uri uri, int? i) {
   final params = <String, String>{};
-  final oldParams = Map.from(uri.queryParameters).cast<String, String>();
+  final oldParams = {...uri.queryParameters};
 
   final date = oldParams['date']!.split('/');
   if (date.length != 3) throw const FormatException('Date is supposed to contain 3 parts');
@@ -83,11 +86,9 @@ Map<String, String> encodeRouteUri(Uri uri, int? i) {
   oldParams.remove('date');
 
   for (final e in oldParams.entries) {
-    final newKey =
-        translate.entries.firstWhereOrNull((e2) => e.key == e2.value)?.key ?? e.key;
+    final newKey = translate.entries.firstWhereOrNull((e2) => e.key == e2.value)?.key ?? e.key;
     final newValue =
-        translate.entries.firstWhereOrNull((e2) => e.value == e2.value)?.key ??
-            e.value;
+        translate.entries.firstWhereOrNull((e2) => e.value == e2.value)?.key ?? e.value;
     params[newKey] = newValue;
   }
 

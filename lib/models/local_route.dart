@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 
 part 'local_route.freezed.dart';

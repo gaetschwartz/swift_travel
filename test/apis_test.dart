@@ -4,11 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/search.ch/models/route.dart';
-import 'package:swift_travel/apis/search.ch/models/stationboard.dart';
-import 'package:swift_travel/apis/search.ch/search_ch.dart';
-import 'package:swift_travel/apis/sncf/sncf.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/mocking/mocking.dart';
@@ -48,11 +48,11 @@ void main() {
 
 class MockNavigationApi extends NavigationApi {
   @override
-  Future<List<NavCompletion>> complete(String? string,
+  Future<List<SbbCompletion>> complete(String? string,
       {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) {
     return Future.value([
-      const NavCompletion(label: 'Genève'),
-      const NavCompletion(label: 'Genève Cornavin'),
+      const SbbCompletion(label: 'Genève'),
+      const SbbCompletion(label: 'Genève Cornavin'),
     ]);
   }
 
@@ -60,11 +60,11 @@ class MockNavigationApi extends NavigationApi {
   void dispose() {}
 
   @override
-  Future<List<NavCompletion>> findStation(double lat, double lon,
+  Future<List<SbbCompletion>> findStation(double lat, double lon,
           {int? accuracy, bool? showCoordinates, bool? showIds}) =>
       Future.value([
-        const NavCompletion(label: 'Genève'),
-        const NavCompletion(label: 'Genève Cornavin'),
+        const SbbCompletion(label: 'Genève'),
+        const SbbCompletion(label: 'Genève Cornavin'),
       ]);
 
   @override

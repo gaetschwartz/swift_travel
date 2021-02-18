@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 

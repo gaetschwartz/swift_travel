@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/search.ch/models/leg.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/string_utils/format.dart';

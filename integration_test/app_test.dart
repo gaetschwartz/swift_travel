@@ -118,7 +118,7 @@ Future testStations(WidgetTester t) async {
 
   await t.pumpAndSettle();
 
-  final tile = find.byType(NavCompletionTile).first;
+  final tile = find.byType(SbbCompletionTile).first;
 
   await t.tap(tile);
 

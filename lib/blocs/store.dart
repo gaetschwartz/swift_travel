@@ -64,7 +64,7 @@ class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
     //? Stops
 
     final favStops = <FavoriteStop>[];
-    for (final stopString in _prefs!.getStringList(stopsKey) ?? []) {
+    for (final stopString in _prefs!.getStringList(stopsKey) ?? <String>[]) {
       final decode = jsonDecode(stopString) as Map<String, dynamic>;
       final fs = FavoriteStop.fromJson(decode);
       favStops.add(fs);

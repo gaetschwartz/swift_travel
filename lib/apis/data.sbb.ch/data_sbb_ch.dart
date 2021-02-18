@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/data.sbb.ch/models/sbb_models.dart';
@@ -13,35 +12,31 @@ class SbbDataRepository {
   //static const imagesBaseUrl = 'https://data.sbb.ch/explore/dataset/bilder-von-bahnhofen/files/';
 
   final _client = http.Client();
-  final bool useCompute;
 
-  SbbDataRepository({this.useCompute = false});
+  SbbDataRepository();
 
   Future<SbbStationResponse> _getSbb(String location) async {
-    final response = await _client.get(
-      Uri.https('data.sbb.ch', '/api/records/1.0/search/', {
-        'dataset': 'dienststellen-gemass-opentransportdataswiss',
-        'rows': 1,
-        'q': location,
-      }),
-    );
-    final decoded = (useCompute
-        ? await compute(jsonDecode, response.body)
-        : jsonDecode(response.body)) as Map<String, dynamic>;
+    final queryParameters = {
+      'dataset': 'dienststellen-gemass-opentransportdataswiss',
+      'rows': 1,
+      'q': location,
+    };
+    final response =
+        await _client.get(Uri.https('data.sbb.ch', '/api/records/1.0/search/', queryParameters));
+    final decoded = jsonDecode(response.body) as Map<String, dynamic>;
 
     return SbbStationResponse.fromJson(decoded);
   }
 
   Future<GeoResponse> _getGeo(String location) async {
-    final response = await _client.get(
-      Uri.https('api3.geo.admin.ch', '/rest/services/apis/SearchServer', {
-        'type': 'locations',
-        'searchText': location,
-      }),
-    );
-    final decoded = (useCompute
-        ? await compute(jsonDecode, response.body)
-        : jsonDecode(response.body)) as Map<String, dynamic>;
+    final queryParameters = {
+      'type': 'locations',
+      'searchText': location,
+    };
+
+    final response = await _client
+        .get(Uri.https('api3.geo.admin.ch', '/rest/services/apis/SearchServer', queryParameters));
+    final decoded = jsonDecode(response.body) as Map<String, dynamic>;
 
     if (response.statusCode == 200) {
       return GeoResponse.fromJson(decoded);

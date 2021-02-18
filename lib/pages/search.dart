@@ -5,8 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/history.dart';
@@ -136,7 +137,7 @@ class _SearchPageState extends State<SearchPage> {
       final results =
           await Future.wait([api.complete(query), Future.microtask(() => getPrediction(query))]);
 
-      final compls = results[0]! as List<NavCompletion>;
+      final compls = results[0]! as List<SbbCompletion>;
       final pred = results[1] as String?;
 
       final completionsWithFavs = completeWithFavorites(
@@ -224,7 +225,7 @@ class _Results extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  final void Function(NavCompletion completion) onTap;
+  final void Function(SbbCompletion completion) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -300,8 +301,8 @@ class _SuggestedTile extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
-  final NavCompletion suggestion;
-  final ValueChanged<NavCompletion>? onTap;
+  final SbbCompletion suggestion;
+  final ValueChanged<SbbCompletion>? onTap;
 
   Widget buildIcon(BuildContext context) {
     switch (suggestion.origin) {
@@ -318,7 +319,7 @@ class _SuggestedTile extends StatelessWidget {
           color: IconTheme.of(context).color,
         );
       case DataOrigin.data:
-        return CffIcon.fromIconClass(suggestion.icon, size: 20);
+        return CffIcon.fromIconClass(suggestion.iconClass, size: 20);
       case DataOrigin.currentLocation:
         return Icon(
           CupertinoIcons.location_fill,

@@ -1,6 +1,7 @@
 import 'dart:math' show min;
 
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
 import 'package:utils/levenshtein.dart';
@@ -10,9 +11,9 @@ const _kMaxFavoritesCount = 3;
 const _kMaxHistoryCount = 3;
 
 /// Add similar favorites to the completions
-List<NavCompletion> completeWithFavorites({
+List<SbbCompletion> completeWithFavorites({
   required Iterable<FavoriteStop?> favorites,
-  required List<NavCompletion> completions,
+  required List<SbbCompletion> completions,
   required String query,
   required List<LocalRoute> history,
   String? currentLocationString,
@@ -34,19 +35,19 @@ List<NavCompletion> completeWithFavorites({
 
   return [
     if (currentLocationString != null)
-      NavCompletion(label: currentLocationString, origin: DataOrigin.currentLocation),
-    if (prediction != null) NavCompletion(label: prediction, origin: DataOrigin.prediction),
+      SbbCompletion(label: currentLocationString, origin: DataOrigin.currentLocation),
+    if (prediction != null) SbbCompletion(label: prediction, origin: DataOrigin.prediction),
     if (history.isNotEmpty)
       ...history
           .flatMap((e) => [
-                NavCompletion(label: e.from, origin: DataOrigin.history),
-                NavCompletion(label: e.to, origin: DataOrigin.history),
+                SbbCompletion(label: e.from, origin: DataOrigin.history),
+                SbbCompletion(label: e.to, origin: DataOrigin.history),
               ])
           .take(_kMaxHistoryCount)
           .toSet(),
     ...favs
         .take(min(favs.length, _kMaxFavoritesCount))
-        .map((e) => NavCompletion.fromFavorite(e.key!)),
+        .map((e) => SbbCompletion.fromFavorite(e.key!)),
     ...completions,
   ];
 }

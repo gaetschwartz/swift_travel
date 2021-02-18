@@ -73,7 +73,7 @@ class FavoriteRouteTile extends StatelessWidget {
         ),
       ],
       popBeforeReturn: true,
-      cancel: ActionsSheetAction(
+      cancel: ActionsSheetAction<void>(
         title: Text(AppLoc.of(context).cancel),
         icon: const Icon(CupertinoIcons.xmark),
       ),

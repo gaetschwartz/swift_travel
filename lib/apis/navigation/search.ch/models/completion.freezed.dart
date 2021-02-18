@@ -8,26 +8,26 @@ part of 'completion.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-NavCompletion _$NavCompletionFromJson(Map<String, dynamic> json) {
-  return _NavCompletion.fromJson(json);
+SbbCompletion _$SbbCompletionFromJson(Map<String, dynamic> json) {
+  return _SbbCompletion.fromJson(json);
 }
 
 /// @nodoc
-class _$NavCompletionTearOff {
-  const _$NavCompletionTearOff();
+class _$SbbCompletionTearOff {
+  const _$SbbCompletionTearOff();
 
-  _NavCompletion call(
+  _SbbCompletion call(
       {required String label,
       double? dist,
-      @JsonKey(name: 'iconclass') String? icon,
+      @JsonKey(name: 'iconclass') String? iconClass,
       String? html,
       String? id,
       String? favoriteName,
       DataOrigin origin = DataOrigin.data}) {
-    return _NavCompletion(
+    return _SbbCompletion(
       label: label,
       dist: dist,
-      icon: icon,
+      iconClass: iconClass,
       html: html,
       id: id,
       favoriteName: favoriteName,
@@ -35,20 +35,20 @@ class _$NavCompletionTearOff {
     );
   }
 
-  NavCompletion fromJson(Map<String, Object> json) {
-    return NavCompletion.fromJson(json);
+  SbbCompletion fromJson(Map<String, Object> json) {
+    return SbbCompletion.fromJson(json);
   }
 }
 
 /// @nodoc
-const $NavCompletion = _$NavCompletionTearOff();
+const $SbbCompletion = _$SbbCompletionTearOff();
 
 /// @nodoc
-mixin _$NavCompletion {
+mixin _$SbbCompletion {
   String get label;
   double? get dist;
   @JsonKey(name: 'iconclass')
-  String? get icon;
+  String? get iconClass;
   String? get html;
   String? get id;
   String? get favoriteName;
@@ -56,18 +56,18 @@ mixin _$NavCompletion {
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $NavCompletionCopyWith<NavCompletion> get copyWith;
+  $SbbCompletionCopyWith<SbbCompletion> get copyWith;
 }
 
 /// @nodoc
-abstract class $NavCompletionCopyWith<$Res> {
-  factory $NavCompletionCopyWith(
-          NavCompletion value, $Res Function(NavCompletion) then) =
-      _$NavCompletionCopyWithImpl<$Res>;
+abstract class $SbbCompletionCopyWith<$Res> {
+  factory $SbbCompletionCopyWith(
+          SbbCompletion value, $Res Function(SbbCompletion) then) =
+      _$SbbCompletionCopyWithImpl<$Res>;
   $Res call(
       {String label,
       double? dist,
-      @JsonKey(name: 'iconclass') String? icon,
+      @JsonKey(name: 'iconclass') String? iconClass,
       String? html,
       String? id,
       String? favoriteName,
@@ -75,19 +75,19 @@ abstract class $NavCompletionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$NavCompletionCopyWithImpl<$Res>
-    implements $NavCompletionCopyWith<$Res> {
-  _$NavCompletionCopyWithImpl(this._value, this._then);
+class _$SbbCompletionCopyWithImpl<$Res>
+    implements $SbbCompletionCopyWith<$Res> {
+  _$SbbCompletionCopyWithImpl(this._value, this._then);
 
-  final NavCompletion _value;
+  final SbbCompletion _value;
   // ignore: unused_field
-  final $Res Function(NavCompletion) _then;
+  final $Res Function(SbbCompletion) _then;
 
   @override
   $Res call({
     Object? label = freezed,
     Object? dist = freezed,
-    Object? icon = freezed,
+    Object? iconClass = freezed,
     Object? html = freezed,
     Object? id = freezed,
     Object? favoriteName = freezed,
@@ -96,7 +96,7 @@ class _$NavCompletionCopyWithImpl<$Res>
     return _then(_value.copyWith(
       label: label == freezed ? _value.label : label as String,
       dist: dist == freezed ? _value.dist : dist as double?,
-      icon: icon == freezed ? _value.icon : icon as String?,
+      iconClass: iconClass == freezed ? _value.iconClass : iconClass as String?,
       html: html == freezed ? _value.html : html as String?,
       id: id == freezed ? _value.id : id as String?,
       favoriteName: favoriteName == freezed
@@ -108,16 +108,16 @@ class _$NavCompletionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$NavCompletionCopyWith<$Res>
-    implements $NavCompletionCopyWith<$Res> {
-  factory _$NavCompletionCopyWith(
-          _NavCompletion value, $Res Function(_NavCompletion) then) =
-      __$NavCompletionCopyWithImpl<$Res>;
+abstract class _$SbbCompletionCopyWith<$Res>
+    implements $SbbCompletionCopyWith<$Res> {
+  factory _$SbbCompletionCopyWith(
+          _SbbCompletion value, $Res Function(_SbbCompletion) then) =
+      __$SbbCompletionCopyWithImpl<$Res>;
   @override
   $Res call(
       {String label,
       double? dist,
-      @JsonKey(name: 'iconclass') String? icon,
+      @JsonKey(name: 'iconclass') String? iconClass,
       String? html,
       String? id,
       String? favoriteName,
@@ -125,30 +125,30 @@ abstract class _$NavCompletionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$NavCompletionCopyWithImpl<$Res>
-    extends _$NavCompletionCopyWithImpl<$Res>
-    implements _$NavCompletionCopyWith<$Res> {
-  __$NavCompletionCopyWithImpl(
-      _NavCompletion _value, $Res Function(_NavCompletion) _then)
-      : super(_value, (v) => _then(v as _NavCompletion));
+class __$SbbCompletionCopyWithImpl<$Res>
+    extends _$SbbCompletionCopyWithImpl<$Res>
+    implements _$SbbCompletionCopyWith<$Res> {
+  __$SbbCompletionCopyWithImpl(
+      _SbbCompletion _value, $Res Function(_SbbCompletion) _then)
+      : super(_value, (v) => _then(v as _SbbCompletion));
 
   @override
-  _NavCompletion get _value => super._value as _NavCompletion;
+  _SbbCompletion get _value => super._value as _SbbCompletion;
 
   @override
   $Res call({
     Object? label = freezed,
     Object? dist = freezed,
-    Object? icon = freezed,
+    Object? iconClass = freezed,
     Object? html = freezed,
     Object? id = freezed,
     Object? favoriteName = freezed,
     Object? origin = freezed,
   }) {
-    return _then(_NavCompletion(
+    return _then(_SbbCompletion(
       label: label == freezed ? _value.label : label as String,
       dist: dist == freezed ? _value.dist : dist as double?,
-      icon: icon == freezed ? _value.icon : icon as String?,
+      iconClass: iconClass == freezed ? _value.iconClass : iconClass as String?,
       html: html == freezed ? _value.html : html as String?,
       id: id == freezed ? _value.id : id as String?,
       favoriteName: favoriteName == freezed
@@ -162,18 +162,18 @@ class __$NavCompletionCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 
 /// @nodoc
-class _$_NavCompletion implements _NavCompletion {
-  const _$_NavCompletion(
+class _$_SbbCompletion implements _SbbCompletion {
+  const _$_SbbCompletion(
       {required this.label,
       this.dist,
-      @JsonKey(name: 'iconclass') this.icon,
+      @JsonKey(name: 'iconclass') this.iconClass,
       this.html,
       this.id,
       this.favoriteName,
       this.origin = DataOrigin.data});
 
-  factory _$_NavCompletion.fromJson(Map<String, dynamic> json) =>
-      _$_$_NavCompletionFromJson(json);
+  factory _$_SbbCompletion.fromJson(Map<String, dynamic> json) =>
+      _$_$_SbbCompletionFromJson(json);
 
   @override
   final String label;
@@ -181,7 +181,7 @@ class _$_NavCompletion implements _NavCompletion {
   final double? dist;
   @override
   @JsonKey(name: 'iconclass')
-  final String? icon;
+  final String? iconClass;
   @override
   final String? html;
   @override
@@ -194,19 +194,20 @@ class _$_NavCompletion implements _NavCompletion {
 
   @override
   String toString() {
-    return 'NavCompletion(label: $label, dist: $dist, icon: $icon, html: $html, id: $id, favoriteName: $favoriteName, origin: $origin)';
+    return 'SbbCompletion(label: $label, dist: $dist, iconClass: $iconClass, html: $html, id: $id, favoriteName: $favoriteName, origin: $origin)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _NavCompletion &&
+        (other is _SbbCompletion &&
             (identical(other.label, label) ||
                 const DeepCollectionEquality().equals(other.label, label)) &&
             (identical(other.dist, dist) ||
                 const DeepCollectionEquality().equals(other.dist, dist)) &&
-            (identical(other.icon, icon) ||
-                const DeepCollectionEquality().equals(other.icon, icon)) &&
+            (identical(other.iconClass, iconClass) ||
+                const DeepCollectionEquality()
+                    .equals(other.iconClass, iconClass)) &&
             (identical(other.html, html) ||
                 const DeepCollectionEquality().equals(other.html, html)) &&
             (identical(other.id, id) ||
@@ -223,7 +224,7 @@ class _$_NavCompletion implements _NavCompletion {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(label) ^
       const DeepCollectionEquality().hash(dist) ^
-      const DeepCollectionEquality().hash(icon) ^
+      const DeepCollectionEquality().hash(iconClass) ^
       const DeepCollectionEquality().hash(html) ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(favoriteName) ^
@@ -231,27 +232,27 @@ class _$_NavCompletion implements _NavCompletion {
 
   @JsonKey(ignore: true)
   @override
-  _$NavCompletionCopyWith<_NavCompletion> get copyWith =>
-      __$NavCompletionCopyWithImpl<_NavCompletion>(this, _$identity);
+  _$SbbCompletionCopyWith<_SbbCompletion> get copyWith =>
+      __$SbbCompletionCopyWithImpl<_SbbCompletion>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_NavCompletionToJson(this);
+    return _$_$_SbbCompletionToJson(this);
   }
 }
 
-abstract class _NavCompletion implements NavCompletion {
-  const factory _NavCompletion(
+abstract class _SbbCompletion implements SbbCompletion {
+  const factory _SbbCompletion(
       {required String label,
       double? dist,
-      @JsonKey(name: 'iconclass') String? icon,
+      @JsonKey(name: 'iconclass') String? iconClass,
       String? html,
       String? id,
       String? favoriteName,
-      DataOrigin origin}) = _$_NavCompletion;
+      DataOrigin origin}) = _$_SbbCompletion;
 
-  factory _NavCompletion.fromJson(Map<String, dynamic> json) =
-      _$_NavCompletion.fromJson;
+  factory _SbbCompletion.fromJson(Map<String, dynamic> json) =
+      _$_SbbCompletion.fromJson;
 
   @override
   String get label;
@@ -259,7 +260,7 @@ abstract class _NavCompletion implements NavCompletion {
   double? get dist;
   @override
   @JsonKey(name: 'iconclass')
-  String? get icon;
+  String? get iconClass;
   @override
   String? get html;
   @override
@@ -270,5 +271,5 @@ abstract class _NavCompletion implements NavCompletion {
   DataOrigin get origin;
   @override
   @JsonKey(ignore: true)
-  _$NavCompletionCopyWith<_NavCompletion> get copyWith;
+  _$SbbCompletionCopyWith<_SbbCompletion> get copyWith;
 }

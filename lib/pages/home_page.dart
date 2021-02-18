@@ -119,9 +119,9 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             child: Material(
               child: Navigator(
                 key: sideBarNavigatorKey,
-                pages: const [SingleWidgetPage(_SideBar(), title: 'Home')],
+                pages: const [SingleWidgetPage<void>(_SideBar(), title: 'Home')],
                 onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
-                onPopPage: (_, __) => true,
+                onPopPage: (_, dynamic __) => true,
               ),
             ),
           )),
@@ -171,8 +171,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
         ),
         tabBuilder: (context, i) => Navigator(
           key: navigatorKeys[i],
-          pages: [SingleWidgetPage(MainApp.iosTabs[i], title: items[i].label)],
-          onPopPage: (_, __) => true,
+          pages: [SingleWidgetPage<void>(MainApp.iosTabs[i], title: items[i].label)],
+          onPopPage: (_, dynamic __) => true,
           onUnknownRoute: (settings) => onUnknownRoute(settings, true),
           onGenerateRoute: (settings) => onGenerateRoute(settings, true),
         ),
@@ -227,8 +227,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           duration: Duration.zero,
           child: Navigator(
             key: navigatorKeys[combined.page],
-            pages: [SingleWidgetPage(MainApp.androidTabs[page], name: titles[page])],
-            onPopPage: (_, __) => true,
+            pages: [SingleWidgetPage<void>(MainApp.androidTabs[page], name: titles[page])],
+            onPopPage: (_, dynamic __) => true,
             onUnknownRoute: (settings) => onUnknownRoute(settings, false),
             onGenerateRoute: (settings) => onGenerateRoute(settings, false),
           ),

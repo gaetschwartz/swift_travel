@@ -32,7 +32,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
   @override
   bool get wantKeepAlive => true;
 
-  late final store = context.read(storeProvider);
+  late final FavoritesStoreBase store = context.read(storeProvider);
   bool isDarwin = false;
 
   @override

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/search.ch/models/exit.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 
 part 'subsequent_stop.freezed.dart';
 part 'subsequent_stop.g.dart';

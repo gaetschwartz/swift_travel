@@ -141,7 +141,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     leading: const Icon(CupertinoIcons.map),
                     title: Text(AppLoc.of(context).maps_app),
                     onTap: () async {
-                      await Navigator.of(context).push(CupertinoPageRoute(
+                      await Navigator.of(context).push(CupertinoPageRoute<void>(
                           builder: (context) => ChoicePage<Maps>(
                                 items: const [
                                   ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
@@ -151,7 +151,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                 title: Text(AppLoc.of(context).maps_app),
                                 onChanged: (a) => maps.mapsApp = a,
                               )));
-                      log(maps.mapsApp.toString());
                     },
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -183,7 +182,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: const Icon(CupertinoIcons.link),
                 title: Text(AppLoc.of(context).navigation_api),
                 onTap: () async {
-                  await Navigator.of(context).push(CupertinoPageRoute(
+                  await Navigator.of(context).push(CupertinoPageRoute<void>(
                       builder: (context) => ChoicePage<NavigationApiType>(
                             items: NavigationApiType.values
                                 .map((e) => ChoicePageItem(
@@ -246,7 +245,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: const Icon(Icons.slideshow),
                 title: const Text('Test dialog'),
                 onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(
+                  Navigator.of(context, rootNavigator: true).push<void>(
                     BlurryModalRoute(
                       const AlertDialog(
                         title: Text('Hello'),
@@ -287,7 +286,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: const Icon(Icons.screen_lock_landscape),
                 title: const Text('Screen info'),
                 onTap: () {
-                  Navigator.of(context).push(
+                  Navigator.of(context).push<void>(
                     MaterialPageRoute(
                       builder: (context) => Theme(
                         data: ThemeData.light(),
@@ -483,7 +482,7 @@ class __TestWidgetState extends State<_TestWidget> {
                   focusNode: focus,
                   placeholder: AppLoc.of(context).search_station,
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                    Navigator.of(context, rootNavigator: true).push<void>(MaterialPageRoute(
                         builder: (_) => SearchPage(
                               binder: TextStateBinder(controller, null),
                               heroTag: tag,

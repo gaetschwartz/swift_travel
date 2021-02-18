@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/blocs/location/location.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
@@ -186,7 +186,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemBuilder: (context, i) => NavCompletionTile(
+                              itemBuilder: (context, i) => SbbCompletionTile(
                                 sugg: c.completions[i],
                                 key: Key('stations-key-$i'),
                               ),
@@ -214,8 +214,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                         ],
                                       )
                                     : ListView.builder(
-                                        itemBuilder: (context, i) => NavCompletionTile(
-                                            sugg: NavCompletion.fromFavorite(c.favorites[i])),
+                                        itemBuilder: (context, i) => SbbCompletionTile(
+                                            sugg: SbbCompletion.fromFavorite(c.favorites[i])),
                                         itemCount: c.favorites.length,
                                       ),
                                 loading: (_) =>
@@ -274,8 +274,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
       final first = completions.first;
       if (first.dist != null) {
-        final public = completions
-            .where((c) => !CffIcon.isPrivate(c.icon!.substring(c.icon!.lastIndexOf('_') + 1)));
+        final public = completions.where(
+            (c) => !CffIcon.isPrivate(c.iconClass!.substring(c.iconClass!.lastIndexOf('_') + 1)));
         context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log('Found : ${public.first}');

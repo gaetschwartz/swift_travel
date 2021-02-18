@@ -9,10 +9,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/apis/data.sbb.ch/data_sbb_ch.dart';
-import 'package:swift_travel/apis/search.ch/models/leg.dart';
-import 'package:swift_travel/apis/search.ch/models/route_connection.dart';
-import 'package:swift_travel/apis/search.ch/models/stop.dart';
-import 'package:swift_travel/apis/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
 final liveRouteControllerProvider =
     ChangeNotifierProvider((r) => LiveRouteController(r.read(sbbDataProvider)));
@@ -67,7 +67,7 @@ class LiveRoutePlugin {
 
     // 3. Listen for background events from the platform portion of the plugin.
     _backgroundChannel.setMethodCallHandler((MethodCall call) async {
-      final args = call.arguments;
+      final List<Object> args = call.arguments;
 
       // 3.1. Retrieve callback instance for handle.
       final callback =
@@ -78,7 +78,7 @@ class LiveRoutePlugin {
     });
 
     // 4. Alert plugin that the callback handler is ready for events.
-    _backgroundChannel.invokeMethod('GeofencingService.initialized');
+    _backgroundChannel.invokeMethod<void>('GeofencingService.initialized');
   }
 }
 
