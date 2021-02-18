@@ -22,8 +22,8 @@ class _$RouteConnectionTearOff {
       DateTime? departure,
       DateTime? arrival,
       double? duration,
-      List<Leg> legs = const [],
-      Map<String, Disruption> disruptions = const {},
+      List<Leg> legs = const <Leg>[],
+      Map<String, Disruption> disruptions = const <String, Disruption>{},
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           required int depDelay}) {
     return _RouteConnection(
@@ -183,8 +183,8 @@ class _$_RouteConnection implements _RouteConnection {
       this.departure,
       this.arrival,
       this.duration,
-      this.legs = const [],
-      this.disruptions = const {},
+      this.legs = const <Leg>[],
+      this.disruptions = const <String, Disruption>{},
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           required this.depDelay});
 
@@ -201,10 +201,10 @@ class _$_RouteConnection implements _RouteConnection {
   final DateTime? arrival;
   @override
   final double? duration;
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: const <Leg>[])
   @override
   final List<Leg> legs;
-  @JsonKey(defaultValue: const {})
+  @JsonKey(defaultValue: const <String, Disruption>{})
   @override
   final Map<String, Disruption> disruptions;
   @override

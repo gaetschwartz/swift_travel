@@ -5,7 +5,7 @@ part 'person.freezed.dart';
 @freezed
 // No warning of unimplemented class, not suggestion in
 // autocomplete
-class Person extends _$Person with NamedEntity {
+abstract class Person with NamedEntity implements _$Person {
   const factory Person(String firstName, String lastName, int age) = _$_Person;
   const Person._();
 

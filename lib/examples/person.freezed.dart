@@ -13,8 +13,8 @@ T _$identity<T>(T value) => value;
 class _$PersonTearOff {
   const _$PersonTearOff();
 
-  Person call(String firstName, String lastName, int age) {
-    return Person(
+  _$_Person call(String firstName, String lastName, int age) {
+    return _$_Person(
       firstName,
       lastName,
       age,
@@ -26,20 +26,19 @@ class _$PersonTearOff {
 const $Person = _$PersonTearOff();
 
 /// @nodoc
-abstract class _$Person {
-  const _$Person();
-
-  String get firstName => throw Exception();
-  String get lastName => throw Exception();
-  int get age => throw Exception();
+mixin _$Person {
+  String get firstName;
+  String get lastName;
+  int get age;
 
   @JsonKey(ignore: true)
-  $PersonCopyWith<Person> get copyWith => throw Exception();
+  $PersonCopyWith<Person> get copyWith;
 }
 
 /// @nodoc
 abstract class $PersonCopyWith<$Res> {
-  factory $PersonCopyWith(Person value, $Res Function(Person) then) = _$PersonCopyWithImpl<$Res>;
+  factory $PersonCopyWith(Person value, $Res Function(Person) then) =
+      _$PersonCopyWithImpl<$Res>;
   $Res call({String firstName, String lastName, int age});
 }
 
@@ -66,20 +65,21 @@ class _$PersonCopyWithImpl<$Res> implements $PersonCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$PersonCopyWith<$Res> implements $PersonCopyWith<$Res> {
-  factory _$PersonCopyWith(Person value, $Res Function(Person) then) = __$PersonCopyWithImpl<$Res>;
+abstract class _$$_PersonCopyWith<$Res> implements $PersonCopyWith<$Res> {
+  factory _$$_PersonCopyWith(_$_Person value, $Res Function(_$_Person) then) =
+      __$$_PersonCopyWithImpl<$Res>;
   @override
   $Res call({String firstName, String lastName, int age});
 }
 
 /// @nodoc
-class __$PersonCopyWithImpl<$Res> extends _$PersonCopyWithImpl<$Res>
-    implements _$PersonCopyWith<$Res> {
-  __$PersonCopyWithImpl(Person _value, $Res Function(Person) _then)
-      : super(_value, (v) => _then(v));
+class __$$_PersonCopyWithImpl<$Res> extends _$PersonCopyWithImpl<$Res>
+    implements _$$_PersonCopyWith<$Res> {
+  __$$_PersonCopyWithImpl(_$_Person _value, $Res Function(_$_Person) _then)
+      : super(_value, (v) => _then(v as _$_Person));
 
   @override
-  Person get _value => super._value;
+  _$_Person get _value => super._value as _$_Person;
 
   @override
   $Res call({
@@ -87,7 +87,7 @@ class __$PersonCopyWithImpl<$Res> extends _$PersonCopyWithImpl<$Res>
     Object? lastName = freezed,
     Object? age = freezed,
   }) {
-    return _then(Person(
+    return _then(_$_Person(
       firstName == freezed ? _value.firstName : firstName as String,
       lastName == freezed ? _value.lastName : lastName as String,
       age == freezed ? _value.age : age as int,
@@ -96,8 +96,8 @@ class __$PersonCopyWithImpl<$Res> extends _$PersonCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_Person extends Person {
-  const _$_Person(this.firstName, this.lastName, this.age) : super._();
+class _$_$_Person extends _$_Person {
+  const _$_$_Person(this.firstName, this.lastName, this.age) : super._();
 
   @override
   final String firstName;
@@ -114,12 +114,15 @@ class _$_Person extends Person {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Person &&
+        (other is _$_Person &&
             (identical(other.firstName, firstName) ||
-                const DeepCollectionEquality().equals(other.firstName, firstName)) &&
+                const DeepCollectionEquality()
+                    .equals(other.firstName, firstName)) &&
             (identical(other.lastName, lastName) ||
-                const DeepCollectionEquality().equals(other.lastName, lastName)) &&
-            (identical(other.age, age) || const DeepCollectionEquality().equals(other.age, age)));
+                const DeepCollectionEquality()
+                    .equals(other.lastName, lastName)) &&
+            (identical(other.age, age) ||
+                const DeepCollectionEquality().equals(other.age, age)));
   }
 
   @override
@@ -131,5 +134,22 @@ class _$_Person extends Person {
 
   @JsonKey(ignore: true)
   @override
-  _$PersonCopyWith<Person> get copyWith => __$PersonCopyWithImpl<Person>(this, _$identity);
+  _$$_PersonCopyWith<_$_Person> get copyWith =>
+      __$$_PersonCopyWithImpl<_$_Person>(this, _$identity);
+}
+
+abstract class _$_Person extends Person {
+  const _$_Person._() : super._();
+  const factory _$_Person(String firstName, String lastName, int age) =
+      _$_$_Person;
+
+  @override
+  String get firstName;
+  @override
+  String get lastName;
+  @override
+  int get age;
+  @override
+  @JsonKey(ignore: true)
+  _$$_PersonCopyWith<_$_Person> get copyWith;
 }

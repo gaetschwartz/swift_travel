@@ -16,7 +16,7 @@ SncfCompletion _$SncfCompletionFromJson(Map<String, dynamic> json) {
 class _$SncfCompletionTearOff {
   const _$SncfCompletionTearOff();
 
-  _SncfCompletion call({List<SncfPlace> places = const []}) {
+  _SncfCompletion call({List<SncfPlace> places = const <SncfPlace>[]}) {
     return _SncfCompletion(
       places: places,
     );
@@ -101,12 +101,12 @@ class __$SncfCompletionCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SncfCompletion implements _SncfCompletion {
-  _$_SncfCompletion({this.places = const []});
+  _$_SncfCompletion({this.places = const <SncfPlace>[]});
 
   factory _$_SncfCompletion.fromJson(Map<String, dynamic> json) =>
       _$_$_SncfCompletionFromJson(json);
 
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: const <SncfPlace>[])
   @override
   final List<SncfPlace> places;
 

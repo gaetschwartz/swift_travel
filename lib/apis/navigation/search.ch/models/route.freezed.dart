@@ -20,8 +20,8 @@ class _$CffRouteTearOff {
       {int count = 0,
       @JsonKey(name: 'min_duration') double? minDuration,
       @JsonKey(name: 'max_duration') double? maxDuration,
-      List<RouteConnection> connections = const [],
-      List<String> messages = const [],
+      List<RouteConnection> connections = const <RouteConnection>[],
+      List<String> messages = const <String>[],
       String? requestUrl,
       DateTime? dateTime}) {
     return _CffRoute(
@@ -170,8 +170,8 @@ class _$_CffRoute implements _CffRoute {
       {this.count = 0,
       @JsonKey(name: 'min_duration') this.minDuration,
       @JsonKey(name: 'max_duration') this.maxDuration,
-      this.connections = const [],
-      this.messages = const [],
+      this.connections = const <RouteConnection>[],
+      this.messages = const <String>[],
       this.requestUrl,
       this.dateTime});
 
@@ -187,10 +187,10 @@ class _$_CffRoute implements _CffRoute {
   @override
   @JsonKey(name: 'max_duration')
   final double? maxDuration;
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: const <RouteConnection>[])
   @override
   final List<RouteConnection> connections;
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: const <String>[])
   @override
   final List<String> messages;
   @override

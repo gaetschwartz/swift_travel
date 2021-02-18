@@ -27,8 +27,9 @@ class _$CffStationboardTearOff {
   CffStationboardData call(
       {required Stop stop,
       required String stopName,
-      List<StationboardConnection> connections = const [],
-      List<String> messages = const []}) {
+      List<StationboardConnection> connections =
+          const <StationboardConnection>[],
+      List<String> messages = const <String>[]}) {
     return CffStationboardData(
       stop: stop,
       stopName: stopName,
@@ -174,8 +175,8 @@ class _$CffStationboardData implements CffStationboardData {
   const _$CffStationboardData(
       {required this.stop,
       required this.stopName,
-      this.connections = const [],
-      this.messages = const []});
+      this.connections = const <StationboardConnection>[],
+      this.messages = const <String>[]});
 
   factory _$CffStationboardData.fromJson(Map<String, dynamic> json) =>
       _$_$CffStationboardDataFromJson(json);
@@ -184,10 +185,10 @@ class _$CffStationboardData implements CffStationboardData {
   final Stop stop;
   @override
   final String stopName;
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: const <StationboardConnection>[])
   @override
   final List<StationboardConnection> connections;
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: const <String>[])
   @override
   final List<String> messages;
 

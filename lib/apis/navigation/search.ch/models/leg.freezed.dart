@@ -32,7 +32,7 @@ class _$LegTearOff {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      List<Stop> stops = const [],
+      List<Stop> stops = const <Stop>[],
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
@@ -42,7 +42,7 @@ class _$LegTearOff {
       bool isaddress = false,
       double? lat,
       double? lon,
-      Map<String, String> attributes = const {}}) {
+      Map<String, String> attributes = const <String, String>{}}) {
     return _Leg(
       name: name,
       exit: exit,
@@ -114,11 +114,13 @@ mixin _$Leg {
 
 /// @nodoc
 abstract class $LegCopyWith<$Res> {
-  factory $LegCopyWith(Leg value, $Res Function(Leg) then) = _$LegCopyWithImpl<$Res>;
+  factory $LegCopyWith(Leg value, $Res Function(Leg) then) =
+      _$LegCopyWithImpl<$Res>;
   $Res call(
       {String name,
       Exit? exit,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) int depDelay,
+      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay,
       Vehicle? type,
       String? track,
       String? terminal,
@@ -127,14 +129,16 @@ abstract class $LegCopyWith<$Res> {
       String? bgcolor,
       String? tripid,
       String? stopid,
-      @JsonKey(name: 'runningtime') double? runningTime,
+      @JsonKey(name: 'runningtime')
+          double? runningTime,
       String? line,
       List<Stop> stops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
-      @JsonKey(name: 'waittime') int waitTime,
+      @JsonKey(name: 'waittime')
+          int waitTime,
       bool isaddress,
       double? lat,
       double? lon,
@@ -189,18 +193,23 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
       bgcolor: bgcolor == freezed ? _value.bgcolor : bgcolor as String?,
       tripid: tripid == freezed ? _value.tripid : tripid as String?,
       stopid: stopid == freezed ? _value.stopid : stopid as String?,
-      runningTime: runningTime == freezed ? _value.runningTime : runningTime as double?,
+      runningTime:
+          runningTime == freezed ? _value.runningTime : runningTime as double?,
       line: line == freezed ? _value.line : line as String?,
       stops: stops == freezed ? _value.stops : stops as List<Stop>,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
-      departure: departure == freezed ? _value.departure : departure as DateTime?,
+      departure:
+          departure == freezed ? _value.departure : departure as DateTime?,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      normalTime: normalTime == freezed ? _value.normalTime : normalTime as int?,
+      normalTime:
+          normalTime == freezed ? _value.normalTime : normalTime as int?,
       waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
-      attributes: attributes == freezed ? _value.attributes : attributes as Map<String, String>,
+      attributes: attributes == freezed
+          ? _value.attributes
+          : attributes as Map<String, String>,
     ));
   }
 
@@ -218,12 +227,14 @@ class _$LegCopyWithImpl<$Res> implements $LegCopyWith<$Res> {
 
 /// @nodoc
 abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
-  factory _$LegCopyWith(_Leg value, $Res Function(_Leg) then) = __$LegCopyWithImpl<$Res>;
+  factory _$LegCopyWith(_Leg value, $Res Function(_Leg) then) =
+      __$LegCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
       Exit? exit,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) int depDelay,
+      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+          int depDelay,
       Vehicle? type,
       String? track,
       String? terminal,
@@ -232,14 +243,16 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
       String? bgcolor,
       String? tripid,
       String? stopid,
-      @JsonKey(name: 'runningtime') double? runningTime,
+      @JsonKey(name: 'runningtime')
+          double? runningTime,
       String? line,
       List<Stop> stops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
-      @JsonKey(name: 'waittime') int waitTime,
+      @JsonKey(name: 'waittime')
+          int waitTime,
       bool isaddress,
       double? lat,
       double? lon,
@@ -250,7 +263,8 @@ abstract class _$LegCopyWith<$Res> implements $LegCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res> implements _$LegCopyWith<$Res> {
+class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res>
+    implements _$LegCopyWith<$Res> {
   __$LegCopyWithImpl(_Leg _value, $Res Function(_Leg) _then)
       : super(_value, (v) => _then(v as _Leg));
 
@@ -295,18 +309,23 @@ class __$LegCopyWithImpl<$Res> extends _$LegCopyWithImpl<$Res> implements _$LegC
       bgcolor: bgcolor == freezed ? _value.bgcolor : bgcolor as String?,
       tripid: tripid == freezed ? _value.tripid : tripid as String?,
       stopid: stopid == freezed ? _value.stopid : stopid as String?,
-      runningTime: runningTime == freezed ? _value.runningTime : runningTime as double?,
+      runningTime:
+          runningTime == freezed ? _value.runningTime : runningTime as double?,
       line: line == freezed ? _value.line : line as String?,
       stops: stops == freezed ? _value.stops : stops as List<Stop>,
       sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
-      departure: departure == freezed ? _value.departure : departure as DateTime?,
+      departure:
+          departure == freezed ? _value.departure : departure as DateTime?,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      normalTime: normalTime == freezed ? _value.normalTime : normalTime as int?,
+      normalTime:
+          normalTime == freezed ? _value.normalTime : normalTime as int?,
       waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
-      attributes: attributes == freezed ? _value.attributes : attributes as Map<String, String>,
+      attributes: attributes == freezed
+          ? _value.attributes
+          : attributes as Map<String, String>,
     ));
   }
 }
@@ -331,7 +350,7 @@ class _$_Leg implements _Leg {
       @JsonKey(name: 'runningtime')
           this.runningTime,
       this.line,
-      this.stops = const [],
+      this.stops = const <Stop>[],
       this.sbbName,
       this.departure,
       this.arrival,
@@ -341,7 +360,7 @@ class _$_Leg implements _Leg {
       this.isaddress = false,
       this.lat,
       this.lon,
-      this.attributes = const {}});
+      this.attributes = const <String, String>{}});
 
   factory _$_Leg.fromJson(Map<String, dynamic> json) => _$_$_LegFromJson(json);
 
@@ -373,7 +392,7 @@ class _$_Leg implements _Leg {
   final double? runningTime;
   @override
   final String? line;
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: const <Stop>[])
   @override
   final List<Stop> stops;
   @override
@@ -394,7 +413,7 @@ class _$_Leg implements _Leg {
   final double? lat;
   @override
   final double? lon;
-  @JsonKey(defaultValue: const {})
+  @JsonKey(defaultValue: const <String, String>{})
   @override
   final Map<String, String> attributes;
 
@@ -412,45 +431,59 @@ class _$_Leg implements _Leg {
             (identical(other.exit, exit) ||
                 const DeepCollectionEquality().equals(other.exit, exit)) &&
             (identical(other.depDelay, depDelay) ||
-                const DeepCollectionEquality().equals(other.depDelay, depDelay)) &&
+                const DeepCollectionEquality()
+                    .equals(other.depDelay, depDelay)) &&
             (identical(other.type, type) ||
                 const DeepCollectionEquality().equals(other.type, type)) &&
             (identical(other.track, track) ||
                 const DeepCollectionEquality().equals(other.track, track)) &&
             (identical(other.terminal, terminal) ||
-                const DeepCollectionEquality().equals(other.terminal, terminal)) &&
+                const DeepCollectionEquality()
+                    .equals(other.terminal, terminal)) &&
             (identical(other.fgcolor, fgcolor) ||
-                const DeepCollectionEquality().equals(other.fgcolor, fgcolor)) &&
+                const DeepCollectionEquality()
+                    .equals(other.fgcolor, fgcolor)) &&
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
             (identical(other.bgcolor, bgcolor) ||
-                const DeepCollectionEquality().equals(other.bgcolor, bgcolor)) &&
+                const DeepCollectionEquality()
+                    .equals(other.bgcolor, bgcolor)) &&
             (identical(other.tripid, tripid) ||
                 const DeepCollectionEquality().equals(other.tripid, tripid)) &&
             (identical(other.stopid, stopid) ||
                 const DeepCollectionEquality().equals(other.stopid, stopid)) &&
             (identical(other.runningTime, runningTime) ||
-                const DeepCollectionEquality().equals(other.runningTime, runningTime)) &&
+                const DeepCollectionEquality()
+                    .equals(other.runningTime, runningTime)) &&
             (identical(other.line, line) ||
                 const DeepCollectionEquality().equals(other.line, line)) &&
             (identical(other.stops, stops) ||
                 const DeepCollectionEquality().equals(other.stops, stops)) &&
             (identical(other.sbbName, sbbName) ||
-                const DeepCollectionEquality().equals(other.sbbName, sbbName)) &&
+                const DeepCollectionEquality()
+                    .equals(other.sbbName, sbbName)) &&
             (identical(other.departure, departure) ||
-                const DeepCollectionEquality().equals(other.departure, departure)) &&
+                const DeepCollectionEquality()
+                    .equals(other.departure, departure)) &&
             (identical(other.arrival, arrival) ||
-                const DeepCollectionEquality().equals(other.arrival, arrival)) &&
+                const DeepCollectionEquality()
+                    .equals(other.arrival, arrival)) &&
             (identical(other.normalTime, normalTime) ||
-                const DeepCollectionEquality().equals(other.normalTime, normalTime)) &&
+                const DeepCollectionEquality()
+                    .equals(other.normalTime, normalTime)) &&
             (identical(other.waitTime, waitTime) ||
-                const DeepCollectionEquality().equals(other.waitTime, waitTime)) &&
+                const DeepCollectionEquality()
+                    .equals(other.waitTime, waitTime)) &&
             (identical(other.isaddress, isaddress) ||
-                const DeepCollectionEquality().equals(other.isaddress, isaddress)) &&
-            (identical(other.lat, lat) || const DeepCollectionEquality().equals(other.lat, lat)) &&
-            (identical(other.lon, lon) || const DeepCollectionEquality().equals(other.lon, lon)) &&
+                const DeepCollectionEquality()
+                    .equals(other.isaddress, isaddress)) &&
+            (identical(other.lat, lat) ||
+                const DeepCollectionEquality().equals(other.lat, lat)) &&
+            (identical(other.lon, lon) ||
+                const DeepCollectionEquality().equals(other.lon, lon)) &&
             (identical(other.attributes, attributes) ||
-                const DeepCollectionEquality().equals(other.attributes, attributes)));
+                const DeepCollectionEquality()
+                    .equals(other.attributes, attributes)));
   }
 
   @override
@@ -482,7 +515,8 @@ class _$_Leg implements _Leg {
 
   @JsonKey(ignore: true)
   @override
-  _$LegCopyWith<_Leg> get copyWith => __$LegCopyWithImpl<_Leg>(this, _$identity);
+  _$LegCopyWith<_Leg> get copyWith =>
+      __$LegCopyWithImpl<_Leg>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
