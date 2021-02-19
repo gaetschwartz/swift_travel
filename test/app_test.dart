@@ -14,6 +14,7 @@ import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
+import 'package:theming/dynamic_theme.dart';
 
 import 'apis_test.dart';
 
@@ -46,22 +47,25 @@ Future<void> _testRouteTab() async {
   testWidgets(
     'main tab',
     (t) async {
-      await t.pumpWidget(ProviderScope(
-          overrides: [
-            navigationAPIProvider.overrideWithValue(MockNavigationApi()),
-            fetcherProvider.overrideWithValue(MockFetcher()),
-          ],
-          child: MaterialApp(
-            home: const RoutePage(),
-            navigatorKey: navigatorKey,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
+      await t.pumpWidget(DynamicTheme(
+        theme: DynamicThemeData(),
+        child: ProviderScope(
+            overrides: [
+              navigationAPIProvider.overrideWithValue(MockNavigationApi()),
+              fetcherProvider.overrideWithValue(MockFetcher()),
             ],
-            supportedLocales: AppLocalizations.supportedLocales,
-          )));
+            child: MaterialApp(
+              home: const RoutePage(),
+              navigatorKey: navigatorKey,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: AppLocalizations.supportedLocales,
+            )),
+      ));
       await t.pumpAndSettle();
 
       final field = find.byKey(const Key('route-first-textfield-key'));
