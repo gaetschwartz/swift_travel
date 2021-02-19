@@ -35,7 +35,7 @@ _$_SbbLeg _$_$_SbbLegFromJson(Map<String, dynamic> json) {
         ? null
         : DateTime.parse(json['arrival'] as String),
     normalTime: json['normalTime'] as int?,
-    waitTime: json['waittime'] as int,
+    waitTime: json['waittime'] as int? ?? 0,
     isaddress: json['isaddress'] as bool? ?? false,
     lat: (json['lat'] as num?)?.toDouble(),
     lon: (json['lon'] as num?)?.toDouble(),

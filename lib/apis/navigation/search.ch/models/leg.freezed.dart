@@ -24,7 +24,7 @@ class _$SbbLegTearOff {
       @JsonKey(name: 'exit')
           SbbExit? sbbExit,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int depDelay,
+          int depDelay = 0,
       Vehicle? type,
       String? track,
       String? terminal,
@@ -41,7 +41,7 @@ class _$SbbLegTearOff {
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
-      @JsonKey(name: 'waittime')
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime = 0,
       bool isaddress = false,
       double? lat,
@@ -105,7 +105,7 @@ mixin _$SbbLeg {
   DateTime? get departure => throw _privateConstructorUsedError;
   DateTime? get arrival => throw _privateConstructorUsedError;
   int? get normalTime => throw _privateConstructorUsedError;
-  @JsonKey(name: 'waittime')
+  @JsonKey(name: 'waittime', defaultValue: 0)
   int get waitTime => throw _privateConstructorUsedError;
   bool get isaddress => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
@@ -143,7 +143,7 @@ abstract class $SbbLegCopyWith<$Res> {
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
-      @JsonKey(name: 'waittime')
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       double? lat,
@@ -259,7 +259,7 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
-      @JsonKey(name: 'waittime')
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       double? lat,
@@ -348,7 +348,7 @@ class _$_SbbLeg extends _SbbLeg {
       @JsonKey(name: 'exit')
           this.sbbExit,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required this.depDelay,
+          this.depDelay = 0,
       this.type,
       this.track,
       this.terminal,
@@ -365,7 +365,7 @@ class _$_SbbLeg extends _SbbLeg {
       this.departure,
       this.arrival,
       this.normalTime,
-      @JsonKey(name: 'waittime')
+      @JsonKey(name: 'waittime', defaultValue: 0)
           this.waitTime = 0,
       this.isaddress = false,
       this.lat,
@@ -417,7 +417,7 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   final int? normalTime;
   @override
-  @JsonKey(name: 'waittime')
+  @JsonKey(name: 'waittime', defaultValue: 0)
   final int waitTime;
   @JsonKey(defaultValue: false)
   @override
@@ -546,7 +546,7 @@ abstract class _SbbLeg extends SbbLeg {
       @JsonKey(name: 'exit')
           SbbExit? sbbExit,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int depDelay,
+          int depDelay,
       Vehicle? type,
       String? track,
       String? terminal,
@@ -563,7 +563,7 @@ abstract class _SbbLeg extends SbbLeg {
       DateTime? departure,
       DateTime? arrival,
       int? normalTime,
-      @JsonKey(name: 'waittime')
+      @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime,
       bool isaddress,
       double? lat,
@@ -612,7 +612,7 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   int? get normalTime => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'waittime')
+  @JsonKey(name: 'waittime', defaultValue: 0)
   int get waitTime => throw _privateConstructorUsedError;
   @override
   bool get isaddress => throw _privateConstructorUsedError;

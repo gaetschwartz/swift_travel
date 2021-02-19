@@ -115,7 +115,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     ]);
 
     try {
-      await context.read(dynamicTheme).configure(themeConfiguration);
+      await DynamicTheme.of(context).configure(themeConfiguration);
       await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
       await context.read(storeProvider).loadFromPreferences(prefs: prefs);
     } on Exception catch (e, s) {

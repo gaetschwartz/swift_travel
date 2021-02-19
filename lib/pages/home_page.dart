@@ -60,8 +60,6 @@ class CombinedPageController extends ChangeNotifier {
 
   @override
   void dispose() {
-    print('Disposed $runtimeType');
-    debugPrintStack(stackTrace: StackTrace.current);
     cupertinoTabController.dispose();
     super.dispose();
   }

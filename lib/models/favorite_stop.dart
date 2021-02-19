@@ -11,8 +11,9 @@ abstract class FavoriteStop with _$FavoriteStop {
   const factory FavoriteStop({
     required String stop,
     required String name,
-    required NavigationApi api,
+    @Default(NavigationApi.sbb) NavigationApi api,
   }) = _FavoriteStop;
+
   factory FavoriteStop.fromStop(String stop, {required NavigationApi api}) =>
       _FavoriteStop(stop: stop, name: stop, api: api);
 
