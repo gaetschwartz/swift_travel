@@ -4,13 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 
 const String routeUrl = 'travel.gaetanschwartz.com';
 
-Future<void> shareRoute(BuildContext context, CffRoute route, int? i) async {
+Future<void> shareRoute(BuildContext context, NavRoute route, int? i) async {
   final params = encodeRouteUri(Uri.parse(route.requestUrl!), i);
   print(params);
   final sharedUri = Uri(scheme: 'https', host: routeUrl, path: 'route', queryParameters: params);

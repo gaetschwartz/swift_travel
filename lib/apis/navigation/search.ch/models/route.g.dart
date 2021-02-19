@@ -11,10 +11,9 @@ _$_CffRoute _$_$_CffRouteFromJson(Map<String, dynamic> json) {
     count: json['count'] as int? ?? 0,
     minDuration: (json['min_duration'] as num?)?.toDouble(),
     maxDuration: (json['max_duration'] as num?)?.toDouble(),
-    connections: (json['connections'] as List<dynamic>?)
-            ?.map((e) => RouteConnection.fromJson(e as Map<String, dynamic>))
-            .toList() ??
-        [],
+    sbbConnections: (json['connections'] as List<dynamic>)
+        .map((e) => SbbRouteConnection.fromJson(e as Map<String, dynamic>))
+        .toList(),
     messages: (json['messages'] as List<dynamic>?)
             ?.map((e) => e as String)
             .toList() ??
@@ -39,7 +38,7 @@ Map<String, dynamic> _$_$_CffRouteToJson(_$_CffRoute instance) {
 
   writeNotNull('min_duration', instance.minDuration);
   writeNotNull('max_duration', instance.maxDuration);
-  val['connections'] = instance.connections.map((e) => e.toJson()).toList();
+  val['connections'] = instance.sbbConnections.map((e) => e.toJson()).toList();
   val['messages'] = instance.messages;
   writeNotNull('requestUrl', instance.requestUrl);
   writeNotNull('dateTime', instance.dateTime?.toIso8601String());

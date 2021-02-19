@@ -8,6 +8,9 @@ part of 'models.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 Location _$LocationFromJson(Map<String, dynamic> json) {
   return _Location.fromJson(json);
 }
@@ -47,18 +50,19 @@ const $Location = _$LocationTearOff();
 
 /// @nodoc
 mixin _$Location {
-  double get latitude;
-  double get longitude;
-  double? get accuracy;
-  double? get altitude;
-  double? get heading;
-  double? get speed;
-  double? get speedAccuracy;
-  DateTime? get timestamp;
+  double get latitude => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
+  double? get accuracy => throw _privateConstructorUsedError;
+  double? get altitude => throw _privateConstructorUsedError;
+  double? get heading => throw _privateConstructorUsedError;
+  double? get speed => throw _privateConstructorUsedError;
+  double? get speedAccuracy => throw _privateConstructorUsedError;
+  DateTime? get timestamp => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocationCopyWith<Location> get copyWith;
+  $LocationCopyWith<Location> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -268,22 +272,23 @@ abstract class _Location implements Location {
   factory _Location.fromJson(Map<String, dynamic> json) = _$_Location.fromJson;
 
   @override
-  double get latitude;
+  double get latitude => throw _privateConstructorUsedError;
   @override
-  double get longitude;
+  double get longitude => throw _privateConstructorUsedError;
   @override
-  double? get accuracy;
+  double? get accuracy => throw _privateConstructorUsedError;
   @override
-  double? get altitude;
+  double? get altitude => throw _privateConstructorUsedError;
   @override
-  double? get heading;
+  double? get heading => throw _privateConstructorUsedError;
   @override
-  double? get speed;
+  double? get speed => throw _privateConstructorUsedError;
   @override
-  double? get speedAccuracy;
+  double? get speedAccuracy => throw _privateConstructorUsedError;
   @override
-  DateTime? get timestamp;
+  DateTime? get timestamp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LocationCopyWith<_Location> get copyWith;
+  _$LocationCopyWith<_Location> get copyWith =>
+      throw _privateConstructorUsedError;
 }

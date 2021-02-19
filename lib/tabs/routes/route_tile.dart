@@ -1,7 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';
@@ -20,7 +21,7 @@ class RouteTile extends StatelessWidget {
     required this.i,
   }) : super(key: key);
 
-  final CffRoute route;
+  final NavRoute route;
   final int i;
 
   Widget rowIcon() {
@@ -46,9 +47,9 @@ class RouteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = route.connections[i];
-    final leg = c.legs.firstWhere(
-        (l) => l.type != Vehicle.walk && l.type != null && l != c.legs.last,
-        orElse: () => c.legs.first);
+    final leg = c.legs.firstWhereOrNull(
+            (l) => l.type != Vehicle.walk && l.type != null && l != c.legs.last) ??
+        c.legs.first;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       child: DecoratedBox(

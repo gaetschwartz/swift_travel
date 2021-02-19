@@ -6,8 +6,9 @@ part of 'route_connection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RouteConnection _$_$_RouteConnectionFromJson(Map<String, dynamic> json) {
-  return _$_RouteConnection(
+_$_SbbRouteConnection _$_$_SbbRouteConnectionFromJson(
+    Map<String, dynamic> json) {
+  return _$_SbbRouteConnection(
     from: json['from'] as String,
     to: json['to'] as String,
     departure: json['departure'] == null
@@ -17,10 +18,9 @@ _$_RouteConnection _$_$_RouteConnectionFromJson(Map<String, dynamic> json) {
         ? null
         : DateTime.parse(json['arrival'] as String),
     duration: (json['duration'] as num?)?.toDouble(),
-    legs: (json['legs'] as List<dynamic>?)
-            ?.map((e) => Leg.fromJson(e as Map<String, dynamic>))
-            .toList() ??
-        [],
+    sbbLegs: (json['legs'] as List<dynamic>)
+        .map((e) => SbbLeg.fromJson(e as Map<String, dynamic>))
+        .toList(),
     disruptions: (json['disruptions'] as Map<String, dynamic>?)?.map(
           (k, e) => MapEntry(k, Disruption.fromJson(e as Map<String, dynamic>)),
         ) ??
@@ -29,7 +29,8 @@ _$_RouteConnection _$_$_RouteConnectionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_RouteConnectionToJson(_$_RouteConnection instance) {
+Map<String, dynamic> _$_$_SbbRouteConnectionToJson(
+    _$_SbbRouteConnection instance) {
   final val = <String, dynamic>{
     'from': instance.from,
     'to': instance.to,
@@ -44,7 +45,7 @@ Map<String, dynamic> _$_$_RouteConnectionToJson(_$_RouteConnection instance) {
   writeNotNull('departure', instance.departure?.toIso8601String());
   writeNotNull('arrival', instance.arrival?.toIso8601String());
   writeNotNull('duration', instance.duration);
-  val['legs'] = instance.legs.map((e) => e.toJson()).toList();
+  val['legs'] = instance.sbbLegs.map((e) => e.toJson()).toList();
   val['disruptions'] =
       instance.disruptions.map((k, e) => MapEntry(k, e.toJson()));
   writeNotNull('dep_delay', delayToJson(instance.depDelay));

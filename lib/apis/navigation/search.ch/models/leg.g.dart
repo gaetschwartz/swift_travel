@@ -6,12 +6,12 @@ part of 'leg.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
-  return _$_Leg(
+_$_SbbLeg _$_$_SbbLegFromJson(Map<String, dynamic> json) {
+  return _$_SbbLeg(
     name: json['name'] as String,
-    exit: json['exit'] == null
+    sbbExit: json['exit'] == null
         ? null
-        : Exit.fromJson(json['exit'] as Map<String, dynamic>),
+        : SbbExit.fromJson(json['exit'] as Map<String, dynamic>),
     depDelay: delayFromJson(json['dep_delay']),
     type: _$enumDecodeNullable(_$VehicleEnumMap, json['type']),
     track: json['track'] as String?,
@@ -23,8 +23,8 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
     stopid: json['stopid'] as String?,
     runningTime: (json['runningtime'] as num?)?.toDouble(),
     line: json['line'] as String?,
-    stops: (json['stops'] as List<dynamic>?)
-            ?.map((e) => Stop.fromJson(e as Map<String, dynamic>))
+    sbbStops: (json['sbbStops'] as List<dynamic>?)
+            ?.map((e) => SbbStop.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [],
     sbbName: json['sbbName'] as String?,
@@ -46,7 +46,7 @@ _$_Leg _$_$_LegFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
+Map<String, dynamic> _$_$_SbbLegToJson(_$_SbbLeg instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };
@@ -57,7 +57,7 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
     }
   }
 
-  writeNotNull('exit', instance.exit?.toJson());
+  writeNotNull('exit', instance.sbbExit?.toJson());
   writeNotNull('dep_delay', delayToJson(instance.depDelay));
   writeNotNull('type', _$VehicleEnumMap[instance.type]);
   writeNotNull('track', instance.track);
@@ -69,7 +69,7 @@ Map<String, dynamic> _$_$_LegToJson(_$_Leg instance) {
   writeNotNull('stopid', instance.stopid);
   writeNotNull('runningtime', instance.runningTime);
   writeNotNull('line', instance.line);
-  val['stops'] = instance.stops.map((e) => e.toJson()).toList();
+  val['sbbStops'] = instance.sbbStops.map((e) => e.toJson()).toList();
   writeNotNull('sbbName', instance.sbbName);
   writeNotNull('departure', instance.departure?.toIso8601String());
   writeNotNull('arrival', instance.arrival?.toIso8601String());

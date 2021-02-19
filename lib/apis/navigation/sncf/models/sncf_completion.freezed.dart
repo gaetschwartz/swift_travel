@@ -8,6 +8,9 @@ part of 'sncf_completion.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 SncfCompletion _$SncfCompletionFromJson(Map<String, dynamic> json) {
   return _SncfCompletion.fromJson(json);
 }
@@ -32,11 +35,12 @@ const $SncfCompletion = _$SncfCompletionTearOff();
 
 /// @nodoc
 mixin _$SncfCompletion {
-  List<SncfPlace> get places;
+  List<SncfPlace> get places => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SncfCompletionCopyWith<SncfCompletion> get copyWith;
+  $SncfCompletionCopyWith<SncfCompletion> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -145,8 +149,9 @@ abstract class _SncfCompletion implements SncfCompletion {
       _$_SncfCompletion.fromJson;
 
   @override
-  List<SncfPlace> get places;
+  List<SncfPlace> get places => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SncfCompletionCopyWith<_SncfCompletion> get copyWith;
+  _$SncfCompletionCopyWith<_SncfCompletion> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -8,6 +8,9 @@ part of 'local_route.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 LocalRoute _$LocalRouteFromJson(Map<String, dynamic> json) {
   return _LocalRoute.fromJson(json);
 }
@@ -36,14 +39,15 @@ const $LocalRoute = _$LocalRouteTearOff();
 
 /// @nodoc
 mixin _$LocalRoute {
-  String get from;
-  String get to;
-  String? get displayName;
-  DateTime? get timestamp;
+  String get from => throw _privateConstructorUsedError;
+  String get to => throw _privateConstructorUsedError;
+  String? get displayName => throw _privateConstructorUsedError;
+  DateTime? get timestamp => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocalRouteCopyWith<LocalRoute> get copyWith;
+  $LocalRouteCopyWith<LocalRoute> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -183,14 +187,15 @@ abstract class _LocalRoute implements LocalRoute {
       _$_LocalRoute.fromJson;
 
   @override
-  String get from;
+  String get from => throw _privateConstructorUsedError;
   @override
-  String get to;
+  String get to => throw _privateConstructorUsedError;
   @override
-  String? get displayName;
+  String? get displayName => throw _privateConstructorUsedError;
   @override
-  DateTime? get timestamp;
+  DateTime? get timestamp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LocalRouteCopyWith<_LocalRoute> get copyWith;
+  _$LocalRouteCopyWith<_LocalRoute> get copyWith =>
+      throw _privateConstructorUsedError;
 }

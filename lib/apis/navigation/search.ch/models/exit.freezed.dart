@@ -8,13 +8,16 @@ part of 'exit.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-Exit _$ExitFromJson(Map<String, dynamic> json) {
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+SbbExit _$SbbExitFromJson(Map<String, dynamic> json) {
   return _Exit.fromJson(json);
 }
 
 /// @nodoc
-class _$ExitTearOff {
-  const _$ExitTearOff();
+class _$SbbExitTearOff {
+  const _$SbbExitTearOff();
 
   _Exit call(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -42,37 +45,37 @@ class _$ExitTearOff {
     );
   }
 
-  Exit fromJson(Map<String, Object> json) {
-    return Exit.fromJson(json);
+  SbbExit fromJson(Map<String, Object> json) {
+    return SbbExit.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Exit = _$ExitTearOff();
+const $SbbExit = _$SbbExitTearOff();
 
 /// @nodoc
-mixin _$Exit {
+mixin _$SbbExit {
   @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay;
-  DateTime? get arrival;
-  double? get lat;
-  double? get lon;
-  String get name;
-  String? get sbbName;
-  String? get stopid;
-  String? get track;
-  int get waittime;
-  bool get isaddress;
+  int get arrDelay => throw _privateConstructorUsedError;
+  DateTime? get arrival => throw _privateConstructorUsedError;
+  double? get lat => throw _privateConstructorUsedError;
+  double? get lon => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String? get sbbName => throw _privateConstructorUsedError;
+  String? get stopid => throw _privateConstructorUsedError;
+  String? get track => throw _privateConstructorUsedError;
+  int get waittime => throw _privateConstructorUsedError;
+  bool get isaddress => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ExitCopyWith<Exit> get copyWith;
+  $SbbExitCopyWith<SbbExit> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ExitCopyWith<$Res> {
-  factory $ExitCopyWith(Exit value, $Res Function(Exit) then) =
-      _$ExitCopyWithImpl<$Res>;
+abstract class $SbbExitCopyWith<$Res> {
+  factory $SbbExitCopyWith(SbbExit value, $Res Function(SbbExit) then) =
+      _$SbbExitCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           int arrDelay,
@@ -88,12 +91,12 @@ abstract class $ExitCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
-  _$ExitCopyWithImpl(this._value, this._then);
+class _$SbbExitCopyWithImpl<$Res> implements $SbbExitCopyWith<$Res> {
+  _$SbbExitCopyWithImpl(this._value, this._then);
 
-  final Exit _value;
+  final SbbExit _value;
   // ignore: unused_field
-  final $Res Function(Exit) _then;
+  final $Res Function(SbbExit) _then;
 
   @override
   $Res call({
@@ -124,7 +127,7 @@ class _$ExitCopyWithImpl<$Res> implements $ExitCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
+abstract class _$ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
   factory _$ExitCopyWith(_Exit value, $Res Function(_Exit) then) =
       __$ExitCopyWithImpl<$Res>;
   @override
@@ -143,7 +146,7 @@ abstract class _$ExitCopyWith<$Res> implements $ExitCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
+class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
     implements _$ExitCopyWith<$Res> {
   __$ExitCopyWithImpl(_Exit _value, $Res Function(_Exit) _then)
       : super(_value, (v) => _then(v as _Exit));
@@ -182,7 +185,7 @@ class __$ExitCopyWithImpl<$Res> extends _$ExitCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 
 /// @nodoc
-class _$_Exit implements _Exit {
+class _$_Exit extends _Exit {
   const _$_Exit(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           this.arrDelay = 0,
@@ -194,7 +197,8 @@ class _$_Exit implements _Exit {
       this.stopid,
       this.track,
       this.waittime = 0,
-      this.isaddress = false});
+      this.isaddress = false})
+      : super._();
 
   factory _$_Exit.fromJson(Map<String, dynamic> json) =>
       _$_$_ExitFromJson(json);
@@ -225,7 +229,7 @@ class _$_Exit implements _Exit {
 
   @override
   String toString() {
-    return 'Exit(arrDelay: $arrDelay, arrival: $arrival, lat: $lat, lon: $lon, name: $name, sbbName: $sbbName, stopid: $stopid, track: $track, waittime: $waittime, isaddress: $isaddress)';
+    return 'SbbExit(arrDelay: $arrDelay, arrival: $arrival, lat: $lat, lon: $lon, name: $name, sbbName: $sbbName, stopid: $stopid, track: $track, waittime: $waittime, isaddress: $isaddress)';
   }
 
   @override
@@ -284,7 +288,8 @@ class _$_Exit implements _Exit {
   }
 }
 
-abstract class _Exit implements Exit {
+abstract class _Exit extends SbbExit {
+  const _Exit._() : super._();
   const factory _Exit(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           int arrDelay,
@@ -302,26 +307,26 @@ abstract class _Exit implements Exit {
 
   @override
   @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay;
+  int get arrDelay => throw _privateConstructorUsedError;
   @override
-  DateTime? get arrival;
+  DateTime? get arrival => throw _privateConstructorUsedError;
   @override
-  double? get lat;
+  double? get lat => throw _privateConstructorUsedError;
   @override
-  double? get lon;
+  double? get lon => throw _privateConstructorUsedError;
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String? get sbbName;
+  String? get sbbName => throw _privateConstructorUsedError;
   @override
-  String? get stopid;
+  String? get stopid => throw _privateConstructorUsedError;
   @override
-  String? get track;
+  String? get track => throw _privateConstructorUsedError;
   @override
-  int get waittime;
+  int get waittime => throw _privateConstructorUsedError;
   @override
-  bool get isaddress;
+  bool get isaddress => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ExitCopyWith<_Exit> get copyWith;
+  _$ExitCopyWith<_Exit> get copyWith => throw _privateConstructorUsedError;
 }

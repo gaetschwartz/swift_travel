@@ -187,7 +187,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                           Expanded(
                             child: ListView.builder(
                               itemBuilder: (context, i) => SbbCompletionTile(
-                                sugg: c.completions[i],
+                                c.completions[i],
                                 key: Key('stations-key-$i'),
                               ),
                               itemCount: c.completions.length,
@@ -215,7 +215,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                       )
                                     : ListView.builder(
                                         itemBuilder: (context, i) => SbbCompletionTile(
-                                            sugg: SbbCompletion.fromFavorite(c.favorites[i])),
+                                          SbbCompletion.fromFavorite(c.favorites[i]),
+                                        ),
                                         itemCount: c.favorites.length,
                                       ),
                                 loading: (_) =>
@@ -274,8 +275,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
       final first = completions.first;
       if (first.dist != null) {
-        final public = completions.where(
-            (c) => !CffIcon.isPrivate(c.iconClass!.substring(c.iconClass!.lastIndexOf('_') + 1)));
+        final public = completions.where((c) => !CffIcon.isPrivate(c.type));
         context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log('Found : ${public.first}');

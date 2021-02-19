@@ -29,5 +29,5 @@ enum Vehicle {
   cablecar,
   chairlift,
   ship,
-  str,
+  str
 }

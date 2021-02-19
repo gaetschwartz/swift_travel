@@ -9,6 +9,9 @@ part of 'attribute.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$AttributeTearOff {
   const _$AttributeTearOff();
@@ -32,13 +35,14 @@ const $Attribute = _$AttributeTearOff();
 
 /// @nodoc
 mixin _$Attribute {
-  String get code;
-  Widget? get icon;
-  String? get message;
-  bool get ignore;
+  String get code => throw _privateConstructorUsedError;
+  Widget? get icon => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  bool get ignore => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $AttributeCopyWith<Attribute> get copyWith;
+  $AttributeCopyWith<Attribute> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -163,14 +167,15 @@ abstract class _Attribute implements Attribute {
       bool ignore}) = _$_Attribute;
 
   @override
-  String get code;
+  String get code => throw _privateConstructorUsedError;
   @override
-  Widget? get icon;
+  Widget? get icon => throw _privateConstructorUsedError;
   @override
-  String? get message;
+  String? get message => throw _privateConstructorUsedError;
   @override
-  bool get ignore;
+  bool get ignore => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AttributeCopyWith<_Attribute> get copyWith;
+  _$AttributeCopyWith<_Attribute> get copyWith =>
+      throw _privateConstructorUsedError;
 }

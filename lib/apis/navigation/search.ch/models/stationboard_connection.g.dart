@@ -6,13 +6,13 @@ part of 'stationboard_connection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_StationboardConnection _$_$_StationboardConnectionFromJson(
+_$_SbbStationboardConnection _$_$_SbbStationboardConnectionFromJson(
     Map<String, dynamic> json) {
-  return _$_StationboardConnection(
+  return _$_SbbStationboardConnection(
     time: DateTime.parse(json['time'] as String),
     type: _$enumDecode(_$VehicleEnumMap, json['type']),
     color: json['color'] as String,
-    terminal: Stop.fromJson(json['terminal'] as Map<String, dynamic>),
+    terminal: SbbStop.fromJson(json['terminal'] as Map<String, dynamic>),
     line: json['line'] as String?,
     operator_: json['operator'] as String?,
     number: json['number'] as String? ?? '',
@@ -27,8 +27,8 @@ _$_StationboardConnection _$_$_StationboardConnectionFromJson(
   );
 }
 
-Map<String, dynamic> _$_$_StationboardConnectionToJson(
-        _$_StationboardConnection instance) =>
+Map<String, dynamic> _$_$_SbbStationboardConnectionToJson(
+        _$_SbbStationboardConnection instance) =>
     <String, dynamic>{
       'time': instance.time.toIso8601String(),
       'type': _$VehicleEnumMap[instance.type],

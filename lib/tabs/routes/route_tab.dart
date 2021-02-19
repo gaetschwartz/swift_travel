@@ -14,7 +14,6 @@ import 'package:pedantic/pedantic.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/blocs/location/location.dart';
@@ -513,7 +512,7 @@ class _RoutePageState extends State<RoutePage> {
             child: Stack(
               alignment: Alignment.centerRight,
               children: [
-                TypeAheadField<SbbCompletion>(
+                TypeAheadField<Completion>(
                   key: const Key('route-first-textfield-key'),
                   debounceDuration: const Duration(milliseconds: 250),
                   textFieldConfiguration: TextFieldConfiguration(
@@ -617,7 +616,7 @@ class _RoutePageState extends State<RoutePage> {
             child: Stack(
               alignment: Alignment.centerRight,
               children: [
-                TypeAheadField<SbbCompletion>(
+                TypeAheadField<Completion>(
                   key: const Key('route-second-textfield-key'),
                   suggestionsBoxDecoration: _suggestionsBoxDecoration,
                   debounceDuration: const Duration(milliseconds: 250),
@@ -735,7 +734,8 @@ class RoutesView extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
-                          child: _locationNotFound.hasMatch(routes.messages.first)
+                          child: routes.messages.isEmpty ||
+                                  _locationNotFound.hasMatch(routes.messages.first)
                               ? Text(
                                   "You don't seem to be in a supported area.",
                                   style: Theme.of(context).textTheme.headline6,

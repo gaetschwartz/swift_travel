@@ -97,13 +97,6 @@ void main() {
           expect(icon, anyElement(findsOneWidget));
         }
       });
-
-      test('make sure getIcon throws when null (deprecated)', () {
-        Widget getIcon() => CffIcon.getIcon(null);
-
-        expect(getIcon, returnsNormally);
-        expect(getIcon(), isNotNull);
-      });
     });
   });
 }

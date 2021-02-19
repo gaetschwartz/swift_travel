@@ -9,9 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/apis/data.sbb.ch/data_sbb_ch.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
 final liveRouteControllerProvider =
@@ -268,7 +267,7 @@ class LiveRouteController extends ChangeNotifier {
       legs.add(await _computeLeg(e));
     }
 
-    _connection = _connection!.copyWith(legs: legs);
+    _connection = _connection!.copyWithLegs(legs);
     _isReady = true;
     notifyListeners();
     log('Done computing routes');
@@ -283,7 +282,7 @@ class LiveRouteController extends ChangeNotifier {
       if (pos == null) {
         return leg;
       } else {
-        return leg.copyWith(
+        return leg.copyWithLatLon(
           lat: pos.lat,
           lon: pos.long,
         );

@@ -351,10 +351,12 @@ packages:
   freezed:
     dependency: "direct dev"
     description:
-      name: freezed
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.13.0-nullsafety.2"
+      path: "packages/freezed"
+      ref: HEAD
+      resolved-ref: dd48a2a9d557180b3ad3c38eda8bf6d2f07d640b
+      url: "https://github.com/gaetschwartz/freezed-1"
+    source: git
+    version: "0.14.0-nullsafety.0"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -478,7 +480,7 @@ packages:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   lint:
     dependency: "direct dev"
     description:

@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/history.dart';
@@ -18,7 +17,6 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
-import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:theming/responsive.dart';
 
 const _heroTag = 0xabcd;
@@ -137,7 +135,7 @@ class _SearchPageState extends State<SearchPage> {
       final results =
           await Future.wait([api.complete(query), Future.microtask(() => getPrediction(query))]);
 
-      final compls = results[0]! as List<SbbCompletion>;
+      final compls = results[0]! as List<Completion>;
       final pred = results[1] as String?;
 
       final completionsWithFavs = completeWithFavorites(
@@ -225,7 +223,7 @@ class _Results extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  final void Function(SbbCompletion completion) onTap;
+  final void Function(Completion completion) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -301,8 +299,8 @@ class _SuggestedTile extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
-  final SbbCompletion suggestion;
-  final ValueChanged<SbbCompletion>? onTap;
+  final Completion suggestion;
+  final ValueChanged<Completion>? onTap;
 
   Widget buildIcon(BuildContext context) {
     switch (suggestion.origin) {
@@ -319,7 +317,7 @@ class _SuggestedTile extends StatelessWidget {
           color: IconTheme.of(context).color,
         );
       case DataOrigin.data:
-        return CffIcon.fromIconClass(suggestion.iconClass, size: 20);
+        return suggestion.getIcon(size: 20);
       case DataOrigin.currentLocation:
         return Icon(
           CupertinoIcons.location_fill,

@@ -8,6 +8,9 @@ part of 'sncf_place.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 SncfPlace _$SncfPlaceFromJson(Map<String, dynamic> json) {
   return _SncfPlace.fromJson(json);
 }
@@ -20,14 +23,16 @@ class _$SncfPlaceTearOff {
       {String? embeddedType,
       int? quality,
       SncfAdministrativeRegion? administrativeRegion,
-      String? name,
-      String? id}) {
+      required String name,
+      String? id,
+      String? favoriteName}) {
     return _SncfPlace(
       embeddedType: embeddedType,
       quality: quality,
       administrativeRegion: administrativeRegion,
       name: name,
       id: id,
+      favoriteName: favoriteName,
     );
   }
 
@@ -41,15 +46,18 @@ const $SncfPlace = _$SncfPlaceTearOff();
 
 /// @nodoc
 mixin _$SncfPlace {
-  String? get embeddedType;
-  int? get quality;
-  SncfAdministrativeRegion? get administrativeRegion;
-  String? get name;
-  String? get id;
+  String? get embeddedType => throw _privateConstructorUsedError;
+  int? get quality => throw _privateConstructorUsedError;
+  SncfAdministrativeRegion? get administrativeRegion =>
+      throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get favoriteName => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SncfPlaceCopyWith<SncfPlace> get copyWith;
+  $SncfPlaceCopyWith<SncfPlace> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -60,8 +68,9 @@ abstract class $SncfPlaceCopyWith<$Res> {
       {String? embeddedType,
       int? quality,
       SncfAdministrativeRegion? administrativeRegion,
-      String? name,
-      String? id});
+      String name,
+      String? id,
+      String? favoriteName});
 
   $SncfAdministrativeRegionCopyWith<$Res>? get administrativeRegion;
 }
@@ -81,6 +90,7 @@ class _$SncfPlaceCopyWithImpl<$Res> implements $SncfPlaceCopyWith<$Res> {
     Object? administrativeRegion = freezed,
     Object? name = freezed,
     Object? id = freezed,
+    Object? favoriteName = freezed,
   }) {
     return _then(_value.copyWith(
       embeddedType: embeddedType == freezed
@@ -90,8 +100,11 @@ class _$SncfPlaceCopyWithImpl<$Res> implements $SncfPlaceCopyWith<$Res> {
       administrativeRegion: administrativeRegion == freezed
           ? _value.administrativeRegion
           : administrativeRegion as SncfAdministrativeRegion?,
-      name: name == freezed ? _value.name : name as String?,
+      name: name == freezed ? _value.name : name as String,
       id: id == freezed ? _value.id : id as String?,
+      favoriteName: favoriteName == freezed
+          ? _value.favoriteName
+          : favoriteName as String?,
     ));
   }
 
@@ -118,8 +131,9 @@ abstract class _$SncfPlaceCopyWith<$Res> implements $SncfPlaceCopyWith<$Res> {
       {String? embeddedType,
       int? quality,
       SncfAdministrativeRegion? administrativeRegion,
-      String? name,
-      String? id});
+      String name,
+      String? id,
+      String? favoriteName});
 
   @override
   $SncfAdministrativeRegionCopyWith<$Res>? get administrativeRegion;
@@ -141,6 +155,7 @@ class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
     Object? administrativeRegion = freezed,
     Object? name = freezed,
     Object? id = freezed,
+    Object? favoriteName = freezed,
   }) {
     return _then(_SncfPlace(
       embeddedType: embeddedType == freezed
@@ -150,8 +165,11 @@ class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
       administrativeRegion: administrativeRegion == freezed
           ? _value.administrativeRegion
           : administrativeRegion as SncfAdministrativeRegion?,
-      name: name == freezed ? _value.name : name as String?,
+      name: name == freezed ? _value.name : name as String,
       id: id == freezed ? _value.id : id as String?,
+      favoriteName: favoriteName == freezed
+          ? _value.favoriteName
+          : favoriteName as String?,
     ));
   }
 }
@@ -159,13 +177,15 @@ class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 
 /// @nodoc
-class _$_SncfPlace implements _SncfPlace {
-  _$_SncfPlace(
+class _$_SncfPlace extends _SncfPlace {
+  const _$_SncfPlace(
       {this.embeddedType,
       this.quality,
       this.administrativeRegion,
-      this.name,
-      this.id});
+      required this.name,
+      this.id,
+      this.favoriteName})
+      : super._();
 
   factory _$_SncfPlace.fromJson(Map<String, dynamic> json) =>
       _$_$_SncfPlaceFromJson(json);
@@ -177,13 +197,15 @@ class _$_SncfPlace implements _SncfPlace {
   @override
   final SncfAdministrativeRegion? administrativeRegion;
   @override
-  final String? name;
+  final String name;
   @override
   final String? id;
+  @override
+  final String? favoriteName;
 
   @override
   String toString() {
-    return 'SncfPlace(embeddedType: $embeddedType, quality: $quality, administrativeRegion: $administrativeRegion, name: $name, id: $id)';
+    return 'SncfPlace(embeddedType: $embeddedType, quality: $quality, administrativeRegion: $administrativeRegion, name: $name, id: $id, favoriteName: $favoriteName)';
   }
 
   @override
@@ -202,7 +224,10 @@ class _$_SncfPlace implements _SncfPlace {
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)));
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.favoriteName, favoriteName) ||
+                const DeepCollectionEquality()
+                    .equals(other.favoriteName, favoriteName)));
   }
 
   @override
@@ -212,7 +237,8 @@ class _$_SncfPlace implements _SncfPlace {
       const DeepCollectionEquality().hash(quality) ^
       const DeepCollectionEquality().hash(administrativeRegion) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(id);
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(favoriteName);
 
   @JsonKey(ignore: true)
   @override
@@ -225,28 +251,34 @@ class _$_SncfPlace implements _SncfPlace {
   }
 }
 
-abstract class _SncfPlace implements SncfPlace {
-  factory _SncfPlace(
+abstract class _SncfPlace extends SncfPlace {
+  const _SncfPlace._() : super._();
+  const factory _SncfPlace(
       {String? embeddedType,
       int? quality,
       SncfAdministrativeRegion? administrativeRegion,
-      String? name,
-      String? id}) = _$_SncfPlace;
+      required String name,
+      String? id,
+      String? favoriteName}) = _$_SncfPlace;
 
   factory _SncfPlace.fromJson(Map<String, dynamic> json) =
       _$_SncfPlace.fromJson;
 
   @override
-  String? get embeddedType;
+  String? get embeddedType => throw _privateConstructorUsedError;
   @override
-  int? get quality;
+  int? get quality => throw _privateConstructorUsedError;
   @override
-  SncfAdministrativeRegion? get administrativeRegion;
+  SncfAdministrativeRegion? get administrativeRegion =>
+      throw _privateConstructorUsedError;
   @override
-  String? get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String? get id;
+  String? get id => throw _privateConstructorUsedError;
+  @override
+  String? get favoriteName => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SncfPlaceCopyWith<_SncfPlace> get copyWith;
+  _$SncfPlaceCopyWith<_SncfPlace> get copyWith =>
+      throw _privateConstructorUsedError;
 }

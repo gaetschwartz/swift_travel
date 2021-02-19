@@ -8,6 +8,9 @@ part of 'cache.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 LineCacheEntry _$LineCacheEntryFromJson(Map<String, dynamic> json) {
   return _LineCacheEntry.fromJson(json);
 }
@@ -39,18 +42,19 @@ const $LineCacheEntry = _$LineCacheEntryTearOff();
 
 /// @nodoc
 mixin _$LineCacheEntry {
-  DateTime get timestamp;
-  String get stop;
-  List<Line> get lines;
+  DateTime get timestamp => throw _privateConstructorUsedError;
+  String get stop => throw _privateConstructorUsedError;
+  List<Line> get lines => throw _privateConstructorUsedError;
 
   /// Time to live for this entry in minutes.
   ///
   /// Defaults to `7 days`.
-  int get ttl;
+  int get ttl => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LineCacheEntryCopyWith<LineCacheEntry> get copyWith;
+  $LineCacheEntryCopyWith<LineCacheEntry> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -203,20 +207,21 @@ abstract class _LineCacheEntry implements LineCacheEntry {
       _$_LineCacheEntry.fromJson;
 
   @override
-  DateTime get timestamp;
+  DateTime get timestamp => throw _privateConstructorUsedError;
   @override
-  String get stop;
+  String get stop => throw _privateConstructorUsedError;
   @override
-  List<Line> get lines;
+  List<Line> get lines => throw _privateConstructorUsedError;
   @override
 
   /// Time to live for this entry in minutes.
   ///
   /// Defaults to `7 days`.
-  int get ttl;
+  int get ttl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LineCacheEntryCopyWith<_LineCacheEntry> get copyWith;
+  _$LineCacheEntryCopyWith<_LineCacheEntry> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 Line _$LineFromJson(Map<String, dynamic> json) {
@@ -244,12 +249,12 @@ const $Line = _$LineTearOff();
 
 /// @nodoc
 mixin _$Line {
-  String? get line;
-  String get colors;
+  String? get line => throw _privateConstructorUsedError;
+  String get colors => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LineCopyWith<Line> get copyWith;
+  $LineCopyWith<Line> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -360,10 +365,10 @@ abstract class _Line implements Line {
   factory _Line.fromJson(Map<String, dynamic> json) = _$_Line.fromJson;
 
   @override
-  String? get line;
+  String? get line => throw _privateConstructorUsedError;
   @override
-  String get colors;
+  String get colors => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LineCopyWith<_Line> get copyWith;
+  _$LineCopyWith<_Line> get copyWith => throw _privateConstructorUsedError;
 }

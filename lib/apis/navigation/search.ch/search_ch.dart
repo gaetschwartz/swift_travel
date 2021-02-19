@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
@@ -92,7 +93,7 @@ class SearchChApi extends NavigationApi {
   }
 
   @override
-  Future<CffStationboard> stationboard(String stopName,
+  Future<SbbStationboard> stationboard(String stopName,
       {DateTime? when,
       bool arrival = false,
       int? limit = 32,
@@ -121,12 +122,12 @@ class SearchChApi extends NavigationApi {
     }
     final decode = await Future.microtask(() => jsonDecode(response.body) as Map<String, dynamic>);
 
-    final cffStationboard = CffStationboard.parse(decode);
+    final cffStationboard = SbbStationboard.parse(decode);
     return cffStationboard.map((value) => value.copyWith(stopName: stopName), error: (e) => e);
   }
 
   @override
-  Future<CffRoute> route(
+  Future<NavRoute> route(
     String departure,
     String arrival, {
     required DateTime date,
@@ -154,7 +155,7 @@ class SearchChApi extends NavigationApi {
   }
 
   @override
-  Future<CffRoute> rawRoute(Uri query) async {
+  Future<NavRoute> rawRoute(Uri query) async {
     final response = await _client.get(query, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve raw route: ${response.body}");

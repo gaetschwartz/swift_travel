@@ -8,6 +8,9 @@ part of 'geo_models.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 GeoResponse _$GeoResponseFromJson(Map<String, dynamic> json) {
   return _GeoResponse.fromJson(json);
 }
@@ -32,11 +35,12 @@ const $GeoResponse = _$GeoResponseTearOff();
 
 /// @nodoc
 mixin _$GeoResponse {
-  List<GeoResult> get results;
+  List<GeoResult> get results => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $GeoResponseCopyWith<GeoResponse> get copyWith;
+  $GeoResponseCopyWith<GeoResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -142,10 +146,11 @@ abstract class _GeoResponse implements GeoResponse {
       _$_GeoResponse.fromJson;
 
   @override
-  List<GeoResult> get results;
+  List<GeoResult> get results => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$GeoResponseCopyWith<_GeoResponse> get copyWith;
+  _$GeoResponseCopyWith<_GeoResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 GeoAttr _$GeoAttrFromJson(Map<String, dynamic> json) {
@@ -197,24 +202,24 @@ const $GeoAttr = _$GeoAttrTearOff();
 
 /// @nodoc
 mixin _$GeoAttr {
-  String? get origin;
-  String? get geomQuadindex;
-  int? get zoomlevel;
-  String? get featureId;
-  double? get lon;
-  String? get detail;
-  int? get rank;
-  String? get geomStBox2d;
-  double? get lat;
+  String? get origin => throw _privateConstructorUsedError;
+  String? get geomQuadindex => throw _privateConstructorUsedError;
+  int? get zoomlevel => throw _privateConstructorUsedError;
+  String? get featureId => throw _privateConstructorUsedError;
+  double? get lon => throw _privateConstructorUsedError;
+  String? get detail => throw _privateConstructorUsedError;
+  int? get rank => throw _privateConstructorUsedError;
+  String? get geomStBox2d => throw _privateConstructorUsedError;
+  double? get lat => throw _privateConstructorUsedError;
   @JsonKey(name: 'num')
-  int? get number;
-  double? get y;
-  double? get x;
-  String? get label;
+  int? get number => throw _privateConstructorUsedError;
+  double? get y => throw _privateConstructorUsedError;
+  double? get x => throw _privateConstructorUsedError;
+  String? get label => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $GeoAttrCopyWith<GeoAttr> get copyWith;
+  $GeoAttrCopyWith<GeoAttr> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -487,35 +492,36 @@ abstract class _GeoAttr implements GeoAttr {
   factory _GeoAttr.fromJson(Map<String, dynamic> json) = _$_GeoAttr.fromJson;
 
   @override
-  String? get origin;
+  String? get origin => throw _privateConstructorUsedError;
   @override
-  String? get geomQuadindex;
+  String? get geomQuadindex => throw _privateConstructorUsedError;
   @override
-  int? get zoomlevel;
+  int? get zoomlevel => throw _privateConstructorUsedError;
   @override
-  String? get featureId;
+  String? get featureId => throw _privateConstructorUsedError;
   @override
-  double? get lon;
+  double? get lon => throw _privateConstructorUsedError;
   @override
-  String? get detail;
+  String? get detail => throw _privateConstructorUsedError;
   @override
-  int? get rank;
+  int? get rank => throw _privateConstructorUsedError;
   @override
-  String? get geomStBox2d;
+  String? get geomStBox2d => throw _privateConstructorUsedError;
   @override
-  double? get lat;
+  double? get lat => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'num')
-  int? get number;
+  int? get number => throw _privateConstructorUsedError;
   @override
-  double? get y;
+  double? get y => throw _privateConstructorUsedError;
   @override
-  double? get x;
+  double? get x => throw _privateConstructorUsedError;
   @override
-  String? get label;
+  String? get label => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$GeoAttrCopyWith<_GeoAttr> get copyWith;
+  _$GeoAttrCopyWith<_GeoAttr> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 GeoResult _$GeoResultFromJson(Map<String, dynamic> json) {
@@ -544,13 +550,14 @@ const $GeoResult = _$GeoResultTearOff();
 
 /// @nodoc
 mixin _$GeoResult {
-  int? get id;
-  int? get weight;
-  GeoAttr? get attrs;
+  int? get id => throw _privateConstructorUsedError;
+  int? get weight => throw _privateConstructorUsedError;
+  GeoAttr? get attrs => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $GeoResultCopyWith<GeoResult> get copyWith;
+  $GeoResultCopyWith<GeoResult> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -689,14 +696,15 @@ abstract class _GeoResult implements GeoResult {
       _$_GeoResult.fromJson;
 
   @override
-  int? get id;
+  int? get id => throw _privateConstructorUsedError;
   @override
-  int? get weight;
+  int? get weight => throw _privateConstructorUsedError;
   @override
-  GeoAttr? get attrs;
+  GeoAttr? get attrs => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$GeoResultCopyWith<_GeoResult> get copyWith;
+  _$GeoResultCopyWith<_GeoResult> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 GeoError _$GeoErrorFromJson(Map<String, dynamic> json) {
@@ -725,13 +733,14 @@ const $GeoError = _$GeoErrorTearOff();
 
 /// @nodoc
 mixin _$GeoError {
-  String? get status;
-  String? get detail;
-  int? get code;
+  String? get status => throw _privateConstructorUsedError;
+  String? get detail => throw _privateConstructorUsedError;
+  int? get code => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $GeoErrorCopyWith<GeoError> get copyWith;
+  $GeoErrorCopyWith<GeoError> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -852,12 +861,13 @@ abstract class _GeoError implements GeoError {
   factory _GeoError.fromJson(Map<String, dynamic> json) = _$_GeoError.fromJson;
 
   @override
-  String? get status;
+  String? get status => throw _privateConstructorUsedError;
   @override
-  String? get detail;
+  String? get detail => throw _privateConstructorUsedError;
   @override
-  int? get code;
+  int? get code => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$GeoErrorCopyWith<_GeoError> get copyWith;
+  _$GeoErrorCopyWith<_GeoError> get copyWith =>
+      throw _privateConstructorUsedError;
 }

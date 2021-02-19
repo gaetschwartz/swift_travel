@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
@@ -29,9 +29,6 @@ class NavigationApiFactory<T extends NavigationApi> {
 abstract class NavigationApi {
   Locale locale = const Locale('en');
 
-  @visibleForOverriding
-  NavigationApi();
-
   static NavigationApiFactory getFactory(NavigationApiType api) {
     switch (api) {
       case NavigationApiType.sncf:
@@ -41,7 +38,7 @@ abstract class NavigationApi {
     }
   }
 
-  Future<List<SbbCompletion>> complete(
+  Future<List<Completion>> complete(
     String string, {
     bool showCoordinates,
     bool showIds,
@@ -49,7 +46,7 @@ abstract class NavigationApi {
     bool filterNull,
   });
 
-  Future<List<SbbCompletion>> findStation(
+  Future<List<Completion>> findStation(
     double lat,
     double lon, {
     int accuracy,
@@ -57,7 +54,7 @@ abstract class NavigationApi {
     bool showIds,
   });
 
-  Future<CffStationboard> stationboard(
+  Future<SbbStationboard> stationboard(
     String stopName, {
     DateTime when,
     bool arrival,
@@ -69,7 +66,7 @@ abstract class NavigationApi {
     List<TransportationTypes> transportationTypes,
   });
 
-  Future<CffRoute> route(
+  Future<NavRoute> route(
     String departure,
     String arrival, {
     required DateTime date,
@@ -81,5 +78,5 @@ abstract class NavigationApi {
 
   void dispose();
 
-  Future<CffRoute> rawRoute(Uri query);
+  Future<NavRoute> rawRoute(Uri query);
 }

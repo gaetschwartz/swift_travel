@@ -11,9 +11,9 @@ const _kMaxFavoritesCount = 3;
 const _kMaxHistoryCount = 3;
 
 /// Add similar favorites to the completions
-List<SbbCompletion> completeWithFavorites({
+List<Completion> completeWithFavorites({
   required Iterable<FavoriteStop?> favorites,
-  required List<SbbCompletion> completions,
+  required List<Completion> completions,
   required String query,
   required List<LocalRoute> history,
   String? currentLocationString,

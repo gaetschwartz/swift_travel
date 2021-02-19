@@ -9,11 +9,14 @@ part of 'route_states.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$RouteStatesTearOff {
   const _$RouteStatesTearOff();
 
-  RSData call(CffRoute routes) {
+  RSData call(NavRoute routes) {
     return RSData(
       routes,
     );
@@ -53,17 +56,18 @@ const $RouteStates = _$RouteStatesTearOff();
 mixin _$RouteStates {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CffRoute routes) $default, {
+    TResult Function(NavRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
     required TResult Function(Object exception) exception,
     required TResult Function() empty,
     required TResult Function() loading,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CffRoute routes)? $default, {
+    TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -71,7 +75,8 @@ mixin _$RouteStates {
     TResult Function()? empty,
     TResult Function()? loading,
     required TResult orElse(),
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(RSData value) $default, {
@@ -83,7 +88,8 @@ mixin _$RouteStates {
     required TResult Function(RSException value) exception,
     required TResult Function(RSEmpty value) empty,
     required TResult Function(RSLoading value) loading,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(RSData value)? $default, {
@@ -95,7 +101,8 @@ mixin _$RouteStates {
     TResult Function(RSEmpty value)? empty,
     TResult Function(RSLoading value)? loading,
     required TResult orElse(),
-  });
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -118,9 +125,7 @@ class _$RouteStatesCopyWithImpl<$Res> implements $RouteStatesCopyWith<$Res> {
 abstract class $RSDataCopyWith<$Res> {
   factory $RSDataCopyWith(RSData value, $Res Function(RSData) then) =
       _$RSDataCopyWithImpl<$Res>;
-  $Res call({CffRoute routes});
-
-  $CffRouteCopyWith<$Res> get routes;
+  $Res call({NavRoute routes});
 }
 
 /// @nodoc
@@ -137,15 +142,8 @@ class _$RSDataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
     Object? routes = freezed,
   }) {
     return _then(RSData(
-      routes == freezed ? _value.routes : routes as CffRoute,
+      routes == freezed ? _value.routes : routes as NavRoute,
     ));
-  }
-
-  @override
-  $CffRouteCopyWith<$Res> get routes {
-    return $CffRouteCopyWith<$Res>(_value.routes, (value) {
-      return _then(_value.copyWith(routes: value));
-    });
   }
 }
 
@@ -154,7 +152,7 @@ class _$RSData implements RSData {
   const _$RSData(this.routes);
 
   @override
-  final CffRoute routes;
+  final NavRoute routes;
 
   @override
   String toString() {
@@ -181,7 +179,7 @@ class _$RSData implements RSData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CffRoute routes) $default, {
+    TResult Function(NavRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -195,7 +193,7 @@ class _$RSData implements RSData {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CffRoute routes)? $default, {
+    TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -247,11 +245,11 @@ class _$RSData implements RSData {
 }
 
 abstract class RSData implements RouteStates {
-  const factory RSData(CffRoute routes) = _$RSData;
+  const factory RSData(NavRoute routes) = _$RSData;
 
-  CffRoute get routes;
+  NavRoute get routes => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RSDataCopyWith<RSData> get copyWith;
+  $RSDataCopyWith<RSData> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -293,7 +291,7 @@ class _$RSNetworkException implements RSNetworkException {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CffRoute routes) $default, {
+    TResult Function(NavRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -307,7 +305,7 @@ class _$RSNetworkException implements RSNetworkException {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CffRoute routes)? $default, {
+    TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -405,7 +403,7 @@ class _$RSLocationPermissionNotGranted
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CffRoute routes) $default, {
+    TResult Function(NavRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -419,7 +417,7 @@ class _$RSLocationPermissionNotGranted
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CffRoute routes)? $default, {
+    TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -515,7 +513,7 @@ class _$RSMissingPluginException implements RSMissingPluginException {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CffRoute routes) $default, {
+    TResult Function(NavRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -529,7 +527,7 @@ class _$RSMissingPluginException implements RSMissingPluginException {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CffRoute routes)? $default, {
+    TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -645,7 +643,7 @@ class _$RSException implements RSException {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CffRoute routes) $default, {
+    TResult Function(NavRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -659,7 +657,7 @@ class _$RSException implements RSException {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CffRoute routes)? $default, {
+    TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -713,9 +711,10 @@ class _$RSException implements RSException {
 abstract class RSException implements RouteStates {
   const factory RSException(Object exception) = _$RSException;
 
-  Object get exception;
+  Object get exception => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RSExceptionCopyWith<RSException> get copyWith;
+  $RSExceptionCopyWith<RSException> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -754,7 +753,7 @@ class _$RSEmpty implements RSEmpty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CffRoute routes) $default, {
+    TResult Function(NavRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -768,7 +767,7 @@ class _$RSEmpty implements RSEmpty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CffRoute routes)? $default, {
+    TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,
@@ -859,7 +858,7 @@ class _$RSLoading implements RSLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CffRoute routes) $default, {
+    TResult Function(NavRoute routes) $default, {
     required TResult Function() networkException,
     required TResult Function() locationPermissionNotGranted,
     required TResult Function() missingPluginException,
@@ -873,7 +872,7 @@ class _$RSLoading implements RSLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CffRoute routes)? $default, {
+    TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
     TResult Function()? locationPermissionNotGranted,
     TResult Function()? missingPluginException,

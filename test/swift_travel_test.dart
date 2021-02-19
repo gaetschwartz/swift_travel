@@ -132,7 +132,7 @@ void main() {
       final route1 =
           LocalRoute('from', 'to', displayName: 'name', timestamp: MockableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
-          const RouteConnection(from: 'from', to: 'to', depDelay: 0),
+          const SbbRouteConnection(from: 'from', to: 'to', depDelay: 0),
           displayName: 'name',
           timestamp: MockableDateTime.now());
       final route3 = LocalRoute.now('from', 'to', displayName: 'name');
@@ -151,7 +151,7 @@ void main() {
     test('favoriteStop', () {
       const stop1 = FavoriteStop(stop: geneva, name: geneva);
       final stop2 = FavoriteStop.fromStop(geneva);
-      final stop3 = FavoriteStop.fromCompletion(const SbbCompletion(label: geneva));
+      final stop3 = FavoriteStop.fromCompletion(SbbCompletion(label: geneva));
       final stop4 = FavoriteStop.fromJson(<String, Object>{'stop': geneva, 'name': geneva});
 
       expect(stop1, equals(stop2));
@@ -176,7 +176,7 @@ void main() {
         FavoriteStop.fromStop('Lausanne Aéroport'),
       ],
       completions: [
-        const SbbCompletion(label: geneva),
+        SbbCompletion(label: geneva),
       ],
       query: geneva,
       currentLocationString: currentLocation,
@@ -186,13 +186,13 @@ void main() {
     );
 
     expect(c, [
-      const SbbCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
+      SbbCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
       SbbCompletion(label: route1.from, origin: DataOrigin.history),
       SbbCompletion(label: route1.to, origin: DataOrigin.history),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva)),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare')),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord')),
-      const SbbCompletion(label: 'Genève')
+      SbbCompletion(label: 'Genève')
     ]);
   });
 

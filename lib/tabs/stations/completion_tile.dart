@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
@@ -27,18 +27,18 @@ import 'package:vibration/vibration.dart';
 enum _Actions { favorite }
 
 class SbbCompletionTile extends ConsumerWidget {
-  const SbbCompletionTile({
+  const SbbCompletionTile(
+    this.sugg, {
     Key? key,
-    required this.sugg,
   }) : super(key: key);
 
-  final SbbCompletion sugg;
+  final Completion sugg;
 
   static const _kRadius = BorderRadius.all(Radius.circular(24));
   @override
   Widget build(BuildContext context, Reader watch) {
-    final iconClass = sugg.iconClass;
-    final isPrivate = CffIcon.isPrivate(iconClass);
+    final iconClass = sugg.getIcon();
+    final isPrivate = CffIcon.isPrivate(sugg.type);
     final store = watch(storeProvider) as FavoritesSharedPreferencesStore;
     final favStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
     final isFav = sugg.favoriteName != null;
@@ -61,6 +61,7 @@ class SbbCompletionTile extends ConsumerWidget {
         borderRadius: _kRadius,
       ),
       child: ListTile(
+        dense: true,
         shape: const RoundedRectangleBorder(borderRadius: _kRadius),
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +69,7 @@ class SbbCompletionTile extends ConsumerWidget {
             if (isFav)
               isDarwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star)
             else
-              CffIcon.fromIconClass(iconClass),
+              iconClass,
           ],
         ),
         title: Text(isFav ? sugg.favoriteName! : sugg.label),
@@ -158,7 +159,7 @@ class _LinesWidget extends StatefulWidget {
     required this.sugg,
   }) : super(key: key);
 
-  final SbbCompletion sugg;
+  final Completion sugg;
 
   @override
   __LinesWidgetState createState() => __LinesWidgetState();
@@ -178,6 +179,8 @@ class __LinesWidgetState extends State<_LinesWidget> {
   Future<void> getData() async {
     try {
       await stationboard();
+    } on UnimplementedError {
+      setState(() => lines = []);
     } catch (e, s) {
       debugPrintStack(stackTrace: s, label: e.toString());
       setState(() => lines = []);
@@ -199,7 +202,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
           .stationboard(widget.sugg.label, showSubsequentStops: false, showDelays: false)
           .timeout(const Duration(seconds: 1));
 
-      final connections = sData.map<Iterable<StationboardConnection>?>(
+      final connections = sData.map<Iterable<SbbStationboardConnection>?>(
         (board) => board.connections.where((c) => c.line != null),
         error: (e) {
           print('CffStationboardError while fetching lines: ' + e.messages.toString());

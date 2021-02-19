@@ -8,6 +8,9 @@ part of 'route.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 CffRoute _$CffRouteFromJson(Map<String, dynamic> json) {
   return _CffRoute.fromJson(json);
 }
@@ -20,7 +23,8 @@ class _$CffRouteTearOff {
       {int count = 0,
       @JsonKey(name: 'min_duration') double? minDuration,
       @JsonKey(name: 'max_duration') double? maxDuration,
-      List<RouteConnection> connections = const <RouteConnection>[],
+      @JsonKey(name: 'connections') List<SbbRouteConnection> sbbConnections =
+          const <SbbRouteConnection>[],
       List<String> messages = const <String>[],
       String? requestUrl,
       DateTime? dateTime}) {
@@ -28,7 +32,7 @@ class _$CffRouteTearOff {
       count: count,
       minDuration: minDuration,
       maxDuration: maxDuration,
-      connections: connections,
+      sbbConnections: sbbConnections,
       messages: messages,
       requestUrl: requestUrl,
       dateTime: dateTime,
@@ -45,19 +49,22 @@ const $CffRoute = _$CffRouteTearOff();
 
 /// @nodoc
 mixin _$CffRoute {
-  int get count;
+  int get count => throw _privateConstructorUsedError;
   @JsonKey(name: 'min_duration')
-  double? get minDuration;
+  double? get minDuration => throw _privateConstructorUsedError;
   @JsonKey(name: 'max_duration')
-  double? get maxDuration;
-  List<RouteConnection> get connections;
-  List<String> get messages;
-  String? get requestUrl;
-  DateTime? get dateTime;
+  double? get maxDuration => throw _privateConstructorUsedError;
+  @JsonKey(name: 'connections')
+  List<SbbRouteConnection> get sbbConnections =>
+      throw _privateConstructorUsedError;
+  List<String> get messages => throw _privateConstructorUsedError;
+  String? get requestUrl => throw _privateConstructorUsedError;
+  DateTime? get dateTime => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CffRouteCopyWith<CffRoute> get copyWith;
+  $CffRouteCopyWith<CffRoute> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -68,7 +75,7 @@ abstract class $CffRouteCopyWith<$Res> {
       {int count,
       @JsonKey(name: 'min_duration') double? minDuration,
       @JsonKey(name: 'max_duration') double? maxDuration,
-      List<RouteConnection> connections,
+      @JsonKey(name: 'connections') List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
       DateTime? dateTime});
@@ -87,7 +94,7 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
     Object? count = freezed,
     Object? minDuration = freezed,
     Object? maxDuration = freezed,
-    Object? connections = freezed,
+    Object? sbbConnections = freezed,
     Object? messages = freezed,
     Object? requestUrl = freezed,
     Object? dateTime = freezed,
@@ -98,9 +105,9 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
           minDuration == freezed ? _value.minDuration : minDuration as double?,
       maxDuration:
           maxDuration == freezed ? _value.maxDuration : maxDuration as double?,
-      connections: connections == freezed
-          ? _value.connections
-          : connections as List<RouteConnection>,
+      sbbConnections: sbbConnections == freezed
+          ? _value.sbbConnections
+          : sbbConnections as List<SbbRouteConnection>,
       messages:
           messages == freezed ? _value.messages : messages as List<String>,
       requestUrl:
@@ -119,7 +126,7 @@ abstract class _$CffRouteCopyWith<$Res> implements $CffRouteCopyWith<$Res> {
       {int count,
       @JsonKey(name: 'min_duration') double? minDuration,
       @JsonKey(name: 'max_duration') double? maxDuration,
-      List<RouteConnection> connections,
+      @JsonKey(name: 'connections') List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
       DateTime? dateTime});
@@ -139,7 +146,7 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
     Object? count = freezed,
     Object? minDuration = freezed,
     Object? maxDuration = freezed,
-    Object? connections = freezed,
+    Object? sbbConnections = freezed,
     Object? messages = freezed,
     Object? requestUrl = freezed,
     Object? dateTime = freezed,
@@ -150,9 +157,9 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
           minDuration == freezed ? _value.minDuration : minDuration as double?,
       maxDuration:
           maxDuration == freezed ? _value.maxDuration : maxDuration as double?,
-      connections: connections == freezed
-          ? _value.connections
-          : connections as List<RouteConnection>,
+      sbbConnections: sbbConnections == freezed
+          ? _value.sbbConnections
+          : sbbConnections as List<SbbRouteConnection>,
       messages:
           messages == freezed ? _value.messages : messages as List<String>,
       requestUrl:
@@ -165,15 +172,19 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 
 /// @nodoc
-class _$_CffRoute implements _CffRoute {
+class _$_CffRoute extends _CffRoute {
   const _$_CffRoute(
       {this.count = 0,
-      @JsonKey(name: 'min_duration') this.minDuration,
-      @JsonKey(name: 'max_duration') this.maxDuration,
-      this.connections = const <RouteConnection>[],
+      @JsonKey(name: 'min_duration')
+          this.minDuration,
+      @JsonKey(name: 'max_duration')
+          this.maxDuration,
+      @JsonKey(name: 'connections')
+          this.sbbConnections = const <SbbRouteConnection>[],
       this.messages = const <String>[],
       this.requestUrl,
-      this.dateTime});
+      this.dateTime})
+      : super._();
 
   factory _$_CffRoute.fromJson(Map<String, dynamic> json) =>
       _$_$_CffRouteFromJson(json);
@@ -187,9 +198,9 @@ class _$_CffRoute implements _CffRoute {
   @override
   @JsonKey(name: 'max_duration')
   final double? maxDuration;
-  @JsonKey(defaultValue: const <RouteConnection>[])
   @override
-  final List<RouteConnection> connections;
+  @JsonKey(name: 'connections')
+  final List<SbbRouteConnection> sbbConnections;
   @JsonKey(defaultValue: const <String>[])
   @override
   final List<String> messages;
@@ -200,7 +211,7 @@ class _$_CffRoute implements _CffRoute {
 
   @override
   String toString() {
-    return 'CffRoute(count: $count, minDuration: $minDuration, maxDuration: $maxDuration, connections: $connections, messages: $messages, requestUrl: $requestUrl, dateTime: $dateTime)';
+    return 'CffRoute(count: $count, minDuration: $minDuration, maxDuration: $maxDuration, sbbConnections: $sbbConnections, messages: $messages, requestUrl: $requestUrl, dateTime: $dateTime)';
   }
 
   @override
@@ -215,9 +226,9 @@ class _$_CffRoute implements _CffRoute {
             (identical(other.maxDuration, maxDuration) ||
                 const DeepCollectionEquality()
                     .equals(other.maxDuration, maxDuration)) &&
-            (identical(other.connections, connections) ||
+            (identical(other.sbbConnections, sbbConnections) ||
                 const DeepCollectionEquality()
-                    .equals(other.connections, connections)) &&
+                    .equals(other.sbbConnections, sbbConnections)) &&
             (identical(other.messages, messages) ||
                 const DeepCollectionEquality()
                     .equals(other.messages, messages)) &&
@@ -235,7 +246,7 @@ class _$_CffRoute implements _CffRoute {
       const DeepCollectionEquality().hash(count) ^
       const DeepCollectionEquality().hash(minDuration) ^
       const DeepCollectionEquality().hash(maxDuration) ^
-      const DeepCollectionEquality().hash(connections) ^
+      const DeepCollectionEquality().hash(sbbConnections) ^
       const DeepCollectionEquality().hash(messages) ^
       const DeepCollectionEquality().hash(requestUrl) ^
       const DeepCollectionEquality().hash(dateTime);
@@ -251,12 +262,13 @@ class _$_CffRoute implements _CffRoute {
   }
 }
 
-abstract class _CffRoute implements CffRoute {
+abstract class _CffRoute extends CffRoute {
+  const _CffRoute._() : super._();
   const factory _CffRoute(
       {int count,
       @JsonKey(name: 'min_duration') double? minDuration,
       @JsonKey(name: 'max_duration') double? maxDuration,
-      List<RouteConnection> connections,
+      @JsonKey(name: 'connections') List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
       DateTime? dateTime}) = _$_CffRoute;
@@ -264,22 +276,25 @@ abstract class _CffRoute implements CffRoute {
   factory _CffRoute.fromJson(Map<String, dynamic> json) = _$_CffRoute.fromJson;
 
   @override
-  int get count;
+  int get count => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'min_duration')
-  double? get minDuration;
+  double? get minDuration => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'max_duration')
-  double? get maxDuration;
+  double? get maxDuration => throw _privateConstructorUsedError;
   @override
-  List<RouteConnection> get connections;
+  @JsonKey(name: 'connections')
+  List<SbbRouteConnection> get sbbConnections =>
+      throw _privateConstructorUsedError;
   @override
-  List<String> get messages;
+  List<String> get messages => throw _privateConstructorUsedError;
   @override
-  String? get requestUrl;
+  String? get requestUrl => throw _privateConstructorUsedError;
   @override
-  DateTime? get dateTime;
+  DateTime? get dateTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CffRouteCopyWith<_CffRoute> get copyWith;
+  _$CffRouteCopyWith<_CffRoute> get copyWith =>
+      throw _privateConstructorUsedError;
 }

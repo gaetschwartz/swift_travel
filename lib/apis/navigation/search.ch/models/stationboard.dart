@@ -5,24 +5,41 @@ import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 part 'stationboard.freezed.dart';
 part 'stationboard.g.dart';
 
-@freezed
-abstract class CffStationboard with _$CffStationboard {
-  const factory CffStationboard({
-    required Stop stop,
-    required String stopName,
-    @Default(<StationboardConnection>[]) List<StationboardConnection> connections,
-    @Default(<String>[]) List<String> messages,
-  }) = CffStationboardData;
+class MySbbStationboardConverter implements JsonConverter<SbbStationboard, Map<String, dynamic>> {
+  const MySbbStationboardConverter();
 
-  const factory CffStationboard.error(List<String> messages) = CffStationboardError;
+  @override
+  SbbStationboard fromJson(Map<String, dynamic> json) {
+    if (json['runtimeType'] != null) {
+      // ignore: deprecated_member_use_from_same_package
+      return SbbStationboard.fromJson(json);
+    }
 
-  factory CffStationboard.fromJson(Map<String, dynamic> json) => _$CffStationboardFromJson(json);
-
-  factory CffStationboard.parse(Map<String, dynamic> json) {
     if (json.containsKey('messages')) {
-      return CffStationboardError.fromJson(json);
+      return SbbStationboardError.fromJson(json);
     } else {
-      return CffStationboardData.fromJson(json);
+      return SbbStationboardData.fromJson(json);
     }
   }
+
+  @override
+  Map<String, dynamic> toJson(SbbStationboard data) => data.toJson();
+}
+
+const _converter = MySbbStationboardConverter();
+
+@freezed
+class SbbStationboard with _$SbbStationboard {
+  const factory SbbStationboard({
+    required SbbStop stop,
+    required String stopName,
+    @Default(<SbbStationboardConnection>[]) List<SbbStationboardConnection> connections,
+    @Default(<String>[]) List<String> messages,
+  }) = SbbStationboardData;
+
+  const factory SbbStationboard.error(List<String> messages) = SbbStationboardError;
+
+  @Deprecated('Use SbbStationboard.parse')
+  factory SbbStationboard.fromJson(Map<String, dynamic> json) => _$SbbStationboardFromJson(json);
+  factory SbbStationboard.parse(Map<String, dynamic> json) => _converter.fromJson(json);
 }

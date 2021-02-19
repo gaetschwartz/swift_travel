@@ -8,6 +8,9 @@ part of 'sbb_models.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 LatLong _$LatLongFromJson(Map<String, dynamic> json) {
   return _LatLong.fromJson(json);
 }
@@ -33,12 +36,12 @@ const $LatLong = _$LatLongTearOff();
 
 /// @nodoc
 mixin _$LatLong {
-  double get lat;
-  double get long;
+  double get lat => throw _privateConstructorUsedError;
+  double get long => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LatLongCopyWith<LatLong> get copyWith;
+  $LatLongCopyWith<LatLong> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -149,12 +152,13 @@ abstract class _LatLong implements LatLong {
   factory _LatLong.fromJson(Map<String, dynamic> json) = _$_LatLong.fromJson;
 
   @override
-  double get lat;
+  double get lat => throw _privateConstructorUsedError;
   @override
-  double get long;
+  double get long => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LatLongCopyWith<_LatLong> get copyWith;
+  _$LatLongCopyWith<_LatLong> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 SbbStationResponse _$SbbStationResponseFromJson(Map<String, dynamic> json) {
@@ -184,13 +188,14 @@ const $SbbStationResponse = _$SbbStationResponseTearOff();
 
 /// @nodoc
 mixin _$SbbStationResponse {
-  int? get nhits;
-  SbbParameters? get parameters;
-  List<SbbRecord>? get records;
+  int? get nhits => throw _privateConstructorUsedError;
+  SbbParameters? get parameters => throw _privateConstructorUsedError;
+  List<SbbRecord>? get records => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbStationResponseCopyWith<SbbStationResponse> get copyWith;
+  $SbbStationResponseCopyWith<SbbStationResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -343,14 +348,15 @@ abstract class _SbbStationResponse implements SbbStationResponse {
       _$_SbbStationResponse.fromJson;
 
   @override
-  int? get nhits;
+  int? get nhits => throw _privateConstructorUsedError;
   @override
-  SbbParameters? get parameters;
+  SbbParameters? get parameters => throw _privateConstructorUsedError;
   @override
-  List<SbbRecord>? get records;
+  List<SbbRecord>? get records => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SbbStationResponseCopyWith<_SbbStationResponse> get copyWith;
+  _$SbbStationResponseCopyWith<_SbbStationResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 SbbParameters _$SbbParametersFromJson(Map<String, dynamic> json) {
@@ -388,16 +394,17 @@ const $SbbParameters = _$SbbParametersTearOff();
 
 /// @nodoc
 mixin _$SbbParameters {
-  String? get dataset;
-  String? get timezone;
-  String? get q;
-  int? get rows;
-  int? get start;
-  String? get format;
+  String? get dataset => throw _privateConstructorUsedError;
+  String? get timezone => throw _privateConstructorUsedError;
+  String? get q => throw _privateConstructorUsedError;
+  int? get rows => throw _privateConstructorUsedError;
+  int? get start => throw _privateConstructorUsedError;
+  String? get format => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbParametersCopyWith<SbbParameters> get copyWith;
+  $SbbParametersCopyWith<SbbParameters> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -577,20 +584,21 @@ abstract class _SbbParameters implements SbbParameters {
       _$_SbbParameters.fromJson;
 
   @override
-  String? get dataset;
+  String? get dataset => throw _privateConstructorUsedError;
   @override
-  String? get timezone;
+  String? get timezone => throw _privateConstructorUsedError;
   @override
-  String? get q;
+  String? get q => throw _privateConstructorUsedError;
   @override
-  int? get rows;
+  int? get rows => throw _privateConstructorUsedError;
   @override
-  int? get start;
+  int? get start => throw _privateConstructorUsedError;
   @override
-  String? get format;
+  String? get format => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SbbParametersCopyWith<_SbbParameters> get copyWith;
+  _$SbbParametersCopyWith<_SbbParameters> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 SbbRecord _$SbbRecordFromJson(Map<String, dynamic> json) {
@@ -626,15 +634,16 @@ const $SbbRecord = _$SbbRecordTearOff();
 
 /// @nodoc
 mixin _$SbbRecord {
-  String? get datasetid;
-  String? get recordid;
-  SbbFields? get fields;
-  SbbGeometry? get geometry;
-  String? get recordTimeStanp;
+  String? get datasetid => throw _privateConstructorUsedError;
+  String? get recordid => throw _privateConstructorUsedError;
+  SbbFields? get fields => throw _privateConstructorUsedError;
+  SbbGeometry? get geometry => throw _privateConstructorUsedError;
+  String? get recordTimeStanp => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbRecordCopyWith<SbbRecord> get copyWith;
+  $SbbRecordCopyWith<SbbRecord> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -834,18 +843,19 @@ abstract class _SbbRecord implements SbbRecord {
       _$_SbbRecord.fromJson;
 
   @override
-  String? get datasetid;
+  String? get datasetid => throw _privateConstructorUsedError;
   @override
-  String? get recordid;
+  String? get recordid => throw _privateConstructorUsedError;
   @override
-  SbbFields? get fields;
+  SbbFields? get fields => throw _privateConstructorUsedError;
   @override
-  SbbGeometry? get geometry;
+  SbbGeometry? get geometry => throw _privateConstructorUsedError;
   @override
-  String? get recordTimeStanp;
+  String? get recordTimeStanp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SbbRecordCopyWith<_SbbRecord> get copyWith;
+  _$SbbRecordCopyWith<_SbbRecord> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 SbbFields _$SbbFieldsFromJson(Map<String, dynamic> json) {
@@ -935,42 +945,43 @@ const $SbbFields = _$SbbFieldsTearOff();
 
 /// @nodoc
 mixin _$SbbFields {
-  int? get bpuic;
-  int? get isHaltestelle;
-  double? get zLv03;
-  String? get kantonsname;
-  double? get eWgs84;
-  List<double>? get geopos;
-  double? get eLv03;
-  double? get zWgs84;
-  String? get abkuerzung;
-  String? get kantonskuerzel;
-  String? get lod;
-  String? get bezirksnum;
-  String? get landIso2Geo;
-  int? get goNummer;
-  String? get bpvhVerkehrsmittelTextDe;
-  int? get kantonsnum;
-  double? get zLv95;
-  double? get nWgs84;
-  String? get bezeichnungOffiziell;
-  int? get bfsNummer;
-  String? get gemeindename;
-  double? get nLv03;
-  double? get eLv95;
-  double? get nLv95;
-  String? get goAbkuerzungDe;
-  String? get bezirksname;
-  String? get ortschaftsname;
-  String? get goBezeichnungDe;
-  String? get bpvhVerkehrsmittel;
-  int? get nummer;
-  String? get dstAbk;
-  int? get goIdentifikation;
+  int? get bpuic => throw _privateConstructorUsedError;
+  int? get isHaltestelle => throw _privateConstructorUsedError;
+  double? get zLv03 => throw _privateConstructorUsedError;
+  String? get kantonsname => throw _privateConstructorUsedError;
+  double? get eWgs84 => throw _privateConstructorUsedError;
+  List<double>? get geopos => throw _privateConstructorUsedError;
+  double? get eLv03 => throw _privateConstructorUsedError;
+  double? get zWgs84 => throw _privateConstructorUsedError;
+  String? get abkuerzung => throw _privateConstructorUsedError;
+  String? get kantonskuerzel => throw _privateConstructorUsedError;
+  String? get lod => throw _privateConstructorUsedError;
+  String? get bezirksnum => throw _privateConstructorUsedError;
+  String? get landIso2Geo => throw _privateConstructorUsedError;
+  int? get goNummer => throw _privateConstructorUsedError;
+  String? get bpvhVerkehrsmittelTextDe => throw _privateConstructorUsedError;
+  int? get kantonsnum => throw _privateConstructorUsedError;
+  double? get zLv95 => throw _privateConstructorUsedError;
+  double? get nWgs84 => throw _privateConstructorUsedError;
+  String? get bezeichnungOffiziell => throw _privateConstructorUsedError;
+  int? get bfsNummer => throw _privateConstructorUsedError;
+  String? get gemeindename => throw _privateConstructorUsedError;
+  double? get nLv03 => throw _privateConstructorUsedError;
+  double? get eLv95 => throw _privateConstructorUsedError;
+  double? get nLv95 => throw _privateConstructorUsedError;
+  String? get goAbkuerzungDe => throw _privateConstructorUsedError;
+  String? get bezirksname => throw _privateConstructorUsedError;
+  String? get ortschaftsname => throw _privateConstructorUsedError;
+  String? get goBezeichnungDe => throw _privateConstructorUsedError;
+  String? get bpvhVerkehrsmittel => throw _privateConstructorUsedError;
+  int? get nummer => throw _privateConstructorUsedError;
+  String? get dstAbk => throw _privateConstructorUsedError;
+  int? get goIdentifikation => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbFieldsCopyWith<SbbFields> get copyWith;
+  $SbbFieldsCopyWith<SbbFields> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1540,72 +1551,73 @@ abstract class _SbbFields implements SbbFields {
       _$_SbbFields.fromJson;
 
   @override
-  int? get bpuic;
+  int? get bpuic => throw _privateConstructorUsedError;
   @override
-  int? get isHaltestelle;
+  int? get isHaltestelle => throw _privateConstructorUsedError;
   @override
-  double? get zLv03;
+  double? get zLv03 => throw _privateConstructorUsedError;
   @override
-  String? get kantonsname;
+  String? get kantonsname => throw _privateConstructorUsedError;
   @override
-  double? get eWgs84;
+  double? get eWgs84 => throw _privateConstructorUsedError;
   @override
-  List<double>? get geopos;
+  List<double>? get geopos => throw _privateConstructorUsedError;
   @override
-  double? get eLv03;
+  double? get eLv03 => throw _privateConstructorUsedError;
   @override
-  double? get zWgs84;
+  double? get zWgs84 => throw _privateConstructorUsedError;
   @override
-  String? get abkuerzung;
+  String? get abkuerzung => throw _privateConstructorUsedError;
   @override
-  String? get kantonskuerzel;
+  String? get kantonskuerzel => throw _privateConstructorUsedError;
   @override
-  String? get lod;
+  String? get lod => throw _privateConstructorUsedError;
   @override
-  String? get bezirksnum;
+  String? get bezirksnum => throw _privateConstructorUsedError;
   @override
-  String? get landIso2Geo;
+  String? get landIso2Geo => throw _privateConstructorUsedError;
   @override
-  int? get goNummer;
+  int? get goNummer => throw _privateConstructorUsedError;
   @override
-  String? get bpvhVerkehrsmittelTextDe;
+  String? get bpvhVerkehrsmittelTextDe => throw _privateConstructorUsedError;
   @override
-  int? get kantonsnum;
+  int? get kantonsnum => throw _privateConstructorUsedError;
   @override
-  double? get zLv95;
+  double? get zLv95 => throw _privateConstructorUsedError;
   @override
-  double? get nWgs84;
+  double? get nWgs84 => throw _privateConstructorUsedError;
   @override
-  String? get bezeichnungOffiziell;
+  String? get bezeichnungOffiziell => throw _privateConstructorUsedError;
   @override
-  int? get bfsNummer;
+  int? get bfsNummer => throw _privateConstructorUsedError;
   @override
-  String? get gemeindename;
+  String? get gemeindename => throw _privateConstructorUsedError;
   @override
-  double? get nLv03;
+  double? get nLv03 => throw _privateConstructorUsedError;
   @override
-  double? get eLv95;
+  double? get eLv95 => throw _privateConstructorUsedError;
   @override
-  double? get nLv95;
+  double? get nLv95 => throw _privateConstructorUsedError;
   @override
-  String? get goAbkuerzungDe;
+  String? get goAbkuerzungDe => throw _privateConstructorUsedError;
   @override
-  String? get bezirksname;
+  String? get bezirksname => throw _privateConstructorUsedError;
   @override
-  String? get ortschaftsname;
+  String? get ortschaftsname => throw _privateConstructorUsedError;
   @override
-  String? get goBezeichnungDe;
+  String? get goBezeichnungDe => throw _privateConstructorUsedError;
   @override
-  String? get bpvhVerkehrsmittel;
+  String? get bpvhVerkehrsmittel => throw _privateConstructorUsedError;
   @override
-  int? get nummer;
+  int? get nummer => throw _privateConstructorUsedError;
   @override
-  String? get dstAbk;
+  String? get dstAbk => throw _privateConstructorUsedError;
   @override
-  int? get goIdentifikation;
+  int? get goIdentifikation => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SbbFieldsCopyWith<_SbbFields> get copyWith;
+  _$SbbFieldsCopyWith<_SbbFields> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 SbbGeometry _$SbbGeometryFromJson(Map<String, dynamic> json) {
@@ -1633,12 +1645,13 @@ const $SbbGeometry = _$SbbGeometryTearOff();
 
 /// @nodoc
 mixin _$SbbGeometry {
-  String? get type;
-  List<double>? get coordinates;
+  String? get type => throw _privateConstructorUsedError;
+  List<double>? get coordinates => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbGeometryCopyWith<SbbGeometry> get copyWith;
+  $SbbGeometryCopyWith<SbbGeometry> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1760,10 +1773,11 @@ abstract class _SbbGeometry implements SbbGeometry {
       _$_SbbGeometry.fromJson;
 
   @override
-  String? get type;
+  String? get type => throw _privateConstructorUsedError;
   @override
-  List<double>? get coordinates;
+  List<double>? get coordinates => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SbbGeometryCopyWith<_SbbGeometry> get copyWith;
+  _$SbbGeometryCopyWith<_SbbGeometry> get copyWith =>
+      throw _privateConstructorUsedError;
 }

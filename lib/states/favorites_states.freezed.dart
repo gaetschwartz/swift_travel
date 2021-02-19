@@ -9,6 +9,9 @@ part of 'favorites_states.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$FavoritesStatesTearOff {
   const _$FavoritesStatesTearOff();
@@ -40,27 +43,31 @@ mixin _$FavoritesStates {
     required TResult Function(List<FavoriteStop> favorites) data,
     required TResult Function() loading,
     required TResult Function(Exception exception) exception,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<FavoriteStop> favorites)? data,
     TResult Function()? loading,
     TResult Function(Exception exception)? exception,
     required TResult orElse(),
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(FavoritesStatesData value) data,
     required TResult Function(FavoritesStatesLoading value) loading,
     required TResult Function(FavoritesStatesError value) exception,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FavoritesStatesData value)? data,
     TResult Function(FavoritesStatesLoading value)? loading,
     TResult Function(FavoritesStatesError value)? exception,
     required TResult orElse(),
-  });
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -192,9 +199,10 @@ abstract class FavoritesStatesData implements FavoritesStates {
   const factory FavoritesStatesData(List<FavoriteStop> favorites) =
       _$FavoritesStatesData;
 
-  List<FavoriteStop> get favorites;
+  List<FavoriteStop> get favorites => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith;
+  $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -399,7 +407,8 @@ abstract class FavoritesStatesError implements FavoritesStates {
   const factory FavoritesStatesError(Exception exception) =
       _$FavoritesStatesError;
 
-  Exception get exception;
+  Exception get exception => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith;
+  $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith =>
+      throw _privateConstructorUsedError;
 }

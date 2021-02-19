@@ -1,15 +1,17 @@
 // ignore_for_file: unused_element
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
+import 'package:swift_travel/widgets/cff_icon.dart';
 
 part 'completion.freezed.dart';
 part 'completion.g.dart';
 
 @freezed
-abstract class SbbCompletion with _$SbbCompletion {
+class SbbCompletion with _$SbbCompletion, Completion {
   @JsonSerializable(includeIfNull: false)
-  const factory SbbCompletion({
+  factory SbbCompletion({
     required String label,
     double? dist,
     @JsonKey(name: 'iconclass') String? iconClass,
@@ -18,6 +20,7 @@ abstract class SbbCompletion with _$SbbCompletion {
     String? favoriteName,
     @Default(DataOrigin.data) DataOrigin origin,
   }) = _SbbCompletion;
+  SbbCompletion._();
 
   factory SbbCompletion.fromFavorite(FavoriteStop stop) => _SbbCompletion(
         label: stop.stop,
@@ -26,4 +29,7 @@ abstract class SbbCompletion with _$SbbCompletion {
       );
 
   factory SbbCompletion.fromJson(Map<String, dynamic> json) => _$SbbCompletionFromJson(json);
+
+  @override
+  late final Vehicle? type = CffIcon.getVehicle(iconClass);
 }

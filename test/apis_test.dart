@@ -51,8 +51,8 @@ class MockNavigationApi extends NavigationApi {
   Future<List<SbbCompletion>> complete(String? string,
       {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) {
     return Future.value([
-      const SbbCompletion(label: 'Genève'),
-      const SbbCompletion(label: 'Genève Cornavin'),
+      SbbCompletion(label: 'Genève'),
+      SbbCompletion(label: 'Genève Cornavin'),
     ]);
   }
 
@@ -63,8 +63,8 @@ class MockNavigationApi extends NavigationApi {
   Future<List<SbbCompletion>> findStation(double lat, double lon,
           {int? accuracy, bool? showCoordinates, bool? showIds}) =>
       Future.value([
-        const SbbCompletion(label: 'Genève'),
-        const SbbCompletion(label: 'Genève Cornavin'),
+        SbbCompletion(label: 'Genève'),
+        SbbCompletion(label: 'Genève Cornavin'),
       ]);
 
   @override
@@ -72,7 +72,7 @@ class MockNavigationApi extends NavigationApi {
       Future.value(CffRoute.fromJson(mockRoute!).copyWith(requestUrl: query.toString()));
 
   @override
-  Future<CffStationboard> stationboard(String stopName,
+  Future<SbbStationboard> stationboard(String stopName,
           {DateTime? when,
           bool? arrival,
           int? limit,
@@ -81,7 +81,7 @@ class MockNavigationApi extends NavigationApi {
           bool? showDelays,
           bool? showTrackchanges,
           List<TransportationTypes>? transportationTypes}) =>
-      Future.value(CffStationboard.fromJson(mockStationboard!));
+      Future.value(SbbStationboard.parse(mockStationboard!));
 
   @override
   Future<CffRoute> route(String departure, String arrival,

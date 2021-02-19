@@ -9,6 +9,9 @@ part of 'route_textfield_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$RouteTextfieldStateTearOff {
   const _$RouteTextfieldStateTearOff();
@@ -39,27 +42,31 @@ mixin _$RouteTextfieldState {
     required TResult Function() empty,
     required TResult Function(String text, bool doLoad) text,
     required TResult Function() useCurrentLocation,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? empty,
     TResult Function(String text, bool doLoad)? text,
     TResult Function()? useCurrentLocation,
     required TResult orElse(),
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(EmptyRouteState value) empty,
     required TResult Function(TextRouteState value) text,
     required TResult Function(UseCurrentLocation value) useCurrentLocation,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EmptyRouteState value)? empty,
     TResult Function(TextRouteState value)? text,
     TResult Function(UseCurrentLocation value)? useCurrentLocation,
     required TResult orElse(),
-  });
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -287,10 +294,11 @@ class _$TextRouteState implements TextRouteState {
 abstract class TextRouteState implements RouteTextfieldState {
   const factory TextRouteState(String text, {bool doLoad}) = _$TextRouteState;
 
-  String get text;
-  bool get doLoad;
+  String get text => throw _privateConstructorUsedError;
+  bool get doLoad => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TextRouteStateCopyWith<TextRouteState> get copyWith;
+  $TextRouteStateCopyWith<TextRouteState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

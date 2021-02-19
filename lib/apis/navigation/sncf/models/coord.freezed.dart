@@ -8,6 +8,9 @@ part of 'coord.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 Coord _$CoordFromJson(Map<String, dynamic> json) {
   return _Coord.fromJson(json);
 }
@@ -33,12 +36,12 @@ const $Coord = _$CoordTearOff();
 
 /// @nodoc
 mixin _$Coord {
-  String? get lat;
-  String? get lon;
+  String? get lat => throw _privateConstructorUsedError;
+  String? get lon => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CoordCopyWith<Coord> get copyWith;
+  $CoordCopyWith<Coord> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -149,10 +152,10 @@ abstract class _Coord implements Coord {
   factory _Coord.fromJson(Map<String, dynamic> json) = _$_Coord.fromJson;
 
   @override
-  String? get lat;
+  String? get lat => throw _privateConstructorUsedError;
   @override
-  String? get lon;
+  String? get lon => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CoordCopyWith<_Coord> get copyWith;
+  _$CoordCopyWith<_Coord> get copyWith => throw _privateConstructorUsedError;
 }

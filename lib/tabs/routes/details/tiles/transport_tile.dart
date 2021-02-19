@@ -1,23 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
+import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/attributes_page.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/string_utils/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:theming/responsive.dart';
 
 class TransportLegTile extends StatefulWidget {
-  const TransportLegTile({
+  const TransportLegTile(
+    this.l, {
     Key? key,
-    required this.l,
   }) : super(key: key);
 
   final Leg l;
@@ -258,14 +261,27 @@ class _TransportDetailsState extends State<TransportDetails> {
       .where((e) => !e.ignore)
       .toList(growable: false);
 
+  late final isDarwin = Responsive.isDarwin(context);
+
   @override
   Widget build(BuildContext context) {
     final empty = attributes.isEmpty;
     final dividerCount = empty ? 0 : 1;
-    return Scaffold(
-      appBar:
-          AppBar(title: Text('${widget.leg.line} ${AppLoc.of(context).to} ${widget.leg.terminal}')),
-      body: ListView.builder(
+    return IfWrapper(
+      condition: isDarwin,
+      builder: (BuildContext context, Widget? child) {
+        return CupertinoPageScaffold(
+          child: child!,
+          navigationBar: cupertinoBar(context,
+              middle: Text('${widget.leg.line} ${AppLoc.of(context).to} ${widget.leg.terminal}')),
+        );
+      },
+      elseBuilder: (context, child) => Scaffold(
+        appBar: AppBar(
+            title: Text('${widget.leg.line} ${AppLoc.of(context).to} ${widget.leg.terminal}')),
+        body: child,
+      ),
+      child: ListView.builder(
         itemBuilder: (context, i) {
           if (i < attributes.length) {
             return buildAttributeTile(attributes[i]);
@@ -364,7 +380,7 @@ class _TransportDetailsState extends State<TransportDetails> {
     return [
       _buildStop(
         l,
-        Stop(l.name, departure: l.departure),
+        SbbStop(l.name, departure: l.departure),
         context,
         bold: true,
         isFirst: true,
@@ -372,7 +388,7 @@ class _TransportDetailsState extends State<TransportDetails> {
       ...l.stops.map((s) => _buildStop(l, s, context)),
       _buildStop(
         l,
-        Stop(l.exit!.name, departure: l.exit!.arrival),
+        SbbStop(l.exit!.name, departure: l.exit!.arrival),
         context,
         bold: true,
         isLast: true,

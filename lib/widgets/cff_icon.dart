@@ -24,7 +24,7 @@ class CffIcon extends StatelessWidget {
   final double? size;
   final Color? color;
 
-  static Widget getIcon(Vehicle? v) {
+  Widget getIcon(Vehicle? v) {
     switch (v) {
       case Vehicle.bus:
         return const FaIcon(FontAwesomeIcons.bus);
@@ -58,10 +58,9 @@ class CffIcon extends StatelessWidget {
     }
   }
 
-  static const List<String> _privatePlaces = ['adr', 'business', 'private'];
+  static const List<Vehicle> _privatePlaces = [Vehicle.adr, Vehicle.business, Vehicle.private];
 
-  static bool isPrivate(String? s) =>
-      s != null && _privatePlaces.contains(s.substring(s.lastIndexOf('-') + 1));
+  static bool isPrivate(Vehicle? s) => s != null && _privatePlaces.contains(s);
 
   @override
   Widget build(BuildContext context) => IconTheme(

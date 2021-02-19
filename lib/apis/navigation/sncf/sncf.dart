@@ -4,9 +4,9 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/apis/navigation/sncf/key.dart';
@@ -33,7 +33,7 @@ class SncfApi extends NavigationApi {
   final _client = http.Client();
 
   @override
-  Future<List<SbbCompletion>> complete(String string,
+  Future<List<Completion>> complete(String string,
       {bool showCoordinates = true,
       bool showIds = true,
       bool noFavorites = true,
@@ -51,25 +51,24 @@ class SncfApi extends NavigationApi {
 
     final sncfCompletion = SncfCompletion.fromJson(decode);
     final places = sncfCompletion.places;
+
     log('Found ${places.length} places');
-    final list = places.map((e) => SbbCompletion(label: e.name ?? '???')).toList(growable: false);
-    log('Found ${list.length} completions');
-    return list;
+    return places;
   }
 
   @override
-  Future<List<SbbCompletion>> findStation(double lat, double lon,
+  Future<List<Completion>> findStation(double lat, double lon,
       {int? accuracy, bool? showCoordinates, bool? showIds}) {
     throw UnimplementedError('SNCF.findStation is not supported yet.');
   }
 
   @override
-  Future<CffRoute> rawRoute(Uri query) {
+  Future<NavRoute> rawRoute(Uri query) {
     throw UnimplementedError('SNCF.rawRoute is not supported yet.');
   }
 
   @override
-  Future<CffStationboard> stationboard(String stopName,
+  Future<SbbStationboard> stationboard(String stopName,
       {DateTime? when,
       bool? arrival,
       int? limit,
@@ -87,7 +86,7 @@ class SncfApi extends NavigationApi {
   }
 
   @override
-  Future<CffRoute> route(
+  Future<NavRoute> route(
     String departure,
     String arrival, {
     required DateTime date,

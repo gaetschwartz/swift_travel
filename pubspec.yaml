@@ -64,11 +64,12 @@ dev_dependencies:
   lint: ^1.1.1
   mockito: ^5.0.0-nullsafety.1
 
-# dependency_overrides:
-#   freezed: ^0.12.0
-#   freezed_annotation: ^0.12.0
-#   json_serializable: ^3.0.0
-#   json_annotation: ^3.0.0
+dependency_overrides:
+  freezed:
+    git:
+      url: https://github.com/gaetschwartz/freezed-1
+      path: packages/freezed
+
 flutter:
   uses-material-design: true
   generate: true

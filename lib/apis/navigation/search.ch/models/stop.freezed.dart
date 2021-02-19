@@ -8,21 +8,24 @@ part of 'stop.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-Stop _$StopFromJson(Map<String, dynamic> json) {
-  return _Stop.fromJson(json);
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+SbbStop _$SbbStopFromJson(Map<String, dynamic> json) {
+  return _SbbStop.fromJson(json);
 }
 
 /// @nodoc
-class _$StopTearOff {
-  const _$StopTearOff();
+class _$SbbStopTearOff {
+  const _$SbbStopTearOff();
 
-  _Stop call(String name,
+  _SbbStop call(String name,
       {String? id,
       String? stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
       double? lat,
       double? lon}) {
-    return _Stop(
+    return _SbbStop(
       name,
       id: id,
       stopid: stopid,
@@ -32,33 +35,33 @@ class _$StopTearOff {
     );
   }
 
-  Stop fromJson(Map<String, Object> json) {
-    return Stop.fromJson(json);
+  SbbStop fromJson(Map<String, Object> json) {
+    return SbbStop.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Stop = _$StopTearOff();
+const $SbbStop = _$SbbStopTearOff();
 
 /// @nodoc
-mixin _$Stop {
-  String get name;
-  String? get id;
-  String? get stopid;
+mixin _$SbbStop {
+  String get name => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get stopid => throw _privateConstructorUsedError;
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
-  DateTime? get departure;
-  double? get lat;
-  double? get lon;
+  DateTime? get departure => throw _privateConstructorUsedError;
+  double? get lat => throw _privateConstructorUsedError;
+  double? get lon => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $StopCopyWith<Stop> get copyWith;
+  $SbbStopCopyWith<SbbStop> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $StopCopyWith<$Res> {
-  factory $StopCopyWith(Stop value, $Res Function(Stop) then) =
-      _$StopCopyWithImpl<$Res>;
+abstract class $SbbStopCopyWith<$Res> {
+  factory $SbbStopCopyWith(SbbStop value, $Res Function(SbbStop) then) =
+      _$SbbStopCopyWithImpl<$Res>;
   $Res call(
       {String name,
       String? id,
@@ -69,12 +72,12 @@ abstract class $StopCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StopCopyWithImpl<$Res> implements $StopCopyWith<$Res> {
-  _$StopCopyWithImpl(this._value, this._then);
+class _$SbbStopCopyWithImpl<$Res> implements $SbbStopCopyWith<$Res> {
+  _$SbbStopCopyWithImpl(this._value, this._then);
 
-  final Stop _value;
+  final SbbStop _value;
   // ignore: unused_field
-  final $Res Function(Stop) _then;
+  final $Res Function(SbbStop) _then;
 
   @override
   $Res call({
@@ -98,9 +101,9 @@ class _$StopCopyWithImpl<$Res> implements $StopCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$StopCopyWith<$Res> implements $StopCopyWith<$Res> {
-  factory _$StopCopyWith(_Stop value, $Res Function(_Stop) then) =
-      __$StopCopyWithImpl<$Res>;
+abstract class _$SbbStopCopyWith<$Res> implements $SbbStopCopyWith<$Res> {
+  factory _$SbbStopCopyWith(_SbbStop value, $Res Function(_SbbStop) then) =
+      __$SbbStopCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -112,13 +115,13 @@ abstract class _$StopCopyWith<$Res> implements $StopCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
-    implements _$StopCopyWith<$Res> {
-  __$StopCopyWithImpl(_Stop _value, $Res Function(_Stop) _then)
-      : super(_value, (v) => _then(v as _Stop));
+class __$SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
+    implements _$SbbStopCopyWith<$Res> {
+  __$SbbStopCopyWithImpl(_SbbStop _value, $Res Function(_SbbStop) _then)
+      : super(_value, (v) => _then(v as _SbbStop));
 
   @override
-  _Stop get _value => super._value as _Stop;
+  _SbbStop get _value => super._value as _SbbStop;
 
   @override
   $Res call({
@@ -129,7 +132,7 @@ class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
     Object? lat = freezed,
     Object? lon = freezed,
   }) {
-    return _then(_Stop(
+    return _then(_SbbStop(
       name == freezed ? _value.name : name as String,
       id: id == freezed ? _value.id : id as String?,
       stopid: stopid == freezed ? _value.stopid : stopid as String?,
@@ -144,16 +147,16 @@ class __$StopCopyWithImpl<$Res> extends _$StopCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 
 /// @nodoc
-class _$_Stop implements _Stop {
-  const _$_Stop(this.name,
+class _$_SbbStop implements _SbbStop {
+  const _$_SbbStop(this.name,
       {this.id,
       this.stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) this.departure,
       this.lat,
       this.lon});
 
-  factory _$_Stop.fromJson(Map<String, dynamic> json) =>
-      _$_$_StopFromJson(json);
+  factory _$_SbbStop.fromJson(Map<String, dynamic> json) =>
+      _$_$_SbbStopFromJson(json);
 
   @override
   final String name;
@@ -171,13 +174,13 @@ class _$_Stop implements _Stop {
 
   @override
   String toString() {
-    return 'Stop(name: $name, id: $id, stopid: $stopid, departure: $departure, lat: $lat, lon: $lon)';
+    return 'SbbStop(name: $name, id: $id, stopid: $stopid, departure: $departure, lat: $lat, lon: $lon)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Stop &&
+        (other is _SbbStop &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.id, id) ||
@@ -205,39 +208,40 @@ class _$_Stop implements _Stop {
 
   @JsonKey(ignore: true)
   @override
-  _$StopCopyWith<_Stop> get copyWith =>
-      __$StopCopyWithImpl<_Stop>(this, _$identity);
+  _$SbbStopCopyWith<_SbbStop> get copyWith =>
+      __$SbbStopCopyWithImpl<_SbbStop>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_StopToJson(this);
+    return _$_$_SbbStopToJson(this);
   }
 }
 
-abstract class _Stop implements Stop {
-  const factory _Stop(String name,
+abstract class _SbbStop implements SbbStop {
+  const factory _SbbStop(String name,
       {String? id,
       String? stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
       double? lat,
-      double? lon}) = _$_Stop;
+      double? lon}) = _$_SbbStop;
 
-  factory _Stop.fromJson(Map<String, dynamic> json) = _$_Stop.fromJson;
+  factory _SbbStop.fromJson(Map<String, dynamic> json) = _$_SbbStop.fromJson;
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String? get id;
+  String? get id => throw _privateConstructorUsedError;
   @override
-  String? get stopid;
+  String? get stopid => throw _privateConstructorUsedError;
   @override
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
-  DateTime? get departure;
+  DateTime? get departure => throw _privateConstructorUsedError;
   @override
-  double? get lat;
+  double? get lat => throw _privateConstructorUsedError;
   @override
-  double? get lon;
+  double? get lon => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$StopCopyWith<_Stop> get copyWith;
+  _$SbbStopCopyWith<_SbbStop> get copyWith =>
+      throw _privateConstructorUsedError;
 }

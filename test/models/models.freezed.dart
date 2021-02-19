@@ -8,6 +8,9 @@ part of 'models.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 Union _$UnionFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'default':
@@ -60,28 +63,32 @@ mixin _$Union {
     TResult Function(String name) $default, {
     required TResult Function(String name, int legs) animal,
     required TResult Function(int number) number,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String name)? $default, {
     TResult Function(String name, int legs)? animal,
     TResult Function(int number)? number,
     required TResult orElse(),
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(Person value) $default, {
     required TResult Function(Animal value) animal,
     required TResult Function(Number value) number,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(Person value)? $default, {
     TResult Function(Animal value)? animal,
     TResult Function(Number value)? number,
     required TResult orElse(),
-  });
-  Map<String, dynamic> toJson();
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -218,9 +225,9 @@ abstract class Person implements Union {
 
   factory Person.fromJson(Map<String, dynamic> json) = _$Person.fromJson;
 
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PersonCopyWith<Person> get copyWith;
+  $PersonCopyWith<Person> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -350,10 +357,10 @@ abstract class Animal implements Union {
 
   factory Animal.fromJson(Map<String, dynamic> json) = _$Animal.fromJson;
 
-  String get name;
-  int get legs;
+  String get name => throw _privateConstructorUsedError;
+  int get legs => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AnimalCopyWith<Animal> get copyWith;
+  $AnimalCopyWith<Animal> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -475,7 +482,7 @@ abstract class Number implements Union {
 
   factory Number.fromJson(Map<String, dynamic> json) = _$Number.fromJson;
 
-  int get number;
+  int get number => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $NumberCopyWith<Number> get copyWith;
+  $NumberCopyWith<Number> get copyWith => throw _privateConstructorUsedError;
 }

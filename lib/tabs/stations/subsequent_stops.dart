@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stationboard_connection.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/subsequent_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/utils/string_utils/format.dart';
@@ -11,7 +11,7 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 
 class NextStopsPage extends StatefulWidget {
-  final StationboardConnection c;
+  final SbbStationboardConnection c;
   final Stop? s;
 
   const NextStopsPage({required this.c, Key? key, required this.s}) : super(key: key);
@@ -80,7 +80,7 @@ class _NextStopsPageState extends State<NextStopsPage> {
 
 class StopTile extends StatelessWidget {
   final SubsequentStop stop;
-  final StationboardConnection connection;
+  final SbbStationboardConnection connection;
   final bool isFirst;
   final bool isLast;
 
@@ -91,7 +91,7 @@ class StopTile extends StatelessWidget {
     );
   }
 
-  Widget _buildCircle(BuildContext context, StationboardConnection connection) {
+  Widget _buildCircle(BuildContext context, SbbStationboardConnection connection) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2.0),
       decoration: BoxDecoration(

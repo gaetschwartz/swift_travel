@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/utils/string_utils/format.dart';
@@ -14,9 +14,9 @@ import 'package:swift_travel/utils/string_utils/markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WalkingTile extends StatelessWidget {
-  const WalkingTile({
+  const WalkingTile(
+    this.l, {
     Key? key,
-    required this.l,
   }) : super(key: key);
 
   final Leg l;

@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
@@ -8,11 +10,11 @@ part 'leg.freezed.dart';
 part 'leg.g.dart';
 
 @freezed
-abstract class Leg with _$Leg {
+class SbbLeg with _$SbbLeg, Leg {
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
-  const factory Leg({
+  const factory SbbLeg({
     required String name,
-    Exit? exit,
+    @JsonKey(name: 'exit') SbbExit? sbbExit,
     @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) required int depDelay,
     Vehicle? type,
     String? track,
@@ -24,7 +26,7 @@ abstract class Leg with _$Leg {
     String? stopid,
     @JsonKey(name: 'runningtime') double? runningTime,
     String? line,
-    @Default(<Stop>[]) List<Stop> stops,
+    @Default(<SbbStop>[]) List<SbbStop> sbbStops,
     String? sbbName,
     DateTime? departure,
     DateTime? arrival,
@@ -34,7 +36,17 @@ abstract class Leg with _$Leg {
     double? lat,
     double? lon,
     @Default(<String, String>{}) Map<String, String> attributes,
-  }) = _Leg;
+  }) = _SbbLeg;
+  const SbbLeg._();
 
-  factory Leg.fromJson(Map<String, dynamic> json) => _$LegFromJson(json);
+  factory SbbLeg.fromJson(Map<String, dynamic> json) => _$SbbLegFromJson(json);
+
+  @override
+  List<Stop> get stops => sbbStops;
+
+  @override
+  Exit? get exit => sbbExit;
+
+  @override
+  Leg copyWithLatLon({required double lat, required double lon}) => copyWith(lat: lat, lon: lon);
 }

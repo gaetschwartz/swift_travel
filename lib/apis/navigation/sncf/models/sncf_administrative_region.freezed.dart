@@ -8,6 +8,9 @@ part of 'sncf_administrative_region.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 SncfAdministrativeRegion _$SncfAdministrativeRegionFromJson(
     Map<String, dynamic> json) {
   return _SncfAdministrativeRegion.fromJson(json);
@@ -46,17 +49,18 @@ const $SncfAdministrativeRegion = _$SncfAdministrativeRegionTearOff();
 
 /// @nodoc
 mixin _$SncfAdministrativeRegion {
-  String? get insee;
-  String? get name;
-  int? get level;
-  Coord? get coord;
-  String? get label;
-  String? get id;
-  String? get zipCode;
+  String? get insee => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  int? get level => throw _privateConstructorUsedError;
+  Coord? get coord => throw _privateConstructorUsedError;
+  String? get label => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get zipCode => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SncfAdministrativeRegionCopyWith<SncfAdministrativeRegion> get copyWith;
+  $SncfAdministrativeRegionCopyWith<SncfAdministrativeRegion> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -265,20 +269,21 @@ abstract class _SncfAdministrativeRegion implements SncfAdministrativeRegion {
       _$_SncfAdministrativeRegion.fromJson;
 
   @override
-  String? get insee;
+  String? get insee => throw _privateConstructorUsedError;
   @override
-  String? get name;
+  String? get name => throw _privateConstructorUsedError;
   @override
-  int? get level;
+  int? get level => throw _privateConstructorUsedError;
   @override
-  Coord? get coord;
+  Coord? get coord => throw _privateConstructorUsedError;
   @override
-  String? get label;
+  String? get label => throw _privateConstructorUsedError;
   @override
-  String? get id;
+  String? get id => throw _privateConstructorUsedError;
   @override
-  String? get zipCode;
+  String? get zipCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SncfAdministrativeRegionCopyWith<_SncfAdministrativeRegion> get copyWith;
+  _$SncfAdministrativeRegionCopyWith<_SncfAdministrativeRegion> get copyWith =>
+      throw _privateConstructorUsedError;
 }

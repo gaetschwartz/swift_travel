@@ -8,6 +8,9 @@ part of 'completion.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 SbbCompletion _$SbbCompletionFromJson(Map<String, dynamic> json) {
   return _SbbCompletion.fromJson(json);
 }
@@ -45,18 +48,19 @@ const $SbbCompletion = _$SbbCompletionTearOff();
 
 /// @nodoc
 mixin _$SbbCompletion {
-  String get label;
-  double? get dist;
+  String get label => throw _privateConstructorUsedError;
+  double? get dist => throw _privateConstructorUsedError;
   @JsonKey(name: 'iconclass')
-  String? get iconClass;
-  String? get html;
-  String? get id;
-  String? get favoriteName;
-  DataOrigin get origin;
+  String? get iconClass => throw _privateConstructorUsedError;
+  String? get html => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get favoriteName => throw _privateConstructorUsedError;
+  DataOrigin get origin => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbCompletionCopyWith<SbbCompletion> get copyWith;
+  $SbbCompletionCopyWith<SbbCompletion> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -162,15 +166,16 @@ class __$SbbCompletionCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 
 /// @nodoc
-class _$_SbbCompletion implements _SbbCompletion {
-  const _$_SbbCompletion(
+class _$_SbbCompletion extends _SbbCompletion {
+  _$_SbbCompletion(
       {required this.label,
       this.dist,
       @JsonKey(name: 'iconclass') this.iconClass,
       this.html,
       this.id,
       this.favoriteName,
-      this.origin = DataOrigin.data});
+      this.origin = DataOrigin.data})
+      : super._();
 
   factory _$_SbbCompletion.fromJson(Map<String, dynamic> json) =>
       _$_$_SbbCompletionFromJson(json);
@@ -241,8 +246,9 @@ class _$_SbbCompletion implements _SbbCompletion {
   }
 }
 
-abstract class _SbbCompletion implements SbbCompletion {
-  const factory _SbbCompletion(
+abstract class _SbbCompletion extends SbbCompletion {
+  _SbbCompletion._() : super._();
+  factory _SbbCompletion(
       {required String label,
       double? dist,
       @JsonKey(name: 'iconclass') String? iconClass,
@@ -255,21 +261,22 @@ abstract class _SbbCompletion implements SbbCompletion {
       _$_SbbCompletion.fromJson;
 
   @override
-  String get label;
+  String get label => throw _privateConstructorUsedError;
   @override
-  double? get dist;
+  double? get dist => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'iconclass')
-  String? get iconClass;
+  String? get iconClass => throw _privateConstructorUsedError;
   @override
-  String? get html;
+  String? get html => throw _privateConstructorUsedError;
   @override
-  String? get id;
+  String? get id => throw _privateConstructorUsedError;
   @override
-  String? get favoriteName;
+  String? get favoriteName => throw _privateConstructorUsedError;
   @override
-  DataOrigin get origin;
+  DataOrigin get origin => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SbbCompletionCopyWith<_SbbCompletion> get copyWith;
+  _$SbbCompletionCopyWith<_SbbCompletion> get copyWith =>
+      throw _privateConstructorUsedError;
 }

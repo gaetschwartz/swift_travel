@@ -9,6 +9,9 @@ part of 'person.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$PersonTearOff {
   const _$PersonTearOff();
@@ -27,12 +30,12 @@ const $Person = _$PersonTearOff();
 
 /// @nodoc
 mixin _$Person {
-  String get firstName;
-  String get lastName;
-  int get age;
+  String get firstName => throw _privateConstructorUsedError;
+  String get lastName => throw _privateConstructorUsedError;
+  int get age => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $PersonCopyWith<Person> get copyWith;
+  $PersonCopyWith<Person> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -144,12 +147,13 @@ abstract class _$_Person extends Person {
       _$_$_Person;
 
   @override
-  String get firstName;
+  String get firstName => throw _privateConstructorUsedError;
   @override
-  String get lastName;
+  String get lastName => throw _privateConstructorUsedError;
   @override
-  int get age;
+  int get age => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_PersonCopyWith<_$_Person> get copyWith;
+  _$$_PersonCopyWith<_$_Person> get copyWith =>
+      throw _privateConstructorUsedError;
 }

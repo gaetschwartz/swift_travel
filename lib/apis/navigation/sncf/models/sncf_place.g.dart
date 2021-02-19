@@ -14,8 +14,9 @@ _$_SncfPlace _$_$_SncfPlaceFromJson(Map<String, dynamic> json) {
         ? null
         : SncfAdministrativeRegion.fromJson(
             json['administrativeRegion'] as Map<String, dynamic>),
-    name: json['name'] as String?,
+    name: json['name'] as String,
     id: json['id'] as String?,
+    favoriteName: json['favoriteName'] as String?,
   );
 }
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$_$_SncfPlaceToJson(_$_SncfPlace instance) =>
       'administrativeRegion': instance.administrativeRegion?.toJson(),
       'name': instance.name,
       'id': instance.id,
+      'favoriteName': instance.favoriteName,
     };

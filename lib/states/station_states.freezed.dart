@@ -9,11 +9,14 @@ part of 'station_states.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$StationStatesTearOff {
   const _$StationStatesTearOff();
 
-  StationStatesCompletions completions(List<SbbCompletion> completions) {
+  StationStatesCompletions completions(List<Completion> completions) {
     return StationStatesCompletions(
       completions,
     );
@@ -35,30 +38,34 @@ const $StationStates = _$StationStatesTearOff();
 mixin _$StationStates {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<SbbCompletion> completions) completions,
+    required TResult Function(List<Completion> completions) completions,
     required TResult Function() empty,
     required TResult Function() network,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<SbbCompletion> completions)? completions,
+    TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(StationStatesCompletions value) completions,
     required TResult Function(StationStatesEmpty value) empty,
     required TResult Function(StationStatesNetworkError value) network,
-  });
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(StationStatesCompletions value)? completions,
     TResult Function(StationStatesEmpty value)? empty,
     TResult Function(StationStatesNetworkError value)? network,
     required TResult orElse(),
-  });
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -83,7 +90,7 @@ abstract class $StationStatesCompletionsCopyWith<$Res> {
   factory $StationStatesCompletionsCopyWith(StationStatesCompletions value,
           $Res Function(StationStatesCompletions) then) =
       _$StationStatesCompletionsCopyWithImpl<$Res>;
-  $Res call({List<SbbCompletion> completions});
+  $Res call({List<Completion> completions});
 }
 
 /// @nodoc
@@ -105,7 +112,7 @@ class _$StationStatesCompletionsCopyWithImpl<$Res>
     return _then(StationStatesCompletions(
       completions == freezed
           ? _value.completions
-          : completions as List<SbbCompletion>,
+          : completions as List<Completion>,
     ));
   }
 }
@@ -115,7 +122,7 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   const _$StationStatesCompletions(this.completions);
 
   @override
-  final List<SbbCompletion> completions;
+  final List<Completion> completions;
 
   @override
   String toString() {
@@ -144,7 +151,7 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<SbbCompletion> completions) completions,
+    required TResult Function(List<Completion> completions) completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) {
@@ -154,7 +161,7 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<SbbCompletion> completions)? completions,
+    TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
@@ -191,12 +198,13 @@ class _$StationStatesCompletions implements StationStatesCompletions {
 }
 
 abstract class StationStatesCompletions implements StationStates {
-  const factory StationStatesCompletions(List<SbbCompletion> completions) =
+  const factory StationStatesCompletions(List<Completion> completions) =
       _$StationStatesCompletions;
 
-  List<SbbCompletion> get completions;
+  List<Completion> get completions => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $StationStatesCompletionsCopyWith<StationStatesCompletions> get copyWith;
+  $StationStatesCompletionsCopyWith<StationStatesCompletions> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -238,7 +246,7 @@ class _$StationStatesEmpty implements StationStatesEmpty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<SbbCompletion> completions) completions,
+    required TResult Function(List<Completion> completions) completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) {
@@ -248,7 +256,7 @@ class _$StationStatesEmpty implements StationStatesEmpty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<SbbCompletion> completions)? completions,
+    TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
@@ -328,7 +336,7 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<SbbCompletion> completions) completions,
+    required TResult Function(List<Completion> completions) completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) {
@@ -338,7 +346,7 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<SbbCompletion> completions)? completions,
+    TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),

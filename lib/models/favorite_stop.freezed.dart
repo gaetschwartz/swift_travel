@@ -8,6 +8,9 @@ part of 'favorite_stop.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 FavoriteStop _$FavoriteStopFromJson(Map<String, dynamic> json) {
   return _FavoriteStop.fromJson(json);
 }
@@ -33,12 +36,13 @@ const $FavoriteStop = _$FavoriteStopTearOff();
 
 /// @nodoc
 mixin _$FavoriteStop {
-  String get stop;
-  String? get name;
+  String get stop => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $FavoriteStopCopyWith<FavoriteStop> get copyWith;
+  $FavoriteStopCopyWith<FavoriteStop> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -155,10 +159,11 @@ abstract class _FavoriteStop implements FavoriteStop {
       _$_FavoriteStop.fromJson;
 
   @override
-  String get stop;
+  String get stop => throw _privateConstructorUsedError;
   @override
-  String? get name;
+  String? get name => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$FavoriteStopCopyWith<_FavoriteStop> get copyWith;
+  _$FavoriteStopCopyWith<_FavoriteStop> get copyWith =>
+      throw _privateConstructorUsedError;
 }

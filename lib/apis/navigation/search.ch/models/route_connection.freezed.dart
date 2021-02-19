@@ -8,86 +8,93 @@ part of 'route_connection.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-RouteConnection _$RouteConnectionFromJson(Map<String, dynamic> json) {
-  return _RouteConnection.fromJson(json);
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+SbbRouteConnection _$SbbRouteConnectionFromJson(Map<String, dynamic> json) {
+  return _SbbRouteConnection.fromJson(json);
 }
 
 /// @nodoc
-class _$RouteConnectionTearOff {
-  const _$RouteConnectionTearOff();
+class _$SbbRouteConnectionTearOff {
+  const _$SbbRouteConnectionTearOff();
 
-  _RouteConnection call(
+  _SbbRouteConnection call(
       {required String from,
       required String to,
       DateTime? departure,
       DateTime? arrival,
       double? duration,
-      List<Leg> legs = const <Leg>[],
+      @JsonKey(name: 'legs')
+          List<SbbLeg> sbbLegs = const <SbbLeg>[],
       Map<String, Disruption> disruptions = const <String, Disruption>{},
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           required int depDelay}) {
-    return _RouteConnection(
+    return _SbbRouteConnection(
       from: from,
       to: to,
       departure: departure,
       arrival: arrival,
       duration: duration,
-      legs: legs,
+      sbbLegs: sbbLegs,
       disruptions: disruptions,
       depDelay: depDelay,
     );
   }
 
-  RouteConnection fromJson(Map<String, Object> json) {
-    return RouteConnection.fromJson(json);
+  SbbRouteConnection fromJson(Map<String, Object> json) {
+    return SbbRouteConnection.fromJson(json);
   }
 }
 
 /// @nodoc
-const $RouteConnection = _$RouteConnectionTearOff();
+const $SbbRouteConnection = _$SbbRouteConnectionTearOff();
 
 /// @nodoc
-mixin _$RouteConnection {
-  String get from;
-  String get to;
-  DateTime? get departure;
-  DateTime? get arrival;
-  double? get duration;
-  List<Leg> get legs;
-  Map<String, Disruption> get disruptions;
+mixin _$SbbRouteConnection {
+  String get from => throw _privateConstructorUsedError;
+  String get to => throw _privateConstructorUsedError;
+  DateTime? get departure => throw _privateConstructorUsedError;
+  DateTime? get arrival => throw _privateConstructorUsedError;
+  double? get duration => throw _privateConstructorUsedError;
+  @JsonKey(name: 'legs')
+  List<SbbLeg> get sbbLegs => throw _privateConstructorUsedError;
+  Map<String, Disruption> get disruptions => throw _privateConstructorUsedError;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay;
+  int get depDelay => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RouteConnectionCopyWith<RouteConnection> get copyWith;
+  $SbbRouteConnectionCopyWith<SbbRouteConnection> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RouteConnectionCopyWith<$Res> {
-  factory $RouteConnectionCopyWith(
-          RouteConnection value, $Res Function(RouteConnection) then) =
-      _$RouteConnectionCopyWithImpl<$Res>;
+abstract class $SbbRouteConnectionCopyWith<$Res> {
+  factory $SbbRouteConnectionCopyWith(
+          SbbRouteConnection value, $Res Function(SbbRouteConnection) then) =
+      _$SbbRouteConnectionCopyWithImpl<$Res>;
   $Res call(
       {String from,
       String to,
       DateTime? departure,
       DateTime? arrival,
       double? duration,
-      List<Leg> legs,
+      @JsonKey(name: 'legs')
+          List<SbbLeg> sbbLegs,
       Map<String, Disruption> disruptions,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay});
 }
 
 /// @nodoc
-class _$RouteConnectionCopyWithImpl<$Res>
-    implements $RouteConnectionCopyWith<$Res> {
-  _$RouteConnectionCopyWithImpl(this._value, this._then);
+class _$SbbRouteConnectionCopyWithImpl<$Res>
+    implements $SbbRouteConnectionCopyWith<$Res> {
+  _$SbbRouteConnectionCopyWithImpl(this._value, this._then);
 
-  final RouteConnection _value;
+  final SbbRouteConnection _value;
   // ignore: unused_field
-  final $Res Function(RouteConnection) _then;
+  final $Res Function(SbbRouteConnection) _then;
 
   @override
   $Res call({
@@ -96,7 +103,7 @@ class _$RouteConnectionCopyWithImpl<$Res>
     Object? departure = freezed,
     Object? arrival = freezed,
     Object? duration = freezed,
-    Object? legs = freezed,
+    Object? sbbLegs = freezed,
     Object? disruptions = freezed,
     Object? depDelay = freezed,
   }) {
@@ -107,7 +114,7 @@ class _$RouteConnectionCopyWithImpl<$Res>
           departure == freezed ? _value.departure : departure as DateTime?,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
       duration: duration == freezed ? _value.duration : duration as double?,
-      legs: legs == freezed ? _value.legs : legs as List<Leg>,
+      sbbLegs: sbbLegs == freezed ? _value.sbbLegs : sbbLegs as List<SbbLeg>,
       disruptions: disruptions == freezed
           ? _value.disruptions
           : disruptions as Map<String, Disruption>,
@@ -117,11 +124,11 @@ class _$RouteConnectionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$RouteConnectionCopyWith<$Res>
-    implements $RouteConnectionCopyWith<$Res> {
-  factory _$RouteConnectionCopyWith(
-          _RouteConnection value, $Res Function(_RouteConnection) then) =
-      __$RouteConnectionCopyWithImpl<$Res>;
+abstract class _$SbbRouteConnectionCopyWith<$Res>
+    implements $SbbRouteConnectionCopyWith<$Res> {
+  factory _$SbbRouteConnectionCopyWith(
+          _SbbRouteConnection value, $Res Function(_SbbRouteConnection) then) =
+      __$SbbRouteConnectionCopyWithImpl<$Res>;
   @override
   $Res call(
       {String from,
@@ -129,22 +136,23 @@ abstract class _$RouteConnectionCopyWith<$Res>
       DateTime? departure,
       DateTime? arrival,
       double? duration,
-      List<Leg> legs,
+      @JsonKey(name: 'legs')
+          List<SbbLeg> sbbLegs,
       Map<String, Disruption> disruptions,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay});
 }
 
 /// @nodoc
-class __$RouteConnectionCopyWithImpl<$Res>
-    extends _$RouteConnectionCopyWithImpl<$Res>
-    implements _$RouteConnectionCopyWith<$Res> {
-  __$RouteConnectionCopyWithImpl(
-      _RouteConnection _value, $Res Function(_RouteConnection) _then)
-      : super(_value, (v) => _then(v as _RouteConnection));
+class __$SbbRouteConnectionCopyWithImpl<$Res>
+    extends _$SbbRouteConnectionCopyWithImpl<$Res>
+    implements _$SbbRouteConnectionCopyWith<$Res> {
+  __$SbbRouteConnectionCopyWithImpl(
+      _SbbRouteConnection _value, $Res Function(_SbbRouteConnection) _then)
+      : super(_value, (v) => _then(v as _SbbRouteConnection));
 
   @override
-  _RouteConnection get _value => super._value as _RouteConnection;
+  _SbbRouteConnection get _value => super._value as _SbbRouteConnection;
 
   @override
   $Res call({
@@ -153,18 +161,18 @@ class __$RouteConnectionCopyWithImpl<$Res>
     Object? departure = freezed,
     Object? arrival = freezed,
     Object? duration = freezed,
-    Object? legs = freezed,
+    Object? sbbLegs = freezed,
     Object? disruptions = freezed,
     Object? depDelay = freezed,
   }) {
-    return _then(_RouteConnection(
+    return _then(_SbbRouteConnection(
       from: from == freezed ? _value.from : from as String,
       to: to == freezed ? _value.to : to as String,
       departure:
           departure == freezed ? _value.departure : departure as DateTime?,
       arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
       duration: duration == freezed ? _value.duration : duration as double?,
-      legs: legs == freezed ? _value.legs : legs as List<Leg>,
+      sbbLegs: sbbLegs == freezed ? _value.sbbLegs : sbbLegs as List<SbbLeg>,
       disruptions: disruptions == freezed
           ? _value.disruptions
           : disruptions as Map<String, Disruption>,
@@ -176,20 +184,22 @@ class __$RouteConnectionCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 
 /// @nodoc
-class _$_RouteConnection implements _RouteConnection {
-  const _$_RouteConnection(
+class _$_SbbRouteConnection extends _SbbRouteConnection {
+  const _$_SbbRouteConnection(
       {required this.from,
       required this.to,
       this.departure,
       this.arrival,
       this.duration,
-      this.legs = const <Leg>[],
+      @JsonKey(name: 'legs')
+          this.sbbLegs = const <SbbLeg>[],
       this.disruptions = const <String, Disruption>{},
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required this.depDelay});
+          required this.depDelay})
+      : super._();
 
-  factory _$_RouteConnection.fromJson(Map<String, dynamic> json) =>
-      _$_$_RouteConnectionFromJson(json);
+  factory _$_SbbRouteConnection.fromJson(Map<String, dynamic> json) =>
+      _$_$_SbbRouteConnectionFromJson(json);
 
   @override
   final String from;
@@ -201,9 +211,9 @@ class _$_RouteConnection implements _RouteConnection {
   final DateTime? arrival;
   @override
   final double? duration;
-  @JsonKey(defaultValue: const <Leg>[])
   @override
-  final List<Leg> legs;
+  @JsonKey(name: 'legs')
+  final List<SbbLeg> sbbLegs;
   @JsonKey(defaultValue: const <String, Disruption>{})
   @override
   final Map<String, Disruption> disruptions;
@@ -213,13 +223,13 @@ class _$_RouteConnection implements _RouteConnection {
 
   @override
   String toString() {
-    return 'RouteConnection(from: $from, to: $to, departure: $departure, arrival: $arrival, duration: $duration, legs: $legs, disruptions: $disruptions, depDelay: $depDelay)';
+    return 'SbbRouteConnection(from: $from, to: $to, departure: $departure, arrival: $arrival, duration: $duration, sbbLegs: $sbbLegs, disruptions: $disruptions, depDelay: $depDelay)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _RouteConnection &&
+        (other is _SbbRouteConnection &&
             (identical(other.from, from) ||
                 const DeepCollectionEquality().equals(other.from, from)) &&
             (identical(other.to, to) ||
@@ -233,8 +243,9 @@ class _$_RouteConnection implements _RouteConnection {
             (identical(other.duration, duration) ||
                 const DeepCollectionEquality()
                     .equals(other.duration, duration)) &&
-            (identical(other.legs, legs) ||
-                const DeepCollectionEquality().equals(other.legs, legs)) &&
+            (identical(other.sbbLegs, sbbLegs) ||
+                const DeepCollectionEquality()
+                    .equals(other.sbbLegs, sbbLegs)) &&
             (identical(other.disruptions, disruptions) ||
                 const DeepCollectionEquality()
                     .equals(other.disruptions, disruptions)) &&
@@ -251,54 +262,58 @@ class _$_RouteConnection implements _RouteConnection {
       const DeepCollectionEquality().hash(departure) ^
       const DeepCollectionEquality().hash(arrival) ^
       const DeepCollectionEquality().hash(duration) ^
-      const DeepCollectionEquality().hash(legs) ^
+      const DeepCollectionEquality().hash(sbbLegs) ^
       const DeepCollectionEquality().hash(disruptions) ^
       const DeepCollectionEquality().hash(depDelay);
 
   @JsonKey(ignore: true)
   @override
-  _$RouteConnectionCopyWith<_RouteConnection> get copyWith =>
-      __$RouteConnectionCopyWithImpl<_RouteConnection>(this, _$identity);
+  _$SbbRouteConnectionCopyWith<_SbbRouteConnection> get copyWith =>
+      __$SbbRouteConnectionCopyWithImpl<_SbbRouteConnection>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_RouteConnectionToJson(this);
+    return _$_$_SbbRouteConnectionToJson(this);
   }
 }
 
-abstract class _RouteConnection implements RouteConnection {
-  const factory _RouteConnection(
+abstract class _SbbRouteConnection extends SbbRouteConnection {
+  const _SbbRouteConnection._() : super._();
+  const factory _SbbRouteConnection(
       {required String from,
       required String to,
       DateTime? departure,
       DateTime? arrival,
       double? duration,
-      List<Leg> legs,
+      @JsonKey(name: 'legs')
+          List<SbbLeg> sbbLegs,
       Map<String, Disruption> disruptions,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int depDelay}) = _$_RouteConnection;
+          required int depDelay}) = _$_SbbRouteConnection;
 
-  factory _RouteConnection.fromJson(Map<String, dynamic> json) =
-      _$_RouteConnection.fromJson;
+  factory _SbbRouteConnection.fromJson(Map<String, dynamic> json) =
+      _$_SbbRouteConnection.fromJson;
 
   @override
-  String get from;
+  String get from => throw _privateConstructorUsedError;
   @override
-  String get to;
+  String get to => throw _privateConstructorUsedError;
   @override
-  DateTime? get departure;
+  DateTime? get departure => throw _privateConstructorUsedError;
   @override
-  DateTime? get arrival;
+  DateTime? get arrival => throw _privateConstructorUsedError;
   @override
-  double? get duration;
+  double? get duration => throw _privateConstructorUsedError;
   @override
-  List<Leg> get legs;
+  @JsonKey(name: 'legs')
+  List<SbbLeg> get sbbLegs => throw _privateConstructorUsedError;
   @override
-  Map<String, Disruption> get disruptions;
+  Map<String, Disruption> get disruptions => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay;
+  int get depDelay => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RouteConnectionCopyWith<_RouteConnection> get copyWith;
+  _$SbbRouteConnectionCopyWith<_SbbRouteConnection> get copyWith =>
+      throw _privateConstructorUsedError;
 }

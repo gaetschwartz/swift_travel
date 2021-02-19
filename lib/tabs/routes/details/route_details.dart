@@ -1,7 +1,4 @@
 import 'dart:collection';
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
 import 'dart:math' as m;
 
 import 'package:flutter/cupertino.dart';
@@ -9,9 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
@@ -28,7 +23,7 @@ import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
-  final CffRoute? route;
+  final NavRoute? route;
   final int? i;
   final bool doClose;
 
@@ -119,7 +114,7 @@ class RouteDetails extends StatelessWidget {
               top: false,
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (_, i) => LegTile(l: conn.legs[i]),
+                  (_, i) => LegTile(conn.legs[i]),
                   childCount: conn.legs.length,
                 ),
               ),
@@ -191,18 +186,6 @@ class RouteDetails extends StatelessWidget {
     Vibration.select();
     Navigator.of(context)
         .push<void>(MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c)));
-  }
-
-  void base64Experiment() {
-    final connection = route!.connections[i!];
-    final json = connection.toJson().toString();
-    log(json);
-    final bytes = ascii.encode(json);
-    final compressed = zlib.encode(bytes);
-    final compressed64 = base64.encode(compressed);
-    final raw64 = base64.encode(bytes);
-    log('compresssed : ${compressed64.length}, raw : ${raw64.length}');
-    log(compressed64);
   }
 
   Widget _dataRow(String key, String text) {
@@ -505,17 +488,17 @@ class MyPainter extends CustomPainter {
 }
 
 class LegTile extends StatelessWidget {
-  const LegTile({
+  const LegTile(
+    this.leg, {
     Key? key,
-    required this.l,
   }) : super(key: key);
 
-  final Leg l;
+  final Leg leg;
 
   @override
-  Widget build(BuildContext context) => l.exit == null
-      ? ArrivedTile(l: l)
-      : l.type == Vehicle.walk
-          ? WalkingTile(l: l)
-          : TransportLegTile(l: l);
+  Widget build(BuildContext context) => leg.exit == null
+      ? ArrivedTile(leg)
+      : leg.type == Vehicle.walk
+          ? WalkingTile(leg)
+          : TransportLegTile(leg);
 }

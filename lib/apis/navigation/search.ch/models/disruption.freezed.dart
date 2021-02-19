@@ -8,6 +8,9 @@ part of 'disruption.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 Disruption _$DisruptionFromJson(Map<String, dynamic> json) {
   return _Disruption.fromJson(json);
 }
@@ -45,18 +48,19 @@ const $Disruption = _$DisruptionTearOff();
 
 /// @nodoc
 mixin _$Disruption {
-  String? get id;
-  String? get header;
-  String? get lead;
-  String? get text;
+  String? get id => throw _privateConstructorUsedError;
+  String? get header => throw _privateConstructorUsedError;
+  String? get lead => throw _privateConstructorUsedError;
+  String? get text => throw _privateConstructorUsedError;
   @JsonKey(name: 'timerange')
-  String? get timeRange;
-  bool? get exact;
-  int? get priority;
+  String? get timeRange => throw _privateConstructorUsedError;
+  bool? get exact => throw _privateConstructorUsedError;
+  int? get priority => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DisruptionCopyWith<Disruption> get copyWith;
+  $DisruptionCopyWith<Disruption> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -247,21 +251,22 @@ abstract class _Disruption implements Disruption {
       _$_Disruption.fromJson;
 
   @override
-  String? get id;
+  String? get id => throw _privateConstructorUsedError;
   @override
-  String? get header;
+  String? get header => throw _privateConstructorUsedError;
   @override
-  String? get lead;
+  String? get lead => throw _privateConstructorUsedError;
   @override
-  String? get text;
+  String? get text => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'timerange')
-  String? get timeRange;
+  String? get timeRange => throw _privateConstructorUsedError;
   @override
-  bool? get exact;
+  bool? get exact => throw _privateConstructorUsedError;
   @override
-  int? get priority;
+  int? get priority => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$DisruptionCopyWith<_Disruption> get copyWith;
+  _$DisruptionCopyWith<_Disruption> get copyWith =>
+      throw _privateConstructorUsedError;
 }

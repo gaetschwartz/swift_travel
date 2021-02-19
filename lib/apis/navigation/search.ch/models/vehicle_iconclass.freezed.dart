@@ -8,6 +8,9 @@ part of 'vehicle_iconclass.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 VehicleIconclass _$VehicleIconclassFromJson(Map<String, dynamic> json) {
   return _VehicleIconclass.fromJson(json);
 }
@@ -32,11 +35,12 @@ const $VehicleIconclass = _$VehicleIconclassTearOff();
 
 /// @nodoc
 mixin _$VehicleIconclass {
-  Vehicle get v;
+  Vehicle get v => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $VehicleIconclassCopyWith<VehicleIconclass> get copyWith;
+  $VehicleIconclassCopyWith<VehicleIconclass> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -144,8 +148,9 @@ abstract class _VehicleIconclass implements VehicleIconclass {
       _$_VehicleIconclass.fromJson;
 
   @override
-  Vehicle get v;
+  Vehicle get v => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$VehicleIconclassCopyWith<_VehicleIconclass> get copyWith;
+  _$VehicleIconclassCopyWith<_VehicleIconclass> get copyWith =>
+      throw _privateConstructorUsedError;
 }

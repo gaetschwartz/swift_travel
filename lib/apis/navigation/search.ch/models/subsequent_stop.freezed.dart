@@ -8,6 +8,9 @@ part of 'subsequent_stop.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 SubsequentStop _$SubsequentStopFromJson(Map<String, dynamic> json) {
   return _SubsequentStop.fromJson(json);
 }
@@ -49,20 +52,21 @@ const $SubsequentStop = _$SubsequentStopTearOff();
 
 /// @nodoc
 mixin _$SubsequentStop {
-  String get name;
-  String? get id;
-  DateTime? get dep;
-  DateTime? get arr;
-  double? get lat;
-  double? get lon;
+  String get name => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  DateTime? get dep => throw _privateConstructorUsedError;
+  DateTime? get arr => throw _privateConstructorUsedError;
+  double? get lat => throw _privateConstructorUsedError;
+  double? get lon => throw _privateConstructorUsedError;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay;
+  int get depDelay => throw _privateConstructorUsedError;
   @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay;
+  int get arrDelay => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SubsequentStopCopyWith<SubsequentStop> get copyWith;
+  $SubsequentStopCopyWith<SubsequentStop> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -278,24 +282,25 @@ abstract class _SubsequentStop implements SubsequentStop {
       _$_SubsequentStop.fromJson;
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String? get id;
+  String? get id => throw _privateConstructorUsedError;
   @override
-  DateTime? get dep;
+  DateTime? get dep => throw _privateConstructorUsedError;
   @override
-  DateTime? get arr;
+  DateTime? get arr => throw _privateConstructorUsedError;
   @override
-  double? get lat;
+  double? get lat => throw _privateConstructorUsedError;
   @override
-  double? get lon;
+  double? get lon => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay;
+  int get depDelay => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay;
+  int get arrDelay => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SubsequentStopCopyWith<_SubsequentStop> get copyWith;
+  _$SubsequentStopCopyWith<_SubsequentStop> get copyWith =>
+      throw _privateConstructorUsedError;
 }
