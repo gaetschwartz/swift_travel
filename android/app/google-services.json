@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "268175690421",
+    "firebase_url": "https://swiss-travel-36188.firebaseio.com",
+    "project_id": "swiss-travel-36188",
+    "storage_bucket": "swiss-travel-36188.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268175690421:android:ba4edddbc8ab7551df4cfc",
+        "android_client_info": {
+          "package_name": "com.gaetanschwartz.swiss_travel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268175690421-uqpjd3c0pddo15ajb8breg0npbgm909s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ0Wmb48uZbpniiWIj50RS-YVcJYi3-Pg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268175690421-uqpjd3c0pddo15ajb8breg0npbgm909s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

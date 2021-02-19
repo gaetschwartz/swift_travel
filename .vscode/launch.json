@@ -1,0 +1,81 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "CACHE_DEBUG=lines"
+      ]
+    },
+    {
+      "name": "Launch (override)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "OVERRIDE_PLATFORM=true"
+      ]
+    },
+    {
+      "name": "Launch (release)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "RELEASE_MODE=true"
+      ]
+    },
+    {
+      "name": "Launch (errors)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "DO_SHOW_ERRORS=true"
+      ]
+    },
+    {
+      "name": "Launch (loading)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "PAGE=loading"
+      ]
+    },
+    {
+      "name": "Launch (welcome)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "PAGE=/welcome"
+      ]
+    },
+    {
+      "name": "Integration Tests: Launch Driver",
+      "request": "launch",
+      "type": "dart",
+      "program": "integration_test/app_test.dart",
+      "args": []
+    },
+    {
+      "name": "Profile",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Release",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+  ]
+}
