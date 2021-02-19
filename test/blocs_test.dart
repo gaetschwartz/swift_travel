@@ -72,8 +72,8 @@ void main() {
       await store.loadFromPreferences(prefs: await SharedPreferences.getInstance());
       verify(favsListener([])).called(1);
 
-      const bern = FavoriteStop(stop: 'Bern', name: 'Bern', api: NavigationApi.sbb);
-      const nowhere = FavoriteStop(stop: 'Nowhere', name: 'Nowhere', api: NavigationApi.sbb);
+      final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
+      final nowhere = FavoriteStop.fromStop('Nowhere', api: NavigationApi.sbb);
 
       await store.addStop(bern);
       expect(store.stops, [bern]);

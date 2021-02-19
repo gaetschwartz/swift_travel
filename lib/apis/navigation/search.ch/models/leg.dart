@@ -15,7 +15,9 @@ class SbbLeg with _$SbbLeg, Leg {
   const factory SbbLeg({
     required String name,
     @JsonKey(name: 'exit') SbbExit? sbbExit,
-    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) required int depDelay,
+    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
+    @Default(0)
+        int depDelay,
     Vehicle? type,
     String? track,
     String? terminal,
@@ -31,7 +33,7 @@ class SbbLeg with _$SbbLeg, Leg {
     DateTime? departure,
     DateTime? arrival,
     int? normalTime,
-    @JsonKey(name: 'waittime') @Default(0) int waitTime,
+    @JsonKey(name: 'waittime', defaultValue: 0) @Default(0) int waitTime,
     @Default(false) bool isaddress,
     double? lat,
     double? lon,

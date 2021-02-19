@@ -81,7 +81,19 @@ void overridePlatform() {
   }
 }
 
-void _runApp() => runApp(ProviderScope(child: MyApp()));
+void _runApp() => runApp(
+      GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        excludeFromSemantics: true,
+        behavior: HitTestBehavior.opaque,
+        child: ProviderScope(
+          child: DynamicTheme(
+            theme: DynamicThemeData(),
+            child: MyApp(),
+          ),
+        ),
+      ),
+    );
 
 final ctrl = defaultTargetPlatform == TargetPlatform.macOS
     ? LogicalKeyboardKey.meta
@@ -125,7 +137,7 @@ class _MyAppState extends State<MyApp> {
   void reassemble() {
     super.reassemble();
     log('Reload theme');
-    context.read(dynamicTheme).configure(themeConfiguration);
+    DynamicTheme.of(context).configure(themeConfiguration);
   }
 
   final shortcuts2 = {
@@ -144,81 +156,72 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      excludeFromSemantics: true,
-      behavior: HitTestBehavior.opaque,
-      child: Consumer(builder: (context, w, _) {
-        final theme = w(dynamicTheme);
-        final isDarwin = Responsive.isDarwin(context);
+    final theme = DynamicTheme.of(context);
+    final isDarwin = Responsive.isDarwin(context);
 
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: navigatorKey,
-          scaffoldMessengerKey: scaffoldMessengerKey,
-          title: 'Swift Travel',
-          theme: theme.light,
-          darkTheme: theme.dark,
-          themeMode: theme.themeMode,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: AppLocalizations.supportedLocales,
-          shortcuts: shortcuts2,
-          actions: {
-            EscapeIntent: CallbackAction(onInvoke: (e) {
-              if (kDebugMode) {
-                print('Clearing sidebar');
-              }
-              context.read(sideTabBarProvider).state = null;
-              sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
-              return null;
-            }),
-            TabIntent: TabAction((tab) {
-              print('Changing tab to $tab');
-              context.read(tabProvider).setPage(tab, isDarwin);
-            }),
-            SwitchTabIntent: CallbackAction(onInvoke: (_) {
-              print('Switching tab');
-              final tabs = context.read(tabProvider);
-              tabs.setPage(
-                  (tabs.page + 1) %
-                      (isDarwin ? MainApp.iosTabs.length : MainApp.androidTabs.length),
-                  isDarwin);
-              return null;
-            })
-          },
-          onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
-          onUnknownRoute: (settings) => onUnknownRoute<void>(settings, isDarwin),
-          onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
-          builder: (context, child) => IfWrapper(
-            condition: Responsive.isDarwin(context),
-            builder: (context, child) {
-              final t = Theme.of(context);
-              final cupertinoOverride =
-                  t.cupertinoOverrideTheme ?? const NoDefaultCupertinoThemeData();
-              return CupertinoTheme(
-                data: CupertinoThemeData(
-                  brightness: t.brightness,
-                  primaryColor: cupertinoOverride.primaryColor,
-                  primaryContrastingColor: cupertinoOverride.primaryContrastingColor,
-                  textTheme: cupertinoOverride.textTheme,
-                  barBackgroundColor: cupertinoOverride.barBackgroundColor,
-                  scaffoldBackgroundColor: cupertinoOverride.scaffoldBackgroundColor,
-                ),
-                child: child!,
-              );
-            },
-            elseBuilder: (context, child) =>
-                ScrollConfiguration(behavior: const NoOverscrollGlowBehavior(), child: child!),
-            child: child,
-          ),
-          initialRoute: 'loading',
-        );
-      }),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
+      scaffoldMessengerKey: scaffoldMessengerKey,
+      title: 'Swift Travel',
+      theme: theme.light,
+      darkTheme: theme.dark,
+      themeMode: theme.themeMode,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      shortcuts: shortcuts2,
+      actions: {
+        EscapeIntent: CallbackAction(onInvoke: (e) {
+          if (kDebugMode) {
+            print('Clearing sidebar');
+          }
+          context.read(sideTabBarProvider).state = null;
+          sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          return null;
+        }),
+        TabIntent: TabAction((tab) {
+          print('Changing tab to $tab');
+          context.read(tabProvider).setPage(tab, isDarwin);
+        }),
+        SwitchTabIntent: CallbackAction(onInvoke: (_) {
+          print('Switching tab');
+          final tabs = context.read(tabProvider);
+          tabs.setPage(
+              (tabs.page + 1) % (isDarwin ? MainApp.iosTabs.length : MainApp.androidTabs.length),
+              isDarwin);
+          return null;
+        })
+      },
+      onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
+      onUnknownRoute: (settings) => onUnknownRoute<void>(settings, isDarwin),
+      onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
+      builder: (context, child) => IfWrapper(
+        condition: Responsive.isDarwin(context),
+        builder: (context, child) {
+          final t = Theme.of(context);
+          final cupertinoOverride = t.cupertinoOverrideTheme ?? const NoDefaultCupertinoThemeData();
+          return CupertinoTheme(
+            data: CupertinoThemeData(
+              brightness: t.brightness,
+              primaryColor: cupertinoOverride.primaryColor,
+              primaryContrastingColor: cupertinoOverride.primaryContrastingColor,
+              textTheme: cupertinoOverride.textTheme,
+              barBackgroundColor: cupertinoOverride.barBackgroundColor,
+              scaffoldBackgroundColor: cupertinoOverride.scaffoldBackgroundColor,
+            ),
+            child: child!,
+          );
+        },
+        elseBuilder: (context, child) =>
+            ScrollConfiguration(behavior: const NoOverscrollGlowBehavior(), child: child!),
+        child: child,
+      ),
+      initialRoute: 'loading',
     );
   }
 

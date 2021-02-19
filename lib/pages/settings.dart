@@ -50,8 +50,8 @@ class _SettingsPageState extends State<SettingsPage> {
     (_) => SizedBox(
           key: const Key('settings-top-theme-section'),
           height: 100,
-          child: Consumer(builder: (context, w, _) {
-            final theme = w(dynamicTheme);
+          child: Builder(builder: (context) {
+            final theme = DynamicTheme.of(context);
             return ListView(
               scrollDirection: Axis.horizontal,
               children: [
@@ -85,8 +85,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(width: 16),
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 300),
-                  child: Consumer(builder: (context, w, _) {
-                    final theme = w(dynamicTheme);
+                  child: Builder(builder: (context) {
+                    final theme = DynamicTheme.of(context);
                     return DropdownButton<Font>(
                       icon: const SizedBox(),
                       value: theme.font,
@@ -116,7 +116,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           .toList(growable: false),
                       onChanged: (f) {
                         Vibration.select();
-                        theme.font = f!;
+                        theme.fontName = f!.name;
                       },
                     );
                   }),
@@ -543,7 +543,7 @@ class _PlaformChoiceWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Consumer(builder: (context, w, _) {
-          final theme = w(dynamicTheme);
+          final theme = DynamicTheme.of(context);
           final p = defaultTargetPlatform;
 
           return CupertinoSlidingSegmentedControl<TargetPlatform>(
@@ -581,18 +581,15 @@ class _FontWeightWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context
-        .read(dynamicTheme)
-        .font
+    final theme = DynamicTheme.of(context);
+    final t = theme.font
         .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
         .bodyText1;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Align(
-        alignment: Alignment.centerLeft,
-        child: Consumer(builder: (context, w, _) {
-          final theme = w(dynamicTheme);
-          return CupertinoSlidingSegmentedControl<int>(
+          alignment: Alignment.centerLeft,
+          child: CupertinoSlidingSegmentedControl<int>(
             children: {
               -1: Text(
                 'Light',
@@ -616,9 +613,7 @@ class _FontWeightWidget extends StatelessWidget {
               theme.fontWeightDelta = i!;
               Vibration.select();
             },
-          );
-        }),
-      ),
+          )),
     );
   }
 }
@@ -647,8 +642,8 @@ class __ThemesSectionState extends State<_ThemesSection> {
       children: [
         SizedBox(
           height: 150,
-          child: Consumer(builder: (context, w, _) {
-            final theme = w(dynamicTheme);
+          child: Builder(builder: (context) {
+            final theme = DynamicTheme.of(context);
             final list = theme.configuration.themes.entries.toList(growable: false);
             return ListView.builder(
               controller: _controller,
@@ -829,7 +824,7 @@ class _ModeWidget extends StatelessWidget {
     required this.label,
   }) : super(key: key);
 
-  final DynamicTheme theme;
+  final DynamicThemeData theme;
   final ThemeMode mode;
   final String label;
 

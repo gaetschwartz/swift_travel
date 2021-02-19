@@ -19,7 +19,10 @@ FavoriteStop _$FavoriteStopFromJson(Map<String, dynamic> json) {
 class _$FavoriteStopTearOff {
   const _$FavoriteStopTearOff();
 
-  _FavoriteStop call({required String stop, required String name, required NavigationApi api}) {
+  _FavoriteStop call(
+      {required String stop,
+      required String name,
+      NavigationApi api = NavigationApi.sbb}) {
     return _FavoriteStop(
       stop: stop,
       name: name,
@@ -43,12 +46,14 @@ mixin _$FavoriteStop {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $FavoriteStopCopyWith<FavoriteStop> get copyWith => throw _privateConstructorUsedError;
+  $FavoriteStopCopyWith<FavoriteStop> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $FavoriteStopCopyWith<$Res> {
-  factory $FavoriteStopCopyWith(FavoriteStop value, $Res Function(FavoriteStop) then) =
+  factory $FavoriteStopCopyWith(
+          FavoriteStop value, $Res Function(FavoriteStop) then) =
       _$FavoriteStopCopyWithImpl<$Res>;
   $Res call({String stop, String name, NavigationApi api});
 }
@@ -76,8 +81,10 @@ class _$FavoriteStopCopyWithImpl<$Res> implements $FavoriteStopCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$FavoriteStopCopyWith<$Res> implements $FavoriteStopCopyWith<$Res> {
-  factory _$FavoriteStopCopyWith(_FavoriteStop value, $Res Function(_FavoriteStop) then) =
+abstract class _$FavoriteStopCopyWith<$Res>
+    implements $FavoriteStopCopyWith<$Res> {
+  factory _$FavoriteStopCopyWith(
+          _FavoriteStop value, $Res Function(_FavoriteStop) then) =
       __$FavoriteStopCopyWithImpl<$Res>;
   @override
   $Res call({String stop, String name, NavigationApi api});
@@ -86,7 +93,8 @@ abstract class _$FavoriteStopCopyWith<$Res> implements $FavoriteStopCopyWith<$Re
 /// @nodoc
 class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
     implements _$FavoriteStopCopyWith<$Res> {
-  __$FavoriteStopCopyWithImpl(_FavoriteStop _value, $Res Function(_FavoriteStop) _then)
+  __$FavoriteStopCopyWithImpl(
+      _FavoriteStop _value, $Res Function(_FavoriteStop) _then)
       : super(_value, (v) => _then(v as _FavoriteStop));
 
   @override
@@ -110,14 +118,17 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_FavoriteStop implements _FavoriteStop {
-  const _$_FavoriteStop({required this.stop, required this.name, required this.api});
+  const _$_FavoriteStop(
+      {required this.stop, required this.name, this.api = NavigationApi.sbb});
 
-  factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) => _$_$_FavoriteStopFromJson(json);
+  factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
+      _$_$_FavoriteStopFromJson(json);
 
   @override
   final String stop;
   @override
   final String name;
+  @JsonKey(defaultValue: NavigationApi.sbb)
   @override
   final NavigationApi api;
 
@@ -134,7 +145,8 @@ class _$_FavoriteStop implements _FavoriteStop {
                 const DeepCollectionEquality().equals(other.stop, stop)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.api, api) || const DeepCollectionEquality().equals(other.api, api)));
+            (identical(other.api, api) ||
+                const DeepCollectionEquality().equals(other.api, api)));
   }
 
   @override
@@ -157,9 +169,12 @@ class _$_FavoriteStop implements _FavoriteStop {
 
 abstract class _FavoriteStop implements FavoriteStop {
   const factory _FavoriteStop(
-      {required String stop, required String name, required NavigationApi api}) = _$_FavoriteStop;
+      {required String stop,
+      required String name,
+      NavigationApi api}) = _$_FavoriteStop;
 
-  factory _FavoriteStop.fromJson(Map<String, dynamic> json) = _$_FavoriteStop.fromJson;
+  factory _FavoriteStop.fromJson(Map<String, dynamic> json) =
+      _$_FavoriteStop.fromJson;
 
   @override
   String get stop => throw _privateConstructorUsedError;
@@ -169,5 +184,6 @@ abstract class _FavoriteStop implements FavoriteStop {
   NavigationApi get api => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$FavoriteStopCopyWith<_FavoriteStop> get copyWith => throw _privateConstructorUsedError;
+  _$FavoriteStopCopyWith<_FavoriteStop> get copyWith =>
+      throw _privateConstructorUsedError;
 }
