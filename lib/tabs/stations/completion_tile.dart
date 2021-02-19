@@ -61,6 +61,7 @@ class SbbCompletionTile extends ConsumerWidget {
         borderRadius: _kRadius,
       ),
       child: ListTile(
+        horizontalTitleGap: 0,
         dense: true,
         shape: const RoundedRectangleBorder(borderRadius: _kRadius),
         leading: Column(
@@ -167,13 +168,36 @@ class _LinesWidget extends StatefulWidget {
 
 class __LinesWidgetState extends State<_LinesWidget> {
   static late final doCache = !isDebugMode || Env.doCacheInDebug.contains('lines');
-  final _cache = LineCache.i;
+  static final _cache = LineCache.i;
   static const numberOfLines = 6;
+
+  List<Widget>? lines;
 
   @override
   void initState() {
     super.initState();
     getData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 4),
+      child: lines == null
+          ? const SizedBox(width: 8, height: 8, child: CircularProgressIndicator.adaptive())
+          : SizedBox(
+              width: double.infinity,
+              child: ClipRect(
+                child: Row(
+                  children: [
+                    ...lines!.take(numberOfLines),
+                    if (lines!.length > numberOfLines)
+                      const Text(' ...', overflow: TextOverflow.fade)
+                  ],
+                ),
+              ),
+            ),
+    );
   }
 
   Future<void> getData() async {
@@ -262,21 +286,4 @@ class __LinesWidgetState extends State<_LinesWidget> {
         padding: const EdgeInsets.symmetric(horizontal: 1),
         child: LineIcon.fromLine(l, small: true),
       );
-
-  List<Widget>? lines;
-
-  @override
-  Widget build(BuildContext context) {
-    return lines == null
-        ? const Padding(padding: EdgeInsets.only(top: 4), child: CupertinoActivityIndicator())
-        : Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Row(
-              children: [
-                ...lines!.take(numberOfLines),
-                if (lines!.length > numberOfLines) const Text(' ...', overflow: TextOverflow.fade)
-              ],
-            ),
-          );
-  }
 }

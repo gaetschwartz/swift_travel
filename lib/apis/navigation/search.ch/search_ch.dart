@@ -56,13 +56,18 @@ class SearchChApi extends NavigationApi {
 
     final decode = jsonDecode(response.body) as List;
 
-    final completions = <SbbCompletion>[];
-
-    for (final item in decode) {
-      if (!filterNull || item['label'] != null) {
-        completions.add(SbbCompletion.fromJson(item as Map<String, dynamic>));
-      }
-    }
+    final completions = decode
+        .where((dynamic e) {
+          if (filterNull) {
+            if (e['label'] == null) {
+              print('Completion\'s label is null: $e');
+              return false;
+            }
+          }
+          return true;
+        })
+        .map((dynamic e) => SbbCompletion.fromJson(e as Map<String, dynamic>))
+        .toList();
 
     return completions;
   }
@@ -79,8 +84,9 @@ class SearchChApi extends NavigationApi {
       'latlon': '$lat,$lon',
       'accuracy': accuracy,
       'show_ids': showIds.toInt(),
-      'show_coordinates': showCoordinates.toInt()
+      'show_coordinates': showCoordinates.toInt(),
     });
+
     if (kDebugMode) log(uri.toString());
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
@@ -110,25 +116,24 @@ class SearchChApi extends NavigationApi {
       'show_subsequent_stops': showSubsequentStops.toInt(),
       'show_delays': showDelays.toInt(),
       'show_trackchanges': showTrackchanges.toInt(),
-      'mode': arrival ? 'arrival' : 'depart'
+      'mode': arrival ? 'arrival' : 'depart',
+      if (transportationTypes.isNotEmpty) 'transportation_types': transportationTypes.join(','),
     };
-    if (transportationTypes.isNotEmpty) {
-      params['transportation_types'] = transportationTypes.join(',');
-    }
     final s = queryBuilder('stationboard', params);
     if (kDebugMode) log(s.toString());
+
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve stationboard : ${response.body}");
     }
     final decode = await Future.microtask(() => jsonDecode(response.body) as Map<String, dynamic>);
 
-    final cffStationboard = SbbStationboard.parse(decode);
-    final map = cffStationboard.mapBoard(
+    final cffStationboard = SbbStationboard.parse(decode).mapBoard(
       (value) => value.copyWith(stopName: stopName),
       onError: (e) => e,
     );
-    return map;
+
+    return cffStationboard;
   }
 
   @override
