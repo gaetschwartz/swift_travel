@@ -153,8 +153,9 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       )
     ];
 
-    return Material(
-      child: CupertinoTabScaffold(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: CupertinoTabScaffold(
         controller: combinedPageController.cupertinoTabController,
         resizeToAvoidBottomInset: false,
         tabBar: CupertinoTabBar(
