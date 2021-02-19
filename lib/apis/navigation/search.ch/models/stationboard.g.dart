@@ -9,13 +9,12 @@ part of 'stationboard.dart';
 _$SbbStationboardData _$_$SbbStationboardDataFromJson(
     Map<String, dynamic> json) {
   return _$SbbStationboardData(
-    stop: SbbStop.fromJson(json['stop'] as Map<String, dynamic>),
+    sbbStop: SbbStop.fromJson(json['stop'] as Map<String, dynamic>),
     stopName: json['stopName'] as String,
-    connections: (json['connections'] as List<dynamic>?)
-            ?.map((e) =>
-                SbbStationboardConnection.fromJson(e as Map<String, dynamic>))
-            .toList() ??
-        [],
+    sbbConnections: (json['connections'] as List<dynamic>)
+        .map((e) =>
+            SbbStationboardConnection.fromJson(e as Map<String, dynamic>))
+        .toList(),
     messages: (json['messages'] as List<dynamic>?)
             ?.map((e) => e as String)
             .toList() ??
@@ -26,9 +25,9 @@ _$SbbStationboardData _$_$SbbStationboardDataFromJson(
 Map<String, dynamic> _$_$SbbStationboardDataToJson(
         _$SbbStationboardData instance) =>
     <String, dynamic>{
-      'stop': instance.stop,
+      'stop': instance.sbbStop,
       'stopName': instance.stopName,
-      'connections': instance.connections,
+      'connections': instance.sbbConnections,
       'messages': instance.messages,
     };
 

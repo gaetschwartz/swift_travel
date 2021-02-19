@@ -91,7 +91,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.11.4"
+    version: "1.11.5"
   build_runner_core:
     dependency: transitive
     description:
@@ -290,7 +290,7 @@ packages:
       name: flutter_keyboard_visibility
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.1"
+    version: "5.0.0-nullsafety.2"
   flutter_keyboard_visibility_platform_interface:
     dependency: transitive
     description:
@@ -353,7 +353,7 @@ packages:
     description:
       path: "packages/freezed"
       ref: HEAD
-      resolved-ref: dd48a2a9d557180b3ad3c38eda8bf6d2f07d640b
+      resolved-ref: "148907fd100483b4e9c2eb4c75292724c6f011a0"
       url: "https://github.com/gaetschwartz/freezed-1"
     source: git
     version: "0.14.0-nullsafety.0"
@@ -676,7 +676,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety"
+    version: "2.0.0-nullsafety.1"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -725,7 +725,7 @@ packages:
       name: shelf_web_socket
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.4"
+    version: "0.2.4+1"
   shimmer:
     dependency: "direct main"
     description:
@@ -947,7 +947,7 @@ packages:
       name: xdg_directories
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0-nullsafety.1"
+    version: "0.2.0"
   yaml:
     dependency: transitive
     description:

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stationboard_connection.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
@@ -166,7 +165,7 @@ class _StopDetailsState extends State<StopDetails> {
 }
 
 class ConnectionTile extends StatelessWidget {
-  final SbbStationboardConnection c;
+  final StationboardConnection c;
   final Stop? s;
 
   const ConnectionTile({

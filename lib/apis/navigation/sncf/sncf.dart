@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/apis/navigation/sncf/key.dart';
 import 'package:swift_travel/apis/navigation/sncf/models/sncf_completion.dart';
@@ -68,7 +68,7 @@ class SncfApi extends NavigationApi {
   }
 
   @override
-  Future<SbbStationboard> stationboard(String stopName,
+  Future<StationBoard> stationboard(String stopName,
       {DateTime? when,
       bool? arrival,
       int? limit,

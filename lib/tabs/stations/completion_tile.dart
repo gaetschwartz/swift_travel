@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stationboard_connection.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/cache.dart';
@@ -202,9 +202,9 @@ class __LinesWidgetState extends State<_LinesWidget> {
           .stationboard(widget.sugg.label, showSubsequentStops: false, showDelays: false)
           .timeout(const Duration(seconds: 1));
 
-      final connections = sData.map<Iterable<SbbStationboardConnection>?>(
+      final connections = sData.mapBoard<Iterable<StationboardConnection>?>(
         (board) => board.connections.where((c) => c.line != null),
-        error: (e) {
+        onError: (e) {
           print('CffStationboardError while fetching lines: ' + e.messages.toString());
           return null;
         },

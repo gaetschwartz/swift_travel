@@ -12,14 +12,14 @@ _$_SbbStationboardConnection _$_$_SbbStationboardConnectionFromJson(
     time: DateTime.parse(json['time'] as String),
     type: _$enumDecode(_$VehicleEnumMap, json['type']),
     color: json['color'] as String,
-    terminal: SbbStop.fromJson(json['terminal'] as Map<String, dynamic>),
+    sbbTerminal: SbbStop.fromJson(json['terminal'] as Map<String, dynamic>),
     line: json['line'] as String?,
     operator_: json['operator'] as String?,
     number: json['number'] as String? ?? '',
     g: json['*G'] as String?,
     l: json['*L'] as String?,
-    subsequentStops: (json['subsequent_stops'] as List<dynamic>?)
-            ?.map((e) => SubsequentStop.fromJson(e as Map<String, dynamic>))
+    sbbSubsequentStops: (json['subsequent_stops'] as List<dynamic>?)
+            ?.map((e) => SbbSubsequentStop.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [],
     depDelay: delayFromJson(json['dep_delay']),
@@ -33,14 +33,14 @@ Map<String, dynamic> _$_$_SbbStationboardConnectionToJson(
       'time': instance.time.toIso8601String(),
       'type': _$VehicleEnumMap[instance.type],
       'color': instance.color,
-      'terminal': instance.terminal.toJson(),
+      'terminal': instance.sbbTerminal.toJson(),
       'line': instance.line,
       'operator': instance.operator_,
       'number': instance.number,
       '*G': instance.g,
       '*L': instance.l,
       'subsequent_stops':
-          instance.subsequentStops.map((e) => e.toJson()).toList(),
+          instance.sbbSubsequentStops.map((e) => e.toJson()).toList(),
       'dep_delay': delayToJson(instance.depDelay),
       'arr_delay': delayToJson(instance.arrDelay),
     };

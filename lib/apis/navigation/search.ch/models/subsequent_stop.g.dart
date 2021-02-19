@@ -6,8 +6,8 @@ part of 'subsequent_stop.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SubsequentStop _$_$_SubsequentStopFromJson(Map<String, dynamic> json) {
-  return _$_SubsequentStop(
+_$_SbbSubsequentStop _$_$_SbbSubsequentStopFromJson(Map<String, dynamic> json) {
+  return _$_SbbSubsequentStop(
     name: json['name'] as String,
     id: json['id'] as String?,
     dep: json['dep'] == null ? null : DateTime.parse(json['dep'] as String),
@@ -19,7 +19,8 @@ _$_SubsequentStop _$_$_SubsequentStopFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_SubsequentStopToJson(_$_SubsequentStop instance) =>
+Map<String, dynamic> _$_$_SbbSubsequentStopToJson(
+        _$_SbbSubsequentStop instance) =>
     <String, dynamic>{
       'name': instance.name,
       'id': instance.id,

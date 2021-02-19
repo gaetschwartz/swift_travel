@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'stationboard.dart';
 
@@ -28,15 +28,17 @@ class _$SbbStationboardTearOff {
   const _$SbbStationboardTearOff();
 
   SbbStationboardData call(
-      {required SbbStop stop,
+      {@JsonKey(name: 'stop')
+          required SbbStop sbbStop,
       required String stopName,
-      List<SbbStationboardConnection> connections =
-          const <SbbStationboardConnection>[],
+      @JsonKey(name: 'connections')
+          List<SbbStationboardConnection>
+              sbbConnections = const <SbbStationboardConnection>[],
       List<String> messages = const <String>[]}) {
     return SbbStationboardData(
-      stop: stop,
+      sbbStop: sbbStop,
       stopName: stopName,
-      connections: connections,
+      sbbConnections: sbbConnections,
       messages: messages,
     );
   }
@@ -61,16 +63,26 @@ mixin _$SbbStationboard {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(SbbStop stop, String stopName,
-            List<SbbStationboardConnection> connections, List<String> messages)
+    TResult Function(
+            @JsonKey(name: 'stop')
+                SbbStop sbbStop,
+            String stopName,
+            @JsonKey(name: 'connections')
+                List<SbbStationboardConnection> sbbConnections,
+            List<String> messages)
         $default, {
     required TResult Function(List<String> messages) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(SbbStop stop, String stopName,
-            List<SbbStationboardConnection> connections, List<String> messages)?
+    TResult Function(
+            @JsonKey(name: 'stop')
+                SbbStop sbbStop,
+            String stopName,
+            @JsonKey(name: 'connections')
+                List<SbbStationboardConnection> sbbConnections,
+            List<String> messages)?
         $default, {
     TResult Function(List<String> messages)? error,
     required TResult orElse(),
@@ -131,12 +143,14 @@ abstract class $SbbStationboardDataCopyWith<$Res>
       _$SbbStationboardDataCopyWithImpl<$Res>;
   @override
   $Res call(
-      {SbbStop stop,
+      {@JsonKey(name: 'stop')
+          SbbStop sbbStop,
       String stopName,
-      List<SbbStationboardConnection> connections,
+      @JsonKey(name: 'connections')
+          List<SbbStationboardConnection> sbbConnections,
       List<String> messages});
 
-  $SbbStopCopyWith<$Res> get stop;
+  $SbbStopCopyWith<$Res> get sbbStop;
 }
 
 /// @nodoc
@@ -152,71 +166,79 @@ class _$SbbStationboardDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? stop = freezed,
+    Object? sbbStop = freezed,
     Object? stopName = freezed,
-    Object? connections = freezed,
+    Object? sbbConnections = freezed,
     Object? messages = freezed,
   }) {
     return _then(SbbStationboardData(
-      stop: stop == freezed ? _value.stop : stop as SbbStop,
+      sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop,
       stopName: stopName == freezed ? _value.stopName : stopName as String,
-      connections: connections == freezed
-          ? _value.connections
-          : connections as List<SbbStationboardConnection>,
+      sbbConnections: sbbConnections == freezed
+          ? _value.sbbConnections
+          : sbbConnections as List<SbbStationboardConnection>,
       messages:
           messages == freezed ? _value.messages : messages as List<String>,
     ));
   }
 
   @override
-  $SbbStopCopyWith<$Res> get stop {
-    return $SbbStopCopyWith<$Res>(_value.stop, (value) {
-      return _then(_value.copyWith(stop: value));
+  $SbbStopCopyWith<$Res> get sbbStop {
+    return $SbbStopCopyWith<$Res>(_value.sbbStop, (value) {
+      return _then(_value.copyWith(sbbStop: value));
     });
   }
 }
 
 @JsonSerializable()
+@With(_StationboardDataMixin)
+@With(StationboardData)
 
 /// @nodoc
-class _$SbbStationboardData implements SbbStationboardData {
+class _$SbbStationboardData extends SbbStationboardData
+    with _StationboardDataMixin, StationboardData {
   const _$SbbStationboardData(
-      {required this.stop,
+      {@JsonKey(name: 'stop')
+          required this.sbbStop,
       required this.stopName,
-      this.connections = const <SbbStationboardConnection>[],
-      this.messages = const <String>[]});
+      @JsonKey(name: 'connections')
+          this.sbbConnections = const <SbbStationboardConnection>[],
+      this.messages = const <String>[]})
+      : super._();
 
   factory _$SbbStationboardData.fromJson(Map<String, dynamic> json) =>
       _$_$SbbStationboardDataFromJson(json);
 
   @override
-  final SbbStop stop;
+  @JsonKey(name: 'stop')
+  final SbbStop sbbStop;
   @override
   final String stopName;
-  @JsonKey(defaultValue: const <SbbStationboardConnection>[])
   @override
-  final List<SbbStationboardConnection> connections;
+  @JsonKey(name: 'connections')
+  final List<SbbStationboardConnection> sbbConnections;
   @JsonKey(defaultValue: const <String>[])
   @override
   final List<String> messages;
 
   @override
   String toString() {
-    return 'SbbStationboard(stop: $stop, stopName: $stopName, connections: $connections, messages: $messages)';
+    return 'SbbStationboard(sbbStop: $sbbStop, stopName: $stopName, sbbConnections: $sbbConnections, messages: $messages)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is SbbStationboardData &&
-            (identical(other.stop, stop) ||
-                const DeepCollectionEquality().equals(other.stop, stop)) &&
+            (identical(other.sbbStop, sbbStop) ||
+                const DeepCollectionEquality()
+                    .equals(other.sbbStop, sbbStop)) &&
             (identical(other.stopName, stopName) ||
                 const DeepCollectionEquality()
                     .equals(other.stopName, stopName)) &&
-            (identical(other.connections, connections) ||
+            (identical(other.sbbConnections, sbbConnections) ||
                 const DeepCollectionEquality()
-                    .equals(other.connections, connections)) &&
+                    .equals(other.sbbConnections, sbbConnections)) &&
             (identical(other.messages, messages) ||
                 const DeepCollectionEquality()
                     .equals(other.messages, messages)));
@@ -225,9 +247,9 @@ class _$SbbStationboardData implements SbbStationboardData {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(stop) ^
+      const DeepCollectionEquality().hash(sbbStop) ^
       const DeepCollectionEquality().hash(stopName) ^
-      const DeepCollectionEquality().hash(connections) ^
+      const DeepCollectionEquality().hash(sbbConnections) ^
       const DeepCollectionEquality().hash(messages);
 
   @JsonKey(ignore: true)
@@ -238,25 +260,35 @@ class _$SbbStationboardData implements SbbStationboardData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(SbbStop stop, String stopName,
-            List<SbbStationboardConnection> connections, List<String> messages)
+    TResult Function(
+            @JsonKey(name: 'stop')
+                SbbStop sbbStop,
+            String stopName,
+            @JsonKey(name: 'connections')
+                List<SbbStationboardConnection> sbbConnections,
+            List<String> messages)
         $default, {
     required TResult Function(List<String> messages) error,
   }) {
-    return $default(stop, stopName, connections, messages);
+    return $default(sbbStop, stopName, sbbConnections, messages);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(SbbStop stop, String stopName,
-            List<SbbStationboardConnection> connections, List<String> messages)?
+    TResult Function(
+            @JsonKey(name: 'stop')
+                SbbStop sbbStop,
+            String stopName,
+            @JsonKey(name: 'connections')
+                List<SbbStationboardConnection> sbbConnections,
+            List<String> messages)?
         $default, {
     TResult Function(List<String> messages)? error,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(stop, stopName, connections, messages);
+      return $default(sbbStop, stopName, sbbConnections, messages);
     }
     return orElse();
   }
@@ -289,19 +321,25 @@ class _$SbbStationboardData implements SbbStationboardData {
   }
 }
 
-abstract class SbbStationboardData implements SbbStationboard {
+abstract class SbbStationboardData extends SbbStationboard
+    implements _StationboardDataMixin, StationboardData {
+  const SbbStationboardData._() : super._();
   const factory SbbStationboardData(
-      {required SbbStop stop,
+      {@JsonKey(name: 'stop')
+          required SbbStop sbbStop,
       required String stopName,
-      List<SbbStationboardConnection> connections,
+      @JsonKey(name: 'connections')
+          List<SbbStationboardConnection> sbbConnections,
       List<String> messages}) = _$SbbStationboardData;
 
   factory SbbStationboardData.fromJson(Map<String, dynamic> json) =
       _$SbbStationboardData.fromJson;
 
-  SbbStop get stop => throw _privateConstructorUsedError;
+  @JsonKey(name: 'stop')
+  SbbStop get sbbStop => throw _privateConstructorUsedError;
   String get stopName => throw _privateConstructorUsedError;
-  List<SbbStationboardConnection> get connections =>
+  @JsonKey(name: 'connections')
+  List<SbbStationboardConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   @override
   List<String> get messages => throw _privateConstructorUsedError;
@@ -343,10 +381,12 @@ class _$SbbStationboardErrorCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@With(StationboardError)
 
 /// @nodoc
-class _$SbbStationboardError implements SbbStationboardError {
-  const _$SbbStationboardError(this.messages);
+class _$SbbStationboardError extends SbbStationboardError
+    with StationboardError {
+  const _$SbbStationboardError(this.messages) : super._();
 
   factory _$SbbStationboardError.fromJson(Map<String, dynamic> json) =>
       _$_$SbbStationboardErrorFromJson(json);
@@ -381,8 +421,13 @@ class _$SbbStationboardError implements SbbStationboardError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(SbbStop stop, String stopName,
-            List<SbbStationboardConnection> connections, List<String> messages)
+    TResult Function(
+            @JsonKey(name: 'stop')
+                SbbStop sbbStop,
+            String stopName,
+            @JsonKey(name: 'connections')
+                List<SbbStationboardConnection> sbbConnections,
+            List<String> messages)
         $default, {
     required TResult Function(List<String> messages) error,
   }) {
@@ -392,8 +437,13 @@ class _$SbbStationboardError implements SbbStationboardError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(SbbStop stop, String stopName,
-            List<SbbStationboardConnection> connections, List<String> messages)?
+    TResult Function(
+            @JsonKey(name: 'stop')
+                SbbStop sbbStop,
+            String stopName,
+            @JsonKey(name: 'connections')
+                List<SbbStationboardConnection> sbbConnections,
+            List<String> messages)?
         $default, {
     TResult Function(List<String> messages)? error,
     required TResult orElse(),
@@ -432,7 +482,9 @@ class _$SbbStationboardError implements SbbStationboardError {
   }
 }
 
-abstract class SbbStationboardError implements SbbStationboard {
+abstract class SbbStationboardError extends SbbStationboard
+    implements StationboardError {
+  const SbbStationboardError._() : super._();
   const factory SbbStationboardError(List<String> messages) =
       _$SbbStationboardError;
 

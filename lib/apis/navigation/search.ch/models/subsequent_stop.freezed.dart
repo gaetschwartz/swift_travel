@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'subsequent_stop.dart';
 
@@ -11,15 +11,15 @@ T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-SubsequentStop _$SubsequentStopFromJson(Map<String, dynamic> json) {
-  return _SubsequentStop.fromJson(json);
+SbbSubsequentStop _$SbbSubsequentStopFromJson(Map<String, dynamic> json) {
+  return _SbbSubsequentStop.fromJson(json);
 }
 
 /// @nodoc
-class _$SubsequentStopTearOff {
-  const _$SubsequentStopTearOff();
+class _$SbbSubsequentStopTearOff {
+  const _$SbbSubsequentStopTearOff();
 
-  _SubsequentStop call(
+  _SbbSubsequentStop call(
       {required String name,
       String? id,
       DateTime? dep,
@@ -30,7 +30,7 @@ class _$SubsequentStopTearOff {
           required int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           required int arrDelay}) {
-    return _SubsequentStop(
+    return _SbbSubsequentStop(
       name: name,
       id: id,
       dep: dep,
@@ -42,16 +42,16 @@ class _$SubsequentStopTearOff {
     );
   }
 
-  SubsequentStop fromJson(Map<String, Object> json) {
-    return SubsequentStop.fromJson(json);
+  SbbSubsequentStop fromJson(Map<String, Object> json) {
+    return SbbSubsequentStop.fromJson(json);
   }
 }
 
 /// @nodoc
-const $SubsequentStop = _$SubsequentStopTearOff();
+const $SbbSubsequentStop = _$SbbSubsequentStopTearOff();
 
 /// @nodoc
-mixin _$SubsequentStop {
+mixin _$SbbSubsequentStop {
   String get name => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
   DateTime? get dep => throw _privateConstructorUsedError;
@@ -65,15 +65,15 @@ mixin _$SubsequentStop {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SubsequentStopCopyWith<SubsequentStop> get copyWith =>
+  $SbbSubsequentStopCopyWith<SbbSubsequentStop> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SubsequentStopCopyWith<$Res> {
-  factory $SubsequentStopCopyWith(
-          SubsequentStop value, $Res Function(SubsequentStop) then) =
-      _$SubsequentStopCopyWithImpl<$Res>;
+abstract class $SbbSubsequentStopCopyWith<$Res> {
+  factory $SbbSubsequentStopCopyWith(
+          SbbSubsequentStop value, $Res Function(SbbSubsequentStop) then) =
+      _$SbbSubsequentStopCopyWithImpl<$Res>;
   $Res call(
       {String name,
       String? id,
@@ -88,13 +88,13 @@ abstract class $SubsequentStopCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SubsequentStopCopyWithImpl<$Res>
-    implements $SubsequentStopCopyWith<$Res> {
-  _$SubsequentStopCopyWithImpl(this._value, this._then);
+class _$SbbSubsequentStopCopyWithImpl<$Res>
+    implements $SbbSubsequentStopCopyWith<$Res> {
+  _$SbbSubsequentStopCopyWithImpl(this._value, this._then);
 
-  final SubsequentStop _value;
+  final SbbSubsequentStop _value;
   // ignore: unused_field
-  final $Res Function(SubsequentStop) _then;
+  final $Res Function(SbbSubsequentStop) _then;
 
   @override
   $Res call({
@@ -121,11 +121,11 @@ class _$SubsequentStopCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SubsequentStopCopyWith<$Res>
-    implements $SubsequentStopCopyWith<$Res> {
-  factory _$SubsequentStopCopyWith(
-          _SubsequentStop value, $Res Function(_SubsequentStop) then) =
-      __$SubsequentStopCopyWithImpl<$Res>;
+abstract class _$SbbSubsequentStopCopyWith<$Res>
+    implements $SbbSubsequentStopCopyWith<$Res> {
+  factory _$SbbSubsequentStopCopyWith(
+          _SbbSubsequentStop value, $Res Function(_SbbSubsequentStop) then) =
+      __$SbbSubsequentStopCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -141,15 +141,15 @@ abstract class _$SubsequentStopCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SubsequentStopCopyWithImpl<$Res>
-    extends _$SubsequentStopCopyWithImpl<$Res>
-    implements _$SubsequentStopCopyWith<$Res> {
-  __$SubsequentStopCopyWithImpl(
-      _SubsequentStop _value, $Res Function(_SubsequentStop) _then)
-      : super(_value, (v) => _then(v as _SubsequentStop));
+class __$SbbSubsequentStopCopyWithImpl<$Res>
+    extends _$SbbSubsequentStopCopyWithImpl<$Res>
+    implements _$SbbSubsequentStopCopyWith<$Res> {
+  __$SbbSubsequentStopCopyWithImpl(
+      _SbbSubsequentStop _value, $Res Function(_SbbSubsequentStop) _then)
+      : super(_value, (v) => _then(v as _SbbSubsequentStop));
 
   @override
-  _SubsequentStop get _value => super._value as _SubsequentStop;
+  _SbbSubsequentStop get _value => super._value as _SbbSubsequentStop;
 
   @override
   $Res call({
@@ -162,7 +162,7 @@ class __$SubsequentStopCopyWithImpl<$Res>
     Object? depDelay = freezed,
     Object? arrDelay = freezed,
   }) {
-    return _then(_SubsequentStop(
+    return _then(_SbbSubsequentStop(
       name: name == freezed ? _value.name : name as String,
       id: id == freezed ? _value.id : id as String?,
       dep: dep == freezed ? _value.dep : dep as DateTime?,
@@ -178,8 +178,8 @@ class __$SubsequentStopCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_SubsequentStop implements _SubsequentStop {
-  const _$_SubsequentStop(
+class _$_SbbSubsequentStop implements _SbbSubsequentStop {
+  const _$_SbbSubsequentStop(
       {required this.name,
       this.id,
       this.dep,
@@ -191,8 +191,8 @@ class _$_SubsequentStop implements _SubsequentStop {
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           required this.arrDelay});
 
-  factory _$_SubsequentStop.fromJson(Map<String, dynamic> json) =>
-      _$_$_SubsequentStopFromJson(json);
+  factory _$_SbbSubsequentStop.fromJson(Map<String, dynamic> json) =>
+      _$_$_SbbSubsequentStopFromJson(json);
 
   @override
   final String name;
@@ -215,13 +215,13 @@ class _$_SubsequentStop implements _SubsequentStop {
 
   @override
   String toString() {
-    return 'SubsequentStop(name: $name, id: $id, dep: $dep, arr: $arr, lat: $lat, lon: $lon, depDelay: $depDelay, arrDelay: $arrDelay)';
+    return 'SbbSubsequentStop(name: $name, id: $id, dep: $dep, arr: $arr, lat: $lat, lon: $lon, depDelay: $depDelay, arrDelay: $arrDelay)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SubsequentStop &&
+        (other is _SbbSubsequentStop &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.id, id) ||
@@ -256,17 +256,17 @@ class _$_SubsequentStop implements _SubsequentStop {
 
   @JsonKey(ignore: true)
   @override
-  _$SubsequentStopCopyWith<_SubsequentStop> get copyWith =>
-      __$SubsequentStopCopyWithImpl<_SubsequentStop>(this, _$identity);
+  _$SbbSubsequentStopCopyWith<_SbbSubsequentStop> get copyWith =>
+      __$SbbSubsequentStopCopyWithImpl<_SbbSubsequentStop>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SubsequentStopToJson(this);
+    return _$_$_SbbSubsequentStopToJson(this);
   }
 }
 
-abstract class _SubsequentStop implements SubsequentStop {
-  const factory _SubsequentStop(
+abstract class _SbbSubsequentStop implements SbbSubsequentStop {
+  const factory _SbbSubsequentStop(
       {required String name,
       String? id,
       DateTime? dep,
@@ -276,10 +276,10 @@ abstract class _SubsequentStop implements SubsequentStop {
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           required int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int arrDelay}) = _$_SubsequentStop;
+          required int arrDelay}) = _$_SbbSubsequentStop;
 
-  factory _SubsequentStop.fromJson(Map<String, dynamic> json) =
-      _$_SubsequentStop.fromJson;
+  factory _SbbSubsequentStop.fromJson(Map<String, dynamic> json) =
+      _$_SbbSubsequentStop.fromJson;
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -301,6 +301,6 @@ abstract class _SubsequentStop implements SubsequentStop {
   int get arrDelay => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SubsequentStopCopyWith<_SubsequentStop> get copyWith =>
+  _$SbbSubsequentStopCopyWith<_SbbSubsequentStop> get copyWith =>
       throw _privateConstructorUsedError;
 }

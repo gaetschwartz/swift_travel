@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
@@ -93,7 +94,7 @@ class SearchChApi extends NavigationApi {
   }
 
   @override
-  Future<SbbStationboard> stationboard(String stopName,
+  Future<StationBoard> stationboard(String stopName,
       {DateTime? when,
       bool arrival = false,
       int? limit = 32,
@@ -123,7 +124,11 @@ class SearchChApi extends NavigationApi {
     final decode = await Future.microtask(() => jsonDecode(response.body) as Map<String, dynamic>);
 
     final cffStationboard = SbbStationboard.parse(decode);
-    return cffStationboard.map((value) => value.copyWith(stopName: stopName), error: (e) => e);
+    final map = cffStationboard.mapBoard(
+      (value) => value.copyWith(stopName: stopName),
+      onError: (e) => e,
+    );
+    return map;
   }
 
   @override

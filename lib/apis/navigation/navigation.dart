@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
 import 'package:swift_travel/blocs/preferences.dart';
+
+import 'models/stationboard.dart';
 
 @immutable
 class NavigationApiFactory<T extends NavigationApi> {
@@ -54,7 +55,7 @@ abstract class NavigationApi {
     bool showIds,
   });
 
-  Future<SbbStationboard> stationboard(
+  Future<StationBoard> stationboard(
     String stopName, {
     DateTime when,
     bool arrival,
