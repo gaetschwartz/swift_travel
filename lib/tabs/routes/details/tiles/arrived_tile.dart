@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/theme.dart';
-import 'package:swift_travel/utils/string_utils/format.dart';
-import 'package:swift_travel/utils/string_utils/markdown.dart';
+import 'package:swift_travel/utils/strings/format.dart';
+import 'package:swift_travel/utils/strings/markdown.dart';
 
 class ArrivedTile extends StatelessWidget {
   const ArrivedTile(
