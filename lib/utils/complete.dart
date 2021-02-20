@@ -4,7 +4,7 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
-import 'package:utils/levenshtein.dart';
+import 'package:swift_travel/utils/strings/strings.dart';
 
 const _kConfidenceThreshold = .9;
 const _kMaxFavoritesCount = 3;

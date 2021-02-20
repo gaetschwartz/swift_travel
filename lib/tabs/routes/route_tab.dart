@@ -35,7 +35,7 @@ import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
-import 'package:swift_travel/utils/string_utils/string_utils.dart';
+import 'package:swift_travel/utils/strings/strings.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route_widget.dart';
 import 'package:theming/dialogs/datepicker.dart';

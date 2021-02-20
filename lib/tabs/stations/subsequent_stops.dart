@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/subsequent_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
-import 'package:swift_travel/utils/string_utils/format.dart';
+import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 

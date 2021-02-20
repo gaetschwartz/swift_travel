@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:live_route/live_route.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/utils/string_utils/format.dart';
+import 'package:swift_travel/utils/strings/format.dart';
 
 final AutoDisposeStreamProvider<Position>? positionProvider =
     StreamProvider.autoDispose((_) => Geolocator.getPositionStream());
