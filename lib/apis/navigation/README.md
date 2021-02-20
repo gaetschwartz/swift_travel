@@ -1,1 +1,1 @@
-/doc/ADDING-NEW-API.md
+../../../doc/ADDING-NEW-API.md
