@@ -50,3 +50,74 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+  build-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    name: build android
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get Flutter from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            $HOME/.pub-cache
+          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.flutter_channel }}
+      - name: Get git infos
+        id: git-data
+        run: |
+          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
+          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
+          echo "::set-output name=count::$(git rev-list --count HEAD)"
+      - name: Get dependencies
+        run: flutter packages get
+      - name: Pre-build configuration
+        env:
+          TZ: Europe/Zurich
+          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
+          GIT_MSG: ${{ steps.git-data.outputs.msg }}
+          GIT_HASH: ${{ steps.git-data.outputs.hash }}
+        run: bash CI/prebuild.sh
+      - name: Build
+        run: flutter build apk --build-number ${{ steps.git-data.outputs.count }} --no-sound-null-safety
+  build-ios:
+    timeout-minutes: 30
+    name: build ios
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get Flutter from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.pub-cache
+            ~/Library/Caches/CocoaPods
+          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.flutter_channel }}
+      - name: Setup Flutter
+        run: flutter packages get
+      - name: Get git infos
+        id: git-data
+        run: |
+          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
+          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
+          echo "::set-output name=count::$(git rev-list --count HEAD)"
+      - name: Pre-build configuration
+        env:
+          TZ: Europe/Zurich
+          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
+          GIT_MSG: ${{ steps.git-data.outputs.msg }}
+          GIT_HASH: ${{ steps.git-data.outputs.hash }}
+        run: bash CI/prebuild.sh
+      - name: Build
+        run: flutter build ios --build-number $GITHUB_RUN_NUMBER --no-sound-null-safety --no-codesign

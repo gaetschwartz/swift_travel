@@ -5,7 +5,119 @@ on:
     branches:
       - deploy
 
+env:
+  flutter_channel: dev
+  java_version: 8.x
+
 jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    name: android
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get Flutter from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            $HOME/.pub-cache
+          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.flutter_channel }}
+      - name: Get git infos
+        id: git-data
+        run: |
+          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
+          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
+          echo "::set-output name=count::$(git rev-list --count HEAD)"
+      - name: Get dependencies
+        run: flutter packages get
+      - name: Pre-build configuration
+        env:
+          TZ: Europe/Zurich
+          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
+          GIT_MSG: ${{ steps.git-data.outputs.msg }}
+          GIT_HASH: ${{ steps.git-data.outputs.hash }}
+        run: bash CI/prebuild.sh
+      - name: Build
+        run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ci-build-${{ steps.git-data.outputs.count }}
+          release_name: |
+            CI Build #${{ steps.git-data.outputs.count }}
+          body: |
+            *This is an automated CI build for ${{ steps.git-data.outputs.hash }}.*
+
+            `${{ steps.git-data.outputs.msg }}`
+          draft: false
+          prerelease: true
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./build/app/outputs/flutter-apk/app-release.apk
+          asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
+          asset_content_type: application/vnd.android.package-archive
+  deploy-testflight:
+    timeout-minutes: 30
+    name: ios
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup provisioning profile
+        env:
+          IOS_KEYS: ${{ secrets.IOS_KEYS }}
+        run: bash CI/decrypt_secrets.sh
+      - name: Get Flutter from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.pub-cache
+            ~/Library/Caches/CocoaPods
+          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.flutter_channel }}
+      - name: Setup Flutter
+        run: flutter packages get
+      - name: Get git infos
+        id: git-data
+        run: |
+          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
+          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
+          echo "::set-output name=count::$(git rev-list --count HEAD)"
+      - name: Pre-build configuration
+        env:
+          TZ: Europe/Zurich
+          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
+          GIT_MSG: ${{ steps.git-data.outputs.msg }}
+          GIT_HASH: ${{ steps.git-data.outputs.hash }}
+        run: bash CI/prebuild.sh
+      - name: Build
+        run: flutter build ios --build-number $GITHUB_RUN_NUMBER --no-sound-null-safety --no-codesign
+      - name: Exporting .ipa
+        run: bash ./CI/export_ipa.sh
+      - name: Publishing app
+        env:
+          APPLEID_USERNAME: ${{ secrets.APPLEID_USERNAME }}
+          APPLEID_PASSWORD: ${{ secrets.APPLEID_PASSWORD }}
+        run: bash ./CI/publish_testflight.sh
+
   build-web:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -19,13 +131,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            /opt/hostedtoolcache/flutter
             $HOME/.pub-cache
-          key: ${{ runner.OS }}-flutter-cache-${{ steps.release_json.outputs.json }}
+          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
       - name: Install Flutter
         uses: subosito/flutter-action@v1
         with:
-          channel: dev
+          channel: ${{ env.flutter_channel }}
       - name: Get git infos
         id: git-data
         run: |
