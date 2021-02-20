@@ -1,4 +1,4 @@
-name: Tests
+name: test
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 
 jobs:
   flutter-tests:
+    name: flutter test & cov
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
