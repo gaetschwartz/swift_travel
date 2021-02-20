@@ -72,53 +72,6 @@ jobs:
           asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
           asset_content_type: application/vnd.android.package-archive
 
-  deploy-testflight:
-    timeout-minutes: 30
-    name: ios
-    runs-on: macos-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup provisioning profile
-        env:
-          IOS_KEYS: ${{ secrets.IOS_KEYS }}
-        run: bash CI/decrypt_secrets.sh
-      - name: Get Flutter from cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.pub-cache
-            ~/Library/Caches/CocoaPods
-          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
-      - name: Install Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          channel: ${{ env.flutter_channel }}
-      - name: Setup Flutter
-        run: flutter packages get
-      - name: Get git infos
-        id: git-data
-        run: |
-          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
-          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=count::$(git rev-list --count HEAD)"
-      - name: Pre-build configuration
-        env:
-          TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
-          GIT_MSG: ${{ steps.git-data.outputs.msg }}
-          GIT_HASH: ${{ steps.git-data.outputs.hash }}
-        run: bash CI/prebuild.sh
-      - name: Build
-        run: flutter build ios --build-number $GITHUB_RUN_NUMBER --no-sound-null-safety --no-codesign
-      - name: Exporting .ipa
-        run: bash ./CI/export_ipa.sh
-      - name: Publishing app
-        env:
-          APPLEID_USERNAME: ${{ secrets.APPLEID_USERNAME }}
-          APPLEID_PASSWORD: ${{ secrets.APPLEID_PASSWORD }}
-        run: bash ./CI/publish_testflight.sh
-
   build-web:
     runs-on: ubuntu-latest
     timeout-minutes: 10
