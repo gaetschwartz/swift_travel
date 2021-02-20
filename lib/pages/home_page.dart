@@ -72,9 +72,10 @@ final tabProvider = ChangeNotifierProvider.autoDispose<CombinedPageController>((
   return combinedPageController;
 });
 
-bool isTablet(BuildContext context) {
+bool showSidebar(BuildContext context) {
   final mq = MediaQuery.of(context);
-  return mq.size.longestSide / mq.devicePixelRatio > 400 && mq.orientation == Orientation.landscape;
+  final s = mq.size.longestSide / mq.devicePixelRatio;
+  return s > 400 && mq.orientation == Orientation.landscape;
 }
 
 class MainApp extends StatefulWidget {
@@ -104,7 +105,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     final isDarwin = Responsive.isDarwin(context);
 
     return IfWrapper(
-      condition: isTablet(context),
+      condition: showSidebar(context),
       builder: (context, child) {
         return Row(children: [
           ConstrainedBox(
@@ -261,15 +262,18 @@ class _SideBar extends StatelessWidget {
                 ),
                 Positioned.fill(
                     child: Center(
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(
-                        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                        child: const Text(
-                            'Start searching a station or an itinerary to start using the app'),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: Container(
+                          color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                          child: const Text(
+                              'Start searching a station or an itinerary to start using the app'),
+                        ),
                       ),
                     ),
                   ),
@@ -289,7 +293,7 @@ extension BuildContextX on BuildContext {
     bool rootNavigator = false,
   }) {
     final isDarwin = Responsive.isDarwin(this);
-    if (isTablet(this)) {
+    if (showSidebar(this)) {
       read(sideTabBarProvider).state = builder;
       sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {

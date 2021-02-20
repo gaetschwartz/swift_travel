@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -124,10 +125,15 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
 
   Future<void> addFav() async {
     unawaited(Vibration.select());
-    final s = await Navigator.of(context, rootNavigator: true).push<String>(MaterialPageRoute(
-      builder: (_) => const StopInputDialog(title: 'Add a favorite'),
-      fullscreenDialog: true,
-    ));
+
+    final s = Responsive.isDarwin(context)
+        ? await showCupertinoModalBottomSheet<String>(
+            context: context, builder: (context) => const StopInputDialog(title: 'Add a favorite'))
+        : await showMaterialModalBottomSheet<String>(
+            context: context,
+            builder: (_) => const StopInputDialog(title: 'Add a favorite'),
+          );
+
     if (s == null) {
       return;
     }

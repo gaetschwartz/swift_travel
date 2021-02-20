@@ -6,13 +6,17 @@ class SuggestedTile extends StatelessWidget {
   const SuggestedTile(
     this.suggestion, {
     Key? key,
+    this.onTap,
   }) : super(key: key);
 
-  const SuggestedTile.empty({Key? key})
-      : suggestion = null,
+  const SuggestedTile.empty({
+    Key? key,
+    this.onTap,
+  })  : suggestion = null,
         super(key: key);
 
   final Completion? suggestion;
+  final VoidCallback? onTap;
 
   Widget? buildIcon(BuildContext context) {
     switch (suggestion!.origin) {
@@ -54,6 +58,7 @@ class SuggestedTile extends StatelessWidget {
             horizontalTitleGap: 0,
             dense: true,
             tileColor: Colors.transparent,
+            onTap: onTap,
           );
   }
 }

@@ -23,7 +23,7 @@
       ]
     },
     {
-      "name": "Launch (release)",
+      "name": "Launch (fake release)",
       "request": "launch",
       "type": "dart",
       "args": [

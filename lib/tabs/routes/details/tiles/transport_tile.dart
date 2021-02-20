@@ -46,9 +46,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
           onTap: () {
             Navigator.of(context).push(
               platformRoute(
-                builder: (context) {
-                  return TransportDetails(leg: widget.l);
-                },
+                builder: (context) => TransportDetails(leg: widget.l),
                 isDarwin: Responsive.isDarwin(context),
               ),
             );
@@ -148,14 +146,22 @@ class _TransportLegTileState extends State<TransportLegTile> {
                           if (darwin) {
                             showCupertinoModalBottomSheet<void>(
                                 context: context,
-                                builder: (context) => SafeArea(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const SizedBox(height: 8),
-                                          ...list.map(AttributesPage.buildAttributeTile),
-                                          const SizedBox(height: 8),
-                                        ],
+                                builder: (context) => CupertinoPageScaffold(
+                                      resizeToAvoidBottomInset: false,
+                                      navigationBar: CupertinoNavigationBar(
+                                        automaticallyImplyLeading: false,
+                                        middle: Text(
+                                            '${widget.l.line} ${AppLoc.of(context).to} ${widget.l.terminal}'),
+                                      ),
+                                      child: SafeArea(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const SizedBox(height: 8),
+                                            ...list.map(AttributesPage.buildAttributeTile),
+                                            const SizedBox(height: 8),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                 expand: false);
@@ -270,14 +276,12 @@ class _TransportDetailsState extends State<TransportDetails> {
       condition: isDarwin,
       builder: (context, child) {
         return CupertinoPageScaffold(
-          navigationBar: cupertinoBar(context,
-              middle: Text('${widget.leg.line} ${AppLoc.of(context).to} ${widget.leg.terminal}')),
+          navigationBar: cupertinoBar(context, middle: Text(title)),
           child: child!,
         );
       },
       elseBuilder: (context, child) => Scaffold(
-        appBar: AppBar(
-            title: Text('${widget.leg.line} ${AppLoc.of(context).to} ${widget.leg.terminal}')),
+        appBar: AppBar(title: Text(title)),
         body: child,
       ),
       child: ListView.builder(
@@ -294,6 +298,8 @@ class _TransportDetailsState extends State<TransportDetails> {
       ),
     );
   }
+
+  String get title => '${widget.leg.line} ${AppLoc.of(context).to} ${widget.leg.terminal}';
 
   Widget buildAttributeTile(Attribute att) {
     return ListTile(
