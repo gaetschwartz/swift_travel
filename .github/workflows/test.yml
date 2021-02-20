@@ -74,14 +74,14 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: ${{ env.flutter_channel }}
+      - name: Get packages
+        run: flutter packages get
       - name: Get git infos
         id: git-data
         run: |
           echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
           echo "::set-output name=count::$(git rev-list --count HEAD)"
-      - name: Get dependencies
-        run: flutter packages get
       - name: Pre-build configuration
         env:
           TZ: Europe/Zurich
@@ -97,7 +97,7 @@ jobs:
     name: build ios
     runs-on: macos-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v2
       - name: Get Flutter from cache
         uses: actions/cache@v2
@@ -110,7 +110,7 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: ${{ env.flutter_channel }}
-      - name: Setup Flutter
+      - name: Get packages
         run: flutter packages get
       - name: Get git infos
         id: git-data

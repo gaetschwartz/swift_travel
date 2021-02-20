@@ -1,4 +1,4 @@
-name: build
+name: deploy
 
 on:
   push:
@@ -52,7 +52,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ci-build-${{ steps.git-data.outputs.count }}
+          tag_name: ci-deploy-${{ steps.git-data.outputs.count }}
           release_name: |
             CI Build #${{ steps.git-data.outputs.count }}
           body: |
