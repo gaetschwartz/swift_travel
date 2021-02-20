@@ -30,8 +30,6 @@ class NavigationApiFactory<T extends BaseNavigationApi> {
 enum NavigationApi { sbb, sncf }
 
 abstract class BaseNavigationApi {
-  Locale locale = const Locale('en');
-
   static NavigationApiFactory getFactory(NavigationApi api) {
     switch (api) {
       case NavigationApi.sncf:
@@ -40,6 +38,8 @@ abstract class BaseNavigationApi {
         return searchChApi;
     }
   }
+
+  Locale locale = const Locale('en');
 
   Future<List<Completion>> complete(
     String string, {
