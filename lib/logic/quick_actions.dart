@@ -8,10 +8,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swift_travel/blocs/store.dart';
+import 'package:swift_travel/logic/store.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/models/favorite_stop.dart';
-import 'package:swift_travel/models/local_route.dart';
+import 'package:swift_travel/models/state_models.dart';
 
 class MyQuickActions {
   MyQuickActions._();

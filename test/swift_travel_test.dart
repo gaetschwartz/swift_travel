@@ -14,8 +14,7 @@ import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.d
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/mocking/mocking.dart';
-import 'package:swift_travel/models/favorite_stop.dart';
-import 'package:swift_travel/models/local_route.dart';
+import 'package:swift_travel/models/state_models.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';

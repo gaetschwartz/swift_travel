@@ -17,9 +17,11 @@ extension StringUtils on String {
 
   TextSpan parseMarkdown({TextStyle? style}) => parseDecoratedText(this, style: style);
 
-  int distanceTo(String other, {bool caseSensitive = false}) => levenshtein(this, other);
+  int distanceTo(String other, {bool caseSensitive = false}) =>
+      levenshtein(this, other, caseSensitive: caseSensitive);
+
   double scaledDistanceTo(String other, {bool caseSensitive = false}) =>
-      scaledLevenshtein(this, other);
+      scaledLevenshtein(this, other, caseSensitive: caseSensitive);
 
   String toCamelCase() =>
       this[0].toUpperCase() +

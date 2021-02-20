@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 
 class StopInputDialog extends StatefulWidget {

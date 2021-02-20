@@ -130,7 +130,7 @@ class __$LineCacheEntryCopyWithImpl<$Res>
 }
 
 @LineConverter()
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 
 /// @nodoc
 class _$_LineCacheEntry implements _LineCacheEntry {

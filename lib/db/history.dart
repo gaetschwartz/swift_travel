@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:swift_travel/models/local_route.dart';
+import 'package:swift_travel/models/state_models.dart';
 
 import 'db.dart';
 

@@ -11,8 +11,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
 import 'package:share/share.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
-import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/db/history.dart';
+import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/main.dart';
 
 class CrawlerPage extends StatefulWidget {

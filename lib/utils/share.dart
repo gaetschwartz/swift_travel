@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,13 +6,14 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 
-const String routeUrl = 'travel.gaetanschwartz.com';
+const String websiteHost = 'travel.gaetanschwartz.com';
 
 Future<void> shareRoute(BuildContext context, NavRoute route, int? i) async {
   final params = encodeRouteUri(Uri.parse(route.requestUrl!), i);
   print(params);
-  final sharedUri = Uri(scheme: 'https', host: routeUrl, path: 'route', queryParameters: params);
-  log(sharedUri.toString());
+
+  final sharedUri = Uri(scheme: 'https', host: websiteHost, path: 'route', queryParameters: params);
+  print(sharedUri);
 
   if (kIsWeb) {
     final b = await confirm(context,

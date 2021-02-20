@@ -9,8 +9,8 @@ import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
-import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/blocs/preferences.dart';
+import 'package:swift_travel/logic/navigation.dart';
+import 'package:swift_travel/logic/preferences.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 
 void main() {

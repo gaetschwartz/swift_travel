@@ -1,25 +1,27 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swift_travel/blocs/links.dart';
-import 'package:swift_travel/blocs/navigation.dart';
-import 'package:swift_travel/blocs/preferences.dart';
-import 'package:swift_travel/blocs/quick_actions.dart';
-import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/db/cache.dart';
 import 'package:swift_travel/db/history.dart';
+import 'package:swift_travel/logic/links.dart';
+import 'package:swift_travel/logic/navigation.dart';
+import 'package:swift_travel/logic/preferences.dart';
+import 'package:swift_travel/logic/quick_actions.dart';
+import 'package:swift_travel/logic/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/path.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -199,5 +201,24 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     } else {
       return Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
     }
+  }
+}
+
+Future<String> getHivePathOf(Directory? appDir, [List<String> paths = const ['hive_data']]) async {
+  if (appDir == null) {
+    throw Exception('Failed to get application path.');
+  }
+
+  final finalPath = path.joinAll([appDir.path, ...paths]);
+  return finalPath;
+}
+
+Future<Directory?> getApplicationPath() async {
+  if (Platform.isWindows || Platform.isLinux) {
+    return getApplicationSupportDirectory();
+  } else if (Platform.isIOS || Platform.isMacOS) {
+    return getLibraryDirectory();
+  } else if (Platform.isAndroid) {
+    return getExternalStorageDirectory();
   }
 }

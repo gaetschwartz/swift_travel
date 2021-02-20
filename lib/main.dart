@@ -15,8 +15,6 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/l10n.dart';
-import 'package:swift_travel/models/favorite_stop.dart';
-import 'package:swift_travel/models/local_route.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/pages/loading.dart';
@@ -33,6 +31,8 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:url_strategy/url_strategy.dart';
+
+import 'models/state_models.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();

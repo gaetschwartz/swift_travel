@@ -6,7 +6,7 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';
-import 'package:swift_travel/models/local_route.dart';
+import 'package:swift_travel/models/state_models.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/theme.dart';

@@ -14,9 +14,9 @@ class LineConverter implements JsonConverter<Line, Map> {
 }
 
 @freezed
-abstract class LineCacheEntry with _$LineCacheEntry {
+class LineCacheEntry with _$LineCacheEntry {
   @LineConverter()
-  @JsonSerializable(explicitToJson: true)
+  @JsonSerializable(explicitToJson: true, includeIfNull: false)
   const factory LineCacheEntry({
     required DateTime timestamp,
     required String stop,
@@ -32,7 +32,7 @@ abstract class LineCacheEntry with _$LineCacheEntry {
 }
 
 @freezed
-abstract class Line with _$Line {
+class Line with _$Line {
   const factory Line(String? line, String colors) = _Line;
 
   factory Line.fromJson(Map<String, dynamic> json) => _$LineFromJson(json);

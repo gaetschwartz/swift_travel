@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:swift_travel/blocs/location/models/models.dart';
+import 'package:swift_travel/logic/location/models/models.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/utils/env.dart';
 

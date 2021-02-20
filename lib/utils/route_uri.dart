@@ -1,13 +1,15 @@
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/foundation.dart';
-import 'package:swift_travel/blocs/links.dart';
+import 'package:swift_travel/logic/links.dart';
 
 @visibleForTesting
 int encodeArgsToInt(List<bool> values) {
   var out = 0;
 
   for (var i = 0; i < values.length; i++) {
-    out |= values[i].toInt() << i;
+    if (values[i]) {
+      out |= 1 << i;
+    }
   }
 
   return out;
@@ -15,13 +17,8 @@ int encodeArgsToInt(List<bool> values) {
 
 @visibleForTesting
 List<bool> decodeIntToArgs(int input, int length) {
-  final out = <bool>[];
-
-  for (var i = 0; i < length; i++) {
-    out.add((1 << i) & input == 1 << i);
-  }
-
-  return out;
+  bool getBool(int shifted, int input) => shifted & input == shifted;
+  return [for (var i = 0; i < length; i++) getBool(1 << i, input)];
 }
 
 extension BoolX on bool {
@@ -29,10 +26,7 @@ extension BoolX on bool {
 }
 
 Map<String, String> decodeRouteUri(Uri uri) {
-  final oldParams = {
-    ...uri.queryParameters,
-  };
-
+  final oldParams = {...uri.queryParameters};
   oldParams.remove('i');
 
   final params = <String, String>{};

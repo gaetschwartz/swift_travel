@@ -1,9 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 
-part 'local_route.freezed.dart';
-part 'local_route.g.dart';
+part 'state_models.freezed.dart';
+part 'state_models.g.dart';
 
 @freezed
 abstract class LocalRoute with _$LocalRoute {
@@ -35,4 +37,23 @@ abstract class LocalRoute with _$LocalRoute {
       );
 
   factory LocalRoute.fromJson(Map<String, dynamic> json) => _$LocalRouteFromJson(json);
+}
+
+@freezed
+abstract class FavoriteStop with _$FavoriteStop {
+  @JsonSerializable(includeIfNull: false)
+  const factory FavoriteStop({
+    required String stop,
+    required String name,
+    @Default(NavigationApi.sbb) NavigationApi api,
+  }) = _FavoriteStop;
+
+  factory FavoriteStop.fromStop(String stop, {required NavigationApi api}) =>
+      _FavoriteStop(stop: stop, name: stop, api: api);
+
+  factory FavoriteStop.fromCompletion(Completion completion,
+          {String? name, required NavigationApi api}) =>
+      _FavoriteStop(stop: completion.label, name: name ?? completion.label, api: api);
+
+  factory FavoriteStop.fromJson(Map<String, dynamic> json) => _$FavoriteStopFromJson(json);
 }

@@ -9,18 +9,16 @@ mixin Env {
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
   static late final doCacheInDebug = const String.fromEnvironment('CACHE_DEBUG').split('|');
 
-  static String get summary => map.toString();
+  static late final String summary = map.toString();
 
-  static Map<String, Object> get map {
-    return {
-      'RELEASE_MODE': isReleaseMode,
-      'OVERRIDE_PLATFORM': overridePlatform,
-      'PAGE': page,
-      'DO_SHOW_ERRORS': doShowErrors,
-      'SPOOF_LOCATION': spoofLocation,
-      'CACHE_DEBUG': doCacheInDebug,
-    };
-  }
+  static late final Map<String, Object> map = {
+    'RELEASE_MODE': isReleaseMode,
+    'OVERRIDE_PLATFORM': overridePlatform,
+    'PAGE': page,
+    'DO_SHOW_ERRORS': doShowErrors,
+    'SPOOF_LOCATION': spoofLocation,
+    'CACHE_DEBUG': doCacheInDebug,
+  };
 }
 
 const isDebugMode = kDebugMode && !Env.isReleaseMode;

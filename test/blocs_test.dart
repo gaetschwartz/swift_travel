@@ -5,10 +5,9 @@ import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/blocs/preferences.dart';
-import 'package:swift_travel/blocs/store.dart';
-import 'package:swift_travel/models/favorite_stop.dart';
-import 'package:swift_travel/models/local_route.dart';
+import 'package:swift_travel/logic/preferences.dart';
+import 'package:swift_travel/logic/store.dart';
+import 'package:swift_travel/models/state_models.dart';
 
 class FavsListener extends Mock {
   void call(Iterable<FavoriteStop> value);

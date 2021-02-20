@@ -2,7 +2,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
-import 'package:swift_travel/models/favorite_stop.dart';
+import 'package:swift_travel/models/state_models.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 
 part 'completion.freezed.dart';
