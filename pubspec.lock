@@ -818,7 +818,7 @@ packages:
   theming:
     dependency: "direct main"
     description:
-      path: "../utils/theming"
+      path: "dependencies/theming"
       relative: true
     source: path
     version: "0.0.1"
@@ -885,13 +885,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0-nullsafety.0"
-  utils:
-    dependency: "direct main"
-    description:
-      path: "../utils/utils"
-      relative: true
-    source: path
-    version: "0.0.1"
   vector_math:
     dependency: transitive
     description:
@@ -902,7 +895,7 @@ packages:
   vibration:
     dependency: "direct main"
     description:
-      path: "../vibration"
+      path: "dependencies/vibration"
       relative: true
     source: path
     version: "0.0.1"

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swift_travel/l10n.dart';
-import 'package:swift_travel/utils/string_utils/string_utils.dart';
+import 'package:swift_travel/utils/strings/strings.dart';
 
 class RouteWidget extends StatelessWidget {
   const RouteWidget({

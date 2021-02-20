@@ -5,7 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/blocs/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/models/local_route.dart';
-import 'package:swift_travel/utils/string_utils/string_utils.dart';
+import 'package:swift_travel/utils/strings/strings.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/route_widget.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';

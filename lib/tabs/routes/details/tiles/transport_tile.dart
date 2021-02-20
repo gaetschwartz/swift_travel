@@ -11,7 +11,7 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/attributes_page.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
-import 'package:swift_travel/utils/string_utils/format.dart';
+import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/line_icon.dart';

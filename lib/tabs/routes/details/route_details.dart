@@ -16,7 +16,7 @@ import 'package:swift_travel/tabs/routes/details/tiles/arrived_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/share.dart';
-import 'package:swift_travel/utils/string_utils/format.dart';
+import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
