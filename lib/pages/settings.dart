@@ -38,7 +38,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage();
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -76,7 +76,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
     (context) => _SectionTitle(title: Text(AppLoc.of(context).font)),
     (_) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Row(
@@ -230,7 +230,9 @@ class _SettingsPageState extends State<SettingsPage> {
             confirm: Text(AppLoc.of(context).yes),
             cancel: Text(AppLoc.of(context).no),
           );
-          if (c != true) return;
+          if (c != true) {
+            return;
+          }
           final prefs = await SharedPreferences.getInstance();
           final b = await prefs.clear();
           log('Done : $b');
@@ -331,7 +333,7 @@ class _SettingsPageState extends State<SettingsPage> {
     (_) => const SizedBox(height: 32),
     (context) => Padding(
           key: const Key('settings-bottom-info'),
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Center(
             child: Text(
               '© Copyright Gaëtan Schwartz 2020',
@@ -351,12 +353,12 @@ class _SettingsPageState extends State<SettingsPage> {
           condition: isDarwin,
           builder: (context, child) => Material(
                 child: CupertinoPageScaffold(
-                  child: child!,
                   resizeToAvoidBottomInset: false,
                   navigationBar: cupertinoBar(
                     context,
                     middle: Text(AppLoc.of(context).settings),
                   ),
+                  child: child!,
                 ),
               ),
           elseBuilder: (context, child) => Scaffold(body: child),
@@ -436,7 +438,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
                     '${TimeOfDay.fromDateTime(routes[i].timestamp!).format(context)}, ${_days[routes[i].timestamp!.weekday - 1]}'),
               ),
               itemCount: routes.length,
-              separatorBuilder: (BuildContext context, int index) => const Divider(height: 4),
+              separatorBuilder: (context, index) => const Divider(height: 4),
             ),
           ),
         ],
@@ -474,7 +476,7 @@ class __TestWidgetState extends State<_TestWidget> {
           child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: Hero(
                 tag: tag,
                 child: CupertinoTextField(
@@ -539,7 +541,7 @@ class _PlaformChoiceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Consumer(builder: (context, w, _) {
@@ -586,7 +588,7 @@ class _FontWeightWidget extends StatelessWidget {
         .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
         .bodyText1;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Align(
           alignment: Alignment.centerLeft,
           child: CupertinoSlidingSegmentedControl<int>(
@@ -597,7 +599,7 @@ class _FontWeightWidget extends StatelessWidget {
               ),
               0: Text(
                 'Normal',
-                style: t.apply(fontWeightDelta: 0),
+                style: t,
               ),
               1: Text(
                 'Medium',
@@ -671,7 +673,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
                       theme.name = list[i].key;
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
                         children: [
                           Expanded(
@@ -686,7 +688,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8),
                               child: Center(
                                 child: Text(
                                   ft.name,
@@ -723,11 +725,11 @@ class __ThemesSectionState extends State<_ThemesSection> {
           Expanded(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(4),
                 child: SizedBox.fromSize(
                   size: const Size.square(30),
                   child: Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.all(4),
                     child: colorScheme.brightness == Brightness.light
                         ? const Icon(CupertinoIcons.brightness)
                         : const Icon(CupertinoIcons.moon_stars),
@@ -746,11 +748,11 @@ class __ThemesSectionState extends State<_ThemesSection> {
   Widget colorCircle(Color color) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(4),
         child: SizedBox.fromSize(
           size: const Size.square(30),
           child: Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(4),
             child: DecoratedBox(
               decoration: BoxDecoration(
                 boxShadow: [BoxShadow(color: color, blurRadius: 8)],
@@ -811,7 +813,7 @@ class __ScrollProgressState extends State<_ScrollProgress> {
   @override
   Widget build(BuildContext context) => LinearProgressIndicator(
         value: _progress,
-        valueColor: AlwaysStoppedAnimation(color!),
+        valueColor: AlwaysStoppedAnimation(color),
         backgroundColor: Colors.transparent,
       );
 }
@@ -837,7 +839,7 @@ class _ModeWidget extends StatelessWidget {
       textTheme: Typography.englishLike2018,
     );
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: InkWell(
         onTap: () => theme.themeMode = mode,
         child: AspectRatio(
@@ -891,11 +893,11 @@ class _ModeWidget extends StatelessWidget {
 }
 
 class DiagonalPainter extends CustomPainter {
+  DiagonalPainter({this.label, this.black, this.white});
+
   final Color? black;
   final Color? white;
   final String? label;
-
-  DiagonalPainter({this.label, this.black, this.white});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -924,10 +926,7 @@ class DiagonalPainter extends CustomPainter {
     );
     final textPainter =
         TextPainter(text: textSpan, textDirection: TextDirection.ltr, textAlign: TextAlign.center);
-    textPainter.layout(
-      minWidth: 0,
-      maxWidth: size.width,
-    );
+    textPainter.layout(maxWidth: size.width);
     final offset = size.center(Offset.zero);
     textPainter.layout();
     textPainter.paint(canvas, offset);
@@ -1050,14 +1049,6 @@ class _CoderTile extends StatelessWidget {
 
 @immutable
 class Coder {
-  final String name;
-  final String? twitterUrl;
-  final String? role;
-  final String? imageUrl;
-  final String? website;
-  final String? email;
-  final bool isAssets;
-
   const Coder(
     this.name, {
     this.isAssets = false,
@@ -1067,6 +1058,14 @@ class Coder {
     this.website,
     this.email,
   });
+
+  final String name;
+  final String? twitterUrl;
+  final String? role;
+  final String? imageUrl;
+  final String? website;
+  final String? email;
+  final bool isAssets;
 }
 
 class _SectionTitle extends StatelessWidget {

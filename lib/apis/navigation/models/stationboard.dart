@@ -32,7 +32,7 @@ mixin StationboardConnection {
   String get color;
   Stop get terminal;
   String? get line;
-  String? get operator_;
+  String? get operator;
   String get number;
   String? get g;
   String? get l;

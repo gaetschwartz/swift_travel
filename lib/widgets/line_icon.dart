@@ -4,22 +4,19 @@ import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 
 class LineIcon extends StatelessWidget {
-  static const defaultForeground = Color(0xfff0f0f0);
-  static const defaultBackground = Color(0xff000000);
-
-  static bool isValidLeg(Leg l) => l.line != null && l.fgcolor != null && l.bgcolor != null;
-
   factory LineIcon({
     required String? line,
     required String background,
     required String foreground,
     bool small = false,
+    Key? key,
   }) =>
       LineIcon.raw(
         line: line,
         foreground: parseColor(foreground, defaultForeground),
         background: parseColor(background, defaultBackground),
         small: small,
+        key: key,
       );
 
   const LineIcon.raw({
@@ -27,9 +24,15 @@ class LineIcon extends StatelessWidget {
     required this.foreground,
     required this.background,
     this.small = false,
-  });
+    Key? key,
+  }) : super(key: key);
 
-  factory LineIcon.fromString({required String? line, required String colors, bool small = false}) {
+  factory LineIcon.fromString({
+    required String? line,
+    required String colors,
+    bool small = false,
+    Key? key,
+  }) {
     final i = colors.indexOf('~');
     final bg = colors.substring(0, i);
     final fg = colors.substring(i + 1, colors.lastIndexOf('~'));
@@ -38,20 +41,38 @@ class LineIcon extends StatelessWidget {
       foreground: fg,
       background: bg,
       small: small,
+      key: key,
     );
   }
 
-  factory LineIcon.fromLine(Line l, {bool small = false}) => LineIcon.fromString(
+  factory LineIcon.fromLine(
+    Line l, {
+    bool small = false,
+    Key? key,
+  }) =>
+      LineIcon.fromString(
         line: l.line,
         colors: l.colors,
         small: small,
+        key: key,
       );
 
-  factory LineIcon.fromLeg(Leg l, {bool small = false}) => LineIcon(
+  factory LineIcon.fromLeg(
+    Leg l, {
+    bool small = false,
+    Key? key,
+  }) =>
+      LineIcon(
         line: l.line,
         background: ArgumentError.checkNotNull(l.bgcolor, 'leg.bgcolor'),
         foreground: ArgumentError.checkNotNull(l.fgcolor, 'leg.fgcolor'),
+        small: small,
+        key: key,
       );
+
+  static const defaultForeground = Color(0xfff0f0f0);
+  static const defaultBackground = Color(0xff000000);
+  static bool isValidLeg(Leg l) => l.line != null && l.fgcolor != null && l.bgcolor != null;
 
   final Color foreground;
   final Color background;

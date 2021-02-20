@@ -10,12 +10,6 @@ import 'models/stationboard.dart';
 
 @immutable
 class NavigationApiFactory<T extends BaseNavigationApi> {
-  final String name;
-  final String shortName;
-  final String countryEmoji;
-  final String countryName;
-  final T Function(Reader config) create;
-
   const NavigationApiFactory(
     this.create, {
     required this.name,
@@ -23,6 +17,12 @@ class NavigationApiFactory<T extends BaseNavigationApi> {
     required this.countryEmoji,
     required this.countryName,
   });
+
+  final String name;
+  final String shortName;
+  final String countryEmoji;
+  final String countryName;
+  final T Function(Reader config) create;
 
   String get shortDesc => '$countryEmoji $shortName';
 }

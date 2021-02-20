@@ -119,13 +119,6 @@ Future<T?> showChoiceSheet<T>(
 
 @immutable
 class ActionsSheetAction<T> {
-  final Widget title;
-  final FutureOr<T>? Function()? onPressed;
-  final Widget? icon;
-  final Widget? cupertinoIcon;
-  final bool isDestructive;
-  final bool isDefault;
-
   const ActionsSheetAction({
     this.cupertinoIcon,
     required this.title,
@@ -134,6 +127,13 @@ class ActionsSheetAction<T> {
     this.isDestructive = false,
     this.isDefault = false,
   });
+
+  final Widget title;
+  final FutureOr<T>? Function()? onPressed;
+  final Widget? icon;
+  final Widget? cupertinoIcon;
+  final bool isDestructive;
+  final bool isDefault;
 }
 
 class ActionsSheet<T> extends StatelessWidget {
@@ -157,7 +157,9 @@ class ActionsSheet<T> extends StatelessWidget {
     for (var i = 0; i < actions.length; i++) {
       final a = actions[i];
       l.add(_buildListTile<T>(context, a, false, popBeforeReturn: popBeforeReturn));
-      if (i < actions.length - 1) l.add(const Divider(height: 0, indent: 8, endIndent: 8));
+      if (i < actions.length - 1) {
+        l.add(const Divider(height: 0, indent: 8, endIndent: 8));
+      }
     }
     return l;
   }
@@ -207,7 +209,7 @@ class ActionsSheet<T> extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Material(
             borderRadius: const BorderRadius.all(Radius.circular(12)),
             child: SafeArea(

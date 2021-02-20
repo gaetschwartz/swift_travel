@@ -116,37 +116,34 @@ class _ErrorPageState extends State<ErrorPage> {
                 onPressed: () => setState(() => _wrapped = !_wrapped))
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(0.0),
-          child: ListView(
-            children: [
-              ErrorDataWidget(
-                'Exception:',
-                widget.details!.exception.toString(),
-                wrapped: _wrapped,
-              ),
-              ErrorDataWidget(
-                'StackTrace:',
-                widget.details!.stack.toString(),
-                wrapped: _wrapped,
-              ),
-              ErrorDataWidget(
-                'Context:',
-                widget.details!.context.toString(),
-                wrapped: _wrapped,
-              ),
-              ErrorDataWidget(
-                'Summary:',
-                widget.details!.summary.toString(),
-                wrapped: _wrapped,
-              ),
-              ErrorDataWidget(
-                'Library:',
-                widget.details!.library,
-                wrapped: _wrapped,
-              ),
-            ],
-          ),
+        body: ListView(
+          children: [
+            ErrorDataWidget(
+              'Exception:',
+              widget.details!.exception.toString(),
+              wrapped: _wrapped,
+            ),
+            ErrorDataWidget(
+              'StackTrace:',
+              widget.details!.stack.toString(),
+              wrapped: _wrapped,
+            ),
+            ErrorDataWidget(
+              'Context:',
+              widget.details!.context.toString(),
+              wrapped: _wrapped,
+            ),
+            ErrorDataWidget(
+              'Summary:',
+              widget.details!.summary.toString(),
+              wrapped: _wrapped,
+            ),
+            ErrorDataWidget(
+              'Library:',
+              widget.details!.library,
+              wrapped: _wrapped,
+            ),
+          ],
         ),
       ),
     );

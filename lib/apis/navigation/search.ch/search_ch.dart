@@ -59,8 +59,7 @@ class SearchChApi extends BaseNavigationApi {
     final completions = decode
         .where((dynamic e) {
           if (filterNull) {
-            if (e['label'] == null) {
-              print('Completion\'s label is null: $e');
+            if ((e as Map)['label'] == null) {
               return false;
             }
           }
@@ -87,7 +86,9 @@ class SearchChApi extends BaseNavigationApi {
       'show_coordinates': showCoordinates.toInt(),
     });
 
-    if (kDebugMode) log(uri.toString());
+    if (kDebugMode) {
+      log(uri.toString());
+    }
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
       throw Exception("Couldn't find station : ${response.body}");
@@ -95,7 +96,7 @@ class SearchChApi extends BaseNavigationApi {
     final decode = jsonDecode(response.body) as List<Object?>;
 
     return decode
-        .map((e) => SbbCompletion.fromJson(e as Map<String, dynamic>))
+        .map((e) => SbbCompletion.fromJson(e! as Map<String, dynamic>))
         .toList(growable: false);
   }
 
@@ -120,7 +121,9 @@ class SearchChApi extends BaseNavigationApi {
       if (transportationTypes.isNotEmpty) 'transportation_types': transportationTypes.join(','),
     };
     final s = queryBuilder('stationboard', params);
-    if (kDebugMode) log(s.toString());
+    if (kDebugMode) {
+      log(s.toString());
+    }
 
     final response = await _client.get(s, headers: headers);
     if (response.statusCode != 200) {
@@ -160,8 +163,10 @@ class SearchChApi extends BaseNavigationApi {
     };
 
     final s = queryBuilder('route', params);
-    if (isDebugMode) print('builder: $s');
-    return await rawRoute(s);
+    if (isDebugMode) {
+      log('builder: $s');
+    }
+    return rawRoute(s);
   }
 
   @override
@@ -171,11 +176,17 @@ class SearchChApi extends BaseNavigationApi {
       throw Exception("Couldn't retrieve raw route: ${response.body}");
     }
     final stopwatch = Stopwatch()..start();
+
     final map = jsonDecode(response.body) as Map<String, dynamic>;
+
     stopwatch.stop();
 
-    if (stopwatch.elapsedMilliseconds > 16) print('⚠ Decoding took more than a frame');
-    print('Decoding ${response.body.length} characters took ${stopwatch.elapsedMilliseconds} ms');
+    if (kDebugMode) {
+      if (stopwatch.elapsedMilliseconds > 16) {
+        log('⚠ Decoding took more than a frame');
+      }
+      log('Decoding ${response.body.length} characters took ${stopwatch.elapsedMilliseconds} ms');
+    }
 
     return CffRoute.fromJson(map).copyWith(requestUrl: query.toString());
   }
@@ -187,18 +198,18 @@ class SearchChApi extends BaseNavigationApi {
 }
 
 class QueryBuilder<T> {
-  final String authority;
-  final bool https;
-  final String Function(T input) pathBuilder;
+  const QueryBuilder(this.authority, this.pathBuilder, {this.useHttps = true});
 
-  const QueryBuilder(this.authority, this.pathBuilder, {this.https = true});
+  final String authority;
+  final bool useHttps;
+  final String Function(T input) pathBuilder;
 
   Uri call(T input, Map<String, Object?>? parameters) {
     final path = pathBuilder(input);
     final params = parameters == null || parameters.isEmpty
         ? null
         : parameters.map((key, value) => MapEntry(key, value.toString()));
-    return https
+    return useHttps
         ? params == null
             ? Uri.https(authority, path)
             : Uri.https(authority, path, params)

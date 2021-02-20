@@ -26,10 +26,11 @@ class RouteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onTap,
+      onLongPress: onLongPress,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (icon != null)
               Padding(
@@ -63,7 +64,7 @@ class RouteWidget extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                               child: Text(
-                                '${AppLoc.of(context).from.toCamelCase()}',
+                                AppLoc.of(context).from.toCamelCase(),
                                 style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
@@ -80,7 +81,7 @@ class RouteWidget extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                               child: Text(
-                                '${AppLoc.of(context).to.toCamelCase()}',
+                                AppLoc.of(context).to.toCamelCase(),
                                 style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
@@ -111,8 +112,6 @@ class RouteWidget extends StatelessWidget {
           ],
         ),
       ),
-      onTap: onTap,
-      onLongPress: onLongPress,
     );
   }
 }

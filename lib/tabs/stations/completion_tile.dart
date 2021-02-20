@@ -102,7 +102,7 @@ class SbbCompletionTile extends ConsumerWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       child: Center(
         child: listTile,
       ),
@@ -145,7 +145,9 @@ class SbbCompletionTile extends ConsumerWidget {
           await store.removeStop(favoriteStop);
         } else {
           final name = await input(context, title: const Text('What is the name of this stop'));
-          if (name == null) return;
+          if (name == null) {
+            return;
+          }
           await store.addStop(FavoriteStop.fromCompletion(
             sugg,
             name: name,
@@ -208,8 +210,6 @@ class __LinesWidgetState extends State<_LinesWidget> {
   Future<void> getData() async {
     try {
       await stationboard();
-    } on UnimplementedError {
-      setState(() => lines = []);
     } catch (e, s) {
       debugPrintStack(stackTrace: s, label: e.toString());
       setState(() => lines = []);
@@ -217,7 +217,9 @@ class __LinesWidgetState extends State<_LinesWidget> {
   }
 
   Future<void> stationboard() async {
-    if (!doCache) print('We are not caching lines');
+    if (!doCache) {
+      print('We are not caching lines');
+    }
     if (doCache && _cache.containsKey(widget.sugg.label)) {
       final l = _cache
           .get(widget.sugg.label)
@@ -225,7 +227,9 @@ class __LinesWidgetState extends State<_LinesWidget> {
           .map(buildLine)
           .take(numberOfLines + 1)
           .toList(growable: false);
-      if (mounted) setState(() => lines = l);
+      if (mounted) {
+        setState(() => lines = l);
+      }
     } else {
       final sData = await context
           .read(navigationAPIProvider)
@@ -235,7 +239,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
       final connections = sData.mapBoard<Iterable<StationboardConnection>?>(
         (board) => board.connections.where((c) => c.line != null),
         onError: (e) {
-          print('CffStationboardError while fetching lines: ' + e.messages.toString());
+          print('CffStationboardError while fetching lines: ${e.messages}');
           return null;
         },
       );
@@ -261,7 +265,9 @@ class __LinesWidgetState extends State<_LinesWidget> {
 
       final l2 = l.map(buildLine).toList(growable: false);
 
-      if (mounted) setState(() => lines = l2);
+      if (mounted) {
+        setState(() => lines = l2);
+      }
 
       if (doCache) {
         await _cache.put(
@@ -275,7 +281,9 @@ class __LinesWidgetState extends State<_LinesWidget> {
   }
 
   Future<void> cacheShortLivedErrorEntry() async {
-    if (mounted) setState(() => lines = []);
+    if (mounted) {
+      setState(() => lines = []);
+    }
     if (doCache) {
       final entry = LineCacheEntry(
         timestamp: DateTime.now(),

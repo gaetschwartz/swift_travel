@@ -31,7 +31,9 @@ class SbbRouteConnection with _$SbbRouteConnection, RouteConnection {
 
   @override
   RouteConnection copyWithLegs(List<Leg> legs) {
-    if (legs is! List<SbbLeg>) throw UnsupportedError('Legs are supposed to be of type `SbbLegs`');
+    if (legs is! List<SbbLeg>) {
+      throw UnsupportedError('Legs are supposed to be of type `SbbLegs`');
+    }
     return copyWith(sbbLegs: legs);
   }
 }

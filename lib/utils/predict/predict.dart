@@ -14,7 +14,9 @@ Prediction<LocalRoute?> predictRoute(
   List<LocalRoute> routes,
   PredictionArguments arguments,
 ) {
-  if (routes.isEmpty) return Prediction(null, 0, arguments);
+  if (routes.isEmpty) {
+    return Prediction(null, 0, arguments);
+  }
 
   final distances = <Pair<LocalRoute, double>>[];
 
@@ -22,14 +24,14 @@ Prediction<LocalRoute?> predictRoute(
   final weekday = arguments.dateTime.weekday;
 
   for (final route in routes) {
-    var sqrd_dist = math.pow((weekday - route.timestamp!.weekday) * _daysFactor, 2) +
+    var sqrdDist = math.pow((weekday - route.timestamp!.weekday) * _daysFactor, 2) +
         math.pow((route.timestamp!.minutesOfDay - time) * _minutesFactor, 2);
 
     if (arguments is SourceDateArguments) {
-      sqrd_dist += math.pow(arguments.source.scaledDistanceTo(route.from), 2);
+      sqrdDist += math.pow(arguments.source.scaledDistanceTo(route.from), 2);
     }
 
-    distances.add(Pair(route, sqrd_dist.toDouble()));
+    distances.add(Pair(route, sqrdDist.toDouble()));
   }
 
   distances.sort((a, b) => a.second.compareTo(b.second));
@@ -69,10 +71,10 @@ extension on DateTime {
 
 @immutable
 class Pair<R, S> {
+  const Pair(this.first, this.second);
+
   final R first;
   final S second;
-
-  const Pair(this.first, this.second);
 
   @override
   String toString() => 'Pair<$R, $S>($first, $second)';
@@ -80,11 +82,11 @@ class Pair<R, S> {
 
 @immutable
 class Prediction<T> {
+  const Prediction(this.prediction, this.confidence, this.arguments);
+
   final T prediction;
   final double confidence;
   final PredictionArguments arguments;
-
-  const Prediction(this.prediction, this.confidence, this.arguments);
 
   @override
   String toString() {
@@ -94,8 +96,6 @@ class Prediction<T> {
 
 @immutable
 class PredictionArguments {
-  final DateTime dateTime;
-
   const PredictionArguments(this.dateTime);
 
   factory PredictionArguments.of(DateTime dateTime, String? source) {
@@ -106,14 +106,16 @@ class PredictionArguments {
     }
   }
 
+  final DateTime dateTime;
+
   @override
   String toString() => 'PredictionArguments(dateTime: $dateTime)';
 }
 
 class SourceDateArguments extends PredictionArguments {
-  final String source;
-
   const SourceDateArguments(DateTime dateTime, this.source) : super(dateTime);
+
+  final String source;
 
   @override
   String toString() => 'SourceDateArguments(dateTime: $dateTime, source: $source)';

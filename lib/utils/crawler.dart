@@ -16,7 +16,7 @@ import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/main.dart';
 
 class CrawlerPage extends StatefulWidget {
-  const CrawlerPage();
+  const CrawlerPage({Key? key}) : super(key: key);
 
   @override
   _CrawlerPageState createState() => _CrawlerPageState();
@@ -47,7 +47,9 @@ class _CrawlerPageState extends State<CrawlerPage> {
                 onPressed: () async {
                   final dir = await getTemporaryDirectory();
                   final f = File(path.join(dir!.path, 'swift_travel', 'crawler', 'crawled.json'));
-                  if (!await f.exists()) await f.create(recursive: true);
+                  if (!f.existsSync()) {
+                    await f.create(recursive: true);
+                  }
                   await f.writeAsString(jsonEncode(unHandled));
                   if (kIsWeb) {
                   } else if (isMobile) {
@@ -100,16 +102,22 @@ class _CrawlerPageState extends State<CrawlerPage> {
                                   } else {
                                     unHandled[e.key] = e.value;
                                   }
-                                  if (!isRunning) return;
+                                  if (!isRunning) {
+                                    return;
+                                  }
                                 }
                               }
                             }
                           }
-                          if (mounted) setState(() => currentI++);
+                          if (mounted) {
+                            setState(() => currentI++);
+                          }
                           print('Done fetching ${lr.from} -> ${lr.to}');
                         }
                       } finally {
-                        if (mounted) setState(() => isRunning = false);
+                        if (mounted) {
+                          setState(() => isRunning = false);
+                        }
                       }
                     },
               icon: isRunning ? const Icon(Icons.stop) : const Icon(Icons.play_arrow))
@@ -118,9 +126,9 @@ class _CrawlerPageState extends State<CrawlerPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(current)),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(current2)),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(currentSub)),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(current)),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(current2)),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(currentSub)),
           const SizedBox(height: 8),
           if (isRunning)
             Padding(
@@ -178,7 +186,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
             color: Colors.red,
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: att == null ? const SizedBox(height: 24, width: 24) : att.icon,
           ),
         ),

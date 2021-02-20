@@ -4,6 +4,9 @@ import 'package:swift_travel/models/local_route.dart';
 import 'db.dart';
 
 class RouteHistoryRepository extends LocalDatabase<int, Map, LocalRoute> with IndexedDatabaseMixin {
+  @visibleForTesting
+  factory RouteHistoryRepository() => RouteHistoryRepository._();
+
   RouteHistoryRepository._()
       : super(
           boxKey: 'route_history',
@@ -13,9 +16,6 @@ class RouteHistoryRepository extends LocalDatabase<int, Map, LocalRoute> with In
         );
 
   static late final i = RouteHistoryRepository._();
-
-  @visibleForTesting
-  factory RouteHistoryRepository() => RouteHistoryRepository._();
 
   List<LocalRoute> get history => values.toList(growable: false);
 }

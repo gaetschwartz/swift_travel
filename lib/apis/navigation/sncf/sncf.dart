@@ -22,11 +22,12 @@ final sncfFactory = NavigationApiFactory(
 );
 
 class SncfApi extends BaseNavigationApi {
-  final Reader _read;
   SncfApi(this._read);
 
+  final Reader _read;
+
   @override
-  Locale locale = const Locale('en');
+  Locale get locale => const Locale('en');
 
   static const baseUrl = 'https://api.navitia.io/v1/coverage/sncf/';
 
@@ -43,7 +44,9 @@ class SncfApi extends BaseNavigationApi {
       bool showIds = true,
       bool noFavorites = true,
       bool filterNull = true}) async {
-    if (string.isEmpty) return [];
+    if (string.isEmpty) {
+      return [];
+    }
 
     final queryParameters = {
       ...await globalParameters,
@@ -52,7 +55,9 @@ class SncfApi extends BaseNavigationApi {
 
     final uri = Uri.https('api.navitia.io', '/v1/coverage/sncf/places', queryParameters);
 
-    if (kDebugMode) print(uri.toString());
+    if (kDebugMode) {
+      log(uri.toString());
+    }
     final response = await _client.get(uri);
 
     final decode = jsonDecode(response.body) as Map<String, dynamic>;

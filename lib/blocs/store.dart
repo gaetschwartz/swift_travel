@@ -28,15 +28,15 @@ final favoritesRoutesStatesProvider =
     StateProvider<FavoritesRoutesStates>((_) => const FavoritesRoutesStates.loading());
 
 class FavoritesSharedPreferencesStore extends FavoritesStoreBase {
+  FavoritesSharedPreferencesStore(this.ref);
+
   static const stopsKey = 'favoritesStop';
   static const routesKey = 'favoritesRoutes';
 
   final ProviderReference ref;
-  FavoritesSharedPreferencesStore(this.ref);
+  final Set<FavoriteStop> _stops = {};
 
   SharedPreferences? _prefs;
-
-  final Set<FavoriteStop> _stops = {};
   Set<LocalRoute> _routes = {};
 
   Set<LocalRoute> get routes => _routes;

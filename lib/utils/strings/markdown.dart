@@ -11,12 +11,16 @@ TextSpan parseDecoratedText(String text, {TextStyle? style}) {
   for (final c in chars) {
     switch (c) {
       case '*':
-        if (!lastWasMod) _addSpan(spans, buffer, bold, italic);
+        if (!lastWasMod) {
+          _addSpan(spans, buffer, bold, italic);
+        }
         bold = !bold;
         lastWasMod = true;
         break;
       case '_':
-        if (!lastWasMod) _addSpan(spans, buffer, bold, italic);
+        if (!lastWasMod) {
+          _addSpan(spans, buffer, bold, italic);
+        }
         italic = !italic;
         lastWasMod = true;
         break;

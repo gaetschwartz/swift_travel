@@ -59,6 +59,5 @@ extension IterableX<T> on Iterable<T> {
         yield e2;
       }
     }
-    ;
   }
 }

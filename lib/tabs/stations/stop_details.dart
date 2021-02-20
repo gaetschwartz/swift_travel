@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
 import 'package:swift_travel/blocs/navigation.dart';
 import 'package:swift_travel/blocs/preferences.dart';
 import 'package:swift_travel/main.dart';
@@ -18,16 +17,16 @@ import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:theming/responsive.dart';
 
 class StopDetails extends StatefulWidget {
-  final String stopName;
-
   StopDetails({required this.stopName}) : super(key: Key(stopName));
+
+  final String stopName;
 
   @override
   _StopDetailsState createState() => _StopDetailsState();
 }
 
 class _StopDetailsState extends State<StopDetails> {
-  SbbStationboardData? data;
+  StationBoard? data;
 
   late Timer timer;
   bool _elevate = false;
@@ -36,7 +35,9 @@ class _StopDetailsState extends State<StopDetails> {
   void initState() {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 15), (_) {
-      if (mounted) setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
     refreshData();
   }
@@ -69,7 +70,9 @@ class _StopDetailsState extends State<StopDetails> {
       return NotificationListener<ScrollNotification>(
         onNotification: (notif) {
           final e = notif.metrics.pixels > 0;
-          if (e != _elevate) setState(() => _elevate = e);
+          if (e != _elevate) {
+            setState(() => _elevate = e);
+          }
           return true;
         },
         child: Scaffold(
@@ -98,18 +101,21 @@ class _StopDetailsState extends State<StopDetails> {
 
   Widget buildAndroidList() {
     return RefreshIndicator(
+      onRefresh: refreshData,
       child: data != null
-          ? ListView.builder(
-              itemBuilder: (context, i) => i.isEven
-                  ? const Divider(height: 0)
-                  : ConnectionTile(
-                      c: data!.connections[i ~/ 2],
-                      s: data!.stop,
-                    ),
-              itemCount: data!.connections.length * 2 + 1,
+          ? data!.mapBoard(
+              (board) => ListView.builder(
+                itemBuilder: (context, i) => i.isEven
+                    ? const Divider(height: 0)
+                    : ConnectionTile(
+                        c: board.connections[i ~/ 2],
+                        s: board.stop,
+                      ),
+                itemCount: board.connections.length * 2 + 1,
+              ),
+              onError: (e) => buildNoData(e),
             )
           : const Center(child: CupertinoActivityIndicator()),
-      onRefresh: refreshData,
     );
   }
 
@@ -120,19 +126,22 @@ class _StopDetailsState extends State<StopDetails> {
             bottom: false, sliver: CupertinoSliverRefreshControl(onRefresh: refreshData)),
         if (data != null)
           SliverSafeArea(
-            top: false,
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, i) => i.isEven
-                    ? const Divider(height: 0)
-                    : ConnectionTile(
-                        c: data!.connections[i ~/ 2],
-                        s: data!.stop,
+              top: false,
+              sliver: data!.mapBoard(
+                  (board) => SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, i) => i.isEven
+                              ? const Divider(height: 0)
+                              : ConnectionTile(
+                                  c: board.connections[i ~/ 2],
+                                  s: board.stop,
+                                ),
+                          childCount: board.connections.length * 2 + 1,
+                        ),
                       ),
-                childCount: data!.connections.length * 2 + 1,
-              ),
-            ),
-          )
+                  onError: (e) => SliverFillRemaining(
+                        child: buildNoData(e),
+                      )))
         else
           const SliverFillRemaining(
             child: Center(child: CupertinoActivityIndicator()),
@@ -141,9 +150,9 @@ class _StopDetailsState extends State<StopDetails> {
     );
   }
 
-  Widget buildNoData(BuildContext context) {
+  Widget buildNoData(StationboardError e) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: SizedBox(
         width: double.infinity,
         child: Column(
@@ -155,8 +164,8 @@ class _StopDetailsState extends State<StopDetails> {
             ),
             const SizedBox(height: 16),
             Text(
-              data!.messages.isNotEmpty
-                  ? data!.messages.join('\n')
+              e.messages.isNotEmpty
+                  ? e.messages.join('\n')
                   : "We couldn't find any departures from this location",
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
@@ -169,19 +178,21 @@ class _StopDetailsState extends State<StopDetails> {
 
   Future<void> refreshData() async {
     final stationBoard = await context.read(navigationAPIProvider).stationboard(widget.stopName);
-    if (mounted && stationBoard is SbbStationboardData) setState(() => data = stationBoard);
+    if (mounted) {
+      setState(() => data = stationBoard);
+    }
   }
 }
 
 class ConnectionTile extends StatelessWidget {
-  final StationboardConnection c;
-  final Stop? s;
-
   const ConnectionTile({
     Key? key,
     required this.c,
     required this.s,
   }) : super(key: key);
+
+  final StationboardConnection c;
+  final Stop? s;
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +208,7 @@ class ConnectionTile extends StatelessWidget {
       title: Row(
         children: [
           if (c.color.contains('~')) ...[
-            LineIcon.fromString(line: c.line!, colors: c.color),
+            LineIcon.fromString(line: c.line, colors: c.color),
             const SizedBox(width: 8),
           ],
           Expanded(
@@ -212,7 +223,7 @@ class ConnectionTile extends StatelessWidget {
         ],
       ),
       subtitle: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: <Widget>[
             CffIcon(c.type, size: 16),

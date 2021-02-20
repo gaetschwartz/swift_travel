@@ -15,12 +15,12 @@ import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class FavoriteStationTile extends StatelessWidget {
-  final FavoriteStop stop;
-
   const FavoriteStationTile(
     this.stop, {
     Key? key,
   }) : super(key: key);
+
+  final FavoriteStop stop;
 
   @override
   Widget build(BuildContext context) {
@@ -54,26 +54,22 @@ class FavoriteStationTile extends StatelessWidget {
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            isDarwin
-                ? const GradientMask(
-                    child: Icon(CupertinoIcons.heart_fill, size: 32),
-                    gradient: RadialGradient(
-                      colors: [
-                        Color(0xFFB71C1C),
-                        Colors.red,
-                      ],
-                      radius: 0.4,
-                      center: Alignment.center,
-                    ))
-                : const GradientMask(
-                    child: Icon(CupertinoIcons.star_fill, size: 32),
-                    gradient: RadialGradient(
-                      colors: [
-                        Colors.yellow,
-                        Colors.orange,
-                      ],
-                      center: Alignment.center,
-                    )),
+            if (isDarwin)
+              const GradientMask(
+                gradient: RadialGradient(colors: [
+                  Color(0xFFB71C1C),
+                  Colors.red,
+                ], radius: 0.4),
+                child: Icon(CupertinoIcons.heart_fill, size: 32),
+              )
+            else
+              const GradientMask(
+                gradient: RadialGradient(colors: [
+                  Colors.yellow,
+                  Colors.orange,
+                ]),
+                child: Icon(CupertinoIcons.star_fill, size: 32),
+              ),
           ],
         ),
         onTap: () => Navigator.of(context).pushNamed('/route', arguments: stop),
@@ -118,7 +114,9 @@ class FavoriteStationTile extends StatelessWidget {
 
   Future<void> rename(BuildContext context) async {
     final s = await input(context, title: Text('How to rename "${stop.name}" ?'));
-    if (s == null) return;
+    if (s == null) {
+      return;
+    }
     final store = context.read(storeProvider);
     await store.removeStop(stop);
     return store.addStop(stop.copyWith(name: s));
@@ -138,7 +136,9 @@ class FavoriteStationTile extends StatelessWidget {
       cancel: Text(AppLoc.of(context).no),
       isConfirmDestructive: true,
     );
-    if (!b) return;
+    if (!b) {
+      return;
+    }
     return context.read(storeProvider).removeStop(stop);
   }
 }

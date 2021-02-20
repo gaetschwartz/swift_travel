@@ -8,9 +8,11 @@ class SuggestedTile extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final Completion? suggestion;
+  const SuggestedTile.empty({Key? key})
+      : suggestion = null,
+        super(key: key);
 
-  const SuggestedTile.empty() : suggestion = null;
+  final Completion? suggestion;
 
   Widget? buildIcon(BuildContext context) {
     switch (suggestion!.origin) {

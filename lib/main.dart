@@ -55,7 +55,9 @@ Future<void> main() async {
       'Commit hash: $commitHash',
     );
   }
-  if (kDebugMode) print(Env.map);
+  if (kDebugMode) {
+    print(Env.map);
+  }
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -89,7 +91,7 @@ void _runApp() => runApp(
         child: ProviderScope(
           child: DynamicTheme(
             theme: DynamicThemeData(),
-            child: MyApp(),
+            child: const MyApp(),
           ),
         ),
       ),
@@ -100,20 +102,22 @@ final ctrl = defaultTargetPlatform == TargetPlatform.macOS
     : LogicalKeyboardKey.control;
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class TabIntent extends Intent {
-  final int tab;
-
   const TabIntent(this.tab);
+
+  final int tab;
 }
 
 class TabAction extends Action {
-  final void Function(int tab) changeTab;
-
   TabAction(this.changeTab);
+
+  final void Function(int tab) changeTab;
 
   @override
   Object? invoke(covariant TabIntent intent) {
@@ -186,20 +190,21 @@ class _MyAppState extends State<MyApp> {
         }),
         TabIntent: TabAction((tab) {
           print('Changing tab to $tab');
-          context.read(tabProvider).setPage(tab, isDarwin);
+          context.read(tabProvider).setPage(tab, isDarwin: isDarwin);
         }),
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
           print('Switching tab');
           final tabs = context.read(tabProvider);
           tabs.setPage(
-              (tabs.page + 1) % (isDarwin ? MainApp.iosTabs.length : MainApp.androidTabs.length),
-              isDarwin);
+            (tabs.page + 1) % (isDarwin ? MainApp.iosTabs.length : MainApp.androidTabs.length),
+            isDarwin: isDarwin,
+          );
           return null;
         })
       },
-      onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin),
-      onUnknownRoute: (settings) => onUnknownRoute<void>(settings, isDarwin),
-      onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin),
+      onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: isDarwin),
+      onUnknownRoute: (settings) => onUnknownRoute<void>(settings, isDarwin: isDarwin),
+      onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin: isDarwin),
       builder: (context, child) => IfWrapper(
         condition: Responsive.isDarwin(context),
         builder: (context, child) {
@@ -225,7 +230,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  List<Route> onGenerateInitialRoutes(String initialRoute, bool isDarwin) {
+  List<Route> onGenerateInitialRoutes(String initialRoute, {required bool isDarwin}) {
     log('Initial route : $initialRoute');
     final uri = Uri.tryParse(initialRoute)!;
 
@@ -251,13 +256,13 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-Route<T> onUnknownRoute<T extends Object?>(RouteSettings settings, bool isDarwin) {
+Route<T> onUnknownRoute<T extends Object?>(RouteSettings settings, {required bool isDarwin}) {
   reportDartError('Unknown page : `${settings.name}`', StackTrace.current,
       library: 'router', reason: 'while trying to route', showSnackbar: false);
   return MaterialPageRoute<T>(builder: (_) => PageNotFound(settings: settings));
 }
 
-Route? onGenerateRoute(RouteSettings settings, bool isDarwin) {
+Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
   log('Routing to ${settings.name}');
 
   switch (settings.name) {
@@ -322,12 +327,12 @@ Route? onGenerateRoute(RouteSettings settings, bool isDarwin) {
     case '/liveRoute':
       return platformRoute(
           settings: settings,
-          builder: (_) => LiveRoutePage(connection: settings.arguments as RouteConnection),
+          builder: (_) => LiveRoutePage(connection: settings.arguments! as RouteConnection),
           isDarwin: isDarwin);
     case '/stopDetails':
       return platformRoute(
           settings: settings,
-          builder: (_) => StopDetails(stopName: settings.arguments as String),
+          builder: (_) => StopDetails(stopName: settings.arguments! as String),
           isDarwin: isDarwin);
 
     case '/error':
@@ -386,6 +391,8 @@ class Unfocus extends StatelessWidget {
 
 class NoOverscrollGlowBehavior extends ScrollBehavior {
   const NoOverscrollGlowBehavior();
+
   @override
-  Widget buildViewportChrome(context, child, axisDirection) => child;
+  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) =>
+      child;
 }

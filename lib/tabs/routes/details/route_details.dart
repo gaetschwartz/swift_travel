@@ -23,16 +23,16 @@ import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
-  final NavRoute? route;
-  final int? i;
-  final bool doClose;
-
   const RouteDetails({
     Key? key,
     required this.route,
     required this.i,
     this.doClose = false,
   }) : super(key: key);
+
+  final NavRoute? route;
+  final int? i;
+  final bool doClose;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,6 @@ class RouteDetails extends StatelessWidget {
         condition: darwin,
         builder: (context, child) => Material(
               child: CupertinoPageScaffold(
-                child: child!,
                 navigationBar: cupertinoBar(context,
                     middle: Text(AppLoc.of(context).tabs_route),
                     trailing: IconButton(
@@ -59,7 +58,7 @@ class RouteDetails extends StatelessWidget {
                               ActionsSheetAction(
                                 icon: const Icon(CupertinoIcons.game_controller),
                                 onPressed: () => Navigator.of(context)
-                                    .push(CupertinoPageRoute(builder: (_) => const Snecc_c_c())),
+                                    .push(CupertinoPageRoute(builder: (_) => const SneccGame())),
                                 title: const Text('Snake'),
                               ),
                               if (isMobile || kIsWeb)
@@ -75,6 +74,7 @@ class RouteDetails extends StatelessWidget {
                             popBeforeReturn: true,
                           );
                         })),
+                child: child!,
               ),
             ),
         elseBuilder: (context, child) => Scaffold(
@@ -94,7 +94,7 @@ class RouteDetails extends StatelessWidget {
                     IconButton(
                         icon: const Icon(CupertinoIcons.game_controller),
                         onPressed: () => Navigator.of(context)
-                            .push<void>(CupertinoPageRoute(builder: (_) => const Snecc_c_c()))),
+                            .push<void>(CupertinoPageRoute(builder: (_) => const SneccGame()))),
                     IconButton(
                         icon: const Icon(CupertinoIcons.play_fill),
                         onPressed: () => openLive(context, conn)),
@@ -125,7 +125,9 @@ class RouteDetails extends StatelessWidget {
 
   String _format(String place) {
     final i = place.indexOf('@');
-    if (i == -1) return place;
+    if (i == -1) {
+      return place;
+    }
     return place.substring(0, i);
   }
 
@@ -207,27 +209,29 @@ class RouteDetails extends StatelessWidget {
   }
 }
 
-class Snecc_c_c extends StatefulWidget {
-  const Snecc_c_c({
+class SneccGame extends StatefulWidget {
+  const SneccGame({
     Key? key,
   }) : super(key: key);
 
   @override
-  _Snecc_c_cState createState() => _Snecc_c_cState();
+  _SneccGameState createState() => _SneccGameState();
 }
 
 @immutable
 class Point {
+  const Point(this.x, this.y);
+
   final int x;
   final int y;
 
-  const Point(this.x, this.y);
-
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
 
-    return o is Point && o.x == x && o.y == y;
+    return other is Point && other.x == x && other.y == y;
   }
 
   @override
@@ -258,15 +262,15 @@ enum Direction {
 }
 
 class ValueIntent<T> extends Intent {
-  final T value;
-
   const ValueIntent(this.value);
+
+  final T value;
 }
 
 class ValueAction<T> extends Action {
-  final Object Function(T value) onInvoke;
-
   ValueAction(this.onInvoke);
+
+  final Object Function(T value) onInvoke;
 
   @override
   Object invoke(covariant ValueIntent<T> intent) {
@@ -274,7 +278,7 @@ class ValueAction<T> extends Action {
   }
 }
 
-class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMixin {
+class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMixin {
   final r = m.Random();
   final snecc = ListQueue<Point?>();
   int tick = 0;
@@ -336,7 +340,9 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
       if (food == head) {
         snecc.add(head);
         food = Point(r.nextInt(gridSize), r.nextInt(gridSize));
-        if (period >= 175) period -= 25;
+        if (period >= 175) {
+          period -= 25;
+        }
       } else if (head!.x >= gridSize || head!.x < 0 || head!.y >= gridSize || head!.y < 0) {
         showDialog<void>(
             context: context, builder: (_) => const AlertDialog(title: Text('You lost !')));
@@ -365,20 +371,20 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
           LogicalKeySet(LogicalKeyboardKey.arrowRight): const ValueIntent(Direction.right),
           LogicalKeySet(LogicalKeyboardKey.arrowLeft): const ValueIntent(Direction.left),
         },
-        actions: {ValueIntent: ValueAction(((Direction value) => dir = value))},
+        actions: {ValueIntent: ValueAction<Direction>((value) => dir = value)},
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Snecc game'),
           ),
           floatingActionButton: FloatingActionButton(
-            child: started ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
             onPressed: started ? stop : start,
+            child: started ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
           ),
           body: Column(
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: AspectRatio(
                       aspectRatio: 1,
@@ -392,53 +398,53 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                    onPressed: () => dir = Direction.up,
                     child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8),
                       child: Text(
                         '↑',
                         style: TextStyle(fontSize: 32),
                       ),
                     ),
-                    onPressed: () => dir = Direction.up,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                        onPressed: () => dir = Direction.left,
                         child: const Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8),
                           child: Text(
                             '←',
                             style: TextStyle(fontSize: 32),
                           ),
                         ),
-                        onPressed: () => dir = Direction.left,
                       ),
                       const SizedBox(width: 32),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                        onPressed: () => dir = Direction.right,
                         child: const Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8),
                           child: Text(
                             '→',
                             style: TextStyle(fontSize: 32),
                           ),
                         ),
-                        onPressed: () => dir = Direction.right,
                       ),
                     ],
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                    onPressed: () => dir = Direction.down,
                     child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8),
                       child: Text(
                         '↓',
                         style: TextStyle(fontSize: 32),
                       ),
                     ),
-                    onPressed: () => dir = Direction.down,
                   ),
                 ],
               ),
@@ -452,11 +458,11 @@ class _Snecc_c_cState extends State<Snecc_c_c> with SingleTickerProviderStateMix
 }
 
 class MyPainter extends CustomPainter {
+  MyPainter(this.gridSize, this.snecc, this.food);
+
   final int gridSize;
   final Queue<Point?> snecc;
   final Point? food;
-
-  MyPainter(this.gridSize, this.snecc, this.food);
 
   final p2 = Paint()..color = Colors.pink;
   final fud = Paint()..color = Colors.blue;

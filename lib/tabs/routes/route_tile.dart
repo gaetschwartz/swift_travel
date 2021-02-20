@@ -35,7 +35,7 @@ class RouteTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          padding: const EdgeInsets.symmetric(vertical: 4),
           child: Wrap(spacing: 8, children: listWidget),
         ),
         const SizedBox(height: 4),
@@ -51,7 +51,7 @@ class RouteTile extends StatelessWidget {
             (l) => l.type != Vehicle.walk && l.type != null && l != c.legs.last) ??
         c.legs.first;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       child: DecoratedBox(
         decoration: BoxDecoration(
           boxShadow: shadowListOf(context),
@@ -59,7 +59,7 @@ class RouteTile extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: ListTile(
             isThreeLine: true,
             title: Row(
@@ -70,7 +70,7 @@ class RouteTile extends StatelessWidget {
               ],
             ),
             subtitle: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: rowIcon(),
             ),
             trailing: Row(

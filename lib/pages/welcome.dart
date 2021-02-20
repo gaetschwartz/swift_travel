@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:swift_travel/l10n.dart';
 
 class WelcomePage extends StatelessWidget {
-  const WelcomePage();
+  const WelcomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class WelcomePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

@@ -8,13 +8,13 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 
-final AutoDisposeStreamProvider<Position>? positionProvider =
+final AutoDisposeStreamProvider<Position> positionProvider =
     StreamProvider.autoDispose((_) => Geolocator.getPositionStream());
 
 class LiveRoutePage extends StatefulWidget {
-  final RouteConnection connection;
-
   const LiveRoutePage({Key? key, required this.connection}) : super(key: key);
+
+  final RouteConnection connection;
 
   @override
   _LiveRoutePageState createState() => _LiveRoutePageState();
@@ -53,7 +53,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
                 child: Center(
                   child: Card(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

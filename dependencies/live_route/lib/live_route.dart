@@ -18,15 +18,6 @@ final liveRouteControllerProvider =
 
 @immutable
 class RouteData {
-  final int? currentStopIndex;
-  final double? distFromCurrToNext;
-  final double? distUntilExit;
-
-  final double? portionOfLegDone;
-  final double? portionFromCurrentToExit;
-
-  final Duration? timeUntilNextLeg;
-
   const RouteData({
     required this.currentStopIndex,
     required this.distFromCurrToNext,
@@ -43,6 +34,15 @@ class RouteData {
         portionOfLegDone = null,
         portionFromCurrentToExit = null,
         timeUntilNextLeg = null;
+
+  final int? currentStopIndex;
+  final double? distFromCurrToNext;
+  final double? distUntilExit;
+
+  final double? portionOfLegDone;
+  final double? portionFromCurrentToExit;
+
+  final Duration? timeUntilNextLeg;
 }
 
 class LiveRoutePlugin {
@@ -65,12 +65,13 @@ class LiveRoutePlugin {
     WidgetsFlutterBinding.ensureInitialized();
 
     // 3. Listen for background events from the platform portion of the plugin.
-    _backgroundChannel.setMethodCallHandler((MethodCall call) async {
+    _backgroundChannel.setMethodCallHandler((call) async {
       final List<Object> args = call.arguments;
 
       // 3.1. Retrieve callback instance for handle.
       final callback =
-          PluginUtilities.getCallbackFromHandle(CallbackHandle.fromRawHandle(args[0] as int))!;
+          PluginUtilities.getCallbackFromHandle(CallbackHandle.fromRawHandle(args[0] as int))!
+              as Function();
 
       // 3.3. Invoke callback.
       callback();
@@ -82,8 +83,9 @@ class LiveRoutePlugin {
 }
 
 class LiveRouteController extends ChangeNotifier {
-  final SbbDataRepository sbbData;
   LiveRouteController(this.sbbData);
+
+  final SbbDataRepository sbbData;
 
   StreamSubscription<Position>? _sub;
 
@@ -133,7 +135,9 @@ class LiveRouteController extends ChangeNotifier {
     _isReady = false;
     _legDistances.clear();
     _sub?.cancel();
-    if (notify) notifyListeners();
+    if (notify) {
+      notifyListeners();
+    }
   }
 
   bool get isRunning => _connection != null;
@@ -188,7 +192,9 @@ class LiveRouteController extends ChangeNotifier {
     for (var i = 0; i < _connection!.legs.length; i++) {
       final l = _connection!.legs[i];
       _legDistances[i] ??= {};
-      if (l.lat == null || l.lon == null) continue;
+      if (l.lat == null || l.lon == null) {
+        continue;
+      }
       final d = Geolocator.distanceBetween(l.lat!, l.lon!, p.latitude, p.longitude);
       if (l.lat == null || l.lon == null) {
         _legDistances[i]![-1] = double.infinity;
@@ -201,7 +207,9 @@ class LiveRouteController extends ChangeNotifier {
           if (s.lat == null || s.lon == null) {
             _legDistances[i]![j] = double.infinity;
           } else {
-            if (s.lat == null || s.lon == null) continue;
+            if (s.lat == null || s.lon == null) {
+              continue;
+            }
             final d = Geolocator.distanceBetween(s.lat!, s.lon!, p.latitude, p.longitude);
             _legDistances[i]![j] = d;
             if (d < dist) {
@@ -224,7 +232,9 @@ class LiveRouteController extends ChangeNotifier {
   }
 
   void _updateData() {
-    if (currentLeg == null) return;
+    if (currentLeg == null) {
+      return;
+    }
 
     if (currentStop != null) {
       final distFromCurrToExt = Geolocator.distanceBetween(
@@ -258,7 +268,9 @@ class LiveRouteController extends ChangeNotifier {
   }
 
   Future<void> _computeMissingStops() async {
-    if (!isRunning) throw StateError('Live route not running');
+    if (!isRunning) {
+      throw StateError('Live route not running');
+    }
     log("Computing distances we didn't find");
 
     final legs = <Leg>[];

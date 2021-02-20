@@ -75,7 +75,9 @@ class Fetcher extends FetcherBase {
     final timeType = ref.watch(timeTypeProvider).state;
     final _cff = ref.read(navigationAPIProvider);
 
-    print('Something changed checking if we need to rebuild');
+    if (kDebugMode) {
+      log('Something changed checking if we need to rebuild');
+    }
 
     if (from.state is EmptyRouteState || to.state is EmptyRouteState) {
       if (from.state is EmptyRouteState && to.state is EmptyRouteState) {
@@ -90,8 +92,8 @@ class Fetcher extends FetcherBase {
     }
 
     if (kDebugMode) {
-      print('From: ${from.state}');
-      print('To: ${to.state}');
+      log('From: ${from.state}');
+      log('To: ${to.state}');
     }
 
     Location? p;
@@ -101,7 +103,7 @@ class Fetcher extends FetcherBase {
         empty: () => null,
         text: (t, l) => t,
         useCurrentLocation: () async {
-          p ??= await LocationRepository.getLocation();
+          p ??= await getLocation();
           return '${p!.latitude},${p!.longitude}';
         },
       )!;
@@ -109,7 +111,7 @@ class Fetcher extends FetcherBase {
         empty: () => null,
         text: (t, l) => t,
         useCurrentLocation: () async {
-          p ??= await LocationRepository.getLocation();
+          p ??= await getLocation();
           return '${p!.latitude},${p!.longitude}';
         },
       )!;
@@ -134,15 +136,12 @@ class Fetcher extends FetcherBase {
     } on Exception catch (e, s) {
       state = RouteStates.exception(e);
       reportDartError(e, s, library: 'fetcher', reason: 'while fetching');
-    } on Error catch (e) {
-      state = RouteStates.exception(e);
-      reportDartError(e, e.stackTrace, library: 'fetcher', reason: 'while fetching');
     }
   }
 }
 
 class RouteTab extends StatefulWidget {
-  const RouteTab();
+  const RouteTab({Key? key}) : super(key: key);
 
   @override
   _RouteTabState createState() => _RouteTabState();
@@ -160,14 +159,14 @@ class _RouteTabState extends State<RouteTab> with AutomaticKeepAliveClientMixin 
 }
 
 class MyTextFormatter extends TextInputFormatter {
+  MyTextFormatter(this.currentLocation, this.binder, this.state);
+
   final String currentLocation;
   final TextStateBinder binder;
   final StateController<RouteTextfieldState> state;
 
-  MyTextFormatter(this.currentLocation, this.binder, this.state);
-
   @override
-  TextEditingValue formatEditUpdate(oldValue, newValue) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.length != oldValue.text.length && oldValue.text == currentLocation) {
       binder.clearWithoutContext(state);
       return TextEditingValue.empty;
@@ -178,9 +177,6 @@ class MyTextFormatter extends TextInputFormatter {
 }
 
 class RoutePage extends StatefulWidget {
-  final LocalRoute? localRoute;
-  final FavoriteStop? favStop;
-
   const RoutePage({Key? key})
       : favStop = null,
         localRoute = null,
@@ -194,8 +190,18 @@ class RoutePage extends StatefulWidget {
       : localRoute = null,
         super(key: key);
 
+  final LocalRoute? localRoute;
+  final FavoriteStop? favStop;
+
   @override
   _RoutePageState createState() => _RoutePageState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<LocalRoute?>('localRoute', localRoute));
+    properties.add(DiagnosticsProperty<FavoriteStop?>('favStop', favStop));
+  }
 }
 
 final TextStateBinder from = TextStateBinder(TextEditingController(), fromTextfieldProvider);
@@ -343,7 +349,7 @@ class _RoutePageState extends State<RoutePage> {
               ],
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              padding: const EdgeInsets.symmetric(horizontal: 4),
               height: 40,
               child: Stack(
                 children: [
@@ -364,7 +370,9 @@ class _RoutePageState extends State<RoutePage> {
                           }
 
                           final s = await input(context, title: const Text('Enter route name'));
-                          if (s == null) return;
+                          if (s == null) {
+                            return;
+                          }
                           await favorites.addRoute(LocalRoute(from.text, to.text, displayName: s));
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(content: Text('Route starred !')));
@@ -422,7 +430,9 @@ class _RoutePageState extends State<RoutePage> {
                               ),
                               textColor: CupertinoColors.activeBlue,
                             );
-                            if (date != null) _date.state = date;
+                            if (date != null) {
+                              _date.state = date;
+                            }
                             context.read(timeTypeProvider).state = type;
                           },
                           child: Consumer(builder: (context, w, _) {
@@ -484,7 +494,7 @@ class _RoutePageState extends State<RoutePage> {
             child: CupertinoTextField(
               controller: from.controller,
               focusNode: fnFrom,
-              onEditingComplete: () => fnTo.requestFocus(),
+              onEditingComplete: fnTo.requestFocus,
               placeholder: AppLoc.of(context).departure,
               textInputAction: TextInputAction.next,
               prefix: Padding(
@@ -539,9 +549,9 @@ class _RoutePageState extends State<RoutePage> {
                   ),
                   loadingBuilder: (context) => ListView.builder(
                       itemBuilder: (context, i) => Shimmer.fromColors(
-                            child: const SuggestedTile.empty(),
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.white,
+                            child: const SuggestedTile.empty(),
                           )),
                   suggestionsCallback: (query) async => completeWithFavorites(
                     favorites: favorites.stops,
@@ -659,9 +669,9 @@ class _RoutePageState extends State<RoutePage> {
                   },
                   loadingBuilder: (context) => ListView.builder(
                       itemBuilder: (context, i) => Shimmer.fromColors(
-                            child: const SuggestedTile.empty(),
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.white,
+                            child: const SuggestedTile.empty(),
                           )),
                   hideOnEmpty: true,
                   transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
@@ -697,12 +707,25 @@ class _RoutePageState extends State<RoutePage> {
     fnFrom.unfocus();
     fnTo.unfocus();
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<FocusNode>('fnFrom', fnFrom));
+    properties.add(DiagnosticsProperty<FocusNode>('fnTo', fnTo));
+    properties.add(DiagnosticsProperty<MyTextFormatter?>('fromFormatter', fromFormatter));
+    properties.add(DiagnosticsProperty<MyTextFormatter?>('toFormatter', toFormatter));
+    properties.add(DiagnosticsProperty<FavoritesSharedPreferencesStore>('favorites', favorites));
+    properties.add(DiagnosticsProperty<BaseNavigationApi>('api', api));
+    properties
+        .add(DiagnosticsProperty<RouteHistoryRepository>('historyRepository', historyRepository));
+  }
 }
 
 final _predictionProvider = Provider.family<Prediction<LocalRoute?>, DateTime>(
     (_, date) => predictRoute(RouteHistoryRepository.i.history, PredictionArguments(date)));
 
-final _locationNotFound = RegExp('Stop ([\d\.,-\s]*) not found\.');
+final _locationNotFound = RegExp(r'Stop ([\d\.,-\s]*) not found\.');
 
 class RoutesView extends StatelessWidget {
   const RoutesView({
@@ -732,7 +755,7 @@ class RoutesView extends StatelessWidget {
                     )
                   : SliverFillRemaining(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: Center(
                           child: routes.messages.isEmpty ||
                                   _locationNotFound.hasMatch(routes.messages.first)
@@ -757,7 +780,7 @@ class RoutesView extends StatelessWidget {
           children: [
             const Expanded(
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16),
                 child: Center(
                     child: Text(
                   '😢',
@@ -766,7 +789,7 @@ class RoutesView extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: Text(
                 'Network Error',
                 style: Theme.of(context).textTheme.headline6,
@@ -783,7 +806,7 @@ class RoutesView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16),
                     child: Center(
                         child: Text(
                       '🗺',
@@ -791,7 +814,7 @@ class RoutesView extends StatelessWidget {
                     )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16),
                     child: Text(
                       'This app requires location permissions !',
                       style: Theme.of(context).textTheme.headline6,
@@ -809,12 +832,12 @@ class RoutesView extends StatelessWidget {
                       child: const Text('Open settings'))
                   : ElevatedButton(
                       onPressed: () => Geolocator.openAppSettings(),
-                      child: const Text('Open settings'),
                       style: ElevatedButton.styleFrom(
                         shadowColor: DynamicTheme.shadowOf(context).buttonShadow?.color,
                         elevation: 8,
                         shape: const StadiumBorder(),
                       ),
+                      child: const Text('Open settings'),
                     ),
             )),
           ],
@@ -825,7 +848,7 @@ class RoutesView extends StatelessWidget {
             const Expanded(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16),
                 child: Center(
                     child: Text(
                   '😢',
@@ -835,7 +858,7 @@ class RoutesView extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16),
                 child: Text(
                   e.toString(),
                   style: Theme.of(context).textTheme.headline6,
@@ -855,8 +878,8 @@ class RoutesView extends StatelessWidget {
                 return Align(
                   alignment: Alignment.topCenter,
                   child: RouteWidget(
-                    from: Text('${pred.prediction!.from.stripAt()}'),
-                    to: Text('${pred.prediction!.to.stripAt()}'),
+                    from: Text(pred.prediction!.from.stripAt()),
+                    to: Text(pred.prediction!.to.stripAt()),
                     onTap: () {
                       from.setString(context, pred.prediction!.from);
                       to.setString(context, pred.prediction!.to);
@@ -892,7 +915,7 @@ class RoutesView extends StatelessWidget {
             const Expanded(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16),
                 child: Center(
                     child: Text(
                   '😢',
@@ -902,7 +925,7 @@ class RoutesView extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16),
                 child: Text(
                   'Location is not supported on this device',
                   style: Theme.of(context).textTheme.headline6,
@@ -918,15 +941,15 @@ class RoutesView extends StatelessWidget {
 }
 
 class TextStateBinder {
-  final TextEditingController controller;
-  final StateProvider<RouteTextfieldState>? provider;
-  final String Function(BuildContext) computeCurrentLocation;
-
   const TextStateBinder(
     this.controller,
     this.provider, [
     this.computeCurrentLocation = _computeCurrentLocation,
   ]);
+
+  final TextEditingController controller;
+  final StateProvider<RouteTextfieldState>? provider;
+  final String Function(BuildContext) computeCurrentLocation;
 
   void syncState(BuildContext context) => _setController(context.read(provider!).state, context);
 
@@ -972,9 +995,9 @@ class TextStateBinder {
 }
 
 class ShadowsAround extends StatelessWidget {
-  final Widget? child;
-
   const ShadowsAround({Key? key, this.child}) : super(key: key);
+
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -999,6 +1022,12 @@ class _Segmented extends StatefulWidget {
 
   @override
   __SegmentedState createState() => __SegmentedState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<TimeType>('initialValue', initialValue));
+    properties.add(ObjectFlagProperty<ValueChanged<TimeType>>.has('onChange', onChange));
+  }
 }
 
 class __SegmentedState extends State<_Segmented> {

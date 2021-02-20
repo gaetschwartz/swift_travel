@@ -23,7 +23,7 @@ import 'fav_route_tile.dart';
 import 'fav_stop_tile.dart';
 
 class FavoritesTab extends StatefulWidget {
-  const FavoritesTab();
+  const FavoritesTab({Key? key}) : super(key: key);
 
   @override
   _FavoritesTabState createState() => _FavoritesTabState();
@@ -49,11 +49,11 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       condition: isDarwin,
       builder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
-        child: child!,
         navigationBar: cupertinoBar(
           context,
           trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
         ),
+        child: child!,
       ),
       elseBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
@@ -129,7 +129,9 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       builder: (_) => const StopInputDialog(title: 'Add a favorite'),
       fullscreenDialog: true,
     ));
-    if (s == null) return;
+    if (s == null) {
+      return;
+    }
 
     await load(context, future: () async {
       final cff = context.read(navigationAPIProvider);
@@ -153,7 +155,9 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
 
       final completion = completions.first;
       final name = await input(context, title: const Text('What is the name of this stop'));
-      if (name == null) return;
+      if (name == null) {
+        return;
+      }
       await store.addStop(FavoriteStop.fromCompletion(
         completion,
         name: name,

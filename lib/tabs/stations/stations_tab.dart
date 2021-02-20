@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,7 +29,7 @@ final _locatingProvider = StateProvider((_) => false);
 final _loadingProvider = StateProvider((_) => false);
 
 class StationsTab extends StatefulWidget {
-  const StationsTab();
+  const StationsTab({Key? key}) : super(key: key);
 
   @override
   _StationsTabState createState() => _StationsTabState();
@@ -65,7 +66,9 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
   // ignore: avoid_positional_boolean_parameters
   void onFocusChanged() {
-    if (focusNode.hasFocus) Vibration.select();
+    if (focusNode.hasFocus) {
+      Vibration.select();
+    }
   }
 
   @override
@@ -105,7 +108,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
           children: <Widget>[
             const SizedBox(height: 16),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
                   Expanded(
@@ -161,7 +164,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                           : const Icon(CupertinoIcons.location_fill);
                     }),
                     tooltip: AppLoc.of(context).use_current_location,
-                    onPressed: () => getLocation(),
+                    onPressed: () => _getLocation(),
                   )
                 ],
               ),
@@ -173,7 +176,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                       completions: (c) => Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: SizedBox(
                               height: 4,
                               child: Center(
@@ -196,7 +199,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                         ],
                       ),
                       empty: (_) => Consumer(
-                          builder: ((context, w, _) => w(favoritesStatesProvider).state.map(
+                          builder: (context, w, _) => w(favoritesStatesProvider).state.map(
                                 data: (c) => c.favorites.isEmpty
                                     ? Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -227,7 +230,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                     style: Theme.of(context).textTheme.headline6,
                                   ),
                                 ),
-                              ))),
+                              )),
                       network: (value) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -264,11 +267,11 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     }
   }
 
-  Future<void> getLocation() async {
+  Future<void> _getLocation() async {
     context.read(_locatingProvider).state = true;
 
     try {
-      final p = await LocationRepository.getLocation();
+      final p = await getLocation();
 
       final completions =
           await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
@@ -313,5 +316,13 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     } finally {
       context.read(_loadingProvider).state = false;
     }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty<TextEditingController>('searchController', searchController));
+    properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode));
   }
 }

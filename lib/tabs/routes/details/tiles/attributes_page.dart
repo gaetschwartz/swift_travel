@@ -8,12 +8,13 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 
 class AttributesPage extends StatelessWidget {
-  final List<Attribute> attributes;
-
   const AttributesPage(
     this.attributes, {
     Key? key,
   }) : super(key: key);
+
+  final List<Attribute> attributes;
+
   @override
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
@@ -21,8 +22,8 @@ class AttributesPage extends StatelessWidget {
         condition: isDarwin,
         builder: (context, child) => Material(
               child: CupertinoPageScaffold(
-                child: child!,
                 navigationBar: cupertinoBar(context, middle: const Text('Attributes')),
+                child: child!,
               ),
             ),
         elseBuilder: (context, child) => Scaffold(
@@ -60,7 +61,7 @@ class AttributesPage extends StatelessWidget {
             color: Colors.red,
           ),
           child: Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(4),
             child: att.icon ?? const Icon(CupertinoIcons.info_circle),
           ),
         ),

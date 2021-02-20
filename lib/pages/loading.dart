@@ -27,7 +27,7 @@ import 'package:theming/responsive.dart';
 const _tutoKey = 'hasAlreadySeenTuto';
 
 class LoadingPage extends StatefulWidget {
-  const LoadingPage({this.uri});
+  const LoadingPage({this.uri, Key? key}) : super(key: key);
 
   final Uri? uri;
 
@@ -130,7 +130,9 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
           ),
         ),
       );
-      if (delete) await prefs.clear();
+      if (delete) {
+        await prefs.clear();
+      }
       // ignore: avoid_catching_errors
     } on Error catch (e) {
       reportDartError(e, e.stackTrace, library: 'loading', reason: 'while loading');
@@ -145,7 +147,9 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
           ),
         ),
       );
-      if (delete) await prefs.clear();
+      if (delete) {
+        await prefs.clear();
+      }
     }
   }
 

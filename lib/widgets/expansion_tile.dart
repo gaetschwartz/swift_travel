@@ -133,7 +133,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     with SingleTickerProviderStateMixin {
   static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
   static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
+  static final Animatable<double> _halfTween = Tween<double>(begin: 0, end: 0.5);
 
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
@@ -160,7 +160,9 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     _backgroundColor = _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
     _isExpanded = PageStorage.of(context)?.readState(context) as bool? ?? widget.initiallyExpanded;
-    if (_isExpanded) _controller.value = 1.0;
+    if (_isExpanded) {
+      _controller.value = 1.0;
+    }
   }
 
   @override
@@ -175,16 +177,19 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
       if (_isExpanded) {
         _controller.forward();
       } else {
-        _controller.reverse().then<void>((void value) {
-          if (!mounted) return;
-          setState(() {
-            // Rebuild without widget.children.
-          });
+        _controller.reverse().then<void>((value) {
+          if (!mounted) {
+            return;
+          }
+          // Rebuild without widget.children.
+          setState(() {});
         });
       }
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
-    if (widget.onExpansionChanged != null) widget.onExpansionChanged!(_isExpanded);
+    if (widget.onExpansionChanged != null) {
+      widget.onExpansionChanged!(_isExpanded);
+    }
   }
 
   Widget _buildChildren(BuildContext context, Widget? child) {

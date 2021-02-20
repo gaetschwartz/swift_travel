@@ -35,7 +35,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: DecoratedBox(
         decoration: BoxDecoration(
           boxShadow: shadowListOf(context),
@@ -84,7 +84,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 8),
               child: Row(
                 children: [
                   Text.rich(TextSpan(children: [
@@ -110,7 +110,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
               IconTheme(
                 data: const IconThemeData(size: 16, color: Colors.white),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 8),
                   child: Row(
                     children: [
                       Text.rich(TextSpan(children: [
@@ -175,7 +175,6 @@ class _TransportLegTileState extends State<TransportLegTile> {
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             ...widget.l.attributes.entries
                                 .map((e) => Attribute.attributes[e.key])
@@ -269,11 +268,11 @@ class _TransportDetailsState extends State<TransportDetails> {
     final dividerCount = empty ? 0 : 1;
     return IfWrapper(
       condition: isDarwin,
-      builder: (BuildContext context, Widget? child) {
+      builder: (context, child) {
         return CupertinoPageScaffold(
-          child: child!,
           navigationBar: cupertinoBar(context,
               middle: Text('${widget.leg.line} ${AppLoc.of(context).to} ${widget.leg.terminal}')),
+          child: child!,
         );
       },
       elseBuilder: (context, child) => Scaffold(

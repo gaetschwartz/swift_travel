@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 
 /// Namespace class for vibrations.
 class Vibration {
-  static const MethodChannel _channel = MethodChannel('com.gaetanschwartz.vibration/channel');
-
   const Vibration._();
+
+  static const MethodChannel _channel = MethodChannel('com.gaetanschwartz.vibration/channel');
 
   static Future<void> vibrate(
       {VibrationType type = VibrationType.normal,
@@ -68,7 +68,7 @@ class Vibration {
   }
 
   static Future<void> normal() async {
-    await vibrate(type: VibrationType.normal, duration: 400, amplitude: 1000);
+    await vibrate(duration: 400, amplitude: 1000);
   }
 }
 

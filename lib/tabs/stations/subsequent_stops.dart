@@ -10,10 +10,10 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 
 class NextStopsPage extends StatefulWidget {
-  final StationboardConnection c;
-  final Stop? s;
-
   const NextStopsPage({required this.c, Key? key, required this.s}) : super(key: key);
+
+  final Stop? s;
+  final StationboardConnection c;
 
   @override
   _NextStopsPageState createState() => _NextStopsPageState();
@@ -26,7 +26,9 @@ class _NextStopsPageState extends State<NextStopsPage> {
   void initState() {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 10), (_) {
-      if (mounted) setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 
@@ -44,8 +46,8 @@ class _NextStopsPageState extends State<NextStopsPage> {
       child: IfWrapper(
         condition: Responsive.isDarwin(context),
         builder: (context, child) => CupertinoPageScaffold(
-          child: child!,
           navigationBar: cupertinoBar(context),
+          child: child!,
         ),
         elseBuilder: (context, child) => Scaffold(
             appBar: AppBar(
@@ -64,11 +66,11 @@ class _NextStopsPageState extends State<NextStopsPage> {
                     arrDelay: widget.c.arrDelay,
                   ),
                   isFirst: true,
-                  connection: widget.c)
+                  connection: widget.c,
+                )
               : StopTile(
                   stop: widget.c.subsequentStops[i - 1],
                   connection: widget.c,
-                  isFirst: false,
                   isLast: i - 1 == widget.c.subsequentStops.length - 1,
                 ),
         ),
@@ -78,6 +80,14 @@ class _NextStopsPageState extends State<NextStopsPage> {
 }
 
 class StopTile extends StatelessWidget {
+  const StopTile({
+    Key? key,
+    required this.stop,
+    required this.connection,
+    this.isFirst = false,
+    this.isLast = false,
+  }) : super(key: key);
+
   final SubsequentStop stop;
   final StationboardConnection connection;
   final bool isFirst;
@@ -92,7 +102,7 @@ class StopTile extends StatelessWidget {
 
   Widget _buildCircle(BuildContext context, StationboardConnection connection) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 2.0),
+      margin: const EdgeInsets.symmetric(vertical: 2),
       decoration: BoxDecoration(
         color:
             parseColor(connection.color.substring(0, connection.color.indexOf('~')), Colors.black),
@@ -103,18 +113,10 @@ class StopTile extends StatelessWidget {
     );
   }
 
-  const StopTile({
-    Key? key,
-    required this.stop,
-    required this.connection,
-    this.isFirst = false,
-    this.isLast = false,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
         height: 64,
         child: Row(

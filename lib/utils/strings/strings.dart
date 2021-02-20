@@ -23,7 +23,7 @@ extension StringUtils on String {
 
   String toCamelCase() =>
       this[0].toUpperCase() +
-      substring(1).replaceAllMapped(RegExp('\s(\w)'), (m) => m[1]!.toUpperCase());
+      substring(1).replaceAllMapped(RegExp(r'\s(\w)'), (m) => m[1]!.toUpperCase());
 
   String stripAt() {
     final i = indexOf('@');
@@ -39,12 +39,18 @@ int levenshtein(String stringA, String stringB, {bool caseSensitive = false}) {
   final s = caseSensitive ? stringA : stringA.toLowerCase();
   final t = caseSensitive ? stringB : stringB.toLowerCase();
 
-  if (s == t) return 0;
-  if (s.isEmpty) return t.length;
-  if (t.isEmpty) return s.length;
+  if (s == t) {
+    return 0;
+  }
+  if (s.isEmpty) {
+    return t.length;
+  }
+  if (t.isEmpty) {
+    return s.length;
+  }
 
   final v0 = List.generate(t.length + 1, (i) => i, growable: false);
-  final v1 = List<int>.filled(t.length + 1, 0, growable: false);
+  final v1 = List<int>.filled(t.length + 1, 0);
 
   for (var i = 0; i < s.length; i++) {
     v1[0] = i + 1;

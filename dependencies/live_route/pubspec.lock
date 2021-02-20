@@ -792,7 +792,7 @@ packages:
   theming:
     dependency: transitive
     description:
-      path: "../../../utils/theming"
+      path: "../theming"
       relative: true
     source: path
     version: "0.0.1"
@@ -852,13 +852,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0-nullsafety.0"
-  utils:
-    dependency: transitive
-    description:
-      path: "../../../utils/utils"
-      relative: true
-    source: path
-    version: "0.0.1"
   vector_math:
     dependency: transitive
     description:
@@ -869,7 +862,7 @@ packages:
   vibration:
     dependency: transitive
     description:
-      path: "../../../vibration"
+      path: "../vibration"
       relative: true
     source: path
     version: "0.0.1"

@@ -22,12 +22,6 @@ import 'package:theming/responsive.dart';
 const _heroTag = 0xabcd;
 
 class CupertinoTextFieldConfiguration {
-  final String? placeholder;
-  final List<TextInputFormatter?>? inputFormatters;
-  final TextInputAction? textInputAction;
-  final Widget? prefix;
-  final FocusNode? focusNode;
-
   const CupertinoTextFieldConfiguration({
     this.focusNode,
     this.prefix,
@@ -35,6 +29,12 @@ class CupertinoTextFieldConfiguration {
     this.inputFormatters,
     this.placeholder,
   });
+
+  final String? placeholder;
+  final List<TextInputFormatter?>? inputFormatters;
+  final TextInputAction? textInputAction;
+  final Widget? prefix;
+  final FocusNode? focusNode;
 
   CupertinoTextField toTextField({TextEditingController? controller}) {
     return CupertinoTextField(
@@ -75,14 +75,6 @@ class Debouncer {
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 
 class SearchPage extends StatefulWidget {
-  final TextStateBinder binder;
-  final Object heroTag;
-  final CupertinoTextFieldConfiguration configuration;
-
-  final bool isDestination;
-
-  final DateTime? dateTime;
-
   const SearchPage({
     required this.binder,
     Key? key,
@@ -91,6 +83,12 @@ class SearchPage extends StatefulWidget {
     this.isDestination = false,
     this.dateTime,
   }) : super(key: key);
+
+  final TextStateBinder binder;
+  final Object heroTag;
+  final CupertinoTextFieldConfiguration configuration;
+  final bool isDestination;
+  final DateTime? dateTime;
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -234,7 +232,7 @@ class _Results extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: SizedBox(
                   height: 4,
                   child: Center(

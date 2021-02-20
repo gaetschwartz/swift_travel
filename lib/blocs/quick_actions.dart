@@ -14,11 +14,11 @@ import 'package:swift_travel/models/favorite_stop.dart';
 import 'package:swift_travel/models/local_route.dart';
 
 class MyQuickActions {
+  MyQuickActions._();
+
   static const maxFavoriteRoutes = 5;
   static const maxFavoriteStops = 5;
   final quickActions = QuickActions();
-
-  MyQuickActions._();
 
   static late final i = MyQuickActions._();
 
@@ -35,7 +35,7 @@ class MyQuickActions {
   }
 
   Future<void> _init(String shortcutType) async {
-    assert(!_debugInitialized, 'Quick Actions aren\'t initialized.');
+    assert(!_debugInitialized, "Quick Actions aren't initialized.");
     await FirebaseCrashlytics.instance.log('User tapped a quick action : `$shortcutType`');
     log('Tapped shortcut $shortcutType', name: 'QuickActions');
     final split = shortcutType.split('_');

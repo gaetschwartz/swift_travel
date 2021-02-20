@@ -6,6 +6,8 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 final preferencesProvider = ChangeNotifierProvider((r) => PreferencesBloc('prefs_'));
 
 class PreferencesBloc extends ChangeNotifier {
+  PreferencesBloc(this.prefix);
+
   static const String mapsKey = 'maps_app';
   static const String navigationAPIKey = 'navigation_api';
   final String prefix;
@@ -13,8 +15,6 @@ class PreferencesBloc extends ChangeNotifier {
 
   Maps _maps = Maps.google;
   NavigationApi _api = NavigationApi.sbb;
-
-  PreferencesBloc(this.prefix);
 
   Future<void> _syncToPrefs(String key, int index) async {
     notifyListeners();

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PageNotFound extends StatefulWidget {
-  final RouteSettings settings;
-
   const PageNotFound({Key? key, required this.settings}) : super(key: key);
+
+  final RouteSettings settings;
 
   @override
   _PageNotFoundState createState() => _PageNotFoundState();
@@ -30,7 +30,7 @@ class _PageNotFoundState extends State<PageNotFound> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: ListView(
             children: [
               ErrorDataWidget(
@@ -81,7 +81,7 @@ class ErrorDataWidget extends StatelessWidget {
             .bodyText2!
             .copyWith(fontFamily: GoogleFonts.firaCode().fontFamily));
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -90,7 +90,7 @@ class ErrorDataWidget extends StatelessWidget {
           Card(
             color: Colors.grey[100],
             child: Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(4),
               child: SizedBox(
                 width: double.infinity,
                 child: wrapped

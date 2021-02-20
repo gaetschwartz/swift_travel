@@ -17,7 +17,7 @@ class ArrivedTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: DecoratedBox(
         decoration: BoxDecoration(
           boxShadow: shadowListOf(context),
@@ -25,7 +25,7 @@ class ArrivedTile extends StatelessWidget {
           color: Theme.of(context).cardColor,
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

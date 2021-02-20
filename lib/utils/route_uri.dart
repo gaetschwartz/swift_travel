@@ -66,9 +66,13 @@ Map<String, String> encodeRouteUri(Uri uri, int? i) {
   final oldParams = {...uri.queryParameters};
 
   final date = oldParams['date']!.split('/');
-  if (date.length != 3) throw const FormatException('Date is supposed to contain 3 parts');
+  if (date.length != 3) {
+    throw const FormatException('Date is supposed to contain 3 parts');
+  }
   final time = oldParams['time']!.split(':');
-  if (time.length != 2) throw const FormatException('Time is supposed to contain 2 parts');
+  if (time.length != 2) {
+    throw const FormatException('Time is supposed to contain 2 parts');
+  }
 
   final year = int.parse(date[2]);
   final month = int.parse(date[0]);

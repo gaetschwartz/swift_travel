@@ -4,6 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BlurryModalRoute<T> extends ModalRoute<T> {
+  BlurryModalRoute(
+    this.child, {
+    this.transitionDuration = const Duration(milliseconds: 300),
+    this.barrierColor = Colors.transparent,
+    this.barrierDismissible = true,
+    this.barrierLabel = '',
+  });
+
   @override
   final Color barrierColor;
 
@@ -24,22 +32,15 @@ class BlurryModalRoute<T> extends ModalRoute<T> {
   @override
   bool opaque = false;
 
-  BlurryModalRoute(
-    this.child, {
-    this.transitionDuration = const Duration(milliseconds: 300),
-    this.barrierColor = Colors.transparent,
-    this.barrierDismissible = true,
-    this.barrierLabel = '',
-  });
-
   @override
-  Widget buildPage(BuildContext context, Animation<double> a1, Animation<double> a2) {
+  Widget buildPage(
+      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
     return AnimatedBuilder(
-      animation: a1,
+      animation: animation,
       builder: (context, child) => BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: a1.value * 10, sigmaY: a1.value * 10),
+        filter: ImageFilter.blur(sigmaX: animation.value * 10, sigmaY: animation.value * 10),
         child: Opacity(
-          opacity: a1.value,
+          opacity: animation.value,
           child: child,
         ),
       ),

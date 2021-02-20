@@ -49,6 +49,7 @@ void main() {
     });
 
     testWidgets('ifWrapper', (t) async {
+      // ignore: avoid_positional_boolean_parameters
       Widget buildWrapper(bool condition, {bool addElseBuilder = true}) => MaterialApp(
             home: IfWrapper(
                 condition: condition,
@@ -88,8 +89,8 @@ void main() {
       testWidgets('.fromIconClass()', (t) async {
         for (final v in Vehicle.values) {
           final text = describeEnum(v);
-          final exp = RegExp(r'(?<=[a-z])[A-Z]');
-          final result = text.replaceAllMapped(exp, (Match m) => ('_' + m.group(0)!)).toLowerCase();
+          final exp = RegExp('(?<=[a-z])[A-Z]');
+          final result = text.replaceAllMapped(exp, (m) => '_${m.group(0)!}').toLowerCase();
           final cffIcon = CffIcon.fromIconClass(result);
 
           await t.pumpWidget(MaterialApp(home: Center(child: cffIcon)));

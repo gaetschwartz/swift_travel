@@ -5,24 +5,19 @@ import 'package:vibration/vibration.dart';
 
 @immutable
 class ChoicePageItem<T> {
-  final T value;
-  final Widget Function(BuildContext, bool)? builder;
-  final Widget? child;
-
   const ChoicePageItem({
     required this.value,
     this.builder,
     this.child,
-  }) : assert(builder != null || child != null);
+  }) : assert(
+            builder != null || child != null, 'Either the child or the builder must be non null.');
+
+  final T value;
+  final Widget Function(BuildContext, bool)? builder;
+  final Widget? child;
 }
 
 class ChoicePage<T> extends StatefulWidget {
-  final List<ChoicePageItem<T>> items;
-  final T? value;
-  final Widget? title;
-  final void Function(T)? onChanged;
-  final Widget? description;
-
   const ChoicePage({
     Key? key,
     required this.items,
@@ -31,6 +26,12 @@ class ChoicePage<T> extends StatefulWidget {
     this.onChanged,
     this.description,
   }) : super(key: key);
+
+  final List<ChoicePageItem<T>> items;
+  final T? value;
+  final Widget? title;
+  final void Function(T)? onChanged;
+  final Widget? description;
 
   @override
   _ChoicePageState<T> createState() => _ChoicePageState<T>();
@@ -101,7 +102,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
           const Divider(height: 0),
           if (widget.description != null)
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: DefaultTextStyle(
                 style: CupertinoTheme.of(context)
                     .textTheme

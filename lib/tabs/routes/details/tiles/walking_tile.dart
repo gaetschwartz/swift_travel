@@ -26,7 +26,7 @@ class WalkingTile extends StatelessWidget {
     return InkWell(
       onTap: () => openRoute(context),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
           children: [
             Expanded(

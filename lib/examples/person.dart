@@ -10,7 +10,7 @@ abstract class Person with NamedEntity implements _$Person {
   const Person._();
 
   @override
-  String get name => firstName + ' ' + lastName;
+  String get name => '$firstName $lastName';
 }
 
 mixin NamedEntity {
@@ -18,14 +18,14 @@ mixin NamedEntity {
 }
 
 class Person2 with NamedEntity {
+  const Person2(this.firstName, this.lastName, this.age);
+
   final String firstName;
   final String lastName;
   final int age;
 
-  const Person2(this.firstName, this.lastName, this.age);
-
   @override
-  String get name => firstName + ' ' + lastName;
+  String get name => '$firstName $lastName';
 }
 
 void main() {

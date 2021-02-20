@@ -57,7 +57,7 @@ ThemeConfiguration get themeConfiguration {
             textTheme: Typography.englishLike2018.apply(bodyColor: Colors.black),
             iconTheme: const IconThemeData(color: Colors.black),
             actionsIconTheme: const IconThemeData(color: Colors.black),
-            elevation: .0,
+            elevation: 0,
           ),
           cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(),
         ),

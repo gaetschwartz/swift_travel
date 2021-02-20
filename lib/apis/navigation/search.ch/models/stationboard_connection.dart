@@ -17,7 +17,7 @@ class SbbStationboardConnection with _$SbbStationboardConnection, StationboardCo
     required String color,
     @JsonKey(name: 'terminal') required SbbStop sbbTerminal,
     String? line,
-    @JsonKey(name: 'operator') String? operator_,
+    @JsonKey(name: 'operator') String? operator,
     @Default('') String number,
     @JsonKey(name: '*G') String? g,
     @JsonKey(name: '*L') String? l,

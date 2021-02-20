@@ -8,14 +8,14 @@ import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/tabs/routes/suggested.dart';
 
 class StopInputDialog extends StatefulWidget {
-  final String title;
-  final TextInputType inputType;
-
   const StopInputDialog({
     Key? key,
     this.title = '',
     this.inputType = TextInputType.text,
   }) : super(key: key);
+
+  final String title;
+  final TextInputType inputType;
 
   @override
   _StopInputDialogState createState() => _StopInputDialogState();
@@ -56,7 +56,7 @@ class _StopInputDialogState extends State<StopInputDialog> {
       body: Align(
         alignment: Alignment.topCenter,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: TypeAheadField<Completion>(
             textFieldConfiguration: TextFieldConfiguration(
               onSubmitted: submit,

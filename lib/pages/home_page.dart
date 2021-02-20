@@ -23,8 +23,6 @@ import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class CombinedPageController extends ChangeNotifier {
-  final CupertinoTabController cupertinoTabController;
-
   CombinedPageController() : cupertinoTabController = CupertinoTabController() {
     cupertinoTabController.addListener(() {
       _page = cupertinoTabController.index;
@@ -32,10 +30,12 @@ class CombinedPageController extends ChangeNotifier {
     });
   }
 
+  final CupertinoTabController cupertinoTabController;
+
   int _page = 0;
   int get page => _page;
 
-  void setPage(int page, bool isDarwin) {
+  void setPage(int page, {required bool isDarwin}) {
     if (isDarwin) {
       cupertinoTabController.index = page;
     } else {
@@ -45,8 +45,8 @@ class CombinedPageController extends ChangeNotifier {
   }
 
   void animateTo(
-    int page,
-    bool isDarwin, {
+    int page, {
+    required bool isDarwin,
     Curve curve = Curves.fastOutSlowIn,
     Duration duration = const Duration(milliseconds: 250),
   }) {
@@ -78,7 +78,7 @@ bool isTablet(BuildContext context) {
 }
 
 class MainApp extends StatefulWidget {
-  const MainApp();
+  const MainApp({Key? key}) : super(key: key);
 
   @override
   _MainAppState createState() => _MainAppState();
@@ -108,8 +108,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       builder: (context, child) {
         return Row(children: [
           ConstrainedBox(
-            child: child,
             constraints: const BoxConstraints(maxWidth: 350),
+            child: child,
           ),
           const SafeArea(child: VerticalDivider(width: 0)),
           Expanded(
@@ -118,8 +118,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               child: Navigator(
                 key: sideBarNavigatorKey,
                 pages: const [SingleWidgetPage<void>(_SideBar(), title: 'Home')],
-                onGenerateRoute: (s) => onGenerateRoute(s, isDarwin),
-                onPopPage: (_, Object? __) => true,
+                onGenerateRoute: (s) => onGenerateRoute(s, isDarwin: isDarwin),
+                onPopPage: (_, dynamic __) => true,
               ),
             ),
           )),
@@ -171,9 +171,9 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
         tabBuilder: (context, i) => Navigator(
           key: navigatorKeys[i],
           pages: [SingleWidgetPage<void>(MainApp.iosTabs[i], title: items[i].label)],
-          onPopPage: (_, Object? __) => true,
-          onUnknownRoute: (settings) => onUnknownRoute(settings, true),
-          onGenerateRoute: (settings) => onGenerateRoute(settings, true),
+          onPopPage: (_, dynamic __) => true,
+          onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: true),
+          onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: true),
         ),
       ),
     );
@@ -211,7 +211,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           onTap: (i) {
             Vibration.selectSoft();
             if (combined.page != i) {
-              combined.animateTo(i, false);
+              combined.animateTo(i, isDarwin: false);
             } else {
               navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
               context.read(sideTabBarProvider).state = null;
@@ -227,9 +227,9 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           child: Navigator(
             key: navigatorKeys[combined.page],
             pages: [SingleWidgetPage<void>(MainApp.androidTabs[page], name: titles[page])],
-            onPopPage: (_, Object? __) => true,
-            onUnknownRoute: (settings) => onUnknownRoute(settings, false),
-            onGenerateRoute: (settings) => onGenerateRoute(settings, false),
+            onPopPage: (_, dynamic __) => true,
+            onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: false),
+            onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: false),
           ),
         ),
       );
@@ -245,7 +245,7 @@ class _SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-        builder: ((context, w, _) =>
+        builder: (context, w, _) =>
             w(sideTabBarProvider).state?.call(context) ??
             Stack(
               children: [
@@ -275,7 +275,7 @@ class _SideBar extends StatelessWidget {
                   ),
                 )),
               ],
-            )));
+            ));
   }
 }
 
@@ -291,7 +291,7 @@ extension BuildContextX on BuildContext {
     final isDarwin = Responsive.isDarwin(this);
     if (isTablet(this)) {
       read(sideTabBarProvider).state = builder;
-      sideBarNavigatorKey.currentState!..popUntil((route) => route.isFirst);
+      sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {
       Navigator.of(this, rootNavigator: rootNavigator).push(platformRoute(
         builder: builder,
@@ -342,7 +342,7 @@ AppBar materialAppBar(BuildContext context,
     automaticallyImplyLeading: false,
     title: title,
     backgroundColor: Colors.transparent,
-    elevation: .0,
+    elevation: 0,
     actions: [
       ...actions,
       if (addSettings)

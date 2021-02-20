@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -10,13 +11,14 @@ import 'package:swift_travel/utils/route_uri.dart';
 
 final linksProvider = Provider<DeepLinkBloc>((ref) {
   final deepLinkBloc = DeepLinkBloc();
-  ref.onDispose(() => deepLinkBloc.dispose());
+  ref.onDispose(deepLinkBloc.dispose);
   return deepLinkBloc;
 });
 
 class InvalidRouteException implements Exception {
+  const InvalidRouteException(this.map);
+
   final Map<String, String> map;
-  InvalidRouteException(this.map);
 
   @override
   String toString() => 'InvalidRouteException : $map';
@@ -58,7 +60,9 @@ class DeepLinkBloc {
     final params = decodeRouteUri(uri);
 
     final qUri = SearchChApi.queryBuilder('route', params);
-    print(qUri.toString());
+    if (kDebugMode) {
+      log(qUri.toString());
+    }
 
     final route = await navApi.rawRoute(qUri);
 

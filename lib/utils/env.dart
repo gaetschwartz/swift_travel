@@ -1,3 +1,4 @@
+// ignore_for_file: do_not_use_environment
 import 'package:flutter/foundation.dart';
 
 mixin Env {

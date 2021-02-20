@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:swift_travel/db/models/cache.dart';
@@ -6,6 +8,9 @@ import 'package:swift_travel/mocking/mocking.dart';
 import 'db.dart';
 
 class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDatabaseMixin {
+  @visibleForTesting
+  factory LineCache() => LineCache._();
+
   LineCache._()
       : super(
           boxKey: 'line_cache',
@@ -16,14 +21,13 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
 
   static late final i = LineCache._();
 
-  @visibleForTesting
-  factory LineCache() => LineCache._();
-
   List<LineCacheEntry> get entries => values.toList(growable: false);
 
   @override
   Future<void> clean() async {
-    if (kDebugMode) print('Total size exceeded max size, cleaning');
+    if (kDebugMode) {
+      log('Total size exceeded max size, cleaning');
+    }
     await deleteAll(keys.take(20));
   }
 
@@ -37,7 +41,9 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
     final toDelete = map.entries
         .where((e) => MockableDateTime.now().difference(e.value.timestamp).inMinutes > e.value.ttl)
         .map((e) => e.key);
-    if (toDelete.isNotEmpty) print('Found these outdated cache entries: $toDelete');
+    if (kDebugMode && toDelete.isNotEmpty) {
+      log('Found these outdated cache entries: $toDelete');
+    }
     await deleteAll(toDelete);
   }
 }

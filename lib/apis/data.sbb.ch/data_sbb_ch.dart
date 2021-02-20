@@ -2,18 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:swift_travel/apis/data.sbb.ch/models/sbb_models.dart';
 
 import 'models/geo_models.dart';
+import 'models/sbb_models.dart';
 
 final sbbDataProvider = Provider((ref) => SbbDataRepository());
 
 class SbbDataRepository {
-  //static const imagesBaseUrl = 'https://data.sbb.ch/explore/dataset/bilder-von-bahnhofen/files/';
+  SbbDataRepository();
 
   final _client = http.Client();
-
-  SbbDataRepository();
 
   Future<SbbStationResponse> _getSbb(String location) async {
     final queryParameters = {
@@ -50,7 +48,9 @@ class SbbDataRepository {
     for (var i = split.length; i >= 0; i--) {
       final n = split.sublist(i).join();
       final pos = await _getGeo(n);
-      if (pos.results.isNotEmpty) return LatLong.fromGeoAttr(pos.results.first.attrs!);
+      if (pos.results.isNotEmpty) {
+        return LatLong.fromGeoAttr(pos.results.first.attrs!);
+      }
       final pos2 = await _getSbb(n);
       if (pos2.records!.isNotEmpty) {
         return LatLong.fromCoordinates(pos2.records!.first.geometry!.coordinates!);
