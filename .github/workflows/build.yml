@@ -71,6 +71,7 @@ jobs:
           asset_path: ./build/app/outputs/flutter-apk/app-release.apk
           asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
           asset_content_type: application/vnd.android.package-archive
+
   deploy-testflight:
     timeout-minutes: 30
     name: ios

@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+env:
+  flutter_channel: dev
+  java_version: 8.x
+
 jobs:
   flutter-tests:
     name: flutter test & cov
@@ -28,7 +32,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v1
         with:
-          channel: dev
+          channel: ${{ env.flutter_channel }}
       - name: Get git infos
         id: git-data
         run: |
@@ -50,6 +54,7 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
   build-android:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -86,6 +91,7 @@ jobs:
         run: bash CI/prebuild.sh
       - name: Build
         run: flutter build apk --build-number ${{ steps.git-data.outputs.count }} --no-sound-null-safety
+
   build-ios:
     timeout-minutes: 30
     name: build ios
