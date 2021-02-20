@@ -1,1 +1,1 @@
-[Read here](https://github.com/gaetschwartz/swift_travel/tree/main/doc/ADDING-NEW-API.md)
+/doc/ADDING-NEW-API.md
