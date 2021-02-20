@@ -1,0 +1,10 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - lib/generated/**
+    - "**/*.g.dart"
+    #  - "**/*.freezed.dart"
+    - "example/**"
+  errors:
+    sort_pub_dependencies: ignore
