@@ -15,11 +15,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Clone dependencies
-        run: |
-          git clone https://gaetschwartz:${{ secrets.ACCESS_TOKEN }}@github.com/gaetschwartz/utils.git
-          git clone https://gaetschwartz:${{ secrets.ACCESS_TOKEN }}@github.com/vincenttarrit/vibration.git
-        working-directory: ../
       - name: Get Flutter from cache
         uses: actions/cache@v2
         with:
