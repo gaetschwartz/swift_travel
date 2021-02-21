@@ -782,7 +782,7 @@ class _ScrollProgress extends StatefulWidget {
 
 class __ScrollProgressState extends State<_ScrollProgress> {
   double _progress = 0;
-  Color? color;
+  late Color color;
 
   void update() {
     if (mounted) {
