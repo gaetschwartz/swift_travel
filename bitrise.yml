@@ -10,7 +10,7 @@ workflows:
             - ios_additional_params: "--release --no-codesign --build-number $GIT_CLONE_COMMIT_COUNT"
             - android_additional_params: >-
                 --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform
-                android-arm64 --no-sound-null-safety
+                android-arm64
             - platform: android
       - deploy-to-bitrise-io@1:
           inputs:
@@ -54,10 +54,10 @@ workflows:
           inputs:
             - ios_additional_params: >-
                 --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
-                --no-sound-null-safety
+
             - android_additional_params: >-
                 --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform
-                android-arm64 --no-sound-null-safety
+                android-arm64
       - cache-push@2: {}
     after_run: []
   deploy-ios:
@@ -101,7 +101,7 @@ workflows:
 
 
                 flutter build ios --config-only --no-codesign --release
-                --build-number $GIT_CLONE_COMMIT_COUNT --no-sound-null-safety
+                --build-number $GIT_CLONE_COMMIT_COUNT
           title: flutter build ios
       - xcode-archive@3: {}
       - deploy-to-itunesconnect-application-loader@1:
