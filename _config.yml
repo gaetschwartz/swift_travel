@@ -4,23 +4,6 @@ plugins:
   - jekyll-include-cache
   - jekyll-remote-theme
 
-author:
-  name: "Gaëtan Schwartz"
-  # avatar: # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio: "I am an **amazing** person."
-  location: "Somewhere"
-  email:
-  links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      # url: "https://your-website.com"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      # url: "https://twitter.com/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
-
 logo: "/assets/logo/swift.png"
 
 defaults:
