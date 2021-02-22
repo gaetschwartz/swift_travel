@@ -1,4 +1,4 @@
-# How to add a new navigation API to support a new country
+# Adding a new navigation API to support a new country
 
 ## Index
 
