@@ -43,7 +43,7 @@ If you want to contribute, fork the repository and create a pull-request with yo
 
  - Read [ADDING-NEW-API.md](docs/ADDING-NEW-API.md)
 
-### Adding support for a new language
+### 🏳 Adding support for a new language
 
 1. Create a new file named `intl_you_locale_code.arb` i.e `intl_de.arb` for German in `lib/l10n/`
 2. Copy the content of the `intl_en.arb` to your newly create file and make sure to modify the `@@locale` field to the appropriate language.
