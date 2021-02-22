@@ -138,7 +138,7 @@ class _HeaderPageState extends State<HeaderPage> {
                         child: Container(
                           color: hasBackground ? Colors.white : null,
                           child: Padding(
-                            padding: const EdgeInsets.all(64.0),
+                            padding: const EdgeInsets.all(scale / 2),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
