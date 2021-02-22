@@ -1,3 +1,7 @@
+---
+classes: single
+---
+
 # Adding a new navigation API to support a new country
 
 ## Index
