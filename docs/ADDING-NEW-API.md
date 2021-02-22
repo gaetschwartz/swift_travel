@@ -5,9 +5,9 @@
 1. [Where to implement it](#1-where-to-implement-it)
 2. [Implementing your class](#2-implementing-your-class)
 3. [Add your api to the api factory](#3-add-your-api-to-the-api-factory)
-4. [(Optional) Using API keys ](#4-(optional)-using-API-keys )
+4. [(Optional) Using API keys ](#4-optional-using-API-keys )
 - [Complete example](#complete-example)
-- [Need more help ?](#need-more-help-?)
+- [Need more help ?](#need-more-help-)
 
 ## 1. Where to implement it
   1. Make a folder named `your_api_name` in `lib/apis/navigation/`
