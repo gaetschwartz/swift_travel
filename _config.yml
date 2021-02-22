@@ -11,5 +11,4 @@ defaults:
   - scope:
       path: ""
     values:
-      layout: single
       toc: true
