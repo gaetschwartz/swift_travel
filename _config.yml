@@ -1,4 +1,5 @@
-remote_theme: "mmistakes/minimal-mistakes@4.22.0"
+theme: minimal-mistakes-jekyll
 title: Swift Travel
 plugins:
   - jekyll-include-cache
+  - jekyll-remote-theme
