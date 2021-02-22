@@ -15,10 +15,6 @@
     ],
   },
   "dart.lineLength": 100,
-  "dart.flutterTestAdditionalArgs": [
-    "--no-sound-null-safety"
-  ],
-  "dart.flutterRunAdditionalArgs": [
-    "--no-sound-null-safety"
-  ],
+  "dart.flutterTestAdditionalArgs": [],
+  "dart.flutterRunAdditionalArgs": [],
 }
