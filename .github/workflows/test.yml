@@ -64,18 +64,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Get Flutter from cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            $HOME/.pub-cache
-          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
-      - name: Install Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          channel: ${{ env.flutter_channel }}
-      - name: Get packages
-        run: flutter packages get
       - name: Get git infos
         id: git-data
         run: |
@@ -91,6 +79,18 @@ jobs:
         run: bash CI/prebuild.sh
       - name: Install key.properties
         run: bash CI/install_key_props.sh
+      - name: Get Flutter from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            $HOME/.pub-cache
+          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.flutter_channel }}
+      - name: Get packages
+        run: flutter packages get
       - name: Build
         run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
 
