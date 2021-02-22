@@ -12,6 +12,8 @@ class RouteWidget extends StatelessWidget {
     this.onTap,
     this.trailing,
     this.onLongPress,
+    this.fromOverride,
+    this.toOverride,
   }) : super(key: key);
 
   final Widget? icon;
@@ -19,6 +21,8 @@ class RouteWidget extends StatelessWidget {
   final Widget to;
   final Widget? title;
   final Widget? trailing;
+  final String? fromOverride;
+  final String? toOverride;
 
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
@@ -64,7 +68,7 @@ class RouteWidget extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                               child: Text(
-                                AppLoc.of(context).from.toCamelCase(),
+                                fromOverride ?? AppLoc.of(context).from.toCamelCase(),
                                 style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
@@ -81,7 +85,7 @@ class RouteWidget extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                               child: Text(
-                                AppLoc.of(context).to.toCamelCase(),
+                                toOverride ?? AppLoc.of(context).to.toCamelCase(),
                                 style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
@@ -89,14 +93,17 @@ class RouteWidget extends StatelessWidget {
                         ),
                       ]),
                       const SizedBox(width: 8),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            from,
-                            const SizedBox(height: 8),
-                            to,
-                          ],
+                      DefaultTextStyle(
+                        style: Theme.of(context).textTheme.subtitle1!,
+                        child: Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              from,
+                              const SizedBox(height: 8),
+                              to,
+                            ],
+                          ),
                         ),
                       ),
                     ],

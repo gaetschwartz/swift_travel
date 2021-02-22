@@ -573,7 +573,7 @@ packages:
     source: hosted
     version: "0.2.19"
   theming:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "../theming"
       relative: true

@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-export 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 
 class AppLoc {
   const AppLoc._();

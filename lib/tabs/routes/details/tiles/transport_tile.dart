@@ -229,7 +229,8 @@ class _TransportLegTileState extends State<TransportLegTile> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.l.terminal!,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style:
+                      Theme.of(context).textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
             ),

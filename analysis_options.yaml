@@ -4,6 +4,7 @@ analyzer:
     - "**/*.freezed.dart"
     - "**/generated/**"
     - ".dart_tool/**"
+    - "lib/l10n/**"
   strong-mode:
     implicit-dynamic: false
     #implicit-casts: false

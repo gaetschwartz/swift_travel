@@ -16,6 +16,8 @@ dependencies:
   path_provider:
   swift_travel:
     path: ../../
+  theming:
+    path: ../theming
 
 dev_dependencies:
   flutter_test:

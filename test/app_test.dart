@@ -7,7 +7,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/db/history.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/mocking/mocking.dart';
