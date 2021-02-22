@@ -3,10 +3,18 @@
 
 <img src="docs/assets/pictures/header-bg-custom-128.0.png"> 
 
-
 This is an open-source public transport app packed with cool features 😎
 
-It features: 
+## How to get it
+
+| Tables        | Are           |
+| ------------- |:-------------:|
+| 🍎 iOS           | [Testflight](https://testflight.apple.com/join/iWSWTkMj) |
+| 🤖 Android       | [Download the latest release](https://github.com/gaetschwartz/swift_travel/releases)      |
+| 🌐 Web | [Web version](travel.gaetanschwartz.com)      |
+
+
+## Features 
 
 ⭐ A beautiful route search and view
 
