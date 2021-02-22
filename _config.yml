@@ -1,15 +1,8 @@
 theme: minimal-mistakes-jekyll
+remote-theme: mmistakes/minimal-mistakes
 title: Swift Travel
 plugins:
   - jekyll-include-cache
   - jekyll-remote-theme
 
 logo: "/assets/logo/swift.png"
-
-defaults:
-  # _pages
-  - scope:
-      path: ""
-    values:
-      layout: single
-      toc: true
