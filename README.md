@@ -11,15 +11,15 @@ It features:
 
 ⭐ A beautiful route search and view
 
-<img src="docs/assets/pictures/itinerary_search.png" width="150px" alt="Itinerary search"> <img src="docs/assets/pictures/itinerary.png" width="150px" alt="Itinerary">
+<img src="docs/assets/pictures/itinerary_search.png" width="200px" alt="Itinerary search"> <img src="docs/assets/pictures/itinerary.png" width="200px" alt="Itinerary">
 
 ⭐ A timetable
 
-<img src="docs/assets/pictures/timetable.png" width="150px" alt="Timetable"> <img src="docs/assets/pictures/timetable_view.png" width="150px" alt="Itinerary view"> 
+<img src="docs/assets/pictures/timetable.png" width="200px" alt="Timetable"> <img src="docs/assets/pictures/timetable_view.png" width="200px" alt="Itinerary view"> 
 
 🤖 AI-powered smart suggestions
 
-<img src="docs/assets/pictures/sugg1.png" width="150px" alt="Suggestion"> <img src="docs/assets/pictures/sugg_search.png" width="150px" alt="Suggestion in search bar"> 
+<img src="docs/assets/pictures/sugg1.png" width="200px" alt="Suggestion"> <img src="docs/assets/pictures/sugg_search.png" width="200px" alt="Suggestion in search bar"> 
 
 # Documentation
 
