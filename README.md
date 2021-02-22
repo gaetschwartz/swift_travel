@@ -11,7 +11,7 @@ This is an open-source public transport app packed with cool features 😎
 | ------------- |:-------------:|
 | 🍎 iOS           | [Testflight](https://testflight.apple.com/join/iWSWTkMj) |
 | 🤖 Android       | [Download the latest release](https://github.com/gaetschwartz/swift_travel/releases)      |
-| 🌐 Web | [Web version](travel.gaetanschwartz.com)      |
+| 🌐 Web | [Web version](https://travel.gaetanschwartz.com)      |
 
 
 ## Features 
