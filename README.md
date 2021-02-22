@@ -11,15 +11,15 @@ It features:
 
 ⭐ A beautiful route search and view
 
-<img src="doc/assets/pictures/itinerary_search.png" width="150px" alt="Itinerary search"> <img src="doc/assets/pictures/itinerary.png" width="150px" alt="Itinerary">
+<img src="docs/assets/pictures/itinerary_search.png" width="150px" alt="Itinerary search"> <img src="docs/assets/pictures/itinerary.png" width="150px" alt="Itinerary">
 
 ⭐ A timetable
 
-<img src="doc/assets/pictures/timetable.png" width="150px" alt="Timetable"> <img src="doc/assets/pictures/timetable_view.png" width="150px" alt="Itinerary view"> 
+<img src="docs/assets/pictures/timetable.png" width="150px" alt="Timetable"> <img src="docs/assets/pictures/timetable_view.png" width="150px" alt="Itinerary view"> 
 
 🤖 AI-powered smart suggestions
 
-<img src="doc/assets/pictures/sugg1.png" width="150px" alt="Suggestion"> <img src="doc/assets/pictures/sugg_search.png" width="150px" alt="Suggestion in search bar"> 
+<img src="docs/assets/pictures/sugg1.png" width="150px" alt="Suggestion"> <img src="docs/assets/pictures/sugg_search.png" width="150px" alt="Suggestion in search bar"> 
 
 # Documentation
 
@@ -34,7 +34,7 @@ If you want to contribute, fork the repository and create a pull-request with yo
 
 ### Adding support for a new country
 
- - Read [ADDING-NEW-API.md](doc/ADDING-NEW-API.md)
+ - Read [ADDING-NEW-API.md](docs/ADDING-NEW-API.md)
 
 ### Adding support for a new language
 
