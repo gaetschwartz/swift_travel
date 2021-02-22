@@ -4,5 +4,3 @@ title: Swift Travel
 plugins:
   - jekyll-include-cache
   - jekyll-remote-theme
-
-logo: "assets/logo/swift.png"
