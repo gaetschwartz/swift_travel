@@ -1,9 +1,8 @@
 
 [![codecov](https://codecov.io/gh/gaetschwartz/swift_travel/branch/master/graph/badge.svg?token=BS53B3CBIN)](https://codecov.io/gh/gaetschwartz/swift_travel)
 
-<img src="assets/logo/swift.png" width="32px"> 
+<img src="docs/assets/pictures/header-bg-custom-128.0.png"> 
 
-# Swift Travel - Travel swiftly
 
 This is an open-source public transport app packed with cool features 😎
 
@@ -32,7 +31,7 @@ If you want to contribute, fork the repository and create a pull-request with yo
  - Include **necessary tests**
  - Follow the coding style
 
-### Adding support for a new country
+### 🌍 Adding support for a new country
 
  - Read [ADDING-NEW-API.md](docs/ADDING-NEW-API.md)
 
