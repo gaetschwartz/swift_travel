@@ -5,4 +5,4 @@ plugins:
   - jekyll-include-cache
   - jekyll-remote-theme
 
-logo: "/assets/logo/swift.png"
+logo: "assets/logo/swift.png"
