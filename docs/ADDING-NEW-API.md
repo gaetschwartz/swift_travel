@@ -1,8 +1,3 @@
----
-layout: single
-classes: 
----
-
 # Adding a new navigation API to support a new country
 
 ## Index

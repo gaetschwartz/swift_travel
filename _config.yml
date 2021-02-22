@@ -6,3 +6,13 @@ plugins:
 
 minimal_mistakes_skin: "contrast"
 logo: "/assets/logo/swift.png"
+
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      toc: true
