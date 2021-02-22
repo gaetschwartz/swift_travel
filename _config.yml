@@ -1,2 +1,4 @@
-theme: jekyll-theme-cayman
+remote_theme: "mmistakes/minimal-mistakes@4.22.0"
 title: Swift Travel
+plugins:
+  - jekyll-include-cache
