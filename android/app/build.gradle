@@ -68,17 +68,8 @@ android {
     buildTypes {
         release {
             signingConfig null
-            versionNameSuffix "-no-codesign"
         }
     }
-    flavorDimensions 'signing'
-    productFlavors {
-        "codesign" {
-            signingConfig signingConfigs.release
-        }
-    }
-
-
 }
 
 flutter {

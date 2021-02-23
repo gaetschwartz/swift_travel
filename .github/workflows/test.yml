@@ -77,10 +77,6 @@ jobs:
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
-      - name: Install key.properties
-        run: bash CI/install_key_props.sh
-        env:
-          B64: c3RvcmVQYXNzd29yZD0Ka2V5UGFzc3dvcmQ9CmtleUFsaWFzPQpzdG9yZUZpbGU9Cg==
       - name: Get Flutter from cache
         uses: actions/cache@v2
         with:
