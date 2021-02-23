@@ -46,7 +46,7 @@ jobs:
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
       - name: Build
-        run: flutter build apk --build-number ${{ steps.git-data.outputs.count }} --flavor codesign
+        run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
