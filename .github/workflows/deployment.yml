@@ -47,7 +47,7 @@ jobs:
         run: bash CI/prebuild.sh
       - name: Install key.properties
         run: bash CI/install_key_props.sh
-        with:
+        env:
           B64: ${{ secrets.KEY_PROPS_B64 }}
       - name: Build
         run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
