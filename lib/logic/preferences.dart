@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 
-final preferencesProvider = ChangeNotifierProvider((r) => PreferencesBloc.i);
+final preferencesProvider = ChangeNotifierProvider<PreferencesBloc>((r) => PreferencesBloc.i);
 
 class PreferencesBloc extends ChangeNotifier {
   PreferencesBloc(this.prefix);
