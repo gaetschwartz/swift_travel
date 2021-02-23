@@ -27,12 +27,12 @@ class RouteDetails extends StatelessWidget {
     Key? key,
     required this.route,
     required this.i,
-    this.doClose = false,
+    this.doShowCloseButton = false,
   }) : super(key: key);
 
   final NavRoute? route;
   final int? i;
-  final bool doClose;
+  final bool doShowCloseButton;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class RouteDetails extends StatelessWidget {
                   title: Text(AppLoc.of(context).tabs_route),
                   pinned: true,
                   floating: true,
-                  leading: doClose ? const CloseButton() : null,
+                  leading: doShowCloseButton ? const CloseButton() : null,
                   flexibleSpace: const SizedBox(),
                   actions: <Widget>[
                     IconButton(

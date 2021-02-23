@@ -35,7 +35,6 @@ class SbbStationboard with _$SbbStationboard, StationBoard {
   @With(StationboardData)
   const factory SbbStationboard({
     @JsonKey(name: 'stop') required SbbStop sbbStop,
-    required String stopName,
     @JsonKey(name: 'connections')
     @Default(<SbbStationboardConnection>[])
         List<SbbStationboardConnection> sbbConnections,
@@ -51,10 +50,8 @@ class SbbStationboard with _$SbbStationboard, StationBoard {
   factory SbbStationboard.parse(Map<String, dynamic> json) => _converter.fromJson(json);
 
   @override
-  TResult mapBoard<TResult extends Object?>(
-    TResult Function(SbbStationboardData board) onData, {
-    required TResult Function(SbbStationboardError e) onError,
-  }) =>
+  TResult mapBoard<TResult extends Object?>(TResult Function(SbbStationboardData board) onData,
+          {required TResult Function(SbbStationboardError e) onError}) =>
       map<TResult>(onData, error: onError);
 }
 
@@ -64,4 +61,5 @@ mixin _StationboardDataMixin {
 
   Stop get stop => sbbStop;
   List<StationboardConnection> get connections => sbbConnections;
+  String get stopName => sbbStop.name;
 }

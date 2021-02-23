@@ -7,7 +7,7 @@ part 'sbb_models.freezed.dart';
 part 'sbb_models.g.dart';
 
 @freezed
-abstract class LatLong with _$LatLong {
+class LatLong with _$LatLong {
   const factory LatLong(
     double lat,
     double long,
@@ -20,7 +20,7 @@ abstract class LatLong with _$LatLong {
 }
 
 @freezed
-abstract class SbbStationResponse with _$SbbStationResponse {
+class SbbStationResponse with _$SbbStationResponse {
   @JsonSerializable(explicitToJson: true)
   const factory SbbStationResponse({
     int? nhits,
@@ -33,7 +33,7 @@ abstract class SbbStationResponse with _$SbbStationResponse {
 }
 
 @freezed
-abstract class SbbParameters with _$SbbParameters {
+class SbbParameters with _$SbbParameters {
   const factory SbbParameters({
     String? dataset,
     String? timezone,
@@ -47,7 +47,7 @@ abstract class SbbParameters with _$SbbParameters {
 }
 
 @freezed
-abstract class SbbRecord with _$SbbRecord {
+class SbbRecord with _$SbbRecord {
   @JsonSerializable(explicitToJson: true)
   const factory SbbRecord({
     String? datasetid,
@@ -61,7 +61,7 @@ abstract class SbbRecord with _$SbbRecord {
 }
 
 @freezed
-abstract class SbbFields with _$SbbFields {
+class SbbFields with _$SbbFields {
   @JsonSerializable(explicitToJson: true)
   const factory SbbFields({
     int? bpuic,
@@ -102,7 +102,7 @@ abstract class SbbFields with _$SbbFields {
 }
 
 @freezed
-abstract class SbbGeometry with _$SbbGeometry {
+class SbbGeometry with _$SbbGeometry {
   const factory SbbGeometry({
     String? type,
     List<double>? coordinates,

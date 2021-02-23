@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'font.dart';
 
@@ -8,6 +8,9 @@ part of 'font.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 class _$FontTearOff {
@@ -26,11 +29,12 @@ const $Font = _$FontTearOff();
 
 /// @nodoc
 mixin _$Font {
-  String get name;
-  TextTheme Function(TextTheme) get textTheme;
+  String get name => throw _privateConstructorUsedError;
+  TextTheme Function(TextTheme) get textTheme =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $FontCopyWith<Font> get copyWith;
+  $FontCopyWith<Font> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -135,10 +139,11 @@ abstract class _Font implements Font {
       _$_Font;
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  TextTheme Function(TextTheme) get textTheme;
+  TextTheme Function(TextTheme) get textTheme =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$FontCopyWith<_Font> get copyWith;
+  _$FontCopyWith<_Font> get copyWith => throw _privateConstructorUsedError;
 }

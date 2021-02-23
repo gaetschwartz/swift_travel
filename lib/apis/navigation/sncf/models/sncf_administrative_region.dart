@@ -6,7 +6,7 @@ part 'sncf_administrative_region.freezed.dart';
 part 'sncf_administrative_region.g.dart';
 
 @freezed
-abstract class SncfAdministrativeRegion with _$SncfAdministrativeRegion {
+class SncfAdministrativeRegion with _$SncfAdministrativeRegion {
   @JsonSerializable(explicitToJson: true)
   factory SncfAdministrativeRegion({
     String? insee,

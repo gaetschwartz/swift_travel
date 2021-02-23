@@ -10,7 +10,8 @@ part of 'stationboard.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using MyClass._() or by manually adding another constructor. The MyClass._() constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 SbbStationboard _$SbbStationboardFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'default':
@@ -30,14 +31,12 @@ class _$SbbStationboardTearOff {
   SbbStationboardData call(
       {@JsonKey(name: 'stop')
           required SbbStop sbbStop,
-      required String stopName,
       @JsonKey(name: 'connections')
           List<SbbStationboardConnection>
               sbbConnections = const <SbbStationboardConnection>[],
       List<String> messages = const <String>[]}) {
     return SbbStationboardData(
       sbbStop: sbbStop,
-      stopName: stopName,
       sbbConnections: sbbConnections,
       messages: messages,
     );
@@ -66,7 +65,6 @@ mixin _$SbbStationboard {
     TResult Function(
             @JsonKey(name: 'stop')
                 SbbStop sbbStop,
-            String stopName,
             @JsonKey(name: 'connections')
                 List<SbbStationboardConnection> sbbConnections,
             List<String> messages)
@@ -79,7 +77,6 @@ mixin _$SbbStationboard {
     TResult Function(
             @JsonKey(name: 'stop')
                 SbbStop sbbStop,
-            String stopName,
             @JsonKey(name: 'connections')
                 List<SbbStationboardConnection> sbbConnections,
             List<String> messages)?
@@ -145,7 +142,6 @@ abstract class $SbbStationboardDataCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'stop')
           SbbStop sbbStop,
-      String stopName,
       @JsonKey(name: 'connections')
           List<SbbStationboardConnection> sbbConnections,
       List<String> messages});
@@ -167,13 +163,11 @@ class _$SbbStationboardDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? sbbStop = freezed,
-    Object? stopName = freezed,
     Object? sbbConnections = freezed,
     Object? messages = freezed,
   }) {
     return _then(SbbStationboardData(
       sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop,
-      stopName: stopName == freezed ? _value.stopName : stopName as String,
       sbbConnections: sbbConnections == freezed
           ? _value.sbbConnections
           : sbbConnections as List<SbbStationboardConnection>,
@@ -200,7 +194,6 @@ class _$SbbStationboardData extends SbbStationboardData
   const _$SbbStationboardData(
       {@JsonKey(name: 'stop')
           required this.sbbStop,
-      required this.stopName,
       @JsonKey(name: 'connections')
           this.sbbConnections = const <SbbStationboardConnection>[],
       this.messages = const <String>[]})
@@ -213,8 +206,6 @@ class _$SbbStationboardData extends SbbStationboardData
   @JsonKey(name: 'stop')
   final SbbStop sbbStop;
   @override
-  final String stopName;
-  @override
   @JsonKey(name: 'connections')
   final List<SbbStationboardConnection> sbbConnections;
   @JsonKey(defaultValue: const <String>[])
@@ -223,7 +214,7 @@ class _$SbbStationboardData extends SbbStationboardData
 
   @override
   String toString() {
-    return 'SbbStationboard(sbbStop: $sbbStop, stopName: $stopName, sbbConnections: $sbbConnections, messages: $messages)';
+    return 'SbbStationboard(sbbStop: $sbbStop, sbbConnections: $sbbConnections, messages: $messages)';
   }
 
   @override
@@ -233,9 +224,6 @@ class _$SbbStationboardData extends SbbStationboardData
             (identical(other.sbbStop, sbbStop) ||
                 const DeepCollectionEquality()
                     .equals(other.sbbStop, sbbStop)) &&
-            (identical(other.stopName, stopName) ||
-                const DeepCollectionEquality()
-                    .equals(other.stopName, stopName)) &&
             (identical(other.sbbConnections, sbbConnections) ||
                 const DeepCollectionEquality()
                     .equals(other.sbbConnections, sbbConnections)) &&
@@ -248,7 +236,6 @@ class _$SbbStationboardData extends SbbStationboardData
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(sbbStop) ^
-      const DeepCollectionEquality().hash(stopName) ^
       const DeepCollectionEquality().hash(sbbConnections) ^
       const DeepCollectionEquality().hash(messages);
 
@@ -263,14 +250,13 @@ class _$SbbStationboardData extends SbbStationboardData
     TResult Function(
             @JsonKey(name: 'stop')
                 SbbStop sbbStop,
-            String stopName,
             @JsonKey(name: 'connections')
                 List<SbbStationboardConnection> sbbConnections,
             List<String> messages)
         $default, {
     required TResult Function(List<String> messages) error,
   }) {
-    return $default(sbbStop, stopName, sbbConnections, messages);
+    return $default(sbbStop, sbbConnections, messages);
   }
 
   @override
@@ -279,7 +265,6 @@ class _$SbbStationboardData extends SbbStationboardData
     TResult Function(
             @JsonKey(name: 'stop')
                 SbbStop sbbStop,
-            String stopName,
             @JsonKey(name: 'connections')
                 List<SbbStationboardConnection> sbbConnections,
             List<String> messages)?
@@ -288,7 +273,7 @@ class _$SbbStationboardData extends SbbStationboardData
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(sbbStop, stopName, sbbConnections, messages);
+      return $default(sbbStop, sbbConnections, messages);
     }
     return orElse();
   }
@@ -327,7 +312,6 @@ abstract class SbbStationboardData extends SbbStationboard
   const factory SbbStationboardData(
       {@JsonKey(name: 'stop')
           required SbbStop sbbStop,
-      required String stopName,
       @JsonKey(name: 'connections')
           List<SbbStationboardConnection> sbbConnections,
       List<String> messages}) = _$SbbStationboardData;
@@ -337,7 +321,6 @@ abstract class SbbStationboardData extends SbbStationboard
 
   @JsonKey(name: 'stop')
   SbbStop get sbbStop => throw _privateConstructorUsedError;
-  String get stopName => throw _privateConstructorUsedError;
   @JsonKey(name: 'connections')
   List<SbbStationboardConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
@@ -424,7 +407,6 @@ class _$SbbStationboardError extends SbbStationboardError
     TResult Function(
             @JsonKey(name: 'stop')
                 SbbStop sbbStop,
-            String stopName,
             @JsonKey(name: 'connections')
                 List<SbbStationboardConnection> sbbConnections,
             List<String> messages)
@@ -440,7 +422,6 @@ class _$SbbStationboardError extends SbbStationboardError
     TResult Function(
             @JsonKey(name: 'stop')
                 SbbStop sbbStop,
-            String stopName,
             @JsonKey(name: 'connections')
                 List<SbbStationboardConnection> sbbConnections,
             List<String> messages)?

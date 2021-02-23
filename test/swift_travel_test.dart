@@ -32,7 +32,7 @@ void main() {
     late RouteHistoryRepository hist;
     setUpAll(() async {
       final temp = await getTemporaryDirectory();
-      final dir = path.join(temp!.path, 'swift_travel', 'test_results', 'route_history');
+      final dir = path.join(temp.path, 'swift_travel', 'test_results', 'route_history');
       Hive.init(dir);
     });
 

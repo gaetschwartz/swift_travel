@@ -46,7 +46,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                 icon: const Icon(CupertinoIcons.share),
                 onPressed: () async {
                   final dir = await getTemporaryDirectory();
-                  final f = File(path.join(dir!.path, 'swift_travel', 'crawler', 'crawled.json'));
+                  final f = File(path.join(dir.path, 'swift_travel', 'crawler', 'crawled.json'));
                   if (!f.existsSync()) {
                     await f.create(recursive: true);
                   }

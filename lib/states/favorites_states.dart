@@ -4,7 +4,7 @@ import 'package:swift_travel/models/state_models.dart';
 part 'favorites_states.freezed.dart';
 
 @freezed
-abstract class FavoritesStates with _$FavoritesStates {
+class FavoritesStates with _$FavoritesStates {
   const factory FavoritesStates.data(List<FavoriteStop> favorites) = FavoritesStatesData;
   const factory FavoritesStates.loading() = FavoritesStatesLoading;
   const factory FavoritesStates.exception(Exception exception) = FavoritesStatesError;

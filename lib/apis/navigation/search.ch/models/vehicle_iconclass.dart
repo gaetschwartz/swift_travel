@@ -4,7 +4,7 @@ part 'vehicle_iconclass.freezed.dart';
 part 'vehicle_iconclass.g.dart';
 
 @freezed
-abstract class VehicleIconclass with _$VehicleIconclass {
+class VehicleIconclass with _$VehicleIconclass {
   const factory VehicleIconclass(Vehicle v) = _VehicleIconclass;
 
   factory VehicleIconclass.fromJson(Map<String, dynamic> json) => _$VehicleIconclassFromJson(json);
