@@ -41,6 +41,8 @@ jobs:
           path: windows-release
       - name: Zip windows artifact
         run: zip -r windows-release.zip windows-release
+      - name: List dir
+        run: ls -la
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
