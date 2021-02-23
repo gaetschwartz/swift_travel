@@ -10,6 +10,104 @@ env:
   java_version: 8.x
 
 jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    name: Create release
+    needs:
+      - android
+      - windows
+    steps:
+      - name: Download apk artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: apk
+          path: app-release.apk
+      - name: Download windows artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: windows-release
+          path: windows-release
+      - name: Zip windows artifact
+        run: zip -r windows-release.zip windows-release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ci-deploy-${{ steps.git-data.outputs.version }}+${{ steps.git-data.outputs.count }}
+          release_name: |
+            ${{ steps.git-data.outputs.version }}+${{ steps.git-data.outputs.count }}
+          body: |
+            *This is an automated CI build for ${{ steps.git-data.outputs.hash }}.*
+
+            `${{ steps.git-data.outputs.msg }}`
+          draft: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: app-release.apk
+          asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
+          asset_content_type: application/vnd.android.package-archive
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: windows-release.zip
+          asset_name: swift-travel-windows-${{ steps.git-data.outputs.count }}.zip
+          asset_content_type: application/zip
+
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    name: windows
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get Flutter from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            $HOME/.pub-cache
+          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.flutter_channel }}
+      - name: Get git infos
+        id: git-data
+        run: |
+          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
+          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
+          echo "::set-output name=count::$(git rev-list --count HEAD)"
+          echo "::set-output name=version::$(grep 'version:' pubspec.yaml | awk '{ print $2}' | cut -d "+" -f1)"
+      - name: Get dependencies
+        run: flutter packages get
+      - name: Pre-build configuration
+        env:
+          TZ: Europe/Zurich
+          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
+          GIT_MSG: ${{ steps.git-data.outputs.msg }}
+          GIT_HASH: ${{ steps.git-data.outputs.hash }}
+        run: bash CI/prebuild.sh
+      - name: Build
+        run: flutter build windows
+      - name: Upload windows executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-release
+          path: build/windows/runner/Release
+
   android:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -51,30 +149,11 @@ jobs:
         run: bash CI/sign_apk.sh
         env:
           PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      - name: Upload apk
+        uses: actions/upload-artifact@v2
         with:
-          tag_name: ci-deploy-${{ steps.git-data.outputs.version }}+${{ steps.git-data.outputs.count }}
-          release_name: |
-            ${{ steps.git-data.outputs.version }}+${{ steps.git-data.outputs.count }}
-          body: |
-            *This is an automated CI build for ${{ steps.git-data.outputs.hash }}.*
-
-            `${{ steps.git-data.outputs.msg }}`
-          draft: false
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./build/app/outputs/flutter-apk/app-release.apk
-          asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
-          asset_content_type: application/vnd.android.package-archive
+          name: apk
+          path: build/app/outputs/flutter-apk/app-release.apk
 
   build-web:
     runs-on: ubuntu-latest
