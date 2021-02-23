@@ -1,3 +1,3 @@
 cd android
-DECODED=$(echo "${KEY_PROPS_B64}" | base64 -d)
+DECODED=$(echo "${INPUT_B64}" | base64 -d)
 echo "${DECODED}" > key.properties

@@ -79,6 +79,8 @@ jobs:
         run: bash CI/prebuild.sh
       - name: Install key.properties
         run: bash CI/install_key_props.sh
+        with:
+          B64: ${{ secrets.KEY_PROPS_B64 }}
       - name: Get Flutter from cache
         uses: actions/cache@v2
         with:
