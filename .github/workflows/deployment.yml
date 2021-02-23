@@ -50,7 +50,7 @@ jobs:
         env:
           B64: ${{ secrets.KEY_PROPS_B64 }}
       - name: Build
-        run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
+        run: flutter build apk --build-number ${{ steps.git-data.outputs.count }} --flavor codesign
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
