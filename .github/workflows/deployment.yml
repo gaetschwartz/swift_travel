@@ -33,7 +33,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: app-release.apk
-          path: artifacts/app-release.apk
+          path: artifacts/app-release
       - name: Download windows artifact
         uses: actions/download-artifact@v2
         with:
@@ -41,6 +41,9 @@ jobs:
           path: artifacts/windows-release
       - name: Zip windows artifact
         run: zip -r windows-release.zip windows-release
+        working-directory: artifacts/
+      - name: Zip android artifact
+        run: zip -r app-release.apk app-release
         working-directory: artifacts/
       - name: List dir
         run: ls -la | sort
