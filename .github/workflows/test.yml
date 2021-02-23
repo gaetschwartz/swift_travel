@@ -80,7 +80,7 @@ jobs:
       - name: Install key.properties
         run: bash CI/install_key_props.sh
         env:
-          B64: ${{ secrets.KEY_PROPS_B64 }}
+          B64: c3RvcmVQYXNzd29yZD0Ka2V5UGFzc3dvcmQ9CmtleUFsaWFzPQpzdG9yZUZpbGU9Cg==
       - name: Get Flutter from cache
         uses: actions/cache@v2
         with:
