@@ -32,17 +32,19 @@ jobs:
       - name: Download apk artifact
         uses: actions/download-artifact@v2
         with:
-          name: apk
-          path: app-release.apk
+          name: app-release.apk
+          path: artifacts/app-release.apk
       - name: Download windows artifact
         uses: actions/download-artifact@v2
         with:
           name: windows-release
-          path: windows-release
+          path: artifacts/windows-release
       - name: Zip windows artifact
         run: zip -r windows-release.zip windows-release
+        working-directory: artifacts/
       - name: List dir
-        run: ls -la
+        run: ls -la | sort
+        working-directory: artifacts/
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -63,7 +65,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: app-release.apk
+          asset_path: artifacts/app-release.apk
           asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
           asset_content_type: application/vnd.android.package-archive
       - name: Upload Release Asset
@@ -72,7 +74,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: windows-release.zip
+          asset_path: artifacts/windows-release.zip
           asset_name: swift-travel-windows-${{ steps.git-data.outputs.count }}.zip
           asset_content_type: application/zip
 
@@ -119,7 +121,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: windows-release
-          path: build/windows/runner/Release
+          path: build/windows/runner/Release/
 
   android:
     runs-on: ubuntu-latest
@@ -165,7 +167,7 @@ jobs:
       - name: Upload apk
         uses: actions/upload-artifact@v2
         with:
-          name: apk
+          name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
   build-web:
