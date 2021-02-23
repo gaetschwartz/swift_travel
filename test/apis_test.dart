@@ -67,9 +67,12 @@ class MockNavigationApi extends BaseNavigationApi {
         SbbCompletion(label: 'Genève Cornavin'),
       ]);
 
+  final rawQueries = <Uri>[];
   @override
-  Future<CffRoute> rawRoute(Uri query) =>
-      Future.value(CffRoute.fromJson(mockRoute!).copyWith(requestUrl: query.toString()));
+  Future<CffRoute> rawRoute(Uri query) {
+    rawQueries.add(query);
+    return Future.value(CffRoute.fromJson(mockRoute!).copyWith(requestUrl: query.toString()));
+  }
 
   @override
   Future<SbbStationboard> stationboard(String stopName,

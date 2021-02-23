@@ -4,7 +4,7 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 part 'route_states.freezed.dart';
 
 @freezed
-abstract class RouteStates with _$RouteStates {
+class RouteStates with _$RouteStates {
   const factory RouteStates(NavRoute routes) = RSData;
   const factory RouteStates.networkException() = RSNetworkException;
   const factory RouteStates.locationPermissionNotGranted() = RSLocationPermissionNotGranted;

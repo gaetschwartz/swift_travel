@@ -5,7 +5,7 @@ part 'sncf_completion.freezed.dart';
 part 'sncf_completion.g.dart';
 
 @freezed
-abstract class SncfCompletion with _$SncfCompletion {
+class SncfCompletion with _$SncfCompletion {
   @JsonSerializable(explicitToJson: true)
   factory SncfCompletion({
     @Default(<SncfPlace>[]) List<SncfPlace> places,

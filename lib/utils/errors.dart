@@ -3,6 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_travel/logic/preferences.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/utils/env.dart';
@@ -46,7 +47,7 @@ void reportDartError(Object e, StackTrace? s,
     }
   }
 
-  if (!kIsWeb && Firebase.apps.isNotEmpty) {
+  if (_doReport) {
     FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
   }
 }
@@ -80,10 +81,12 @@ void reportFlutterError(FlutterErrorDetails details) {
       debugPrintStack(stackTrace: s, label: e.toString());
     }
   }
-  if (!kIsWeb && Firebase.apps.isNotEmpty) {
+  if (_doReport) {
     FirebaseCrashlytics.instance.recordFlutterError(details);
   }
 }
+
+bool get _doReport => !kIsWeb && Firebase.apps.isNotEmpty && PreferencesBloc.i.useAnalytics;
 
 class ErrorPage extends StatefulWidget {
   const ErrorPage(

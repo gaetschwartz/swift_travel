@@ -5,7 +5,7 @@ import 'package:theming/dynamic_theme.dart';
 part 'shadow_theme.freezed.dart';
 
 @freezed
-abstract class ShadowTheme with _$ShadowTheme {
+class ShadowTheme with _$ShadowTheme {
   const factory ShadowTheme({BoxShadow? buttonShadow}) = _ShadowTheme;
 
   static ShadowTheme of(BuildContext context) => DynamicTheme.shadowOf(context);

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'theme_configuration.dart';
 
@@ -8,6 +8,9 @@ part of 'theme_configuration.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 class _$ThemeConfigurationTearOff {
@@ -42,18 +45,19 @@ const $ThemeConfiguration = _$ThemeConfigurationTearOff();
 
 /// @nodoc
 mixin _$ThemeConfiguration {
-  Map<String, FullTheme> get themes;
-  String get prefix;
-  ThemeMode get defaultThemeMode;
-  String get defaultTheme;
-  bool get persist;
-  List<Font> get fonts;
-  Font? get defaultFont;
-  TextTheme get defaultTextTheme;
-  ThemeData Function(ThemeData) get applyToAllThemes;
+  Map<String, FullTheme> get themes => throw _privateConstructorUsedError;
+  String get prefix => throw _privateConstructorUsedError;
+  ThemeMode get defaultThemeMode => throw _privateConstructorUsedError;
+  String get defaultTheme => throw _privateConstructorUsedError;
+  bool get persist => throw _privateConstructorUsedError;
+  List<Font> get fonts => throw _privateConstructorUsedError;
+  Font? get defaultFont => throw _privateConstructorUsedError;
+  TextTheme get defaultTextTheme => throw _privateConstructorUsedError;
+  ThemeData Function(ThemeData) get applyToAllThemes => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ThemeConfigurationCopyWith<ThemeConfiguration> get copyWith;
+  $ThemeConfigurationCopyWith<ThemeConfiguration> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -287,24 +291,25 @@ abstract class _ThemeConfiguration extends ThemeConfiguration {
       ThemeData Function(ThemeData) applyToAllThemes}) = _$_ThemeConfiguration;
 
   @override
-  Map<String, FullTheme> get themes;
+  Map<String, FullTheme> get themes => throw _privateConstructorUsedError;
   @override
-  String get prefix;
+  String get prefix => throw _privateConstructorUsedError;
   @override
-  ThemeMode get defaultThemeMode;
+  ThemeMode get defaultThemeMode => throw _privateConstructorUsedError;
   @override
-  String get defaultTheme;
+  String get defaultTheme => throw _privateConstructorUsedError;
   @override
-  bool get persist;
+  bool get persist => throw _privateConstructorUsedError;
   @override
-  List<Font> get fonts;
+  List<Font> get fonts => throw _privateConstructorUsedError;
   @override
-  Font? get defaultFont;
+  Font? get defaultFont => throw _privateConstructorUsedError;
   @override
-  TextTheme get defaultTextTheme;
+  TextTheme get defaultTextTheme => throw _privateConstructorUsedError;
   @override
-  ThemeData Function(ThemeData) get applyToAllThemes;
+  ThemeData Function(ThemeData) get applyToAllThemes => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ThemeConfigurationCopyWith<_ThemeConfiguration> get copyWith;
+  _$ThemeConfigurationCopyWith<_ThemeConfiguration> get copyWith =>
+      throw _privateConstructorUsedError;
 }

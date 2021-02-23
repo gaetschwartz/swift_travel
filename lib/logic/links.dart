@@ -4,9 +4,10 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
-import 'package:swift_travel/main.dart';
+import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
 final linksProvider = Provider<DeepLinkBloc>((ref) {
@@ -29,34 +30,41 @@ class DeepLinkBloc {
   static const platform = MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
 
   late StreamSubscription _sub;
+  late void Function(Pair<NavRoute, int> pair) push;
+  late BaseNavigationApi Function() getApi;
 
-  void init(BaseNavigationApi navApi) {
+  Future<void> init({
+    required BaseNavigationApi Function() getApi,
+    required void Function(Pair<NavRoute, int> pair) push,
+  }) async {
     log('Initialize', name: 'LinksBloc');
-    initialLink.then((s) {
-      if (s != null) {
-        onLink(navApi, s);
-      } else {
-        log('No initial link');
-      }
-    });
-    _sub = stream.receiveBroadcastStream().cast<String>().listen((d) => onLink(navApi, d));
+    this.push = push;
+    this.getApi = getApi;
+
+    _sub = stream.receiveBroadcastStream().cast<String>().listen((d) => _onLink(d));
+
+    final s = await initialLink;
+    if (s != null) {
+      await _onLink(s);
+    } else {
+      log('No initial link');
+    }
   }
 
-  Future<void> onLink(BaseNavigationApi navApi, String link) async {
+  Future<void> _onLink(String link) async {
     final uri = Uri.parse(link);
     log(uri.toString());
     if (uri.path == '/route') {
       log('We have a new route $uri');
 
-      final map = await parseRouteArguments(uri, navApi);
+      final pair = await parseRouteArguments(uri, getApi());
+      log(pair.toString());
 
-      log(map.toString());
-
-      await navigatorKey.currentState!.pushNamed('/routeDetails', arguments: map);
+      push(pair);
     }
   }
 
-  static Future<Map<String, Object?>> parseRouteArguments(Uri uri, BaseNavigationApi navApi) async {
+  static Future<Pair<NavRoute, int>> parseRouteArguments(Uri uri, BaseNavigationApi navApi) async {
     final params = decodeRouteUri(uri);
 
     final qUri = SearchChApi.queryBuilder('route', params);
@@ -67,13 +75,10 @@ class DeepLinkBloc {
     final route = await navApi.rawRoute(qUri);
 
     final i = int.parse(uri.queryParameters['i']!);
-    final map = {'route': route, 'i': i};
-    return map;
+    return Pair(route, i);
   }
 
-  void dispose() {
-    _sub.cancel();
-  }
+  void dispose() => _sub.cancel();
 
   Future<String?> get initialLink async {
     try {

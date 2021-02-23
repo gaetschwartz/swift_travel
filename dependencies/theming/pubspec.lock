@@ -222,10 +222,12 @@ packages:
   freezed:
     dependency: "direct dev"
     description:
-      name: freezed
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.13.0-nullsafety.2"
+      path: "packages/freezed"
+      ref: HEAD
+      resolved-ref: "5ef3a31a855f8caff7117079ae601aa3a3241bbb"
+      url: "https://github.com/gaetschwartz/freezed-1"
+    source: git
+    version: "0.14.0-nullsafety.0"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -517,7 +519,7 @@ packages:
       name: source_gen
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.10+2"
+    version: "0.9.10+3"
   source_span:
     dependency: transitive
     description:

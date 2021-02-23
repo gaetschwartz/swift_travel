@@ -19,6 +19,7 @@ import 'package:swift_travel/logic/quick_actions.dart';
 import 'package:swift_travel/logic/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -105,7 +106,19 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
     if (isMobile) {
       MyQuickActions.i.init();
-      context.read(linksProvider).init(context.read(navigationAPIProvider));
+      await context.read(linksProvider).init(
+            push: (p) => Navigator.of(context).push(
+              platformRoute(
+                builder: (_) => RouteDetails(
+                  route: p.first,
+                  i: p.second,
+                  doShowCloseButton: true,
+                ),
+                isDarwin: isDarwin,
+              ),
+            ),
+            getApi: () => context.read(navigationAPIProvider),
+          );
     }
   }
 

@@ -10,7 +10,6 @@ _$SbbStationboardData _$_$SbbStationboardDataFromJson(
     Map<String, dynamic> json) {
   return _$SbbStationboardData(
     sbbStop: SbbStop.fromJson(json['stop'] as Map<String, dynamic>),
-    stopName: json['stopName'] as String,
     sbbConnections: (json['connections'] as List<dynamic>)
         .map((e) =>
             SbbStationboardConnection.fromJson(e as Map<String, dynamic>))
@@ -26,7 +25,6 @@ Map<String, dynamic> _$_$SbbStationboardDataToJson(
         _$SbbStationboardData instance) =>
     <String, dynamic>{
       'stop': instance.sbbStop,
-      'stopName': instance.stopName,
       'connections': instance.sbbConnections,
       'messages': instance.messages,
     };

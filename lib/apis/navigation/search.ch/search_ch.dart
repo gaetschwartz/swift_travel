@@ -132,7 +132,7 @@ class SearchChApi extends BaseNavigationApi {
     final decode = await Future.microtask(() => jsonDecode(response.body) as Map<String, dynamic>);
 
     final cffStationboard = SbbStationboard.parse(decode).mapBoard(
-      (value) => value.copyWith(stopName: stopName),
+      (value) => value,
       onError: (e) => e,
     );
 

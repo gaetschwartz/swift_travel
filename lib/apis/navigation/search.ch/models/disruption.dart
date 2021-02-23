@@ -4,7 +4,7 @@ part 'disruption.freezed.dart';
 part 'disruption.g.dart';
 
 @freezed
-abstract class Disruption with _$Disruption {
+class Disruption with _$Disruption {
   const factory Disruption({
     String? id,
     String? header,

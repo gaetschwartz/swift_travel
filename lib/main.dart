@@ -12,7 +12,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
@@ -26,6 +25,7 @@ import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -285,15 +285,16 @@ Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
         fullscreenDialog: true,
         isDarwin: isDarwin,
       );
+
     case '/routeDetails':
-      if (settings.arguments is Map) {
-        final map = settings.arguments as Map?;
+      if (settings.arguments is Pair<NavRoute, int>) {
+        final pair = settings.arguments! as Pair<NavRoute, int>;
         return platformRoute(
           settings: settings,
           builder: (_) => RouteDetails(
-            route: map!['route'] as CffRoute?,
-            i: map['i'] as int?,
-            doClose: true,
+            route: pair.first,
+            i: pair.second,
+            doShowCloseButton: true,
           ),
           isDarwin: isDarwin,
         );

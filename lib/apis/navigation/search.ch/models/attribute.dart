@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'attribute.freezed.dart';
 
 @freezed
-abstract class Attribute with _$Attribute {
+class Attribute with _$Attribute {
   const factory Attribute({
     required String code,
     Widget? icon,

@@ -6,7 +6,7 @@ import 'package:theming/src/models/shadow_theme.dart';
 part 'full_theme.freezed.dart';
 
 @freezed
-abstract class FullTheme with _$FullTheme {
+class FullTheme with _$FullTheme {
   const factory FullTheme({
     required ColorScheme light,
     required ColorScheme dark,

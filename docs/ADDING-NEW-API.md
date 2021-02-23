@@ -105,7 +105,7 @@ abstract class BaseNavigationApi {
 Instead, add a new field in the freezed class at `lib/constants/config.dart` like so: 
 ```dart
 @freezed
-abstract class Config with _$Config {
+class Config with _$Config {
   const factory Config({
     String? sncfKey,
     String? yourApiKey,

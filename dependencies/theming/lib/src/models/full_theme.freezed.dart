@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'full_theme.dart';
 
@@ -8,6 +8,9 @@ part of 'full_theme.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 class _$FullThemeTearOff {
@@ -40,17 +43,20 @@ const $FullTheme = _$FullThemeTearOff();
 
 /// @nodoc
 mixin _$FullTheme {
-  ColorScheme get light;
-  ColorScheme get dark;
-  String get name;
-  ThemeData Function(ThemeData) get applyToLight;
-  ThemeData Function(ThemeData) get applyToDark;
-  String get description;
-  ShadowTheme get lightShadow;
-  ShadowTheme get darkShadow;
+  ColorScheme get light => throw _privateConstructorUsedError;
+  ColorScheme get dark => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  ThemeData Function(ThemeData) get applyToLight =>
+      throw _privateConstructorUsedError;
+  ThemeData Function(ThemeData) get applyToDark =>
+      throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  ShadowTheme get lightShadow => throw _privateConstructorUsedError;
+  ShadowTheme get darkShadow => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $FullThemeCopyWith<FullTheme> get copyWith;
+  $FullThemeCopyWith<FullTheme> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -100,9 +106,13 @@ class _$FullThemeCopyWithImpl<$Res> implements $FullThemeCopyWith<$Res> {
       applyToDark: applyToDark == freezed
           ? _value.applyToDark
           : applyToDark as ThemeData Function(ThemeData),
-      description: description == freezed ? _value.description : description as String,
-      lightShadow: lightShadow == freezed ? _value.lightShadow : lightShadow as ShadowTheme,
-      darkShadow: darkShadow == freezed ? _value.darkShadow : darkShadow as ShadowTheme,
+      description:
+          description == freezed ? _value.description : description as String,
+      lightShadow: lightShadow == freezed
+          ? _value.lightShadow
+          : lightShadow as ShadowTheme,
+      darkShadow:
+          darkShadow == freezed ? _value.darkShadow : darkShadow as ShadowTheme,
     ));
   }
 
@@ -123,7 +133,8 @@ class _$FullThemeCopyWithImpl<$Res> implements $FullThemeCopyWith<$Res> {
 
 /// @nodoc
 abstract class _$FullThemeCopyWith<$Res> implements $FullThemeCopyWith<$Res> {
-  factory _$FullThemeCopyWith(_FullTheme value, $Res Function(_FullTheme) then) =
+  factory _$FullThemeCopyWith(
+          _FullTheme value, $Res Function(_FullTheme) then) =
       __$FullThemeCopyWithImpl<$Res>;
   @override
   $Res call(
@@ -172,9 +183,13 @@ class __$FullThemeCopyWithImpl<$Res> extends _$FullThemeCopyWithImpl<$Res>
       applyToDark: applyToDark == freezed
           ? _value.applyToDark
           : applyToDark as ThemeData Function(ThemeData),
-      description: description == freezed ? _value.description : description as String,
-      lightShadow: lightShadow == freezed ? _value.lightShadow : lightShadow as ShadowTheme,
-      darkShadow: darkShadow == freezed ? _value.darkShadow : darkShadow as ShadowTheme,
+      description:
+          description == freezed ? _value.description : description as String,
+      lightShadow: lightShadow == freezed
+          ? _value.lightShadow
+          : lightShadow as ShadowTheme,
+      darkShadow:
+          darkShadow == freezed ? _value.darkShadow : darkShadow as ShadowTheme,
     ));
   }
 }
@@ -229,15 +244,20 @@ class _$_FullTheme implements _FullTheme {
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.applyToLight, applyToLight) ||
-                const DeepCollectionEquality().equals(other.applyToLight, applyToLight)) &&
+                const DeepCollectionEquality()
+                    .equals(other.applyToLight, applyToLight)) &&
             (identical(other.applyToDark, applyToDark) ||
-                const DeepCollectionEquality().equals(other.applyToDark, applyToDark)) &&
+                const DeepCollectionEquality()
+                    .equals(other.applyToDark, applyToDark)) &&
             (identical(other.description, description) ||
-                const DeepCollectionEquality().equals(other.description, description)) &&
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
             (identical(other.lightShadow, lightShadow) ||
-                const DeepCollectionEquality().equals(other.lightShadow, lightShadow)) &&
+                const DeepCollectionEquality()
+                    .equals(other.lightShadow, lightShadow)) &&
             (identical(other.darkShadow, darkShadow) ||
-                const DeepCollectionEquality().equals(other.darkShadow, darkShadow)));
+                const DeepCollectionEquality()
+                    .equals(other.darkShadow, darkShadow)));
   }
 
   @override
@@ -270,22 +290,25 @@ abstract class _FullTheme implements FullTheme {
       ShadowTheme darkShadow}) = _$_FullTheme;
 
   @override
-  ColorScheme get light;
+  ColorScheme get light => throw _privateConstructorUsedError;
   @override
-  ColorScheme get dark;
+  ColorScheme get dark => throw _privateConstructorUsedError;
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  ThemeData Function(ThemeData) get applyToLight;
+  ThemeData Function(ThemeData) get applyToLight =>
+      throw _privateConstructorUsedError;
   @override
-  ThemeData Function(ThemeData) get applyToDark;
+  ThemeData Function(ThemeData) get applyToDark =>
+      throw _privateConstructorUsedError;
   @override
-  String get description;
+  String get description => throw _privateConstructorUsedError;
   @override
-  ShadowTheme get lightShadow;
+  ShadowTheme get lightShadow => throw _privateConstructorUsedError;
   @override
-  ShadowTheme get darkShadow;
+  ShadowTheme get darkShadow => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$FullThemeCopyWith<_FullTheme> get copyWith;
+  _$FullThemeCopyWith<_FullTheme> get copyWith =>
+      throw _privateConstructorUsedError;
 }

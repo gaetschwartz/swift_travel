@@ -8,7 +8,7 @@ part 'state_models.freezed.dart';
 part 'state_models.g.dart';
 
 @freezed
-abstract class LocalRoute with _$LocalRoute {
+class LocalRoute with _$LocalRoute {
   @JsonSerializable(includeIfNull: false)
   const factory LocalRoute(
     String from,
@@ -40,7 +40,7 @@ abstract class LocalRoute with _$LocalRoute {
 }
 
 @freezed
-abstract class FavoriteStop with _$FavoriteStop {
+class FavoriteStop with _$FavoriteStop {
   @JsonSerializable(includeIfNull: false)
   const factory FavoriteStop({
     required String stop,

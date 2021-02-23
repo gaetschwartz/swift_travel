@@ -14,7 +14,7 @@ final configProvider = FutureProvider<Config>((ref) async {
 });
 
 @freezed
-abstract class Config with _$Config {
+class Config with _$Config {
   const factory Config({
     String? sncfKey,
   }) = _Config;
