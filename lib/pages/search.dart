@@ -31,7 +31,7 @@ class CupertinoTextFieldConfiguration {
   });
 
   final String? placeholder;
-  final List<TextInputFormatter?>? inputFormatters;
+  final List<TextInputFormatter>? inputFormatters;
   final TextInputAction? textInputAction;
   final Widget? prefix;
   final FocusNode? focusNode;
@@ -39,7 +39,7 @@ class CupertinoTextFieldConfiguration {
   CupertinoTextField toTextField({TextEditingController? controller}) {
     return CupertinoTextField(
       placeholder: placeholder,
-      inputFormatters: inputFormatters as List<TextInputFormatter>?,
+      inputFormatters: inputFormatters,
       textInputAction: textInputAction,
       prefix: prefix,
       focusNode: focusNode,
