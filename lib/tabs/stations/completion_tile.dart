@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/db/cache.dart';
 import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/l10n.dart';
@@ -27,8 +27,8 @@ import 'package:vibration/vibration.dart';
 
 enum _Actions { favorite }
 
-class SbbCompletionTile extends ConsumerWidget {
-  const SbbCompletionTile(
+class CompletionTile extends ConsumerWidget {
+  const CompletionTile(
     this.sugg, {
     Key? key,
   }) : super(key: key);
@@ -51,7 +51,7 @@ class SbbCompletionTile extends ConsumerWidget {
       if (sugg.dist != null) Text('${sugg.dist!.round()}m'),
       if (!isPrivate)
         _LinesWidget(
-          sugg: sugg,
+          compl: sugg,
           key: Key(sugg.label),
         )
     ];
@@ -93,7 +93,10 @@ class SbbCompletionTile extends ConsumerWidget {
 
                 Nav.push(
                   context,
-                  (context) => StopDetails(stopName: sugg.label),
+                  (context) => StopDetails(
+                    SbbStop(sugg.label, id: sugg.id),
+                    key: Key(sugg.label),
+                  ),
                   title: sugg.label,
                 );
                 FocusManager.instance.primaryFocus?.unfocus();
@@ -164,10 +167,10 @@ class SbbCompletionTile extends ConsumerWidget {
 class _LinesWidget extends StatefulWidget {
   const _LinesWidget({
     Key? key,
-    required this.sugg,
+    required this.compl,
   }) : super(key: key);
 
-  final Completion sugg;
+  final Completion compl;
 
   @override
   __LinesWidgetState createState() => __LinesWidgetState();
@@ -220,9 +223,9 @@ class __LinesWidgetState extends State<_LinesWidget> {
     if (!doCache) {
       print('We are not caching lines');
     }
-    if (doCache && _cache.containsKey(widget.sugg.label)) {
+    if (doCache && _cache.containsKey(widget.compl.label)) {
       final l = _cache
-          .get(widget.sugg.label)
+          .get(widget.compl.label)
           .lines
           .map(buildLine)
           .take(numberOfLines + 1)
@@ -233,21 +236,22 @@ class __LinesWidgetState extends State<_LinesWidget> {
     } else {
       final sData = await context
           .read(navigationAPIProvider)
-          .stationboard(widget.sugg.label, showSubsequentStops: false, showDelays: false)
+          .stationboard(
+            SbbStop(
+              widget.compl.label,
+              id: widget.compl.id,
+            ),
+            showSubsequentStops: false,
+            showDelays: false,
+          )
           .timeout(const Duration(seconds: 1));
 
-      final connections = sData.mapBoard<Iterable<StationboardConnection>?>(
-        (board) => board.connections.where((c) => c.line != null),
-        onError: (e) {
-          print('CffStationboardError while fetching lines: ${e.messages}');
-          return null;
-        },
-      );
-
-      if (connections == null) {
+      if (sData.messages.isNotEmpty) {
         await cacheShortLivedErrorEntry();
         return;
       }
+
+      final connections = sData.connections.where((c) => c.line != null);
 
       final l = connections
           .sorted((a, b) {
@@ -271,10 +275,10 @@ class __LinesWidgetState extends State<_LinesWidget> {
 
       if (doCache) {
         await _cache.put(
-            widget.sugg.label,
+            widget.compl.label,
             LineCacheEntry(
                 timestamp: DateTime.now(),
-                stop: widget.sugg.label,
+                stop: widget.compl.label,
                 lines: l.toList(growable: false)));
       }
     }
@@ -287,12 +291,12 @@ class __LinesWidgetState extends State<_LinesWidget> {
     if (doCache) {
       final entry = LineCacheEntry(
         timestamp: DateTime.now(),
-        stop: widget.sugg.label,
+        stop: widget.compl.label,
         lines: [],
         ttl: Duration.minutesPerHour * 6,
       );
 
-      await _cache.put(widget.sugg.label, entry);
+      await _cache.put(widget.compl.label, entry);
     }
   }
 

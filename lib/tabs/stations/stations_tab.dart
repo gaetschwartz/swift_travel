@@ -189,7 +189,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemBuilder: (context, i) => SbbCompletionTile(
+                              itemBuilder: (context, i) => CompletionTile(
                                 c.completions[i],
                                 key: Key('stations-key-$i'),
                               ),
@@ -217,7 +217,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                         ],
                                       )
                                     : ListView.builder(
-                                        itemBuilder: (context, i) => SbbCompletionTile(
+                                        itemBuilder: (context, i) => CompletionTile(
                                           SbbCompletion.fromFavorite(c.favorites[i]),
                                         ),
                                         itemCount: c.favorites.length,

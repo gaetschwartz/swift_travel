@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
@@ -75,7 +76,7 @@ class MockNavigationApi extends BaseNavigationApi {
   }
 
   @override
-  Future<SbbStationboard> stationboard(String stopName,
+  Future<SbbStationboard> stationboard(Stop stop,
           {DateTime? when,
           bool? arrival,
           int? limit,
@@ -84,7 +85,7 @@ class MockNavigationApi extends BaseNavigationApi {
           bool? showDelays,
           bool? showTrackchanges,
           List<TransportationTypes>? transportationTypes}) =>
-      Future.value(SbbStationboard.parse(mockStationboard!));
+      Future.value(SbbStationboard.fromJson(mockStationboard!));
 
   @override
   Future<CffRoute> route(String departure, String arrival,

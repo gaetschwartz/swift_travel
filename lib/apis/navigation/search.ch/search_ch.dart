@@ -101,17 +101,19 @@ class SearchChApi extends BaseNavigationApi {
   }
 
   @override
-  Future<StationBoard> stationboard(String stopName,
-      {DateTime? when,
-      bool arrival = false,
-      int? limit = 32,
-      bool showTracks = false,
-      bool showSubsequentStops = true,
-      bool showDelays = true,
-      bool showTrackchanges = false,
-      List<TransportationTypes> transportationTypes = const []}) async {
+  Future<StationBoard> stationboard(
+    Stop stop, {
+    DateTime? when,
+    bool arrival = false,
+    int? limit = 32,
+    bool showTracks = false,
+    bool showSubsequentStops = true,
+    bool showDelays = true,
+    bool showTrackchanges = false,
+    List<TransportationTypes> transportationTypes = const [],
+  }) async {
     final params = {
-      'stop': stopName,
+      'stop': stop.id ?? stop.name,
       'limit': limit,
       'show_tracks': showTracks.toInt(),
       'show_subsequent_stops': showSubsequentStops.toInt(),
@@ -131,10 +133,7 @@ class SearchChApi extends BaseNavigationApi {
     }
     final decode = await Future.microtask(() => jsonDecode(response.body) as Map<String, dynamic>);
 
-    final cffStationboard = SbbStationboard.parse(decode).mapBoard(
-      (value) => value,
-      onError: (e) => e,
-    );
+    final cffStationboard = SbbStationboard.fromJson(decode);
 
     return cffStationboard;
   }

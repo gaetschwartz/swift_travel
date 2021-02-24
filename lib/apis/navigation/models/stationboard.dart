@@ -1,22 +1,16 @@
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
 mixin StationBoard {
-  TResult mapBoard<TResult>(
-    TResult Function(StationboardData board) onData, {
-    required TResult Function(StationboardError e) onError,
-  });
-}
-
-mixin StationboardError {
-  List<String> get messages;
-}
-
-mixin StationboardData {
   Stop get stop;
   List<StationboardConnection> get connections;
   String get stopName;
+  List<Object> get messages;
 }
 
+mixin BaseStop {
+  String get name;
+  String? get id;
+}
 mixin Stop {
   String get name;
   String? get id;

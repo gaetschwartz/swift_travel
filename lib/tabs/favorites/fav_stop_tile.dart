@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/store.dart';
 import 'package:swift_travel/models/state_models.dart';
@@ -46,7 +47,7 @@ class FavoriteStationTile extends StatelessWidget {
           caption: AppLoc.of(context).timetable,
           color: Colors.blue,
           icon: CupertinoIcons.list_number,
-          onTap: () => Nav.push(context, (context) => StopDetails(stopName: stop.stop)),
+          onTap: () => Nav.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
         ),
       ],
       child: ListTile(
@@ -89,7 +90,8 @@ class FavoriteStationTile extends StatelessWidget {
         ActionsSheetAction(
           title: Text(AppLoc.of(context).timetable),
           icon: const Icon(CupertinoIcons.list_number),
-          onPressed: () => Nav.push(context, (context) => StopDetails(stopName: stop.stop)),
+          onPressed: () =>
+              Nav.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
         ),
         ActionsSheetAction(
           title: Text(AppLoc.of(context).rename),

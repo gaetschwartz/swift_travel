@@ -19,7 +19,7 @@ class CffIcon extends StatelessWidget {
       return null;
     }
     final substring = iconclass.substring(iconclass.lastIndexOf('-') + 1);
-    return VehicleIconclass.fromJson(<String, Object?>{'v': substring}).v;
+    return VehicleX.parse(substring);
   }
 
   final Vehicle? vehicle;
@@ -41,7 +41,9 @@ class CffIcon extends StatelessWidget {
       case Vehicle.train:
       case Vehicle.expressTrain:
       case Vehicle.funicular:
+      case Vehicle.rer:
       case Vehicle.str:
+      case Vehicle.metro:
         return const FaIcon(FontAwesomeIcons.train);
       case Vehicle.business:
         return const FaIcon(FontAwesomeIcons.store);
@@ -56,6 +58,7 @@ class CffIcon extends StatelessWidget {
       case Vehicle.chairlift:
         return const FaIcon(FontAwesomeIcons.tram);
       case null:
+      case Vehicle.unknown:
         return const FaIcon(FontAwesomeIcons.question);
     }
   }

@@ -13,38 +13,24 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 SbbStationboard _$SbbStationboardFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String) {
-    case 'default':
-      return SbbStationboardData.fromJson(json);
-    case 'error':
-      return SbbStationboardError.fromJson(json);
-
-    default:
-      throw FallThroughError();
-  }
+  return _SbbStationboard.fromJson(json);
 }
 
 /// @nodoc
 class _$SbbStationboardTearOff {
   const _$SbbStationboardTearOff();
 
-  SbbStationboardData call(
+  _SbbStationboard call(
       {@JsonKey(name: 'stop')
           required SbbStop sbbStop,
       @JsonKey(name: 'connections')
           List<SbbStationboardConnection>
               sbbConnections = const <SbbStationboardConnection>[],
-      List<String> messages = const <String>[]}) {
-    return SbbStationboardData(
+      List<Object> messages = const <Object>[]}) {
+    return _SbbStationboard(
       sbbStop: sbbStop,
       sbbConnections: sbbConnections,
       messages: messages,
-    );
-  }
-
-  SbbStationboardError error(List<String> messages) {
-    return SbbStationboardError(
-      messages,
     );
   }
 
@@ -58,46 +44,13 @@ const $SbbStationboard = _$SbbStationboardTearOff();
 
 /// @nodoc
 mixin _$SbbStationboard {
-  List<String> get messages => throw _privateConstructorUsedError;
+  @JsonKey(name: 'stop')
+  SbbStop get sbbStop => throw _privateConstructorUsedError;
+  @JsonKey(name: 'connections')
+  List<SbbStationboardConnection> get sbbConnections =>
+      throw _privateConstructorUsedError;
+  List<Object> get messages => throw _privateConstructorUsedError;
 
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            @JsonKey(name: 'stop')
-                SbbStop sbbStop,
-            @JsonKey(name: 'connections')
-                List<SbbStationboardConnection> sbbConnections,
-            List<String> messages)
-        $default, {
-    required TResult Function(List<String> messages) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            @JsonKey(name: 'stop')
-                SbbStop sbbStop,
-            @JsonKey(name: 'connections')
-                List<SbbStationboardConnection> sbbConnections,
-            List<String> messages)?
-        $default, {
-    TResult Function(List<String> messages)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(SbbStationboardData value) $default, {
-    required TResult Function(SbbStationboardError value) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(SbbStationboardData value)? $default, {
-    TResult Function(SbbStationboardError value)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SbbStationboardCopyWith<SbbStationboard> get copyWith =>
@@ -109,7 +62,14 @@ abstract class $SbbStationboardCopyWith<$Res> {
   factory $SbbStationboardCopyWith(
           SbbStationboard value, $Res Function(SbbStationboard) then) =
       _$SbbStationboardCopyWithImpl<$Res>;
-  $Res call({List<String> messages});
+  $Res call(
+      {@JsonKey(name: 'stop')
+          SbbStop sbbStop,
+      @JsonKey(name: 'connections')
+          List<SbbStationboardConnection> sbbConnections,
+      List<Object> messages});
+
+  $SbbStopCopyWith<$Res> get sbbStop;
 }
 
 /// @nodoc
@@ -123,56 +83,17 @@ class _$SbbStationboardCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? messages = freezed,
-  }) {
-    return _then(_value.copyWith(
-      messages:
-          messages == freezed ? _value.messages : messages as List<String>,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class $SbbStationboardDataCopyWith<$Res>
-    implements $SbbStationboardCopyWith<$Res> {
-  factory $SbbStationboardDataCopyWith(
-          SbbStationboardData value, $Res Function(SbbStationboardData) then) =
-      _$SbbStationboardDataCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {@JsonKey(name: 'stop')
-          SbbStop sbbStop,
-      @JsonKey(name: 'connections')
-          List<SbbStationboardConnection> sbbConnections,
-      List<String> messages});
-
-  $SbbStopCopyWith<$Res> get sbbStop;
-}
-
-/// @nodoc
-class _$SbbStationboardDataCopyWithImpl<$Res>
-    extends _$SbbStationboardCopyWithImpl<$Res>
-    implements $SbbStationboardDataCopyWith<$Res> {
-  _$SbbStationboardDataCopyWithImpl(
-      SbbStationboardData _value, $Res Function(SbbStationboardData) _then)
-      : super(_value, (v) => _then(v as SbbStationboardData));
-
-  @override
-  SbbStationboardData get _value => super._value as SbbStationboardData;
-
-  @override
-  $Res call({
     Object? sbbStop = freezed,
     Object? sbbConnections = freezed,
     Object? messages = freezed,
   }) {
-    return _then(SbbStationboardData(
+    return _then(_value.copyWith(
       sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop,
       sbbConnections: sbbConnections == freezed
           ? _value.sbbConnections
           : sbbConnections as List<SbbStationboardConnection>,
       messages:
-          messages == freezed ? _value.messages : messages as List<String>,
+          messages == freezed ? _value.messages : messages as List<Object>,
     ));
   }
 
@@ -184,23 +105,66 @@ class _$SbbStationboardDataCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-@With(_StationboardDataMixin)
-@With(StationboardData)
+/// @nodoc
+abstract class _$SbbStationboardCopyWith<$Res>
+    implements $SbbStationboardCopyWith<$Res> {
+  factory _$SbbStationboardCopyWith(
+          _SbbStationboard value, $Res Function(_SbbStationboard) then) =
+      __$SbbStationboardCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: 'stop')
+          SbbStop sbbStop,
+      @JsonKey(name: 'connections')
+          List<SbbStationboardConnection> sbbConnections,
+      List<Object> messages});
+
+  @override
+  $SbbStopCopyWith<$Res> get sbbStop;
+}
 
 /// @nodoc
-class _$SbbStationboardData extends SbbStationboardData
-    with _StationboardDataMixin, StationboardData {
-  const _$SbbStationboardData(
+class __$SbbStationboardCopyWithImpl<$Res>
+    extends _$SbbStationboardCopyWithImpl<$Res>
+    implements _$SbbStationboardCopyWith<$Res> {
+  __$SbbStationboardCopyWithImpl(
+      _SbbStationboard _value, $Res Function(_SbbStationboard) _then)
+      : super(_value, (v) => _then(v as _SbbStationboard));
+
+  @override
+  _SbbStationboard get _value => super._value as _SbbStationboard;
+
+  @override
+  $Res call({
+    Object? sbbStop = freezed,
+    Object? sbbConnections = freezed,
+    Object? messages = freezed,
+  }) {
+    return _then(_SbbStationboard(
+      sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop,
+      sbbConnections: sbbConnections == freezed
+          ? _value.sbbConnections
+          : sbbConnections as List<SbbStationboardConnection>,
+      messages:
+          messages == freezed ? _value.messages : messages as List<Object>,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_SbbStationboard extends _SbbStationboard {
+  const _$_SbbStationboard(
       {@JsonKey(name: 'stop')
           required this.sbbStop,
       @JsonKey(name: 'connections')
           this.sbbConnections = const <SbbStationboardConnection>[],
-      this.messages = const <String>[]})
+      this.messages = const <Object>[]})
       : super._();
 
-  factory _$SbbStationboardData.fromJson(Map<String, dynamic> json) =>
-      _$_$SbbStationboardDataFromJson(json);
+  factory _$_SbbStationboard.fromJson(Map<String, dynamic> json) =>
+      _$_$_SbbStationboardFromJson(json);
 
   @override
   @JsonKey(name: 'stop')
@@ -208,9 +172,9 @@ class _$SbbStationboardData extends SbbStationboardData
   @override
   @JsonKey(name: 'connections')
   final List<SbbStationboardConnection> sbbConnections;
-  @JsonKey(defaultValue: const <String>[])
+  @JsonKey(defaultValue: const <Object>[])
   @override
-  final List<String> messages;
+  final List<Object> messages;
 
   @override
   String toString() {
@@ -220,7 +184,7 @@ class _$SbbStationboardData extends SbbStationboardData
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is SbbStationboardData &&
+        (other is _SbbStationboard &&
             (identical(other.sbbStop, sbbStop) ||
                 const DeepCollectionEquality()
                     .equals(other.sbbStop, sbbStop)) &&
@@ -241,241 +205,38 @@ class _$SbbStationboardData extends SbbStationboardData
 
   @JsonKey(ignore: true)
   @override
-  $SbbStationboardDataCopyWith<SbbStationboardData> get copyWith =>
-      _$SbbStationboardDataCopyWithImpl<SbbStationboardData>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            @JsonKey(name: 'stop')
-                SbbStop sbbStop,
-            @JsonKey(name: 'connections')
-                List<SbbStationboardConnection> sbbConnections,
-            List<String> messages)
-        $default, {
-    required TResult Function(List<String> messages) error,
-  }) {
-    return $default(sbbStop, sbbConnections, messages);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            @JsonKey(name: 'stop')
-                SbbStop sbbStop,
-            @JsonKey(name: 'connections')
-                List<SbbStationboardConnection> sbbConnections,
-            List<String> messages)?
-        $default, {
-    TResult Function(List<String> messages)? error,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(sbbStop, sbbConnections, messages);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(SbbStationboardData value) $default, {
-    required TResult Function(SbbStationboardError value) error,
-  }) {
-    return $default(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(SbbStationboardData value)? $default, {
-    TResult Function(SbbStationboardError value)? error,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(this);
-    }
-    return orElse();
-  }
+  _$SbbStationboardCopyWith<_SbbStationboard> get copyWith =>
+      __$SbbStationboardCopyWithImpl<_SbbStationboard>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$SbbStationboardDataToJson(this)..['runtimeType'] = 'default';
+    return _$_$_SbbStationboardToJson(this);
   }
 }
 
-abstract class SbbStationboardData extends SbbStationboard
-    implements _StationboardDataMixin, StationboardData {
-  const SbbStationboardData._() : super._();
-  const factory SbbStationboardData(
+abstract class _SbbStationboard extends SbbStationboard {
+  const _SbbStationboard._() : super._();
+  const factory _SbbStationboard(
       {@JsonKey(name: 'stop')
           required SbbStop sbbStop,
       @JsonKey(name: 'connections')
           List<SbbStationboardConnection> sbbConnections,
-      List<String> messages}) = _$SbbStationboardData;
+      List<Object> messages}) = _$_SbbStationboard;
 
-  factory SbbStationboardData.fromJson(Map<String, dynamic> json) =
-      _$SbbStationboardData.fromJson;
+  factory _SbbStationboard.fromJson(Map<String, dynamic> json) =
+      _$_SbbStationboard.fromJson;
 
+  @override
   @JsonKey(name: 'stop')
   SbbStop get sbbStop => throw _privateConstructorUsedError;
+  @override
   @JsonKey(name: 'connections')
   List<SbbStationboardConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   @override
-  List<String> get messages => throw _privateConstructorUsedError;
+  List<Object> get messages => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $SbbStationboardDataCopyWith<SbbStationboardData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $SbbStationboardErrorCopyWith<$Res>
-    implements $SbbStationboardCopyWith<$Res> {
-  factory $SbbStationboardErrorCopyWith(SbbStationboardError value,
-          $Res Function(SbbStationboardError) then) =
-      _$SbbStationboardErrorCopyWithImpl<$Res>;
-  @override
-  $Res call({List<String> messages});
-}
-
-/// @nodoc
-class _$SbbStationboardErrorCopyWithImpl<$Res>
-    extends _$SbbStationboardCopyWithImpl<$Res>
-    implements $SbbStationboardErrorCopyWith<$Res> {
-  _$SbbStationboardErrorCopyWithImpl(
-      SbbStationboardError _value, $Res Function(SbbStationboardError) _then)
-      : super(_value, (v) => _then(v as SbbStationboardError));
-
-  @override
-  SbbStationboardError get _value => super._value as SbbStationboardError;
-
-  @override
-  $Res call({
-    Object? messages = freezed,
-  }) {
-    return _then(SbbStationboardError(
-      messages == freezed ? _value.messages : messages as List<String>,
-    ));
-  }
-}
-
-@JsonSerializable()
-@With(StationboardError)
-
-/// @nodoc
-class _$SbbStationboardError extends SbbStationboardError
-    with StationboardError {
-  const _$SbbStationboardError(this.messages) : super._();
-
-  factory _$SbbStationboardError.fromJson(Map<String, dynamic> json) =>
-      _$_$SbbStationboardErrorFromJson(json);
-
-  @override
-  final List<String> messages;
-
-  @override
-  String toString() {
-    return 'SbbStationboard.error(messages: $messages)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is SbbStationboardError &&
-            (identical(other.messages, messages) ||
-                const DeepCollectionEquality()
-                    .equals(other.messages, messages)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(messages);
-
-  @JsonKey(ignore: true)
-  @override
-  $SbbStationboardErrorCopyWith<SbbStationboardError> get copyWith =>
-      _$SbbStationboardErrorCopyWithImpl<SbbStationboardError>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            @JsonKey(name: 'stop')
-                SbbStop sbbStop,
-            @JsonKey(name: 'connections')
-                List<SbbStationboardConnection> sbbConnections,
-            List<String> messages)
-        $default, {
-    required TResult Function(List<String> messages) error,
-  }) {
-    return error(messages);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            @JsonKey(name: 'stop')
-                SbbStop sbbStop,
-            @JsonKey(name: 'connections')
-                List<SbbStationboardConnection> sbbConnections,
-            List<String> messages)?
-        $default, {
-    TResult Function(List<String> messages)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(messages);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(SbbStationboardData value) $default, {
-    required TResult Function(SbbStationboardError value) error,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(SbbStationboardData value)? $default, {
-    TResult Function(SbbStationboardError value)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$SbbStationboardErrorToJson(this)..['runtimeType'] = 'error';
-  }
-}
-
-abstract class SbbStationboardError extends SbbStationboard
-    implements StationboardError {
-  const SbbStationboardError._() : super._();
-  const factory SbbStationboardError(List<String> messages) =
-      _$SbbStationboardError;
-
-  factory SbbStationboardError.fromJson(Map<String, dynamic> json) =
-      _$SbbStationboardError.fromJson;
-
-  @override
-  List<String> get messages => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  $SbbStationboardErrorCopyWith<SbbStationboardError> get copyWith =>
+  _$SbbStationboardCopyWith<_SbbStationboard> get copyWith =>
       throw _privateConstructorUsedError;
 }

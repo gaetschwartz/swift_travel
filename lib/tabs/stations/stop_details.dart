@@ -17,9 +17,9 @@ import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:theming/responsive.dart';
 
 class StopDetails extends StatefulWidget {
-  StopDetails({required this.stopName}) : super(key: Key(stopName));
+  const StopDetails(this.stop, {Key? key}) : super(key: key);
 
-  final String stopName;
+  final Stop stop;
 
   @override
   _StopDetailsState createState() => _StopDetailsState();
@@ -60,7 +60,7 @@ class _StopDetailsState extends State<StopDetails> {
                   Nav.push(
                       context,
                       (context) => RoutePage.stop(FavoriteStop.fromStop(
-                            widget.stopName,
+                            widget.stop.name,
                             api: context.read(preferencesProvider).api,
                           )));
                 })),
@@ -78,7 +78,7 @@ class _StopDetailsState extends State<StopDetails> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            title: Text(widget.stopName),
+            title: Text(widget.stop.name),
             elevation: _elevate ? 8 : 0,
             actions: [
               IconButton(
@@ -87,7 +87,7 @@ class _StopDetailsState extends State<StopDetails> {
                     Nav.push(
                         context,
                         (context) => RoutePage.stop(FavoriteStop.fromStop(
-                              widget.stopName,
+                              widget.stop.name,
                               api: context.read(preferencesProvider).api,
                             )));
                   })
@@ -103,18 +103,17 @@ class _StopDetailsState extends State<StopDetails> {
     return RefreshIndicator(
       onRefresh: refreshData,
       child: data != null
-          ? data!.mapBoard(
-              (board) => ListView.builder(
-                itemBuilder: (context, i) => i.isEven
-                    ? const Divider(height: 0)
-                    : ConnectionTile(
-                        c: board.connections[i ~/ 2],
-                        s: board.stop,
-                      ),
-                itemCount: board.connections.length * 2 + 1,
-              ),
-              onError: (e) => buildNoData(e),
-            )
+          ? data!.messages.isEmpty
+              ? ListView.builder(
+                  itemBuilder: (context, i) => i.isEven
+                      ? const Divider(height: 0)
+                      : ConnectionTile(
+                          c: data!.connections[i ~/ 2],
+                          s: data!.stop,
+                        ),
+                  itemCount: data!.connections.length * 2 + 1,
+                )
+              : buildNoData(data!)
           : const Center(child: CupertinoActivityIndicator()),
     );
   }
@@ -127,21 +126,21 @@ class _StopDetailsState extends State<StopDetails> {
         if (data != null)
           SliverSafeArea(
               top: false,
-              sliver: data!.mapBoard(
-                  (board) => SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, i) => i.isEven
-                              ? const Divider(height: 0)
-                              : ConnectionTile(
-                                  c: board.connections[i ~/ 2],
-                                  s: board.stop,
-                                ),
-                          childCount: board.connections.length * 2 + 1,
-                        ),
+              sliver: data!.messages.isEmpty
+                  ? SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, i) => i.isEven
+                            ? const Divider(height: 0)
+                            : ConnectionTile(
+                                c: data!.connections[i ~/ 2],
+                                s: data!.stop,
+                              ),
+                        childCount: data!.connections.length * 2 + 1,
                       ),
-                  onError: (e) => SliverFillRemaining(
-                        child: buildNoData(e),
-                      )))
+                    )
+                  : SliverFillRemaining(
+                      child: buildNoData(data!),
+                    ))
         else
           const SliverFillRemaining(
             child: Center(child: CupertinoActivityIndicator()),
@@ -150,7 +149,7 @@ class _StopDetailsState extends State<StopDetails> {
     );
   }
 
-  Widget buildNoData(StationboardError e) {
+  Widget buildNoData(StationBoard s) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: SizedBox(
@@ -164,8 +163,8 @@ class _StopDetailsState extends State<StopDetails> {
             ),
             const SizedBox(height: 16),
             Text(
-              e.messages.isNotEmpty
-                  ? e.messages.join('\n')
+              s.messages.isNotEmpty
+                  ? s.messages.join('\n')
                   : "We couldn't find any departures from this location",
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
@@ -177,7 +176,9 @@ class _StopDetailsState extends State<StopDetails> {
   }
 
   Future<void> refreshData() async {
-    final stationBoard = await context.read(navigationAPIProvider).stationboard(widget.stopName);
+    final stationBoard = await context.read(navigationAPIProvider).stationboard(
+          widget.stop,
+        );
     if (mounted) {
       setState(() => data = stationBoard);
     }

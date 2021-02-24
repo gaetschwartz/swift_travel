@@ -10,6 +10,7 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/sncf/models/departures.dart';
 import 'package:swift_travel/apis/navigation/sncf/models/sncf_completion.dart';
 import 'package:swift_travel/constants/config.dart';
 
@@ -29,11 +30,11 @@ class SncfApi extends BaseNavigationApi {
   @override
   Locale get locale => const Locale('en');
 
-  static const baseUrl = 'https://api.navitia.io/v1/coverage/sncf/';
+  late final config = _read(configProvider.future);
 
   Future<Map<String, String?>> get globalParameters async {
-    final config = await _read(configProvider.future);
-    return {'key': config.sncfKey};
+    final c = await config;
+    return {'key': c.sncfKey};
   }
 
   final _client = http.Client();
@@ -53,7 +54,7 @@ class SncfApi extends BaseNavigationApi {
       'q': string,
     };
 
-    final uri = Uri.https('api.navitia.io', '/v1/coverage/sncf/places', queryParameters);
+    final uri = Uri.https('api.navitia.io', '/v1/coverage/fr-idf/places', queryParameters);
 
     if (kDebugMode) {
       log(uri.toString());
@@ -61,10 +62,9 @@ class SncfApi extends BaseNavigationApi {
     final response = await _client.get(uri);
 
     final decode = jsonDecode(response.body) as Map<String, dynamic>;
-
+    //  print(decode);
     final sncfCompletion = SncfCompletion.fromJson(decode);
     final places = sncfCompletion.places;
-
     log('Found ${places.length} places');
     return places;
   }
@@ -81,16 +81,42 @@ class SncfApi extends BaseNavigationApi {
   }
 
   @override
-  Future<StationBoard> stationboard(String stopName,
-      {DateTime? when,
-      bool? arrival,
-      int? limit,
-      bool? showTracks,
-      bool? showSubsequentStops,
-      bool? showDelays,
-      bool? showTrackchanges,
-      List<TransportationTypes>? transportationTypes}) {
-    throw UnimplementedError('SNCF.stationboard is not supported yet.');
+  Future<StationBoard> stationboard(
+    Stop stop, {
+    DateTime? when,
+    bool? arrival,
+    int? limit,
+    bool? showTracks,
+    bool? showSubsequentStops,
+    bool? showDelays,
+    bool? showTrackchanges,
+    List<TransportationTypes>? transportationTypes,
+  }) async {
+    final queryParameters = {
+      ...await globalParameters,
+      if (when != null) 'from_datetime': when.toIso8601String(),
+    };
+    print(stop);
+    final uri = Uri.https(
+      'api.navitia.io',
+      '/v1/coverage/fr-idf/stop_areas/${stop.id ?? stop.name}/departures',
+      queryParameters,
+    );
+
+    print(uri);
+
+    final response = await _client.get(uri);
+
+    final decode = jsonDecode(response.body) as Map<String, dynamic>;
+
+    /*  final out = <String, dynamic>{...decode};
+    out['links'] = <void>[];
+    out['disruptions'] = <void>[];
+    print(const JsonEncoder.withIndent('|').convert(out)); */
+
+    final stationboard = SncfStationboard.fromJson(decode);
+    print(stationboard);
+    return stationboard;
   }
 
   @override
