@@ -941,32 +941,32 @@ class TeamPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  static const primaryCoders = <Coder>[
-    Coder(
+  static const primaryCoders = <Person>[
+    Person(
       'Gaëtan Schwartz',
-      role: 'Lead Developer\nApp Concept/Design',
-      imageUrl: 'assets/profiles/gaetan.jpg',
-      isAssets: true,
-      website: 'https://gaetanschwartz.com/#/',
+      role: 'Developer\nApp Concept/Design',
+      imageUrl: 'assets/profiles/gaetan2.png',
+      // websiteUrl: 'https://gaetanschwartz.com/#/',
       email: 'gaetan.schwartz@gmail.com',
+      githubUrl: 'https://github.com/gaetschwartz',
     ),
-    Coder(
-      'Vincent Tarrit',
-      role: 'Icon Design\n',
-      imageUrl:
-          'https://i2.wp.com/www.tarrit.com/wp-content/uploads/2018/11/cropped-Vincent-Tarrit3petitblanc-2-1.jpg?w=512',
-      website: 'https://tarrit.com/',
+    Person(
+      'Abin W.',
+      role: 'Testing, Icon design'
+          '\nand ❤ ',
+      imageUrl: 'assets/profiles/abin2.jpg',
     ),
   ];
 
-  static const secondaryCoders = <Coder>[
-    Coder(
-      'Abin W.',
-      role: 'Beta-tester',
-      imageUrl: 'assets/profiles/abin.jpeg',
-      isAssets: true,
+  static const secondaryCoders = <Person>[
+    Person(
+      'Vincent Tarrit',
+      role: 'Help',
+      imageUrl:
+          'https://i2.wp.com/www.tarrit.com/wp-content/uploads/2018/11/cropped-Vincent-Tarrit3petitblanc-2-1.jpg?w=512',
+      isAssets: false,
     ),
-    Coder(
+    Person(
       'Alexandre S.',
       role: 'Beta-tester',
     ),
@@ -977,27 +977,24 @@ class TeamPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLoc.of(context).our_team),
-        actions: [
-          TextButton(
-            style: TextButton.styleFrom(
-                enableFeedback: true, padding: const EdgeInsets.symmetric(horizontal: 8)),
-            onPressed: () =>
-                showLicensePage(context: context, applicationIcon: const FlutterLogo()),
-            child: Text(
-              'View licenses',
-              style: Theme.of(context).primaryTextTheme.subtitle1,
-            ),
-          ),
-        ],
       ),
       body: ListView(
         children: [
           Column(
-            children: primaryCoders.map((c) => _CoderTile(c: c)).toList(growable: false),
+            children: primaryCoders.map((c) => _CoderTile(c)).toList(growable: false),
           ),
           ExpansionTile(
             title: const Text('Helpers'),
-            children: secondaryCoders.map((c) => _CoderTile(c: c)).toList(growable: false),
+            children: secondaryCoders.map((c) => _CoderTile(c)).toList(growable: false),
+          ),
+          SizedBox(
+            width: double.infinity,
+            height: 64,
+            child: TextButton(
+              onPressed: () =>
+                  showLicensePage(context: context, applicationIcon: const FlutterLogo()),
+              child: const Text('View licenses'),
+            ),
           ),
         ],
       ),
@@ -1006,12 +1003,12 @@ class TeamPage extends StatelessWidget {
 }
 
 class _CoderTile extends StatelessWidget {
-  const _CoderTile({
+  const _CoderTile(
+    this.c, {
     Key? key,
-    required this.c,
   }) : super(key: key);
 
-  final Coder c;
+  final Person c;
 
   @override
   Widget build(BuildContext context) {
@@ -1031,9 +1028,13 @@ class _CoderTile extends StatelessWidget {
       ),
       subtitle: c.role == null ? null : Text(c.role!),
       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-        if (c.website != null)
+        if (c.websiteUrl != null)
           IconButton(
-              icon: const FaIcon(FontAwesomeIcons.paperclip), onPressed: () => launch(c.website!)),
+              icon: const FaIcon(FontAwesomeIcons.paperclip),
+              onPressed: () => launch(c.websiteUrl!)),
+        if (c.githubUrl != null)
+          IconButton(
+              icon: const FaIcon(FontAwesomeIcons.github), onPressed: () => launch(c.githubUrl!)),
         if (c.twitterUrl != null)
           IconButton(
               icon: const FaIcon(FontAwesomeIcons.twitter), onPressed: () => launch(c.twitterUrl!)),
@@ -1048,23 +1049,25 @@ class _CoderTile extends StatelessWidget {
 }
 
 @immutable
-class Coder {
-  const Coder(
+class Person {
+  const Person(
     this.name, {
-    this.isAssets = false,
+    this.isAssets = true,
     this.twitterUrl,
     this.role,
     this.imageUrl,
-    this.website,
+    this.websiteUrl,
     this.email,
+    this.githubUrl,
   });
 
   final String name;
   final String? twitterUrl;
   final String? role;
   final String? imageUrl;
-  final String? website;
+  final String? websiteUrl;
   final String? email;
+  final String? githubUrl;
   final bool isAssets;
 }
 
