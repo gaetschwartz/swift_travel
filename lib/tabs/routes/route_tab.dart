@@ -210,8 +210,8 @@ class _RoutePageState extends State<RoutePage> {
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
 
-  MyTextFormatter? fromFormatter;
-  MyTextFormatter? toFormatter;
+  late MyTextFormatter fromFormatter;
+  late MyTextFormatter toFormatter;
   late FavoritesSharedPreferencesStore favorites;
   late BaseNavigationApi api;
   final historyRepository = RouteHistoryRepository.i;
@@ -525,7 +525,7 @@ class _RoutePageState extends State<RoutePage> {
                   key: const Key('route-first-textfield-key'),
                   debounceDuration: const Duration(milliseconds: 250),
                   textFieldConfiguration: TextFieldConfiguration(
-                    inputFormatters: [fromFormatter!],
+                    inputFormatters: [fromFormatter],
                     focusNode: fnFrom,
                     controller: from.controller,
                     onEditingComplete: () => fnTo.requestFocus(),
@@ -630,7 +630,7 @@ class _RoutePageState extends State<RoutePage> {
                   suggestionsBoxDecoration: _suggestionsBoxDecoration,
                   debounceDuration: const Duration(milliseconds: 250),
                   textFieldConfiguration: TextFieldConfiguration(
-                    inputFormatters: [toFormatter!],
+                    inputFormatters: [toFormatter],
                     textInputAction: TextInputAction.search,
                     focusNode: fnTo,
                     onEditingComplete: () => unFocusFields(),

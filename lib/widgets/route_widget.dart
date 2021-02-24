@@ -94,7 +94,7 @@ class RouteWidget extends StatelessWidget {
                       ]),
                       const SizedBox(width: 8),
                       DefaultTextStyle(
-                        style: Theme.of(context).textTheme.subtitle1!,
+                        style: Theme.of(context).textTheme.subtitle2!,
                         child: Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
