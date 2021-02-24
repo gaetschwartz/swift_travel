@@ -12,6 +12,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
@@ -334,7 +335,7 @@ Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
     case '/stopDetails':
       return platformRoute(
           settings: settings,
-          builder: (_) => StopDetails(stopName: settings.arguments! as String),
+          builder: (_) => StopDetails(SbbStop(settings.arguments! as String)),
           isDarwin: isDarwin);
 
     case '/error':

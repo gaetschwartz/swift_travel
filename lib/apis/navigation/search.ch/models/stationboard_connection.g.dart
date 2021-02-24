@@ -89,4 +89,5 @@ const _$VehicleEnumMap = {
   Vehicle.chairlift: 'chairlift',
   Vehicle.ship: 'ship',
   Vehicle.str: 'str',
+  Vehicle.metro: 'metro',
 };

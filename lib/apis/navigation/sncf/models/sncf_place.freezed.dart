@@ -20,17 +20,8 @@ SncfPlace _$SncfPlaceFromJson(Map<String, dynamic> json) {
 class _$SncfPlaceTearOff {
   const _$SncfPlaceTearOff();
 
-  _SncfPlace call(
-      {String? embeddedType,
-      int? quality,
-      SncfAdministrativeRegion? administrativeRegion,
-      required String name,
-      String? id,
-      String? favoriteName}) {
+  _SncfPlace call({required String name, String? id, String? favoriteName}) {
     return _SncfPlace(
-      embeddedType: embeddedType,
-      quality: quality,
-      administrativeRegion: administrativeRegion,
       name: name,
       id: id,
       favoriteName: favoriteName,
@@ -47,10 +38,6 @@ const $SncfPlace = _$SncfPlaceTearOff();
 
 /// @nodoc
 mixin _$SncfPlace {
-  String? get embeddedType => throw _privateConstructorUsedError;
-  int? get quality => throw _privateConstructorUsedError;
-  SncfAdministrativeRegion? get administrativeRegion =>
-      throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
   String? get favoriteName => throw _privateConstructorUsedError;
@@ -65,15 +52,7 @@ mixin _$SncfPlace {
 abstract class $SncfPlaceCopyWith<$Res> {
   factory $SncfPlaceCopyWith(SncfPlace value, $Res Function(SncfPlace) then) =
       _$SncfPlaceCopyWithImpl<$Res>;
-  $Res call(
-      {String? embeddedType,
-      int? quality,
-      SncfAdministrativeRegion? administrativeRegion,
-      String name,
-      String? id,
-      String? favoriteName});
-
-  $SncfAdministrativeRegionCopyWith<$Res>? get administrativeRegion;
+  $Res call({String name, String? id, String? favoriteName});
 }
 
 /// @nodoc
@@ -86,39 +65,17 @@ class _$SncfPlaceCopyWithImpl<$Res> implements $SncfPlaceCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? embeddedType = freezed,
-    Object? quality = freezed,
-    Object? administrativeRegion = freezed,
     Object? name = freezed,
     Object? id = freezed,
     Object? favoriteName = freezed,
   }) {
     return _then(_value.copyWith(
-      embeddedType: embeddedType == freezed
-          ? _value.embeddedType
-          : embeddedType as String?,
-      quality: quality == freezed ? _value.quality : quality as int?,
-      administrativeRegion: administrativeRegion == freezed
-          ? _value.administrativeRegion
-          : administrativeRegion as SncfAdministrativeRegion?,
       name: name == freezed ? _value.name : name as String,
       id: id == freezed ? _value.id : id as String?,
       favoriteName: favoriteName == freezed
           ? _value.favoriteName
           : favoriteName as String?,
     ));
-  }
-
-  @override
-  $SncfAdministrativeRegionCopyWith<$Res>? get administrativeRegion {
-    if (_value.administrativeRegion == null) {
-      return null;
-    }
-
-    return $SncfAdministrativeRegionCopyWith<$Res>(_value.administrativeRegion!,
-        (value) {
-      return _then(_value.copyWith(administrativeRegion: value));
-    });
   }
 }
 
@@ -128,16 +85,7 @@ abstract class _$SncfPlaceCopyWith<$Res> implements $SncfPlaceCopyWith<$Res> {
           _SncfPlace value, $Res Function(_SncfPlace) then) =
       __$SncfPlaceCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String? embeddedType,
-      int? quality,
-      SncfAdministrativeRegion? administrativeRegion,
-      String name,
-      String? id,
-      String? favoriteName});
-
-  @override
-  $SncfAdministrativeRegionCopyWith<$Res>? get administrativeRegion;
+  $Res call({String name, String? id, String? favoriteName});
 }
 
 /// @nodoc
@@ -151,21 +99,11 @@ class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? embeddedType = freezed,
-    Object? quality = freezed,
-    Object? administrativeRegion = freezed,
     Object? name = freezed,
     Object? id = freezed,
     Object? favoriteName = freezed,
   }) {
     return _then(_SncfPlace(
-      embeddedType: embeddedType == freezed
-          ? _value.embeddedType
-          : embeddedType as String?,
-      quality: quality == freezed ? _value.quality : quality as int?,
-      administrativeRegion: administrativeRegion == freezed
-          ? _value.administrativeRegion
-          : administrativeRegion as SncfAdministrativeRegion?,
       name: name == freezed ? _value.name : name as String,
       id: id == freezed ? _value.id : id as String?,
       favoriteName: favoriteName == freezed
@@ -179,24 +117,12 @@ class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SncfPlace extends _SncfPlace {
-  const _$_SncfPlace(
-      {this.embeddedType,
-      this.quality,
-      this.administrativeRegion,
-      required this.name,
-      this.id,
-      this.favoriteName})
+  const _$_SncfPlace({required this.name, this.id, this.favoriteName})
       : super._();
 
   factory _$_SncfPlace.fromJson(Map<String, dynamic> json) =>
       _$_$_SncfPlaceFromJson(json);
 
-  @override
-  final String? embeddedType;
-  @override
-  final int? quality;
-  @override
-  final SncfAdministrativeRegion? administrativeRegion;
   @override
   final String name;
   @override
@@ -206,22 +132,13 @@ class _$_SncfPlace extends _SncfPlace {
 
   @override
   String toString() {
-    return 'SncfPlace(embeddedType: $embeddedType, quality: $quality, administrativeRegion: $administrativeRegion, name: $name, id: $id, favoriteName: $favoriteName)';
+    return 'SncfPlace(name: $name, id: $id, favoriteName: $favoriteName)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _SncfPlace &&
-            (identical(other.embeddedType, embeddedType) ||
-                const DeepCollectionEquality()
-                    .equals(other.embeddedType, embeddedType)) &&
-            (identical(other.quality, quality) ||
-                const DeepCollectionEquality()
-                    .equals(other.quality, quality)) &&
-            (identical(other.administrativeRegion, administrativeRegion) ||
-                const DeepCollectionEquality().equals(
-                    other.administrativeRegion, administrativeRegion)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.id, id) ||
@@ -234,9 +151,6 @@ class _$_SncfPlace extends _SncfPlace {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(embeddedType) ^
-      const DeepCollectionEquality().hash(quality) ^
-      const DeepCollectionEquality().hash(administrativeRegion) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(favoriteName);
@@ -255,23 +169,11 @@ class _$_SncfPlace extends _SncfPlace {
 abstract class _SncfPlace extends SncfPlace {
   const _SncfPlace._() : super._();
   const factory _SncfPlace(
-      {String? embeddedType,
-      int? quality,
-      SncfAdministrativeRegion? administrativeRegion,
-      required String name,
-      String? id,
-      String? favoriteName}) = _$_SncfPlace;
+      {required String name, String? id, String? favoriteName}) = _$_SncfPlace;
 
   factory _SncfPlace.fromJson(Map<String, dynamic> json) =
       _$_SncfPlace.fromJson;
 
-  @override
-  String? get embeddedType => throw _privateConstructorUsedError;
-  @override
-  int? get quality => throw _privateConstructorUsedError;
-  @override
-  SncfAdministrativeRegion? get administrativeRegion =>
-      throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
   @override

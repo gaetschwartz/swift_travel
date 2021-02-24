@@ -58,7 +58,7 @@ abstract class BaseNavigationApi {
   });
 
   Future<StationBoard> stationboard(
-    String stopName, {
+    Stop stop, {
     DateTime when,
     bool arrival,
     int limit,

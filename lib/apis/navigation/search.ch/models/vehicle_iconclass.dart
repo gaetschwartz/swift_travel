@@ -10,6 +10,11 @@ class VehicleIconclass with _$VehicleIconclass {
   factory VehicleIconclass.fromJson(Map<String, dynamic> json) => _$VehicleIconclassFromJson(json);
 }
 
+extension VehicleX on Vehicle {
+  static Vehicle parse(String s, {Vehicle unknownValue = Vehicle.unknown}) =>
+      _$enumDecode(_$VehicleEnumMap, s, unknownValue: unknownValue);
+}
+
 enum Vehicle {
   bus,
   post,
@@ -29,5 +34,8 @@ enum Vehicle {
   cablecar,
   chairlift,
   ship,
-  str
+  str,
+  metro,
+  rer,
+  unknown,
 }

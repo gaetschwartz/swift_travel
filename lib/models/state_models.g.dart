@@ -38,17 +38,28 @@ _$_FavoriteStop _$_$_FavoriteStopFromJson(Map<String, dynamic> json) {
   return _$_FavoriteStop(
     stop: json['stop'] as String,
     name: json['name'] as String,
+    id: json['id'] as String?,
     api: _$enumDecodeNullable(_$NavigationApiEnumMap, json['api']) ??
         NavigationApi.sbb,
   );
 }
 
-Map<String, dynamic> _$_$_FavoriteStopToJson(_$_FavoriteStop instance) =>
-    <String, dynamic>{
-      'stop': instance.stop,
-      'name': instance.name,
-      'api': _$NavigationApiEnumMap[instance.api],
-    };
+Map<String, dynamic> _$_$_FavoriteStopToJson(_$_FavoriteStop instance) {
+  final val = <String, dynamic>{
+    'stop': instance.stop,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  val['api'] = _$NavigationApiEnumMap[instance.api];
+  return val;
+}
 
 K _$enumDecode<K, V>(
   Map<K, V> enumValues,

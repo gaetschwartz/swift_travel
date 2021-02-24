@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 
@@ -40,11 +41,12 @@ class LocalRoute with _$LocalRoute {
 }
 
 @freezed
-class FavoriteStop with _$FavoriteStop {
+class FavoriteStop with _$FavoriteStop, BaseStop {
   @JsonSerializable(includeIfNull: false)
   const factory FavoriteStop({
     required String stop,
     required String name,
+    String? id,
     @Default(NavigationApi.sbb) NavigationApi api,
   }) = _FavoriteStop;
 
