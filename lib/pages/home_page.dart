@@ -12,7 +12,7 @@ import 'package:octo_image/octo_image.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/pages/settings.dart';
+import 'package:swift_travel/pages/settings/settings.dart';
 import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';

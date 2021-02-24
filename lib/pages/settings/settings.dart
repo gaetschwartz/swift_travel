@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -17,24 +16,20 @@ import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/preferences.dart';
 import 'package:swift_travel/main.dart';
-import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
-import 'package:swift_travel/pages/search.dart';
-import 'package:swift_travel/tabs/routes/route_tab.dart';
+import 'package:swift_travel/pages/settings/route_history.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/utils/crawler.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/choice_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/modal.dart';
-import 'package:swift_travel/widgets/route_widget.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -55,17 +50,17 @@ class _SettingsPageState extends State<SettingsPage> {
             return ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                _ModeWidget(
+                _ThememodeWidget(
                   theme: theme,
                   label: AppLoc.of(context).brightness_system,
                   mode: ThemeMode.system,
                 ),
-                _ModeWidget(
+                _ThememodeWidget(
                   theme: theme,
                   label: AppLoc.of(context).brightness_light,
                   mode: ThemeMode.light,
                 ),
-                _ModeWidget(
+                _ThememodeWidget(
                   theme: theme,
                   label: AppLoc.of(context).brightness_dark,
                   mode: ThemeMode.dark,
@@ -389,120 +384,6 @@ class _SettingsPageState extends State<SettingsPage> {
   void onAPIChanged(PreferencesBloc prefs, NavigationApi api) => prefs.api = api;
 }
 
-class RouteHistoryPage extends StatefulWidget {
-  const RouteHistoryPage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _RouteHistoryPageState createState() => _RouteHistoryPageState();
-}
-
-const _days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-
-class _RouteHistoryPageState extends State<RouteHistoryPage> {
-  @override
-  Widget build(BuildContext context) {
-    final routes = RouteHistoryRepository.i.history;
-    final pred = predictRoute(routes, PredictionArguments(MockableDateTime.now()));
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () async {
-                await RouteHistoryRepository.i.clear();
-                setState(() {});
-              })
-        ],
-      ),
-      body: Column(
-        children: [
-          if (pred.prediction != null) ...[
-            const Text('Predicted route :'),
-            ListTile(
-                title: Text('Confidence : ${(pred.confidence * 100).toStringAsFixed(2)} %'),
-                subtitle: Text(pred.arguments.toString())),
-            ListTile(
-              title: Text(pred.prediction!.from),
-              subtitle: Text(pred.prediction!.to),
-            ),
-            const Divider(height: 0),
-          ],
-          Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, i) => RouteWidget(
-                from: Text(routes[i].from),
-                to: Text(routes[i].to),
-                trailing: Text(
-                    '${TimeOfDay.fromDateTime(routes[i].timestamp!).format(context)}, ${_days[routes[i].timestamp!.weekday - 1]}'),
-              ),
-              itemCount: routes.length,
-              separatorBuilder: (context, index) => const Divider(height: 4),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _TestWidget extends StatefulWidget {
-  const _TestWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  __TestWidgetState createState() => __TestWidgetState();
-}
-
-class __TestWidgetState extends State<_TestWidget> {
-  final controller = TextEditingController();
-  final tag = 'heniu';
-  final focus = FocusNode();
-
-  @override
-  void dispose() {
-    controller.dispose();
-    focus.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(transitionBetweenRoutes: false),
-        child: SafeArea(
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Hero(
-                tag: tag,
-                child: CupertinoTextField(
-                  controller: controller,
-                  focusNode: focus,
-                  placeholder: AppLoc.of(context).search_station,
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push<void>(MaterialPageRoute(
-                        builder: (_) => SearchPage(
-                              binder: TextStateBinder(controller, null),
-                              heroTag: tag,
-                              configuration: CupertinoTextFieldConfiguration(focusNode: focus),
-                            )));
-                  },
-                ),
-              ),
-            ),
-          ),
-        ));
-  }
-}
-
-Color primaryColor(BuildContext context) => Responsive.isDarwin(context)
-    ? CupertinoTheme.of(context).primaryColor
-    : Theme.of(context).accentColor;
-
 class _ScreenPage extends StatelessWidget {
   const _ScreenPage({
     Key? key,
@@ -818,8 +699,8 @@ class __ScrollProgressState extends State<_ScrollProgress> {
       );
 }
 
-class _ModeWidget extends StatelessWidget {
-  const _ModeWidget({
+class _ThememodeWidget extends StatelessWidget {
+  const _ThememodeWidget({
     Key? key,
     required this.theme,
     required this.mode,
@@ -890,185 +771,6 @@ class _ModeWidget extends StatelessWidget {
       ),
     );
   }
-}
-
-class DiagonalPainter extends CustomPainter {
-  DiagonalPainter({this.label, this.black, this.white});
-
-  final Color? black;
-  final Color? white;
-  final String? label;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final lightP = Paint()..color = white!;
-    final blackP = Paint()..color = black!;
-
-    canvas.drawRect(Offset.zero & size, lightP);
-
-    final topLeft = size.topLeft(Offset.zero);
-    final bottomRight = size.bottomRight(Offset.zero);
-    final bottomLeft = size.bottomLeft(Offset.zero);
-    final p1 = Path();
-    p1.lineTo(bottomLeft.dx, bottomLeft.dy);
-    p1.lineTo(bottomRight.dx, bottomRight.dy);
-    p1.lineTo(topLeft.dx, topLeft.dy);
-
-    canvas.drawPath(p1, blackP);
-
-    const textStyle = TextStyle(
-      color: Colors.black,
-      fontSize: 12,
-    );
-    final textSpan = TextSpan(
-      text: label,
-      style: textStyle,
-    );
-    final textPainter =
-        TextPainter(text: textSpan, textDirection: TextDirection.ltr, textAlign: TextAlign.center);
-    textPainter.layout(maxWidth: size.width);
-    final offset = size.center(Offset.zero);
-    textPainter.layout();
-    textPainter.paint(canvas, offset);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}
-
-class TeamPage extends StatelessWidget {
-  const TeamPage({
-    Key? key,
-  }) : super(key: key);
-
-  static const primaryCoders = <Person>[
-    Person(
-      'Gaëtan Schwartz',
-      role: 'Developer\nApp Concept/Design',
-      imageUrl: 'assets/profiles/gaetan2.png',
-      // websiteUrl: 'https://gaetanschwartz.com/#/',
-      email: 'gaetan.schwartz@gmail.com',
-      githubUrl: 'https://github.com/gaetschwartz',
-    ),
-    Person(
-      'Abin W.',
-      role: 'Testing, Icon design'
-          '\nand ❤ ',
-      imageUrl: 'assets/profiles/abin2.jpg',
-    ),
-  ];
-
-  static const secondaryCoders = <Person>[
-    Person(
-      'Vincent Tarrit',
-      role: 'Help',
-      imageUrl:
-          'https://i2.wp.com/www.tarrit.com/wp-content/uploads/2018/11/cropped-Vincent-Tarrit3petitblanc-2-1.jpg?w=512',
-      isAssets: false,
-    ),
-    Person(
-      'Alexandre S.',
-      role: 'Beta-tester',
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLoc.of(context).our_team),
-      ),
-      body: ListView(
-        children: [
-          Column(
-            children: primaryCoders.map((c) => _CoderTile(c)).toList(growable: false),
-          ),
-          ExpansionTile(
-            title: const Text('Helpers'),
-            children: secondaryCoders.map((c) => _CoderTile(c)).toList(growable: false),
-          ),
-          SizedBox(
-            width: double.infinity,
-            height: 64,
-            child: TextButton(
-              onPressed: () =>
-                  showLicensePage(context: context, applicationIcon: const FlutterLogo()),
-              child: const Text('View licenses'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CoderTile extends StatelessWidget {
-  const _CoderTile(
-    this.c, {
-    Key? key,
-  }) : super(key: key);
-
-  final Person c;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(c.name),
-      leading: SizedBox(
-        height: 48,
-        width: 48,
-        child: CircleAvatar(
-          backgroundImage: c.imageUrl == null
-              ? null
-              : c.isAssets
-                  ? AssetImage(c.imageUrl!) as ImageProvider
-                  : NetworkImage(c.imageUrl!),
-          child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user) : null,
-        ),
-      ),
-      subtitle: c.role == null ? null : Text(c.role!),
-      trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-        if (c.websiteUrl != null)
-          IconButton(
-              icon: const FaIcon(FontAwesomeIcons.paperclip),
-              onPressed: () => launch(c.websiteUrl!)),
-        if (c.githubUrl != null)
-          IconButton(
-              icon: const FaIcon(FontAwesomeIcons.github), onPressed: () => launch(c.githubUrl!)),
-        if (c.twitterUrl != null)
-          IconButton(
-              icon: const FaIcon(FontAwesomeIcons.twitter), onPressed: () => launch(c.twitterUrl!)),
-        if (c.email != null)
-          IconButton(
-              icon: const FaIcon(FontAwesomeIcons.envelope),
-              onPressed: () => launch('mailto:${c.email}')),
-      ]),
-      isThreeLine: true,
-    );
-  }
-}
-
-@immutable
-class Person {
-  const Person(
-    this.name, {
-    this.isAssets = true,
-    this.twitterUrl,
-    this.role,
-    this.imageUrl,
-    this.websiteUrl,
-    this.email,
-    this.githubUrl,
-  });
-
-  final String name;
-  final String? twitterUrl;
-  final String? role;
-  final String? imageUrl;
-  final String? websiteUrl;
-  final String? email;
-  final String? githubUrl;
-  final bool isAssets;
 }
 
 class _SectionTitle extends StatelessWidget {

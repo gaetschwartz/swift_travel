@@ -1,8 +1,14 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:theming/responsive.dart';
+
+Color primaryColor(BuildContext context) => Responsive.isDarwin(context)
+    ? CupertinoTheme.of(context).primaryColor
+    : Theme.of(context).accentColor;
 
 Color lighten(Color c) =>
     Color.fromARGB(c.alpha, c.red * 3 ~/ 4, c.green * 3 ~/ 4, c.blue * 3 ~/ 4);
