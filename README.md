@@ -40,6 +40,8 @@ If you want to contribute, fork the repository and create a pull-request with yo
 
 Here is a non-exhaustive list of things that could be improved with their respective subject.
 
+**Note: Before trying to contribute, I strongly recommend you try using the app for a few so you get a general understanding of its structure and general functionning.**
+
 ### 📱 UI
 * Improve widgets, opr application design. To navigate through the app files, the folder structure is similar to the app navigation structure.
   - Example:
@@ -54,13 +56,18 @@ Here is a non-exhaustive list of things that could be improved with their respec
 ### 🌍 Familiar with REST APIs ?
 * Add your contry's public transport API:
   * Read [ADDING-NEW-API.md](docs/ADDING-NEW-API.md)
+
+  #### Supported countries:
+
+- [x] 🇨🇭 Switzerland
+- [ ] 🇫🇷 France (40%)
 ### 👨🏼‍💻 General good programming knowledge
 * Improve the live-routing, mainly in the [`live-route` sub-package](dependencies/live_route/lib/live_route.dart).
 ### 🤖 Android 
 * Implement the skeleton of a homescreen widget on Android.
 
 ### 👨🏼‍🔬 Machine learning
-* Proposed or implement a new prediction model to predict new routes bassed on the history. See [here](lib/utils/predict/predict.dart).
+* Propose or implement a new prediction model to predict new routes bassed on the history. See [here](lib/utils/predict/predict.dart).
 
 # Contact me
 
