@@ -52,6 +52,13 @@ Here is a non-exhaustive list of things that could be improved with their respec
 ### 🏳 Foreign language knowledge
 * Add a new locale:
   * Read [ADDING-NEW-LOCALE.md](docs/ADDING-NEW-LOCALE.md)
+
+  #### Supported locales:
+  
+     - [x] 🇬🇧 English 
+     - [x] 🇫🇷 French
+     - [x] 🇩🇪 German
+     - [x] 🇮🇹 Italian (Probably innacurate) 
  
 ### 🌍 Familiar with REST APIs ?
 * Add your contry's public transport API:
@@ -59,8 +66,9 @@ Here is a non-exhaustive list of things that could be improved with their respec
 
   #### Supported countries:
 
-- [x] 🇨🇭 Switzerland
-- [ ] 🇫🇷 France (40%)
+     - [x] 🇨🇭 Switzerland
+     - [ ] 🇫🇷 France (40%)
+
 ### 👨🏼‍💻 General good programming knowledge
 * Improve the live-routing, mainly in the [`live-route` sub-package](dependencies/live_route/lib/live_route.dart).
 ### 🤖 Android 
