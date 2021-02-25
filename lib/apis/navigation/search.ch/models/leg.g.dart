@@ -138,4 +138,6 @@ const _$VehicleEnumMap = {
   Vehicle.ship: 'ship',
   Vehicle.str: 'str',
   Vehicle.metro: 'metro',
+  Vehicle.rer: 'rer',
+  Vehicle.unknown: 'unknown',
 };
