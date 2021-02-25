@@ -23,7 +23,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ElevatedButton(
                 onPressed: () {
@@ -74,6 +73,145 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
                 child: const Text('Widgets')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) {
+                        const scale = 128.0;
+                        return const BreatheWidget(scale: scale);
+                      },
+                    ),
+                  );
+                },
+                child: const Text('Breathe widget')),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BreatheWidget extends StatefulWidget {
+  const BreatheWidget({
+    Key? key,
+    required this.scale,
+  }) : super(key: key);
+
+  final double scale;
+
+  @override
+  _BreatheWidgetState createState() => _BreatheWidgetState();
+}
+
+class MyCurve extends Curve {
+  const MyCurve(this.thresh);
+  final double thresh;
+
+  @override
+  double transform(double t) => t < thresh ? 0 : Curves.easeInOutCubic.transform(t / thresh - 1);
+}
+
+class CurveCanvas extends CustomPainter {
+  final Curve curve;
+  final double t;
+
+  CurveCanvas(this.curve, this.t);
+
+  @override
+  void paint(ui.Canvas c, ui.Size size) {
+    const n = 20;
+    final points = [
+      for (var i = 0; i < n + 1; i++)
+        Offset(size.width * i / n, (1 - curve.transform(i / n)) * size.height)
+    ];
+    c.drawPoints(
+      ui.PointMode.polygon,
+      points,
+      Paint()..strokeWidth = 4,
+    );
+    c.drawCircle(Offset(size.width * t, (1 - curve.transform(t)) * size.height), 8,
+        Paint()..color = Colors.red);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
+class _BreatheWidgetState extends State<BreatheWidget> with SingleTickerProviderStateMixin {
+  late final AnimationController controller = AnimationController(vsync: this);
+  late final CurvedAnimation a;
+  static const curve = Curves.easeInOutCirc;
+
+  @override
+  void initState() {
+    super.initState();
+    repeatAnim();
+    a = CurvedAnimation(parent: controller, curve: curve);
+  }
+
+  void repeatAnim() {
+    controller.repeat(period: const Duration(milliseconds: 1000), reverse: true);
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    controller.stop();
+    repeatAnim();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: AnimatedBuilder(
+        animation: a,
+        builder: (context, _) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Center(
+                child: SizedBox.fromSize(
+                  size: Size.fromRadius(widget.scale),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.deepPurple.withOpacity(0.2),
+                          blurRadius: a.value * widget.scale,
+                        )
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(widget.scale / 2)),
+                      color: Colors.white,
+                      image: const DecorationImage(
+                        image: AssetImage('logo/swift.png', package: 'swift_travel'),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: CustomPaint(
+                      painter: CurveCanvas(curve, controller.value),
+                      willChange: true,
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -103,7 +241,7 @@ enum SizeType {
 class _EditorPageState extends State<EditorPage> {
   final globalKey = GlobalKey();
 
-  bool hasBackground = false;
+  bool hasBackground = true;
   SizeType sizeType = SizeType.custom;
 
   static const double scale = 1;
@@ -201,20 +339,21 @@ class _EditorPageState extends State<EditorPage> {
   }
 
   Future<void> screenshot() async {
-    final RenderRepaintBoundary? boundary =
-        globalKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
-    if (boundary == null) throw Exception();
+    final boundary = globalKey.currentContext?.findRenderObject()! as RenderRepaintBoundary;
+
     final ui.Image image = await boundary.toImage();
-    final directory = (await getApplicationDocumentsDirectory())!.path;
+    final directory = (await getApplicationDocumentsDirectory()).path;
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+
     final pngBytes = byteData!.buffer.asUint8List();
+
     final File imgFile = File(p.join(directory, filename));
-    imgFile.writeAsBytes(pngBytes);
+    await imgFile.writeAsBytes(pngBytes);
     log(imgFile.path);
   }
 
   String get filename =>
-      '${widget.name}${hasBackground ? '-bg' : ''}-${describeEnum(sizeType)}-$scale.png';
+      '${[widget.name, if (hasBackground) 'bg', describeEnum(sizeType), scale].join('-')}.png';
 }
 
 class WidgetsShowcase extends StatelessWidget {

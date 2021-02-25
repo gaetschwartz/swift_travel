@@ -5,6 +5,7 @@ mixin StationBoard {
   List<StationboardConnection> get connections;
   String get stopName;
   List<Object> get messages;
+  bool get hasError;
 }
 
 mixin BaseStop {

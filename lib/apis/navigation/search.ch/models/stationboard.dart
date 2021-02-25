@@ -9,7 +9,7 @@ part 'stationboard.g.dart';
 @freezed
 class SbbStationboard with _$SbbStationboard, StationBoard {
   const factory SbbStationboard({
-    @JsonKey(name: 'stop') required SbbStop sbbStop,
+    @Default(SbbStop('')) @JsonKey(name: 'stop') SbbStop sbbStop,
     @JsonKey(name: 'connections')
     @Default(<SbbStationboardConnection>[])
         List<SbbStationboardConnection> sbbConnections,
@@ -27,4 +27,7 @@ class SbbStationboard with _$SbbStationboard, StationBoard {
 
   @override
   String get stopName => sbbStop.name;
+
+  @override
+  bool get hasError => messages.isNotEmpty;
 }

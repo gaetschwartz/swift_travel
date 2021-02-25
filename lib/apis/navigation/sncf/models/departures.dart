@@ -31,6 +31,9 @@ class SncfStationboard with _$SncfStationboard, StationBoard {
 
   @override
   String get stopName => throw UnimplementedError();
+
+  @override
+  bool get hasError => error != null;
 }
 
 @freezed

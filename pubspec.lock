@@ -28,7 +28,7 @@ packages:
       name: animations
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety.0"
+    version: "2.0.0"
   archive:
     dependency: transitive
     description:
@@ -353,7 +353,7 @@ packages:
     description:
       path: "packages/freezed"
       ref: HEAD
-      resolved-ref: "5ef3a31a855f8caff7117079ae601aa3a3241bbb"
+      resolved-ref: "7295bb60c41d8d1724dced0869150f0dc38b1a8f"
       url: "https://github.com/gaetschwartz/freezed-1"
     source: git
     version: "0.14.0-nullsafety.0"
@@ -459,7 +459,7 @@ packages:
       name: io
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.4"
+    version: "0.3.5"
   js:
     dependency: transitive
     description:
@@ -655,7 +655,7 @@ packages:
       name: quick_actions
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.0-nullsafety"
+    version: "0.5.0"
   riverpod:
     dependency: transitive
     description:
@@ -884,7 +884,7 @@ packages:
       name: url_strategy
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0-nullsafety.0"
+    version: "0.2.0"
   vector_math:
     dependency: transitive
     description:
