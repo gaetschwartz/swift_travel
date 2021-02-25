@@ -5,47 +5,73 @@
 
 This is an open-source public transport app packed with cool features 😎
 
-## How to get it
+## Try it out
 
 | Tables        | Are           |
 | ------------- |:-------------:|
-| 🍎 iOS           | [Testflight](https://testflight.apple.com/join/iWSWTkMj) |
-| 🤖 Android       | [Download the latest release](https://github.com/gaetschwartz/swift_travel/releases/latest)      |
-| 🌐 Web | [Web version](https://travel.gaetanschwartz.com)      |
+| 🍎 iOS           | [Get on Testflight](https://testflight.apple.com/join/iWSWTkMj) |
+| 🤖 Android       | [Download the latest APK](https://github.com/gaetschwartz/swift_travel/releases/latest)      |
+| 🌐 Web (BETA) | [Try the Web version](https://travel.gaetanschwartz.com)      |
 
 
 ## Features 
 
-⭐ A beautiful route search and view
+### 🛣 A beautiful route search and view.
 
-<img src="docs/assets/pictures/itinerary_search.png" width="200px" alt="Itinerary search"> <img src="docs/assets/pictures/itinerary.png" width="200px" alt="Itinerary">
+### 📃 A simple but powerfull timetable.
 
-⭐ A timetable
+### 🤖 AI-powered smart suggestions.
 
-<img src="docs/assets/pictures/timetable.png" width="200px" alt="Timetable"> <img src="docs/assets/pictures/timetable_view.png" width="200px" alt="Itinerary view"> 
+### ♾ Open-source, add your own country to the app!
 
-🤖 AI-powered smart suggestions
+### [ 📷 See screenshots here](#screenshots)
 
-<img src="docs/assets/pictures/sugg1.png" width="200px" alt="Suggestion"> <img src="docs/assets/pictures/sugg_search.png" width="200px" alt="Suggestion in search bar"> 
+# Contributing 
 
-# Documentation
-
-## Contributing 
-
-### Guidelines
+## Guidelines
 
 If you want to contribute, fork the repository and create a pull-request with your new feature, and make sure to:
  - Describe it well
  - Include **necessary tests**
  - Follow the coding style
 
-### 🌍 Adding support for a new country
 
- - Read [ADDING-NEW-API.md](docs/ADDING-NEW-API.md)
+## I want to contribute but I don't know how
 
-### 🏳 Adding support for a new language
+Here is a non-exhaustive list of things that could be improved with their respective subject.
 
-1. Create a new file named `intl_you_locale_code.arb` i.e `intl_de.arb` for German in `lib/l10n/`
-2. Copy the content of the `intl_en.arb` to your newly create file and make sure to modify the `@@locale` field to the appropriate language.
-3. Translate each field.
+### 📱 UI
+* Improve widgets, opr application design. To navigate through the app files, the folder structure is similar to the app navigation structure.
+  - Example:
+    * The widget that displays different routes in the route tab: `lib/tabs/routes/route_tile.dart`
+    * The `pages` folder is for individual pages or pages not directly related to one of the 3 main tabs.
+
+
+### 🏳 Foreign language knowledge
+* Add a new locale:
+  * Read [ADDING-NEW-LOCALE.md](docs/ADDING-NEW-LOCALE.md)
+ 
+### 🌍 Familiar with REST APIs ?
+* Add your contry's public transport API:
+  * Read [ADDING-NEW-API.md](docs/ADDING-NEW-API.md)
+### 👨🏼‍💻 General good programming knowledge
+* Improve the live-routing, mainly in the [`live-route` sub-package](dependencies/live_route/lib/live_route.dart).
+### 🤖 Android 
+* Implement the skeleton of a homescreen widget on Android.
+
+### 👨🏼‍🔬 Machine learning
+* Proposed or implement a new prediction model to predict new routes bassed on the history. See [here](lib/utils/predict/predict.dart).
+
+# Contact me
+
+If you have any question, contact me on Twitter [@gaetschwartz](https://twitter.com/gaetschwartz) 😊
+
+
+# Screenshots
+
+ <img src="docs/assets/pictures/itinerary_search.png" width="200px" alt="Itinerary search"> <img src="docs/assets/pictures/itinerary.png" width="200px" alt="Itinerary">
+
+<img src="docs/assets/pictures/timetable.png" width="200px" alt="Timetable"> <img src="docs/assets/pictures/timetable_view.png" width="200px" alt="Itinerary view"> 
+
+<img src="docs/assets/pictures/sugg1.png" width="200px" alt="Suggestion"> <img src="docs/assets/pictures/sugg_search.png" width="200px" alt="Suggestion in search bar"> 
 
