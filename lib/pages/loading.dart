@@ -12,11 +12,11 @@ import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/db/cache.dart';
 import 'package:swift_travel/db/history.dart';
+import 'package:swift_travel/db/preferences.dart';
+import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/logic/links.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/logic/preferences.dart';
 import 'package:swift_travel/logic/quick_actions.dart';
-import 'package:swift_travel/logic/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
@@ -132,7 +132,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     try {
       await DynamicTheme.of(context).configure(themeConfiguration);
       await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
-      await context.read(storeProvider).loadFromPreferences(prefs: prefs);
+      await context.read(storeProvider).init(prefs: prefs);
     } on Exception catch (e, s) {
       reportDartError(e, s, library: 'loading', reason: 'while loading');
       final delete = await confirm(

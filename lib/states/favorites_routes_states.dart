@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/models/state_models.dart';
+import 'package:swift_travel/models/favorites.dart';
 
 part 'favorites_routes_states.freezed.dart';
 

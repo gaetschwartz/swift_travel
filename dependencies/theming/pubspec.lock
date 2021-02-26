@@ -224,7 +224,7 @@ packages:
     description:
       path: "packages/freezed"
       ref: HEAD
-      resolved-ref: "7295bb60c41d8d1724dced0869150f0dc38b1a8f"
+      resolved-ref: e5ba4ca472e30e1b42f6ed4a6cc3b7a438f3c8ec
       url: "https://github.com/gaetschwartz/freezed-1"
     source: git
     version: "0.14.0-nullsafety.0"
@@ -444,7 +444,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -512,7 +512,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:
@@ -617,7 +617,7 @@ packages:
       name: yaml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
   flutter: ">=1.20.0"

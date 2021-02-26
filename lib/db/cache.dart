@@ -9,9 +9,7 @@ import 'db.dart';
 
 class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDatabaseMixin {
   @visibleForTesting
-  factory LineCache() => LineCache._();
-
-  LineCache._()
+  LineCache()
       : super(
           boxKey: 'line_cache',
           maxSize: 250,
@@ -19,12 +17,12 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
           encoder: (d) => d.toJson(),
         );
 
-  static late final i = LineCache._();
+  static late final i = LineCache();
 
   List<LineCacheEntry> get entries => values.toList(growable: false);
 
   @override
-  Future<void> clean() async {
+  Future<void> onDatabaseExceededMaxSize() async {
     if (kDebugMode) {
       log('Total size exceeded max size, cleaning');
     }
@@ -32,8 +30,8 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
   }
 
   @override
-  Future<void> open({String? path}) async {
-    await super.open(path: path);
+  Future<void> open({String? path, bool doLog = true}) async {
+    await super.open(path: path, doLog: doLog);
     await deleteOutdatedEntries();
   }
 

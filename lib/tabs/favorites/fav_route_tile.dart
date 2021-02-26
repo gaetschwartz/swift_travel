@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
-import 'package:swift_travel/logic/store.dart';
-import 'package:swift_travel/models/state_models.dart';
+import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/route_widget.dart';
@@ -52,9 +52,8 @@ class FavoriteRouteTile extends StatelessWidget {
     if (s == null) {
       return;
     }
-    final store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
-    await store.editRoutes(
-        (routes) => routes.map((r) => r == route ? route.copyWith(displayName: s) : r).toSet());
+    final store = context.read(storeProvider);
+    await store.editRoute(route, route.copyWith(displayName: s));
     return;
   }
 

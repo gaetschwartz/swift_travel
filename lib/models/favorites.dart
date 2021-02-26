@@ -5,8 +5,8 @@ import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 
-part 'state_models.freezed.dart';
-part 'state_models.g.dart';
+part 'favorites.freezed.dart';
+part 'favorites.g.dart';
 
 @freezed
 class LocalRoute with _$LocalRoute {

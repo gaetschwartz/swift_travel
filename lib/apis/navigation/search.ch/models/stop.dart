@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/models/state_models.dart';
+import 'package:swift_travel/models/favorites.dart';
 
 part 'stop.freezed.dart';
 part 'stop.g.dart';

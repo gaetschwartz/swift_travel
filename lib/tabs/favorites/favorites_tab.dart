@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:swift_travel/db/preferences.dart';
+import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/logic/preferences.dart';
-import 'package:swift_travel/logic/store.dart';
-import 'package:swift_travel/models/state_models.dart';
+import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/stop_input.dart';
@@ -33,7 +33,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
   @override
   bool get wantKeepAlive => true;
 
-  late final FavoritesStoreBase store = context.read(storeProvider);
+  late final BaseFavoritesStore store = context.read(storeProvider);
   bool isDarwin = false;
 
   @override

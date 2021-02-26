@@ -33,7 +33,7 @@ import 'package:theming/responsive.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'l10n/app_localizations.dart';
-import 'models/state_models.dart';
+import 'models/favorites.dart';
 import 'pages/settings/team_page.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();

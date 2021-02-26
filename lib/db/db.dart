@@ -7,8 +7,23 @@ import 'package:meta/meta.dart';
 typedef DataConverter<R, S> = S Function(R data);
 
 abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TValue extends Object> {
-  LocalDatabase(
-      {required this.encoder, required this.decoder, required this.boxKey, required this.maxSize});
+  LocalDatabase({
+    required this.encoder,
+    required this.decoder,
+    required this.boxKey,
+    required this.maxSize,
+  }) {
+    assert(() {
+      if (_ids[boxKey] == null) {
+        _ids[boxKey] = runtimeType;
+        return true;
+      } else {
+        return _ids[boxKey] == runtimeType;
+      }
+    }(), 'The key `$boxKey` is already associated with a different database ${_ids[boxKey]}');
+  }
+
+  static final _ids = <String, Type>{};
 
   final String boxKey;
   final int maxSize;
@@ -35,14 +50,17 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
   Future<int> clear() => box.clear();
 
   @mustCallSuper
-  Future<void> open({String? path}) async {
+  Future<void> open({String? path, bool doLog = true}) async {
     assert(() {
       _debugInitialized = true;
       return true;
     }(), '');
     _box = await Hive.openBox<TEncValue>(boxKey, path: path);
-    if (kDebugMode) {
-      print('Opened $this at ${box.path}');
+    if (doLog) {
+      assert(() {
+        print('Opened $this at ${box.path}');
+        return true;
+      }(), '');
     }
   }
 
@@ -59,11 +77,11 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
   ///
   /// Default behavior for `IndexedDatabaseMixin` is to delete the first `10` keys.
   /// Override this method to change its behavior.
-  FutureOr<void> clean();
+  FutureOr<void> onDatabaseExceededMaxSize();
 
   Future<void> put(TKey key, TValue value) async {
     if (box.length >= maxSize) {
-      await clean();
+      await onDatabaseExceededMaxSize();
     }
 
     final map = encoder(value);
@@ -75,6 +93,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
   TValue get first => values.first;
   Iterable<TKey> get keys => box.keys.cast<TKey>();
   Future<void> deleteAll(Iterable<TKey?> keys) => box.deleteAll(keys);
+  Future<void> delete(TKey key) => box.delete(key);
 
   bool containsKey(TKey key) => box.containsKey(formatKey(key));
 
@@ -117,12 +136,16 @@ mixin IndexedDatabaseMixin<TEncValue extends Object, TValue extends Object>
 
   Future<int> add(TValue data) async {
     if (box.length >= maxSize) {
-      await clean();
+      await onDatabaseExceededMaxSize();
     }
     final map = encoder(data);
     return box.add(map);
   }
 
+  Future<void> hashAdd(TValue data) => put(data.hashCode, data);
+  Future<void> hashDelete(TValue data) => delete(data.hashCode);
+
   @override
-  FutureOr<void> clean() async => await box.deleteAll(<int>[for (var i = 0; i < 10; i++) i]);
+  FutureOr<void> onDatabaseExceededMaxSize() async =>
+      await box.deleteAll(<int>[for (var i = 0; i < 10; i++) i]);
 }
