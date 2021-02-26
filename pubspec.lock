@@ -400,10 +400,12 @@ packages:
   google_fonts:
     dependency: "direct main"
     description:
-      name: google_fonts
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0-nullsafety.0"
+      path: "."
+      ref: HEAD
+      resolved-ref: "8deb4dc0fdbfbc65ca1776c4a6c0fd0feabdedf4"
+      url: "https://github.com/gaetschwartz/google-fonts-flutter"
+    source: git
+    version: "2.0.0-nullsafety.1"
   graphs:
     dependency: transitive
     description:
