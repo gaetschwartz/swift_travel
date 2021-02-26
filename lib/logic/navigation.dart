@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 
-import 'preferences.dart';
+import '../db/preferences.dart';
 
 final navigationAPIProvider = Provider<BaseNavigationApi>((ref) {
   final prefs = ref.watch(preferencesProvider);

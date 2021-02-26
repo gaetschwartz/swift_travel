@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/logic/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
@@ -293,7 +293,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   }
 
   Future<void> fetch(String query) async {
-    final favorites = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    final favorites = context.read(storeProvider);
     try {
       final compls = await context.read(navigationAPIProvider).complete(query);
 

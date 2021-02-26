@@ -2,7 +2,7 @@ import 'dart:math' show min;
 
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
-import 'package:swift_travel/models/state_models.dart';
+import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
 const _kConfidenceThreshold = .9;

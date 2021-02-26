@@ -9,6 +9,7 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/db/history.dart';
+import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/links.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -42,6 +43,11 @@ void main() {
 
     tearDown(() async {
       await Hive.deleteBoxFromDisk(RouteHistoryRepository.i.boxKey);
+    });
+
+    setUp(() async {
+      await FavRoutesDb.i.open();
+      await FavStopsDb.i.open();
     });
 
     _testRouteTab();

@@ -8,9 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/db/history.dart';
+import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/logic/store.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
@@ -97,7 +97,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final debouncer = Debouncer();
 
-  late FavoritesSharedPreferencesStore store;
+  late BaseFavoritesStore store;
   late BaseNavigationApi api;
   late String currentLocation;
   final hist = RouteHistoryRepository.i;
@@ -120,7 +120,7 @@ class _SearchPageState extends State<SearchPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     api = context.read(navigationAPIProvider);
-    store = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    store = context.read(storeProvider);
     currentLocation = AppLoc.of(context).current_location;
   }
 

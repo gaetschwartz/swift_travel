@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:swift_travel/models/state_models.dart';
+import 'package:swift_travel/models/favorites.dart';
 
 import 'db.dart';
 
 class RouteHistoryRepository extends LocalDatabase<int, Map, LocalRoute> with IndexedDatabaseMixin {
   @visibleForTesting
-  factory RouteHistoryRepository() => RouteHistoryRepository._();
-
-  RouteHistoryRepository._()
+  RouteHistoryRepository()
       : super(
           boxKey: 'route_history',
           maxSize: 250,
@@ -15,7 +13,7 @@ class RouteHistoryRepository extends LocalDatabase<int, Map, LocalRoute> with In
           encoder: (d) => d.toJson(),
         );
 
-  static late final i = RouteHistoryRepository._();
+  static late final i = RouteHistoryRepository();
 
   List<LocalRoute> get history => values.toList(growable: false);
 }

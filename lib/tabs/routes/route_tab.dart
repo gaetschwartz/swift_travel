@@ -17,13 +17,13 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/db/history.dart';
+import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/logic/store.dart';
 import 'package:swift_travel/mocking/mocking.dart';
-import 'package:swift_travel/models/state_models.dart';
+import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search.dart';
 import 'package:swift_travel/states/route_states.dart';
@@ -212,7 +212,7 @@ class _RoutePageState extends State<RoutePage> {
 
   late MyTextFormatter fromFormatter;
   late MyTextFormatter toFormatter;
-  late FavoritesSharedPreferencesStore favorites;
+  late BaseFavoritesStore favorites;
   late BaseNavigationApi api;
   final historyRepository = RouteHistoryRepository.i;
 
@@ -242,7 +242,7 @@ class _RoutePageState extends State<RoutePage> {
         AppLoc.of(context).current_location, from, context.read(fromTextfieldProvider));
     toFormatter = MyTextFormatter(
         AppLoc.of(context).current_location, to, context.read(fromTextfieldProvider));
-    favorites = context.read(storeProvider) as FavoritesSharedPreferencesStore;
+    favorites = context.read(storeProvider);
     api = context.read(navigationAPIProvider);
     from.syncState(context);
     to.syncState(context);
@@ -377,7 +377,7 @@ class _RoutePageState extends State<RoutePage> {
                               .showSnackBar(const SnackBar(content: Text('Route starred !')));
                         },
                         icon: Consumer(builder: (context, w, _) {
-                          final _store = w(storeProvider) as FavoritesSharedPreferencesStore;
+                          final _store = w(storeProvider);
                           w(routeStatesProvider);
 
                           return _store.routes.any((lr) => lr.from == from.text && lr.to == to.text)
@@ -714,7 +714,7 @@ class _RoutePageState extends State<RoutePage> {
     properties.add(DiagnosticsProperty<FocusNode>('fnTo', fnTo));
     properties.add(DiagnosticsProperty<MyTextFormatter?>('fromFormatter', fromFormatter));
     properties.add(DiagnosticsProperty<MyTextFormatter?>('toFormatter', toFormatter));
-    properties.add(DiagnosticsProperty<FavoritesSharedPreferencesStore>('favorites', favorites));
+    properties.add(DiagnosticsProperty<BaseFavoritesStore>('favorites', favorites));
     properties.add(DiagnosticsProperty<BaseNavigationApi>('api', api));
     properties
         .add(DiagnosticsProperty<RouteHistoryRepository>('historyRepository', historyRepository));

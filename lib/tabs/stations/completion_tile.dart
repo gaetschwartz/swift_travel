@@ -9,11 +9,11 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/db/cache.dart';
 import 'package:swift_travel/db/models/cache.dart';
+import 'package:swift_travel/db/preferences.dart';
+import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/logic/preferences.dart';
-import 'package:swift_travel/logic/store.dart';
-import 'package:swift_travel/models/state_models.dart';
+import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
@@ -40,7 +40,7 @@ class CompletionTile extends ConsumerWidget {
   Widget build(BuildContext context, Reader watch) {
     final iconClass = sugg.getIcon();
     final isPrivate = CffIcon.isPrivate(sugg.type);
-    final store = watch(storeProvider) as FavoritesSharedPreferencesStore;
+    final store = watch(storeProvider);
     final favStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
     final isFav = sugg.favoriteName != null;
     final isFavInStore = favStop != null;
@@ -116,7 +116,7 @@ class CompletionTile extends ConsumerWidget {
     BuildContext context, {
     required bool isFav,
     required FavoriteStop? favoriteStop,
-    required FavoritesSharedPreferencesStore store,
+    required BaseFavoritesStore store,
   }) async {
     FocusManager.instance.primaryFocus?.unfocus();
     unawaited(Vibration.select());
@@ -145,7 +145,7 @@ class CompletionTile extends ConsumerWidget {
     switch (c) {
       case _Actions.favorite:
         if (isFav) {
-          await store.removeStop(favoriteStop);
+          await store.removeStop(favoriteStop!);
         } else {
           final name = await input(context, title: const Text('What is the name of this stop'));
           if (name == null) {
