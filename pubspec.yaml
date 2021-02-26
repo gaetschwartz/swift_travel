@@ -67,6 +67,8 @@ dependency_overrides:
     git:
       url: https://github.com/gaetschwartz/freezed-1
       path: packages/freezed
+  google_fonts:
+    git: https://github.com/gaetschwartz/google-fonts-flutter
 
 flutter:
   uses-material-design: true
