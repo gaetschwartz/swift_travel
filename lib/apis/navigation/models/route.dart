@@ -1,3 +1,4 @@
+import 'package:swift_travel/apis/data.sbb.ch/models/sbb_models.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
 import 'stationboard.dart';
@@ -41,10 +42,10 @@ mixin Leg {
   DateTime? get arrival;
   int get waitTime;
   bool get isaddress;
+  Map<String, String> get attributes;
   double? get lat;
   double? get lon;
-  Map<String, String> get attributes;
-  Leg get withPosition;
+  LatLon? get position;
 
   Leg copyWithLatLon({required double lat, required double lon});
 }
@@ -60,5 +61,6 @@ mixin Exit {
   String? get track;
   int get waittime;
   bool get isaddress;
-  Exit get withPosition;
+
+  LatLon? get position;
 }

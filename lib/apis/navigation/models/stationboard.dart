@@ -1,3 +1,4 @@
+import 'package:swift_travel/apis/data.sbb.ch/models/sbb_models.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
 mixin StationBoard {
@@ -19,7 +20,7 @@ mixin Stop {
   DateTime? get departure;
   double? get lat;
   double? get lon;
-  Stop get withPosition;
+  LatLon? get position;
 }
 
 mixin StationboardConnection {

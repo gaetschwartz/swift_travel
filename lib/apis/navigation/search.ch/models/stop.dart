@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swift_travel/apis/data.sbb.ch/models/sbb_models.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/arithmetic.dart';
@@ -29,11 +30,15 @@ class SbbStop with _$SbbStop, Stop {
   factory SbbStop.fromJson(Map<String, dynamic> json) => _$SbbStopFromJson(json);
 
   @override
-  SbbStop get withPosition {
-    if (lat == null && lon == null && x != null && y != null) {
-      final o = LV03ToWGS84Converter().convert(Pair(x!, y!));
-      return copyWith(lat: o.first, lon: o.second);
+  LatLon? get position {
+    if (lat != null && lon != null) {
+      return LatLon(lat!, lon!);
     }
-    return this;
+    if (x != null && y != null) {
+      final o = lv03ToWGS84Converter.convert(Pair(x!, y!));
+      return LatLon(o.first, o.second);
+    }
+
+    return null;
   }
 }

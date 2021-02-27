@@ -43,17 +43,17 @@ class SbbDataRepository {
     }
   }
 
-  Future<LatLong?> getPosition(String name) async {
+  Future<LatLon?> getPosition(String name) async {
     final split = name.split(',');
     for (var i = split.length; i >= 0; i--) {
       final n = split.sublist(i).join();
       final pos = await _getGeo(n);
       if (pos.results.isNotEmpty) {
-        return LatLong.fromGeoAttr(pos.results.first.attrs!);
+        return LatLon.fromGeoAttr(pos.results.first.attrs!);
       }
       final pos2 = await _getSbb(n);
       if (pos2.records!.isNotEmpty) {
-        return LatLong.fromCoordinates(pos2.records!.first.geometry!.coordinates!);
+        return LatLon.fromCoordinates(pos2.records!.first.geometry!.coordinates!);
       }
     }
     return null;

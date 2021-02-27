@@ -80,16 +80,18 @@ class WalkingTile extends StatelessWidget {
   static const _google = 'https://maps.google.com/maps';
 
   Future<void> openRoute(BuildContext context) async {
-    log(l.toString());
+    if (l.exit == null) {
+      return;
+    }
 
+    log(l.toString());
     // We should convert LV03 leg.x, leg.y to WGY84 because Switzerland is ✨edgy✨
     // http://geodesy.geo.admin.ch/reframe/lv03towgs84?easting=499692&northing=119844
-    final leg = l.withPosition;
-    final exit = l.exit!.withPosition;
+    final legPos = l.position;
+    final exitPos = l.exit!.position;
 
-    final departure =
-        leg.lat != null && leg.lon != null ? '${leg.lat}, ${leg.lon}' : leg.name.split('@').first;
-    final arrival = exit.lat != null && exit.lon != null ? '${exit.lat}, ${exit.lon}' : exit.name;
+    final departure = legPos != null ? legPos.toString() : l.name.split('@').first;
+    final arrival = exitPos != null ? exitPos.toString() : l.exit!.name;
     log('($departure) => ($arrival)');
 
     final suffix =

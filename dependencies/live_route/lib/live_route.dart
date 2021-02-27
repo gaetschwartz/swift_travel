@@ -296,7 +296,7 @@ class LiveRouteController extends ChangeNotifier {
       } else {
         return leg.copyWithLatLon(
           lat: pos.lat,
-          lon: pos.long,
+          lon: pos.lon,
         );
       }
     }
