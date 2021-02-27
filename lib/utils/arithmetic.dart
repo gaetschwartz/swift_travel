@@ -3,6 +3,8 @@ import 'dart:math' as math;
 
 import 'package:swift_travel/utils/predict/predict.dart';
 
+final lv03ToWGS84Converter = LV03ToWGS84Converter();
+
 class LV03ToWGS84Converter extends Converter<Pair<int, int>, Pair<double, double>> {
   @override
   Pair<double, double> convert(Pair<int, int> input) {

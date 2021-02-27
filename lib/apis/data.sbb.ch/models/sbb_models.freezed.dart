@@ -12,91 +12,91 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-LatLong _$LatLongFromJson(Map<String, dynamic> json) {
-  return _LatLong.fromJson(json);
+LatLon _$LatLonFromJson(Map<String, dynamic> json) {
+  return _LatLon.fromJson(json);
 }
 
 /// @nodoc
-class _$LatLongTearOff {
-  const _$LatLongTearOff();
+class _$LatLonTearOff {
+  const _$LatLonTearOff();
 
-  _LatLong call(double lat, double long) {
-    return _LatLong(
+  _LatLon call(double lat, double lon) {
+    return _LatLon(
       lat,
-      long,
+      lon,
     );
   }
 
-  LatLong fromJson(Map<String, Object> json) {
-    return LatLong.fromJson(json);
+  LatLon fromJson(Map<String, Object> json) {
+    return LatLon.fromJson(json);
   }
 }
 
 /// @nodoc
-const $LatLong = _$LatLongTearOff();
+const $LatLon = _$LatLonTearOff();
 
 /// @nodoc
-mixin _$LatLong {
+mixin _$LatLon {
   double get lat => throw _privateConstructorUsedError;
-  double get long => throw _privateConstructorUsedError;
+  double get lon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LatLongCopyWith<LatLong> get copyWith => throw _privateConstructorUsedError;
+  $LatLonCopyWith<LatLon> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LatLongCopyWith<$Res> {
-  factory $LatLongCopyWith(LatLong value, $Res Function(LatLong) then) =
-      _$LatLongCopyWithImpl<$Res>;
-  $Res call({double lat, double long});
+abstract class $LatLonCopyWith<$Res> {
+  factory $LatLonCopyWith(LatLon value, $Res Function(LatLon) then) =
+      _$LatLonCopyWithImpl<$Res>;
+  $Res call({double lat, double lon});
 }
 
 /// @nodoc
-class _$LatLongCopyWithImpl<$Res> implements $LatLongCopyWith<$Res> {
-  _$LatLongCopyWithImpl(this._value, this._then);
+class _$LatLonCopyWithImpl<$Res> implements $LatLonCopyWith<$Res> {
+  _$LatLonCopyWithImpl(this._value, this._then);
 
-  final LatLong _value;
+  final LatLon _value;
   // ignore: unused_field
-  final $Res Function(LatLong) _then;
+  final $Res Function(LatLon) _then;
 
   @override
   $Res call({
     Object? lat = freezed,
-    Object? long = freezed,
+    Object? lon = freezed,
   }) {
     return _then(_value.copyWith(
       lat: lat == freezed ? _value.lat : lat as double,
-      long: long == freezed ? _value.long : long as double,
+      lon: lon == freezed ? _value.lon : lon as double,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$LatLongCopyWith<$Res> implements $LatLongCopyWith<$Res> {
-  factory _$LatLongCopyWith(_LatLong value, $Res Function(_LatLong) then) =
-      __$LatLongCopyWithImpl<$Res>;
+abstract class _$LatLonCopyWith<$Res> implements $LatLonCopyWith<$Res> {
+  factory _$LatLonCopyWith(_LatLon value, $Res Function(_LatLon) then) =
+      __$LatLonCopyWithImpl<$Res>;
   @override
-  $Res call({double lat, double long});
+  $Res call({double lat, double lon});
 }
 
 /// @nodoc
-class __$LatLongCopyWithImpl<$Res> extends _$LatLongCopyWithImpl<$Res>
-    implements _$LatLongCopyWith<$Res> {
-  __$LatLongCopyWithImpl(_LatLong _value, $Res Function(_LatLong) _then)
-      : super(_value, (v) => _then(v as _LatLong));
+class __$LatLonCopyWithImpl<$Res> extends _$LatLonCopyWithImpl<$Res>
+    implements _$LatLonCopyWith<$Res> {
+  __$LatLonCopyWithImpl(_LatLon _value, $Res Function(_LatLon) _then)
+      : super(_value, (v) => _then(v as _LatLon));
 
   @override
-  _LatLong get _value => super._value as _LatLong;
+  _LatLon get _value => super._value as _LatLon;
 
   @override
   $Res call({
     Object? lat = freezed,
-    Object? long = freezed,
+    Object? lon = freezed,
   }) {
-    return _then(_LatLong(
+    return _then(_LatLon(
       lat == freezed ? _value.lat : lat as double,
-      long == freezed ? _value.long : long as double,
+      lon == freezed ? _value.lon : lon as double,
     ));
   }
 }
@@ -104,62 +104,61 @@ class __$LatLongCopyWithImpl<$Res> extends _$LatLongCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_LatLong implements _LatLong {
-  const _$_LatLong(this.lat, this.long);
+class _$_LatLon implements _LatLon {
+  const _$_LatLon(this.lat, this.lon);
 
-  factory _$_LatLong.fromJson(Map<String, dynamic> json) =>
-      _$_$_LatLongFromJson(json);
+  factory _$_LatLon.fromJson(Map<String, dynamic> json) =>
+      _$_$_LatLonFromJson(json);
 
   @override
   final double lat;
   @override
-  final double long;
+  final double lon;
 
   @override
   String toString() {
-    return 'LatLong(lat: $lat, long: $long)';
+    return 'LatLon(lat: $lat, lon: $lon)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _LatLong &&
+        (other is _LatLon &&
             (identical(other.lat, lat) ||
                 const DeepCollectionEquality().equals(other.lat, lat)) &&
-            (identical(other.long, long) ||
-                const DeepCollectionEquality().equals(other.long, long)));
+            (identical(other.lon, lon) ||
+                const DeepCollectionEquality().equals(other.lon, lon)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(lat) ^
-      const DeepCollectionEquality().hash(long);
+      const DeepCollectionEquality().hash(lon);
 
   @JsonKey(ignore: true)
   @override
-  _$LatLongCopyWith<_LatLong> get copyWith =>
-      __$LatLongCopyWithImpl<_LatLong>(this, _$identity);
+  _$LatLonCopyWith<_LatLon> get copyWith =>
+      __$LatLonCopyWithImpl<_LatLon>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LatLongToJson(this);
+    return _$_$_LatLonToJson(this);
   }
 }
 
-abstract class _LatLong implements LatLong {
-  const factory _LatLong(double lat, double long) = _$_LatLong;
+abstract class _LatLon implements LatLon {
+  const factory _LatLon(double lat, double lon) = _$_LatLon;
 
-  factory _LatLong.fromJson(Map<String, dynamic> json) = _$_LatLong.fromJson;
+  factory _LatLon.fromJson(Map<String, dynamic> json) = _$_LatLon.fromJson;
 
   @override
   double get lat => throw _privateConstructorUsedError;
   @override
-  double get long => throw _privateConstructorUsedError;
+  double get lon => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LatLongCopyWith<_LatLong> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$LatLonCopyWith<_LatLon> get copyWith => throw _privateConstructorUsedError;
 }
 
 SbbStationResponse _$SbbStationResponseFromJson(Map<String, dynamic> json) {

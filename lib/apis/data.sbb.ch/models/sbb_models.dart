@@ -7,16 +7,16 @@ part 'sbb_models.freezed.dart';
 part 'sbb_models.g.dart';
 
 @freezed
-class LatLong with _$LatLong {
-  const factory LatLong(
+class LatLon with _$LatLon {
+  const factory LatLon(
     double lat,
-    double long,
-  ) = _LatLong;
+    double lon,
+  ) = _LatLon;
 
-  factory LatLong.fromGeoAttr(GeoAttr geoAttr) => _LatLong(geoAttr.lat!, geoAttr.lon!);
-  factory LatLong.fromCoordinates(List<double> coords) => _LatLong(coords[0], coords[1]);
+  factory LatLon.fromGeoAttr(GeoAttr geoAttr) => _LatLon(geoAttr.lat!, geoAttr.lon!);
+  factory LatLon.fromCoordinates(List<double> coords) => _LatLon(coords[0], coords[1]);
 
-  factory LatLong.fromJson(Map<String, dynamic> json) => _$LatLongFromJson(json);
+  factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
 }
 
 @freezed

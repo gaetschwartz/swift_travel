@@ -78,6 +78,18 @@ class Pair<R, S> {
 
   @override
   String toString() => 'Pair<$R, $S>($first, $second)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is Pair<R, S> && other.first == first && other.second == second;
+  }
+
+  @override
+  int get hashCode => first.hashCode ^ second.hashCode;
 }
 
 @immutable

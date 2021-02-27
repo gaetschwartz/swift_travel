@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swift_travel/apis/data.sbb.ch/models/sbb_models.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
@@ -57,11 +58,15 @@ class SbbLeg with _$SbbLeg, Leg {
   Leg copyWithLatLon({required double lat, required double lon}) => copyWith(lat: lat, lon: lon);
 
   @override
-  Leg get withPosition {
-    if (lat == null && lon == null && x != null && y != null) {
-      final o = LV03ToWGS84Converter().convert(Pair(x!, y!));
-      return copyWith(lat: o.first, lon: o.second);
+  LatLon? get position {
+    if (lat != null && lon != null) {
+      return LatLon(lat!, lon!);
     }
-    return this;
+    if (x != null && y != null) {
+      final o = lv03ToWGS84Converter.convert(Pair(x!, y!));
+      return LatLon(o.first, o.second);
+    }
+
+    return null;
   }
 }
