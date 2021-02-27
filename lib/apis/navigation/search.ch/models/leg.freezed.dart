@@ -47,6 +47,8 @@ class _$SbbLegTearOff {
       bool isaddress = false,
       double? lat,
       double? lon,
+      int? x,
+      int? y,
       Map<String, String> attributes = const <String, String>{}}) {
     return _SbbLeg(
       name: name,
@@ -71,6 +73,8 @@ class _$SbbLegTearOff {
       isaddress: isaddress,
       lat: lat,
       lon: lon,
+      x: x,
+      y: y,
       attributes: attributes,
     );
   }
@@ -111,6 +115,8 @@ mixin _$SbbLeg {
   bool get isaddress => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get lon => throw _privateConstructorUsedError;
+  int? get x => throw _privateConstructorUsedError;
+  int? get y => throw _privateConstructorUsedError;
   Map<String, String> get attributes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -149,6 +155,8 @@ abstract class $SbbLegCopyWith<$Res> {
       bool isaddress,
       double? lat,
       double? lon,
+      int? x,
+      int? y,
       Map<String, String> attributes});
 
   $SbbExitCopyWith<$Res>? get sbbExit;
@@ -186,6 +194,8 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
     Object? isaddress = freezed,
     Object? lat = freezed,
     Object? lon = freezed,
+    Object? x = freezed,
+    Object? y = freezed,
     Object? attributes = freezed,
   }) {
     return _then(_value.copyWith(
@@ -215,6 +225,8 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
+      x: x == freezed ? _value.x : x as int?,
+      y: y == freezed ? _value.y : y as int?,
       attributes: attributes == freezed
           ? _value.attributes
           : attributes as Map<String, String>,
@@ -265,6 +277,8 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       bool isaddress,
       double? lat,
       double? lon,
+      int? x,
+      int? y,
       Map<String, String> attributes});
 
   @override
@@ -304,6 +318,8 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
     Object? isaddress = freezed,
     Object? lat = freezed,
     Object? lon = freezed,
+    Object? x = freezed,
+    Object? y = freezed,
     Object? attributes = freezed,
   }) {
     return _then(_SbbLeg(
@@ -333,6 +349,8 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
+      x: x == freezed ? _value.x : x as int?,
+      y: y == freezed ? _value.y : y as int?,
       attributes: attributes == freezed
           ? _value.attributes
           : attributes as Map<String, String>,
@@ -371,6 +389,8 @@ class _$_SbbLeg extends _SbbLeg {
       this.isaddress = false,
       this.lat,
       this.lon,
+      this.x,
+      this.y,
       this.attributes = const <String, String>{}})
       : super._();
 
@@ -427,13 +447,17 @@ class _$_SbbLeg extends _SbbLeg {
   final double? lat;
   @override
   final double? lon;
+  @override
+  final int? x;
+  @override
+  final int? y;
   @JsonKey(defaultValue: const <String, String>{})
   @override
   final Map<String, String> attributes;
 
   @override
   String toString() {
-    return 'SbbLeg(name: $name, sbbExit: $sbbExit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, stopid: $stopid, runningTime: $runningTime, line: $line, sbbStops: $sbbStops, sbbName: $sbbName, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isaddress: $isaddress, lat: $lat, lon: $lon, attributes: $attributes)';
+    return 'SbbLeg(name: $name, sbbExit: $sbbExit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, stopid: $stopid, runningTime: $runningTime, line: $line, sbbStops: $sbbStops, sbbName: $sbbName, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isaddress: $isaddress, lat: $lat, lon: $lon, x: $x, y: $y, attributes: $attributes)';
   }
 
   @override
@@ -497,6 +521,10 @@ class _$_SbbLeg extends _SbbLeg {
                 const DeepCollectionEquality().equals(other.lat, lat)) &&
             (identical(other.lon, lon) ||
                 const DeepCollectionEquality().equals(other.lon, lon)) &&
+            (identical(other.x, x) ||
+                const DeepCollectionEquality().equals(other.x, x)) &&
+            (identical(other.y, y) ||
+                const DeepCollectionEquality().equals(other.y, y)) &&
             (identical(other.attributes, attributes) ||
                 const DeepCollectionEquality()
                     .equals(other.attributes, attributes)));
@@ -527,6 +555,8 @@ class _$_SbbLeg extends _SbbLeg {
       const DeepCollectionEquality().hash(isaddress) ^
       const DeepCollectionEquality().hash(lat) ^
       const DeepCollectionEquality().hash(lon) ^
+      const DeepCollectionEquality().hash(x) ^
+      const DeepCollectionEquality().hash(y) ^
       const DeepCollectionEquality().hash(attributes);
 
   @JsonKey(ignore: true)
@@ -569,6 +599,8 @@ abstract class _SbbLeg extends SbbLeg {
       bool isaddress,
       double? lat,
       double? lon,
+      int? x,
+      int? y,
       Map<String, String> attributes}) = _$_SbbLeg;
 
   factory _SbbLeg.fromJson(Map<String, dynamic> json) = _$_SbbLeg.fromJson;
@@ -621,6 +653,10 @@ abstract class _SbbLeg extends SbbLeg {
   double? get lat => throw _privateConstructorUsedError;
   @override
   double? get lon => throw _privateConstructorUsedError;
+  @override
+  int? get x => throw _privateConstructorUsedError;
+  @override
+  int? get y => throw _privateConstructorUsedError;
   @override
   Map<String, String> get attributes => throw _privateConstructorUsedError;
   @override

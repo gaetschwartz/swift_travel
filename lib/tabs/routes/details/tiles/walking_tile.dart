@@ -84,12 +84,12 @@ class WalkingTile extends StatelessWidget {
 
     // We should convert LV03 leg.x, leg.y to WGY84 because Switzerland is ✨edgy✨
     // http://geodesy.geo.admin.ch/reframe/lv03towgs84?easting=499692&northing=119844
+    final leg = l.withPosition;
+    final exit = l.exit!.withPosition;
 
     final departure =
-        l.lat != null && l.lon != null ? '${l.lat}, ${l.lon}' : l.name.split('@').first;
-    final arrival = l.exit!.lat != null && l.exit!.lon != null
-        ? '${l.exit!.lat}, ${l.exit!.lon}'
-        : l.exit!.name;
+        leg.lat != null && leg.lon != null ? '${leg.lat}, ${leg.lon}' : leg.name.split('@').first;
+    final arrival = exit.lat != null && exit.lon != null ? '${exit.lat}, ${exit.lon}' : exit.name;
     log('($departure) => ($arrival)');
 
     final suffix =

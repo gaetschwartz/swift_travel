@@ -25,7 +25,9 @@ class _$SbbStopTearOff {
       String? stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
       double? lat,
-      double? lon}) {
+      double? lon,
+      int? x,
+      int? y}) {
     return _SbbStop(
       name,
       id: id,
@@ -33,6 +35,8 @@ class _$SbbStopTearOff {
       departure: departure,
       lat: lat,
       lon: lon,
+      x: x,
+      y: y,
     );
   }
 
@@ -53,6 +57,8 @@ mixin _$SbbStop {
   DateTime? get departure => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get lon => throw _privateConstructorUsedError;
+  int? get x => throw _privateConstructorUsedError;
+  int? get y => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,7 +75,9 @@ abstract class $SbbStopCopyWith<$Res> {
       String? stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
       double? lat,
-      double? lon});
+      double? lon,
+      int? x,
+      int? y});
 }
 
 /// @nodoc
@@ -88,6 +96,8 @@ class _$SbbStopCopyWithImpl<$Res> implements $SbbStopCopyWith<$Res> {
     Object? departure = freezed,
     Object? lat = freezed,
     Object? lon = freezed,
+    Object? x = freezed,
+    Object? y = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed ? _value.name : name as String,
@@ -97,6 +107,8 @@ class _$SbbStopCopyWithImpl<$Res> implements $SbbStopCopyWith<$Res> {
           departure == freezed ? _value.departure : departure as DateTime?,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
+      x: x == freezed ? _value.x : x as int?,
+      y: y == freezed ? _value.y : y as int?,
     ));
   }
 }
@@ -112,7 +124,9 @@ abstract class _$SbbStopCopyWith<$Res> implements $SbbStopCopyWith<$Res> {
       String? stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
       double? lat,
-      double? lon});
+      double? lon,
+      int? x,
+      int? y});
 }
 
 /// @nodoc
@@ -132,6 +146,8 @@ class __$SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
     Object? departure = freezed,
     Object? lat = freezed,
     Object? lon = freezed,
+    Object? x = freezed,
+    Object? y = freezed,
   }) {
     return _then(_SbbStop(
       name == freezed ? _value.name : name as String,
@@ -141,6 +157,8 @@ class __$SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
           departure == freezed ? _value.departure : departure as DateTime?,
       lat: lat == freezed ? _value.lat : lat as double?,
       lon: lon == freezed ? _value.lon : lon as double?,
+      x: x == freezed ? _value.x : x as int?,
+      y: y == freezed ? _value.y : y as int?,
     ));
   }
 }
@@ -148,13 +166,16 @@ class __$SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 
 /// @nodoc
-class _$_SbbStop implements _SbbStop {
+class _$_SbbStop extends _SbbStop {
   const _$_SbbStop(this.name,
       {this.id,
       this.stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) this.departure,
       this.lat,
-      this.lon});
+      this.lon,
+      this.x,
+      this.y})
+      : super._();
 
   factory _$_SbbStop.fromJson(Map<String, dynamic> json) =>
       _$_$_SbbStopFromJson(json);
@@ -172,10 +193,14 @@ class _$_SbbStop implements _SbbStop {
   final double? lat;
   @override
   final double? lon;
+  @override
+  final int? x;
+  @override
+  final int? y;
 
   @override
   String toString() {
-    return 'SbbStop(name: $name, id: $id, stopid: $stopid, departure: $departure, lat: $lat, lon: $lon)';
+    return 'SbbStop(name: $name, id: $id, stopid: $stopid, departure: $departure, lat: $lat, lon: $lon, x: $x, y: $y)';
   }
 
   @override
@@ -194,7 +219,11 @@ class _$_SbbStop implements _SbbStop {
             (identical(other.lat, lat) ||
                 const DeepCollectionEquality().equals(other.lat, lat)) &&
             (identical(other.lon, lon) ||
-                const DeepCollectionEquality().equals(other.lon, lon)));
+                const DeepCollectionEquality().equals(other.lon, lon)) &&
+            (identical(other.x, x) ||
+                const DeepCollectionEquality().equals(other.x, x)) &&
+            (identical(other.y, y) ||
+                const DeepCollectionEquality().equals(other.y, y)));
   }
 
   @override
@@ -205,7 +234,9 @@ class _$_SbbStop implements _SbbStop {
       const DeepCollectionEquality().hash(stopid) ^
       const DeepCollectionEquality().hash(departure) ^
       const DeepCollectionEquality().hash(lat) ^
-      const DeepCollectionEquality().hash(lon);
+      const DeepCollectionEquality().hash(lon) ^
+      const DeepCollectionEquality().hash(x) ^
+      const DeepCollectionEquality().hash(y);
 
   @JsonKey(ignore: true)
   @override
@@ -218,13 +249,16 @@ class _$_SbbStop implements _SbbStop {
   }
 }
 
-abstract class _SbbStop implements SbbStop {
+abstract class _SbbStop extends SbbStop {
+  const _SbbStop._() : super._();
   const factory _SbbStop(String name,
       {String? id,
       String? stopid,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
       double? lat,
-      double? lon}) = _$_SbbStop;
+      double? lon,
+      int? x,
+      int? y}) = _$_SbbStop;
 
   factory _SbbStop.fromJson(Map<String, dynamic> json) = _$_SbbStop.fromJson;
 
@@ -241,6 +275,10 @@ abstract class _SbbStop implements SbbStop {
   double? get lat => throw _privateConstructorUsedError;
   @override
   double? get lon => throw _privateConstructorUsedError;
+  @override
+  int? get x => throw _privateConstructorUsedError;
+  @override
+  int? get y => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SbbStopCopyWith<_SbbStop> get copyWith =>

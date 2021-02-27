@@ -31,7 +31,9 @@ class _$SbbExitTearOff {
       String? stopid,
       String? track,
       int waittime = 0,
-      bool isaddress = false}) {
+      bool isaddress = false,
+      int? x,
+      int? y}) {
     return _Exit(
       arrDelay: arrDelay,
       arrival: arrival,
@@ -43,6 +45,8 @@ class _$SbbExitTearOff {
       track: track,
       waittime: waittime,
       isaddress: isaddress,
+      x: x,
+      y: y,
     );
   }
 
@@ -67,6 +71,8 @@ mixin _$SbbExit {
   String? get track => throw _privateConstructorUsedError;
   int get waittime => throw _privateConstructorUsedError;
   bool get isaddress => throw _privateConstructorUsedError;
+  int? get x => throw _privateConstructorUsedError;
+  int? get y => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -88,7 +94,9 @@ abstract class $SbbExitCopyWith<$Res> {
       String? stopid,
       String? track,
       int waittime,
-      bool isaddress});
+      bool isaddress,
+      int? x,
+      int? y});
 }
 
 /// @nodoc
@@ -111,6 +119,8 @@ class _$SbbExitCopyWithImpl<$Res> implements $SbbExitCopyWith<$Res> {
     Object? track = freezed,
     Object? waittime = freezed,
     Object? isaddress = freezed,
+    Object? x = freezed,
+    Object? y = freezed,
   }) {
     return _then(_value.copyWith(
       arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
@@ -123,6 +133,8 @@ class _$SbbExitCopyWithImpl<$Res> implements $SbbExitCopyWith<$Res> {
       track: track == freezed ? _value.track : track as String?,
       waittime: waittime == freezed ? _value.waittime : waittime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
+      x: x == freezed ? _value.x : x as int?,
+      y: y == freezed ? _value.y : y as int?,
     ));
   }
 }
@@ -143,7 +155,9 @@ abstract class _$ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
       String? stopid,
       String? track,
       int waittime,
-      bool isaddress});
+      bool isaddress,
+      int? x,
+      int? y});
 }
 
 /// @nodoc
@@ -167,6 +181,8 @@ class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
     Object? track = freezed,
     Object? waittime = freezed,
     Object? isaddress = freezed,
+    Object? x = freezed,
+    Object? y = freezed,
   }) {
     return _then(_Exit(
       arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
@@ -179,6 +195,8 @@ class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
       track: track == freezed ? _value.track : track as String?,
       waittime: waittime == freezed ? _value.waittime : waittime as int,
       isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
+      x: x == freezed ? _value.x : x as int?,
+      y: y == freezed ? _value.y : y as int?,
     ));
   }
 }
@@ -198,7 +216,9 @@ class _$_Exit extends _Exit {
       this.stopid,
       this.track,
       this.waittime = 0,
-      this.isaddress = false})
+      this.isaddress = false,
+      this.x,
+      this.y})
       : super._();
 
   factory _$_Exit.fromJson(Map<String, dynamic> json) =>
@@ -227,10 +247,14 @@ class _$_Exit extends _Exit {
   @JsonKey(defaultValue: false)
   @override
   final bool isaddress;
+  @override
+  final int? x;
+  @override
+  final int? y;
 
   @override
   String toString() {
-    return 'SbbExit(arrDelay: $arrDelay, arrival: $arrival, lat: $lat, lon: $lon, name: $name, sbbName: $sbbName, stopid: $stopid, track: $track, waittime: $waittime, isaddress: $isaddress)';
+    return 'SbbExit(arrDelay: $arrDelay, arrival: $arrival, lat: $lat, lon: $lon, name: $name, sbbName: $sbbName, stopid: $stopid, track: $track, waittime: $waittime, isaddress: $isaddress, x: $x, y: $y)';
   }
 
   @override
@@ -261,7 +285,11 @@ class _$_Exit extends _Exit {
                     .equals(other.waittime, waittime)) &&
             (identical(other.isaddress, isaddress) ||
                 const DeepCollectionEquality()
-                    .equals(other.isaddress, isaddress)));
+                    .equals(other.isaddress, isaddress)) &&
+            (identical(other.x, x) ||
+                const DeepCollectionEquality().equals(other.x, x)) &&
+            (identical(other.y, y) ||
+                const DeepCollectionEquality().equals(other.y, y)));
   }
 
   @override
@@ -276,7 +304,9 @@ class _$_Exit extends _Exit {
       const DeepCollectionEquality().hash(stopid) ^
       const DeepCollectionEquality().hash(track) ^
       const DeepCollectionEquality().hash(waittime) ^
-      const DeepCollectionEquality().hash(isaddress);
+      const DeepCollectionEquality().hash(isaddress) ^
+      const DeepCollectionEquality().hash(x) ^
+      const DeepCollectionEquality().hash(y);
 
   @JsonKey(ignore: true)
   @override
@@ -302,7 +332,9 @@ abstract class _Exit extends SbbExit {
       String? stopid,
       String? track,
       int waittime,
-      bool isaddress}) = _$_Exit;
+      bool isaddress,
+      int? x,
+      int? y}) = _$_Exit;
 
   factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
 
@@ -327,6 +359,10 @@ abstract class _Exit extends SbbExit {
   int get waittime => throw _privateConstructorUsedError;
   @override
   bool get isaddress => throw _privateConstructorUsedError;
+  @override
+  int? get x => throw _privateConstructorUsedError;
+  @override
+  int? get y => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ExitCopyWith<_Exit> get copyWith => throw _privateConstructorUsedError;

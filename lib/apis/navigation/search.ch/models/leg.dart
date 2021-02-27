@@ -3,6 +3,8 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/utils/arithmetic.dart';
+import 'package:swift_travel/utils/predict/predict.dart';
 
 import 'exit.dart';
 
@@ -37,6 +39,8 @@ class SbbLeg with _$SbbLeg, Leg {
     @Default(false) bool isaddress,
     double? lat,
     double? lon,
+    int? x,
+    int? y,
     @Default(<String, String>{}) Map<String, String> attributes,
   }) = _SbbLeg;
   const SbbLeg._();
@@ -51,4 +55,13 @@ class SbbLeg with _$SbbLeg, Leg {
 
   @override
   Leg copyWithLatLon({required double lat, required double lon}) => copyWith(lat: lat, lon: lon);
+
+  @override
+  Leg get withPosition {
+    if (lat == null && lon == null && x != null && y != null) {
+      final o = LV03ToWGS84Converter().convert(Pair(x!, y!));
+      return copyWith(lat: o.first, lon: o.second);
+    }
+    return this;
+  }
 }

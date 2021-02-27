@@ -39,6 +39,8 @@ _$_SbbLeg _$_$_SbbLegFromJson(Map<String, dynamic> json) {
     isaddress: json['isaddress'] as bool? ?? false,
     lat: (json['lat'] as num?)?.toDouble(),
     lon: (json['lon'] as num?)?.toDouble(),
+    x: json['x'] as int?,
+    y: json['y'] as int?,
     attributes: (json['attributes'] as Map<String, dynamic>?)?.map(
           (k, e) => MapEntry(k, e as String),
         ) ??
@@ -78,6 +80,8 @@ Map<String, dynamic> _$_$_SbbLegToJson(_$_SbbLeg instance) {
   val['isaddress'] = instance.isaddress;
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);
+  writeNotNull('x', instance.x);
+  writeNotNull('y', instance.y);
   val['attributes'] = instance.attributes;
   return val;
 }
