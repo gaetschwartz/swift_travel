@@ -60,12 +60,12 @@ class SncfDeparture with _$SncfDeparture, StationboardConnection {
   factory SncfDeparture.fromJson(Map<String, dynamic> json) => _$SncfDepartureFromJson(json);
 
   @override
-  // TODO: implement arrDelay
-  int get arrDelay => 0;
+  int get arrDelay =>
+      stopDateTime.arrivalDateTime.difference(stopDateTime.baseArrivalDateTime).inMinutes;
 
   @override
-  // TODO: implement depDelay
-  int get depDelay => 0;
+  int get depDelay =>
+      stopDateTime.departureDateTime.difference(stopDateTime.baseDepartureDateTime).inMinutes;
 
   @override
   String? get g => displayInformations.commercialMode[0];

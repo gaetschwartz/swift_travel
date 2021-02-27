@@ -832,7 +832,7 @@ class RoutesView extends StatelessWidget {
                   : ElevatedButton(
                       onPressed: () => Geolocator.openAppSettings(),
                       style: ElevatedButton.styleFrom(
-                        shadowColor: DynamicTheme.shadowOf(context).buttonShadow?.color,
+                        shadowColor: ShadowTheme.of(context).buttonShadow?.color,
                         elevation: 8,
                         shape: const StadiumBorder(),
                       ),
