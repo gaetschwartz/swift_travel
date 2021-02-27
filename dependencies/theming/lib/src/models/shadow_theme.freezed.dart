@@ -96,8 +96,8 @@ class __$ShadowThemeCopyWithImpl<$Res> extends _$ShadowThemeCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_ShadowTheme implements _ShadowTheme {
-  const _$_ShadowTheme({this.buttonShadow});
+class _$_ShadowTheme extends _ShadowTheme {
+  const _$_ShadowTheme({this.buttonShadow}) : super._();
 
   @override
   final BoxShadow? buttonShadow;
@@ -126,7 +126,8 @@ class _$_ShadowTheme implements _ShadowTheme {
       __$ShadowThemeCopyWithImpl<_ShadowTheme>(this, _$identity);
 }
 
-abstract class _ShadowTheme implements ShadowTheme {
+abstract class _ShadowTheme extends ShadowTheme {
+  const _ShadowTheme._() : super._();
   const factory _ShadowTheme({BoxShadow? buttonShadow}) = _$_ShadowTheme;
 
   @override

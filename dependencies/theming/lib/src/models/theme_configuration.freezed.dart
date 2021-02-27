@@ -53,7 +53,8 @@ mixin _$ThemeConfiguration {
   List<Font> get fonts => throw _privateConstructorUsedError;
   Font? get defaultFont => throw _privateConstructorUsedError;
   TextTheme get defaultTextTheme => throw _privateConstructorUsedError;
-  ThemeData Function(ThemeData) get applyToAllThemes => throw _privateConstructorUsedError;
+  ThemeData Function(ThemeData) get applyToAllThemes =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ThemeConfigurationCopyWith<ThemeConfiguration> get copyWith =>
@@ -80,7 +81,8 @@ abstract class $ThemeConfigurationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ThemeConfigurationCopyWithImpl<$Res> implements $ThemeConfigurationCopyWith<$Res> {
+class _$ThemeConfigurationCopyWithImpl<$Res>
+    implements $ThemeConfigurationCopyWith<$Res> {
   _$ThemeConfigurationCopyWithImpl(this._value, this._then);
 
   final ThemeConfiguration _value;
@@ -100,16 +102,22 @@ class _$ThemeConfigurationCopyWithImpl<$Res> implements $ThemeConfigurationCopyW
     Object? applyToAllThemes = freezed,
   }) {
     return _then(_value.copyWith(
-      themes: themes == freezed ? _value.themes : themes as Map<String, FullTheme>,
+      themes:
+          themes == freezed ? _value.themes : themes as Map<String, FullTheme>,
       prefix: prefix == freezed ? _value.prefix : prefix as String,
-      defaultThemeMode:
-          defaultThemeMode == freezed ? _value.defaultThemeMode : defaultThemeMode as ThemeMode,
-      defaultTheme: defaultTheme == freezed ? _value.defaultTheme : defaultTheme as String,
+      defaultThemeMode: defaultThemeMode == freezed
+          ? _value.defaultThemeMode
+          : defaultThemeMode as ThemeMode,
+      defaultTheme: defaultTheme == freezed
+          ? _value.defaultTheme
+          : defaultTheme as String,
       persist: persist == freezed ? _value.persist : persist as bool,
       fonts: fonts == freezed ? _value.fonts : fonts as List<Font>,
-      defaultFont: defaultFont == freezed ? _value.defaultFont : defaultFont as Font?,
-      defaultTextTheme:
-          defaultTextTheme == freezed ? _value.defaultTextTheme : defaultTextTheme as TextTheme,
+      defaultFont:
+          defaultFont == freezed ? _value.defaultFont : defaultFont as Font?,
+      defaultTextTheme: defaultTextTheme == freezed
+          ? _value.defaultTextTheme
+          : defaultTextTheme as TextTheme,
       applyToAllThemes: applyToAllThemes == freezed
           ? _value.applyToAllThemes
           : applyToAllThemes as ThemeData Function(ThemeData),
@@ -129,7 +137,8 @@ class _$ThemeConfigurationCopyWithImpl<$Res> implements $ThemeConfigurationCopyW
 }
 
 /// @nodoc
-abstract class _$ThemeConfigurationCopyWith<$Res> implements $ThemeConfigurationCopyWith<$Res> {
+abstract class _$ThemeConfigurationCopyWith<$Res>
+    implements $ThemeConfigurationCopyWith<$Res> {
   factory _$ThemeConfigurationCopyWith(
           _ThemeConfiguration value, $Res Function(_ThemeConfiguration) then) =
       __$ThemeConfigurationCopyWithImpl<$Res>;
@@ -150,7 +159,8 @@ abstract class _$ThemeConfigurationCopyWith<$Res> implements $ThemeConfiguration
 }
 
 /// @nodoc
-class __$ThemeConfigurationCopyWithImpl<$Res> extends _$ThemeConfigurationCopyWithImpl<$Res>
+class __$ThemeConfigurationCopyWithImpl<$Res>
+    extends _$ThemeConfigurationCopyWithImpl<$Res>
     implements _$ThemeConfigurationCopyWith<$Res> {
   __$ThemeConfigurationCopyWithImpl(
       _ThemeConfiguration _value, $Res Function(_ThemeConfiguration) _then)
@@ -172,16 +182,22 @@ class __$ThemeConfigurationCopyWithImpl<$Res> extends _$ThemeConfigurationCopyWi
     Object? applyToAllThemes = freezed,
   }) {
     return _then(_ThemeConfiguration(
-      themes: themes == freezed ? _value.themes : themes as Map<String, FullTheme>,
+      themes:
+          themes == freezed ? _value.themes : themes as Map<String, FullTheme>,
       prefix: prefix == freezed ? _value.prefix : prefix as String,
-      defaultThemeMode:
-          defaultThemeMode == freezed ? _value.defaultThemeMode : defaultThemeMode as ThemeMode,
-      defaultTheme: defaultTheme == freezed ? _value.defaultTheme : defaultTheme as String,
+      defaultThemeMode: defaultThemeMode == freezed
+          ? _value.defaultThemeMode
+          : defaultThemeMode as ThemeMode,
+      defaultTheme: defaultTheme == freezed
+          ? _value.defaultTheme
+          : defaultTheme as String,
       persist: persist == freezed ? _value.persist : persist as bool,
       fonts: fonts == freezed ? _value.fonts : fonts as List<Font>,
-      defaultFont: defaultFont == freezed ? _value.defaultFont : defaultFont as Font?,
-      defaultTextTheme:
-          defaultTextTheme == freezed ? _value.defaultTextTheme : defaultTextTheme as TextTheme,
+      defaultFont:
+          defaultFont == freezed ? _value.defaultFont : defaultFont as Font?,
+      defaultTextTheme: defaultTextTheme == freezed
+          ? _value.defaultTextTheme
+          : defaultTextTheme as TextTheme,
       applyToAllThemes: applyToAllThemes == freezed
           ? _value.applyToAllThemes
           : applyToAllThemes as ThemeData Function(ThemeData),
@@ -243,19 +259,25 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
             (identical(other.prefix, prefix) ||
                 const DeepCollectionEquality().equals(other.prefix, prefix)) &&
             (identical(other.defaultThemeMode, defaultThemeMode) ||
-                const DeepCollectionEquality().equals(other.defaultThemeMode, defaultThemeMode)) &&
+                const DeepCollectionEquality()
+                    .equals(other.defaultThemeMode, defaultThemeMode)) &&
             (identical(other.defaultTheme, defaultTheme) ||
-                const DeepCollectionEquality().equals(other.defaultTheme, defaultTheme)) &&
+                const DeepCollectionEquality()
+                    .equals(other.defaultTheme, defaultTheme)) &&
             (identical(other.persist, persist) ||
-                const DeepCollectionEquality().equals(other.persist, persist)) &&
+                const DeepCollectionEquality()
+                    .equals(other.persist, persist)) &&
             (identical(other.fonts, fonts) ||
                 const DeepCollectionEquality().equals(other.fonts, fonts)) &&
             (identical(other.defaultFont, defaultFont) ||
-                const DeepCollectionEquality().equals(other.defaultFont, defaultFont)) &&
+                const DeepCollectionEquality()
+                    .equals(other.defaultFont, defaultFont)) &&
             (identical(other.defaultTextTheme, defaultTextTheme) ||
-                const DeepCollectionEquality().equals(other.defaultTextTheme, defaultTextTheme)) &&
+                const DeepCollectionEquality()
+                    .equals(other.defaultTextTheme, defaultTextTheme)) &&
             (identical(other.applyToAllThemes, applyToAllThemes) ||
-                const DeepCollectionEquality().equals(other.applyToAllThemes, applyToAllThemes)));
+                const DeepCollectionEquality()
+                    .equals(other.applyToAllThemes, applyToAllThemes)));
   }
 
   @override
@@ -307,7 +329,8 @@ abstract class _ThemeConfiguration extends ThemeConfiguration {
   @override
   TextTheme get defaultTextTheme => throw _privateConstructorUsedError;
   @override
-  ThemeData Function(ThemeData) get applyToAllThemes => throw _privateConstructorUsedError;
+  ThemeData Function(ThemeData) get applyToAllThemes =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ThemeConfigurationCopyWith<_ThemeConfiguration> get copyWith =>

@@ -24,8 +24,13 @@ class DynamicTheme extends InheritedNotifier<DynamicThemeData> {
     required Widget child,
   }) : super(key: key, notifier: theme, child: child);
 
-  static DynamicThemeData of(BuildContext context) {
-    final dynamicTheme = context.dependOnInheritedWidgetOfExactType<DynamicTheme>()?.notifier;
+  static DynamicThemeData of(BuildContext context, {bool listen = true}) {
+    late final DynamicThemeData? dynamicTheme;
+    if (listen) {
+      dynamicTheme = context.dependOnInheritedWidgetOfExactType<DynamicTheme>()?.notifier;
+    } else {
+      dynamicTheme = context.findAncestorWidgetOfExactType<DynamicTheme>()?.notifier;
+    }
     if (dynamicTheme == null) {
       throw FlutterError("Couldn't find any `DynamicTheme` parents.");
     }
@@ -63,17 +68,6 @@ class DynamicTheme extends InheritedNotifier<DynamicThemeData> {
         break;
     }
     return ThemeData.from(colorScheme: colorScheme, textTheme: textTheme);
-  }
-
-  static ShadowTheme shadowOf(BuildContext context) {
-    final dynamicTheme = of(context);
-    final brightness = resolveBrightness(context, dynamicTheme.themeMode);
-    switch (brightness) {
-      case Brightness.dark:
-        return dynamicTheme.shadowDark;
-      case Brightness.light:
-        return dynamicTheme.shadowLight;
-    }
   }
 }
 
