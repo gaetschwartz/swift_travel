@@ -19,6 +19,7 @@ mixin Stop {
   DateTime? get departure;
   double? get lat;
   double? get lon;
+  Stop get withPosition;
 }
 
 mixin StationboardConnection {

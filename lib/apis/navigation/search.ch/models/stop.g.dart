@@ -14,6 +14,8 @@ _$_SbbStop _$_$_SbbStopFromJson(Map<String, dynamic> json) {
     departure: _fromJson(json['departure'] as String?),
     lat: (json['lat'] as num?)?.toDouble(),
     lon: (json['lon'] as num?)?.toDouble(),
+    x: json['x'] as int?,
+    y: json['y'] as int?,
   );
 }
 
@@ -33,5 +35,7 @@ Map<String, dynamic> _$_$_SbbStopToJson(_$_SbbStop instance) {
   writeNotNull('departure', _toJson(instance.departure));
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);
+  writeNotNull('x', instance.x);
+  writeNotNull('y', instance.y);
   return val;
 }

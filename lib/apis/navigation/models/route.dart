@@ -44,6 +44,7 @@ mixin Leg {
   double? get lat;
   double? get lon;
   Map<String, String> get attributes;
+  Leg get withPosition;
 
   Leg copyWithLatLon({required double lat, required double lon});
 }
@@ -59,4 +60,5 @@ mixin Exit {
   String? get track;
   int get waittime;
   bool get isaddress;
+  Exit get withPosition;
 }

@@ -20,6 +20,8 @@ _$_Exit _$_$_ExitFromJson(Map<String, dynamic> json) {
     track: json['track'] as String?,
     waittime: json['waittime'] as int? ?? 0,
     isaddress: json['isaddress'] as bool? ?? false,
+    x: json['x'] as int?,
+    y: json['y'] as int?,
   );
 }
 
@@ -42,5 +44,7 @@ Map<String, dynamic> _$_$_ExitToJson(_$_Exit instance) {
   writeNotNull('track', instance.track);
   val['waittime'] = instance.waittime;
   val['isaddress'] = instance.isaddress;
+  writeNotNull('x', instance.x);
+  writeNotNull('y', instance.y);
   return val;
 }

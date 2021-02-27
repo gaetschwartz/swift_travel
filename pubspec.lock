@@ -290,7 +290,7 @@ packages:
       name: flutter_keyboard_visibility
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.2"
+    version: "5.0.0-nullsafety.3"
   flutter_keyboard_visibility_platform_interface:
     dependency: transitive
     description:
@@ -400,12 +400,10 @@ packages:
   google_fonts:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "8deb4dc0fdbfbc65ca1776c4a6c0fd0feabdedf4"
-      url: "https://github.com/gaetschwartz/google-fonts-flutter"
-    source: git
-    version: "2.0.0-nullsafety.1"
+      name: google_fonts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   graphs:
     dependency: transitive
     description:

@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/utils/arithmetic.dart';
+import 'package:swift_travel/utils/predict/predict.dart';
 
 part 'exit.freezed.dart';
 part 'exit.g.dart';
@@ -32,8 +34,19 @@ class SbbExit with _$SbbExit, Exit {
     String? track,
     @Default(0) int waittime,
     @Default(false) bool isaddress,
+    int? x,
+    int? y,
   }) = _Exit;
   const SbbExit._();
 
   factory SbbExit.fromJson(Map<String, dynamic> json) => _$SbbExitFromJson(json);
+
+  @override
+  SbbExit get withPosition {
+    if (lat == null && lon == null && x != null && y != null) {
+      final o = LV03ToWGS84Converter().convert(Pair(x!, y!));
+      return copyWith(lat: o.first, lon: o.second);
+    }
+    return this;
+  }
 }
