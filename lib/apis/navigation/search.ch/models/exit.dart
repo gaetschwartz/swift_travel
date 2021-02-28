@@ -49,7 +49,26 @@ class SbbExit with _$SbbExit, Exit {
     if (x != null && y != null) {
       return lv03ToWGS84Converter.convert(LV03Coordinates(x!, y!));
     }
+    final i = name.indexOf('@');
+
+    if (i != -1) {
+      final s = name.substring(i + 1);
+      final x = int.tryParse(s.split(',').first);
+      final y = int.tryParse(s.split(',').last);
+      if (x != null && y != null) {
+        return lv03ToWGS84Converter.convert(LV03Coordinates(x, y));
+      }
+    }
 
     return null;
   }
+
+  @override
+  int get depDelay => 0;
+
+  @override
+  DateTime? get departure => null;
+
+  @override
+  String? get id => stopid;
 }

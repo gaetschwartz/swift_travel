@@ -18,6 +18,7 @@ class SbbStop with _$SbbStop, Stop {
     String? id,
     String? stopid,
     @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
+    @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
     double? lat,
     double? lon,
     int? x,

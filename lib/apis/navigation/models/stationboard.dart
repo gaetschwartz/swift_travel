@@ -13,14 +13,12 @@ mixin BaseStop {
   String get name;
   String? get id;
 }
-mixin Stop {
-  String get name;
-  String? get id;
-  String? get stopid;
+
+abstract class Stop = Object with BaseStop, WithTimeMixin, LocatedMixin;
+
+mixin WithTimeMixin {
   DateTime? get departure;
-  double? get lat;
-  double? get lon;
-  LatLon? get position;
+  DateTime? get arrival;
 }
 
 mixin StationboardConnection {
@@ -34,19 +32,22 @@ mixin StationboardConnection {
   String? get g;
   String? get l;
 
-  List<SubsequentStop> get subsequentStops;
+  List<DelayedStop> get subsequentStops;
 
   int get depDelay;
-
   int get arrDelay;
 }
-mixin SubsequentStop {
-  String get name;
-  String? get id;
-  DateTime? get dep;
-  DateTime? get arr;
-  double? get lat;
-  double? get lon;
+
+abstract class DelayedStop = Object with Stop, WithDelayMixin;
+
+mixin WithDelayMixin {
   int get depDelay;
   int get arrDelay;
+}
+
+mixin LocatedMixin {
+  double? get lat;
+  double? get lon;
+
+  LatLon? get position;
 }

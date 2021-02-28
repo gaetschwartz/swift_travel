@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/utils/arithmetic.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
@@ -17,6 +18,11 @@ void main() {
 
     expect(out.lat, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
     expect(out.lon, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
+
+    final pos = const SbbExit(name: 'test @100000, 700000').position;
+    expect(pos, isNotNull);
+    expect(pos!.lat, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
+    expect(pos.lon, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
   });
 
   TestWidgetsFlutterBinding.ensureInitialized();

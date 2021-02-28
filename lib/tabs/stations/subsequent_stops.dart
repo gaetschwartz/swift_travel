@@ -61,7 +61,7 @@ class _NextStopsPageState extends State<NextStopsPage> {
               ? StopTile(
                   stop: SbbSubsequentStop(
                     name: widget.s!.name,
-                    dep: widget.c.time,
+                    departure: widget.c.time,
                     depDelay: widget.c.depDelay,
                     arrDelay: widget.c.arrDelay,
                   ),
@@ -88,7 +88,7 @@ class StopTile extends StatelessWidget {
     this.isLast = false,
   }) : super(key: key);
 
-  final SubsequentStop stop;
+  final DelayedStop stop;
   final StationboardConnection connection;
   final bool isFirst;
   final bool isLast;
@@ -138,7 +138,7 @@ class StopTile extends StatelessWidget {
                 ),
                 subtitle: Text.rich(TextSpan(children: [
                   TextSpan(
-                    text: Format.time(stop.dep ?? stop.arr),
+                    text: Format.time(stop.departure ?? stop.arrival),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   if (stop.depDelay > 0 || stop.arrDelay > 0)

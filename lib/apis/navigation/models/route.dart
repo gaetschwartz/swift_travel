@@ -49,17 +49,11 @@ mixin Leg {
   Leg copyWithLatLon({required double lat, required double lon});
 }
 
-mixin Exit {
-  int get arrDelay;
-  String get name;
-  DateTime? get arrival;
-  double? get lat;
-  double? get lon;
+abstract class Exit = Object with Stop, WithDelayMixin, _ExitMixin;
+
+mixin _ExitMixin {
   String? get sbbName;
-  String? get stopid;
   String? get track;
   int get waittime;
   bool get isaddress;
-
-  LatLon? get position;
 }

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/data.sbb.ch/models/geo_models.dart';
+import 'package:swift_travel/utils/arithmetic.dart';
 
 part 'coordinates.freezed.dart';
 part 'coordinates.g.dart';
@@ -12,7 +13,8 @@ class LatLon with _$LatLon {
   ) = _LatLon;
 
   factory LatLon.fromGeoAttr(GeoAttr geoAttr) => _LatLon(geoAttr.lat!, geoAttr.lon!);
-  factory LatLon.fromCoordinates(List<double> coords) => _LatLon(coords[0], coords[1]);
+  factory LatLon.fromList(List<double> coords) => _LatLon(coords[0], coords[1]);
+  factory LatLon.fromLV03(LV03Coordinates coords) => lv03ToWGS84Converter.convert(coords);
 
   factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
 }

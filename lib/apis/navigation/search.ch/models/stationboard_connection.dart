@@ -37,7 +37,7 @@ class SbbStationboardConnection with _$SbbStationboardConnection, StationboardCo
       _$SbbStationboardConnectionFromJson(json);
 
   @override
-  List<SubsequentStop> get subsequentStops => sbbSubsequentStops;
+  List<DelayedStop> get subsequentStops => sbbSubsequentStops;
 
   @override
   Stop get terminal => sbbTerminal;
