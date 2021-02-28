@@ -1,23 +1,8 @@
 // main.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'geo_models.dart';
-
 part 'sbb_models.freezed.dart';
 part 'sbb_models.g.dart';
-
-@freezed
-class LatLon with _$LatLon {
-  const factory LatLon(
-    double lat,
-    double lon,
-  ) = _LatLon;
-
-  factory LatLon.fromGeoAttr(GeoAttr geoAttr) => _LatLon(geoAttr.lat!, geoAttr.lon!);
-  factory LatLon.fromCoordinates(List<double> coords) => _LatLon(coords[0], coords[1]);
-
-  factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
-}
 
 @freezed
 class SbbStationResponse with _$SbbStationResponse {

@@ -1,9 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/data.sbb.ch/models/sbb_models.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/arithmetic.dart';
-import 'package:swift_travel/utils/predict/predict.dart';
+import 'package:swift_travel/utils/models/coordinates.dart';
 
 part 'stop.freezed.dart';
 part 'stop.g.dart';
@@ -35,8 +34,8 @@ class SbbStop with _$SbbStop, Stop {
       return LatLon(lat!, lon!);
     }
     if (x != null && y != null) {
-      final o = lv03ToWGS84Converter.convert(Pair(x!, y!));
-      return LatLon(o.first, o.second);
+      final o = lv03ToWGS84Converter.convert(LV03Coordinates(x!, y!));
+      return o;
     }
 
     return null;

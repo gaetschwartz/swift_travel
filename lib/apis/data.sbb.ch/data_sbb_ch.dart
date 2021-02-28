@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:swift_travel/utils/models/coordinates.dart';
 
 import 'models/geo_models.dart';
 import 'models/sbb_models.dart';

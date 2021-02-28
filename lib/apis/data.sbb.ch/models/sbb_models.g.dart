@@ -6,18 +6,6 @@ part of 'sbb_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LatLon _$_$_LatLonFromJson(Map<String, dynamic> json) {
-  return _$_LatLon(
-    (json['lat'] as num).toDouble(),
-    (json['lon'] as num).toDouble(),
-  );
-}
-
-Map<String, dynamic> _$_$_LatLonToJson(_$_LatLon instance) => <String, dynamic>{
-      'lat': instance.lat,
-      'lon': instance.lon,
-    };
-
 _$_SbbStationResponse _$_$_SbbStationResponseFromJson(
     Map<String, dynamic> json) {
   return _$_SbbStationResponse(
