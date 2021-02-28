@@ -83,8 +83,7 @@ class SncfDeparture with _$SncfDeparture, StationboardConnection {
   String? get operator => displayInformations.network;
 
   @override
-  // TODO: implement subsequentStops
-  List<SubsequentStop> get subsequentStops => [];
+  List<DelayedStop> get subsequentStops => [];
 
   @override
   Stop get terminal => SbbStop(displayInformations.direction);

@@ -54,7 +54,7 @@ class SbbDataRepository {
       }
       final pos2 = await _getSbb(n);
       if (pos2.records!.isNotEmpty) {
-        return LatLon.fromCoordinates(pos2.records!.first.geometry!.coordinates!);
+        return LatLon.fromList(pos2.records!.first.geometry!.coordinates!);
       }
     }
     return null;

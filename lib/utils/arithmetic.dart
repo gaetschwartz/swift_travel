@@ -5,7 +5,7 @@ import 'models/coordinates.dart';
 
 final lv03ToWGS84Converter = LV03ToWGS84Converter();
 
-/// See https://www.swisstopo.admin.ch/en/knowledge-facts/surveying-geodesy/reference-systems/switzerland.html#dokumente_publikatio
+/// See https://www.swisstopo.admin.ch/en/knowledge-facts/surveying-geodesy/reference-systems/switzerland.html
 class LV03ToWGS84Converter extends Converter<LV03Coordinates, LatLon> {
   @override
   LatLon convert(LV03Coordinates input) {
