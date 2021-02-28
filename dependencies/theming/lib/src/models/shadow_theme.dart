@@ -9,7 +9,7 @@ part 'shadow_theme.freezed.dart';
 @freezed
 class ShadowTheme with _$ShadowTheme {
   const factory ShadowTheme({BoxShadow? buttonShadow}) = _ShadowTheme;
-  ShadowTheme._();
+  const ShadowTheme._();
 
   List<BoxShadow> list(Iterable<BoxShadow?> Function(ShadowTheme s) shadows) =>
       shadows(this).whereNotNull().toList();

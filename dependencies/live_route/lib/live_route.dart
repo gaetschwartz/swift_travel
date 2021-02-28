@@ -1,20 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:swift_travel/apis/data.sbb.ch/data_sbb_ch.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
-final liveRouteControllerProvider =
-    ChangeNotifierProvider((r) => LiveRouteController(r.read(sbbDataProvider)));
+final liveRouteControllerProvider = ChangeNotifierProvider((r) => LiveRouteController());
 
 @immutable
 class RouteData {
@@ -45,47 +41,8 @@ class RouteData {
   final Duration? timeUntilNextLeg;
 }
 
-class LiveRoutePlugin {
-  const LiveRoutePlugin._();
-
-  static const _channel = MethodChannel('gaetanschwartz.com/liveroute_plugin');
-
-  static Future<bool?> initialize() async {
-    final callback = PluginUtilities.getCallbackHandle(callbackDispatcher);
-    final res =
-        await _channel.invokeMethod<bool>('LiveRoute.initializeService', [callback!.toRawHandle()]);
-    return res;
-  }
-
-  static void callbackDispatcher() {
-    // 1. Initialize MethodChannel used to communicate with the platform portion of the plugin.
-    const _backgroundChannel = MethodChannel('gaetanschwartz.com/liveroute_plugin_background');
-
-    // 2. Setup internal state needed for MethodChannels.
-    WidgetsFlutterBinding.ensureInitialized();
-
-    // 3. Listen for background events from the platform portion of the plugin.
-    _backgroundChannel.setMethodCallHandler((call) async {
-      final List<Object> args = call.arguments;
-
-      // 3.1. Retrieve callback instance for handle.
-      final callback =
-          PluginUtilities.getCallbackFromHandle(CallbackHandle.fromRawHandle(args[0] as int))!
-              as Function();
-
-      // 3.3. Invoke callback.
-      callback();
-    });
-
-    // 4. Alert plugin that the callback handler is ready for events.
-    _backgroundChannel.invokeMethod<void>('GeofencingService.initialized');
-  }
-}
-
 class LiveRouteController extends ChangeNotifier {
-  LiveRouteController(this.sbbData);
-
-  final SbbDataRepository sbbData;
+  LiveRouteController();
 
   StreamSubscription<Position>? _sub;
 
@@ -192,15 +149,13 @@ class LiveRouteController extends ChangeNotifier {
     for (var i = 0; i < _connection!.legs.length; i++) {
       final l = _connection!.legs[i];
       _legDistances[i] ??= {};
-      if (l.lat == null || l.lon == null) {
-        continue;
-      }
-      final d = Geolocator.distanceBetween(l.lat!, l.lon!, p.latitude, p.longitude);
-      if (l.lat == null || l.lon == null) {
-        _legDistances[i]![-1] = double.infinity;
-      } else {
-        _legDistances[i]![-1] = d;
-      }
+
+      final d = l.position == null
+          ? double.infinity
+          : Geolocator.distanceBetween(l.position!.lat, l.position!.lon, p.latitude, p.longitude);
+
+      _legDistances[i]![-1] = d;
+
       if (l.stops.isNotEmpty) {
         for (var j = 0; j < l.stops.length; j++) {
           final s = l.stops[j];
@@ -273,33 +228,9 @@ class LiveRouteController extends ChangeNotifier {
     }
     log("Computing distances we didn't find");
 
-    final legs = <Leg>[];
-
-    for (final e in _connection!.legs) {
-      legs.add(await _computeLeg(e));
-    }
-
-    _connection = _connection!.copyWithLegs(legs);
     _isReady = true;
     notifyListeners();
     log('Done computing routes');
-  }
-
-  Future<Leg> _computeLeg(Leg leg) async {
-    if (leg.lat != null && leg.lon != null) {
-      return leg;
-    } else {
-      final pos = await sbbData.getPosition(leg.name);
-      // ignore: unnecessary_null_comparison
-      if (pos == null) {
-        return leg;
-      } else {
-        return leg.copyWithLatLon(
-          lat: pos.lat,
-          lon: pos.lon,
-        );
-      }
-    }
   }
 
   @override

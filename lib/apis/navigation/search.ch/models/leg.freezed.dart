@@ -362,7 +362,7 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SbbLeg extends _SbbLeg {
-  const _$_SbbLeg(
+  _$_SbbLeg(
       {required this.name,
       @JsonKey(name: 'exit')
           this.sbbExit,
@@ -571,8 +571,8 @@ class _$_SbbLeg extends _SbbLeg {
 }
 
 abstract class _SbbLeg extends SbbLeg {
-  const _SbbLeg._() : super._();
-  const factory _SbbLeg(
+  _SbbLeg._() : super._();
+  factory _SbbLeg(
       {required String name,
       @JsonKey(name: 'exit')
           SbbExit? sbbExit,

@@ -1,11 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/data.sbb.ch/models/sbb_models.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/utils/arithmetic.dart';
-import 'package:swift_travel/utils/predict/predict.dart';
+import 'package:swift_travel/utils/models/coordinates.dart';
 
 import 'exit.dart';
 
@@ -15,7 +14,7 @@ part 'leg.g.dart';
 @freezed
 class SbbLeg with _$SbbLeg, Leg {
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
-  const factory SbbLeg({
+  factory SbbLeg({
     required String name,
     @JsonKey(name: 'exit') SbbExit? sbbExit,
     @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -44,7 +43,7 @@ class SbbLeg with _$SbbLeg, Leg {
     int? y,
     @Default(<String, String>{}) Map<String, String> attributes,
   }) = _SbbLeg;
-  const SbbLeg._();
+  SbbLeg._();
 
   factory SbbLeg.fromJson(Map<String, dynamic> json) => _$SbbLegFromJson(json);
 
@@ -58,13 +57,15 @@ class SbbLeg with _$SbbLeg, Leg {
   Leg copyWithLatLon({required double lat, required double lon}) => copyWith(lat: lat, lon: lon);
 
   @override
-  LatLon? get position {
+  late final LatLon? position = _computePosition();
+
+  LatLon? _computePosition() {
     if (lat != null && lon != null) {
       return LatLon(lat!, lon!);
     }
     if (x != null && y != null) {
-      final o = lv03ToWGS84Converter.convert(Pair(x!, y!));
-      return LatLon(o.first, o.second);
+      final o = lv03ToWGS84Converter.convert(LV03Coordinates(x!, y!));
+      return o;
     }
 
     return null;

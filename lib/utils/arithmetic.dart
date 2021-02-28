@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'dart:math' as math;
 
-import 'package:swift_travel/utils/predict/predict.dart';
+import 'models/coordinates.dart';
 
 final lv03ToWGS84Converter = LV03ToWGS84Converter();
 
-class LV03ToWGS84Converter extends Converter<Pair<int, int>, Pair<double, double>> {
+class LV03ToWGS84Converter extends Converter<LV03Coordinates, LatLon> {
   @override
-  Pair<double, double> convert(Pair<int, int> input) {
-    final x = (input.first - 200000) / 1000000;
-    final y = (input.second - 600000) / 1000000;
+  LatLon convert(LV03Coordinates input) {
+    final x = (input.x - 2e5) / 1e6;
+    final y = (input.y - 6e5) / 1e6;
 
     final x2 = math.pow(x, 2);
 
@@ -22,7 +22,7 @@ class LV03ToWGS84Converter extends Converter<Pair<int, int>, Pair<double, double
         3.238272 * x -
         0.270978 * y2 -
         0.002528 * x2 -
-        0.0447 * math.pow(y, 2) * x -
+        0.0447 * y2 * x -
         0.0140 * math.pow(x, 3);
 
     const f = 100 / 36;
@@ -30,7 +30,7 @@ class LV03ToWGS84Converter extends Converter<Pair<int, int>, Pair<double, double
     final phi = phiP * f;
     final lambda = lambdaP * f;
 
-    return Pair(lambda, phi);
+    return LatLon(lambda, phi);
   }
 
   static const hCH = 600;

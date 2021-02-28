@@ -4,11 +4,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/utils/arithmetic.dart';
+import 'package:swift_travel/utils/models/coordinates.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
 void main() {
   final r = Random();
+
+  test('LV03 to WGS84', () {
+    final out = lv03ToWGS84Converter.convert(LV03Coordinates(100000, 700000));
+
+    expect(out.lat, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
+    expect(out.lon, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
+  });
 
   TestWidgetsFlutterBinding.ensureInitialized();
   group('format >', () {

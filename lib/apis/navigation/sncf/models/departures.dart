@@ -117,7 +117,7 @@ class SncfStopPoint with _$SncfStopPoint {
 }
 
 @freezed
-abstract class SncfMode with _$SncfMode {
+class SncfMode with _$SncfMode {
   const factory SncfMode(
     String id,
     String name,

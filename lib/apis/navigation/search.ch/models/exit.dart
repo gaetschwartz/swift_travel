@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/data.sbb.ch/models/sbb_models.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/utils/arithmetic.dart';
-import 'package:swift_travel/utils/predict/predict.dart';
+import 'package:swift_travel/utils/models/coordinates.dart';
 
 part 'exit.freezed.dart';
 part 'exit.g.dart';
@@ -48,8 +47,7 @@ class SbbExit with _$SbbExit, Exit {
       return LatLon(lat!, lon!);
     }
     if (x != null && y != null) {
-      final o = lv03ToWGS84Converter.convert(Pair(x!, y!));
-      return LatLon(o.first, o.second);
+      return lv03ToWGS84Converter.convert(LV03Coordinates(x!, y!));
     }
 
     return null;
