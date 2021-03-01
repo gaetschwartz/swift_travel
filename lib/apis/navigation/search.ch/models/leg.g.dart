@@ -23,7 +23,7 @@ _$_SbbLeg _$_$_SbbLegFromJson(Map<String, dynamic> json) {
     stopid: json['stopid'] as String?,
     runningTime: (json['runningtime'] as num?)?.toDouble(),
     line: json['line'] as String?,
-    sbbStops: (json['sbbStops'] as List<dynamic>?)
+    sbbStops: (json['stops'] as List<dynamic>?)
             ?.map((e) => SbbStop.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [],
@@ -71,7 +71,7 @@ Map<String, dynamic> _$_$_SbbLegToJson(_$_SbbLeg instance) {
   writeNotNull('stopid', instance.stopid);
   writeNotNull('runningtime', instance.runningTime);
   writeNotNull('line', instance.line);
-  val['sbbStops'] = instance.sbbStops.map((e) => e.toJson()).toList();
+  val['stops'] = instance.sbbStops.map((e) => e.toJson()).toList();
   writeNotNull('sbbName', instance.sbbName);
   writeNotNull('departure', instance.departure?.toIso8601String());
   writeNotNull('arrival', instance.arrival?.toIso8601String());

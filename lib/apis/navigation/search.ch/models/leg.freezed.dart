@@ -37,7 +37,8 @@ class _$SbbLegTearOff {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      List<SbbStop> sbbStops = const <SbbStop>[],
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+          List<SbbStop> sbbStops = const <SbbStop>[],
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
@@ -105,6 +106,7 @@ mixin _$SbbLeg {
   @JsonKey(name: 'runningtime')
   double? get runningTime => throw _privateConstructorUsedError;
   String? get line => throw _privateConstructorUsedError;
+  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
   String? get sbbName => throw _privateConstructorUsedError;
   DateTime? get departure => throw _privateConstructorUsedError;
@@ -145,7 +147,8 @@ abstract class $SbbLegCopyWith<$Res> {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      List<SbbStop> sbbStops,
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+          List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
@@ -267,7 +270,8 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      List<SbbStop> sbbStops,
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+          List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
@@ -379,7 +383,8 @@ class _$_SbbLeg extends _SbbLeg {
       @JsonKey(name: 'runningtime')
           this.runningTime,
       this.line,
-      this.sbbStops = const <SbbStop>[],
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+          this.sbbStops = const <SbbStop>[],
       this.sbbName,
       this.departure,
       this.arrival,
@@ -426,8 +431,8 @@ class _$_SbbLeg extends _SbbLeg {
   final double? runningTime;
   @override
   final String? line;
-  @JsonKey(defaultValue: const <SbbStop>[])
   @override
+  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   final List<SbbStop> sbbStops;
   @override
   final String? sbbName;
@@ -589,7 +594,8 @@ abstract class _SbbLeg extends SbbLeg {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      List<SbbStop> sbbStops,
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+          List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
@@ -635,6 +641,7 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   String? get line => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
   @override
   String? get sbbName => throw _privateConstructorUsedError;

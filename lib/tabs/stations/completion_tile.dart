@@ -35,7 +35,8 @@ class CompletionTile extends ConsumerWidget {
 
   final Completion sugg;
 
-  static const _kRadius = BorderRadius.all(Radius.circular(24));
+  static const _kRadius = BorderRadius.all(Radius.circular(16));
+
   @override
   Widget build(BuildContext context, Reader watch) {
     final iconClass = sugg.getIcon();

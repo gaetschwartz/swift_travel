@@ -259,7 +259,17 @@ class TransportDetails extends StatefulWidget {
 }
 
 class _TransportDetailsState extends State<TransportDetails> {
-  late final stops = _stops(widget.leg, context);
+  late final stops = <Widget>[
+    _buildStop(
+      SbbStop(widget.leg.name, departure: widget.leg.departure),
+      isFirst: true,
+    ),
+    ...widget.leg.stops.map((s) => _buildStop(s)),
+    _buildStop(
+      SbbStop(widget.leg.exit!.name, departure: widget.leg.exit!.arrival),
+      isLast: true,
+    )
+  ];
   late final List<Attribute> attributes = widget.leg.attributes.entries
       .map((e) =>
           Attribute.attributes[e.key]?.copyWith(message: e.value) ??
@@ -287,16 +297,43 @@ class _TransportDetailsState extends State<TransportDetails> {
       ),
       child: ListView.builder(
         itemBuilder: (context, i) {
-          if (i < attributes.length) {
-            return buildAttributeTile(attributes[i]);
-          } else if (!empty && i == attributes.length) {
+          if (i == 0) {
+            // return buildWrap(context);
+            return const SizedBox();
+          }
+          if (i < stops.length + 1) {
+            return stops[i - 1];
+          } else if (!empty && i == stops.length + 1) {
             return const Divider();
           } else {
-            return stops[i - attributes.length - dividerCount];
+            return buildAttributeTile(attributes[i - dividerCount - stops.length - 1]);
           }
         },
-        itemCount: attributes.length + dividerCount + stops.length,
+        itemCount: attributes.length + dividerCount + stops.length + 1,
       ),
+    );
+  }
+
+  Wrap buildWrap(BuildContext context) {
+    return Wrap(
+      children: [
+        for (final att in attributes)
+          Padding(
+            padding: const EdgeInsets.all(2),
+            child: IconTheme(
+              data: IconThemeData(
+                  color: parseColor(
+                    widget.leg.bgcolor,
+                    Theme.of(context).colorScheme.onBackground,
+                  ),
+                  size: 16),
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: att.icon ?? const Icon(CupertinoIcons.info_circle),
+              ),
+            ),
+          )
+      ],
     );
   }
 
@@ -331,34 +368,42 @@ class _TransportDetailsState extends State<TransportDetails> {
     );
   }
 
-  Widget _buildCircle(BuildContext context, Leg l) {
+  Widget _buildCircle() {
     return Container(
-      decoration: BoxDecoration(color: parseColor(l.bgcolor, Colors.black), shape: BoxShape.circle),
+      decoration: BoxDecoration(
+          color: parseColor(widget.leg.bgcolor, Colors.black), shape: BoxShape.circle),
       width: 12,
       height: 12,
     );
   }
 
   Widget _buildStop(
-    Leg l,
-    Stop stop,
-    BuildContext context, {
-    bool bold = false,
+    Stop stop, {
     bool isFirst = false,
     bool isLast = false,
   }) {
+    final bold = isFirst || isLast;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: SizedBox(
-        height: 28,
+        height: 32,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            if (stop.departure != null) ...[
+              SizedBox(
+                width: 48,
+                child: Text(
+                  Format.time(stop.departure),
+                  style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+                ),
+              ),
+            ],
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(child: _buildLine(!isFirst)),
-                _buildCircle(context, l),
+                _buildCircle(),
                 Expanded(child: _buildLine(!isLast)),
               ],
             ),
@@ -369,36 +414,9 @@ class _TransportDetailsState extends State<TransportDetails> {
                 style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
               ),
             ),
-            if (stop.departure != null) ...[
-              const SizedBox(width: 8),
-              Text(
-                Format.time(stop.departure),
-                style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
-              ),
-            ],
           ],
         ),
       ),
     );
-  }
-
-  List<Widget> _stops(Leg l, BuildContext context) {
-    return [
-      _buildStop(
-        l,
-        SbbStop(l.name, departure: l.departure),
-        context,
-        bold: true,
-        isFirst: true,
-      ),
-      ...l.stops.map((s) => _buildStop(l, s, context)),
-      _buildStop(
-        l,
-        SbbStop(l.exit!.name, departure: l.exit!.arrival),
-        context,
-        bold: true,
-        isLast: true,
-      )
-    ];
   }
 }
