@@ -37,8 +37,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
 
   @nonVirtual
   Box<TEncValue> get box {
-    assert(_debugInitialized,
-        '$this needs to be initiated using open() before accessing the underlying box');
+    assert(_debugInitialized, '$this needs to be initiated using `open()` before this operation.');
     if (_box == null) {
       throw StateError("Tried $this's box before opening it. Use `open()`.");
     }
@@ -50,17 +49,11 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
   Future<int> clear() => box.clear();
 
   @mustCallSuper
-  Future<void> open({String? path, bool doLog = true}) async {
-    assert(() {
-      _debugInitialized = true;
-      return true;
-    }(), '');
+  Future<void> open({String? path, bool doLog = false}) async {
     _box = await Hive.openBox<TEncValue>(boxKey, path: path);
+    assert(_debugInitialized = true, '');
     if (doLog) {
-      assert(() {
-        print('Opened $this at ${box.path}');
-        return true;
-      }(), '');
+      print('Opened $this at ${box.path}');
     }
   }
 

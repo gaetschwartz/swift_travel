@@ -131,11 +131,29 @@ class SearchChApi extends BaseNavigationApi {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve stationboard : ${response.body}");
     }
-    final decode = await Future.microtask(() => jsonDecode(response.body) as Map<String, dynamic>);
+    final decode = await Future.microtask(() => timedDecode(response.body));
 
     final cffStationboard = SbbStationboard.fromJson(decode);
 
     return cffStationboard;
+  }
+
+  Map<String, dynamic> timedDecode(String body) {
+    if (kDebugMode) {
+      late final Map<String, dynamic> map;
+      final w = Stopwatch()..start();
+      map = jsonDecode(body);
+      w.stop();
+      if (w.elapsedMilliseconds > 10) {
+        print(
+          '⚠ Took ${w.elapsedMilliseconds} ms to decode ${body.length} characters',
+        );
+        debugPrintStack();
+      }
+      return map;
+    } else {
+      return jsonDecode(body);
+    }
   }
 
   @override
@@ -174,18 +192,8 @@ class SearchChApi extends BaseNavigationApi {
     if (response.statusCode != 200) {
       throw Exception("Couldn't retrieve raw route: ${response.body}");
     }
-    final stopwatch = Stopwatch()..start();
 
-    final map = jsonDecode(response.body) as Map<String, dynamic>;
-
-    stopwatch.stop();
-
-    if (kDebugMode) {
-      if (stopwatch.elapsedMilliseconds > 16) {
-        log('⚠ Decoding took more than a frame');
-      }
-      log('Decoding ${response.body.length} characters took ${stopwatch.elapsedMilliseconds} ms');
-    }
+    final map = timedDecode(response.body);
 
     return CffRoute.fromJson(map).copyWith(requestUrl: query.toString());
   }

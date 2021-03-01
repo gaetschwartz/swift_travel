@@ -29,7 +29,7 @@ class SbbLeg with _$SbbLeg, Leg {
     String? stopid,
     @JsonKey(name: 'runningtime') double? runningTime,
     String? line,
-    @Default(<SbbStop>[]) List<SbbStop> sbbStops,
+    @Default(<SbbStop>[]) @JsonKey(name: 'stops', defaultValue: <SbbStop>[]) List<SbbStop> sbbStops,
     String? sbbName,
     DateTime? departure,
     DateTime? arrival,
