@@ -27,8 +27,8 @@ class _$SbbStopTearOff {
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
       double? lat,
       double? lon,
-      int? x,
-      int? y}) {
+      @IntConverter() int? x,
+      @IntConverter() int? y}) {
     return _SbbStop(
       name,
       id: id,
@@ -61,7 +61,9 @@ mixin _$SbbStop {
   DateTime? get arrival => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get lon => throw _privateConstructorUsedError;
+  @IntConverter()
   int? get x => throw _privateConstructorUsedError;
+  @IntConverter()
   int? get y => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -81,8 +83,8 @@ abstract class $SbbStopCopyWith<$Res> {
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
       double? lat,
       double? lon,
-      int? x,
-      int? y});
+      @IntConverter() int? x,
+      @IntConverter() int? y});
 }
 
 /// @nodoc
@@ -133,8 +135,8 @@ abstract class _$SbbStopCopyWith<$Res> implements $SbbStopCopyWith<$Res> {
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
       double? lat,
       double? lon,
-      int? x,
-      int? y});
+      @IntConverter() int? x,
+      @IntConverter() int? y});
 }
 
 /// @nodoc
@@ -173,7 +175,7 @@ class __$SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: false, checked: true)
 
 /// @nodoc
 class _$_SbbStop extends _SbbStop {
@@ -184,8 +186,8 @@ class _$_SbbStop extends _SbbStop {
       @JsonKey(fromJson: _fromJson, toJson: _toJson) this.arrival,
       this.lat,
       this.lon,
-      this.x,
-      this.y})
+      @IntConverter() this.x,
+      @IntConverter() this.y})
       : super._();
 
   factory _$_SbbStop.fromJson(Map<String, dynamic> json) =>
@@ -208,8 +210,10 @@ class _$_SbbStop extends _SbbStop {
   @override
   final double? lon;
   @override
+  @IntConverter()
   final int? x;
   @override
+  @IntConverter()
   final int? y;
 
   @override
@@ -276,8 +280,8 @@ abstract class _SbbStop extends SbbStop {
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
       double? lat,
       double? lon,
-      int? x,
-      int? y}) = _$_SbbStop;
+      @IntConverter() int? x,
+      @IntConverter() int? y}) = _$_SbbStop;
 
   factory _SbbStop.fromJson(Map<String, dynamic> json) = _$_SbbStop.fromJson;
 
@@ -298,8 +302,10 @@ abstract class _SbbStop extends SbbStop {
   @override
   double? get lon => throw _privateConstructorUsedError;
   @override
+  @IntConverter()
   int? get x => throw _privateConstructorUsedError;
   @override
+  @IntConverter()
   int? get y => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

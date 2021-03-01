@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swift_travel/apis/navigation/models/freezed/stop.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
@@ -15,6 +16,7 @@ class SncfStationboard with _$SncfStationboard, StationBoard {
     required SncfContext context,
     required List<SncfDeparture> departures,
     SncfError? error,
+    @Default(CustomStop()) @JsonKey(ignore: true) Stop stop,
   }) = _SncfStationboard;
   const SncfStationboard._();
 
@@ -24,10 +26,7 @@ class SncfStationboard with _$SncfStationboard, StationBoard {
   List<StationboardConnection> get connections => departures;
 
   @override
-  List<Object> get messages => [if (error != null) error!];
-
-  @override
-  Stop get stop => const SbbStop('dummy');
+  List<Object> get errors => [if (error != null) error!];
 
   @override
   String get stopName => throw UnimplementedError();

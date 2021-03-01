@@ -13,10 +13,47 @@ class LatLon with _$LatLon {
   ) = _LatLon;
 
   factory LatLon.fromGeoAttr(GeoAttr geoAttr) => _LatLon(geoAttr.lat!, geoAttr.lon!);
-  factory LatLon.fromList(List<double> coords) => _LatLon(coords[0], coords[1]);
+  factory LatLon.fromList(List<double> coords) {
+    assert(coords.length >= 2, 'The coordinates list needs to contain at least 2 elements');
+    return _LatLon(coords[0], coords[1]);
+  }
+
+  /// Converts LV03 coordinates from the swiss coordinates system to regular GPS coordinates (WGS84).
+  /// See [LV03ToWGS84Converter]
   factory LatLon.fromLV03(LV03Coordinates coords) => lv03ToWGS84Converter.convert(coords);
 
   factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
+
+  static LatLon? computeFrom({
+    required double? lat,
+    required double? lon,
+    required int? x,
+    required int? y,
+    required String? name,
+  }) {
+    if (lat != null && lon != null) {
+      return LatLon(lat, lon);
+    }
+
+    if (x != null && y != null) {
+      return LatLon.fromLV03(LV03Coordinates(x, y));
+    }
+
+    if (name != null) {
+      final i = name.indexOf('@');
+
+      if (i != -1) {
+        final s = name.substring(i + 1);
+        final x = int.tryParse(s.split(',').first);
+        final y = int.tryParse(s.split(',').last);
+        if (x != null && y != null) {
+          return LatLon.fromLV03(LV03Coordinates(x, y));
+        }
+      }
+    }
+
+    return null;
+  }
 }
 
 @freezed

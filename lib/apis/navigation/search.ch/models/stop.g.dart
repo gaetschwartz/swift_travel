@@ -7,17 +7,21 @@ part of 'stop.dart';
 // **************************************************************************
 
 _$_SbbStop _$_$_SbbStopFromJson(Map<String, dynamic> json) {
-  return _$_SbbStop(
-    json['name'] as String,
-    id: json['id'] as String?,
-    stopid: json['stopid'] as String?,
-    departure: _fromJson(json['departure'] as String?),
-    arrival: _fromJson(json['arrival'] as String?),
-    lat: (json['lat'] as num?)?.toDouble(),
-    lon: (json['lon'] as num?)?.toDouble(),
-    x: json['x'] as int?,
-    y: json['y'] as int?,
-  );
+  return $checkedNew(r'_$_SbbStop', json, () {
+    final val = _$_SbbStop(
+      $checkedConvert(json, 'name', (v) => v as String),
+      id: $checkedConvert(json, 'id', (v) => v as String?),
+      stopid: $checkedConvert(json, 'stopid', (v) => v as String?),
+      departure:
+          $checkedConvert(json, 'departure', (v) => _fromJson(v as String?)),
+      arrival: $checkedConvert(json, 'arrival', (v) => _fromJson(v as String?)),
+      lat: $checkedConvert(json, 'lat', (v) => (v as num?)?.toDouble()),
+      lon: $checkedConvert(json, 'lon', (v) => (v as num?)?.toDouble()),
+      x: $checkedConvert(json, 'x', (v) => const IntConverter().fromJson(v)),
+      y: $checkedConvert(json, 'y', (v) => const IntConverter().fromJson(v)),
+    );
+    return val;
+  });
 }
 
 Map<String, dynamic> _$_$_SbbStopToJson(_$_SbbStop instance) {
@@ -37,7 +41,7 @@ Map<String, dynamic> _$_$_SbbStopToJson(_$_SbbStop instance) {
   writeNotNull('arrival', _toJson(instance.arrival));
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);
-  writeNotNull('x', instance.x);
-  writeNotNull('y', instance.y);
+  writeNotNull('x', const IntConverter().toJson(instance.x));
+  writeNotNull('y', const IntConverter().toJson(instance.y));
   return val;
 }

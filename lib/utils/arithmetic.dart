@@ -5,6 +5,9 @@ import 'models/coordinates.dart';
 
 final lv03ToWGS84Converter = LV03ToWGS84Converter();
 
+/// Converts LV03 coordinates from the swiss coordinates system to regular GPS coordinates (WGS84).
+/// This method is the approximate version which far more than enough for our usage.
+///
 /// See https://www.swisstopo.admin.ch/en/knowledge-facts/surveying-geodesy/reference-systems/switzerland.html
 class LV03ToWGS84Converter extends Converter<LV03Coordinates, LatLon> {
   @override

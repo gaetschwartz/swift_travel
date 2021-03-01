@@ -103,7 +103,7 @@ class _StopDetailsState extends State<StopDetails> {
     return RefreshIndicator(
       onRefresh: refreshData,
       child: data != null
-          ? data!.messages.isEmpty
+          ? data!.errors.isEmpty
               ? ListView.builder(
                   itemBuilder: (context, i) => i.isEven
                       ? const Divider(height: 0)
@@ -126,7 +126,7 @@ class _StopDetailsState extends State<StopDetails> {
         if (data != null)
           SliverSafeArea(
               top: false,
-              sliver: data!.messages.isEmpty
+              sliver: data!.errors.isEmpty
                   ? SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, i) => i.isEven
@@ -163,8 +163,8 @@ class _StopDetailsState extends State<StopDetails> {
             ),
             const SizedBox(height: 16),
             Text(
-              s.messages.isNotEmpty
-                  ? s.messages.join('\n')
+              s.errors.isNotEmpty
+                  ? s.errors.join('\n')
                   : "We couldn't find any departures from this location",
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
