@@ -114,7 +114,7 @@ class SncfApi extends BaseNavigationApi {
     out['disruptions'] = <void>[];
     print(const JsonEncoder.withIndent('|').convert(out)); */
 
-    final stationboard = SncfStationboard.fromJson(decode);
+    final stationboard = SncfStationboard.fromJson(decode).copyWith(stop: stop);
     print(stationboard);
     return stationboard;
   }

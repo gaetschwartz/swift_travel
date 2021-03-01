@@ -22,8 +22,10 @@ class _$SbbStationboardTearOff {
 
   _SbbStationboard call(
       {@JsonKey(name: 'stop')
-          SbbStop sbbStop = const SbbStop(''),
-      @JsonKey(name: 'connections')
+          SbbStop? sbbStop = const SbbStop(''),
+      @JsonKey(
+          name: 'connections', defaultValue: const <
+              SbbStationboardConnection>[])
           List<SbbStationboardConnection>
               sbbConnections = const <SbbStationboardConnection>[],
       List<Object> messages = const <Object>[]}) {
@@ -45,8 +47,9 @@ const $SbbStationboard = _$SbbStationboardTearOff();
 /// @nodoc
 mixin _$SbbStationboard {
   @JsonKey(name: 'stop')
-  SbbStop get sbbStop => throw _privateConstructorUsedError;
-  @JsonKey(name: 'connections')
+  SbbStop? get sbbStop => throw _privateConstructorUsedError;
+  @JsonKey(
+      name: 'connections', defaultValue: const <SbbStationboardConnection>[])
   List<SbbStationboardConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   List<Object> get messages => throw _privateConstructorUsedError;
@@ -64,12 +67,14 @@ abstract class $SbbStationboardCopyWith<$Res> {
       _$SbbStationboardCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'stop')
-          SbbStop sbbStop,
-      @JsonKey(name: 'connections')
+          SbbStop? sbbStop,
+      @JsonKey(
+          name: 'connections', defaultValue: const <
+              SbbStationboardConnection>[])
           List<SbbStationboardConnection> sbbConnections,
       List<Object> messages});
 
-  $SbbStopCopyWith<$Res> get sbbStop;
+  $SbbStopCopyWith<$Res>? get sbbStop;
 }
 
 /// @nodoc
@@ -88,7 +93,7 @@ class _$SbbStationboardCopyWithImpl<$Res>
     Object? messages = freezed,
   }) {
     return _then(_value.copyWith(
-      sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop,
+      sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop?,
       sbbConnections: sbbConnections == freezed
           ? _value.sbbConnections
           : sbbConnections as List<SbbStationboardConnection>,
@@ -98,8 +103,12 @@ class _$SbbStationboardCopyWithImpl<$Res>
   }
 
   @override
-  $SbbStopCopyWith<$Res> get sbbStop {
-    return $SbbStopCopyWith<$Res>(_value.sbbStop, (value) {
+  $SbbStopCopyWith<$Res>? get sbbStop {
+    if (_value.sbbStop == null) {
+      return null;
+    }
+
+    return $SbbStopCopyWith<$Res>(_value.sbbStop!, (value) {
       return _then(_value.copyWith(sbbStop: value));
     });
   }
@@ -114,13 +123,15 @@ abstract class _$SbbStationboardCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: 'stop')
-          SbbStop sbbStop,
-      @JsonKey(name: 'connections')
+          SbbStop? sbbStop,
+      @JsonKey(
+          name: 'connections', defaultValue: const <
+              SbbStationboardConnection>[])
           List<SbbStationboardConnection> sbbConnections,
       List<Object> messages});
 
   @override
-  $SbbStopCopyWith<$Res> get sbbStop;
+  $SbbStopCopyWith<$Res>? get sbbStop;
 }
 
 /// @nodoc
@@ -141,7 +152,7 @@ class __$SbbStationboardCopyWithImpl<$Res>
     Object? messages = freezed,
   }) {
     return _then(_SbbStationboard(
-      sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop,
+      sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop?,
       sbbConnections: sbbConnections == freezed
           ? _value.sbbConnections
           : sbbConnections as List<SbbStationboardConnection>,
@@ -151,14 +162,16 @@ class __$SbbStationboardCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 
 /// @nodoc
 class _$_SbbStationboard extends _SbbStationboard {
   const _$_SbbStationboard(
       {@JsonKey(name: 'stop')
           this.sbbStop = const SbbStop(''),
-      @JsonKey(name: 'connections')
+      @JsonKey(
+          name: 'connections', defaultValue: const <
+              SbbStationboardConnection>[])
           this.sbbConnections = const <SbbStationboardConnection>[],
       this.messages = const <Object>[]})
       : super._();
@@ -168,9 +181,10 @@ class _$_SbbStationboard extends _SbbStationboard {
 
   @override
   @JsonKey(name: 'stop')
-  final SbbStop sbbStop;
+  final SbbStop? sbbStop;
   @override
-  @JsonKey(name: 'connections')
+  @JsonKey(
+      name: 'connections', defaultValue: const <SbbStationboardConnection>[])
   final List<SbbStationboardConnection> sbbConnections;
   @JsonKey(defaultValue: const <Object>[])
   @override
@@ -218,8 +232,10 @@ abstract class _SbbStationboard extends SbbStationboard {
   const _SbbStationboard._() : super._();
   const factory _SbbStationboard(
       {@JsonKey(name: 'stop')
-          SbbStop sbbStop,
-      @JsonKey(name: 'connections')
+          SbbStop? sbbStop,
+      @JsonKey(
+          name: 'connections', defaultValue: const <
+              SbbStationboardConnection>[])
           List<SbbStationboardConnection> sbbConnections,
       List<Object> messages}) = _$_SbbStationboard;
 
@@ -228,9 +244,10 @@ abstract class _SbbStationboard extends SbbStationboard {
 
   @override
   @JsonKey(name: 'stop')
-  SbbStop get sbbStop => throw _privateConstructorUsedError;
+  SbbStop? get sbbStop => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'connections')
+  @JsonKey(
+      name: 'connections', defaultValue: const <SbbStationboardConnection>[])
   List<SbbStationboardConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   @override

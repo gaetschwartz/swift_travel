@@ -23,11 +23,13 @@ class _$SncfStationboardTearOff {
   _SncfStationboard call(
       {required SncfContext context,
       required List<SncfDeparture> departures,
-      SncfError? error}) {
+      SncfError? error,
+      @JsonKey(ignore: true) Stop stop = const CustomStop()}) {
     return _SncfStationboard(
       context: context,
       departures: departures,
       error: error,
+      stop: stop,
     );
   }
 
@@ -44,6 +46,8 @@ mixin _$SncfStationboard {
   SncfContext get context => throw _privateConstructorUsedError;
   List<SncfDeparture> get departures => throw _privateConstructorUsedError;
   SncfError? get error => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  Stop get stop => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +61,10 @@ abstract class $SncfStationboardCopyWith<$Res> {
           SncfStationboard value, $Res Function(SncfStationboard) then) =
       _$SncfStationboardCopyWithImpl<$Res>;
   $Res call(
-      {SncfContext context, List<SncfDeparture> departures, SncfError? error});
+      {SncfContext context,
+      List<SncfDeparture> departures,
+      SncfError? error,
+      @JsonKey(ignore: true) Stop stop});
 
   $SncfContextCopyWith<$Res> get context;
   $SncfErrorCopyWith<$Res>? get error;
@@ -77,6 +84,7 @@ class _$SncfStationboardCopyWithImpl<$Res>
     Object? context = freezed,
     Object? departures = freezed,
     Object? error = freezed,
+    Object? stop = freezed,
   }) {
     return _then(_value.copyWith(
       context: context == freezed ? _value.context : context as SncfContext,
@@ -84,6 +92,7 @@ class _$SncfStationboardCopyWithImpl<$Res>
           ? _value.departures
           : departures as List<SncfDeparture>,
       error: error == freezed ? _value.error : error as SncfError?,
+      stop: stop == freezed ? _value.stop : stop as Stop,
     ));
   }
 
@@ -114,7 +123,10 @@ abstract class _$SncfStationboardCopyWith<$Res>
       __$SncfStationboardCopyWithImpl<$Res>;
   @override
   $Res call(
-      {SncfContext context, List<SncfDeparture> departures, SncfError? error});
+      {SncfContext context,
+      List<SncfDeparture> departures,
+      SncfError? error,
+      @JsonKey(ignore: true) Stop stop});
 
   @override
   $SncfContextCopyWith<$Res> get context;
@@ -138,6 +150,7 @@ class __$SncfStationboardCopyWithImpl<$Res>
     Object? context = freezed,
     Object? departures = freezed,
     Object? error = freezed,
+    Object? stop = freezed,
   }) {
     return _then(_SncfStationboard(
       context: context == freezed ? _value.context : context as SncfContext,
@@ -145,6 +158,7 @@ class __$SncfStationboardCopyWithImpl<$Res>
           ? _value.departures
           : departures as List<SncfDeparture>,
       error: error == freezed ? _value.error : error as SncfError?,
+      stop: stop == freezed ? _value.stop : stop as Stop,
     ));
   }
 }
@@ -155,7 +169,10 @@ class __$SncfStationboardCopyWithImpl<$Res>
 class _$_SncfStationboard extends _SncfStationboard
     with DiagnosticableTreeMixin {
   const _$_SncfStationboard(
-      {required this.context, required this.departures, this.error})
+      {required this.context,
+      required this.departures,
+      this.error,
+      @JsonKey(ignore: true) this.stop = const CustomStop()})
       : super._();
 
   factory _$_SncfStationboard.fromJson(Map<String, dynamic> json) =>
@@ -167,10 +184,13 @@ class _$_SncfStationboard extends _SncfStationboard
   final List<SncfDeparture> departures;
   @override
   final SncfError? error;
+  @override
+  @JsonKey(ignore: true)
+  final Stop stop;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SncfStationboard(context: $context, departures: $departures, error: $error)';
+    return 'SncfStationboard(context: $context, departures: $departures, error: $error, stop: $stop)';
   }
 
   @override
@@ -180,7 +200,8 @@ class _$_SncfStationboard extends _SncfStationboard
       ..add(DiagnosticsProperty('type', 'SncfStationboard'))
       ..add(DiagnosticsProperty('context', context))
       ..add(DiagnosticsProperty('departures', departures))
-      ..add(DiagnosticsProperty('error', error));
+      ..add(DiagnosticsProperty('error', error))
+      ..add(DiagnosticsProperty('stop', stop));
   }
 
   @override
@@ -194,7 +215,9 @@ class _$_SncfStationboard extends _SncfStationboard
                 const DeepCollectionEquality()
                     .equals(other.departures, departures)) &&
             (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.stop, stop) ||
+                const DeepCollectionEquality().equals(other.stop, stop)));
   }
 
   @override
@@ -202,7 +225,8 @@ class _$_SncfStationboard extends _SncfStationboard
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(context) ^
       const DeepCollectionEquality().hash(departures) ^
-      const DeepCollectionEquality().hash(error);
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(stop);
 
   @JsonKey(ignore: true)
   @override
@@ -220,7 +244,8 @@ abstract class _SncfStationboard extends SncfStationboard {
   const factory _SncfStationboard(
       {required SncfContext context,
       required List<SncfDeparture> departures,
-      SncfError? error}) = _$_SncfStationboard;
+      SncfError? error,
+      @JsonKey(ignore: true) Stop stop}) = _$_SncfStationboard;
 
   factory _SncfStationboard.fromJson(Map<String, dynamic> json) =
       _$_SncfStationboard.fromJson;
@@ -231,6 +256,9 @@ abstract class _SncfStationboard extends SncfStationboard {
   List<SncfDeparture> get departures => throw _privateConstructorUsedError;
   @override
   SncfError? get error => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  Stop get stop => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SncfStationboardCopyWith<_SncfStationboard> get copyWith =>

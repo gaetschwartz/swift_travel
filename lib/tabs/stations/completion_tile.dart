@@ -246,7 +246,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
           )
           .timeout(const Duration(seconds: 1));
 
-      if (sData.messages.isNotEmpty) {
+      if (sData.errors.isNotEmpty) {
         await cacheShortLivedErrorEntry();
         return;
       }

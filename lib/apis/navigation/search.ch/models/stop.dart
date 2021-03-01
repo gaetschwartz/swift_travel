@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/models/favorites.dart';
-import 'package:swift_travel/utils/arithmetic.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
 part 'stop.freezed.dart';
@@ -10,9 +9,31 @@ part 'stop.g.dart';
 DateTime? _fromJson(String? s) => s == null ? null : DateTime.parse(s);
 String? _toJson(DateTime? d) => d?.toIso8601String();
 
+class IntConverter implements JsonConverter<int?, Object?> {
+  const IntConverter();
+
+  @override
+  Object? toJson(int? json) => json;
+
+  @override
+  int? fromJson(Object? object) {
+    if (object == null) {
+      return null;
+    }
+    if (object is int) {
+      return object;
+    }
+    if (object is String) {
+      return int.parse(object);
+    }
+    throw UnsupportedError(
+        '$runtimeType only supports String and int as an input, not ${object.runtimeType}');
+  }
+}
+
 @freezed
 class SbbStop with _$SbbStop, Stop {
-  @JsonSerializable(includeIfNull: false)
+  @JsonSerializable(includeIfNull: false, checked: true)
   const factory SbbStop(
     String name, {
     String? id,
@@ -21,8 +42,8 @@ class SbbStop with _$SbbStop, Stop {
     @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
     double? lat,
     double? lon,
-    int? x,
-    int? y,
+    @IntConverter() int? x,
+    @IntConverter() int? y,
   }) = _SbbStop;
   const SbbStop._();
 
@@ -30,15 +51,5 @@ class SbbStop with _$SbbStop, Stop {
   factory SbbStop.fromJson(Map<String, dynamic> json) => _$SbbStopFromJson(json);
 
   @override
-  LatLon? get position {
-    if (lat != null && lon != null) {
-      return LatLon(lat!, lon!);
-    }
-    if (x != null && y != null) {
-      final o = lv03ToWGS84Converter.convert(LV03Coordinates(x!, y!));
-      return o;
-    }
-
-    return null;
-  }
+  LatLon? get position => LatLon.computeFrom(lat: lat, lon: lon, x: x, y: y, name: name);
 }

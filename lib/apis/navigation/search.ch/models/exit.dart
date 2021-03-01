@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/utils/arithmetic.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
 part 'exit.freezed.dart';
@@ -21,7 +20,7 @@ String delayToJson(int d) => d >= 0 ? '+$d' : d.toString();
 @freezed
 class SbbExit with _$SbbExit, Exit {
   @JsonSerializable(includeIfNull: false)
-  const factory SbbExit({
+  factory SbbExit({
     @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
     @Default(0)
         int arrDelay,
@@ -37,31 +36,12 @@ class SbbExit with _$SbbExit, Exit {
     int? x,
     int? y,
   }) = _Exit;
-  const SbbExit._();
+  SbbExit._();
 
   factory SbbExit.fromJson(Map<String, dynamic> json) => _$SbbExitFromJson(json);
 
   @override
-  LatLon? get position {
-    if (lat != null && lon != null) {
-      return LatLon(lat!, lon!);
-    }
-    if (x != null && y != null) {
-      return lv03ToWGS84Converter.convert(LV03Coordinates(x!, y!));
-    }
-    final i = name.indexOf('@');
-
-    if (i != -1) {
-      final s = name.substring(i + 1);
-      final x = int.tryParse(s.split(',').first);
-      final y = int.tryParse(s.split(',').last);
-      if (x != null && y != null) {
-        return lv03ToWGS84Converter.convert(LV03Coordinates(x, y));
-      }
-    }
-
-    return null;
-  }
+  late final LatLon? position = LatLon.computeFrom(lat: lat, lon: lon, x: x, y: y, name: name);
 
   @override
   int get depDelay => 0;

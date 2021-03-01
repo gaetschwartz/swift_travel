@@ -3,7 +3,6 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
-import 'package:swift_travel/utils/arithmetic.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
 import 'exit.dart';
@@ -57,17 +56,5 @@ class SbbLeg with _$SbbLeg, Leg {
   Leg copyWithLatLon({required double lat, required double lon}) => copyWith(lat: lat, lon: lon);
 
   @override
-  late final LatLon? position = _computePosition();
-
-  LatLon? _computePosition() {
-    if (lat != null && lon != null) {
-      return LatLon(lat!, lon!);
-    }
-    if (x != null && y != null) {
-      final o = lv03ToWGS84Converter.convert(LV03Coordinates(x!, y!));
-      return o;
-    }
-
-    return null;
-  }
+  late final LatLon? position = LatLon.computeFrom(lat: lat, lon: lon, x: x, y: y, name: name);
 }

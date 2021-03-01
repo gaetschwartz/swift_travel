@@ -19,7 +19,7 @@ void main() {
     expect(out.lat, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
     expect(out.lon, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
 
-    final pos = const SbbExit(name: 'test @100000, 700000').position;
+    final pos = SbbExit(name: 'test @100000, 700000').position;
     expect(pos, isNotNull);
     expect(pos!.lat, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
     expect(pos.lon, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));

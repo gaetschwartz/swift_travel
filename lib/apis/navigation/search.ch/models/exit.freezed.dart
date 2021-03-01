@@ -205,7 +205,7 @@ class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Exit extends _Exit {
-  const _$_Exit(
+  _$_Exit(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           this.arrDelay = 0,
       this.arrival,
@@ -320,8 +320,8 @@ class _$_Exit extends _Exit {
 }
 
 abstract class _Exit extends SbbExit {
-  const _Exit._() : super._();
-  const factory _Exit(
+  _Exit._() : super._();
+  factory _Exit(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           int arrDelay,
       DateTime? arrival,
