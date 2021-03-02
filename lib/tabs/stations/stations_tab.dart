@@ -21,6 +21,7 @@ import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/listener.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
@@ -135,20 +136,25 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                             ),
                             onChanged: (s) => debounce(context, s),
                           ),
-                          Positioned(
-                            right: 0,
-                            top: 0,
-                            bottom: 0,
-                            child: Center(
-                              child: IconButton(
-                                  icon: const Icon(Icons.clear),
-                                  onPressed: () {
-                                    Vibration.select();
-                                    searchController.text = '';
-                                    focusNode.unfocus();
-                                    context.read(_stateProvider).state =
-                                        const StationStates.empty();
-                                  }),
+                          ListenerWidget<TextEditingController>(
+                            listenable: searchController,
+                            builder: (context, controller, child) =>
+                                controller.text.isEmpty ? const SizedBox() : child!,
+                            child: Positioned(
+                              right: 0,
+                              top: 0,
+                              bottom: 0,
+                              child: Center(
+                                child: IconButton(
+                                    icon: const Icon(Icons.clear),
+                                    onPressed: () {
+                                      Vibration.select();
+                                      searchController.text = '';
+                                      focusNode.unfocus();
+                                      context.read(_stateProvider).state =
+                                          const StationStates.empty();
+                                    }),
+                              ),
                             ),
                           ),
                         ],
@@ -159,9 +165,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                   IconButton(
                     icon: Consumer(builder: (context, w, _) {
                       final loading = w(_locatingProvider).state;
-                      return loading
-                          ? const CircularProgressIndicator.adaptive()
-                          : const Icon(CupertinoIcons.location_fill);
+                      return AnimatedLocation(loading: loading);
                     }),
                     tooltip: AppLoc.of(context).use_current_location,
                     onPressed: () => _getLocation(),
@@ -324,5 +328,62 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     properties
         .add(DiagnosticsProperty<TextEditingController>('searchController', searchController));
     properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode));
+  }
+}
+
+class AnimatedLocation extends StatefulWidget {
+  const AnimatedLocation({
+    Key? key,
+    required this.loading,
+  }) : super(key: key);
+
+  final bool loading;
+
+  @override
+  _AnimatedLocationState createState() => _AnimatedLocationState();
+}
+
+class _AnimatedLocationState extends State<AnimatedLocation> with SingleTickerProviderStateMixin {
+  late final controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 500),
+    upperBound: 0.25,
+  );
+
+  @override
+  void didUpdateWidget(covariant AnimatedLocation oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.loading) {
+      controller.repeat(reverse: true);
+    } else {
+      final s = controller.status;
+      switch (s) {
+        case AnimationStatus.forward:
+          controller.forward();
+          break;
+        case AnimationStatus.reverse:
+          controller.reverse();
+          break;
+
+        case AnimationStatus.dismissed:
+          break;
+        case AnimationStatus.completed:
+          break;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RotationTransition(
+      turns: ReverseAnimation(controller),
+      child: const Icon(CupertinoIcons.location_fill),
+    );
   }
 }

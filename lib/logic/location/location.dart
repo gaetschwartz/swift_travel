@@ -46,7 +46,9 @@ Future<Location> getLocation({
     } on MissingPluginException {
       if (kDebugMode) {
         log('Location is not fully supported on this dervice, returned a spoofed location');
+        await Future.delayed(const Duration(seconds: 1), () {});
       }
+
       return _spoofedLocation;
     }
   }

@@ -17,6 +17,7 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
+import 'package:swift_travel/widgets/listener.dart';
 import 'package:theming/responsive.dart';
 
 const _heroTag = 0xabcd;
@@ -183,7 +184,13 @@ class _SearchPageState extends State<SearchPage> {
             trailing: IconButton(
               color: CupertinoTheme.of(context).primaryColor,
               onPressed: () => widget.binder.clear(context),
-              icon: const Icon(CupertinoIcons.clear),
+              icon: ListenerWidget<TextEditingController>(
+                builder: (context, listenable, child) => Offstage(
+                  offstage: listenable.text.isEmpty,
+                  child: const Icon(CupertinoIcons.clear),
+                ),
+                listenable: widget.binder.controller,
+              ),
             ),
           ),
           child: _Results(
