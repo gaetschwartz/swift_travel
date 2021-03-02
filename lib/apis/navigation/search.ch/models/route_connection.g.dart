@@ -8,25 +8,34 @@ part of 'route_connection.dart';
 
 _$_SbbRouteConnection _$_$_SbbRouteConnectionFromJson(
     Map<String, dynamic> json) {
-  return _$_SbbRouteConnection(
-    from: json['from'] as String,
-    to: json['to'] as String,
-    departure: json['departure'] == null
-        ? null
-        : DateTime.parse(json['departure'] as String),
-    arrival: json['arrival'] == null
-        ? null
-        : DateTime.parse(json['arrival'] as String),
-    duration: (json['duration'] as num?)?.toDouble(),
-    sbbLegs: (json['legs'] as List<dynamic>)
-        .map((e) => SbbLeg.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    disruptions: (json['disruptions'] as Map<String, dynamic>?)?.map(
-          (k, e) => MapEntry(k, Disruption.fromJson(e as Map<String, dynamic>)),
-        ) ??
-        {},
-    depDelay: delayFromJson(json['dep_delay']),
-  );
+  return $checkedNew(r'_$_SbbRouteConnection', json, () {
+    final val = _$_SbbRouteConnection(
+      from: $checkedConvert(json, 'from', (v) => v as String),
+      to: $checkedConvert(json, 'to', (v) => v as String),
+      departure: $checkedConvert(json, 'departure',
+          (v) => v == null ? null : DateTime.parse(v as String)),
+      arrival: $checkedConvert(json, 'arrival',
+          (v) => v == null ? null : DateTime.parse(v as String)),
+      duration:
+          $checkedConvert(json, 'duration', (v) => (v as num?)?.toDouble()),
+      sbbLegs: $checkedConvert(
+          json,
+          'legs',
+          (v) => (v as List<dynamic>)
+              .map((e) => SbbLeg.fromJson(e as Map<String, dynamic>))
+              .toList()),
+      disruptions: $checkedConvert(
+              json,
+              'disruptions',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(
+                        k, Disruption.fromJson(e as Map<String, dynamic>)),
+                  )) ??
+          {},
+      depDelay: $checkedConvert(json, 'dep_delay', (v) => delayFromJson(v)),
+    );
+    return val;
+  }, fieldKeyMap: const {'sbbLegs': 'legs', 'depDelay': 'dep_delay'});
 }
 
 Map<String, dynamic> _$_$_SbbRouteConnectionToJson(

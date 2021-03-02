@@ -7,25 +7,40 @@ part of 'stationboard.dart';
 // **************************************************************************
 
 _$_SbbStationboard _$_$_SbbStationboardFromJson(Map<String, dynamic> json) {
-  return _$_SbbStationboard(
-    sbbStop: json['stop'] == null
-        ? null
-        : SbbStop.fromJson(json['stop'] as Map<String, dynamic>),
-    sbbConnections: (json['connections'] as List<dynamic>?)
-            ?.map((e) =>
-                SbbStationboardConnection.fromJson(e as Map<String, dynamic>))
-            .toList() ??
-        [],
-    messages: (json['messages'] as List<dynamic>?)
-            ?.map((e) => e as Object)
-            .toList() ??
-        [],
-  );
+  return $checkedNew(r'_$_SbbStationboard', json, () {
+    final val = _$_SbbStationboard(
+      sbbStop: $checkedConvert(
+          json,
+          'stop',
+          (v) =>
+              v == null ? null : SbbStop.fromJson(v as Map<String, dynamic>)),
+      sbbConnections: $checkedConvert(
+              json,
+              'connections',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => SbbStationboardConnection.fromJson(
+                      e as Map<String, dynamic>))
+                  .toList()) ??
+          [],
+      messages: $checkedConvert(json, 'messages',
+              (v) => (v as List<dynamic>?)?.map((e) => e as Object).toList()) ??
+          [],
+    );
+    return val;
+  }, fieldKeyMap: const {'sbbStop': 'stop', 'sbbConnections': 'connections'});
 }
 
-Map<String, dynamic> _$_$_SbbStationboardToJson(_$_SbbStationboard instance) =>
-    <String, dynamic>{
-      'stop': instance.sbbStop?.toJson(),
-      'connections': instance.sbbConnections.map((e) => e.toJson()).toList(),
-      'messages': instance.messages,
-    };
+Map<String, dynamic> _$_$_SbbStationboardToJson(_$_SbbStationboard instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('stop', instance.sbbStop?.toJson());
+  val['connections'] = instance.sbbConnections.map((e) => e.toJson()).toList();
+  val['messages'] = instance.messages;
+  return val;
+}

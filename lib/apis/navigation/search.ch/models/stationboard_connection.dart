@@ -10,7 +10,7 @@ part 'stationboard_connection.g.dart';
 
 @freezed
 class SbbStationboardConnection with _$SbbStationboardConnection, StationboardConnection {
-  @JsonSerializable(explicitToJson: true)
+  @JsonSerializable(explicitToJson: true, checked: true)
   const factory SbbStationboardConnection({
     required DateTime time,
     required Vehicle type,

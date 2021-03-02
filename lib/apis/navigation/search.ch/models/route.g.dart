@@ -7,22 +7,33 @@ part of 'route.dart';
 // **************************************************************************
 
 _$_CffRoute _$_$_CffRouteFromJson(Map<String, dynamic> json) {
-  return _$_CffRoute(
-    count: json['count'] as int? ?? 0,
-    minDuration: (json['min_duration'] as num?)?.toDouble(),
-    maxDuration: (json['max_duration'] as num?)?.toDouble(),
-    sbbConnections: (json['connections'] as List<dynamic>)
-        .map((e) => SbbRouteConnection.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    messages: (json['messages'] as List<dynamic>?)
-            ?.map((e) => e as String)
-            .toList() ??
-        [],
-    requestUrl: json['requestUrl'] as String?,
-    dateTime: json['dateTime'] == null
-        ? null
-        : DateTime.parse(json['dateTime'] as String),
-  );
+  return $checkedNew(r'_$_CffRoute', json, () {
+    final val = _$_CffRoute(
+      count: $checkedConvert(json, 'count', (v) => v as int?) ?? 0,
+      minDuration:
+          $checkedConvert(json, 'min_duration', (v) => (v as num?)?.toDouble()),
+      maxDuration:
+          $checkedConvert(json, 'max_duration', (v) => (v as num?)?.toDouble()),
+      sbbConnections: $checkedConvert(
+          json,
+          'connections',
+          (v) => (v as List<dynamic>)
+              .map(
+                  (e) => SbbRouteConnection.fromJson(e as Map<String, dynamic>))
+              .toList()),
+      messages: $checkedConvert(json, 'messages',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()) ??
+          [],
+      requestUrl: $checkedConvert(json, 'requestUrl', (v) => v as String?),
+      dateTime: $checkedConvert(json, 'dateTime',
+          (v) => v == null ? null : DateTime.parse(v as String)),
+    );
+    return val;
+  }, fieldKeyMap: const {
+    'minDuration': 'min_duration',
+    'maxDuration': 'max_duration',
+    'sbbConnections': 'connections'
+  });
 }
 
 Map<String, dynamic> _$_$_CffRouteToJson(_$_CffRoute instance) {

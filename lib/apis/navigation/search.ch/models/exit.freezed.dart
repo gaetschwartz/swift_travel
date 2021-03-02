@@ -32,8 +32,10 @@ class _$SbbExitTearOff {
       String? track,
       int waittime = 0,
       bool isaddress = false,
-      int? x,
-      int? y}) {
+      @IntConverter()
+          int? x,
+      @IntConverter()
+          int? y}) {
     return _Exit(
       arrDelay: arrDelay,
       arrival: arrival,
@@ -71,7 +73,9 @@ mixin _$SbbExit {
   String? get track => throw _privateConstructorUsedError;
   int get waittime => throw _privateConstructorUsedError;
   bool get isaddress => throw _privateConstructorUsedError;
+  @IntConverter()
   int? get x => throw _privateConstructorUsedError;
+  @IntConverter()
   int? get y => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -95,8 +99,10 @@ abstract class $SbbExitCopyWith<$Res> {
       String? track,
       int waittime,
       bool isaddress,
-      int? x,
-      int? y});
+      @IntConverter()
+          int? x,
+      @IntConverter()
+          int? y});
 }
 
 /// @nodoc
@@ -156,8 +162,10 @@ abstract class _$ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
       String? track,
       int waittime,
       bool isaddress,
-      int? x,
-      int? y});
+      @IntConverter()
+          int? x,
+      @IntConverter()
+          int? y});
 }
 
 /// @nodoc
@@ -201,7 +209,7 @@ class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: false, checked: true)
 
 /// @nodoc
 class _$_Exit extends _Exit {
@@ -217,8 +225,10 @@ class _$_Exit extends _Exit {
       this.track,
       this.waittime = 0,
       this.isaddress = false,
-      this.x,
-      this.y})
+      @IntConverter()
+          this.x,
+      @IntConverter()
+          this.y})
       : super._();
 
   factory _$_Exit.fromJson(Map<String, dynamic> json) =>
@@ -248,8 +258,10 @@ class _$_Exit extends _Exit {
   @override
   final bool isaddress;
   @override
+  @IntConverter()
   final int? x;
   @override
+  @IntConverter()
   final int? y;
 
   @override
@@ -333,8 +345,10 @@ abstract class _Exit extends SbbExit {
       String? track,
       int waittime,
       bool isaddress,
-      int? x,
-      int? y}) = _$_Exit;
+      @IntConverter()
+          int? x,
+      @IntConverter()
+          int? y}) = _$_Exit;
 
   factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
 
@@ -360,8 +374,10 @@ abstract class _Exit extends SbbExit {
   @override
   bool get isaddress => throw _privateConstructorUsedError;
   @override
+  @IntConverter()
   int? get x => throw _privateConstructorUsedError;
   @override
+  @IntConverter()
   int? get y => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
