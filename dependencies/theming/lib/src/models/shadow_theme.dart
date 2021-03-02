@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:theming/dynamic_theme.dart';
 
-export 'dart:collection';
+export 'package:collection/collection.dart';
 
 part 'shadow_theme.freezed.dart';
 

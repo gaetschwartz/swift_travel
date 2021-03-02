@@ -8,7 +8,8 @@ import 'package:flutter/services.dart';
 class Vibration {
   const Vibration._();
 
-  static const MethodChannel _channel = MethodChannel('com.gaetanschwartz.vibration/channel');
+  static const MethodChannel _channel =
+      MethodChannel('com.gaetanschwartz.vibration/channel');
 
   static Future<void> vibrate(
       {VibrationType type = VibrationType.normal,
@@ -17,21 +18,11 @@ class Vibration {
       int repeat = -1,
       List<int> intensities = const [],
       int amplitude = -1}) async {
-    if (kIsWeb) {
+    if (kIsWeb || Platform.isAndroid) {
       return;
-    } else if (Platform.isIOS) {
+    }
+    if (Platform.isIOS) {
       await _channel.invokeMethod<void>('vibrate', describeEnum(type));
-    } else if (Platform.isAndroid) {
-      await _channel.invokeMethod<void>(
-        'vibrate',
-        {
-          'duration': duration,
-          'pattern': pattern,
-          'repeat': repeat,
-          'amplitude': amplitude,
-          'intensities': intensities
-        },
-      );
     }
   }
 
@@ -72,4 +63,15 @@ class Vibration {
   }
 }
 
-enum VibrationType { selection, light, medium, heavy, success, warning, error, normal, rigid, soft }
+enum VibrationType {
+  selection,
+  light,
+  medium,
+  heavy,
+  success,
+  warning,
+  error,
+  normal,
+  rigid,
+  soft
+}

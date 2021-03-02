@@ -19,6 +19,7 @@ import 'package:swift_travel/tabs/stations/stations_tab.dart';
 import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/utils/page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
@@ -200,33 +201,18 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           label: titles[2]),
     ];
     return Consumer(builder: (context, w, _) {
-      final combined = w(tabProvider);
-      final page = combined.page % MainApp.androidTabs.length;
+      final controllers = w(tabProvider);
+      final page = controllers.page % MainApp.androidTabs.length;
 
       return Scaffold(
         key: const Key('home-scaffold'),
         resizeToAvoidBottomInset: false,
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.transparent,
-          selectedItemColor: Theme.of(context).accentColor,
-          onTap: (i) {
-            Vibration.selectSoft();
-            if (combined.page != i) {
-              combined.animateTo(i, isDarwin: false);
-            } else {
-              navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
-              context.read(sideTabBarProvider).state = null;
-            }
-          },
-          currentIndex: page,
-          items: items,
-          elevation: 0,
-        ),
+        bottomNavigationBar: SwiftNavigationBar(controllers: controllers, page: page, items: items),
         body: PageTransitionSwitcher(
           transitionBuilder: (child, primaryAnimation, secondaryAnimation) => child,
           duration: Duration.zero,
           child: Navigator(
-            key: navigatorKeys[combined.page],
+            key: navigatorKeys[controllers.page],
             pages: [SingleWidgetPage<void>(MainApp.androidTabs[page], name: titles[page])],
             onPopPage: (_, dynamic __) => true,
             onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: false),
@@ -235,6 +221,79 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
         ),
       );
     });
+  }
+}
+
+class SwiftNavigationBar extends StatelessWidget {
+  const SwiftNavigationBar({
+    Key? key,
+    required this.controllers,
+    required this.page,
+    required this.items,
+    this.activeColor,
+  }) : super(key: key);
+
+  final CombinedPageController controllers;
+  final int page;
+  final List<BottomNavigationBarItem> items;
+  final Color? activeColor;
+
+  static const height = 64.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: SizedBox(
+          height: height,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              boxShadow: [
+                BoxShadow(
+                  color: ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey,
+                  blurRadius: 16,
+                )
+              ],
+            ),
+            child: Row(
+              children: [
+                for (var i = 0; i < items.length; i++) buildInkWell(i, context),
+              ],
+            ),
+          )),
+    );
+  }
+
+  Expanded buildInkWell(int i, BuildContext context) {
+    final item = items[i];
+    return Expanded(
+        child: IfWrapper(
+      builder: (context, child) => IconTheme(
+        data: IconThemeData(color: activeColor ?? Theme.of(context).primaryColor),
+        child: child!,
+      ),
+      condition: i == page,
+      child: InkWell(
+        onTap: () => onTap(i, context),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            if (i != page) item.icon else item.activeIcon,
+            if (item.label != null) Text(item.label!),
+          ],
+        ),
+      ),
+    ));
+  }
+
+  void onTap(int i, BuildContext context) {
+    Vibration.selectSoft();
+    if (controllers.page != i) {
+      controllers.animateTo(i, isDarwin: false);
+    } else {
+      navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
+      context.read(sideTabBarProvider).state = null;
+    }
   }
 }
 

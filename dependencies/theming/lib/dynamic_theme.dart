@@ -136,8 +136,10 @@ class DynamicThemeData extends ChangeNotifier {
     final themeName = _prefs!.getString('${_config.prefix}name');
 
     final fontName = _prefs!.getString('${_config.prefix}font');
-    final __font =
-        _config.fonts.firstWhere((f) => f.name == fontName, orElse: () => defaultFonts.first);
+    final __font = _config.fonts.firstWhere(
+      (f) => f.name == fontName,
+      orElse: () => _config.defaultFont ?? _config.fonts.first,
+    );
 
     final fontWeightD = _prefs!.getInt('${_config.prefix}fontWeightDelta') ?? 0;
 
