@@ -43,6 +43,7 @@ mixin Leg {
   int get waitTime;
   bool get isaddress;
   Map<String, String> get attributes;
+  String get displayName => name.split('@').first;
 
   LatLon? get position;
 

@@ -36,8 +36,8 @@ const List<Font> fonts = [
 
 TextTheme _i(TextTheme? t) => Typography.material2018(platform: defaultTargetPlatform).englishLike;
 
-final _light = FlexColorScheme.light(scheme: FlexScheme.mandyRed).toScheme;
-final _dark = FlexColorScheme.dark(scheme: FlexScheme.mandyRed).toScheme;
+const _light = ColorScheme.light();
+const _dark = ColorScheme.dark();
 
 ThemeConfiguration get themeConfiguration {
   return ThemeConfiguration(

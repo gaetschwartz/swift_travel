@@ -273,19 +273,32 @@ class SwiftNavigationBar extends StatelessWidget {
 
   Expanded buildInkWell(int i, BuildContext context) {
     final item = items[i];
+    final isCurrent = page == i;
+    final _activeColor = activeColor ?? Theme.of(context).primaryColor;
     return Expanded(
-        child: IfWrapper(
-      builder: (context, child) => IconTheme(
-        data: IconThemeData(color: activeColor ?? Theme.of(context).primaryColor),
-        child: child!,
-      ),
-      condition: i == page,
+        child: DefaultTextStyle(
+      style: isCurrent
+          ? Theme.of(context).textTheme.bodyText2!.copyWith(color: _activeColor)
+          : Theme.of(context).textTheme.bodyText2!,
       child: InkWell(
         onTap: () => onTap(i, context),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            if (i != page) item.icon else item.activeIcon,
+            if (i != page)
+              item.icon
+            else
+              GradientMask(
+                gradient: LinearGradient(
+                  colors: [
+                    augment2(Theme.of(context).primaryColor, strength: 0.5),
+                    Theme.of(context).primaryColor,
+                  ],
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                ),
+                child: item.activeIcon,
+              ),
             if (item.label != null) Text(item.label!),
           ],
         ),

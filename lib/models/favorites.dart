@@ -50,6 +50,8 @@ class FavoriteStop with _$FavoriteStop, BaseStop {
     @Default(NavigationApi.sbb) NavigationApi api,
   }) = _FavoriteStop;
 
+  const FavoriteStop._();
+
   factory FavoriteStop.fromStop(String stop, {required NavigationApi api}) =>
       _FavoriteStop(stop: stop, name: stop, api: api);
 

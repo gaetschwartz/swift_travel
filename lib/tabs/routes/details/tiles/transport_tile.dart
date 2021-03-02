@@ -299,9 +299,10 @@ class _TransportDetailsState extends State<TransportDetails> {
       child: ListView.builder(
         itemBuilder: (context, i) {
           if (i == 0) {
-            return Card(
-              shadowColor: ShadowTheme.of(context).buttonShadow?.color,
+            return PhysicalModel(
+              shadowColor: ShadowTheme.of(context).buttonShadow!.color,
               elevation: 8,
+              color: Theme.of(context).scaffoldBackgroundColor,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(

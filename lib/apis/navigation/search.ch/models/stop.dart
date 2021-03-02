@@ -41,7 +41,7 @@ class IntConverter implements JsonConverter<int?, Object?> {
 }
 
 @freezed
-class SbbStop with _$SbbStop, Stop {
+class SbbStop with _$SbbStop, Stop, BaseStop {
   @JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
   const factory SbbStop(
     String name, {

@@ -39,7 +39,7 @@ class WalkingTile extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          l.exit!.name,
+                          l.exit!.displayName,
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1!
@@ -49,7 +49,7 @@ class WalkingTile extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  if (l.exit != null && l.exit!.waittime > 0)
+                  if (l.exit!.waittime > 0)
                     Text.rich(
                       parseDecoratedText(
                         AppLoc.of(context).walk_and_wait(

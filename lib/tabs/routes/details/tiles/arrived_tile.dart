@@ -34,7 +34,7 @@ class ArrivedTile extends StatelessWidget {
                   const FaIcon(FontAwesomeIcons.mapPin),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(l.name,
+                    child: Text(l.displayName,
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1!

@@ -314,12 +314,13 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 
 /// @nodoc
-class _$_FavoriteStop implements _FavoriteStop {
+class _$_FavoriteStop extends _FavoriteStop {
   const _$_FavoriteStop(
       {required this.stop,
       required this.name,
       this.id,
-      this.api = NavigationApi.sbb});
+      this.api = NavigationApi.sbb})
+      : super._();
 
   factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
       _$_$_FavoriteStopFromJson(json);
@@ -372,7 +373,8 @@ class _$_FavoriteStop implements _FavoriteStop {
   }
 }
 
-abstract class _FavoriteStop implements FavoriteStop {
+abstract class _FavoriteStop extends FavoriteStop {
+  const _FavoriteStop._() : super._();
   const factory _FavoriteStop(
       {required String stop,
       required String name,

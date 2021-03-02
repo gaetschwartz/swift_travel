@@ -12,6 +12,7 @@ mixin StationBoard {
 mixin BaseStop {
   String get name;
   String? get id;
+  String get displayName => name.split('@').first;
 }
 
 abstract class Stop = Object with BaseStop, WithTimeMixin, LocatedMixin;

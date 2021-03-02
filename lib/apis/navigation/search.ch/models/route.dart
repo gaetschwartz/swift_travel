@@ -9,13 +9,20 @@ part 'route.g.dart';
 class CffRoute with _$CffRoute, NavRoute {
   @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
   const factory CffRoute({
-    @Default(0) int count,
-    @JsonKey(name: 'min_duration') double? minDuration,
-    @JsonKey(name: 'max_duration') double? maxDuration,
-    @JsonKey(name: 'connections')
+    @Default(0)
+        int count,
+    @JsonKey(name: 'min_duration')
+        double? minDuration,
+    @JsonKey(name: 'max_duration')
+        double? maxDuration,
     @Default(<SbbRouteConnection>[])
+    @JsonKey(
+      name: 'connections',
+      defaultValue: <SbbRouteConnection>[],
+    )
         List<SbbRouteConnection> sbbConnections,
-    @Default(<String>[]) List<String> messages,
+    @Default(<String>[])
+        List<String> messages,
     String? requestUrl,
     DateTime? dateTime,
   }) = _CffRoute;
