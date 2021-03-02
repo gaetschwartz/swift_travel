@@ -148,7 +148,8 @@ Future<void> _testRouteTab() async {
       await t.tap(tile);
       await t.pumpAndSettle();
 
-      expect(find.text('Itinerary'), findsOneWidget);
+      final localizations = await AppLocalizations.delegate.load(const Locale('en'));
+      expect(find.text(localizations.tabs_route), findsOneWidget);
 
       navigatorKey.currentState!.pop();
       await t.pumpAndSettle();
