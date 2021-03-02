@@ -15,6 +15,7 @@ import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
+import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 
 class TransportLegTile extends StatefulWidget {
@@ -298,8 +299,20 @@ class _TransportDetailsState extends State<TransportDetails> {
       child: ListView.builder(
         itemBuilder: (context, i) {
           if (i == 0) {
-            // return buildWrap(context);
-            return const SizedBox();
+            return Card(
+              shadowColor: ShadowTheme.of(context).buttonShadow?.color,
+              elevation: 8,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    LineIcon.fromLeg(widget.leg),
+                    const SizedBox(width: 8),
+                    Text(AppLoc.of(context).direction(widget.leg.terminal ?? '')),
+                  ],
+                ),
+              ),
+            );
           }
           if (i < stops.length + 1) {
             return stops[i - 1];
@@ -337,7 +350,7 @@ class _TransportDetailsState extends State<TransportDetails> {
     );
   }
 
-  String get title => '${widget.leg.line} ${AppLoc.of(context).to} ${widget.leg.terminal}';
+  String get title => AppLoc.of(context).journey_informations;
 
   Widget buildAttributeTile(Attribute att) {
     return ListTile(

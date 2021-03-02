@@ -106,7 +106,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get tabs_favourites => 'Favoris';
 
   @override
-  String get tabs_route => 'Itinéraire';
+  String get tabs_route => 'Planifier';
 
   @override
   String get tabs_search => 'Recherche';
@@ -158,4 +158,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get share => 'Partager';
+
+  @override
+  String get journey_informations => 'Itinéraire';
+
+  @override
+  String direction(String dir) {
+    return 'Direction ${dir}';
+  }
+
+  @override
+  String get itinerary => 'Itinéraire';
 }

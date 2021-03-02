@@ -16,7 +16,7 @@
 	"reset_settings": "Reimpostare le impostazioni",
 	"settings": "Impostazioni",
 	"tabs_favourites": "Preferiti",
-	"tabs_route": "Percorso",
+	"tabs_route": "Pianificare",
 	"tabs_search": "Ricerca",
 	"use_current_location": "Utilizzare la posizione corrente",
 	"use_current_time": "Utilizzare l'ora corrente",
@@ -47,5 +47,8 @@
 	"timetable": "Orario",
 	"suggestion": "Suggerimento",
 	"live_route": "Percorso in diretta",
-	"share": "Azione"
+	"share": "Azione",
+	"journey_informations": "Informazioni sul viaggio",
+	"direction": "In direzione di {dir}",
+	"itinerary": "Percorso"
 }

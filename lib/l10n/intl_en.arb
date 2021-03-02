@@ -28,6 +28,14 @@
 			}
 		}
 	},
+	"@direction": {
+		"placeholders": {
+			"dir": {
+				"example": "Lausanne",
+				"type": "String"
+			}
+		}
+	},
 	"add_to_favs": "Add to favourites",
 	"arrival": "Arrival",
 	"brightness": "Brightness",
@@ -60,7 +68,7 @@
 	"search_station": "Search for a station",
 	"settings": "Settings",
 	"tabs_favourites": "Favourites",
-	"tabs_route": "Itinerary",
+	"tabs_route": "Planning",
 	"tabs_search": "Search",
 	"themes": "Themes",
 	"timetable": "Timetable",
@@ -75,5 +83,8 @@
 	"youll_be_there": "You arrive at *{time}*.",
 	"suggestion": "Suggestion",
 	"live_route": "Live route",
-	"share": "Share"
+	"share": "Share",
+	"journey_informations": "Journey information",
+	"direction": "Direction {dir}",
+	"itinerary": "Itinerary"
 }

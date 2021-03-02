@@ -16,7 +16,7 @@
 	"reset_settings": "Réinitialiser les paramètres",
 	"settings": "Paramètres",
 	"tabs_favourites": "Favoris",
-	"tabs_route": "Itinéraire",
+	"tabs_route": "Planifier",
 	"tabs_search": "Recherche",
 	"use_current_location": "Utiliser l'emplacement actuel",
 	"use_current_time": "Utiliser l'heure actuelle",
@@ -47,5 +47,8 @@
 	"timetable": "Horaire",
 	"suggestion": "Suggestion",
 	"live_route": "Parcours en direct",
-	"share": "Partager"
+	"share": "Partager",
+	"journey_informations": "Itinéraire",
+	"direction": "Direction {dir}",
+	"itinerary": "Itinéraire"
 }

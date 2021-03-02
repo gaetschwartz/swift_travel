@@ -295,7 +295,7 @@ abstract class AppLocalizations {
   /// No description provided for @tabs_route.
   ///
   /// In en, this message translates to:
-  /// **'Itinerary'**
+  /// **'Planning'**
   String get tabs_route;
 
   /// No description provided for @tabs_search.
@@ -387,6 +387,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Share'**
   String get share;
+
+  /// No description provided for @journey_informations.
+  ///
+  /// In en, this message translates to:
+  /// **'Journey information'**
+  String get journey_informations;
+
+  /// No description provided for @direction.
+  ///
+  /// In en, this message translates to:
+  /// **'Direction {dir}'**
+  String direction(String dir);
+
+  /// No description provided for @itinerary.
+  ///
+  /// In en, this message translates to:
+  /// **'Itinerary'**
+  String get itinerary;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
