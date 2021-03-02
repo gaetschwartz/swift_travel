@@ -193,12 +193,19 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       AppLoc.of(context).tabs_favourites,
     ];
     final items = [
-      BottomNavigationBarItem(icon: const Icon(CupertinoIcons.search), label: titles[0]),
-      BottomNavigationBarItem(icon: const FaIcon(FontAwesomeIcons.route), label: titles[1]),
       BottomNavigationBarItem(
-          icon: const Icon(CupertinoIcons.star),
-          activeIcon: const Icon(CupertinoIcons.star_fill),
-          label: titles[2]),
+        icon: const Icon(CupertinoIcons.search),
+        label: titles[0],
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(CupertinoIcons.list_dash),
+        label: titles[1],
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(CupertinoIcons.star),
+        activeIcon: const Icon(CupertinoIcons.star_fill),
+        label: titles[2],
+      ),
     ];
     return Consumer(builder: (context, w, _) {
       final controllers = w(tabProvider);
@@ -250,8 +257,8 @@ class SwiftNavigationBar extends StatelessWidget {
               color: Theme.of(context).cardColor,
               boxShadow: [
                 BoxShadow(
-                  color: ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey,
-                  blurRadius: 16,
+                  color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey).withAlpha(24),
+                  blurRadius: 32,
                 )
               ],
             ),
