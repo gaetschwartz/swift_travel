@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/models/favorites.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
 part 'stop.freezed.dart';
@@ -27,7 +28,12 @@ class IntConverter implements JsonConverter<int?, Object?> {
       return object.toInt();
     }
     if (object is String) {
-      return int.parse(object);
+      try {
+        return int.parse(object);
+      } on FormatException catch (e, s) {
+        reportDartError(e, s);
+        return null;
+      }
     }
     throw UnsupportedError(
         '$runtimeType only supports ints, Strings and nums as an input, not ${object.runtimeType}');

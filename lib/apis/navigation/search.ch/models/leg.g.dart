@@ -45,8 +45,8 @@ _$_SbbLeg _$_$_SbbLegFromJson(Map<String, dynamic> json) {
       isaddress: $checkedConvert(json, 'isaddress', (v) => v as bool?) ?? false,
       lat: $checkedConvert(json, 'lat', (v) => (v as num?)?.toDouble()),
       lon: $checkedConvert(json, 'lon', (v) => (v as num?)?.toDouble()),
-      x: $checkedConvert(json, 'x', (v) => v as int?),
-      y: $checkedConvert(json, 'y', (v) => v as int?),
+      x: $checkedConvert(json, 'x', (v) => const IntConverter().fromJson(v)),
+      y: $checkedConvert(json, 'y', (v) => const IntConverter().fromJson(v)),
       attributes: $checkedConvert(
               json,
               'attributes',
@@ -97,8 +97,8 @@ Map<String, dynamic> _$_$_SbbLegToJson(_$_SbbLeg instance) {
   val['isaddress'] = instance.isaddress;
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);
-  writeNotNull('x', instance.x);
-  writeNotNull('y', instance.y);
+  writeNotNull('x', const IntConverter().toJson(instance.x));
+  writeNotNull('y', const IntConverter().toJson(instance.y));
   val['attributes'] = instance.attributes;
   return val;
 }
