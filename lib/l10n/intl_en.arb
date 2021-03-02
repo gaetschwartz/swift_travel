@@ -20,7 +20,7 @@
 			}
 		}
 	},
-	"@youll_be_there" :{
+	"@youll_be_there": {
 		"placeholders": {
 			"time": {
 				"example": "1 min",
@@ -72,5 +72,8 @@
 	"walk_and_wait": "Walk *{walk}* and wait *{wait}*.",
 	"what_to_do": "What to do ?",
 	"yes": "Yes",
-	"youll_be_there": "You arrive at *{time}*."
+	"youll_be_there": "You arrive at *{time}*.",
+	"suggestion": "Suggestion",
+	"live_route": "Live route",
+	"share": "Share"
 }

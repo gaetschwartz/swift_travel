@@ -369,6 +369,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You arrive at *{time}*.'**
   String youll_be_there(String time);
+
+  /// No description provided for @suggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion'**
+  String get suggestion;
+
+  /// No description provided for @live_route.
+  ///
+  /// In en, this message translates to:
+  /// **'Live route'**
+  String get live_route;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

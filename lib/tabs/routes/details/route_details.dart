@@ -53,7 +53,7 @@ class RouteDetails extends StatelessWidget {
                               ActionsSheetAction(
                                 icon: const Icon(CupertinoIcons.play_fill),
                                 onPressed: () => openLive(context, conn),
-                                title: const Text('Live Route'),
+                                title: Text(AppLoc.of(context).live_route),
                               ),
                               ActionsSheetAction(
                                 icon: const Icon(CupertinoIcons.game_controller),
@@ -65,7 +65,7 @@ class RouteDetails extends StatelessWidget {
                                 ActionsSheetAction(
                                   icon: const Icon(CupertinoIcons.share),
                                   onPressed: () => _shareRoute(context),
-                                  title: const Text('Share'),
+                                  title: Text(AppLoc.of(context).share),
                                 )
                             ],
                             cancel: ActionsSheetAction(

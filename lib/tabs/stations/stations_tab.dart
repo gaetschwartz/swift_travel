@@ -130,7 +130,6 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.all(Radius.circular(8)),
                               ),
-                              //labelText: "Look for a station",
                               filled: true,
                               fillColor: Theme.of(context).cardColor,
                             ),
