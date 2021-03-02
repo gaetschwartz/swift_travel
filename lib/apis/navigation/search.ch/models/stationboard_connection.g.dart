@@ -8,23 +8,39 @@ part of 'stationboard_connection.dart';
 
 _$_SbbStationboardConnection _$_$_SbbStationboardConnectionFromJson(
     Map<String, dynamic> json) {
-  return _$_SbbStationboardConnection(
-    time: DateTime.parse(json['time'] as String),
-    type: _$enumDecode(_$VehicleEnumMap, json['type']),
-    color: json['color'] as String,
-    sbbTerminal: SbbStop.fromJson(json['terminal'] as Map<String, dynamic>),
-    line: json['line'] as String?,
-    operator: json['operator'] as String?,
-    number: json['number'] as String? ?? '',
-    g: json['*G'] as String?,
-    l: json['*L'] as String?,
-    sbbSubsequentStops: (json['subsequent_stops'] as List<dynamic>?)
-            ?.map((e) => SbbSubsequentStop.fromJson(e as Map<String, dynamic>))
-            .toList() ??
-        [],
-    depDelay: delayFromJson(json['dep_delay']),
-    arrDelay: delayFromJson(json['arr_delay']),
-  );
+  return $checkedNew(r'_$_SbbStationboardConnection', json, () {
+    final val = _$_SbbStationboardConnection(
+      time: $checkedConvert(json, 'time', (v) => DateTime.parse(v as String)),
+      type: $checkedConvert(
+          json, 'type', (v) => _$enumDecode(_$VehicleEnumMap, v)),
+      color: $checkedConvert(json, 'color', (v) => v as String),
+      sbbTerminal: $checkedConvert(
+          json, 'terminal', (v) => SbbStop.fromJson(v as Map<String, dynamic>)),
+      line: $checkedConvert(json, 'line', (v) => v as String?),
+      operator: $checkedConvert(json, 'operator', (v) => v as String?),
+      number: $checkedConvert(json, 'number', (v) => v as String?) ?? '',
+      g: $checkedConvert(json, '*G', (v) => v as String?),
+      l: $checkedConvert(json, '*L', (v) => v as String?),
+      sbbSubsequentStops: $checkedConvert(
+              json,
+              'subsequent_stops',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) =>
+                      SbbSubsequentStop.fromJson(e as Map<String, dynamic>))
+                  .toList()) ??
+          [],
+      depDelay: $checkedConvert(json, 'dep_delay', (v) => delayFromJson(v)),
+      arrDelay: $checkedConvert(json, 'arr_delay', (v) => delayFromJson(v)),
+    );
+    return val;
+  }, fieldKeyMap: const {
+    'sbbTerminal': 'terminal',
+    'g': '*G',
+    'l': '*L',
+    'sbbSubsequentStops': 'subsequent_stops',
+    'depDelay': 'dep_delay',
+    'arrDelay': 'arr_delay'
+  });
 }
 
 Map<String, dynamic> _$_$_SbbStationboardConnectionToJson(

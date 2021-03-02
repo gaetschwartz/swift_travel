@@ -12,7 +12,7 @@ part 'leg.g.dart';
 
 @freezed
 class SbbLeg with _$SbbLeg, Leg {
-  @JsonSerializable(explicitToJson: true, includeIfNull: false)
+  @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
   factory SbbLeg({
     required String name,
     @JsonKey(name: 'exit') SbbExit? sbbExit,

@@ -7,7 +7,7 @@ part 'route.g.dart';
 
 @freezed
 class CffRoute with _$CffRoute, NavRoute {
-  @JsonSerializable(explicitToJson: true, includeIfNull: false)
+  @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
   const factory CffRoute({
     @Default(0) int count,
     @JsonKey(name: 'min_duration') double? minDuration,

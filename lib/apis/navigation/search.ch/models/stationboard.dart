@@ -30,7 +30,7 @@ class CustomStopConverter implements JsonConverter<Stop, Map<String, dynamic>?> 
 
 @freezed
 class SbbStationboard with _$SbbStationboard, StationBoard {
-  @JsonSerializable(explicitToJson: true)
+  @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
   const factory SbbStationboard({
     @Default(SbbStop('')) @JsonKey(name: 'stop') SbbStop? sbbStop,
     @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])

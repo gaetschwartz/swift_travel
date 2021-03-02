@@ -182,7 +182,7 @@ class __$SbbRouteConnectionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true, includeIfNull: false)
+@JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
 
 /// @nodoc
 class _$_SbbRouteConnection extends _SbbRouteConnection {

@@ -170,7 +170,7 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true, includeIfNull: false)
+@JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
 
 /// @nodoc
 class _$_CffRoute extends _CffRoute {

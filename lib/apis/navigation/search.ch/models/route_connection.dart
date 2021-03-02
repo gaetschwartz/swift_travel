@@ -10,7 +10,7 @@ part 'route_connection.g.dart';
 
 @freezed
 class SbbRouteConnection with _$SbbRouteConnection, RouteConnection {
-  @JsonSerializable(explicitToJson: true, includeIfNull: false)
+  @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
   const factory SbbRouteConnection({
     required String from,
     required String to,

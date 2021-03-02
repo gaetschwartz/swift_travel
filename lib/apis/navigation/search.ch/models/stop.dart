@@ -23,17 +23,20 @@ class IntConverter implements JsonConverter<int?, Object?> {
     if (object is int) {
       return object;
     }
+    if (object is num) {
+      return object.toInt();
+    }
     if (object is String) {
       return int.parse(object);
     }
     throw UnsupportedError(
-        '$runtimeType only supports String and int as an input, not ${object.runtimeType}');
+        '$runtimeType only supports ints, Strings and nums as an input, not ${object.runtimeType}');
   }
 }
 
 @freezed
 class SbbStop with _$SbbStop, Stop {
-  @JsonSerializable(includeIfNull: false, checked: true)
+  @JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
   const factory SbbStop(
     String name, {
     String? id,

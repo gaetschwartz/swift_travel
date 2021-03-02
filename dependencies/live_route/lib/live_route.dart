@@ -60,6 +60,10 @@ class TimeBasedLiveRouteController extends BaseLiveRouteController {
   }
 
   RouteConnection? _connection;
+  Leg? _leg;
+  Stop? _stop;
+  Leg? get currentLeg => _leg;
+  Stop? get currentStop => _stop;
 
   Future<void> _update() async {
     final now = MockableDateTime.now();
@@ -83,6 +87,9 @@ class TimeBasedLiveRouteController extends BaseLiveRouteController {
     }
     print('Candidate leg is $leg');
     print('Candidate stop is $stop');
+
+    _leg = leg;
+    _stop = stop;
   }
 
   @override

@@ -7,45 +7,62 @@ part of 'leg.dart';
 // **************************************************************************
 
 _$_SbbLeg _$_$_SbbLegFromJson(Map<String, dynamic> json) {
-  return _$_SbbLeg(
-    name: json['name'] as String,
-    sbbExit: json['exit'] == null
-        ? null
-        : SbbExit.fromJson(json['exit'] as Map<String, dynamic>),
-    depDelay: delayFromJson(json['dep_delay']),
-    type: _$enumDecodeNullable(_$VehicleEnumMap, json['type']),
-    track: json['track'] as String?,
-    terminal: json['terminal'] as String?,
-    fgcolor: json['fgcolor'] as String?,
-    number: json['number'] as String?,
-    bgcolor: json['bgcolor'] as String?,
-    tripid: json['tripid'] as String?,
-    stopid: json['stopid'] as String?,
-    runningTime: (json['runningtime'] as num?)?.toDouble(),
-    line: json['line'] as String?,
-    sbbStops: (json['stops'] as List<dynamic>?)
-            ?.map((e) => SbbStop.fromJson(e as Map<String, dynamic>))
-            .toList() ??
-        [],
-    sbbName: json['sbbName'] as String?,
-    departure: json['departure'] == null
-        ? null
-        : DateTime.parse(json['departure'] as String),
-    arrival: json['arrival'] == null
-        ? null
-        : DateTime.parse(json['arrival'] as String),
-    normalTime: json['normalTime'] as int?,
-    waitTime: json['waittime'] as int? ?? 0,
-    isaddress: json['isaddress'] as bool? ?? false,
-    lat: (json['lat'] as num?)?.toDouble(),
-    lon: (json['lon'] as num?)?.toDouble(),
-    x: json['x'] as int?,
-    y: json['y'] as int?,
-    attributes: (json['attributes'] as Map<String, dynamic>?)?.map(
-          (k, e) => MapEntry(k, e as String),
-        ) ??
-        {},
-  );
+  return $checkedNew(r'_$_SbbLeg', json, () {
+    final val = _$_SbbLeg(
+      name: $checkedConvert(json, 'name', (v) => v as String),
+      sbbExit: $checkedConvert(
+          json,
+          'exit',
+          (v) =>
+              v == null ? null : SbbExit.fromJson(v as Map<String, dynamic>)),
+      depDelay: $checkedConvert(json, 'dep_delay', (v) => delayFromJson(v)),
+      type: $checkedConvert(
+          json, 'type', (v) => _$enumDecodeNullable(_$VehicleEnumMap, v)),
+      track: $checkedConvert(json, 'track', (v) => v as String?),
+      terminal: $checkedConvert(json, 'terminal', (v) => v as String?),
+      fgcolor: $checkedConvert(json, 'fgcolor', (v) => v as String?),
+      number: $checkedConvert(json, 'number', (v) => v as String?),
+      bgcolor: $checkedConvert(json, 'bgcolor', (v) => v as String?),
+      tripid: $checkedConvert(json, 'tripid', (v) => v as String?),
+      stopid: $checkedConvert(json, 'stopid', (v) => v as String?),
+      runningTime:
+          $checkedConvert(json, 'runningtime', (v) => (v as num?)?.toDouble()),
+      line: $checkedConvert(json, 'line', (v) => v as String?),
+      sbbStops: $checkedConvert(
+              json,
+              'stops',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => SbbStop.fromJson(e as Map<String, dynamic>))
+                  .toList()) ??
+          [],
+      sbbName: $checkedConvert(json, 'sbbName', (v) => v as String?),
+      departure: $checkedConvert(json, 'departure',
+          (v) => v == null ? null : DateTime.parse(v as String)),
+      arrival: $checkedConvert(json, 'arrival',
+          (v) => v == null ? null : DateTime.parse(v as String)),
+      normalTime: $checkedConvert(json, 'normalTime', (v) => v as int?),
+      waitTime: $checkedConvert(json, 'waittime', (v) => v as int?) ?? 0,
+      isaddress: $checkedConvert(json, 'isaddress', (v) => v as bool?) ?? false,
+      lat: $checkedConvert(json, 'lat', (v) => (v as num?)?.toDouble()),
+      lon: $checkedConvert(json, 'lon', (v) => (v as num?)?.toDouble()),
+      x: $checkedConvert(json, 'x', (v) => v as int?),
+      y: $checkedConvert(json, 'y', (v) => v as int?),
+      attributes: $checkedConvert(
+              json,
+              'attributes',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )) ??
+          {},
+    );
+    return val;
+  }, fieldKeyMap: const {
+    'sbbExit': 'exit',
+    'depDelay': 'dep_delay',
+    'runningTime': 'runningtime',
+    'sbbStops': 'stops',
+    'waitTime': 'waittime'
+  });
 }
 
 Map<String, dynamic> _$_$_SbbLegToJson(_$_SbbLeg instance) {
