@@ -37,7 +37,7 @@ class _$SbbLegTearOff {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
           List<SbbStop> sbbStops = const <SbbStop>[],
       String? sbbName,
       DateTime? departure,
@@ -48,8 +48,10 @@ class _$SbbLegTearOff {
       bool isaddress = false,
       double? lat,
       double? lon,
-      int? x,
-      int? y,
+      @IntConverter()
+          int? x,
+      @IntConverter()
+          int? y,
       Map<String, String> attributes = const <String, String>{}}) {
     return _SbbLeg(
       name: name,
@@ -106,7 +108,7 @@ mixin _$SbbLeg {
   @JsonKey(name: 'runningtime')
   double? get runningTime => throw _privateConstructorUsedError;
   String? get line => throw _privateConstructorUsedError;
-  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+  @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
   List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
   String? get sbbName => throw _privateConstructorUsedError;
   DateTime? get departure => throw _privateConstructorUsedError;
@@ -117,7 +119,9 @@ mixin _$SbbLeg {
   bool get isaddress => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get lon => throw _privateConstructorUsedError;
+  @IntConverter()
   int? get x => throw _privateConstructorUsedError;
+  @IntConverter()
   int? get y => throw _privateConstructorUsedError;
   Map<String, String> get attributes => throw _privateConstructorUsedError;
 
@@ -147,7 +151,7 @@ abstract class $SbbLegCopyWith<$Res> {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
           List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
@@ -158,8 +162,10 @@ abstract class $SbbLegCopyWith<$Res> {
       bool isaddress,
       double? lat,
       double? lon,
-      int? x,
-      int? y,
+      @IntConverter()
+          int? x,
+      @IntConverter()
+          int? y,
       Map<String, String> attributes});
 
   $SbbExitCopyWith<$Res>? get sbbExit;
@@ -270,7 +276,7 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
           List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
@@ -281,8 +287,10 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       bool isaddress,
       double? lat,
       double? lon,
-      int? x,
-      int? y,
+      @IntConverter()
+          int? x,
+      @IntConverter()
+          int? y,
       Map<String, String> attributes});
 
   @override
@@ -383,7 +391,7 @@ class _$_SbbLeg extends _SbbLeg {
       @JsonKey(name: 'runningtime')
           this.runningTime,
       this.line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
           this.sbbStops = const <SbbStop>[],
       this.sbbName,
       this.departure,
@@ -394,8 +402,10 @@ class _$_SbbLeg extends _SbbLeg {
       this.isaddress = false,
       this.lat,
       this.lon,
-      this.x,
-      this.y,
+      @IntConverter()
+          this.x,
+      @IntConverter()
+          this.y,
       this.attributes = const <String, String>{}})
       : super._();
 
@@ -432,7 +442,7 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   final String? line;
   @override
-  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+  @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
   final List<SbbStop> sbbStops;
   @override
   final String? sbbName;
@@ -453,8 +463,10 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   final double? lon;
   @override
+  @IntConverter()
   final int? x;
   @override
+  @IntConverter()
   final int? y;
   @JsonKey(defaultValue: const <String, String>{})
   @override
@@ -594,7 +606,7 @@ abstract class _SbbLeg extends SbbLeg {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
           List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
@@ -605,8 +617,10 @@ abstract class _SbbLeg extends SbbLeg {
       bool isaddress,
       double? lat,
       double? lon,
-      int? x,
-      int? y,
+      @IntConverter()
+          int? x,
+      @IntConverter()
+          int? y,
       Map<String, String> attributes}) = _$_SbbLeg;
 
   factory _SbbLeg.fromJson(Map<String, dynamic> json) = _$_SbbLeg.fromJson;
@@ -641,7 +655,7 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   String? get line => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
+  @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
   List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
   @override
   String? get sbbName => throw _privateConstructorUsedError;
@@ -661,8 +675,10 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   double? get lon => throw _privateConstructorUsedError;
   @override
+  @IntConverter()
   int? get x => throw _privateConstructorUsedError;
   @override
+  @IntConverter()
   int? get y => throw _privateConstructorUsedError;
   @override
   Map<String, String> get attributes => throw _privateConstructorUsedError;

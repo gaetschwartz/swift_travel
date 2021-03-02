@@ -38,8 +38,8 @@ class SbbLeg with _$SbbLeg, Leg {
     @Default(false) bool isaddress,
     double? lat,
     double? lon,
-    int? x,
-    int? y,
+    @IntConverter() int? x,
+    @IntConverter() int? y,
     @Default(<String, String>{}) Map<String, String> attributes,
   }) = _SbbLeg;
   SbbLeg._();
