@@ -57,17 +57,11 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.10.4
   # flutter_gen:
-  freezed: ^0.13.0-nullsafety.2
+  freezed: ^0.14.0-nullsafety.0
   integration_test: ^1.0.1
   json_serializable: ^4.0.0-nullsafety.0
   lint: ^1.1.1
   mockito: ^5.0.0-nullsafety.1
-
-dependency_overrides:
-  freezed:
-    git:
-      url: https://github.com/gaetschwartz/freezed-1
-      path: packages/freezed
 
 flutter:
   uses-material-design: true

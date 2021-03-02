@@ -20,14 +20,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^1.10.4
-  freezed:
+  freezed: ^0.14.0-nullsafety.0
   lint: ^1.5.1
-
-dependency_overrides:
-  freezed:
-    git:
-      url: https://github.com/gaetschwartz/freezed-1
-      path: packages/freezed
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

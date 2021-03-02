@@ -222,11 +222,9 @@ packages:
   freezed:
     dependency: "direct dev"
     description:
-      path: "packages/freezed"
-      ref: HEAD
-      resolved-ref: e5ba4ca472e30e1b42f6ed4a6cc3b7a438f3c8ec
-      url: "https://github.com/gaetschwartz/freezed-1"
-    source: git
+      name: freezed
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.14.0-nullsafety.0"
   freezed_annotation:
     dependency: "direct main"

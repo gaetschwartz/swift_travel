@@ -6,7 +6,7 @@ import 'package:theming/src/models/full_theme.dart';
 part 'theme_configuration.freezed.dart';
 
 @freezed
-abstract class ThemeConfiguration implements _$ThemeConfiguration {
+class ThemeConfiguration with _$ThemeConfiguration {
   const factory ThemeConfiguration({
     required Map<String, FullTheme> themes,
     @Default('dyn_theme_') String prefix,
