@@ -4,7 +4,7 @@ part 'context.freezed.dart';
 part 'context.g.dart';
 
 @freezed
-abstract class SncfContext with _$SncfContext {
+class SncfContext with _$SncfContext {
   const factory SncfContext({
     DateTime? dateTime,
     String? timezone,
