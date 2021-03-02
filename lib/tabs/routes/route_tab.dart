@@ -883,7 +883,7 @@ class RoutesView extends StatelessWidget {
                       from.setString(context, pred.prediction!.from);
                       to.setString(context, pred.prediction!.to);
                     },
-                    title: const Text('Suggestion'),
+                    title: Text(AppLoc.of(context).suggestion),
                   ),
                 );
               } else {

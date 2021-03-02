@@ -149,4 +149,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String youll_be_there(String time) {
     return 'Sie kommen zu *${time}*.';
   }
+
+  @override
+  String get suggestion => 'Vorschlag';
+
+  @override
+  String get live_route => 'Live-Strecke';
+
+  @override
+  String get share => 'Aktie';
 }

@@ -44,5 +44,8 @@
 	"current_location": "Localisation actuelle",
 	"close": "Fermer",
 	"font": "Police",
-	"timetable": "Horaire"
+	"timetable": "Horaire",
+	"suggestion": "Suggestion",
+	"live_route": "Parcours en direct",
+	"share": "Partager"
 }

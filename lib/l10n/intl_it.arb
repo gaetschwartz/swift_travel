@@ -44,5 +44,8 @@
 	"current_location": "Posizione attuale",
 	"close": "Chiudere",
 	"font": "Font",
-	"timetable": "Orario"
+	"timetable": "Orario",
+	"suggestion": "Suggerimento",
+	"live_route": "Percorso in diretta",
+	"share": "Azione"
 }

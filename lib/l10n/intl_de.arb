@@ -44,5 +44,8 @@
 	"current_location": "Aktueller Standort",
 	"close": "Schließen",
 	"font": "Schriftart",
-	"timetable": "Fahrplan"
+	"timetable": "Fahrplan",
+	"suggestion": "Vorschlag",
+	"live_route": "Live-Strecke",
+	"share": "Aktie"
 }
