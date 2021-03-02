@@ -94,6 +94,7 @@ ThemeConfiguration get themeConfiguration {
       ),
     },
     fonts: fonts,
+    defaultFont: fonts.first,
   );
 }
 
