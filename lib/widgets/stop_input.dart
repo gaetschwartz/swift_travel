@@ -9,7 +9,7 @@ import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search.dart';
 import 'package:swift_travel/states/station_states.dart';
-import 'package:swift_travel/tabs/routes/suggested.dart';
+import 'package:swift_travel/tabs/routes/completion.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
@@ -104,7 +104,7 @@ class _StopInputDialogState extends State<StopInputDialog> {
               final s = w(_stateProvider);
               return s.state.maybeWhen(
                   completions: (c) => ListView.builder(
-                        itemBuilder: (context, i) => SuggestedTile(
+                        itemBuilder: (context, i) => RouteCompletionTile(
                           c[i],
                           onTap: () {
                             Navigator.of(context).pop<String>(c[i].label);

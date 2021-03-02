@@ -115,7 +115,9 @@ class RouteWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 16),
                 child: trailing,
-              ),
+              )
+            else
+              const SizedBox(width: 16),
           ],
         ),
       ),

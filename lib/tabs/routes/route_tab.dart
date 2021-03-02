@@ -28,8 +28,8 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/states/route_textfield_state.dart';
+import 'package:swift_travel/tabs/routes/completion.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
-import 'package:swift_travel/tabs/routes/suggested.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -550,7 +550,7 @@ class _RoutePageState extends State<RoutePage> {
                       itemBuilder: (context, i) => Shimmer.fromColors(
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.white,
-                            child: const SuggestedTile.empty(),
+                            child: const RouteCompletionTile.empty(),
                           )),
                   suggestionsCallback: (query) async => completeWithFavorites(
                     favorites: favorites.stops,
@@ -559,7 +559,7 @@ class _RoutePageState extends State<RoutePage> {
                     currentLocationString: currentLocationString,
                     history: historyRepository.history,
                   ),
-                  itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+                  itemBuilder: (context, suggestion) => RouteCompletionTile(suggestion),
                   onSuggestionSelected: (suggestion) {
                     if (suggestion.origin == DataOrigin.currentLocation) {
                       from.useCurrentLocation(context);
@@ -658,7 +658,7 @@ class _RoutePageState extends State<RoutePage> {
                     currentLocationString: currentLocationString,
                     history: historyRepository.history,
                   ),
-                  itemBuilder: (context, suggestion) => SuggestedTile(suggestion),
+                  itemBuilder: (context, suggestion) => RouteCompletionTile(suggestion),
                   onSuggestionSelected: (suggestion) {
                     if (suggestion.origin == DataOrigin.currentLocation) {
                       to.useCurrentLocation(context);
@@ -670,7 +670,7 @@ class _RoutePageState extends State<RoutePage> {
                       itemBuilder: (context, i) => Shimmer.fromColors(
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.white,
-                            child: const SuggestedTile.empty(),
+                            child: const RouteCompletionTile.empty(),
                           )),
                   hideOnEmpty: true,
                   transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
@@ -883,7 +883,6 @@ class RoutesView extends StatelessWidget {
                       from.setString(context, pred.prediction!.from);
                       to.setString(context, pred.prediction!.to);
                     },
-                    icon: const Text('💡', style: TextStyle(fontSize: 24)),
                     title: const Text('Suggestion'),
                   ),
                 );

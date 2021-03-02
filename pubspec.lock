@@ -311,7 +311,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_riverpod:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
@@ -418,6 +418,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.0-nullsafety.2"
+  hooks_riverpod:
+    dependency: "direct main"
+    description:
+      name: hooks_riverpod
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.0-nullsafety.3"
   http:
     dependency: transitive
     description:

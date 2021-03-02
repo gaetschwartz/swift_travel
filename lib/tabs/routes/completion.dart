@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 
-class SuggestedTile extends StatelessWidget {
-  const SuggestedTile(
+class RouteCompletionTile extends StatelessWidget {
+  const RouteCompletionTile(
     this.suggestion, {
     Key? key,
     this.onTap,
   }) : super(key: key);
 
-  const SuggestedTile.empty({
+  const RouteCompletionTile.empty({
     Key? key,
     this.onTap,
   })  : suggestion = null,
