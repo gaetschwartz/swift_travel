@@ -16,7 +16,7 @@
 	"reset_settings": "Einstellungen zurücksetzen",
 	"settings": "Einstellungen",
 	"tabs_favourites": "Favoriten",
-	"tabs_route": "Reiseplan",
+	"tabs_route": "Planen",
 	"tabs_search": "Suchen",
 	"use_current_location": "Aktuellen Standort verwenden",
 	"use_current_time": "Aktuelle Zeit verwenden",
@@ -47,5 +47,8 @@
 	"timetable": "Fahrplan",
 	"suggestion": "Vorschlag",
 	"live_route": "Live-Strecke",
-	"share": "Aktie"
+	"share": "Aktie",
+	"journey_informations": "Fahrtinfo",
+	"direction": "Richtung {dir}",
+	"itinerary": "Reiseplan"
 }
