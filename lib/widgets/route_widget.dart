@@ -62,7 +62,7 @@ class RouteWidget extends StatelessWidget {
                           alignment: Alignment.topLeft,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: Border.all(color: Theme.of(context).dividerColor),
+                              border: Border.all(color: Theme.of(context).primaryColor),
                               borderRadius: const BorderRadius.all(Radius.circular(4)),
                             ),
                             child: Padding(
@@ -79,7 +79,7 @@ class RouteWidget extends StatelessWidget {
                           alignment: Alignment.topLeft,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: Border.all(color: Theme.of(context).dividerColor),
+                              border: Border.all(color: Theme.of(context).primaryColor),
                               borderRadius: const BorderRadius.all(Radius.circular(4)),
                             ),
                             child: Padding(
