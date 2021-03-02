@@ -15,12 +15,13 @@ _$_CffRoute _$_$_CffRouteFromJson(Map<String, dynamic> json) {
       maxDuration:
           $checkedConvert(json, 'max_duration', (v) => (v as num?)?.toDouble()),
       sbbConnections: $checkedConvert(
-          json,
-          'connections',
-          (v) => (v as List<dynamic>)
-              .map(
-                  (e) => SbbRouteConnection.fromJson(e as Map<String, dynamic>))
-              .toList()),
+              json,
+              'connections',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) =>
+                      SbbRouteConnection.fromJson(e as Map<String, dynamic>))
+                  .toList()) ??
+          [],
       messages: $checkedConvert(json, 'messages',
               (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()) ??
           [],

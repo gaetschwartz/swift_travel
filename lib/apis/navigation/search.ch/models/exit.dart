@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
@@ -19,7 +20,7 @@ const _defaultDelay = 0;
 String delayToJson(int d) => d >= 0 ? '+$d' : d.toString();
 
 @freezed
-class SbbExit with _$SbbExit, Exit {
+class SbbExit with _$SbbExit, Exit, BaseStop {
   @JsonSerializable(includeIfNull: false, checked: true)
   factory SbbExit({
     @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
