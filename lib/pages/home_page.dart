@@ -288,7 +288,7 @@ class SwiftNavigationBar extends StatelessWidget {
           child: InkWell(
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             onTap: () => onTap(i, context),
-            splashColor: Theme.of(context).primaryColor,
+            splashColor: Theme.of(context).primaryColor.withAlpha(32),
             child: SizedBox(
               width: double.infinity,
               child: Padding(
