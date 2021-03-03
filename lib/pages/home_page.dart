@@ -262,10 +262,12 @@ class SwiftNavigationBar extends StatelessWidget {
                 )
               ],
             ),
-            child: Row(
-              children: [
-                for (var i = 0; i < items.length; i++) buildInkWell(i, context),
-              ],
+            child: Material(
+              child: Row(
+                children: [
+                  for (var i = 0; i < items.length; i++) buildInkWell(i, context),
+                ],
+              ),
             ),
           )),
     );
@@ -280,27 +282,40 @@ class SwiftNavigationBar extends StatelessWidget {
       style: isCurrent
           ? Theme.of(context).textTheme.bodyText2!.copyWith(color: _activeColor)
           : Theme.of(context).textTheme.bodyText2!,
-      child: InkWell(
-        onTap: () => onTap(i, context),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            if (i != page)
-              item.icon
-            else
-              GradientMask(
-                gradient: LinearGradient(
-                  colors: [
-                    augment2(Theme.of(context).primaryColor, strength: 0.5),
-                    Theme.of(context).primaryColor,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          child: InkWell(
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            onTap: () => onTap(i, context),
+            splashColor: Theme.of(context).primaryColor,
+            child: SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    if (i != page)
+                      item.icon
+                    else
+                      GradientMask(
+                        gradient: LinearGradient(
+                          colors: [
+                            augment2(Theme.of(context).primaryColor, strength: 0.5),
+                            Theme.of(context).primaryColor,
+                          ],
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                        ),
+                        child: item.activeIcon,
+                      ),
+                    if (item.label != null) Text(item.label!),
                   ],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
                 ),
-                child: item.activeIcon,
               ),
-            if (item.label != null) Text(item.label!),
-          ],
+            ),
+          ),
         ),
       ),
     ));

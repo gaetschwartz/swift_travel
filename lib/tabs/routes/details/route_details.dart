@@ -13,7 +13,7 @@ import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/arrived_tile.dart';
-import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
+import 'package:swift_travel/tabs/routes/details/tiles/transport/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/share.dart';
 import 'package:swift_travel/utils/strings/format.dart';
@@ -42,38 +42,14 @@ class RouteDetails extends StatelessWidget {
         condition: darwin,
         builder: (context, child) => Material(
               child: CupertinoPageScaffold(
-                navigationBar: cupertinoBar(context,
-                    middle: Text(AppLoc.of(context).tabs_route),
-                    trailing: IconButton(
-                        icon: const Icon(Icons.more_horiz),
-                        onPressed: () {
-                          showActionSheet<void>(
-                            context,
-                            [
-                              ActionsSheetAction(
-                                icon: const Icon(CupertinoIcons.play_fill),
-                                onPressed: () => openLive(context, conn),
-                                title: Text(AppLoc.of(context).live_route),
-                              ),
-                              ActionsSheetAction(
-                                icon: const Icon(CupertinoIcons.game_controller),
-                                onPressed: () => Navigator.of(context)
-                                    .push(CupertinoPageRoute(builder: (_) => const SneccGame())),
-                                title: const Text('Snake'),
-                              ),
-                              if (isMobile || kIsWeb)
-                                ActionsSheetAction(
-                                  icon: const Icon(CupertinoIcons.share),
-                                  onPressed: () => _shareRoute(context),
-                                  title: Text(AppLoc.of(context).share),
-                                )
-                            ],
-                            cancel: ActionsSheetAction(
-                                icon: const Icon(CupertinoIcons.xmark),
-                                title: Text(AppLoc.of(context).close)),
-                            popBeforeReturn: true,
-                          );
-                        })),
+                navigationBar: cupertinoBar(
+                  context,
+                  middle: Text(AppLoc.of(context).tabs_route),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.more_horiz),
+                    onPressed: () => openShareAction(context, conn),
+                  ),
+                ),
                 child: child!,
               ),
             ),
@@ -92,18 +68,9 @@ class RouteDetails extends StatelessWidget {
                   flexibleSpace: const SizedBox(),
                   actions: <Widget>[
                     IconButton(
-                        icon: const Icon(CupertinoIcons.game_controller),
-                        onPressed: () => Navigator.of(context)
-                            .push<void>(CupertinoPageRoute(builder: (_) => const SneccGame()))),
-                    IconButton(
-                        icon: const Icon(CupertinoIcons.play_fill),
-                        onPressed: () => openLive(context, conn)),
-                    if (isMobile || kIsWeb)
-                      IconButton(
-                          icon: Responsive.isDarwin(context)
-                              ? const Icon(CupertinoIcons.share)
-                              : const Icon(Icons.share),
-                          onPressed: () => _shareRoute(context))
+                      icon: const Icon(Icons.more_horiz),
+                      onPressed: () => openShareAction(context, conn),
+                    ),
                   ]),
             SliverSafeArea(
               sliver: SliverToBoxAdapter(child: buildHeader(context, conn)),
@@ -121,6 +88,34 @@ class RouteDetails extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  void openShareAction(BuildContext context, RouteConnection conn) {
+    showActionSheet<void>(
+      context,
+      [
+        ActionsSheetAction(
+          icon: const Icon(CupertinoIcons.play_fill),
+          onPressed: () => openLive(context, conn),
+          title: Text(AppLoc.of(context).live_route),
+        ),
+        ActionsSheetAction(
+          icon: const Icon(CupertinoIcons.game_controller),
+          onPressed: () =>
+              Navigator.of(context).push(CupertinoPageRoute(builder: (_) => const SneccGame())),
+          title: const Text('Snake'),
+        ),
+        if (isMobile || kIsWeb)
+          ActionsSheetAction(
+            icon: const Icon(CupertinoIcons.share),
+            onPressed: () => _shareRoute(context),
+            title: Text(AppLoc.of(context).share),
+          )
+      ],
+      cancel: ActionsSheetAction(
+          icon: const Icon(CupertinoIcons.xmark), title: Text(AppLoc.of(context).close)),
+      popBeforeReturn: true,
+    );
   }
 
   String _format(String place) {
