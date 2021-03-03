@@ -172,7 +172,9 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     if (!kIsWeb) {
       final appDir = await getApplicationPath();
       final finalPath = await getHivePathOf(appDir);
-      Hive.init(finalPath);
+      try {
+        Hive.init(finalPath);
+      } finally {}
     }
   }
 

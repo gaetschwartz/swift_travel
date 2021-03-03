@@ -85,19 +85,21 @@ void overridePlatform() {
   }
 }
 
-void _runApp() => runApp(
-      GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        excludeFromSemantics: true,
-        behavior: HitTestBehavior.opaque,
-        child: ProviderScope(
-          child: DynamicTheme(
-            theme: DynamicThemeData(),
-            child: const MyApp(),
-          ),
-        ),
+void _runApp() => runApp(wrappedApp());
+
+GestureDetector wrappedApp() {
+  return GestureDetector(
+    onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+    excludeFromSemantics: true,
+    behavior: HitTestBehavior.opaque,
+    child: ProviderScope(
+      child: DynamicTheme(
+        theme: DynamicThemeData(),
+        child: const MyApp(),
       ),
-    );
+    ),
+  );
+}
 
 final ctrl = defaultTargetPlatform == TargetPlatform.macOS
     ? LogicalKeyboardKey.meta

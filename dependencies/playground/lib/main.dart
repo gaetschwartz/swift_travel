@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:playground/perspective.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/mocking/mocking.dart';
@@ -85,6 +86,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
                 child: const Text('Breathe widget')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => PerspectiveWidget(),
+                    ),
+                  );
+                },
+                child: const Text('Perspective')),
           ],
         ),
       ),
