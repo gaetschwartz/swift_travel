@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/mocking/mocking.dart';
-import 'package:swift_travel/tabs/routes/details/tiles/transport_tile.dart';
+import 'package:swift_travel/tabs/routes/details/tiles/transport/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/theme.dart';

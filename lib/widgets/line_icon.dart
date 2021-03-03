@@ -6,15 +6,17 @@ import 'package:swift_travel/utils/strings/format.dart';
 class LineIcon extends StatelessWidget {
   factory LineIcon({
     required String? line,
-    required String background,
-    required String foreground,
+    required String? background,
+    required String? foreground,
+    Color defaultBg = defaultBackground,
+    Color defaultFg = defaultForeground,
     bool small = false,
     Key? key,
   }) =>
       LineIcon.raw(
         line: line,
-        foreground: parseColor(foreground, defaultForeground),
-        background: parseColor(background, defaultBackground),
+        foreground: parseColor(foreground, defaultFg),
+        background: parseColor(background, defaultBg),
         small: small,
         key: key,
       );
@@ -64,8 +66,8 @@ class LineIcon extends StatelessWidget {
   }) =>
       LineIcon(
         line: l.line,
-        background: ArgumentError.checkNotNull(l.bgcolor, 'leg.bgcolor'),
-        foreground: ArgumentError.checkNotNull(l.fgcolor, 'leg.fgcolor'),
+        background: l.bgcolor,
+        foreground: l.fgcolor,
         small: small,
         key: key,
       );
