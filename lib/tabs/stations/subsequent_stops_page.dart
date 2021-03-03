@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/subsequent_stop.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
@@ -115,45 +117,49 @@ class StopTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SizedBox(
-        height: 64,
-        child: Row(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(child: _buildLine(!isFirst)),
-                _buildCircle(context, connection),
-                Expanded(child: _buildLine(!isLast)),
-              ],
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: ListTile(
-                title: Text(
-                  stop.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: Text.rich(TextSpan(children: [
-                  TextSpan(
-                    text: Format.time(stop.departure ?? stop.arrival),
+    return InkWell(
+      onTap: () => Navigator.of(context).push(platformRoute(
+          isDarwin: Responsive.isDarwin(context), builder: (context) => StopDetails(stop))),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: SizedBox(
+          height: 64,
+          child: Row(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(child: _buildLine(!isFirst)),
+                  _buildCircle(context, connection),
+                  Expanded(child: _buildLine(!isLast)),
+                ],
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: ListTile(
+                  title: Text(
+                    stop.name,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  if (stop.depDelay > 0 || stop.arrDelay > 0)
+                  subtitle: Text.rich(TextSpan(children: [
                     TextSpan(
-                      text: Format.delay(stop.arrDelay > 0 ? stop.arrDelay : stop.depDelay),
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      text: Format.time(stop.departure ?? stop.arrival),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                ])),
-                contentPadding: EdgeInsets.zero,
+                    if (stop.depDelay > 0 || stop.arrDelay > 0)
+                      TextSpan(
+                        text: Format.delay(stop.arrDelay > 0 ? stop.arrDelay : stop.depDelay),
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                  ])),
+                  contentPadding: EdgeInsets.zero,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

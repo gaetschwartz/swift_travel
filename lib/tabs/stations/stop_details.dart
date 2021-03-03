@@ -10,7 +10,7 @@ import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
-import 'package:swift_travel/tabs/stations/subsequent_stops.dart';
+import 'package:swift_travel/tabs/stations/subsequent_stops_page.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';

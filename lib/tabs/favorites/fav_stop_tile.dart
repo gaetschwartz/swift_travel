@@ -67,7 +67,7 @@ class FavoriteStationTile extends StatelessWidget {
               const GradientMask(
                 gradient: RadialGradient(colors: [
                   Colors.yellow,
-                  Colors.orange,
+                  Color(0xFFFBC02D),
                 ]),
                 child: Icon(CupertinoIcons.star_fill, size: 32),
               ),
