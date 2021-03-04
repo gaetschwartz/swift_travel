@@ -349,7 +349,7 @@ packages:
       name: freezed_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0-nullsafety.0"
+    version: "0.14.0"
   geolocator:
     dependency: "direct main"
     description:
@@ -629,7 +629,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0-nullsafety.3"
+    version: "0.13.0"
   share:
     dependency: transitive
     description:
