@@ -17,11 +17,15 @@ class SharedAxisConfiguration extends ModalConfiguration {
         );
 
   @override
-  Widget transitionBuilder(BuildContext context, Animation<double> a1,
-          Animation<double> a2, Widget child) =>
+  Widget transitionBuilder(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) =>
       SharedAxisTransition(
-        animation: a1,
-        secondaryAnimation: a2,
+        animation: animation,
+        secondaryAnimation: secondaryAnimation,
         transitionType: SharedAxisTransitionType.scaled,
         fillColor: Colors.transparent,
         child: child,

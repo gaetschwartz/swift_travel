@@ -21,10 +21,10 @@ extension ScreenSizeX on ScreenSize {
 
 @immutable
 class DoubleInterval<T extends num> {
+  const DoubleInterval(this.low, this.high);
+
   final T low;
   final T high;
-
-  const DoubleInterval(this.low, this.high);
 
   static double Function(double a) lerp(
     DoubleInterval from,
@@ -34,8 +34,7 @@ class DoubleInterval<T extends num> {
             to.high,
             max(
               to.low,
-              (a - from.low) * (to.high - to.low) / (from.high - from.low) +
-                  to.low,
+              (a - from.low) * (to.high - to.low) / (from.high - from.low) + to.low,
             ),
           ).toDouble();
 }
@@ -57,8 +56,7 @@ class Responsive {
 
   static bool isMediumScreen(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return size.shortestSide >= smallScreenWidth &&
-        size.shortestSide <= bigScreenWidth;
+    return size.shortestSide >= smallScreenWidth && size.shortestSide <= bigScreenWidth;
   }
 
   static Size sizeOf(BuildContext context) => MediaQuery.of(context).size;
@@ -102,8 +100,7 @@ class Responsive {
   }
 
   static bool isPlatformDarwin(TargetPlatform p) => _isDarwin(p);
-  static bool isDeviceDarwin() =>
-      !kIsWeb && (Platform.isIOS || Platform.isMacOS);
+  static bool isDeviceDarwin() => !kIsWeb && (Platform.isIOS || Platform.isMacOS);
 
   static bool isMobile() => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 }

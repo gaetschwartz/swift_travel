@@ -67,17 +67,6 @@ Future<String?> input(
 }
 
 class _IOSTextInputDialog extends StatefulWidget {
-  final Widget title;
-  final Widget? content;
-  final Widget submit;
-  final Widget cancel;
-  final TextInputType keyboardType;
-  final bool isSensitive;
-  final String initialText;
-  final void Function(TextEditingController controller)? registerController;
-  final void Function()? unRegisterController;
-  final bool autofocus;
-
   const _IOSTextInputDialog({
     Key? key,
     required this.title,
@@ -91,6 +80,17 @@ class _IOSTextInputDialog extends StatefulWidget {
     required this.unRegisterController,
     required this.autofocus,
   }) : super(key: key);
+
+  final Widget title;
+  final Widget? content;
+  final Widget submit;
+  final Widget cancel;
+  final TextInputType keyboardType;
+  final bool isSensitive;
+  final String initialText;
+  final void Function(TextEditingController controller)? registerController;
+  final void Function()? unRegisterController;
+  final bool autofocus;
 
   @override
   __IOSTextInputDialogState createState() => __IOSTextInputDialogState();
@@ -148,16 +148,6 @@ class __IOSTextInputDialogState extends State<_IOSTextInputDialog> {
 }
 
 class _TextInputDialog extends StatefulWidget {
-  final Widget title;
-  final Widget? content;
-  final Widget submit;
-  final Widget cancel;
-
-  final TextInputType keyboardType;
-  final bool isSensitive;
-  final InputDecoration? decoration;
-  final String initialText;
-
   const _TextInputDialog({
     Key? key,
     required this.title,
@@ -169,6 +159,16 @@ class _TextInputDialog extends StatefulWidget {
     required this.cancel,
     required this.decoration,
   }) : super(key: key);
+
+  final Widget title;
+  final Widget? content;
+  final Widget submit;
+  final Widget cancel;
+
+  final TextInputType keyboardType;
+  final bool isSensitive;
+  final InputDecoration? decoration;
+  final String initialText;
 
   @override
   __TextInputDialogState createState() => __TextInputDialogState();

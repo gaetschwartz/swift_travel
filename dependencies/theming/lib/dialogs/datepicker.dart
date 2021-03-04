@@ -59,8 +59,8 @@ class _DatePicker extends StatefulWidget {
   __DatePickerState createState() => __DatePickerState();
 }
 
-const double _kPickerSheetHeight = 216.0;
-const double _kPickerSheetWidth = 400.0;
+const double _kPickerSheetHeight = 216;
+const double _kPickerSheetWidth = 400;
 
 class __DatePickerState extends State<_DatePicker> {
   DateTime? _time;
@@ -69,7 +69,7 @@ class __DatePickerState extends State<_DatePicker> {
   Widget build(BuildContext context) {
     final actionTextStyle = CupertinoTheme.of(context).textTheme.actionTextStyle;
     final datePicker = Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: CupertinoTheme(
         data: CupertinoThemeData(brightness: Theme.of(context).brightness),
         child: Container(
@@ -78,7 +78,7 @@ class __DatePickerState extends State<_DatePicker> {
               borderRadius: const BorderRadius.all(Radius.circular(16))),
           constraints: const BoxConstraints(maxWidth: _kPickerSheetWidth),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -115,7 +115,7 @@ class __DatePickerState extends State<_DatePicker> {
                 ),
                 if (widget.bottom != null)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: widget.bottom,
                   )
               ],
