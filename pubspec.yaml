@@ -28,13 +28,13 @@ dependencies:
   firebase_crashlytics: ^0.5.0-1.0.nullsafety
   flex_color_scheme: ^2.0.0-nullsafety.1
   flutter_hooks: ^0.16.0-nullsafety.0
-  hooks_riverpod: ^0.13.0-nullsafety.3
   flutter_slidable: ^0.6.0-nullsafety.0
   flutter_typeahead: ^3.0.0-nullsafety.0
   font_awesome_flutter: ^9.0.0-nullsafety
   freezed_annotation: ^0.13.0-nullsafety.0
   google_fonts: ^2.0.0-nullsafety.0
   hive: ^1.4.4+1
+  hooks_riverpod: ^0.13.0-nullsafety.3
   intl: ^0.17.0-nullsafety.2
   json_annotation: ^4.0.0-nullsafety.0
   meta: ^1.3.0
@@ -51,8 +51,6 @@ dependencies:
   url_strategy: ^0.2.0-nullsafety.0
 
 dev_dependencies:
-  flutter_driver:
-    sdk: flutter
   flutter_test:
     sdk: flutter
   build_runner: ^1.10.4
@@ -66,7 +64,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   # generate: true
-
   assets:
     - assets/profiles/
     - assets/anims/
