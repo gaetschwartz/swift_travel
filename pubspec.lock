@@ -210,7 +210,7 @@ packages:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "6.1.0"
   firebase_core:
     dependency: "direct main"
     description:
@@ -361,7 +361,7 @@ packages:
       name: freezed_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0-nullsafety.0"
+    version: "0.14.0"
   fuchsia_remote_debug_protocol:
     dependency: transitive
     description: flutter
@@ -632,7 +632,7 @@ packages:
       name: process
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.1.0"
   process_run:
     dependency: "direct main"
     description:
@@ -667,7 +667,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0-nullsafety.3"
+    version: "0.13.0"
   share:
     dependency: "direct main"
     description:
@@ -756,7 +756,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:
