@@ -53,15 +53,6 @@ Future<bool> confirm(
     false;
 
 class _IOSConfirmationAlert extends StatelessWidget {
-  final Widget title;
-  final Widget content;
-  final Widget confirm;
-  final Widget cancel;
-  final bool isCancelDestructive;
-  final bool isConfirmDestructive;
-
-  final DefaultAction? defaultAction;
-
   const _IOSConfirmationAlert({
     Key? key,
     required this.title,
@@ -72,6 +63,15 @@ class _IOSConfirmationAlert extends StatelessWidget {
     required this.isConfirmDestructive,
     required this.defaultAction,
   }) : super(key: key);
+
+  final Widget title;
+  final Widget content;
+  final Widget confirm;
+  final Widget cancel;
+  final bool isCancelDestructive;
+  final bool isConfirmDestructive;
+
+  final DefaultAction? defaultAction;
 
   @override
   Widget build(BuildContext context) {
@@ -97,11 +97,6 @@ class _IOSConfirmationAlert extends StatelessWidget {
 }
 
 class _ConfirmationAlert extends StatelessWidget {
-  final Widget title;
-  final Widget content;
-  final Widget confirm;
-  final Widget cancel;
-
   const _ConfirmationAlert(
       {Key? key,
       required this.title,
@@ -109,6 +104,11 @@ class _ConfirmationAlert extends StatelessWidget {
       required this.confirm,
       required this.cancel})
       : super(key: key);
+
+  final Widget title;
+  final Widget content;
+  final Widget confirm;
+  final Widget cancel;
 
   @override
   Widget build(BuildContext context) {

@@ -9,12 +9,6 @@ enum DefaultAction { cancel, confirm }
 
 @immutable
 class Choice<T> {
-  final bool isDestructive;
-  final bool isDefault;
-  final T? value;
-  final VoidCallback? onTap;
-  final Widget child;
-
   const Choice({
     required this.value,
     required this.child,
@@ -30,14 +24,20 @@ class Choice<T> {
     this.isDestructive = true,
     this.isDefault = false,
   });
+
+  final bool isDestructive;
+  final bool isDefault;
+  final T? value;
+  final VoidCallback? onTap;
+  final Widget child;
 }
 
 @immutable
 class ChoiceResult<T> {
+  const ChoiceResult(this.value, {this.gotCancelled = false});
+
   final T value;
   final bool gotCancelled;
-
-  const ChoiceResult(this.value, {this.gotCancelled = false});
 }
 
 Future<ChoiceResult<T?>> choose<T>(
@@ -75,11 +75,6 @@ Future<ChoiceResult<T?>> choose<T>(
     ChoiceResult(defaultValue, gotCancelled: true);
 
 class _IOSChoiceAlert<T> extends StatelessWidget {
-  final Widget title;
-  final Widget? message;
-  final List<Choice<T>> choices;
-  final Choice<Widget>? cancel;
-
   const _IOSChoiceAlert({
     Key? key,
     required this.title,
@@ -87,6 +82,11 @@ class _IOSChoiceAlert<T> extends StatelessWidget {
     required this.cancel,
     required this.message,
   }) : super(key: key);
+
+  final Widget title;
+  final Widget? message;
+  final List<Choice<T>> choices;
+  final Choice<Widget>? cancel;
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +97,8 @@ class _IOSChoiceAlert<T> extends StatelessWidget {
           ? null
           : CupertinoActionSheetAction(
               onPressed: () {
-                Navigator.of(context).pop<ChoiceResult<T?>>(
-                    const ChoiceResult(null, gotCancelled: true));
+                Navigator.of(context)
+                    .pop<ChoiceResult<T?>>(const ChoiceResult(null, gotCancelled: true));
                 cancel!.onTap?.call();
               },
               isDefaultAction: cancel!.isDefault,
@@ -108,8 +108,7 @@ class _IOSChoiceAlert<T> extends StatelessWidget {
       actions: choices
           .map((v) => CupertinoActionSheetAction(
               onPressed: () {
-                Navigator.of(context)
-                    .pop<ChoiceResult<T?>>(ChoiceResult(v.value));
+                Navigator.of(context).pop<ChoiceResult<T?>>(ChoiceResult(v.value));
                 v.onTap?.call();
               },
               isDefaultAction: v.isDefault,
@@ -121,11 +120,6 @@ class _IOSChoiceAlert<T> extends StatelessWidget {
 }
 
 class _ChoiceAlert<T> extends StatelessWidget {
-  final Widget title;
-  final Widget? message;
-  final List<Choice<T>> choices;
-  final Choice<Widget>? cancel;
-
   const _ChoiceAlert({
     Key? key,
     required this.title,
@@ -134,13 +128,17 @@ class _ChoiceAlert<T> extends StatelessWidget {
     required this.message,
   }) : super(key: key);
 
+  final Widget title;
+  final Widget? message;
+  final List<Choice<T>> choices;
+  final Choice<Widget>? cancel;
+
   @override
   Widget build(BuildContext context) {
     final widgets = choices
         .map((v) => CupertinoActionSheetAction(
             onPressed: () {
-              Navigator.of(context)
-                  .pop<ChoiceResult<T?>>(ChoiceResult(v.value));
+              Navigator.of(context).pop<ChoiceResult<T?>>(ChoiceResult(v.value));
               v.onTap?.call();
             },
             isDefaultAction: v.isDefault,
@@ -148,7 +146,7 @@ class _ChoiceAlert<T> extends StatelessWidget {
             child: v.child))
         .toList();
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(16)),
@@ -159,19 +157,17 @@ class _ChoiceAlert<T> extends StatelessWidget {
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DefaultTextStyle(
-                    style: Theme.of(context).textTheme.headline6!,
-                    child: title),
+                padding: const EdgeInsets.all(8),
+                child:
+                    DefaultTextStyle(style: Theme.of(context).textTheme.headline6!, child: title),
               ),
             ),
             if (message != null)
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: DefaultTextStyle(
-                      style: Theme.of(context).textTheme.caption!,
-                      child: message!),
+                      style: Theme.of(context).textTheme.caption!, child: message!),
                 ),
               ),
             ListView.separated(
@@ -185,8 +181,8 @@ class _ChoiceAlert<T> extends StatelessWidget {
               const Divider(indent: 16, endIndent: 16, thickness: 1, height: 0),
               CupertinoActionSheetAction(
                 onPressed: () {
-                  Navigator.of(context).pop<ChoiceResult<T?>>(
-                      const ChoiceResult(null, gotCancelled: true));
+                  Navigator.of(context)
+                      .pop<ChoiceResult<T?>>(const ChoiceResult(null, gotCancelled: true));
                   cancel!.onTap?.call();
                 },
                 isDefaultAction: cancel!.isDefault,

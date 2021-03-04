@@ -74,6 +74,15 @@ class DynamicTheme extends InheritedNotifier<DynamicThemeData> {
 /// Theme model that allows to easily change theme dynamically and save the settings to preferences.
 ///
 class DynamicThemeData extends ChangeNotifier {
+  DynamicThemeData([ThemeConfiguration configuration = DynamicThemeData.defaultConfig])
+      : _config = configuration,
+        _themeName = configuration.defaultTheme,
+        _themeMode = configuration.defaultThemeMode,
+        _font = configuration.computedDefaultFont,
+        assert(configuration.themes.isNotEmpty, "Configuration's themes can't be empty"),
+        assert(configuration.persist != true,
+            'Set a persistent configuration with `configure(config)`');
+
   static const ThemeConfiguration defaultConfig = ThemeConfiguration(
     themes: {
       'default': FullTheme(
@@ -88,15 +97,6 @@ class DynamicThemeData extends ChangeNotifier {
 
   ThemeConfiguration _config;
 
-  DynamicThemeData([ThemeConfiguration configuration = DynamicThemeData.defaultConfig])
-      : _config = configuration,
-        _themeName = configuration.defaultTheme,
-        _themeMode = configuration.defaultThemeMode,
-        _font = configuration.computedDefaultFont,
-        assert(configuration.themes.isNotEmpty),
-        assert(configuration.persist != true,
-            'Set a persistent configuration with `configure(config)`');
-
   late String _themeName;
   late ThemeMode _themeMode;
   late Font _font;
@@ -107,13 +107,16 @@ class DynamicThemeData extends ChangeNotifier {
   bool _isReadyToPersist = false;
 
   Future<void> configure(ThemeConfiguration newConfig, {bool doLog = false}) async {
-    assert(newConfig.themes.isNotEmpty && newConfig.fonts.isNotEmpty);
+    assert(newConfig.themes.isNotEmpty && newConfig.fonts.isNotEmpty,
+        "Fonts and themes can't be empty");
     _config = newConfig;
     _themeName = newConfig.defaultTheme;
     _themeMode = newConfig.defaultThemeMode;
     _font = newConfig.computedDefaultFont;
     _config = newConfig;
-    if (newConfig.persist) await reloadFromPreferences(doLog: doLog);
+    if (newConfig.persist) {
+      await reloadFromPreferences(doLog: doLog);
+    }
   }
 
   ThemeConfiguration get configuration => _config;
@@ -264,7 +267,10 @@ class DynamicThemeData extends ChangeNotifier {
   }
 
   FullTheme get theme {
-    assert(_config.themes.containsKey(_themeName));
+    assert(
+        _config.themes.containsKey(_themeName),
+        "The previously set theme name doesn't seem to a valid one. "
+        '$_themeName is not in ${_config.themes.keys}');
     return _config.themes[_themeName]!;
   }
 
@@ -330,5 +336,5 @@ typedef ApplyTo<T> = T Function(T);
 
 extension ApplyToX<T> on ApplyTo<T> {
   /// Compose two functions: (a*b)(x) = a(b(x)).
-  ApplyTo<T> operator *(ApplyTo<T> fn) => (T val) => this(fn(val));
+  ApplyTo<T> operator *(ApplyTo<T> fn) => (val) => this(fn(val));
 }

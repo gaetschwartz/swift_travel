@@ -46,12 +46,6 @@ Future<T?> load<T>(
 typedef ErrorCallback = void Function(Object e, StackTrace s);
 
 class _LoadingDialog<T> extends StatefulWidget {
-  final Future<T> Function() future;
-  final ValueChanged<T>? onDone;
-  final ErrorCallback? onError;
-  final Widget title;
-  final bool isDarwin;
-
   const _LoadingDialog({
     required this.title,
     required this.future,
@@ -61,6 +55,12 @@ class _LoadingDialog<T> extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  final Future<T> Function() future;
+  final ValueChanged<T>? onDone;
+  final ErrorCallback? onError;
+  final Widget title;
+  final bool isDarwin;
+
   @override
   _LoadingDialogState createState() => _LoadingDialogState<T>();
 }
@@ -69,10 +69,12 @@ class _LoadingDialogState<T> extends State<_LoadingDialog<T>> {
   @override
   void initState() {
     super.initState();
-    widget.future().then((T v) {
+    widget.future().then((v) {
       Navigator.of(context).pop<T>(v);
-      if (widget.onDone != null) widget.onDone!(v);
-    }, onError: (Object? e, Object? s) {
+      if (widget.onDone != null) {
+        widget.onDone!(v);
+      }
+    }, onError: (dynamic e, dynamic s) {
       Navigator.of(context).pop<T>(null);
       if (widget.onError != null) {
         widget.onError!(e as Object, s as StackTrace);

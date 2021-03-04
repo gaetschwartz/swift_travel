@@ -17,11 +17,11 @@ class BottomSheetConfiguration extends ModalConfiguration {
         );
 
   @override
-  Widget transitionBuilder(
-      BuildContext context, Animation<double> a1, Animation<double> a2, Widget child) {
+  Widget transitionBuilder(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
     return AlignTransition(
       alignment: Tween<AlignmentGeometry>(begin: const Alignment(0, 2), end: Alignment.bottomCenter)
-          .animate(CurvedAnimation(curve: Curves.fastOutSlowIn, parent: a1)),
+          .animate(CurvedAnimation(curve: Curves.fastOutSlowIn, parent: animation)),
       child: child,
     );
   }
