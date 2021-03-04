@@ -29,7 +29,7 @@ dynamic encodeDecode(dynamic o) => jsonDecode(jsonEncode(o));
 Future<void> main(List<String> arguments) async {
   final data = List.generate(10000, (i) => mockRoute);
   await time(encodeDecode, data, name: 'regular');
-  await time((q) => compute(encodeDecode, mockRoute as Map), data, name: 'compute');
+  await time((q) => compute(encodeDecode, mockRoute), data, name: 'compute');
 
   // await time<double, double>((q) => computeIsolate(isolateWork, q), double.maxFinite,
   //     name: 'isolate');

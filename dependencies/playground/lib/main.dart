@@ -349,7 +349,7 @@ class _EditorPageState extends State<EditorPage> {
   }
 
   Future<void> screenshot() async {
-    final boundary = globalKey.currentContext?.findRenderObject()! as RenderRepaintBoundary;
+    final boundary = (globalKey.currentContext?.findRenderObject())! as RenderRepaintBoundary;
 
     final ui.Image image = await boundary.toImage();
     final directory = (await getApplicationDocumentsDirectory()).path;
