@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
@@ -23,6 +22,7 @@ import 'package:swift_travel/utils/route_uri.dart';
 import 'package:theming/dynamic_theme.dart';
 
 import 'apis_test.dart';
+import 'blocs_test.dart';
 
 class MockFetcher extends FetcherBase {
   @override
@@ -35,10 +35,11 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('route tab >', () {
+    late final String dirPath;
     setUpAll(() async {
-      final temp = await getTemporaryDirectory();
-      final dir = path.join(temp.path, 'swift_travel', 'test_results', 'route_tab');
-      Hive.init(dir);
+      final directory = await getTempDirForTests();
+      dirPath = path.join(directory.path, 'swift_travel', 'test_results', 'route_tab');
+      Hive.init(dirPath);
     });
 
     tearDown(() async {

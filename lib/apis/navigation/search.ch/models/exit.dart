@@ -20,7 +20,7 @@ const _defaultDelay = 0;
 String delayToJson(int d) => d >= 0 ? '+$d' : d.toString();
 
 @freezed
-class SbbExit with _$SbbExit, Exit, BaseStop {
+class SbbExit with _$SbbExit, BaseStop implements Exit {
   @JsonSerializable(includeIfNull: false, checked: true)
   factory SbbExit({
     @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)

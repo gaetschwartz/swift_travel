@@ -7,7 +7,7 @@ part 'subsequent_stop.freezed.dart';
 part 'subsequent_stop.g.dart';
 
 @freezed
-class SbbSubsequentStop with _$SbbSubsequentStop, DelayedStop, BaseStop {
+class SbbSubsequentStop with _$SbbSubsequentStop, BaseStop implements DelayedStop {
   factory SbbSubsequentStop({
     required String name,
     String? id,

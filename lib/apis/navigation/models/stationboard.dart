@@ -15,7 +15,7 @@ mixin BaseStop {
   String get displayName => name.split('@').first;
 }
 
-abstract class Stop = Object with BaseStop, WithTimeMixin, LocatedMixin;
+abstract class Stop with BaseStop, WithTimeMixin, LocatedMixin {}
 
 mixin WithTimeMixin {
   DateTime? get departure;
@@ -39,7 +39,7 @@ mixin StationboardConnection {
   int get arrDelay;
 }
 
-abstract class DelayedStop = Object with Stop, WithDelayMixin;
+abstract class DelayedStop with WithDelayMixin implements Stop {}
 
 mixin WithDelayMixin {
   int get depDelay;

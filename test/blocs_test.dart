@@ -1,4 +1,7 @@
 // ignore_for_file: unnecessary_await_in_return
+import 'dart:io';
+
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -28,26 +31,32 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   group('HiveFavoritesStore >', () {
     late ProviderContainer container;
+    late final SharedPreferences prefs;
 
     setUpAll(() async {
-      final temp = await getTemporaryDirectory();
-      final dir = path.join(temp.path, 'swift_travel', 'test_results', 'route_history');
+      final directory = await getTempDirForTests();
+
+      final dir = path.join(directory.path, 'swift_travel', 'test_results', 'route_history');
       Hive.init(dir);
+
+      SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
+      prefs = await SharedPreferences.getInstance();
     });
 
-    setUp(() {
+    setUp(() async {
       container =
           ProviderContainer(overrides: [storeProvider.overrideWithValue(HiveFavoritesStore())]);
     });
 
     tearDown(() async {
       await Hive.deleteFromDisk();
+      await prefs.clear();
     });
 
     test('favs and routes are persisted correctly', () async {
       final store = container.read(storeProvider);
 
-      await store.init(prefs: await SharedPreferences.getInstance());
+      await store.init(prefs: prefs);
 
       final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
       await store.addStop(bern);
@@ -117,33 +126,34 @@ void main() {
 
   group('FavoritesSharedPreferencesStore >', () {
     late ProviderContainer container;
+    late SharedPreferences prefs;
     setUpAll(() async {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
     });
 
     tearDown(() async {
-      final preferences = await SharedPreferences.getInstance();
-      await preferences.clear();
+      await prefs.clear();
     });
 
-    setUp(() {
+    setUp(() async {
       container = ProviderContainer(overrides: [
         storeProvider
             .overrideWithProvider(ChangeNotifierProvider((r) => FavoritesSharedPreferencesStore(r)))
       ]);
+      prefs = await SharedPreferences.getInstance();
     });
 
     test('favs and routes are persisted correctly', () async {
       final store = container.read(storeProvider);
 
-      await store.init(prefs: await SharedPreferences.getInstance());
+      await store.init(prefs: prefs);
 
       final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
       await store.addStop(bern);
       const route = LocalRoute('Bern', 'Bern');
       await store.addRoute(route);
 
-      await store.init(prefs: await SharedPreferences.getInstance());
+      await store.init(prefs: prefs);
 
       expect(store.stops, [bern]);
       expect(store.routes, [route]);
@@ -152,7 +162,7 @@ void main() {
     test('default is empty', () async {
       final store = container.read(storeProvider);
 
-      await store.init(prefs: await SharedPreferences.getInstance());
+      await store.init(prefs: prefs);
       expect(store.stops, <FavoriteStop>{});
       expect(store.routes, <LocalRoute>{});
     });
@@ -163,7 +173,7 @@ void main() {
 
       store.addListener(() => favsListener(store.stops));
 
-      await store.init(prefs: await SharedPreferences.getInstance());
+      await store.init(prefs: prefs);
       verify(favsListener([])).called(1);
 
       final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
@@ -186,7 +196,7 @@ void main() {
 
       store.addListener(() => routesListener(store.routes));
 
-      await store.init(prefs: await SharedPreferences.getInstance());
+      await store.init(prefs: prefs);
       verify(routesListener([])).called(1);
 
       const route = LocalRoute('Bern', 'Bern');
@@ -206,8 +216,6 @@ void main() {
     test('exceptions are thrown when malformed data', () async {
       final store = container.read(storeProvider);
 
-      final prefs = await SharedPreferences.getInstance();
-
       await prefs.setStringList(FavoritesSharedPreferencesStore.stopsKey, ['{']);
       await prefs.setStringList(FavoritesSharedPreferencesStore.routesKey, ['{']);
 
@@ -216,37 +224,49 @@ void main() {
   });
 
   group('preferences store >', () {
-    setUp(() {
+    late SharedPreferences prefs;
+    setUp(() async {
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
+      prefs = await SharedPreferences.getInstance();
     });
 
     test('prefs persist', () async {
       final container = ProviderContainer();
 
       final listener = PrefsListener();
-      final prefs = container.read(preferencesProvider);
+      final store = container.read(preferencesProvider);
 
-      prefs.addListener(listener);
+      store.addListener(listener);
 
-      await prefs.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      await store.loadFromPreferences(prefs: prefs);
       verify(listener()).called(1);
-      prefs.api = NavigationApi.sbb;
+      store.api = NavigationApi.sbb;
       verify(listener()).called(1);
-      prefs.mapsApp = Maps.apple;
-      verify(listener()).called(1);
-
-      prefs.api = NavigationApi.sncf;
-      verify(listener()).called(1);
-      prefs.mapsApp = Maps.google;
+      store.mapsApp = Maps.apple;
       verify(listener()).called(1);
 
-      await prefs.loadFromPreferences(prefs: await SharedPreferences.getInstance());
+      store.api = NavigationApi.sncf;
+      verify(listener()).called(1);
+      store.mapsApp = Maps.google;
       verify(listener()).called(1);
 
-      expect(prefs.api, NavigationApi.sncf);
-      expect(prefs.mapsApp, Maps.google);
+      await store.loadFromPreferences(prefs: prefs);
+      verify(listener()).called(1);
+
+      expect(store.api, NavigationApi.sncf);
+      expect(store.mapsApp, Maps.google);
 
       verifyNoMoreInteractions(listener);
     });
   });
+}
+
+Future<Directory> getTempDirForTests() async {
+  late final Directory directory;
+  try {
+    directory = await getTemporaryDirectory();
+  } on MissingPluginException {
+    directory = Directory('./temp');
+  }
+  return directory;
 }
