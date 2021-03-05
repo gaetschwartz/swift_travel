@@ -1,7 +1,7 @@
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
-class CustomStop with Stop, BaseStop {
+class CustomStop with BaseStop implements Stop {
   const CustomStop();
 
   @override

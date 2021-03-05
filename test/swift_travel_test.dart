@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
@@ -18,6 +17,8 @@ import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
+
+import 'blocs_test.dart';
 
 final timestamp = DateTime(2021);
 const geneva = 'Genève';
@@ -31,7 +32,7 @@ void main() {
   group('route history >', () {
     late RouteHistoryRepository hist;
     setUpAll(() async {
-      final temp = await getTemporaryDirectory();
+      final temp = await getTempDirForTests();
       final dir = path.join(temp.path, 'swift_travel', 'test_results', 'route_history');
       Hive.init(dir);
     });

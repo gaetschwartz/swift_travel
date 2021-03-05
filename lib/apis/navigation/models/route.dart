@@ -50,7 +50,7 @@ mixin Leg {
   Leg copyWithLatLon({required double lat, required double lon});
 }
 
-abstract class Exit = Object with Stop, WithDelayMixin, _ExitMixin;
+abstract class Exit with WithDelayMixin, _ExitMixin implements Stop {}
 
 mixin _ExitMixin {
   String? get sbbName;
