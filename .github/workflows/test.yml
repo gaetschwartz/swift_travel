@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  flutter_channel: dev
+  flutter_channel: stable
   java_version: 8.x
 
 jobs:

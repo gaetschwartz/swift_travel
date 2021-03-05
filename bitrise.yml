@@ -39,7 +39,7 @@ workflows:
                 # debug log
                 set -x
 
-                bash $BITRISE_SOURCE_DIR/CI/latest.sh dev
+                bash $BITRISE_SOURCE_DIR/CI/latest.sh stable
           title: Get latest version
       - script-runner@0:
           inputs:
@@ -49,7 +49,7 @@ workflows:
       - flutter-installer@0:
           inputs:
             - installation_bundle_url: $FLUTTER_ARCHIVE_URL
-            - version: dev
+            - version: stable
       - flutter-build@0:
           inputs:
             - ios_additional_params: >-
