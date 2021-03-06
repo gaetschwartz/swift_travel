@@ -4,8 +4,6 @@ set -e
 # debug log
 set -x
 
-
-
 flutter_path=$(which flutter)
 version=$(cat $(dirname $flutter_path)/../version)
 echo "Current flutter version is: $version"
