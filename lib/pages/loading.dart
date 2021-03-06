@@ -107,7 +107,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     if (isMobile) {
       MyQuickActions.i.init();
       await context.read(linksProvider).init(
-            push: (p) => Navigator.of(context).push(
+            push: (p) => navigatorKey.currentState!.push(
               platformRoute(
                 builder: (_) => RouteDetails(
                   route: p.first,
@@ -117,7 +117,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
                 isDarwin: isDarwin,
               ),
             ),
-            getApi: () => context.read(navigationAPIProvider),
+            getApi: () => navigatorKey.currentContext!.read(navigationAPIProvider),
           );
     }
   }
