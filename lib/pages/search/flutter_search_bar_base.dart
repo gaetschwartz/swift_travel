@@ -95,7 +95,6 @@ class SearchBar {
   bool _clearActive = false;
 
   /// The last built default AppBar used for colors and such.
-  AppBar? _defaultAppBar;
 
   /// Initializes the search bar.
   ///
@@ -114,10 +113,8 @@ class SearchBar {
 
   /// Builds, saves and returns the default app bar.
   ///
-  /// This calls the [buildDefaultAppBar] provided in the constructor, and saves it to [_defaultAppBar].
-  AppBar buildAppBar(BuildContext context) {
-    return _defaultAppBar = buildDefaultAppBar(context);
-  }
+  /// This calls the [buildDefaultAppBar] provided in the constructor.
+  AppBar buildAppBar(BuildContext context) => buildDefaultAppBar(context);
 
   /// Builds the search bar!
   ///
