@@ -54,7 +54,6 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^1.10.4
-  # flutter_gen:
   freezed: ^0.14.0-nullsafety.0
   json_serializable: ^4.0.0-nullsafety.0
   lint: ^1.1.1

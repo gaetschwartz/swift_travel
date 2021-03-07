@@ -16,13 +16,13 @@ void main() {
   test('LV03 to WGS84', () {
     final out = lv03ToWGS84Converter.convert(LV03Coordinates(100000, 700000));
 
-    expect(out.lat, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
-    expect(out.lon, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
+    expect(out.lon, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
+    expect(out.lat, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
 
-    final pos = SbbExit(name: 'test @100000, 700000').position;
+    final pos = SbbExit(name: 'test @700000, 100000').position;
     expect(pos, isNotNull);
-    expect(pos!.lat, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
-    expect(pos.lon, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
+    expect(pos!.lon, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
+    expect(pos.lat, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
   });
 
   TestWidgetsFlutterBinding.ensureInitialized();

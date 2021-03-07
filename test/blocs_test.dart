@@ -36,7 +36,8 @@ void main() {
     setUpAll(() async {
       final directory = await getTempDirForTests();
 
-      final dir = path.join(directory.path, 'swift_travel', 'test_results', 'route_history');
+      final dir =
+          path.join(directory.path, 'swift_travel', 'test_results', 'HiveFavoritesStoreTest');
       Hive.init(dir);
 
       SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
