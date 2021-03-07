@@ -75,12 +75,22 @@ class _$LocalRouteCopyWithImpl<$Res> implements $LocalRouteCopyWith<$Res> {
     Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
-      from: from == freezed ? _value.from : from as String,
-      to: to == freezed ? _value.to : to as String,
-      displayName:
-          displayName == freezed ? _value.displayName : displayName as String?,
-      timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime?,
+      from: from == freezed
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      to: to == freezed
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayName: displayName == freezed
+          ? _value.displayName
+          : displayName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -112,12 +122,22 @@ class __$LocalRouteCopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
     Object? timestamp = freezed,
   }) {
     return _then(_LocalRoute(
-      from == freezed ? _value.from : from as String,
-      to == freezed ? _value.to : to as String,
-      displayName:
-          displayName == freezed ? _value.displayName : displayName as String?,
-      timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime?,
+      from == freezed
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      to == freezed
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayName: displayName == freezed
+          ? _value.displayName
+          : displayName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -267,10 +287,22 @@ class _$FavoriteStopCopyWithImpl<$Res> implements $FavoriteStopCopyWith<$Res> {
     Object? api = freezed,
   }) {
     return _then(_value.copyWith(
-      stop: stop == freezed ? _value.stop : stop as String,
-      name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String?,
-      api: api == freezed ? _value.api : api as NavigationApi,
+      stop: stop == freezed
+          ? _value.stop
+          : stop // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      api: api == freezed
+          ? _value.api
+          : api // ignore: cast_nullable_to_non_nullable
+              as NavigationApi,
     ));
   }
 }
@@ -303,10 +335,22 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
     Object? api = freezed,
   }) {
     return _then(_FavoriteStop(
-      stop: stop == freezed ? _value.stop : stop as String,
-      name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String?,
-      api: api == freezed ? _value.api : api as NavigationApi,
+      stop: stop == freezed
+          ? _value.stop
+          : stop // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      api: api == freezed
+          ? _value.api
+          : api // ignore: cast_nullable_to_non_nullable
+              as NavigationApi,
     ));
   }
 }
@@ -374,12 +418,12 @@ class _$_FavoriteStop extends _FavoriteStop {
 }
 
 abstract class _FavoriteStop extends FavoriteStop {
-  const _FavoriteStop._() : super._();
   const factory _FavoriteStop(
       {required String stop,
       required String name,
       String? id,
       NavigationApi api}) = _$_FavoriteStop;
+  const _FavoriteStop._() : super._();
 
   factory _FavoriteStop.fromJson(Map<String, dynamic> json) =
       _$_FavoriteStop.fromJson;

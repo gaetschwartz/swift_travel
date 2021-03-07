@@ -66,7 +66,10 @@ class _$SncfCompletionCopyWithImpl<$Res>
     Object? places = freezed,
   }) {
     return _then(_value.copyWith(
-      places: places == freezed ? _value.places : places as List<SncfPlace>,
+      places: places == freezed
+          ? _value.places
+          : places // ignore: cast_nullable_to_non_nullable
+              as List<SncfPlace>,
     ));
   }
 }
@@ -97,7 +100,10 @@ class __$SncfCompletionCopyWithImpl<$Res>
     Object? places = freezed,
   }) {
     return _then(_SncfCompletion(
-      places: places == freezed ? _value.places : places as List<SncfPlace>,
+      places: places == freezed
+          ? _value.places
+          : places // ignore: cast_nullable_to_non_nullable
+              as List<SncfPlace>,
     ));
   }
 }

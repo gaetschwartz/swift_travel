@@ -26,7 +26,7 @@ class _$CffRouteTearOff {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           List<SbbRouteConnection>
               sbbConnections = const <SbbRouteConnection>[],
       List<String> messages = const <String>[],
@@ -58,7 +58,7 @@ mixin _$CffRoute {
   double? get minDuration => throw _privateConstructorUsedError;
   @JsonKey(name: 'max_duration')
   double? get maxDuration => throw _privateConstructorUsedError;
-  @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
   List<SbbRouteConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   List<String> get messages => throw _privateConstructorUsedError;
@@ -81,7 +81,7 @@ abstract class $CffRouteCopyWith<$Res> {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
@@ -107,19 +107,34 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
     Object? dateTime = freezed,
   }) {
     return _then(_value.copyWith(
-      count: count == freezed ? _value.count : count as int,
-      minDuration:
-          minDuration == freezed ? _value.minDuration : minDuration as double?,
-      maxDuration:
-          maxDuration == freezed ? _value.maxDuration : maxDuration as double?,
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      minDuration: minDuration == freezed
+          ? _value.minDuration
+          : minDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maxDuration: maxDuration == freezed
+          ? _value.maxDuration
+          : maxDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
       sbbConnections: sbbConnections == freezed
           ? _value.sbbConnections
-          : sbbConnections as List<SbbRouteConnection>,
-      messages:
-          messages == freezed ? _value.messages : messages as List<String>,
-      requestUrl:
-          requestUrl == freezed ? _value.requestUrl : requestUrl as String?,
-      dateTime: dateTime == freezed ? _value.dateTime : dateTime as DateTime?,
+          : sbbConnections // ignore: cast_nullable_to_non_nullable
+              as List<SbbRouteConnection>,
+      messages: messages == freezed
+          ? _value.messages
+          : messages // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      requestUrl: requestUrl == freezed
+          ? _value.requestUrl
+          : requestUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateTime: dateTime == freezed
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -135,7 +150,7 @@ abstract class _$CffRouteCopyWith<$Res> implements $CffRouteCopyWith<$Res> {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
@@ -162,19 +177,34 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
     Object? dateTime = freezed,
   }) {
     return _then(_CffRoute(
-      count: count == freezed ? _value.count : count as int,
-      minDuration:
-          minDuration == freezed ? _value.minDuration : minDuration as double?,
-      maxDuration:
-          maxDuration == freezed ? _value.maxDuration : maxDuration as double?,
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      minDuration: minDuration == freezed
+          ? _value.minDuration
+          : minDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maxDuration: maxDuration == freezed
+          ? _value.maxDuration
+          : maxDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
       sbbConnections: sbbConnections == freezed
           ? _value.sbbConnections
-          : sbbConnections as List<SbbRouteConnection>,
-      messages:
-          messages == freezed ? _value.messages : messages as List<String>,
-      requestUrl:
-          requestUrl == freezed ? _value.requestUrl : requestUrl as String?,
-      dateTime: dateTime == freezed ? _value.dateTime : dateTime as DateTime?,
+          : sbbConnections // ignore: cast_nullable_to_non_nullable
+              as List<SbbRouteConnection>,
+      messages: messages == freezed
+          ? _value.messages
+          : messages // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      requestUrl: requestUrl == freezed
+          ? _value.requestUrl
+          : requestUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateTime: dateTime == freezed
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -189,7 +219,7 @@ class _$_CffRoute extends _CffRoute {
           this.minDuration,
       @JsonKey(name: 'max_duration')
           this.maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           this.sbbConnections = const <SbbRouteConnection>[],
       this.messages = const <String>[],
       this.requestUrl,
@@ -209,7 +239,7 @@ class _$_CffRoute extends _CffRoute {
   @JsonKey(name: 'max_duration')
   final double? maxDuration;
   @override
-  @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
   final List<SbbRouteConnection> sbbConnections;
   @JsonKey(defaultValue: const <String>[])
   @override
@@ -273,18 +303,18 @@ class _$_CffRoute extends _CffRoute {
 }
 
 abstract class _CffRoute extends CffRoute {
-  const _CffRoute._() : super._();
   const factory _CffRoute(
       {int count,
       @JsonKey(name: 'min_duration')
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
       DateTime? dateTime}) = _$_CffRoute;
+  const _CffRoute._() : super._();
 
   factory _CffRoute.fromJson(Map<String, dynamic> json) = _$_CffRoute.fromJson;
 
@@ -297,7 +327,7 @@ abstract class _CffRoute extends CffRoute {
   @JsonKey(name: 'max_duration')
   double? get maxDuration => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
   List<SbbRouteConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   @override

@@ -66,8 +66,14 @@ class _$CoordCopyWithImpl<$Res> implements $CoordCopyWith<$Res> {
     Object? lon = freezed,
   }) {
     return _then(_value.copyWith(
-      lat: lat == freezed ? _value.lat : lat as String?,
-      lon: lon == freezed ? _value.lon : lon as String?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -95,8 +101,14 @@ class __$CoordCopyWithImpl<$Res> extends _$CoordCopyWithImpl<$Res>
     Object? lon = freezed,
   }) {
     return _then(_Coord(
-      lat: lat == freezed ? _value.lat : lat as String?,
-      lon: lon == freezed ? _value.lon : lon as String?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }

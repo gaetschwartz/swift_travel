@@ -112,7 +112,8 @@ class _$StationStatesCompletionsCopyWithImpl<$Res>
     return _then(StationStatesCompletions(
       completions == freezed
           ? _value.completions
-          : completions as List<Completion>,
+          : completions // ignore: cast_nullable_to_non_nullable
+              as List<Completion>,
     ));
   }
 }

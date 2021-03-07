@@ -111,7 +111,10 @@ class _$FavoritesStatesDataCopyWithImpl<$Res>
     Object? favorites = freezed,
   }) {
     return _then(FavoritesStatesData(
-      favorites == freezed ? _value.favorites : favorites as List<FavoriteStop>,
+      favorites == freezed
+          ? _value.favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
+              as List<FavoriteStop>,
     ));
   }
 }
@@ -318,7 +321,10 @@ class _$FavoritesStatesErrorCopyWithImpl<$Res>
     Object? exception = freezed,
   }) {
     return _then(FavoritesStatesError(
-      exception == freezed ? _value.exception : exception as Exception,
+      exception == freezed
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as Exception,
     ));
   }
 }

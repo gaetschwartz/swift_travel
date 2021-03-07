@@ -75,12 +75,18 @@ class _$SbbStationResponseCopyWithImpl<$Res>
     Object? records = freezed,
   }) {
     return _then(_value.copyWith(
-      nhits: nhits == freezed ? _value.nhits : nhits as int?,
+      nhits: nhits == freezed
+          ? _value.nhits
+          : nhits // ignore: cast_nullable_to_non_nullable
+              as int?,
       parameters: parameters == freezed
           ? _value.parameters
-          : parameters as SbbParameters?,
-      records:
-          records == freezed ? _value.records : records as List<SbbRecord>?,
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as SbbParameters?,
+      records: records == freezed
+          ? _value.records
+          : records // ignore: cast_nullable_to_non_nullable
+              as List<SbbRecord>?,
     ));
   }
 
@@ -127,12 +133,18 @@ class __$SbbStationResponseCopyWithImpl<$Res>
     Object? records = freezed,
   }) {
     return _then(_SbbStationResponse(
-      nhits: nhits == freezed ? _value.nhits : nhits as int?,
+      nhits: nhits == freezed
+          ? _value.nhits
+          : nhits // ignore: cast_nullable_to_non_nullable
+              as int?,
       parameters: parameters == freezed
           ? _value.parameters
-          : parameters as SbbParameters?,
-      records:
-          records == freezed ? _value.records : records as List<SbbRecord>?,
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as SbbParameters?,
+      records: records == freezed
+          ? _value.records
+          : records // ignore: cast_nullable_to_non_nullable
+              as List<SbbRecord>?,
     ));
   }
 }
@@ -291,12 +303,30 @@ class _$SbbParametersCopyWithImpl<$Res>
     Object? format = freezed,
   }) {
     return _then(_value.copyWith(
-      dataset: dataset == freezed ? _value.dataset : dataset as String?,
-      timezone: timezone == freezed ? _value.timezone : timezone as String?,
-      q: q == freezed ? _value.q : q as String?,
-      rows: rows == freezed ? _value.rows : rows as int?,
-      start: start == freezed ? _value.start : start as int?,
-      format: format == freezed ? _value.format : format as String?,
+      dataset: dataset == freezed
+          ? _value.dataset
+          : dataset // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timezone: timezone == freezed
+          ? _value.timezone
+          : timezone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      q: q == freezed
+          ? _value.q
+          : q // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rows: rows == freezed
+          ? _value.rows
+          : rows // ignore: cast_nullable_to_non_nullable
+              as int?,
+      start: start == freezed
+          ? _value.start
+          : start // ignore: cast_nullable_to_non_nullable
+              as int?,
+      format: format == freezed
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -338,12 +368,30 @@ class __$SbbParametersCopyWithImpl<$Res>
     Object? format = freezed,
   }) {
     return _then(_SbbParameters(
-      dataset: dataset == freezed ? _value.dataset : dataset as String?,
-      timezone: timezone == freezed ? _value.timezone : timezone as String?,
-      q: q == freezed ? _value.q : q as String?,
-      rows: rows == freezed ? _value.rows : rows as int?,
-      start: start == freezed ? _value.start : start as int?,
-      format: format == freezed ? _value.format : format as String?,
+      dataset: dataset == freezed
+          ? _value.dataset
+          : dataset // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timezone: timezone == freezed
+          ? _value.timezone
+          : timezone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      q: q == freezed
+          ? _value.q
+          : q // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rows: rows == freezed
+          ? _value.rows
+          : rows // ignore: cast_nullable_to_non_nullable
+              as int?,
+      start: start == freezed
+          ? _value.start
+          : start // ignore: cast_nullable_to_non_nullable
+              as int?,
+      format: format == freezed
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -529,14 +577,26 @@ class _$SbbRecordCopyWithImpl<$Res> implements $SbbRecordCopyWith<$Res> {
     Object? recordTimeStanp = freezed,
   }) {
     return _then(_value.copyWith(
-      datasetid: datasetid == freezed ? _value.datasetid : datasetid as String?,
-      recordid: recordid == freezed ? _value.recordid : recordid as String?,
-      fields: fields == freezed ? _value.fields : fields as SbbFields?,
-      geometry:
-          geometry == freezed ? _value.geometry : geometry as SbbGeometry?,
+      datasetid: datasetid == freezed
+          ? _value.datasetid
+          : datasetid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      recordid: recordid == freezed
+          ? _value.recordid
+          : recordid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fields: fields == freezed
+          ? _value.fields
+          : fields // ignore: cast_nullable_to_non_nullable
+              as SbbFields?,
+      geometry: geometry == freezed
+          ? _value.geometry
+          : geometry // ignore: cast_nullable_to_non_nullable
+              as SbbGeometry?,
       recordTimeStanp: recordTimeStanp == freezed
           ? _value.recordTimeStanp
-          : recordTimeStanp as String?,
+          : recordTimeStanp // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -600,14 +660,26 @@ class __$SbbRecordCopyWithImpl<$Res> extends _$SbbRecordCopyWithImpl<$Res>
     Object? recordTimeStanp = freezed,
   }) {
     return _then(_SbbRecord(
-      datasetid: datasetid == freezed ? _value.datasetid : datasetid as String?,
-      recordid: recordid == freezed ? _value.recordid : recordid as String?,
-      fields: fields == freezed ? _value.fields : fields as SbbFields?,
-      geometry:
-          geometry == freezed ? _value.geometry : geometry as SbbGeometry?,
+      datasetid: datasetid == freezed
+          ? _value.datasetid
+          : datasetid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      recordid: recordid == freezed
+          ? _value.recordid
+          : recordid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fields: fields == freezed
+          ? _value.fields
+          : fields // ignore: cast_nullable_to_non_nullable
+              as SbbFields?,
+      geometry: geometry == freezed
+          ? _value.geometry
+          : geometry // ignore: cast_nullable_to_non_nullable
+              as SbbGeometry?,
       recordTimeStanp: recordTimeStanp == freezed
           ? _value.recordTimeStanp
-          : recordTimeStanp as String?,
+          : recordTimeStanp // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -918,64 +990,134 @@ class _$SbbFieldsCopyWithImpl<$Res> implements $SbbFieldsCopyWith<$Res> {
     Object? goIdentifikation = freezed,
   }) {
     return _then(_value.copyWith(
-      bpuic: bpuic == freezed ? _value.bpuic : bpuic as int?,
+      bpuic: bpuic == freezed
+          ? _value.bpuic
+          : bpuic // ignore: cast_nullable_to_non_nullable
+              as int?,
       isHaltestelle: isHaltestelle == freezed
           ? _value.isHaltestelle
-          : isHaltestelle as int?,
-      zLv03: zLv03 == freezed ? _value.zLv03 : zLv03 as double?,
-      kantonsname:
-          kantonsname == freezed ? _value.kantonsname : kantonsname as String?,
-      eWgs84: eWgs84 == freezed ? _value.eWgs84 : eWgs84 as double?,
-      geopos: geopos == freezed ? _value.geopos : geopos as List<double>?,
-      eLv03: eLv03 == freezed ? _value.eLv03 : eLv03 as double?,
-      zWgs84: zWgs84 == freezed ? _value.zWgs84 : zWgs84 as double?,
-      abkuerzung:
-          abkuerzung == freezed ? _value.abkuerzung : abkuerzung as String?,
+          : isHaltestelle // ignore: cast_nullable_to_non_nullable
+              as int?,
+      zLv03: zLv03 == freezed
+          ? _value.zLv03
+          : zLv03 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      kantonsname: kantonsname == freezed
+          ? _value.kantonsname
+          : kantonsname // ignore: cast_nullable_to_non_nullable
+              as String?,
+      eWgs84: eWgs84 == freezed
+          ? _value.eWgs84
+          : eWgs84 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      geopos: geopos == freezed
+          ? _value.geopos
+          : geopos // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
+      eLv03: eLv03 == freezed
+          ? _value.eLv03
+          : eLv03 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      zWgs84: zWgs84 == freezed
+          ? _value.zWgs84
+          : zWgs84 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      abkuerzung: abkuerzung == freezed
+          ? _value.abkuerzung
+          : abkuerzung // ignore: cast_nullable_to_non_nullable
+              as String?,
       kantonskuerzel: kantonskuerzel == freezed
           ? _value.kantonskuerzel
-          : kantonskuerzel as String?,
-      lod: lod == freezed ? _value.lod : lod as String?,
-      bezirksnum:
-          bezirksnum == freezed ? _value.bezirksnum : bezirksnum as String?,
-      landIso2Geo:
-          landIso2Geo == freezed ? _value.landIso2Geo : landIso2Geo as String?,
-      goNummer: goNummer == freezed ? _value.goNummer : goNummer as int?,
+          : kantonskuerzel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lod: lod == freezed
+          ? _value.lod
+          : lod // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bezirksnum: bezirksnum == freezed
+          ? _value.bezirksnum
+          : bezirksnum // ignore: cast_nullable_to_non_nullable
+              as String?,
+      landIso2Geo: landIso2Geo == freezed
+          ? _value.landIso2Geo
+          : landIso2Geo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      goNummer: goNummer == freezed
+          ? _value.goNummer
+          : goNummer // ignore: cast_nullable_to_non_nullable
+              as int?,
       bpvhVerkehrsmittelTextDe: bpvhVerkehrsmittelTextDe == freezed
           ? _value.bpvhVerkehrsmittelTextDe
-          : bpvhVerkehrsmittelTextDe as String?,
-      kantonsnum:
-          kantonsnum == freezed ? _value.kantonsnum : kantonsnum as int?,
-      zLv95: zLv95 == freezed ? _value.zLv95 : zLv95 as double?,
-      nWgs84: nWgs84 == freezed ? _value.nWgs84 : nWgs84 as double?,
+          : bpvhVerkehrsmittelTextDe // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kantonsnum: kantonsnum == freezed
+          ? _value.kantonsnum
+          : kantonsnum // ignore: cast_nullable_to_non_nullable
+              as int?,
+      zLv95: zLv95 == freezed
+          ? _value.zLv95
+          : zLv95 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      nWgs84: nWgs84 == freezed
+          ? _value.nWgs84
+          : nWgs84 // ignore: cast_nullable_to_non_nullable
+              as double?,
       bezeichnungOffiziell: bezeichnungOffiziell == freezed
           ? _value.bezeichnungOffiziell
-          : bezeichnungOffiziell as String?,
-      bfsNummer: bfsNummer == freezed ? _value.bfsNummer : bfsNummer as int?,
+          : bezeichnungOffiziell // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bfsNummer: bfsNummer == freezed
+          ? _value.bfsNummer
+          : bfsNummer // ignore: cast_nullable_to_non_nullable
+              as int?,
       gemeindename: gemeindename == freezed
           ? _value.gemeindename
-          : gemeindename as String?,
-      nLv03: nLv03 == freezed ? _value.nLv03 : nLv03 as double?,
-      eLv95: eLv95 == freezed ? _value.eLv95 : eLv95 as double?,
-      nLv95: nLv95 == freezed ? _value.nLv95 : nLv95 as double?,
+          : gemeindename // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nLv03: nLv03 == freezed
+          ? _value.nLv03
+          : nLv03 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      eLv95: eLv95 == freezed
+          ? _value.eLv95
+          : eLv95 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      nLv95: nLv95 == freezed
+          ? _value.nLv95
+          : nLv95 // ignore: cast_nullable_to_non_nullable
+              as double?,
       goAbkuerzungDe: goAbkuerzungDe == freezed
           ? _value.goAbkuerzungDe
-          : goAbkuerzungDe as String?,
-      bezirksname:
-          bezirksname == freezed ? _value.bezirksname : bezirksname as String?,
+          : goAbkuerzungDe // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bezirksname: bezirksname == freezed
+          ? _value.bezirksname
+          : bezirksname // ignore: cast_nullable_to_non_nullable
+              as String?,
       ortschaftsname: ortschaftsname == freezed
           ? _value.ortschaftsname
-          : ortschaftsname as String?,
+          : ortschaftsname // ignore: cast_nullable_to_non_nullable
+              as String?,
       goBezeichnungDe: goBezeichnungDe == freezed
           ? _value.goBezeichnungDe
-          : goBezeichnungDe as String?,
+          : goBezeichnungDe // ignore: cast_nullable_to_non_nullable
+              as String?,
       bpvhVerkehrsmittel: bpvhVerkehrsmittel == freezed
           ? _value.bpvhVerkehrsmittel
-          : bpvhVerkehrsmittel as String?,
-      nummer: nummer == freezed ? _value.nummer : nummer as int?,
-      dstAbk: dstAbk == freezed ? _value.dstAbk : dstAbk as String?,
+          : bpvhVerkehrsmittel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nummer: nummer == freezed
+          ? _value.nummer
+          : nummer // ignore: cast_nullable_to_non_nullable
+              as int?,
+      dstAbk: dstAbk == freezed
+          ? _value.dstAbk
+          : dstAbk // ignore: cast_nullable_to_non_nullable
+              as String?,
       goIdentifikation: goIdentifikation == freezed
           ? _value.goIdentifikation
-          : goIdentifikation as int?,
+          : goIdentifikation // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -1066,64 +1208,134 @@ class __$SbbFieldsCopyWithImpl<$Res> extends _$SbbFieldsCopyWithImpl<$Res>
     Object? goIdentifikation = freezed,
   }) {
     return _then(_SbbFields(
-      bpuic: bpuic == freezed ? _value.bpuic : bpuic as int?,
+      bpuic: bpuic == freezed
+          ? _value.bpuic
+          : bpuic // ignore: cast_nullable_to_non_nullable
+              as int?,
       isHaltestelle: isHaltestelle == freezed
           ? _value.isHaltestelle
-          : isHaltestelle as int?,
-      zLv03: zLv03 == freezed ? _value.zLv03 : zLv03 as double?,
-      kantonsname:
-          kantonsname == freezed ? _value.kantonsname : kantonsname as String?,
-      eWgs84: eWgs84 == freezed ? _value.eWgs84 : eWgs84 as double?,
-      geopos: geopos == freezed ? _value.geopos : geopos as List<double>?,
-      eLv03: eLv03 == freezed ? _value.eLv03 : eLv03 as double?,
-      zWgs84: zWgs84 == freezed ? _value.zWgs84 : zWgs84 as double?,
-      abkuerzung:
-          abkuerzung == freezed ? _value.abkuerzung : abkuerzung as String?,
+          : isHaltestelle // ignore: cast_nullable_to_non_nullable
+              as int?,
+      zLv03: zLv03 == freezed
+          ? _value.zLv03
+          : zLv03 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      kantonsname: kantonsname == freezed
+          ? _value.kantonsname
+          : kantonsname // ignore: cast_nullable_to_non_nullable
+              as String?,
+      eWgs84: eWgs84 == freezed
+          ? _value.eWgs84
+          : eWgs84 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      geopos: geopos == freezed
+          ? _value.geopos
+          : geopos // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
+      eLv03: eLv03 == freezed
+          ? _value.eLv03
+          : eLv03 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      zWgs84: zWgs84 == freezed
+          ? _value.zWgs84
+          : zWgs84 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      abkuerzung: abkuerzung == freezed
+          ? _value.abkuerzung
+          : abkuerzung // ignore: cast_nullable_to_non_nullable
+              as String?,
       kantonskuerzel: kantonskuerzel == freezed
           ? _value.kantonskuerzel
-          : kantonskuerzel as String?,
-      lod: lod == freezed ? _value.lod : lod as String?,
-      bezirksnum:
-          bezirksnum == freezed ? _value.bezirksnum : bezirksnum as String?,
-      landIso2Geo:
-          landIso2Geo == freezed ? _value.landIso2Geo : landIso2Geo as String?,
-      goNummer: goNummer == freezed ? _value.goNummer : goNummer as int?,
+          : kantonskuerzel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lod: lod == freezed
+          ? _value.lod
+          : lod // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bezirksnum: bezirksnum == freezed
+          ? _value.bezirksnum
+          : bezirksnum // ignore: cast_nullable_to_non_nullable
+              as String?,
+      landIso2Geo: landIso2Geo == freezed
+          ? _value.landIso2Geo
+          : landIso2Geo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      goNummer: goNummer == freezed
+          ? _value.goNummer
+          : goNummer // ignore: cast_nullable_to_non_nullable
+              as int?,
       bpvhVerkehrsmittelTextDe: bpvhVerkehrsmittelTextDe == freezed
           ? _value.bpvhVerkehrsmittelTextDe
-          : bpvhVerkehrsmittelTextDe as String?,
-      kantonsnum:
-          kantonsnum == freezed ? _value.kantonsnum : kantonsnum as int?,
-      zLv95: zLv95 == freezed ? _value.zLv95 : zLv95 as double?,
-      nWgs84: nWgs84 == freezed ? _value.nWgs84 : nWgs84 as double?,
+          : bpvhVerkehrsmittelTextDe // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kantonsnum: kantonsnum == freezed
+          ? _value.kantonsnum
+          : kantonsnum // ignore: cast_nullable_to_non_nullable
+              as int?,
+      zLv95: zLv95 == freezed
+          ? _value.zLv95
+          : zLv95 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      nWgs84: nWgs84 == freezed
+          ? _value.nWgs84
+          : nWgs84 // ignore: cast_nullable_to_non_nullable
+              as double?,
       bezeichnungOffiziell: bezeichnungOffiziell == freezed
           ? _value.bezeichnungOffiziell
-          : bezeichnungOffiziell as String?,
-      bfsNummer: bfsNummer == freezed ? _value.bfsNummer : bfsNummer as int?,
+          : bezeichnungOffiziell // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bfsNummer: bfsNummer == freezed
+          ? _value.bfsNummer
+          : bfsNummer // ignore: cast_nullable_to_non_nullable
+              as int?,
       gemeindename: gemeindename == freezed
           ? _value.gemeindename
-          : gemeindename as String?,
-      nLv03: nLv03 == freezed ? _value.nLv03 : nLv03 as double?,
-      eLv95: eLv95 == freezed ? _value.eLv95 : eLv95 as double?,
-      nLv95: nLv95 == freezed ? _value.nLv95 : nLv95 as double?,
+          : gemeindename // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nLv03: nLv03 == freezed
+          ? _value.nLv03
+          : nLv03 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      eLv95: eLv95 == freezed
+          ? _value.eLv95
+          : eLv95 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      nLv95: nLv95 == freezed
+          ? _value.nLv95
+          : nLv95 // ignore: cast_nullable_to_non_nullable
+              as double?,
       goAbkuerzungDe: goAbkuerzungDe == freezed
           ? _value.goAbkuerzungDe
-          : goAbkuerzungDe as String?,
-      bezirksname:
-          bezirksname == freezed ? _value.bezirksname : bezirksname as String?,
+          : goAbkuerzungDe // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bezirksname: bezirksname == freezed
+          ? _value.bezirksname
+          : bezirksname // ignore: cast_nullable_to_non_nullable
+              as String?,
       ortschaftsname: ortschaftsname == freezed
           ? _value.ortschaftsname
-          : ortschaftsname as String?,
+          : ortschaftsname // ignore: cast_nullable_to_non_nullable
+              as String?,
       goBezeichnungDe: goBezeichnungDe == freezed
           ? _value.goBezeichnungDe
-          : goBezeichnungDe as String?,
+          : goBezeichnungDe // ignore: cast_nullable_to_non_nullable
+              as String?,
       bpvhVerkehrsmittel: bpvhVerkehrsmittel == freezed
           ? _value.bpvhVerkehrsmittel
-          : bpvhVerkehrsmittel as String?,
-      nummer: nummer == freezed ? _value.nummer : nummer as int?,
-      dstAbk: dstAbk == freezed ? _value.dstAbk : dstAbk as String?,
+          : bpvhVerkehrsmittel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nummer: nummer == freezed
+          ? _value.nummer
+          : nummer // ignore: cast_nullable_to_non_nullable
+              as int?,
+      dstAbk: dstAbk == freezed
+          ? _value.dstAbk
+          : dstAbk // ignore: cast_nullable_to_non_nullable
+              as String?,
       goIdentifikation: goIdentifikation == freezed
           ? _value.goIdentifikation
-          : goIdentifikation as int?,
+          : goIdentifikation // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -1527,10 +1739,14 @@ class _$SbbGeometryCopyWithImpl<$Res> implements $SbbGeometryCopyWith<$Res> {
     Object? coordinates = freezed,
   }) {
     return _then(_value.copyWith(
-      type: type == freezed ? _value.type : type as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
       coordinates: coordinates == freezed
           ? _value.coordinates
-          : coordinates as List<double>?,
+          : coordinates // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
     ));
   }
 }
@@ -1561,10 +1777,14 @@ class __$SbbGeometryCopyWithImpl<$Res> extends _$SbbGeometryCopyWithImpl<$Res>
     Object? coordinates = freezed,
   }) {
     return _then(_SbbGeometry(
-      type: type == freezed ? _value.type : type as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
       coordinates: coordinates == freezed
           ? _value.coordinates
-          : coordinates as List<double>?,
+          : coordinates // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
     ));
   }
 }

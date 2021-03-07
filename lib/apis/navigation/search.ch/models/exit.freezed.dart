@@ -129,18 +129,54 @@ class _$SbbExitCopyWithImpl<$Res> implements $SbbExitCopyWith<$Res> {
     Object? y = freezed,
   }) {
     return _then(_value.copyWith(
-      arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      name: name == freezed ? _value.name : name as String,
-      sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
-      stopid: stopid == freezed ? _value.stopid : stopid as String?,
-      track: track == freezed ? _value.track : track as String?,
-      waittime: waittime == freezed ? _value.waittime : waittime as int,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
-      x: x == freezed ? _value.x : x as int?,
-      y: y == freezed ? _value.y : y as int?,
+      arrDelay: arrDelay == freezed
+          ? _value.arrDelay
+          : arrDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      sbbName: sbbName == freezed
+          ? _value.sbbName
+          : sbbName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      stopid: stopid == freezed
+          ? _value.stopid
+          : stopid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      track: track == freezed
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as String?,
+      waittime: waittime == freezed
+          ? _value.waittime
+          : waittime // ignore: cast_nullable_to_non_nullable
+              as int,
+      isaddress: isaddress == freezed
+          ? _value.isaddress
+          : isaddress // ignore: cast_nullable_to_non_nullable
+              as bool,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -193,18 +229,54 @@ class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_Exit(
-      arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      name: name == freezed ? _value.name : name as String,
-      sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
-      stopid: stopid == freezed ? _value.stopid : stopid as String?,
-      track: track == freezed ? _value.track : track as String?,
-      waittime: waittime == freezed ? _value.waittime : waittime as int,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
-      x: x == freezed ? _value.x : x as int?,
-      y: y == freezed ? _value.y : y as int?,
+      arrDelay: arrDelay == freezed
+          ? _value.arrDelay
+          : arrDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      sbbName: sbbName == freezed
+          ? _value.sbbName
+          : sbbName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      stopid: stopid == freezed
+          ? _value.stopid
+          : stopid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      track: track == freezed
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as String?,
+      waittime: waittime == freezed
+          ? _value.waittime
+          : waittime // ignore: cast_nullable_to_non_nullable
+              as int,
+      isaddress: isaddress == freezed
+          ? _value.isaddress
+          : isaddress // ignore: cast_nullable_to_non_nullable
+              as bool,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -332,7 +404,6 @@ class _$_Exit extends _Exit {
 }
 
 abstract class _Exit extends SbbExit {
-  _Exit._() : super._();
   factory _Exit(
       {@JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           int arrDelay,
@@ -349,6 +420,7 @@ abstract class _Exit extends SbbExit {
           int? x,
       @IntConverter()
           int? y}) = _$_Exit;
+  _Exit._() : super._();
 
   factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
 

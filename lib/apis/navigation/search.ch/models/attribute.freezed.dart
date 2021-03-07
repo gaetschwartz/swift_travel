@@ -68,10 +68,22 @@ class _$AttributeCopyWithImpl<$Res> implements $AttributeCopyWith<$Res> {
     Object? ignore = freezed,
   }) {
     return _then(_value.copyWith(
-      code: code == freezed ? _value.code : code as String,
-      icon: icon == freezed ? _value.icon : icon as Widget?,
-      message: message == freezed ? _value.message : message as String?,
-      ignore: ignore == freezed ? _value.ignore : ignore as bool,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Widget?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ignore: ignore == freezed
+          ? _value.ignore
+          : ignore // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -102,10 +114,22 @@ class __$AttributeCopyWithImpl<$Res> extends _$AttributeCopyWithImpl<$Res>
     Object? ignore = freezed,
   }) {
     return _then(_Attribute(
-      code: code == freezed ? _value.code : code as String,
-      icon: icon == freezed ? _value.icon : icon as Widget?,
-      message: message == freezed ? _value.message : message as String?,
-      ignore: ignore == freezed ? _value.ignore : ignore as bool,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Widget?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ignore: ignore == freezed
+          ? _value.ignore
+          : ignore // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }

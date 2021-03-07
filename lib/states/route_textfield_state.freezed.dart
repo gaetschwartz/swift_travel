@@ -200,8 +200,14 @@ class _$TextRouteStateCopyWithImpl<$Res>
     Object? doLoad = freezed,
   }) {
     return _then(TextRouteState(
-      text == freezed ? _value.text : text as String,
-      doLoad: doLoad == freezed ? _value.doLoad : doLoad as bool,
+      text == freezed
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+      doLoad: doLoad == freezed
+          ? _value.doLoad
+          : doLoad // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }

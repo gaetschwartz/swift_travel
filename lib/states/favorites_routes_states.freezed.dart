@@ -112,7 +112,10 @@ class _$FavoritesRoutesStatesDataCopyWithImpl<$Res>
     Object? routes = freezed,
   }) {
     return _then(FavoritesRoutesStatesData(
-      routes == freezed ? _value.routes : routes as List<LocalRoute>,
+      routes == freezed
+          ? _value.routes
+          : routes // ignore: cast_nullable_to_non_nullable
+              as List<LocalRoute>,
     ));
   }
 }
@@ -323,7 +326,10 @@ class _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
     Object? exception = freezed,
   }) {
     return _then(FavoritesRoutesStatesError(
-      exception == freezed ? _value.exception : exception as Exception,
+      exception == freezed
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as Exception,
     ));
   }
 }

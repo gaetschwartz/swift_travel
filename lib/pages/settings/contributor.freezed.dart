@@ -171,39 +171,82 @@ class _$ContributorCopyWithImpl<$Res> implements $ContributorCopyWith<$Res> {
     Object? contributions = freezed,
   }) {
     return _then(_value.copyWith(
-      login: login == freezed ? _value.login : login as String,
-      id: id == freezed ? _value.id : id as int,
-      nodeId: nodeId == freezed ? _value.nodeId : nodeId as String,
-      avatarUrl: avatarUrl == freezed ? _value.avatarUrl : avatarUrl as String,
-      gravatarId:
-          gravatarId == freezed ? _value.gravatarId : gravatarId as String,
-      url: url == freezed ? _value.url : url as String,
-      htmlUrl: htmlUrl == freezed ? _value.htmlUrl : htmlUrl as String,
+      login: login == freezed
+          ? _value.login
+          : login // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      nodeId: nodeId == freezed
+          ? _value.nodeId
+          : nodeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      avatarUrl: avatarUrl == freezed
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      gravatarId: gravatarId == freezed
+          ? _value.gravatarId
+          : gravatarId // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      htmlUrl: htmlUrl == freezed
+          ? _value.htmlUrl
+          : htmlUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       followersUrl: followersUrl == freezed
           ? _value.followersUrl
-          : followersUrl as String,
+          : followersUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       followingUrl: followingUrl == freezed
           ? _value.followingUrl
-          : followingUrl as String,
-      gistsUrl: gistsUrl == freezed ? _value.gistsUrl : gistsUrl as String,
-      starredUrl:
-          starredUrl == freezed ? _value.starredUrl : starredUrl as String,
+          : followingUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      gistsUrl: gistsUrl == freezed
+          ? _value.gistsUrl
+          : gistsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      starredUrl: starredUrl == freezed
+          ? _value.starredUrl
+          : starredUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       subscriptionsUrl: subscriptionsUrl == freezed
           ? _value.subscriptionsUrl
-          : subscriptionsUrl as String,
+          : subscriptionsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       organizationsUrl: organizationsUrl == freezed
           ? _value.organizationsUrl
-          : organizationsUrl as String,
-      reposUrl: reposUrl == freezed ? _value.reposUrl : reposUrl as String,
-      eventsUrl: eventsUrl == freezed ? _value.eventsUrl : eventsUrl as String,
+          : organizationsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      reposUrl: reposUrl == freezed
+          ? _value.reposUrl
+          : reposUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventsUrl: eventsUrl == freezed
+          ? _value.eventsUrl
+          : eventsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       receivedEventsUrl: receivedEventsUrl == freezed
           ? _value.receivedEventsUrl
-          : receivedEventsUrl as String,
-      type: type == freezed ? _value.type : type as String,
-      siteAdmin: siteAdmin == freezed ? _value.siteAdmin : siteAdmin as bool,
+          : receivedEventsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      siteAdmin: siteAdmin == freezed
+          ? _value.siteAdmin
+          : siteAdmin // ignore: cast_nullable_to_non_nullable
+              as bool,
       contributions: contributions == freezed
           ? _value.contributions
-          : contributions as int,
+          : contributions // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -270,39 +313,82 @@ class __$ContributorCopyWithImpl<$Res> extends _$ContributorCopyWithImpl<$Res>
     Object? contributions = freezed,
   }) {
     return _then(_Contributor(
-      login: login == freezed ? _value.login : login as String,
-      id: id == freezed ? _value.id : id as int,
-      nodeId: nodeId == freezed ? _value.nodeId : nodeId as String,
-      avatarUrl: avatarUrl == freezed ? _value.avatarUrl : avatarUrl as String,
-      gravatarId:
-          gravatarId == freezed ? _value.gravatarId : gravatarId as String,
-      url: url == freezed ? _value.url : url as String,
-      htmlUrl: htmlUrl == freezed ? _value.htmlUrl : htmlUrl as String,
+      login: login == freezed
+          ? _value.login
+          : login // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      nodeId: nodeId == freezed
+          ? _value.nodeId
+          : nodeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      avatarUrl: avatarUrl == freezed
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      gravatarId: gravatarId == freezed
+          ? _value.gravatarId
+          : gravatarId // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      htmlUrl: htmlUrl == freezed
+          ? _value.htmlUrl
+          : htmlUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       followersUrl: followersUrl == freezed
           ? _value.followersUrl
-          : followersUrl as String,
+          : followersUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       followingUrl: followingUrl == freezed
           ? _value.followingUrl
-          : followingUrl as String,
-      gistsUrl: gistsUrl == freezed ? _value.gistsUrl : gistsUrl as String,
-      starredUrl:
-          starredUrl == freezed ? _value.starredUrl : starredUrl as String,
+          : followingUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      gistsUrl: gistsUrl == freezed
+          ? _value.gistsUrl
+          : gistsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      starredUrl: starredUrl == freezed
+          ? _value.starredUrl
+          : starredUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       subscriptionsUrl: subscriptionsUrl == freezed
           ? _value.subscriptionsUrl
-          : subscriptionsUrl as String,
+          : subscriptionsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       organizationsUrl: organizationsUrl == freezed
           ? _value.organizationsUrl
-          : organizationsUrl as String,
-      reposUrl: reposUrl == freezed ? _value.reposUrl : reposUrl as String,
-      eventsUrl: eventsUrl == freezed ? _value.eventsUrl : eventsUrl as String,
+          : organizationsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      reposUrl: reposUrl == freezed
+          ? _value.reposUrl
+          : reposUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventsUrl: eventsUrl == freezed
+          ? _value.eventsUrl
+          : eventsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       receivedEventsUrl: receivedEventsUrl == freezed
           ? _value.receivedEventsUrl
-          : receivedEventsUrl as String,
-      type: type == freezed ? _value.type : type as String,
-      siteAdmin: siteAdmin == freezed ? _value.siteAdmin : siteAdmin as bool,
+          : receivedEventsUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      siteAdmin: siteAdmin == freezed
+          ? _value.siteAdmin
+          : siteAdmin // ignore: cast_nullable_to_non_nullable
+              as bool,
       contributions: contributions == freezed
           ? _value.contributions
-          : contributions as int,
+          : contributions // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
