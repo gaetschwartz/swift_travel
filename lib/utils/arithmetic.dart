@@ -34,7 +34,7 @@ class LV03ToWGS84Converter extends Converter<LV03Coordinates, LatLon> {
     final phi = phiP * f;
     final lambda = lambdaP * f;
 
-    return LatLon(lambda, phi);
+    return LatLon(phi, lambda);
   }
 
   static const hCH = 600;

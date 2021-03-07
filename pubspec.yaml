@@ -24,8 +24,8 @@ dependencies:
   collection: ^1.15.0
   cupertino_icons: ^1.0.0
   file: ^6.0.0-nullsafety.4
-  firebase_core: ^0.8.0-1.0.nullsafety
-  firebase_crashlytics: ^0.5.0-1.0.nullsafety
+  firebase_core: ^1.0.0
+  firebase_crashlytics: ^1.0.0
   flex_color_scheme: ^2.0.0-nullsafety.1
   flutter_hooks: ^0.16.0-nullsafety.0
   flutter_slidable: ^0.6.0-nullsafety.0
@@ -33,7 +33,7 @@ dependencies:
   font_awesome_flutter: ^9.0.0-nullsafety
   freezed_annotation: ^0.14.0
   google_fonts: ^2.0.0-nullsafety.0
-  hive: ^1.4.4+1
+  hive: ^2.0.0
   hooks_riverpod: ^0.13.0-nullsafety.3
   intl: ^0.17.0-nullsafety.2
   json_annotation: ^4.0.0-nullsafety.0

@@ -7,7 +7,7 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/pages/home_page.dart';
-import 'package:swift_travel/pages/search.dart';
+import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/completion.dart';
 import 'package:swift_travel/utils/errors.dart';
