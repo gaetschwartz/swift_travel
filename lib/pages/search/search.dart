@@ -17,6 +17,7 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:theming/responsive.dart';
 
@@ -37,7 +38,7 @@ class CupertinoTextFieldConfiguration {
   final Widget? prefix;
   final FocusNode? focusNode;
 
-  CupertinoTextField toTextField({TextEditingController? controller}) {
+  CupertinoTextField toCupertino({TextEditingController? controller}) {
     return CupertinoTextField(
       placeholder: placeholder,
       inputFormatters: inputFormatters,
@@ -47,10 +48,25 @@ class CupertinoTextFieldConfiguration {
       controller: controller,
     );
   }
+
+  Widget toTextField({TextEditingController? controller}) {
+    return Material(
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: placeholder,
+          prefixIcon: prefix,
+        ),
+        inputFormatters: inputFormatters,
+        textInputAction: textInputAction,
+        focusNode: focusNode,
+        controller: controller,
+      ),
+    );
+  }
 }
 
 extension CupertinoTextFieldX on CupertinoTextField {
-  static CupertinoTextField fromConfiguration(CupertinoTextFieldConfiguration c) => c.toTextField();
+  static CupertinoTextField fromConfiguration(CupertinoTextFieldConfiguration c) => c.toCupertino();
 }
 
 class Debouncer {
@@ -168,10 +184,13 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
+  late final isDarwin = Responsive.isDarwin(context);
+
   @override
   Widget build(BuildContext context) {
-    if (Responsive.isDarwin(context)) {
-      return Material(
+    return IfWrapper(
+      condition: isDarwin,
+      builder: (context, child) => Material(
         child: CupertinoPageScaffold(
           resizeToAvoidBottomInset: false,
           navigationBar: cupertinoBar(
@@ -179,7 +198,7 @@ class _SearchPageState extends State<SearchPage> {
             transitionBetweenRoutes: false,
             middle: Hero(
               tag: widget.heroTag,
-              child: widget.configuration.toTextField(controller: widget.binder.controller),
+              child: widget.configuration.toCupertino(controller: widget.binder.controller),
             ),
             trailing: IconButton(
               color: CupertinoTheme.of(context).primaryColor,
@@ -193,32 +212,31 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
           ),
-          child: _Results(
-            onTap: (c) {
-              if (c.origin == DataOrigin.currentLocation) {
-                print('It is current location');
-                widget.binder.useCurrentLocation(context);
-              } else {
-                widget.binder.setString(context, c.label);
-              }
-              Navigator.of(context).pop();
-            },
-          ),
+          child: child!,
         ),
-      );
-    } else {
-      return Scaffold(
+      ),
+      elseBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const TextField(),
-          actions: [
-            CloseButton(onPressed: () {
-              Navigator.of(context).pop();
-            })
-          ],
+          title: Hero(
+              tag: widget.heroTag,
+              child: widget.configuration.toTextField(controller: widget.binder.controller)),
+          actions: [CloseButton(onPressed: () => Navigator.of(context).pop())],
         ),
-      );
+        body: child,
+      ),
+      child: _Results(onTap: onSuggestionTapped),
+    );
+  }
+
+  void onSuggestionTapped(Completion c) {
+    if (c.origin == DataOrigin.currentLocation) {
+      print('It is current location');
+      widget.binder.useCurrentLocation(context);
+    } else {
+      widget.binder.setString(context, c.label);
     }
+    Navigator.of(context).pop();
   }
 }
 

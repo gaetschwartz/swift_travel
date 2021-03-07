@@ -7,12 +7,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:geolocator/geolocator.dart' hide Position;
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
@@ -28,10 +25,8 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/states/route_textfield_state.dart';
-import 'package:swift_travel/tabs/routes/completion.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/theme.dart';
-import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
@@ -482,212 +477,113 @@ class _RoutePageState extends State<RoutePage> {
   static const _fromHeroTag = 'fromHeroTag';
   static const _toHeroTag = 'toHeroTag';
 
-  static const _suggestionsBoxDecoration =
-      SuggestionsBoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16)));
   Widget buildFromField(BuildContext context, {required bool isDarwin}) {
-    final currentLocationString = AppLoc.of(context).current_location;
+    late final cupertinoTextFieldConfiguration = CupertinoTextFieldConfiguration(
+      focusNode: fnFrom,
+      inputFormatters: [fromFormatter],
+      placeholder: AppLoc.of(context).departure,
+      textInputAction: TextInputAction.next,
+    );
 
-    return isDarwin
-        ? Hero(
-            tag: _fromHeroTag,
-            child: CupertinoTextField(
-              controller: from.controller,
-              focusNode: fnFrom,
-              onEditingComplete: fnTo.requestFocus,
-              placeholder: AppLoc.of(context).departure,
-              textInputAction: TextInputAction.next,
-              prefix: Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: Consumer(
+    void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
+        builder: (context) => SearchPage(
+              binder: from,
+              heroTag: _fromHeroTag,
+              configuration: cupertinoTextFieldConfiguration,
+            )));
+
+    if (isDarwin) {
+      return Hero(
+        tag: _fromHeroTag,
+        child: CupertinoTextField(
+          controller: from.controller,
+          focusNode: fnFrom,
+          onEditingComplete: fnTo.requestFocus,
+          placeholder: AppLoc.of(context).departure,
+          textInputAction: TextInputAction.next,
+          prefix: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Consumer(
+                builder: (context, w, _) =>
+                    iconForState(w(fromTextfieldProvider).state, iconSize: 16)),
+          ),
+          onTap: openSearch,
+        ),
+      );
+    } else {
+      return Hero(
+        tag: _fromHeroTag,
+        child: Material(
+          child: TextField(
+            controller: from.controller,
+            focusNode: fnFrom,
+            onEditingComplete: fnTo.requestFocus,
+            decoration: InputDecoration(
+                hintText: AppLoc.of(context).departure,
+                prefixIcon: Consumer(
                     builder: (context, w, _) =>
-                        iconForState(w(fromTextfieldProvider).state, iconSize: 16)),
-              ),
-              onTap: () async {
-                await Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
-                    builder: (context) => SearchPage(
-                          binder: from,
-                          heroTag: _fromHeroTag,
-                          configuration: CupertinoTextFieldConfiguration(
-                            focusNode: fnFrom,
-                            inputFormatters: [fromFormatter],
-                            placeholder: AppLoc.of(context).departure,
-                            textInputAction: TextInputAction.next,
-                          ),
-                        )));
-              },
-            ),
-          )
-        : ShadowsAround(
-            child: Stack(
-              alignment: Alignment.centerRight,
-              children: [
-                TypeAheadField<Completion>(
-                  key: const Key('route-first-textfield-key'),
-                  debounceDuration: const Duration(milliseconds: 250),
-                  textFieldConfiguration: TextFieldConfiguration(
-                    inputFormatters: [fromFormatter],
-                    focusNode: fnFrom,
-                    controller: from.controller,
-                    onEditingComplete: () => fnTo.requestFocus(),
-                    textInputAction: TextInputAction.next,
-                    style: Theme.of(context).textTheme.bodyText1,
-                    decoration: InputDecoration(
-                      prefixIcon: Consumer(
-                          builder: (context, w, _) => iconForState(w(fromTextfieldProvider).state)),
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                      labelText: AppLoc.of(context).departure,
-                      isDense: true,
-                      filled: true,
-                      fillColor: Theme.of(context).cardColor,
-                      contentPadding: const EdgeInsets.only(left: 8),
-                      suffixIcon: const SizedBox(),
-                    ),
-                  ),
-                  loadingBuilder: (context) => ListView.builder(
-                      itemBuilder: (context, i) => Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.white,
-                            child: const RouteCompletionTile.empty(),
-                          )),
-                  suggestionsCallback: (query) async => completeWithFavorites(
-                    favorites: favorites.stops,
-                    completions: await api.complete(query),
-                    query: query,
-                    currentLocationString: currentLocationString,
-                    history: historyRepository.history,
-                  ),
-                  itemBuilder: (context, suggestion) => RouteCompletionTile(suggestion),
-                  onSuggestionSelected: (suggestion) {
-                    if (suggestion.origin == DataOrigin.currentLocation) {
-                      from.useCurrentLocation(context);
-                    } else {
-                      from.setString(context, suggestion.label);
-                    }
-                  },
-                  suggestionsBoxDecoration: _suggestionsBoxDecoration,
-                  hideOnEmpty: true,
-                  transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-                    opacity: controller!,
-                    child: suggestionsBox,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    Vibration.select();
-                    from.clear(context);
-                  },
-                ),
-              ],
-            ),
-          );
+                        iconForState(w(fromTextfieldProvider).state, iconSize: 16))),
+            textInputAction: TextInputAction.next,
+            onTap: openSearch,
+          ),
+        ),
+      );
+    }
   }
 
   Widget buildToField(BuildContext context, {required bool isDarwin}) {
-    final currentLocationString = AppLoc.of(context).current_location;
+    late final cupertinoTextFieldConfiguration = CupertinoTextFieldConfiguration(
+      focusNode: fnTo,
+      inputFormatters: [toFormatter],
+      placeholder: AppLoc.of(context).destination,
+      textInputAction: TextInputAction.search,
+    );
 
-    return isDarwin
-        ? Hero(
-            tag: _toHeroTag,
-            child: CupertinoTextField(
-              focusNode: fnTo,
-              controller: to.controller,
-              placeholder: AppLoc.of(context).destination,
-              textInputAction: TextInputAction.search,
-              prefix: Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: Consumer(
-                    builder: (context, w, _) =>
-                        iconForState(w(toTextfieldProvider).state, iconSize: 16)),
-              ),
-              onTap: () async {
-                await Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
-                    builder: (context) => Consumer(
-                        builder: (context, w, _) => SearchPage(
-                              binder: to,
-                              isDestination: true,
-                              dateTime: w(dateProvider).state,
-                              heroTag: _toHeroTag,
-                              configuration: CupertinoTextFieldConfiguration(
-                                focusNode: fnTo,
-                                inputFormatters: [toFormatter],
-                                placeholder: AppLoc.of(context).destination,
-                                textInputAction: TextInputAction.search,
-                              ),
-                            ))));
-              },
+    void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
+        builder: (context) => SearchPage(
+              binder: to,
+              isDestination: true,
+              dateTime: context.read(dateProvider).state,
+              heroTag: _toHeroTag,
+              configuration: cupertinoTextFieldConfiguration,
+            )));
+
+    if (isDarwin) {
+      return Hero(
+        tag: _toHeroTag,
+        child: CupertinoTextField(
+          focusNode: fnTo,
+          controller: to.controller,
+          placeholder: AppLoc.of(context).destination,
+          textInputAction: TextInputAction.search,
+          prefix: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Consumer(
+                builder: (context, w, _) =>
+                    iconForState(w(toTextfieldProvider).state, iconSize: 16)),
+          ),
+          onTap: openSearch,
+        ),
+      );
+    } else {
+      return Hero(
+        tag: _toHeroTag,
+        child: Material(
+          child: TextField(
+            focusNode: fnTo,
+            controller: to.controller,
+            decoration: InputDecoration(
+              hintText: AppLoc.of(context).destination,
+              prefixIcon: Consumer(
+                  builder: (context, w, _) =>
+                      iconForState(w(toTextfieldProvider).state, iconSize: 16)),
             ),
-          )
-        : ShadowsAround(
-            child: Stack(
-              alignment: Alignment.centerRight,
-              children: [
-                TypeAheadField<Completion>(
-                  key: const Key('route-second-textfield-key'),
-                  suggestionsBoxDecoration: _suggestionsBoxDecoration,
-                  debounceDuration: const Duration(milliseconds: 250),
-                  textFieldConfiguration: TextFieldConfiguration(
-                    inputFormatters: [toFormatter],
-                    textInputAction: TextInputAction.search,
-                    focusNode: fnTo,
-                    onEditingComplete: () => unFocusFields(),
-                    controller: to.controller,
-                    style: Theme.of(context).textTheme.bodyText1,
-                    decoration: InputDecoration(
-                      prefixIcon: Consumer(
-                          builder: (context, w, _) => iconForState(w(toTextfieldProvider).state)),
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                      labelText: AppLoc.of(context).destination,
-                      isDense: true,
-                      filled: true,
-                      fillColor: Theme.of(context).cardColor,
-                      contentPadding: const EdgeInsets.only(left: 8),
-                      suffixIcon: const SizedBox(),
-                    ),
-                  ),
-                  suggestionsCallback: (query) async => completeWithFavorites(
-                    favorites: favorites.stops,
-                    completions: await api.complete(query),
-                    query: query,
-                    currentLocationString: currentLocationString,
-                    history: historyRepository.history,
-                  ),
-                  itemBuilder: (context, suggestion) => RouteCompletionTile(suggestion),
-                  onSuggestionSelected: (suggestion) {
-                    if (suggestion.origin == DataOrigin.currentLocation) {
-                      to.useCurrentLocation(context);
-                    } else {
-                      to.setString(context, suggestion.label);
-                    }
-                  },
-                  loadingBuilder: (context) => ListView.builder(
-                      itemBuilder: (context, i) => Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.white,
-                            child: const RouteCompletionTile.empty(),
-                          )),
-                  hideOnEmpty: true,
-                  transitionBuilder: (context, suggestionsBox, controller) => FadeTransition(
-                    opacity: controller!,
-                    child: suggestionsBox,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    Vibration.select();
-                    to.clear(context);
-                  },
-                ),
-              ],
-            ),
-          );
+            textInputAction: TextInputAction.search,
+            onTap: openSearch,
+          ),
+        ),
+      );
+    }
   }
 
   Widget iconForState(RouteTextfieldState state, {double iconSize = 24}) => state.maybeWhen(
