@@ -264,7 +264,7 @@ packages:
       name: flutter_blurhash
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.2-nullsafety.0"
+    version: "0.5.4-nullsafety.0"
   flutter_hooks:
     dependency: "direct main"
     description:
@@ -304,7 +304,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0-nullsafety.3"
+    version: "0.13.1"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -342,7 +342,7 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0-nullsafety.1"
+    version: "0.14.0+1"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -405,7 +405,7 @@ packages:
       name: hooks_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0-nullsafety.3"
+    version: "0.13.1"
   http:
     dependency: transitive
     description:
@@ -468,7 +468,7 @@ packages:
       name: lint
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.2"
+    version: "1.5.3"
   live_route:
     dependency: "direct main"
     description:
@@ -643,7 +643,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0"
+    version: "0.13.1"
   share:
     dependency: "direct main"
     description:

@@ -246,6 +246,7 @@ class EditorPage extends StatefulWidget {
 enum SizeType {
   custom,
   github,
+  twitter,
 }
 
 class _EditorPageState extends State<EditorPage> {
@@ -264,6 +265,12 @@ class _EditorPageState extends State<EditorPage> {
         return SizedBox(
           width: 1280,
           height: 640,
+          child: child,
+        );
+      case SizeType.twitter:
+        return SizedBox(
+          width: 1500,
+          height: 500,
           child: child,
         );
     }
