@@ -25,7 +25,7 @@ import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
-import 'package:swift_travel/pages/search.dart';
+import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/states/route_textfield_state.dart';
 import 'package:swift_travel/tabs/routes/completion.dart';

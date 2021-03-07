@@ -45,10 +45,10 @@ class LatLon with _$LatLon {
 
       if (i != -1) {
         final s = name.substring(i + 1);
-        final x = int.tryParse(s.split(',').first);
-        final y = int.tryParse(s.split(',').last);
-        if (x != null && y != null) {
-          return LatLon.fromLV03(LV03Coordinates(x, y));
+        final x2 = int.tryParse(s.split(',').last);
+        final y2 = int.tryParse(s.split(',').first);
+        if (y2 != null && x2 != null) {
+          return LatLon.fromLV03(LV03Coordinates(x2, y2));
         }
       }
     }

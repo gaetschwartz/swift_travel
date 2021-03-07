@@ -77,13 +77,14 @@ class SearchChApi extends BaseNavigationApi {
     double lon, {
     int? accuracy = 10,
     bool showCoordinates = true,
-    bool showIds = false,
+    bool showIds = true,
   }) async {
     final uri = queryBuilder('completion', {
       'latlon': '$lat,$lon',
       'accuracy': accuracy,
       'show_ids': showIds.toInt(),
       'show_coordinates': showCoordinates.toInt(),
+      'nofavorites': true.toInt(),
     });
 
     if (kDebugMode) {
