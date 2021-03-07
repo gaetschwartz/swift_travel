@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:theming/responsive.dart';
 
 class IfWrapper extends StatelessWidget {
   const IfWrapper({
     Key? key,
     required this.condition,
     required this.builder,
-    required this.child,
+    this.child,
     this.elseBuilder,
   }) : super(key: key);
 
@@ -20,4 +21,35 @@ class IfWrapper extends StatelessWidget {
       : elseBuilder != null
           ? elseBuilder!(context, child)
           : child!;
+}
+
+class PlatformBuilder extends StatefulWidget {
+  const PlatformBuilder({
+    Key? key,
+    required this.cupertinoBuilder,
+    required this.materialBuilder,
+    this.child,
+  }) : super(key: key);
+
+  final Widget Function(BuildContext context, Widget? child) cupertinoBuilder;
+  final Widget? child;
+  final Widget Function(BuildContext context, Widget? child) materialBuilder;
+
+  @override
+  _PlatformBuilderState createState() => _PlatformBuilderState();
+}
+
+class _PlatformBuilderState extends State<PlatformBuilder> {
+  late bool isCupertino;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    isCupertino = Responsive.isDarwin(context);
+  }
+
+  @override
+  Widget build(BuildContext context) => isCupertino
+      ? widget.cupertinoBuilder(context, widget.child)
+      : widget.materialBuilder(context, widget.child);
 }

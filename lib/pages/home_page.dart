@@ -434,13 +434,19 @@ final navigatorKeys = <GlobalKey<NavigatorState>>[
 
 final sideBarNavigatorKey = GlobalKey<NavigatorState>();
 
-AppBar materialAppBar(BuildContext context,
-    {List<Widget> actions = const [], bool addSettings = true, Widget? title}) {
+AppBar materialAppBar(
+  BuildContext context, {
+  List<Widget> actions = const [],
+  bool addSettings = true,
+  Widget? title,
+  Widget? leading,
+}) {
   return AppBar(
     automaticallyImplyLeading: false,
     title: title,
     backgroundColor: Colors.transparent,
     elevation: 0,
+    leading: leading,
     actions: [
       ...actions,
       if (addSettings)

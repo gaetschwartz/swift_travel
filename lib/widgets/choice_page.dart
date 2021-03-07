@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:vibration/vibration.dart';
+
+import 'if_wrapper.dart';
 
 @immutable
 class ChoicePageItem<T> {
@@ -57,13 +60,34 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: cupertinoBar(context, middle: widget.title),
-      backgroundColor: CupertinoTheme.brightnessOf(context) == Brightness.dark
-          ? null
-          : CupertinoColors.systemGroupedBackground,
-      child: ListView(
-        primary: true,
+    return PlatformBuilder(
+      cupertinoBuilder: (context, child) {
+        return CupertinoPageScaffold(
+          navigationBar: cupertinoBar(context,
+              middle: widget.title,
+              leading: CupertinoButton(
+                padding: EdgeInsets.zero,
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(AppLoc.of(context).close),
+              )),
+          backgroundColor: CupertinoTheme.brightnessOf(context) == Brightness.dark
+              ? null
+              : CupertinoColors.systemGroupedBackground,
+          child: SafeArea(child: child!),
+        );
+      },
+      materialBuilder: (context, child) {
+        return Scaffold(
+          appBar: materialAppBar(
+            context,
+            title: widget.title,
+            leading: const CloseButton(),
+          ),
+          body: child,
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 32),
           const Divider(height: 0),
@@ -75,6 +99,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
             ),
             child: ListView.separated(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, i) {
                 final item = widget.items[i];
                 return item.child != null
