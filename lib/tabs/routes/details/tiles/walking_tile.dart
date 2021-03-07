@@ -90,8 +90,8 @@ class WalkingTile extends StatelessWidget {
     final legPos = l.position;
     final exitPos = l.exit!.position;
 
-    final departure = legPos != null ? legPos.toCoordinatesString() : l.name.split('@').first;
-    final arrival = exitPos != null ? exitPos.toCoordinatesString() : l.exit!.name;
+    final departure = legPos != null ? legPos.toCoordinatesString() : l.displayName;
+    final arrival = exitPos != null ? exitPos.toCoordinatesString() : l.exit!.displayName;
     log('($departure) => ($arrival)');
 
     final suffix =
