@@ -83,11 +83,22 @@ class _$LineCacheEntryCopyWithImpl<$Res>
     Object? ttl = freezed,
   }) {
     return _then(_value.copyWith(
-      timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime,
-      stop: stop == freezed ? _value.stop : stop as String,
-      lines: lines == freezed ? _value.lines : lines as List<Line>,
-      ttl: ttl == freezed ? _value.ttl : ttl as int,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      stop: stop == freezed
+          ? _value.stop
+          : stop // ignore: cast_nullable_to_non_nullable
+              as String,
+      lines: lines == freezed
+          ? _value.lines
+          : lines // ignore: cast_nullable_to_non_nullable
+              as List<Line>,
+      ttl: ttl == freezed
+          ? _value.ttl
+          : ttl // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -121,11 +132,22 @@ class __$LineCacheEntryCopyWithImpl<$Res>
     Object? ttl = freezed,
   }) {
     return _then(_LineCacheEntry(
-      timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime,
-      stop: stop == freezed ? _value.stop : stop as String,
-      lines: lines == freezed ? _value.lines : lines as List<Line>,
-      ttl: ttl == freezed ? _value.ttl : ttl as int,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      stop: stop == freezed
+          ? _value.stop
+          : stop // ignore: cast_nullable_to_non_nullable
+              as String,
+      lines: lines == freezed
+          ? _value.lines
+          : lines // ignore: cast_nullable_to_non_nullable
+              as List<Line>,
+      ttl: ttl == freezed
+          ? _value.ttl
+          : ttl // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -279,8 +301,14 @@ class _$LineCopyWithImpl<$Res> implements $LineCopyWith<$Res> {
     Object? colors = freezed,
   }) {
     return _then(_value.copyWith(
-      line: line == freezed ? _value.line : line as String?,
-      colors: colors == freezed ? _value.colors : colors as String,
+      line: line == freezed
+          ? _value.line
+          : line // ignore: cast_nullable_to_non_nullable
+              as String?,
+      colors: colors == freezed
+          ? _value.colors
+          : colors // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -308,8 +336,14 @@ class __$LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res>
     Object? colors = freezed,
   }) {
     return _then(_Line(
-      line == freezed ? _value.line : line as String?,
-      colors == freezed ? _value.colors : colors as String,
+      line == freezed
+          ? _value.line
+          : line // ignore: cast_nullable_to_non_nullable
+              as String?,
+      colors == freezed
+          ? _value.colors
+          : colors // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }

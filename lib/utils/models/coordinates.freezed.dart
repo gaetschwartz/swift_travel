@@ -66,8 +66,14 @@ class _$LatLonCopyWithImpl<$Res> implements $LatLonCopyWith<$Res> {
     Object? lon = freezed,
   }) {
     return _then(_value.copyWith(
-      lat: lat == freezed ? _value.lat : lat as double,
-      lon: lon == freezed ? _value.lon : lon as double,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -95,8 +101,14 @@ class __$LatLonCopyWithImpl<$Res> extends _$LatLonCopyWithImpl<$Res>
     Object? lon = freezed,
   }) {
     return _then(_LatLon(
-      lat == freezed ? _value.lat : lat as double,
-      lon == freezed ? _value.lon : lon as double,
+      lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double,
+      lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -104,8 +116,8 @@ class __$LatLonCopyWithImpl<$Res> extends _$LatLonCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_LatLon implements _LatLon {
-  const _$_LatLon(this.lat, this.lon);
+class _$_LatLon extends _LatLon {
+  const _$_LatLon(this.lat, this.lon) : super._();
 
   factory _$_LatLon.fromJson(Map<String, dynamic> json) =>
       _$_$_LatLonFromJson(json);
@@ -147,8 +159,9 @@ class _$_LatLon implements _LatLon {
   }
 }
 
-abstract class _LatLon implements LatLon {
+abstract class _LatLon extends LatLon {
   const factory _LatLon(double lat, double lon) = _$_LatLon;
+  const _LatLon._() : super._();
 
   factory _LatLon.fromJson(Map<String, dynamic> json) = _$_LatLon.fromJson;
 
@@ -218,8 +231,14 @@ class _$LV03CoordinatesCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_value.copyWith(
-      x: x == freezed ? _value.x : x as int,
-      y: y == freezed ? _value.y : y as int,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -251,8 +270,14 @@ class __$LV03CoordinatesCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_LV03Coordinates(
-      x == freezed ? _value.x : x as int,
-      y == freezed ? _value.y : y as int,
+      x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int,
+      y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }

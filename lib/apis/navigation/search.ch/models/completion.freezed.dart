@@ -99,15 +99,34 @@ class _$SbbCompletionCopyWithImpl<$Res>
     Object? origin = freezed,
   }) {
     return _then(_value.copyWith(
-      label: label == freezed ? _value.label : label as String,
-      dist: dist == freezed ? _value.dist : dist as double?,
-      iconClass: iconClass == freezed ? _value.iconClass : iconClass as String?,
-      html: html == freezed ? _value.html : html as String?,
-      id: id == freezed ? _value.id : id as String?,
+      label: label == freezed
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
+      dist: dist == freezed
+          ? _value.dist
+          : dist // ignore: cast_nullable_to_non_nullable
+              as double?,
+      iconClass: iconClass == freezed
+          ? _value.iconClass
+          : iconClass // ignore: cast_nullable_to_non_nullable
+              as String?,
+      html: html == freezed
+          ? _value.html
+          : html // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       favoriteName: favoriteName == freezed
           ? _value.favoriteName
-          : favoriteName as String?,
-      origin: origin == freezed ? _value.origin : origin as DataOrigin,
+          : favoriteName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      origin: origin == freezed
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as DataOrigin,
     ));
   }
 }
@@ -151,15 +170,34 @@ class __$SbbCompletionCopyWithImpl<$Res>
     Object? origin = freezed,
   }) {
     return _then(_SbbCompletion(
-      label: label == freezed ? _value.label : label as String,
-      dist: dist == freezed ? _value.dist : dist as double?,
-      iconClass: iconClass == freezed ? _value.iconClass : iconClass as String?,
-      html: html == freezed ? _value.html : html as String?,
-      id: id == freezed ? _value.id : id as String?,
+      label: label == freezed
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
+      dist: dist == freezed
+          ? _value.dist
+          : dist // ignore: cast_nullable_to_non_nullable
+              as double?,
+      iconClass: iconClass == freezed
+          ? _value.iconClass
+          : iconClass // ignore: cast_nullable_to_non_nullable
+              as String?,
+      html: html == freezed
+          ? _value.html
+          : html // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       favoriteName: favoriteName == freezed
           ? _value.favoriteName
-          : favoriteName as String?,
-      origin: origin == freezed ? _value.origin : origin as DataOrigin,
+          : favoriteName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      origin: origin == freezed
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as DataOrigin,
     ));
   }
 }
@@ -248,7 +286,6 @@ class _$_SbbCompletion extends _SbbCompletion {
 }
 
 abstract class _SbbCompletion extends SbbCompletion {
-  _SbbCompletion._() : super._();
   factory _SbbCompletion(
       {required String label,
       double? dist,
@@ -257,6 +294,7 @@ abstract class _SbbCompletion extends SbbCompletion {
       String? id,
       String? favoriteName,
       DataOrigin origin}) = _$_SbbCompletion;
+  _SbbCompletion._() : super._();
 
   factory _SbbCompletion.fromJson(Map<String, dynamic> json) =
       _$_SbbCompletion.fromJson;

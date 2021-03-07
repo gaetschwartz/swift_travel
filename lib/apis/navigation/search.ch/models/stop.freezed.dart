@@ -108,16 +108,42 @@ class _$SbbStopCopyWithImpl<$Res> implements $SbbStopCopyWith<$Res> {
     Object? y = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String?,
-      stopid: stopid == freezed ? _value.stopid : stopid as String?,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime?,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      x: x == freezed ? _value.x : x as int?,
-      y: y == freezed ? _value.y : y as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      stopid: stopid == freezed
+          ? _value.stopid
+          : stopid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departure: departure == freezed
+          ? _value.departure
+          : departure // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -161,16 +187,42 @@ class __$SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_SbbStop(
-      name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String?,
-      stopid: stopid == freezed ? _value.stopid : stopid as String?,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime?,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      x: x == freezed ? _value.x : x as int?,
-      y: y == freezed ? _value.y : y as int?,
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      stopid: stopid == freezed
+          ? _value.stopid
+          : stopid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departure: departure == freezed
+          ? _value.departure
+          : departure // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -272,7 +324,6 @@ class _$_SbbStop extends _SbbStop {
 }
 
 abstract class _SbbStop extends SbbStop {
-  const _SbbStop._() : super._();
   const factory _SbbStop(String name,
       {String? id,
       String? stopid,
@@ -282,6 +333,7 @@ abstract class _SbbStop extends SbbStop {
       double? lon,
       @IntConverter() int? x,
       @IntConverter() int? y}) = _$_SbbStop;
+  const _SbbStop._() : super._();
 
   factory _SbbStop.fromJson(Map<String, dynamic> json) = _$_SbbStop.fromJson;
 

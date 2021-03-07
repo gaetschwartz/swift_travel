@@ -101,17 +101,38 @@ class _$LocationCopyWithImpl<$Res> implements $LocationCopyWith<$Res> {
     Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
-      latitude: latitude == freezed ? _value.latitude : latitude as double,
-      longitude: longitude == freezed ? _value.longitude : longitude as double,
-      accuracy: accuracy == freezed ? _value.accuracy : accuracy as double?,
-      altitude: altitude == freezed ? _value.altitude : altitude as double?,
-      heading: heading == freezed ? _value.heading : heading as double?,
-      speed: speed == freezed ? _value.speed : speed as double?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      accuracy: accuracy == freezed
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double?,
+      altitude: altitude == freezed
+          ? _value.altitude
+          : altitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      heading: heading == freezed
+          ? _value.heading
+          : heading // ignore: cast_nullable_to_non_nullable
+              as double?,
+      speed: speed == freezed
+          ? _value.speed
+          : speed // ignore: cast_nullable_to_non_nullable
+              as double?,
       speedAccuracy: speedAccuracy == freezed
           ? _value.speedAccuracy
-          : speedAccuracy as double?,
-      timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime?,
+          : speedAccuracy // ignore: cast_nullable_to_non_nullable
+              as double?,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -153,17 +174,38 @@ class __$LocationCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res>
     Object? timestamp = freezed,
   }) {
     return _then(_Location(
-      latitude: latitude == freezed ? _value.latitude : latitude as double,
-      longitude: longitude == freezed ? _value.longitude : longitude as double,
-      accuracy: accuracy == freezed ? _value.accuracy : accuracy as double?,
-      altitude: altitude == freezed ? _value.altitude : altitude as double?,
-      heading: heading == freezed ? _value.heading : heading as double?,
-      speed: speed == freezed ? _value.speed : speed as double?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      accuracy: accuracy == freezed
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double?,
+      altitude: altitude == freezed
+          ? _value.altitude
+          : altitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      heading: heading == freezed
+          ? _value.heading
+          : heading // ignore: cast_nullable_to_non_nullable
+              as double?,
+      speed: speed == freezed
+          ? _value.speed
+          : speed // ignore: cast_nullable_to_non_nullable
+              as double?,
       speedAccuracy: speedAccuracy == freezed
           ? _value.speedAccuracy
-          : speedAccuracy as double?,
-      timestamp:
-          timestamp == freezed ? _value.timestamp : timestamp as DateTime?,
+          : speedAccuracy // ignore: cast_nullable_to_non_nullable
+              as double?,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }

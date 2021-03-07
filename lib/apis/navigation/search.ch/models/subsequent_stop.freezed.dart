@@ -125,17 +125,46 @@ class _$SbbSubsequentStopCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String?,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime?,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
-      arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
-      x: x == freezed ? _value.x : x as int?,
-      y: y == freezed ? _value.y : y as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departure: departure == freezed
+          ? _value.departure
+          : departure // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      depDelay: depDelay == freezed
+          ? _value.depDelay
+          : depDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      arrDelay: arrDelay == freezed
+          ? _value.arrDelay
+          : arrDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -189,17 +218,46 @@ class __$SbbSubsequentStopCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_SbbSubsequentStop(
-      name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String?,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime?,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
-      arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
-      x: x == freezed ? _value.x : x as int?,
-      y: y == freezed ? _value.y : y as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departure: departure == freezed
+          ? _value.departure
+          : departure // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      depDelay: depDelay == freezed
+          ? _value.depDelay
+          : depDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      arrDelay: arrDelay == freezed
+          ? _value.arrDelay
+          : arrDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -314,7 +372,6 @@ class _$_SbbSubsequentStop extends _SbbSubsequentStop {
 }
 
 abstract class _SbbSubsequentStop extends SbbSubsequentStop {
-  _SbbSubsequentStop._() : super._();
   factory _SbbSubsequentStop(
       {required String name,
       String? id,
@@ -330,6 +387,7 @@ abstract class _SbbSubsequentStop extends SbbSubsequentStop {
           required int arrDelay,
       int? x,
       int? y}) = _$_SbbSubsequentStop;
+  _SbbSubsequentStop._() : super._();
 
   factory _SbbSubsequentStop.fromJson(Map<String, dynamic> json) =
       _$_SbbSubsequentStop.fromJson;

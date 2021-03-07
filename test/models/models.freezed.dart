@@ -128,7 +128,10 @@ class _$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
     Object? name = freezed,
   }) {
     return _then(Person(
-      name == freezed ? _value.name : name as String,
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -253,8 +256,14 @@ class _$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
     Object? legs = freezed,
   }) {
     return _then(Animal(
-      name == freezed ? _value.name : name as String,
-      legs == freezed ? _value.legs : legs as int,
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      legs == freezed
+          ? _value.legs
+          : legs // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -385,7 +394,10 @@ class _$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
     Object? number = freezed,
   }) {
     return _then(Number(
-      number == freezed ? _value.number : number as int,
+      number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }

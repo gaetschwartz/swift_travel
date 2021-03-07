@@ -35,8 +35,9 @@ class _$SbbStationboardConnectionTearOff {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
-          List<SbbSubsequentStop> sbbSubsequentStops = const <SbbSubsequentStop>[],
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
+          List<SbbSubsequentStop>
+              sbbSubsequentStops = const <SbbSubsequentStop>[],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay = 0,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -80,7 +81,7 @@ mixin _$SbbStationboardConnection {
   String? get g => throw _privateConstructorUsedError;
   @JsonKey(name: '*L')
   String? get l => throw _privateConstructorUsedError;
-  @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
   List<SbbSubsequentStop> get sbbSubsequentStops =>
       throw _privateConstructorUsedError;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -113,7 +114,7 @@ abstract class $SbbStationboardConnectionCopyWith<$Res> {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop> sbbSubsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -148,21 +149,54 @@ class _$SbbStationboardConnectionCopyWithImpl<$Res>
     Object? arrDelay = freezed,
   }) {
     return _then(_value.copyWith(
-      time: time == freezed ? _value.time : time as DateTime,
-      type: type == freezed ? _value.type : type as Vehicle,
-      color: color == freezed ? _value.color : color as String,
-      sbbTerminal:
-          sbbTerminal == freezed ? _value.sbbTerminal : sbbTerminal as SbbStop,
-      line: line == freezed ? _value.line : line as String?,
-      operator: operator == freezed ? _value.operator : operator as String?,
-      number: number == freezed ? _value.number : number as String,
-      g: g == freezed ? _value.g : g as String?,
-      l: l == freezed ? _value.l : l as String?,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as Vehicle,
+      color: color == freezed
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
+      sbbTerminal: sbbTerminal == freezed
+          ? _value.sbbTerminal
+          : sbbTerminal // ignore: cast_nullable_to_non_nullable
+              as SbbStop,
+      line: line == freezed
+          ? _value.line
+          : line // ignore: cast_nullable_to_non_nullable
+              as String?,
+      operator: operator == freezed
+          ? _value.operator
+          : operator // ignore: cast_nullable_to_non_nullable
+              as String?,
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String,
+      g: g == freezed
+          ? _value.g
+          : g // ignore: cast_nullable_to_non_nullable
+              as String?,
+      l: l == freezed
+          ? _value.l
+          : l // ignore: cast_nullable_to_non_nullable
+              as String?,
       sbbSubsequentStops: sbbSubsequentStops == freezed
           ? _value.sbbSubsequentStops
-          : sbbSubsequentStops as List<SbbSubsequentStop>,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
-      arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
+          : sbbSubsequentStops // ignore: cast_nullable_to_non_nullable
+              as List<SbbSubsequentStop>,
+      depDelay: depDelay == freezed
+          ? _value.depDelay
+          : depDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      arrDelay: arrDelay == freezed
+          ? _value.arrDelay
+          : arrDelay // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -195,7 +229,7 @@ abstract class _$SbbStationboardConnectionCopyWith<$Res>
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop> sbbSubsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -234,21 +268,54 @@ class __$SbbStationboardConnectionCopyWithImpl<$Res>
     Object? arrDelay = freezed,
   }) {
     return _then(_SbbStationboardConnection(
-      time: time == freezed ? _value.time : time as DateTime,
-      type: type == freezed ? _value.type : type as Vehicle,
-      color: color == freezed ? _value.color : color as String,
-      sbbTerminal:
-          sbbTerminal == freezed ? _value.sbbTerminal : sbbTerminal as SbbStop,
-      line: line == freezed ? _value.line : line as String?,
-      operator: operator == freezed ? _value.operator : operator as String?,
-      number: number == freezed ? _value.number : number as String,
-      g: g == freezed ? _value.g : g as String?,
-      l: l == freezed ? _value.l : l as String?,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as Vehicle,
+      color: color == freezed
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
+      sbbTerminal: sbbTerminal == freezed
+          ? _value.sbbTerminal
+          : sbbTerminal // ignore: cast_nullable_to_non_nullable
+              as SbbStop,
+      line: line == freezed
+          ? _value.line
+          : line // ignore: cast_nullable_to_non_nullable
+              as String?,
+      operator: operator == freezed
+          ? _value.operator
+          : operator // ignore: cast_nullable_to_non_nullable
+              as String?,
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String,
+      g: g == freezed
+          ? _value.g
+          : g // ignore: cast_nullable_to_non_nullable
+              as String?,
+      l: l == freezed
+          ? _value.l
+          : l // ignore: cast_nullable_to_non_nullable
+              as String?,
       sbbSubsequentStops: sbbSubsequentStops == freezed
           ? _value.sbbSubsequentStops
-          : sbbSubsequentStops as List<SbbSubsequentStop>,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
-      arrDelay: arrDelay == freezed ? _value.arrDelay : arrDelay as int,
+          : sbbSubsequentStops // ignore: cast_nullable_to_non_nullable
+              as List<SbbSubsequentStop>,
+      depDelay: depDelay == freezed
+          ? _value.depDelay
+          : depDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      arrDelay: arrDelay == freezed
+          ? _value.arrDelay
+          : arrDelay // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -271,7 +338,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
           this.g,
       @JsonKey(name: '*L')
           this.l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           this.sbbSubsequentStops = const <SbbSubsequentStop>[],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           this.depDelay = 0,
@@ -306,7 +373,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @JsonKey(name: '*L')
   final String? l;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
   final List<SbbSubsequentStop> sbbSubsequentStops;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -385,7 +452,6 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
 }
 
 abstract class _SbbStationboardConnection extends SbbStationboardConnection {
-  const _SbbStationboardConnection._() : super._();
   const factory _SbbStationboardConnection(
       {required DateTime time,
       required Vehicle type,
@@ -400,12 +466,13 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop> sbbSubsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
           int arrDelay}) = _$_SbbStationboardConnection;
+  const _SbbStationboardConnection._() : super._();
 
   factory _SbbStationboardConnection.fromJson(Map<String, dynamic> json) =
       _$_SbbStationboardConnection.fromJson;
@@ -433,7 +500,7 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   @JsonKey(name: '*L')
   String? get l => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
   List<SbbSubsequentStop> get sbbSubsequentStops =>
       throw _privateConstructorUsedError;
   @override

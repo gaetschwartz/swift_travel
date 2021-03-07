@@ -65,7 +65,10 @@ class _$GeoResponseCopyWithImpl<$Res> implements $GeoResponseCopyWith<$Res> {
     Object? results = freezed,
   }) {
     return _then(_value.copyWith(
-      results: results == freezed ? _value.results : results as List<GeoResult>,
+      results: results == freezed
+          ? _value.results
+          : results // ignore: cast_nullable_to_non_nullable
+              as List<GeoResult>,
     ));
   }
 }
@@ -95,7 +98,10 @@ class __$GeoResponseCopyWithImpl<$Res> extends _$GeoResponseCopyWithImpl<$Res>
     Object? results = freezed,
   }) {
     return _then(_GeoResponse(
-      results == freezed ? _value.results : results as List<GeoResult>,
+      results == freezed
+          ? _value.results
+          : results // ignore: cast_nullable_to_non_nullable
+              as List<GeoResult>,
     ));
   }
 }
@@ -268,22 +274,58 @@ class _$GeoAttrCopyWithImpl<$Res> implements $GeoAttrCopyWith<$Res> {
     Object? label = freezed,
   }) {
     return _then(_value.copyWith(
-      origin: origin == freezed ? _value.origin : origin as String?,
+      origin: origin == freezed
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String?,
       geomQuadindex: geomQuadindex == freezed
           ? _value.geomQuadindex
-          : geomQuadindex as String?,
-      zoomlevel: zoomlevel == freezed ? _value.zoomlevel : zoomlevel as int?,
-      featureId: featureId == freezed ? _value.featureId : featureId as String?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      detail: detail == freezed ? _value.detail : detail as String?,
-      rank: rank == freezed ? _value.rank : rank as int?,
-      geomStBox2d:
-          geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String?,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      number: number == freezed ? _value.number : number as int?,
-      y: y == freezed ? _value.y : y as double?,
-      x: x == freezed ? _value.x : x as double?,
-      label: label == freezed ? _value.label : label as String?,
+          : geomQuadindex // ignore: cast_nullable_to_non_nullable
+              as String?,
+      zoomlevel: zoomlevel == freezed
+          ? _value.zoomlevel
+          : zoomlevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      featureId: featureId == freezed
+          ? _value.featureId
+          : featureId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      detail: detail == freezed
+          ? _value.detail
+          : detail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rank: rank == freezed
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      geomStBox2d: geomStBox2d == freezed
+          ? _value.geomStBox2d
+          : geomStBox2d // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as double?,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as double?,
+      label: label == freezed
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -335,22 +377,58 @@ class __$GeoAttrCopyWithImpl<$Res> extends _$GeoAttrCopyWithImpl<$Res>
     Object? label = freezed,
   }) {
     return _then(_GeoAttr(
-      origin: origin == freezed ? _value.origin : origin as String?,
+      origin: origin == freezed
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String?,
       geomQuadindex: geomQuadindex == freezed
           ? _value.geomQuadindex
-          : geomQuadindex as String?,
-      zoomlevel: zoomlevel == freezed ? _value.zoomlevel : zoomlevel as int?,
-      featureId: featureId == freezed ? _value.featureId : featureId as String?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      detail: detail == freezed ? _value.detail : detail as String?,
-      rank: rank == freezed ? _value.rank : rank as int?,
-      geomStBox2d:
-          geomStBox2d == freezed ? _value.geomStBox2d : geomStBox2d as String?,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      number: number == freezed ? _value.number : number as int?,
-      y: y == freezed ? _value.y : y as double?,
-      x: x == freezed ? _value.x : x as double?,
-      label: label == freezed ? _value.label : label as String?,
+          : geomQuadindex // ignore: cast_nullable_to_non_nullable
+              as String?,
+      zoomlevel: zoomlevel == freezed
+          ? _value.zoomlevel
+          : zoomlevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      featureId: featureId == freezed
+          ? _value.featureId
+          : featureId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      detail: detail == freezed
+          ? _value.detail
+          : detail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rank: rank == freezed
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      geomStBox2d: geomStBox2d == freezed
+          ? _value.geomStBox2d
+          : geomStBox2d // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as double?,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as double?,
+      label: label == freezed
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -585,9 +663,18 @@ class _$GeoResultCopyWithImpl<$Res> implements $GeoResultCopyWith<$Res> {
     Object? attrs = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int?,
-      weight: weight == freezed ? _value.weight : weight as int?,
-      attrs: attrs == freezed ? _value.attrs : attrs as GeoAttr?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      weight: weight == freezed
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as int?,
+      attrs: attrs == freezed
+          ? _value.attrs
+          : attrs // ignore: cast_nullable_to_non_nullable
+              as GeoAttr?,
     ));
   }
 
@@ -631,9 +718,18 @@ class __$GeoResultCopyWithImpl<$Res> extends _$GeoResultCopyWithImpl<$Res>
     Object? attrs = freezed,
   }) {
     return _then(_GeoResult(
-      id: id == freezed ? _value.id : id as int?,
-      weight: weight == freezed ? _value.weight : weight as int?,
-      attrs: attrs == freezed ? _value.attrs : attrs as GeoAttr?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      weight: weight == freezed
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as int?,
+      attrs: attrs == freezed
+          ? _value.attrs
+          : attrs // ignore: cast_nullable_to_non_nullable
+              as GeoAttr?,
     ));
   }
 }
@@ -766,9 +862,18 @@ class _$GeoErrorCopyWithImpl<$Res> implements $GeoErrorCopyWith<$Res> {
     Object? code = freezed,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed ? _value.status : status as String?,
-      detail: detail == freezed ? _value.detail : detail as String?,
-      code: code == freezed ? _value.code : code as int?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      detail: detail == freezed
+          ? _value.detail
+          : detail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -797,9 +902,18 @@ class __$GeoErrorCopyWithImpl<$Res> extends _$GeoErrorCopyWithImpl<$Res>
     Object? code = freezed,
   }) {
     return _then(_GeoError(
-      status: status == freezed ? _value.status : status as String?,
-      detail: detail == freezed ? _value.detail : detail as String?,
-      code: code == freezed ? _value.code : code as int?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      detail: detail == freezed
+          ? _value.detail
+          : detail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }

@@ -101,13 +101,34 @@ class _$SncfAdministrativeRegionCopyWithImpl<$Res>
     Object? zipCode = freezed,
   }) {
     return _then(_value.copyWith(
-      insee: insee == freezed ? _value.insee : insee as String?,
-      name: name == freezed ? _value.name : name as String?,
-      level: level == freezed ? _value.level : level as int?,
-      coord: coord == freezed ? _value.coord : coord as Coord?,
-      label: label == freezed ? _value.label : label as String?,
-      id: id == freezed ? _value.id : id as String?,
-      zipCode: zipCode == freezed ? _value.zipCode : zipCode as String?,
+      insee: insee == freezed
+          ? _value.insee
+          : insee // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      level: level == freezed
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int?,
+      coord: coord == freezed
+          ? _value.coord
+          : coord // ignore: cast_nullable_to_non_nullable
+              as Coord?,
+      label: label == freezed
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      zipCode: zipCode == freezed
+          ? _value.zipCode
+          : zipCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -166,13 +187,34 @@ class __$SncfAdministrativeRegionCopyWithImpl<$Res>
     Object? zipCode = freezed,
   }) {
     return _then(_SncfAdministrativeRegion(
-      insee: insee == freezed ? _value.insee : insee as String?,
-      name: name == freezed ? _value.name : name as String?,
-      level: level == freezed ? _value.level : level as int?,
-      coord: coord == freezed ? _value.coord : coord as Coord?,
-      label: label == freezed ? _value.label : label as String?,
-      id: id == freezed ? _value.id : id as String?,
-      zipCode: zipCode == freezed ? _value.zipCode : zipCode as String?,
+      insee: insee == freezed
+          ? _value.insee
+          : insee // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      level: level == freezed
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int?,
+      coord: coord == freezed
+          ? _value.coord
+          : coord // ignore: cast_nullable_to_non_nullable
+              as Coord?,
+      label: label == freezed
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      zipCode: zipCode == freezed
+          ? _value.zipCode
+          : zipCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }

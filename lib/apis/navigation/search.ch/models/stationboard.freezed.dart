@@ -93,12 +93,18 @@ class _$SbbStationboardCopyWithImpl<$Res>
     Object? messages = freezed,
   }) {
     return _then(_value.copyWith(
-      sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop?,
+      sbbStop: sbbStop == freezed
+          ? _value.sbbStop
+          : sbbStop // ignore: cast_nullable_to_non_nullable
+              as SbbStop?,
       sbbConnections: sbbConnections == freezed
           ? _value.sbbConnections
-          : sbbConnections as List<SbbStationboardConnection>,
-      messages:
-          messages == freezed ? _value.messages : messages as List<Object>,
+          : sbbConnections // ignore: cast_nullable_to_non_nullable
+              as List<SbbStationboardConnection>,
+      messages: messages == freezed
+          ? _value.messages
+          : messages // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
     ));
   }
 
@@ -152,12 +158,18 @@ class __$SbbStationboardCopyWithImpl<$Res>
     Object? messages = freezed,
   }) {
     return _then(_SbbStationboard(
-      sbbStop: sbbStop == freezed ? _value.sbbStop : sbbStop as SbbStop?,
+      sbbStop: sbbStop == freezed
+          ? _value.sbbStop
+          : sbbStop // ignore: cast_nullable_to_non_nullable
+              as SbbStop?,
       sbbConnections: sbbConnections == freezed
           ? _value.sbbConnections
-          : sbbConnections as List<SbbStationboardConnection>,
-      messages:
-          messages == freezed ? _value.messages : messages as List<Object>,
+          : sbbConnections // ignore: cast_nullable_to_non_nullable
+              as List<SbbStationboardConnection>,
+      messages: messages == freezed
+          ? _value.messages
+          : messages // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
     ));
   }
 }
@@ -229,7 +241,6 @@ class _$_SbbStationboard extends _SbbStationboard {
 }
 
 abstract class _SbbStationboard extends SbbStationboard {
-  const _SbbStationboard._() : super._();
   const factory _SbbStationboard(
       {@JsonKey(name: 'stop')
           SbbStop? sbbStop,
@@ -238,6 +249,7 @@ abstract class _SbbStationboard extends SbbStationboard {
               SbbStationboardConnection>[])
           List<SbbStationboardConnection> sbbConnections,
       List<Object> messages}) = _$_SbbStationboard;
+  const _SbbStationboard._() : super._();
 
   factory _SbbStationboard.fromJson(Map<String, dynamic> json) =
       _$_SbbStationboard.fromJson;

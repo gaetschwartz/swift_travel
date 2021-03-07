@@ -68,8 +68,14 @@ class _$SncfContextCopyWithImpl<$Res> implements $SncfContextCopyWith<$Res> {
     Object? timezone = freezed,
   }) {
     return _then(_value.copyWith(
-      dateTime: dateTime == freezed ? _value.dateTime : dateTime as DateTime?,
-      timezone: timezone == freezed ? _value.timezone : timezone as String?,
+      dateTime: dateTime == freezed
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      timezone: timezone == freezed
+          ? _value.timezone
+          : timezone // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -100,8 +106,14 @@ class __$SncfContextCopyWithImpl<$Res> extends _$SncfContextCopyWithImpl<$Res>
     Object? timezone = freezed,
   }) {
     return _then(_SncfContext(
-      dateTime: dateTime == freezed ? _value.dateTime : dateTime as DateTime?,
-      timezone: timezone == freezed ? _value.timezone : timezone as String?,
+      dateTime: dateTime == freezed
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      timezone: timezone == freezed
+          ? _value.timezone
+          : timezone // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }

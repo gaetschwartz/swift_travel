@@ -11,6 +11,7 @@ class LatLon with _$LatLon {
     double lat,
     double lon,
   ) = _LatLon;
+  const LatLon._();
 
   factory LatLon.fromGeoAttr(GeoAttr geoAttr) => _LatLon(geoAttr.lat!, geoAttr.lon!);
   factory LatLon.fromList(List<double> coords) {
@@ -53,6 +54,10 @@ class LatLon with _$LatLon {
     }
 
     return null;
+  }
+
+  String toCoordinatesString() {
+    return '$lat,$lon';
   }
 }
 

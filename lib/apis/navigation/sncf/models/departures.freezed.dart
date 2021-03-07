@@ -87,12 +87,22 @@ class _$SncfStationboardCopyWithImpl<$Res>
     Object? stop = freezed,
   }) {
     return _then(_value.copyWith(
-      context: context == freezed ? _value.context : context as SncfContext,
+      context: context == freezed
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as SncfContext,
       departures: departures == freezed
           ? _value.departures
-          : departures as List<SncfDeparture>,
-      error: error == freezed ? _value.error : error as SncfError?,
-      stop: stop == freezed ? _value.stop : stop as Stop,
+          : departures // ignore: cast_nullable_to_non_nullable
+              as List<SncfDeparture>,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as SncfError?,
+      stop: stop == freezed
+          ? _value.stop
+          : stop // ignore: cast_nullable_to_non_nullable
+              as Stop,
     ));
   }
 
@@ -153,12 +163,22 @@ class __$SncfStationboardCopyWithImpl<$Res>
     Object? stop = freezed,
   }) {
     return _then(_SncfStationboard(
-      context: context == freezed ? _value.context : context as SncfContext,
+      context: context == freezed
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as SncfContext,
       departures: departures == freezed
           ? _value.departures
-          : departures as List<SncfDeparture>,
-      error: error == freezed ? _value.error : error as SncfError?,
-      stop: stop == freezed ? _value.stop : stop as Stop,
+          : departures // ignore: cast_nullable_to_non_nullable
+              as List<SncfDeparture>,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as SncfError?,
+      stop: stop == freezed
+          ? _value.stop
+          : stop // ignore: cast_nullable_to_non_nullable
+              as Stop,
     ));
   }
 }
@@ -240,12 +260,12 @@ class _$_SncfStationboard extends _SncfStationboard
 }
 
 abstract class _SncfStationboard extends SncfStationboard {
-  const _SncfStationboard._() : super._();
   const factory _SncfStationboard(
       {required SncfContext context,
       required List<SncfDeparture> departures,
       SncfError? error,
       @JsonKey(ignore: true) Stop stop}) = _$_SncfStationboard;
+  const _SncfStationboard._() : super._();
 
   factory _SncfStationboard.fromJson(Map<String, dynamic> json) =
       _$_SncfStationboard.fromJson;
@@ -320,8 +340,14 @@ class _$SncfErrorCopyWithImpl<$Res> implements $SncfErrorCopyWith<$Res> {
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      message: message == freezed ? _value.message : message as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -350,8 +376,14 @@ class __$SncfErrorCopyWithImpl<$Res> extends _$SncfErrorCopyWithImpl<$Res>
     Object? message = freezed,
   }) {
     return _then(_SncfError(
-      id == freezed ? _value.id : id as String,
-      message == freezed ? _value.message : message as String,
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -505,12 +537,16 @@ class _$SncfDepartureCopyWithImpl<$Res>
     return _then(_value.copyWith(
       displayInformations: displayInformations == freezed
           ? _value.displayInformations
-          : displayInformations as SncfDispInfo,
+          : displayInformations // ignore: cast_nullable_to_non_nullable
+              as SncfDispInfo,
       stopDateTime: stopDateTime == freezed
           ? _value.stopDateTime
-          : stopDateTime as SncfStopDateTime,
-      stopPoint:
-          stopPoint == freezed ? _value.stopPoint : stopPoint as SncfStopPoint,
+          : stopDateTime // ignore: cast_nullable_to_non_nullable
+              as SncfStopDateTime,
+      stopPoint: stopPoint == freezed
+          ? _value.stopPoint
+          : stopPoint // ignore: cast_nullable_to_non_nullable
+              as SncfStopPoint,
     ));
   }
 
@@ -576,12 +612,16 @@ class __$SncfDepartureCopyWithImpl<$Res>
     return _then(_SncfDeparture(
       displayInformations: displayInformations == freezed
           ? _value.displayInformations
-          : displayInformations as SncfDispInfo,
+          : displayInformations // ignore: cast_nullable_to_non_nullable
+              as SncfDispInfo,
       stopDateTime: stopDateTime == freezed
           ? _value.stopDateTime
-          : stopDateTime as SncfStopDateTime,
-      stopPoint:
-          stopPoint == freezed ? _value.stopPoint : stopPoint as SncfStopPoint,
+          : stopDateTime // ignore: cast_nullable_to_non_nullable
+              as SncfStopDateTime,
+      stopPoint: stopPoint == freezed
+          ? _value.stopPoint
+          : stopPoint // ignore: cast_nullable_to_non_nullable
+              as SncfStopPoint,
     ));
   }
 }
@@ -658,7 +698,6 @@ class _$_SncfDeparture extends _SncfDeparture with DiagnosticableTreeMixin {
 }
 
 abstract class _SncfDeparture extends SncfDeparture {
-  const _SncfDeparture._() : super._();
   const factory _SncfDeparture(
       {@JsonKey(name: 'display_informations')
           required SncfDispInfo displayInformations,
@@ -666,6 +705,7 @@ abstract class _SncfDeparture extends SncfDeparture {
           required SncfStopDateTime stopDateTime,
       @JsonKey(name: 'stop_point')
           required SncfStopPoint stopPoint}) = _$_SncfDeparture;
+  const _SncfDeparture._() : super._();
 
   factory _SncfDeparture.fromJson(Map<String, dynamic> json) =
       _$_SncfDeparture.fromJson;
@@ -744,7 +784,8 @@ class _$SncfStopPointCopyWithImpl<$Res>
     return _then(_value.copyWith(
       commercialModes: commercialModes == freezed
           ? _value.commercialModes
-          : commercialModes as List<SncfMode>,
+          : commercialModes // ignore: cast_nullable_to_non_nullable
+              as List<SncfMode>,
     ));
   }
 }
@@ -778,7 +819,8 @@ class __$SncfStopPointCopyWithImpl<$Res>
     return _then(_SncfStopPoint(
       commercialModes == freezed
           ? _value.commercialModes
-          : commercialModes as List<SncfMode>,
+          : commercialModes // ignore: cast_nullable_to_non_nullable
+              as List<SncfMode>,
     ));
   }
 }
@@ -907,8 +949,14 @@ class _$SncfModeCopyWithImpl<$Res> implements $SncfModeCopyWith<$Res> {
     Object? name = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      name: name == freezed ? _value.name : name as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -936,8 +984,14 @@ class __$SncfModeCopyWithImpl<$Res> extends _$SncfModeCopyWithImpl<$Res>
     Object? name = freezed,
   }) {
     return _then(_SncfMode(
-      id == freezed ? _value.id : id as String,
-      name == freezed ? _value.name : name as String,
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1118,23 +1172,32 @@ class _$SncfStopDateTimeCopyWithImpl<$Res>
     return _then(_value.copyWith(
       additionalInformations: additionalInformations == freezed
           ? _value.additionalInformations
-          : additionalInformations as List<Object>,
+          : additionalInformations // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
       arrivalDateTime: arrivalDateTime == freezed
           ? _value.arrivalDateTime
-          : arrivalDateTime as DateTime,
+          : arrivalDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       baseArrivalDateTime: baseArrivalDateTime == freezed
           ? _value.baseArrivalDateTime
-          : baseArrivalDateTime as DateTime,
+          : baseArrivalDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       baseDepartureDateTime: baseDepartureDateTime == freezed
           ? _value.baseDepartureDateTime
-          : baseDepartureDateTime as DateTime,
+          : baseDepartureDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       departureDateTime: departureDateTime == freezed
           ? _value.departureDateTime
-          : departureDateTime as DateTime,
+          : departureDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       dataFreshness: dataFreshness == freezed
           ? _value.dataFreshness
-          : dataFreshness as String,
-      links: links == freezed ? _value.links : links as List<Object>,
+          : dataFreshness // ignore: cast_nullable_to_non_nullable
+              as String,
+      links: links == freezed
+          ? _value.links
+          : links // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
     ));
   }
 }
@@ -1186,23 +1249,32 @@ class __$SncfStopDateTimeCopyWithImpl<$Res>
     return _then(_SncfStopDateTime(
       additionalInformations: additionalInformations == freezed
           ? _value.additionalInformations
-          : additionalInformations as List<Object>,
+          : additionalInformations // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
       arrivalDateTime: arrivalDateTime == freezed
           ? _value.arrivalDateTime
-          : arrivalDateTime as DateTime,
+          : arrivalDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       baseArrivalDateTime: baseArrivalDateTime == freezed
           ? _value.baseArrivalDateTime
-          : baseArrivalDateTime as DateTime,
+          : baseArrivalDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       baseDepartureDateTime: baseDepartureDateTime == freezed
           ? _value.baseDepartureDateTime
-          : baseDepartureDateTime as DateTime,
+          : baseDepartureDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       departureDateTime: departureDateTime == freezed
           ? _value.departureDateTime
-          : departureDateTime as DateTime,
+          : departureDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       dataFreshness: dataFreshness == freezed
           ? _value.dataFreshness
-          : dataFreshness as String,
-      links: links == freezed ? _value.links : links as List<Object>,
+          : dataFreshness // ignore: cast_nullable_to_non_nullable
+              as String,
+      links: links == freezed
+          ? _value.links
+          : links // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
     ));
   }
 }
@@ -1489,29 +1561,62 @@ class _$SncfDispInfoCopyWithImpl<$Res> implements $SncfDispInfoCopyWith<$Res> {
     Object? tripShortName = freezed,
   }) {
     return _then(_value.copyWith(
-      code: code == freezed ? _value.code : code as String,
-      color: color == freezed ? _value.color : color as String,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      color: color == freezed
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
       commercialMode: commercialMode == freezed
           ? _value.commercialMode
-          : commercialMode as String,
-      description:
-          description == freezed ? _value.description : description as String,
-      direction: direction == freezed ? _value.direction : direction as String,
+          : commercialMode // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      direction: direction == freezed
+          ? _value.direction
+          : direction // ignore: cast_nullable_to_non_nullable
+              as String,
       equipments: equipments == freezed
           ? _value.equipments
-          : equipments as List<Object>,
-      headsign: headsign == freezed ? _value.headsign : headsign as String,
-      label: label == freezed ? _value.label : label as String,
-      links: links == freezed ? _value.links : links as List<Object>,
-      name: name == freezed ? _value.name : name as String,
-      network: network == freezed ? _value.network : network as String,
+          : equipments // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
+      headsign: headsign == freezed
+          ? _value.headsign
+          : headsign // ignore: cast_nullable_to_non_nullable
+              as String,
+      label: label == freezed
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
+      links: links == freezed
+          ? _value.links
+          : links // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      network: network == freezed
+          ? _value.network
+          : network // ignore: cast_nullable_to_non_nullable
+              as String,
       physicalMode: physicalMode == freezed
           ? _value.physicalMode
-          : physicalMode as String,
-      textColor: textColor == freezed ? _value.textColor : textColor as String,
+          : physicalMode // ignore: cast_nullable_to_non_nullable
+              as String,
+      textColor: textColor == freezed
+          ? _value.textColor
+          : textColor // ignore: cast_nullable_to_non_nullable
+              as String,
       tripShortName: tripShortName == freezed
           ? _value.tripShortName
-          : tripShortName as String,
+          : tripShortName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1568,29 +1673,62 @@ class __$SncfDispInfoCopyWithImpl<$Res> extends _$SncfDispInfoCopyWithImpl<$Res>
     Object? tripShortName = freezed,
   }) {
     return _then(_SncfDispInfo(
-      code: code == freezed ? _value.code : code as String,
-      color: color == freezed ? _value.color : color as String,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      color: color == freezed
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
       commercialMode: commercialMode == freezed
           ? _value.commercialMode
-          : commercialMode as String,
-      description:
-          description == freezed ? _value.description : description as String,
-      direction: direction == freezed ? _value.direction : direction as String,
+          : commercialMode // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      direction: direction == freezed
+          ? _value.direction
+          : direction // ignore: cast_nullable_to_non_nullable
+              as String,
       equipments: equipments == freezed
           ? _value.equipments
-          : equipments as List<Object>,
-      headsign: headsign == freezed ? _value.headsign : headsign as String,
-      label: label == freezed ? _value.label : label as String,
-      links: links == freezed ? _value.links : links as List<Object>,
-      name: name == freezed ? _value.name : name as String,
-      network: network == freezed ? _value.network : network as String,
+          : equipments // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
+      headsign: headsign == freezed
+          ? _value.headsign
+          : headsign // ignore: cast_nullable_to_non_nullable
+              as String,
+      label: label == freezed
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
+      links: links == freezed
+          ? _value.links
+          : links // ignore: cast_nullable_to_non_nullable
+              as List<Object>,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      network: network == freezed
+          ? _value.network
+          : network // ignore: cast_nullable_to_non_nullable
+              as String,
       physicalMode: physicalMode == freezed
           ? _value.physicalMode
-          : physicalMode as String,
-      textColor: textColor == freezed ? _value.textColor : textColor as String,
+          : physicalMode // ignore: cast_nullable_to_non_nullable
+              as String,
+      textColor: textColor == freezed
+          ? _value.textColor
+          : textColor // ignore: cast_nullable_to_non_nullable
+              as String,
       tripShortName: tripShortName == freezed
           ? _value.tripShortName
-          : tripShortName as String,
+          : tripShortName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }

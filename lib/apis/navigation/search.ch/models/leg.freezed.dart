@@ -37,7 +37,7 @@ class _$SbbLegTearOff {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           List<SbbStop> sbbStops = const <SbbStop>[],
       String? sbbName,
       DateTime? departure,
@@ -108,7 +108,7 @@ mixin _$SbbLeg {
   @JsonKey(name: 'runningtime')
   double? get runningTime => throw _privateConstructorUsedError;
   String? get line => throw _privateConstructorUsedError;
-  @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
   String? get sbbName => throw _privateConstructorUsedError;
   DateTime? get departure => throw _privateConstructorUsedError;
@@ -151,7 +151,7 @@ abstract class $SbbLegCopyWith<$Res> {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
@@ -208,37 +208,106 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
     Object? attributes = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed ? _value.name : name as String,
-      sbbExit: sbbExit == freezed ? _value.sbbExit : sbbExit as SbbExit?,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
-      type: type == freezed ? _value.type : type as Vehicle?,
-      track: track == freezed ? _value.track : track as String?,
-      terminal: terminal == freezed ? _value.terminal : terminal as String?,
-      fgcolor: fgcolor == freezed ? _value.fgcolor : fgcolor as String?,
-      number: number == freezed ? _value.number : number as String?,
-      bgcolor: bgcolor == freezed ? _value.bgcolor : bgcolor as String?,
-      tripid: tripid == freezed ? _value.tripid : tripid as String?,
-      stopid: stopid == freezed ? _value.stopid : stopid as String?,
-      runningTime:
-          runningTime == freezed ? _value.runningTime : runningTime as double?,
-      line: line == freezed ? _value.line : line as String?,
-      sbbStops:
-          sbbStops == freezed ? _value.sbbStops : sbbStops as List<SbbStop>,
-      sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime?,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      normalTime:
-          normalTime == freezed ? _value.normalTime : normalTime as int?,
-      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      x: x == freezed ? _value.x : x as int?,
-      y: y == freezed ? _value.y : y as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      sbbExit: sbbExit == freezed
+          ? _value.sbbExit
+          : sbbExit // ignore: cast_nullable_to_non_nullable
+              as SbbExit?,
+      depDelay: depDelay == freezed
+          ? _value.depDelay
+          : depDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as Vehicle?,
+      track: track == freezed
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as String?,
+      terminal: terminal == freezed
+          ? _value.terminal
+          : terminal // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fgcolor: fgcolor == freezed
+          ? _value.fgcolor
+          : fgcolor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bgcolor: bgcolor == freezed
+          ? _value.bgcolor
+          : bgcolor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tripid: tripid == freezed
+          ? _value.tripid
+          : tripid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      stopid: stopid == freezed
+          ? _value.stopid
+          : stopid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      runningTime: runningTime == freezed
+          ? _value.runningTime
+          : runningTime // ignore: cast_nullable_to_non_nullable
+              as double?,
+      line: line == freezed
+          ? _value.line
+          : line // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sbbStops: sbbStops == freezed
+          ? _value.sbbStops
+          : sbbStops // ignore: cast_nullable_to_non_nullable
+              as List<SbbStop>,
+      sbbName: sbbName == freezed
+          ? _value.sbbName
+          : sbbName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departure: departure == freezed
+          ? _value.departure
+          : departure // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      normalTime: normalTime == freezed
+          ? _value.normalTime
+          : normalTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      waitTime: waitTime == freezed
+          ? _value.waitTime
+          : waitTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      isaddress: isaddress == freezed
+          ? _value.isaddress
+          : isaddress // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int?,
       attributes: attributes == freezed
           ? _value.attributes
-          : attributes as Map<String, String>,
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>,
     ));
   }
 
@@ -276,7 +345,7 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
@@ -335,37 +404,106 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
     Object? attributes = freezed,
   }) {
     return _then(_SbbLeg(
-      name: name == freezed ? _value.name : name as String,
-      sbbExit: sbbExit == freezed ? _value.sbbExit : sbbExit as SbbExit?,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
-      type: type == freezed ? _value.type : type as Vehicle?,
-      track: track == freezed ? _value.track : track as String?,
-      terminal: terminal == freezed ? _value.terminal : terminal as String?,
-      fgcolor: fgcolor == freezed ? _value.fgcolor : fgcolor as String?,
-      number: number == freezed ? _value.number : number as String?,
-      bgcolor: bgcolor == freezed ? _value.bgcolor : bgcolor as String?,
-      tripid: tripid == freezed ? _value.tripid : tripid as String?,
-      stopid: stopid == freezed ? _value.stopid : stopid as String?,
-      runningTime:
-          runningTime == freezed ? _value.runningTime : runningTime as double?,
-      line: line == freezed ? _value.line : line as String?,
-      sbbStops:
-          sbbStops == freezed ? _value.sbbStops : sbbStops as List<SbbStop>,
-      sbbName: sbbName == freezed ? _value.sbbName : sbbName as String?,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime?,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      normalTime:
-          normalTime == freezed ? _value.normalTime : normalTime as int?,
-      waitTime: waitTime == freezed ? _value.waitTime : waitTime as int,
-      isaddress: isaddress == freezed ? _value.isaddress : isaddress as bool,
-      lat: lat == freezed ? _value.lat : lat as double?,
-      lon: lon == freezed ? _value.lon : lon as double?,
-      x: x == freezed ? _value.x : x as int?,
-      y: y == freezed ? _value.y : y as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      sbbExit: sbbExit == freezed
+          ? _value.sbbExit
+          : sbbExit // ignore: cast_nullable_to_non_nullable
+              as SbbExit?,
+      depDelay: depDelay == freezed
+          ? _value.depDelay
+          : depDelay // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as Vehicle?,
+      track: track == freezed
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as String?,
+      terminal: terminal == freezed
+          ? _value.terminal
+          : terminal // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fgcolor: fgcolor == freezed
+          ? _value.fgcolor
+          : fgcolor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bgcolor: bgcolor == freezed
+          ? _value.bgcolor
+          : bgcolor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tripid: tripid == freezed
+          ? _value.tripid
+          : tripid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      stopid: stopid == freezed
+          ? _value.stopid
+          : stopid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      runningTime: runningTime == freezed
+          ? _value.runningTime
+          : runningTime // ignore: cast_nullable_to_non_nullable
+              as double?,
+      line: line == freezed
+          ? _value.line
+          : line // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sbbStops: sbbStops == freezed
+          ? _value.sbbStops
+          : sbbStops // ignore: cast_nullable_to_non_nullable
+              as List<SbbStop>,
+      sbbName: sbbName == freezed
+          ? _value.sbbName
+          : sbbName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departure: departure == freezed
+          ? _value.departure
+          : departure // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      normalTime: normalTime == freezed
+          ? _value.normalTime
+          : normalTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      waitTime: waitTime == freezed
+          ? _value.waitTime
+          : waitTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      isaddress: isaddress == freezed
+          ? _value.isaddress
+          : isaddress // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      x: x == freezed
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as int?,
+      y: y == freezed
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as int?,
       attributes: attributes == freezed
           ? _value.attributes
-          : attributes as Map<String, String>,
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>,
     ));
   }
 }
@@ -391,7 +529,7 @@ class _$_SbbLeg extends _SbbLeg {
       @JsonKey(name: 'runningtime')
           this.runningTime,
       this.line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           this.sbbStops = const <SbbStop>[],
       this.sbbName,
       this.departure,
@@ -442,7 +580,7 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   final String? line;
   @override
-  @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   final List<SbbStop> sbbStops;
   @override
   final String? sbbName;
@@ -588,7 +726,6 @@ class _$_SbbLeg extends _SbbLeg {
 }
 
 abstract class _SbbLeg extends SbbLeg {
-  _SbbLeg._() : super._();
   factory _SbbLeg(
       {required String name,
       @JsonKey(name: 'exit')
@@ -606,7 +743,7 @@ abstract class _SbbLeg extends SbbLeg {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
@@ -622,6 +759,7 @@ abstract class _SbbLeg extends SbbLeg {
       @IntConverter()
           int? y,
       Map<String, String> attributes}) = _$_SbbLeg;
+  _SbbLeg._() : super._();
 
   factory _SbbLeg.fromJson(Map<String, dynamic> json) = _$_SbbLeg.fromJson;
 
@@ -655,7 +793,7 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   String? get line => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
   @override
   String? get sbbName => throw _privateConstructorUsedError;

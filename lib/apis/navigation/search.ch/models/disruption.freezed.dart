@@ -98,13 +98,34 @@ class _$DisruptionCopyWithImpl<$Res> implements $DisruptionCopyWith<$Res> {
     Object? priority = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String?,
-      header: header == freezed ? _value.header : header as String?,
-      lead: lead == freezed ? _value.lead : lead as String?,
-      text: text == freezed ? _value.text : text as String?,
-      timeRange: timeRange == freezed ? _value.timeRange : timeRange as String?,
-      exact: exact == freezed ? _value.exact : exact as bool?,
-      priority: priority == freezed ? _value.priority : priority as int?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      header: header == freezed
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lead: lead == freezed
+          ? _value.lead
+          : lead // ignore: cast_nullable_to_non_nullable
+              as String?,
+      text: text == freezed
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timeRange: timeRange == freezed
+          ? _value.timeRange
+          : timeRange // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exact: exact == freezed
+          ? _value.exact
+          : exact // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      priority: priority == freezed
+          ? _value.priority
+          : priority // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -146,13 +167,34 @@ class __$DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
     Object? priority = freezed,
   }) {
     return _then(_Disruption(
-      id: id == freezed ? _value.id : id as String?,
-      header: header == freezed ? _value.header : header as String?,
-      lead: lead == freezed ? _value.lead : lead as String?,
-      text: text == freezed ? _value.text : text as String?,
-      timeRange: timeRange == freezed ? _value.timeRange : timeRange as String?,
-      exact: exact == freezed ? _value.exact : exact as bool?,
-      priority: priority == freezed ? _value.priority : priority as int?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      header: header == freezed
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lead: lead == freezed
+          ? _value.lead
+          : lead // ignore: cast_nullable_to_non_nullable
+              as String?,
+      text: text == freezed
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timeRange: timeRange == freezed
+          ? _value.timeRange
+          : timeRange // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exact: exact == freezed
+          ? _value.exact
+          : exact // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      priority: priority == freezed
+          ? _value.priority
+          : priority // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }

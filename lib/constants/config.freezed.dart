@@ -63,7 +63,10 @@ class _$ConfigCopyWithImpl<$Res> implements $ConfigCopyWith<$Res> {
     Object? sncfKey = freezed,
   }) {
     return _then(_value.copyWith(
-      sncfKey: sncfKey == freezed ? _value.sncfKey : sncfKey as String?,
+      sncfKey: sncfKey == freezed
+          ? _value.sncfKey
+          : sncfKey // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -90,7 +93,10 @@ class __$ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
     Object? sncfKey = freezed,
   }) {
     return _then(_Config(
-      sncfKey: sncfKey == freezed ? _value.sncfKey : sncfKey as String?,
+      sncfKey: sncfKey == freezed
+          ? _value.sncfKey
+          : sncfKey // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }

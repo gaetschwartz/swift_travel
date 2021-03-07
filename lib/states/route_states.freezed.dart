@@ -142,7 +142,10 @@ class _$RSDataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
     Object? routes = freezed,
   }) {
     return _then(RSData(
-      routes == freezed ? _value.routes : routes as NavRoute,
+      routes == freezed
+          ? _value.routes
+          : routes // ignore: cast_nullable_to_non_nullable
+              as NavRoute,
     ));
   }
 }
@@ -605,7 +608,10 @@ class _$RSExceptionCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
     Object? exception = freezed,
   }) {
     return _then(RSException(
-      exception == freezed ? _value.exception : exception as Object,
+      exception == freezed
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as Object,
     ));
   }
 }

@@ -70,11 +70,18 @@ class _$SncfPlaceCopyWithImpl<$Res> implements $SncfPlaceCopyWith<$Res> {
     Object? favoriteName = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       favoriteName: favoriteName == freezed
           ? _value.favoriteName
-          : favoriteName as String?,
+          : favoriteName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -104,11 +111,18 @@ class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
     Object? favoriteName = freezed,
   }) {
     return _then(_SncfPlace(
-      name: name == freezed ? _value.name : name as String,
-      id: id == freezed ? _value.id : id as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       favoriteName: favoriteName == freezed
           ? _value.favoriteName
-          : favoriteName as String?,
+          : favoriteName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -167,9 +181,9 @@ class _$_SncfPlace extends _SncfPlace {
 }
 
 abstract class _SncfPlace extends SncfPlace {
-  const _SncfPlace._() : super._();
   const factory _SncfPlace(
       {required String name, String? id, String? favoriteName}) = _$_SncfPlace;
+  const _SncfPlace._() : super._();
 
   factory _SncfPlace.fromJson(Map<String, dynamic> json) =
       _$_SncfPlace.fromJson;

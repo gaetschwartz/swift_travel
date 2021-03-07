@@ -109,17 +109,38 @@ class _$SbbRouteConnectionCopyWithImpl<$Res>
     Object? depDelay = freezed,
   }) {
     return _then(_value.copyWith(
-      from: from == freezed ? _value.from : from as String,
-      to: to == freezed ? _value.to : to as String,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime?,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      duration: duration == freezed ? _value.duration : duration as double?,
-      sbbLegs: sbbLegs == freezed ? _value.sbbLegs : sbbLegs as List<SbbLeg>,
+      from: from == freezed
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      to: to == freezed
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as String,
+      departure: departure == freezed
+          ? _value.departure
+          : departure // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      sbbLegs: sbbLegs == freezed
+          ? _value.sbbLegs
+          : sbbLegs // ignore: cast_nullable_to_non_nullable
+              as List<SbbLeg>,
       disruptions: disruptions == freezed
           ? _value.disruptions
-          : disruptions as Map<String, Disruption>,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
+          : disruptions // ignore: cast_nullable_to_non_nullable
+              as Map<String, Disruption>,
+      depDelay: depDelay == freezed
+          ? _value.depDelay
+          : depDelay // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -167,17 +188,38 @@ class __$SbbRouteConnectionCopyWithImpl<$Res>
     Object? depDelay = freezed,
   }) {
     return _then(_SbbRouteConnection(
-      from: from == freezed ? _value.from : from as String,
-      to: to == freezed ? _value.to : to as String,
-      departure:
-          departure == freezed ? _value.departure : departure as DateTime?,
-      arrival: arrival == freezed ? _value.arrival : arrival as DateTime?,
-      duration: duration == freezed ? _value.duration : duration as double?,
-      sbbLegs: sbbLegs == freezed ? _value.sbbLegs : sbbLegs as List<SbbLeg>,
+      from: from == freezed
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      to: to == freezed
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as String,
+      departure: departure == freezed
+          ? _value.departure
+          : departure // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      arrival: arrival == freezed
+          ? _value.arrival
+          : arrival // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      sbbLegs: sbbLegs == freezed
+          ? _value.sbbLegs
+          : sbbLegs // ignore: cast_nullable_to_non_nullable
+              as List<SbbLeg>,
       disruptions: disruptions == freezed
           ? _value.disruptions
-          : disruptions as Map<String, Disruption>,
-      depDelay: depDelay == freezed ? _value.depDelay : depDelay as int,
+          : disruptions // ignore: cast_nullable_to_non_nullable
+              as Map<String, Disruption>,
+      depDelay: depDelay == freezed
+          ? _value.depDelay
+          : depDelay // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -279,7 +321,6 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
 }
 
 abstract class _SbbRouteConnection extends SbbRouteConnection {
-  const _SbbRouteConnection._() : super._();
   const factory _SbbRouteConnection(
       {required String from,
       required String to,
@@ -291,6 +332,7 @@ abstract class _SbbRouteConnection extends SbbRouteConnection {
       Map<String, Disruption> disruptions,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           required int depDelay}) = _$_SbbRouteConnection;
+  const _SbbRouteConnection._() : super._();
 
   factory _SbbRouteConnection.fromJson(Map<String, dynamic> json) =
       _$_SbbRouteConnection.fromJson;

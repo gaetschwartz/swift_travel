@@ -66,7 +66,10 @@ class _$VehicleIconclassCopyWithImpl<$Res>
     Object? v = freezed,
   }) {
     return _then(_value.copyWith(
-      v: v == freezed ? _value.v : v as Vehicle,
+      v: v == freezed
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as Vehicle,
     ));
   }
 }
@@ -97,7 +100,10 @@ class __$VehicleIconclassCopyWithImpl<$Res>
     Object? v = freezed,
   }) {
     return _then(_VehicleIconclass(
-      v == freezed ? _value.v : v as Vehicle,
+      v == freezed
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as Vehicle,
     ));
   }
 }
