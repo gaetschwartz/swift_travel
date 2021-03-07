@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theming/dynamic_theme.dart';
@@ -24,9 +23,8 @@ const darkShadow = ShadowTheme(
 );
 
 const List<Font> fonts = [
-  Font('Platform', _i),
-  Font('Muli', GoogleFonts.muliTextTheme),
   Font('Lexend', GoogleFonts.lexendDecaTextTheme),
+  Font('Muli', GoogleFonts.muliTextTheme),
   Font('Open Sans', GoogleFonts.openSansTextTheme),
   Font('IBM Plex Mono', GoogleFonts.ibmPlexMonoTextTheme),
   Font('Source Sans Pro', GoogleFonts.sourceSansProTextTheme),
@@ -34,16 +32,13 @@ const List<Font> fonts = [
   Font('QuickSand', GoogleFonts.quicksandTextTheme),
 ];
 
-TextTheme _i(TextTheme? t) => Typography.material2018(platform: defaultTargetPlatform).englishLike;
-
 const _light = ColorScheme.light();
 const _dark = ColorScheme.dark();
 
 ThemeConfiguration get themeConfiguration {
   return ThemeConfiguration(
-    applyToAllThemes: (t) {
-      return t.copyWith(fixTextFieldOutlineLabel: true);
-    },
+    fonts: fonts,
+    applyToAllThemes: (t) => t.copyWith(fixTextFieldOutlineLabel: true),
     themes: {
       'default': FullTheme(
         name: 'Swift',
@@ -93,8 +88,6 @@ ThemeConfiguration get themeConfiguration {
         darkShadow: darkShadow,
       ),
     },
-    fonts: fonts,
-    defaultFont: fonts.first,
   );
 }
 

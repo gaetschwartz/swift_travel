@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -124,88 +125,95 @@ class _SettingsPageState extends State<SettingsPage> {
     (_) => const _PlaformChoiceWidget(),
     (context) => _SectionTitle(title: Text(AppLoc.of(context).themes)),
     (_) => const _ThemesSection(),
-    (context) => (isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
-        ? Column(children: [
-            const Divider(),
-            Consumer(builder: (context, w, _) {
-              final maps = w(preferencesProvider);
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    leading: const Icon(CupertinoIcons.map),
-                    title: Text(AppLoc.of(context).maps_app),
-                    onTap: () async {
-                      await Navigator.of(context).push(CupertinoPageRoute<void>(
-                          builder: (context) => ChoicePage<Maps>(
-                                items: const [
-                                  ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
-                                  ChoicePageItem(value: Maps.google, child: Text('Google Maps')),
-                                ],
-                                value: maps.mapsApp,
-                                title: Text(AppLoc.of(context).maps_app),
-                                onChanged: (a) => maps.mapsApp = a,
-                              )));
-                    },
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _mapsName(maps.mapsApp),
-                          style: CupertinoTheme.of(context)
-                              .textTheme
-                              .textStyle
-                              .copyWith(color: CupertinoColors.systemGrey),
-                        ),
-                        const SizedBox(width: 8),
-                        const Icon(CupertinoIcons.chevron_forward),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            })
-          ])
-        : const SizedBox(),
-    (_) => const Divider(),
-    (_) => Consumer(builder: (context, w, _) {
-          final prefs = w(preferencesProvider);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                leading: const Icon(CupertinoIcons.link),
-                title: Text(AppLoc.of(context).navigation_api),
-                onTap: () async {
-                  await Navigator.of(context).push(CupertinoPageRoute<void>(
-                      builder: (context) => ChoicePage<NavigationApi>(
-                            items: NavigationApi.values
-                                .map((e) => ChoicePageItem(
-                                    child: Text(BaseNavigationApi.getFactory(e).name), value: e))
-                                .toList(growable: false),
-                            value: prefs.api,
-                            title: Text(AppLoc.of(context).navigation_api),
-                            description: const Text(
-                                'BETA: In the future the goal is to add more countries.'),
-                            onChanged: (a) => prefs.api = a,
-                          )));
-                },
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(BaseNavigationApi.getFactory(prefs.api).shortDesc,
-                        style: CupertinoTheme.of(context)
-                            .textTheme
-                            .textStyle
-                            .copyWith(color: CupertinoColors.systemGrey)),
-                    const SizedBox(width: 8),
-                    const Icon(CupertinoIcons.chevron_forward),
+    (context) {
+      if (isDebugMode || Theme.of(context).platform == TargetPlatform.iOS) {
+        return Column(children: [
+          const Divider(),
+          Consumer(builder: (context, w, _) {
+            final maps = w(preferencesProvider);
+            return ListTile(
+              leading: const Icon(CupertinoIcons.map),
+              title: Text(AppLoc.of(context).maps_app),
+              onTap: () async {
+                final choicePage = ChoicePage<Maps>(
+                  items: const [
+                    ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
+                    ChoicePageItem(value: Maps.google, child: Text('Google Maps')),
                   ],
-                ),
+                  value: maps.mapsApp,
+                  title: Text(AppLoc.of(context).maps_app),
+                  onChanged: (a) => maps.mapsApp = a,
+                );
+                if (Responsive.isDarwin(context)) {
+                  await showCupertinoModalBottomSheet<void>(
+                      context: context, builder: (context) => choicePage);
+                } else {
+                  await showMaterialModalBottomSheet<void>(
+                      context: context, builder: (context) => choicePage);
+                }
+              },
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    _mapsName(maps.mapsApp),
+                    style: CupertinoTheme.of(context)
+                        .textTheme
+                        .textStyle
+                        .copyWith(color: CupertinoColors.systemGrey),
+                  ),
+                  const SizedBox(width: 8),
+                  const Icon(CupertinoIcons.chevron_forward),
+                ],
               ),
+            );
+          })
+        ]);
+      } else {
+        return const SizedBox();
+      }
+    },
+    (_) => const Divider(),
+    (_) {
+      final items = NavigationApi.values
+          .map((e) => ChoicePageItem(child: Text(BaseNavigationApi.getFactory(e).name), value: e))
+          .toList(growable: false);
+      return Consumer(builder: (context, w, _) {
+        final prefs = w(preferencesProvider);
+        return ListTile(
+          leading: const Icon(CupertinoIcons.link),
+          title: Text(AppLoc.of(context).navigation_api),
+          onTap: () async {
+            final choicePage = ChoicePage<NavigationApi>(
+              items: items,
+              value: prefs.api,
+              title: Text(AppLoc.of(context).navigation_api),
+              description: const Text('BETA: In the future the goal is to add more countries.'),
+              onChanged: (a) => prefs.api = a,
+            );
+            if (Responsive.isDarwin(context)) {
+              await showCupertinoModalBottomSheet<void>(
+                  context: context, builder: (context) => choicePage);
+            } else {
+              await showMaterialModalBottomSheet<void>(
+                  context: context, builder: (context) => choicePage);
+            }
+          },
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(BaseNavigationApi.getFactory(prefs.api).shortDesc,
+                  style: CupertinoTheme.of(context)
+                      .textTheme
+                      .textStyle
+                      .copyWith(color: CupertinoColors.systemGrey)),
+              const SizedBox(width: 8),
+              const Icon(CupertinoIcons.chevron_forward),
             ],
-          );
-        }),
+          ),
+        );
+      });
+    },
     (_) => const Divider(),
     (context) => _SectionTitle(title: Text(AppLoc.of(context).more)),
     (context) => ListTile(
