@@ -188,7 +188,7 @@ class RoutePage extends StatefulWidget {
   final FavoriteStop? favStop;
 
   @override
-  _RoutePageState createState() => _RoutePageState();
+  RoutePageState createState() => RoutePageState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -201,7 +201,7 @@ class RoutePage extends StatefulWidget {
 final TextStateBinder from = TextStateBinder(TextEditingController(), fromTextfieldProvider);
 final TextStateBinder to = TextStateBinder(TextEditingController(), toTextfieldProvider);
 
-class _RoutePageState extends State<RoutePage> {
+class RoutePageState extends State<RoutePage> {
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
 
@@ -474,8 +474,12 @@ class _RoutePageState extends State<RoutePage> {
     );
   }
 
-  static const _fromHeroTag = 'fromHeroTag';
-  static const _toHeroTag = 'toHeroTag';
+  static const _fromHeroTag = '_fromHeroTag_';
+  static const _toHeroTag = '_toHeroTag_';
+  static const routeFromTextfieldKey = Key('route-from-textfield-key');
+  static const routeFromTextfieldKeyTap = Key('route-from-textfield-key-tap');
+  static const routeToTextfieldKey = Key('route-to-textfield-key');
+  static const routeToTextfieldKeyTap = Key('route-to-textfield-key-tap');
 
   Widget buildFromField(BuildContext context, {required bool isDarwin}) {
     late final cupertinoTextFieldConfiguration = CupertinoTextFieldConfiguration(
@@ -483,6 +487,7 @@ class _RoutePageState extends State<RoutePage> {
       inputFormatters: [fromFormatter],
       placeholder: AppLoc.of(context).departure,
       textInputAction: TextInputAction.next,
+      key: routeFromTextfieldKey,
     );
 
     void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
@@ -496,6 +501,7 @@ class _RoutePageState extends State<RoutePage> {
       return Hero(
         tag: _fromHeroTag,
         child: CupertinoTextField(
+          key: routeFromTextfieldKeyTap,
           controller: from.controller,
           focusNode: fnFrom,
           onEditingComplete: fnTo.requestFocus,
@@ -515,6 +521,7 @@ class _RoutePageState extends State<RoutePage> {
         tag: _fromHeroTag,
         child: Material(
           child: TextField(
+            key: routeFromTextfieldKeyTap,
             controller: from.controller,
             focusNode: fnFrom,
             onEditingComplete: fnTo.requestFocus,
@@ -537,6 +544,7 @@ class _RoutePageState extends State<RoutePage> {
       inputFormatters: [toFormatter],
       placeholder: AppLoc.of(context).destination,
       textInputAction: TextInputAction.search,
+      key: routeToTextfieldKey,
     );
 
     void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
@@ -552,6 +560,7 @@ class _RoutePageState extends State<RoutePage> {
       return Hero(
         tag: _toHeroTag,
         child: CupertinoTextField(
+          key: routeToTextfieldKeyTap,
           focusNode: fnTo,
           controller: to.controller,
           placeholder: AppLoc.of(context).destination,
@@ -570,6 +579,7 @@ class _RoutePageState extends State<RoutePage> {
         tag: _toHeroTag,
         child: Material(
           child: TextField(
+            key: routeToTextfieldKeyTap,
             focusNode: fnTo,
             controller: to.controller,
             decoration: InputDecoration(

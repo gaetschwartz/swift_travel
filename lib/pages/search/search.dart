@@ -25,6 +25,7 @@ const _heroTag = 0xabcd;
 
 class CupertinoTextFieldConfiguration {
   const CupertinoTextFieldConfiguration({
+    this.key,
     this.focusNode,
     this.prefix,
     this.textInputAction,
@@ -37,6 +38,7 @@ class CupertinoTextFieldConfiguration {
   final TextInputAction? textInputAction;
   final Widget? prefix;
   final FocusNode? focusNode;
+  final Key? key;
 
   CupertinoTextField toCupertino({TextEditingController? controller}) {
     return CupertinoTextField(
@@ -46,6 +48,7 @@ class CupertinoTextFieldConfiguration {
       prefix: prefix,
       focusNode: focusNode,
       controller: controller,
+      key: key,
     );
   }
 
@@ -60,6 +63,7 @@ class CupertinoTextFieldConfiguration {
         textInputAction: textInputAction,
         focusNode: focusNode,
         controller: controller,
+        key: key,
       ),
     );
   }
@@ -106,6 +110,7 @@ class SearchPage extends StatefulWidget {
   final CupertinoTextFieldConfiguration configuration;
   final bool isDestination;
   final DateTime? dateTime;
+  static const closeSearchKey = Key('close-search');
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -215,16 +220,19 @@ class _SearchPageState extends State<SearchPage> {
           child: child!,
         ),
       ),
-      elseBuilder: (context, child) => Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Hero(
-              tag: widget.heroTag,
-              child: widget.configuration.toTextField(controller: widget.binder.controller)),
-          actions: [CloseButton(onPressed: () => Navigator.of(context).pop())],
-        ),
-        body: child,
-      ),
+      elseBuilder: (context, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Hero(
+                tag: widget.heroTag,
+                child: widget.configuration.toTextField(controller: widget.binder.controller)),
+            actions: [CloseButton(onPressed: () => Navigator.of(context).pop())],
+            leading: const CloseButton(key: SearchPage.closeSearchKey),
+          ),
+          body: child,
+        );
+      },
       child: _Results(onTap: onSuggestionTapped),
     );
   }
@@ -272,7 +280,7 @@ class _Results extends StatelessWidget {
               bottom: false,
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (context, i) => _SuggestedTile(c.completions[i], onTap: onTap),
+                  (context, i) => SuggestedTile(c.completions[i], onTap: onTap),
                   childCount: c.completions.length,
                 ),
               ),
@@ -315,8 +323,8 @@ class _Results extends StatelessWidget {
   }
 }
 
-class _SuggestedTile extends StatelessWidget {
-  const _SuggestedTile(
+class SuggestedTile extends StatelessWidget {
+  const SuggestedTile(
     this.suggestion, {
     Key? key,
     this.onTap,
