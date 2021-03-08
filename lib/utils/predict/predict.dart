@@ -1,8 +1,10 @@
 import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/models/favorites.dart';
+import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
 const _k = 5;
@@ -10,18 +12,38 @@ const _k = 5;
 const _daysFactor = 1 / (2 * 7);
 const _minutesFactor = 1 / Duration.minutesPerDay;
 
-Prediction<LocalRoute?> predictRoute(
+final _cache = <int, RoutePrediction>{};
+
+Future<RoutePrediction> predictRoute(
   List<LocalRoute> routes,
   PredictionArguments arguments,
-) {
+) async {
+  final full = FullArguments(routes, arguments);
+  final computed = await compute(predictRouteSimple, full.toJson());
+  return RoutePrediction.fromJson(computed);
+}
+
+Map<String, dynamic> predictRouteSimple(Map<String, dynamic> input) {
+  final full = FullArguments.fromJson(input);
+  final routePrediction = predictRouteSync(full.routes, full.arguments);
+  return routePrediction.toJson();
+}
+
+RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments arguments) {
   if (routes.isEmpty) {
-    return Prediction(null, 0, arguments);
+    return RoutePrediction(null, 0, arguments);
   }
 
-  final distances = <Pair<LocalRoute, double>>[];
-
   final time = arguments.dateTime.minutesOfDay;
+  final roundedTime = time - time % 5;
+
+  final cachedPrediction = _cache[roundedTime];
+  if (cachedPrediction != null) {
+    return cachedPrediction;
+  }
+
   final weekday = arguments.dateTime.weekday;
+  final distances = <Pair<LocalRoute, double>>[];
 
   for (final route in routes) {
     var sqrdDist = math.pow((weekday - route.timestamp!.weekday) * _daysFactor, 2) +
@@ -62,7 +84,9 @@ Prediction<LocalRoute?> predictRoute(
   }
   sum /= _k;
 
-  return Prediction(majRoute, 1 - sum, arguments);
+  final prediction = RoutePrediction(majRoute, 1 - sum, arguments);
+  _cache[roundedTime] = prediction;
+  return prediction;
 }
 
 extension on DateTime {
@@ -90,45 +114,4 @@ class Pair<R, S> {
 
   @override
   int get hashCode => first.hashCode ^ second.hashCode;
-}
-
-@immutable
-class Prediction<T> {
-  const Prediction(this.prediction, this.confidence, this.arguments);
-
-  final T prediction;
-  final double confidence;
-  final PredictionArguments arguments;
-
-  @override
-  String toString() {
-    return 'Prediction<$T>($prediction, $confidence, $arguments)';
-  }
-}
-
-@immutable
-class PredictionArguments {
-  const PredictionArguments(this.dateTime);
-
-  factory PredictionArguments.of(DateTime dateTime, String? source) {
-    if (source != null) {
-      return SourceDateArguments(dateTime, source);
-    } else {
-      return PredictionArguments(dateTime);
-    }
-  }
-
-  final DateTime dateTime;
-
-  @override
-  String toString() => 'PredictionArguments(dateTime: $dateTime)';
-}
-
-class SourceDateArguments extends PredictionArguments {
-  const SourceDateArguments(DateTime dateTime, this.source) : super(dateTime);
-
-  final String source;
-
-  @override
-  String toString() => 'SourceDateArguments(dateTime: $dateTime, source: $source)';
 }
