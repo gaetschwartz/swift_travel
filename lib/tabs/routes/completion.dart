@@ -30,6 +30,14 @@ class RouteCompletionTile extends StatelessWidget {
         return const Icon(CupertinoIcons.location_fill, size: 20);
       case DataOrigin.prediction:
         return const Icon(CupertinoIcons.wand_stars, size: 20);
+      case DataOrigin.loading:
+        return const SizedBox(
+          height: 20,
+          width: 20,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.black),
+          ),
+        );
     }
   }
 

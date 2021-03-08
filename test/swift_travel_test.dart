@@ -1,23 +1,30 @@
 // ignore_for_file: unnecessary_await_in_return
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/db/history.dart';
+import 'package:swift_travel/db/store.dart';
+import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
-import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/env.dart';
+import 'package:swift_travel/utils/predict/complete.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
+import 'apis_test.dart';
 import 'blocs_test.dart';
 
 final timestamp = DateTime(2021);
@@ -96,18 +103,26 @@ void main() {
     });
 
     test('completion', () async {
-      await hist.open();
+      final container = ProviderContainer(overrides: [
+        completionEngineProvider.overrideWithProvider(
+          Provider(
+            (ref) => CompletionEngine(
+              ref,
+              routeHistoryRepository: MockRouteHistory(
+                mockedHistory: [
+                  route1,
+                  route3,
+                  route1,
+                  route3,
+                ],
+              ),
+            ),
+          ),
+        ),
+        navigationAPIProvider.overrideWithValue(MockNavigationApi(mockCompletions: []))
+      ]);
 
-      final c = completeWithFavorites(
-          favorites: [],
-          completions: [],
-          query: 'query',
-          history: [
-            route1,
-            route3,
-            route1,
-            route3,
-          ]);
+      final c = await container.read(completionEngineProvider).complete(query: 'query').last;
 
       expect(
         c,
@@ -163,35 +178,52 @@ void main() {
     expect(Env.summary, isNotEmpty);
   });
 
-  test('completion', () {
+  test('completion', () async {
     const currentLocation = 'Current location';
 
-    final c = completeWithFavorites(
-      favorites: [
-        FavoriteStop.fromStop(geneva, api: NavigationApi.sbb),
-        FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb),
-        FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb),
-        FavoriteStop.fromStop('Lausanne Aéroport', api: NavigationApi.sbb),
-      ],
-      completions: [
-        SbbCompletion(label: geneva),
-      ],
-      query: geneva,
-      currentLocationString: currentLocation,
-      history: [
-        route1,
+    final container = ProviderContainer(
+      overrides: [
+        storeProvider.overrideWithProvider(Provider((ref) => MockFavoriteStore(stops: [
+              FavoriteStop.fromStop(geneva, api: NavigationApi.sbb),
+              FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb),
+              FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb),
+              FavoriteStop.fromStop('Lausanne Aéroport', api: NavigationApi.sbb),
+            ]))),
+        navigationAPIProvider.overrideWithProvider(
+          Provider(
+            (ref) => MockNavigationApi(mockCompletions: [SbbCompletion(label: geneva)]),
+          ),
+        ),
+        completionEngineProvider.overrideWithProvider(
+          Provider(
+            (ref) => CompletionEngine(
+              ref,
+              routeHistoryRepository: MockRouteHistory(mockedHistory: [route1]),
+            ),
+          ),
+        )
       ],
     );
 
-    expect(c, [
+    final c = await container
+        .read(completionEngineProvider)
+        .complete(
+          query: geneva,
+          currentLocationString: currentLocation,
+        )
+        .last;
+
+    final expected = [
       SbbCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
       SbbCompletion(label: route1.from, origin: DataOrigin.history),
       SbbCompletion(label: route1.to, origin: DataOrigin.history),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva, api: NavigationApi.sbb)),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb)),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb)),
-      SbbCompletion(label: 'Genève')
-    ]);
+      SbbCompletion(label: 'Genève'),
+    ];
+
+    expect(c, expected);
   });
 
   group('route uri >', () {
@@ -284,4 +316,171 @@ void main() {
       }
     });
   });
+}
+
+class MockFavoriteStore implements BaseFavoritesStore {
+  MockFavoriteStore({this.routes = const [], this.stops = const []});
+
+  @override
+  final Iterable<LocalRoute> routes;
+  @override
+  final Iterable<FavoriteStop> stops;
+
+  @override
+  void addListener(VoidCallback listener) {}
+
+  @override
+  Future<void> addRoute(LocalRoute route) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> addStop(FavoriteStop stop) {
+    throw UnimplementedError();
+  }
+
+  @override
+  void dispose() {}
+
+  @override
+  Future<void> editRoute(LocalRoute oldRoute, LocalRoute route) {
+    throw UnimplementedError();
+  }
+
+  @override
+  bool get hasListeners => throw UnimplementedError();
+
+  @override
+  Future<void> init({SharedPreferences? prefs, bool doNotify = true}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  void notifyListeners() {}
+
+  @override
+  void removeListener(VoidCallback listener) {}
+
+  @override
+  Future<void> removeRoute(LocalRoute route) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeStop(FavoriteStop favoriteStop) {
+    throw UnimplementedError();
+  }
+}
+
+class MockRouteHistory implements RouteHistoryRepository {
+  MockRouteHistory({List<LocalRoute> mockedHistory = const <LocalRoute>[]})
+      : history = mockedHistory;
+
+  @override
+  final List<LocalRoute> history;
+
+  @override
+  // ignore: must_call_super
+  Future<void> open({String? path, bool doLog = false}) async {}
+  @override
+  // ignore: must_call_super
+  Future<void> close() async {}
+
+  @override
+  Future<int> add(LocalRoute data) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Box<Map> get box => throw UnimplementedError();
+
+  @override
+  String get boxKey => throw UnimplementedError();
+
+  @override
+  Future<int> clear() {
+    throw UnimplementedError();
+  }
+
+  @override
+  bool containsKey(int key) {
+    throw UnimplementedError();
+  }
+
+  @override
+  DataConverter<Map, LocalRoute> get decoder => throw UnimplementedError();
+
+  @override
+  Future<void> delete(int key) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteAll(Iterable<int?> keys) {
+    throw UnimplementedError();
+  }
+
+  @override
+  DataConverter<LocalRoute, Map> get encoder => throw UnimplementedError();
+
+  @override
+  LocalRoute get first => throw UnimplementedError();
+
+  @override
+  Object formatKey(Object key) {
+    throw UnimplementedError();
+  }
+
+  @override
+  LocalRoute get(int key) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> hashAdd(LocalRoute data) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> hashDelete(LocalRoute data) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Iterable<int> get keys => throw UnimplementedError();
+
+  @override
+  LocalRoute get last => throw UnimplementedError();
+
+  @override
+  Map<int, LocalRoute> get map => throw UnimplementedError();
+
+  @override
+  int get maxSize => throw UnimplementedError();
+
+  @override
+  FutureOr<void> onDatabaseExceededMaxSize() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> put(int key, LocalRoute value) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<int> safeAdd(LocalRoute data) {
+    throw UnimplementedError();
+  }
+
+  @override
+  int get size => throw UnimplementedError();
+
+  @override
+  Iterable<LocalRoute> get values => throw UnimplementedError();
+
+  @override
+  Stream<BoxEvent> watch({dynamic key}) {
+    throw UnimplementedError();
+  }
 }

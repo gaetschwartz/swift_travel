@@ -18,7 +18,7 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
-import 'package:swift_travel/utils/complete.dart';
+import 'package:swift_travel/utils/predict/complete.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
@@ -296,16 +296,11 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   }
 
   Future<void> fetch(String query) async {
-    final favorites = context.read(storeProvider);
     try {
-      final compls = await context.read(navigationAPIProvider).complete(query);
-
-      final completionsWithFavs = completeWithFavorites(
-        favorites: favorites.stops,
-        completions: compls,
-        query: query,
-        history: [],
-      );
+      final completionsWithFavs = await context
+          .read(completionEngineProvider)
+          .complete(query: query, doUseHistory: false)
+          .last;
 
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
