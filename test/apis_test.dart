@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
@@ -48,13 +49,18 @@ void main() {
 }
 
 class MockNavigationApi extends BaseNavigationApi {
+  MockNavigationApi({this.mockCompletions});
+
+  final List<Completion>? mockCompletions;
+
   @override
-  Future<List<SbbCompletion>> complete(String? string,
-      {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) {
-    return Future.value([
-      SbbCompletion(label: 'Genève'),
-      SbbCompletion(label: 'Genève Cornavin'),
-    ]);
+  Future<List<Completion>> complete(String? string,
+      {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) async {
+    return mockCompletions ??
+        [
+          SbbCompletion(label: 'Genève'),
+          SbbCompletion(label: 'Genève Cornavin'),
+        ];
   }
 
   @override

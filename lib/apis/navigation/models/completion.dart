@@ -19,4 +19,5 @@ enum DataOrigin {
   data,
   currentLocation,
   prediction,
+  loading,
 }

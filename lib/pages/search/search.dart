@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/db/history.dart';
@@ -14,8 +15,8 @@ import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
-import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/predict/complete.dart';
 import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -75,17 +76,18 @@ extension CupertinoTextFieldX on CupertinoTextField {
 }
 
 class Debouncer {
+  Debouncer({this.duration = const Duration(milliseconds: 500)});
+  final Duration duration;
+
   Timer? _debouncer;
 
   Future<void> debounce(FutureOr<void> Function() fn) async {
-    // Debounce
-    if (_debouncer?.isActive ?? false) {
-      _debouncer?.cancel();
-      _debouncer = Timer(const Duration(milliseconds: 500), fn);
+    _debouncer?.cancel();
+    if (_debouncer != null && _debouncer!.isActive) {
+      _debouncer = Timer(duration, fn);
     } else {
       await fn();
-      _debouncer?.cancel();
-      _debouncer = Timer(const Duration(milliseconds: 500), () {});
+      _debouncer = Timer(duration, () {});
     }
   }
 
@@ -124,6 +126,7 @@ class _SearchPageState extends State<SearchPage> {
   late BaseNavigationApi api;
   late String currentLocation;
   final hist = RouteHistoryRepository.i;
+  String? previousText;
 
   @override
   void initState() {
@@ -134,6 +137,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
+    _sub?.cancel();
     debouncer.dispose();
     widget.binder.controller.removeListener(onChanged);
     super.dispose();
@@ -147,42 +151,49 @@ class _SearchPageState extends State<SearchPage> {
     currentLocation = AppLoc.of(context).current_location;
   }
 
-  void onChanged() {
-    debouncer.debounce(() => fetch(widget.binder.text));
+  Future<void> onChanged() async {
+    final text = widget.binder.text;
+    if (previousText != text) {
+      previousText = text;
+      await debouncer.debounce(() => fetch(text));
+    }
   }
+
+  StreamSubscription? _sub;
 
   Future<void> fetch(String query) async {
-    try {
-      final results =
-          await Future.wait([api.complete(query), Future.microtask(() => getPrediction(query))]);
-
-      final compls = results[0]! as List<Completion>;
-      final pred = results[1] as String?;
-
-      final completionsWithFavs = completeWithFavorites(
-        favorites: store.stops,
-        completions: compls,
-        query: query,
-        currentLocationString: currentLocation,
-        history: hist.history,
-        prediction: pred,
-      );
-
-      if (mounted) {
-        context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
-      }
-    } on SocketException {
-      context.read(_stateProvider).state = const StationStates.network();
-    } on Exception catch (e, s) {
-      reportDartError(e, s, library: 'search', reason: 'while fetching');
-    } finally {}
+    if (_sub != null) {
+      await _sub!.cancel();
+    }
+    _sub = context
+        .read(completionEngineProvider)
+        .complete(
+          query: query,
+          doPredict: widget.isDestination,
+          currentLocationString: currentLocation,
+          date: context.read(dateProvider).state,
+        )
+        .listen(
+      (c) {
+        if (mounted) {
+          context.read(_stateProvider).state = StationStates.completions(c);
+        }
+      },
+      onError: (dynamic e, dynamic s) {
+        if (e is SocketException) {
+          context.read(_stateProvider).state = const StationStates.network();
+        } else if (e is Exception) {
+          reportDartError(e, s as StackTrace, library: 'search', reason: 'while fetching');
+        }
+      },
+    );
   }
 
-  String? getPrediction(String query) {
+  Future<String?> getPrediction(String query) async {
     if (widget.isDestination) {
       final args = PredictionArguments.source(widget.dateTime!, query);
       print('Predicting the destination with $args');
-      final prediction = predictRouteSync(hist.history, args);
+      final prediction = await predictRoute(hist.history, args);
       print(prediction);
       if (prediction.prediction != null && prediction.confidence > .2) {
         return prediction.prediction!.to;
@@ -362,23 +373,45 @@ class SuggestedTile extends StatelessWidget {
           size: 20,
           color: IconTheme.of(context).color,
         );
+      case DataOrigin.loading:
+        return const SizedBox(
+          height: 20,
+          width: 20,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.black),
+          ),
+        );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () => onTap?.call(suggestion),
-      leading: buildIcon(context),
-      horizontalTitleGap: 8,
-      title: Text(suggestion.favoriteName ?? suggestion.label),
-      subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
-      trailing: suggestion.favoriteName != null
-          ? (Responsive.isDarwin(context)
-              ? const Icon(CupertinoIcons.heart_fill)
-              : const Icon(Icons.star))
-          : null,
-      dense: true,
+    final isLoading = suggestion.origin == DataOrigin.loading;
+    return IfWrapper(
+      condition: isLoading,
+      builder: (context, child) => Shimmer.fromColors(
+        baseColor: Colors.grey,
+        highlightColor: Colors.white,
+        child: child!,
+      ),
+      child: ListTile(
+        onTap: isLoading ? null : () => onTap?.call(suggestion),
+        leading: buildIcon(context),
+        horizontalTitleGap: 8,
+        title: isLoading
+            ? Text(
+                suggestion.label,
+                style: const TextStyle(backgroundColor: Colors.black, color: Colors.transparent),
+              )
+            : Text(suggestion.favoriteName ?? suggestion.label),
+        subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
+        trailing: suggestion.favoriteName != null
+            ? (Responsive.isDarwin(context)
+                ? const Icon(CupertinoIcons.heart_fill)
+                : const Icon(Icons.star))
+            : null,
+        dense: true,
+      ),
     );
   }
 }
