@@ -249,28 +249,28 @@ class SwiftNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SizedBox(
-          height: height,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              boxShadow: [
-                BoxShadow(
-                  color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey).withAlpha(24),
-                  blurRadius: 32,
-                )
-              ],
-            ),
-            child: Material(
+    return SizedBox(
+        height: height,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            boxShadow: [
+              BoxShadow(
+                color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey).withAlpha(24),
+                blurRadius: 32,
+              )
+            ],
+          ),
+          child: Material(
+            child: SafeArea(
               child: Row(
                 children: [
                   for (var i = 0; i < items.length; i++) buildInkWell(i, context),
                 ],
               ),
             ),
-          )),
-    );
+          ),
+        ));
   }
 
   Expanded buildInkWell(int i, BuildContext context) {
@@ -437,7 +437,7 @@ final sideBarNavigatorKey = GlobalKey<NavigatorState>();
 AppBar materialAppBar(
   BuildContext context, {
   List<Widget> actions = const [],
-  bool addSettings = true,
+  bool showSettingsButton = true,
   Widget? title,
   Widget? leading,
 }) {
@@ -449,7 +449,7 @@ AppBar materialAppBar(
     leading: leading,
     actions: [
       ...actions,
-      if (addSettings)
+      if (showSettingsButton)
         IconButton(
             key: const Key('settings-button'),
             tooltip: AppLoc.of(context).settings,
