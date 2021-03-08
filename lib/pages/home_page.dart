@@ -249,28 +249,29 @@ class SwiftNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: height,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            boxShadow: [
-              BoxShadow(
-                color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey).withAlpha(24),
-                blurRadius: 32,
-              )
-            ],
-          ),
-          child: Material(
-            child: SafeArea(
-              child: Row(
-                children: [
-                  for (var i = 0; i < items.length; i++) buildInkWell(i, context),
-                ],
-              ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        boxShadow: [
+          BoxShadow(
+            color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey).withAlpha(24),
+            blurRadius: 32,
+          )
+        ],
+      ),
+      child: Material(
+        child: SafeArea(
+          child: SizedBox(
+            height: height,
+            child: Row(
+              children: [
+                for (var i = 0; i < items.length; i++) buildInkWell(i, context),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Expanded buildInkWell(int i, BuildContext context) {
