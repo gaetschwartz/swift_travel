@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart' hide Position;
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
@@ -28,6 +29,7 @@ import 'package:swift_travel/states/route_textfield_state.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -627,8 +629,15 @@ class RoutePageState extends State<RoutePage> {
   }
 }
 
-final _predictionProvider = Provider.family<Prediction<LocalRoute?>, DateTime>(
-    (_, date) => predictRoute(RouteHistoryRepository.i.history, PredictionArguments(date)));
+final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
+  if (kDebugMode) {
+    await Future.delayed(const Duration(seconds: 2), () {});
+  }
+  return predictRoute(
+    RouteHistoryRepository.i.history,
+    PredictionArguments(ref.watch(dateProvider).state),
+  );
+});
 
 final _locationNotFound = RegExp(r'Stop ([\d\.,-\s]*) not found\.');
 
@@ -774,27 +783,65 @@ class RoutesView extends StatelessWidget {
           ],
         ),
         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
-        empty: () {
-          return Consumer(
+        empty: () => Align(
+          alignment: Alignment.topCenter,
+          child: Consumer(
             builder: (context, watch, child) {
-              final date = watch(dateProvider).state;
-              final pred = watch(_predictionProvider(date));
-              if (pred.prediction != null && pred.confidence > .2) {
-                return Align(
-                  alignment: Alignment.topCenter,
-                  child: RouteWidget(
-                    from: Text(pred.prediction!.from.stripAt()),
-                    to: Text(pred.prediction!.to.stripAt()),
-                    onTap: () {
-                      from.setString(context, pred.prediction!.from);
-                      to.setString(context, pred.prediction!.to);
-                    },
-                    title: Text(AppLoc.of(context).suggestion),
+              final data = watch(_predictionProvider);
+              return data.when(
+                data: (pred) {
+                  if (pred.prediction != null && pred.confidence > .2) {
+                    return RouteWidget(
+                      from: Text(pred.prediction!.from.stripAt()),
+                      to: Text(pred.prediction!.to.stripAt()),
+                      onTap: () {
+                        from.setString(context, pred.prediction!.from);
+                        to.setString(context, pred.prediction!.to);
+                      },
+                      title: Text(AppLoc.of(context).suggestion),
+                    );
+                  } else {
+                    return child!;
+                  }
+                },
+                loading: () => Shimmer.fromColors(
+                  baseColor: Colors.grey,
+                  highlightColor: Colors.white,
+                  child: const RouteWidget(
+                    from: Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        height: 16,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Text('                           '),
+                        ),
+                      ),
+                    ),
+                    to: Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        height: 16,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Text('           '),
+                        ),
+                      ),
+                    ),
+                    title: Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        height: 16,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Text('               '),
+                        ),
+                      ),
+                    ),
                   ),
-                );
-              } else {
-                return child!;
-              }
+                ),
+                error: (e, s) => child!,
+              );
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -811,8 +858,8 @@ class RoutesView extends StatelessWidget {
                 )
               ],
             ),
-          );
-        },
+          ),
+        ),
         missingPluginException: () => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

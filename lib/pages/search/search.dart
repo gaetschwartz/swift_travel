@@ -16,6 +16,7 @@ import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/complete.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
@@ -179,9 +180,9 @@ class _SearchPageState extends State<SearchPage> {
 
   String? getPrediction(String query) {
     if (widget.isDestination) {
-      final args = SourceDateArguments(widget.dateTime!, query);
+      final args = PredictionArguments.source(widget.dateTime!, query);
       print('Predicting the destination with $args');
-      final prediction = predictRoute(hist.history, args);
+      final prediction = predictRouteSync(hist.history, args);
       print(prediction);
       if (prediction.prediction != null && prediction.confidence > .2) {
         return prediction.prediction!.to;
