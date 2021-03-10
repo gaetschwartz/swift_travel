@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class PlatformRoute<T> extends MaterialWithModalsPageRoute<T> {
+class PlatformRoute<T extends Object?> extends MaterialWithModalsPageRoute<T> {
   PlatformRoute({
     required WidgetBuilder builder,
     RouteSettings? settings,

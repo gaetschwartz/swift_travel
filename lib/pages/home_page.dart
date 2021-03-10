@@ -19,6 +19,7 @@ import 'package:swift_travel/tabs/stations/stations_tab.dart';
 import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/utils/page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
@@ -380,22 +381,20 @@ class _SideBar extends StatelessWidget {
 }
 
 extension BuildContextX on BuildContext {
-  void push(
+  void push<T>(
     WidgetBuilder builder, {
     RouteSettings? settings,
     bool maintainState = true,
     bool fullscreenDialog = false,
     String? title,
-    bool rootNavigator = false,
+    bool useRootNavigator = false,
   }) {
-    final isDarwin = Responsive.isDarwin(this);
     if (shouldShowSidebar(this)) {
       read(sideTabBarProvider).state = builder;
       sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {
-      Navigator.of(this, rootNavigator: rootNavigator).push(platformRoute(
+      Navigator.of(this, rootNavigator: useRootNavigator).push(PlatformRoute<T>(
         builder: builder,
-        isDarwin: isDarwin,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState,
         title: title,
@@ -408,7 +407,7 @@ extension BuildContextX on BuildContext {
 class Nav {
   const Nav._();
 
-  static void push(
+  static void push<T extends Object?>(
     BuildContext context,
     WidgetBuilder builder, {
     RouteSettings? settings,
@@ -417,13 +416,13 @@ class Nav {
     String? title,
     bool rootNavigator = false,
   }) =>
-      context.push(
+      context.push<T>(
         builder,
         settings: settings,
         maintainState: maintainState,
         fullscreenDialog: fullscreenDialog,
         title: title,
-        rootNavigator: rootNavigator,
+        useRootNavigator: rootNavigator,
       );
 }
 

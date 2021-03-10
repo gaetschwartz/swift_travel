@@ -59,6 +59,7 @@ class SncfApi extends BaseNavigationApi {
     if (kDebugMode) {
       log(uri.toString());
     }
+
     final response = await _client.get(uri);
 
     final decode = jsonDecode(response.body) as Map<String, dynamic>;
@@ -103,7 +104,9 @@ class SncfApi extends BaseNavigationApi {
       queryParameters,
     );
 
-    print(uri);
+    if (kDebugMode) {
+      log(uri.toString());
+    }
 
     final response = await _client.get(uri);
 

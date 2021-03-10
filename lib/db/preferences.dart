@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/pages/settings/properties/property.dart';
@@ -12,6 +12,9 @@ class PreferencesBloc {
   static const String navigationApiKey = 'navigation_api';
   static const String analyticsKey = 'accepted_analytics';
   static late final i = PreferencesBloc('prefs_');
+
+  static late final ChangeNotifierProvider<Property<NavigationApi>> apiProvider =
+      ChangeNotifierProvider((r) => r.watch(preferencesProvider).api);
 
   final String prefix;
   late SharedPreferences _prefs;

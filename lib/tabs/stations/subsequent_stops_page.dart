@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/subsequent_stop.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/responsive.dart';
 
 class NextStopsPage extends StatefulWidget {
@@ -118,8 +118,8 @@ class StopTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).push(platformRoute(
-          isDarwin: Responsive.isDarwin(context), builder: (context) => StopDetails(stop))),
+      onTap: () =>
+          Navigator.of(context).push(PlatformRoute(builder: (context) => StopDetails(stop))),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SizedBox(

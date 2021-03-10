@@ -1,12 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/db/preferences.dart';
 
-import '../db/preferences.dart';
-
-final Provider<BaseNavigationApi> navigationAPIProvider = Provider((ref) {
-  final prefs = ref.read(preferencesProvider);
-
-  final api = BaseNavigationApi.getFactory(prefs.api.value).create(ref.read);
+final navigationAPIProvider = Provider.autoDispose<BaseNavigationApi>((ref) {
+  final apiType = ref.watch(PreferencesBloc.apiProvider);
+  final api = BaseNavigationApi.getFactory(apiType.value).create(ref.read);
   ref.onDispose(api.dispose);
   return api;
 });

@@ -23,6 +23,7 @@ import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -108,13 +109,12 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       MyQuickActions.i.init();
       await context.read(linksProvider).init(
             push: (p) => navigatorKey.currentState!.push(
-              platformRoute(
+              PlatformRoute(
                 builder: (_) => RouteDetails(
                   route: p.first,
                   i: p.second,
                   doShowCloseButton: true,
                 ),
-                isDarwin: isDarwin,
               ),
             ),
             getApi: () => navigatorKey.currentContext!.read(navigationAPIProvider),
@@ -207,9 +207,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   Future<void> _routeToDefault() {
     if (Env.page.isEmpty) {
       return Navigator.of(context).pushReplacement(
-        platformRoute(
+        PlatformRoute(
           builder: (context) => const TabView(),
-          isDarwin: isDarwin,
           settings: const RouteSettings(name: '/'),
         ),
       );

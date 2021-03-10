@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Property<T extends Object?> extends ChangeNotifier {
@@ -42,6 +43,8 @@ class Property<T extends Object?> extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  ChangeNotifierProvider<Property<T>> get provider => ChangeNotifierProvider((r) => this);
 
   static T Function(T?) getFromPreferences<T>(
     String key,

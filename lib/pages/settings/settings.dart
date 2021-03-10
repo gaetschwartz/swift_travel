@@ -15,7 +15,6 @@ import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/settings/properties/tile.dart';
@@ -28,6 +27,7 @@ import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/choice_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/modal.dart';
+import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -242,9 +242,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: const Text('Attributes crawler'),
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).push(
-                    platformRoute(
+                    PlatformRoute(
                       builder: (context) => const CrawlerPage(),
-                      isDarwin: Responsive.isDarwin(context),
                     ),
                   );
                 }),
@@ -253,9 +252,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: const Text('Route history'),
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).push(
-                    platformRoute(
+                    PlatformRoute(
                       builder: (context) => const RouteHistoryPage(),
-                      isDarwin: Responsive.isDarwin(context),
                     ),
                   );
                 }),
