@@ -165,28 +165,30 @@ class _SearchPageState extends State<SearchPage> {
     if (_sub != null) {
       await _sub!.cancel();
     }
-    _sub = context
-        .read(completionEngineProvider)
-        .complete(
-          query: query,
-          doPredict: widget.isDestination,
-          currentLocationString: currentLocation,
-          date: context.read(dateProvider).state,
-        )
-        .listen(
-      (c) {
-        if (mounted) {
-          context.read(_stateProvider).state = StationStates.completions(c);
-        }
-      },
-      onError: (dynamic e, dynamic s) {
-        if (e is SocketException) {
-          context.read(_stateProvider).state = const StationStates.network();
-        } else if (e is Exception) {
-          reportDartError(e, s as StackTrace, library: 'search', reason: 'while fetching');
-        }
-      },
-    );
+    if (mounted) {
+      _sub = context
+          .read(completionEngineProvider)
+          .complete(
+            query: query,
+            doPredict: widget.isDestination,
+            currentLocationString: currentLocation,
+            date: context.read(dateProvider).state,
+          )
+          .listen(
+        (c) {
+          if (mounted) {
+            context.read(_stateProvider).state = StationStates.completions(c);
+          }
+        },
+        onError: (dynamic e, dynamic s) {
+          if (e is SocketException) {
+            context.read(_stateProvider).state = const StationStates.network();
+          } else if (e is Exception) {
+            reportDartError(e, s as StackTrace, library: 'search', reason: 'while fetching');
+          }
+        },
+      );
+    }
   }
 
   Future<String?> getPrediction(String query) async {
@@ -374,12 +376,10 @@ class SuggestedTile extends StatelessWidget {
           color: IconTheme.of(context).color,
         );
       case DataOrigin.loading:
-        return const SizedBox(
-          height: 20,
-          width: 20,
-          child: DecoratedBox(
-            decoration: BoxDecoration(color: Colors.black),
-          ),
+        return Icon(
+          CupertinoIcons.wand_stars,
+          size: 20,
+          color: IconTheme.of(context).color,
         );
     }
   }

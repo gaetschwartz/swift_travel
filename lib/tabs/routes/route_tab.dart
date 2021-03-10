@@ -629,15 +629,10 @@ class RoutePageState extends State<RoutePage> {
   }
 }
 
-final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
-  if (kDebugMode) {
-    await Future.delayed(const Duration(seconds: 2), () {});
-  }
-  return predictRoute(
-    RouteHistoryRepository.i.history,
-    PredictionArguments(ref.watch(dateProvider).state),
-  );
-});
+final _predictionProvider = FutureProvider<RoutePrediction>((ref) => predictRoute(
+      RouteHistoryRepository.i.history,
+      PredictionArguments(ref.watch(dateProvider).state),
+    ));
 
 final _locationNotFound = RegExp(r'Stop ([\d\.,-\s]*) not found\.');
 

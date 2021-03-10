@@ -27,7 +27,7 @@ class SearchChApi extends BaseNavigationApi {
   static const queryBuilder = QueryBuilder<String>('timetable.search.ch', _json);
   static String _json(String s) => '/api/$s.json';
 
-  final http.Client _client = http.Client();
+  final _client = http.Client();
 
   Map<String, String> get headers => {'accept-language': super.locale.toLanguageTag()};
 
