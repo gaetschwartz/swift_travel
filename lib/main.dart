@@ -28,6 +28,7 @@ import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -258,18 +259,16 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
 
     switch (uri.path) {
       case '/route':
-        routes.add(platformRoute(
+        routes.add(PlatformRoute<void>(
           settings: const RouteSettings(name: '/'),
           builder: (_) => LoadingPage(uri: uri),
-          isDarwin: isDarwin,
         ));
         break;
 
       default:
-        routes.add(platformRoute(
+        routes.add(PlatformRoute<void>(
           settings: const RouteSettings(name: '/'),
           builder: (_) => const LoadingPage(),
-          isDarwin: isDarwin,
         ));
     }
     return routes;
@@ -287,108 +286,78 @@ Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
 
   switch (settings.name) {
     case '/':
-      return platformRoute(
+      return PlatformRoute(
         settings: settings,
         builder: (_) => const TabView(),
-        isDarwin: isDarwin,
       );
     case 'loading':
-      return platformRoute(
+      return PlatformRoute(
         settings: settings,
         builder: (_) => const LoadingPage(),
-        isDarwin: isDarwin,
       );
     case '/settings':
-      return platformRoute(
+      return PlatformRoute(
         settings: settings,
         builder: (_) => const SettingsPage(),
         fullscreenDialog: true,
-        isDarwin: isDarwin,
       );
 
     case '/routeDetails':
       if (settings.arguments is Pair<NavRoute, int>) {
         final pair = settings.arguments! as Pair<NavRoute, int>;
-        return platformRoute(
+        return PlatformRoute(
           settings: settings,
           builder: (_) => RouteDetails(
             route: pair.first,
             i: pair.second,
             doShowCloseButton: true,
           ),
-          isDarwin: isDarwin,
         );
       }
       break;
 
     case '/welcome':
-      return platformRoute(
+      return PlatformRoute(
         settings: settings,
         builder: (_) => const WelcomePage(),
-        isDarwin: isDarwin,
       );
     case '/route':
       if (settings.arguments is LocalRoute) {
-        return platformRoute(
+        return PlatformRoute(
           settings: settings,
           builder: (_) => RoutePage.route(settings.arguments as LocalRoute?),
-          isDarwin: isDarwin,
         );
       } else if (settings.arguments is FavoriteStop) {
-        return platformRoute(
+        return PlatformRoute(
           settings: settings,
           builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop?),
-          isDarwin: isDarwin,
         );
       }
       break;
     case '/ourTeam':
-      return platformRoute(
-          settings: settings, builder: (_) => const TeamPage(), isDarwin: isDarwin);
+      return PlatformRoute(
+        settings: settings,
+        builder: (_) => const TeamPage(),
+      );
     case '/liveRoute':
-      return platformRoute(
-          settings: settings,
-          builder: (_) => LiveRoutePage(connection: settings.arguments! as RouteConnection),
-          isDarwin: isDarwin);
+      return PlatformRoute(
+        settings: settings,
+        builder: (_) => LiveRoutePage(connection: settings.arguments! as RouteConnection),
+      );
     case '/stopDetails':
-      return platformRoute(
-          settings: settings,
-          builder: (_) => StopDetails(SbbStop(settings.arguments! as String)),
-          isDarwin: isDarwin);
+      return PlatformRoute(
+        settings: settings,
+        builder: (_) => StopDetails(SbbStop(settings.arguments! as String)),
+      );
 
     case '/error':
     case 'error':
-      return platformRoute(
+      return PlatformRoute(
         settings: settings,
         builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails?),
-        isDarwin: isDarwin,
       );
   }
   return null;
-}
-
-Route<T> platformRoute<T extends Object?>({
-  required Widget Function(BuildContext) builder,
-  required bool isDarwin,
-  RouteSettings? settings,
-  bool maintainState = true,
-  bool fullscreenDialog = false,
-  String? title,
-}) {
-  return isDarwin
-      ? CupertinoPageRoute<T>(
-          builder: builder,
-          settings: settings,
-          fullscreenDialog: fullscreenDialog,
-          title: title,
-          maintainState: maintainState,
-        )
-      : MaterialPageRoute<T>(
-          builder: builder,
-          settings: settings,
-          fullscreenDialog: fullscreenDialog,
-          maintainState: maintainState,
-        );
 }
 
 class Unfocus extends StatelessWidget {

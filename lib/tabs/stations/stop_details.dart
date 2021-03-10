@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
@@ -14,6 +13,7 @@ import 'package:swift_travel/tabs/stations/subsequent_stops_page.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
+import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/responsive.dart';
 
 class StopDetails extends StatefulWidget {
@@ -201,9 +201,8 @@ class ConnectionTile extends StatelessWidget {
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      onTap: () => Navigator.of(context).push(platformRoute(
+      onTap: () => Navigator.of(context).push(PlatformRoute(
         builder: (context) => NextStopsPage(c: c, s: s),
-        isDarwin: Responsive.isDarwin(context),
         title: s!.name,
       )),
       title: Row(
