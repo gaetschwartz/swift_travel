@@ -115,7 +115,7 @@ class WalkingTile extends StatelessWidget {
   }
 
   String getMapsUrl(BuildContext context, String suffix) {
-    final m = context.read(preferencesProvider).mapsApp;
+    final m = context.read(preferencesProvider).mapsApp.value;
     switch (m) {
       case Maps.apple:
         log('Using Apple Maps');

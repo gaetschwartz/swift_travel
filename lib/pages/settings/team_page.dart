@@ -6,8 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/l10n.dart';
-import 'package:swift_travel/pages/settings/contributor.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'models/contributor.dart';
 
 class TeamPage extends StatefulWidget {
   const TeamPage({

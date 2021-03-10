@@ -29,14 +29,17 @@ class _PerspectiveWidgetState extends State<PerspectiveWidget> {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Center(
-                      child: AspectRatio(
-                          aspectRatio: 9 / 19.5,
-                          child: LayoutBuilder(builder: (context, c) {
-                            return MediaQuery(
-                                data: MediaQuery.of(context)
-                                    .copyWith(size: Size(c.maxWidth, c.maxHeight)),
-                                child: wrappedApp());
-                          }))),
+                    child: AspectRatio(
+                      aspectRatio: 9 / 19.5,
+                      child: LayoutBuilder(
+                        builder: (context, c) => MediaQuery(
+                          data:
+                              MediaQuery.of(context).copyWith(size: Size(c.maxWidth, c.maxHeight)),
+                          child: const FullApp(),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

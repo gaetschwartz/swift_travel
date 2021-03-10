@@ -166,7 +166,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       await store.addStop(FavoriteStop.fromCompletion(
         completion,
         name: name,
-        api: context.read(preferencesProvider).api,
+        api: context.read(preferencesProvider).api.value,
       ));
     });
   }

@@ -73,25 +73,26 @@ final tabProvider = ChangeNotifierProvider.autoDispose<CombinedPageController>((
   return combinedPageController;
 });
 
-bool showSidebar(BuildContext context) {
-  final mq = MediaQuery.of(context);
-  final s = mq.size.longestSide / mq.devicePixelRatio;
-  return s > 400 && mq.orientation == Orientation.landscape;
-}
-
-class MainApp extends StatefulWidget {
-  const MainApp({Key? key}) : super(key: key);
+class TabView extends StatefulWidget {
+  const TabView({Key? key}) : super(key: key);
 
   @override
-  _MainAppState createState() => _MainAppState();
+  _TabViewState createState() => _TabViewState();
 
   static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), SettingsPage()];
   static const androidTabs = [StationsTab(), RouteTab(), FavoritesTab()];
+  static const sideBarWidth = 350.0;
 }
 
 final sideTabBarProvider = StateProvider<WidgetBuilder?>((_) => null);
 
-class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
+bool shouldShowSidebar(BuildContext context) {
+  final mq = MediaQuery.of(context);
+  final s = mq.size.longestSide / mq.devicePixelRatio;
+  return s > TabView.sideBarWidth && mq.orientation == Orientation.landscape;
+}
+
+class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
   late final CombinedPageController combinedPageController = context.read(tabProvider);
   int oldI = 0;
 
@@ -106,11 +107,11 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     final isDarwin = Responsive.isDarwin(context);
 
     return IfWrapper(
-      condition: showSidebar(context),
+      condition: shouldShowSidebar(context),
       builder: (context, child) {
         return Row(children: [
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 350),
+            constraints: const BoxConstraints(maxWidth: TabView.sideBarWidth),
             child: child,
           ),
           const SafeArea(child: VerticalDivider(width: 0)),
@@ -172,7 +173,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
         ),
         tabBuilder: (context, i) => Navigator(
           key: navigatorKeys[i],
-          pages: [SingleWidgetPage<void>(MainApp.iosTabs[i], title: items[i].label)],
+          pages: [SingleWidgetPage<void>(TabView.iosTabs[i], title: items[i].label)],
           onPopPage: (_, dynamic __) => true,
           onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: true),
           onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: true),
@@ -209,7 +210,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     ];
     return Consumer(builder: (context, w, _) {
       final controllers = w(tabProvider);
-      final page = controllers.page % MainApp.androidTabs.length;
+      final page = controllers.page % TabView.androidTabs.length;
 
       return Scaffold(
         key: const Key('home-scaffold'),
@@ -220,7 +221,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           duration: Duration.zero,
           child: Navigator(
             key: navigatorKeys[controllers.page],
-            pages: [SingleWidgetPage<void>(MainApp.androidTabs[page], name: titles[page])],
+            pages: [SingleWidgetPage<void>(TabView.androidTabs[page], name: titles[page])],
             onPopPage: (_, dynamic __) => true,
             onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: false),
             onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: false),
@@ -388,7 +389,7 @@ extension BuildContextX on BuildContext {
     bool rootNavigator = false,
   }) {
     final isDarwin = Responsive.isDarwin(this);
-    if (showSidebar(this)) {
+    if (shouldShowSidebar(this)) {
       read(sideTabBarProvider).state = builder;
       sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {
@@ -405,7 +406,7 @@ extension BuildContextX on BuildContext {
 }
 
 class Nav {
-  Nav._();
+  const Nav._();
 
   static void push(
     BuildContext context,

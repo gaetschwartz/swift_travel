@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -19,6 +18,7 @@ import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
+import 'package:swift_travel/pages/settings/properties/tile.dart';
 import 'package:swift_travel/pages/settings/route_history.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
@@ -32,6 +32,8 @@ import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
+
+import 'properties/property.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -86,7 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     return DropdownButton<Font>(
                       icon: const SizedBox(),
                       value: theme.font,
-                      items: fonts
+                      items: theme.configuration.fonts
                           .map(
                             (f) => DropdownMenuItem(
                                 value: f,
@@ -111,8 +113,11 @@ class _SettingsPageState extends State<SettingsPage> {
                               (f) => Align(alignment: Alignment.centerLeft, child: Text(f.name)))
                           .toList(growable: false),
                       onChanged: (f) {
+                        if (f == null) {
+                          return;
+                        }
                         Vibration.select();
-                        theme.fontName = f!.name;
+                        theme.fontIndex = theme.configuration.fonts.indexOf(f);
                       },
                     );
                   }),
@@ -122,99 +127,72 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
     (_) => const _FontWeightWidget(),
-    (_) => const _PlaformChoiceWidget(),
+    (context) {
+      final theme = DynamicTheme.of(context);
+      return PropertyTile<TargetPlatform>(
+        Property<TargetPlatform>(
+          onSet: (p) => theme.platform = p,
+          defaultValue: theme.platform,
+        ),
+        trailingBuilder: (v) => Text(platformNames[v] ?? describeEnum(v)),
+        title: const Text('Platform'),
+        items: defaultTargetPlatform == TargetPlatform.iOS ||
+                defaultTargetPlatform == TargetPlatform.android
+            ? const [
+                ChoicePageItem(value: TargetPlatform.android, child: Text('Android')),
+                ChoicePageItem(value: TargetPlatform.iOS, child: Text('iOS')),
+              ]
+            : const [
+                ChoicePageItem(value: TargetPlatform.macOS, child: Text('MacOS')),
+                ChoicePageItem(value: TargetPlatform.windows, child: Text('Windows')),
+              ],
+      );
+    },
     (context) => _SectionTitle(title: Text(AppLoc.of(context).themes)),
     (_) => const _ThemesSection(),
     (context) {
       if (isDebugMode || Theme.of(context).platform == TargetPlatform.iOS) {
-        return Column(children: [
-          const Divider(),
-          Consumer(builder: (context, w, _) {
-            final maps = w(preferencesProvider);
-            return ListTile(
-              leading: const Icon(CupertinoIcons.map),
-              title: Text(AppLoc.of(context).maps_app),
-              onTap: () async {
-                final choicePage = ChoicePage<Maps>(
-                  items: const [
-                    ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
-                    ChoicePageItem(value: Maps.google, child: Text('Google Maps')),
-                  ],
-                  value: maps.mapsApp,
-                  title: Text(AppLoc.of(context).maps_app),
-                  onChanged: (a) => maps.mapsApp = a,
-                );
-                if (Responsive.isDarwin(context)) {
-                  await showCupertinoModalBottomSheet<void>(
-                      context: context, builder: (context) => choicePage);
-                } else {
-                  await showMaterialModalBottomSheet<void>(
-                      context: context, builder: (context) => choicePage);
-                }
-              },
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    _mapsName(maps.mapsApp),
-                    style: CupertinoTheme.of(context)
-                        .textTheme
-                        .textStyle
-                        .copyWith(color: CupertinoColors.systemGrey),
-                  ),
-                  const SizedBox(width: 8),
-                  const Icon(CupertinoIcons.chevron_forward),
-                ],
-              ),
-            );
-          })
-        ]);
+        return PropertyTile<Maps>(
+          context.read(preferencesProvider).mapsApp,
+          title: Text(AppLoc.of(context).maps_app),
+          icon: const Icon(Icons.map_rounded),
+          items: const [
+            ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
+            ChoicePageItem(value: Maps.google, child: Text('Google Maps')),
+          ],
+          trailingBuilder: (v) => Text(_mapsName(v)),
+        );
       } else {
         return const SizedBox();
       }
     },
-    (_) => const Divider(),
-    (_) {
+    (context) {
       final items = NavigationApi.values
           .map((e) => ChoicePageItem(child: Text(BaseNavigationApi.getFactory(e).name), value: e))
           .toList(growable: false);
-      return Consumer(builder: (context, w, _) {
-        final prefs = w(preferencesProvider);
-        return ListTile(
-          leading: const Icon(CupertinoIcons.link),
-          title: Text(AppLoc.of(context).navigation_api),
-          onTap: () async {
-            final choicePage = ChoicePage<NavigationApi>(
-              items: items,
-              value: prefs.api,
-              title: Text(AppLoc.of(context).navigation_api),
-              description: const Text('BETA: In the future the goal is to add more countries.'),
-              onChanged: (a) => prefs.api = a,
-            );
-            if (Responsive.isDarwin(context)) {
-              await showCupertinoModalBottomSheet<void>(
-                  context: context, builder: (context) => choicePage);
-            } else {
-              await showMaterialModalBottomSheet<void>(
-                  context: context, builder: (context) => choicePage);
-            }
-          },
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(BaseNavigationApi.getFactory(prefs.api).shortDesc,
-                  style: CupertinoTheme.of(context)
-                      .textTheme
-                      .textStyle
-                      .copyWith(color: CupertinoColors.systemGrey)),
-              const SizedBox(width: 8),
-              const Icon(CupertinoIcons.chevron_forward),
-            ],
-          ),
-        );
-      });
+      return PropertyTile<NavigationApi>(
+        context.read(preferencesProvider).api,
+        items: items,
+        title: Text(AppLoc.of(context).navigation_api),
+        icon: const Icon(CupertinoIcons.link),
+        trailingBuilder: (v) => Text(BaseNavigationApi.getFactory(v).shortDesc),
+        pageDescription: const Text('BETA: In the future the goal is to add more countries.'),
+      );
     },
-    (_) => const Divider(),
+    (context) {
+      final items = [
+        const ChoicePageItem(value: true, child: Text('True')),
+        const ChoicePageItem(value: false, child: Text('True')),
+      ];
+      return PropertyTile<bool>(
+        context.read(preferencesProvider).useAnalytics,
+        items: items,
+        title: const Text('Use analytics'),
+        icon: const Icon(CupertinoIcons.list_bullet),
+        subtitle: const Text('The app collects anonymized crash reports'),
+      );
+    },
+    (_) => const Divider(height: 0),
     (context) => _SectionTitle(title: Text(AppLoc.of(context).more)),
     (context) => ListTile(
           leading: const Icon(CupertinoIcons.person_3_fill),
@@ -386,10 +364,6 @@ class _SettingsPageState extends State<SettingsPage> {
           )),
     );
   }
-
-  void onMapsChanged(PreferencesBloc prefs, Maps m) => prefs.mapsApp = m;
-
-  void onAPIChanged(PreferencesBloc prefs, NavigationApi api) => prefs.api = api;
 }
 
 class _ScreenPage extends StatelessWidget {
@@ -419,49 +393,6 @@ String _mapsName(Maps m) {
       return 'Apple Maps';
     case Maps.google:
       return 'Google Maps';
-  }
-}
-
-class _PlaformChoiceWidget extends StatelessWidget {
-  const _PlaformChoiceWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Consumer(builder: (context, w, _) {
-          final theme = DynamicTheme.of(context);
-          final p = defaultTargetPlatform;
-
-          return CupertinoSlidingSegmentedControl<TargetPlatform>(
-            children: p == TargetPlatform.android || p == TargetPlatform.iOS
-                ? {
-                    TargetPlatform.android: const Text(
-                      'Android',
-                      key: Key('platform-choice-android'),
-                    ),
-                    TargetPlatform.iOS: const Text(
-                      'iOS',
-                      key: Key('platform-choice-ios'),
-                    ),
-                  }
-                : {
-                    TargetPlatform.windows: const Text('Windows'),
-                    TargetPlatform.macOS: const Text('MacOS'),
-                  },
-            groupValue: theme.platform,
-            onValueChanged: (i) {
-              theme.platform = i!;
-              Vibration.select();
-            },
-          );
-        }),
-      ),
-    );
   }
 }
 
@@ -508,6 +439,15 @@ class _FontWeightWidget extends StatelessWidget {
     );
   }
 }
+
+const platformNames = <TargetPlatform, String>{
+  TargetPlatform.android: 'Android',
+  TargetPlatform.iOS: 'iOS',
+  TargetPlatform.macOS: 'MacOS',
+  TargetPlatform.windows: 'Windows',
+  TargetPlatform.linux: 'Linux',
+  TargetPlatform.fuchsia: 'Fuchsia'
+};
 
 class _ThemesSection extends StatefulWidget {
   const _ThemesSection({

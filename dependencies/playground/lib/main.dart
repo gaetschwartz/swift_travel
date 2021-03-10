@@ -324,6 +324,7 @@ class _EditorPageState extends State<EditorPage> {
                   },
                   defaultTheme: 'default',
                   persist: false,
+                  fonts: DynamicThemeData.defaultFonts,
                 ),
               ),
               child: Builder(builder: (context) {

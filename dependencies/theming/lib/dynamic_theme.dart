@@ -25,7 +25,7 @@ class DynamicTheme extends InheritedNotifier<DynamicThemeData> {
   }) : super(key: key, notifier: theme, child: child);
 
   static DynamicThemeData of(BuildContext context, {bool listen = true}) {
-    late final DynamicThemeData? dynamicTheme;
+    DynamicThemeData? dynamicTheme;
     if (listen) {
       dynamicTheme = context.dependOnInheritedWidgetOfExactType<DynamicTheme>()?.notifier;
     } else {
@@ -78,12 +78,17 @@ class DynamicThemeData extends ChangeNotifier {
       : _config = configuration,
         _themeName = configuration.defaultTheme,
         _themeMode = configuration.defaultThemeMode,
-        _font = configuration.computedDefaultFont,
+        _fontIndex = 0, // configuration.computedDefaultFont,
         assert(configuration.themes.isNotEmpty, "Configuration's themes can't be empty"),
         assert(configuration.persist != true,
             'Set a persistent configuration with `configure(config)`');
 
+  static TextTheme _identity(TextTheme t) => t;
+  static const _default = Font('Default', _identity);
+  static const List<Font> defaultFonts = [_default];
+
   static const ThemeConfiguration defaultConfig = ThemeConfiguration(
+    fonts: defaultFonts,
     themes: {
       'default': FullTheme(
         light: ColorScheme.light(),
@@ -99,7 +104,7 @@ class DynamicThemeData extends ChangeNotifier {
 
   late String _themeName;
   late ThemeMode _themeMode;
-  late Font _font;
+  late int _fontIndex;
   int _fontWeightDelta = 0;
   TargetPlatform _platform = defaultTargetPlatform;
 
@@ -112,10 +117,12 @@ class DynamicThemeData extends ChangeNotifier {
     _config = newConfig;
     _themeName = newConfig.defaultTheme;
     _themeMode = newConfig.defaultThemeMode;
-    _font = newConfig.computedDefaultFont;
+    _fontIndex = 0; // newConfig.computedDefaultFont;
     _config = newConfig;
     if (newConfig.persist) {
       await reloadFromPreferences(doLog: doLog);
+    } else {
+      notifyListeners();
     }
   }
 
@@ -132,41 +139,37 @@ class DynamicThemeData extends ChangeNotifier {
     }
     _prefs = await SharedPreferences.getInstance();
 
-    final thememodeInt = _prefs!.getInt('${_config.prefix}thememode');
-    final themeMode =
-        ThemeMode.values[thememodeInt ?? defaultThemeModeOverride?.index ?? _themeMode.index];
+    final __thememodeInt = _prefs!.getInt('${_config.prefix}thememode');
+    final __themeMode =
+        ThemeMode.values[__thememodeInt ?? defaultThemeModeOverride?.index ?? _themeMode.index];
 
-    final themeName = _prefs!.getString('${_config.prefix}name');
+    final __themeName = _prefs!.getString('${_config.prefix}name');
 
-    final fontName = _prefs!.getString('${_config.prefix}font');
-    final __font = _config.fonts.firstWhere(
-      (f) => f.name == fontName,
-      orElse: () => _config.defaultFont ?? _config.fonts.first,
-    );
+    final __fontIndex = _prefs!.getInt('${_config.prefix}fontIndex') ?? _config.computedDefaultFont;
 
-    final fontWeightD = _prefs!.getInt('${_config.prefix}fontWeightDelta') ?? 0;
+    final __fontWeightD = _prefs!.getInt('${_config.prefix}fontWeightDelta') ?? 0;
 
-    final plat = _prefs!.getInt('${_config.prefix}platform');
+    final __plat = _prefs!.getInt('${_config.prefix}platform');
 
-    final platform = plat != null && plat >= 0 && plat < TargetPlatform.values.length
-        ? TargetPlatform.values[plat]
+    final __platform = __plat != null && __plat >= 0 && __plat < TargetPlatform.values.length
+        ? TargetPlatform.values[__plat]
         : _platform;
 
-    assert(themeName == null || _config.themes.containsKey(themeName),
-        '`$themeName` is not a valid theme name. Themes are ${_config.themes}.');
-    _themeName = _config.themes.containsKey(themeName)
-        ? themeName!
+    assert(__themeName == null || _config.themes.containsKey(__themeName),
+        '`$__themeName` is not a valid theme name. Themes are ${_config.themes}.');
+    _themeName = _config.themes.containsKey(__themeName)
+        ? __themeName!
         : (defaultThemeNameOverride ?? _config.defaultTheme);
-    _themeMode = themeMode;
-    _font = __font;
-    _fontWeightDelta = fontWeightD;
-    _platform = platform;
+    _themeMode = __themeMode;
+    _fontIndex = _config.fonts.clamp(__fontIndex);
+    _fontWeightDelta = __fontWeightD;
+    _platform = __platform;
     _invalidateCache();
 
     if (doLog) {
       log(
           'Loaded theme from preferences :\n'
-          'Got : {themMode: ${thememodeInt == null ? null : ThemeMode.values[thememodeInt]}, themeName: $themeName}\n'
+          'Got : {themMode: ${__thememodeInt == null ? null : ThemeMode.values[__thememodeInt]}, themeName: $__themeName}\n'
           'Resolved : {themeMode: $_themeMode, themeName: $_themeName}',
           name: 'dynamic_theme');
     }
@@ -177,21 +180,21 @@ class DynamicThemeData extends ChangeNotifier {
 
   bool get readyToPersist => _isReadyToPersist;
 
-  Font get font => _font;
+  Font get font => _config.fonts.safeGet(_fontIndex);
 
-  String get fontName => _font.name;
-  set fontName(String fontName) {
-    ArgumentError.checkNotNull(fontName, 'font');
-    assert(_config.fonts.any((f) => f.name == fontName),
-        '$fontName is not in the font list provided in config: ${_config.fonts}');
+  int get fontIndex => _fontIndex;
 
-    _font = _config.fonts.firstWhere((f) => f.name == fontName,
-        orElse: () => throw StateError('Could not find "$font" in ${_config.fonts}'));
+  set fontIndex(int i) {
+    ArgumentError.checkNotNull(i, 'fontIndex');
+    assert(i >= 0 && i < _config.fonts.length,
+        '$fontIndex must be is not in range 0 (inclusive) to ${_config.fonts.length} (exclusive)');
+
+    _fontIndex = i;
     _invalidateCache();
     notifyListeners();
     if (_config.persist) {
       _checkPrefsState();
-      _prefs!.setString('${_config.prefix}font', fontName);
+      _prefs!.setInt('${_config.prefix}fontIndex', i);
     }
   }
 
@@ -337,4 +340,10 @@ typedef ApplyTo<T> = T Function(T);
 extension ApplyToX<T> on ApplyTo<T> {
   /// Compose two functions: (a*b)(x) = a(b(x)).
   ApplyTo<T> operator *(ApplyTo<T> fn) => (val) => this(fn(val));
+}
+
+extension ListX<T> on List<T> {
+  T safeGet(int i) => this[clamp(i)];
+
+  int clamp(int i) => i.clamp(0, length - 1);
 }
