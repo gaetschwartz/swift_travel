@@ -31,6 +31,7 @@ Map<String, dynamic> predictRouteSimple(Map<String, dynamic> input) {
 
 RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments arguments) {
   if (routes.isEmpty) {
+    print('Empty history, returning empty prediction');
     return RoutePrediction(null, 0, arguments);
   }
 

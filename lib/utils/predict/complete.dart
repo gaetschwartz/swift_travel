@@ -58,32 +58,36 @@ class CompletionEngine {
     final favs = distances.entries.toList(growable: false)
       ..sort((a, b) => a.value.compareTo(b.value));
 
-    final list = returnedList(query, currentLocationString, null, history, favs, completions);
+    final list =
+        returnedList(query, currentLocationString, null, history, favs, completions, doPredict);
     yield list;
 
     if (doPredict) {
       assert(date != null, 'If you use prediction, you must provide a date argument');
       final prediction = await predictRoute(history, PredictionArguments.source(date!, query));
-      final event =
-          returnedList(query, currentLocationString, prediction, history, favs, completions);
+      final event = returnedList(
+          query, currentLocationString, prediction, history, favs, completions, doPredict);
       yield event;
     }
   }
 
   List<Completion> returnedList(
-      String query,
-      String? currentLocationString,
-      RoutePrediction? prediction,
-      Iterable<LocalRoute> history,
-      Iterable<MapEntry<FavoriteStop, double>> favs,
-      Iterable<Completion> completions) {
+    String query,
+    String? currentLocationString,
+    RoutePrediction? prediction,
+    Iterable<LocalRoute> history,
+    Iterable<MapEntry<FavoriteStop, double>> favs,
+    Iterable<Completion> completions,
+    bool doPredict,
+  ) {
     return [
       if (currentLocationString != null)
         SbbCompletion(label: currentLocationString, origin: DataOrigin.currentLocation),
-      if (prediction != null && prediction.prediction != null)
-        SbbCompletion(label: prediction.prediction?.to ?? '', origin: DataOrigin.prediction)
-      else
-        SbbCompletion(label: query, origin: DataOrigin.loading),
+      if (doPredict)
+        if (prediction == null)
+          SbbCompletion(label: query, origin: DataOrigin.loading)
+        else if (prediction.prediction != null)
+          SbbCompletion(label: prediction.prediction!.to, origin: DataOrigin.prediction),
       if (history.isNotEmpty)
         ...history
             .flatMap((e) => [
