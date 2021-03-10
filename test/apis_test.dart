@@ -32,11 +32,11 @@ void main() {
       final store = container.read(preferencesProvider);
       await store.loadFromPreferences();
 
-      store.api = NavigationApi.sbb;
+      store.api.value = NavigationApi.sbb;
       var navApi = container.read(navigationAPIProvider);
       expect(navApi, isA<SearchChApi>());
 
-      store.api = NavigationApi.sncf;
+      store.api.value = NavigationApi.sncf;
       navApi = container.read(navigationAPIProvider);
       expect(navApi, isA<SncfApi>());
 

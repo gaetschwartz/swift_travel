@@ -38,7 +38,9 @@ const _dark = ColorScheme.dark();
 ThemeConfiguration get themeConfiguration {
   return ThemeConfiguration(
     fonts: fonts,
+    defaultFont: fonts.first,
     applyToAllThemes: (t) => t.copyWith(fixTextFieldOutlineLabel: true),
+    defaultTheme: 'default',
     themes: {
       'default': FullTheme(
         name: 'Swift',

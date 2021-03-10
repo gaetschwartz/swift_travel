@@ -86,7 +86,7 @@ void reportFlutterError(FlutterErrorDetails details) {
   }
 }
 
-bool get _doReport => !kIsWeb && Firebase.apps.isNotEmpty && PreferencesBloc.i.useAnalytics;
+bool get _doReport => !kIsWeb && Firebase.apps.isNotEmpty && PreferencesBloc.i.useAnalytics.value;
 
 class ErrorPage extends StatefulWidget {
   const ErrorPage(

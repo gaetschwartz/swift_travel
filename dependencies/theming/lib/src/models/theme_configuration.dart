@@ -13,7 +13,7 @@ class ThemeConfiguration with _$ThemeConfiguration {
     @Default(ThemeMode.system) ThemeMode defaultThemeMode,
     @Default('default') String defaultTheme,
     @Default(true) bool persist,
-    @Default(defaultFonts) List<Font> fonts,
+    required List<Font> fonts,
     Font? defaultFont,
     @Default(Typography.englishLike2018) TextTheme defaultTextTheme,
     @Default(_i) ThemeData Function(ThemeData themeData) applyToAllThemes,
@@ -21,14 +21,10 @@ class ThemeConfiguration with _$ThemeConfiguration {
 
   const ThemeConfiguration._();
 
-  Font get computedDefaultFont =>
-      defaultFont != null && fonts.contains(defaultFont) ? defaultFont! : defaultFonts.first;
+  int get computedDefaultFont {
+    final i = fonts.indexWhere((f) => defaultFont == f);
+    return i == -1 ? 0 : i;
+  }
 }
 
 ThemeData _i(ThemeData t) => t;
-
-const _default = Font('Default', _identity);
-
-const List<Font> defaultFonts = [_default];
-
-TextTheme _identity(TextTheme t) => t;

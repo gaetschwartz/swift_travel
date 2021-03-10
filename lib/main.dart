@@ -85,31 +85,52 @@ void overridePlatform() {
   }
 }
 
-void _runApp() => runApp(wrappedApp());
+void _runApp() => runApp(const FullApp());
 
-GestureDetector wrappedApp() {
-  return GestureDetector(
-    onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-    excludeFromSemantics: true,
-    behavior: HitTestBehavior.opaque,
-    child: ProviderScope(
+class FullApp extends StatefulWidget {
+  const FullApp({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _FullAppState createState() => _FullAppState();
+}
+
+class _FullAppState extends State<FullApp> {
+  final dynamicThemeData = DynamicThemeData();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    log('Reload theme');
+    dynamicThemeData.configure(themeConfiguration);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ProviderScope(
       child: DynamicTheme(
-        theme: DynamicThemeData(),
-        child: const MyApp(),
+        theme: dynamicThemeData,
+        child: const Unfocus(child: SwiftTravelApp()),
       ),
-    ),
-  );
+    );
+  }
 }
 
 final ctrl = defaultTargetPlatform == TargetPlatform.macOS
     ? LogicalKeyboardKey.meta
     : LogicalKeyboardKey.control;
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class SwiftTravelApp extends StatefulWidget {
+  const SwiftTravelApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  _SwiftTravelAppState createState() => _SwiftTravelAppState();
 }
 
 class TabIntent extends Intent {
@@ -140,14 +161,7 @@ class EscapeIntent extends Intent {
 
 const digit1KeyId = 0x10700000031;
 
-class _MyAppState extends State<MyApp> {
-  @override
-  void reassemble() {
-    super.reassemble();
-    log('Reload theme');
-    DynamicTheme.of(context).configure(themeConfiguration);
-  }
-
+class _SwiftTravelAppState extends State<SwiftTravelApp> {
   final shortcuts2 = {
     LogicalKeySet(LogicalKeyboardKey.escape): const EscapeIntent(),
     LogicalKeySet(ctrl, LogicalKeyboardKey.tab): const SwitchTabIntent(),
@@ -200,7 +214,7 @@ class _MyAppState extends State<MyApp> {
           print('Switching tab');
           final tabs = context.read(tabProvider);
           tabs.setPage(
-            (tabs.page + 1) % (isDarwin ? MainApp.iosTabs.length : MainApp.androidTabs.length),
+            (tabs.page + 1) % (isDarwin ? TabView.iosTabs.length : TabView.androidTabs.length),
             isDarwin: isDarwin,
           );
           return null;
@@ -226,8 +240,10 @@ class _MyAppState extends State<MyApp> {
             child: child!,
           );
         },
-        elseBuilder: (context, child) =>
-            ScrollConfiguration(behavior: const NoOverscrollGlowBehavior(), child: child!),
+        elseBuilder: (context, child) => ScrollConfiguration(
+          behavior: const NoOverscrollGlowBehavior(),
+          child: child!,
+        ),
         child: child,
       ),
       initialRoute: 'loading',
@@ -273,7 +289,7 @@ Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
     case '/':
       return platformRoute(
         settings: settings,
-        builder: (_) => const MainApp(),
+        builder: (_) => const TabView(),
         isDarwin: isDarwin,
       );
     case 'loading':
@@ -373,12 +389,6 @@ Route<T> platformRoute<T extends Object?>({
           fullscreenDialog: fullscreenDialog,
           maintainState: maintainState,
         );
-}
-
-class Routes {
-  Routes._();
-
-  static const route = '/route';
 }
 
 class Unfocus extends StatelessWidget {

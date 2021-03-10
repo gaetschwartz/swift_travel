@@ -145,7 +145,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
 
   ListTile _buildStop(LiveRouteController controller, int i, int j, Stop s) {
     final selected = s.name == controller.currentStop?.name;
-    final dist = controller.legDistances[i]![j];
+    final dist = controller.legDistances[i]?[j];
     return ListTile(
       selected: selected,
       dense: true,

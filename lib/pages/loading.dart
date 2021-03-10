@@ -208,7 +208,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     if (Env.page.isEmpty) {
       return Navigator.of(context).pushReplacement(
         platformRoute(
-          builder: (context) => const MainApp(),
+          builder: (context) => const TabView(),
           isDarwin: isDarwin,
           settings: const RouteSettings(name: '/'),
         ),

@@ -155,7 +155,7 @@ class CompletionTile extends ConsumerWidget {
           await store.addStop(FavoriteStop.fromCompletion(
             sugg,
             name: name,
-            api: context.read(preferencesProvider).api,
+            api: context.read(preferencesProvider).api.value,
           ));
         }
         break;

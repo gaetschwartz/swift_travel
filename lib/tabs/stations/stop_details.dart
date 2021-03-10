@@ -61,7 +61,7 @@ class _StopDetailsState extends State<StopDetails> {
                       context,
                       (context) => RoutePage.stop(FavoriteStop.fromStop(
                             widget.stop.name,
-                            api: context.read(preferencesProvider).api,
+                            api: context.read(preferencesProvider).api.value,
                           )));
                 })),
         child: buildIOSList(),
@@ -88,7 +88,7 @@ class _StopDetailsState extends State<StopDetails> {
                         context,
                         (context) => RoutePage.stop(FavoriteStop.fromStop(
                               widget.stop.name,
-                              api: context.read(preferencesProvider).api,
+                              api: context.read(preferencesProvider).api.value,
                             )));
                   })
             ],

@@ -3,10 +3,10 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 
 import '../db/preferences.dart';
 
-final navigationAPIProvider = Provider<BaseNavigationApi>((ref) {
-  final prefs = ref.watch(preferencesProvider);
+final Provider<BaseNavigationApi> navigationAPIProvider = Provider((ref) {
+  final prefs = ref.read(preferencesProvider);
 
-  final api = BaseNavigationApi.getFactory(prefs.api).create(ref.read);
+  final api = BaseNavigationApi.getFactory(prefs.api.value).create(ref.read);
   ref.onDispose(api.dispose);
   return api;
 });

@@ -234,30 +234,19 @@ void main() {
     test('prefs persist', () async {
       final container = ProviderContainer();
 
-      final listener = PrefsListener();
       final store = container.read(preferencesProvider);
 
-      store.addListener(listener);
+      await store.loadFromPreferences(prefs: prefs);
+      store.api.value = NavigationApi.sbb;
+      store.mapsApp.value = Maps.apple;
+
+      store.api.value = NavigationApi.sncf;
+      store.mapsApp.value = Maps.google;
 
       await store.loadFromPreferences(prefs: prefs);
-      verify(listener()).called(1);
-      store.api = NavigationApi.sbb;
-      verify(listener()).called(1);
-      store.mapsApp = Maps.apple;
-      verify(listener()).called(1);
-
-      store.api = NavigationApi.sncf;
-      verify(listener()).called(1);
-      store.mapsApp = Maps.google;
-      verify(listener()).called(1);
-
-      await store.loadFromPreferences(prefs: prefs);
-      verify(listener()).called(1);
 
       expect(store.api, NavigationApi.sncf);
       expect(store.mapsApp, Maps.google);
-
-      verifyNoMoreInteractions(listener);
     });
   });
 }

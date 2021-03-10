@@ -22,7 +22,7 @@ class _$ThemeConfigurationTearOff {
       ThemeMode defaultThemeMode = ThemeMode.system,
       String defaultTheme = 'default',
       bool persist = true,
-      List<Font> fonts = defaultFonts,
+      required List<Font> fonts,
       Font? defaultFont,
       TextTheme defaultTextTheme = Typography.englishLike2018,
       ThemeData Function(ThemeData) applyToAllThemes = _i}) {
@@ -213,7 +213,7 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
       this.defaultThemeMode = ThemeMode.system,
       this.defaultTheme = 'default',
       this.persist = true,
-      this.fonts = defaultFonts,
+      required this.fonts,
       this.defaultFont,
       this.defaultTextTheme = Typography.englishLike2018,
       this.applyToAllThemes = _i})
@@ -233,7 +233,6 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
   @JsonKey(defaultValue: true)
   @override
   final bool persist;
-  @JsonKey(defaultValue: defaultFonts)
   @override
   final List<Font> fonts;
   @override
@@ -307,7 +306,7 @@ abstract class _ThemeConfiguration extends ThemeConfiguration {
       ThemeMode defaultThemeMode,
       String defaultTheme,
       bool persist,
-      List<Font> fonts,
+      required List<Font> fonts,
       Font? defaultFont,
       TextTheme defaultTextTheme,
       ThemeData Function(ThemeData) applyToAllThemes}) = _$_ThemeConfiguration;
