@@ -30,7 +30,6 @@ import 'package:swift_travel/widgets/modal.dart';
 import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
-import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 import 'properties/property.dart';
@@ -325,12 +324,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarwin = Responsive.isDarwin(context);
     return DividerTheme(
       data: const DividerThemeData(indent: 16, endIndent: 16),
-      child: IfWrapper(
-          condition: isDarwin,
-          builder: (context, child) => Material(
+      child: PlatformBuilder(
+          cupertinoBuilder: (context, child) => Material(
                 child: CupertinoPageScaffold(
                   resizeToAvoidBottomInset: false,
                   navigationBar: SwiftCupertinoBar(
@@ -339,26 +336,26 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: child!,
                 ),
               ),
-          elseBuilder: (context, child) => Scaffold(body: child),
-          child: CustomScrollView(
-            key: const Key('settings-scrollview'),
-            slivers: [
-              if (!isDarwin)
-                SliverAppBar(
-                  title: Text(AppLoc.of(context).settings),
-                  pinned: true,
-                ),
-              SliverSafeArea(
-                top: isDarwin,
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, i) => children[i](context),
-                    childCount: children.length,
+          materialBuilder: (context, child) => Scaffold(body: child),
+          builder: (context, d) => CustomScrollView(
+                key: const Key('settings-scrollview'),
+                slivers: [
+                  if (d == PlatformDesign.material)
+                    SliverAppBar(
+                      title: Text(AppLoc.of(context).settings),
+                      pinned: true,
+                    ),
+                  SliverSafeArea(
+                    top: d == PlatformDesign.cupertino,
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, i) => children[i](context),
+                        childCount: children.length,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ],
-          )),
+                ],
+              )),
     );
   }
 }

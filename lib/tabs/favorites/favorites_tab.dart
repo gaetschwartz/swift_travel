@@ -34,44 +34,39 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
   bool get wantKeepAlive => true;
 
   late final BaseFavoritesStore store = context.read(storeProvider);
-  bool isDarwin = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    isDarwin = Responsive.isDarwin(context);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return IfWrapper(
-      condition: isDarwin,
-      builder: (context, child) => CupertinoPageScaffold(
+    return PlatformBuilder(
+      cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(
           trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
         ),
         child: child!,
       ),
-      elseBuilder: (context, child) => Scaffold(
+      materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_favourites)),
-        floatingActionButton: isDarwin
-            ? null
-            : ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  shadowColor: ShadowTheme.of(context).buttonShadow!.color,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                ),
-                onPressed: addFav,
-                icon: const Icon(Icons.add),
-                label: Text(AppLoc.of(context).add_to_favs),
-              ),
+        floatingActionButton: ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            shape: const StadiumBorder(),
+            shadowColor: ShadowTheme.of(context).buttonShadow!.color,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          ),
+          onPressed: addFav,
+          icon: const Icon(Icons.add),
+          label: Text(AppLoc.of(context).add_to_favs),
+        ),
         body: child,
       ),
-      child: Consumer(builder: (context, w, _) {
+      builder: (context, d) => Consumer(builder: (context, w, _) {
         final stops = w(favoritesStatesProvider)
             .state
             .maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
@@ -106,7 +101,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
             : ListView.builder(
                 itemCount: stops.length + routes.length,
                 itemBuilder: (context, i) => IfWrapper(
-                  condition: isDarwin,
+                  condition: d == PlatformDesign.cupertino,
                   builder: (context, child) => Column(
                     children: [
                       const Divider(height: 0),

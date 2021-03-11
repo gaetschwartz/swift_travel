@@ -224,9 +224,8 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
       onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: isDarwin),
       onUnknownRoute: (settings) => onUnknownRoute<void>(settings, isDarwin: isDarwin),
       onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin: isDarwin),
-      builder: (context, child) => IfWrapper(
-        condition: Responsive.isDarwin(context),
-        builder: (context, child) {
+      builder: (context, child) => PlatformBuilder(
+        cupertinoBuilder: (context, child) {
           final t = Theme.of(context);
           final cupertinoOverride = t.cupertinoOverrideTheme ?? const NoDefaultCupertinoThemeData();
           return CupertinoTheme(
@@ -241,7 +240,7 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
             child: child!,
           );
         },
-        elseBuilder: (context, child) => ScrollConfiguration(
+        materialBuilder: (context, child) => ScrollConfiguration(
           behavior: const NoOverscrollGlowBehavior(),
           child: child!,
         ),

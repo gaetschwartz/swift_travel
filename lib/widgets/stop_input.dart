@@ -12,7 +12,6 @@ import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/completion.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
-import 'package:theming/responsive.dart';
 
 class StopInputDialog extends StatefulWidget {
   const StopInputDialog({
@@ -76,14 +75,13 @@ class _StopInputDialogState extends State<StopInputDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return IfWrapper(
-      condition: Responsive.isDarwin(context),
-      builder: (context, child) => CupertinoPageScaffold(
+    return PlatformBuilder(
+      cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(middle: Text(widget.title)),
         child: SafeArea(child: child!),
       ),
-      elseBuilder: (context, child) => Scaffold(
+      materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(leading: const CloseButton(), title: Text(widget.title)),
         body: child,

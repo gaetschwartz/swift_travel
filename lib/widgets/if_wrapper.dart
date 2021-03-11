@@ -23,17 +23,24 @@ class IfWrapper extends StatelessWidget {
           : child!;
 }
 
+enum PlatformDesign {
+  cupertino,
+  material,
+}
+
 class PlatformBuilder extends StatefulWidget {
   const PlatformBuilder({
     Key? key,
     required this.cupertinoBuilder,
     required this.materialBuilder,
     this.child,
+    this.builder,
   }) : super(key: key);
 
   final Widget Function(BuildContext context, Widget? child) cupertinoBuilder;
   final Widget? child;
   final Widget Function(BuildContext context, Widget? child) materialBuilder;
+  final Widget Function(BuildContext context, PlatformDesign design)? builder;
 
   @override
   _PlatformBuilderState createState() => _PlatformBuilderState();
@@ -49,7 +56,14 @@ class _PlatformBuilderState extends State<PlatformBuilder> {
   }
 
   @override
-  Widget build(BuildContext context) => isCupertino
-      ? widget.cupertinoBuilder(context, widget.child)
-      : widget.materialBuilder(context, widget.child);
+  Widget build(BuildContext context) {
+    final child = widget.child ??
+        widget.builder?.call(
+          context,
+          isCupertino ? PlatformDesign.cupertino : PlatformDesign.material,
+        );
+    return isCupertino
+        ? widget.cupertinoBuilder(context, child)
+        : widget.materialBuilder(context, child);
+  }
 }

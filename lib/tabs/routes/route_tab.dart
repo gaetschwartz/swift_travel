@@ -285,14 +285,13 @@ class RoutePageState extends State<RoutePage> {
   @override
   Widget build(BuildContext context) {
     final isDarwin = Responsive.isDarwin(context);
-    return IfWrapper(
-      condition: isDarwin,
-      builder: (context, child) => CupertinoPageScaffold(
+    return PlatformBuilder(
+      cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         navigationBar: const SwiftCupertinoBar(),
         resizeToAvoidBottomInset: false,
         child: child!,
       ),
-      elseBuilder: (context, child) {
+      materialBuilder: (context, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: materialAppBar(context,

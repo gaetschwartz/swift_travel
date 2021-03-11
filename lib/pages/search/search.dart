@@ -203,13 +203,10 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
-  late final isDarwin = Responsive.isDarwin(context);
-
   @override
   Widget build(BuildContext context) {
-    return IfWrapper(
-      condition: isDarwin,
-      builder: (context, child) => Material(
+    return PlatformBuilder(
+      cupertinoBuilder: (context, child) => Material(
         child: CupertinoPageScaffold(
           resizeToAvoidBottomInset: false,
           navigationBar: SwiftCupertinoBar(
@@ -233,7 +230,7 @@ class _SearchPageState extends State<SearchPage> {
           child: child!,
         ),
       ),
-      elseBuilder: (context, child) {
+      materialBuilder: (context, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(

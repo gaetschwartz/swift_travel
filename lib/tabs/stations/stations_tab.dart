@@ -22,7 +22,6 @@ import 'package:swift_travel/utils/predict/complete.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
-import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
@@ -86,23 +85,19 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final isDarwin = Responsive.isDarwin(context);
-    return IfWrapper(
-      condition: isDarwin,
-      builder: (context, child) => CupertinoPageScaffold(
+    return PlatformBuilder(
+      cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         navigationBar: SwiftCupertinoBar(
           middle: Text(AppLoc.of(context).timetable),
         ),
         resizeToAvoidBottomInset: false,
         child: child!,
       ),
-      elseBuilder: (context, child) {
-        return Scaffold(
-          appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_search)),
-          resizeToAvoidBottomInset: false,
-          body: child,
-        );
-      },
+      materialBuilder: (context, child) => Scaffold(
+        appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_search)),
+        resizeToAvoidBottomInset: false,
+        body: child,
+      ),
       child: SafeArea(
         bottom: false,
         child: Column(

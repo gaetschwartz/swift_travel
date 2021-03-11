@@ -9,7 +9,6 @@ import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
-import 'package:theming/responsive.dart';
 
 class NextStopsPage extends StatefulWidget {
   const NextStopsPage({required this.c, Key? key, required this.s}) : super(key: key);
@@ -45,13 +44,12 @@ class _NextStopsPageState extends State<NextStopsPage> {
     return SafeArea(
       top: false,
       bottom: false,
-      child: IfWrapper(
-        condition: Responsive.isDarwin(context),
-        builder: (context, child) => CupertinoPageScaffold(
+      child: PlatformBuilder(
+        cupertinoBuilder: (context, child) => CupertinoPageScaffold(
           navigationBar: const SwiftCupertinoBar(),
           child: child!,
         ),
-        elseBuilder: (context, child) => Scaffold(
+        materialBuilder: (context, child) => Scaffold(
             appBar: AppBar(
               leading: const BackButton(),
               title: Text(widget.c.terminal.name),

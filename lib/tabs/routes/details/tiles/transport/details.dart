@@ -11,7 +11,6 @@ import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:theming/dynamic_theme.dart';
-import 'package:theming/responsive.dart';
 
 class TransportDetails extends StatefulWidget {
   const TransportDetails({
@@ -44,21 +43,16 @@ class _TransportDetailsState extends State<TransportDetails> {
       .where((e) => !e.ignore)
       .toList(growable: false);
 
-  late final isDarwin = Responsive.isDarwin(context);
-
   @override
   Widget build(BuildContext context) {
     final empty = attributes.isEmpty;
     final dividerCount = empty ? 0 : 1;
-    return IfWrapper(
-      condition: isDarwin,
-      builder: (context, child) {
-        return CupertinoPageScaffold(
-          navigationBar: SwiftCupertinoBar(middle: Text(title)),
-          child: child!,
-        );
-      },
-      elseBuilder: (context, child) => Scaffold(
+    return PlatformBuilder(
+      cupertinoBuilder: (context, child) => CupertinoPageScaffold(
+        navigationBar: SwiftCupertinoBar(middle: Text(title)),
+        child: child!,
+      ),
+      materialBuilder: (context, child) => Scaffold(
         appBar: AppBar(title: Text(title)),
         body: child,
       ),

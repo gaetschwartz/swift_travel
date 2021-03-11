@@ -52,12 +52,12 @@ void main() {
       // ignore: avoid_positional_boolean_parameters
       Widget buildWrapper(bool condition, {bool addElseBuilder = true}) => MaterialApp(
             home: IfWrapper(
-                condition: condition,
-                builder: (_, c) => SizedBox(key: const Key('true-key'), child: c),
-                elseBuilder: addElseBuilder
-                    ? (_, c) => SizedBox(key: const Key('false-key'), child: c)
-                    : null,
-                child: const Text('child')),
+              condition: condition,
+              builder: (_, c) => SizedBox(key: const Key('true-key'), child: c),
+              elseBuilder:
+                  addElseBuilder ? (_, c) => SizedBox(key: const Key('false-key'), child: c) : null,
+              child: const Text('child'),
+            ),
           );
 
       await t.pumpWidget(buildWrapper(true));
