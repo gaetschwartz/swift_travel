@@ -30,7 +30,7 @@ class _TransportDetailsState extends State<TransportDetails> {
       SbbStop(widget.leg.name, departure: widget.leg.departure),
       isFirst: true,
     ),
-    ...widget.leg.stops.map((s) => _buildStop(s)),
+    ...widget.leg.stops.map(_buildStop),
     _buildStop(
       SbbStop(widget.leg.exit!.name, departure: widget.leg.exit!.arrival),
       isLast: true,

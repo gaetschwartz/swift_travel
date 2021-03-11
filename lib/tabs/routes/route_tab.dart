@@ -195,8 +195,9 @@ class RoutePage extends StatefulWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<LocalRoute?>('localRoute', localRoute));
-    properties.add(DiagnosticsProperty<FavoriteStop?>('favStop', favStop));
+    properties
+      ..add(DiagnosticsProperty<LocalRoute?>('localRoute', localRoute))
+      ..add(DiagnosticsProperty<FavoriteStop?>('favStop', favStop));
   }
 }
 
@@ -613,19 +614,6 @@ class RoutePageState extends State<RoutePage> {
     fnFrom.unfocus();
     fnTo.unfocus();
   }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<FocusNode>('fnFrom', fnFrom));
-    properties.add(DiagnosticsProperty<FocusNode>('fnTo', fnTo));
-    properties.add(DiagnosticsProperty<MyTextFormatter?>('fromFormatter', fromFormatter));
-    properties.add(DiagnosticsProperty<MyTextFormatter?>('toFormatter', toFormatter));
-    properties.add(DiagnosticsProperty<BaseFavoritesStore>('favorites', favorites));
-    properties.add(DiagnosticsProperty<BaseNavigationApi>('api', api));
-    properties
-        .add(DiagnosticsProperty<RouteHistoryRepository>('historyRepository', historyRepository));
-  }
 }
 
 final _predictionProvider = FutureProvider<RoutePrediction>((ref) => predictRoute(
@@ -735,11 +723,12 @@ class RoutesView extends StatelessWidget {
             Expanded(
                 child: Center(
               child: Responsive.isDarwin(context)
-                  ? CupertinoButton.filled(
-                      onPressed: () => Geolocator.openAppSettings(),
-                      child: const Text('Open settings'))
+                  ? const CupertinoButton.filled(
+                      onPressed: Geolocator.openAppSettings,
+                      child: Text('Open settings'),
+                    )
                   : ElevatedButton(
-                      onPressed: () => Geolocator.openAppSettings(),
+                      onPressed: Geolocator.openAppSettings,
                       style: ElevatedButton.styleFrom(
                         shadowColor: ShadowTheme.of(context).buttonShadow?.color,
                         elevation: 8,
@@ -967,12 +956,6 @@ class _Segmented extends StatefulWidget {
 
   @override
   __SegmentedState createState() => __SegmentedState();
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(EnumProperty<TimeType>('initialValue', initialValue));
-    properties.add(ObjectFlagProperty<ValueChanged<TimeType>>.has('onChange', onChange));
-  }
 }
 
 class __SegmentedState extends State<_Segmented> {
