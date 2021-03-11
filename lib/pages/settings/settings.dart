@@ -242,7 +242,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: const Text('Attributes crawler'),
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).push(
-                    PlatformRoute(
+                    PlatformPageRoute(
                       builder: (context) => const CrawlerPage(),
                     ),
                   );
@@ -252,7 +252,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: const Text('Route history'),
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).push(
-                    PlatformRoute(
+                    PlatformPageRoute(
                       builder: (context) => const RouteHistoryPage(),
                     ),
                   );
@@ -333,8 +333,7 @@ class _SettingsPageState extends State<SettingsPage> {
           builder: (context, child) => Material(
                 child: CupertinoPageScaffold(
                   resizeToAvoidBottomInset: false,
-                  navigationBar: cupertinoBar(
-                    context,
+                  navigationBar: SwiftCupertinoBar(
                     middle: Text(AppLoc.of(context).settings),
                   ),
                   child: child!,

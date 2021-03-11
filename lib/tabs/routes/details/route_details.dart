@@ -39,8 +39,7 @@ class RouteDetails extends StatelessWidget {
         condition: darwin,
         builder: (context, child) => Material(
               child: CupertinoPageScaffold(
-                navigationBar: cupertinoBar(
-                  context,
+                navigationBar: SwiftCupertinoBar(
                   middle: Text(AppLoc.of(context).tabs_route),
                   trailing: IconButton(
                     icon: const Icon(Icons.more_horiz),

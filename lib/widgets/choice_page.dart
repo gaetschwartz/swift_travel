@@ -63,7 +63,7 @@ class _ChoicePageState<T> extends State<ChoicePage<T>> {
     return PlatformBuilder(
       cupertinoBuilder: (context, child) {
         return CupertinoPageScaffold(
-          navigationBar: cupertinoBar(context,
+          navigationBar: SwiftCupertinoBar(
               middle: widget.title,
               leading: CupertinoButton(
                 padding: EdgeInsets.zero,

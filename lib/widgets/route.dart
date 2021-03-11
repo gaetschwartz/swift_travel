@@ -3,8 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class PlatformRoute<T extends Object?> extends MaterialWithModalsPageRoute<T> {
-  PlatformRoute({
+class PlatformPageRoute<T extends Object?> extends MaterialWithModalsPageRoute<T>
+    with PlatformRouteTitleMixin {
+  PlatformPageRoute({
     required WidgetBuilder builder,
     RouteSettings? settings,
     bool maintainState = true,
@@ -16,24 +17,15 @@ class PlatformRoute<T extends Object?> extends MaterialWithModalsPageRoute<T> {
             builder: builder,
             maintainState: maintainState);
 
+  @override
   final String? title;
+}
+
+mixin PlatformRouteTitleMixin<T> on PageRoute<T> {
+  String? get title;
 
   ValueNotifier<String?>? _previousTitle;
 
-  /// The title string of the previous [CupertinoPageRoute].
-  ///
-  /// The [ValueListenable]'s value is readable after the route is installed
-  /// onto a [Navigator]. The [ValueListenable] will also notify its listeners
-  /// if the value changes (such as by replacing the previous route).
-  ///
-  /// The [ValueListenable] itself will be null before the route is installed.
-  /// Its content value will be null if the previous route has no title or
-  /// is not a [CupertinoPageRoute].
-  ///
-  /// See also:
-  ///
-  ///  * [ValueListenableBuilder], which can be used to listen and rebuild
-  ///    widgets based on a ValueListenable.
   ValueListenable<String?> get previousTitle {
     assert(
       _previousTitle != null,
@@ -47,7 +39,7 @@ class PlatformRoute<T extends Object?> extends MaterialWithModalsPageRoute<T> {
     late final String? previousTitleString;
     if (previousRoute is CupertinoRouteTransitionMixin) {
       previousTitleString = previousRoute.title;
-    } else if (previousRoute is PlatformRoute) {
+    } else if (previousRoute is PlatformRouteTitleMixin) {
       previousTitleString = previousRoute.title;
     } else {
       previousTitleString = null;
@@ -61,10 +53,32 @@ class PlatformRoute<T extends Object?> extends MaterialWithModalsPageRoute<T> {
     super.didChangePrevious(previousRoute);
   }
 
-  static String? getPreviousTitle(BuildContext context) {
+  static String? getPreviousTitleOf(BuildContext context) {
     final route = ModalRoute.of(context);
-    if (route is PlatformRoute && route.isFirst) {
+    print('Current route is a ${route.runtimeType}');
+    if (route == null || route.isFirst) {
+      return null;
+    }
+
+    if (route is PlatformRouteTitleMixin) {
       return route.previousTitle.value;
+    }
+    if (route is CupertinoRouteTransitionMixin) {
+      return route.previousTitle.value;
+    }
+  }
+
+  static String? getPageTitleOf(BuildContext context) {
+    final route = ModalRoute.of(context);
+    if (route == null) {
+      return null;
+    }
+
+    if (route is PlatformRouteTitleMixin) {
+      return route.title;
+    }
+    if (route is CupertinoRouteTransitionMixin) {
+      return route.title;
     }
   }
 }

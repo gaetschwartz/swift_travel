@@ -44,7 +44,7 @@ class Property<T extends Object?> extends ChangeNotifier {
     }
   }
 
-  ChangeNotifierProvider<Property<T>> get provider => ChangeNotifierProvider((r) => this);
+  late final ChangeNotifierProvider<Property<T>> provider = ChangeNotifierProvider((r) => this);
 
   static T Function(T?) getFromPreferences<T>(
     String key,
@@ -60,21 +60,33 @@ class Property<T extends Object?> extends ChangeNotifier {
   static void Function(T) saveInPreferences<T>(
     String key,
     SharedPreferences Function() preferencesGetter,
-  ) =>
-      (value) async {
-        final prefs = preferencesGetter();
-        if (value is String) {
-          await prefs.setString(key, value);
-        } else if (value is int) {
-          await prefs.setInt(key, value);
-        } else if (value is bool) {
-          await prefs.setBool(key, value);
-        } else if (value is List<String>) {
-          await prefs.setStringList(key, value);
-        } else if (value is double) {
-          await prefs.setDouble(key, value);
-        } else {
-          assert(false, 'Type ${value.runtimeType} is not supported for shared preferences');
-        }
-      };
+  ) {
+    final prefs = preferencesGetter();
+    return (value) async {
+      if (value is String) {
+        await prefs.setString(key, value);
+      } else if (value is int) {
+        await prefs.setInt(key, value);
+      } else if (value is bool) {
+        await prefs.setBool(key, value);
+      } else if (value is List<String>) {
+        await prefs.setStringList(key, value);
+      } else if (value is double) {
+        await prefs.setDouble(key, value);
+      } else {
+        assert(false, 'Type ${value.runtimeType} is not supported for shared preferences');
+      }
+    };
+  }
+}
+
+extension TypeX<T> on T {
+  bool get isNullable => null is T;
+}
+
+void main() {
+  String? s;
+  print(s.isNullable); // true
+  const t = '';
+  print(t.isNullable); // false
 }

@@ -212,8 +212,7 @@ class _SearchPageState extends State<SearchPage> {
       builder: (context, child) => Material(
         child: CupertinoPageScaffold(
           resizeToAvoidBottomInset: false,
-          navigationBar: cupertinoBar(
-            context,
+          navigationBar: SwiftCupertinoBar(
             transitionBetweenRoutes: false,
             middle: Hero(
               tag: widget.heroTag,

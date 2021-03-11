@@ -53,7 +53,7 @@ class _StopDetailsState extends State<StopDetails> {
     if (Responsive.isDarwin(context)) {
       return CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
-        navigationBar: cupertinoBar(context,
+        navigationBar: SwiftCupertinoBar(
             trailing: IconButton(
                 icon: const Icon(Icons.double_arrow_rounded),
                 onPressed: () {
@@ -201,7 +201,7 @@ class ConnectionTile extends StatelessWidget {
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      onTap: () => Navigator.of(context).push(PlatformRoute(
+      onTap: () => Navigator.of(context).push(PlatformPageRoute(
         builder: (context) => NextStopsPage(c: c, s: s),
         title: s!.name,
       )),
