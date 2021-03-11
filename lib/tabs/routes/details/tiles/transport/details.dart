@@ -54,7 +54,7 @@ class _TransportDetailsState extends State<TransportDetails> {
       condition: isDarwin,
       builder: (context, child) {
         return CupertinoPageScaffold(
-          navigationBar: cupertinoBar(context, middle: Text(title)),
+          navigationBar: SwiftCupertinoBar(middle: Text(title)),
           child: child!,
         );
       },

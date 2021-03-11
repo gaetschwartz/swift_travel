@@ -22,7 +22,7 @@ class AttributesPage extends StatelessWidget {
         condition: isDarwin,
         builder: (context, child) => Material(
               child: CupertinoPageScaffold(
-                navigationBar: cupertinoBar(context, middle: const Text('Attributes')),
+                navigationBar: const SwiftCupertinoBar(middle: Text('Attributes')),
                 child: child!,
               ),
             ),

@@ -121,9 +121,8 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
             child: Material(
               child: Navigator(
                 key: sideBarNavigatorKey,
-                pages: const [SingleWidgetPage<void>(_SideBar(), title: 'Home')],
-                onGenerateRoute: (s) => onGenerateRoute(s, isDarwin: isDarwin),
-                onPopPage: (_, dynamic __) => true,
+                pages: const [SingleWidgetPage<void>(_SideBar())],
+                onPopPage: (_, dynamic __) => false,
               ),
             ),
           )),
@@ -393,7 +392,7 @@ extension BuildContextX on BuildContext {
       read(sideTabBarProvider).state = builder;
       sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {
-      Navigator.of(this, rootNavigator: useRootNavigator).push(PlatformRoute<T>(
+      Navigator.of(this, rootNavigator: useRootNavigator).push(PlatformPageRoute<T>(
         builder: builder,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState,
@@ -466,6 +465,75 @@ AppBar materialAppBar(
             }),
     ],
   );
+}
+
+class SwiftCupertinoBar extends StatefulWidget implements ObstructingPreferredSizeWidget {
+  const SwiftCupertinoBar({
+    Key? key,
+    this.leading,
+    this.automaticallyImplyLeading = true,
+    this.automaticallyImplyMiddle = true,
+    this.previousPageTitle,
+    this.middle,
+    this.trailing,
+    this.brightness,
+    this.padding,
+    this.transitionBetweenRoutes = true,
+    this.opacity = 0.5,
+  }) : super(key: key);
+
+  final Widget? leading;
+  final bool automaticallyImplyLeading;
+  final bool automaticallyImplyMiddle;
+  final String? previousPageTitle;
+  final Widget? middle;
+  final Widget? trailing;
+  final Brightness? brightness;
+  final EdgeInsetsDirectional? padding;
+  final bool transitionBetweenRoutes;
+  final double opacity;
+
+  @override
+  _SwiftCupertinoBarState createState() => _SwiftCupertinoBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kMinInteractiveDimensionCupertino);
+
+  @override
+  bool shouldFullyObstruct(BuildContext context) => opacity == 1.0;
+}
+
+class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
+  String? get _previousPageTitle => PlatformRouteTitleMixin.getPreviousTitleOf(context);
+  String? get _pageTitle => PlatformRouteTitleMixin.getPageTitleOf(context);
+  Widget? get _pageTitleWidget {
+    final title = _pageTitle;
+    if (title == null) {
+      return null;
+    }
+    return Text(title);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final prevPageTitle = widget.automaticallyImplyLeading
+        ? widget.previousPageTitle ?? _previousPageTitle
+        : widget.previousPageTitle;
+    print('Previous page title is $prevPageTitle');
+
+    return CupertinoNavigationBar(
+      leading: widget.leading,
+      automaticallyImplyLeading: widget.automaticallyImplyLeading,
+      automaticallyImplyMiddle: widget.automaticallyImplyMiddle,
+      previousPageTitle: prevPageTitle,
+      middle: widget.automaticallyImplyMiddle ? widget.middle ?? _pageTitleWidget : widget.middle,
+      trailing: widget.trailing,
+      backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(widget.opacity),
+      brightness: widget.brightness,
+      padding: widget.padding,
+      transitionBetweenRoutes: widget.transitionBetweenRoutes,
+    );
+  }
 }
 
 CupertinoNavigationBar cupertinoBar(

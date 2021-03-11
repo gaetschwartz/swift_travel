@@ -45,7 +45,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
           borderRadius: borderRadius,
           onTap: () {
             Navigator.of(context).push(
-              PlatformRoute(
+              PlatformPageRoute(
                 builder: (context) => TransportDetails(leg: widget.l),
               ),
             );

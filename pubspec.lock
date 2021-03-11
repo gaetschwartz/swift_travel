@@ -70,7 +70,7 @@ packages:
       name: build_daemon
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.8"
+    version: "2.1.9"
   build_resolvers:
     dependency: transitive
     description:
@@ -147,7 +147,7 @@ packages:
       name: code_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.6.0"
+    version: "3.7.0"
   collection:
     dependency: "direct main"
     description:
@@ -629,7 +629,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.4"
   shared_preferences_linux:
     dependency: transitive
     description:

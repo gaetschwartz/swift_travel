@@ -48,7 +48,7 @@ class _NextStopsPageState extends State<NextStopsPage> {
       child: IfWrapper(
         condition: Responsive.isDarwin(context),
         builder: (context, child) => CupertinoPageScaffold(
-          navigationBar: cupertinoBar(context),
+          navigationBar: const SwiftCupertinoBar(),
           child: child!,
         ),
         elseBuilder: (context, child) => Scaffold(
@@ -119,7 +119,7 @@ class StopTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () =>
-          Navigator.of(context).push(PlatformRoute(builder: (context) => StopDetails(stop))),
+          Navigator.of(context).push(PlatformPageRoute(builder: (context) => StopDetails(stop))),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SizedBox(

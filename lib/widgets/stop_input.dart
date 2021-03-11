@@ -80,7 +80,7 @@ class _StopInputDialogState extends State<StopInputDialog> {
       condition: Responsive.isDarwin(context),
       builder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
-        navigationBar: cupertinoBar(context, middle: Text(widget.title)),
+        navigationBar: SwiftCupertinoBar(middle: Text(widget.title)),
         child: SafeArea(child: child!),
       ),
       elseBuilder: (context, child) => Scaffold(

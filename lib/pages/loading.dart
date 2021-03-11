@@ -109,7 +109,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       MyQuickActions.i.init();
       await context.read(linksProvider).init(
             push: (p) => navigatorKey.currentState!.push(
-              PlatformRoute(
+              PlatformPageRoute(
                 builder: (_) => RouteDetails(
                   route: p.first,
                   i: p.second,
@@ -207,7 +207,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   Future<void> _routeToDefault() {
     if (Env.page.isEmpty) {
       return Navigator.of(context).pushReplacement(
-        PlatformRoute(
+        PlatformPageRoute(
           builder: (context) => const TabView(),
           settings: const RouteSettings(name: '/'),
         ),

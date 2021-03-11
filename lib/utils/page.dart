@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_travel/widgets/route.dart';
 
-class SingleWidgetPage<T> extends Page<T> {
+class SingleWidgetPage<T extends Object?> extends Page<T> {
   const SingleWidgetPage(
     this.child, {
     String name = '',
@@ -13,32 +14,10 @@ class SingleWidgetPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) {
-    return CupertinoPageBuilder<T>(
+    return PlatformPageRoute<T>(
       builder: (context) => child,
       settings: this,
       title: title,
     );
   }
-}
-
-class CupertinoPageBuilder<T> extends PageRoute<T> with CupertinoRouteTransitionMixin<T> {
-  CupertinoPageBuilder({
-    required this.builder,
-    RouteSettings? settings,
-    bool fullscreenDialog = false,
-    this.title = '',
-    this.maintainState = true,
-  }) : super(
-          fullscreenDialog: fullscreenDialog,
-          settings: settings,
-        );
-
-  final Widget Function(BuildContext) builder;
-  @override
-  final String? title;
-  @override
-  final bool maintainState;
-
-  @override
-  Widget buildContent(BuildContext context) => builder(context);
 }

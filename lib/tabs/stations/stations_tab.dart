@@ -90,8 +90,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     return IfWrapper(
       condition: isDarwin,
       builder: (context, child) => CupertinoPageScaffold(
-        navigationBar: cupertinoBar(
-          context,
+        navigationBar: SwiftCupertinoBar(
+          middle: Text(AppLoc.of(context).timetable),
         ),
         resizeToAvoidBottomInset: false,
         child: child!,

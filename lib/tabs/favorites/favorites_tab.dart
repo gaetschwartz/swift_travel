@@ -49,8 +49,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       condition: isDarwin,
       builder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
-        navigationBar: cupertinoBar(
-          context,
+        navigationBar: SwiftCupertinoBar(
           trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
         ),
         child: child!,

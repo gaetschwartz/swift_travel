@@ -288,7 +288,7 @@ class RoutePageState extends State<RoutePage> {
     return IfWrapper(
       condition: isDarwin,
       builder: (context, child) => CupertinoPageScaffold(
-        navigationBar: cupertinoBar(context),
+        navigationBar: const SwiftCupertinoBar(),
         resizeToAvoidBottomInset: false,
         child: child!,
       ),

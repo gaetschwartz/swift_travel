@@ -259,14 +259,14 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
 
     switch (uri.path) {
       case '/route':
-        routes.add(PlatformRoute<void>(
+        routes.add(PlatformPageRoute<void>(
           settings: const RouteSettings(name: '/'),
           builder: (_) => LoadingPage(uri: uri),
         ));
         break;
 
       default:
-        routes.add(PlatformRoute<void>(
+        routes.add(PlatformPageRoute<void>(
           settings: const RouteSettings(name: '/'),
           builder: (_) => const LoadingPage(),
         ));
@@ -286,17 +286,17 @@ Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
 
   switch (settings.name) {
     case '/':
-      return PlatformRoute(
+      return PlatformPageRoute(
         settings: settings,
         builder: (_) => const TabView(),
       );
     case 'loading':
-      return PlatformRoute(
+      return PlatformPageRoute(
         settings: settings,
         builder: (_) => const LoadingPage(),
       );
     case '/settings':
-      return PlatformRoute(
+      return PlatformPageRoute(
         settings: settings,
         builder: (_) => const SettingsPage(),
         fullscreenDialog: true,
@@ -305,7 +305,7 @@ Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
     case '/routeDetails':
       if (settings.arguments is Pair<NavRoute, int>) {
         final pair = settings.arguments! as Pair<NavRoute, int>;
-        return PlatformRoute(
+        return PlatformPageRoute(
           settings: settings,
           builder: (_) => RouteDetails(
             route: pair.first,
@@ -317,42 +317,42 @@ Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
       break;
 
     case '/welcome':
-      return PlatformRoute(
+      return PlatformPageRoute(
         settings: settings,
         builder: (_) => const WelcomePage(),
       );
     case '/route':
       if (settings.arguments is LocalRoute) {
-        return PlatformRoute(
+        return PlatformPageRoute(
           settings: settings,
           builder: (_) => RoutePage.route(settings.arguments as LocalRoute?),
         );
       } else if (settings.arguments is FavoriteStop) {
-        return PlatformRoute(
+        return PlatformPageRoute(
           settings: settings,
           builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop?),
         );
       }
       break;
     case '/ourTeam':
-      return PlatformRoute(
+      return PlatformPageRoute(
         settings: settings,
         builder: (_) => const TeamPage(),
       );
     case '/liveRoute':
-      return PlatformRoute(
+      return PlatformPageRoute(
         settings: settings,
         builder: (_) => LiveRoutePage(connection: settings.arguments! as RouteConnection),
       );
     case '/stopDetails':
-      return PlatformRoute(
+      return PlatformPageRoute(
         settings: settings,
         builder: (_) => StopDetails(SbbStop(settings.arguments! as String)),
       );
 
     case '/error':
     case 'error':
-      return PlatformRoute(
+      return PlatformPageRoute(
         settings: settings,
         builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails?),
       );
