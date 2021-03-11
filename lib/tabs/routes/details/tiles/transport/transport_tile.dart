@@ -134,8 +134,9 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                   Attribute.attributes[e.key]?.copyWith(message: e.value) ??
                                   Attribute(code: e.key, message: e.value))
                               .where((e) => !e.ignore)
-                              .toList();
-                          list.sort((a, b) => a.code.compareTo(b.code));
+                              .toList()
+                                ..sort((a, b) => a.code.compareTo(b.code));
+
                           if (isDebugMode) {
                             list.add(const Attribute(
                               code: 'dummy_code',

@@ -54,7 +54,7 @@ class GradientMask extends StatelessWidget {
             data: const IconThemeData(color: Colors.black),
             child: ShaderMask(
               blendMode: BlendMode.srcIn, // Add this
-              shaderCallback: (bounds) => gradient.createShader(bounds),
+              shaderCallback: gradient.createShader,
               child: child,
             ),
           );

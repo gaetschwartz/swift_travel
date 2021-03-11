@@ -41,7 +41,7 @@ class DeepLinkBloc {
     this.push = push;
     this.getApi = getApi;
 
-    _sub = stream.receiveBroadcastStream().cast<String>().listen((d) => _onLink(d));
+    _sub = stream.receiveBroadcastStream().cast<String>().listen(_onLink);
 
     final s = await initialLink;
     if (s != null) {

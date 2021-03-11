@@ -114,8 +114,10 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
     if (t != tick) {
       head = head!.move(dir);
 
-      snecc.removeFirst();
-      snecc.add(head);
+      snecc
+        ..removeFirst()
+        ..add(head);
+
       var isHead = true;
 
       for (var i = snecc.length - 1; i >= 0; i--) {
@@ -272,8 +274,9 @@ class MyPainter extends CustomPainter {
     final block = l / gridSize;
 
     for (var i = 0; i <= gridSize; i++) {
-      canvas.drawLine(Offset(0, i * block), Offset(gridSize * block, i * block), p);
-      canvas.drawLine(Offset(i * block, 0), Offset(i * block, gridSize * block), p);
+      canvas
+        ..drawLine(Offset(0, i * block), Offset(gridSize * block, i * block), p)
+        ..drawLine(Offset(i * block, 0), Offset(i * block, gridSize * block), p);
     }
     for (final p in snecc) {
       canvas.drawRect(Offset(p!.x * block, p.y * block) & Size(block, block), p2);

@@ -161,8 +161,9 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
       final fs = FavoriteStop.fromJson(decode);
       favStops.add(fs);
     }
-    _stops.clear();
-    _stops.addAll(favStops);
+    _stops
+      ..clear()
+      ..addAll(favStops);
 
     ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList(growable: false));
 

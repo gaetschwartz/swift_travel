@@ -74,8 +74,9 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   @override
   void dispose() {
     searchController.dispose();
-    focusNode.removeListener(onFocusChanged);
-    focusNode.dispose();
+    focusNode
+      ..removeListener(onFocusChanged)
+      ..dispose();
     super.dispose();
   }
 
@@ -162,7 +163,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                       return AnimatedLocation(loading: loading);
                     }),
                     tooltip: AppLoc.of(context).use_current_location,
-                    onPressed: () => _getLocation(),
+                    onPressed: _getLocation,
                   )
                 ],
               ),
@@ -309,14 +310,6 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     } finally {
       context.read(_loadingProvider).state = false;
     }
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<TextEditingController>('searchController', searchController));
-    properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode));
   }
 }
 

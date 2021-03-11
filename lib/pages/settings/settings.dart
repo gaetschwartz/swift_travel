@@ -257,11 +257,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   );
                 }),
             ListTile(
-                leading: const Icon(CupertinoIcons.clear),
-                title: const Text('Clear history'),
-                onTap: () {
-                  RouteHistoryRepository.i.clear();
-                }),
+              leading: const Icon(CupertinoIcons.clear),
+              title: const Text('Clear history'),
+              onTap: RouteHistoryRepository.i.clear,
+            ),
             ListTile(
                 leading: const Icon(Icons.screen_lock_landscape),
                 title: const Text('Screen info'),

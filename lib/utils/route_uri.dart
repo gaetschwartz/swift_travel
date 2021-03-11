@@ -26,8 +26,7 @@ extension BoolX on bool {
 }
 
 Map<String, String> decodeRouteUri(Uri uri) {
-  final oldParams = {...uri.queryParameters};
-  oldParams.remove('i');
+  final oldParams = {...uri.queryParameters}..remove('i');
 
   final params = <String, String>{};
 
@@ -80,8 +79,7 @@ Map<String, String> encodeRouteUri(Uri uri, int? i) {
     int.parse(time[1]),
   );
 
-  oldParams.remove('time');
-  oldParams.remove('date');
+  oldParams..remove('time')..remove('date');
 
   for (final e in oldParams.entries) {
     final newKey = translate.entries.firstWhereOrNull((e2) => e.key == e2.value)?.key ?? e.key;

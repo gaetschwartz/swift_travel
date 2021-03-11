@@ -60,7 +60,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                     if (Platform.isWindows) {
                       try {
                         await shell.run('explorer.exe $folder');
-                      } on ShellException {}
+                      } on ShellException catch (_) {}
                     } else if (Platform.isMacOS) {
                       await shell.run('open $folder');
                     }
