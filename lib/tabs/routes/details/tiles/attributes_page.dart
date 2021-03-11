@@ -5,7 +5,6 @@ import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
-import 'package:theming/responsive.dart';
 
 class AttributesPage extends StatelessWidget {
   const AttributesPage(
@@ -17,38 +16,36 @@ class AttributesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarwin = Responsive.isDarwin(context);
-    return IfWrapper(
-        condition: isDarwin,
-        builder: (context, child) => Material(
+    return PlatformBuilder(
+        cupertinoBuilder: (context, child) => Material(
               child: CupertinoPageScaffold(
                 navigationBar: const SwiftCupertinoBar(middle: Text('Attributes')),
                 child: child!,
               ),
             ),
-        elseBuilder: (context, child) => Scaffold(
+        materialBuilder: (context, child) => Scaffold(
               resizeToAvoidBottomInset: false,
               body: child,
             ),
-        child: CustomScrollView(
-          slivers: [
-            if (!isDarwin)
-              const SliverAppBar(
-                title: Text('Attributes'),
-                pinned: true,
-                floating: true,
-              ),
-            SliverSafeArea(
-              top: false,
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, i) => buildAttributeTile(attributes[i]),
-                  childCount: attributes.length,
+        builder: (context, d) => CustomScrollView(
+              slivers: [
+                if (d == PlatformDesign.material)
+                  const SliverAppBar(
+                    title: Text('Attributes'),
+                    pinned: true,
+                    floating: true,
+                  ),
+                SliverSafeArea(
+                  top: false,
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, i) => buildAttributeTile(attributes[i]),
+                      childCount: attributes.length,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ));
+              ],
+            ));
   }
 
   static Widget buildAttributeTile(Attribute att) {

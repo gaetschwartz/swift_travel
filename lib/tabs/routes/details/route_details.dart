@@ -16,7 +16,6 @@ import 'package:swift_travel/utils/share.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
-import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
@@ -34,11 +33,10 @@ class RouteDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final conn = route!.connections[i!];
-    final darwin = Responsive.isDarwin(context);
-    return IfWrapper(
-        condition: darwin,
-        builder: (context, child) => Material(
+    return PlatformBuilder(
+        cupertinoBuilder: (context, child) => Material(
               child: CupertinoPageScaffold(
+                resizeToAvoidBottomInset: false,
                 navigationBar: SwiftCupertinoBar(
                   middle: Text(AppLoc.of(context).tabs_route),
                   trailing: IconButton(
@@ -49,41 +47,41 @@ class RouteDetails extends StatelessWidget {
                 child: child!,
               ),
             ),
-        elseBuilder: (context, child) => Scaffold(
+        materialBuilder: (context, child) => Scaffold(
               resizeToAvoidBottomInset: false,
               body: child,
             ),
-        child: CustomScrollView(
-          slivers: [
-            if (!darwin)
-              SliverAppBar(
-                  title: Text(AppLoc.of(context).tabs_route),
-                  pinned: true,
-                  floating: true,
-                  leading: doShowCloseButton ? const CloseButton() : null,
-                  flexibleSpace: const SizedBox(),
-                  actions: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.more_horiz),
-                      onPressed: () => openShareAction(context, conn),
-                    ),
-                  ]),
-            SliverSafeArea(
-              sliver: SliverToBoxAdapter(child: buildHeader(context, conn)),
-              bottom: false,
-              top: darwin,
-            ),
-            SliverSafeArea(
-              top: false,
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (_, i) => i == 0 ? DepartureTile(conn) : LegTile(conn.legs[i - 1]),
-                  childCount: conn.legs.length + 1,
+        builder: (context, platform) => CustomScrollView(
+              slivers: [
+                if (platform == PlatformDesign.material)
+                  SliverAppBar(
+                      title: Text(AppLoc.of(context).tabs_route),
+                      pinned: true,
+                      floating: true,
+                      leading: doShowCloseButton ? const CloseButton() : null,
+                      flexibleSpace: const SizedBox(),
+                      actions: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.more_horiz),
+                          onPressed: () => openShareAction(context, conn),
+                        ),
+                      ]),
+                SliverSafeArea(
+                  sliver: SliverToBoxAdapter(child: buildHeader(context, conn)),
+                  bottom: false,
+                  top: platform == PlatformDesign.cupertino,
                 ),
-              ),
-            ),
-          ],
-        ));
+                SliverSafeArea(
+                  top: false,
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (_, i) => i == 0 ? DepartureTile(conn) : LegTile(conn.legs[i - 1]),
+                      childCount: conn.legs.length + 1,
+                    ),
+                  ),
+                ),
+              ],
+            ));
   }
 
   void openShareAction(BuildContext context, RouteConnection conn) {
