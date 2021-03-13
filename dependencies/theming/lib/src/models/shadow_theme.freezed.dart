@@ -58,7 +58,8 @@ class _$ShadowThemeCopyWithImpl<$Res> implements $ShadowThemeCopyWith<$Res> {
     return _then(_value.copyWith(
       buttonShadow: buttonShadow == freezed
           ? _value.buttonShadow
-          : buttonShadow as BoxShadow?,
+          : buttonShadow // ignore: cast_nullable_to_non_nullable
+              as BoxShadow?,
     ));
   }
 }
@@ -90,7 +91,8 @@ class __$ShadowThemeCopyWithImpl<$Res> extends _$ShadowThemeCopyWithImpl<$Res>
     return _then(_ShadowTheme(
       buttonShadow: buttonShadow == freezed
           ? _value.buttonShadow
-          : buttonShadow as BoxShadow?,
+          : buttonShadow // ignore: cast_nullable_to_non_nullable
+              as BoxShadow?,
     ));
   }
 }
@@ -127,8 +129,8 @@ class _$_ShadowTheme extends _ShadowTheme {
 }
 
 abstract class _ShadowTheme extends ShadowTheme {
-  const _ShadowTheme._() : super._();
   const factory _ShadowTheme({BoxShadow? buttonShadow}) = _$_ShadowTheme;
+  const _ShadowTheme._() : super._();
 
   @override
   BoxShadow? get buttonShadow => throw _privateConstructorUsedError;

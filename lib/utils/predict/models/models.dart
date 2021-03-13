@@ -8,7 +8,7 @@ part 'models.g.dart';
 class RoutePrediction with _$RoutePrediction {
   @JsonSerializable(explicitToJson: true)
   const factory RoutePrediction(
-    LocalRoute? prediction,
+    @LocalRouteConverter() LocalRoute? prediction,
     double confidence,
     PredictionArguments arguments,
   ) = _RoutePrediction;

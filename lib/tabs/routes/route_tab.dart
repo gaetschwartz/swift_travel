@@ -13,6 +13,7 @@ import 'package:pedantic/pedantic.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
@@ -262,8 +263,8 @@ class RoutePageState extends State<RoutePage> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
-      from.setString(context, widget.localRoute!.from);
-      to.setString(context, widget.localRoute!.to);
+      from.setString(context, widget.localRoute!.fromAsString);
+      to.setString(context, widget.localRoute!.toAsString);
     });
   }
 
@@ -358,7 +359,7 @@ class RoutePageState extends State<RoutePage> {
 
                           log(favorites.routes.toString());
                           if (favorites.routes.any(
-                            (lr) => lr.from == from.text && lr.to == to.text,
+                            (lr) => lr.fromAsString == from.text && lr.toAsString == to.text,
                           )) {
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                 content: Text('This route is already in your favorites !')));
@@ -369,7 +370,8 @@ class RoutePageState extends State<RoutePage> {
                           if (s == null) {
                             return;
                           }
-                          await favorites.addRoute(LocalRoute(from.text, to.text, displayName: s));
+                          await favorites.addRoute(
+                              LocalRoute.v2(SbbStop(from.text), SbbStop(to.text), displayName: s));
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(content: Text('Route starred !')));
                         },
@@ -377,7 +379,8 @@ class RoutePageState extends State<RoutePage> {
                           final _store = w(storeProvider);
                           w(routeStatesProvider);
 
-                          return _store.routes.any((lr) => lr.from == from.text && lr.to == to.text)
+                          return _store.routes.any(
+                                  (lr) => lr.fromAsString == from.text && lr.toAsString == to.text)
                               ? const Icon(Icons.star)
                               : const Icon(Icons.star_border);
                         }),
@@ -775,11 +778,11 @@ class RoutesView extends StatelessWidget {
                 data: (pred) {
                   if (pred.prediction != null && pred.confidence > .2) {
                     return RouteWidget(
-                      from: Text(pred.prediction!.from.stripAt()),
-                      to: Text(pred.prediction!.to.stripAt()),
+                      from: Text(pred.prediction!.fromAsString.stripAt()),
+                      to: Text(pred.prediction!.toAsString.stripAt()),
                       onTap: () {
-                        from.setString(context, pred.prediction!.from);
-                        to.setString(context, pred.prediction!.to);
+                        from.setString(context, pred.prediction!.fromAsString);
+                        to.setString(context, pred.prediction!.toAsString);
                       },
                       title: Text(AppLoc.of(context).suggestion),
                     );

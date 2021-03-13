@@ -15,7 +15,9 @@ mixin BaseStop {
   String get displayName => name.split('@').first;
 }
 
-abstract class Stop with BaseStop, WithTimeMixin, LocatedMixin {}
+abstract class Stop with BaseStop, WithTimeMixin, LocatedMixin, ToJsonMixin {}
+
+mixin ToJsonMixin {}
 
 mixin WithTimeMixin {
   DateTime? get departure;

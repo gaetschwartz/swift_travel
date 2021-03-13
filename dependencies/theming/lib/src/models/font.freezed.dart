@@ -58,10 +58,14 @@ class _$FontCopyWithImpl<$Res> implements $FontCopyWith<$Res> {
     Object? textTheme = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed ? _value.name : name as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       textTheme: textTheme == freezed
           ? _value.textTheme
-          : textTheme as TextTheme Function(TextTheme),
+          : textTheme // ignore: cast_nullable_to_non_nullable
+              as TextTheme Function(TextTheme),
     ));
   }
 }
@@ -89,10 +93,14 @@ class __$FontCopyWithImpl<$Res> extends _$FontCopyWithImpl<$Res>
     Object? textTheme = freezed,
   }) {
     return _then(_Font(
-      name == freezed ? _value.name : name as String,
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       textTheme == freezed
           ? _value.textTheme
-          : textTheme as TextTheme Function(TextTheme),
+          : textTheme // ignore: cast_nullable_to_non_nullable
+              as TextTheme Function(TextTheme),
     ));
   }
 }

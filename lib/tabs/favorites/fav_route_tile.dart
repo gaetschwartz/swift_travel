@@ -38,8 +38,8 @@ class FavoriteRouteTile extends StatelessWidget {
       ],
       child: RouteWidget(
         title: Text(route.displayName!),
-        from: Text(route.from.stripAt()),
-        to: Text(route.to.stripAt()),
+        from: Text(route.fromAsString.stripAt()),
+        to: Text(route.toAsString.stripAt()),
         onLongPress: () => more(context),
         trailing: const Icon(CupertinoIcons.chevron_forward),
         onTap: () => Navigator.of(context).pushNamed('/route', arguments: route),
@@ -96,7 +96,7 @@ class FavoriteRouteTile extends StatelessWidget {
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
-            route.from,
+            route.fromAsString,
             textAlign: TextAlign.center,
           ),
           Text(
@@ -104,7 +104,7 @@ class FavoriteRouteTile extends StatelessWidget {
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
-            route.to,
+            route.toAsString,
             textAlign: TextAlign.center,
           ),
         ],

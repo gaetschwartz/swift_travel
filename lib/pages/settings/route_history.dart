@@ -40,16 +40,16 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
                 title: Text('Confidence : ${(pred.confidence * 100).toStringAsFixed(2)} %'),
                 subtitle: Text(pred.arguments.toString())),
             ListTile(
-              title: Text(pred.prediction!.from),
-              subtitle: Text(pred.prediction!.to),
+              title: Text(pred.prediction!.fromAsString),
+              subtitle: Text(pred.prediction!.toAsString),
             ),
             const Divider(height: 0),
           ],
           Expanded(
             child: ListView.separated(
               itemBuilder: (context, i) => RouteWidget(
-                from: Text(routes[i].from),
-                to: Text(routes[i].to),
+                from: Text(routes[i].fromAsString),
+                to: Text(routes[i].toAsString),
                 trailing: Text(
                     '${TimeOfDay.fromDateTime(routes[i].timestamp!).format(context)}, ${_days[routes[i].timestamp!.weekday - 1]}'),
               ),

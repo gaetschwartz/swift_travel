@@ -6,18 +6,19 @@ part of 'favorites.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LocalRoute _$_$_LocalRouteFromJson(Map<String, dynamic> json) {
-  return _$_LocalRoute(
+_$LocalRouteV1 _$_$LocalRouteV1FromJson(Map<String, dynamic> json) {
+  return _$LocalRouteV1(
     json['from'] as String,
     json['to'] as String,
     displayName: json['displayName'] as String?,
     timestamp: json['timestamp'] == null
         ? null
         : DateTime.parse(json['timestamp'] as String),
+    version: json['version'] as int? ?? 1,
   );
 }
 
-Map<String, dynamic> _$_$_LocalRouteToJson(_$_LocalRoute instance) {
+Map<String, dynamic> _$_$LocalRouteV1ToJson(_$LocalRouteV1 instance) {
   final val = <String, dynamic>{
     'from': instance.from,
     'to': instance.to,
@@ -31,6 +32,37 @@ Map<String, dynamic> _$_$_LocalRouteToJson(_$_LocalRoute instance) {
 
   writeNotNull('displayName', instance.displayName);
   writeNotNull('timestamp', instance.timestamp?.toIso8601String());
+  val['version'] = instance.version;
+  return val;
+}
+
+_$LocalRouteV2 _$_$LocalRouteV2FromJson(Map<String, dynamic> json) {
+  return _$LocalRouteV2(
+    SbbStop.fromJson(json['from'] as Map<String, dynamic>),
+    SbbStop.fromJson(json['to'] as Map<String, dynamic>),
+    displayName: json['displayName'] as String?,
+    timestamp: json['timestamp'] == null
+        ? null
+        : DateTime.parse(json['timestamp'] as String),
+    version: json['version'] as int? ?? 2,
+  );
+}
+
+Map<String, dynamic> _$_$LocalRouteV2ToJson(_$LocalRouteV2 instance) {
+  final val = <String, dynamic>{
+    'from': instance.from.toJson(),
+    'to': instance.to.toJson(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('displayName', instance.displayName);
+  writeNotNull('timestamp', instance.timestamp?.toIso8601String());
+  val['version'] = instance.version;
   return val;
 }
 

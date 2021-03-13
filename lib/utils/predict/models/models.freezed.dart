@@ -20,8 +20,8 @@ RoutePrediction _$RoutePredictionFromJson(Map<String, dynamic> json) {
 class _$RoutePredictionTearOff {
   const _$RoutePredictionTearOff();
 
-  _RoutePrediction call(LocalRoute? prediction, double confidence,
-      PredictionArguments arguments) {
+  _RoutePrediction call(@LocalRouteConverter() LocalRoute? prediction,
+      double confidence, PredictionArguments arguments) {
     return _RoutePrediction(
       prediction,
       confidence,
@@ -39,6 +39,7 @@ const $RoutePrediction = _$RoutePredictionTearOff();
 
 /// @nodoc
 mixin _$RoutePrediction {
+  @LocalRouteConverter()
   LocalRoute? get prediction => throw _privateConstructorUsedError;
   double get confidence => throw _privateConstructorUsedError;
   PredictionArguments get arguments => throw _privateConstructorUsedError;
@@ -55,7 +56,7 @@ abstract class $RoutePredictionCopyWith<$Res> {
           RoutePrediction value, $Res Function(RoutePrediction) then) =
       _$RoutePredictionCopyWithImpl<$Res>;
   $Res call(
-      {LocalRoute? prediction,
+      {@LocalRouteConverter() LocalRoute? prediction,
       double confidence,
       PredictionArguments arguments});
 
@@ -121,7 +122,7 @@ abstract class _$RoutePredictionCopyWith<$Res>
       __$RoutePredictionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {LocalRoute? prediction,
+      {@LocalRouteConverter() LocalRoute? prediction,
       double confidence,
       PredictionArguments arguments});
 
@@ -169,12 +170,14 @@ class __$RoutePredictionCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_RoutePrediction implements _RoutePrediction {
-  const _$_RoutePrediction(this.prediction, this.confidence, this.arguments);
+  const _$_RoutePrediction(
+      @LocalRouteConverter() this.prediction, this.confidence, this.arguments);
 
   factory _$_RoutePrediction.fromJson(Map<String, dynamic> json) =>
       _$_$_RoutePredictionFromJson(json);
 
   @override
+  @LocalRouteConverter()
   final LocalRoute? prediction;
   @override
   final double confidence;
@@ -220,13 +223,14 @@ class _$_RoutePrediction implements _RoutePrediction {
 }
 
 abstract class _RoutePrediction implements RoutePrediction {
-  const factory _RoutePrediction(LocalRoute? prediction, double confidence,
-      PredictionArguments arguments) = _$_RoutePrediction;
+  const factory _RoutePrediction(@LocalRouteConverter() LocalRoute? prediction,
+      double confidence, PredictionArguments arguments) = _$_RoutePrediction;
 
   factory _RoutePrediction.fromJson(Map<String, dynamic> json) =
       _$_RoutePrediction.fromJson;
 
   @override
+  @LocalRouteConverter()
   LocalRoute? get prediction => throw _privateConstructorUsedError;
   @override
   double get confidence => throw _privateConstructorUsedError;
