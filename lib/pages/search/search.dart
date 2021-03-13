@@ -198,7 +198,7 @@ class _SearchPageState extends State<SearchPage> {
       final prediction = await predictRoute(hist.history, args);
       print(prediction);
       if (prediction.prediction != null && prediction.confidence > .2) {
-        return prediction.prediction!.to;
+        return prediction.prediction!.map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
       }
     }
   }

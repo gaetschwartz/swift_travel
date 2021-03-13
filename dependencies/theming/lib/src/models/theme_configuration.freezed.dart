@@ -102,25 +102,42 @@ class _$ThemeConfigurationCopyWithImpl<$Res>
     Object? applyToAllThemes = freezed,
   }) {
     return _then(_value.copyWith(
-      themes:
-          themes == freezed ? _value.themes : themes as Map<String, FullTheme>,
-      prefix: prefix == freezed ? _value.prefix : prefix as String,
+      themes: themes == freezed
+          ? _value.themes
+          : themes // ignore: cast_nullable_to_non_nullable
+              as Map<String, FullTheme>,
+      prefix: prefix == freezed
+          ? _value.prefix
+          : prefix // ignore: cast_nullable_to_non_nullable
+              as String,
       defaultThemeMode: defaultThemeMode == freezed
           ? _value.defaultThemeMode
-          : defaultThemeMode as ThemeMode,
+          : defaultThemeMode // ignore: cast_nullable_to_non_nullable
+              as ThemeMode,
       defaultTheme: defaultTheme == freezed
           ? _value.defaultTheme
-          : defaultTheme as String,
-      persist: persist == freezed ? _value.persist : persist as bool,
-      fonts: fonts == freezed ? _value.fonts : fonts as List<Font>,
-      defaultFont:
-          defaultFont == freezed ? _value.defaultFont : defaultFont as Font?,
+          : defaultTheme // ignore: cast_nullable_to_non_nullable
+              as String,
+      persist: persist == freezed
+          ? _value.persist
+          : persist // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fonts: fonts == freezed
+          ? _value.fonts
+          : fonts // ignore: cast_nullable_to_non_nullable
+              as List<Font>,
+      defaultFont: defaultFont == freezed
+          ? _value.defaultFont
+          : defaultFont // ignore: cast_nullable_to_non_nullable
+              as Font?,
       defaultTextTheme: defaultTextTheme == freezed
           ? _value.defaultTextTheme
-          : defaultTextTheme as TextTheme,
+          : defaultTextTheme // ignore: cast_nullable_to_non_nullable
+              as TextTheme,
       applyToAllThemes: applyToAllThemes == freezed
           ? _value.applyToAllThemes
-          : applyToAllThemes as ThemeData Function(ThemeData),
+          : applyToAllThemes // ignore: cast_nullable_to_non_nullable
+              as ThemeData Function(ThemeData),
     ));
   }
 
@@ -182,25 +199,42 @@ class __$ThemeConfigurationCopyWithImpl<$Res>
     Object? applyToAllThemes = freezed,
   }) {
     return _then(_ThemeConfiguration(
-      themes:
-          themes == freezed ? _value.themes : themes as Map<String, FullTheme>,
-      prefix: prefix == freezed ? _value.prefix : prefix as String,
+      themes: themes == freezed
+          ? _value.themes
+          : themes // ignore: cast_nullable_to_non_nullable
+              as Map<String, FullTheme>,
+      prefix: prefix == freezed
+          ? _value.prefix
+          : prefix // ignore: cast_nullable_to_non_nullable
+              as String,
       defaultThemeMode: defaultThemeMode == freezed
           ? _value.defaultThemeMode
-          : defaultThemeMode as ThemeMode,
+          : defaultThemeMode // ignore: cast_nullable_to_non_nullable
+              as ThemeMode,
       defaultTheme: defaultTheme == freezed
           ? _value.defaultTheme
-          : defaultTheme as String,
-      persist: persist == freezed ? _value.persist : persist as bool,
-      fonts: fonts == freezed ? _value.fonts : fonts as List<Font>,
-      defaultFont:
-          defaultFont == freezed ? _value.defaultFont : defaultFont as Font?,
+          : defaultTheme // ignore: cast_nullable_to_non_nullable
+              as String,
+      persist: persist == freezed
+          ? _value.persist
+          : persist // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fonts: fonts == freezed
+          ? _value.fonts
+          : fonts // ignore: cast_nullable_to_non_nullable
+              as List<Font>,
+      defaultFont: defaultFont == freezed
+          ? _value.defaultFont
+          : defaultFont // ignore: cast_nullable_to_non_nullable
+              as Font?,
       defaultTextTheme: defaultTextTheme == freezed
           ? _value.defaultTextTheme
-          : defaultTextTheme as TextTheme,
+          : defaultTextTheme // ignore: cast_nullable_to_non_nullable
+              as TextTheme,
       applyToAllThemes: applyToAllThemes == freezed
           ? _value.applyToAllThemes
-          : applyToAllThemes as ThemeData Function(ThemeData),
+          : applyToAllThemes // ignore: cast_nullable_to_non_nullable
+              as ThemeData Function(ThemeData),
     ));
   }
 }
@@ -299,7 +333,6 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
 }
 
 abstract class _ThemeConfiguration extends ThemeConfiguration {
-  const _ThemeConfiguration._() : super._();
   const factory _ThemeConfiguration(
       {required Map<String, FullTheme> themes,
       String prefix,
@@ -310,6 +343,7 @@ abstract class _ThemeConfiguration extends ThemeConfiguration {
       Font? defaultFont,
       TextTheme defaultTextTheme,
       ThemeData Function(ThemeData) applyToAllThemes}) = _$_ThemeConfiguration;
+  const _ThemeConfiguration._() : super._();
 
   @override
   Map<String, FullTheme> get themes => throw _privateConstructorUsedError;

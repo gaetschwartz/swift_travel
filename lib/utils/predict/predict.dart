@@ -19,11 +19,11 @@ Future<RoutePrediction> predictRoute(
   PredictionArguments arguments,
 ) async {
   final full = FullArguments(routes, arguments);
-  final computed = await compute(predictRouteSimple, full.toJson());
+  final computed = await compute(_predictRouteSimple, full.toJson());
   return RoutePrediction.fromJson(computed);
 }
 
-Map<String, dynamic> predictRouteSimple(Map<String, dynamic> input) {
+Map<String, dynamic> _predictRouteSimple(Map<String, dynamic> input) {
   final full = FullArguments.fromJson(input);
   final routePrediction = predictRouteSync(full.routes, full.arguments);
   return routePrediction.toJson();
@@ -51,7 +51,7 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
         math.pow((route.timestamp!.minutesOfDay - time) * _minutesFactor, 2);
 
     if (arguments is SourceDateArguments) {
-      sqrdDist += math.pow(arguments.source.scaledDistanceTo(route.from), 2);
+      sqrdDist += math.pow(arguments.source.scaledDistanceTo(route.fromAsString), 2);
     }
 
     distances.add(Pair(route, sqrdDist.toDouble()));
@@ -66,7 +66,7 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
   var max = 0;
   var majRoute = top.first.first;
   for (final r in top) {
-    final route = LocalRoute(r.first.from, r.first.to);
+    final route = r.first.copyClean();
     map[route] ??= 0;
     map[route] = map[route]! + 1;
     if (map[route]! > max) {
@@ -79,7 +79,8 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
 
   var sum = .0;
   for (final r in top) {
-    if (r.first.from == majRoute.from && r.first.to == majRoute.to) {
+    if (r.first.fromAsString == majRoute.fromAsString &&
+        r.first.toAsString == majRoute.toAsString) {
       sum += r.second;
     }
   }

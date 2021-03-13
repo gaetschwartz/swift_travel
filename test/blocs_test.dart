@@ -61,7 +61,7 @@ void main() {
 
       final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
       await store.addStop(bern);
-      const route = LocalRoute('Bern', 'Bern');
+      const route = LocalRoute.v1('Bern', 'Bern');
       await store.addRoute(route);
 
       await store.init();
@@ -110,8 +110,8 @@ void main() {
       await store.init();
       verify(routesListener([])).called(1);
 
-      const route = LocalRoute('Bern', 'Bern');
-      const routeNever = LocalRoute('Nowhere', 'Everywhere');
+      const route = LocalRoute.v1('Bern', 'Bern');
+      const routeNever = LocalRoute.v1('Nowhere', 'Everywhere');
 
       await store.addRoute(route);
       expect(store.routes, [route]);
@@ -151,7 +151,7 @@ void main() {
 
       final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
       await store.addStop(bern);
-      const route = LocalRoute('Bern', 'Bern');
+      const route = LocalRoute.v1('Bern', 'Bern');
       await store.addRoute(route);
 
       await store.init(prefs: prefs);
@@ -200,8 +200,8 @@ void main() {
       await store.init(prefs: prefs);
       verify(routesListener([])).called(1);
 
-      const route = LocalRoute('Bern', 'Bern');
-      const routeNever = LocalRoute('Nowhere', 'Everywhere');
+      const route = LocalRoute.v1('Bern', 'Bern');
+      const routeNever = LocalRoute.v1('Nowhere', 'Everywhere');
 
       await store.addRoute(route);
       expect(store.routes, [route]);

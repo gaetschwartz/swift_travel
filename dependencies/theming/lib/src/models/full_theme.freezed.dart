@@ -97,22 +97,38 @@ class _$FullThemeCopyWithImpl<$Res> implements $FullThemeCopyWith<$Res> {
     Object? darkShadow = freezed,
   }) {
     return _then(_value.copyWith(
-      light: light == freezed ? _value.light : light as ColorScheme,
-      dark: dark == freezed ? _value.dark : dark as ColorScheme,
-      name: name == freezed ? _value.name : name as String,
+      light: light == freezed
+          ? _value.light
+          : light // ignore: cast_nullable_to_non_nullable
+              as ColorScheme,
+      dark: dark == freezed
+          ? _value.dark
+          : dark // ignore: cast_nullable_to_non_nullable
+              as ColorScheme,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       applyToLight: applyToLight == freezed
           ? _value.applyToLight
-          : applyToLight as ThemeData Function(ThemeData),
+          : applyToLight // ignore: cast_nullable_to_non_nullable
+              as ThemeData Function(ThemeData),
       applyToDark: applyToDark == freezed
           ? _value.applyToDark
-          : applyToDark as ThemeData Function(ThemeData),
-      description:
-          description == freezed ? _value.description : description as String,
+          : applyToDark // ignore: cast_nullable_to_non_nullable
+              as ThemeData Function(ThemeData),
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
       lightShadow: lightShadow == freezed
           ? _value.lightShadow
-          : lightShadow as ShadowTheme,
-      darkShadow:
-          darkShadow == freezed ? _value.darkShadow : darkShadow as ShadowTheme,
+          : lightShadow // ignore: cast_nullable_to_non_nullable
+              as ShadowTheme,
+      darkShadow: darkShadow == freezed
+          ? _value.darkShadow
+          : darkShadow // ignore: cast_nullable_to_non_nullable
+              as ShadowTheme,
     ));
   }
 
@@ -174,22 +190,38 @@ class __$FullThemeCopyWithImpl<$Res> extends _$FullThemeCopyWithImpl<$Res>
     Object? darkShadow = freezed,
   }) {
     return _then(_FullTheme(
-      light: light == freezed ? _value.light : light as ColorScheme,
-      dark: dark == freezed ? _value.dark : dark as ColorScheme,
-      name: name == freezed ? _value.name : name as String,
+      light: light == freezed
+          ? _value.light
+          : light // ignore: cast_nullable_to_non_nullable
+              as ColorScheme,
+      dark: dark == freezed
+          ? _value.dark
+          : dark // ignore: cast_nullable_to_non_nullable
+              as ColorScheme,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       applyToLight: applyToLight == freezed
           ? _value.applyToLight
-          : applyToLight as ThemeData Function(ThemeData),
+          : applyToLight // ignore: cast_nullable_to_non_nullable
+              as ThemeData Function(ThemeData),
       applyToDark: applyToDark == freezed
           ? _value.applyToDark
-          : applyToDark as ThemeData Function(ThemeData),
-      description:
-          description == freezed ? _value.description : description as String,
+          : applyToDark // ignore: cast_nullable_to_non_nullable
+              as ThemeData Function(ThemeData),
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
       lightShadow: lightShadow == freezed
           ? _value.lightShadow
-          : lightShadow as ShadowTheme,
-      darkShadow:
-          darkShadow == freezed ? _value.darkShadow : darkShadow as ShadowTheme,
+          : lightShadow // ignore: cast_nullable_to_non_nullable
+              as ShadowTheme,
+      darkShadow: darkShadow == freezed
+          ? _value.darkShadow
+          : darkShadow // ignore: cast_nullable_to_non_nullable
+              as ShadowTheme,
     ));
   }
 }

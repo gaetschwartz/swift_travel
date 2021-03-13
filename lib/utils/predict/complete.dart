@@ -87,12 +87,12 @@ class CompletionEngine {
         if (prediction == null)
           SbbCompletion(label: query, origin: DataOrigin.loading)
         else if (prediction.prediction != null)
-          SbbCompletion(label: prediction.prediction!.to, origin: DataOrigin.prediction),
+          SbbCompletion(label: prediction.prediction!.toAsString, origin: DataOrigin.prediction),
       if (history.isNotEmpty)
         ...history
             .flatMap((e) => [
-                  SbbCompletion(label: e.from, origin: DataOrigin.history),
-                  SbbCompletion(label: e.to, origin: DataOrigin.history),
+                  SbbCompletion(label: e.fromAsString, origin: DataOrigin.history),
+                  SbbCompletion(label: e.toAsString, origin: DataOrigin.history),
                 ])
             .take(_kMaxHistoryCount)
             .toSet(),
@@ -136,8 +136,8 @@ List<Completion> completeWithFavorites({
     if (history.isNotEmpty)
       ...history
           .flatMap((e) => [
-                SbbCompletion(label: e.from, origin: DataOrigin.history),
-                SbbCompletion(label: e.to, origin: DataOrigin.history),
+                SbbCompletion(label: e.fromAsString, origin: DataOrigin.history),
+                SbbCompletion(label: e.toAsString, origin: DataOrigin.history),
               ])
           .take(_kMaxHistoryCount)
           .toSet(),

@@ -13,6 +13,7 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/db/history.dart';
@@ -29,9 +30,9 @@ import 'blocs_test.dart';
 
 final timestamp = DateTime(2021);
 const geneva = 'Genève';
-final route1 = LocalRoute(geneva, 'Lausanne', timestamp: timestamp);
-final route2 = LocalRoute('Lausanne', geneva, timestamp: timestamp);
-final route3 = LocalRoute('Zürich', 'Bern', timestamp: timestamp);
+final route1 = LocalRoute.v1(geneva, 'Lausanne', timestamp: timestamp);
+final route2 = LocalRoute.v1('Lausanne', geneva, timestamp: timestamp);
+final route3 = LocalRoute.v1('Zürich', 'Bern', timestamp: timestamp);
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -127,9 +128,9 @@ void main() {
       expect(
         c,
         [
-          SbbCompletion(label: route1.from, origin: DataOrigin.history),
-          SbbCompletion(label: route1.to, origin: DataOrigin.history),
-          SbbCompletion(label: route3.from, origin: DataOrigin.history),
+          SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
+          SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
+          SbbCompletion(label: route3.fromAsString, origin: DataOrigin.history),
         ],
       );
     });
@@ -140,23 +141,22 @@ void main() {
       MockableDateTime.mocked = DateTime(2021);
     });
     test('localRoute', () {
-      final route1 =
-          LocalRoute('from', 'to', displayName: 'name', timestamp: MockableDateTime.now());
+      final route1 = LocalRoute.v2(const SbbStop('from'), const SbbStop('to'),
+          displayName: 'name', timestamp: MockableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
           const SbbRouteConnection(from: 'from', to: 'to', depDelay: 0),
           displayName: 'name',
           timestamp: MockableDateTime.now());
-      final route3 = LocalRoute.now('from', 'to', displayName: 'name');
       final json = {
-        'from': 'from',
-        'to': 'to',
+        'from': const SbbStop('from').toJson(),
+        'to': const SbbStop('to').toJson(),
         'displayName': 'name',
-        'timestamp': '2021-01-01T00:00:00.000'
+        'timestamp': MockableDateTime.now().toIso8601String(),
+        'runtimeType': 'v2',
       };
-      final route4 = LocalRoute.fromJson(json);
+      final route3 = LocalRoute.fromJson(json);
       expect(route1, equals(route2));
       expect(route2, equals(route3));
-      expect(route3, equals(route4));
     });
 
     test('favoriteStop', () {
@@ -215,8 +215,8 @@ void main() {
 
     final expected = [
       SbbCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
-      SbbCompletion(label: route1.from, origin: DataOrigin.history),
-      SbbCompletion(label: route1.to, origin: DataOrigin.history),
+      SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
+      SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva, api: NavigationApi.sbb)),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb)),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb)),

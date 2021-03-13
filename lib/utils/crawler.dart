@@ -78,19 +78,19 @@ class _CrawlerPageState extends State<CrawlerPage> {
                       });
                       try {
                         for (final lr in routes) {
-                          print('Fetching ${lr.from} -> ${lr.to}');
+                          print('Fetching ${lr.fromAsString} -> ${lr.toAsString}');
                           for (var i = 0; i < 6; i++) {
                             final timeOfDay = TimeOfDay(hour: 8 + 2 * i, minute: 0);
                             if (mounted) {
                               setState(() {
-                                current = lr.from;
-                                current2 = lr.to;
+                                current = lr.fromAsString;
+                                current2 = lr.toAsString;
                                 currentSub = timeOfDay.toString();
                               });
                             }
                             final r = await context.read(navigationAPIProvider).route(
-                                  lr.from,
-                                  lr.to,
+                                  lr.fromAsString,
+                                  lr.toAsString,
                                   date: DateTime.now(),
                                   time: timeOfDay,
                                 );
@@ -112,7 +112,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                           if (mounted) {
                             setState(() => currentI++);
                           }
-                          print('Done fetching ${lr.from} -> ${lr.to}');
+                          print('Done fetching ${lr.fromAsString} -> ${lr.toAsString}');
                         }
                       } finally {
                         if (mounted) {
