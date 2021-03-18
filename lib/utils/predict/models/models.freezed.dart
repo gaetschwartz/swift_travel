@@ -431,8 +431,10 @@ PredictionArguments _$PredictionArgumentsFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'default':
       return DateTimeArgument.fromJson(json);
-    case 'source':
+    case 'withSource':
       return SourceDateArguments.fromJson(json);
+    case 'withLocation':
+      return LocationArgument.fromJson(json);
 
     default:
       throw FallThroughError();
@@ -443,16 +445,23 @@ PredictionArguments _$PredictionArgumentsFromJson(Map<String, dynamic> json) {
 class _$PredictionArgumentsTearOff {
   const _$PredictionArgumentsTearOff();
 
-  DateTimeArgument call(DateTime dateTime) {
+  DateTimeArgument call(DateTime? dateTime) {
     return DateTimeArgument(
       dateTime,
     );
   }
 
-  SourceDateArguments source(DateTime dateTime, String source) {
+  SourceDateArguments withSource(DateTime? dateTime, String source) {
     return SourceDateArguments(
       dateTime,
       source,
+    );
+  }
+
+  LocationArgument withLocation(LatLon latLon, {DateTime? dateTime}) {
+    return LocationArgument(
+      latLon,
+      dateTime: dateTime,
     );
   }
 
@@ -466,31 +475,35 @@ const $PredictionArguments = _$PredictionArgumentsTearOff();
 
 /// @nodoc
 mixin _$PredictionArguments {
-  DateTime get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(DateTime dateTime) $default, {
-    required TResult Function(DateTime dateTime, String source) source,
+    TResult Function(DateTime? dateTime) $default, {
+    required TResult Function(DateTime? dateTime, String source) withSource,
+    required TResult Function(LatLon latLon, DateTime? dateTime) withLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(DateTime dateTime)? $default, {
-    TResult Function(DateTime dateTime, String source)? source,
+    TResult Function(DateTime? dateTime)? $default, {
+    TResult Function(DateTime? dateTime, String source)? withSource,
+    TResult Function(LatLon latLon, DateTime? dateTime)? withLocation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(DateTimeArgument value) $default, {
-    required TResult Function(SourceDateArguments value) source,
+    required TResult Function(SourceDateArguments value) withSource,
+    required TResult Function(LocationArgument value) withLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(DateTimeArgument value)? $default, {
-    TResult Function(SourceDateArguments value)? source,
+    TResult Function(SourceDateArguments value)? withSource,
+    TResult Function(LocationArgument value)? withLocation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -505,7 +518,7 @@ abstract class $PredictionArgumentsCopyWith<$Res> {
   factory $PredictionArgumentsCopyWith(
           PredictionArguments value, $Res Function(PredictionArguments) then) =
       _$PredictionArgumentsCopyWithImpl<$Res>;
-  $Res call({DateTime dateTime});
+  $Res call({DateTime? dateTime});
 }
 
 /// @nodoc
@@ -525,7 +538,7 @@ class _$PredictionArgumentsCopyWithImpl<$Res>
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ));
   }
 }
@@ -537,7 +550,7 @@ abstract class $DateTimeArgumentCopyWith<$Res>
           DateTimeArgument value, $Res Function(DateTimeArgument) then) =
       _$DateTimeArgumentCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime dateTime});
+  $Res call({DateTime? dateTime});
 }
 
 /// @nodoc
@@ -559,7 +572,7 @@ class _$DateTimeArgumentCopyWithImpl<$Res>
       dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ));
   }
 }
@@ -567,14 +580,14 @@ class _$DateTimeArgumentCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 
 /// @nodoc
-class _$DateTimeArgument implements DateTimeArgument {
-  const _$DateTimeArgument(this.dateTime);
+class _$DateTimeArgument extends DateTimeArgument {
+  const _$DateTimeArgument(this.dateTime) : super._();
 
   factory _$DateTimeArgument.fromJson(Map<String, dynamic> json) =>
       _$_$DateTimeArgumentFromJson(json);
 
   @override
-  final DateTime dateTime;
+  final DateTime? dateTime;
 
   @override
   String toString() {
@@ -602,8 +615,9 @@ class _$DateTimeArgument implements DateTimeArgument {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(DateTime dateTime) $default, {
-    required TResult Function(DateTime dateTime, String source) source,
+    TResult Function(DateTime? dateTime) $default, {
+    required TResult Function(DateTime? dateTime, String source) withSource,
+    required TResult Function(LatLon latLon, DateTime? dateTime) withLocation,
   }) {
     return $default(dateTime);
   }
@@ -611,8 +625,9 @@ class _$DateTimeArgument implements DateTimeArgument {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(DateTime dateTime)? $default, {
-    TResult Function(DateTime dateTime, String source)? source,
+    TResult Function(DateTime? dateTime)? $default, {
+    TResult Function(DateTime? dateTime, String source)? withSource,
+    TResult Function(LatLon latLon, DateTime? dateTime)? withLocation,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -625,7 +640,8 @@ class _$DateTimeArgument implements DateTimeArgument {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(DateTimeArgument value) $default, {
-    required TResult Function(SourceDateArguments value) source,
+    required TResult Function(SourceDateArguments value) withSource,
+    required TResult Function(LocationArgument value) withLocation,
   }) {
     return $default(this);
   }
@@ -634,7 +650,8 @@ class _$DateTimeArgument implements DateTimeArgument {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(DateTimeArgument value)? $default, {
-    TResult Function(SourceDateArguments value)? source,
+    TResult Function(SourceDateArguments value)? withSource,
+    TResult Function(LocationArgument value)? withLocation,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -649,14 +666,15 @@ class _$DateTimeArgument implements DateTimeArgument {
   }
 }
 
-abstract class DateTimeArgument implements PredictionArguments {
-  const factory DateTimeArgument(DateTime dateTime) = _$DateTimeArgument;
+abstract class DateTimeArgument extends PredictionArguments {
+  const factory DateTimeArgument(DateTime? dateTime) = _$DateTimeArgument;
+  const DateTimeArgument._() : super._();
 
   factory DateTimeArgument.fromJson(Map<String, dynamic> json) =
       _$DateTimeArgument.fromJson;
 
   @override
-  DateTime get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $DateTimeArgumentCopyWith<DateTimeArgument> get copyWith =>
@@ -670,7 +688,7 @@ abstract class $SourceDateArgumentsCopyWith<$Res>
           SourceDateArguments value, $Res Function(SourceDateArguments) then) =
       _$SourceDateArgumentsCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime dateTime, String source});
+  $Res call({DateTime? dateTime, String source});
 }
 
 /// @nodoc
@@ -693,7 +711,7 @@ class _$SourceDateArgumentsCopyWithImpl<$Res>
       dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       source == freezed
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -705,20 +723,20 @@ class _$SourceDateArgumentsCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 
 /// @nodoc
-class _$SourceDateArguments implements SourceDateArguments {
-  const _$SourceDateArguments(this.dateTime, this.source);
+class _$SourceDateArguments extends SourceDateArguments {
+  const _$SourceDateArguments(this.dateTime, this.source) : super._();
 
   factory _$SourceDateArguments.fromJson(Map<String, dynamic> json) =>
       _$_$SourceDateArgumentsFromJson(json);
 
   @override
-  final DateTime dateTime;
+  final DateTime? dateTime;
   @override
   final String source;
 
   @override
   String toString() {
-    return 'PredictionArguments.source(dateTime: $dateTime, source: $source)';
+    return 'PredictionArguments.withSource(dateTime: $dateTime, source: $source)';
   }
 
   @override
@@ -746,21 +764,23 @@ class _$SourceDateArguments implements SourceDateArguments {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(DateTime dateTime) $default, {
-    required TResult Function(DateTime dateTime, String source) source,
+    TResult Function(DateTime? dateTime) $default, {
+    required TResult Function(DateTime? dateTime, String source) withSource,
+    required TResult Function(LatLon latLon, DateTime? dateTime) withLocation,
   }) {
-    return source(dateTime, this.source);
+    return withSource(dateTime, source);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(DateTime dateTime)? $default, {
-    TResult Function(DateTime dateTime, String source)? source,
+    TResult Function(DateTime? dateTime)? $default, {
+    TResult Function(DateTime? dateTime, String source)? withSource,
+    TResult Function(LatLon latLon, DateTime? dateTime)? withLocation,
     required TResult orElse(),
   }) {
-    if (source != null) {
-      return source(dateTime, this.source);
+    if (withSource != null) {
+      return withSource(dateTime, source);
     }
     return orElse();
   }
@@ -769,42 +789,205 @@ class _$SourceDateArguments implements SourceDateArguments {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(DateTimeArgument value) $default, {
-    required TResult Function(SourceDateArguments value) source,
+    required TResult Function(SourceDateArguments value) withSource,
+    required TResult Function(LocationArgument value) withLocation,
   }) {
-    return source(this);
+    return withSource(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(DateTimeArgument value)? $default, {
-    TResult Function(SourceDateArguments value)? source,
+    TResult Function(SourceDateArguments value)? withSource,
+    TResult Function(LocationArgument value)? withLocation,
     required TResult orElse(),
   }) {
-    if (source != null) {
-      return source(this);
+    if (withSource != null) {
+      return withSource(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$SourceDateArgumentsToJson(this)..['runtimeType'] = 'source';
+    return _$_$SourceDateArgumentsToJson(this)..['runtimeType'] = 'withSource';
   }
 }
 
-abstract class SourceDateArguments implements PredictionArguments {
-  const factory SourceDateArguments(DateTime dateTime, String source) =
+abstract class SourceDateArguments extends PredictionArguments {
+  const factory SourceDateArguments(DateTime? dateTime, String source) =
       _$SourceDateArguments;
+  const SourceDateArguments._() : super._();
 
   factory SourceDateArguments.fromJson(Map<String, dynamic> json) =
       _$SourceDateArguments.fromJson;
 
   @override
-  DateTime get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $SourceDateArgumentsCopyWith<SourceDateArguments> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LocationArgumentCopyWith<$Res>
+    implements $PredictionArgumentsCopyWith<$Res> {
+  factory $LocationArgumentCopyWith(
+          LocationArgument value, $Res Function(LocationArgument) then) =
+      _$LocationArgumentCopyWithImpl<$Res>;
+  @override
+  $Res call({LatLon latLon, DateTime? dateTime});
+
+  $LatLonCopyWith<$Res> get latLon;
+}
+
+/// @nodoc
+class _$LocationArgumentCopyWithImpl<$Res>
+    extends _$PredictionArgumentsCopyWithImpl<$Res>
+    implements $LocationArgumentCopyWith<$Res> {
+  _$LocationArgumentCopyWithImpl(
+      LocationArgument _value, $Res Function(LocationArgument) _then)
+      : super(_value, (v) => _then(v as LocationArgument));
+
+  @override
+  LocationArgument get _value => super._value as LocationArgument;
+
+  @override
+  $Res call({
+    Object? latLon = freezed,
+    Object? dateTime = freezed,
+  }) {
+    return _then(LocationArgument(
+      latLon == freezed
+          ? _value.latLon
+          : latLon // ignore: cast_nullable_to_non_nullable
+              as LatLon,
+      dateTime: dateTime == freezed
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+
+  @override
+  $LatLonCopyWith<$Res> get latLon {
+    return $LatLonCopyWith<$Res>(_value.latLon, (value) {
+      return _then(_value.copyWith(latLon: value));
+    });
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+
+/// @nodoc
+class _$LocationArgument extends LocationArgument {
+  const _$LocationArgument(this.latLon, {this.dateTime}) : super._();
+
+  factory _$LocationArgument.fromJson(Map<String, dynamic> json) =>
+      _$_$LocationArgumentFromJson(json);
+
+  @override
+  final LatLon latLon;
+  @override
+  final DateTime? dateTime;
+
+  @override
+  String toString() {
+    return 'PredictionArguments.withLocation(latLon: $latLon, dateTime: $dateTime)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is LocationArgument &&
+            (identical(other.latLon, latLon) ||
+                const DeepCollectionEquality().equals(other.latLon, latLon)) &&
+            (identical(other.dateTime, dateTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.dateTime, dateTime)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(latLon) ^
+      const DeepCollectionEquality().hash(dateTime);
+
+  @JsonKey(ignore: true)
+  @override
+  $LocationArgumentCopyWith<LocationArgument> get copyWith =>
+      _$LocationArgumentCopyWithImpl<LocationArgument>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(DateTime? dateTime) $default, {
+    required TResult Function(DateTime? dateTime, String source) withSource,
+    required TResult Function(LatLon latLon, DateTime? dateTime) withLocation,
+  }) {
+    return withLocation(latLon, dateTime);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(DateTime? dateTime)? $default, {
+    TResult Function(DateTime? dateTime, String source)? withSource,
+    TResult Function(LatLon latLon, DateTime? dateTime)? withLocation,
+    required TResult orElse(),
+  }) {
+    if (withLocation != null) {
+      return withLocation(latLon, dateTime);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(DateTimeArgument value) $default, {
+    required TResult Function(SourceDateArguments value) withSource,
+    required TResult Function(LocationArgument value) withLocation,
+  }) {
+    return withLocation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(DateTimeArgument value)? $default, {
+    TResult Function(SourceDateArguments value)? withSource,
+    TResult Function(LocationArgument value)? withLocation,
+    required TResult orElse(),
+  }) {
+    if (withLocation != null) {
+      return withLocation(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$LocationArgumentToJson(this)..['runtimeType'] = 'withLocation';
+  }
+}
+
+abstract class LocationArgument extends PredictionArguments {
+  const factory LocationArgument(LatLon latLon, {DateTime? dateTime}) =
+      _$LocationArgument;
+  const LocationArgument._() : super._();
+
+  factory LocationArgument.fromJson(Map<String, dynamic> json) =
+      _$LocationArgument.fromJson;
+
+  LatLon get latLon => throw _privateConstructorUsedError;
+  @override
+  DateTime? get dateTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  $LocationArgumentCopyWith<LocationArgument> get copyWith =>
       throw _privateConstructorUsedError;
 }

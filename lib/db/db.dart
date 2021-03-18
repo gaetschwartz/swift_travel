@@ -57,7 +57,13 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
     }
   }
 
-  Iterable<TValue> get values => box.values.map(decoder);
+  Iterable<TValue> get values sync* {
+    for (final v in box.values) {
+      try {
+        yield decoder(v);
+      } catch (_) {}
+    }
+  }
 
   Stream<BoxEvent> watch({dynamic key}) => box.watch();
 

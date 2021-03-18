@@ -7,7 +7,7 @@ import 'package:swift_travel/logic/location/models/models.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/utils/env.dart';
 
-late final _spoofedLocation = Location(
+late final _spoofedLocation = GeoLocation(
   accuracy: 0,
   altitude: 0,
   heading: 0,
@@ -18,7 +18,7 @@ late final _spoofedLocation = Location(
   longitude: 6.1385658,
 );
 
-Future<Location> getLocation({
+Future<GeoLocation> getLocation({
   LocationAccuracy desiredAccuracy = LocationAccuracy.bestForNavigation,
   bool forceAndroidLocationManager = false,
   Duration? timeLimit,
@@ -39,7 +39,7 @@ Future<Location> getLocation({
           forceAndroidLocationManager: forceAndroidLocationManager,
           timeLimit: timeLimit,
         );
-        return Location.fromPosition(p);
+        return GeoLocation.fromPosition(p);
       } else {
         throw PermissionDeniedException(permission.toString());
       }

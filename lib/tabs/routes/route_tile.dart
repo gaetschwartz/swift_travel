@@ -92,8 +92,8 @@ class RouteTile extends StatelessWidget {
                 (context) => RouteDetails(route: route, i: i),
                 title: AppLoc.of(context).tabs_route,
               );
-              RouteHistoryRepository.i.safeAdd(
-                  LocalRoute.fromRouteConnection(route.connections[i], timestamp: DateTime.now()));
+              RouteHistoryRepository.i
+                  .safeAdd(LocalRoute.fromRouteConnection(route.connections[i]));
             },
           ),
         ),

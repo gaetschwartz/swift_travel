@@ -54,7 +54,6 @@ class LocalRoute with _$LocalRoute {
 
   factory LocalRoute.fromRouteConnection(
     RouteConnection connection, {
-    DateTime? timestamp,
     String? displayName,
   }) =>
       LocalRoute.v2(
@@ -65,10 +64,10 @@ class LocalRoute with _$LocalRoute {
         ),
         SbbStop(
           connection.to,
-          lat: connection.legs.lastOrNull?.exit?.position?.lat,
-          lon: connection.legs.lastOrNull?.exit?.position?.lon,
+          lat: connection.legs.lastOrNull?.position?.lat,
+          lon: connection.legs.lastOrNull?.position?.lon,
         ),
-        timestamp: timestamp,
+        timestamp: connection.departure,
         displayName: displayName,
       );
 

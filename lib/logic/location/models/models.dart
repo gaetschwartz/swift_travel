@@ -5,8 +5,8 @@ part 'models.freezed.dart';
 part 'models.g.dart';
 
 @freezed
-class Location with _$Location {
-  const factory Location({
+class GeoLocation with _$GeoLocation {
+  const factory GeoLocation({
     required double latitude,
     required double longitude,
     double? accuracy,
@@ -15,9 +15,9 @@ class Location with _$Location {
     double? speed,
     double? speedAccuracy,
     DateTime? timestamp,
-  }) = _Location;
+  }) = _GeoLocation;
 
-  factory Location.fromPosition(Position p) => _Location(
+  factory GeoLocation.fromPosition(Position p) => _GeoLocation(
         latitude: p.latitude,
         longitude: p.longitude,
         accuracy: p.accuracy,
@@ -28,5 +28,5 @@ class Location with _$Location {
         timestamp: p.timestamp,
       );
 
-  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
+  factory GeoLocation.fromJson(Map<String, dynamic> json) => _$GeoLocationFromJson(json);
 }

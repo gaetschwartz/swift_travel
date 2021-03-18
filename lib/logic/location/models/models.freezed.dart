@@ -12,15 +12,15 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Location _$LocationFromJson(Map<String, dynamic> json) {
-  return _Location.fromJson(json);
+GeoLocation _$GeoLocationFromJson(Map<String, dynamic> json) {
+  return _GeoLocation.fromJson(json);
 }
 
 /// @nodoc
-class _$LocationTearOff {
-  const _$LocationTearOff();
+class _$GeoLocationTearOff {
+  const _$GeoLocationTearOff();
 
-  _Location call(
+  _GeoLocation call(
       {required double latitude,
       required double longitude,
       double? accuracy,
@@ -29,7 +29,7 @@ class _$LocationTearOff {
       double? speed,
       double? speedAccuracy,
       DateTime? timestamp}) {
-    return _Location(
+    return _GeoLocation(
       latitude: latitude,
       longitude: longitude,
       accuracy: accuracy,
@@ -41,16 +41,16 @@ class _$LocationTearOff {
     );
   }
 
-  Location fromJson(Map<String, Object> json) {
-    return Location.fromJson(json);
+  GeoLocation fromJson(Map<String, Object> json) {
+    return GeoLocation.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Location = _$LocationTearOff();
+const $GeoLocation = _$GeoLocationTearOff();
 
 /// @nodoc
-mixin _$Location {
+mixin _$GeoLocation {
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
   double? get accuracy => throw _privateConstructorUsedError;
@@ -62,14 +62,15 @@ mixin _$Location {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocationCopyWith<Location> get copyWith =>
+  $GeoLocationCopyWith<GeoLocation> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocationCopyWith<$Res> {
-  factory $LocationCopyWith(Location value, $Res Function(Location) then) =
-      _$LocationCopyWithImpl<$Res>;
+abstract class $GeoLocationCopyWith<$Res> {
+  factory $GeoLocationCopyWith(
+          GeoLocation value, $Res Function(GeoLocation) then) =
+      _$GeoLocationCopyWithImpl<$Res>;
   $Res call(
       {double latitude,
       double longitude,
@@ -82,12 +83,12 @@ abstract class $LocationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LocationCopyWithImpl<$Res> implements $LocationCopyWith<$Res> {
-  _$LocationCopyWithImpl(this._value, this._then);
+class _$GeoLocationCopyWithImpl<$Res> implements $GeoLocationCopyWith<$Res> {
+  _$GeoLocationCopyWithImpl(this._value, this._then);
 
-  final Location _value;
+  final GeoLocation _value;
   // ignore: unused_field
-  final $Res Function(Location) _then;
+  final $Res Function(GeoLocation) _then;
 
   @override
   $Res call({
@@ -138,9 +139,11 @@ class _$LocationCopyWithImpl<$Res> implements $LocationCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
-  factory _$LocationCopyWith(_Location value, $Res Function(_Location) then) =
-      __$LocationCopyWithImpl<$Res>;
+abstract class _$GeoLocationCopyWith<$Res>
+    implements $GeoLocationCopyWith<$Res> {
+  factory _$GeoLocationCopyWith(
+          _GeoLocation value, $Res Function(_GeoLocation) then) =
+      __$GeoLocationCopyWithImpl<$Res>;
   @override
   $Res call(
       {double latitude,
@@ -154,13 +157,14 @@ abstract class _$LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$LocationCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res>
-    implements _$LocationCopyWith<$Res> {
-  __$LocationCopyWithImpl(_Location _value, $Res Function(_Location) _then)
-      : super(_value, (v) => _then(v as _Location));
+class __$GeoLocationCopyWithImpl<$Res> extends _$GeoLocationCopyWithImpl<$Res>
+    implements _$GeoLocationCopyWith<$Res> {
+  __$GeoLocationCopyWithImpl(
+      _GeoLocation _value, $Res Function(_GeoLocation) _then)
+      : super(_value, (v) => _then(v as _GeoLocation));
 
   @override
-  _Location get _value => super._value as _Location;
+  _GeoLocation get _value => super._value as _GeoLocation;
 
   @override
   $Res call({
@@ -173,7 +177,7 @@ class __$LocationCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res>
     Object? speedAccuracy = freezed,
     Object? timestamp = freezed,
   }) {
-    return _then(_Location(
+    return _then(_GeoLocation(
       latitude: latitude == freezed
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -213,8 +217,8 @@ class __$LocationCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Location implements _Location {
-  const _$_Location(
+class _$_GeoLocation implements _GeoLocation {
+  const _$_GeoLocation(
       {required this.latitude,
       required this.longitude,
       this.accuracy,
@@ -224,8 +228,8 @@ class _$_Location implements _Location {
       this.speedAccuracy,
       this.timestamp});
 
-  factory _$_Location.fromJson(Map<String, dynamic> json) =>
-      _$_$_LocationFromJson(json);
+  factory _$_GeoLocation.fromJson(Map<String, dynamic> json) =>
+      _$_$_GeoLocationFromJson(json);
 
   @override
   final double latitude;
@@ -246,13 +250,13 @@ class _$_Location implements _Location {
 
   @override
   String toString() {
-    return 'Location(latitude: $latitude, longitude: $longitude, accuracy: $accuracy, altitude: $altitude, heading: $heading, speed: $speed, speedAccuracy: $speedAccuracy, timestamp: $timestamp)';
+    return 'GeoLocation(latitude: $latitude, longitude: $longitude, accuracy: $accuracy, altitude: $altitude, heading: $heading, speed: $speed, speedAccuracy: $speedAccuracy, timestamp: $timestamp)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Location &&
+        (other is _GeoLocation &&
             (identical(other.latitude, latitude) ||
                 const DeepCollectionEquality()
                     .equals(other.latitude, latitude)) &&
@@ -292,17 +296,17 @@ class _$_Location implements _Location {
 
   @JsonKey(ignore: true)
   @override
-  _$LocationCopyWith<_Location> get copyWith =>
-      __$LocationCopyWithImpl<_Location>(this, _$identity);
+  _$GeoLocationCopyWith<_GeoLocation> get copyWith =>
+      __$GeoLocationCopyWithImpl<_GeoLocation>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LocationToJson(this);
+    return _$_$_GeoLocationToJson(this);
   }
 }
 
-abstract class _Location implements Location {
-  const factory _Location(
+abstract class _GeoLocation implements GeoLocation {
+  const factory _GeoLocation(
       {required double latitude,
       required double longitude,
       double? accuracy,
@@ -310,9 +314,10 @@ abstract class _Location implements Location {
       double? heading,
       double? speed,
       double? speedAccuracy,
-      DateTime? timestamp}) = _$_Location;
+      DateTime? timestamp}) = _$_GeoLocation;
 
-  factory _Location.fromJson(Map<String, dynamic> json) = _$_Location.fromJson;
+  factory _GeoLocation.fromJson(Map<String, dynamic> json) =
+      _$_GeoLocation.fromJson;
 
   @override
   double get latitude => throw _privateConstructorUsedError;
@@ -332,6 +337,6 @@ abstract class _Location implements Location {
   DateTime? get timestamp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LocationCopyWith<_Location> get copyWith =>
+  _$GeoLocationCopyWith<_GeoLocation> get copyWith =>
       throw _privateConstructorUsedError;
 }
