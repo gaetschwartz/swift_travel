@@ -279,7 +279,7 @@ class SwiftNavigationBar extends StatelessWidget {
   Expanded buildInkWell(int i, BuildContext context) {
     final item = items[i];
     final isCurrent = page == i;
-    final _activeColor = activeColor ?? Theme.of(context).primaryColor;
+    final _activeColor = activeColor ?? Theme.of(context).accentColor;
     return Expanded(
         child: DefaultTextStyle(
       style: isCurrent
@@ -305,8 +305,8 @@ class SwiftNavigationBar extends StatelessWidget {
                       GradientMask(
                         gradient: LinearGradient(
                           colors: [
-                            augment2(Theme.of(context).primaryColor, strength: 0.5),
-                            Theme.of(context).primaryColor,
+                            augment2(_activeColor, strength: 0.5),
+                            _activeColor,
                           ],
                           begin: Alignment.topRight,
                           end: Alignment.bottomLeft,
