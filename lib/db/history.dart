@@ -33,6 +33,6 @@ class RouteHistoryRepository extends LocalDatabase<int, String, LocalRoute>
   @override
   Future<void> open({String? path, bool doLog = false}) async {
     await super.open(path: path, doLog: doLog);
-    //  await deleteAll(invalidKeys());
+    await deleteAll(invalidKeys());
   }
 }
