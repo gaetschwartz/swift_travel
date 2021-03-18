@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/mocking/mocking.dart';
+import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/route_widget.dart';
@@ -25,11 +28,17 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
       appBar: AppBar(
         actions: [
           IconButton(
+              onPressed: () {
+                Navigator.of(context).push<void>(
+                    MaterialPageRoute(builder: (context) => _RoutesJson(routes: routes)));
+              },
+              icon: const Icon(Icons.print)),
+          IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () async {
                 await RouteHistoryRepository.i.clear();
                 setState(() {});
-              })
+              }),
         ],
       ),
       body: Column(
@@ -58,6 +67,34 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _RoutesJson extends StatelessWidget {
+  const _RoutesJson({
+    Key? key,
+    required this.routes,
+  }) : super(key: key);
+
+  final List<LocalRoute> routes;
+
+  @override
+  Widget build(BuildContext context) {
+    const encoder = JsonEncoder.withIndent(' ');
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView.separated(
+        itemBuilder: (context, i) {
+          return ListTile(
+            title: Text(
+              encoder.convert(routes[i].toJson()),
+            ),
+          );
+        },
+        itemCount: routes.length,
+        separatorBuilder: (context, index) => const Divider(height: 4),
       ),
     );
   }

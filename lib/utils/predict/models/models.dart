@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/models/favorites.dart';
+import 'package:swift_travel/utils/models/coordinates.dart';
 
 part 'models.freezed.dart';
 part 'models.g.dart';
@@ -29,19 +30,46 @@ class FullArguments with _$FullArguments {
 
 @freezed
 class PredictionArguments with _$PredictionArguments {
-  @JsonSerializable(explicitToJson: true)
-  const factory PredictionArguments(DateTime dateTime) = DateTimeArgument;
-  @JsonSerializable(explicitToJson: true)
-  const factory PredictionArguments.source(DateTime dateTime, String source) = SourceDateArguments;
+  const PredictionArguments._();
 
-  factory PredictionArguments.from(DateTime dateTime, [String? source]) {
-    if (source != null) {
-      return PredictionArguments.source(dateTime, source);
-    } else {
-      return PredictionArguments(dateTime);
+  @JsonSerializable(explicitToJson: true)
+  const factory PredictionArguments(DateTime? dateTime) = DateTimeArgument;
+
+  @JsonSerializable(explicitToJson: true)
+  const factory PredictionArguments.withSource(DateTime? dateTime, String source) =
+      SourceDateArguments;
+
+  @JsonSerializable(explicitToJson: true)
+  const factory PredictionArguments.withLocation(LatLon latLon, {DateTime? dateTime}) =
+      LocationArgument;
+
+  factory PredictionArguments.from(DateTime dateTime, {String? source, LatLon? pos}) {
+    if (pos != null) {
+      return PredictionArguments.withLocation(pos, dateTime: dateTime);
     }
+    if (source != null) {
+      return PredictionArguments.withSource(dateTime, source);
+    }
+    return PredictionArguments(dateTime);
   }
 
   factory PredictionArguments.fromJson(Map<String, dynamic> json) =>
       _$PredictionArgumentsFromJson(json);
+
+  PredictionArguments round([int minutes = 5]) {
+    final dt = dateTime;
+    if (dt == null) {
+      return this;
+    }
+
+    return copyWith(
+      dateTime: DateTime(
+        dt.year,
+        dt.month,
+        dt.day,
+        dt.hour,
+        dt.minute - dt.minute % minutes,
+      ),
+    );
+  }
 }

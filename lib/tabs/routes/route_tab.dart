@@ -30,6 +30,7 @@ import 'package:swift_travel/states/route_textfield_state.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/models/coordinates.dart';
 import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
@@ -93,7 +94,7 @@ class Fetcher extends FetcherBase {
       log('To: ${to.state}');
     }
 
-    Location? p;
+    GeoLocation? p;
 
     try {
       final departure = await from.state.when<FutureOr<String>?>(
@@ -619,10 +620,20 @@ class RoutePageState extends State<RoutePage> {
   }
 }
 
-final _predictionProvider = FutureProvider<RoutePrediction>((ref) => predictRoute(
-      RouteHistoryRepository.i.history,
-      PredictionArguments(ref.watch(dateProvider).state),
-    ));
+final _locationProvider = FutureProvider((ref) => getLocation());
+
+final _predictionProvider = FutureProvider<RoutePrediction>((ref) {
+  final pos = ref.watch(_locationProvider).maybeWhen(
+        data: (loc) => LatLon.fromGeoLocation(loc),
+        orElse: () => null,
+      );
+  final dateTime = ref.watch(dateProvider).state;
+  final routes = RouteHistoryRepository.i.history;
+  return predictRoute(
+    routes,
+    PredictionArguments.from(dateTime, pos: pos),
+  );
+});
 
 final _locationNotFound = RegExp(r'Stop ([\d\.,-\s]*) not found\.');
 
@@ -776,7 +787,7 @@ class RoutesView extends StatelessWidget {
               final data = watch(_predictionProvider);
               return data.when(
                 data: (pred) {
-                  if (pred.prediction != null && pred.confidence > .2) {
+                  if (pred.prediction != null) {
                     return RouteWidget(
                       from: Text(pred.prediction!.fromAsString.stripAt()),
                       to: Text(pred.prediction!.toAsString.stripAt()),
@@ -826,7 +837,11 @@ class RoutesView extends StatelessWidget {
                     ),
                   ),
                 ),
-                error: (e, s) => child!,
+                error: (e, s) {
+                  print(e);
+                  debugPrintStack(stackTrace: s);
+                  return child!;
+                },
               );
             },
             child: Column(

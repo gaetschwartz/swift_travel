@@ -14,7 +14,7 @@ dependencies:
   swift_travel:
     path: ../../
   freezed_annotation:
-  geolocator: ^7.0.0-nullsafety.4
+  geolocator:
 
 dev_dependencies:
   flutter_test:

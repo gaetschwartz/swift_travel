@@ -193,7 +193,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<String?> getPrediction(String query) async {
     if (widget.isDestination) {
-      final args = PredictionArguments.source(widget.dateTime!, query);
+      final args = PredictionArguments.withSource(widget.dateTime, query);
       print('Predicting the destination with $args');
       final prediction = await predictRoute(hist.history, args);
       print(prediction);

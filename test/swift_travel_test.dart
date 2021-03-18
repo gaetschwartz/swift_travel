@@ -144,9 +144,9 @@ void main() {
       final route1 = LocalRoute.v2(const SbbStop('from'), const SbbStop('to'),
           displayName: 'name', timestamp: MockableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
-          const SbbRouteConnection(from: 'from', to: 'to', depDelay: 0),
-          displayName: 'name',
-          timestamp: MockableDateTime.now());
+        SbbRouteConnection(from: 'from', to: 'to', depDelay: 0, departure: MockableDateTime.now()),
+        displayName: 'name',
+      );
       final json = {
         'from': const SbbStop('from').toJson(),
         'to': const SbbStop('to').toJson(),
@@ -392,7 +392,7 @@ class MockRouteHistory implements RouteHistoryRepository {
   }
 
   @override
-  Box<Map> get box => throw UnimplementedError();
+  Box<String> get box => throw UnimplementedError();
 
   @override
   String get boxKey => throw UnimplementedError();
@@ -408,7 +408,7 @@ class MockRouteHistory implements RouteHistoryRepository {
   }
 
   @override
-  DataConverter<Map, LocalRoute> get decoder => throw UnimplementedError();
+  DataConverter<String, LocalRoute> get decoder => throw UnimplementedError();
 
   @override
   Future<void> delete(int key) {
@@ -421,7 +421,7 @@ class MockRouteHistory implements RouteHistoryRepository {
   }
 
   @override
-  DataConverter<LocalRoute, Map> get encoder => throw UnimplementedError();
+  DataConverter<LocalRoute, String> get encoder => throw UnimplementedError();
 
   @override
   LocalRoute get first => throw UnimplementedError();
@@ -481,6 +481,11 @@ class MockRouteHistory implements RouteHistoryRepository {
 
   @override
   Stream<BoxEvent> watch({dynamic key}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Iterable<int> invalidKeys() {
     throw UnimplementedError();
   }
 }
