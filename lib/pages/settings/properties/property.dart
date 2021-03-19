@@ -79,14 +79,3 @@ class Property<T extends Object?> extends ChangeNotifier {
     };
   }
 }
-
-extension TypeX<T> on T {
-  bool get isNullable => null is T;
-}
-
-void main() {
-  String? s;
-  print(s.isNullable); // true
-  const t = '';
-  print(t.isNullable); // false
-}
