@@ -114,7 +114,7 @@ jobs:
           COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
-        run: bash CI/prebuild.sh
+        run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
       - name: Build
         working-directory: app/
         run: |
@@ -162,13 +162,13 @@ jobs:
           COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
-        run: bash CI/prebuild.sh
+        run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
       - name: Build
         working-directory: app/
         run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
       - name: Sign APK
         working-directory: app/
-        run: bash CI/sign_apk.sh
+        run: bash $GITHUB_WORKSPACE/CI/sign_apk.sh
         env:
           PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
       - name: Upload apk
@@ -214,7 +214,7 @@ jobs:
           COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
-        run: bash CI/prebuild.sh
+        run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
       - name: Build
         working-directory: app/
         run: flutter build web
