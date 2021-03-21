@@ -29,6 +29,7 @@ workflows:
             - installation_bundle_url: $FLUTTER_ARCHIVE_URL
       - script@1:
           inputs:
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
             - content: >-
                 #!/usr/bin/env bash
                 set -e
