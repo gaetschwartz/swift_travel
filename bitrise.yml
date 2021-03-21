@@ -85,10 +85,10 @@ app:
   envs:
     - opts:
         is_expand: false
-      BITRISE_FLUTTER_PROJECT_LOCATION: ./app
+      BITRISE_FLUTTER_PROJECT_LOCATION: app/
     - opts:
         is_expand: false
-      BITRISE_PROJECT_PATH: ios/Runner.xcworkspace
+      BITRISE_PROJECT_PATH: app/ios/Runner.xcworkspace
     - opts:
         is_expand: false
       BITRISE_SCHEME: Runner
