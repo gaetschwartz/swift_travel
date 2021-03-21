@@ -115,6 +115,7 @@ jobs:
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
+        shell: bash
       - name: Build
         working-directory: app/
         run: |
