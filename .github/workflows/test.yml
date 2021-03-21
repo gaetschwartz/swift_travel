@@ -48,11 +48,14 @@ jobs:
           GIT_MSG: ${{ steps.git-data.outputs.msg }}
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
+        working-directory: app/
       - name: Test
         run: flutter test --coverage
+        working-directory: app/
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v1
         with:
+          files: app/coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
 
   build-android:
@@ -71,6 +74,7 @@ jobs:
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
           echo "::set-output name=count::$(git rev-list --count HEAD)"
       - name: Pre-build configuration
+        working-directory: app/
         env:
           TZ: Europe/Zurich
           COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
@@ -88,8 +92,10 @@ jobs:
         with:
           channel: ${{ env.flutter_channel }}
       - name: Get packages
+        working-directory: app/
         run: flutter packages get
       - name: Build
+        working-directory: app/
         run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
 
   build-ios:
@@ -111,6 +117,7 @@ jobs:
         with:
           channel: ${{ env.flutter_channel }}
       - name: Get packages
+        working-directory: app/
         run: flutter packages get
       - name: Get git infos
         id: git-data
@@ -119,6 +126,7 @@ jobs:
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
           echo "::set-output name=count::$(git rev-list --count HEAD)"
       - name: Pre-build configuration
+        working-directory: app/
         env:
           TZ: Europe/Zurich
           COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
@@ -126,4 +134,5 @@ jobs:
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
       - name: Build
+        working-directory: app/
         run: flutter build ios --build-number $GITHUB_RUN_NUMBER  --no-codesign

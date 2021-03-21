@@ -3,27 +3,6 @@ format_version: "8"
 default_step_lib_source: "https://github.com/bitrise-io/bitrise-steplib.git"
 project_type: flutter
 workflows:
-  deploy-android:
-    steps:
-      - flutter-build@0:
-          inputs:
-            - ios_additional_params: "--release --no-codesign --build-number $GIT_CLONE_COMMIT_COUNT"
-            - android_additional_params: >-
-                --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform
-                android-arm64
-            - platform: android
-      - deploy-to-bitrise-io@1:
-          inputs:
-            - deploy_path: $BITRISE_APK_PATH
-            - notify_user_groups: none
-      - telegram-notify@1:
-          inputs:
-            - custom_message: "Build number: $GIT_CLONE_COMMIT_COUNT"
-            - download_url: $BITRISE_PUBLIC_INSTALL_PAGE_URL
-          is_always_run: false
-      - cache-push@2:
-          inputs:
-            - compress_archive: "true"
   deploy-ios:
     steps:
       - activate-ssh-key@4:
@@ -43,6 +22,7 @@ workflows:
       - script-runner@0:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
           title: Prebuild
       - flutter-installer@0:
           inputs:
@@ -51,18 +31,10 @@ workflows:
           inputs:
             - content: >-
                 #!/usr/bin/env bash
-
-                # fail if any commands fails
-
                 set -e
-
-                # debug log
-
                 set -x
 
-
-                flutter build ios --config-only --no-codesign --release
-                --build-number $GIT_CLONE_COMMIT_COUNT
+                flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
           title: flutter build ios
       - xcode-archive@3: {}
       - deploy-to-itunesconnect-application-loader@1:
@@ -82,9 +54,7 @@ workflows:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
-                # fail if any commands fails
                 set -e
-                # debug log
                 set -x
 
                 bash $BITRISE_SOURCE_DIR/CI/latest.sh stable
@@ -92,6 +62,7 @@ workflows:
       - script-runner@0:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
+            - working-directory: $BITRISE_FLUTTER_PROJECT_LOCATION
           title: Prebuild
       - cache-pull@2: {}
       - flutter-installer@0:
@@ -108,11 +79,12 @@ workflows:
                 android-arm64
       - cache-push@2: {}
     after_run: []
+
 app:
   envs:
     - opts:
         is_expand: false
-      BITRISE_FLUTTER_PROJECT_LOCATION: .
+      BITRISE_FLUTTER_PROJECT_LOCATION: ./app
     - opts:
         is_expand: false
       BITRISE_PROJECT_PATH: ios/Runner.xcworkspace

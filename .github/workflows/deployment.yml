@@ -105,8 +105,10 @@ jobs:
           echo "::set-output name=count::$(git rev-list --count HEAD)"
           echo "::set-output name=version::$(grep 'version:' pubspec.yaml | awk '{ print $2}' | cut -d "+" -f1)"
       - name: Get dependencies
+        working-directory: app/
         run: flutter packages get
       - name: Pre-build configuration
+        working-directory: app/
         env:
           TZ: Europe/Zurich
           COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
@@ -114,6 +116,7 @@ jobs:
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
       - name: Build
+        working-directory: app/
         run: |
           flutter config --enable-windows-desktop
           flutter build windows
@@ -121,7 +124,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: windows-release
-          path: build/windows/runner/Release/
+          path: app/build/windows/runner/Release/
 
   android:
     runs-on: ubuntu-latest
@@ -150,8 +153,10 @@ jobs:
           echo "::set-output name=count::$(git rev-list --count HEAD)"
           echo "::set-output name=version::$(grep 'version:' pubspec.yaml | awk '{ print $2}' | cut -d "+" -f1)"
       - name: Get dependencies
+        working-directory: app/
         run: flutter packages get
       - name: Pre-build configuration
+        working-directory: app/
         env:
           TZ: Europe/Zurich
           COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
@@ -159,8 +164,10 @@ jobs:
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
       - name: Build
+        working-directory: app/
         run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
       - name: Sign APK
+        working-directory: app/
         run: bash CI/sign_apk.sh
         env:
           PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -168,7 +175,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: app-release.apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: app/build/app/outputs/flutter-apk/app-release.apk
 
   build-web:
     runs-on: ubuntu-latest
@@ -196,10 +203,12 @@ jobs:
           echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
           echo "::set-output name=count::$(git rev-list --count HEAD)"
       - name: Get dependencies
+        working-directory: app/
         run: |
           flutter config --enable-web
           flutter packages get
       - name: Pre-build configuration
+        working-directory: app/
         env:
           TZ: Europe/Zurich
           COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
@@ -207,6 +216,7 @@ jobs:
           GIT_HASH: ${{ steps.git-data.outputs.hash }}
         run: bash CI/prebuild.sh
       - name: Build
+        working-directory: app/
         run: flutter build web
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

@@ -6,7 +6,7 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "public": "build/web",
+    "public": "app/build/web",
     "rewrites": [
       {
         "destination": "/well-known/apple.json",
