@@ -52,9 +52,10 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
   for (final route in routes) {
     var sqrdDist = .0;
 
-    if (time != null && weekday != null) {
-      sqrdDist += math.pow((route.timestamp!.weekday - weekday) * _daysFactor, 2);
-      sqrdDist += math.pow((route.timestamp!.minutesOfDay - time) * _minutesFactor, 2);
+    final timestamp = route.timestamp;
+    if (time != null && weekday != null && timestamp != null) {
+      sqrdDist += math.pow((timestamp.weekday - weekday) * _daysFactor, 2);
+      sqrdDist += math.pow((timestamp.minutesOfDay - time) * _minutesFactor, 2);
     }
 
     if (arguments is SourceDateArguments) {

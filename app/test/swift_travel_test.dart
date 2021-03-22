@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_await_in_return
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -34,6 +35,17 @@ final route1 = LocalRoute.v1(geneva, 'Lausanne', timestamp: timestamp);
 final route2 = LocalRoute.v1('Lausanne', geneva, timestamp: timestamp);
 final route3 = LocalRoute.v1('Zürich', 'Bern', timestamp: timestamp);
 
+String _sizeOf(int bytes, {int fixed = 0}) {
+  const sizes = ['b', 'Kb', 'Mb', 'Gb'];
+  var i = 0;
+  var b = bytes;
+  while (b > 1024 && i < sizes.length - 1) {
+    b >>= 10;
+    i++;
+  }
+  return '${b.toStringAsFixed(fixed)} ${sizes[i]}';
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -51,6 +63,33 @@ void main() {
 
     tearDown(() async {
       await Hive.deleteBoxFromDisk(RouteHistoryRepository.i.boxKey);
+    });
+
+    test('size is smaller than 32 Kb for maxSize', () async {
+      await hist.open();
+
+      await hist.clear();
+
+      for (var i = 0; i < hist.maxSize; i++) {
+        await hist.add(LocalRoute.v1('from-$i', 'to-$i'));
+      }
+
+      final f = File(hist.box.path!);
+
+      final size = f.lengthSync();
+      print('Size of 250 items in history is ${_sizeOf(size)}');
+      expect(size, lessThan(32 << 10));
+    });
+
+    test("doesn't go above maxSize", () async {
+      await hist.open();
+
+      await hist.clear();
+
+      for (var i = 0; i < hist.maxSize + 50; i++) {
+        await hist.add(LocalRoute.v1('from-$i', 'to-$i'));
+      }
+      expect(hist.size, lessThanOrEqualTo(hist.maxSize));
     });
 
     test('add route', () async {
@@ -152,7 +191,7 @@ void main() {
         'to': const SbbStop('to').toJson(),
         'displayName': 'name',
         'timestamp': MockableDateTime.now().toIso8601String(),
-        'version': 2,
+        'runtimeType': 'v2',
       };
       final route3 = LocalRoute.fromJson(json);
       expect(route1, equals(route2));
