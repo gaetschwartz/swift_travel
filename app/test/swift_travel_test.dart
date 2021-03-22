@@ -57,19 +57,16 @@ void main() {
       Hive.init(dir);
     });
 
-    setUp(() {
+    setUp(() async {
       hist = RouteHistoryRepository();
+      await hist.open();
     });
 
     tearDown(() async {
       await Hive.deleteBoxFromDisk(RouteHistoryRepository.i.boxKey);
     });
 
-    test('size is smaller than 32 Kb for maxSize', () async {
-      await hist.open();
-
-      await hist.clear();
-
+    test('size is smaller than 1 Mb for maxSize', () async {
       for (var i = 0; i < hist.maxSize; i++) {
         await hist.add(LocalRoute.v1('from-$i', 'to-$i'));
       }
@@ -77,15 +74,11 @@ void main() {
       final f = File(hist.box.path!);
 
       final size = f.lengthSync();
-      print('Size of 250 items in history is ${_sizeOf(size)}');
-      expect(size, lessThan(32 << 10));
+      print('History of ${hist.maxSize} items is of size ${_sizeOf(size)}');
+      expect(size, lessThan(1 << 20));
     });
 
     test("doesn't go above maxSize", () async {
-      await hist.open();
-
-      await hist.clear();
-
       for (var i = 0; i < hist.maxSize + 50; i++) {
         await hist.add(LocalRoute.v1('from-$i', 'to-$i'));
       }
@@ -93,9 +86,6 @@ void main() {
     });
 
     test('add route', () async {
-      await hist.open();
-
-      await hist.clear();
       expect(hist.history, isEmpty);
 
       await hist.add(route1);
@@ -131,13 +121,15 @@ void main() {
 
     test(
       'singleton != new instance',
-      () => expect(RouteHistoryRepository.i, isNot(hist)),
+      () => expect(RouteHistoryRepository.i, isNot(RouteHistoryRepository())),
     );
 
     test('throws when not accessed properly', () {
+      final hist = RouteHistoryRepository();
       expect(() async => await hist.add(route1), throwsAssertionError);
     });
     test('safe add works', () async {
+      final hist = RouteHistoryRepository();
       await hist.safeAdd(route1);
       expect(hist.history, [route1]);
     });
