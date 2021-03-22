@@ -513,7 +513,7 @@ class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
     final prevPageTitle = widget.automaticallyImplyLeading
         ? widget.previousPageTitle ?? _previousPageTitle
         : widget.previousPageTitle;
-    print('Previous page title is $prevPageTitle');
+    // print('Previous page title is $prevPageTitle');
 
     return CupertinoNavigationBar(
       leading: widget.leading,
