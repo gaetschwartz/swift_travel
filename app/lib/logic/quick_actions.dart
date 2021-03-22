@@ -59,7 +59,7 @@ class MyQuickActions {
     }
   }
 
-  Future<void> setActions(List<LocalRoute> routes, List<FavoriteStop?> favorites) async {
+  Future<void> setActions(List<LocalRoute> routes, List<FavoriteStop> favorites) async {
     if (!isMobile) {
       print('Actions not supported for now on $platform');
       return;
@@ -68,7 +68,7 @@ class MyQuickActions {
 
     log('Add favorites $favorites', name: 'QuickActions');
     for (var i = 0; i < min(maxFavoriteStops, favorites.length); i++) {
-      final fav = favorites[i]!;
+      final fav = favorites[i];
       shortcuts.add(ShortcutItem(
         type: 'fav_$i',
         localizedTitle: fav.stop,

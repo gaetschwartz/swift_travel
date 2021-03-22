@@ -29,24 +29,22 @@ class _$LocalRouteTearOff {
   const _$LocalRouteTearOff();
 
   LocalRouteV1 v1(String from, String to,
-      {String? displayName, DateTime? timestamp, int version = 1}) {
+      {String? displayName, DateTime? timestamp}) {
     return LocalRouteV1(
       from,
       to,
       displayName: displayName,
       timestamp: timestamp,
-      version: version,
     );
   }
 
   LocalRouteV2 v2(SbbStop from, SbbStop to,
-      {String? displayName, DateTime? timestamp, int version = 2}) {
+      {String? displayName, DateTime? timestamp}) {
     return LocalRouteV2(
       from,
       to,
       displayName: displayName,
       timestamp: timestamp,
-      version: version,
     );
   }
 
@@ -62,25 +60,24 @@ const $LocalRoute = _$LocalRouteTearOff();
 mixin _$LocalRoute {
   String? get displayName => throw _privateConstructorUsedError;
   DateTime? get timestamp => throw _privateConstructorUsedError;
-  int get version => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String from, String to, String? displayName,
-            DateTime? timestamp, int version)
+    required TResult Function(
+            String from, String to, String? displayName, DateTime? timestamp)
         v1,
-    required TResult Function(SbbStop from, SbbStop to, String? displayName,
-            DateTime? timestamp, int version)
+    required TResult Function(
+            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)
         v2,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String from, String to, String? displayName,
-            DateTime? timestamp, int version)?
+    TResult Function(
+            String from, String to, String? displayName, DateTime? timestamp)?
         v1,
-    TResult Function(SbbStop from, SbbStop to, String? displayName,
-            DateTime? timestamp, int version)?
+    TResult Function(
+            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
         v2,
     required TResult orElse(),
   }) =>
@@ -109,7 +106,7 @@ abstract class $LocalRouteCopyWith<$Res> {
   factory $LocalRouteCopyWith(
           LocalRoute value, $Res Function(LocalRoute) then) =
       _$LocalRouteCopyWithImpl<$Res>;
-  $Res call({String? displayName, DateTime? timestamp, int version});
+  $Res call({String? displayName, DateTime? timestamp});
 }
 
 /// @nodoc
@@ -124,7 +121,6 @@ class _$LocalRouteCopyWithImpl<$Res> implements $LocalRouteCopyWith<$Res> {
   $Res call({
     Object? displayName = freezed,
     Object? timestamp = freezed,
-    Object? version = freezed,
   }) {
     return _then(_value.copyWith(
       displayName: displayName == freezed
@@ -135,10 +131,6 @@ class _$LocalRouteCopyWithImpl<$Res> implements $LocalRouteCopyWith<$Res> {
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      version: version == freezed
-          ? _value.version
-          : version // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -150,12 +142,7 @@ abstract class $LocalRouteV1CopyWith<$Res>
           LocalRouteV1 value, $Res Function(LocalRouteV1) then) =
       _$LocalRouteV1CopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String from,
-      String to,
-      String? displayName,
-      DateTime? timestamp,
-      int version});
+  $Res call({String from, String to, String? displayName, DateTime? timestamp});
 }
 
 /// @nodoc
@@ -174,7 +161,6 @@ class _$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
     Object? to = freezed,
     Object? displayName = freezed,
     Object? timestamp = freezed,
-    Object? version = freezed,
   }) {
     return _then(LocalRouteV1(
       from == freezed
@@ -193,10 +179,6 @@ class _$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      version: version == freezed
-          ? _value.version
-          : version // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -205,8 +187,7 @@ class _$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 
 /// @nodoc
 class _$LocalRouteV1 extends LocalRouteV1 {
-  const _$LocalRouteV1(this.from, this.to,
-      {this.displayName, this.timestamp, this.version = 1})
+  const _$LocalRouteV1(this.from, this.to, {this.displayName, this.timestamp})
       : super._();
 
   factory _$LocalRouteV1.fromJson(Map<String, dynamic> json) =>
@@ -220,13 +201,10 @@ class _$LocalRouteV1 extends LocalRouteV1 {
   final String? displayName;
   @override
   final DateTime? timestamp;
-  @JsonKey(defaultValue: 1)
-  @override
-  final int version;
 
   @override
   String toString() {
-    return 'LocalRoute.v1(from: $from, to: $to, displayName: $displayName, timestamp: $timestamp, version: $version)';
+    return 'LocalRoute.v1(from: $from, to: $to, displayName: $displayName, timestamp: $timestamp)';
   }
 
   @override
@@ -242,9 +220,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
                     .equals(other.displayName, displayName)) &&
             (identical(other.timestamp, timestamp) ||
                 const DeepCollectionEquality()
-                    .equals(other.timestamp, timestamp)) &&
-            (identical(other.version, version) ||
-                const DeepCollectionEquality().equals(other.version, version)));
+                    .equals(other.timestamp, timestamp)));
   }
 
   @override
@@ -253,8 +229,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
       const DeepCollectionEquality().hash(from) ^
       const DeepCollectionEquality().hash(to) ^
       const DeepCollectionEquality().hash(displayName) ^
-      const DeepCollectionEquality().hash(timestamp) ^
-      const DeepCollectionEquality().hash(version);
+      const DeepCollectionEquality().hash(timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -264,29 +239,29 @@ class _$LocalRouteV1 extends LocalRouteV1 {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String from, String to, String? displayName,
-            DateTime? timestamp, int version)
+    required TResult Function(
+            String from, String to, String? displayName, DateTime? timestamp)
         v1,
-    required TResult Function(SbbStop from, SbbStop to, String? displayName,
-            DateTime? timestamp, int version)
+    required TResult Function(
+            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)
         v2,
   }) {
-    return v1(from, to, displayName, timestamp, version);
+    return v1(from, to, displayName, timestamp);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String from, String to, String? displayName,
-            DateTime? timestamp, int version)?
+    TResult Function(
+            String from, String to, String? displayName, DateTime? timestamp)?
         v1,
-    TResult Function(SbbStop from, SbbStop to, String? displayName,
-            DateTime? timestamp, int version)?
+    TResult Function(
+            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
         v2,
     required TResult orElse(),
   }) {
     if (v1 != null) {
-      return v1(from, to, displayName, timestamp, version);
+      return v1(from, to, displayName, timestamp);
     }
     return orElse();
   }
@@ -321,7 +296,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 
 abstract class LocalRouteV1 extends LocalRoute {
   const factory LocalRouteV1(String from, String to,
-      {String? displayName, DateTime? timestamp, int version}) = _$LocalRouteV1;
+      {String? displayName, DateTime? timestamp}) = _$LocalRouteV1;
   const LocalRouteV1._() : super._();
 
   factory LocalRouteV1.fromJson(Map<String, dynamic> json) =
@@ -333,8 +308,6 @@ abstract class LocalRouteV1 extends LocalRoute {
   String? get displayName => throw _privateConstructorUsedError;
   @override
   DateTime? get timestamp => throw _privateConstructorUsedError;
-  @override
-  int get version => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $LocalRouteV1CopyWith<LocalRouteV1> get copyWith =>
@@ -349,11 +322,7 @@ abstract class $LocalRouteV2CopyWith<$Res>
       _$LocalRouteV2CopyWithImpl<$Res>;
   @override
   $Res call(
-      {SbbStop from,
-      SbbStop to,
-      String? displayName,
-      DateTime? timestamp,
-      int version});
+      {SbbStop from, SbbStop to, String? displayName, DateTime? timestamp});
 
   $SbbStopCopyWith<$Res> get from;
   $SbbStopCopyWith<$Res> get to;
@@ -375,7 +344,6 @@ class _$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
     Object? to = freezed,
     Object? displayName = freezed,
     Object? timestamp = freezed,
-    Object? version = freezed,
   }) {
     return _then(LocalRouteV2(
       from == freezed
@@ -394,10 +362,6 @@ class _$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      version: version == freezed
-          ? _value.version
-          : version // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 
@@ -420,8 +384,7 @@ class _$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 
 /// @nodoc
 class _$LocalRouteV2 extends LocalRouteV2 {
-  const _$LocalRouteV2(this.from, this.to,
-      {this.displayName, this.timestamp, this.version = 2})
+  const _$LocalRouteV2(this.from, this.to, {this.displayName, this.timestamp})
       : super._();
 
   factory _$LocalRouteV2.fromJson(Map<String, dynamic> json) =>
@@ -435,13 +398,10 @@ class _$LocalRouteV2 extends LocalRouteV2 {
   final String? displayName;
   @override
   final DateTime? timestamp;
-  @JsonKey(defaultValue: 2)
-  @override
-  final int version;
 
   @override
   String toString() {
-    return 'LocalRoute.v2(from: $from, to: $to, displayName: $displayName, timestamp: $timestamp, version: $version)';
+    return 'LocalRoute.v2(from: $from, to: $to, displayName: $displayName, timestamp: $timestamp)';
   }
 
   @override
@@ -457,9 +417,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
                     .equals(other.displayName, displayName)) &&
             (identical(other.timestamp, timestamp) ||
                 const DeepCollectionEquality()
-                    .equals(other.timestamp, timestamp)) &&
-            (identical(other.version, version) ||
-                const DeepCollectionEquality().equals(other.version, version)));
+                    .equals(other.timestamp, timestamp)));
   }
 
   @override
@@ -468,8 +426,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
       const DeepCollectionEquality().hash(from) ^
       const DeepCollectionEquality().hash(to) ^
       const DeepCollectionEquality().hash(displayName) ^
-      const DeepCollectionEquality().hash(timestamp) ^
-      const DeepCollectionEquality().hash(version);
+      const DeepCollectionEquality().hash(timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -479,29 +436,29 @@ class _$LocalRouteV2 extends LocalRouteV2 {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String from, String to, String? displayName,
-            DateTime? timestamp, int version)
+    required TResult Function(
+            String from, String to, String? displayName, DateTime? timestamp)
         v1,
-    required TResult Function(SbbStop from, SbbStop to, String? displayName,
-            DateTime? timestamp, int version)
+    required TResult Function(
+            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)
         v2,
   }) {
-    return v2(from, to, displayName, timestamp, version);
+    return v2(from, to, displayName, timestamp);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String from, String to, String? displayName,
-            DateTime? timestamp, int version)?
+    TResult Function(
+            String from, String to, String? displayName, DateTime? timestamp)?
         v1,
-    TResult Function(SbbStop from, SbbStop to, String? displayName,
-            DateTime? timestamp, int version)?
+    TResult Function(
+            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
         v2,
     required TResult orElse(),
   }) {
     if (v2 != null) {
-      return v2(from, to, displayName, timestamp, version);
+      return v2(from, to, displayName, timestamp);
     }
     return orElse();
   }
@@ -536,7 +493,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 
 abstract class LocalRouteV2 extends LocalRoute {
   const factory LocalRouteV2(SbbStop from, SbbStop to,
-      {String? displayName, DateTime? timestamp, int version}) = _$LocalRouteV2;
+      {String? displayName, DateTime? timestamp}) = _$LocalRouteV2;
   const LocalRouteV2._() : super._();
 
   factory LocalRouteV2.fromJson(Map<String, dynamic> json) =
@@ -548,8 +505,6 @@ abstract class LocalRouteV2 extends LocalRoute {
   String? get displayName => throw _privateConstructorUsedError;
   @override
   DateTime? get timestamp => throw _privateConstructorUsedError;
-  @override
-  int get version => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $LocalRouteV2CopyWith<LocalRouteV2> get copyWith =>

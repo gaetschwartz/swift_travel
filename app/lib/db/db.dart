@@ -74,9 +74,13 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
 
   /// Method called when the databse size exceeds the `maxSize`. Is is supposed to delete items.
   ///
-  /// Default behavior for `IndexedDatabaseMixin` is to delete the first `10` keys.
+  /// Default behavior is to delete the first `10` keys.
   /// Override this method to change its behavior.
-  FutureOr<void> onDatabaseExceededMaxSize();
+  FutureOr<void> onDatabaseExceededMaxSize() async {
+    final range = keys.take(10);
+    print('Exceeded max size, should delete keys: $range');
+    await box.deleteAll(range);
+  }
 
   Future<void> put(TKey key, TValue value) async {
     if (box.length >= maxSize) {
@@ -91,7 +95,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
 
   TValue get first => values.first;
   Iterable<TKey> get keys => box.keys.cast<TKey>();
-  Future<void> deleteAll(Iterable<TKey?> keys) => box.deleteAll(keys);
+  Future<void> deleteAll(Iterable<TKey> keys) => box.deleteAll(keys);
   Future<void> delete(TKey key) => box.delete(key);
 
   bool containsKey(TKey key) => box.containsKey(formatKey(key));
@@ -143,8 +147,4 @@ mixin IndexedDatabaseMixin<TEncValue extends Object, TValue extends Object>
 
   Future<void> hashAdd(TValue data) => put(data.hashCode, data);
   Future<void> hashDelete(TValue data) => delete(data.hashCode);
-
-  @override
-  FutureOr<void> onDatabaseExceededMaxSize() async =>
-      await box.deleteAll(<int>[for (var i = 0; i < 10; i++) i]);
 }

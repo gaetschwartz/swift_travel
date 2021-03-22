@@ -11,16 +11,22 @@ part 'favorites.g.dart';
 class LocalRouteConverter implements JsonConverter<LocalRoute, Map<String, dynamic>> {
   const LocalRouteConverter();
 
+  static const key = 'runtimeType';
+
   @override
   LocalRoute fromJson(Map<String, dynamic> json) {
-    final version = json['version'] as int? ?? 1;
-    switch (version) {
-      case 1:
+    final type = json[key] as Object?;
+    if (type == null) {
+      try {
         return LocalRouteV1.fromJson(json);
-      case 2:
-        return LocalRouteV2.fromJson(json);
-      default:
-        throw UnsupportedError('Unsupported version for LocalRoute: `$version`');
+      } catch (_) {
+        throw FormatException('Failed to decode LocalRoute json', json, 0);
+      }
+    }
+    try {
+      return _$LocalRouteFromJson(json);
+    } catch (_) {
+      throw FormatException('Failed to decode LocalRoute json', json, 0);
     }
   }
 
@@ -28,7 +34,7 @@ class LocalRouteConverter implements JsonConverter<LocalRoute, Map<String, dynam
   Map<String, dynamic> toJson(LocalRoute object) => object.toJson();
 }
 
-@freezed
+@Freezed(unionKey: LocalRouteConverter.key)
 class LocalRoute with _$LocalRoute {
   const LocalRoute._();
 
@@ -38,7 +44,6 @@ class LocalRoute with _$LocalRoute {
     String to, {
     String? displayName,
     DateTime? timestamp,
-    @Default(1) int version,
   }) = LocalRouteV1;
 
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
@@ -47,7 +52,6 @@ class LocalRoute with _$LocalRoute {
     SbbStop to, {
     String? displayName,
     DateTime? timestamp,
-    @Default(2) int version,
   }) = LocalRouteV2;
 
   factory LocalRoute.fromRouteConnection(
