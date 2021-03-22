@@ -8,6 +8,7 @@ mixin Env {
   static const doShowErrors = bool.fromEnvironment('DO_SHOW_ERRORS', defaultValue: true);
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
   static late final doCacheInDebug = const String.fromEnvironment('CACHE_DEBUG').split('|');
+  static const enableLiveRoute = bool.fromEnvironment('ENABLE_LIVE_ROUTE');
 
   static late final String summary = map.toString();
 
@@ -19,6 +20,7 @@ mixin Env {
     'SPOOF_LOCATION': spoofLocation,
     'CACHE_DEBUG': doCacheInDebug,
   };
-}
 
+  static bool get isLiveRouteEnabled => kDebugMode || enableLiveRoute;
+}
 const isDebugMode = kDebugMode && !Env.isReleaseMode;

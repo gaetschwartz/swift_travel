@@ -12,6 +12,7 @@ import 'package:swift_travel/tabs/routes/details/tiles/arrived_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/departure_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/transport/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
+import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/share.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
@@ -88,11 +89,12 @@ class RouteDetails extends StatelessWidget {
     showActionSheet<void>(
       context,
       [
-        ActionsSheetAction(
-          icon: const Icon(CupertinoIcons.play_fill),
-          onPressed: () => openLive(context, conn),
-          title: Text(AppLoc.of(context).live_route),
-        ),
+        if (Env.isLiveRouteEnabled)
+          ActionsSheetAction(
+            icon: const Icon(CupertinoIcons.play_fill),
+            onPressed: () => openLive(context, conn),
+            title: Text(AppLoc.of(context).live_route),
+          ),
         ActionsSheetAction(
           icon: const Icon(CupertinoIcons.game_controller),
           onPressed: () =>

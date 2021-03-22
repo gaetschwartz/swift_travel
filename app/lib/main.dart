@@ -67,8 +67,6 @@ Future<void> main() async {
   overridePlatform();
   setPathUrlStrategy();
 
-  print('Platform: $platform');
-
   if (isMobile) {
     await Firebase.initializeApp();
     unawaited(FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode));

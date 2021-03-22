@@ -210,17 +210,7 @@ class _SearchPageState extends State<SearchPage> {
                 tag: widget.heroTag,
                 child: widget.configuration.toCupertino(controller: widget.binder.controller),
               ),
-              trailing: IconButton(
-                color: CupertinoTheme.of(context).primaryColor,
-                onPressed: () => widget.binder.clear(context),
-                icon: ListenerWidget<TextEditingController>(
-                  builder: (context, listenable, child) => Offstage(
-                    offstage: listenable.text.isEmpty,
-                    child: const Icon(CupertinoIcons.clear),
-                  ),
-                  listenable: widget.binder.controller,
-                ),
-              ),
+              trailing: _ClearButton(binder: widget.binder),
             ),
             child: child!,
           ),
@@ -231,7 +221,7 @@ class _SearchPageState extends State<SearchPage> {
             title: Hero(
                 tag: widget.heroTag,
                 child: widget.configuration.toTextField(controller: widget.binder.controller)),
-            actions: [CloseButton(onPressed: () => Navigator.of(context).pop())],
+            actions: [_ClearButton(binder: widget.binder)],
             leading: const CloseButton(key: SearchPage.closeSearchKey),
           ),
           body: child,
@@ -248,6 +238,28 @@ class _SearchPageState extends State<SearchPage> {
     }
     Navigator.of(context).pop();
   }
+}
+
+class _ClearButton extends StatelessWidget {
+  const _ClearButton({
+    required this.binder,
+    Key? key,
+  }) : super(key: key);
+
+  final TextStateBinder binder;
+
+  @override
+  Widget build(BuildContext context) => IconButton(
+        color: CupertinoTheme.of(context).primaryColor,
+        onPressed: () => binder.clear(context),
+        icon: ListenerWidget<TextEditingController>(
+          builder: (context, listenable, child) => Offstage(
+            offstage: listenable.text.isEmpty,
+            child: const Icon(CupertinoIcons.clear),
+          ),
+          listenable: binder.controller,
+        ),
+      );
 }
 
 class _Results extends StatelessWidget {

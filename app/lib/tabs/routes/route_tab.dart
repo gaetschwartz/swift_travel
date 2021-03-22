@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -618,21 +619,6 @@ class RoutePageState extends State<RoutePage> {
   }
 }
 
-final _locationProvider = FutureProvider((ref) => getLocation());
-
-final _predictionProvider = FutureProvider<RoutePrediction>((ref) {
-  final pos = ref.watch(_locationProvider).maybeWhen(
-        data: (loc) => LatLon.fromGeoLocation(loc),
-        orElse: () => null,
-      );
-  final dateTime = ref.watch(dateProvider).state;
-  final routes = RouteHistoryRepository.i.history;
-  return predictRoute(
-    routes,
-    PredictionArguments.from(dateTime, pos: pos),
-  );
-});
-
 final _locationNotFound = RegExp(r'Stop ([\d\.,-\s]*) not found\.');
 
 class RoutesView extends StatelessWidget {
@@ -777,86 +763,9 @@ class RoutesView extends StatelessWidget {
             ],
           ),
           loading: () => const Center(child: CircularProgressIndicator.adaptive()),
-          empty: () => Align(
+          empty: () => const Align(
             alignment: Alignment.topCenter,
-            child: Consumer(
-              builder: (context, watch, child) {
-                final data = watch(_predictionProvider);
-                return data.when(
-                  data: (pred) {
-                    if (pred.prediction != null) {
-                      return RouteWidget(
-                        from: Text(pred.prediction!.fromAsString.stripAt()),
-                        to: Text(pred.prediction!.toAsString.stripAt()),
-                        onTap: () {
-                          from.setString(context, pred.prediction!.fromAsString);
-                          to.setString(context, pred.prediction!.toAsString);
-                        },
-                        title: Text(AppLoc.of(context).suggestion),
-                      );
-                    } else {
-                      return child!;
-                    }
-                  },
-                  loading: () => Shimmer.fromColors(
-                    baseColor: Colors.grey,
-                    highlightColor: Colors.white,
-                    child: const RouteWidget(
-                      from: Align(
-                        alignment: Alignment.centerLeft,
-                        child: SizedBox(
-                          height: 16,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(color: Colors.black),
-                            child: Text('                           '),
-                          ),
-                        ),
-                      ),
-                      to: Align(
-                        alignment: Alignment.centerLeft,
-                        child: SizedBox(
-                          height: 16,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(color: Colors.black),
-                            child: Text('           '),
-                          ),
-                        ),
-                      ),
-                      title: Align(
-                        alignment: Alignment.centerLeft,
-                        child: SizedBox(
-                          height: 16,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(color: Colors.black),
-                            child: Text('               '),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  error: (e, s) {
-                    print(e);
-                    debugPrintStack(stackTrace: s);
-                    return child!;
-                  },
-                );
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    '🔎',
-                    style: TextStyle(fontSize: 48),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    AppLoc.of(context).find_a_route,
-                    style: Theme.of(context).textTheme.headline6,
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
+            child: _PredictionTile(),
           ),
           missingPluginException: () => Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -886,6 +795,113 @@ class RoutesView extends StatelessWidget {
           ),
         );
       });
+}
+
+final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
+  final dateTime = ref.watch(dateProvider).state;
+  LatLon? pos;
+  try {
+    final loc = await getLocation().timeout(const Duration(seconds: 4));
+    pos = LatLon.fromGeoLocation(loc);
+  } catch (_) {}
+
+  final routes = RouteHistoryRepository.i.history;
+  return predictRoute(
+    routes,
+    pos != null ? LocationArgument(pos) : PredictionArguments(dateTime),
+  );
+});
+
+class _PredictionTile extends StatelessWidget {
+  const _PredictionTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Consumer(
+        builder: (context, watch, child) => watch(_predictionProvider).when(
+          data: (pred) {
+            if (pred.prediction != null) {
+              return RouteWidget(
+                from: Text(pred.prediction!.fromAsString.stripAt()),
+                to: Text(pred.prediction!.toAsString.stripAt()),
+                onTap: () {
+                  from.setString(context, pred.prediction!.fromAsString);
+                  to.setString(context, pred.prediction!.toAsString);
+                },
+                title: Text(AppLoc.of(context).suggestion),
+                onLongPress: () {
+                  showDialog<void>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: const Text('Arguments'),
+                            content: Text(
+                                const JsonEncoder.withIndent(' ').convert(pred.arguments.toJson())),
+                          ));
+                },
+              );
+            } else {
+              return child!;
+            }
+          },
+          loading: () => Shimmer.fromColors(
+            baseColor: Colors.grey,
+            highlightColor: Colors.white,
+            child: const RouteWidget(
+              from: Align(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                  height: 16,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.black),
+                    child: Text('                           '),
+                  ),
+                ),
+              ),
+              to: Align(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                  height: 16,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.black),
+                    child: Text('           '),
+                  ),
+                ),
+              ),
+              title: Align(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                  height: 16,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.black),
+                    child: Text('               '),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          error: (e, s) {
+            print(e);
+            debugPrintStack(stackTrace: s);
+            return child!;
+          },
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              '🔎',
+              style: TextStyle(fontSize: 48),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              AppLoc.of(context).find_a_route,
+              style: Theme.of(context).textTheme.headline6,
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+      );
 }
 
 class TextStateBinder {
