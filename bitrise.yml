@@ -98,5 +98,3 @@ app:
 trigger_map:
   - push_branch: deploy
     workflow: deploy-ios
-  - pull_request_source_branch: "*"
-    workflow: build
