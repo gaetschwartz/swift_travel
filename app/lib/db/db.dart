@@ -78,7 +78,6 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
   /// Override this method to change its behavior.
   FutureOr<void> onDatabaseExceededMaxSize() async {
     final range = keys.take(10);
-    print('Exceeded max size, should delete keys: $range');
     await box.deleteAll(range);
   }
 
