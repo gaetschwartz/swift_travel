@@ -13,8 +13,8 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
       : super(
           boxKey: 'line_cache',
           maxSize: 250,
-          decoder: (d) => LineCacheEntry.fromJson(d.cast<String, dynamic>()),
-          encoder: (d) => d.toJson(),
+          decode: (d) => LineCacheEntry.fromJson(d.cast<String, dynamic>()),
+          encode: (d) => d.toJson(),
         );
 
   static late final i = LineCache();

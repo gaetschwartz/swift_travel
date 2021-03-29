@@ -35,7 +35,7 @@ final route1 = LocalRoute.v1(geneva, 'Lausanne', timestamp: timestamp);
 final route2 = LocalRoute.v1('Lausanne', geneva, timestamp: timestamp);
 final route3 = LocalRoute.v1('Zürich', 'Bern', timestamp: timestamp);
 
-String _sizeOf(int bytes, {int fixed = 0}) {
+String _byteSizeOf(int bytes, {int fixed = 0}) {
   const sizes = ['b', 'Kb', 'Mb', 'Gb'];
   var i = 0;
   var b = bytes;
@@ -74,7 +74,7 @@ void main() {
       final f = File(hist.box.path!);
 
       final size = f.lengthSync();
-      print('History of ${hist.maxSize} items is of size ${_sizeOf(size)}');
+      print('History of ${hist.maxSize} items is of size ${_byteSizeOf(size)}');
       expect(size, lessThan(1 << 20));
     });
 
@@ -439,7 +439,7 @@ class MockRouteHistory implements RouteHistoryRepository {
   }
 
   @override
-  DataConverter<String, LocalRoute> get decoder => throw UnimplementedError();
+  DataConverter<String, LocalRoute> get decode => throw UnimplementedError();
 
   @override
   Future<void> delete(int key) {
@@ -452,15 +452,10 @@ class MockRouteHistory implements RouteHistoryRepository {
   }
 
   @override
-  DataConverter<LocalRoute, String> get encoder => throw UnimplementedError();
+  DataConverter<LocalRoute, String> get encode => throw UnimplementedError();
 
   @override
   LocalRoute get first => throw UnimplementedError();
-
-  @override
-  Object formatKey(Object key) {
-    throw UnimplementedError();
-  }
 
   @override
   LocalRoute get(int key) {
@@ -517,6 +512,11 @@ class MockRouteHistory implements RouteHistoryRepository {
 
   @override
   Iterable<int> invalidKeys() {
+    throw UnimplementedError();
+  }
+
+  @override
+  int sanitizeKey(int key) {
     throw UnimplementedError();
   }
 }

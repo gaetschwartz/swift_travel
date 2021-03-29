@@ -244,7 +244,6 @@ void main() {
       store.mapsApp.value = Maps.google;
 
       await store.loadFromPreferences(prefs: prefs);
-
       expect(store.api.value, NavigationApi.sncf);
       expect(store.mapsApp.value, Maps.google);
     });

@@ -12,8 +12,8 @@ class RouteHistoryRepository extends LocalDatabase<int, String, LocalRoute>
       : super(
           boxKey: 'route_history',
           maxSize: maxSize,
-          decoder: (d) => LocalRoute.fromJson(jsonDecode(d) as Map<String, dynamic>),
-          encoder: (d) => jsonEncode(d.toJson()),
+          decode: (d) => LocalRoute.fromJson(jsonDecode(d) as Map<String, dynamic>),
+          encode: (d) => jsonEncode(d.toJson()),
         );
 
   static late final i = RouteHistoryRepository();
@@ -23,7 +23,7 @@ class RouteHistoryRepository extends LocalDatabase<int, String, LocalRoute>
   Iterable<int> invalidKeys() sync* {
     for (final k in keys) {
       try {
-        decoder(box.get(k)!);
+        decode(box.get(k)!);
       } catch (_) {
         yield k;
       }
