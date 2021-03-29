@@ -92,8 +92,8 @@ class FavRoutesDb extends LocalDatabase<int, Map, LocalRoute> with IndexedDataba
       : super(
           boxKey: 'favorite_routes',
           maxSize: 100,
-          decoder: (d) => LocalRoute.fromJson(d.cast<String, dynamic>()),
-          encoder: (d) => d.toJson(),
+          decode: (d) => LocalRoute.fromJson(d.cast<String, dynamic>()),
+          encode: (d) => d.toJson(),
         );
 
   static late final i = FavRoutesDb();
@@ -111,8 +111,8 @@ class FavStopsDb extends LocalDatabase<int, Map, FavoriteStop> with IndexedDatab
       : super(
           boxKey: 'favorite_stops',
           maxSize: 100,
-          decoder: (d) => FavoriteStop.fromJson(d.cast<String, dynamic>()),
-          encoder: (d) => d.toJson(),
+          decode: (d) => FavoriteStop.fromJson(d.cast<String, dynamic>()),
+          encode: (d) => d.toJson(),
         );
 
   static late final i = FavStopsDb();
