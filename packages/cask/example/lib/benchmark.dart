@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:cask/cask.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
@@ -19,6 +20,8 @@ String byteSizeOf(int bytes, {int fixed = 0}) {
 }
 
 Future<void> main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   const n = 10000;
 
   final temp = await getTemporaryDirectory();
@@ -71,7 +74,8 @@ Future<void> overridingPutBenchmark(int n) async {
   }
 
   b
-    ..add(BenchmarkResult(name: 'shared_preferences', ms: s.elapsedMilliseconds, runs: n))
+    ..add(BenchmarkResult(
+        name: 'shared_preferences', ms: s.elapsedMilliseconds, runs: n))
     ..log();
 }
 
@@ -118,7 +122,8 @@ Future<void> putBenchmark(int n) async {
   }
 
   b
-    ..add(BenchmarkResult(name: 'shared_preferences', ms: s.elapsedMilliseconds, runs: n))
+    ..add(BenchmarkResult(
+        name: 'shared_preferences', ms: s.elapsedMilliseconds, runs: n))
     ..log();
 }
 
