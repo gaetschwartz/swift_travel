@@ -12,7 +12,7 @@ class CaskImpl<TKey extends Object, TValue extends Object> implements Cask<TKey,
   CaskImpl(this.caskKey);
 
   late final CaskFileManager<TKey, TValue> manager = CaskFileManager(_file);
-  late final File _file = File('${p.join(CaskStorage.path, caskKey)}.cask');
+  late final File _file = File('${p.join(Storage.storagePath, caskKey)}.cask');
 
   @override
   final String caskKey;

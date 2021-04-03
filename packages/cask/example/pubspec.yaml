@@ -15,6 +15,7 @@ dependencies:
     path: ../
   hive:
   shared_preferences:
+  path_provider:
 
   cupertino_icons: ^1.0.2
 

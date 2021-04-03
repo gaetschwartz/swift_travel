@@ -3,7 +3,7 @@ import 'package:cask/src/io.dart'
     if (dart.library.html) 'package:cask/src/html.dart';
 
 abstract class Cask<TKey extends Object, TValue extends Object> {
-  factory Cask(String caskKey) => CaskImpl<TKey, TValue>(caskKey);
+  factory Cask(String caskKey) = CaskImpl;
 
   Future<void> open();
   Future<void> close();
@@ -17,14 +17,22 @@ abstract class Cask<TKey extends Object, TValue extends Object> {
   String? get path;
 }
 
-// ignore: avoid_classes_with_only_static_members
-class CaskStorage<TKey, TValue> {
-  static void init([String? path]) {
-    CaskStorage._path = path;
-    CaskStorage.isOpened = true;
+class Storage {
+  Storage._();
+
+  static Future<Cask<R, S>> openCask<R extends Object, S extends Object>(String caskKey) async {
+    final cask = CaskImpl<R, S>(caskKey);
+    await cask.open();
+    return cask;
   }
 
-  static bool isOpened = false;
+  static bool _isOpened = false;
+  static bool get isOpened => _isOpened;
   static String? _path;
-  static String get path => _path == null ? throw StateError('') : _path!;
+  static String get storagePath => _path == null ? throw StateError('') : _path!;
+
+  static void init([String? path]) {
+    Storage._path = path;
+    Storage._isOpened = true;
+  }
 }
