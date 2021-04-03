@@ -19,7 +19,7 @@ void main() {
     setUpAll(() async {
       final temp = await getTemporaryDirectory();
 
-      CaskStorage.init(path.join(temp.path, 'cask_tests', 'casks'));
+      Storage.init(path.join(temp.path, 'cask_tests', 'casks'));
     });
 
     setUp(() async {
