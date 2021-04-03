@@ -3,12 +3,14 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:example/benchmark.dart';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
 Future<void> main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
   final r = Random();
-  final temp = await getTemporaryDirectory();
+  final temp = await getPath();
   final f = File(path.join(temp.path, 'test_file.txt'));
 
   await f.writeAsString(List.generate(10000, (i) => i).join(','));
@@ -82,20 +84,10 @@ Future<void> main(List<String> args) async {
   bPos.log();
 }
 
-class Time {
-  static Future<T> future<T>(FutureOr<T> Function() fn, [String name = 'unnamed function']) async {
-    final s = Stopwatch();
-    final x = await fn();
-    s.stop();
-    print('[Time] <$name> executed in ${s.elapsedMicroseconds / 1000} us');
-    return x;
-  }
-
-  static T it<T>(T Function() fn, [String name = 'unnamed function']) {
-    final s = Stopwatch();
-    final x = fn();
-    s.stop();
-    print('[Time] <$name> executed in ${s.elapsedMicroseconds / 1000} us');
-    return x;
+Future<Directory> getPath() async {
+  try {
+    return await getTemporaryDirectory();
+  } on Exception catch (_) {
+    return Directory('./temp');
   }
 }

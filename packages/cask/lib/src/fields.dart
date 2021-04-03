@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:cask/src/typed_data.dart';
 
+import 'convert/json_to_bytes.dart';
+
 abstract class CaskField<T> {
   const CaskField();
 
@@ -12,10 +14,13 @@ abstract class CaskField<T> {
 }
 
 mixin _WithLengthMixin {
-  List<int> withLengthHeader(List<int> data) => [...Uint16(data.length).toList(), ...data];
+  List<int> withLengthHeader(List<int> data) =>
+      [...Uint16(data.length).toList(), ...data];
 }
 
-abstract class CaskFieldWithSizeHeader<T> with _WithLengthMixin implements CaskField<T> {
+abstract class CaskFieldWithSizeHeader<T>
+    with _WithLengthMixin
+    implements CaskField<T> {
   const CaskFieldWithSizeHeader();
   @override
   List<int> encode(T data) => withLengthHeader(encodeData(data));
@@ -37,58 +42,42 @@ abstract class CaskFieldWithSizeHeader<T> with _WithLengthMixin implements CaskF
 }
 
 class ValueField<T> extends CaskFieldWithSizeHeader<T> {
-  const ValueField({this.encoding = utf8});
-
-  final Encoding encoding;
+  const ValueField();
 
   @override
-  T decodeData(List<int> buffer) {
-    final text = encoding.decode(buffer);
-    final data = json.decode(text) as T;
-    return data;
-  }
+  T decodeData(List<int> buffer) => jsonToBytes.decode(buffer) as T;
 
   @override
-  List<int> encodeData(T data) {
-    final encoded = json.encode(data);
-    final bytes = encoding.encode(encoded);
-    return bytes;
-  }
+  List<int> encodeData(T data) => jsonToBytes.encode(data);
 }
 
 class Keyfield<T> extends CaskFieldWithSizeHeader<T> {
-  const Keyfield({this.encoding = utf8});
-
-  final Encoding encoding;
+  const Keyfield();
 
   @override
-  T decodeData(List<int> buffer) => decodeKey(buffer);
-
-  T decodeKey(List<int> bytes) {
+  T decodeData(List<int> buffer) {
     if (T == String) {
-      return encoding.decode(bytes) as T;
+      return utf8.decode(buffer) as T;
     } else if (T == int) {
-      return UnsignedInt.fromList(bytes).value as T;
+      return UnsignedInt.fromList(buffer).value as T;
     } else {
       throw UnsupportedError('Unsupported type `$T`');
     }
   }
 
   @override
-  List<int> encodeData(T data) => encodeKey(data);
-
-  List<int> encodeKey(T key) {
-    if (key is int) {
-      return UnsignedInt(key).toList();
-    } else if (key is String) {
-      return encoding.encode(key);
+  List<int> encodeData(T data) {
+    if (data is int) {
+      return UnsignedInt(data).toList();
+    } else if (data is String) {
+      return utf8.encode(data);
     } else {
-      throw UnsupportedError('Unsupported type `${key.runtimeType}`');
+      throw UnsupportedError('Unsupported type `${data.runtimeType}`');
     }
   }
 }
 
-class EntryField<TKey, TValue> extends CaskField<MapEntry<TKey, TValue>> with _WithLengthMixin {
+class EntryField<TKey, TValue> extends CaskField<MapEntry<TKey, TValue>> {
   EntryField({int? offset}) : _offset = offset;
 
   final keyField = Keyfield<TKey>();
@@ -128,16 +117,18 @@ class EntryField<TKey, TValue> extends CaskField<MapEntry<TKey, TValue>> with _W
 
   @override
   List<int> encode(MapEntry<TKey, TValue> data) {
-    final encodeData = _encodeData(data);
-    _size = Uint16(encodeData.length);
-    return withLengthHeader(encodeData);
+    final key = keyField.encode(data.key);
+    final value = valueField.encode(data.value);
+    final size = Uint16(1 + key.length + value.length);
+    _size = size;
+    final list = [
+      ...size.toList(),
+      _infoByte,
+      ...key,
+      ...value,
+    ];
+    return list;
   }
-
-  List<int> _encodeData(MapEntry<TKey, TValue> data) => [
-        _infoByte,
-        ...keyField.encode(data.key),
-        ...valueField.encode(data.value),
-      ];
 
   List<int> emptyData() => [
         ..._size!.toList(),
