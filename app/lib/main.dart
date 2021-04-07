@@ -162,15 +162,10 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
   final shortcuts2 = {
     LogicalKeySet(LogicalKeyboardKey.escape): const EscapeIntent(),
     LogicalKeySet(ctrl, LogicalKeyboardKey.tab): const SwitchTabIntent(),
-    LogicalKeySet(ctrl, const LogicalKeyboardKey(digit1KeyId, debugName: 'Digit 1')):
-        const TabIntent(0),
     LogicalKeySet(ctrl, LogicalKeyboardKey.digit1): const TabIntent(0),
-    LogicalKeySet(ctrl, const LogicalKeyboardKey(digit1KeyId + 1, debugName: 'Digit 2')):
-        const TabIntent(1),
-    LogicalKeySet(ctrl, const LogicalKeyboardKey(digit1KeyId + 2, debugName: 'Digit 3')):
-        const TabIntent(2),
-    LogicalKeySet(ctrl, const LogicalKeyboardKey(digit1KeyId + 3, debugName: 'Digit 4')):
-        const TabIntent(3),
+    LogicalKeySet(ctrl, LogicalKeyboardKey.digit2): const TabIntent(1),
+    LogicalKeySet(ctrl, LogicalKeyboardKey.digit3): const TabIntent(2),
+    LogicalKeySet(ctrl, LogicalKeyboardKey.digit4): const TabIntent(3),
   };
 
   @override
