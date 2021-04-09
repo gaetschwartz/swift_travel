@@ -76,7 +76,7 @@ void main() {
       for (var i = 0; i < 1000; i++) {
         final n = r.nextInt(1 << 32);
 
-        final list = UnsignedInt(n).toList();
+        final list = uint32.encode(n);
 
         final uint8list = Uint8List.fromList([list.length, 0, ...list]);
         expect(keyField.decode(MockRandomAccessFile(uint8list)), n);
@@ -92,7 +92,8 @@ void main() {
         final data = List.generate(length, (_) => r.nextInt(128));
         final s = utf8.decode(data, allowMalformed: true);
 
-        final uint8list = Uint8List.fromList([...Uint16(length).toList(), ...data]);
+        final uint8list =
+            Uint8List.fromList([...uint16.encode(length), ...data]);
 
         expect(keyField.decode(MockRandomAccessFile(uint8list)), s);
         expect(keyField.encode(s), uint8list);
@@ -118,7 +119,10 @@ void main() {
         () => null,
         r.nextBool,
         () => List.generate(r.nextInt(0xff), (_) => r.nextInt(1 << 32)),
-        () => {randomString(): randomString(), randomString(): r.nextInt(1 << 32)},
+        () => {
+              randomString(): randomString(),
+              randomString(): r.nextInt(1 << 32)
+            },
       ];
 
       for (final optFn in opts) {
@@ -126,7 +130,8 @@ void main() {
         final data = utf8.encode(json.encode(opt));
         final length = data.length;
 
-        final uint8list = Uint8List.fromList([...Uint16(length).toList(), ...data]);
+        final uint8list =
+            Uint8List.fromList([...uint16.encode(length), ...data]);
 
         expect(valueField.decode(MockRandomAccessFile(uint8list)), opt);
         expect(valueField.encode(opt), uint8list);
@@ -142,7 +147,7 @@ void main() {
       final key = <int>[3, 0, ...utf8.encode('age')];
       final value = <int>[2, 0, ...utf8.encode('20')];
       final uint8list = Uint8List.fromList([
-        ...Uint16(key.length + value.length + 1).toList(),
+        ...uint16.encode(key.length + value.length + 1),
         0,
         ...key,
         ...value,
@@ -154,34 +159,34 @@ void main() {
     });
   });
 
-  group('int16', () {
+  group('uint16', () {
     test('works w/ specific numbers', () {
       const n256 = [0, 1];
-      expect(Uint16.fromList(n256), const Uint16(256));
+      expect(uint16.decode(n256), 256);
 
       const n0 = [0, 0];
-      expect(Uint16.fromList(n0), const Uint16(0));
+      expect(uint16.decode(n0), 0);
     });
 
     test('works w/ 1 element', () {
       const n255 = [0xff];
-      expect(Uint16.fromList(n255), const Uint16(255));
+      expect(uint16.decode(n255), 255);
     });
 
     test('works w/ >= 3 element', () {
       const n0 = [0, 0, 1];
-      expect(Uint16.fromList(n0), const Uint16(0));
+      expect(uint16.decode(n0), 0);
 
       const n0_2 = [1, 0, 0, 1];
-      expect(Uint16.fromList(n0_2, 1), const Uint16(0));
+      expect(uint16.decode(n0_2), 1);
     });
     test('works w/ random numbers', () {
       for (var i = 0; i < 10000; i++) {
-        final n = Uint16(r.nextInt(0xffff));
-        final list = n.toList();
+        final n = r.nextInt(0xffff);
+        final list = uint16.encode(n);
 
         expect(list, hasLength(2));
-        expect(n, Uint16.fromList(list));
+        expect(n, uint16.decode(list));
       }
     });
   });
