@@ -1,7 +1,6 @@
 
 import 'dart:async';
 
-// ignore: unused_import
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -66,7 +65,6 @@ import 'app_localizations_it.dart';
 abstract class AppLocalizations {
   AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
-  // ignore: unused_field
   final String localeName;
 
   static AppLocalizations? of(BuildContext context) {

@@ -1,9 +1,7 @@
 
-// ignore: unused_import
-import 'package:intl/intl.dart' as intl;
-import 'app_localizations.dart';
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+
+import 'app_localizations.dart';
 
 /// The translations for German (`de`).
 class AppLocalizationsDe extends AppLocalizations {
@@ -131,12 +129,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String walk(String walk) {
-    return 'Gehen Sie *${walk}*.';
+    return 'Gehen Sie *$walk*.';
   }
 
   @override
   String walk_and_wait(String wait, String walk) {
-    return '*${walk}* gehen und *${wait}* warten.';
+    return '*$walk* gehen und *$wait* warten.';
   }
 
   @override
@@ -147,7 +145,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String youll_be_there(String time) {
-    return 'Sie kommen zu *${time}*.';
+    return 'Sie kommen zu *$time*.';
   }
 
   @override
@@ -164,7 +162,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String direction(String dir) {
-    return 'Richtung ${dir}';
+    return 'Richtung $dir';
   }
 
   @override
