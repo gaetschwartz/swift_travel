@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'models.freezed.dart';
 
 /// A message to dispatch
+///
+/// Adapted from https://gist.github.com/lukepighetti/5283229a351ab394376e84cff8277bdb
 @freezed
 class LogMessage with _$LogMessage {
   const factory LogMessage({
