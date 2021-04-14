@@ -30,5 +30,6 @@ linter:
     avoid_print: false
     diagnostic_describe_all_properties: false
     sort_pub_dependencies: false
+    one_member_abstracts: false
     # Obsolete with nnbd
     avoid_returning_null: false
