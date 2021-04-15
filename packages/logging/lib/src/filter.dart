@@ -11,7 +11,7 @@ class LevelFilter extends LogFilter {
   final LogLevel level;
 
   @override
-  bool call(LogMessage m) => m.level.level > level.level;
+  bool call(LogMessage m) => m.level.level >= level.level;
 }
 
 class AlwaysAllowFilter extends LogFilter {
@@ -19,4 +19,9 @@ class AlwaysAllowFilter extends LogFilter {
 
   @override
   bool call(LogMessage m) => true;
+}
+
+class NegativeSentimentFilter extends LogFilter {
+  @override
+  bool call(LogMessage m) => m.level.sentiment == Sentiment.negative;
 }

@@ -10,7 +10,7 @@ class LogMessage with _$LogMessage {
   const factory LogMessage({
     required DateTime createdAt,
     required String message,
-    required String channel,
+    String? channel,
     @Default(LogLevel.info) LogLevel level,
   }) = _LogMessage;
 }
@@ -20,21 +20,22 @@ class LogLevel with _$LogLevel {
   const factory LogLevel._(
     int level,
     Sentiment sentiment,
+    String name,
   ) = _LogLevel;
 
-  static const crash = LogLevel._(4, Sentiment.negative);
-  static const error = LogLevel._(3, Sentiment.negative);
-  static const warning = LogLevel._(1, Sentiment.negative);
+  static const crash = LogLevel._(4, Sentiment.negative, 'crash');
+  static const error = LogLevel._(3, Sentiment.negative, 'error');
+  static const warning = LogLevel._(1, Sentiment.negative, 'warning');
 
-  static const ok = LogLevel._(1, Sentiment.neutral);
-  static const info = LogLevel._(2, Sentiment.neutral);
+  static const ok = LogLevel._(1, Sentiment.neutral, 'ok');
+  static const info = LogLevel._(2, Sentiment.neutral, 'info');
 
-  static const fine = LogLevel._(2, Sentiment.positive);
-  static const great = LogLevel._(3, Sentiment.positive);
+  static const fine = LogLevel._(2, Sentiment.positive, 'fine');
+  static const great = LogLevel._(3, Sentiment.positive, 'great');
 }
 
 enum Sentiment {
   positive,
-  negative,
   neutral,
+  negative,
 }

@@ -8,5 +8,12 @@ abstract class MessagePrinter {
 class SimplePrinter extends MessagePrinter {
   const SimplePrinter();
   @override
-  String call(LogMessage msg) => '[${msg.level}] ${msg.channel.toUpperCase()}: ${msg.message}';
+  String call(LogMessage msg) {
+    final b = StringBuffer()..write('[${msg.level.name.toUpperCase()}] ');
+    if (msg.channel != null) {
+      b.write('${msg.channel}: ');
+    }
+    b.write(msg.message);
+    return b.toString();
+  }
 }

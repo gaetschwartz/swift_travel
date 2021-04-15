@@ -19,7 +19,7 @@ class _$LogMessageTearOff {
   _LogMessage call(
       {required DateTime createdAt,
       required String message,
-      required String channel,
+      String? channel,
       LogLevel level = LogLevel.info}) {
     return _LogMessage(
       createdAt: createdAt,
@@ -37,7 +37,7 @@ const $LogMessage = _$LogMessageTearOff();
 mixin _$LogMessage {
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
-  String get channel => throw _privateConstructorUsedError;
+  String? get channel => throw _privateConstructorUsedError;
   LogLevel get level => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -51,7 +51,7 @@ abstract class $LogMessageCopyWith<$Res> {
           LogMessage value, $Res Function(LogMessage) then) =
       _$LogMessageCopyWithImpl<$Res>;
   $Res call(
-      {DateTime createdAt, String message, String channel, LogLevel level});
+      {DateTime createdAt, String message, String? channel, LogLevel level});
 
   $LogLevelCopyWith<$Res> get level;
 }
@@ -83,7 +83,7 @@ class _$LogMessageCopyWithImpl<$Res> implements $LogMessageCopyWith<$Res> {
       channel: channel == freezed
           ? _value.channel
           : channel // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       level: level == freezed
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -106,7 +106,7 @@ abstract class _$LogMessageCopyWith<$Res> implements $LogMessageCopyWith<$Res> {
       __$LogMessageCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime createdAt, String message, String channel, LogLevel level});
+      {DateTime createdAt, String message, String? channel, LogLevel level});
 
   @override
   $LogLevelCopyWith<$Res> get level;
@@ -141,7 +141,7 @@ class __$LogMessageCopyWithImpl<$Res> extends _$LogMessageCopyWithImpl<$Res>
       channel: channel == freezed
           ? _value.channel
           : channel // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       level: level == freezed
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -155,7 +155,7 @@ class _$_LogMessage implements _LogMessage {
   const _$_LogMessage(
       {required this.createdAt,
       required this.message,
-      required this.channel,
+      this.channel,
       this.level = LogLevel.info});
 
   @override
@@ -163,7 +163,7 @@ class _$_LogMessage implements _LogMessage {
   @override
   final String message;
   @override
-  final String channel;
+  final String? channel;
   @JsonKey(defaultValue: LogLevel.info)
   @override
   final LogLevel level;
@@ -208,7 +208,7 @@ abstract class _LogMessage implements LogMessage {
   const factory _LogMessage(
       {required DateTime createdAt,
       required String message,
-      required String channel,
+      String? channel,
       LogLevel level}) = _$_LogMessage;
 
   @override
@@ -216,7 +216,7 @@ abstract class _LogMessage implements LogMessage {
   @override
   String get message => throw _privateConstructorUsedError;
   @override
-  String get channel => throw _privateConstructorUsedError;
+  String? get channel => throw _privateConstructorUsedError;
   @override
   LogLevel get level => throw _privateConstructorUsedError;
   @override
@@ -229,10 +229,11 @@ abstract class _LogMessage implements LogMessage {
 class _$LogLevelTearOff {
   const _$LogLevelTearOff();
 
-  _LogLevel _(int level, Sentiment sentiment) {
+  _LogLevel _(int level, Sentiment sentiment, String name) {
     return _LogLevel(
       level,
       sentiment,
+      name,
     );
   }
 }
@@ -244,6 +245,7 @@ const $LogLevel = _$LogLevelTearOff();
 mixin _$LogLevel {
   int get level => throw _privateConstructorUsedError;
   Sentiment get sentiment => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LogLevelCopyWith<LogLevel> get copyWith =>
@@ -254,7 +256,7 @@ mixin _$LogLevel {
 abstract class $LogLevelCopyWith<$Res> {
   factory $LogLevelCopyWith(LogLevel value, $Res Function(LogLevel) then) =
       _$LogLevelCopyWithImpl<$Res>;
-  $Res call({int level, Sentiment sentiment});
+  $Res call({int level, Sentiment sentiment, String name});
 }
 
 /// @nodoc
@@ -269,6 +271,7 @@ class _$LogLevelCopyWithImpl<$Res> implements $LogLevelCopyWith<$Res> {
   $Res call({
     Object? level = freezed,
     Object? sentiment = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
       level: level == freezed
@@ -279,6 +282,10 @@ class _$LogLevelCopyWithImpl<$Res> implements $LogLevelCopyWith<$Res> {
           ? _value.sentiment
           : sentiment // ignore: cast_nullable_to_non_nullable
               as Sentiment,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -288,7 +295,7 @@ abstract class _$LogLevelCopyWith<$Res> implements $LogLevelCopyWith<$Res> {
   factory _$LogLevelCopyWith(_LogLevel value, $Res Function(_LogLevel) then) =
       __$LogLevelCopyWithImpl<$Res>;
   @override
-  $Res call({int level, Sentiment sentiment});
+  $Res call({int level, Sentiment sentiment, String name});
 }
 
 /// @nodoc
@@ -304,6 +311,7 @@ class __$LogLevelCopyWithImpl<$Res> extends _$LogLevelCopyWithImpl<$Res>
   $Res call({
     Object? level = freezed,
     Object? sentiment = freezed,
+    Object? name = freezed,
   }) {
     return _then(_LogLevel(
       level == freezed
@@ -314,22 +322,28 @@ class __$LogLevelCopyWithImpl<$Res> extends _$LogLevelCopyWithImpl<$Res>
           ? _value.sentiment
           : sentiment // ignore: cast_nullable_to_non_nullable
               as Sentiment,
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 class _$_LogLevel implements _LogLevel {
-  const _$_LogLevel(this.level, this.sentiment);
+  const _$_LogLevel(this.level, this.sentiment, this.name);
 
   @override
   final int level;
   @override
   final Sentiment sentiment;
+  @override
+  final String name;
 
   @override
   String toString() {
-    return 'LogLevel._(level: $level, sentiment: $sentiment)';
+    return 'LogLevel._(level: $level, sentiment: $sentiment, name: $name)';
   }
 
   @override
@@ -340,14 +354,17 @@ class _$_LogLevel implements _LogLevel {
                 const DeepCollectionEquality().equals(other.level, level)) &&
             (identical(other.sentiment, sentiment) ||
                 const DeepCollectionEquality()
-                    .equals(other.sentiment, sentiment)));
+                    .equals(other.sentiment, sentiment)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(level) ^
-      const DeepCollectionEquality().hash(sentiment);
+      const DeepCollectionEquality().hash(sentiment) ^
+      const DeepCollectionEquality().hash(name);
 
   @JsonKey(ignore: true)
   @override
@@ -356,12 +373,15 @@ class _$_LogLevel implements _LogLevel {
 }
 
 abstract class _LogLevel implements LogLevel {
-  const factory _LogLevel(int level, Sentiment sentiment) = _$_LogLevel;
+  const factory _LogLevel(int level, Sentiment sentiment, String name) =
+      _$_LogLevel;
 
   @override
   int get level => throw _privateConstructorUsedError;
   @override
   Sentiment get sentiment => throw _privateConstructorUsedError;
+  @override
+  String get name => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LogLevelCopyWith<_LogLevel> get copyWith =>

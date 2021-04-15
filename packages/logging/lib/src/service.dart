@@ -1,5 +1,4 @@
 import 'package:gaets_logging/src/consumer.dart';
-import 'package:gaets_logging/src/printer.dart';
 
 import 'filter.dart';
 import 'models.dart';
@@ -8,13 +7,11 @@ class LoggingService {
   const LoggingService(
     this._consumers, {
     this.filter = const AlwaysAllowFilter(),
-    this.printer = const SimplePrinter(),
   });
 
-  static LoggingService instance = const LoggingService({ConsoleLogger()});
+  static const LoggingService instance = LoggingService({ConsoleLogger()});
   final Set<LogConsumer> _consumers;
   final LogFilter filter;
-  final MessagePrinter printer;
 
   /// Register multiple consumers
   void registerAll(Iterable<LogConsumer> e) => _consumers.addAll(e);
@@ -23,13 +20,13 @@ class LoggingService {
   void register(LogConsumer l) => _consumers.add(l);
 
   /// Log a message
-  void custom(
+  void log(
     String message, {
     LogLevel level = LogLevel.info,
     String? channel,
   }) {
     final msg = LogMessage(
-      channel: channel ?? 'Main',
+      channel: channel,
       message: message,
       createdAt: DateTime.now(),
       level: level,
@@ -37,31 +34,34 @@ class LoggingService {
 
     if (filter(msg)) {
       for (final l in _consumers) {
-        l.log(printer(msg));
+        l.consume(msg);
       }
     }
   }
 
-  Future<T> customTimed<T extends Object?>(Future<T> future, {String? channel}) async {
+  Future<T> future<T extends Object?>(Future<T> future, {String? channel}) async {
     final s = Stopwatch()..start();
     final res = await future;
     s.stop();
-    custom('(${s.elapsedMilliseconds} ms): $res', channel: channel);
+    log('(${s.elapsedMilliseconds} ms): $res', channel: channel);
     return res;
   }
 
   /// Log a serious crash, if possible
-  void crash(String e) => custom(e, level: LogLevel.crash);
+  void crash(String e) => log(e, level: LogLevel.crash);
 
   /// Log an error, like if something is thrown
-  void error(String e) => custom(e, level: LogLevel.error);
+  void e(String e, {String? channel}) => log(e, level: LogLevel.error, channel: channel);
 
   /// Log a timed network operation
-  Future<T> network<T extends Object?>(Future<T> Function() f) =>
-      customTimed(f(), channel: 'network');
+  Future<T> network<T extends Object?>(Future<T> Function() f, {String channel = 'network'}) =>
+      future(f(), channel: channel);
 
   /// Log a ui event, like tapping a button
-  void ui(String e) => custom(e, channel: 'ui');
+  void ui(String e) => log(e, channel: 'ui');
+
+  // Log an info
+  void i(String e, {String? channel}) => log(e, channel: channel);
 }
 
 /// The singleton logger instance, extend this with your own channels
