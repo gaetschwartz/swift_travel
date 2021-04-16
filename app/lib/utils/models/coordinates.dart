@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/data.sbb.ch/models/geo_models.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
 import 'package:swift_travel/utils/arithmetic.dart';
 
@@ -16,7 +15,6 @@ class LatLon with _$LatLon {
   ) = _LatLon;
   const LatLon._();
 
-  factory LatLon.fromGeoAttr(GeoAttr geoAttr) => _LatLon(geoAttr.lat!, geoAttr.lon!);
   factory LatLon.fromList(List<double> coords) {
     assert(coords.length >= 2, 'The coordinates list needs to contain at least 2 elements');
     return _LatLon(coords[0], coords[1]);

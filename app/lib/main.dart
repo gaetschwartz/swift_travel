@@ -64,7 +64,9 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  overridePlatform();
+  if (Env.overridePlatform) {
+    overridePlatform();
+  }
   setPathUrlStrategy();
 
   if (isMobile) {
@@ -77,11 +79,9 @@ Future<void> main() async {
 }
 
 void overridePlatform() {
-  if (Env.overridePlatform) {
-    final platform = debugPlatformMap[defaultTargetPlatform];
-    log('Overriding $defaultTargetPlatform by $platform');
-    debugDefaultTargetPlatformOverride = platform;
-  }
+  final platform = debugPlatformMap[defaultTargetPlatform];
+  log('Overriding $defaultTargetPlatform by $platform');
+  debugDefaultTargetPlatformOverride = platform;
 }
 
 void _runApp() => runApp(const FullApp());

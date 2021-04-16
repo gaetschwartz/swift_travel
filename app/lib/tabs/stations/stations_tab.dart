@@ -131,7 +131,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                             ),
                             onChanged: (s) => debounce(context, s),
                           ),
-                          ListenerWidget<TextEditingController>(
+                          ListenableBuilder<TextEditingController>(
                             listenable: searchController,
                             builder: (context, controller, child) =>
                                 controller.text.isEmpty ? const SizedBox() : child!,

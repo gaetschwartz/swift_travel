@@ -72,12 +72,12 @@ class _LoadingDialogState<T> extends State<_LoadingDialog<T>> {
     widget.future().then((v) {
       Navigator.of(context).pop<T>(v);
       if (widget.onDone != null) {
-        widget.onDone!(v);
+        widget.onDone?.call(v);
       }
     }, onError: (dynamic e, dynamic s) {
       Navigator.of(context).pop<T>(null);
       if (widget.onError != null) {
-        widget.onError!(e as Object, s as StackTrace);
+        widget.onError?.call(e as Object, s as StackTrace);
       }
       debugPrint(e.toString());
     });
