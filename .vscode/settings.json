@@ -1,0 +1,4 @@
+{
+  "dart.lineLength": 100,
+  "terminal.integrated.cwd": "app/",
+}
