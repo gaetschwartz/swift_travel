@@ -19,7 +19,6 @@ linter:
     always_specify_types: false
 
     # Misc
-    import_of_legacy_library_into_null_safe: false
     empty_catches: false
     public_member_api_docs: false
     prefer_relative_imports: false
@@ -31,5 +30,8 @@ linter:
     diagnostic_describe_all_properties: false
     sort_pub_dependencies: false
     one_member_abstracts: false
+    require_trailing_commas: false
+    use_build_context_synchronously: false
+    library_private_types_in_public_api: false
     # Obsolete with nnbd
     avoid_returning_null: false

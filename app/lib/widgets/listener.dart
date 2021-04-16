@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ListenerWidget<T extends Listenable> extends StatefulWidget {
-  const ListenerWidget({
+class ListenableBuilder<T extends Listenable> extends StatefulWidget {
+  const ListenableBuilder({
     required this.builder,
     required this.listenable,
     this.child,
@@ -13,10 +13,10 @@ class ListenerWidget<T extends Listenable> extends StatefulWidget {
   final Widget? child;
 
   @override
-  _ListenerWidgetState<T> createState() => _ListenerWidgetState<T>();
+  _ListenableBuilderState<T> createState() => _ListenableBuilderState<T>();
 }
 
-class _ListenerWidgetState<T extends Listenable> extends State<ListenerWidget<T>> {
+class _ListenableBuilderState<T extends Listenable> extends State<ListenableBuilder<T>> {
   @override
   void initState() {
     super.initState();
@@ -24,10 +24,12 @@ class _ListenerWidgetState<T extends Listenable> extends State<ListenerWidget<T>
   }
 
   @override
-  void didUpdateWidget(covariant ListenerWidget<T> oldWidget) {
+  void didUpdateWidget(covariant ListenableBuilder<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
-    oldWidget.listenable.removeListener(update);
-    widget.listenable.addListener(update);
+    if (oldWidget.listenable != widget.listenable) {
+      oldWidget.listenable.removeListener(update);
+      widget.listenable.addListener(update);
+    }
   }
 
   @override

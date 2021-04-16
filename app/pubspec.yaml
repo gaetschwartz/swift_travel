@@ -49,7 +49,6 @@ dependencies:
   shimmer: ^2.0.0-nullsafety.0
   url_launcher: ^6.0.0
   url_strategy: ^0.2.0
-  very_good_analysis: ^2.0.0
   fluentui_system_icons: ^1.1.109
 
 dev_dependencies:

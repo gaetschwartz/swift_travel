@@ -252,7 +252,7 @@ class _ClearButton extends StatelessWidget {
   Widget build(BuildContext context) => IconButton(
         color: CupertinoTheme.of(context).primaryColor,
         onPressed: () => binder.clear(context),
-        icon: ListenerWidget<TextEditingController>(
+        icon: ListenableBuilder<TextEditingController>(
           builder: (context, listenable, child) => Offstage(
             offstage: listenable.text.isEmpty,
             child: const Icon(CupertinoIcons.clear),

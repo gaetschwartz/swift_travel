@@ -188,7 +188,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
     if (widget.onExpansionChanged != null) {
-      widget.onExpansionChanged!(_isExpanded);
+      widget.onExpansionChanged?.call(_isExpanded);
     }
   }
 

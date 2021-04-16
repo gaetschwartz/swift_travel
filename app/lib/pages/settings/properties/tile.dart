@@ -37,7 +37,7 @@ class PropertyTile<T> extends StatelessWidget {
     final showSwitch = T == bool;
     return Column(children: [
       const Divider(height: 0),
-      ListenerWidget<Property<T>>(
+      ListenableBuilder<Property<T>>(
           listenable: property,
           builder: (context, prop, _) => ListTile(
                 leading: icon,

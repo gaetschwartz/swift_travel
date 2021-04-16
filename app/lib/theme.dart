@@ -96,7 +96,9 @@ ThemeConfiguration get themeConfiguration => ThemeConfiguration(
 MaterialColor createMaterialColor(Color color) {
   final strengths = <double>[.05];
   final swatch = <int, Color>{};
-  final r = color.red, g = color.green, b = color.blue;
+  final r = color.red;
+  final g = color.green;
+  final b = color.blue;
 
   for (var i = 1; i < 10; i++) {
     strengths.add(0.1 * i);

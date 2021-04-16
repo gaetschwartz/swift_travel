@@ -301,8 +301,8 @@ class SwiftNavigationBar extends StatelessWidget {
                       GradientMask(
                         gradient: LinearGradient(
                           colors: [
-                            augment2(_activeColor, strength: 0.5),
                             _activeColor,
+                            augment2(_activeColor, strength: 0.3),
                           ],
                           begin: Alignment.topRight,
                           end: Alignment.bottomLeft,
