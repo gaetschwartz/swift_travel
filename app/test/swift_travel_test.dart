@@ -5,9 +5,9 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
@@ -53,8 +53,7 @@ void main() {
     late RouteHistoryRepository hist;
     setUpAll(() async {
       final temp = await getTempDirForTests();
-      final dir =
-          path.join(temp.path, 'swift_travel', 'test_results', 'route_history');
+      final dir = path.join(temp.path, 'swift_travel', 'test_results', 'route_history');
       Hive.init(dir);
     });
 
@@ -152,14 +151,10 @@ void main() {
             ),
           ),
         ),
-        navigationAPIProvider
-            .overrideWithValue(MockNavigationApi(mockCompletions: []))
+        navigationAPIProvider.overrideWithValue(MockNavigationApi(mockCompletions: []))
       ]);
 
-      final c = await container
-          .read(completionEngineProvider)
-          .complete(query: 'query')
-          .last;
+      final c = await container.read(completionEngineProvider).complete(query: 'query').last;
 
       expect(
         c,
@@ -180,11 +175,7 @@ void main() {
       final route1 = LocalRoute.v2(const SbbStop('from'), const SbbStop('to'),
           displayName: 'name', timestamp: MockableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
-        SbbRouteConnection(
-            from: 'from',
-            to: 'to',
-            depDelay: 0,
-            departure: MockableDateTime.now()),
+        SbbRouteConnection(from: 'from', to: 'to', depDelay: 0, departure: MockableDateTime.now()),
         displayName: 'name',
       );
       final json = {
@@ -200,13 +191,12 @@ void main() {
     });
 
     test('favoriteStop', () {
-      const stop1 =
-          FavoriteStop(stop: geneva, name: geneva, api: NavigationApi.sbb);
+      const stop1 = FavoriteStop(stop: geneva, name: geneva, api: NavigationApi.sbb);
       final stop2 = FavoriteStop.fromStop(geneva, api: NavigationApi.sbb);
-      final stop3 = FavoriteStop.fromCompletion(SbbCompletion(label: geneva),
-          api: NavigationApi.sbb);
-      final stop4 = FavoriteStop.fromJson(
-          <String, Object>{'stop': geneva, 'name': geneva, 'api': 'sbb'});
+      final stop3 =
+          FavoriteStop.fromCompletion(SbbCompletion(label: geneva), api: NavigationApi.sbb);
+      final stop4 =
+          FavoriteStop.fromJson(<String, Object>{'stop': geneva, 'name': geneva, 'api': 'sbb'});
 
       expect(stop1, equals(stop2));
       expect(stop2, equals(stop3));
@@ -224,18 +214,15 @@ void main() {
 
     final container = ProviderContainer(
       overrides: [
-        storeProvider
-            .overrideWithProvider(Provider((ref) => MockFavoriteStore(stops: [
-                  FavoriteStop.fromStop(geneva, api: NavigationApi.sbb),
-                  FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb),
-                  FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb),
-                  FavoriteStop.fromStop('Lausanne Aéroport',
-                      api: NavigationApi.sbb),
-                ]))),
+        storeProvider.overrideWithProvider(Provider((ref) => MockFavoriteStore(stops: [
+              FavoriteStop.fromStop(geneva, api: NavigationApi.sbb),
+              FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb),
+              FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb),
+              FavoriteStop.fromStop('Lausanne Aéroport', api: NavigationApi.sbb),
+            ]))),
         navigationAPIProvider.overrideWithProvider(
           Provider.autoDispose(
-            (ref) => MockNavigationApi(
-                mockCompletions: [SbbCompletion(label: geneva)]),
+            (ref) => MockNavigationApi(mockCompletions: [SbbCompletion(label: geneva)]),
           ),
         ),
         completionEngineProvider.overrideWithProvider(
@@ -261,12 +248,9 @@ void main() {
       SbbCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
       SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
       SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
-      SbbCompletion.fromFavorite(
-          FavoriteStop.fromStop(geneva, api: NavigationApi.sbb)),
-      SbbCompletion.fromFavorite(
-          FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb)),
-      SbbCompletion.fromFavorite(
-          FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva, api: NavigationApi.sbb)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb)),
       SbbCompletion(label: 'Genève'),
     ];
 
