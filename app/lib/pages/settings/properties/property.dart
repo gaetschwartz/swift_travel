@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Property<T extends Object?> extends ChangeNotifier {
+class Property<T extends Object?> extends ChangeNotifier implements ValueListenable<T> {
   Property({
     this.onSet,
     FutureOr<T> Function(T?)? computeValue,
@@ -21,6 +21,7 @@ class Property<T extends Object?> extends ChangeNotifier {
 
   T _value;
 
+  @override
   T get value => _value;
 
   set value(T value) {
@@ -28,14 +29,9 @@ class Property<T extends Object?> extends ChangeNotifier {
       return;
     }
     _value = value;
-    if (onSet != null) {
-      onSet?.call(_value);
-    }
+    onSet?.call(value);
     notifyListeners();
   }
-
-  // ignore: use_setters_to_change_properties
-  void setValue(T val) => _value = val;
 
   FutureOr<void> computeValue() async {
     if (_computeValue != null) {
@@ -44,14 +40,31 @@ class Property<T extends Object?> extends ChangeNotifier {
     }
   }
 
-  late final ChangeNotifierProvider<Property<T>> provider = ChangeNotifierProvider((r) => this);
+  static Property<T> fromSharedPreferences<T extends Object?>(
+          String key, T defaultValue, SharedPreferences prefs) =>
+      Property<T>(
+        onSet: saveInPreferences(key, prefs),
+        computeValue: getFromPreferences(key, prefs),
+        defaultValue: defaultValue,
+      );
 
-  static T Function(T?) getFromPreferences<T>(
+  static Property<bool> boolean(
     String key,
-    SharedPreferences Function() preferencesGetter,
+    bool defaultValue,
+    SharedPreferences prefs,
   ) =>
-      (d) {
-        final prefs = preferencesGetter();
+      Property<bool>(
+        onSet: (d) => prefs.setBool(key, d),
+        computeValue: getFromPreferences(key, prefs),
+        defaultValue: defaultValue,
+      );
+
+  static Future<T> Function(T?) getFromPreferences<T>(
+    String key,
+    SharedPreferences prefs,
+  ) =>
+      (d) async {
+        await prefs.reload();
         final object = prefs.get(key) ?? d;
         assert(object is T, 'Value must be of correct type.');
         return object as T;
@@ -59,23 +72,21 @@ class Property<T extends Object?> extends ChangeNotifier {
 
   static void Function(T) saveInPreferences<T>(
     String key,
-    SharedPreferences Function() preferencesGetter,
-  ) {
-    final prefs = preferencesGetter();
-    return (value) async {
-      if (value is String) {
-        await prefs.setString(key, value);
-      } else if (value is int) {
-        await prefs.setInt(key, value);
-      } else if (value is bool) {
-        await prefs.setBool(key, value);
-      } else if (value is List<String>) {
-        await prefs.setStringList(key, value);
-      } else if (value is double) {
-        await prefs.setDouble(key, value);
-      } else {
-        assert(false, 'Type ${value.runtimeType} is not supported for shared preferences');
-      }
-    };
-  }
+    SharedPreferences prefs,
+  ) =>
+      (value) async {
+        if (value is String) {
+          await prefs.setString(key, value);
+        } else if (value is int) {
+          await prefs.setInt(key, value);
+        } else if (value is bool) {
+          await prefs.setBool(key, value);
+        } else if (value is List<String>) {
+          await prefs.setStringList(key, value);
+        } else if (value is double) {
+          await prefs.setDouble(key, value);
+        } else {
+          assert(false, 'Type ${value.runtimeType} is not supported for shared preferences');
+        }
+      };
 }

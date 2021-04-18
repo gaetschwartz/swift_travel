@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/pages/settings/properties/property.dart';
@@ -38,11 +38,7 @@ class PreferencesBloc {
     computeValue: (d) => _getEnum(navigationApiKey, NavigationApi.values, d!),
   );
 
-  late final useAnalytics = Property<bool>(
-    defaultValue: true,
-    onSet: (v) => _prefs.setBool(prefix + analyticsKey, v),
-    computeValue: Property.getFromPreferences(prefix + analyticsKey, () => _prefs),
-  );
+  late final useAnalytics = Property.boolean(prefix + analyticsKey, true, _prefs);
 
   Future<void> loadFromPreferences({SharedPreferences? prefs}) async {
     _prefs = prefs ?? await SharedPreferences.getInstance();
