@@ -14,7 +14,7 @@ This is an open-source public transport app packed with cool features 😎
 | 🌐 Web (BETA) | [Try the Web version](https://travel.gaetanschwartz.com)      |
 
 
-## Features 
+## 🌟 Features 
 
 ### 🛣 A beautiful route search and view.
 
@@ -65,7 +65,7 @@ Here is a non-exhaustive list of things that could be improved with their respec
 * Add your contry's public transport API:
   * Read [ADDING-NEW-API.md](docs/ADDING-NEW-API.md)
 
-  #### Supported countries:
+  ##### Supported countries:
 
      - [x] 🇨🇭 Switzerland
      - [ ] 🇫🇷 France (40%)
