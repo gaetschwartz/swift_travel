@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/pages/settings/properties/property.dart';
-import 'package:swift_travel/widgets/choice_page.dart';
+import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/listener.dart';
-import 'package:theming/responsive.dart';
 
 class PropertyTile<T> extends StatelessWidget {
   const PropertyTile(
@@ -27,7 +26,7 @@ class PropertyTile<T> extends StatelessWidget {
   final Widget Function(T)? titleBuilder;
   final Widget Function(T)? trailingBuilder;
   final bool showChevron;
-  final List<ChoicePageItem<T>> items;
+  final List<ActionsSheetAction<T>> items;
   final Widget? pageTitle;
   final Widget? pageDescription;
   final Widget? subtitle;
@@ -48,19 +47,11 @@ class PropertyTile<T> extends StatelessWidget {
                         prop.value = (prop.value == false) as T;
                       }
                     : () async {
-                        final choicePage = ChoicePage<T>(
-                          items: items,
-                          value: prop.value,
-                          title: pageTitle ?? title,
-                          onChanged: (a) => prop.value = a,
-                          description: pageDescription,
-                        );
-                        if (Responsive.isDarwin(context)) {
-                          await showCupertinoModalBottomSheet<void>(
-                              context: context, builder: (context) => choicePage);
-                        } else {
-                          await showMaterialModalBottomSheet<void>(
-                              context: context, builder: (context) => choicePage);
+                        final res = await showChoiceSheet<T>(context, items,
+                            defaultValue: prop.value,
+                            cancel: ActionsSheetAction(title: Text(AppLoc.of(context).cancel)));
+                        if (res != null) {
+                          prop.value = res;
                         }
                       },
                 horizontalTitleGap: 0,

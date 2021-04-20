@@ -84,7 +84,7 @@ class FavoriteStationTile extends StatelessWidget {
 
   void edit(BuildContext context) {
     Vibration.select();
-    showActionSheet(
+    showActionSheet<void>(
       context,
       [
         ActionsSheetAction(
@@ -109,7 +109,6 @@ class FavoriteStationTile extends StatelessWidget {
       cancel: ActionsSheetAction(
         title: Text(AppLoc.of(context).close),
         icon: const Icon(CupertinoIcons.xmark),
-        onPressed: () => null,
       ),
     );
   }

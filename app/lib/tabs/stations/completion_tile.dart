@@ -140,7 +140,6 @@ class CompletionTile extends ConsumerWidget {
         cancel: ActionsSheetAction(
           title: Text(AppLoc.of(context).cancel),
           icon: const Icon(CupertinoIcons.xmark),
-          onPressed: () => null,
         ));
 
     switch (c) {
