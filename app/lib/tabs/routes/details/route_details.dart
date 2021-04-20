@@ -97,8 +97,8 @@ class RouteDetails extends StatelessWidget {
           ),
         ActionsSheetAction(
           icon: const Icon(CupertinoIcons.game_controller),
-          onPressed: () =>
-              Navigator.of(context).push(CupertinoPageRoute(builder: (_) => const SneccGame())),
+          onPressed: () => Navigator.of(context)
+              .push<void>(CupertinoPageRoute(builder: (_) => const SneccGame())),
           title: const Text('Snake'),
         ),
         if (isMobile || kIsWeb)

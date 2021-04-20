@@ -24,7 +24,7 @@ import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/utils/crawler.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/widgets/choice_page.dart';
+import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/modal.dart';
 import 'package:swift_travel/widgets/route.dart';
@@ -140,9 +140,9 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         title: const Text('Font weight'),
         items: map.keys
-            .map((key) => ChoicePageItem(
+            .map((key) => ActionsSheetAction<int>(
                 value: key,
-                child: Text(
+                title: Text(
                   map[key]!,
                   style: t.apply(fontWeightDelta: key),
                 )))
@@ -152,6 +152,7 @@ class _SettingsPageState extends State<SettingsPage> {
     },
     (context) {
       final theme = DynamicTheme.of(context);
+      final p = defaultTargetPlatform;
       return PropertyTile<TargetPlatform>(
         Property<TargetPlatform>(
           onSet: (p) => theme.platform = p,
@@ -159,15 +160,14 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         trailingBuilder: (v) => Text(platformNames[v] ?? describeEnum(v)),
         title: const Text('Platform'),
-        items: defaultTargetPlatform == TargetPlatform.iOS ||
-                defaultTargetPlatform == TargetPlatform.android
+        items: p == TargetPlatform.iOS || p == TargetPlatform.android
             ? const [
-                ChoicePageItem(value: TargetPlatform.android, child: Text('Android')),
-                ChoicePageItem(value: TargetPlatform.iOS, child: Text('iOS')),
+                ActionsSheetAction(value: TargetPlatform.android, title: Text('Android')),
+                ActionsSheetAction(value: TargetPlatform.iOS, title: Text('iOS')),
               ]
             : const [
-                ChoicePageItem(value: TargetPlatform.macOS, child: Text('MacOS')),
-                ChoicePageItem(value: TargetPlatform.windows, child: Text('Windows')),
+                ActionsSheetAction(value: TargetPlatform.macOS, title: Text('MacOS')),
+                ActionsSheetAction(value: TargetPlatform.windows, title: Text('Windows')),
               ],
       );
     },
@@ -178,8 +178,8 @@ class _SettingsPageState extends State<SettingsPage> {
           title: Text(AppLoc.of(context).maps_app),
           icon: const Icon(Icons.map_rounded),
           items: const [
-            ChoicePageItem(value: Maps.apple, child: Text('Apple Maps')),
-            ChoicePageItem(value: Maps.google, child: Text('Google Maps')),
+            ActionsSheetAction(value: Maps.apple, title: Text('Apple Maps')),
+            ActionsSheetAction(value: Maps.google, title: Text('Google Maps')),
           ],
           trailingBuilder: (v) => Text(_mapsName(v)),
         );
@@ -189,7 +189,8 @@ class _SettingsPageState extends State<SettingsPage> {
     },
     (context) {
       final items = NavigationApi.values
-          .map((e) => ChoicePageItem(child: Text(BaseNavigationApi.getFactory(e).name), value: e))
+          .map((e) =>
+              ActionsSheetAction(title: Text(BaseNavigationApi.getFactory(e).name), value: e))
           .toList(growable: false);
       return PropertyTile<NavigationApi>(
         context.read(preferencesProvider).api,
@@ -202,8 +203,8 @@ class _SettingsPageState extends State<SettingsPage> {
     },
     (context) {
       final items = [
-        const ChoicePageItem(value: true, child: Text('True')),
-        const ChoicePageItem(value: false, child: Text('True')),
+        const ActionsSheetAction(value: true, title: Text('True')),
+        const ActionsSheetAction(value: false, title: Text('True')),
       ];
       return PropertyTile<bool>(
         context.read(preferencesProvider).useAnalytics,

@@ -55,29 +55,27 @@ class FavoriteRouteTile extends StatelessWidget {
     return;
   }
 
-  void more(BuildContext context) {
-    showActionSheet(
-      context,
-      [
-        ActionsSheetAction(
-          title: Text(AppLoc.of(context).rename),
-          icon: const Icon(CupertinoIcons.pencil),
-          onPressed: () => rename(context),
+  void more(BuildContext context) => showActionSheet<void>(
+        context,
+        [
+          ActionsSheetAction(
+            title: Text(AppLoc.of(context).rename),
+            icon: const Icon(CupertinoIcons.pencil),
+            onPressed: () => rename(context),
+          ),
+          ActionsSheetAction(
+            onPressed: () => deleteRoute(context),
+            title: Text(AppLoc.of(context).delete),
+            icon: const Icon(CupertinoIcons.delete),
+            isDestructive: true,
+          ),
+        ],
+        popBeforeReturn: true,
+        cancel: ActionsSheetAction<void>(
+          title: Text(AppLoc.of(context).cancel),
+          icon: const Icon(CupertinoIcons.xmark),
         ),
-        ActionsSheetAction(
-          onPressed: () => deleteRoute(context),
-          title: Text(AppLoc.of(context).delete),
-          icon: const Icon(CupertinoIcons.delete),
-          isDestructive: true,
-        ),
-      ],
-      popBeforeReturn: true,
-      cancel: ActionsSheetAction<void>(
-        title: Text(AppLoc.of(context).cancel),
-        icon: const Icon(CupertinoIcons.xmark),
-      ),
-    );
-  }
+      );
 
   Future<void> deleteRoute(BuildContext context) async {
     final b = await confirm(

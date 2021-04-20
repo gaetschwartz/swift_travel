@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:theming/responsive.dart';
 
@@ -27,20 +28,18 @@ Future<T?> showActionSheet<T>(
                   title: title,
                   message: message,
                   actions: actions
-                      .map((a) => ActionsSheet._buildListTile<T>(
+                      .map((a) => _buildListTile<T>(
                             context,
                             a,
                             true,
-                            popBeforeReturn: popBeforeReturn,
                           ))
                       .toList(growable: false),
                   cancelButton: cancel == null
                       ? null
-                      : ActionsSheet._buildListTile<T>(
+                      : _buildListTile<T>(
                           context,
                           cancel,
                           true,
-                          popBeforeReturn: popBeforeReturn,
                         ),
                 ),
               ))
@@ -83,20 +82,19 @@ Future<T?> showChoiceSheet<T>(
                   title: title,
                   message: message,
                   actions: actions
-                      .map((a) => ActionsSheet._buildListTile<T>(
+                      .map((a) => _buildListTile<T>(
                             context,
                             a,
                             true,
-                            popBeforeReturn: popBeforeReturn,
+                            isSelected: defaultValue == a.value,
                           ))
                       .toList(growable: false),
                   cancelButton: cancel == null
                       ? null
-                      : ActionsSheet._buildListTile<T>(
+                      : _buildListTile<T>(
                           context,
                           cancel,
                           true,
-                          popBeforeReturn: popBeforeReturn,
                         ),
                 ),
               ))
@@ -108,6 +106,7 @@ Future<T?> showChoiceSheet<T>(
           duration: const Duration(milliseconds: 250),
           bounce: true,
           builder: (context) => ActionsSheet<T>(
+            defaultValue: defaultValue,
             actions: actions,
             cancel: cancel,
             title: title,
@@ -121,6 +120,7 @@ Future<T?> showChoiceSheet<T>(
 class ActionsSheetAction<T> {
   const ActionsSheetAction({
     required this.title,
+    this.value,
     this.cupertinoIcon,
     this.onPressed,
     this.icon,
@@ -129,12 +129,62 @@ class ActionsSheetAction<T> {
   });
 
   final Widget title;
-  final FutureOr<T>? Function()? onPressed;
+  final void Function()? onPressed;
   final Widget? icon;
   final Widget? cupertinoIcon;
   final bool isDestructive;
   final bool isDefault;
+  final T? value;
 }
+
+Widget _buildListTile<T>(
+  BuildContext context,
+  ActionsSheetAction<T> a,
+  bool isDarwin, {
+  bool? isSelected,
+  double iconSize = 24,
+}) =>
+    ListTile(
+      tileColor: Colors.transparent,
+      leading: isSelected != null
+          ? isSelected
+              ? Icon(
+                  CupertinoIcons.check_mark,
+                  size: iconSize,
+                  color: isDarwin
+                      ? CupertinoTheme.of(context).textTheme.actionTextStyle.color
+                      : Theme.of(context).primaryColor,
+                )
+              : SizedBox(
+                  width: iconSize,
+                  height: iconSize,
+                )
+          : a.icon == null
+              ? null
+              : IconTheme(
+                  data: IconThemeData(
+                      size: iconSize,
+                      color: a.isDestructive
+                          ? CupertinoColors.destructiveRed
+                          : isDarwin
+                              ? CupertinoTheme.of(context).textTheme.actionTextStyle.color
+                              : null),
+                  child: isDarwin && a.cupertinoIcon != null ? a.cupertinoIcon! : a.icon!,
+                ),
+      title: DefaultTextStyle(
+          style: (isDarwin
+                  ? CupertinoTheme.of(context).textTheme.actionTextStyle
+                  : Theme.of(context).textTheme.subtitle1)!
+              .copyWith(
+            color: a.isDestructive ? CupertinoColors.destructiveRed : null,
+            fontWeight: a.isDefault || (isSelected ?? false) ? FontWeight.bold : null,
+          ),
+          child: a.title),
+      onTap: () async {
+        a.onPressed?.call();
+        Navigator.of(context).pop<T>(a.value);
+      },
+    );
 
 class ActionsSheet<T> extends StatelessWidget {
   const ActionsSheet({
@@ -144,6 +194,7 @@ class ActionsSheet<T> extends StatelessWidget {
     this.message,
     this.popBeforeReturn = false,
     Key? key,
+    this.defaultValue,
   }) : super(key: key);
 
   final List<ActionsSheetAction<T>> actions;
@@ -151,56 +202,17 @@ class ActionsSheet<T> extends StatelessWidget {
   final Widget? title;
   final Widget? message;
   final bool popBeforeReturn;
+  final T? defaultValue;
 
-  List<Widget> buildChildren(BuildContext context) {
-    final l = <Widget>[];
+  Iterable<Widget> buildChildren(BuildContext context) sync* {
     for (var i = 0; i < actions.length; i++) {
       final a = actions[i];
-      l.add(_buildListTile<T>(context, a, false, popBeforeReturn: popBeforeReturn));
+      yield _buildListTile<T>(context, a, false, isSelected: a.value == defaultValue);
       if (i < actions.length - 1) {
-        l.add(const Divider(height: 0, indent: 8, endIndent: 8));
+        yield const Divider(height: 0, indent: 8, endIndent: 8);
       }
     }
-    return l;
   }
-
-  static Widget _buildListTile<T>(
-    BuildContext context,
-    ActionsSheetAction<T> a,
-    bool isDarwin, {
-    required bool popBeforeReturn,
-  }) =>
-      ListTile(
-        leading: a.icon == null
-            ? null
-            : IconTheme(
-                data: IconThemeData(
-                    color: a.isDestructive
-                        ? CupertinoColors.destructiveRed
-                        : isDarwin
-                            ? CupertinoTheme.of(context).textTheme.actionTextStyle.color
-                            : null),
-                child: isDarwin && a.cupertinoIcon != null ? a.cupertinoIcon! : a.icon!,
-              ),
-        title: DefaultTextStyle(
-            style: (isDarwin
-                    ? CupertinoTheme.of(context).textTheme.actionTextStyle
-                    : Theme.of(context).textTheme.subtitle1)!
-                .copyWith(
-              color: a.isDestructive ? CupertinoColors.destructiveRed : null,
-              fontWeight: a.isDefault ? FontWeight.bold : null,
-            ),
-            child: a.title),
-        onTap: () async {
-          if (popBeforeReturn) {
-            Navigator.of(context).pop<void>();
-            a.onPressed?.call();
-          } else {
-            final value = await a.onPressed?.call();
-            Navigator.of(context).pop<T>(value);
-          }
-        },
-      );
 
   @override
   Widget build(BuildContext context) => Column(
@@ -249,7 +261,6 @@ class ActionsSheet<T> extends StatelessWidget {
                     context,
                     cancel!,
                     false,
-                    popBeforeReturn: popBeforeReturn,
                   )),
             )
         ],
