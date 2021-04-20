@@ -33,13 +33,13 @@ class PropertyTile<T> extends StatelessWidget {
   final Widget? subtitle;
 
   @override
-  Widget build(BuildContext context) {
-    final showSwitch = T == bool;
-    return Column(children: [
-      const Divider(height: 0),
-      ListenableBuilder<Property<T>>(
-          listenable: property,
-          builder: (context, prop, _) => ListTile(
+  Widget build(BuildContext context) => Column(children: [
+        const Divider(height: 0),
+        ListenableBuilder<Property<T>>(
+            listenable: property,
+            builder: (context, prop, _) {
+              final showSwitch = prop.value is bool;
+              return ListTile(
                 leading: icon,
                 title: title,
                 subtitle: subtitle,
@@ -83,7 +83,7 @@ class PropertyTile<T> extends StatelessWidget {
                           ],
                         ),
                       ),
-              ))
-    ]);
-  }
+              );
+            })
+      ]);
 }

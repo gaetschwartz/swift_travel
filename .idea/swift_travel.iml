@@ -31,6 +31,10 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/cask/example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/live_route/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/live_route/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/logging/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/logging/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/logging/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/logging/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ml_playground/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ml_playground/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/playground/.pub" />
