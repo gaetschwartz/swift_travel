@@ -27,14 +27,15 @@ dependencies:
   firebase_core: ^1.0.0
   firebase_crashlytics: ^2.0.0
   flex_color_scheme: ^2.0.0
+  fluentui_system_icons: ^1.1.109
   flutter_hooks: ^0.16.0
+  flutter_riverpod: ^0.14.0+1
   flutter_slidable: ^0.6.0-nullsafety.0
   font_awesome_flutter: ^9.0.0
   freezed_annotation: ^0.14.0
   geolocator: ^7.0.1
   google_fonts: ^2.0.0
   hive: ^2.0.0
-  flutter_riverpod: ^0.14.0+1
   intl: ^0.17.0
   json_annotation: ^4.0.0
   meta: ^1.3.0
@@ -49,12 +50,12 @@ dependencies:
   shimmer: ^2.0.0-nullsafety.0
   url_launcher: ^6.0.0
   url_strategy: ^0.2.0
-  fluentui_system_icons: ^1.1.109
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  integration_test:
+    sdk: flutter
   build_runner: ^1.10.4
   freezed: ^0.14.0-nullsafety.0
   json_serializable: ^4.0.0-nullsafety.0
