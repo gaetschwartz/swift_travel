@@ -4,14 +4,17 @@ set -x
 
 file="shaders/flutter_01.sksl.json"
 
-open -a Simulator.app
+/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator \
+-CurrentDeviceUDID com.apple.CoreSimulator.SimDeviceType.iPhone-12-Pro-Max &
 
 flutter drive --driver=test_driver/integration_test.dart \
 --target=integration_test/app_test.dart \
 --profile --cache-sksl \
 --write-sksl-on-exit $file
 
-echo "$(pwd)/$file"
+killall Simultator
+
+echo "$file"
 
 
 
