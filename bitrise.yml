@@ -31,7 +31,15 @@ workflows:
       - script@1:
           inputs:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
+            - content: |-
+                file=$(bash $BITRISE_SOURCE_DIR/CI/compute_sksl.sh)
+                echo $file
+                envman add --key SKSL_ARGUMENT --value "--bundle-sksl-path=$file"
+          title: compute sksl shaders
+      - script@1:
+          inputs:
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - content: flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT $SKSL_ARGUMENT
           title: flutter build ios
       - xcode-archive@3: {}
       - deploy-to-itunesconnect-application-loader@1:
@@ -67,12 +75,19 @@ workflows:
           inputs:
             #- installation_bundle_url: $FLUTTER_ARCHIVE_URL
             - version: stable
+      - script@1:
+          inputs:
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - content: |-
+                file=$(bash $BITRISE_SOURCE_DIR/CI/compute_sksl.sh)
+                echo $file
+                envman add --key SKSL_ARGUMENT --value "--bundle-sksl-path=$file"
+          title: compute sksl shaders
       - flutter-build@0:
           inputs:
             - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
             - ios_additional_params: >-
-                --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
-
+                --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT $SKSL_ARGUMENT
             - android_additional_params: >-
                 --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform
                 android-arm64
