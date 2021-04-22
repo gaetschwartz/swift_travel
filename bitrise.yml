@@ -27,16 +27,13 @@ workflows:
       - flutter-installer@0:
           inputs:
             - installation_bundle_url: $FLUTTER_ARCHIVE_URL
-      - script@1:
-          inputs:
-            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: >-
-                #!/usr/bin/env bash
-                set -e
-                set -x
-
-                flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
+      - flutter-build@0:
           title: flutter build ios
+          inputs:
+            - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - platform: ios
+            - ios_additional_params: >-
+                --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
       - xcode-archive@3: {}
       - deploy-to-itunesconnect-application-loader@1:
           inputs:
@@ -73,6 +70,7 @@ workflows:
             - version: stable
       - flutter-build@0:
           inputs:
+            - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
             - ios_additional_params: >-
                 --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
 
