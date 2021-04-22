@@ -1,1 +1,1 @@
-grep 'version:' $GITHUB_WORKSPACE/app/pubspec.yaml | awk '{print $2}' | cut -d "+" -f1
+grep 'version:' $1/app/pubspec.yaml | awk '{print $2}' | cut -d "+" -f1
