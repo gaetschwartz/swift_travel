@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  flutter_channel: stable
+  flutter_channel: beta
   java_version: 8.x
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        flutter_channel: [stable, beta, dev]
+        flutter_channel: [beta, dev]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
         with:
           path: |
             $HOME/.pub-cache
-          key: ${{ runner.OS }}-flutter-cache-${{ steps.release_json.outputs.json }}
+          key: ${{ runner.OS }}-flutter-cache
       - name: Get git infos
         id: git-data
         run: bash $GITHUB_WORKSPACE/CI/github_git_data.sh
@@ -59,7 +59,7 @@ jobs:
     name: build android
     strategy:
       matrix:
-        flutter_channel: [stable, beta, dev]
+        flutter_channel: [beta, dev]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -70,7 +70,7 @@ jobs:
         with:
           path: |
             $HOME/.pub-cache
-          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+          key: ${{ runner.OS }}-flutter-cache
       - name: Get git infos
         id: git-data
         run: bash $GITHUB_WORKSPACE/CI/github_git_data.sh
@@ -101,7 +101,7 @@ jobs:
           path: |
             ~/.pub-cache
             ~/Library/Caches/CocoaPods
-          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+          key: ${{ runner.OS }}-flutter-cache
       - name: Get git infos
         id: git-data
         run: bash $GITHUB_WORKSPACE/CI/github_git_data.sh
@@ -133,7 +133,7 @@ jobs:
         with:
           path: |
             $HOME/.pub-cache
-          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+          key: ${{ runner.OS }}-flutter-cache
       - name: Get git infos
         id: git-data
         run: bash CI/github_git_data.sh
@@ -173,7 +173,7 @@ jobs:
         with:
           path: |
             $HOME/.pub-cache
-          key: ${{ runner.OS }}-flutter-cache-${{ env.flutter_channel }}
+          key: ${{ runner.OS }}-flutter-cache
       - name: Get git infos
         id: git-data
         run: bash $GITHUB_WORKSPACE/CI/github_git_data.sh
