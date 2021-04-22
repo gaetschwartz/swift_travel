@@ -10,6 +10,8 @@ fi
 
 now=$(date +"%A %d %B %Y - %H:%M:%S")
 
+echo "Running in $(pwd)"
+
 cat > lib/constants/build.dart <<- EOM
 const String commitBuildDate = "${now}";
 const String commitHash = "${GIT_SHORT_SHA}";
