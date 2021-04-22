@@ -21,7 +21,7 @@ workflows:
       - script-runner@0:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
-            - working_dir: $BITRISE_SOURCE_DIR/$BITRISE_FLUTTER_PROJECT_LOCATION
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
             - is_debug: yes
           title: Prebuild
       - flutter-installer@0:
@@ -63,7 +63,7 @@ workflows:
       - script-runner@0:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
-            - working-directory: $BITRISE_SOURCE_DIR/$BITRISE_FLUTTER_PROJECT_LOCATION
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
             - is_debug: yes
           title: Prebuild
       - cache-pull@2: {}
