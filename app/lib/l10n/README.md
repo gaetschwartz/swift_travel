@@ -1,0 +1,1 @@
+../../../docs/ADDING-NEW-LOCALE.md
