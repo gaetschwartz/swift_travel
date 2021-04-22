@@ -42,11 +42,6 @@ jobs:
         working-directory: app/
         run: flutter packages get
       - name: Pre-build configuration
-        env:
-          TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ env.COMMIT_NUMBER }}
-          GIT_MSG: ${{ env.COMMIT_MSG }}
-          GIT_HASH: ${{ env.GITHUB_SHORT_SHA }}
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
         working-directory: app/
       - name: Test
@@ -88,11 +83,6 @@ jobs:
         run: flutter packages get
       - name: Pre-build configuration
         working-directory: app/
-        env:
-          TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ env.COMMIT_NUMBER }}
-          GIT_MSG: ${{ env.COMMIT_MSG }}
-          GIT_HASH: ${{ env.GITHUB_SHORT_SHA }}
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
       - name: Build
         working-directory: app/
@@ -124,11 +114,6 @@ jobs:
         run: flutter packages get
       - name: Pre-build configuration
         working-directory: app/
-        env:
-          TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ env.COMMIT_NUMBER }}
-          GIT_MSG: ${{ env.COMMIT_MSG }}
-          GIT_HASH: ${{ env.GITHUB_SHORT_SHA }}
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
       - name: Build
         working-directory: app/
@@ -161,11 +146,6 @@ jobs:
         run: flutter packages get
       - name: Pre-build configuration
         working-directory: app/
-        env:
-          TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ env.COMMIT_NUMBER }}
-          GIT_MSG: ${{ env.COMMIT_MSG }}
-          GIT_HASH: ${{ env.GITHUB_SHORT_SHA }}
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
         shell: bash
       - name: Build
@@ -208,11 +188,6 @@ jobs:
           flutter packages get
       - name: Pre-build configuration
         working-directory: app/
-        env:
-          TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ env.COMMIT_NUMBER }}
-          GIT_MSG: ${{ env.COMMIT_MSG }}
-          GIT_HASH: ${{ env.GITHUB_SHORT_SHA }}
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
       - name: Build
         working-directory: app/

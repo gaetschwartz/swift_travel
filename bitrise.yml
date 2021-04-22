@@ -7,35 +7,31 @@ workflows:
     steps:
       - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-      - git-clone@4: {}
+      - git-clone@5: {}
       - certificate-and-profile-installer@1: {}
-      - script@1:
-          inputs:
-            - content: |-
-                #!/usr/bin/env bash
-                set -e
-                set -x
-
-                bash $BITRISE_SOURCE_DIR/CI/latest.sh stable
-          title: Get latest version
+      # - script@1:
+      #     inputs:
+      #       - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh stable
+      #     title: Get latest version
       - cache-pull@2: {}
+      - script-runner@0:
+          inputs:
+            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_git_data.sh
+          title: Get git data
       - script-runner@0:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - is_debug: yes
           title: Prebuild
       - flutter-installer@0:
           inputs:
-            - installation_bundle_url: $FLUTTER_ARCHIVE_URL
+            #- installation_bundle_url: $FLUTTER_ARCHIVE_URL
+            - version: stable
       - script@1:
           inputs:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: >-
-                #!/usr/bin/env bash
-                set -e
-                set -x
-
-                flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
+            - content: flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
           title: flutter build ios
       - xcode-archive@3: {}
       - deploy-to-itunesconnect-application-loader@1:
@@ -45,33 +41,35 @@ workflows:
             - itunescon_user: $APPLE_EMAIL
       - cache-push@2: {}
     after_run: []
+
   build:
     steps:
       - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-      - git-clone@4: {}
+      - git-clone@5: {}
       - certificate-and-profile-installer@1: {}
-      - script@1:
+      # - script@1:
+      #     inputs:
+      #       - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh stable
+      #     title: Get latest version
+      - script-runner@0:
           inputs:
-            - content: |-
-                #!/usr/bin/env bash
-                set -e
-                set -x
-
-                bash $BITRISE_SOURCE_DIR/CI/latest.sh stable
-          title: Get latest version
+            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_git_data.sh
+          title: Get git data
       - script-runner@0:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
-            - working-directory: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - is_debug: yes
           title: Prebuild
       - cache-pull@2: {}
       - flutter-installer@0:
           inputs:
-            - installation_bundle_url: $FLUTTER_ARCHIVE_URL
+            #- installation_bundle_url: $FLUTTER_ARCHIVE_URL
             - version: stable
       - flutter-build@0:
           inputs:
+            - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
             - ios_additional_params: >-
                 --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
 
