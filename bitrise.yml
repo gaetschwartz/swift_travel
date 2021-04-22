@@ -32,6 +32,10 @@ workflows:
           inputs:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
             - content: |-
+                #!/usr/bin/env bash
+                set -e
+                set -x
+
                 file=$(bash $BITRISE_SOURCE_DIR/CI/compute_sksl.sh)
                 echo $file
                 envman add --key SKSL_ARGUMENT --value "--bundle-sksl-path=$file"
@@ -39,7 +43,12 @@ workflows:
       - script@1:
           inputs:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT $SKSL_ARGUMENT
+            - content: |-
+                #!/usr/bin/env bash
+                set -e
+                set -x
+
+                flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT $SKSL_ARGUMENT
           title: flutter build ios
       - xcode-archive@3: {}
       - deploy-to-itunesconnect-application-loader@1:
@@ -79,6 +88,10 @@ workflows:
           inputs:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
             - content: |-
+                #!/usr/bin/env bash
+                set -e
+                set -x
+
                 file=$(bash $BITRISE_SOURCE_DIR/CI/compute_sksl.sh)
                 echo $file
                 envman add --key SKSL_ARGUMENT --value "--bundle-sksl-path=$file"
