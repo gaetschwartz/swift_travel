@@ -83,7 +83,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Get Flutter from cache
+      - name: Pull cache
         uses: actions/cache@v2
         with:
           path: |
@@ -103,9 +103,9 @@ jobs:
         working-directory: app/
         env:
           TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
-          GIT_MSG: ${{ steps.git-data.outputs.msg }}
-          GIT_HASH: ${{ steps.git-data.outputs.hash }}
+          COMMIT_COUNT: ${{ env.COMMIT_NUMBER }}
+          GIT_MSG: ${{ env.COMMIT_MSG }}
+          GIT_HASH: ${{ env.GITHUB_SHORT_SHA }}
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
         shell: bash
       - name: Build
@@ -128,7 +128,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Get Flutter from cache
+      - name: Pull cache
         uses: actions/cache@v2
         with:
           path: |
@@ -148,9 +148,9 @@ jobs:
         working-directory: app/
         env:
           TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
-          GIT_MSG: ${{ steps.git-data.outputs.msg }}
-          GIT_HASH: ${{ steps.git-data.outputs.hash }}
+          COMMIT_COUNT: ${{ env.COMMIT_NUMBER }}
+          GIT_MSG: ${{ env.COMMIT_MSG }}
+          GIT_HASH: ${{ env.GITHUB_SHORT_SHA }}
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
       - name: Build
         working-directory: app/
@@ -175,7 +175,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Get Flutter from cache
+      - name: Pull cache
         uses: actions/cache@v2
         with:
           path: |
@@ -197,9 +197,9 @@ jobs:
         working-directory: app/
         env:
           TZ: Europe/Zurich
-          COMMIT_COUNT: ${{ steps.git-data.outputs.count }}
-          GIT_MSG: ${{ steps.git-data.outputs.msg }}
-          GIT_HASH: ${{ steps.git-data.outputs.hash }}
+          COMMIT_COUNT: ${{ env.COMMIT_NUMBER }}
+          GIT_MSG: ${{ env.COMMIT_MSG }}
+          GIT_HASH: ${{ env.GITHUB_SHORT_SHA }}
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
       - name: Build
         working-directory: app/
