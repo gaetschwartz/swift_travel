@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +12,11 @@ import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/complete.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -301,11 +300,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
-      if (isMobile) {
-        await FirebaseCrashlytics.instance.recordError(e, s, printDetails: true);
-      } else {
-        log('', error: e, stackTrace: s);
-      }
+      reportDartError(e, s);
     } finally {
       context.read(_loadingProvider).state = false;
     }
