@@ -11,7 +11,7 @@ flutter drive --driver=test_driver/integration_test.dart \
 --profile --cache-sksl \
 --write-sksl-on-exit $file
 
-envman add --key SKSL_ARGUMENTS --value "--bundle-sksl-path $(pwd)/$file"
+echo "$(pwd)/$file"
 
 
 
