@@ -130,9 +130,9 @@ class _SettingsPageState extends State<SettingsPage> {
     (context) {
       final theme = DynamicTheme.of(context);
       const map = {-1: 'Light', 0: 'Normal', 1: 'Medium', 3: 'Bold'};
-      final t = theme.font
-          .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
-          .bodyText1!;
+      // final t = theme.font
+      //     .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
+      //     .bodyText1!;
       return PropertyTile<int>(
         Property<int>(
           onSet: (delta) => theme.fontWeightDelta = delta,
@@ -144,7 +144,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 value: key,
                 title: Text(
                   map[key]!,
-                  style: t.apply(fontWeightDelta: key),
+                  //   style: t.apply(fontWeightDelta: key),
                 )))
             .toList(growable: false),
         trailingBuilder: (i) => Text(map[i] ?? ''),

@@ -35,61 +35,61 @@ const List<Font> fonts = [
 const _light = ColorScheme.light();
 const _dark = ColorScheme.dark();
 
-ThemeConfiguration get themeConfiguration => ThemeConfiguration(
-      fonts: fonts,
-      defaultFont: fonts.first,
-      applyToAllThemes: (t) => t.copyWith(fixTextFieldOutlineLabel: true),
-      defaultTheme: 'default',
-      themes: {
-        'default': FullTheme(
-          name: 'Swift',
-          light: _light,
-          applyToLight: (theme) => theme.copyWith(
-            appBarTheme: AppBarTheme(
-              color: Colors.white,
-              foregroundColor: Colors.black,
-              textTheme: Typography.englishLike2018.apply(bodyColor: Colors.black),
-              iconTheme: const IconThemeData(color: Colors.black),
-              actionsIconTheme: const IconThemeData(color: Colors.black),
-              elevation: 0,
-            ),
-            cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(),
-          ),
-          dark: _dark,
-          lightShadow: lightShadow,
-          darkShadow: darkShadow,
+final ThemeConfiguration themeConfiguration = ThemeConfiguration(
+  fonts: fonts,
+  defaultFont: fonts.first,
+  applyToAllThemes: (t) => t.copyWith(fixTextFieldOutlineLabel: true),
+  defaultTheme: 'default',
+  themes: {
+    'default': FullTheme(
+      name: 'Swift',
+      light: _light,
+      applyToLight: (theme) => theme.copyWith(
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+          foregroundColor: Colors.black,
+          textTheme: Typography.englishLike2018.apply(bodyColor: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
+          actionsIconTheme: const IconThemeData(color: Colors.black),
+          elevation: 0,
         ),
-        'abin': FullTheme(
-          name: 'Abin',
-          light: ColorScheme.light(primary: purpleAbin, secondary: blueAbin),
-          dark: ColorScheme.dark(primary: purpleAbin, secondary: blueAbin),
-          lightShadow: lightShadow,
-          darkShadow: darkShadow,
-        ),
-        'material': FullTheme(
-          name: 'Material',
-          light: FlexColorScheme.light(
-            colors: FlexColor.schemes[FlexScheme.material]!.light,
-          ).toScheme,
-          dark: FlexColorScheme.dark(
-            colors: FlexColor.schemes[FlexScheme.material]!.dark,
-          ).toScheme,
-          lightShadow: lightShadow,
-          darkShadow: darkShadow,
-        ),
-        'david': FullTheme(
-          name: 'David',
-          light: ColorScheme.light(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),
-          dark: ColorScheme.dark(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),
-          applyToDark: (theme) => theme.copyWith(
-            appBarTheme:
-                theme.appBarTheme.copyWith(color: theme.colorScheme.primary, centerTitle: true),
-          ),
-          lightShadow: lightShadow,
-          darkShadow: darkShadow,
-        ),
-      },
-    );
+        cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(),
+      ),
+      dark: _dark,
+      lightShadow: lightShadow,
+      darkShadow: darkShadow,
+    ),
+    'abin': FullTheme(
+      name: 'Abin',
+      light: ColorScheme.light(primary: purpleAbin, secondary: blueAbin),
+      dark: ColorScheme.dark(primary: purpleAbin, secondary: blueAbin),
+      lightShadow: lightShadow,
+      darkShadow: darkShadow,
+    ),
+    'material': FullTheme(
+      name: 'Material',
+      light: FlexColorScheme.light(
+        colors: FlexColor.schemes[FlexScheme.material]!.light,
+      ).toScheme,
+      dark: FlexColorScheme.dark(
+        colors: FlexColor.schemes[FlexScheme.material]!.dark,
+      ).toScheme,
+      lightShadow: lightShadow,
+      darkShadow: darkShadow,
+    ),
+    'david': FullTheme(
+      name: 'David',
+      light: ColorScheme.light(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),
+      dark: ColorScheme.dark(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),
+      applyToDark: (theme) => theme.copyWith(
+        appBarTheme:
+            theme.appBarTheme.copyWith(color: theme.colorScheme.primary, centerTitle: true),
+      ),
+      lightShadow: lightShadow,
+      darkShadow: darkShadow,
+    ),
+  },
+);
 
 /// Utility method to create a material color from any given
 /// color.

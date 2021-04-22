@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/responsive.dart';
 
 Future<T?> showActionSheet<T>(
@@ -141,49 +142,19 @@ Widget _buildListTile<T>(
   BuildContext context,
   ActionsSheetAction<T> a,
   bool isDarwin, {
-  bool? isSelected,
-  double iconSize = 24,
+  bool isSelected = false,
 }) =>
-    ListTile(
-      tileColor: Colors.transparent,
-      leading: isSelected != null
-          ? isSelected
-              ? Icon(
-                  CupertinoIcons.check_mark,
-                  size: iconSize,
-                  color: isDarwin
-                      ? CupertinoTheme.of(context).textTheme.actionTextStyle.color
-                      : Theme.of(context).primaryColor,
-                )
-              : SizedBox(
-                  width: iconSize,
-                  height: iconSize,
-                )
-          : a.icon == null
-              ? null
-              : IconTheme(
-                  data: IconThemeData(
-                      size: iconSize,
-                      color: a.isDestructive
-                          ? CupertinoColors.destructiveRed
-                          : isDarwin
-                              ? CupertinoTheme.of(context).textTheme.actionTextStyle.color
-                              : null),
-                  child: isDarwin && a.cupertinoIcon != null ? a.cupertinoIcon! : a.icon!,
-                ),
-      title: DefaultTextStyle(
-          style: (isDarwin
-                  ? CupertinoTheme.of(context).textTheme.actionTextStyle
-                  : Theme.of(context).textTheme.subtitle1)!
-              .copyWith(
-            color: a.isDestructive ? CupertinoColors.destructiveRed : null,
-            fontWeight: a.isDefault || (isSelected ?? false) ? FontWeight.bold : null,
-          ),
-          child: a.title),
-      onTap: () async {
+    CupertinoActionSheetAction(
+      onPressed: () async {
         a.onPressed?.call();
         Navigator.of(context).pop<T>(a.value);
       },
+      isDefaultAction: isSelected || a.isDefault,
+      isDestructiveAction: a.isDestructive,
+      child: PlatformBuilder(
+          cupertinoBuilder: (_, child) => child!,
+          materialBuilder: (_, child) => child!,
+          child: a.title),
     );
 
 class ActionsSheet<T> extends StatelessWidget {

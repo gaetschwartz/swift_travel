@@ -68,29 +68,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: SizedBox(
-          width: double.infinity,
-          child: FadeTransition(
-            opacity: _controller,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                SizedBox(
-                  height: 64,
-                  width: 64,
-                  child: CircularProgressIndicator.adaptive(),
-                ),
-                SizedBox(height: 32),
-                Text(
-                  'Loading ...',
-                  style: TextStyle(fontSize: 32),
-                )
-              ],
-            ),
-          ),
-        ),
-      );
+  Widget build(BuildContext context) => const Scaffold();
 
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
@@ -106,7 +84,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     if (isMobile) {
       MyQuickActions.i.init();
       await context.read(linksProvider).init(
-            push: (p) => navigatorKey.currentState!.push(
+            onNewRoute: (p) => navigatorKey.currentState!.push(
               PlatformPageRoute(
                 builder: (_) => RouteDetails(
                   route: p.first,
@@ -132,47 +110,56 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
       await context.read(storeProvider).init(prefs: prefs);
     } on Exception catch (e, s) {
-      reportDartError(e, s, library: 'loading', reason: 'while loading');
-      final delete = await confirm(
-        context,
-        title: const Text('Failed to load your previous settings !'),
-        content: const SingleChildScrollView(
-          child: Text(
-            'We are very sorry for this inconvenience. Reset settings ?',
-            textAlign: TextAlign.center,
-          ),
-        ),
-      );
-      if (delete) {
-        await prefs.clear();
-      }
+      await failedToLoadSettings(e, s, prefs);
       // ignore: avoid_catching_errors
     } on Error catch (e) {
-      reportDartError(e, e.stackTrace, library: 'loading', reason: 'while loading');
+      await failedToLoadSettings(e, e.stackTrace, prefs);
+    }
+  }
 
-      final delete = await confirm(
-        context,
-        title: const Text('Failed to load your previous settings !'),
-        content: const SingleChildScrollView(
-          child: Text(
-            'We are very sorry for this inconvenience. Reset settings ?',
-            textAlign: TextAlign.center,
-          ),
+  Future<void> failedToLoadSettings(Object e, StackTrace? s, SharedPreferences prefs) async {
+    reportDartError(e, s, library: 'loading', reason: 'while loading');
+    final delete = await confirm(
+      context,
+      title: const Text('Failed to load your previous settings !'),
+      content: const SingleChildScrollView(
+        child: Text(
+          'We are very sorry for this inconvenience. Reset settings ?',
+          textAlign: TextAlign.center,
         ),
-      );
-      if (delete) {
-        await prefs.clear();
-      }
+      ),
+    );
+    if (delete) {
+      await prefs.clear();
     }
   }
 
   Future<void> initHive() async {
     if (!kIsWeb) {
       final appDir = await getApplicationPath();
-      final finalPath = await getHivePathOf(appDir);
+      final finalPath = await getHivePathOf(appDir, const ['hive_data']);
       try {
         Hive.init(finalPath);
       } finally {}
+    }
+  }
+
+  Future<String> getHivePathOf(Directory? appDir, [List<String> paths = const []]) async {
+    if (appDir == null) {
+      throw Exception('Failed to get application path.');
+    }
+
+    final finalPath = path.joinAll([appDir.path, ...paths]);
+    return finalPath;
+  }
+
+  Future<Directory?> getApplicationPath() async {
+    if (Platform.isWindows || Platform.isLinux) {
+      return getApplicationSupportDirectory();
+    } else if (Platform.isIOS || Platform.isMacOS) {
+      return getLibraryDirectory();
+    } else if (Platform.isAndroid) {
+      return getExternalStorageDirectory();
     }
   }
 
@@ -185,16 +172,15 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   Future<void> route() async {
-    log(Env.page);
     if (widget.uri != null) {
       try {
         final args = await DeepLinkBloc.parseRouteArguments(
             widget.uri!, context.read(navigationAPIProvider));
         final nav = Navigator.of(context);
-        unawaited(nav.pushReplacementNamed('/'));
         unawaited(nav.pushNamed('/routeDetails', arguments: args));
       } on Exception catch (e, s) {
-        log('', error: e, stackTrace: s);
+        print(e);
+        debugPrintStack(stackTrace: s);
         return _routeToDefault();
       }
     } else {
@@ -203,34 +189,21 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   Future<void> _routeToDefault() {
+    log(Env.page);
+
     if (Env.page.isEmpty) {
       return Navigator.of(context).pushReplacement(
-        PlatformPageRoute(
-          builder: (context) => const TabView(),
+        PageRouteBuilder(
           settings: const RouteSettings(name: '/'),
+          pageBuilder: (context, animation, secondaryAnimation) => const TabView(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
         ),
       );
     } else {
-      return Navigator.of(context).pushReplacementNamed(Env.page.isEmpty ? '/' : Env.page);
+      return Navigator.of(context).pushReplacementNamed(Env.page);
     }
-  }
-}
-
-Future<String> getHivePathOf(Directory? appDir, [List<String> paths = const ['hive_data']]) async {
-  if (appDir == null) {
-    throw Exception('Failed to get application path.');
-  }
-
-  final finalPath = path.joinAll([appDir.path, ...paths]);
-  return finalPath;
-}
-
-Future<Directory?> getApplicationPath() async {
-  if (Platform.isWindows || Platform.isLinux) {
-    return getApplicationSupportDirectory();
-  } else if (Platform.isIOS || Platform.isMacOS) {
-    return getLibraryDirectory();
-  } else if (Platform.isAndroid) {
-    return getExternalStorageDirectory();
   }
 }

@@ -51,7 +51,7 @@ void main() {
       '&dtm=1g3ashk'
       '&i=0',
     );
-    DeepLinkBloc.platform.setMockMethodCallHandler((methodCall) async => uri.toString());
+    DeepLinkBloc.channel.setMockMethodCallHandler((methodCall) async => uri.toString());
 
     final c = ProviderContainer(
         overrides: [navigationAPIProvider.overrideWithValue(MockNavigationApi())]);
@@ -59,7 +59,7 @@ void main() {
     late Pair<NavRoute, int> p;
     await c.read(linksProvider).init(
           getApi: () => c.read(navigationAPIProvider),
-          push: (map) => p = map,
+          onNewRoute: (map) => p = map,
         );
 
     expect(p, isNotNull);
