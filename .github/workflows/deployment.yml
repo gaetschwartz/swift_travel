@@ -154,7 +154,7 @@ jobs:
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
       - name: Build
         working-directory: app/
-        run: flutter build apk --build-number ${{ steps.git-data.outputs.count }}
+        run: flutter build apk --build-number ${{ env.COMMIT_NUMBER }}
       - name: Sign APK
         working-directory: app/
         run: bash $GITHUB_WORKSPACE/CI/sign_apk.sh
