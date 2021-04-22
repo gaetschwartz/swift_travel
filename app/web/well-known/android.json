@@ -5,7 +5,7 @@
     ],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.gaetanschwartz.swiss_travel",
+      "package_name": "com.gaetanschwartz.swift_travel",
       "sha256_cert_fingerprints": [
         "7C:3E:5E:B4:B4:19:97:EC:C5:49:E9:85:B6:1A:D1:85:AF:FF:F2:22:39:60:57:D1:7E:70:10:31:5D:81:1E:3C"
       ]

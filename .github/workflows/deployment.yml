@@ -219,11 +219,11 @@ jobs:
       - name: Build
         working-directory: app/
         run: flutter build web
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SWISS_TRAVEL_36188 }}"
-          projectId: swiss-travel-36188
-          channelId: live
-        env:
-          FIREBASE_CLI_PREVIEWS: hostingchannels
+      # - uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: "${{ secrets.GITHUB_TOKEN }}"
+      #     firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SWISS_TRAVEL_36188 }}"
+      #     projectId: swiss-travel-36188
+      #     channelId: live
+      #   env:
+      #     FIREBASE_CLI_PREVIEWS: hostingchannels
