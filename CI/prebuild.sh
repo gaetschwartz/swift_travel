@@ -1,16 +1,20 @@
 #!/usr/bin/env bash
 set -e
+set -x
 
-hash=$([[ $BITRISE_IO ]] && echo $GIT_CLONE_COMMIT_HASH || echo $GIT_HASH)
-msg=$([[ $BITRISE_IO ]] && echo $BITRISE_GIT_MESSAGE || echo $GIT_MSG)
-count=$([[ $BITRISE_IO ]] && echo $GIT_CLONE_COMMIT_COUNT || echo $COMMIT_COUNT)
+if [ -z "$GIT_SHORT_SHA" ] || [ -z "$COMMIT_MSG" ] || [ -z "$COMMIT_NUMBER" ] || [ -z "$GOT_GIT_DATA" ]
+then
+      echo "Necessary variables are not set!"
+      exit 1
+fi
+
 now=$(date +"%A %d %B %Y - %H:%M:%S")
 
 cat > lib/constants/build.dart <<- EOM
 const String commitBuildDate = "${now}";
-const String commitHash = "${hash}";
-const String commitMessage = "${msg}";
-const String buildNumber = "${count}";
+const String commitHash = "${GIT_SHORT_SHA}";
+const String commitMessage = "${COMMIT_MSG}";
+const String buildNumber = "${COMMIT_NUMBER}";
 EOM
 
 echo "=== build.dart ==="
