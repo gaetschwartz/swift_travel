@@ -13,10 +13,10 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    name: Create release
+    name: create release & upload artifacts
     needs:
-      - android
-      - windows
+      - build-android-prod
+      - build-windows-prod
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,11 +24,7 @@ jobs:
           fetch-depth: 0
       - name: Get git infos
         id: git-data
-        run: |
-          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
-          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=count::$(git rev-list --count HEAD)"
-          echo "::set-output name=version::$(grep 'version:' app/pubspec.yaml | awk '{ print $2}' | cut -d "+" -f1)"
+        run: bash $GITHUB_WORKSPACE/CI/github_git_data.sh
       - name: Download apk artifact
         uses: actions/download-artifact@v2
         with:
@@ -40,7 +36,7 @@ jobs:
           name: windows-release
           path: artifacts/windows-release
       - name: Zip windows artifact
-        run: zip -r windows-release.zip windows-release
+        run: zip -r windows-release.zip windows-release/**
         working-directory: artifacts/
       - name: List dir
         run: ls -la | sort
@@ -59,7 +55,7 @@ jobs:
 
             `${{ steps.git-data.outputs.msg }}`
           draft: false
-      - name: Upload Release Asset
+      - name: Upload APK
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -68,7 +64,7 @@ jobs:
           asset_path: artifacts/app-release/app-release.apk
           asset_name: swift-travel-${{ steps.git-data.outputs.count }}.apk
           asset_content_type: application/vnd.android.package-archive
-      - name: Upload Release Asset
+      - name: Upload Windows archive
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -78,10 +74,10 @@ jobs:
           asset_name: swift-travel-windows-${{ steps.git-data.outputs.count }}.zip
           asset_content_type: application/zip
 
-  windows:
+  build-windows-prod:
     runs-on: windows-latest
     timeout-minutes: 10
-    name: windows
+    name: build windows production
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -99,11 +95,7 @@ jobs:
           channel: ${{ env.flutter_channel }}
       - name: Get git infos
         id: git-data
-        run: |
-          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
-          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=count::$(git rev-list --count HEAD)"
-          echo "::set-output name=version::$(grep 'version:' pubspec.yaml | awk '{ print $2}' | cut -d "+" -f1)"
+        run: bash $GITHUB_WORKSPACE/CI/github_git_data.sh
       - name: Get dependencies
         working-directory: app/
         run: flutter packages get
@@ -127,10 +119,10 @@ jobs:
           name: windows-release
           path: app/build/windows/runner/Release/
 
-  android:
+  build-android-prod:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    name: android
+    name: build android production
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -148,11 +140,7 @@ jobs:
           channel: ${{ env.flutter_channel }}
       - name: Get git infos
         id: git-data
-        run: |
-          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
-          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=count::$(git rev-list --count HEAD)"
-          echo "::set-output name=version::$(grep 'version:' pubspec.yaml | awk '{ print $2}' | cut -d "+" -f1)"
+        run: bash $GITHUB_WORKSPACE/CI/github_git_data.sh
       - name: Get dependencies
         working-directory: app/
         run: flutter packages get
@@ -178,10 +166,10 @@ jobs:
           name: app-release.apk
           path: app/build/app/outputs/flutter-apk/app-release.apk
 
-  build-web:
+  deploy-web-prod:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    name: web
+    name: build web production
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -199,10 +187,7 @@ jobs:
           channel: ${{ env.flutter_channel }}
       - name: Get git infos
         id: git-data
-        run: |
-          echo "::set-output name=hash::$(git rev-parse --short "$GITHUB_SHA")"
-          echo "::set-output name=msg::$(git log -1 --pretty=format:"%s")"
-          echo "::set-output name=count::$(git rev-list --count HEAD)"
+        run: bash $GITHUB_WORKSPACE/CI/github_git_data.sh
       - name: Get dependencies
         working-directory: app/
         run: |
