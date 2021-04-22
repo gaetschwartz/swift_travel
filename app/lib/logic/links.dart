@@ -27,23 +27,23 @@ class InvalidRouteException implements Exception {
 
 class DeepLinkBloc {
   static const stream = EventChannel('com.gaetanschwartz.swift_travel.deeplink/events');
-  static const platform = MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
+  static const channel = MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
 
   late StreamSubscription _sub;
-  late void Function(Pair<NavRoute, int> pair) push;
+  late void Function(Pair<NavRoute, int> pair) onNewRoute;
   late BaseNavigationApi Function() getApi;
 
   Future<void> init({
     required BaseNavigationApi Function() getApi,
-    required void Function(Pair<NavRoute, int> pair) push,
+    required void Function(Pair<NavRoute, int> pair) onNewRoute,
   }) async {
     log('Initialize', name: 'LinksBloc');
-    this.push = push;
+    this.onNewRoute = onNewRoute;
     this.getApi = getApi;
 
     _sub = stream.receiveBroadcastStream().cast<String>().listen(_onLink);
 
-    final s = await initialLink;
+    final s = await getInitialLink();
     if (s != null) {
       await _onLink(s);
     } else {
@@ -53,14 +53,14 @@ class DeepLinkBloc {
 
   Future<void> _onLink(String link) async {
     final uri = Uri.parse(link);
-    log(uri.toString());
+    print('Initial link: $uri');
     if (uri.path == '/route') {
-      log('We have a new route $uri');
+      print('We have a new route $uri');
 
       final pair = await parseRouteArguments(uri, getApi());
       log(pair.toString());
 
-      push(pair);
+      onNewRoute(pair);
     }
   }
 
@@ -80,10 +80,11 @@ class DeepLinkBloc {
 
   void dispose() => _sub.cancel();
 
-  Future<String?> get initialLink async {
+  Future<String?> getInitialLink() async {
     try {
-      return platform.invokeMethod<String>('initialLink');
+      return channel.invokeMethod<String>('initialLink');
     } on MissingPluginException {
+      print('Unsupported platform for deeplink');
       return null;
     }
   }
