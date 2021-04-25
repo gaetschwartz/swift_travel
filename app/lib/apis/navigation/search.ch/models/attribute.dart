@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -36,7 +35,7 @@ class Attribute with _$Attribute {
     '0_6.3_GR': Attribute(code: '0_6.3_GR', icon: Icon(CupertinoIcons.group_solid)),
     '1_6.5_VB': Attribute(code: '1_6.5_VB', icon: Icon(Icons.pedal_bike)),
     '0_2.7_MI': Attribute(code: '0_2.7_MI', icon: Icon(Icons.restaurant)),
-    '0_1.6_2': Attribute(code: '0_1.6_2', icon: Icon(FluentIcons.ticket_24_regular))
+    '0_1.6_2': Attribute(code: '0_1.6_2', icon: Icon(CupertinoIcons.tickets))
   };
 
   static const defaultIcon = Icon(CupertinoIcons.exclamationmark_bubble);

@@ -4,10 +4,10 @@ PODS:
   - Firebase/Crashlytics (7.3.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 7.3.0)
-  - firebase_core (1.0.3):
+  - firebase_core (1.0.4):
     - Firebase/CoreOnly (= 7.3.0)
     - Flutter
-  - firebase_crashlytics (2.0.0):
+  - firebase_crashlytics (2.0.1):
     - Firebase/Crashlytics (= 7.3.0)
     - firebase_core
     - Flutter
@@ -26,7 +26,7 @@ PODS:
     - GoogleDataTransport (~> 8.0)
     - nanopb (~> 2.30906.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstallations (7.10.0):
+  - FirebaseInstallations (7.11.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
@@ -42,6 +42,8 @@ PODS:
     - GoogleUtilities/Environment
   - GoogleUtilities/UserDefaults (7.3.1):
     - GoogleUtilities/Logger
+  - integration_test (0.0.1):
+    - Flutter
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
     - nanopb/encode (= 2.30906.0)
@@ -66,6 +68,7 @@ DEPENDENCIES:
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
   - Flutter (from `Flutter`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
   - share (from `.symlinks/plugins/share/ios`)
@@ -94,6 +97,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   geolocator:
     :path: ".symlinks/plugins/geolocator/ios"
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   quick_actions:
@@ -109,16 +114,17 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
-  firebase_core: b5d81dfd4fb2d6f700e67de34d9a633ae325c4e9
-  firebase_crashlytics: 3b8018f6c88a59be95f9e2f38f04e5c0f05e0c6a
+  firebase_core: 4be162b452c4af1f8257dc7a55003ceacec028ac
+  firebase_crashlytics: 8e7b4f61dccbe21a2b07b10005f680afded8a9a6
   FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
   FirebaseCoreDiagnostics: d50e11039e5984d92c8a512be2395f13df747350
   FirebaseCrashlytics: d31325312c92e2cb2f0386d589b9aa44e303d99b
-  FirebaseInstallations: bf2ec8dbf36ff4c91af6b9a003d15855757680c1
+  FirebaseInstallations: a58d4f72ec5861840b84df489f2668d970df558a
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
+  integration_test: 6eb66a19f7104200dcfdd62bc0077e1b09686e4f
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97

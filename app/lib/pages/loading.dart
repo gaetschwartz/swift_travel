@@ -75,9 +75,11 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
     await initSettings(prefs);
 
-    try {
-      await Geolocator.requestPermission();
-    } catch (_) {}
+    if (!isTest) {
+      try {
+        await Geolocator.requestPermission();
+      } catch (_) {}
+    }
 
     unawaited(route());
 

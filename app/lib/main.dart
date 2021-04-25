@@ -36,6 +36,20 @@ import 'pages/settings/team_page.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+final isTest = () {
+  // ignore: do_not_use_environment
+  if (const bool.fromEnvironment('testing_mode')) {
+    return true;
+  }
+  var _isTest = false;
+  assert(() {
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      _isTest = true;
+    }
+    return true;
+  }(), '');
+  return _isTest;
+}();
 
 bool get isMobile => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
@@ -46,7 +60,7 @@ const debugPlatformMap = {
   TargetPlatform.android: TargetPlatform.iOS,
 };
 
-Future<void> main() async {
+void main() {
   if (kReleaseMode) {
     print(
       '=== Release mode ===\n'
@@ -57,6 +71,10 @@ Future<void> main() async {
   }
   if (kDebugMode) {
     print(Env.map);
+  }
+
+  if (isTest) {
+    print('We are in a test');
   }
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,7 +89,9 @@ Future<void> main() async {
     // unawaited(FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode));
   }
 
-  FlutterError.onError = reportFlutterError;
+  if (!isTest) {
+    FlutterError.onError = reportFlutterError;
+  }
   runZonedGuarded(_runApp, reportDartError);
 }
 
@@ -197,15 +217,13 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
         }),
         TabIntent: TabAction((tab) {
           print('Changing tab to $tab');
-          context.read(tabProvider).setPage(tab, isDarwin: isDarwin);
+          context.read(tabProvider.notifier).index = tab;
         }),
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
           print('Switching tab');
-          final tabs = context.read(tabProvider);
-          tabs.setPage(
-            (tabs.page + 1) % (isDarwin ? TabView.iosTabs.length : TabView.androidTabs.length),
-            isDarwin: isDarwin,
-          );
+          final tabs = context.read(tabProvider.notifier);
+          tabs.index =
+              (tabs.index + 1) % (isDarwin ? TabView.iosTabs.length : TabView.androidTabs.length);
           return null;
         })
       },
