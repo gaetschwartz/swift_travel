@@ -9,6 +9,8 @@ import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/utils/env.dart';
 import 'package:vibration/vibration.dart';
 
+final _doShowSnackbars = !kDebugMode || Env.doShowErrors;
+
 void reportDartError(Object e, StackTrace? s,
     {String library = '', String reason = '', bool showSnackbar = true}) {
   print('Caught an error: ');
@@ -21,7 +23,7 @@ void reportDartError(Object e, StackTrace? s,
     library: library,
   );
 
-  if (showSnackbar && (!kDebugMode || Env.doShowErrors)) {
+  if (showSnackbar && _doShowSnackbars) {
     try {
       Vibration.error();
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -56,7 +58,7 @@ void reportFlutterError(FlutterErrorDetails details) {
   print('Caught a Flutter error: ${details.exception}');
   debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
 
-  if (!kDebugMode || Env.doShowErrors) {
+  if (_doShowSnackbars) {
     try {
       Vibration.error();
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {

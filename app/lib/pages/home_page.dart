@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -21,58 +20,12 @@ import 'package:swift_travel/utils/page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dynamic_theme.dart';
-import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
-class CombinedPageController extends ChangeNotifier {
-  CombinedPageController() : cupertinoTabController = CupertinoTabController() {
-    cupertinoTabController.addListener(() {
-      _page = cupertinoTabController.index;
-      notifyListeners();
-    });
-  }
+final tabProvider = ChangeNotifierProvider<CupertinoTabController>((ref) {
+  final cupertinoPageController = CupertinoTabController();
 
-  final CupertinoTabController cupertinoTabController;
-
-  int _page = 0;
-  int get page => _page;
-
-  void setPage(int page, {required bool isDarwin}) {
-    if (isDarwin) {
-      cupertinoTabController.index = page;
-    } else {
-      _page = page;
-      notifyListeners();
-    }
-  }
-
-  void animateTo(
-    int page, {
-    required bool isDarwin,
-    Curve curve = Curves.fastOutSlowIn,
-    Duration duration = const Duration(milliseconds: 250),
-  }) {
-    if (isDarwin) {
-      cupertinoTabController.index = page;
-    } else {
-      _page = page;
-      notifyListeners();
-    }
-  }
-
-  @override
-  void dispose() {
-    cupertinoTabController.dispose();
-    super.dispose();
-  }
-}
-
-final tabProvider = ChangeNotifierProvider.autoDispose<CombinedPageController>((ref) {
-  final combinedPageController = CombinedPageController();
-  ref
-    ..onDispose(combinedPageController.dispose)
-    ..maintainState = true;
-  return combinedPageController;
+  return cupertinoPageController;
 });
 
 class TabView extends StatefulWidget {
@@ -95,7 +48,6 @@ bool shouldShowSidebar(BuildContext context) {
 }
 
 class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
-  late final CombinedPageController combinedPageController = context.read(tabProvider);
   int oldI = 0;
 
   @override
@@ -104,131 +56,131 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
     context.read(navigationAPIProvider).locale = Localizations.localeOf(context);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final isDarwin = Responsive.isDarwin(context);
+  late final cupertinoItems = [
+    BottomNavigationBarItem(
+      icon: const Icon(CupertinoIcons.search),
+      label: AppLoc.of(context).timetable,
+    ),
+    BottomNavigationBarItem(
+      icon: const Icon(CupertinoIcons.train_style_one),
+      label: AppLoc.of(context).tabs_route,
+    ),
+    BottomNavigationBarItem(
+      icon: const Icon(CupertinoIcons.square_favorites_alt),
+      activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
+      label: AppLoc.of(context).tabs_favourites,
+    ),
+    BottomNavigationBarItem(
+      icon: const Icon(CupertinoIcons.settings),
+      activeIcon: const Icon(CupertinoIcons.settings_solid),
+      label: AppLoc.of(context).settings,
+    )
+  ];
 
-    return IfWrapper(
-      condition: shouldShowSidebar(context),
-      builder: (context, child) => Row(children: [
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: TabView.sideBarWidth),
-          child: child,
+  late final titles = [
+    AppLoc.of(context).timetable,
+    AppLoc.of(context).tabs_route,
+    AppLoc.of(context).tabs_favourites,
+  ];
+  late final materialItems = [
+    BottomNavigationBarItem(
+      icon: const Icon(CupertinoIcons.search),
+      label: titles[0],
+    ),
+    BottomNavigationBarItem(
+      icon: const Icon(CupertinoIcons.list_dash),
+      label: titles[1],
+    ),
+    BottomNavigationBarItem(
+      icon: const Icon(CupertinoIcons.star),
+      activeIcon: const Icon(CupertinoIcons.star_fill),
+      label: titles[2],
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) => IfWrapper(
+        condition: shouldShowSidebar(context),
+        builder: (context, child) => Row(children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: TabView.sideBarWidth),
+            child: child,
+          ),
+          const SafeArea(child: VerticalDivider(width: 0)),
+          Expanded(
+              child: ClipRect(
+            child: Material(
+              child: Navigator(
+                key: sideBarNavigatorKey,
+                pages: const [SingleWidgetPage<void>(_SideBar())],
+                onPopPage: (_, dynamic __) => false,
+              ),
+            ),
+          )),
+        ]),
+        child: PlatformBuilder(
+          cupertinoBuilder: (context, _) => buildCupertinoTabScaffold(context),
+          materialBuilder: (context, _) => buildScaffold(context),
         ),
-        const SafeArea(child: VerticalDivider(width: 0)),
-        Expanded(
-            child: ClipRect(
-          child: Material(
-            child: Navigator(
-              key: sideBarNavigatorKey,
-              pages: const [SingleWidgetPage<void>(_SideBar())],
-              onPopPage: (_, dynamic __) => false,
+      );
+
+  Widget buildCupertinoTabScaffold(BuildContext context) => Consumer(builder: (context, w, _) {
+        final tabController = w(tabProvider.notifier);
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: CupertinoTabScaffold(
+            controller: tabController,
+            resizeToAvoidBottomInset: false,
+            tabBar: CupertinoTabBar(
+              onTap: (i) {
+                Vibration.selectSoft();
+                if (i == oldI) {
+                  navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
+                  context.read(sideTabBarProvider).state = null;
+                }
+                oldI = i;
+              },
+              backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
+              items: cupertinoItems,
+            ),
+            tabBuilder: (context, i) => Navigator(
+              key: navigatorKeys[i],
+              pages: [SingleWidgetPage<void>(TabView.iosTabs[i], title: cupertinoItems[i].label)],
+              onPopPage: (_, dynamic __) => true,
+              onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: true),
+              onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: true),
             ),
           ),
-        )),
-      ]),
-      child: isDarwin ? buildCupertinoTabScaffold(context) : buildScaffold(context),
-    );
-  }
-
-  Widget buildCupertinoTabScaffold(BuildContext context) {
-    final items = [
-      BottomNavigationBarItem(
-        icon: const Icon(CupertinoIcons.search),
-        label: AppLoc.of(context).timetable,
-      ),
-      BottomNavigationBarItem(
-        icon: const FaIcon(CupertinoIcons.train_style_one),
-        label: AppLoc.of(context).tabs_route,
-      ),
-      BottomNavigationBarItem(
-        icon: const Icon(CupertinoIcons.square_favorites_alt),
-        activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
-        label: AppLoc.of(context).tabs_favourites,
-      ),
-      BottomNavigationBarItem(
-        icon: const Icon(CupertinoIcons.settings),
-        activeIcon: const Icon(CupertinoIcons.settings_solid),
-        label: AppLoc.of(context).settings,
-      )
-    ];
-
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: CupertinoTabScaffold(
-        controller: combinedPageController.cupertinoTabController,
-        resizeToAvoidBottomInset: false,
-        tabBar: CupertinoTabBar(
-          onTap: (i) {
-            Vibration.selectSoft();
-            if (i == oldI) {
-              navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
-              context.read(sideTabBarProvider).state = null;
-            }
-            oldI = i;
-          },
-          backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
-          items: items,
-        ),
-        tabBuilder: (context, i) => Navigator(
-          key: navigatorKeys[i],
-          pages: [SingleWidgetPage<void>(TabView.iosTabs[i], title: items[i].label)],
-          onPopPage: (_, dynamic __) => true,
-          onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: true),
-          onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: true),
-        ),
-      ),
-    );
-  }
+        );
+      });
 
   List<Color> gradient(Color c) => [
         augment(c),
         c,
       ];
 
-  Widget buildScaffold(BuildContext context) {
-    final titles = [
-      AppLoc.of(context).timetable,
-      AppLoc.of(context).tabs_route,
-      AppLoc.of(context).tabs_favourites,
-    ];
-    final items = [
-      BottomNavigationBarItem(
-        icon: const Icon(CupertinoIcons.search),
-        label: titles[0],
-      ),
-      BottomNavigationBarItem(
-        icon: const Icon(CupertinoIcons.list_dash),
-        label: titles[1],
-      ),
-      BottomNavigationBarItem(
-        icon: const Icon(CupertinoIcons.star),
-        activeIcon: const Icon(CupertinoIcons.star_fill),
-        label: titles[2],
-      ),
-    ];
-    return Consumer(builder: (context, w, _) {
-      final controllers = w(tabProvider);
-      final page = controllers.page % TabView.androidTabs.length;
+  Widget buildScaffold(BuildContext context) => Consumer(builder: (context, w, _) {
+        final controllers = w(tabProvider.notifier);
+        final page = controllers.index % TabView.androidTabs.length;
 
-      return Scaffold(
-        key: const Key('home-scaffold'),
-        resizeToAvoidBottomInset: false,
-        bottomNavigationBar: SwiftNavigationBar(controllers: controllers, page: page, items: items),
-        body: PageTransitionSwitcher(
-          transitionBuilder: (child, primaryAnimation, secondaryAnimation) => child,
-          duration: Duration.zero,
-          child: Navigator(
-            key: navigatorKeys[controllers.page],
-            pages: [SingleWidgetPage<void>(TabView.androidTabs[page], name: titles[page])],
-            onPopPage: (_, dynamic __) => true,
-            onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: false),
-            onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: false),
+        return Scaffold(
+          key: const Key('home-scaffold'),
+          resizeToAvoidBottomInset: false,
+          bottomNavigationBar:
+              SwiftNavigationBar(controllers: controllers, page: page, items: materialItems),
+          body: PageTransitionSwitcher(
+            transitionBuilder: (child, primaryAnimation, secondaryAnimation) => child,
+            duration: Duration.zero,
+            child: Navigator(
+              key: navigatorKeys[page],
+              pages: [SingleWidgetPage<void>(TabView.androidTabs[page], name: titles[page])],
+              onPopPage: (_, dynamic __) => true,
+              onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: false),
+              onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: false),
+            ),
           ),
-        ),
-      );
-    });
-  }
+        );
+      });
 }
 
 class SwiftNavigationBar extends StatelessWidget {
@@ -240,7 +192,7 @@ class SwiftNavigationBar extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final CombinedPageController controllers;
+  final CupertinoTabController controllers;
   final int page;
   final List<BottomNavigationBarItem> items;
   final Color? activeColor;
@@ -322,8 +274,8 @@ class SwiftNavigationBar extends StatelessWidget {
 
   void onTap(int i, BuildContext context) {
     Vibration.selectSoft();
-    if (controllers.page != i) {
-      controllers.animateTo(i, isDarwin: false);
+    if (controllers.index != i) {
+      controllers.index = i;
     } else {
       navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
       context.read(sideTabBarProvider).state = null;
@@ -529,31 +481,3 @@ class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
     );
   }
 }
-
-CupertinoNavigationBar cupertinoBar(
-  BuildContext context, {
-  Key? key,
-  Widget? leading,
-  bool automaticallyImplyLeading = true,
-  bool automaticallyImplyMiddle = true,
-  String? previousPageTitle,
-  Widget? middle,
-  Widget? trailing,
-  Brightness? brightness,
-  EdgeInsetsDirectional? padding,
-  bool transitionBetweenRoutes = true,
-  double opacity = 0.5,
-}) =>
-    CupertinoNavigationBar(
-      key: key,
-      leading: leading,
-      automaticallyImplyLeading: automaticallyImplyLeading,
-      automaticallyImplyMiddle: automaticallyImplyMiddle,
-      previousPageTitle: previousPageTitle,
-      middle: middle,
-      trailing: trailing,
-      backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(opacity),
-      brightness: brightness,
-      padding: padding,
-      transitionBetweenRoutes: transitionBetweenRoutes,
-    );

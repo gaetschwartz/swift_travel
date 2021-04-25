@@ -5,7 +5,7 @@ mixin Env {
   static const isReleaseMode = bool.fromEnvironment('RELEASE_MODE');
   static const overridePlatform = bool.fromEnvironment('OVERRIDE_PLATFORM');
   static const page = String.fromEnvironment('PAGE');
-  static const doShowErrors = bool.fromEnvironment('DO_SHOW_ERRORS', defaultValue: true);
+  static const doShowErrors = bool.fromEnvironment('DO_SHOW_ERRORS');
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
   static late final doCacheInDebug = const String.fromEnvironment('CACHE_DEBUG').split('|');
   static const enableLiveRoute = bool.fromEnvironment('ENABLE_LIVE_ROUTE');
