@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/cache.dart';
 import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/db/preferences.dart';
@@ -17,7 +18,6 @@ import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
-import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
@@ -177,7 +177,6 @@ class _LinesWidget extends StatefulWidget {
 }
 
 class __LinesWidgetState extends State<_LinesWidget> {
-  static late final doCache = !isDebugMode || Env.doCacheInDebug.contains('lines');
   static final _cache = LineCache.i;
   static const numberOfLines = 6;
 
@@ -218,10 +217,10 @@ class __LinesWidgetState extends State<_LinesWidget> {
   }
 
   Future<void> stationboard() async {
-    if (!doCache) {
+    if (!Env.cacheLinesInDebug) {
       print('We are not caching lines');
     }
-    if (doCache && _cache.containsKey(widget.compl.label)) {
+    if (Env.cacheLinesInDebug && _cache.containsKey(widget.compl.label)) {
       final l = _cache
           .get(widget.compl.label)
           .lines
@@ -271,7 +270,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
         setState(() => lines = l2);
       }
 
-      if (doCache) {
+      if (Env.cacheLinesInDebug) {
         await _cache.put(
             widget.compl.label,
             LineCacheEntry(
@@ -286,7 +285,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
     if (mounted) {
       setState(() => lines = []);
     }
-    if (doCache) {
+    if (Env.cacheLinesInDebug) {
       final entry = LineCacheEntry(
         timestamp: DateTime.now(),
         stop: widget.compl.label,

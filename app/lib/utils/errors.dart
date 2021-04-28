@@ -3,13 +3,13 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
-import 'package:swift_travel/utils/env.dart';
 import 'package:vibration/vibration.dart';
 
-final _doShowSnackbars = !kDebugMode || Env.doShowErrors;
+const _doShowSnackbars = !kDebugMode || Env.doShowErrors;
 
 void reportDartError(Object e, StackTrace? s,
     {String library = '', String reason = '', bool showSnackbar = true}) {
@@ -23,7 +23,7 @@ void reportDartError(Object e, StackTrace? s,
     library: library,
   );
 
-  if (showSnackbar && _doShowSnackbars) {
+  if (_doShowSnackbars && showSnackbar) {
     try {
       Vibration.error();
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {

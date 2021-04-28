@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
 import 'package:swift_travel/mocking/mocking.dart';
-import 'package:swift_travel/utils/env.dart';
 
 late final _spoofedLocation = GeoLocation(
   accuracy: 0,
@@ -13,7 +13,7 @@ late final _spoofedLocation = GeoLocation(
   heading: 0,
   speed: 0,
   speedAccuracy: 0,
-  timestamp: MockableDateTime.now(),
+  timestamp: FakeableDateTime.now(),
   latitude: 46.2225454,
   longitude: 6.1385658,
 );

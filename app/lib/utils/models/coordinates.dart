@@ -28,9 +28,10 @@ class LatLon with _$LatLon {
   factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
 
   double distanceTo(LatLon o) => distanceBetween(this, o);
-  double scaledDistanceTo(LatLon o) => distanceTo(o) * _positionFactor;
-
-  static const _positionFactor = 1 / (180 * 180);
+  double scaledDistanceTo(LatLon o) {
+    const f = 1 / (180 * 180);
+    return distanceTo(o) * f;
+  }
 
   /// Calculates the distance between the supplied coordinates in meters.
   ///
@@ -90,5 +91,8 @@ class LV03Coordinates with _$LV03Coordinates {
 }
 
 extension DoubleX on double {
-  double toRadians() => this * (pi / 180);
+  double toRadians() {
+    const radiansFactor = pi / 180;
+    return this * radiansFactor;
+  }
 }

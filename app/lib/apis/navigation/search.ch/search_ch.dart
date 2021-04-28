@@ -10,7 +10,7 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
-import 'package:swift_travel/utils/env.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
 final searchChApi = NavigationApiFactory(
@@ -178,7 +178,7 @@ class SearchChApi extends BaseNavigationApi {
     };
 
     final s = queryBuilder('route', params);
-    if (isDebugMode) {
+    if (Env.isDebugMode) {
       log('builder: $s');
     }
     return rawRoute(s);

@@ -66,7 +66,7 @@ class TimeBasedLiveRouteController extends BaseLiveRouteController {
   Stop? get currentStop => _stop;
 
   Future<void> _update() async {
-    final now = MockableDateTime.now();
+    final now = FakeableDateTime.now();
     assert(_connection != null, '');
     Duration? dur;
     Leg? leg;

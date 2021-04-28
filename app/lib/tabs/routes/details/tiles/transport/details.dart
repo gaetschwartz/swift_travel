@@ -4,9 +4,9 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/pages/home_page.dart';
-import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
@@ -132,7 +132,7 @@ class _TransportDetailsState extends State<TransportDetails> {
         horizontalTitleGap: 0,
         title: Text(att.message!),
         dense: true,
-        trailing: isDebugMode && att.icon == null ? const Text('Unhandled') : null,
+        trailing: Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,
       );
 
   Widget _buildLine(bool isVisible) => Container(

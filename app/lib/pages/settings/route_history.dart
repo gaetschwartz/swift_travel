@@ -23,7 +23,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
   @override
   Widget build(BuildContext context) {
     final routes = RouteHistoryRepository.i.history;
-    final pred = predictRouteSync(routes, PredictionArguments(MockableDateTime.now()));
+    final pred = predictRouteSync(routes, PredictionArguments(FakeableDateTime.now()));
     return Scaffold(
       appBar: AppBar(
         actions: [

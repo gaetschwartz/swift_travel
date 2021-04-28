@@ -4,17 +4,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'mocking.g.dart';
 
 @JsonLiteral('route.json', asConst: true)
-const mockRoute = kDebugMode ? _$mockRouteJsonLiteral : null;
+Map<String, Object> get mockRoute =>
+    kDebugMode ? _$mockRouteJsonLiteral : throw UnsupportedError('Only mock on debug');
 
 @JsonLiteral('stationboard.json', asConst: true)
-const mockStationboard = kDebugMode ? _$mockStationboardJsonLiteral : null;
+Map<String, Object> get mockStationboard =>
+    kDebugMode ? _$mockStationboardJsonLiteral : throw UnsupportedError('Only mock on debug');
 
-extension MockableDateTime on DateTime {
-  static DateTime? _mocked;
+class FakeableDateTime {
+  FakeableDateTime._();
 
-  /// Returns the value of `mocked` if specified, else the current `DateTime.now()`.
-  static DateTime now() => _mocked ?? DateTime.now();
+  static DateTime? fakeDate;
 
-  static set mocked(DateTime? mocked) => _mocked = mocked;
-  static DateTime? get mocked => _mocked;
+  /// Returns the value of `fakeDate` if specified, else the current `DateTime` (`DateTime.now()`).
+  static DateTime now() => fakeDate ?? DateTime.now();
 }

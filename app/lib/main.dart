@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/constants/build.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/pages/loading.dart';
@@ -21,7 +22,6 @@ import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
-import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/predict.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -70,7 +70,7 @@ void main() {
     );
   }
   if (kDebugMode) {
-    print(Env.map);
+    print(Env.env);
   }
 
   if (isTest) {
