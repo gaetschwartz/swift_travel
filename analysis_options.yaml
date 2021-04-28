@@ -25,7 +25,6 @@ linter:
     always_use_package_imports: false
     lines_longer_than_80_chars: false
     avoid_annotating_with_dynamic: false
-    avoid_catches_without_on_clauses: false
     avoid_print: false
     diagnostic_describe_all_properties: false
     sort_pub_dependencies: false

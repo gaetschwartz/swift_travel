@@ -1,5 +1,4 @@
 // ignore_for_file: do_not_use_environment
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
@@ -14,9 +13,19 @@ class Env {
   static const cacheLinesInDebug = !kDebugMode && bool.fromEnvironment('CACHE_LINES_IN_DEBUG');
   static const enableLiveRoute = bool.fromEnvironment('ENABLE_LIVE_ROUTE');
 
-  static late final String summary = env.toString();
+  static bool boolean(String s) => bool.fromEnvironment(s);
+  static String string(String s) => String.fromEnvironment(s);
 
-  static late final Map<String, Object> env = Platform.environment;
+  static Map<String, Object> get env => {
+        'RELEASE_MODE': isReleaseMode,
+        'OVERRIDE_PLATFORM': overridePlatform,
+        'PAGE': page,
+        'DO_SHOW_ERRORS': doShowErrors,
+        'SPOOF_LOCATION': spoofLocation,
+        'CACHE_LINES_IN_DEBUG': cacheLinesInDebug,
+        'ENABLE_LIVE_ROUTE': enableLiveRoute,
+      };
+  static String get summary => env.toString();
 
   static bool get isLiveRouteEnabled => kDebugMode || enableLiveRoute;
 

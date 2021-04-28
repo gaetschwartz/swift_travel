@@ -44,6 +44,7 @@ void reportDartError(Object e, StackTrace? s,
             ),
           ));
       });
+      // ignore: avoid_catches_without_on_clauses
     } catch (e, s) {
       debugPrintStack(stackTrace: s, label: e.toString());
     }
@@ -79,6 +80,7 @@ void reportFlutterError(FlutterErrorDetails details) {
             ),
           ));
       });
+      // ignore: avoid_catches_without_on_clauses
     } catch (e, s) {
       debugPrintStack(stackTrace: s, label: e.toString());
     }

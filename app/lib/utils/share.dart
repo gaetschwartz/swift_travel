@@ -27,6 +27,6 @@ Future<void> shareRoute(BuildContext context, NavRoute route, int? i) async {
   } else {
     try {
       await Share.share(sharedUri.toString());
-    } catch (_) {}
+    } on MissingPluginException {}
   }
 }

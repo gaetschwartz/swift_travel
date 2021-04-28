@@ -803,7 +803,7 @@ final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
   try {
     final loc = await getLocation().timeout(const Duration(seconds: 4));
     pos = LatLon.fromGeoLocation(loc);
-  } catch (_) {}
+  } on Exception {}
 
   final routes = RouteHistoryRepository.i.history;
   return predictRoute(

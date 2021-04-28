@@ -307,7 +307,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 onTap: () {
                   try {
                     throw const IntegerDivisionByZeroException();
-                  } catch (e, s) {
+                  } on IntegerDivisionByZeroException catch (e, s) {
                     reportDartError(e, s, library: 'settings', reason: 'voluntarirly');
                   }
                 }),
