@@ -8,8 +8,7 @@ import 'package:path/path.dart' as p;
 import 'cask.dart';
 import 'fields.dart';
 
-class CaskImpl<TKey extends Object, TValue extends Object>
-    implements Cask<TKey, TValue> {
+class CaskImpl<TKey extends Object, TValue extends Object> implements Cask<TKey, TValue> {
   CaskImpl(this.caskKey);
 
   late final CaskFileManager<TKey, TValue> manager = CaskFileManager(_file);
@@ -106,8 +105,7 @@ class CaskFileManager<TKey extends Object, TValue extends Object>
 
     final data = newField.encode(MapEntry(key, value));
     if (kDebugMode) {
-      print(
-          'Going to write ${data.map((e) => '0x${e.toRadixString(16)}')} @$length');
+      print('Going to write ${data.map((e) => '0x${e.toRadixString(16)}')} @$length');
     }
     await f.writeFrom(data);
 
@@ -147,9 +145,7 @@ class CaskFileManager<TKey extends Object, TValue extends Object>
     if (kDebugMode) {
       print('Reading ${file.path}: ');
       print(
-        file.existsSync()
-            ? file.readAsBytesSync().map((e) => '0x${e.toRadixString(16)}')
-            : 'Empty',
+        file.existsSync() ? file.readAsBytesSync().map((e) => '0x${e.toRadixString(16)}') : 'Empty',
       );
     }
 
@@ -182,11 +178,9 @@ class CaskFileManager<TKey extends Object, TValue extends Object>
     try {
       map = await _readFile(f);
       f.closeSync();
+      // ignore: avoid_catches_without_on_clauses
     } catch (e, s) {
-      if (kDebugMode) {
-        print(e);
-      }
-      debugPrintStack(stackTrace: s);
+      debugPrintStack(stackTrace: s, label: e.toString());
       map = {};
       f.closeSync();
     }

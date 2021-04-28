@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/cache.dart';
@@ -210,7 +212,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
   Future<void> getData() async {
     try {
       await stationboard();
-    } catch (e, s) {
+    } on Exception catch (e, s) {
       debugPrintStack(stackTrace: s, label: e.toString());
       setState(() => lines = []);
     }
@@ -231,17 +233,23 @@ class __LinesWidgetState extends State<_LinesWidget> {
         setState(() => lines = l);
       }
     } else {
-      final sData = await context
-          .read(navigationAPIProvider)
-          .stationboard(
-            SbbStop(
-              widget.compl.label,
-              id: widget.compl.id,
-            ),
-            showSubsequentStops: false,
-            showDelays: false,
-          )
-          .timeout(const Duration(seconds: 1));
+      final StationBoard sData;
+      try {
+        sData = await context
+            .read(navigationAPIProvider)
+            .stationboard(
+              SbbStop(
+                widget.compl.label,
+                id: widget.compl.id,
+              ),
+              showSubsequentStops: false,
+              showDelays: false,
+            )
+            .timeout(const Duration(seconds: 1));
+      } on TimeoutException {
+        await cacheShortLivedErrorEntry();
+        return;
+      }
 
       if (sData.errors.isNotEmpty) {
         await cacheShortLivedErrorEntry();

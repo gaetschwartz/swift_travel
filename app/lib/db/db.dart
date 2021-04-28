@@ -63,6 +63,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
     for (final v in box.values) {
       try {
         yield decode(v);
+        // ignore: avoid_catches_without_on_clauses
       } catch (_) {}
     }
   }

@@ -24,6 +24,7 @@ class RouteHistoryRepository extends LocalDatabase<int, String, LocalRoute>
     for (final k in keys) {
       try {
         decode(box.get(k)!);
+        // ignore: avoid_catches_without_on_clauses
       } catch (_) {
         yield k;
       }

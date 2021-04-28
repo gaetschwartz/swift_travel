@@ -17,17 +17,9 @@ class LocalRouteConverter implements JsonConverter<LocalRoute, Map<String, dynam
   LocalRoute fromJson(Map<String, dynamic> json) {
     final type = json[key] as Object?;
     if (type == null) {
-      try {
-        return LocalRouteV1.fromJson(json);
-      } catch (_) {
-        throw FormatException('Failed to decode LocalRoute json', json, 0);
-      }
+      return LocalRouteV1.fromJson(json);
     }
-    try {
-      return _$LocalRouteFromJson(json);
-    } catch (_) {
-      throw FormatException('Failed to decode LocalRoute json', json, 0);
-    }
+    return _$LocalRouteFromJson(json);
   }
 
   @override
