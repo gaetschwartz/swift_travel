@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/attributes_page.dart';
 import 'package:swift_travel/theme.dart';
-import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
@@ -136,7 +136,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                             .toList()
                               ..sort((a, b) => a.code.compareTo(b.code));
 
-                        if (isDebugMode) {
+                        if (Env.isDebugMode) {
                           list.add(const Attribute(
                             code: 'dummy_code',
                             message: 'This is a dummy unhandled attribute',

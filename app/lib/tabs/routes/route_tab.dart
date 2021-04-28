@@ -395,7 +395,7 @@ class RoutePageState extends State<RoutePage> {
                               ? () {
                                   unFocusFields();
 
-                                  final cffRoute = CffRoute.fromJson(mockRoute!);
+                                  final cffRoute = CffRoute.fromJson(mockRoute);
 
                                   from.setString(
                                     context,

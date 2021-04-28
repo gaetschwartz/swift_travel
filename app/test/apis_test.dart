@@ -73,7 +73,7 @@ class MockNavigationApi extends BaseNavigationApi {
   @override
   Future<CffRoute> rawRoute(Uri query) {
     rawQueries.add(query);
-    return Future.value(CffRoute.fromJson(mockRoute!).copyWith(requestUrl: query.toString()));
+    return Future.value(CffRoute.fromJson(mockRoute).copyWith(requestUrl: query.toString()));
   }
 
   @override
@@ -86,7 +86,7 @@ class MockNavigationApi extends BaseNavigationApi {
           bool? showDelays,
           bool? showTrackchanges,
           List<TransportationTypes>? transportationTypes}) =>
-      Future.value(SbbStationboard.fromJson(mockStationboard!));
+      Future.value(SbbStationboard.fromJson(mockStationboard));
 
   @override
   Future<CffRoute> route(String departure, String arrival,
@@ -95,5 +95,5 @@ class MockNavigationApi extends BaseNavigationApi {
           TimeType? typeTime,
           bool? showDelays,
           int? previous}) =>
-      Future.value(CffRoute.fromJson(mockRoute!));
+      Future.value(CffRoute.fromJson(mockRoute));
 }

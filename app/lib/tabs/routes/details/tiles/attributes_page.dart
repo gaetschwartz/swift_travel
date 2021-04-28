@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/pages/home_page.dart';
-import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 
 class AttributesPage extends StatelessWidget {
@@ -62,8 +62,8 @@ class AttributesPage extends StatelessWidget {
         ),
         title: Text(att.message!),
         dense: true,
-        subtitle: isDebugMode ? Text(att.code) : null,
-        onTap: isDebugMode ? () => Clipboard.setData(ClipboardData(text: att.code)) : null,
-        trailing: isDebugMode && att.icon == null ? const Text('Unhandled') : null,
+        subtitle: Env.isDebugMode ? Text(att.code) : null,
+        onTap: Env.isDebugMode ? () => Clipboard.setData(ClipboardData(text: att.code)) : null,
+        trailing: Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,
       );
 }

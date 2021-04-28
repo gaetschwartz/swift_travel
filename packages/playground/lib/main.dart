@@ -409,7 +409,7 @@ class WidgetsShowcase extends StatelessWidget {
                       Row(children: [
                         SizedBox(
                             width: 400,
-                            child: RouteTile(route: CffRoute.fromJson(mockRoute!), i: 0)),
+                            child: RouteTile(route: CffRoute.fromJson(mockRoute), i: 0)),
                         const SizedBox(width: 32),
                         const Text('Simple, readable information.')
                       ]),
@@ -426,10 +426,9 @@ class WidgetsShowcase extends StatelessWidget {
                             ),
                             child: Column(
                               children: [
-                                WalkingTile(
-                                    CffRoute.fromJson(mockRoute!).connections.first.legs[0]),
+                                WalkingTile(CffRoute.fromJson(mockRoute).connections.first.legs[0]),
                                 TransportLegTile(
-                                  CffRoute.fromJson(mockRoute!).connections.first.legs[1],
+                                  CffRoute.fromJson(mockRoute).connections.first.legs[1],
                                 ),
                               ],
                             ),

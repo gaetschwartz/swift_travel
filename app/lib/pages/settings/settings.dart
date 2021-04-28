@@ -12,6 +12,7 @@ import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/constants/build.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n.dart';
@@ -22,7 +23,6 @@ import 'package:swift_travel/pages/settings/route_history.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/utils/crawler.dart';
-import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -172,7 +172,7 @@ class _SettingsPageState extends State<SettingsPage> {
       );
     },
     (context) {
-      if (isDebugMode || Theme.of(context).platform == TargetPlatform.iOS) {
+      if (Env.isDebugMode || Theme.of(context).platform == TargetPlatform.iOS) {
         return PropertyTile<Maps>(
           context.read(preferencesProvider).mapsApp,
           title: Text(AppLoc.of(context).maps_app),

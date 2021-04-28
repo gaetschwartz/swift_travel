@@ -16,13 +16,13 @@ import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
-import 'package:swift_travel/utils/env.dart';
 import 'package:swift_travel/utils/predict/complete.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
@@ -169,20 +169,20 @@ void main() {
 
   group('models >', () {
     setUp(() {
-      MockableDateTime.mocked = DateTime(2021);
+      FakeableDateTime.fakeDate = DateTime(2021);
     });
     test('localRoute', () {
       final route1 = LocalRoute.v2(const SbbStop('from'), const SbbStop('to'),
-          displayName: 'name', timestamp: MockableDateTime.now());
+          displayName: 'name', timestamp: FakeableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
-        SbbRouteConnection(from: 'from', to: 'to', depDelay: 0, departure: MockableDateTime.now()),
+        SbbRouteConnection(from: 'from', to: 'to', depDelay: 0, departure: FakeableDateTime.now()),
         displayName: 'name',
       );
       final json = {
         'from': const SbbStop('from').toJson(),
         'to': const SbbStop('to').toJson(),
         'displayName': 'name',
-        'timestamp': MockableDateTime.now().toIso8601String(),
+        'timestamp': FakeableDateTime.now().toIso8601String(),
         'runtimeType': 'v2',
       };
       final route3 = LocalRoute.fromJson(json);
@@ -205,7 +205,7 @@ void main() {
   });
 
   test('env', () {
-    expect(Env.map.keys.length, 6);
+    expect(Env.env.keys.length, 6);
     expect(Env.summary, isNotEmpty);
   });
 
