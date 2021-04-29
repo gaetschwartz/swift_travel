@@ -36,11 +36,11 @@ PODS:
     - Flutter
   - GoogleDataTransport (8.1.0):
     - nanopb (~> 2.30906.0)
-  - GoogleUtilities/Environment (7.3.1):
+  - GoogleUtilities/Environment (7.4.0):
     - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (7.3.1):
+  - GoogleUtilities/Logger (7.4.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/UserDefaults (7.3.1):
+  - GoogleUtilities/UserDefaults (7.4.0):
     - GoogleUtilities/Logger
   - integration_test (0.0.1):
     - Flutter
@@ -123,7 +123,7 @@ SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
-  GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
+  GoogleUtilities: 284cddc7fffc14ae1907efb6f78ab95c1fccaedc
   integration_test: 6eb66a19f7104200dcfdd62bc0077e1b09686e4f
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
