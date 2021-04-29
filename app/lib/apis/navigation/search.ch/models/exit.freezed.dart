@@ -281,9 +281,9 @@ class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(includeIfNull: false, checked: true)
-
 /// @nodoc
+
+@JsonSerializable(includeIfNull: false, checked: true)
 class _$_Exit extends _Exit {
   _$_Exit(
       {required this.name,

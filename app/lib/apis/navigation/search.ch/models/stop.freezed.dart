@@ -227,9 +227,9 @@ class __$SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
 class _$_SbbStop extends _SbbStop {
   const _$_SbbStop(this.name,
       {this.id,

@@ -262,9 +262,8 @@ class __$SbbSubsequentStopCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_SbbSubsequentStop extends _SbbSubsequentStop {
   _$_SbbSubsequentStop(
       {required this.name,

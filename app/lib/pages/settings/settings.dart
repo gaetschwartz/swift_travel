@@ -134,7 +134,7 @@ class _SettingsPageState extends State<SettingsPage> {
       //     .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
       //     .bodyText1!;
       return PropertyTile<int>(
-        Property<int>(
+        SyncProperty<int>(
           onSet: (delta) => theme.fontWeightDelta = delta,
           defaultValue: theme.fontWeightDelta,
         ),
@@ -154,7 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
       final theme = DynamicTheme.of(context);
       final p = defaultTargetPlatform;
       return PropertyTile<TargetPlatform>(
-        Property<TargetPlatform>(
+        SyncProperty<TargetPlatform>(
           onSet: (p) => theme.platform = p,
           defaultValue: theme.platform,
         ),
@@ -188,11 +188,10 @@ class _SettingsPageState extends State<SettingsPage> {
       }
     },
     (context) {
-      final items = NavigationApi.values
-          .map((e) =>
-              ActionsSheetAction(title: Text(BaseNavigationApi.getFactory(e).name), value: e))
+      final items = factories.entries
+          .map((e) => ActionsSheetAction(title: Text(e.value.name), value: NavigationApiId(e.key)))
           .toList(growable: false);
-      return PropertyTile<NavigationApi>(
+      return PropertyTile<NavigationApiId>(
         context.read(preferencesProvider).api,
         items: items,
         title: Text(AppLoc.of(context).navigation_api),

@@ -118,9 +118,8 @@ class __$SncfContextCopyWithImpl<$Res> extends _$SncfContextCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_SncfContext implements _SncfContext {
   const _$_SncfContext({this.dateTime, this.timezone});
 

@@ -101,9 +101,8 @@ class __$ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Config implements _Config {
   const _$_Config({this.sncfKey});
 

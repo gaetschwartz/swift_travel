@@ -43,21 +43,21 @@ class PropertyTile<T> extends StatelessWidget {
                 title: title,
                 subtitle: subtitle,
                 onTap: showSwitch
-                    ? () {
-                        prop.value = (prop.value == false) as T;
+                    ? () async {
+                        prop.setValue((prop.value == false) as T);
                       }
                     : () async {
                         final res = await showChoiceSheet<T>(context, items,
                             defaultValue: prop.value,
                             cancel: ActionsSheetAction(title: Text(AppLoc.of(context).cancel)));
                         if (res != null) {
-                          prop.value = res;
+                          prop.setValue(res);
                         }
                       },
                 horizontalTitleGap: 0,
                 trailing: showSwitch
                     ? Switch.adaptive(
-                        value: prop.value as bool, onChanged: (v) => prop.value = v as T)
+                        value: prop.value as bool, onChanged: (v) => prop.setValue(v as T))
                     : DefaultTextStyle(
                         style: CupertinoTheme.of(context)
                             .textTheme

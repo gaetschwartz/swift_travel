@@ -8,6 +8,8 @@ import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
 
 import 'models/stationboard.dart';
 
+part 'navigation.freezed.dart';
+
 @immutable
 class NavigationApiFactory<T extends BaseNavigationApi> {
   const NavigationApiFactory(
@@ -16,6 +18,7 @@ class NavigationApiFactory<T extends BaseNavigationApi> {
     required this.shortName,
     required this.countryEmoji,
     required this.countryName,
+    required this.id,
   });
 
   final String name;
@@ -23,23 +26,25 @@ class NavigationApiFactory<T extends BaseNavigationApi> {
   final String countryEmoji;
   final String countryName;
   final T Function(Reader config) create;
+  final NavigationApiId id;
 
   String get shortDesc => '$countryEmoji $shortName';
 }
 
-enum NavigationApi { sbb, sncf }
+final factories = <String, NavigationApiFactory>{
+  'sbb': searchChApi,
+  'sncf': sncfFactory,
+};
+
+@freezed
+class NavigationApiId with _$NavigationApiId {
+  const factory NavigationApiId(String id) = _NavigationApiId;
+}
 
 abstract class BaseNavigationApi {
-  static NavigationApiFactory getFactory(NavigationApi api) {
-    switch (api) {
-      case NavigationApi.sncf:
-        return sncfFactory;
-      case NavigationApi.sbb:
-        return searchChApi;
-    }
-  }
-
   Locale locale = const Locale('en');
+
+  static NavigationApiFactory getFactory(NavigationApiId id) => factories[id.id] ?? searchChApi;
 
   Future<List<Completion>> complete(
     String string, {

@@ -127,9 +127,9 @@ class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$_SncfPlace extends _SncfPlace {
   const _$_SncfPlace({required this.name, this.id, this.favoriteName})
       : super._();

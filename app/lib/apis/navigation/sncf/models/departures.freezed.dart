@@ -183,9 +183,9 @@ class __$SncfStationboardCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$_SncfStationboard extends _SncfStationboard
     with DiagnosticableTreeMixin {
   const _$_SncfStationboard(
@@ -388,9 +388,8 @@ class __$SncfErrorCopyWithImpl<$Res> extends _$SncfErrorCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_SncfError with DiagnosticableTreeMixin implements _SncfError {
   const _$_SncfError(this.id, this.message);
 
@@ -626,9 +625,9 @@ class __$SncfDepartureCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$_SncfDeparture extends _SncfDeparture with DiagnosticableTreeMixin {
   const _$_SncfDeparture(
       {@JsonKey(name: 'display_informations') required this.displayInformations,
@@ -825,9 +824,9 @@ class __$SncfStopPointCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$_SncfStopPoint with DiagnosticableTreeMixin implements _SncfStopPoint {
   const _$_SncfStopPoint(
       @JsonKey(name: 'commercial_modes') this.commercialModes);
@@ -996,9 +995,8 @@ class __$SncfModeCopyWithImpl<$Res> extends _$SncfModeCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_SncfMode with DiagnosticableTreeMixin implements _SncfMode {
   const _$_SncfMode(this.id, this.name);
 
@@ -1279,9 +1277,8 @@ class __$SncfStopDateTimeCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_SncfStopDateTime
     with DiagnosticableTreeMixin
     implements _SncfStopDateTime {
@@ -1733,9 +1730,8 @@ class __$SncfDispInfoCopyWithImpl<$Res> extends _$SncfDispInfoCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
   const _$_SncfDispInfo(
       {required this.code,

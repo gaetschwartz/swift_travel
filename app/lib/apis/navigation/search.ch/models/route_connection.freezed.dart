@@ -224,9 +224,9 @@ class __$SbbRouteConnectionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
 class _$_SbbRouteConnection extends _SbbRouteConnection {
   const _$_SbbRouteConnection(
       {required this.from,

@@ -108,9 +108,9 @@ class __$SncfCompletionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$_SncfCompletion implements _SncfCompletion {
   _$_SncfCompletion({this.places = const <SncfPlace>[]});
 

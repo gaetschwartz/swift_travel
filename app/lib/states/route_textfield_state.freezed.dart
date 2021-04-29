@@ -106,6 +106,7 @@ class _$EmptyRouteStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$EmptyRouteState implements EmptyRouteState {
   const _$EmptyRouteState();
 
@@ -213,6 +214,7 @@ class _$TextRouteStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$TextRouteState implements TextRouteState {
   const _$TextRouteState(this.text, {this.doLoad = true});
 
@@ -327,6 +329,7 @@ class _$UseCurrentLocationCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$UseCurrentLocation implements UseCurrentLocation {
   const _$UseCurrentLocation();
 

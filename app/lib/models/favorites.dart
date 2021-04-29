@@ -4,6 +4,7 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 
 part 'favorites.freezed.dart';
 part 'favorites.g.dart';
@@ -83,21 +84,21 @@ class FavoriteStop with _$FavoriteStop, BaseStop {
   const factory FavoriteStop({
     required String stop,
     required String name,
+    @Default(searchChApiId) String api,
     String? id,
-    @Default(NavigationApi.sbb) NavigationApi api,
   }) = _FavoriteStop;
 
   const FavoriteStop._();
 
-  factory FavoriteStop.fromStop(String stop, {required NavigationApi api}) =>
-      _FavoriteStop(stop: stop, name: stop, api: api);
+  factory FavoriteStop.fromStop(String stop, {required NavigationApiId api}) =>
+      _FavoriteStop(stop: stop, name: stop, api: api.id);
 
   factory FavoriteStop.fromCompletion(
     Completion completion, {
-    required NavigationApi api,
+    required NavigationApiId api,
     String? name,
   }) =>
-      _FavoriteStop(stop: completion.label, name: name ?? completion.label, api: api);
+      _FavoriteStop(stop: completion.label, name: name ?? completion.label, api: api.id);
 
   factory FavoriteStop.fromJson(Map<String, dynamic> json) => _$FavoriteStopFromJson(json);
 }

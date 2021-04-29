@@ -19,7 +19,10 @@ final searchChApi = NavigationApiFactory(
   shortName: 'SBB',
   countryEmoji: '🇨🇭',
   countryName: 'Switzerland',
+  id: const NavigationApiId(searchChApiId),
 );
+
+const searchChApiId = 'sbb';
 
 class SearchChApi extends BaseNavigationApi {
   SearchChApi();

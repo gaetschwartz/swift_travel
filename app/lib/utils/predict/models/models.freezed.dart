@@ -166,9 +166,9 @@ class __$RoutePredictionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$_RoutePrediction implements _RoutePrediction {
   const _$_RoutePrediction(
       @LocalRouteConverter() this.prediction, this.confidence, this.arguments);
@@ -362,9 +362,9 @@ class __$FullArgumentsCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$_FullArguments implements _FullArguments {
   const _$_FullArguments(this.routes, this.arguments);
 
@@ -577,9 +577,9 @@ class _$DateTimeArgumentCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$DateTimeArgument extends DateTimeArgument {
   const _$DateTimeArgument(this.dateTime) : super._();
 
@@ -720,9 +720,9 @@ class _$SourceDateArgumentsCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$SourceDateArguments extends SourceDateArguments {
   const _$SourceDateArguments(this.dateTime, this.source) : super._();
 
@@ -880,9 +880,9 @@ class _$LocationArgumentCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$LocationArgument extends LocationArgument {
   const _$LocationArgument(this.latLon, {this.dateTime}) : super._();
 

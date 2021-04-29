@@ -393,9 +393,8 @@ class __$ContributorCopyWithImpl<$Res> extends _$ContributorCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Contributor implements _Contributor {
   const _$_Contributor(
       {required this.login,

@@ -152,10 +152,10 @@ class __$LineCacheEntryCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
+
 @LineConverter()
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-
-/// @nodoc
 class _$_LineCacheEntry implements _LineCacheEntry {
   const _$_LineCacheEntry(
       {required this.timestamp,
@@ -348,9 +348,8 @@ class __$LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Line implements _Line {
   const _$_Line(this.line, this.colors);
 

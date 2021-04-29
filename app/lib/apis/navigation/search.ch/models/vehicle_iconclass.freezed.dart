@@ -108,9 +108,8 @@ class __$VehicleIconclassCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_VehicleIconclass implements _VehicleIconclass {
   const _$_VehicleIconclass(this.v);
 
