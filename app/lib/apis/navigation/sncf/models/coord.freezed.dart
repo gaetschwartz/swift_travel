@@ -113,9 +113,8 @@ class __$CoordCopyWithImpl<$Res> extends _$CoordCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Coord implements _Coord {
   _$_Coord({this.lat, this.lon});
 

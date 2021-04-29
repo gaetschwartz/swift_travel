@@ -136,9 +136,8 @@ class _$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$Person implements Person {
   const _$Person(this.name);
 
@@ -268,9 +267,8 @@ class _$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$Animal implements Animal {
   const _$Animal(this.name, this.legs);
 
@@ -402,9 +400,8 @@ class _$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$Number implements Number {
   const _$Number(this.number);
 

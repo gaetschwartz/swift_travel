@@ -119,6 +119,7 @@ class _$StationStatesCompletionsCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$StationStatesCompletions implements StationStatesCompletions {
   const _$StationStatesCompletions(this.completions);
 
@@ -228,6 +229,7 @@ class _$StationStatesEmptyCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$StationStatesEmpty implements StationStatesEmpty {
   const _$StationStatesEmpty();
 
@@ -318,6 +320,7 @@ class _$StationStatesNetworkErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$StationStatesNetworkError implements StationStatesNetworkError {
   const _$StationStatesNetworkError();
 

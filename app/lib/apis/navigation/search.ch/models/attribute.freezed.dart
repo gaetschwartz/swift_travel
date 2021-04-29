@@ -135,6 +135,7 @@ class __$AttributeCopyWithImpl<$Res> extends _$AttributeCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_Attribute implements _Attribute {
   const _$_Attribute(
       {required this.code, this.icon, this.message, this.ignore = false});

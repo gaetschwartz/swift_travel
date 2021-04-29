@@ -10,7 +10,8 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
-import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -59,7 +60,7 @@ void main() {
 
       await store.init(prefs: prefs);
 
-      final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
+      final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
       await store.addStop(bern);
       const route = LocalRoute.v1('Bern', 'Bern');
       await store.addRoute(route);
@@ -87,8 +88,8 @@ void main() {
       await store.init();
       verify(favsListener([])).called(1);
 
-      final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
-      final nowhere = FavoriteStop.fromStop('Nowhere', api: NavigationApi.sbb);
+      final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
+      final nowhere = FavoriteStop.fromStop('Nowhere', api: searchChApi.id);
 
       await store.addStop(bern);
       expect(store.stops, [bern]);
@@ -149,7 +150,7 @@ void main() {
 
       await store.init(prefs: prefs);
 
-      final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
+      final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
       await store.addStop(bern);
       const route = LocalRoute.v1('Bern', 'Bern');
       await store.addRoute(route);
@@ -177,8 +178,8 @@ void main() {
       await store.init(prefs: prefs);
       verify(favsListener([])).called(1);
 
-      final bern = FavoriteStop.fromStop('Bern', api: NavigationApi.sbb);
-      final nowhere = FavoriteStop.fromStop('Nowhere', api: NavigationApi.sbb);
+      final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
+      final nowhere = FavoriteStop.fromStop('Nowhere', api: searchChApi.id);
 
       await store.addStop(bern);
       expect(store.stops, [bern]);
@@ -227,25 +228,30 @@ void main() {
   group('preferences store >', () {
     late SharedPreferences prefs;
     setUp(() async {
-      SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
+      SharedPreferences.setMockInitialValues({});
       prefs = await SharedPreferences.getInstance();
     });
 
     test('prefs persist', () async {
-      final container = ProviderContainer();
+      expect(prefs.getKeys(), isEmpty);
 
+      final container = ProviderContainer();
       final store = container.read(preferencesProvider);
 
-      await store.loadFromPreferences(prefs: prefs);
-      store.api.value = NavigationApi.sbb;
-      store.mapsApp.value = Maps.apple;
+      await store.loadFromPreferences();
+      await store.api.setValue(searchChApi.id);
+      await store.mapsApp.setValue(Maps.apple);
 
-      store.api.value = NavigationApi.sncf;
-      store.mapsApp.value = Maps.google;
+      await store.api.setValue(sncfFactory.id);
+      await store.mapsApp.setValue(Maps.google);
 
-      await store.loadFromPreferences(prefs: prefs);
-      expect(store.api.value, NavigationApi.sncf);
+      await store.loadFromPreferences();
+      expect(store.api.value, sncfFactory.id);
       expect(store.mapsApp.value, Maps.google);
+    });
+
+    tearDown(() async {
+      await prefs.clear();
     });
   });
 }

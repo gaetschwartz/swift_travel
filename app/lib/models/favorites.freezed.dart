@@ -183,9 +183,9 @@ class _$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(includeIfNull: false)
-
 /// @nodoc
+
+@JsonSerializable(includeIfNull: false)
 class _$LocalRouteV1 extends LocalRouteV1 {
   const _$LocalRouteV1(this.from, this.to, {this.displayName, this.timestamp})
       : super._();
@@ -380,9 +380,9 @@ class _$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true, includeIfNull: false)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class _$LocalRouteV2 extends LocalRouteV2 {
   const _$LocalRouteV2(this.from, this.to, {this.displayName, this.timestamp})
       : super._();
@@ -522,13 +522,13 @@ class _$FavoriteStopTearOff {
   _FavoriteStop call(
       {required String stop,
       required String name,
-      String? id,
-      NavigationApi api = NavigationApi.sbb}) {
+      String api = searchChApiId,
+      String? id}) {
     return _FavoriteStop(
       stop: stop,
       name: name,
-      id: id,
       api: api,
+      id: id,
     );
   }
 
@@ -544,8 +544,8 @@ const $FavoriteStop = _$FavoriteStopTearOff();
 mixin _$FavoriteStop {
   String get stop => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get api => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
-  NavigationApi get api => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -558,7 +558,7 @@ abstract class $FavoriteStopCopyWith<$Res> {
   factory $FavoriteStopCopyWith(
           FavoriteStop value, $Res Function(FavoriteStop) then) =
       _$FavoriteStopCopyWithImpl<$Res>;
-  $Res call({String stop, String name, String? id, NavigationApi api});
+  $Res call({String stop, String name, String api, String? id});
 }
 
 /// @nodoc
@@ -573,8 +573,8 @@ class _$FavoriteStopCopyWithImpl<$Res> implements $FavoriteStopCopyWith<$Res> {
   $Res call({
     Object? stop = freezed,
     Object? name = freezed,
-    Object? id = freezed,
     Object? api = freezed,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       stop: stop == freezed
@@ -585,14 +585,14 @@ class _$FavoriteStopCopyWithImpl<$Res> implements $FavoriteStopCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      api: api == freezed
+          ? _value.api
+          : api // ignore: cast_nullable_to_non_nullable
+              as String,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      api: api == freezed
-          ? _value.api
-          : api // ignore: cast_nullable_to_non_nullable
-              as NavigationApi,
     ));
   }
 }
@@ -604,7 +604,7 @@ abstract class _$FavoriteStopCopyWith<$Res>
           _FavoriteStop value, $Res Function(_FavoriteStop) then) =
       __$FavoriteStopCopyWithImpl<$Res>;
   @override
-  $Res call({String stop, String name, String? id, NavigationApi api});
+  $Res call({String stop, String name, String api, String? id});
 }
 
 /// @nodoc
@@ -621,8 +621,8 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
   $Res call({
     Object? stop = freezed,
     Object? name = freezed,
-    Object? id = freezed,
     Object? api = freezed,
+    Object? id = freezed,
   }) {
     return _then(_FavoriteStop(
       stop: stop == freezed
@@ -633,27 +633,27 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      api: api == freezed
+          ? _value.api
+          : api // ignore: cast_nullable_to_non_nullable
+              as String,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      api: api == freezed
-          ? _value.api
-          : api // ignore: cast_nullable_to_non_nullable
-              as NavigationApi,
     ));
   }
 }
 
-@JsonSerializable(includeIfNull: false)
-
 /// @nodoc
+
+@JsonSerializable(includeIfNull: false)
 class _$_FavoriteStop extends _FavoriteStop {
   const _$_FavoriteStop(
       {required this.stop,
       required this.name,
-      this.id,
-      this.api = NavigationApi.sbb})
+      this.api = searchChApiId,
+      this.id})
       : super._();
 
   factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
@@ -663,15 +663,15 @@ class _$_FavoriteStop extends _FavoriteStop {
   final String stop;
   @override
   final String name;
+  @JsonKey(defaultValue: searchChApiId)
+  @override
+  final String api;
   @override
   final String? id;
-  @JsonKey(defaultValue: NavigationApi.sbb)
-  @override
-  final NavigationApi api;
 
   @override
   String toString() {
-    return 'FavoriteStop(stop: $stop, name: $name, id: $id, api: $api)';
+    return 'FavoriteStop(stop: $stop, name: $name, api: $api, id: $id)';
   }
 
   @override
@@ -682,10 +682,10 @@ class _$_FavoriteStop extends _FavoriteStop {
                 const DeepCollectionEquality().equals(other.stop, stop)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.api, api) ||
-                const DeepCollectionEquality().equals(other.api, api)));
+                const DeepCollectionEquality().equals(other.api, api)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -693,8 +693,8 @@ class _$_FavoriteStop extends _FavoriteStop {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(stop) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(api);
+      const DeepCollectionEquality().hash(api) ^
+      const DeepCollectionEquality().hash(id);
 
   @JsonKey(ignore: true)
   @override
@@ -711,8 +711,8 @@ abstract class _FavoriteStop extends FavoriteStop {
   const factory _FavoriteStop(
       {required String stop,
       required String name,
-      String? id,
-      NavigationApi api}) = _$_FavoriteStop;
+      String api,
+      String? id}) = _$_FavoriteStop;
   const _FavoriteStop._() : super._();
 
   factory _FavoriteStop.fromJson(Map<String, dynamic> json) =
@@ -723,9 +723,9 @@ abstract class _FavoriteStop extends FavoriteStop {
   @override
   String get name => throw _privateConstructorUsedError;
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String get api => throw _privateConstructorUsedError;
   @override
-  NavigationApi get api => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FavoriteStopCopyWith<_FavoriteStop> get copyWith =>

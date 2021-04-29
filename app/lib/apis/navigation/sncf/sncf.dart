@@ -20,6 +20,7 @@ final sncfFactory = NavigationApiFactory(
   shortName: 'SNCF',
   countryEmoji: '🇫🇷',
   countryName: 'France',
+  id: const NavigationApiId('sncf'),
 );
 
 class SncfApi extends BaseNavigationApi {

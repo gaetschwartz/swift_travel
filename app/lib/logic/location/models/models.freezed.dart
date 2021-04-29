@@ -214,9 +214,8 @@ class __$GeoLocationCopyWithImpl<$Res> extends _$GeoLocationCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_GeoLocation implements _GeoLocation {
   const _$_GeoLocation(
       {required this.latitude,

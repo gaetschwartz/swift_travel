@@ -113,9 +113,8 @@ class __$LatLonCopyWithImpl<$Res> extends _$LatLonCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_LatLon extends _LatLon {
   const _$_LatLon(this.lat, this.lon) : super._();
 
@@ -282,9 +281,8 @@ class __$LV03CoordinatesCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_LV03Coordinates implements _LV03Coordinates {
   _$_LV03Coordinates(this.x, this.y);
 

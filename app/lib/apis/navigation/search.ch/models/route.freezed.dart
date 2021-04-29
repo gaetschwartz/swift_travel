@@ -26,7 +26,7 @@ class _$CffRouteTearOff {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
           List<SbbRouteConnection>
               sbbConnections = const <SbbRouteConnection>[],
       List<String> messages = const <String>[],
@@ -58,7 +58,7 @@ mixin _$CffRoute {
   double? get minDuration => throw _privateConstructorUsedError;
   @JsonKey(name: 'max_duration')
   double? get maxDuration => throw _privateConstructorUsedError;
-  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
+  @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
   List<SbbRouteConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   List<String> get messages => throw _privateConstructorUsedError;
@@ -81,7 +81,7 @@ abstract class $CffRouteCopyWith<$Res> {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
@@ -150,7 +150,7 @@ abstract class _$CffRouteCopyWith<$Res> implements $CffRouteCopyWith<$Res> {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
@@ -209,9 +209,9 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
 class _$_CffRoute extends _CffRoute {
   const _$_CffRoute(
       {this.count = 0,
@@ -219,7 +219,7 @@ class _$_CffRoute extends _CffRoute {
           this.minDuration,
       @JsonKey(name: 'max_duration')
           this.maxDuration,
-      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
           this.sbbConnections = const <SbbRouteConnection>[],
       this.messages = const <String>[],
       this.requestUrl,
@@ -239,7 +239,7 @@ class _$_CffRoute extends _CffRoute {
   @JsonKey(name: 'max_duration')
   final double? maxDuration;
   @override
-  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
+  @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
   final List<SbbRouteConnection> sbbConnections;
   @JsonKey(defaultValue: const <String>[])
   @override
@@ -309,7 +309,7 @@ abstract class _CffRoute extends CffRoute {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
@@ -327,7 +327,7 @@ abstract class _CffRoute extends CffRoute {
   @JsonKey(name: 'max_duration')
   double? get maxDuration => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
+  @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
   List<SbbRouteConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   @override

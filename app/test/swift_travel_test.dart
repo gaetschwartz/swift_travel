@@ -11,7 +11,6 @@ import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
@@ -191,10 +190,9 @@ void main() {
     });
 
     test('favoriteStop', () {
-      const stop1 = FavoriteStop(stop: geneva, name: geneva, api: NavigationApi.sbb);
-      final stop2 = FavoriteStop.fromStop(geneva, api: NavigationApi.sbb);
-      final stop3 =
-          FavoriteStop.fromCompletion(SbbCompletion(label: geneva), api: NavigationApi.sbb);
+      final stop1 = FavoriteStop(stop: geneva, name: geneva, api: searchChApi.id.id);
+      final stop2 = FavoriteStop.fromStop(geneva, api: searchChApi.id);
+      final stop3 = FavoriteStop.fromCompletion(SbbCompletion(label: geneva), api: searchChApi.id);
       final stop4 =
           FavoriteStop.fromJson(<String, Object>{'stop': geneva, 'name': geneva, 'api': 'sbb'});
 
@@ -205,7 +203,7 @@ void main() {
   });
 
   test('env', () {
-    expect(Env.env.keys.length, 6);
+    expect(Env.env.keys, isNotEmpty);
     expect(Env.summary, isNotEmpty);
   });
 
@@ -215,10 +213,10 @@ void main() {
     final container = ProviderContainer(
       overrides: [
         storeProvider.overrideWithProvider(Provider((ref) => MockFavoriteStore(stops: [
-              FavoriteStop.fromStop(geneva, api: NavigationApi.sbb),
-              FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb),
-              FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb),
-              FavoriteStop.fromStop('Lausanne Aéroport', api: NavigationApi.sbb),
+              FavoriteStop.fromStop(geneva, api: searchChApi.id),
+              FavoriteStop.fromStop('Genève gare', api: searchChApi.id),
+              FavoriteStop.fromStop('Genève nord', api: searchChApi.id),
+              FavoriteStop.fromStop('Lausanne Aéroport', api: searchChApi.id),
             ]))),
         navigationAPIProvider.overrideWithProvider(
           Provider.autoDispose(
@@ -248,9 +246,9 @@ void main() {
       SbbCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
       SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
       SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
-      SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva, api: NavigationApi.sbb)),
-      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare', api: NavigationApi.sbb)),
-      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord', api: NavigationApi.sbb)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva, api: searchChApi.id)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare', api: searchChApi.id)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord', api: searchChApi.id)),
       SbbCompletion(label: 'Genève'),
     ];
 

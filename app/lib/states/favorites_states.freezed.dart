@@ -120,6 +120,7 @@ class _$FavoritesStatesDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$FavoritesStatesData implements FavoritesStatesData {
   const _$FavoritesStatesData(this.favorites);
 
@@ -228,6 +229,7 @@ class _$FavoritesStatesLoadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$FavoritesStatesLoading implements FavoritesStatesLoading {
   const _$FavoritesStatesLoading();
 
@@ -330,6 +332,7 @@ class _$FavoritesStatesErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$FavoritesStatesError implements FavoritesStatesError {
   const _$FavoritesStatesError(this.exception);
 

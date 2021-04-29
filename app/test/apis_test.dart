@@ -27,22 +27,27 @@ void main() {
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
     });
+
+    test('ids are conistent', () {
+      for (final e in factories.entries) {
+        expect(e.key, e.value.id.id);
+      }
+    });
     test('returns the right instance', () async {
       final container = ProviderContainer();
       final store = container.read(preferencesProvider);
       await store.loadFromPreferences();
 
-      store.api.value = NavigationApi.sbb;
+      await store.api.setValue(searchChApi.id);
       var navApi = container.read(navigationAPIProvider);
       expect(navApi, isA<SearchChApi>());
 
-      store.api.value = NavigationApi.sncf;
+      await store.api.setValue(sncfFactory.id);
       navApi = container.read(navigationAPIProvider);
       expect(navApi, isA<SncfApi>());
 
-      for (final a in NavigationApi.values) {
-        final f = BaseNavigationApi.getFactory(a);
-        expect(f.shortDesc, isNotEmpty);
+      for (final a in factories.entries) {
+        expect(a.value.shortDesc, isNotEmpty);
       }
     });
   });

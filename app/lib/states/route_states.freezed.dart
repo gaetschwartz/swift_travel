@@ -151,6 +151,7 @@ class _$RSDataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RSData implements RSData {
   const _$RSData(this.routes);
 
@@ -275,6 +276,7 @@ class _$RSNetworkExceptionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RSNetworkException implements RSNetworkException {
   const _$RSNetworkException();
 
@@ -386,6 +388,7 @@ class _$RSLocationPermissionNotGrantedCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RSLocationPermissionNotGranted
     implements RSLocationPermissionNotGranted {
   const _$RSLocationPermissionNotGranted();
@@ -497,6 +500,7 @@ class _$RSMissingPluginExceptionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RSMissingPluginException implements RSMissingPluginException {
   const _$RSMissingPluginException();
 
@@ -617,6 +621,7 @@ class _$RSExceptionCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RSException implements RSException {
   const _$RSException(this.exception);
 
@@ -740,6 +745,7 @@ class _$RSEmptyCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RSEmpty implements RSEmpty {
   const _$RSEmpty();
 
@@ -845,6 +851,7 @@ class _$RSLoadingCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RSLoading implements RSLoading {
   const _$RSLoading();
 

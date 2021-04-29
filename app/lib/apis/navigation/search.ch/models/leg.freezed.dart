@@ -508,9 +508,9 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
 class _$_SbbLeg extends _SbbLeg {
   _$_SbbLeg(
       {required this.name,

@@ -219,9 +219,9 @@ class __$SncfAdministrativeRegionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(explicitToJson: true)
-
 /// @nodoc
+
+@JsonSerializable(explicitToJson: true)
 class _$_SncfAdministrativeRegion implements _SncfAdministrativeRegion {
   _$_SncfAdministrativeRegion(
       {this.insee,

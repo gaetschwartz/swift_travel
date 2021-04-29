@@ -121,6 +121,7 @@ class _$FavoritesRoutesStatesDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
   const _$FavoritesRoutesStatesData(this.routes);
 
@@ -232,6 +233,7 @@ class _$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
   const _$FavoritesRoutesStatesLoading();
 
@@ -335,6 +337,7 @@ class _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
   const _$FavoritesRoutesStatesError(this.exception);
 

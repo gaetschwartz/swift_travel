@@ -202,9 +202,9 @@ class __$SbbCompletionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable(includeIfNull: false)
-
 /// @nodoc
+
+@JsonSerializable(includeIfNull: false)
 class _$_SbbCompletion extends _SbbCompletion {
   _$_SbbCompletion(
       {required this.label,

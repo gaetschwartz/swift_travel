@@ -199,9 +199,8 @@ class __$DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Disruption implements _Disruption {
   const _$_Disruption(
       {this.id,
