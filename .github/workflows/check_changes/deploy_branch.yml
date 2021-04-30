@@ -1,0 +1,19 @@
+on:
+  pull_request_target:
+    types: [opened]
+    branches:
+      - deploy
+
+jobs:
+  add-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: superbrothers/close-pull-request@v3
+        with:
+          comment: |
+            :warning: This issue requests to push to the `deploy` branch which you **shouldn't**.
+            Do submit all your pull requests against the `main` branch.
+
+            Closing the PR automatically.
