@@ -9,8 +9,7 @@ coverage:
 
 comment:
   layout: "diff, files"
-  require_changes: true # if true: only post the comment if coverage changes
-  behavior: new
+  require_changes: true
 
 ignore:
   - "**/*.g.dart"
