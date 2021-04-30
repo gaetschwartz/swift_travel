@@ -17,15 +17,15 @@ This is an open-source public transport app packed with cool features 😎
 
 ## 🌟 Features 
 
-### 🛣 A beautiful route search and view.
+#### 🛣 A beautiful route search and view.
 
-### 📃 A simple but powerfull timetable.
+#### 📃 A simple but powerfull timetable.
 
-### 🤖 AI-powered smart suggestions.
+#### 🤖 AI-powered smart suggestions.
 
-### ♾ Open-source, add your own country to the app!
+#### ♾ Open-source, add your own country to the app!
 
-### [ 📷 See screenshots here](#screenshots)
+#### [ 📷 See screenshots here](#screenshots)
 
 
 ## Contributing 
