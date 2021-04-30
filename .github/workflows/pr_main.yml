@@ -2,7 +2,7 @@ name: pr on main
 
 on:
   pull_request_target:
-    types: [opened]
+    types: [opened, reopened]
     branches:
       - main
 jobs:
