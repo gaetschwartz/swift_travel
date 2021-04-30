@@ -4,9 +4,10 @@ on:
     branches:
       - main
     paths:
-      - "**/bitrise.yml"
+      - ".github/**"
+
 jobs:
-  add-comment:
+  on-github-folder-changed:
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -21,4 +22,4 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            :warning: This issue modifies a `bitrise.yml` file. :warning:
+            :warning: This issue modifies the `.github/` folder. :warning:
