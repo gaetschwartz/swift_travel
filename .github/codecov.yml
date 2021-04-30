@@ -7,6 +7,11 @@ coverage:
       default:
         informational: true
 
+comment:
+  layout: "diff, files"
+  require_changes: true # if true: only post the comment if coverage changes
+  behavior: new
+
 ignore:
   - "**/*.g.dart"
   - "**/*.freezed.dart"
