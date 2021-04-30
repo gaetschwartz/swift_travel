@@ -53,7 +53,7 @@ Here is a non-exhaustive list of things that could be improved with their respec
 
 #### 🏳 Foreign language knowledge
 * Add a new locale:
-  * Read [ADDING-NEW-LOCALE.md](docs/ADDING-NEW-LOCALE.md)
+  * Read [ADDING-NEW-LOCALE.md](/docs/ADDING-NEW-LOCALE.md)
 
   ##### Supported locales:
   
@@ -64,7 +64,7 @@ Here is a non-exhaustive list of things that could be improved with their respec
  
 #### 🌍 Familiar with REST APIs ?
 * Add your contry's public transport API:
-  * Read [ADDING-NEW-API.md](docs/ADDING-NEW-API.md)
+  * Read [ADDING-NEW-API.md](/docs/ADDING-NEW-API.md)
 
   ##### Supported countries:
 
@@ -72,13 +72,13 @@ Here is a non-exhaustive list of things that could be improved with their respec
      - [ ] 🇫🇷 France (40%)
 
 #### 👨🏼‍💻 General good programming knowledge
-* Improve the live-routing, mainly in the [`live-route` sub-package](dependencies/live_route/lib/live_route.dart).
-* 
+* Improve the live-routing, mainly in the [`live-route` sub-package](/packages/live_route/lib/live_route.dart).
+
 #### 🤖 Android 
 * Implement the skeleton of a homescreen widget on Android.
 
 #### 👨🏼‍🔬 Machine learning
-* Propose or implement a new prediction model to predict new routes bassed on the history. See [here](lib/utils/predict/predict.dart).
+* Propose or implement a new prediction model to predict new routes bassed on the history. See [here](/app/lib/utils/predict/predict.dart).
 
 ## Contact me
 
