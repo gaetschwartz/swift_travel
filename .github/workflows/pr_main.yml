@@ -1,0 +1,51 @@
+name: pr on main
+
+on:
+  pull_request_target:
+    types: [opened]
+    branches:
+      - main
+jobs:
+  check_changes:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Check changes
+        id: changes
+        run: |
+          echo "::set-output name=github_changed::$(git diff --quiet HEAD~1 HEAD -- .github/** && echo false || echo true)"
+          echo "::set-output name=bitrise_changed::$(git diff --quiet HEAD~1 HEAD -- bitrise.yml && echo false || echo true)"
+
+      ### GITHUB ###
+      - name: "GITHUB: Label issue"
+        uses: andymckay/labeler@1.0.2
+        if: steps.changes.outputs.github_changed == 'true'
+        with:
+          add-labels: "protected files changed"
+          repo-token: ${{ github.token }}
+      - name: "GITHUB: Add comment"
+        uses: peter-evans/create-or-update-comment@v1
+        if: steps.changes.outputs.github_changed == 'true'
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            :warning: This issue modifies a file in `.github/`. :warning:
+
+      ### BITRISE ###
+      - name: "BITRISE: Label issue"
+        uses: andymckay/labeler@1.0.2
+        if: steps.changes.outputs.bitrise_changed == 'true'
+        with:
+          add-labels: "protected files changed"
+          repo-token: ${{ github.token }}
+      - name: "BITRISE: Add comment"
+        uses: peter-evans/create-or-update-comment@v1
+        if: steps.changes.outputs.bitrise_changed == 'true'
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            :warning: This issue modifies a `bitrise.yml` file. :warning:
