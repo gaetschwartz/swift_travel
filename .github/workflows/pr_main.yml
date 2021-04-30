@@ -14,9 +14,13 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Pring event
+        run: echo ${{ github.event }}
       - name: Check changes
         id: changes
         run: |
+          set -e
+          set -x
           echo "::set-output name=github_changed::$(git diff --quiet HEAD~1 HEAD -- .github/** && echo false || echo true)"
           echo "::set-output name=bitrise_changed::$(git diff --quiet HEAD~1 HEAD -- bitrise.yml && echo false || echo true)"
 
@@ -31,7 +35,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         if: steps.changes.outputs.github_changed == 'true'
         with:
-          issue-number: ${{ github.event.issue.number }}
+          issue-number: ${{ github.event.pull_request.number }}
           body: |
             :warning: This issue modifies a file in `.github/`. :warning:
 
@@ -46,6 +50,6 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         if: steps.changes.outputs.bitrise_changed == 'true'
         with:
-          issue-number: ${{ github.event.issue.number }}
+          issue-number: ${{ github.event.pull_request.number }}
           body: |
             :warning: This issue modifies a `bitrise.yml` file. :warning:
