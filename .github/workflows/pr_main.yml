@@ -35,6 +35,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         if: steps.changes.outputs.github_changed == 'true'
         with:
+          token: ${{ github.token }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             :warning: This issue modifies a file in `.github/`. :warning:
@@ -50,6 +51,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         if: steps.changes.outputs.bitrise_changed == 'true'
         with:
+          token: ${{ github.token }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             :warning: This issue modifies a `bitrise.yml` file. :warning:
