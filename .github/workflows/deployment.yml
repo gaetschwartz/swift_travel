@@ -5,6 +5,8 @@ on:
     branches:
       - deploy
 
+# Very malicious comment
+
 env:
   flutter_channel: beta
   java_version: 8.x
