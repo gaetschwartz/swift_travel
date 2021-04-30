@@ -1,0 +1,36 @@
+CI:
+  - .github/**
+  - bitrise.yml
+  - CI/**
+
+app:
+  - app/**
+
+l10n:
+  - app/lib/l10n/**
+
+packages:
+  - packages/**
+
+docs:
+  - docs/**
+
+android:
+  - app/android/**
+
+ios:
+  - app/ios/**
+
+macos:
+  - app/macos/**
+
+windows:
+  - app/windows/**
+
+web:
+  - app/web/**
+
+tests:
+  - app/integration_test/**
+  - app/test/**
+  - app/test_driver/**
