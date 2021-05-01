@@ -113,6 +113,9 @@ app:
   envs:
     - opts:
         is_expand: false
+      DO_COMPUTE_SKSL_SHADERS: false
+    - opts:
+        is_expand: false
       BITRISE_FLUTTER_PROJECT_LOCATION: app/
     - opts:
         is_expand: false

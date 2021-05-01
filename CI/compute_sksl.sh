@@ -2,6 +2,10 @@
 set -e
 set -x
 
+if [ "$DO_COMPUTE_SKSL_SHADERS" != true ]; then
+  exit 0
+fi
+
 xcrun simctl list
 /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator \
 -CurrentDeviceUDID com.apple.CoreSimulator.SimDeviceType.iPhone-12-Pro-Max&
