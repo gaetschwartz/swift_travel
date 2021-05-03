@@ -76,8 +76,10 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
       final pos = route.maybeMap(v2: (v2) => v2.from.position, orElse: () => null);
       if (pos != null) {
         final dist = arguments.latLon.scaledDistanceTo(pos);
-        print('Adding dist of $dist');
-        sqrdDist += math.pow(dist, 2);
+        print('Adding dist of $dist for ${route.fromAsString}');
+        sqrdDist += dist;
+      } else {
+        continue;
       }
     }
 
@@ -88,7 +90,7 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
   final top = distances.take((_k * newRoutes.length / routes.length).round());
 
   if (kDebugMode) {
-    print(top);
+    print(top.map((e) => '${e.first.fromAsString} -> ${e.first.toAsString}').join('\n'));
   }
   final map = <LocalRoute, int>{};
 
@@ -117,6 +119,7 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
 
   final prediction = RoutePrediction(majRoute, 1 - sum, arguments);
   _cache[arguments] = prediction;
+  print('Predicting $prediction');
   return prediction;
 }
 

@@ -15,7 +15,6 @@ Future<T?> showActionSheet<T>(
   ActionsSheetAction<T>? cancel,
   Widget? title,
   Widget? message,
-  bool popBeforeReturn = false,
 }) {
   final isDarwin = Responsive.isDarwin(context);
 
@@ -56,7 +55,6 @@ Future<T?> showActionSheet<T>(
             cancel: cancel,
             title: title,
             message: message,
-            popBeforeReturn: popBeforeReturn,
           ),
         );
 }
@@ -112,7 +110,6 @@ Future<T?> showChoiceSheet<T>(
             cancel: cancel,
             title: title,
             message: message,
-            popBeforeReturn: popBeforeReturn,
           ),
         );
 }
@@ -146,8 +143,8 @@ Widget _buildListTile<T>(
 }) =>
     CupertinoActionSheetAction(
       onPressed: () async {
-        a.onPressed?.call();
         Navigator.of(context).pop<T>(a.value);
+        a.onPressed?.call();
       },
       isDefaultAction: isSelected || a.isDefault,
       isDestructiveAction: a.isDestructive,
@@ -163,7 +160,6 @@ class ActionsSheet<T> extends StatelessWidget {
     this.cancel,
     this.title,
     this.message,
-    this.popBeforeReturn = false,
     Key? key,
     this.defaultValue,
   }) : super(key: key);
@@ -172,7 +168,6 @@ class ActionsSheet<T> extends StatelessWidget {
   final ActionsSheetAction<T>? cancel;
   final Widget? title;
   final Widget? message;
-  final bool popBeforeReturn;
   final T? defaultValue;
 
   Iterable<Widget> buildChildren(BuildContext context) sync* {

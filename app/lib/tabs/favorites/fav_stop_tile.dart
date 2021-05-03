@@ -105,7 +105,6 @@ class FavoriteStationTile extends StatelessWidget {
           isDestructive: true,
         ),
       ],
-      popBeforeReturn: true,
       cancel: ActionsSheetAction(
         title: Text(AppLoc.of(context).close),
         icon: const Icon(CupertinoIcons.xmark),

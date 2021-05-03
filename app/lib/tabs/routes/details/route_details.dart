@@ -110,7 +110,6 @@ class RouteDetails extends StatelessWidget {
       ],
       cancel: ActionsSheetAction(
           icon: const Icon(CupertinoIcons.xmark), title: Text(AppLoc.of(context).close)),
-      popBeforeReturn: true,
     );
   }
 

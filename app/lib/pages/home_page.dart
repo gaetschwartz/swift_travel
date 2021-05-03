@@ -160,7 +160,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
       ];
 
   Widget buildScaffold(BuildContext context) => Consumer(builder: (context, w, _) {
-        final controllers = w(tabProvider.notifier);
+        final controllers = w(tabProvider);
         final page = controllers.index % TabView.androidTabs.length;
 
         return Scaffold(
@@ -274,10 +274,11 @@ class SwiftNavigationBar extends StatelessWidget {
 
   void onTap(int i, BuildContext context) {
     Vibration.selectSoft();
+    print("Switching to $i when it's currently ${controllers.index}");
     if (controllers.index != i) {
       controllers.index = i;
     } else {
-      navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
+      navigatorKeys[i].currentState?.popUntil((route) => route.isFirst);
       context.read(sideTabBarProvider).state = null;
     }
   }
