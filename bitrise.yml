@@ -28,18 +28,10 @@ workflows:
           inputs:
             - installation_bundle_url: $FLUTTER_ARCHIVE_URL
             #- version: stable
-      - script@1:
+      - script-runner@0:
           inputs:
+            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_sksl.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: |-
-                #!/usr/bin/env bash
-                set -e
-                set -x
-
-                file="shaders/flutter_01.sksl.json"
-                bash $BITRISE_SOURCE_DIR/CI/compute_sksl.sh $file
-                echo $file
-                envman add --key SKSL_ARGUMENT --value "--bundle-sksl-path=$file"
           title: compute sksl shaders
       - script@1:
           inputs:
@@ -85,18 +77,10 @@ workflows:
           inputs:
             - installation_bundle_url: $FLUTTER_ARCHIVE_URL
             - version: stable
-      - script@1:
+      - script-runner@0:
           inputs:
+            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_sksl.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: |-
-                #!/usr/bin/env bash
-                set -e
-                set -x
-
-                file="shaders/flutter_01.sksl.json"
-                bash $BITRISE_SOURCE_DIR/CI/compute_sksl.sh $file
-                echo $file
-                envman add --key SKSL_ARGUMENT --value "--bundle-sksl-path=$file"
           title: compute sksl shaders
       - flutter-build@0:
           inputs:
