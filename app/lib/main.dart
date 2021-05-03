@@ -23,7 +23,7 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/predict/predict.dart';
+import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dynamic_theme.dart';

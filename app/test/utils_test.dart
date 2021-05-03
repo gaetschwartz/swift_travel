@@ -5,13 +5,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/arithmetic.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
+import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
 void main() {
   final r = Random();
+  const localRoute = LocalRoute.v1('Geneva', 'Paris');
+  const localRoute2 = LocalRoute.v1('London', 'New York');
+
+  test('double flipped RouteTransformer', () {
+    const routes = [localRoute, localRoute2];
+    final doubled = DoubleFlippedRoutes().transform(routes).toList();
+    expect(doubled, hasLength(2 * routes.length));
+    expect(
+        doubled,
+        containsAll(<LocalRoute>[
+          localRoute,
+          localRoute.flipped,
+          localRoute2,
+          localRoute2.flipped,
+        ]));
+  });
+
+  test('unchanged RouteTransformer', () {
+    const routes = [localRoute, localRoute2];
+    final tranformed = UnchangedTransformer().transform(routes).toList();
+    expect(tranformed, hasLength(routes.length));
+    expect(tranformed, containsAll(routes));
+  });
 
   test('LV03 to WGS84', () {
     final out = lv03ToWGS84Converter.convert(LV03Coordinates(100000, 700000));

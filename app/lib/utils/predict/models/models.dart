@@ -14,6 +14,9 @@ class RoutePrediction with _$RoutePrediction {
     PredictionArguments arguments,
   ) = _RoutePrediction;
 
+  factory RoutePrediction.empty(PredictionArguments arguments) =>
+      RoutePrediction(null, 0, arguments);
+
   factory RoutePrediction.fromJson(Map<String, dynamic> json) => _$RoutePredictionFromJson(json);
 }
 
@@ -72,4 +75,51 @@ class PredictionArguments with _$PredictionArguments {
       ),
     );
   }
+}
+
+abstract class IterableTransformer<T> {
+  Iterable<T> transform(Iterable<T> iterable);
+}
+
+abstract class RoutesTransformer extends IterableTransformer<LocalRoute> {
+  factory RoutesTransformer.fromArguments(PredictionArguments args) =>
+      args.maybeMap((value) => UnchangedTransformer(), orElse: () => DoubleFlippedRoutes());
+}
+
+class DoubleFlippedRoutes implements RoutesTransformer {
+  @override
+  Iterable<LocalRoute> transform(Iterable<LocalRoute> routes) sync* {
+    for (final e in routes) {
+      yield e;
+      yield e.flipped;
+    }
+  }
+}
+
+class UnchangedTransformer implements RoutesTransformer {
+  @override
+  Iterable<LocalRoute> transform(Iterable<LocalRoute> routes) => routes;
+}
+
+@immutable
+class Pair<R, S> {
+  const Pair(this.first, this.second);
+
+  final R first;
+  final S second;
+
+  @override
+  String toString() => 'Pair<$R, $S>($first, $second)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is Pair<R, S> && other.first == first && other.second == second;
+  }
+
+  @override
+  int get hashCode => first.hashCode ^ second.hashCode;
 }
