@@ -1,15 +1,22 @@
+import 'dart:async';
+import 'dart:isolate';
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
+/// WIP: In the future, we should create a separate [Isolate] instead of spawning one each time.
+class PredictionIsolate {
+  Future<void> spawn() async {}
+
+  Future<void> close() async {}
+}
+
 const _k = 5;
 
-const _daysFactor = 1 / (2 * 7);
+const _daysFactor = 1 / 7;
 const _minutesFactor = 1 / Duration.minutesPerDay;
 
 final _cache = <PredictionArguments, RoutePrediction>{};
@@ -19,8 +26,11 @@ Future<RoutePrediction> predictRoute(
   PredictionArguments arguments,
 ) async {
   final full = FullArguments(routes, arguments);
-  final computed = await compute(_predictRouteSimple, full.toJson());
-  return RoutePrediction.fromJson(computed);
+  try {
+    final computed = await compute(_predictRouteSimple, full.toJson());
+    return RoutePrediction.fromJson(computed);
+  } on Exception {}
+  return RoutePrediction.empty(arguments);
 }
 
 Map<String, dynamic> _predictRouteSimple(Map<String, dynamic> input) {
@@ -36,7 +46,7 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
 
   if (routes.isEmpty) {
     print('Empty history, returning empty prediction');
-    return RoutePrediction(null, 0, arguments);
+    return RoutePrediction.empty(arguments);
   }
 
   final cachedPrediction = _cache[arguments];
@@ -44,18 +54,18 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
     return cachedPrediction;
   }
 
-  final time = arguments.dateTime?.minutesOfDay;
-  final weekday = arguments.dateTime?.weekday;
-
   final distances = <Pair<LocalRoute, num>>[];
 
-  for (final route in routes) {
+  final routesTransformer = RoutesTransformer.fromArguments(arguments);
+  final newRoutes = routesTransformer.transform(routes).toList(growable: false);
+  for (final route in newRoutes) {
     var sqrdDist = .0;
 
     final timestamp = route.timestamp;
-    if (time != null && weekday != null && timestamp != null) {
-      sqrdDist += math.pow((timestamp.weekday - weekday) * _daysFactor, 2);
-      sqrdDist += math.pow((timestamp.minutesOfDay - time) * _minutesFactor, 2);
+    final time = arguments.dateTime;
+    if (time != null && timestamp != null) {
+      sqrdDist += math.pow((timestamp.weekday - time.weekday) * _daysFactor, 2);
+      sqrdDist += math.pow((timestamp.minutesOfDay - time.minutesOfDay) * _minutesFactor, 2);
     }
 
     if (arguments is SourceDateArguments) {
@@ -75,7 +85,7 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
   }
 
   distances.sort((a, b) => a.second.compareTo(b.second));
-  final top = distances.take(_k);
+  final top = distances.take((_k * newRoutes.length / routes.length).round());
 
   if (kDebugMode) {
     print(top);
@@ -112,27 +122,4 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
 
 extension on DateTime {
   int get minutesOfDay => hour * 60 + minute;
-}
-
-@immutable
-class Pair<R, S> {
-  const Pair(this.first, this.second);
-
-  final R first;
-  final S second;
-
-  @override
-  String toString() => 'Pair<$R, $S>($first, $second)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-
-    return other is Pair<R, S> && other.first == first && other.second == second;
-  }
-
-  @override
-  int get hashCode => first.hashCode ^ second.hashCode;
 }

@@ -76,6 +76,11 @@ class LocalRoute with _$LocalRoute {
         v1: (v1) => LocalRoute.v1(v1.from, v1.to),
         v2: (v2) => LocalRoute.v2(v2.from, v2.to),
       );
+
+  LocalRoute get flipped => map(
+        v1: (v1) => v1.copyWith(from: v1.to, to: v1.from),
+        v2: (v2) => v2.copyWith(from: v2.to, to: v2.from),
+      );
 }
 
 @freezed

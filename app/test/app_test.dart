@@ -20,7 +20,7 @@ import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
-import 'package:swift_travel/utils/predict/predict.dart';
+import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 import 'package:theming/dynamic_theme.dart';
 
