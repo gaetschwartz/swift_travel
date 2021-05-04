@@ -16,6 +16,7 @@ linter:
     # Conflicts
     unnecessary_final: false
     prefer_double_quotes: false
+    prefer_single_quotes: false
     always_specify_types: false
 
     # Misc
