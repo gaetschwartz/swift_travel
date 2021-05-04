@@ -58,4 +58,15 @@ enum Maps {
   google,
 }
 
+extension MapsX on Maps {
+  String toStringFull() {
+    switch (this) {
+      case Maps.apple:
+        return 'Apple Maps';
+      case Maps.google:
+        return 'Google Maps';
+    }
+  }
+}
+
 enum QuickActionsDisplays { stops, routes, generic }

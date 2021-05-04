@@ -20,6 +20,7 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/settings/properties/tile.dart';
 import 'package:swift_travel/pages/settings/route_history.dart';
+import 'package:swift_travel/pages/settings/team_page.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/utils/crawler.dart';
@@ -42,92 +43,91 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final children = <WidgetBuilder>[
-    (context) => _SectionTitle(title: Text(AppLoc.of(context).brightness)),
-    (_) => SizedBox(
-          key: const Key('settings-top-theme-section'),
-          height: 100,
-          child: Builder(builder: (context) {
-            final theme = DynamicTheme.of(context);
-            return ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                _ThememodeWidget(
-                  theme: theme,
-                  label: AppLoc.of(context).brightness_system,
-                  mode: ThemeMode.system,
-                ),
-                _ThememodeWidget(
-                  theme: theme,
-                  label: AppLoc.of(context).brightness_light,
-                  mode: ThemeMode.light,
-                ),
-                _ThememodeWidget(
-                  theme: theme,
-                  label: AppLoc.of(context).brightness_dark,
-                  mode: ThemeMode.dark,
-                ),
-              ],
-            );
-          }),
-        ),
-    (context) => _SectionTitle(title: Text(AppLoc.of(context).themes)),
-    (_) => const _ThemesSection(),
-    (context) => _SectionTitle(title: Text(AppLoc.of(context).font)),
-    (_) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              children: [
-                const Icon(CupertinoIcons.textformat_abc),
-                const SizedBox(width: 16),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: Builder(builder: (context) {
-                    final theme = DynamicTheme.of(context);
-                    return DropdownButton<Font>(
-                      icon: const SizedBox(),
-                      value: theme.font,
-                      items: theme.configuration.fonts
-                          .map(
-                            (f) => DropdownMenuItem(
-                                value: f,
-                                child: f == theme.font
-                                    ? Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(f.name,
-                                                style: f
-                                                    .textTheme(Typography.englishLike2018)
-                                                    .bodyText1),
-                                          ),
-                                          const Icon(CupertinoIcons.checkmark_alt)
-                                        ],
-                                      )
-                                    : Text(f.name,
-                                        style: f.textTheme(Typography.englishLike2018).bodyText1)),
-                          )
-                          .toList(growable: false),
-                      selectedItemBuilder: (context) => fonts
-                          .map<Widget>(
-                              (f) => Align(alignment: Alignment.centerLeft, child: Text(f.name)))
-                          .toList(growable: false),
-                      onChanged: (f) {
-                        if (f == null) {
-                          return;
-                        }
-                        Vibration.select();
-                        theme.fontIndex = theme.configuration.fonts.indexOf(f);
-                      },
-                    );
-                  }),
-                ),
-              ],
+  late final children = <Widget>[
+    _SectionTitle(title: Text(AppLoc.of(context).brightness)),
+    SizedBox(
+      key: const Key('settings-top-theme-section'),
+      height: 100,
+      child: Builder(builder: (context) {
+        final theme = DynamicTheme.of(context);
+        return ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            _ThememodeWidget(
+              theme: theme,
+              label: AppLoc.of(context).brightness_system,
+              mode: ThemeMode.system,
             ),
-          ),
+            _ThememodeWidget(
+              theme: theme,
+              label: AppLoc.of(context).brightness_light,
+              mode: ThemeMode.light,
+            ),
+            _ThememodeWidget(
+              theme: theme,
+              label: AppLoc.of(context).brightness_dark,
+              mode: ThemeMode.dark,
+            ),
+          ],
+        );
+      }),
+    ),
+    _SectionTitle(title: Text(AppLoc.of(context).themes)),
+    const _ThemesSection(),
+    _SectionTitle(title: Text(AppLoc.of(context).font)),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          children: [
+            const Icon(CupertinoIcons.textformat_abc),
+            const SizedBox(width: 16),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 300),
+              child: Builder(builder: (context) {
+                final theme = DynamicTheme.of(context);
+                return DropdownButton<Font>(
+                  icon: const SizedBox(),
+                  value: theme.font,
+                  items: theme.configuration.fonts
+                      .map(
+                        (f) => DropdownMenuItem(
+                            value: f,
+                            child: f == theme.font
+                                ? Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(f.name,
+                                            style:
+                                                f.textTheme(Typography.englishLike2018).bodyText1),
+                                      ),
+                                      const Icon(CupertinoIcons.checkmark_alt)
+                                    ],
+                                  )
+                                : Text(f.name,
+                                    style: f.textTheme(Typography.englishLike2018).bodyText1)),
+                      )
+                      .toList(growable: false),
+                  selectedItemBuilder: (context) => fonts
+                      .map<Widget>(
+                          (f) => Align(alignment: Alignment.centerLeft, child: Text(f.name)))
+                      .toList(growable: false),
+                  onChanged: (f) {
+                    if (f == null) {
+                      return;
+                    }
+                    Vibration.select();
+                    theme.fontIndex = theme.configuration.fonts.indexOf(f);
+                  },
+                );
+              }),
+            ),
+          ],
         ),
-    (context) {
+      ),
+    ),
+    () {
       final theme = DynamicTheme.of(context);
       const map = {-1: 'Light', 0: 'Normal', 1: 'Medium', 3: 'Bold'};
       // final t = theme.font
@@ -149,8 +149,8 @@ class _SettingsPageState extends State<SettingsPage> {
             .toList(growable: false),
         trailingBuilder: (i) => Text(map[i] ?? ''),
       );
-    },
-    (context) {
+    }(),
+    () {
       final theme = DynamicTheme.of(context);
       final p = defaultTargetPlatform;
       return PropertyTile<TargetPlatform>(
@@ -170,24 +170,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 ActionsSheetAction(value: TargetPlatform.windows, title: Text('Windows')),
               ],
       );
-    },
-    (context) {
-      if (Env.isDebugMode || Theme.of(context).platform == TargetPlatform.iOS) {
-        return PropertyTile<Maps>(
-          context.read(preferencesProvider).mapsApp,
+    }(),
+    if (Env.isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
+      PropertyTile<Maps>(context.read(preferencesProvider).mapsApp,
           title: Text(AppLoc.of(context).maps_app),
           icon: const Icon(Icons.map_rounded),
           items: const [
             ActionsSheetAction(value: Maps.apple, title: Text('Apple Maps')),
             ActionsSheetAction(value: Maps.google, title: Text('Google Maps')),
           ],
-          trailingBuilder: (v) => Text(_mapsName(v)),
-        );
-      } else {
-        return const SizedBox();
-      }
-    },
-    (context) {
+          trailingBuilder: (v) => Text(v.toStringFull())),
+    () {
       final items = factories.entries
           .map((e) => ActionsSheetAction(title: Text(e.value.name), value: NavigationApiId(e.key)))
           .toList(growable: false);
@@ -199,28 +192,25 @@ class _SettingsPageState extends State<SettingsPage> {
         trailingBuilder: (v) => Text(BaseNavigationApi.getFactory(v).shortDesc),
         pageDescription: const Text('BETA: In the future the goal is to add more countries.'),
       );
-    },
-    (context) {
-      final items = [
-        const ActionsSheetAction(value: true, title: Text('True')),
-        const ActionsSheetAction(value: false, title: Text('True')),
-      ];
-      return PropertyTile<bool>(
-        context.read(preferencesProvider).useAnalytics,
-        items: items,
-        title: const Text('Use analytics'),
-        icon: const Icon(CupertinoIcons.list_bullet),
-        subtitle: const Text('The app collects anonymized crash reports'),
-      );
-    },
-    (_) => const Divider(height: 0),
-    (context) => _SectionTitle(title: Text(AppLoc.of(context).more)),
-    (context) => ListTile(
-          leading: const Icon(CupertinoIcons.person_3_fill),
-          title: Text(AppLoc.of(context).our_team),
-          onTap: () => Navigator.of(context).pushNamed('/ourTeam'),
-        ),
-    (context) => ListTile(
+    }(),
+    PropertyTile<bool>(
+      context.read(preferencesProvider).useAnalytics,
+      items: const [
+        ActionsSheetAction(value: true, title: Text('True')),
+        ActionsSheetAction(value: false, title: Text('False')),
+      ],
+      title: const Text('Use analytics'),
+      icon: const Icon(CupertinoIcons.list_bullet),
+      subtitle: const Text('The app collects anonymized crash reports'),
+    ),
+    const Divider(height: 0),
+    _SectionTitle(title: Text(AppLoc.of(context).more)),
+    ListTile(
+      leading: const Icon(CupertinoIcons.person_3_fill),
+      title: Text(AppLoc.of(context).our_team),
+      onTap: () => Navigator.of(context).push(PlatformPageRoute(builder: (_) => const TeamPage())),
+    ),
+    ListTile(
         leading: const Icon(Icons.restore),
         title: Text(AppLoc.of(context).reset_settings),
         onTap: () async {
@@ -240,107 +230,107 @@ class _SettingsPageState extends State<SettingsPage> {
           log('Done : $b');
           unawaited(SystemNavigator.pop(animated: true));
         }),
-    (_) => const Divider(),
-    (context) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _SectionTitle(title: Text(AppLoc.of(context).developer)),
-            ListTile(
-                leading: const Icon(Icons.slideshow),
-                title: const Text('Test dialog'),
-                onTap: () {
-                  Navigator.of(context, rootNavigator: true).push<void>(
-                    BlurryModalRoute(
-                      const AlertDialog(
-                        title: Text('Hello'),
-                        content: Text('World'),
-                      ),
-                    ),
-                  );
-                }),
-            ListTile(
-                leading: const Icon(CupertinoIcons.search),
-                title: const Text('Attributes crawler'),
-                onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(
-                    PlatformPageRoute(
-                      builder: (context) => const CrawlerPage(),
-                    ),
-                  );
-                }),
-            ListTile(
-                leading: const Icon(CupertinoIcons.clock),
-                title: const Text('Route history'),
-                onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(
-                    PlatformPageRoute(
-                      builder: (context) => const RouteHistoryPage(),
-                    ),
-                  );
-                }),
-            ListTile(
-              leading: const Icon(CupertinoIcons.clear),
-              title: const Text('Clear history'),
-              onTap: RouteHistoryRepository.i.clear,
-            ),
-            ListTile(
-                leading: const Icon(Icons.screen_lock_landscape),
-                title: const Text('Screen info'),
-                onTap: () {
-                  Navigator.of(context).push<void>(
-                    MaterialPageRoute(
-                      builder: (context) => Theme(
-                        data: ThemeData.light(),
-                        child: Builder(builder: (context) => const _ScreenPage()),
-                      ),
-                    ),
-                  );
-                }),
-            ListTile(
-                leading: const Icon(Icons.warning_rounded),
-                title: const Text('Throw a Flutter error'),
-                onTap: () => throw StateError('Debug error')),
-            ListTile(
-                leading: const Icon(Icons.warning_rounded),
-                title: const Text('Throw a Dart error'),
-                onTap: () {
-                  try {
-                    throw const IntegerDivisionByZeroException();
-                  } on IntegerDivisionByZeroException catch (e, s) {
-                    reportDartError(e, s, library: 'settings', reason: 'voluntarirly');
-                  }
-                }),
-            ListTile(
-                leading: const Icon(Icons.open_in_browser),
-                title: const Text('Open incorrect page'),
-                onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
-            ListTile(
-                leading: const Icon(Icons.close),
-                title: const Text('Trigger a crash'),
-                onTap: () async {
-                  await FirebaseCrashlytics.instance.log('We trigger a crash');
-                  FirebaseCrashlytics.instance.crash();
-                }),
-          ],
+    const Divider(),
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _SectionTitle(title: Text(AppLoc.of(context).developer)),
+        ListTile(
+            leading: const Icon(Icons.slideshow),
+            title: const Text('Test dialog'),
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).push<void>(
+                BlurryModalRoute(
+                  const AlertDialog(
+                    title: Text('Hello'),
+                    content: Text('World'),
+                  ),
+                ),
+              );
+            }),
+        ListTile(
+            leading: const Icon(CupertinoIcons.search),
+            title: const Text('Attributes crawler'),
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).push(
+                PlatformPageRoute(
+                  builder: (context) => const CrawlerPage(),
+                ),
+              );
+            }),
+        ListTile(
+            leading: const Icon(CupertinoIcons.clock),
+            title: const Text('Route history'),
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).push(
+                PlatformPageRoute(
+                  builder: (context) => const RouteHistoryPage(),
+                ),
+              );
+            }),
+        ListTile(
+          leading: const Icon(CupertinoIcons.clear),
+          title: const Text('Clear history'),
+          onTap: RouteHistoryRepository.i.clear,
         ),
-    (_) => const ListTile(
-          isThreeLine: true,
-          dense: true,
-          title: Text(commitMessage),
-          subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
+        ListTile(
+            leading: const Icon(Icons.screen_lock_landscape),
+            title: const Text('Screen info'),
+            onTap: () {
+              Navigator.of(context).push<void>(
+                MaterialPageRoute(
+                  builder: (context) => Theme(
+                    data: ThemeData.light(),
+                    child: Builder(builder: (context) => const _ScreenPage()),
+                  ),
+                ),
+              );
+            }),
+        ListTile(
+            leading: const Icon(Icons.warning_rounded),
+            title: const Text('Throw a Flutter error'),
+            onTap: () => throw StateError('Debug error')),
+        ListTile(
+            leading: const Icon(Icons.warning_rounded),
+            title: const Text('Throw a Dart error'),
+            onTap: () {
+              try {
+                throw const IntegerDivisionByZeroException();
+              } on IntegerDivisionByZeroException catch (e, s) {
+                reportDartError(e, s, library: 'settings', reason: 'voluntarirly');
+              }
+            }),
+        ListTile(
+            leading: const Icon(Icons.open_in_browser),
+            title: const Text('Open incorrect page'),
+            onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
+        ListTile(
+            leading: const Icon(Icons.close),
+            title: const Text('Trigger a crash'),
+            onTap: () async {
+              await FirebaseCrashlytics.instance.log('We trigger a crash');
+              FirebaseCrashlytics.instance.crash();
+            }),
+      ],
+    ),
+    const ListTile(
+      isThreeLine: true,
+      dense: true,
+      title: Text(commitMessage),
+      subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
+    ),
+    const SizedBox(height: 32),
+    Padding(
+      key: const Key('settings-bottom-info'),
+      padding: const EdgeInsets.all(8),
+      child: Center(
+        child: Text(
+          '© Copyright Gaëtan Schwartz 2020',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.subtitle2,
         ),
-    (_) => const SizedBox(height: 32),
-    (context) => Padding(
-          key: const Key('settings-bottom-info'),
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Text(
-              '© Copyright Gaëtan Schwartz 2020',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-          ),
-        ),
+      ),
+    ),
   ];
 
   @override
@@ -357,19 +347,19 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
             materialBuilder: (context, child) => Scaffold(body: child),
-            builder: (context, d) => CustomScrollView(
+            builder: (context, design) => CustomScrollView(
                   key: const Key('settings-scrollview'),
                   slivers: [
-                    if (d == PlatformDesign.material)
+                    if (design == PlatformDesign.material)
                       SliverAppBar(
                         title: Text(AppLoc.of(context).settings),
                         pinned: true,
                       ),
                     SliverSafeArea(
-                      top: d == PlatformDesign.cupertino,
+                      top: design == PlatformDesign.cupertino,
                       sliver: SliverList(
                         delegate: SliverChildBuilderDelegate(
-                          (context, i) => children[i](context),
+                          (context, i) => children[i],
                           childCount: children.length,
                         ),
                       ),
@@ -397,15 +387,6 @@ class _ScreenPage extends StatelessWidget {
           ],
         ),
       );
-}
-
-String _mapsName(Maps m) {
-  switch (m) {
-    case Maps.apple:
-      return 'Apple Maps';
-    case Maps.google:
-      return 'Google Maps';
-  }
 }
 
 const platformNames = <TargetPlatform, String>{
