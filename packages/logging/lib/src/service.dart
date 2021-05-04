@@ -1,3 +1,4 @@
+import 'package:gaets_logging/logging.dart';
 import 'package:gaets_logging/src/consumer.dart';
 
 import 'filter.dart';
@@ -5,11 +6,11 @@ import 'models.dart';
 
 class LoggingService {
   const LoggingService(
-    this._consumers, {
+    Set<LogConsumer> consumers, {
     this.filter = const AlwaysAllowFilter(),
-  });
+  }) : _consumers = consumers;
 
-  static const LoggingService instance = LoggingService({ConsoleLogger()});
+  static LoggingService instance = const LoggingService({ConsoleLogger()});
   final Set<LogConsumer> _consumers;
   final LogFilter filter;
 
@@ -64,5 +65,5 @@ class LoggingService {
   void i(String e, {String? channel}) => log(e, channel: channel);
 }
 
-/// The singleton logger instance, extend this with your own channels
+/// The singleton logger instance.
 LoggingService get log => LoggingService.instance;
