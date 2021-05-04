@@ -14,23 +14,36 @@ packages:
 
 docs:
   - docs/**
+  - README.md
 
 android:
   - app/android/**
+  - "**/android/**"
 
 ios:
   - app/ios/**
+  - "**/ios/**"
 
 macos:
   - app/macos/**
+  - "**/macos/**"
 
 windows:
   - app/windows/**
+  - "**/windows/**"
 
 web:
   - app/web/**
+  - "**/web/**"
 
 tests:
   - app/integration_test/**
   - app/test/**
   - app/test_driver/**
+  - "**/test/**"
+  - "**/test_driver/**"
+  - "**/integration_test/**"
+
+analysis_options:
+  - analysis_options.yaml
+  - "**/analysis_options.yaml"
