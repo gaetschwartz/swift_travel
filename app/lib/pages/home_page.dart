@@ -274,7 +274,6 @@ class SwiftNavigationBar extends StatelessWidget {
 
   void onTap(int i, BuildContext context) {
     Vibration.selectSoft();
-    print("Switching to $i when it's currently ${controllers.index}");
     if (controllers.index != i) {
       controllers.index = i;
     } else {
