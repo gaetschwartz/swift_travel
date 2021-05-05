@@ -54,7 +54,7 @@ DateTime parseDateTime(Map<String, String> oldParams) {
   return DateTime.fromMillisecondsSinceEpoch(millis);
 }
 
-Map<String, String> encodeRouteUri(Uri uri, int? i) {
+Map<String, String> encodeRouteUri(Uri uri, int i) {
   final params = <String, String>{};
   final oldParams = {...uri.queryParameters};
 

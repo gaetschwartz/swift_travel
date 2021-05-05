@@ -28,12 +28,12 @@ class RouteDetails extends StatelessWidget {
   }) : super(key: key);
 
   final NavRoute? route;
-  final int? i;
+  final int i;
   final bool doShowCloseButton;
 
   @override
   Widget build(BuildContext context) {
-    final conn = route!.connections[i!];
+    final conn = route!.connections[i];
     return PlatformBuilder(
         cupertinoBuilder: (context, child) => Material(
               child: CupertinoPageScaffold(
