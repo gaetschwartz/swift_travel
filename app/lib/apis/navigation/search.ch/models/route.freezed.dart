@@ -12,15 +12,15 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-CffRoute _$CffRouteFromJson(Map<String, dynamic> json) {
-  return _CffRoute.fromJson(json);
+SbbRoute _$SbbRouteFromJson(Map<String, dynamic> json) {
+  return _SbbRoute.fromJson(json);
 }
 
 /// @nodoc
-class _$CffRouteTearOff {
-  const _$CffRouteTearOff();
+class _$SbbRouteTearOff {
+  const _$SbbRouteTearOff();
 
-  _CffRoute call(
+  _SbbRoute call(
       {int count = 0,
       @JsonKey(name: 'min_duration')
           double? minDuration,
@@ -32,7 +32,7 @@ class _$CffRouteTearOff {
       List<String> messages = const <String>[],
       String? requestUrl,
       DateTime? dateTime}) {
-    return _CffRoute(
+    return _SbbRoute(
       count: count,
       minDuration: minDuration,
       maxDuration: maxDuration,
@@ -43,16 +43,16 @@ class _$CffRouteTearOff {
     );
   }
 
-  CffRoute fromJson(Map<String, Object> json) {
-    return CffRoute.fromJson(json);
+  SbbRoute fromJson(Map<String, Object> json) {
+    return SbbRoute.fromJson(json);
   }
 }
 
 /// @nodoc
-const $CffRoute = _$CffRouteTearOff();
+const $SbbRoute = _$SbbRouteTearOff();
 
 /// @nodoc
-mixin _$CffRoute {
+mixin _$SbbRoute {
   int get count => throw _privateConstructorUsedError;
   @JsonKey(name: 'min_duration')
   double? get minDuration => throw _privateConstructorUsedError;
@@ -67,14 +67,14 @@ mixin _$CffRoute {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CffRouteCopyWith<CffRoute> get copyWith =>
+  $SbbRouteCopyWith<SbbRoute> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CffRouteCopyWith<$Res> {
-  factory $CffRouteCopyWith(CffRoute value, $Res Function(CffRoute) then) =
-      _$CffRouteCopyWithImpl<$Res>;
+abstract class $SbbRouteCopyWith<$Res> {
+  factory $SbbRouteCopyWith(SbbRoute value, $Res Function(SbbRoute) then) =
+      _$SbbRouteCopyWithImpl<$Res>;
   $Res call(
       {int count,
       @JsonKey(name: 'min_duration')
@@ -89,12 +89,12 @@ abstract class $CffRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
-  _$CffRouteCopyWithImpl(this._value, this._then);
+class _$SbbRouteCopyWithImpl<$Res> implements $SbbRouteCopyWith<$Res> {
+  _$SbbRouteCopyWithImpl(this._value, this._then);
 
-  final CffRoute _value;
+  final SbbRoute _value;
   // ignore: unused_field
-  final $Res Function(CffRoute) _then;
+  final $Res Function(SbbRoute) _then;
 
   @override
   $Res call({
@@ -140,9 +140,9 @@ class _$CffRouteCopyWithImpl<$Res> implements $CffRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$CffRouteCopyWith<$Res> implements $CffRouteCopyWith<$Res> {
-  factory _$CffRouteCopyWith(_CffRoute value, $Res Function(_CffRoute) then) =
-      __$CffRouteCopyWithImpl<$Res>;
+abstract class _$SbbRouteCopyWith<$Res> implements $SbbRouteCopyWith<$Res> {
+  factory _$SbbRouteCopyWith(_SbbRoute value, $Res Function(_SbbRoute) then) =
+      __$SbbRouteCopyWithImpl<$Res>;
   @override
   $Res call(
       {int count,
@@ -158,13 +158,13 @@ abstract class _$CffRouteCopyWith<$Res> implements $CffRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
-    implements _$CffRouteCopyWith<$Res> {
-  __$CffRouteCopyWithImpl(_CffRoute _value, $Res Function(_CffRoute) _then)
-      : super(_value, (v) => _then(v as _CffRoute));
+class __$SbbRouteCopyWithImpl<$Res> extends _$SbbRouteCopyWithImpl<$Res>
+    implements _$SbbRouteCopyWith<$Res> {
+  __$SbbRouteCopyWithImpl(_SbbRoute _value, $Res Function(_SbbRoute) _then)
+      : super(_value, (v) => _then(v as _SbbRoute));
 
   @override
-  _CffRoute get _value => super._value as _CffRoute;
+  _SbbRoute get _value => super._value as _SbbRoute;
 
   @override
   $Res call({
@@ -176,7 +176,7 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
     Object? requestUrl = freezed,
     Object? dateTime = freezed,
   }) {
-    return _then(_CffRoute(
+    return _then(_SbbRoute(
       count: count == freezed
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -212,8 +212,8 @@ class __$CffRouteCopyWithImpl<$Res> extends _$CffRouteCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-class _$_CffRoute extends _CffRoute {
-  const _$_CffRoute(
+class _$_SbbRoute extends _SbbRoute {
+  const _$_SbbRoute(
       {this.count = 0,
       @JsonKey(name: 'min_duration')
           this.minDuration,
@@ -226,8 +226,8 @@ class _$_CffRoute extends _CffRoute {
       this.dateTime})
       : super._();
 
-  factory _$_CffRoute.fromJson(Map<String, dynamic> json) =>
-      _$_$_CffRouteFromJson(json);
+  factory _$_SbbRoute.fromJson(Map<String, dynamic> json) =>
+      _$_$_SbbRouteFromJson(json);
 
   @JsonKey(defaultValue: 0)
   @override
@@ -251,13 +251,13 @@ class _$_CffRoute extends _CffRoute {
 
   @override
   String toString() {
-    return 'CffRoute(count: $count, minDuration: $minDuration, maxDuration: $maxDuration, sbbConnections: $sbbConnections, messages: $messages, requestUrl: $requestUrl, dateTime: $dateTime)';
+    return 'SbbRoute(count: $count, minDuration: $minDuration, maxDuration: $maxDuration, sbbConnections: $sbbConnections, messages: $messages, requestUrl: $requestUrl, dateTime: $dateTime)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _CffRoute &&
+        (other is _SbbRoute &&
             (identical(other.count, count) ||
                 const DeepCollectionEquality().equals(other.count, count)) &&
             (identical(other.minDuration, minDuration) ||
@@ -293,17 +293,17 @@ class _$_CffRoute extends _CffRoute {
 
   @JsonKey(ignore: true)
   @override
-  _$CffRouteCopyWith<_CffRoute> get copyWith =>
-      __$CffRouteCopyWithImpl<_CffRoute>(this, _$identity);
+  _$SbbRouteCopyWith<_SbbRoute> get copyWith =>
+      __$SbbRouteCopyWithImpl<_SbbRoute>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_CffRouteToJson(this);
+    return _$_$_SbbRouteToJson(this);
   }
 }
 
-abstract class _CffRoute extends CffRoute {
-  const factory _CffRoute(
+abstract class _SbbRoute extends SbbRoute {
+  const factory _SbbRoute(
       {int count,
       @JsonKey(name: 'min_duration')
           double? minDuration,
@@ -313,10 +313,10 @@ abstract class _CffRoute extends CffRoute {
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
-      DateTime? dateTime}) = _$_CffRoute;
-  const _CffRoute._() : super._();
+      DateTime? dateTime}) = _$_SbbRoute;
+  const _SbbRoute._() : super._();
 
-  factory _CffRoute.fromJson(Map<String, dynamic> json) = _$_CffRoute.fromJson;
+  factory _SbbRoute.fromJson(Map<String, dynamic> json) = _$_SbbRoute.fromJson;
 
   @override
   int get count => throw _privateConstructorUsedError;
@@ -338,6 +338,6 @@ abstract class _CffRoute extends CffRoute {
   DateTime? get dateTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CffRouteCopyWith<_CffRoute> get copyWith =>
+  _$SbbRouteCopyWith<_SbbRoute> get copyWith =>
       throw _privateConstructorUsedError;
 }

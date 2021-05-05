@@ -30,7 +30,7 @@ import 'blocs_test.dart';
 class MockFetcher extends FetcherBase {
   @override
   Future<void> fetch(ProviderReference ref) async {
-    state = RouteStates(CffRoute.fromJson(mockRoute));
+    state = RouteStates(SbbRoute.fromJson(mockRoute));
   }
 }
 

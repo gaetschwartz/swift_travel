@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 
-class CffIcon extends StatelessWidget {
-  const CffIcon(
+class SbbIcon extends StatelessWidget {
+  const SbbIcon(
     this.vehicle, {
     this.size,
     this.color,
     Key? key,
   }) : super(key: key);
 
-  CffIcon.fromIconClass(String? iconclass, {this.size, this.color, Key? key})
+  SbbIcon.fromIconClass(String? iconclass, {this.size, this.color, Key? key})
       : vehicle = getVehicle(iconclass),
         super(key: key);
 

@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/models/favorites.dart';
-import 'package:swift_travel/widgets/cff_icon.dart';
+import 'package:swift_travel/widgets/sbb_icon.dart';
 
 part 'completion.freezed.dart';
 part 'completion.g.dart';
@@ -31,5 +31,5 @@ class SbbCompletion with _$SbbCompletion, Completion {
   factory SbbCompletion.fromJson(Map<String, dynamic> json) => _$SbbCompletionFromJson(json);
 
   @override
-  late final Vehicle? type = CffIcon.getVehicle(iconClass);
+  late final Vehicle? type = SbbIcon.getVehicle(iconClass);
 }

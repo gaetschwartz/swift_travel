@@ -6,9 +6,9 @@ part of 'route.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CffRoute _$_$_CffRouteFromJson(Map<String, dynamic> json) {
-  return $checkedNew(r'_$_CffRoute', json, () {
-    final val = _$_CffRoute(
+_$_SbbRoute _$_$_SbbRouteFromJson(Map<String, dynamic> json) {
+  return $checkedNew(r'_$_SbbRoute', json, () {
+    final val = _$_SbbRoute(
       count: $checkedConvert(json, 'count', (v) => v as int?) ?? 0,
       minDuration:
           $checkedConvert(json, 'min_duration', (v) => (v as num?)?.toDouble()),
@@ -37,7 +37,7 @@ _$_CffRoute _$_$_CffRouteFromJson(Map<String, dynamic> json) {
   });
 }
 
-Map<String, dynamic> _$_$_CffRouteToJson(_$_CffRoute instance) {
+Map<String, dynamic> _$_$_SbbRouteToJson(_$_SbbRoute instance) {
   final val = <String, dynamic>{
     'count': instance.count,
   };
