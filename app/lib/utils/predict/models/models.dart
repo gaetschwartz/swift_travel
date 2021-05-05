@@ -101,25 +101,17 @@ class UnchangedTransformer implements RoutesTransformer {
   Iterable<LocalRoute> transform(Iterable<LocalRoute> routes) => routes;
 }
 
-@immutable
-class Pair<R, S> {
-  const Pair(this.first, this.second);
+@freezed
+class Pair<R, S> with _$Pair<R, S> {
+  const factory Pair(R first, S second) = _Pair;
+  const Pair._();
 
-  final R first;
-  final S second;
+  Pair<S, R> get flipped => Pair<S, R>(second, first);
+}
 
-  @override
-  String toString() => 'Pair<$R, $S>($first, $second)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-
-    return other is Pair<R, S> && other.first == first && other.second == second;
-  }
-
-  @override
-  int get hashCode => first.hashCode ^ second.hashCode;
+void main() {
+  const p1 = Pair<int, int>(1, 2);
+  const p2 = Pair<int, int>(2, 1);
+  print('${p1.hashCode == p2.hashCode ? 'equal' : 'different'} hashcode');
+  print(p1 == p2 ? 'equal' : 'different');
 }

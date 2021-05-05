@@ -991,3 +991,147 @@ abstract class LocationArgument extends PredictionArguments {
   $LocationArgumentCopyWith<LocationArgument> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$PairTearOff {
+  const _$PairTearOff();
+
+  _Pair<R, S> call<R, S>(R first, S second) {
+    return _Pair<R, S>(
+      first,
+      second,
+    );
+  }
+}
+
+/// @nodoc
+const $Pair = _$PairTearOff();
+
+/// @nodoc
+mixin _$Pair<R, S> {
+  R get first => throw _privateConstructorUsedError;
+  S get second => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $PairCopyWith<R, S, Pair<R, S>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PairCopyWith<R, S, $Res> {
+  factory $PairCopyWith(Pair<R, S> value, $Res Function(Pair<R, S>) then) =
+      _$PairCopyWithImpl<R, S, $Res>;
+  $Res call({R first, S second});
+}
+
+/// @nodoc
+class _$PairCopyWithImpl<R, S, $Res> implements $PairCopyWith<R, S, $Res> {
+  _$PairCopyWithImpl(this._value, this._then);
+
+  final Pair<R, S> _value;
+  // ignore: unused_field
+  final $Res Function(Pair<R, S>) _then;
+
+  @override
+  $Res call({
+    Object? first = freezed,
+    Object? second = freezed,
+  }) {
+    return _then(_value.copyWith(
+      first: first == freezed
+          ? _value.first
+          : first // ignore: cast_nullable_to_non_nullable
+              as R,
+      second: second == freezed
+          ? _value.second
+          : second // ignore: cast_nullable_to_non_nullable
+              as S,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$PairCopyWith<R, S, $Res> implements $PairCopyWith<R, S, $Res> {
+  factory _$PairCopyWith(_Pair<R, S> value, $Res Function(_Pair<R, S>) then) =
+      __$PairCopyWithImpl<R, S, $Res>;
+  @override
+  $Res call({R first, S second});
+}
+
+/// @nodoc
+class __$PairCopyWithImpl<R, S, $Res> extends _$PairCopyWithImpl<R, S, $Res>
+    implements _$PairCopyWith<R, S, $Res> {
+  __$PairCopyWithImpl(_Pair<R, S> _value, $Res Function(_Pair<R, S>) _then)
+      : super(_value, (v) => _then(v as _Pair<R, S>));
+
+  @override
+  _Pair<R, S> get _value => super._value as _Pair<R, S>;
+
+  @override
+  $Res call({
+    Object? first = freezed,
+    Object? second = freezed,
+  }) {
+    return _then(_Pair<R, S>(
+      first == freezed
+          ? _value.first
+          : first // ignore: cast_nullable_to_non_nullable
+              as R,
+      second == freezed
+          ? _value.second
+          : second // ignore: cast_nullable_to_non_nullable
+              as S,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Pair<R, S> extends _Pair<R, S> {
+  const _$_Pair(this.first, this.second) : super._();
+
+  @override
+  final R first;
+  @override
+  final S second;
+
+  @override
+  String toString() {
+    return 'Pair<$R, $S>(first: $first, second: $second)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Pair<R, S> &&
+            (identical(other.first, first) ||
+                const DeepCollectionEquality().equals(other.first, first)) &&
+            (identical(other.second, second) ||
+                const DeepCollectionEquality().equals(other.second, second)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(first) ^
+      const DeepCollectionEquality().hash(second);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PairCopyWith<R, S, _Pair<R, S>> get copyWith =>
+      __$PairCopyWithImpl<R, S, _Pair<R, S>>(this, _$identity);
+}
+
+abstract class _Pair<R, S> extends Pair<R, S> {
+  const factory _Pair(R first, S second) = _$_Pair<R, S>;
+  const _Pair._() : super._();
+
+  @override
+  R get first => throw _privateConstructorUsedError;
+  @override
+  S get second => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$PairCopyWith<R, S, _Pair<R, S>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
