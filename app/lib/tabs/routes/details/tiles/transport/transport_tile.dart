@@ -8,9 +8,9 @@ import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/attributes_page.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/strings/format.dart';
-import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:swift_travel/widgets/route.dart';
+import 'package:swift_travel/widgets/sbb_icon.dart';
 import 'package:theming/responsive.dart';
 
 import 'details.dart';
@@ -219,7 +219,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
               if (LineIcon.isValidLeg(widget.l))
                 LineIcon.fromLeg(widget.l)
               else
-                CffIcon(widget.l.type),
+                SbbIcon(widget.l.type),
               const SizedBox(width: 8),
               Expanded(
                 child: Align(

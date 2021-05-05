@@ -11,8 +11,8 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/strings/format.dart';
-import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
+import 'package:swift_travel/widgets/sbb_icon.dart';
 
 class RouteTile extends StatelessWidget {
   const RouteTile({
@@ -29,7 +29,7 @@ class RouteTile extends StatelessWidget {
     final c = route.connections[i];
     for (var i = 0; i < c.legs.length - 1; i++) {
       final l = c.legs[i];
-      listWidget.add(CffIcon(l.type, size: 18));
+      listWidget.add(SbbIcon(l.type, size: 18));
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +64,7 @@ class RouteTile extends StatelessWidget {
             isThreeLine: true,
             title: Row(
               children: [
-                if (LineIcon.isValidLeg(leg)) LineIcon.fromLeg(leg) else CffIcon(leg.type),
+                if (LineIcon.isValidLeg(leg)) LineIcon.fromLeg(leg) else SbbIcon(leg.type),
                 const SizedBox(width: 8),
                 Expanded(child: Text(leg.exit!.name)),
               ],

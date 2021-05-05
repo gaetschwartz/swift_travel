@@ -6,9 +6,9 @@ part 'route.freezed.dart';
 part 'route.g.dart';
 
 @freezed
-class CffRoute with _$CffRoute, NavRoute {
+class SbbRoute with _$SbbRoute, NavRoute {
   @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-  const factory CffRoute({
+  const factory SbbRoute({
     @Default(0)
         int count,
     @JsonKey(name: 'min_duration')
@@ -25,10 +25,10 @@ class CffRoute with _$CffRoute, NavRoute {
         List<String> messages,
     String? requestUrl,
     DateTime? dateTime,
-  }) = _CffRoute;
-  const CffRoute._();
+  }) = _SbbRoute;
+  const SbbRoute._();
 
-  factory CffRoute.fromJson(Map<String, dynamic> json) => _$CffRouteFromJson(json);
+  factory SbbRoute.fromJson(Map<String, dynamic> json) => _$SbbRouteFromJson(json);
 
   @override
   List<RouteConnection> get connections => sbbConnections;

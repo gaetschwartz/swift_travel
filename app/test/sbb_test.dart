@@ -7,7 +7,7 @@ import 'package:swift_travel/mocking/mocking.dart';
 void main() {
   test('test parsing SbbStationBoard', () {
     expect(() => SbbStationboard.fromJson(mockStationboard), returnsNormally);
-    expect(() => CffRoute.fromJson(mockRoute), returnsNormally);
+    expect(() => SbbRoute.fromJson(mockRoute), returnsNormally);
   });
 
   test('attributes codes are consistent', () {

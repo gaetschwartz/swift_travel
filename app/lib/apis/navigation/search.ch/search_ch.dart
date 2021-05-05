@@ -134,9 +134,9 @@ class SearchChApi extends BaseNavigationApi {
     }
     final decode = await Future.microtask(() => timedDecode(response.body));
 
-    final cffStationboard = SbbStationboard.fromJson(decode);
+    final sbbStationboard = SbbStationboard.fromJson(decode);
 
-    return cffStationboard;
+    return sbbStationboard;
   }
 
   Map<String, dynamic> timedDecode(String body) {
@@ -196,7 +196,7 @@ class SearchChApi extends BaseNavigationApi {
 
     final map = timedDecode(response.body);
 
-    return CffRoute.fromJson(map).copyWith(requestUrl: query.toString());
+    return SbbRoute.fromJson(map).copyWith(requestUrl: query.toString());
   }
 
   @override

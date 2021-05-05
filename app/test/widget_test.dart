@@ -4,9 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/db/models/cache.dart';
-import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
+import 'package:swift_travel/widgets/sbb_icon.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -76,12 +76,12 @@ void main() {
       expect(find.byType(SizedBox), findsNothing);
     });
 
-    group('cffIcon >', () {
+    group('sbbIcon >', () {
       testWidgets('.constructor()', (t) async {
         for (final v in Vehicle.values) {
-          final cffIcon = CffIcon(v);
+          final sbbIcon = SbbIcon(v);
 
-          await t.pumpWidget(MaterialApp(home: Center(child: cffIcon)));
+          await t.pumpWidget(MaterialApp(home: Center(child: sbbIcon)));
           final icon = [find.byType(FaIcon), find.byType(Icon)];
           expect(icon, anyElement(findsOneWidget));
         }
@@ -91,9 +91,9 @@ void main() {
           final text = describeEnum(v);
           final exp = RegExp('(?<=[a-z])[A-Z]');
           final result = text.replaceAllMapped(exp, (m) => '_${m.group(0)!}').toLowerCase();
-          final cffIcon = CffIcon.fromIconClass(result);
+          final sbbIcon = SbbIcon.fromIconClass(result);
 
-          await t.pumpWidget(MaterialApp(home: Center(child: cffIcon)));
+          await t.pumpWidget(MaterialApp(home: Center(child: sbbIcon)));
           final icon = [find.byType(FaIcon), find.byType(Icon)];
           expect(icon, anyElement(findsOneWidget));
         }

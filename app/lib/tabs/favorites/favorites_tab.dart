@@ -133,16 +133,16 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
     }
 
     await load(context, future: () async {
-      final cff = context.read(navigationAPIProvider);
-      var completions = await cff.complete(s, showIds: true);
+      final api = context.read(navigationAPIProvider);
+      var completions = await api.complete(s, showIds: true);
 
       if (completions.isEmpty) {
         log("Didn't find a station, will try using routes as a hack...");
-        final cffRoute = await cff.route(s, 'Bern', date: DateTime.now(), time: TimeOfDay.now());
-        if (cffRoute.connections.isNotEmpty) {
-          final from = cffRoute.connections.first.from;
+        final sbbRoute = await api.route(s, 'Bern', date: DateTime.now(), time: TimeOfDay.now());
+        if (sbbRoute.connections.isNotEmpty) {
+          final from = sbbRoute.connections.first.from;
           log('Found $from');
-          completions = await cff.complete(from, showIds: true);
+          completions = await api.complete(from, showIds: true);
           log(completions.toString());
         }
       }

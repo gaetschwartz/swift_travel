@@ -72,7 +72,7 @@ class Fetcher extends FetcherBase {
     final to = ref.watch(toTextfieldProvider);
     final date = ref.watch(dateProvider).state;
     final timeType = ref.watch(timeTypeProvider).state;
-    final _cff = ref.read(navigationAPIProvider);
+    final api = ref.read(navigationAPIProvider);
 
     if (kDebugMode) {
       log('Something changed checking if we need to rebuild');
@@ -115,7 +115,7 @@ class Fetcher extends FetcherBase {
         },
       )!;
       log('Fetching route from $departure to $arrival');
-      final it = await _cff.route(
+      final it = await api.route(
         departure,
         arrival,
         date: date,
@@ -394,21 +394,20 @@ class RoutePageState extends State<RoutePage> {
                           onLongPress: kDebugMode
                               ? () {
                                   unFocusFields();
-
-                                  final cffRoute = CffRoute.fromJson(mockRoute);
+                                  final sbbRoute = SbbRoute.fromJson(mockRoute);
 
                                   from.setString(
                                     context,
-                                    cffRoute.connections.first.from,
+                                    sbbRoute.connections.first.from,
                                     doLoad: false,
                                   );
                                   to.setString(
                                     context,
-                                    cffRoute.connections.first.to,
+                                    sbbRoute.connections.first.to,
                                     doLoad: false,
                                   );
 
-                                  context.read(routeStatesProvider).state = RouteStates(cffRoute);
+                                  context.read(routeStatesProvider).state = RouteStates(sbbRoute);
                                 }
                               : null,
                           style: TextButton.styleFrom(

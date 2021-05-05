@@ -18,9 +18,9 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/complete.dart';
-import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
+import 'package:swift_travel/widgets/sbb_icon.dart';
 import 'package:vibration/vibration.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
@@ -275,7 +275,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
       final first = completions.first;
       if (first.dist != null) {
-        final public = completions.where((c) => !CffIcon.isPrivate(c.type));
+        final public = completions.where((c) => !SbbIcon.isPrivate(c.type));
         context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log('Found : ${public.first}');

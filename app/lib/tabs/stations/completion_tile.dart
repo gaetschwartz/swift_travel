@@ -21,8 +21,8 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
-import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
+import 'package:swift_travel/widgets/sbb_icon.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
@@ -42,7 +42,7 @@ class CompletionTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, Reader watch) {
     final iconClass = sugg.getIcon();
-    final isPrivate = CffIcon.isPrivate(sugg.type);
+    final isPrivate = SbbIcon.isPrivate(sugg.type);
     final store = watch(storeProvider);
     final favStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
     final isFav = sugg.favoriteName != null;

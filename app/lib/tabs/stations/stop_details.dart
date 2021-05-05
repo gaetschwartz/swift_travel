@@ -11,9 +11,9 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/subsequent_stops_page.dart';
 import 'package:swift_travel/utils/strings/format.dart';
-import 'package:swift_travel/widgets/cff_icon.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:swift_travel/widgets/route.dart';
+import 'package:swift_travel/widgets/sbb_icon.dart';
 import 'package:theming/responsive.dart';
 
 class StopDetails extends StatefulWidget {
@@ -220,7 +220,7 @@ class ConnectionTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: <Widget>[
-            CffIcon(c.type, size: 16),
+            SbbIcon(c.type, size: 16),
             const SizedBox(width: 8),
             Text.rich(
               TextSpan(
