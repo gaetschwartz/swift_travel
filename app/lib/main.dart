@@ -23,6 +23,8 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/extensions.dart';
+import 'package:swift_travel/utils/intents.dart';
 import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
@@ -55,11 +57,6 @@ bool get isMobile => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
 String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
 
-const debugPlatformMap = {
-  TargetPlatform.windows: TargetPlatform.macOS,
-  TargetPlatform.android: TargetPlatform.iOS,
-};
-
 void main() {
   if (kReleaseMode) {
     print(
@@ -84,11 +81,6 @@ void main() {
   }
   setPathUrlStrategy();
 
-  if (isMobile) {
-    // await Firebase.initializeApp();
-    // unawaited(FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kReleaseMode));
-  }
-
   if (!isTest) {
     FlutterError.onError = reportFlutterError;
   }
@@ -96,9 +88,25 @@ void main() {
 }
 
 void overridePlatform() {
-  final platform = debugPlatformMap[defaultTargetPlatform];
+  late final TargetPlatform p;
+
+  switch (defaultTargetPlatform) {
+    case TargetPlatform.windows:
+      p = TargetPlatform.macOS;
+      break;
+    case TargetPlatform.android:
+      p = TargetPlatform.iOS;
+      break;
+
+    case TargetPlatform.fuchsia:
+    case TargetPlatform.iOS:
+    case TargetPlatform.linux:
+    case TargetPlatform.macOS:
+      return;
+  }
+
   log('Overriding $defaultTargetPlatform by $platform');
-  debugDefaultTargetPlatformOverride = platform;
+  debugDefaultTargetPlatformOverride = p;
 }
 
 void _runApp() => runApp(const FullApp());
@@ -113,11 +121,17 @@ class FullApp extends StatefulWidget {
 }
 
 class _FullAppState extends State<FullApp> {
-  final dynamicThemeData = DynamicThemeData();
+  final DynamicThemeData dynamicThemeData = DynamicThemeData();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    dynamicThemeData.dispose();
+    super.dispose();
   }
 
   @override
@@ -136,44 +150,12 @@ class _FullAppState extends State<FullApp> {
       );
 }
 
-final ctrl = defaultTargetPlatform == TargetPlatform.macOS
-    ? LogicalKeyboardKey.meta
-    : LogicalKeyboardKey.control;
-
 class SwiftTravelApp extends StatefulWidget {
   const SwiftTravelApp({Key? key}) : super(key: key);
 
   @override
   _SwiftTravelAppState createState() => _SwiftTravelAppState();
 }
-
-class TabIntent extends Intent {
-  const TabIntent(this.tab);
-
-  final int tab;
-}
-
-class TabAction extends Action {
-  TabAction(this.changeTab);
-
-  final void Function(int tab) changeTab;
-
-  @override
-  Object? invoke(covariant TabIntent intent) {
-    changeTab(intent.tab);
-    return null;
-  }
-}
-
-class SwitchTabIntent extends Intent {
-  const SwitchTabIntent();
-}
-
-class EscapeIntent extends Intent {
-  const EscapeIntent();
-}
-
-const digit1KeyId = 0x10700000031;
 
 class _SwiftTravelAppState extends State<SwiftTravelApp> {
   final shortcuts2 = {
@@ -217,14 +199,12 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
         }),
         TabIntent: TabAction((tab) {
           print('Changing tab to $tab');
-          context.read(tabProvider.notifier).index = tab;
+          context.read(tabProvider).index = tab;
         }),
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
           print('Switching tab');
-          final tabs = context.read(tabProvider.notifier);
-          tabs.index =
-              (tabs.index + 1) % (isDarwin ? TabView.iosTabs.length : TabView.androidTabs.length);
-          return null;
+          final tabs = context.read(tabProvider);
+          tabs.index = (isDarwin ? TabView.iosTabs : TabView.androidTabs).modulo(tabs.index);
         })
       },
       onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: isDarwin),

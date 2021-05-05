@@ -8,7 +8,7 @@ import 'package:theming/dialogs/confirmation_alert.dart';
 
 const String websiteHost = 'travel.gaetanschwartz.com';
 
-Future<void> shareRoute(BuildContext context, NavRoute route, int? i) async {
+Future<void> shareRoute(BuildContext context, NavRoute route, int i) async {
   final params = encodeRouteUri(Uri.parse(route.requestUrl!), i);
   print(params);
 
