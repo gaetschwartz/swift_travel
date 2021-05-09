@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/navigation/models/freezed/stop.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stationboard_connection.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 
@@ -25,7 +25,7 @@ class CustomStopConverter implements JsonConverter<Stop, Map<String, dynamic>?> 
   }
 
   static Stop customStopFromJson(Map<String, dynamic>? json) =>
-      json == null ? const CustomStop() : SbbStop.fromJson(json);
+      json == null ? const MockStop() : SbbStop.fromJson(json);
 }
 
 @freezed
