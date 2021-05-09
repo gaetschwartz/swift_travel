@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/navigation/models/freezed/stop.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/sncf/models/context.dart';
@@ -16,7 +16,7 @@ class SncfStationboard with _$SncfStationboard, StationBoard {
     required SncfContext context,
     required List<SncfDeparture> departures,
     SncfError? error,
-    @Default(CustomStop()) @JsonKey(ignore: true) Stop stop,
+    @Default(MockStop()) @JsonKey(ignore: true) Stop stop,
   }) = _SncfStationboard;
   const SncfStationboard._();
 

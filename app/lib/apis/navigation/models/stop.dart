@@ -1,8 +1,9 @@
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
-class CustomStop with BaseStop implements Stop {
-  const CustomStop();
+/// Mock Stop class. Only used as a placeholder.
+class MockStop with BaseStop implements Stop {
+  const MockStop();
 
   @override
   DateTime? get arrival => assertedReturn(null);
