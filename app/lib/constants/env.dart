@@ -12,6 +12,7 @@ class Env {
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
   static const cacheLinesInDebug = !kDebugMode && bool.fromEnvironment('CACHE_LINES_IN_DEBUG');
   static const enableLiveRoute = bool.fromEnvironment('ENABLE_LIVE_ROUTE');
+  static const enableAnimations = true;
 
   static bool boolean(String s) => bool.fromEnvironment(s);
   static String string(String s) => String.fromEnvironment(s);
