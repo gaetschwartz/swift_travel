@@ -69,5 +69,11 @@ class _InstantlyAnimatedWidgetState extends State<InstantlyAnimatedWidget>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => widget.builder(context, controller, widget.child);
 }

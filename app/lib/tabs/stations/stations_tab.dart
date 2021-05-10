@@ -194,26 +194,30 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                           Expanded(
                             child: ScrollablePositionedList.builder(
                               itemPositionsListener: itemPositionsListener,
-                              itemBuilder: (context, i) => IfWrapper(
-                                condition: Env.enableAnimations,
-                                builder: (context, child) => InstantlyAnimatedWidget(
-                                  delay: () {
-                                    final first = itemPositionsListener
-                                            .itemPositions.value.firstOrNull?.index ??
-                                        0;
-                                    return Duration(
-                                      milliseconds: 20 * (i - first),
-                                    );
-                                  },
-                                  builder: InstantlyAnimatedWidget.fadeScale,
-                                  start: 0.5,
-                                  child: child!,
-                                ),
-                                child: CompletionTile(
-                                  c.completions[i],
-                                  key: Key('stations-key-$i'),
-                                ),
-                              ),
+                              itemBuilder: (context, i) {
+                                final completion = c.completions[i];
+                                return IfWrapper(
+                                  key: ValueKey(completion),
+                                  condition: Env.enableAnimations,
+                                  builder: (context, child) => InstantlyAnimatedWidget(
+                                    delay: () {
+                                      final first = itemPositionsListener
+                                              .itemPositions.value.firstOrNull?.index ??
+                                          0;
+                                      return Duration(
+                                        milliseconds: 20 * (i - first),
+                                      );
+                                    },
+                                    builder: InstantlyAnimatedWidget.fadeScale,
+                                    start: 0.5,
+                                    child: child!,
+                                  ),
+                                  child: CompletionTile(
+                                    completion,
+                                    key: Key('stations-key-$i'),
+                                  ),
+                                );
+                              },
                               itemCount: c.completions.length,
                             ),
                           ),
