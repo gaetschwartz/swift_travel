@@ -2,12 +2,15 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/location/location.dart';
@@ -18,6 +21,7 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/complete.dart';
+import 'package:swift_travel/widgets/animated_widget.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:swift_travel/widgets/sbb_icon.dart';
@@ -169,81 +173,101 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
             ),
             const SizedBox(height: 8),
             Expanded(
-              child: Consumer(
-                  builder: (context, w, _) => w(_stateProvider).state.map(
-                        completions: (c) => Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: SizedBox(
-                                height: 4,
-                                child: Center(
-                                  child: Consumer(
-                                      builder: (context, w, _) => w(_loadingProvider).state
-                                          ? const LinearProgressIndicator()
-                                          : const SizedBox()),
-                                ),
+              child: Consumer(builder: (context, w, _) {
+                final itemPositionsListener = ItemPositionsListener.create();
+
+                return w(_stateProvider).state.map(
+                      completions: (c) => Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: SizedBox(
+                              height: 4,
+                              child: Center(
+                                child: Consumer(
+                                    builder: (context, w, _) => w(_loadingProvider).state
+                                        ? const LinearProgressIndicator()
+                                        : const SizedBox()),
                               ),
                             ),
-                            Expanded(
-                              child: ListView.builder(
-                                itemBuilder: (context, i) => CompletionTile(
+                          ),
+                          Expanded(
+                            child: ScrollablePositionedList.builder(
+                              itemPositionsListener: itemPositionsListener,
+                              itemBuilder: (context, i) => IfWrapper(
+                                condition: Env.enableAnimations,
+                                builder: (context, child) => InstantlyAnimatedWidget(
+                                  delay: () {
+                                    final first = itemPositionsListener
+                                            .itemPositions.value.firstOrNull?.index ??
+                                        0;
+                                    return Duration(
+                                      milliseconds: 20 * (i - first),
+                                    );
+                                  },
+                                  builder: InstantlyAnimatedWidget.fadeScale,
+                                  start: 0.5,
+                                  child: child!,
+                                ),
+                                child: CompletionTile(
                                   c.completions[i],
                                   key: Key('stations-key-$i'),
                                 ),
-                                itemCount: c.completions.length,
                               ),
+                              itemCount: c.completions.length,
                             ),
-                          ],
-                        ),
-                        empty: (_) => Consumer(
-                            builder: (context, w, _) => w(favoritesStatesProvider).state.map(
-                                  data: (c) => c.favorites.isEmpty
-                                      ? Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            const Text(
-                                              '🔎',
-                                              style: TextStyle(fontSize: 48),
-                                            ),
-                                            const SizedBox(height: 24),
-                                            Text(
-                                              'Search a station',
-                                              style: Theme.of(context).textTheme.headline6,
-                                              textAlign: TextAlign.center,
-                                            )
-                                          ],
-                                        )
-                                      : ListView.builder(
-                                          itemBuilder: (context, i) => CompletionTile(
-                                            SbbCompletion.fromFavorite(c.favorites[i]),
+                          ),
+                        ],
+                      ),
+                      empty: (_) => Consumer(
+                          builder: (context, w, _) => w(favoritesStatesProvider).state.map(
+                                data: (c) => c.favorites.isEmpty
+                                    ? Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            '🔎',
+                                            style: TextStyle(fontSize: 48),
                                           ),
-                                          itemCount: c.favorites.length,
+                                          const SizedBox(height: 24),
+                                          Text(
+                                            'Search a station',
+                                            style: Theme.of(context).textTheme.headline6,
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      )
+                                    : ListView.builder(
+                                        itemBuilder: (context, i) => CompletionTile(
+                                          SbbCompletion.fromFavorite(c.favorites[i]),
                                         ),
-                                  loading: (_) =>
-                                      const Center(child: CircularProgressIndicator.adaptive()),
-                                  exception: (e) => Center(
-                                    child: Text(
-                                      e.exception.toString(),
-                                      style: Theme.of(context).textTheme.headline6,
-                                    ),
+                                        itemCount: c.favorites.length,
+                                      ),
+                                loading: (_) =>
+                                    const Center(child: CircularProgressIndicator.adaptive()),
+                                exception: (e) => Center(
+                                  child: Text(
+                                    e.exception.toString(),
+                                    style: Theme.of(context).textTheme.headline6,
                                   ),
-                                )),
-                        network: (value) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const FaIcon(
-                              Icons.wifi_off,
-                              size: 48,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              'Network Error',
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                          ],
-                        ),
-                      )),
+                                ),
+                              )),
+                      network: (value) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            Icons.wifi_off,
+                            size: 48,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Network Error',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ],
+                      ),
+                    );
+              }),
             ),
           ],
         ),

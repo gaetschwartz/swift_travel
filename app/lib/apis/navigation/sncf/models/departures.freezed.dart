@@ -24,7 +24,7 @@ class _$SncfStationboardTearOff {
       {required SncfContext context,
       required List<SncfDeparture> departures,
       SncfError? error,
-      @JsonKey(ignore: true) Stop stop = const CustomStop()}) {
+      @JsonKey(ignore: true) Stop stop = const MockStop()}) {
     return _SncfStationboard(
       context: context,
       departures: departures,
@@ -192,7 +192,7 @@ class _$_SncfStationboard extends _SncfStationboard
       {required this.context,
       required this.departures,
       this.error,
-      @JsonKey(ignore: true) this.stop = const CustomStop()})
+      @JsonKey(ignore: true) this.stop = const MockStop()})
       : super._();
 
   factory _$_SncfStationboard.fromJson(Map<String, dynamic> json) =>
