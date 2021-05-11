@@ -9,7 +9,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 
 final liveRouteControllerProvider = ChangeNotifierProvider((r) => LiveRouteController());

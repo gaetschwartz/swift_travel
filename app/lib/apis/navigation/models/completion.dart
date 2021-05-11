@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 
 mixin Completion {
   String get label;
@@ -10,7 +9,7 @@ mixin Completion {
   Vehicle? get type;
   String? get favoriteName;
 
-  Widget getIcon({double? size}) => SbbIcon(type, size: size);
+  Widget getIcon({double? size});
 }
 
 enum DataOrigin {

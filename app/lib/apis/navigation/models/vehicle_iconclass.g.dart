@@ -6,14 +6,14 @@ part of 'vehicle_iconclass.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_VehicleIconclass _$_$_VehicleIconclassFromJson(Map<String, dynamic> json) {
-  return _$_VehicleIconclass(
+_$__VehicleIconclass _$_$__VehicleIconclassFromJson(Map<String, dynamic> json) {
+  return _$__VehicleIconclass(
     _$enumDecode(_$VehicleEnumMap, json['v']),
   );
 }
 
-Map<String, dynamic> _$_$_VehicleIconclassToJson(
-        _$_VehicleIconclass instance) =>
+Map<String, dynamic> _$_$__VehicleIconclassToJson(
+        _$__VehicleIconclass instance) =>
     <String, dynamic>{
       'v': _$VehicleEnumMap[instance.v],
     };
@@ -55,7 +55,7 @@ const _$VehicleEnumMap = {
   Vehicle.expressTrain: 'express_train',
   Vehicle.funicular: 'funicular',
   Vehicle.business: 'business',
-  Vehicle.adr: 'adr',
+  Vehicle.address: 'adr',
   Vehicle.private: 'private',
   Vehicle.gondola: 'gondola',
   Vehicle.cablecar: 'cablecar',

@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/cache.dart';
@@ -22,7 +23,6 @@ import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
@@ -41,15 +41,14 @@ class CompletionTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, Reader watch) {
-    final iconClass = sugg.getIcon();
-    final isPrivate = SbbIcon.isPrivate(sugg.type);
     final store = watch(storeProvider);
-    final favStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
+    final iconClass = sugg.getIcon();
+    final isPrivate = VehicleX.isAnAddress(sugg.type);
+
     final isFav = sugg.favoriteName != null;
-    final isFavInStore = favStop != null;
     final isDarwin = Responsive.isDarwin(context);
 
-    final children = [
+    final subtitle = [
       if (isFav) Text(sugg.label, overflow: TextOverflow.ellipsis),
       if (sugg.dist != null) Text('${sugg.dist!.round()}m'),
       if (!isPrivate)
@@ -58,7 +57,8 @@ class CompletionTile extends ConsumerWidget {
           key: Key(sugg.label),
         )
     ];
-    final Widget listTile = DecoratedBox(
+
+    final listTile = DecoratedBox(
       decoration: BoxDecoration(
         boxShadow: shadowListOf(context),
         color: Theme.of(context).cardColor,
@@ -78,15 +78,18 @@ class CompletionTile extends ConsumerWidget {
           ],
         ),
         title: Text(isFav ? sugg.favoriteName! : sugg.label),
-        subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: children),
-        isThreeLine: children.length > 1,
-        onLongPress: () => more(context, isFav: isFavInStore, favoriteStop: favStop, store: store),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: subtitle,
+        ),
+        isThreeLine: subtitle.length > 1,
+        onLongPress: () => more(context, store: store),
         trailing: isPrivate
             ? IconButton(
                 icon: const Icon(Icons.more_horiz),
                 onPressed: () {
                   Vibration.select();
-                  more(context, favoriteStop: favStop, isFav: isFavInStore, store: store);
+                  more(context, store: store);
                 })
             : const Icon(CupertinoIcons.chevron_forward),
         onTap: isPrivate
@@ -117,10 +120,11 @@ class CompletionTile extends ConsumerWidget {
 
   Future<void> more(
     BuildContext context, {
-    required bool isFav,
-    required FavoriteStop? favoriteStop,
     required BaseFavoritesStore store,
   }) async {
+    final favoriteStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
+    final isFav = favoriteStop != null;
+
     FocusManager.instance.primaryFocus?.unfocus();
     unawaited(Vibration.select());
     final c = await showActionSheet<_Actions>(

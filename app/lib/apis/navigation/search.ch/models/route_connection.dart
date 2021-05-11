@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/disruption.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 
+import 'disruption.dart';
+import 'exit.dart';
 import 'leg.dart';
 
 part 'route_connection.freezed.dart';

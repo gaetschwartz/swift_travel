@@ -1,4 +1,4 @@
-import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
 mixin StationBoard {
@@ -12,12 +12,10 @@ mixin StationBoard {
 mixin BaseStop {
   String get name;
   String? get id;
-  String get displayName => name.split('@').first;
+  String get displayName;
 }
 
-abstract class Stop with BaseStop, WithTimeMixin, LocatedMixin, ToJsonMixin {}
-
-mixin ToJsonMixin {}
+abstract class Stop with BaseStop, WithTimeMixin, LocatedMixin {}
 
 mixin WithTimeMixin {
   DateTime? get departure;

@@ -25,4 +25,7 @@ class MockStop with BaseStop implements Stop {
         "This class's fields are not meant to be accessed, it is only used as a placeholder");
     return val;
   }
+
+  @override
+  String get displayName => assertedReturn('');
 }

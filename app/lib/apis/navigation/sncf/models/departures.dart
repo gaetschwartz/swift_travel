@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/stop.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/sncf/models/context.dart';
 
 part 'departures.freezed.dart';

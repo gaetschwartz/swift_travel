@@ -151,7 +151,7 @@ const _$VehicleEnumMap = {
   Vehicle.expressTrain: 'express_train',
   Vehicle.funicular: 'funicular',
   Vehicle.business: 'business',
-  Vehicle.adr: 'adr',
+  Vehicle.address: 'adr',
   Vehicle.private: 'private',
   Vehicle.gondola: 'gondola',
   Vehicle.cablecar: 'cablecar',

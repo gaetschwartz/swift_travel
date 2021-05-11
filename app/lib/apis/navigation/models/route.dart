@@ -1,4 +1,4 @@
-import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
 import 'stationboard.dart';

@@ -1,7 +1,8 @@
 // ignore_for_file: unused_element
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/widgets/sbb_icon.dart';
 
@@ -32,4 +33,7 @@ class SbbCompletion with _$SbbCompletion, Completion {
 
   @override
   late final Vehicle? type = SbbIcon.getVehicle(iconClass);
+
+  @override
+  Widget getIcon({double? size}) => SbbIcon(type, size: size);
 }

@@ -1,13 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
+
+import 'base.dart';
+import 'exit.dart';
 
 part 'subsequent_stop.freezed.dart';
 part 'subsequent_stop.g.dart';
 
 @freezed
-class SbbSubsequentStop with _$SbbSubsequentStop, BaseStop implements DelayedStop {
+class SbbSubsequentStop
+    with _$SbbSubsequentStop, BaseStop, SbbDisplayNameMixin
+    implements DelayedStop {
   factory SbbSubsequentStop({
     required String name,
     @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)

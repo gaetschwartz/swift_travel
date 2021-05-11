@@ -1,9 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/subsequent_stop.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
+
+import 'exit.dart';
+import 'stop.dart';
+import 'subsequent_stop.dart';
 
 part 'stationboard_connection.freezed.dart';
 part 'stationboard_connection.g.dart';

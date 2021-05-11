@@ -4,6 +4,8 @@ import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
+import 'base.dart';
+
 part 'stop.freezed.dart';
 part 'stop.g.dart';
 
@@ -41,7 +43,7 @@ class IntConverter implements JsonConverter<int?, Object?> {
 }
 
 @freezed
-class SbbStop with _$SbbStop, BaseStop implements Stop {
+class SbbStop with _$SbbStop, BaseStop, SbbDisplayNameMixin implements Stop {
   @JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
   const factory SbbStop(
     String name, {
