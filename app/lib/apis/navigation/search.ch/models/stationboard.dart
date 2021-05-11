@@ -1,8 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/stop.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stationboard_connection.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+
+import 'stationboard_connection.dart';
+import 'stop.dart';
 
 part 'stationboard.freezed.dart';
 part 'stationboard.g.dart';

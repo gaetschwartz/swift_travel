@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 
 class SbbIcon extends StatelessWidget {
   const SbbIcon(
@@ -47,7 +47,7 @@ class SbbIcon extends StatelessWidget {
         return const FaIcon(FontAwesomeIcons.train);
       case Vehicle.business:
         return const FaIcon(FontAwesomeIcons.store);
-      case Vehicle.adr:
+      case Vehicle.address:
         return const FaIcon(FontAwesomeIcons.home);
       case Vehicle.private:
         return const FaIcon(FontAwesomeIcons.building);
@@ -62,10 +62,6 @@ class SbbIcon extends StatelessWidget {
         return const FaIcon(FontAwesomeIcons.question);
     }
   }
-
-  static const List<Vehicle> _privatePlaces = [Vehicle.adr, Vehicle.business, Vehicle.private];
-
-  static bool isPrivate(Vehicle? s) => s != null && _privatePlaces.contains(s);
 
   @override
   Widget build(BuildContext context) => IconTheme(

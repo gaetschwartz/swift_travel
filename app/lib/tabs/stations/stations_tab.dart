@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/store.dart';
@@ -24,7 +25,6 @@ import 'package:swift_travel/utils/predict/complete.dart';
 import 'package:swift_travel/widgets/animated_widget.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
 import 'package:vibration/vibration.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
@@ -303,7 +303,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
       final first = completions.first;
       if (first.dist != null) {
-        final public = completions.where((c) => !SbbIcon.isPrivate(c.type));
+        final public = completions.where((c) => !VehicleX.isAnAddress(c.type));
         context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log('Found : ${public.first}');

@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
+
+import 'route_connection.dart';
 
 part 'route.freezed.dart';
 part 'route.g.dart';

@@ -3,6 +3,7 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/base.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 
@@ -84,7 +85,7 @@ class LocalRoute with _$LocalRoute {
 }
 
 @freezed
-class FavoriteStop with _$FavoriteStop, BaseStop {
+class FavoriteStop with _$FavoriteStop, BaseStop, SbbDisplayNameMixin {
   @JsonSerializable(includeIfNull: false)
   const factory FavoriteStop({
     required String stop,
