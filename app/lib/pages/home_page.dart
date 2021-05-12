@@ -200,87 +200,109 @@ class SwiftNavigationBar extends StatelessWidget {
   static const height = 64.0;
 
   @override
-  Widget build(BuildContext context) => DecoratedBox(
-        decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          boxShadow: [
-            BoxShadow(
-              color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey).withAlpha(24),
-              blurRadius: 32,
-            )
-          ],
-        ),
-        child: Material(
-          child: SafeArea(
-            child: SizedBox(
-              height: height,
-              child: Row(
-                children: [
-                  for (var i = 0; i < items.length; i++) buildInkWell(i, context),
-                ],
-              ),
+  Widget build(BuildContext context) {
+    final _activeColor = activeColor ?? Theme.of(context).colorScheme.secondary;
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        boxShadow: [
+          BoxShadow(
+            color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey).withAlpha(24),
+            blurRadius: 32,
+          )
+        ],
+      ),
+      child: Material(
+        child: SafeArea(
+          child: SizedBox(
+            height: height,
+            child: Row(
+              children: [
+                for (var i = 0; i < items.length; i++)
+                  _TabWidget(
+                    controllers: controllers,
+                    page: page,
+                    item: items[i],
+                    i: i,
+                    activeColor: _activeColor,
+                  ),
+              ],
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
+}
 
-  Expanded buildInkWell(int i, BuildContext context) {
-    final item = items[i];
-    final isCurrent = page == i;
-    final _activeColor = activeColor ?? Theme.of(context).colorScheme.secondary;
-    return Expanded(
-        child: DefaultTextStyle(
-      style: isCurrent
-          ? Theme.of(context).textTheme.bodyText2!.copyWith(color: _activeColor)
-          : Theme.of(context).textTheme.bodyText2!,
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2),
-          child: InkWell(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            onTap: () => onTap(i, context),
-            splashColor: Theme.of(context).primaryColor.withAlpha(32),
-            child: SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    if (i != page)
-                      item.icon
-                    else
-                      GradientMask(
-                        gradient: LinearGradient(
-                          colors: [
-                            _activeColor,
-                            augment2(_activeColor, strength: 0.3),
-                          ],
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
+class _TabWidget extends StatelessWidget {
+  const _TabWidget({
+    required this.page,
+    required this.controllers,
+    required this.item,
+    required this.i,
+    required this.activeColor,
+    Key? key,
+  }) : super(key: key);
+
+  final int page;
+  final CupertinoTabController controllers;
+  final BottomNavigationBarItem item;
+  final int i;
+  final Color activeColor;
+
+  @override
+  Widget build(BuildContext context) => Expanded(
+          child: DefaultTextStyle(
+        style: page == i
+            ? Theme.of(context).textTheme.bodyText2!.copyWith(color: activeColor)
+            : Theme.of(context).textTheme.bodyText2!,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2),
+            child: InkWell(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              onTap: () {
+                Vibration.selectSoft();
+                if (controllers.index != i) {
+                  controllers.index = i;
+                } else {
+                  navigatorKeys[i].currentState?.popUntil((route) => route.isFirst);
+                  context.read(sideTabBarProvider).state = null;
+                }
+              },
+              splashColor: Theme.of(context).primaryColor.withAlpha(32),
+              child: SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      if (i != page)
+                        item.icon
+                      else
+                        GradientMask(
+                          gradient: LinearGradient(
+                            colors: [
+                              activeColor,
+                              augment2(activeColor, strength: 0.3),
+                            ],
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                          ),
+                          child: item.activeIcon,
                         ),
-                        child: item.activeIcon,
-                      ),
-                    if (item.label != null) Text(item.label!),
-                  ],
+                      if (item.label != null) Text(item.label!),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    ));
-  }
-
-  void onTap(int i, BuildContext context) {
-    Vibration.selectSoft();
-    if (controllers.index != i) {
-      controllers.index = i;
-    } else {
-      navigatorKeys[i].currentState?.popUntil((route) => route.isFirst);
-      context.read(sideTabBarProvider).state = null;
-    }
-  }
+      ));
 }
 
 class _SideBar extends StatelessWidget {

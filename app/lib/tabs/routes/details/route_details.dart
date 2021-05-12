@@ -15,6 +15,7 @@ import 'package:swift_travel/tabs/routes/details/tiles/transport/transport_tile.
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/share.dart';
 import 'package:swift_travel/utils/strings/format.dart';
+import 'package:swift_travel/utils/strings/strings.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:vibration/vibration.dart';
@@ -68,7 +69,7 @@ class RouteDetails extends StatelessWidget {
                         ),
                       ]),
                 SliverSafeArea(
-                  sliver: SliverToBoxAdapter(child: buildHeader(context, conn)),
+                  sliver: SliverToBoxAdapter(child: _Header(conn)),
                   bottom: false,
                   top: platform == PlatformDesign.cupertino,
                 ),
@@ -113,20 +114,33 @@ class RouteDetails extends StatelessWidget {
     );
   }
 
-  String _format(String place) {
-    final i = place.indexOf('@');
-    if (i == -1) {
-      return place;
-    }
-    return place.substring(0, i);
-  }
-
   PreferredSize buildPreferred(BuildContext context, RouteConnection c, Size size) => PreferredSize(
         preferredSize: size,
-        child: SizedBox.fromSize(size: size, child: buildHeader(context, c)),
+        child: SizedBox.fromSize(size: size, child: _Header(c)),
       );
 
-  Widget buildHeader(BuildContext context, RouteConnection c) => Column(
+  void _shareRoute(BuildContext context) {
+    Vibration.select();
+    shareRoute(context, route!, i);
+  }
+
+  void openLive(BuildContext context, RouteConnection c) {
+    Vibration.select();
+    Navigator.of(context)
+        .push<void>(MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c)));
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header(
+    this.c, {
+    Key? key,
+  }) : super(key: key);
+
+  final RouteConnection c;
+
+  @override
+  Widget build(BuildContext context) => Column(
         children: [
           const SizedBox(height: 8),
           DefaultTextStyle(
@@ -136,8 +150,8 @@ class RouteDetails extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _dataRow(AppLoc.of(context).departure, _format(c.from)),
-                  _dataRow(AppLoc.of(context).destination, _format(c.to)),
+                  _DataRow(AppLoc.of(context).departure, c.from.stripAt()),
+                  _DataRow(AppLoc.of(context).destination, c.to.stripAt()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -165,22 +179,23 @@ class RouteDetails extends StatelessWidget {
           const Divider(height: 8),
         ],
       );
+}
 
-  void _shareRoute(BuildContext context) {
-    Vibration.select();
-    shareRoute(context, route!, i);
-  }
+class _DataRow extends StatelessWidget {
+  const _DataRow(
+    this.title,
+    this.text, {
+    Key? key,
+  }) : super(key: key);
 
-  void openLive(BuildContext context, RouteConnection c) {
-    Vibration.select();
-    Navigator.of(context)
-        .push<void>(MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c)));
-  }
+  final String title;
+  final String text;
 
-  Widget _dataRow(String key, String text) => Row(
+  @override
+  Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(key),
+          Text(title),
           const SizedBox(width: 8),
           Expanded(
               child: Align(
