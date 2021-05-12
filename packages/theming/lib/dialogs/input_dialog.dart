@@ -214,7 +214,7 @@ class __TextInputDialogState extends State<_TextInputDialog> {
                 style: Theme.of(context)
                     .textTheme
                     .button!
-                    .copyWith(color: Theme.of(context).accentColor),
+                    .copyWith(color: Theme.of(context).colorScheme.secondary),
                 child: widget.submit),
           )
         ],

@@ -331,7 +331,7 @@ class DynamicThemeData extends ChangeNotifier {
 
 extension ThemeDataX on ThemeData {
   CupertinoThemeData toCupertino() =>
-      CupertinoThemeData(brightness: brightness, primaryColor: accentColor);
+      CupertinoThemeData(brightness: brightness, primaryColor: colorScheme.secondary);
 }
 
 typedef ApplyTo<T> = T Function(T);

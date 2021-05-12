@@ -227,7 +227,7 @@ class SwiftNavigationBar extends StatelessWidget {
   Expanded buildInkWell(int i, BuildContext context) {
     final item = items[i];
     final isCurrent = page == i;
-    final _activeColor = activeColor ?? Theme.of(context).accentColor;
+    final _activeColor = activeColor ?? Theme.of(context).colorScheme.secondary;
     return Expanded(
         child: DefaultTextStyle(
       style: isCurrent
