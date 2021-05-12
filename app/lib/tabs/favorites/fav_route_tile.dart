@@ -46,12 +46,13 @@ class FavoriteRouteTile extends StatelessWidget {
       );
 
   Future<void> rename(BuildContext context) async {
-    final s = await input(context, title: Text('How to rename "${route.displayName}" ?'));
-    if (s == null) {
+    final displayName = await input(context, title: Text('How to rename "${route.displayName}" ?'));
+    if (displayName == null) {
       return;
     }
     final store = context.read(storeProvider);
-    await store.editRoute(route, route.copyWith(displayName: s));
+    await store.removeRoute(route);
+    await store.addRoute(route.copyWith(displayName: displayName));
     return;
   }
 

@@ -372,11 +372,6 @@ class MockFavoriteStore implements BaseFavoritesStore {
   void dispose() {}
 
   @override
-  Future<void> editRoute(LocalRoute oldRoute, LocalRoute route) {
-    throw UnimplementedError();
-  }
-
-  @override
   bool get hasListeners => throw UnimplementedError();
 
   @override
