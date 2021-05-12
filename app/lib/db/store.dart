@@ -19,7 +19,6 @@ abstract class BaseFavoritesStore extends ChangeNotifier {
   Future<void> removeStop(FavoriteStop favoriteStop);
   Future<void> addRoute(LocalRoute route);
   Future<void> removeRoute(LocalRoute route);
-  Future<void> editRoute(LocalRoute oldRoute, LocalRoute route);
 
   Iterable<LocalRoute> get routes;
   Iterable<FavoriteStop> get stops;
@@ -73,16 +72,16 @@ class HiveFavoritesStore extends BaseFavoritesStore {
   @override
   Iterable<FavoriteStop> get stops => favStopsDb.stops;
 
-  @override
-  Future<void> editRoute(LocalRoute oldRoute, LocalRoute route) async {
-    await favRoutesDb.hashDelete(oldRoute);
-    await favRoutesDb.hashAdd(route);
-    notify();
-  }
-
   void notify() {
     notifyListeners();
     MyQuickActions.i.setActions(favRoutesDb.routes, favStopsDb.stops);
+  }
+
+  @override
+  Future<void> dispose() async {
+    await favRoutesDb.close();
+    await favStopsDb.close();
+    super.dispose();
   }
 }
 
@@ -134,7 +133,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
   final Set<FavoriteStop> _stops = {};
 
   SharedPreferences? _prefs;
-  Set<LocalRoute> _routes = {};
+  final Set<LocalRoute> _routes = {};
 
   @override
   Set<LocalRoute> get routes => _routes;
@@ -243,9 +242,8 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
     }
   }
 
-  @override
   Future<void> editRoute(LocalRoute oldRoute, LocalRoute route) async {
-    _routes = _routes
+    _routes
       ..remove(oldRoute)
       ..add(route);
     await sync();
