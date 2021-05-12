@@ -230,7 +230,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
       final l = _cache
           .get(widget.compl.label)
           .lines
-          .map(buildLine)
+          .map(_LineIcon.line)
           .take(numberOfLines + 1)
           .toList(growable: false);
       if (mounted) {
@@ -276,7 +276,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
           .toSet()
           .take(numberOfLines + 1);
 
-      final l2 = l.map(buildLine).toList(growable: false);
+      final l2 = l.map(_LineIcon.line).toList(growable: false);
 
       if (mounted) {
         setState(() => lines = l2);
@@ -308,8 +308,21 @@ class __LinesWidgetState extends State<_LinesWidget> {
       await _cache.put(widget.compl.label, entry);
     }
   }
+}
 
-  Widget buildLine(Line l) => Padding(
+class _LineIcon extends StatelessWidget {
+  const _LineIcon(
+    this.l, {
+    Key? key,
+  }) : super(key: key);
+
+  // ignore: prefer_constructors_over_static_methods
+  static _LineIcon line(Line l) => _LineIcon(l);
+
+  final Line l;
+
+  @override
+  Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 1),
         child: LineIcon.fromLine(l, small: true),
       );

@@ -345,7 +345,48 @@ class SuggestedTile extends StatelessWidget {
   final Completion suggestion;
   final ValueChanged<Completion>? onTap;
 
-  Widget buildIcon(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    final isLoading = suggestion.origin == DataOrigin.loading;
+    return IfWrapper(
+      condition: isLoading,
+      builder: (context, child) => Shimmer.fromColors(
+        baseColor: Colors.grey,
+        highlightColor: Colors.white,
+        child: child!,
+      ),
+      child: ListTile(
+        onTap: isLoading ? null : () => onTap?.call(suggestion),
+        leading: _SuggestedTileIcon(suggestion: suggestion),
+        horizontalTitleGap: 8,
+        title: isLoading
+            ? Text(
+                suggestion.label,
+                style: const TextStyle(backgroundColor: Colors.black, color: Colors.transparent),
+              )
+            : Text(suggestion.favoriteName ?? suggestion.label),
+        subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
+        trailing: suggestion.favoriteName != null
+            ? (Responsive.isDarwin(context)
+                ? const Icon(CupertinoIcons.heart_fill)
+                : const Icon(Icons.star))
+            : null,
+        dense: true,
+      ),
+    );
+  }
+}
+
+class _SuggestedTileIcon extends StatelessWidget {
+  const _SuggestedTileIcon({
+    required this.suggestion,
+    Key? key,
+  }) : super(key: key);
+
+  final Completion suggestion;
+
+  @override
+  Widget build(BuildContext context) {
     switch (suggestion.origin) {
       case DataOrigin.favorites:
         return Icon(
@@ -380,36 +421,5 @@ class SuggestedTile extends StatelessWidget {
           color: IconTheme.of(context).color,
         );
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final isLoading = suggestion.origin == DataOrigin.loading;
-    return IfWrapper(
-      condition: isLoading,
-      builder: (context, child) => Shimmer.fromColors(
-        baseColor: Colors.grey,
-        highlightColor: Colors.white,
-        child: child!,
-      ),
-      child: ListTile(
-        onTap: isLoading ? null : () => onTap?.call(suggestion),
-        leading: buildIcon(context),
-        horizontalTitleGap: 8,
-        title: isLoading
-            ? Text(
-                suggestion.label,
-                style: const TextStyle(backgroundColor: Colors.black, color: Colors.transparent),
-              )
-            : Text(suggestion.favoriteName ?? suggestion.label),
-        subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
-        trailing: suggestion.favoriteName != null
-            ? (Responsive.isDarwin(context)
-                ? const Icon(CupertinoIcons.heart_fill)
-                : const Icon(Icons.star))
-            : null,
-        dense: true,
-      ),
-    );
   }
 }

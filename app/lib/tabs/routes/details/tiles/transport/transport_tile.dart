@@ -58,7 +58,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                   Expanded(
                     child: Column(
                       children: [
-                        buildHeader(),
+                        _Header(widget.l),
                         buildCollapsed(context),
                       ],
                     ),
@@ -211,21 +211,28 @@ class _TransportLegTileState extends State<TransportLegTile> {
             ),
         ],
       ));
+}
 
-  Widget buildHeader() => Column(
+class _Header extends StatelessWidget {
+  const _Header(
+    this.l, {
+    Key? key,
+  }) : super(key: key);
+
+  final Leg l;
+
+  @override
+  Widget build(BuildContext context) => Column(
         children: [
           Row(
             children: <Widget>[
-              if (LineIcon.isValidLeg(widget.l))
-                LineIcon.fromLeg(widget.l)
-              else
-                SbbIcon(widget.l.type),
+              if (LineIcon.isValidLeg(l)) LineIcon.fromLeg(l) else SbbIcon(l.type),
               const SizedBox(width: 8),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.l.terminal!,
+                    l.terminal!,
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1!
@@ -233,9 +240,9 @@ class _TransportLegTileState extends State<TransportLegTile> {
                   ),
                 ),
               ),
-              if (widget.l.track != null)
+              if (l.track != null)
                 Text(
-                  'Pl. ${widget.l.track}',
+                  'Pl. ${l.track}',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
             ],

@@ -28,18 +28,16 @@ Future<T?> showActionSheet<T>(
                   title: title,
                   message: message,
                   actions: actions
-                      .map((a) => _buildListTile<T>(
-                            context,
+                      .map((a) => _Tile<T>(
                             a,
-                            true,
+                            isDarwin: true,
                           ))
                       .toList(growable: false),
                   cancelButton: cancel == null
                       ? null
-                      : _buildListTile<T>(
-                          context,
+                      : _Tile<T>(
                           cancel,
-                          true,
+                          isDarwin: true,
                         ),
                 ),
               ))
@@ -81,19 +79,17 @@ Future<T?> showChoiceSheet<T>(
                   title: title,
                   message: message,
                   actions: actions
-                      .map((a) => _buildListTile<T>(
-                            context,
+                      .map((a) => _Tile<T>(
                             a,
-                            true,
+                            isDarwin: true,
                             isSelected: defaultValue == a.value,
                           ))
                       .toList(growable: false),
                   cancelButton: cancel == null
                       ? null
-                      : _buildListTile<T>(
-                          context,
+                      : _Tile<T>(
                           cancel,
-                          true,
+                          isDarwin: true,
                         ),
                 ),
               ))
@@ -135,24 +131,32 @@ class ActionsSheetAction<T> {
   final T? value;
 }
 
-Widget _buildListTile<T>(
-  BuildContext context,
-  ActionsSheetAction<T> a,
-  bool isDarwin, {
-  bool isSelected = false,
-}) =>
-    CupertinoActionSheetAction(
-      onPressed: () async {
-        Navigator.of(context).pop<T>(a.value);
-        a.onPressed?.call();
-      },
-      isDefaultAction: isSelected || a.isDefault,
-      isDestructiveAction: a.isDestructive,
-      child: PlatformBuilder(
-          cupertinoBuilder: (_, child) => child!,
-          materialBuilder: (_, child) => child!,
-          child: a.title),
-    );
+class _Tile<T> extends StatelessWidget {
+  const _Tile(
+    this.a, {
+    required this.isDarwin,
+    this.isSelected = false,
+    Key? key,
+  }) : super(key: key);
+
+  final ActionsSheetAction<T> a;
+  final bool isDarwin;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) => CupertinoActionSheetAction(
+        onPressed: () async {
+          Navigator.of(context).pop<T>(a.value);
+          a.onPressed?.call();
+        },
+        isDefaultAction: isSelected || a.isDefault,
+        isDestructiveAction: a.isDestructive,
+        child: PlatformBuilder(
+            cupertinoBuilder: (_, child) => child!,
+            materialBuilder: (_, child) => child!,
+            child: a.title),
+      );
+}
 
 class ActionsSheet<T> extends StatelessWidget {
   const ActionsSheet({
@@ -173,7 +177,7 @@ class ActionsSheet<T> extends StatelessWidget {
   Iterable<Widget> buildChildren(BuildContext context) sync* {
     for (var i = 0; i < actions.length; i++) {
       final a = actions[i];
-      yield _buildListTile<T>(context, a, false, isSelected: a.value == defaultValue);
+      yield _Tile<T>(a, isDarwin: false, isSelected: a.value == defaultValue);
       if (i < actions.length - 1) {
         yield const Divider(height: 0, indent: 8, endIndent: 8);
       }
@@ -223,10 +227,9 @@ class ActionsSheet<T> extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 8, right: 8, left: 8),
               child: Material(
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  child: _buildListTile(
-                    context,
+                  child: _Tile(
                     cancel!,
-                    false,
+                    isDarwin: false,
                   )),
             )
         ],
