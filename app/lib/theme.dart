@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:theming/dynamic_theme.dart';
 
 List<BoxShadow> shadowListOf(BuildContext context) =>
-    ShadowTheme.of(context).list((s) => [s.buttonShadow]);
+    ShadowTheme.of(context).shadows((s) => [s.buttonShadow]);
 
 final MaterialColor purpleAbin = createMaterialColor(const Color(0xffcbaacb));
 final MaterialColor blueAbin = createMaterialColor(const Color(0xffabdee6));
@@ -23,13 +23,18 @@ const darkShadow = ShadowTheme(
 );
 
 const List<Font> fonts = [
+  Font('Montserrat', GoogleFonts.montserratTextTheme),
   Font('Lexend', GoogleFonts.lexendDecaTextTheme),
   Font('Muli', GoogleFonts.muliTextTheme),
   Font('Open Sans', GoogleFonts.openSansTextTheme),
   Font('IBM Plex Mono', GoogleFonts.ibmPlexMonoTextTheme),
-  Font('Source Sans Pro', GoogleFonts.sourceSansProTextTheme),
   Font('Cardo', GoogleFonts.cardoTextTheme),
   Font('QuickSand', GoogleFonts.quicksandTextTheme),
+  Font('Raleway', GoogleFonts.ralewayTextTheme),
+  Font('Lato', GoogleFonts.latoTextTheme),
+  Font('Source Sans Pro', GoogleFonts.sourceSansProTextTheme),
+  Font('Poppins', GoogleFonts.poppinsTextTheme),
+  Font('Ubuntu', GoogleFonts.ubuntuTextTheme),
 ];
 
 const _light = ColorScheme.light();
