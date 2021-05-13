@@ -11,7 +11,7 @@ class ShadowTheme with _$ShadowTheme {
   const factory ShadowTheme({BoxShadow? buttonShadow}) = _ShadowTheme;
   const ShadowTheme._();
 
-  List<BoxShadow> list(Iterable<BoxShadow?> Function(ShadowTheme s) shadows) =>
+  List<BoxShadow> shadows(Iterable<BoxShadow?> Function(ShadowTheme s) shadows) =>
       shadows(this).whereNotNull().toList();
 
   static ShadowTheme of(BuildContext context, {bool listen = true}) {
