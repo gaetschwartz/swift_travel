@@ -25,7 +25,7 @@ const darkShadow = ShadowTheme(
 const List<Font> fonts = [
   Font('Montserrat', GoogleFonts.montserratTextTheme),
   Font('Lexend', GoogleFonts.lexendDecaTextTheme),
-  Font('Muli', GoogleFonts.muliTextTheme),
+  Font('Muli', GoogleFonts.mulishTextTheme),
   Font('Open Sans', GoogleFonts.openSansTextTheme),
   Font('IBM Plex Mono', GoogleFonts.ibmPlexMonoTextTheme),
   Font('Cardo', GoogleFonts.cardoTextTheme),
