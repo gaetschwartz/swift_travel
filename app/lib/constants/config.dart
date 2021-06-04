@@ -8,9 +8,13 @@ part 'config.freezed.dart';
 part 'config.g.dart';
 
 final configProvider = FutureProvider<Config>((ref) async {
-  final string = await rootBundle.loadString('assets/config.json');
-  final json = jsonDecode(string) as Map;
-  return Config.fromJson(json as Map<String, dynamic>);
+  const key = 'assets/config.json';
+  final content = await rootBundle.loadString(key);
+  if (content.isEmpty) {
+    throw Exception("Config file provided at $key is empty.");
+  }
+  final json = jsonDecode(content) as Map<String, dynamic>;
+  return Config.fromJson(json);
 });
 
 @freezed
