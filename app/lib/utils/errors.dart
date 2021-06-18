@@ -11,6 +11,8 @@ import 'package:vibration/vibration.dart';
 
 const _doShowSnackbars = !kDebugMode || Env.doShowErrors;
 
+void ignoreError() {}
+
 void reportDartError(Object e, StackTrace? s,
     {String library = '', String reason = '', bool showSnackbar = true}) {
   print('Caught an error: ');

@@ -1,0 +1,15 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  strong-mode:
+    implicit-dynamic: false
+    implicit-casts: false
+  errors:
+    included_file_warning: ignore
+
+linter:
+  rules:
+    avoid_print: false
