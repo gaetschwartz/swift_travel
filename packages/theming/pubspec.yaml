@@ -20,6 +20,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.0.4
   freezed: ^0.14.0
+  flutter_lints: ^1.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

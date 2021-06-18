@@ -42,7 +42,6 @@ dependencies:
   modal_bottom_sheet: ^2.0.0
   octo_image: ^1.0.0-nullsafety.1
   path_provider: ^2.0.0
-  pedantic: ^1.10.0
   process_run: ^0.12.0
   quick_actions: ^0.6.0
   share: ^2.0.0
@@ -64,6 +63,7 @@ dev_dependencies:
   json_serializable: ^4.0.0-nullsafety.0
   lint: ^1.1.1
   mockito: ^5.0.0-nullsafety.1
+  flutter_lints: ^1.0.3
 
 flutter:
   uses-material-design: true

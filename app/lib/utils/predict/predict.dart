@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:swift_travel/models/favorites.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
@@ -29,7 +30,9 @@ Future<RoutePrediction> predictRoute(
   try {
     final computed = await compute(_predictRouteSimple, full.toJson());
     return RoutePrediction.fromJson(computed);
-  } on Exception {}
+  } on Exception {
+    ignoreError();
+  }
   return RoutePrediction.empty(arguments);
 }
 

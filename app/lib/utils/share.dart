@@ -6,6 +6,8 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 
+import 'errors.dart';
+
 const String websiteHost = 'travel.gaetanschwartz.com';
 
 Future<void> shareRoute(BuildContext context, NavRoute route, int i) async {
@@ -27,6 +29,8 @@ Future<void> shareRoute(BuildContext context, NavRoute route, int i) async {
   } else {
     try {
       await Share.share(sharedUri.toString());
-    } on MissingPluginException {}
+    } on MissingPluginException {
+      ignoreError();
+    }
   }
 }
