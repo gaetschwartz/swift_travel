@@ -421,17 +421,15 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations _lookupAppLocalizations(Locale locale) {
-  
 
 
-// Lookup logic when only language code is specified.
-switch (locale.languageCode) {
-  case 'de': return AppLocalizationsDe();
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'de': return AppLocalizationsDe();
     case 'en': return AppLocalizationsEn();
     case 'fr': return AppLocalizationsFr();
     case 'it': return AppLocalizationsIt();
-}
-
+  }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
