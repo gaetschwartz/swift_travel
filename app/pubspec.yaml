@@ -21,13 +21,13 @@ dependencies:
   android_intent: ^2.0.0
   animations: ^2.0.0
   async: ^2.4.2
+  # bitsdojo_window: ^0.1.1+1
   collection: ^1.15.0
   cupertino_icons: ^1.0.0
   file: ^6.0.0
   firebase_core: ^1.0.0
   firebase_crashlytics: ^2.0.0
   flex_color_scheme: ^2.0.0
-  #fluentui_system_icons: ^1.1.109
   flutter_hooks: ^0.17.0
   flutter_riverpod: ^0.14.0+1
   flutter_slidable: ^0.6.0-nullsafety.0
@@ -44,26 +44,26 @@ dependencies:
   path_provider: ^2.0.0
   process_run: ^0.12.0
   quick_actions: ^0.6.0
+  scrollable_positioned_list: ^0.2.0-nullsafety.0
   share: ^2.0.0
   shared_preferences: ^2.0.0
   shimmer: ^2.0.0-nullsafety.0
   url_launcher: ^6.0.0
   url_strategy: ^0.2.0
-  scrollable_positioned_list: ^0.2.0-nullsafety.0
 
 dev_dependencies:
-  integration_test:
+  flutter_driver:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  flutter_driver:
+  integration_test:
     sdk: flutter
   build_runner: ^2.0.1
+  flutter_lints: ^1.0.3
   freezed: ^0.14.0-nullsafety.0
   json_serializable: ^4.0.0-nullsafety.0
   lint: ^1.1.1
   mockito: ^5.0.0-nullsafety.1
-  flutter_lints: ^1.0.3
 
 flutter:
   uses-material-design: true
