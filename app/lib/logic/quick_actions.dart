@@ -22,7 +22,7 @@ class MyQuickActions {
   void init() {
     log('Initialize', name: 'QuickActions');
     try {
-      QuickActions().initialize(_init);
+      const QuickActions().initialize(_init);
     } on MissingPluginException {
       log('Unsupported for now on $platform');
       _debugInitialized = true;
@@ -86,7 +86,7 @@ class MyQuickActions {
       ));
     }
     try {
-      await QuickActions().setShortcutItems(shortcuts);
+      await const QuickActions().setShortcutItems(shortcuts);
     } on MissingPluginException catch (e, s) {
       log('Unsupported for now on $platform', stackTrace: s);
     }
