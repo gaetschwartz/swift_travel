@@ -43,19 +43,17 @@ const _dark = ColorScheme.dark();
 final ThemeConfiguration themeConfiguration = ThemeConfiguration(
   fonts: fonts,
   defaultFont: fonts.first,
-  applyToAllThemes: (t) => t.copyWith(fixTextFieldOutlineLabel: true),
   defaultTheme: 'default',
   themes: {
     'default': FullTheme(
       name: 'Swift',
       light: _light,
       applyToLight: (theme) => theme.copyWith(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: Colors.white,
           foregroundColor: Colors.black,
-          textTheme: Typography.englishLike2018.apply(bodyColor: Colors.black),
-          iconTheme: const IconThemeData(color: Colors.black),
-          actionsIconTheme: const IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: Colors.black),
+          actionsIconTheme: IconThemeData(color: Colors.black),
           elevation: 0,
         ),
         cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(),
