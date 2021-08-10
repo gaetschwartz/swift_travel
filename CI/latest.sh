@@ -8,7 +8,7 @@ flutter_path=$(which flutter)
 version=$(cat $(dirname $flutter_path)/../version)
 echo "Current flutter version is: $version"
 
-out=$(curl -s "https://storage.googleapis.com/flutter_infra/releases/releases_macos.json" | python3 CI/latest.py $1)
+out=$(curl -s "https://storage.googleapis.com/flutter_infra_release/releases/releases_macos.json" | python3 CI/latest.py $1)
 
 IFS=',' #setting space as delimiter  
 read -a arr <<< "$out" #reading str as an array as tokens separated by IFS 
