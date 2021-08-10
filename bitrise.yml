@@ -26,8 +26,8 @@ workflows:
           title: Prebuild
       - flutter-installer@0:
           inputs:
-            - installation_bundle_url: $FLUTTER_ARCHIVE_URL
-            #- version: stable
+            # - installation_bundle_url: $FLUTTER_ARCHIVE_URL
+            - version: dev
       - script-runner@0:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_sksl.sh
