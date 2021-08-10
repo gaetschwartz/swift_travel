@@ -11,7 +11,7 @@ workflows:
       - certificate-and-profile-installer@1: {}
       - script@1:
           inputs:
-            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh beta
+            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh dev
           title: Get latest version
       - cache-pull@2: {}
       - script-runner@0:
