@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'theme_configuration.dart';
 
@@ -18,21 +19,21 @@ class _$ThemeConfigurationTearOff {
 
   _ThemeConfiguration call(
       {required Map<String, FullTheme> themes,
+      required List<Font> fonts,
       String prefix = 'dyn_theme_',
       ThemeMode defaultThemeMode = ThemeMode.system,
       String defaultTheme = 'default',
       bool persist = true,
-      required List<Font> fonts,
       Font? defaultFont,
       TextTheme defaultTextTheme = Typography.englishLike2018,
       ThemeData Function(ThemeData) applyToAllThemes = _i}) {
     return _ThemeConfiguration(
       themes: themes,
+      fonts: fonts,
       prefix: prefix,
       defaultThemeMode: defaultThemeMode,
       defaultTheme: defaultTheme,
       persist: persist,
-      fonts: fonts,
       defaultFont: defaultFont,
       defaultTextTheme: defaultTextTheme,
       applyToAllThemes: applyToAllThemes,
@@ -46,11 +47,11 @@ const $ThemeConfiguration = _$ThemeConfigurationTearOff();
 /// @nodoc
 mixin _$ThemeConfiguration {
   Map<String, FullTheme> get themes => throw _privateConstructorUsedError;
+  List<Font> get fonts => throw _privateConstructorUsedError;
   String get prefix => throw _privateConstructorUsedError;
   ThemeMode get defaultThemeMode => throw _privateConstructorUsedError;
   String get defaultTheme => throw _privateConstructorUsedError;
   bool get persist => throw _privateConstructorUsedError;
-  List<Font> get fonts => throw _privateConstructorUsedError;
   Font? get defaultFont => throw _privateConstructorUsedError;
   TextTheme get defaultTextTheme => throw _privateConstructorUsedError;
   ThemeData Function(ThemeData) get applyToAllThemes =>
@@ -68,11 +69,11 @@ abstract class $ThemeConfigurationCopyWith<$Res> {
       _$ThemeConfigurationCopyWithImpl<$Res>;
   $Res call(
       {Map<String, FullTheme> themes,
+      List<Font> fonts,
       String prefix,
       ThemeMode defaultThemeMode,
       String defaultTheme,
       bool persist,
-      List<Font> fonts,
       Font? defaultFont,
       TextTheme defaultTextTheme,
       ThemeData Function(ThemeData) applyToAllThemes});
@@ -92,11 +93,11 @@ class _$ThemeConfigurationCopyWithImpl<$Res>
   @override
   $Res call({
     Object? themes = freezed,
+    Object? fonts = freezed,
     Object? prefix = freezed,
     Object? defaultThemeMode = freezed,
     Object? defaultTheme = freezed,
     Object? persist = freezed,
-    Object? fonts = freezed,
     Object? defaultFont = freezed,
     Object? defaultTextTheme = freezed,
     Object? applyToAllThemes = freezed,
@@ -106,6 +107,10 @@ class _$ThemeConfigurationCopyWithImpl<$Res>
           ? _value.themes
           : themes // ignore: cast_nullable_to_non_nullable
               as Map<String, FullTheme>,
+      fonts: fonts == freezed
+          ? _value.fonts
+          : fonts // ignore: cast_nullable_to_non_nullable
+              as List<Font>,
       prefix: prefix == freezed
           ? _value.prefix
           : prefix // ignore: cast_nullable_to_non_nullable
@@ -122,10 +127,6 @@ class _$ThemeConfigurationCopyWithImpl<$Res>
           ? _value.persist
           : persist // ignore: cast_nullable_to_non_nullable
               as bool,
-      fonts: fonts == freezed
-          ? _value.fonts
-          : fonts // ignore: cast_nullable_to_non_nullable
-              as List<Font>,
       defaultFont: defaultFont == freezed
           ? _value.defaultFont
           : defaultFont // ignore: cast_nullable_to_non_nullable
@@ -162,11 +163,11 @@ abstract class _$ThemeConfigurationCopyWith<$Res>
   @override
   $Res call(
       {Map<String, FullTheme> themes,
+      List<Font> fonts,
       String prefix,
       ThemeMode defaultThemeMode,
       String defaultTheme,
       bool persist,
-      List<Font> fonts,
       Font? defaultFont,
       TextTheme defaultTextTheme,
       ThemeData Function(ThemeData) applyToAllThemes});
@@ -189,11 +190,11 @@ class __$ThemeConfigurationCopyWithImpl<$Res>
   @override
   $Res call({
     Object? themes = freezed,
+    Object? fonts = freezed,
     Object? prefix = freezed,
     Object? defaultThemeMode = freezed,
     Object? defaultTheme = freezed,
     Object? persist = freezed,
-    Object? fonts = freezed,
     Object? defaultFont = freezed,
     Object? defaultTextTheme = freezed,
     Object? applyToAllThemes = freezed,
@@ -203,6 +204,10 @@ class __$ThemeConfigurationCopyWithImpl<$Res>
           ? _value.themes
           : themes // ignore: cast_nullable_to_non_nullable
               as Map<String, FullTheme>,
+      fonts: fonts == freezed
+          ? _value.fonts
+          : fonts // ignore: cast_nullable_to_non_nullable
+              as List<Font>,
       prefix: prefix == freezed
           ? _value.prefix
           : prefix // ignore: cast_nullable_to_non_nullable
@@ -219,10 +224,6 @@ class __$ThemeConfigurationCopyWithImpl<$Res>
           ? _value.persist
           : persist // ignore: cast_nullable_to_non_nullable
               as bool,
-      fonts: fonts == freezed
-          ? _value.fonts
-          : fonts // ignore: cast_nullable_to_non_nullable
-              as List<Font>,
       defaultFont: defaultFont == freezed
           ? _value.defaultFont
           : defaultFont // ignore: cast_nullable_to_non_nullable
@@ -240,14 +241,15 @@ class __$ThemeConfigurationCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_ThemeConfiguration extends _ThemeConfiguration {
   const _$_ThemeConfiguration(
       {required this.themes,
+      required this.fonts,
       this.prefix = 'dyn_theme_',
       this.defaultThemeMode = ThemeMode.system,
       this.defaultTheme = 'default',
       this.persist = true,
-      required this.fonts,
       this.defaultFont,
       this.defaultTextTheme = Typography.englishLike2018,
       this.applyToAllThemes = _i})
@@ -255,6 +257,8 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
 
   @override
   final Map<String, FullTheme> themes;
+  @override
+  final List<Font> fonts;
   @JsonKey(defaultValue: 'dyn_theme_')
   @override
   final String prefix;
@@ -268,8 +272,6 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
   @override
   final bool persist;
   @override
-  final List<Font> fonts;
-  @override
   final Font? defaultFont;
   @JsonKey(defaultValue: Typography.englishLike2018)
   @override
@@ -280,7 +282,7 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
 
   @override
   String toString() {
-    return 'ThemeConfiguration(themes: $themes, prefix: $prefix, defaultThemeMode: $defaultThemeMode, defaultTheme: $defaultTheme, persist: $persist, fonts: $fonts, defaultFont: $defaultFont, defaultTextTheme: $defaultTextTheme, applyToAllThemes: $applyToAllThemes)';
+    return 'ThemeConfiguration(themes: $themes, fonts: $fonts, prefix: $prefix, defaultThemeMode: $defaultThemeMode, defaultTheme: $defaultTheme, persist: $persist, defaultFont: $defaultFont, defaultTextTheme: $defaultTextTheme, applyToAllThemes: $applyToAllThemes)';
   }
 
   @override
@@ -289,6 +291,8 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
         (other is _ThemeConfiguration &&
             (identical(other.themes, themes) ||
                 const DeepCollectionEquality().equals(other.themes, themes)) &&
+            (identical(other.fonts, fonts) ||
+                const DeepCollectionEquality().equals(other.fonts, fonts)) &&
             (identical(other.prefix, prefix) ||
                 const DeepCollectionEquality().equals(other.prefix, prefix)) &&
             (identical(other.defaultThemeMode, defaultThemeMode) ||
@@ -300,8 +304,6 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
             (identical(other.persist, persist) ||
                 const DeepCollectionEquality()
                     .equals(other.persist, persist)) &&
-            (identical(other.fonts, fonts) ||
-                const DeepCollectionEquality().equals(other.fonts, fonts)) &&
             (identical(other.defaultFont, defaultFont) ||
                 const DeepCollectionEquality()
                     .equals(other.defaultFont, defaultFont)) &&
@@ -317,11 +319,11 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(themes) ^
+      const DeepCollectionEquality().hash(fonts) ^
       const DeepCollectionEquality().hash(prefix) ^
       const DeepCollectionEquality().hash(defaultThemeMode) ^
       const DeepCollectionEquality().hash(defaultTheme) ^
       const DeepCollectionEquality().hash(persist) ^
-      const DeepCollectionEquality().hash(fonts) ^
       const DeepCollectionEquality().hash(defaultFont) ^
       const DeepCollectionEquality().hash(defaultTextTheme) ^
       const DeepCollectionEquality().hash(applyToAllThemes);
@@ -335,11 +337,11 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
 abstract class _ThemeConfiguration extends ThemeConfiguration {
   const factory _ThemeConfiguration(
       {required Map<String, FullTheme> themes,
+      required List<Font> fonts,
       String prefix,
       ThemeMode defaultThemeMode,
       String defaultTheme,
       bool persist,
-      required List<Font> fonts,
       Font? defaultFont,
       TextTheme defaultTextTheme,
       ThemeData Function(ThemeData) applyToAllThemes}) = _$_ThemeConfiguration;
@@ -348,6 +350,8 @@ abstract class _ThemeConfiguration extends ThemeConfiguration {
   @override
   Map<String, FullTheme> get themes => throw _privateConstructorUsedError;
   @override
+  List<Font> get fonts => throw _privateConstructorUsedError;
+  @override
   String get prefix => throw _privateConstructorUsedError;
   @override
   ThemeMode get defaultThemeMode => throw _privateConstructorUsedError;
@@ -355,8 +359,6 @@ abstract class _ThemeConfiguration extends ThemeConfiguration {
   String get defaultTheme => throw _privateConstructorUsedError;
   @override
   bool get persist => throw _privateConstructorUsedError;
-  @override
-  List<Font> get fonts => throw _privateConstructorUsedError;
   @override
   Font? get defaultFont => throw _privateConstructorUsedError;
   @override
