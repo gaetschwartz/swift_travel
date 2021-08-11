@@ -5,6 +5,7 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
+import 'package:swift_travel/widgets/action_sheet.dart';
 
 import 'models/stationboard.dart';
 
@@ -35,6 +36,10 @@ final factories = <String, NavigationApiFactory>{
   'sbb': searchChApi,
   'sncf': sncfFactory,
 };
+
+late final factoriesAsActionSheets = factories.entries
+    .map((e) => ActionsSheetAction(title: Text(e.value.name), value: NavigationApiId(e.key)))
+    .toList(growable: false);
 
 @freezed
 class NavigationApiId with _$NavigationApiId {
