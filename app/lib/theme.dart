@@ -35,6 +35,7 @@ const List<Font> fonts = [
   Font('Source Sans Pro', GoogleFonts.sourceSansProTextTheme),
   Font('Poppins', GoogleFonts.poppinsTextTheme),
   Font('Ubuntu', GoogleFonts.ubuntuTextTheme),
+  Font("Inter", GoogleFonts.interTextTheme),
 ];
 
 const _light = ColorScheme.light();
@@ -49,14 +50,23 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
       name: 'Swift',
       light: _light,
       applyToLight: (theme) => theme.copyWith(
-        appBarTheme: const AppBarTheme(
-          color: Colors.white,
-          foregroundColor: Colors.black,
-          iconTheme: IconThemeData(color: Colors.black),
-          actionsIconTheme: IconThemeData(color: Colors.black),
+        appBarTheme: AppBarTheme(
+          color: Colors.transparent,
+          foregroundColor: theme.colorScheme.onSurface,
+          iconTheme: IconThemeData(color: theme.colorScheme.onSurface),
+          actionsIconTheme: IconThemeData(color: theme.colorScheme.onSurface),
           elevation: 0,
         ),
         cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(),
+      ),
+      applyToDark: (theme) => theme.copyWith(
+        appBarTheme: AppBarTheme(
+          color: Colors.transparent,
+          foregroundColor: theme.colorScheme.onSurface,
+          iconTheme: IconThemeData(color: theme.colorScheme.onSurface),
+          actionsIconTheme: IconThemeData(color: theme.colorScheme.onSurface),
+          elevation: 0,
+        ),
       ),
       dark: _dark,
       lightShadow: lightShadow,
@@ -64,6 +74,7 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
     ),
     'abin': FullTheme(
       name: 'Abin',
+      hide: true,
       light: ColorScheme.light(primary: purpleAbin, secondary: blueAbin),
       dark: ColorScheme.dark(primary: purpleAbin, secondary: blueAbin),
       lightShadow: lightShadow,
@@ -81,6 +92,7 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
       darkShadow: darkShadow,
     ),
     'david': FullTheme(
+      hide: true,
       name: 'David',
       light: ColorScheme.light(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),
       dark: ColorScheme.dark(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),

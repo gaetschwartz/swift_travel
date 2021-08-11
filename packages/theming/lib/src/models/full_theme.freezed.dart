@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'full_theme.dart';
 
@@ -24,7 +25,8 @@ class _$FullThemeTearOff {
       ThemeData Function(ThemeData) applyToDark = _identity,
       String description = 'Description',
       ShadowTheme lightShadow = const ShadowTheme(),
-      ShadowTheme darkShadow = const ShadowTheme()}) {
+      ShadowTheme darkShadow = const ShadowTheme(),
+      bool hide = false}) {
     return _FullTheme(
       light: light,
       dark: dark,
@@ -34,6 +36,7 @@ class _$FullThemeTearOff {
       description: description,
       lightShadow: lightShadow,
       darkShadow: darkShadow,
+      hide: hide,
     );
   }
 }
@@ -53,6 +56,7 @@ mixin _$FullTheme {
   String get description => throw _privateConstructorUsedError;
   ShadowTheme get lightShadow => throw _privateConstructorUsedError;
   ShadowTheme get darkShadow => throw _privateConstructorUsedError;
+  bool get hide => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FullThemeCopyWith<FullTheme> get copyWith =>
@@ -71,7 +75,8 @@ abstract class $FullThemeCopyWith<$Res> {
       ThemeData Function(ThemeData) applyToDark,
       String description,
       ShadowTheme lightShadow,
-      ShadowTheme darkShadow});
+      ShadowTheme darkShadow,
+      bool hide});
 
   $ShadowThemeCopyWith<$Res> get lightShadow;
   $ShadowThemeCopyWith<$Res> get darkShadow;
@@ -95,6 +100,7 @@ class _$FullThemeCopyWithImpl<$Res> implements $FullThemeCopyWith<$Res> {
     Object? description = freezed,
     Object? lightShadow = freezed,
     Object? darkShadow = freezed,
+    Object? hide = freezed,
   }) {
     return _then(_value.copyWith(
       light: light == freezed
@@ -129,6 +135,10 @@ class _$FullThemeCopyWithImpl<$Res> implements $FullThemeCopyWith<$Res> {
           ? _value.darkShadow
           : darkShadow // ignore: cast_nullable_to_non_nullable
               as ShadowTheme,
+      hide: hide == freezed
+          ? _value.hide
+          : hide // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -161,7 +171,8 @@ abstract class _$FullThemeCopyWith<$Res> implements $FullThemeCopyWith<$Res> {
       ThemeData Function(ThemeData) applyToDark,
       String description,
       ShadowTheme lightShadow,
-      ShadowTheme darkShadow});
+      ShadowTheme darkShadow,
+      bool hide});
 
   @override
   $ShadowThemeCopyWith<$Res> get lightShadow;
@@ -188,6 +199,7 @@ class __$FullThemeCopyWithImpl<$Res> extends _$FullThemeCopyWithImpl<$Res>
     Object? description = freezed,
     Object? lightShadow = freezed,
     Object? darkShadow = freezed,
+    Object? hide = freezed,
   }) {
     return _then(_FullTheme(
       light: light == freezed
@@ -222,11 +234,16 @@ class __$FullThemeCopyWithImpl<$Res> extends _$FullThemeCopyWithImpl<$Res>
           ? _value.darkShadow
           : darkShadow // ignore: cast_nullable_to_non_nullable
               as ShadowTheme,
+      hide: hide == freezed
+          ? _value.hide
+          : hide // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
+
 class _$_FullTheme implements _FullTheme {
   const _$_FullTheme(
       {required this.light,
@@ -236,7 +253,8 @@ class _$_FullTheme implements _FullTheme {
       this.applyToDark = _identity,
       this.description = 'Description',
       this.lightShadow = const ShadowTheme(),
-      this.darkShadow = const ShadowTheme()});
+      this.darkShadow = const ShadowTheme(),
+      this.hide = false});
 
   @override
   final ColorScheme light;
@@ -259,10 +277,13 @@ class _$_FullTheme implements _FullTheme {
   @JsonKey(defaultValue: const ShadowTheme())
   @override
   final ShadowTheme darkShadow;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool hide;
 
   @override
   String toString() {
-    return 'FullTheme(light: $light, dark: $dark, name: $name, applyToLight: $applyToLight, applyToDark: $applyToDark, description: $description, lightShadow: $lightShadow, darkShadow: $darkShadow)';
+    return 'FullTheme(light: $light, dark: $dark, name: $name, applyToLight: $applyToLight, applyToDark: $applyToDark, description: $description, lightShadow: $lightShadow, darkShadow: $darkShadow, hide: $hide)';
   }
 
   @override
@@ -289,7 +310,9 @@ class _$_FullTheme implements _FullTheme {
                     .equals(other.lightShadow, lightShadow)) &&
             (identical(other.darkShadow, darkShadow) ||
                 const DeepCollectionEquality()
-                    .equals(other.darkShadow, darkShadow)));
+                    .equals(other.darkShadow, darkShadow)) &&
+            (identical(other.hide, hide) ||
+                const DeepCollectionEquality().equals(other.hide, hide)));
   }
 
   @override
@@ -302,7 +325,8 @@ class _$_FullTheme implements _FullTheme {
       const DeepCollectionEquality().hash(applyToDark) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(lightShadow) ^
-      const DeepCollectionEquality().hash(darkShadow);
+      const DeepCollectionEquality().hash(darkShadow) ^
+      const DeepCollectionEquality().hash(hide);
 
   @JsonKey(ignore: true)
   @override
@@ -319,7 +343,8 @@ abstract class _FullTheme implements FullTheme {
       ThemeData Function(ThemeData) applyToDark,
       String description,
       ShadowTheme lightShadow,
-      ShadowTheme darkShadow}) = _$_FullTheme;
+      ShadowTheme darkShadow,
+      bool hide}) = _$_FullTheme;
 
   @override
   ColorScheme get light => throw _privateConstructorUsedError;
@@ -339,6 +364,8 @@ abstract class _FullTheme implements FullTheme {
   ShadowTheme get lightShadow => throw _privateConstructorUsedError;
   @override
   ShadowTheme get darkShadow => throw _privateConstructorUsedError;
+  @override
+  bool get hide => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FullThemeCopyWith<_FullTheme> get copyWith =>

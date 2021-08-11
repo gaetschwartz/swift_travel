@@ -16,6 +16,7 @@ class FullTheme with _$FullTheme {
     @Default('Description') String description,
     @Default(ShadowTheme()) ShadowTheme lightShadow,
     @Default(ShadowTheme()) ShadowTheme darkShadow,
+    @Default(false) bool hide,
   }) = _FullTheme;
 }
 
