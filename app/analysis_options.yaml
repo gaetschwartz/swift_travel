@@ -15,3 +15,11 @@ analyzer:
 linter:
   rules:
     avoid_print: false
+
+    prefer_final_fields: true
+    prefer_final_in_for_each: true
+    prefer_final_locals: true
+
+    # prefer_final_parameters: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true

@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,13 +21,14 @@ const darkShadow = ShadowTheme(
   buttonShadow: BoxShadow(blurRadius: 4, color: Color(0x4C000000), offset: Offset(0, 4)),
 );
 
+TextTheme _platform(TextTheme t) => t;
+
 const List<Font> fonts = [
+  Font("Platform", _platform),
   Font('Montserrat', GoogleFonts.montserratTextTheme),
   Font('Lexend', GoogleFonts.lexendDecaTextTheme),
   Font('Muli', GoogleFonts.mulishTextTheme),
   Font('Open Sans', GoogleFonts.openSansTextTheme),
-  Font('IBM Plex Mono', GoogleFonts.ibmPlexMonoTextTheme),
-  Font('Cardo', GoogleFonts.cardoTextTheme),
   Font('QuickSand', GoogleFonts.quicksandTextTheme),
   Font('Raleway', GoogleFonts.ralewayTextTheme),
   Font('Lato', GoogleFonts.latoTextTheme),
@@ -51,7 +51,7 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
       light: _light,
       applyToLight: (theme) => theme.copyWith(
         appBarTheme: AppBarTheme(
-          color: Colors.transparent,
+          color: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
           iconTheme: IconThemeData(color: theme.colorScheme.onSurface),
           actionsIconTheme: IconThemeData(color: theme.colorScheme.onSurface),
@@ -61,7 +61,7 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
       ),
       applyToDark: (theme) => theme.copyWith(
         appBarTheme: AppBarTheme(
-          color: Colors.transparent,
+          color: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
           iconTheme: IconThemeData(color: theme.colorScheme.onSurface),
           actionsIconTheme: IconThemeData(color: theme.colorScheme.onSurface),
@@ -74,20 +74,8 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
     ),
     'abin': FullTheme(
       name: 'Abin',
-      hide: true,
       light: ColorScheme.light(primary: purpleAbin, secondary: blueAbin),
       dark: ColorScheme.dark(primary: purpleAbin, secondary: blueAbin),
-      lightShadow: lightShadow,
-      darkShadow: darkShadow,
-    ),
-    'material': FullTheme(
-      name: 'Material',
-      light: FlexColorScheme.light(
-        colors: FlexColor.schemes[FlexScheme.material]!.light,
-      ).toScheme,
-      dark: FlexColorScheme.dark(
-        colors: FlexColor.schemes[FlexScheme.material]!.dark,
-      ).toScheme,
       lightShadow: lightShadow,
       darkShadow: darkShadow,
     ),
