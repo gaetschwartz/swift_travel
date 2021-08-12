@@ -30,9 +30,9 @@ import 'blocs_test.dart';
 
 final timestamp = DateTime(2021);
 const geneva = 'Genève';
-final route1 = LocalRoute.v1(geneva, 'Lausanne', timestamp: timestamp);
-final route2 = LocalRoute.v1('Lausanne', geneva, timestamp: timestamp);
-final route3 = LocalRoute.v1('Zürich', 'Bern', timestamp: timestamp);
+final route1 = LocalRoute.simple(geneva, 'Lausanne', timestamp: timestamp);
+final route2 = LocalRoute.simple('Lausanne', geneva, timestamp: timestamp);
+final route3 = LocalRoute.simple('Zürich', 'Bern', timestamp: timestamp);
 
 String _byteSizeOf(int bytes, {int fixed = 0}) {
   const sizes = ['b', 'Kb', 'Mb', 'Gb'];
@@ -67,7 +67,7 @@ void main() {
 
     test('size is smaller than 1 Mb for maxSize', () async {
       for (var i = 0; i < hist.maxSize; i++) {
-        await hist.add(LocalRoute.v1('from-$i', 'to-$i'));
+        await hist.add(LocalRoute.simple('from-$i', 'to-$i'));
       }
 
       final f = File(hist.box.path!);
@@ -79,7 +79,7 @@ void main() {
 
     test("doesn't go above maxSize", () async {
       for (var i = 0; i < hist.maxSize + 50; i++) {
-        await hist.add(LocalRoute.v1('from-$i', 'to-$i'));
+        await hist.add(LocalRoute.simple('from-$i', 'to-$i'));
       }
       expect(hist.size, lessThanOrEqualTo(hist.maxSize));
     });

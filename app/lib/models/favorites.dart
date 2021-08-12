@@ -33,6 +33,7 @@ class LocalRoute with _$LocalRoute {
   const LocalRoute._();
 
   @JsonSerializable(includeIfNull: false)
+  @Deprecated("Use v2")
   const factory LocalRoute.v1(
     String from,
     String to, {
@@ -47,6 +48,19 @@ class LocalRoute with _$LocalRoute {
     String? displayName,
     DateTime? timestamp,
   }) = LocalRouteV2;
+
+  factory LocalRoute.simple(
+    String from,
+    String to, {
+    String? displayName,
+    DateTime? timestamp,
+  }) =>
+      LocalRoute.v2(
+        SbbStop(from),
+        SbbStop(to),
+        displayName: displayName,
+        timestamp: timestamp,
+      );
 
   factory LocalRoute.fromRouteConnection(
     RouteConnection connection, {
@@ -74,7 +88,7 @@ class LocalRoute with _$LocalRoute {
   String get toAsString => map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
 
   LocalRoute copyClean() => map(
-        v1: (v1) => LocalRoute.v1(v1.from, v1.to),
+        v1: (v1) => LocalRoute.v2(SbbStop(v1.from), SbbStop(v1.to)),
         v2: (v2) => LocalRoute.v2(v2.from, v2.to),
       );
 
