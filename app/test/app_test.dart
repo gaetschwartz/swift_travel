@@ -17,10 +17,10 @@ import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/pages/search/search.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
-import 'package:swift_travel/utils/predict/models/models.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 import 'package:theming/dynamic_theme.dart';
 
