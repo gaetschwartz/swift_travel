@@ -14,11 +14,11 @@ import 'package:swift_travel/utils/strings/strings.dart';
 
 void main() {
   final r = Random();
-  const localRoute = LocalRoute.v1('Geneva', 'Paris');
-  const localRoute2 = LocalRoute.v1('London', 'New York');
+  final localRoute = LocalRoute.simple('Geneva', 'Paris');
+  final localRoute2 = LocalRoute.simple('London', 'New York');
 
   test('double flipped RouteTransformer', () {
-    const routes = [localRoute, localRoute2];
+    final routes = [localRoute, localRoute2];
     final doubled = DoubleFlippedRoutes().transform(routes).toList();
     expect(doubled, hasLength(2 * routes.length));
     expect(
@@ -32,7 +32,7 @@ void main() {
   });
 
   test('unchanged RouteTransformer', () {
-    const routes = [localRoute, localRoute2];
+    final routes = [localRoute, localRoute2];
     final tranformed = UnchangedTransformer().transform(routes).toList();
     expect(tranformed, hasLength(routes.length));
     expect(tranformed, containsAll(routes));
