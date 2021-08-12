@@ -133,7 +133,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
             resizeToAvoidBottomInset: false,
             tabBar: CupertinoTabBar(
               onTap: (i) {
-                Vibration.selectSoft();
+                Vibration.instance.selectSoft();
                 if (i == oldI) {
                   navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
                   context.read(sideTabBarProvider).state = null;
@@ -264,7 +264,7 @@ class _TabWidget extends StatelessWidget {
             child: InkWell(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               onTap: () {
-                Vibration.selectSoft();
+                Vibration.instance.selectSoft();
                 if (controllers.index != i) {
                   controllers.index = i;
                 } else {
@@ -424,7 +424,7 @@ AppBar materialAppBar(
               tooltip: AppLoc.of(context).settings,
               icon: const Icon(Icons.settings),
               onPressed: () {
-                Vibration.select();
+                Vibration.instance.select();
                 Nav.push(
                   context,
                   (context) => const SettingsPage(),

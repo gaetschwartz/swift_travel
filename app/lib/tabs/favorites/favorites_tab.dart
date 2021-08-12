@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
@@ -118,7 +117,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
   }
 
   Future<void> addFav() async {
-    unawaited(Vibration.select());
+    Vibration.instance.select();
 
     final s = Responsive.isDarwin(context)
         ? await showCupertinoModalBottomSheet<String>(

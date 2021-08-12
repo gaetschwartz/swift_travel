@@ -1,3 +1,5 @@
+library vibration;
+
 import 'dart:async';
 import 'dart:io';
 
@@ -6,72 +8,91 @@ import 'package:flutter/services.dart';
 
 /// Namespace class for vibrations.
 class Vibration {
-  const Vibration._();
+  Vibration._();
 
-  static const MethodChannel _channel =
-      MethodChannel('com.gaetanschwartz.vibration/channel');
+  static late final instance = Vibration._();
 
-  static Future<void> vibrate(
-      {VibrationType type = VibrationType.normal,
-      int duration = 500,
-      List<int> pattern = const [],
-      int repeat = -1,
-      List<int> intensities = const [],
-      int amplitude = -1}) async {
+  static const MethodChannel _channel = MethodChannel('com.gaetanschwartz.vibration/channel');
+
+  Future<void> vibrate({
+    required VibrationType type,
+    @Deprecated("Android is deprecated") int duration = 500,
+    @Deprecated("Android is deprecated") int repeat = -1,
+    @Deprecated("Android is deprecated") List<int> intensities = const [],
+    @Deprecated("Android is deprecated") int amplitude = -1,
+  }) async {
     if (kIsWeb || Platform.isAndroid) {
       return;
     }
+
     if (Platform.isIOS) {
       await _channel.invokeMethod<void>('vibrate', describeEnum(type));
     }
   }
 
-  static Future<void> select() async {
-    await vibrate(type: VibrationType.selection, pattern: [0, 22]);
+  void select() {
+    vibrate(type: VibrationType.selection);
   }
 
-  static Future<void> selectSoft() async {
-    await vibrate(type: VibrationType.soft, pattern: [0, 22]);
+  void selectSoft() {
+    vibrate(type: VibrationType.soft);
   }
 
-  static Future<void> selectionLight() async {
-    await vibrate(type: VibrationType.light, pattern: [0, 22]);
+  void selectionLight() {
+    vibrate(type: VibrationType.light);
   }
 
-  static Future<void> selectionMedium() async {
-    await vibrate(type: VibrationType.medium, pattern: [0, 35]);
+  void selectionMedium() {
+    vibrate(type: VibrationType.medium);
   }
 
-  static Future<void> selectionHeavy() async {
-    await vibrate(type: VibrationType.heavy, pattern: [0, 42]);
+  void selectionHeavy() {
+    vibrate(type: VibrationType.heavy);
   }
 
-  static Future<void> success() async {
-    await vibrate(type: VibrationType.success, pattern: [0, 35, 100, 35]);
+  void success() {
+    vibrate(type: VibrationType.success);
   }
 
-  static Future<void> warning() async {
-    await vibrate(type: VibrationType.warning, pattern: [0, 80, 50, 100]);
+  void warning() {
+    vibrate(type: VibrationType.warning);
   }
 
-  static Future<void> error() async {
-    await vibrate(type: VibrationType.error, pattern: [0, 100, 100, 35]);
+  void error() {
+    vibrate(type: VibrationType.error);
   }
 
-  static Future<void> normal() async {
-    await vibrate(duration: 400, amplitude: 1000);
+  void normal() {
+    vibrate(type: VibrationType.normal);
   }
 }
 
-enum VibrationType {
-  selection,
-  light,
-  medium,
-  heavy,
-  success,
-  warning,
-  error,
-  normal,
-  rigid,
-  soft
-}
+enum VibrationType { selection, light, medium, heavy, success, warning, error, normal, rigid, soft }
+
+
+ /*  static _patterns(VibrationType type) {
+    const medium = [0, 35];
+    switch (type) {
+      case VibrationType.selection:
+        return [0, 22];
+      case VibrationType.light:
+        return [0, 22];
+      case VibrationType.medium:
+        return medium;
+
+      case VibrationType.heavy:
+        return [0, 42];
+      case VibrationType.success:
+        return [0, 35, 100, 35];
+      case VibrationType.warning:
+        return [0, 80, 50, 100];
+      case VibrationType.error:
+        return [0, 100, 100, 35];
+      case VibrationType.soft:
+        return [0, 22];
+      case VibrationType.normal:
+        return [];
+      case VibrationType.rigid:
+        return medium;
+    } 
+  }*/
