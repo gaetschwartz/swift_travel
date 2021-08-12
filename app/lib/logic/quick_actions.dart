@@ -8,6 +8,7 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
+import 'package:theming/responsive.dart';
 
 class MyQuickActions {
   MyQuickActions._();

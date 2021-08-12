@@ -53,8 +53,6 @@ final isTest = () {
   return _isTest;
 }();
 
-bool get isMobile => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
-
 String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
 
 void main() {
@@ -157,20 +155,20 @@ class SwiftTravelApp extends StatefulWidget {
   _SwiftTravelAppState createState() => _SwiftTravelAppState();
 }
 
-class _SwiftTravelAppState extends State<SwiftTravelApp> {
-  final shortcuts2 = {
-    LogicalKeySet(LogicalKeyboardKey.escape): const EscapeIntent(),
-    LogicalKeySet(ctrl, LogicalKeyboardKey.tab): const SwitchTabIntent(),
-    LogicalKeySet(ctrl, LogicalKeyboardKey.digit1): const TabIntent(0),
-    LogicalKeySet(ctrl, LogicalKeyboardKey.digit2): const TabIntent(1),
-    LogicalKeySet(ctrl, LogicalKeyboardKey.digit3): const TabIntent(2),
-    LogicalKeySet(ctrl, LogicalKeyboardKey.digit4): const TabIntent(3),
-  };
+final _shortcuts = {
+  LogicalKeySet(LogicalKeyboardKey.escape): const EscapeIntent(),
+  LogicalKeySet(ctrl, LogicalKeyboardKey.tab): const SwitchTabIntent(),
+  LogicalKeySet(ctrl, LogicalKeyboardKey.digit1): const TabIntent(0),
+  LogicalKeySet(ctrl, LogicalKeyboardKey.digit2): const TabIntent(1),
+  LogicalKeySet(ctrl, LogicalKeyboardKey.digit3): const TabIntent(2),
+  LogicalKeySet(ctrl, LogicalKeyboardKey.digit4): const TabIntent(3),
+};
 
+class _SwiftTravelAppState extends State<SwiftTravelApp> {
   @override
   Widget build(BuildContext context) {
     final theme = DynamicTheme.of(context);
-    final isDarwin = Responsive.isDarwin(context);
+    final darwin = isDarwin(context);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -187,7 +185,7 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      shortcuts: shortcuts2,
+      shortcuts: _shortcuts,
       actions: {
         EscapeIntent: CallbackAction(onInvoke: (e) {
           if (kDebugMode) {
@@ -204,12 +202,12 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
           print('Switching tab');
           final tabs = context.read(tabProvider);
-          tabs.index = (isDarwin ? TabView.iosTabs : TabView.androidTabs).modulo(tabs.index);
+          tabs.index = (darwin ? TabView.iosTabs : TabView.androidTabs).modulo(tabs.index);
         })
       },
-      onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: isDarwin),
-      onUnknownRoute: (settings) => onUnknownRoute<void>(settings, isDarwin: isDarwin),
-      onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin: isDarwin),
+      onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: darwin),
+      onUnknownRoute: (settings) => onUnknownRoute<void>(settings, isDarwin: darwin),
+      onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin: darwin),
       builder: (context, child) => PlatformBuilder(
         cupertinoBuilder: (context, child) {
           final t = Theme.of(context);

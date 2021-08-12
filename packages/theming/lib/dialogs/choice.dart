@@ -51,7 +51,7 @@ Future<ChoiceResult<T?>> choose<T>(
   bool useRootNavigator = true,
   ModalConfiguration configuration = const BottomSheetConfiguration(),
 }) async =>
-    (Responsive.isPlatformDarwin(platformOverride ?? Theme.of(context).platform)
+    (isPlatformDarwin(platformOverride ?? Theme.of(context).platform)
         ? await showCupertinoModalPopup<ChoiceResult<T>>(
             context: context,
             useRootNavigator: useRootNavigator,

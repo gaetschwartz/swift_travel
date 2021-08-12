@@ -13,7 +13,7 @@ import 'package:share/share.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
+import 'package:theming/responsive.dart';
 
 class CrawlerPage extends StatefulWidget {
   const CrawlerPage({Key? key}) : super(key: key);

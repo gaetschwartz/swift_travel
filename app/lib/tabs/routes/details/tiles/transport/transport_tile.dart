@@ -127,14 +127,14 @@ class _TransportLegTileState extends State<TransportLegTile> {
                     Expanded(child: Text(widget.l.exit!.name)),
                     InkWell(
                       onTap: () {
-                        final darwin = Responsive.isDarwin(context);
+                        final darwin = isDarwin(context);
                         final list = widget.l.attributes.entries
                             .map((e) =>
                                 Attribute.attributes[e.key]?.copyWith(message: e.value) ??
                                 Attribute(code: e.key, message: e.value))
                             .where((e) => !e.ignore)
                             .toList()
-                              ..sort((a, b) => a.code.compareTo(b.code));
+                          ..sort((a, b) => a.code.compareTo(b.code));
 
                         if (Env.isDebugMode) {
                           list.add(const Attribute(

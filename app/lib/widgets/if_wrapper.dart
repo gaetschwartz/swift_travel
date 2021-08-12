@@ -52,7 +52,7 @@ class _PlatformBuilderState extends State<PlatformBuilder> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    isCupertino = Responsive.isDarwin(context);
+    isCupertino = isDarwin(context);
   }
 
   @override

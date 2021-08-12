@@ -1,3 +1,5 @@
+library responsive;
+
 import 'dart:io';
 import 'dart:math';
 
@@ -5,9 +7,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-const darwinPlatforms = [TargetPlatform.iOS, TargetPlatform.macOS];
-
 enum ScreenSize { small, medium, large }
+
+bool isDarwin(BuildContext context) => Theme.of(context).platform.isDarwin;
+bool isPlatformDarwin(TargetPlatform p) => p.isDarwin;
+
+bool get isMobile => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
 extension ScreenSizeX on ScreenSize {
   bool operator <(ScreenSize s) => index < s.index;
@@ -40,38 +45,38 @@ class DoubleInterval<T extends num> {
 }
 
 class Responsive {
-  Responsive._();
+  const Responsive(this.smallScreenWidth, this.bigScreenWidth);
 
-  static const smallScreenWidth = 600;
-  static const bigScreenWidth = 1000;
+  const Responsive.def()
+      : smallScreenWidth = 400,
+        bigScreenWidth = 1200;
 
-  static bool isSmallScreen(BuildContext context) =>
+  final double smallScreenWidth;
+  final double bigScreenWidth;
+
+  bool isSmallScreen(BuildContext context) =>
       MediaQuery.of(context).size.shortestSide < smallScreenWidth;
-
-  static bool isTablet(BuildContext context) =>
-      MediaQuery.of(context).size.shortestSide >= smallScreenWidth;
-
-  static bool isLargeScreen(BuildContext context) =>
-      MediaQuery.of(context).size.shortestSide > bigScreenWidth;
-
-  static bool isMediumScreen(BuildContext context) {
+  bool isMediumScreen(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return size.shortestSide >= smallScreenWidth && size.shortestSide <= bigScreenWidth;
   }
 
-  static Size sizeOf(BuildContext context) => MediaQuery.of(context).size;
+  bool isLargeScreen(BuildContext context) =>
+      MediaQuery.of(context).size.shortestSide > bigScreenWidth;
 
-  static bool isSmall(BoxConstraints c) => c.maxWidth < smallScreenWidth;
+  bool isTablet(BuildContext context) =>
+      MediaQuery.of(context).size.shortestSide >= smallScreenWidth;
 
-  static bool isLarge(BoxConstraints c) => c.maxWidth > bigScreenWidth;
+  Size sizeOf(BuildContext context) => MediaQuery.of(context).size;
 
-  static bool isMedium(BoxConstraints c) =>
-      c.maxWidth >= smallScreenWidth && c.maxWidth <= bigScreenWidth;
+  bool isSmall(BoxConstraints c) => c.maxWidth < smallScreenWidth;
+  bool isLarge(BoxConstraints c) => c.maxWidth > bigScreenWidth;
+  bool isMedium(BoxConstraints c) => c.maxWidth >= smallScreenWidth && c.maxWidth <= bigScreenWidth;
 
-  static ScreenSize getScreenSize(BuildContext context) =>
+  ScreenSize getScreenSize(BuildContext context) =>
       getSizeOfWidth(MediaQuery.of(context).size.shortestSide);
 
-  static ScreenSize getSizeOfWidth(double width) {
+  ScreenSize getSizeOfWidth(double width) {
     if (width > bigScreenWidth) {
       return ScreenSize.large;
     } else if (width < smallScreenWidth) {
@@ -80,27 +85,8 @@ class Responsive {
       return ScreenSize.medium;
     }
   }
+}
 
-  static bool isDarwin(BuildContext context) {
-    final platform = Theme.of(context).platform;
-    return _isDarwin(platform);
-  }
-
-  static bool _isDarwin(TargetPlatform platform) {
-    switch (platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.windows:
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.linux:
-        return false;
-      case TargetPlatform.iOS:
-      case TargetPlatform.macOS:
-        return true;
-    }
-  }
-
-  static bool isPlatformDarwin(TargetPlatform p) => _isDarwin(p);
-  static bool isDeviceDarwin() => !kIsWeb && (Platform.isIOS || Platform.isMacOS);
-
-  static bool isMobile() => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+extension TargetPlatformX on TargetPlatform {
+  bool get isDarwin => this == TargetPlatform.iOS || this == TargetPlatform.macOS;
 }

@@ -67,7 +67,6 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     focusNode.addListener(onFocusChanged);
   }
 
-  // ignore: avoid_positional_boolean_parameters
   void onFocusChanged() {
     if (focusNode.hasFocus) {
       Vibration.instance.select();
@@ -77,9 +76,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   @override
   void dispose() {
     searchController.dispose();
-    focusNode
-      ..removeListener(onFocusChanged)
-      ..dispose();
+    focusNode.dispose();
     super.dispose();
   }
 
