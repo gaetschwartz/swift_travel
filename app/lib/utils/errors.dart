@@ -27,7 +27,7 @@ void reportDartError(Object e, StackTrace? s,
 
   if (_doShowSnackbars && showSnackbar) {
     try {
-      Vibration.error();
+      Vibration.instance.error();
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
         scaffoldMessengerKey.currentState!
           ..removeCurrentSnackBar()
@@ -63,7 +63,7 @@ void reportFlutterError(FlutterErrorDetails details) {
 
   if (_doShowSnackbars) {
     try {
-      Vibration.error();
+      Vibration.instance.error();
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
         scaffoldMessengerKey.currentState!
           ..removeCurrentSnackBar()

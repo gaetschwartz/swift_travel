@@ -83,7 +83,7 @@ class FavoriteStationTile extends StatelessWidget {
   }
 
   void edit(BuildContext context) {
-    Vibration.select();
+    Vibration.instance.select();
     showActionSheet<void>(
       context,
       [

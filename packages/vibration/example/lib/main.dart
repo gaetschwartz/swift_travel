@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 for (var v in VibrationType.values)
                   ElevatedButton(
-                    onPressed: () => Vibration.vibrate(type: v),
+                    onPressed: () => Vibration.instance.vibrate(type: v),
                     child: Text('$v'),
                   ),
               ],

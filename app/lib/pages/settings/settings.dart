@@ -253,7 +253,7 @@ class _SettingsPageState extends State<SettingsPage> {
             if (f == null) {
               return;
             }
-            Vibration.select();
+            Vibration.instance.select();
             theme.fontIndex = theme.configuration.fonts.indexOf(f);
           },
         );
@@ -430,7 +430,7 @@ class __ThemesSectionState extends State<_ThemesSection> {
                     child: GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-                        Vibration.select();
+                        Vibration.instance.select();
                         theme.name = list[i].key;
                       },
                       child: Padding(

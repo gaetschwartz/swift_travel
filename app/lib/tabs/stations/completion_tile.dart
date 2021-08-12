@@ -5,7 +5,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
@@ -88,14 +87,14 @@ class CompletionTile extends ConsumerWidget {
             ? IconButton(
                 icon: const Icon(Icons.more_horiz),
                 onPressed: () {
-                  Vibration.select();
+                  Vibration.instance.select();
                   more(context, store: store);
                 })
             : const Icon(CupertinoIcons.chevron_forward),
         onTap: isPrivate
             ? null
             : () {
-                Vibration.select();
+                Vibration.instance.select();
 
                 Nav.push(
                   context,
@@ -126,7 +125,7 @@ class CompletionTile extends ConsumerWidget {
     final isFav = favoriteStop != null;
 
     FocusManager.instance.primaryFocus?.unfocus();
-    unawaited(Vibration.select());
+    Vibration.instance.select();
     final c = await showActionSheet<_Actions>(
         context,
         [

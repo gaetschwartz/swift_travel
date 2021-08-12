@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
@@ -71,7 +70,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   // ignore: avoid_positional_boolean_parameters
   void onFocusChanged() {
     if (focusNode.hasFocus) {
-      Vibration.select();
+      Vibration.instance.select();
     }
   }
 
@@ -147,7 +146,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                 child: IconButton(
                                     icon: const Icon(Icons.clear),
                                     onPressed: () {
-                                      Vibration.select();
+                                      Vibration.instance.select();
                                       searchController.text = '';
                                       focusNode.unfocus();
                                       context.read(_stateProvider).state =
@@ -294,7 +293,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   }
 
   Future<void> _getLocation() async {
-    unawaited(Vibration.selectSoft());
+    Vibration.instance.selectSoft();
     context.read(_locatingProvider).state = true;
 
     try {

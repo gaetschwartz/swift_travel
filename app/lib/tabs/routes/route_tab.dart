@@ -10,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart' hide Position;
 import 'package:intl/intl.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
@@ -251,13 +250,13 @@ class RoutePageState extends State<RoutePage> {
 
   void _onFocusToChanged() {
     if (fnTo.hasFocus) {
-      Vibration.select();
+      Vibration.instance.select();
     }
   }
 
   void _onFocusFromChanged() {
     if (fnFrom.hasFocus) {
-      Vibration.select();
+      Vibration.instance.select();
     }
   }
 
@@ -338,7 +337,7 @@ class RoutePageState extends State<RoutePage> {
                     tooltip: 'Switch inputs',
                     icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
                     onPressed: () {
-                      Vibration.select();
+                      Vibration.instance.select();
                       switchInputs();
                     },
                   ),
@@ -355,7 +354,7 @@ class RoutePageState extends State<RoutePage> {
                       child: IconButton(
                         tooltip: AppLoc.of(context).fav_route,
                         onPressed: () async {
-                          unawaited(Vibration.select());
+                          Vibration.instance.select();
 
                           log(favorites.routes.toString());
                           if (favorites.routes.any(
@@ -414,7 +413,7 @@ class RoutePageState extends State<RoutePage> {
                               shape: const StadiumBorder(),
                               primary: Theme.of(context).textTheme.button!.color),
                           onPressed: () async {
-                            unawaited(Vibration.select());
+                            Vibration.instance.select();
                             var type = context.read(timeTypeProvider).state;
                             final _date = context.read(dateProvider);
                             final date = await pickDate(
@@ -459,7 +458,7 @@ class RoutePageState extends State<RoutePage> {
                     child: IconButton(
                       tooltip: AppLoc.of(context).use_current_time,
                       onPressed: () {
-                        Vibration.select();
+                        Vibration.instance.select();
                         unFocusFields();
                         context.read(dateProvider).state = DateTime.now();
                       },
