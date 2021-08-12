@@ -19,7 +19,7 @@ Future<bool> confirm(
   DefaultAction? defaultAction,
   bool useRootNavigator = true,
 }) async =>
-    (Responsive.isPlatformDarwin(platformOverride ?? Theme.of(context).platform)
+    (isPlatformDarwin(platformOverride ?? Theme.of(context).platform)
         ? await showCupertinoDialog<bool>(
             context: context,
             barrierDismissible: barrierDismissible,

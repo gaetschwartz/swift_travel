@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:theming/responsive.dart';
 
-Color primaryColor(BuildContext context) => Responsive.isDarwin(context)
+Color primaryColor(BuildContext context) => isDarwin(context)
     ? CupertinoTheme.of(context).primaryColor
     : Theme.of(context).colorScheme.secondary;
 

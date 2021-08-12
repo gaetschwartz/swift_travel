@@ -119,7 +119,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
   Future<void> addFav() async {
     Vibration.instance.select();
 
-    final s = Responsive.isDarwin(context)
+    final s = isDarwin(context)
         ? await showCupertinoModalBottomSheet<String>(
             context: context, builder: (context) => const StopInputDialog(title: 'Add a favorite'))
         : await showMaterialModalBottomSheet<String>(

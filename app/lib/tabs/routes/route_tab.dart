@@ -287,7 +287,7 @@ class RoutePageState extends State<RoutePage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarwin = Responsive.isDarwin(context);
+    final darwin = isDarwin(context);
     return PlatformBuilder(
       cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         navigationBar: const SwiftCupertinoBar(),
@@ -314,7 +314,7 @@ class RoutePageState extends State<RoutePage> {
                         child: Row(
                           children: [
                             Expanded(
-                              child: buildFromField(context, isDarwin: isDarwin),
+                              child: buildFromField(context, isDarwin: darwin),
                             ),
                           ],
                         ),
@@ -324,7 +324,7 @@ class RoutePageState extends State<RoutePage> {
                         child: Row(
                           children: [
                             Expanded(
-                              child: buildToField(context, isDarwin: isDarwin),
+                              child: buildToField(context, isDarwin: darwin),
                             ),
                           ],
                         ),
@@ -717,7 +717,7 @@ class RoutesView extends StatelessWidget {
               ),
               Expanded(
                   child: Center(
-                child: Responsive.isDarwin(context)
+                child: isDarwin(context)
                     ? const CupertinoButton.filled(
                         onPressed: Geolocator.openAppSettings,
                         child: Text('Open settings'),

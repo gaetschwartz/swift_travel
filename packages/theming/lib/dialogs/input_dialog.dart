@@ -22,7 +22,7 @@ Future<String?> input(
   void Function()? unRegisterController,
 }) {
   final platform = platformOverride ?? Theme.of(context).platform;
-  if (Responsive.isPlatformDarwin(platform)) {
+  if (isPlatformDarwin(platform)) {
     return showCupertinoDialog<String>(
         context: context,
         useRootNavigator: useRootNavigator,

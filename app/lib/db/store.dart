@@ -8,10 +8,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/logic/quick_actions.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/states/favorites_routes_states.dart';
 import 'package:swift_travel/states/favorites_states.dart';
+import 'package:theming/responsive.dart';
 
 abstract class BaseFavoritesStore extends ChangeNotifier {
   Future<void> init({SharedPreferences? prefs, bool doNotify = true});

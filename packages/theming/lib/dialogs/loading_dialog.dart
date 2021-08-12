@@ -14,7 +14,7 @@ Future<T?> load<T>(
   TargetPlatform? platformOverride,
 }) {
   final platform = platformOverride ?? Theme.of(context).platform;
-  if (Responsive.isPlatformDarwin(platform)) {
+  if (isPlatformDarwin(platform)) {
     return showCupertinoDialog<T>(
       context: context,
       barrierDismissible: false,

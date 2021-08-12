@@ -43,7 +43,7 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
   late final _controller =
       AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-  bool isDarwin = false;
+  bool darwin = false;
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    isDarwin = Responsive.isDarwin(context);
+    darwin = isDarwin(context);
   }
 
   @override

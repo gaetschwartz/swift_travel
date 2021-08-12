@@ -50,7 +50,7 @@ class _StopDetailsState extends State<StopDetails> {
 
   @override
   Widget build(BuildContext context) {
-    if (Responsive.isDarwin(context)) {
+    if (isDarwin(context)) {
       return CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(

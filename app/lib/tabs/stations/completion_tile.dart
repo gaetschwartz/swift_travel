@@ -45,7 +45,7 @@ class CompletionTile extends ConsumerWidget {
     final isPrivate = VehicleX.isAnAddress(sugg.type);
 
     final isFav = sugg.favoriteName != null;
-    final isDarwin = Responsive.isDarwin(context);
+    final darwin = isDarwin(context);
 
     final subtitle = [
       if (isFav) Text(sugg.label, overflow: TextOverflow.ellipsis),
@@ -71,7 +71,7 @@ class CompletionTile extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isFav)
-              isDarwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star)
+              darwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star)
             else
               iconClass,
           ],

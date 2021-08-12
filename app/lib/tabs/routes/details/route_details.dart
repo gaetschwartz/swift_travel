@@ -5,7 +5,6 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/tabs/routes/details/snake.dart';
@@ -18,6 +17,7 @@ import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteDetails extends StatelessWidget {
@@ -102,7 +102,7 @@ class RouteDetails extends StatelessWidget {
               .push<void>(CupertinoPageRoute(builder: (_) => const SneccGame())),
           title: const Text('Snake'),
         ),
-        if (isMobile || kIsWeb)
+        if (kIsWeb || isMobile)
           ActionsSheetAction(
             icon: const Icon(CupertinoIcons.share),
             onPressed: () => _shareRoute(context),

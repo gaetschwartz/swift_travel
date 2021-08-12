@@ -16,9 +16,7 @@ Future<T?> showActionSheet<T>(
   Widget? title,
   Widget? message,
 }) {
-  final isDarwin = Responsive.isDarwin(context);
-
-  return isDarwin
+  return isDarwin(context)
       ? showCupertinoModalPopup<T>(
           context: context,
           useRootNavigator: useRootNavigator,
@@ -67,9 +65,7 @@ Future<T?> showChoiceSheet<T>(
   bool popBeforeReturn = false,
   T? defaultValue,
 }) {
-  final isDarwin = Responsive.isDarwin(context);
-
-  return isDarwin
+  return isDarwin(context)
       ? showCupertinoModalPopup<T>(
           context: context,
           useRootNavigator: useRootNavigator,

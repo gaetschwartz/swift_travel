@@ -25,7 +25,7 @@ class FavoriteStationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarwin = Responsive.isDarwin(context);
+    final darwin = isDarwin(context);
     return Slidable(
       actionPane: const SlidableDrawerActionPane(),
       secondaryActions: <Widget>[
@@ -55,7 +55,7 @@ class FavoriteStationTile extends StatelessWidget {
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (isDarwin)
+            if (darwin)
               const GradientMask(
                 gradient: RadialGradient(colors: [
                   Color(0xFFB71C1C),
