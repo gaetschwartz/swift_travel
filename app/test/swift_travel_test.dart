@@ -22,7 +22,7 @@ import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
-import 'package:swift_travel/utils/predict/complete.dart';
+import 'package:swift_travel/prediction/complete.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
 import 'apis_test.dart';

@@ -10,6 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'models/contributor.dart';
 
+typedef JSON = Map<String, Object?>;
+
 class TeamPage extends StatefulWidget {
   const TeamPage({
     Key? key,
@@ -73,8 +75,7 @@ class _TeamPageState extends State<TeamPage> {
     final uri = Uri.parse('https://api.github.com/repos/gaetschwartz/swift_travel/contributors');
     final r = await client.get(uri);
     final list = jsonDecode(r.body) as List;
-    final contribs =
-        list.map((dynamic e) => Contributor.fromJson(e as Map<String, dynamic>)).toList();
+    final contribs = list.map((dynamic e) => Contributor.fromJson(e as JSON)).toList();
 
     context.read(_contributorsProvider).state = contribs;
   }

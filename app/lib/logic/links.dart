@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
-import 'package:swift_travel/utils/predict/models/models.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
 final linksProvider = Provider<DeepLinkBloc>((ref) {

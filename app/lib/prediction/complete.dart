@@ -8,8 +8,8 @@ import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
-import 'package:swift_travel/utils/predict/models/models.dart';
-import 'package:swift_travel/utils/predict/predict.dart';
+import 'package:swift_travel/prediction/models/models.dart';
+import 'package:swift_travel/prediction/predict.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
 const _kConfidenceThreshold = .9;

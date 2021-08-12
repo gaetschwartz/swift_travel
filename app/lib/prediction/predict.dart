@@ -4,39 +4,39 @@ import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:swift_travel/models/favorites.dart';
-import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/predict/models/models.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
-/// WIP: In the future, we should create a separate [Isolate] instead of spawning one each time.
-class PredictionIsolate {
-  Future<void> spawn() async {}
+typedef JSON = Map<String, Object?>;
 
-  Future<void> close() async {}
-}
+// ignore: todo
+/// TODO: In the future, we should create a separate [Isolate] instead of spawning one each time.
 
 const _k = 5;
 
 const _daysFactor = 1 / 7;
 const _minutesFactor = 1 / Duration.minutesPerDay;
 
-final _cache = <PredictionArguments, RoutePrediction>{};
+/// Cache
+
+final _newCache = <int, RoutePrediction>{};
+RoutePrediction? _getCachedIfPresent(PredictionArguments args) => _newCache[args.hashCode];
+RoutePrediction? _setCached(PredictionArguments args, RoutePrediction prediction) =>
+    _newCache[args.hashCode] = prediction;
+
+/// Prediction
 
 Future<RoutePrediction> predictRoute(
   List<LocalRoute> routes,
   PredictionArguments arguments,
 ) async {
   final full = FullArguments(routes, arguments);
-  try {
-    final computed = await compute(_predictRouteSimple, full.toJson());
-    return RoutePrediction.fromJson(computed);
-  } on Exception {
-    ignoreError();
-  }
-  return RoutePrediction.empty(arguments);
+  final json = full.toJson();
+  final computed = await compute(_predictRouteJSON, json);
+  return RoutePrediction.fromJson(computed);
 }
 
-Map<String, dynamic> _predictRouteSimple(Map<String, dynamic> input) {
+JSON _predictRouteJSON(JSON input) {
   final full = FullArguments.fromJson(input);
   final routePrediction = predictRouteSync(full.routes, full.arguments);
   return routePrediction.toJson();
@@ -52,7 +52,7 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
     return RoutePrediction.empty(arguments);
   }
 
-  final cachedPrediction = _cache[arguments];
+  final cachedPrediction = _getCachedIfPresent(arguments);
   if (cachedPrediction != null) {
     return cachedPrediction;
   }
@@ -121,7 +121,7 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
   sum /= _k;
 
   final prediction = RoutePrediction(majRoute, 1 - sum, arguments);
-  _cache[arguments] = prediction;
+  _setCached(arguments, prediction);
   // print('Predicting $prediction');
   return prediction;
 }
