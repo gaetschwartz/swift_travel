@@ -6,18 +6,17 @@ part of 'cache.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LineCacheEntry _$_$_LineCacheEntryFromJson(Map<String, dynamic> json) {
-  return _$_LineCacheEntry(
-    timestamp: DateTime.parse(json['timestamp'] as String),
-    stop: json['stop'] as String,
-    lines: (json['lines'] as List<dynamic>)
-        .map((e) => const LineConverter().fromJson(e as Map))
-        .toList(),
-    ttl: json['ttl'] as int? ?? 10080,
-  );
-}
+_$_LineCacheEntry _$$_LineCacheEntryFromJson(Map<String, dynamic> json) =>
+    _$_LineCacheEntry(
+      timestamp: DateTime.parse(json['timestamp'] as String),
+      stop: json['stop'] as String,
+      lines: (json['lines'] as List<dynamic>)
+          .map((e) => const LineConverter().fromJson(e as Map))
+          .toList(),
+      ttl: json['ttl'] as int? ?? 10080,
+    );
 
-Map<String, dynamic> _$_$_LineCacheEntryToJson(_$_LineCacheEntry instance) =>
+Map<String, dynamic> _$$_LineCacheEntryToJson(_$_LineCacheEntry instance) =>
     <String, dynamic>{
       'timestamp': instance.timestamp.toIso8601String(),
       'stop': instance.stop,
@@ -25,14 +24,12 @@ Map<String, dynamic> _$_$_LineCacheEntryToJson(_$_LineCacheEntry instance) =>
       'ttl': instance.ttl,
     };
 
-_$_Line _$_$_LineFromJson(Map<String, dynamic> json) {
-  return _$_Line(
-    json['line'] as String?,
-    json['colors'] as String,
-  );
-}
+_$_Line _$$_LineFromJson(Map<String, dynamic> json) => _$_Line(
+      json['line'] as String?,
+      json['colors'] as String,
+    );
 
-Map<String, dynamic> _$_$_LineToJson(_$_Line instance) => <String, dynamic>{
+Map<String, dynamic> _$$_LineToJson(_$_Line instance) => <String, dynamic>{
       'line': instance.line,
       'colors': instance.colors,
     };

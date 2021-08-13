@@ -29,8 +29,9 @@ class LatLon with _$LatLon {
 
   double distanceTo(LatLon o) => distanceBetween(this, o);
   double scaledDistanceTo(LatLon o) {
-    const f = 1 / (180 * 180);
-    return distanceTo(o) * f;
+    // Average of max and min cirumferences of earth divided by two for max distance
+    const maxDist = (40075017 + 40007860) / 4;
+    return distanceTo(o) / maxDist;
   }
 
   /// Calculates the distance between the supplied coordinates in meters.

@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'route_textfield_state.dart';
 
@@ -45,6 +46,13 @@ mixin _$RouteTextfieldState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String text, bool doLoad)? text,
+    TResult Function()? useCurrentLocation,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? empty,
     TResult Function(String text, bool doLoad)? text,
@@ -57,6 +65,13 @@ mixin _$RouteTextfieldState {
     required TResult Function(EmptyRouteState value) empty,
     required TResult Function(TextRouteState value) text,
     required TResult Function(UseCurrentLocation value) useCurrentLocation,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(EmptyRouteState value)? empty,
+    TResult Function(TextRouteState value)? text,
+    TResult Function(UseCurrentLocation value)? useCurrentLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -135,6 +150,16 @@ class _$EmptyRouteState implements EmptyRouteState {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String text, bool doLoad)? text,
+    TResult Function()? useCurrentLocation,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? empty,
     TResult Function(String text, bool doLoad)? text,
@@ -155,6 +180,16 @@ class _$EmptyRouteState implements EmptyRouteState {
     required TResult Function(UseCurrentLocation value) useCurrentLocation,
   }) {
     return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(EmptyRouteState value)? empty,
+    TResult Function(TextRouteState value)? text,
+    TResult Function(UseCurrentLocation value)? useCurrentLocation,
+  }) {
+    return empty?.call(this);
   }
 
   @override
@@ -262,6 +297,16 @@ class _$TextRouteState implements TextRouteState {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String text, bool doLoad)? text,
+    TResult Function()? useCurrentLocation,
+  }) {
+    return text?.call(this.text, doLoad);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? empty,
     TResult Function(String text, bool doLoad)? text,
@@ -282,6 +327,16 @@ class _$TextRouteState implements TextRouteState {
     required TResult Function(UseCurrentLocation value) useCurrentLocation,
   }) {
     return text(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(EmptyRouteState value)? empty,
+    TResult Function(TextRouteState value)? text,
+    TResult Function(UseCurrentLocation value)? useCurrentLocation,
+  }) {
+    return text?.call(this);
   }
 
   @override
@@ -358,6 +413,16 @@ class _$UseCurrentLocation implements UseCurrentLocation {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String text, bool doLoad)? text,
+    TResult Function()? useCurrentLocation,
+  }) {
+    return useCurrentLocation?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? empty,
     TResult Function(String text, bool doLoad)? text,
@@ -378,6 +443,16 @@ class _$UseCurrentLocation implements UseCurrentLocation {
     required TResult Function(UseCurrentLocation value) useCurrentLocation,
   }) {
     return useCurrentLocation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(EmptyRouteState value)? empty,
+    TResult Function(TextRouteState value)? text,
+    TResult Function(UseCurrentLocation value)? useCurrentLocation,
+  }) {
+    return useCurrentLocation?.call(this);
   }
 
   @override

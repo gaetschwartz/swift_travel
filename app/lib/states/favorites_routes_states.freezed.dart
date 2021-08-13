@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'favorites_routes_states.dart';
 
@@ -46,6 +47,13 @@ mixin _$FavoritesRoutesStates {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<LocalRoute> routes)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<LocalRoute> routes)? data,
     TResult Function()? loading,
@@ -58,6 +66,13 @@ mixin _$FavoritesRoutesStates {
     required TResult Function(FavoritesRoutesStatesData value) data,
     required TResult Function(FavoritesRoutesStatesLoading value) loading,
     required TResult Function(FavoritesRoutesStatesError value) exception,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FavoritesRoutesStatesData value)? data,
+    TResult Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult Function(FavoritesRoutesStatesError value)? exception,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -163,6 +178,16 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<LocalRoute> routes)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+  }) {
+    return data?.call(routes);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<LocalRoute> routes)? data,
     TResult Function()? loading,
@@ -183,6 +208,16 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
     required TResult Function(FavoritesRoutesStatesError value) exception,
   }) {
     return data(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FavoritesRoutesStatesData value)? data,
+    TResult Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult Function(FavoritesRoutesStatesError value)? exception,
+  }) {
+    return data?.call(this);
   }
 
   @override
@@ -262,6 +297,16 @@ class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<LocalRoute> routes)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<LocalRoute> routes)? data,
     TResult Function()? loading,
@@ -282,6 +327,16 @@ class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
     required TResult Function(FavoritesRoutesStatesError value) exception,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FavoritesRoutesStatesData value)? data,
+    TResult Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult Function(FavoritesRoutesStatesError value)? exception,
+  }) {
+    return loading?.call(this);
   }
 
   @override
@@ -381,6 +436,16 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<LocalRoute> routes)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+  }) {
+    return exception?.call(this.exception);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<LocalRoute> routes)? data,
     TResult Function()? loading,
@@ -401,6 +466,16 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
     required TResult Function(FavoritesRoutesStatesError value) exception,
   }) {
     return exception(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FavoritesRoutesStatesData value)? data,
+    TResult Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult Function(FavoritesRoutesStatesError value)? exception,
+  }) {
+    return exception?.call(this);
   }
 
   @override

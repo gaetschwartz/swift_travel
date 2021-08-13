@@ -6,13 +6,12 @@ part of 'vehicle_iconclass.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$__VehicleIconclass _$_$__VehicleIconclassFromJson(Map<String, dynamic> json) {
-  return _$__VehicleIconclass(
-    _$enumDecode(_$VehicleEnumMap, json['v']),
-  );
-}
+_$__VehicleIconclass _$$__VehicleIconclassFromJson(Map<String, dynamic> json) =>
+    _$__VehicleIconclass(
+      _$enumDecode(_$VehicleEnumMap, json['v']),
+    );
 
-Map<String, dynamic> _$_$__VehicleIconclassToJson(
+Map<String, dynamic> _$$__VehicleIconclassToJson(
         _$__VehicleIconclass instance) =>
     <String, dynamic>{
       'v': _$VehicleEnumMap[instance.v],

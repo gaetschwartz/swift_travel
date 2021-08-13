@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'departures.dart';
 
@@ -196,7 +197,7 @@ class _$_SncfStationboard extends _SncfStationboard
       : super._();
 
   factory _$_SncfStationboard.fromJson(Map<String, dynamic> json) =>
-      _$_$_SncfStationboardFromJson(json);
+      _$$_SncfStationboardFromJson(json);
 
   @override
   final SncfContext context;
@@ -255,7 +256,7 @@ class _$_SncfStationboard extends _SncfStationboard
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SncfStationboardToJson(this);
+    return _$$_SncfStationboardToJson(this);
   }
 }
 
@@ -394,7 +395,7 @@ class _$_SncfError with DiagnosticableTreeMixin implements _SncfError {
   const _$_SncfError(this.id, this.message);
 
   factory _$_SncfError.fromJson(Map<String, dynamic> json) =>
-      _$_$_SncfErrorFromJson(json);
+      _$$_SncfErrorFromJson(json);
 
   @override
   final String id;
@@ -438,7 +439,7 @@ class _$_SncfError with DiagnosticableTreeMixin implements _SncfError {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SncfErrorToJson(this);
+    return _$$_SncfErrorToJson(this);
   }
 }
 
@@ -636,7 +637,7 @@ class _$_SncfDeparture extends _SncfDeparture with DiagnosticableTreeMixin {
       : super._();
 
   factory _$_SncfDeparture.fromJson(Map<String, dynamic> json) =>
-      _$_$_SncfDepartureFromJson(json);
+      _$$_SncfDepartureFromJson(json);
 
   @override
   @JsonKey(name: 'display_informations')
@@ -692,7 +693,7 @@ class _$_SncfDeparture extends _SncfDeparture with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SncfDepartureToJson(this);
+    return _$$_SncfDepartureToJson(this);
   }
 }
 
@@ -832,7 +833,7 @@ class _$_SncfStopPoint with DiagnosticableTreeMixin implements _SncfStopPoint {
       @JsonKey(name: 'commercial_modes') this.commercialModes);
 
   factory _$_SncfStopPoint.fromJson(Map<String, dynamic> json) =>
-      _$_$_SncfStopPointFromJson(json);
+      _$$_SncfStopPointFromJson(json);
 
   @override
   @JsonKey(name: 'commercial_modes')
@@ -872,7 +873,7 @@ class _$_SncfStopPoint with DiagnosticableTreeMixin implements _SncfStopPoint {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SncfStopPointToJson(this);
+    return _$$_SncfStopPointToJson(this);
   }
 }
 
@@ -1001,7 +1002,7 @@ class _$_SncfMode with DiagnosticableTreeMixin implements _SncfMode {
   const _$_SncfMode(this.id, this.name);
 
   factory _$_SncfMode.fromJson(Map<String, dynamic> json) =>
-      _$_$_SncfModeFromJson(json);
+      _$$_SncfModeFromJson(json);
 
   @override
   final String id;
@@ -1045,7 +1046,7 @@ class _$_SncfMode with DiagnosticableTreeMixin implements _SncfMode {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SncfModeToJson(this);
+    return _$$_SncfModeToJson(this);
   }
 }
 
@@ -1298,7 +1299,7 @@ class _$_SncfStopDateTime
       required this.links});
 
   factory _$_SncfStopDateTime.fromJson(Map<String, dynamic> json) =>
-      _$_$_SncfStopDateTimeFromJson(json);
+      _$$_SncfStopDateTimeFromJson(json);
 
   @override
   @JsonKey(name: 'additional_informations')
@@ -1385,7 +1386,7 @@ class _$_SncfStopDateTime
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SncfStopDateTimeToJson(this);
+    return _$$_SncfStopDateTimeToJson(this);
   }
 }
 
@@ -1750,7 +1751,7 @@ class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
       @JsonKey(name: 'trip_short_name') required this.tripShortName});
 
   factory _$_SncfDispInfo.fromJson(Map<String, dynamic> json) =>
-      _$_$_SncfDispInfoFromJson(json);
+      _$$_SncfDispInfoFromJson(json);
 
   @override
   final String code;
@@ -1879,7 +1880,7 @@ class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SncfDispInfoToJson(this);
+    return _$$_SncfDispInfoToJson(this);
   }
 }
 

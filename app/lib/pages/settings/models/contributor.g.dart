@@ -6,31 +6,30 @@ part of 'contributor.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Contributor _$_$_ContributorFromJson(Map<String, dynamic> json) {
-  return _$_Contributor(
-    login: json['login'] as String,
-    id: json['id'] as int,
-    nodeId: json['node_id'] as String,
-    avatarUrl: json['avatar_url'] as String,
-    gravatarId: json['gravatar_id'] as String,
-    url: json['url'] as String,
-    htmlUrl: json['html_url'] as String,
-    followersUrl: json['followers_url'] as String,
-    followingUrl: json['following_url'] as String,
-    gistsUrl: json['gists_url'] as String,
-    starredUrl: json['starred_url'] as String,
-    subscriptionsUrl: json['subscriptions_url'] as String,
-    organizationsUrl: json['organizations_url'] as String,
-    reposUrl: json['repos_url'] as String,
-    eventsUrl: json['events_url'] as String,
-    receivedEventsUrl: json['received_events_url'] as String,
-    type: json['type'] as String,
-    siteAdmin: json['site_admin'] as bool,
-    contributions: json['contributions'] as int,
-  );
-}
+_$_Contributor _$$_ContributorFromJson(Map<String, dynamic> json) =>
+    _$_Contributor(
+      login: json['login'] as String,
+      id: json['id'] as int,
+      nodeId: json['node_id'] as String,
+      avatarUrl: json['avatar_url'] as String,
+      gravatarId: json['gravatar_id'] as String,
+      url: json['url'] as String,
+      htmlUrl: json['html_url'] as String,
+      followersUrl: json['followers_url'] as String,
+      followingUrl: json['following_url'] as String,
+      gistsUrl: json['gists_url'] as String,
+      starredUrl: json['starred_url'] as String,
+      subscriptionsUrl: json['subscriptions_url'] as String,
+      organizationsUrl: json['organizations_url'] as String,
+      reposUrl: json['repos_url'] as String,
+      eventsUrl: json['events_url'] as String,
+      receivedEventsUrl: json['received_events_url'] as String,
+      type: json['type'] as String,
+      siteAdmin: json['site_admin'] as bool,
+      contributions: json['contributions'] as int,
+    );
 
-Map<String, dynamic> _$_$_ContributorToJson(_$_Contributor instance) =>
+Map<String, dynamic> _$$_ContributorToJson(_$_Contributor instance) =>
     <String, dynamic>{
       'login': instance.login,
       'id': instance.id,

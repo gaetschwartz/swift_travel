@@ -34,16 +34,16 @@ class FullArguments with _$FullArguments {
 @freezed
 class PredictionArguments with _$PredictionArguments {
   @JsonSerializable(explicitToJson: true)
-  const factory PredictionArguments(DateTime? dateTime) = DateTimeArgument;
+  const factory PredictionArguments.empty({required DateTime? dateTime}) = EmptyArgument;
 
   const PredictionArguments._();
 
   @JsonSerializable(explicitToJson: true)
-  const factory PredictionArguments.withSource(DateTime? dateTime, String source) =
+  const factory PredictionArguments.withSource(String source, {required DateTime? dateTime}) =
       SourceDateArguments;
 
   @JsonSerializable(explicitToJson: true)
-  const factory PredictionArguments.withLocation(LatLon latLon, {DateTime? dateTime}) =
+  const factory PredictionArguments.withLocation(LatLon latLon, {required DateTime? dateTime}) =
       LocationArgument;
 
   factory PredictionArguments.from(DateTime dateTime, {String? source, LatLon? pos}) {
@@ -51,9 +51,9 @@ class PredictionArguments with _$PredictionArguments {
       return PredictionArguments.withLocation(pos, dateTime: dateTime);
     }
     if (source != null) {
-      return PredictionArguments.withSource(dateTime, source);
+      return PredictionArguments.withSource(source, dateTime: dateTime);
     }
-    return PredictionArguments(dateTime);
+    return PredictionArguments.empty(dateTime: dateTime);
   }
 
   factory PredictionArguments.fromJson(Map<String, dynamic> json) =>
@@ -78,17 +78,15 @@ class PredictionArguments with _$PredictionArguments {
 }
 
 abstract class IterableTransformer<T> {
-  Iterable<T> transform(Iterable<T> iterable);
+  Iterable<T> apply(Iterable<T> iterable);
 }
 
-abstract class RoutesTransformer extends IterableTransformer<LocalRoute> {
-  factory RoutesTransformer.fromArguments(PredictionArguments args) =>
-      args.maybeMap((value) => UnchangedTransformer(), orElse: () => DoubleFlippedRoutes());
-}
+@immutable
+class DoubleFlippedRouteTransformer implements IterableTransformer<LocalRoute> {
+  const DoubleFlippedRouteTransformer();
 
-class DoubleFlippedRoutes implements RoutesTransformer {
   @override
-  Iterable<LocalRoute> transform(Iterable<LocalRoute> routes) sync* {
+  Iterable<LocalRoute> apply(Iterable<LocalRoute> routes) sync* {
     for (final e in routes) {
       yield e;
       yield e.flipped;
@@ -96,9 +94,12 @@ class DoubleFlippedRoutes implements RoutesTransformer {
   }
 }
 
-class UnchangedTransformer implements RoutesTransformer {
+@immutable
+class UnchangedRouteTransformer implements IterableTransformer<LocalRoute> {
+  const UnchangedRouteTransformer();
+
   @override
-  Iterable<LocalRoute> transform(Iterable<LocalRoute> routes) => routes;
+  Iterable<LocalRoute> apply(Iterable<LocalRoute> routes) => routes;
 }
 
 @freezed
@@ -107,11 +108,4 @@ class Pair<R, S> with _$Pair<R, S> {
   const Pair._();
 
   Pair<S, R> get flipped => Pair<S, R>(second, first);
-}
-
-void main() {
-  const p1 = Pair<int, int>(1, 2);
-  const p2 = Pair<int, int>(2, 1);
-  print('${p1.hashCode == p2.hashCode ? 'equal' : 'different'} hashcode');
-  print(p1 == p2 ? 'equal' : 'different');
 }

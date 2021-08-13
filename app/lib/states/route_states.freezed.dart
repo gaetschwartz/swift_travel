@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'route_states.dart';
 
@@ -66,6 +67,17 @@ mixin _$RouteStates {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(NavRoute routes)? $default, {
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
@@ -88,6 +100,18 @@ mixin _$RouteStates {
     required TResult Function(RSException value) exception,
     required TResult Function(RSEmpty value) empty,
     required TResult Function(RSLoading value) loading,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -196,6 +220,20 @@ class _$RSData implements RSData {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(NavRoute routes)? $default, {
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+  }) {
+    return $default?.call(routes);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
@@ -226,6 +264,21 @@ class _$RSData implements RSData {
     required TResult Function(RSLoading value) loading,
   }) {
     return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+  }) {
+    return $default?.call(this);
   }
 
   @override
@@ -309,6 +362,20 @@ class _$RSNetworkException implements RSNetworkException {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(NavRoute routes)? $default, {
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+  }) {
+    return networkException?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
@@ -339,6 +406,21 @@ class _$RSNetworkException implements RSNetworkException {
     required TResult Function(RSLoading value) loading,
   }) {
     return networkException(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+  }) {
+    return networkException?.call(this);
   }
 
   @override
@@ -422,6 +504,20 @@ class _$RSLocationPermissionNotGranted
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(NavRoute routes)? $default, {
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+  }) {
+    return locationPermissionNotGranted?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
@@ -452,6 +548,21 @@ class _$RSLocationPermissionNotGranted
     required TResult Function(RSLoading value) loading,
   }) {
     return locationPermissionNotGranted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+  }) {
+    return locationPermissionNotGranted?.call(this);
   }
 
   @override
@@ -533,6 +644,20 @@ class _$RSMissingPluginException implements RSMissingPluginException {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(NavRoute routes)? $default, {
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+  }) {
+    return missingPluginException?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
@@ -563,6 +688,21 @@ class _$RSMissingPluginException implements RSMissingPluginException {
     required TResult Function(RSLoading value) loading,
   }) {
     return missingPluginException(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+  }) {
+    return missingPluginException?.call(this);
   }
 
   @override
@@ -667,6 +807,20 @@ class _$RSException implements RSException {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(NavRoute routes)? $default, {
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+  }) {
+    return exception?.call(this.exception);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
@@ -697,6 +851,21 @@ class _$RSException implements RSException {
     required TResult Function(RSLoading value) loading,
   }) {
     return exception(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+  }) {
+    return exception?.call(this);
   }
 
   @override
@@ -778,6 +947,20 @@ class _$RSEmpty implements RSEmpty {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(NavRoute routes)? $default, {
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
@@ -808,6 +991,21 @@ class _$RSEmpty implements RSEmpty {
     required TResult Function(RSLoading value) loading,
   }) {
     return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+  }) {
+    return empty?.call(this);
   }
 
   @override
@@ -884,6 +1082,20 @@ class _$RSLoading implements RSLoading {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(NavRoute routes)? $default, {
+    TResult Function()? networkException,
+    TResult Function()? locationPermissionNotGranted,
+    TResult Function()? missingPluginException,
+    TResult Function(Object exception)? exception,
+    TResult Function()? empty,
+    TResult Function()? loading,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(NavRoute routes)? $default, {
     TResult Function()? networkException,
@@ -914,6 +1126,21 @@ class _$RSLoading implements RSLoading {
     required TResult Function(RSLoading value) loading,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(RSData value)? $default, {
+    TResult Function(RSNetworkException value)? networkException,
+    TResult Function(RSLocationPermissionNotGranted value)?
+        locationPermissionNotGranted,
+    TResult Function(RSMissingPluginException value)? missingPluginException,
+    TResult Function(RSException value)? exception,
+    TResult Function(RSEmpty value)? empty,
+    TResult Function(RSLoading value)? loading,
+  }) {
+    return loading?.call(this);
   }
 
   @override

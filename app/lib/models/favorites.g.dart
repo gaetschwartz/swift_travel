@@ -6,18 +6,17 @@ part of 'favorites.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$LocalRouteV1 _$_$LocalRouteV1FromJson(Map<String, dynamic> json) {
-  return _$LocalRouteV1(
-    json['from'] as String,
-    json['to'] as String,
-    displayName: json['displayName'] as String?,
-    timestamp: json['timestamp'] == null
-        ? null
-        : DateTime.parse(json['timestamp'] as String),
-  );
-}
+_$LocalRouteV1 _$$LocalRouteV1FromJson(Map<String, dynamic> json) =>
+    _$LocalRouteV1(
+      json['from'] as String,
+      json['to'] as String,
+      displayName: json['displayName'] as String?,
+      timestamp: json['timestamp'] == null
+          ? null
+          : DateTime.parse(json['timestamp'] as String),
+    );
 
-Map<String, dynamic> _$_$LocalRouteV1ToJson(_$LocalRouteV1 instance) {
+Map<String, dynamic> _$$LocalRouteV1ToJson(_$LocalRouteV1 instance) {
   final val = <String, dynamic>{
     'from': instance.from,
     'to': instance.to,
@@ -34,18 +33,17 @@ Map<String, dynamic> _$_$LocalRouteV1ToJson(_$LocalRouteV1 instance) {
   return val;
 }
 
-_$LocalRouteV2 _$_$LocalRouteV2FromJson(Map<String, dynamic> json) {
-  return _$LocalRouteV2(
-    SbbStop.fromJson(json['from'] as Map<String, dynamic>),
-    SbbStop.fromJson(json['to'] as Map<String, dynamic>),
-    displayName: json['displayName'] as String?,
-    timestamp: json['timestamp'] == null
-        ? null
-        : DateTime.parse(json['timestamp'] as String),
-  );
-}
+_$LocalRouteV2 _$$LocalRouteV2FromJson(Map<String, dynamic> json) =>
+    _$LocalRouteV2(
+      SbbStop.fromJson(json['from'] as Map<String, dynamic>),
+      SbbStop.fromJson(json['to'] as Map<String, dynamic>),
+      displayName: json['displayName'] as String?,
+      timestamp: json['timestamp'] == null
+          ? null
+          : DateTime.parse(json['timestamp'] as String),
+    );
 
-Map<String, dynamic> _$_$LocalRouteV2ToJson(_$LocalRouteV2 instance) {
+Map<String, dynamic> _$$LocalRouteV2ToJson(_$LocalRouteV2 instance) {
   final val = <String, dynamic>{
     'from': instance.from.toJson(),
     'to': instance.to.toJson(),
@@ -62,16 +60,15 @@ Map<String, dynamic> _$_$LocalRouteV2ToJson(_$LocalRouteV2 instance) {
   return val;
 }
 
-_$_FavoriteStop _$_$_FavoriteStopFromJson(Map<String, dynamic> json) {
-  return _$_FavoriteStop(
-    stop: json['stop'] as String,
-    name: json['name'] as String,
-    api: json['api'] as String? ?? 'sbb',
-    id: json['id'] as String?,
-  );
-}
+_$_FavoriteStop _$$_FavoriteStopFromJson(Map<String, dynamic> json) =>
+    _$_FavoriteStop(
+      stop: json['stop'] as String,
+      name: json['name'] as String,
+      api: json['api'] as String? ?? 'sbb',
+      id: json['id'] as String?,
+    );
 
-Map<String, dynamic> _$_$_FavoriteStopToJson(_$_FavoriteStop instance) {
+Map<String, dynamic> _$$_FavoriteStopToJson(_$_FavoriteStop instance) {
   final val = <String, dynamic>{
     'stop': instance.stop,
     'name': instance.name,

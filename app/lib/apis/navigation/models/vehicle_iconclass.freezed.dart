@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'vehicle_iconclass.dart';
 
@@ -115,7 +116,7 @@ class _$__VehicleIconclass implements __VehicleIconclass {
   const _$__VehicleIconclass(this.v);
 
   factory _$__VehicleIconclass.fromJson(Map<String, dynamic> json) =>
-      _$_$__VehicleIconclassFromJson(json);
+      _$$__VehicleIconclassFromJson(json);
 
   @override
   final Vehicle v;
@@ -144,7 +145,7 @@ class _$__VehicleIconclass implements __VehicleIconclass {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$__VehicleIconclassToJson(this);
+    return _$$__VehicleIconclassToJson(this);
   }
 }
 

@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'favorites.dart';
 
@@ -13,14 +14,15 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 LocalRoute _$LocalRouteFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String) {
+  switch (json['runtimeType'] as String?) {
     case 'v1':
       return LocalRouteV1.fromJson(json);
     case 'v2':
       return LocalRouteV2.fromJson(json);
 
     default:
-      throw FallThroughError();
+      throw CheckedFromJsonException(json, 'runtimeType', 'LocalRoute',
+          'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
@@ -72,6 +74,16 @@ mixin _$LocalRoute {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            String from, String to, String? displayName, DateTime? timestamp)?
+        v1,
+    TResult Function(
+            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
+        v2,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String from, String to, String? displayName, DateTime? timestamp)?
@@ -86,6 +98,12 @@ mixin _$LocalRoute {
   TResult map<TResult extends Object?>({
     required TResult Function(LocalRouteV1 value) v1,
     required TResult Function(LocalRouteV2 value) v2,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(LocalRouteV1 value)? v1,
+    TResult Function(LocalRouteV2 value)? v2,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -186,12 +204,13 @@ class _$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
+@Deprecated("Use v2")
 class _$LocalRouteV1 extends LocalRouteV1 {
   const _$LocalRouteV1(this.from, this.to, {this.displayName, this.timestamp})
       : super._();
 
   factory _$LocalRouteV1.fromJson(Map<String, dynamic> json) =>
-      _$_$LocalRouteV1FromJson(json);
+      _$$LocalRouteV1FromJson(json);
 
   @override
   final String from;
@@ -251,6 +270,19 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            String from, String to, String? displayName, DateTime? timestamp)?
+        v1,
+    TResult Function(
+            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
+        v2,
+  }) {
+    return v1?.call(from, to, displayName, timestamp);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String from, String to, String? displayName, DateTime? timestamp)?
@@ -277,6 +309,15 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(LocalRouteV1 value)? v1,
+    TResult Function(LocalRouteV2 value)? v2,
+  }) {
+    return v1?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LocalRouteV1 value)? v1,
     TResult Function(LocalRouteV2 value)? v2,
@@ -290,7 +331,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$LocalRouteV1ToJson(this)..['runtimeType'] = 'v1';
+    return _$$LocalRouteV1ToJson(this)..['runtimeType'] = 'v1';
   }
 }
 
@@ -388,7 +429,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
       : super._();
 
   factory _$LocalRouteV2.fromJson(Map<String, dynamic> json) =>
-      _$_$LocalRouteV2FromJson(json);
+      _$$LocalRouteV2FromJson(json);
 
   @override
   final SbbStop from;
@@ -448,6 +489,19 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            String from, String to, String? displayName, DateTime? timestamp)?
+        v1,
+    TResult Function(
+            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
+        v2,
+  }) {
+    return v2?.call(from, to, displayName, timestamp);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String from, String to, String? displayName, DateTime? timestamp)?
@@ -474,6 +528,15 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(LocalRouteV1 value)? v1,
+    TResult Function(LocalRouteV2 value)? v2,
+  }) {
+    return v2?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LocalRouteV1 value)? v1,
     TResult Function(LocalRouteV2 value)? v2,
@@ -487,7 +550,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$LocalRouteV2ToJson(this)..['runtimeType'] = 'v2';
+    return _$$LocalRouteV2ToJson(this)..['runtimeType'] = 'v2';
   }
 }
 
@@ -657,7 +720,7 @@ class _$_FavoriteStop extends _FavoriteStop {
       : super._();
 
   factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
-      _$_$_FavoriteStopFromJson(json);
+      _$$_FavoriteStopFromJson(json);
 
   @override
   final String stop;
@@ -703,7 +766,7 @@ class _$_FavoriteStop extends _FavoriteStop {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_FavoriteStopToJson(this);
+    return _$$_FavoriteStopToJson(this);
   }
 }
 
