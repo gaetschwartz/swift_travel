@@ -6,22 +6,21 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_GeoLocation _$_$_GeoLocationFromJson(Map<String, dynamic> json) {
-  return _$_GeoLocation(
-    latitude: (json['latitude'] as num).toDouble(),
-    longitude: (json['longitude'] as num).toDouble(),
-    accuracy: (json['accuracy'] as num?)?.toDouble(),
-    altitude: (json['altitude'] as num?)?.toDouble(),
-    heading: (json['heading'] as num?)?.toDouble(),
-    speed: (json['speed'] as num?)?.toDouble(),
-    speedAccuracy: (json['speedAccuracy'] as num?)?.toDouble(),
-    timestamp: json['timestamp'] == null
-        ? null
-        : DateTime.parse(json['timestamp'] as String),
-  );
-}
+_$_GeoLocation _$$_GeoLocationFromJson(Map<String, dynamic> json) =>
+    _$_GeoLocation(
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
+      accuracy: (json['accuracy'] as num?)?.toDouble(),
+      altitude: (json['altitude'] as num?)?.toDouble(),
+      heading: (json['heading'] as num?)?.toDouble(),
+      speed: (json['speed'] as num?)?.toDouble(),
+      speedAccuracy: (json['speedAccuracy'] as num?)?.toDouble(),
+      timestamp: json['timestamp'] == null
+          ? null
+          : DateTime.parse(json['timestamp'] as String),
+    );
 
-Map<String, dynamic> _$_$_GeoLocationToJson(_$_GeoLocation instance) =>
+Map<String, dynamic> _$$_GeoLocationToJson(_$_GeoLocation instance) =>
     <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,

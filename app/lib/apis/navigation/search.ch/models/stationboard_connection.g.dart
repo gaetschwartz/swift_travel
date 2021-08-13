@@ -6,44 +6,50 @@ part of 'stationboard_connection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SbbStationboardConnection _$_$_SbbStationboardConnectionFromJson(
-    Map<String, dynamic> json) {
-  return $checkedNew(r'_$_SbbStationboardConnection', json, () {
-    final val = _$_SbbStationboardConnection(
-      time: $checkedConvert(json, 'time', (v) => DateTime.parse(v as String)),
-      type: $checkedConvert(
-          json, 'type', (v) => _$enumDecode(_$VehicleEnumMap, v)),
-      color: $checkedConvert(json, 'color', (v) => v as String),
-      sbbTerminal: $checkedConvert(
-          json, 'terminal', (v) => SbbStop.fromJson(v as Map<String, dynamic>)),
-      line: $checkedConvert(json, 'line', (v) => v as String?),
-      operator: $checkedConvert(json, 'operator', (v) => v as String?),
-      number: $checkedConvert(json, 'number', (v) => v as String?) ?? '',
-      g: $checkedConvert(json, '*G', (v) => v as String?),
-      l: $checkedConvert(json, '*L', (v) => v as String?),
-      sbbSubsequentStops: $checkedConvert(
-              json,
+_$_SbbStationboardConnection _$$_SbbStationboardConnectionFromJson(
+        Map<String, dynamic> json) =>
+    $checkedCreate(
+      r'_$_SbbStationboardConnection',
+      json,
+      ($checkedConvert) {
+        final val = _$_SbbStationboardConnection(
+          time: $checkedConvert('time', (v) => DateTime.parse(v as String)),
+          type:
+              $checkedConvert('type', (v) => _$enumDecode(_$VehicleEnumMap, v)),
+          color: $checkedConvert('color', (v) => v as String),
+          sbbTerminal: $checkedConvert(
+              'terminal', (v) => SbbStop.fromJson(v as Map<String, dynamic>)),
+          line: $checkedConvert('line', (v) => v as String?),
+          operator: $checkedConvert('operator', (v) => v as String?),
+          number: $checkedConvert('number', (v) => v as String? ?? ''),
+          g: $checkedConvert('*G', (v) => v as String?),
+          l: $checkedConvert('*L', (v) => v as String?),
+          sbbSubsequentStops: $checkedConvert(
               'subsequent_stops',
-              (v) => (v as List<dynamic>?)
-                  ?.map((e) =>
-                      SbbSubsequentStop.fromJson(e as Map<String, dynamic>))
-                  .toList()) ??
-          [],
-      depDelay: $checkedConvert(json, 'dep_delay', (v) => delayFromJson(v)),
-      arrDelay: $checkedConvert(json, 'arr_delay', (v) => delayFromJson(v)),
+              (v) =>
+                  (v as List<dynamic>?)
+                      ?.map((e) =>
+                          SbbSubsequentStop.fromJson(e as Map<String, dynamic>))
+                      .toList() ??
+                  []),
+          depDelay: $checkedConvert(
+              'dep_delay', (v) => v == null ? 0 : delayFromJson(v)),
+          arrDelay: $checkedConvert(
+              'arr_delay', (v) => v == null ? 0 : delayFromJson(v)),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'sbbTerminal': 'terminal',
+        'g': '*G',
+        'l': '*L',
+        'sbbSubsequentStops': 'subsequent_stops',
+        'depDelay': 'dep_delay',
+        'arrDelay': 'arr_delay'
+      },
     );
-    return val;
-  }, fieldKeyMap: const {
-    'sbbTerminal': 'terminal',
-    'g': '*G',
-    'l': '*L',
-    'sbbSubsequentStops': 'subsequent_stops',
-    'depDelay': 'dep_delay',
-    'arrDelay': 'arr_delay'
-  });
-}
 
-Map<String, dynamic> _$_$_SbbStationboardConnectionToJson(
+Map<String, dynamic> _$$_SbbStationboardConnectionToJson(
         _$_SbbStationboardConnection instance) =>
     <String, dynamic>{
       'time': instance.time.toIso8601String(),

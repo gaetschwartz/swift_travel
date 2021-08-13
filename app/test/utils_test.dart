@@ -19,7 +19,7 @@ void main() {
 
   test('double flipped RouteTransformer', () {
     final routes = [localRoute, localRoute2];
-    final doubled = DoubleFlippedRoutes().transform(routes).toList();
+    final doubled = const DoubleFlippedRouteTransformer().apply(routes).toList();
     expect(doubled, hasLength(2 * routes.length));
     expect(
         doubled,
@@ -33,7 +33,7 @@ void main() {
 
   test('unchanged RouteTransformer', () {
     final routes = [localRoute, localRoute2];
-    final tranformed = UnchangedTransformer().transform(routes).toList();
+    final tranformed = const UnchangedRouteTransformer().apply(routes).toList();
     expect(tranformed, hasLength(routes.length));
     expect(tranformed, containsAll(routes));
   });

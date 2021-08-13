@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'favorites_states.dart';
 
@@ -46,6 +47,13 @@ mixin _$FavoritesStates {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<FavoriteStop> favorites)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<FavoriteStop> favorites)? data,
     TResult Function()? loading,
@@ -58,6 +66,13 @@ mixin _$FavoritesStates {
     required TResult Function(FavoritesStatesData value) data,
     required TResult Function(FavoritesStatesLoading value) loading,
     required TResult Function(FavoritesStatesError value) exception,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FavoritesStatesData value)? data,
+    TResult Function(FavoritesStatesLoading value)? loading,
+    TResult Function(FavoritesStatesError value)? exception,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -162,6 +177,16 @@ class _$FavoritesStatesData implements FavoritesStatesData {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<FavoriteStop> favorites)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+  }) {
+    return data?.call(favorites);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<FavoriteStop> favorites)? data,
     TResult Function()? loading,
@@ -182,6 +207,16 @@ class _$FavoritesStatesData implements FavoritesStatesData {
     required TResult Function(FavoritesStatesError value) exception,
   }) {
     return data(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FavoritesStatesData value)? data,
+    TResult Function(FavoritesStatesLoading value)? loading,
+    TResult Function(FavoritesStatesError value)? exception,
+  }) {
+    return data?.call(this);
   }
 
   @override
@@ -258,6 +293,16 @@ class _$FavoritesStatesLoading implements FavoritesStatesLoading {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<FavoriteStop> favorites)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<FavoriteStop> favorites)? data,
     TResult Function()? loading,
@@ -278,6 +323,16 @@ class _$FavoritesStatesLoading implements FavoritesStatesLoading {
     required TResult Function(FavoritesStatesError value) exception,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FavoritesStatesData value)? data,
+    TResult Function(FavoritesStatesLoading value)? loading,
+    TResult Function(FavoritesStatesError value)? exception,
+  }) {
+    return loading?.call(this);
   }
 
   @override
@@ -375,6 +430,16 @@ class _$FavoritesStatesError implements FavoritesStatesError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<FavoriteStop> favorites)? data,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? exception,
+  }) {
+    return exception?.call(this.exception);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<FavoriteStop> favorites)? data,
     TResult Function()? loading,
@@ -395,6 +460,16 @@ class _$FavoritesStatesError implements FavoritesStatesError {
     required TResult Function(FavoritesStatesError value) exception,
   }) {
     return exception(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FavoritesStatesData value)? data,
+    TResult Function(FavoritesStatesLoading value)? loading,
+    TResult Function(FavoritesStatesError value)? exception,
+  }) {
+    return exception?.call(this);
   }
 
   @override

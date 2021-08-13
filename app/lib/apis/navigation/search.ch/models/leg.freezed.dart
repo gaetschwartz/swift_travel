@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'leg.dart';
 
@@ -37,7 +38,7 @@ class _$SbbLegTearOff {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           List<SbbStop> sbbStops = const <SbbStop>[],
       String? sbbName,
       DateTime? departure,
@@ -108,7 +109,7 @@ mixin _$SbbLeg {
   @JsonKey(name: 'runningtime')
   double? get runningTime => throw _privateConstructorUsedError;
   String? get line => throw _privateConstructorUsedError;
-  @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
   String? get sbbName => throw _privateConstructorUsedError;
   DateTime? get departure => throw _privateConstructorUsedError;
@@ -151,7 +152,7 @@ abstract class $SbbLegCopyWith<$Res> {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
@@ -345,7 +346,7 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
@@ -529,7 +530,7 @@ class _$_SbbLeg extends _SbbLeg {
       @JsonKey(name: 'runningtime')
           this.runningTime,
       this.line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           this.sbbStops = const <SbbStop>[],
       this.sbbName,
       this.departure,
@@ -548,7 +549,7 @@ class _$_SbbLeg extends _SbbLeg {
       : super._();
 
   factory _$_SbbLeg.fromJson(Map<String, dynamic> json) =>
-      _$_$_SbbLegFromJson(json);
+      _$$_SbbLegFromJson(json);
 
   @override
   final String name;
@@ -580,7 +581,7 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   final String? line;
   @override
-  @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   final List<SbbStop> sbbStops;
   @override
   final String? sbbName;
@@ -721,7 +722,7 @@ class _$_SbbLeg extends _SbbLeg {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SbbLegToJson(this);
+    return _$$_SbbLegToJson(this);
   }
 }
 
@@ -743,7 +744,7 @@ abstract class _SbbLeg extends SbbLeg {
       @JsonKey(name: 'runningtime')
           double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
@@ -793,7 +794,7 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   String? get line => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'stops', defaultValue: const <SbbStop>[])
+  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
   @override
   String? get sbbName => throw _privateConstructorUsedError;

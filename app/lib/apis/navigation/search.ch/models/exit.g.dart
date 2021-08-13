@@ -6,28 +6,32 @@ part of 'exit.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Exit _$_$_ExitFromJson(Map<String, dynamic> json) {
-  return $checkedNew(r'_$_Exit', json, () {
-    final val = _$_Exit(
-      name: $checkedConvert(json, 'name', (v) => v as String),
-      arrDelay: $checkedConvert(json, 'arr_delay', (v) => delayFromJson(v)),
-      arrival: $checkedConvert(json, 'arrival',
-          (v) => v == null ? null : DateTime.parse(v as String)),
-      lat: $checkedConvert(json, 'lat', (v) => (v as num?)?.toDouble()),
-      lon: $checkedConvert(json, 'lon', (v) => (v as num?)?.toDouble()),
-      sbbName: $checkedConvert(json, 'sbbName', (v) => v as String?),
-      stopid: $checkedConvert(json, 'stopid', (v) => v as String?),
-      track: $checkedConvert(json, 'track', (v) => v as String?),
-      waittime: $checkedConvert(json, 'waittime', (v) => v as int?) ?? 0,
-      isaddress: $checkedConvert(json, 'isaddress', (v) => v as bool?) ?? false,
-      x: $checkedConvert(json, 'x', (v) => const IntConverter().fromJson(v)),
-      y: $checkedConvert(json, 'y', (v) => const IntConverter().fromJson(v)),
+_$_Exit _$$_ExitFromJson(Map<String, dynamic> json) => $checkedCreate(
+      r'_$_Exit',
+      json,
+      ($checkedConvert) {
+        final val = _$_Exit(
+          name: $checkedConvert('name', (v) => v as String),
+          arrDelay: $checkedConvert(
+              'arr_delay', (v) => v == null ? 0 : delayFromJson(v)),
+          arrival: $checkedConvert(
+              'arrival', (v) => v == null ? null : DateTime.parse(v as String)),
+          lat: $checkedConvert('lat', (v) => (v as num?)?.toDouble()),
+          lon: $checkedConvert('lon', (v) => (v as num?)?.toDouble()),
+          sbbName: $checkedConvert('sbbName', (v) => v as String?),
+          stopid: $checkedConvert('stopid', (v) => v as String?),
+          track: $checkedConvert('track', (v) => v as String?),
+          waittime: $checkedConvert('waittime', (v) => v as int? ?? 0),
+          isaddress: $checkedConvert('isaddress', (v) => v as bool? ?? false),
+          x: $checkedConvert('x', (v) => const IntConverter().fromJson(v)),
+          y: $checkedConvert('y', (v) => const IntConverter().fromJson(v)),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'arrDelay': 'arr_delay'},
     );
-    return val;
-  }, fieldKeyMap: const {'arrDelay': 'arr_delay'});
-}
 
-Map<String, dynamic> _$_$_ExitToJson(_$_Exit instance) {
+Map<String, dynamic> _$$_ExitToJson(_$_Exit instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };

@@ -64,7 +64,8 @@ class CompletionEngine {
 
     if (doPredict) {
       assert(date != null, 'If you use prediction, you must provide a date argument');
-      final prediction = await predictRoute(history, PredictionArguments.withSource(date, query));
+      final prediction =
+          await predictRoute(history, PredictionArguments.withSource(query, dateTime: date));
       final event = returnedList(
           query, currentLocationString, prediction, history, favs, completions, doPredict);
       yield event;

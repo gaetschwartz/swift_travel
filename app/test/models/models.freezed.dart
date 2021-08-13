@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'models.dart';
 
@@ -13,7 +14,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Union _$UnionFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String) {
+  switch (json['runtimeType'] as String?) {
     case 'default':
       return Person.fromJson(json);
     case 'animal':
@@ -22,7 +23,8 @@ Union _$UnionFromJson(Map<String, dynamic> json) {
       return Number.fromJson(json);
 
     default:
-      throw FallThroughError();
+      throw CheckedFromJsonException(json, 'runtimeType', 'Union',
+          'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
@@ -67,6 +69,13 @@ mixin _$Union {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(String name)? $default, {
+    TResult Function(String name, int legs)? animal,
+    TResult Function(int number)? number,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String name)? $default, {
     TResult Function(String name, int legs)? animal,
@@ -79,6 +88,13 @@ mixin _$Union {
     TResult Function(Person value) $default, {
     required TResult Function(Animal value) animal,
     required TResult Function(Number value) number,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(Person value)? $default, {
+    TResult Function(Animal value)? animal,
+    TResult Function(Number value)? number,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -142,7 +158,7 @@ class _$Person implements Person {
   const _$Person(this.name);
 
   factory _$Person.fromJson(Map<String, dynamic> json) =>
-      _$_$PersonFromJson(json);
+      _$$PersonFromJson(json);
 
   @override
   final String name;
@@ -181,6 +197,16 @@ class _$Person implements Person {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(String name)? $default, {
+    TResult Function(String name, int legs)? animal,
+    TResult Function(int number)? number,
+  }) {
+    return $default?.call(name);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String name)? $default, {
     TResult Function(String name, int legs)? animal,
@@ -205,6 +231,16 @@ class _$Person implements Person {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(Person value)? $default, {
+    TResult Function(Animal value)? animal,
+    TResult Function(Number value)? number,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(Person value)? $default, {
     TResult Function(Animal value)? animal,
@@ -219,7 +255,7 @@ class _$Person implements Person {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$PersonToJson(this)..['runtimeType'] = 'default';
+    return _$$PersonToJson(this)..['runtimeType'] = 'default';
   }
 }
 
@@ -273,7 +309,7 @@ class _$Animal implements Animal {
   const _$Animal(this.name, this.legs);
 
   factory _$Animal.fromJson(Map<String, dynamic> json) =>
-      _$_$AnimalFromJson(json);
+      _$$AnimalFromJson(json);
 
   @override
   final String name;
@@ -318,6 +354,16 @@ class _$Animal implements Animal {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(String name)? $default, {
+    TResult Function(String name, int legs)? animal,
+    TResult Function(int number)? number,
+  }) {
+    return animal?.call(name, legs);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String name)? $default, {
     TResult Function(String name, int legs)? animal,
@@ -342,6 +388,16 @@ class _$Animal implements Animal {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(Person value)? $default, {
+    TResult Function(Animal value)? animal,
+    TResult Function(Number value)? number,
+  }) {
+    return animal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(Person value)? $default, {
     TResult Function(Animal value)? animal,
@@ -356,7 +412,7 @@ class _$Animal implements Animal {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$AnimalToJson(this)..['runtimeType'] = 'animal';
+    return _$$AnimalToJson(this)..['runtimeType'] = 'animal';
   }
 }
 
@@ -406,7 +462,7 @@ class _$Number implements Number {
   const _$Number(this.number);
 
   factory _$Number.fromJson(Map<String, dynamic> json) =>
-      _$_$NumberFromJson(json);
+      _$$NumberFromJson(json);
 
   @override
   final int number;
@@ -445,6 +501,16 @@ class _$Number implements Number {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(String name)? $default, {
+    TResult Function(String name, int legs)? animal,
+    TResult Function(int number)? number,
+  }) {
+    return number?.call(this.number);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String name)? $default, {
     TResult Function(String name, int legs)? animal,
@@ -469,6 +535,16 @@ class _$Number implements Number {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(Person value)? $default, {
+    TResult Function(Animal value)? animal,
+    TResult Function(Number value)? number,
+  }) {
+    return number?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(Person value)? $default, {
     TResult Function(Animal value)? animal,
@@ -483,7 +559,7 @@ class _$Number implements Number {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$NumberToJson(this)..['runtimeType'] = 'number';
+    return _$$NumberToJson(this)..['runtimeType'] = 'number';
   }
 }
 

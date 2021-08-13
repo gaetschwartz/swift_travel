@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'route_connection.dart';
 
@@ -242,7 +243,7 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
       : super._();
 
   factory _$_SbbRouteConnection.fromJson(Map<String, dynamic> json) =>
-      _$_$_SbbRouteConnectionFromJson(json);
+      _$$_SbbRouteConnectionFromJson(json);
 
   @override
   final String from;
@@ -316,7 +317,7 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SbbRouteConnectionToJson(this);
+    return _$$_SbbRouteConnectionToJson(this);
   }
 }
 

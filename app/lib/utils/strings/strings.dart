@@ -17,9 +17,11 @@ extension StringUtils on String {
 
   TextSpan parseMarkdown({TextStyle? style}) => parseDecoratedText(this, style: style);
 
+  /// Levenshtein distance to another string
   int distanceTo(String other, {bool caseSensitive = false}) =>
       levenshtein(this, other, caseSensitive: caseSensitive);
 
+  /// Scaled levenshtein distance to another string
   double scaledDistanceTo(String other, {bool caseSensitive = false}) =>
       scaledLevenshtein(this, other, caseSensitive: caseSensitive);
 

@@ -808,7 +808,7 @@ final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
   final routes = RouteHistoryRepository.i.history;
   return predictRoute(
     routes,
-    pos != null ? LocationArgument(pos) : PredictionArguments(dateTime),
+    pos != null ? LocationArgument(pos, dateTime: null) : EmptyArgument(dateTime: dateTime),
   );
 });
 

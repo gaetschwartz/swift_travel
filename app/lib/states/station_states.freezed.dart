@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'station_states.dart';
 
@@ -44,6 +45,13 @@ mixin _$StationStates {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<Completion> completions)? completions,
+    TResult Function()? empty,
+    TResult Function()? network,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
@@ -56,6 +64,13 @@ mixin _$StationStates {
     required TResult Function(StationStatesCompletions value) completions,
     required TResult Function(StationStatesEmpty value) empty,
     required TResult Function(StationStatesNetworkError value) network,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(StationStatesCompletions value)? completions,
+    TResult Function(StationStatesEmpty value)? empty,
+    TResult Function(StationStatesNetworkError value)? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -162,6 +177,16 @@ class _$StationStatesCompletions implements StationStatesCompletions {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<Completion> completions)? completions,
+    TResult Function()? empty,
+    TResult Function()? network,
+  }) {
+    return completions?.call(this.completions);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
@@ -182,6 +207,16 @@ class _$StationStatesCompletions implements StationStatesCompletions {
     required TResult Function(StationStatesNetworkError value) network,
   }) {
     return completions(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(StationStatesCompletions value)? completions,
+    TResult Function(StationStatesEmpty value)? empty,
+    TResult Function(StationStatesNetworkError value)? network,
+  }) {
+    return completions?.call(this);
   }
 
   @override
@@ -258,6 +293,16 @@ class _$StationStatesEmpty implements StationStatesEmpty {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<Completion> completions)? completions,
+    TResult Function()? empty,
+    TResult Function()? network,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
@@ -278,6 +323,16 @@ class _$StationStatesEmpty implements StationStatesEmpty {
     required TResult Function(StationStatesNetworkError value) network,
   }) {
     return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(StationStatesCompletions value)? completions,
+    TResult Function(StationStatesEmpty value)? empty,
+    TResult Function(StationStatesNetworkError value)? network,
+  }) {
+    return empty?.call(this);
   }
 
   @override
@@ -349,6 +404,16 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<Completion> completions)? completions,
+    TResult Function()? empty,
+    TResult Function()? network,
+  }) {
+    return network?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
@@ -369,6 +434,16 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
     required TResult Function(StationStatesNetworkError value) network,
   }) {
     return network(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(StationStatesCompletions value)? completions,
+    TResult Function(StationStatesEmpty value)? empty,
+    TResult Function(StationStatesNetworkError value)? network,
+  }) {
+    return network?.call(this);
   }
 
   @override

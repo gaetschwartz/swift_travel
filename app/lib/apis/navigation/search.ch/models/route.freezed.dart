@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'route.dart';
 
@@ -26,7 +27,7 @@ class _$SbbRouteTearOff {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           List<SbbRouteConnection>
               sbbConnections = const <SbbRouteConnection>[],
       List<String> messages = const <String>[],
@@ -58,7 +59,7 @@ mixin _$SbbRoute {
   double? get minDuration => throw _privateConstructorUsedError;
   @JsonKey(name: 'max_duration')
   double? get maxDuration => throw _privateConstructorUsedError;
-  @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
   List<SbbRouteConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   List<String> get messages => throw _privateConstructorUsedError;
@@ -81,7 +82,7 @@ abstract class $SbbRouteCopyWith<$Res> {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
@@ -150,7 +151,7 @@ abstract class _$SbbRouteCopyWith<$Res> implements $SbbRouteCopyWith<$Res> {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
@@ -219,7 +220,7 @@ class _$_SbbRoute extends _SbbRoute {
           this.minDuration,
       @JsonKey(name: 'max_duration')
           this.maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           this.sbbConnections = const <SbbRouteConnection>[],
       this.messages = const <String>[],
       this.requestUrl,
@@ -227,7 +228,7 @@ class _$_SbbRoute extends _SbbRoute {
       : super._();
 
   factory _$_SbbRoute.fromJson(Map<String, dynamic> json) =>
-      _$_$_SbbRouteFromJson(json);
+      _$$_SbbRouteFromJson(json);
 
   @JsonKey(defaultValue: 0)
   @override
@@ -239,7 +240,7 @@ class _$_SbbRoute extends _SbbRoute {
   @JsonKey(name: 'max_duration')
   final double? maxDuration;
   @override
-  @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
   final List<SbbRouteConnection> sbbConnections;
   @JsonKey(defaultValue: const <String>[])
   @override
@@ -298,7 +299,7 @@ class _$_SbbRoute extends _SbbRoute {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SbbRouteToJson(this);
+    return _$$_SbbRouteToJson(this);
   }
 }
 
@@ -309,7 +310,7 @@ abstract class _SbbRoute extends SbbRoute {
           double? minDuration,
       @JsonKey(name: 'max_duration')
           double? maxDuration,
-      @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+      @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
           List<SbbRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
@@ -327,7 +328,7 @@ abstract class _SbbRoute extends SbbRoute {
   @JsonKey(name: 'max_duration')
   double? get maxDuration => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'connections', defaultValue: const <SbbRouteConnection>[])
+  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
   List<SbbRouteConnection> get sbbConnections =>
       throw _privateConstructorUsedError;
   @override

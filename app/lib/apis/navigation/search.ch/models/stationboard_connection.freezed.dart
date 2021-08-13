@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'stationboard_connection.dart';
 
@@ -35,8 +36,9 @@ class _$SbbStationboardConnectionTearOff {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
-          List<SbbSubsequentStop> sbbSubsequentStops = const <SbbSubsequentStop>[],
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
+          List<SbbSubsequentStop>
+              sbbSubsequentStops = const <SbbSubsequentStop>[],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay = 0,
       @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -80,7 +82,7 @@ mixin _$SbbStationboardConnection {
   String? get g => throw _privateConstructorUsedError;
   @JsonKey(name: '*L')
   String? get l => throw _privateConstructorUsedError;
-  @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
   List<SbbSubsequentStop> get sbbSubsequentStops =>
       throw _privateConstructorUsedError;
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -113,7 +115,7 @@ abstract class $SbbStationboardConnectionCopyWith<$Res> {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop> sbbSubsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -228,7 +230,7 @@ abstract class _$SbbStationboardConnectionCopyWith<$Res>
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop> sbbSubsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -337,7 +339,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
           this.g,
       @JsonKey(name: '*L')
           this.l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           this.sbbSubsequentStops = const <SbbSubsequentStop>[],
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           this.depDelay = 0,
@@ -346,7 +348,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
       : super._();
 
   factory _$_SbbStationboardConnection.fromJson(Map<String, dynamic> json) =>
-      _$_$_SbbStationboardConnectionFromJson(json);
+      _$$_SbbStationboardConnectionFromJson(json);
 
   @override
   final DateTime time;
@@ -372,7 +374,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @JsonKey(name: '*L')
   final String? l;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
   final List<SbbSubsequentStop> sbbSubsequentStops;
   @override
   @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
@@ -446,7 +448,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SbbStationboardConnectionToJson(this);
+    return _$$_SbbStationboardConnectionToJson(this);
   }
 }
 
@@ -465,7 +467,7 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop> sbbSubsequentStops,
       @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
           int depDelay,
@@ -499,7 +501,7 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   @JsonKey(name: '*L')
   String? get l => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: const <SbbSubsequentStop>[])
+  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
   List<SbbSubsequentStop> get sbbSubsequentStops =>
       throw _privateConstructorUsedError;
   @override

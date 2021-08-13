@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'coordinates.dart';
 
@@ -119,7 +120,7 @@ class _$_LatLon extends _LatLon {
   const _$_LatLon(this.lat, this.lon) : super._();
 
   factory _$_LatLon.fromJson(Map<String, dynamic> json) =>
-      _$_$_LatLonFromJson(json);
+      _$$_LatLonFromJson(json);
 
   @override
   final double lat;
@@ -154,7 +155,7 @@ class _$_LatLon extends _LatLon {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LatLonToJson(this);
+    return _$$_LatLonToJson(this);
   }
 }
 
@@ -287,7 +288,7 @@ class _$_LV03Coordinates implements _LV03Coordinates {
   _$_LV03Coordinates(this.x, this.y);
 
   factory _$_LV03Coordinates.fromJson(Map<String, dynamic> json) =>
-      _$_$_LV03CoordinatesFromJson(json);
+      _$$_LV03CoordinatesFromJson(json);
 
   @override
   final int x;
@@ -322,7 +323,7 @@ class _$_LV03Coordinates implements _LV03Coordinates {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LV03CoordinatesToJson(this);
+    return _$$_LV03CoordinatesToJson(this);
   }
 }
 

@@ -14,7 +14,8 @@ typedef JSON = Map<String, Object?>;
 
 const _k = 5;
 
-const _daysFactor = 1 / 7;
+/// Factor for weekdays, it's a max of 4 days of difference
+const _daysFactor = 1 / 4;
 const _minutesFactor = 1 / Duration.minutesPerDay;
 
 /// Cache
@@ -59,34 +60,54 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
 
   final distances = <Pair<LocalRoute, num>>[];
 
-  final routesTransformer = RoutesTransformer.fromArguments(arguments);
-  final newRoutes = routesTransformer.transform(routes).toList(growable: false);
+  final newRoutes = arguments
+      .maybeMap(
+        empty: (value) => const UnchangedRouteTransformer(),
+        orElse: () => const DoubleFlippedRouteTransformer(),
+      )
+      .apply(routes);
   for (final route in newRoutes) {
-    var sqrdDist = .0;
+    final dist = Sum();
 
     final timestamp = route.timestamp;
     final time = arguments.dateTime;
     if (time != null && timestamp != null) {
-      sqrdDist += math.pow((timestamp.weekday - time.weekday) * _daysFactor, 2);
-      sqrdDist += math.pow((timestamp.minutesOfDay - time.minutesOfDay) * _minutesFactor, 2);
+      int weekdayDiff(int a, int b) {
+        final diff = (a - b).abs();
+        return diff > 3 ? 7 - diff : diff;
+      }
+
+      int minutesDist(int a, int b) {
+        final diff = (a - b).abs();
+        return diff > Duration.minutesPerDay / 2 ? Duration.minutesPerDay - diff : diff;
+      }
+
+      dist.add(
+        WeighedAddend(weekdayDiff(timestamp.weekday, time.weekday) * _daysFactor, 1, "weekdays"),
+      );
+      dist.add(
+        WeighedAddend(minutesDist(timestamp.minutesOfDay, time.minutesOfDay) * _minutesFactor, 1,
+            "minutes of day"),
+      );
     }
 
     if (arguments is SourceDateArguments) {
-      sqrdDist += math.pow(arguments.source.scaledDistanceTo(route.fromAsString), 2);
+      dist.add(WeighedAddend(
+          arguments.source.scaledDistanceTo(route.fromAsString), 1, "string distance"));
     }
 
     if (arguments is LocationArgument) {
-      final pos = route.maybeMap(v2: (v2) => v2.from.position, orElse: () => null);
+      final pos = route.map(v2: (v2) => v2.from.position, v1: (v1) => null);
       if (pos != null) {
-        final dist = arguments.latLon.scaledDistanceTo(pos);
+        final scaledDist = arguments.latLon.scaledDistanceTo(pos);
         // print('Adding dist of $dist for ${route.fromAsString}');
-        sqrdDist += dist;
-      } else {
-        continue;
+        dist.add(WeighedAddend(scaledDist, 1, "position distance"));
       }
     }
 
-    distances.add(Pair(route, sqrdDist));
+    if (kDebugMode) print(dist.overview);
+
+    distances.add(Pair(route, dist.value));
   }
 
   distances.sort((a, b) => a.second.compareTo(b.second));
@@ -124,6 +145,76 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
   _setCached(arguments, prediction);
   // print('Predicting $prediction');
   return prediction;
+}
+
+class Sum {
+  final List<Addend> addends = [];
+  final bool squareRoot;
+
+  Sum({this.squareRoot = false});
+
+  void add(Addend addend) => addends.add(addend);
+
+  /// Returns the sum, computionnally expensive so only used once all addends are added.
+  double get value => addends.fold(
+      0,
+      squareRoot
+          ? (previousValue, element) => previousValue + math.sqrt(element.value)
+          : (previousValue, element) => previousValue + (element.value));
+
+  String get overview {
+    final s = value;
+    final b = StringBuffer("Overview of sum:");
+    for (var i = 0; i < addends.length; i++) {
+      final a = addends[i];
+      b.writeln("  ${a.name}: \t ${a.repr} (${(100 * a.value / s).toStringAsFixed(2)}%)");
+    }
+    return b.toString();
+  }
+}
+
+class ComputedSum extends Sum {
+  ComputedSum(this.sum, {bool squareRoot = false}) : super(squareRoot: squareRoot);
+
+  final Sum sum;
+
+  @override
+  List<Addend> get addends => sum.addends;
+
+  @override
+  late final double value = sum.value;
+
+  @override
+  void add(Addend addend) {
+    throw UnsupportedError("Can't add on a Computed sum");
+  }
+}
+
+abstract class Addend {
+  const Addend(this.name);
+
+  double get value;
+  final String name;
+
+  String get repr;
+}
+
+class WeighedAddend extends Addend {
+  const WeighedAddend(this._value, this.weight, String name) : super(name);
+
+  final double _value;
+  final double weight;
+
+  @override
+  double get value => _value * weight;
+
+  @override
+  String toString() {
+    return "WeighedAddend($_value, $weight, $name)";
+  }
+
+  @override
+  String get repr => "$_value*$weight=$value";
 }
 
 extension on DateTime {

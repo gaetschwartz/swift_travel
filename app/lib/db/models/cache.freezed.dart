@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'cache.dart';
 
@@ -164,7 +165,7 @@ class _$_LineCacheEntry implements _LineCacheEntry {
       this.ttl = Duration.minutesPerDay * 7});
 
   factory _$_LineCacheEntry.fromJson(Map<String, dynamic> json) =>
-      _$_$_LineCacheEntryFromJson(json);
+      _$$_LineCacheEntryFromJson(json);
 
   @override
   final DateTime timestamp;
@@ -215,7 +216,7 @@ class _$_LineCacheEntry implements _LineCacheEntry {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LineCacheEntryToJson(this);
+    return _$$_LineCacheEntryToJson(this);
   }
 }
 
@@ -353,8 +354,7 @@ class __$LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res>
 class _$_Line implements _Line {
   const _$_Line(this.line, this.colors);
 
-  factory _$_Line.fromJson(Map<String, dynamic> json) =>
-      _$_$_LineFromJson(json);
+  factory _$_Line.fromJson(Map<String, dynamic> json) => _$$_LineFromJson(json);
 
   @override
   final String? line;
@@ -389,7 +389,7 @@ class _$_Line implements _Line {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LineToJson(this);
+    return _$$_LineToJson(this);
   }
 }
 

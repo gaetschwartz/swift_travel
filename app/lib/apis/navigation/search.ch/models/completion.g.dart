@@ -6,20 +6,19 @@ part of 'completion.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SbbCompletion _$_$_SbbCompletionFromJson(Map<String, dynamic> json) {
-  return _$_SbbCompletion(
-    label: json['label'] as String,
-    dist: (json['dist'] as num?)?.toDouble(),
-    iconClass: json['iconclass'] as String?,
-    html: json['html'] as String?,
-    id: json['id'] as String?,
-    favoriteName: json['favoriteName'] as String?,
-    origin: _$enumDecodeNullable(_$DataOriginEnumMap, json['origin']) ??
-        DataOrigin.data,
-  );
-}
+_$_SbbCompletion _$$_SbbCompletionFromJson(Map<String, dynamic> json) =>
+    _$_SbbCompletion(
+      label: json['label'] as String,
+      dist: (json['dist'] as num?)?.toDouble(),
+      iconClass: json['iconclass'] as String?,
+      html: json['html'] as String?,
+      id: json['id'] as String?,
+      favoriteName: json['favoriteName'] as String?,
+      origin: _$enumDecodeNullable(_$DataOriginEnumMap, json['origin']) ??
+          DataOrigin.data,
+    );
 
-Map<String, dynamic> _$_$_SbbCompletionToJson(_$_SbbCompletion instance) {
+Map<String, dynamic> _$$_SbbCompletionToJson(_$_SbbCompletion instance) {
   final val = <String, dynamic>{
     'label': instance.label,
   };

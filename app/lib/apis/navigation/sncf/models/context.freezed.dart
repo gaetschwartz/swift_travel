@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'context.dart';
 
@@ -124,7 +125,7 @@ class _$_SncfContext implements _SncfContext {
   const _$_SncfContext({this.dateTime, this.timezone});
 
   factory _$_SncfContext.fromJson(Map<String, dynamic> json) =>
-      _$_$_SncfContextFromJson(json);
+      _$$_SncfContextFromJson(json);
 
   @override
   final DateTime? dateTime;
@@ -161,7 +162,7 @@ class _$_SncfContext implements _SncfContext {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SncfContextToJson(this);
+    return _$$_SncfContextToJson(this);
   }
 }
 
