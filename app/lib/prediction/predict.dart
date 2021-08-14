@@ -111,7 +111,7 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
   }
 
   distances.sort((a, b) => a.second.value.compareTo(b.second.value));
-  final top = distances.take((_k * newRoutes.length / routes.length).round());
+  final top = distances.take(_k * newRoutes.length ~/ routes.length);
 
   if (kDebugMode) {
     int i = 0;
