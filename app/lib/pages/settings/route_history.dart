@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
+import 'package:share/share.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -85,7 +89,19 @@ class _RoutesJson extends StatelessWidget {
   Widget build(BuildContext context) {
     const encoder = JsonEncoder.withIndent(' ');
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () async {
+                final docs = await getTemporaryDirectory();
+                final f = File(path.join(docs.path, "routes.json"));
+                final json = jsonEncode(routes.map((e) => e.toJson()).toList());
+                await f.writeAsString(json);
+                await Share.shareFiles([f.path]);
+              },
+              icon: const Icon(Icons.share))
+        ],
+      ),
       body: ListView.separated(
         itemBuilder: (context, i) => ListTile(
           title: Text(
