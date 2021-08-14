@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
-import 'package:swift_travel/utils/arithmetic.dart';
+import 'package:swift_travel/utils/convert.dart';
 
 part 'coordinates.freezed.dart';
 part 'coordinates.g.dart';
