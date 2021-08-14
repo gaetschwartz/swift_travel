@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:isolate';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -10,7 +10,7 @@ import 'package:swift_travel/utils/strings/strings.dart';
 typedef JSON = Map<String, Object?>;
 
 // ignore: todo
-/// TODO: In the future, we should create a separate [Isolate] instead of spawning one each time.
+// TODO: In the future, we should create a separate [Isolate] instead of spawning one each time.
 
 const _k = 5;
 
@@ -99,19 +99,23 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
     if (arguments is LocationArgument) {
       final pos = route.map(v2: (v2) => v2.from.position, v1: (v1) => null);
       if (pos != null) {
-        final scaledDist = arguments.latLon.scaledDistanceTo(pos);
+        final scaledDist = arguments.latLon.distanceTo(pos);
         // print('Adding dist of $dist for ${route.fromAsString}');
-        dist.add(WeighedAddend(scaledDist, 1, "position distance"));
+        const fourtyKilometers = 40000;
+        dist.add(WeighedAddend(min(1, scaledDist / fourtyKilometers), 4, "position distance"));
+      } else {
+        continue;
       }
     }
 
-    if (kDebugMode) print(dist.overview);
+    //  if (kDebugMode) print(dist.overview);
 
     distances.add(Pair(route, dist.computed));
   }
 
   distances.sort((a, b) => a.second.value.compareTo(b.second.value));
-  final top = distances.take(_k * newRoutes.length ~/ routes.length);
+  final k = _k * newRoutes.length ~/ routes.length;
+  final top = distances.take(k);
 
   if (kDebugMode) {
     int i = 0;

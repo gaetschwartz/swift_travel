@@ -27,12 +27,11 @@ class LatLon with _$LatLon {
 
   factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
 
+  /// Calculates the distance between the supplied coordinates in meters.
+  ///
+  /// The distance between the coordinates is calculated using the Haversine
+  /// formula (see https://en.wikipedia.org/wiki/Haversine_formula).
   double distanceTo(LatLon o) => distanceBetween(this, o);
-  double scaledDistanceTo(LatLon o) {
-    // Average of max and min cirumferences of earth divided by two for max distance
-    const maxDist = (40075017 + 40007860) / 4;
-    return distanceTo(o) / maxDist;
-  }
 
   /// Calculates the distance between the supplied coordinates in meters.
   ///

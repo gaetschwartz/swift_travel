@@ -17,7 +17,7 @@ class Sum {
 
   String get overview {
     final s = value;
-    final b = StringBuffer("  Overview of sum:\n");
+    final b = StringBuffer("  Sum: ${value.toStringAsPrecision(4)}\n  Overview:\n");
     for (var i = 0; i < addends.length; i++) {
       final a = addends[i];
       b.writeln("    ${a.name}: \t ${a.repr} (${(100 * a.value / s).toStringAsFixed(2)}%)");
@@ -29,9 +29,9 @@ class Sum {
 }
 
 class ComputedSum extends Sum {
-  ComputedSum.fromSum(Sum sum, {bool squareRoot = false})
+  ComputedSum.fromSum(Sum sum)
       : _addends = List.unmodifiable(sum.addends),
-        super(squareRoot: squareRoot);
+        super(squareRoot: sum.squareRoot);
 
   ComputedSum.fromAddends(List<Addend> addends, {bool squareRoot = false})
       : _addends = List.unmodifiable(addends),
@@ -76,5 +76,6 @@ class WeighedAddend extends Addend {
   }
 
   @override
-  String get repr => "$_value*$weight=$value";
+  String get repr =>
+      "${_value.toStringAsFixed(3)}*${weight.toStringAsFixed(3)}=${value.toStringAsFixed(3)}";
 }
