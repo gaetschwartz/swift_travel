@@ -7,7 +7,7 @@ import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/prediction/models/models.dart';
-import 'package:swift_travel/utils/arithmetic.dart';
+import 'package:swift_travel/utils/convert.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/utils/strings/strings.dart';

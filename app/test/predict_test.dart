@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:swift_travel/prediction/predict.dart';
+import 'package:swift_travel/utils/math.dart';
 
 void main() {
   test("sums work", () {
@@ -9,7 +9,7 @@ void main() {
     s.add(const WeighedAddend(1.5, 2, "c")); // 3
     s.add(const WeighedAddend(0, 1, "d")); // 0
     expect(s.value, 11);
-    final computed = ComputedSum(s);
+    final computed = ComputedSum.fromSum(s);
     expect(computed.value, 11);
   });
 }
