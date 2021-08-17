@@ -92,186 +92,189 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
           middle: Text(AppLoc.of(context).timetable),
         ),
         resizeToAvoidBottomInset: false,
-        child: child!,
+        child: SafeArea(
+          child: child!,
+        ),
       ),
       materialBuilder: (context, child) => Scaffold(
         appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_search)),
         resizeToAvoidBottomInset: false,
-        body: child,
+        body: SafeArea(
+          bottom: false,
+          child: child!,
+        ),
       ),
-      child: SafeArea(
-        bottom: false,
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: ShadowsAround(
-                      child: Stack(
-                        children: [
-                          TextField(
-                            key: const Key('stations-textfield'),
-                            focusNode: focusNode,
-                            controller: searchController,
-                            style: DefaultTextStyle.of(context)
-                                .style
-                                .copyWith(fontStyle: FontStyle.normal),
-                            decoration: InputDecoration(
-                              isDense: true,
-                              hintText: AppLoc.of(context).search_station,
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.all(Radius.circular(8)),
-                              ),
-                              filled: true,
-                              fillColor: Theme.of(context).cardColor,
+      child: Column(
+        children: <Widget>[
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ShadowsAround(
+                    child: Stack(
+                      children: [
+                        TextField(
+                          key: const Key('stations-textfield'),
+                          focusNode: focusNode,
+                          controller: searchController,
+                          style: DefaultTextStyle.of(context)
+                              .style
+                              .copyWith(fontStyle: FontStyle.normal),
+                          decoration: InputDecoration(
+                            isDense: true,
+                            hintText: AppLoc.of(context).search_station,
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
                             ),
-                            onChanged: (s) => debounce(context, s),
+                            filled: true,
+                            fillColor: Theme.of(context).cardColor,
                           ),
-                          ListenableBuilder<TextEditingController>(
-                            listenable: searchController,
-                            builder: (context, controller, child) =>
-                                controller.text.isEmpty ? const SizedBox() : child!,
-                            child: Positioned(
-                              right: 0,
-                              top: 0,
-                              bottom: 0,
-                              child: Center(
-                                child: IconButton(
-                                    icon: const Icon(Icons.clear),
-                                    onPressed: () {
-                                      Vibration.instance.select();
-                                      searchController.text = '';
-                                      focusNode.unfocus();
-                                      context.read(_stateProvider).state =
-                                          const StationStates.empty();
-                                    }),
-                              ),
+                          onChanged: (s) => debounce(context, s),
+                        ),
+                        ListenableBuilder<TextEditingController>(
+                          listenable: searchController,
+                          builder: (context, controller, child) =>
+                              controller.text.isEmpty ? const SizedBox() : child!,
+                          child: Positioned(
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            child: Center(
+                              child: IconButton(
+                                  icon: const Icon(Icons.clear),
+                                  onPressed: () {
+                                    Vibration.instance.select();
+                                    searchController.text = '';
+                                    focusNode.unfocus();
+                                    context.read(_stateProvider).state =
+                                        const StationStates.empty();
+                                  }),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  IconButton(
-                    icon: Consumer(builder: (context, w, _) {
-                      final loading = w(_locatingProvider).state;
-                      return AnimatedLocation(loading: loading);
-                    }),
-                    tooltip: AppLoc.of(context).use_current_location,
-                    onPressed: _getLocation,
-                  )
-                ],
-              ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: Consumer(builder: (context, w, _) {
+                    final loading = w(_locatingProvider).state;
+                    return AnimatedLocation(loading: loading);
+                  }),
+                  tooltip: AppLoc.of(context).use_current_location,
+                  onPressed: _getLocation,
+                )
+              ],
             ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: Consumer(builder: (context, w, _) {
-                final itemPositionsListener = ItemPositionsListener.create();
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: Consumer(builder: (context, w, _) {
+              final itemPositionsListener = ItemPositionsListener.create();
 
-                return w(_stateProvider).state.map(
-                      completions: (c) => Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: SizedBox(
-                              height: 4,
-                              child: Center(
-                                child: Consumer(
-                                    builder: (context, w, _) => w(_loadingProvider).state
-                                        ? const LinearProgressIndicator()
-                                        : const SizedBox()),
+              return w(_stateProvider).state.map(
+                    completions: (c) => Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: SizedBox(
+                            height: 4,
+                            child: Center(
+                              child: Consumer(
+                                builder: (context, w, _) => w(_loadingProvider).state
+                                    ? const LinearProgressIndicator()
+                                    : const SizedBox(),
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: ScrollablePositionedList.builder(
-                              itemPositionsListener: itemPositionsListener,
-                              itemBuilder: (context, i) {
-                                final completion = c.completions[i];
-                                return IfWrapper(
-                                  key: ValueKey(completion),
-                                  condition: Env.enableAnimations,
-                                  builder: (context, child) => InstantlyAnimatedWidget(
-                                    delay: () {
-                                      final first = itemPositionsListener
-                                              .itemPositions.value.firstOrNull?.index ??
-                                          0;
-                                      return Duration(
-                                        milliseconds: 20 * (i - first),
-                                      );
-                                    },
-                                    builder: InstantlyAnimatedWidget.fadeScale,
-                                    start: 0.5,
-                                    child: child!,
-                                  ),
-                                  child: CompletionTile(
-                                    completion,
-                                    key: Key('stations-key-$i'),
-                                  ),
-                                );
-                              },
-                              itemCount: c.completions.length,
-                            ),
-                          ),
-                        ],
-                      ),
-                      empty: (_) => Consumer(
-                          builder: (context, w, _) => w(favoritesStatesProvider).state.map(
-                                data: (c) => c.favorites.isEmpty
-                                    ? Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                            '🔎',
-                                            style: TextStyle(fontSize: 48),
-                                          ),
-                                          const SizedBox(height: 24),
-                                          Text(
-                                            'Search a station',
-                                            style: Theme.of(context).textTheme.headline6,
-                                            textAlign: TextAlign.center,
-                                          )
-                                        ],
-                                      )
-                                    : ListView.builder(
-                                        itemBuilder: (context, i) => CompletionTile(
-                                          SbbCompletion.fromFavorite(c.favorites[i]),
-                                        ),
-                                        itemCount: c.favorites.length,
-                                      ),
-                                loading: (_) =>
-                                    const Center(child: CircularProgressIndicator.adaptive()),
-                                exception: (e) => Center(
-                                  child: Text(
-                                    e.exception.toString(),
-                                    style: Theme.of(context).textTheme.headline6,
-                                  ),
+                        ),
+                        Expanded(
+                          child: ScrollablePositionedList.builder(
+                            itemPositionsListener: itemPositionsListener,
+                            itemBuilder: (context, i) {
+                              final completion = c.completions[i];
+                              return IfWrapper(
+                                key: ValueKey(completion),
+                                condition: Env.enableAnimations,
+                                builder: (context, child) => InstantlyAnimatedWidget(
+                                  delay: () {
+                                    final first = itemPositionsListener
+                                            .itemPositions.value.firstOrNull?.index ??
+                                        0;
+                                    return Duration(
+                                      milliseconds: 20 * (i - first),
+                                    );
+                                  },
+                                  builder: InstantlyAnimatedWidget.fadeScale,
+                                  start: 0.5,
+                                  child: child!,
                                 ),
-                              )),
-                      network: (value) => Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const FaIcon(
-                            Icons.wifi_off,
-                            size: 48,
+                                child: CompletionTile(
+                                  completion,
+                                  key: Key('stations-key-$i'),
+                                ),
+                              );
+                            },
+                            itemCount: c.completions.length,
                           ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'Network Error',
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        ],
-                      ),
-                    );
-              }),
-            ),
-          ],
-        ),
+                        ),
+                      ],
+                    ),
+                    empty: (_) => Consumer(
+                        builder: (context, w, _) => w(favoritesStatesProvider).state.map(
+                              data: (c) => c.favorites.isEmpty
+                                  ? Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          '🔎',
+                                          style: TextStyle(fontSize: 48),
+                                        ),
+                                        const SizedBox(height: 24),
+                                        Text(
+                                          'Search a station',
+                                          style: Theme.of(context).textTheme.headline6,
+                                          textAlign: TextAlign.center,
+                                        )
+                                      ],
+                                    )
+                                  : ListView.builder(
+                                      itemBuilder: (context, i) => CompletionTile(
+                                        SbbCompletion.fromFavorite(c.favorites[i]),
+                                      ),
+                                      itemCount: c.favorites.length,
+                                    ),
+                              loading: (_) =>
+                                  const Center(child: CircularProgressIndicator.adaptive()),
+                              exception: (e) => Center(
+                                child: Text(
+                                  e.exception.toString(),
+                                  style: Theme.of(context).textTheme.headline6,
+                                ),
+                              ),
+                            )),
+                    network: (value) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const FaIcon(
+                          Icons.wifi_off,
+                          size: 48,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Network Error',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ],
+                    ),
+                  );
+            }),
+          ),
+        ],
       ),
     );
   }

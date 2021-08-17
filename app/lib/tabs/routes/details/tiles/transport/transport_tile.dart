@@ -226,7 +226,7 @@ class _Header extends StatelessWidget {
         children: [
           Row(
             children: <Widget>[
-              if (LineIcon.isValidLeg(l)) LineIcon.fromLeg(l) else SbbIcon(l.type),
+              if (l.line != null) LineIcon.fromLeg(l) else SbbIcon(l.type),
               const SizedBox(width: 8),
               Expanded(
                 child: Align(

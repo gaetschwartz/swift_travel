@@ -12,11 +12,7 @@ typedef JSON = Map<String, Object?>;
 
 /// Prediction
 
-Future<RoutePrediction> predictRoute(
-  List<LocalRoute> routes,
-  PredictionArguments arguments, {
-  RouteMLModel model = const KnnRouteModel(),
-}) async {
+Future<RoutePrediction> predictRoute(List<LocalRoute> routes, PredictionArguments arguments) async {
   final full = FullArguments(routes, arguments);
   final json = full.toJson();
   final computed = await compute(_predictRouteJSON, json);
