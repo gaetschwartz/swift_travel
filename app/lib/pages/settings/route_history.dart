@@ -8,8 +8,8 @@ import 'package:share/share.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
+import 'package:swift_travel/prediction/ml_models.dart';
 import 'package:swift_travel/prediction/models/models.dart';
-import 'package:swift_travel/prediction/predict.dart';
 import 'package:swift_travel/widgets/route_widget.dart';
 
 class RouteHistoryPage extends StatefulWidget {
@@ -27,8 +27,8 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
   @override
   Widget build(BuildContext context) {
     final routes = RouteHistoryRepository.i.history;
-    final pred =
-        predictRouteSync(routes, PredictionArguments.empty(dateTime: FakeableDateTime.now()));
+    final pred = const KnnRouteModel().predict(
+        FullArguments(routes, PredictionArguments.empty(dateTime: FakeableDateTime.now())));
     return Scaffold(
       appBar: AppBar(
         actions: [
