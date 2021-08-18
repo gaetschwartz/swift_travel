@@ -18,14 +18,14 @@ Color parseColor(String? s, Color defaultColor) {
   return c == null ? defaultColor : Color(c);
 }
 
-mixin Format {
+class Format {
   static String distance(double? d) => d == null
       ? ''
       : d >= 1000
           ? '${(d / 1000).toStringAsFixed(1)} km'
           : '${d.round()} m';
 
-  static String delay(int d) => delayToJson(d);
+  static String delay(int d) => const DelayConverter().toJson(d);
 
   static String? duration(Duration? d, {Locale locale = const Locale('en')}) {
     if (d == null) {
@@ -75,7 +75,7 @@ mixin Format {
     }
   }
 
-  static String intToDuration(int i, [Locale locale = const Locale('fr')]) {
+  static String intToDuration(int i, [Locale locale = const Locale('en')]) {
     final m = i ~/ 60;
     final h = m ~/ 60;
     final hrs = h == 0 ? '' : '$h${_hs(locale)}';

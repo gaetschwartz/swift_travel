@@ -166,7 +166,7 @@ class _Header extends StatelessWidget {
                                       text:
                                           '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
                                       style: const TextStyle(fontWeight: FontWeight.bold)),
-                                  TextSpan(text: ' (${Format.intToDuration(c.duration!.round())})')
+                                  TextSpan(text: ' (${Format.duration(c.duration)})')
                                 ]),
                                 textAlign: TextAlign.end,
                               )))
@@ -220,7 +220,7 @@ class LegTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) => leg.exit == null
       ? ArrivedTile(leg)
-      : leg.type == Vehicle.walk
+      : leg.type == TransportationMode.walk
           ? WalkingTile(leg)
           : TransportLegTile(leg);
 }

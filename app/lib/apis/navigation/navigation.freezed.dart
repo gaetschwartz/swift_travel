@@ -17,9 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NavigationApiIdTearOff {
   const _$NavigationApiIdTearOff();
 
-  _NavigationApiId call(String id) {
+  _NavigationApiId call(String value) {
     return _NavigationApiId(
-      id,
+      value,
     );
   }
 }
@@ -29,7 +29,7 @@ const $NavigationApiId = _$NavigationApiIdTearOff();
 
 /// @nodoc
 mixin _$NavigationApiId {
-  String get id => throw _privateConstructorUsedError;
+  String get value => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NavigationApiIdCopyWith<NavigationApiId> get copyWith =>
@@ -41,7 +41,7 @@ abstract class $NavigationApiIdCopyWith<$Res> {
   factory $NavigationApiIdCopyWith(
           NavigationApiId value, $Res Function(NavigationApiId) then) =
       _$NavigationApiIdCopyWithImpl<$Res>;
-  $Res call({String id});
+  $Res call({String value});
 }
 
 /// @nodoc
@@ -55,12 +55,12 @@ class _$NavigationApiIdCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? value = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      value: value == freezed
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -73,7 +73,7 @@ abstract class _$NavigationApiIdCopyWith<$Res>
           _NavigationApiId value, $Res Function(_NavigationApiId) then) =
       __$NavigationApiIdCopyWithImpl<$Res>;
   @override
-  $Res call({String id});
+  $Res call({String value});
 }
 
 /// @nodoc
@@ -89,12 +89,12 @@ class __$NavigationApiIdCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? value = freezed,
   }) {
     return _then(_NavigationApiId(
-      id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      value == freezed
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -103,27 +103,27 @@ class __$NavigationApiIdCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_NavigationApiId implements _NavigationApiId {
-  const _$_NavigationApiId(this.id);
+  const _$_NavigationApiId(this.value);
 
   @override
-  final String id;
+  final String value;
 
   @override
   String toString() {
-    return 'NavigationApiId(id: $id)';
+    return 'NavigationApiId(value: $value)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _NavigationApiId &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)));
+            (identical(other.value, value) ||
+                const DeepCollectionEquality().equals(other.value, value)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(id);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(value);
 
   @JsonKey(ignore: true)
   @override
@@ -132,10 +132,10 @@ class _$_NavigationApiId implements _NavigationApiId {
 }
 
 abstract class _NavigationApiId implements NavigationApiId {
-  const factory _NavigationApiId(String id) = _$_NavigationApiId;
+  const factory _NavigationApiId(String value) = _$_NavigationApiId;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get value => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$NavigationApiIdCopyWith<_NavigationApiId> get copyWith =>

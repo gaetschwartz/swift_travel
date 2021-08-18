@@ -35,7 +35,7 @@ class PreferencesBloc {
 
   late final api = AsyncProperty<NavigationApiId>(
     defaultValue: searchChApi.id,
-    onSet: (v) => _prefs.setString(prefix + navigationApiKey, v.id),
+    onSet: (v) => _prefs.setString(prefix + navigationApiKey, v.value),
     getValue: (d) {
       final string = _prefs.getString(prefix + navigationApiKey);
       return string != null ? NavigationApiId(string) : null;

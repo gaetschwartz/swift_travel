@@ -5,7 +5,6 @@ import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/base.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 
 part 'favorites.freezed.dart';
 part 'favorites.g.dart';
@@ -56,8 +55,8 @@ class LocalRoute with _$LocalRoute {
     DateTime? timestamp,
   }) =>
       LocalRoute.v2(
-        SbbStop(from),
-        SbbStop(to),
+        SbbStop(name: from),
+        SbbStop(name: to),
         displayName: displayName,
         timestamp: timestamp,
       );
@@ -68,12 +67,12 @@ class LocalRoute with _$LocalRoute {
   }) =>
       LocalRoute.v2(
         SbbStop(
-          connection.from,
+          name: connection.from,
           lat: connection.legs.firstOrNull?.position?.lat,
           lon: connection.legs.firstOrNull?.position?.lon,
         ),
         SbbStop(
-          connection.to,
+          name: connection.to,
           lat: connection.legs.lastOrNull?.position?.lat,
           lon: connection.legs.lastOrNull?.position?.lon,
         ),
@@ -88,7 +87,7 @@ class LocalRoute with _$LocalRoute {
   String get toAsString => map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
 
   LocalRoute copyClean() => map(
-        v1: (v1) => LocalRoute.v2(SbbStop(v1.from), SbbStop(v1.to)),
+        v1: (v1) => LocalRoute.v2(SbbStop(name: v1.from), SbbStop(name: v1.to)),
         v2: (v2) => LocalRoute.v2(v2.from, v2.to),
       );
 
@@ -104,21 +103,21 @@ class FavoriteStop with _$FavoriteStop, BaseStop, SbbDisplayNameMixin {
   const factory FavoriteStop({
     required String stop,
     required String name,
-    @Default(searchChApiId) String api,
+    String? api,
     String? id,
   }) = _FavoriteStop;
 
   const FavoriteStop._();
 
   factory FavoriteStop.fromStop(String stop, {required NavigationApiId api}) =>
-      _FavoriteStop(stop: stop, name: stop, api: api.id);
+      _FavoriteStop(stop: stop, name: stop, api: api.value);
 
   factory FavoriteStop.fromCompletion(
     Completion completion, {
     required NavigationApiId api,
     String? name,
   }) =>
-      _FavoriteStop(stop: completion.label, name: name ?? completion.label, api: api.id);
+      _FavoriteStop(stop: completion.label, name: name ?? completion.label, api: api.value);
 
   factory FavoriteStop.fromJson(Map<String, dynamic> json) => _$FavoriteStopFromJson(json);
 }

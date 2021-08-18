@@ -27,12 +27,12 @@ class TransportDetails extends StatefulWidget {
 class _TransportDetailsState extends State<TransportDetails> {
   late final stops = <Widget>[
     _buildStop(
-      SbbStop(widget.leg.name, departure: widget.leg.departure),
+      SbbStop(name: widget.leg.name, departure: widget.leg.departure),
       isFirst: true,
     ),
     ...widget.leg.stops.map(_buildStop),
     _buildStop(
-      SbbStop(widget.leg.exit!.name, departure: widget.leg.exit!.arrival),
+      SbbStop(name: widget.leg.exit!.name, departure: widget.leg.exit!.arrival),
       isLast: true,
     )
   ];

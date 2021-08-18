@@ -4,7 +4,7 @@ import 'package:swift_travel/db/preferences.dart';
 
 final navigationAPIProvider = Provider.autoDispose<BaseNavigationApi>((ref) {
   final apiType = ref.watch(PreferencesBloc.apiProvider);
-  final api = BaseNavigationApi.getFactory(apiType.value).create(ref.read);
+  final api = NavigationApiFactory.fromId(apiType.value).create(ref.read);
   ref
     ..onDispose(api.dispose)
     ..maintainState = true;

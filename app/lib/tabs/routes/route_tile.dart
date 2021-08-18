@@ -48,7 +48,7 @@ class RouteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = route.connections[i];
     final leg = c.legs.firstWhereOrNull(
-            (l) => l.type != Vehicle.walk && l.type != null && l != c.legs.last) ??
+            (l) => l.type != TransportationMode.walk && l.type != null && l != c.legs.last) ??
         c.legs.first;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -76,10 +76,10 @@ class RouteTile extends StatelessWidget {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(Format.intToDuration(c.duration!.round())),
-                if (c.depDelay > 0)
+                Text(Format.duration(c.duration).toString()),
+                if (c.depDelay != null)
                   Text(
-                    Format.delay(c.depDelay),
+                    Format.delay(c.depDelay!),
                     style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
                   ),
                 const SizedBox(width: 16),

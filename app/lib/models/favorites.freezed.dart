@@ -583,10 +583,7 @@ class _$FavoriteStopTearOff {
   const _$FavoriteStopTearOff();
 
   _FavoriteStop call(
-      {required String stop,
-      required String name,
-      String api = searchChApiId,
-      String? id}) {
+      {required String stop, required String name, String? api, String? id}) {
     return _FavoriteStop(
       stop: stop,
       name: name,
@@ -607,7 +604,7 @@ const $FavoriteStop = _$FavoriteStopTearOff();
 mixin _$FavoriteStop {
   String get stop => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get api => throw _privateConstructorUsedError;
+  String? get api => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -621,7 +618,7 @@ abstract class $FavoriteStopCopyWith<$Res> {
   factory $FavoriteStopCopyWith(
           FavoriteStop value, $Res Function(FavoriteStop) then) =
       _$FavoriteStopCopyWithImpl<$Res>;
-  $Res call({String stop, String name, String api, String? id});
+  $Res call({String stop, String name, String? api, String? id});
 }
 
 /// @nodoc
@@ -651,7 +648,7 @@ class _$FavoriteStopCopyWithImpl<$Res> implements $FavoriteStopCopyWith<$Res> {
       api: api == freezed
           ? _value.api
           : api // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -667,7 +664,7 @@ abstract class _$FavoriteStopCopyWith<$Res>
           _FavoriteStop value, $Res Function(_FavoriteStop) then) =
       __$FavoriteStopCopyWithImpl<$Res>;
   @override
-  $Res call({String stop, String name, String api, String? id});
+  $Res call({String stop, String name, String? api, String? id});
 }
 
 /// @nodoc
@@ -699,7 +696,7 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
       api: api == freezed
           ? _value.api
           : api // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -713,10 +710,7 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 class _$_FavoriteStop extends _FavoriteStop {
   const _$_FavoriteStop(
-      {required this.stop,
-      required this.name,
-      this.api = searchChApiId,
-      this.id})
+      {required this.stop, required this.name, this.api, this.id})
       : super._();
 
   factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
@@ -726,9 +720,8 @@ class _$_FavoriteStop extends _FavoriteStop {
   final String stop;
   @override
   final String name;
-  @JsonKey(defaultValue: searchChApiId)
   @override
-  final String api;
+  final String? api;
   @override
   final String? id;
 
@@ -774,7 +767,7 @@ abstract class _FavoriteStop extends FavoriteStop {
   const factory _FavoriteStop(
       {required String stop,
       required String name,
-      String api,
+      String? api,
       String? id}) = _$_FavoriteStop;
   const _FavoriteStop._() : super._();
 
@@ -786,7 +779,7 @@ abstract class _FavoriteStop extends FavoriteStop {
   @override
   String get name => throw _privateConstructorUsedError;
   @override
-  String get api => throw _privateConstructorUsedError;
+  String? get api => throw _privateConstructorUsedError;
   @override
   String? get id => throw _privateConstructorUsedError;
   @override

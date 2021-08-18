@@ -9,10 +9,8 @@ part of 'subsequent_stop.dart';
 _$_SbbSubsequentStop _$$_SbbSubsequentStopFromJson(Map<String, dynamic> json) =>
     _$_SbbSubsequentStop(
       name: json['name'] as String,
-      depDelay:
-          json['dep_delay'] == null ? 0 : delayFromJson(json['dep_delay']),
-      arrDelay:
-          json['arr_delay'] == null ? 0 : delayFromJson(json['arr_delay']),
+      depDelay: const DelayConverter().fromJson(json['dep_delay'] as String?),
+      arrDelay: const DelayConverter().fromJson(json['arr_delay'] as String?),
       id: json['id'] as String?,
       departure:
           json['dep'] == null ? null : DateTime.parse(json['dep'] as String),
@@ -28,8 +26,8 @@ Map<String, dynamic> _$$_SbbSubsequentStopToJson(
         _$_SbbSubsequentStop instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'dep_delay': delayToJson(instance.depDelay),
-      'arr_delay': delayToJson(instance.arrDelay),
+      'dep_delay': const DelayConverter().toJson(instance.depDelay),
+      'arr_delay': const DelayConverter().toJson(instance.arrDelay),
       'id': instance.id,
       'dep': instance.departure?.toIso8601String(),
       'arr': instance.arrival?.toIso8601String(),

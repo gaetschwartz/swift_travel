@@ -14,15 +14,13 @@ import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
 final searchChApi = NavigationApiFactory(
-  (c) => SearchChApi(),
+  (_) => SearchChApi(),
   name: 'SBB CFF FFS',
   shortName: 'SBB',
   countryEmoji: '🇨🇭',
   countryName: 'Switzerland',
-  id: const NavigationApiId(searchChApiId),
+  id: const NavigationApiId('sbb'),
 );
-
-const searchChApiId = 'sbb';
 
 class SearchChApi extends BaseNavigationApi {
   SearchChApi();

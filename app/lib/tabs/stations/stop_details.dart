@@ -227,9 +227,9 @@ class ConnectionTile extends StatelessWidget {
                   text: Format.time(c.time),
                   style: Theme.of(context).textTheme.bodyText2,
                   children: [
-                    if (c.arrDelay > 0)
+                    if (c.arrDelay != null)
                       TextSpan(
-                        text: Format.delay(c.arrDelay),
+                        text: Format.delay(c.arrDelay!),
                         style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
@@ -240,9 +240,9 @@ class ConnectionTile extends StatelessWidget {
           ],
         ),
       ),
-      trailing: (c.depDelay > 0)
+      trailing: (c.depDelay != null)
           ? Text(
-              Format.duration(diff + Duration(minutes: c.depDelay))!,
+              Format.duration(diff + Duration(minutes: c.depDelay!))!,
               style: const TextStyle(
                 color: Colors.red,
                 fontWeight: FontWeight.bold,

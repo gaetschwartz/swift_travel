@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swift_travel/apis/navigation/models/mock_stop.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/models/stop.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/sncf/models/context.dart';
@@ -46,7 +46,7 @@ class SncfError with _$SncfError {
 }
 
 @freezed
-class SncfDeparture with _$SncfDeparture, StationboardConnection {
+class SncfDeparture with _$SncfDeparture implements StationboardConnection {
   @JsonSerializable(explicitToJson: true)
   const factory SncfDeparture({
     @JsonKey(name: 'display_informations') required SncfDispInfo displayInformations,
@@ -85,13 +85,14 @@ class SncfDeparture with _$SncfDeparture, StationboardConnection {
   List<DelayedStop> get subsequentStops => [];
 
   @override
-  Stop get terminal => SbbStop(displayInformations.direction);
+  Stop get terminal => SbbStop(name: displayInformations.direction);
 
   @override
   DateTime get time => stopDateTime.arrivalDateTime;
 
   @override
-  Vehicle get type => VehicleX.parse(stopPoint.commercialModes.first.id.split(':').last);
+  TransportationMode get type =>
+      TransportationModeX.parse(stopPoint.commercialModes.first.id.split(':').last);
 
   @override
   String get color => '${displayInformations.color}~${displayInformations.textColor}~';

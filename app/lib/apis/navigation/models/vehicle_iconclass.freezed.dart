@@ -21,7 +21,7 @@ _VehicleIconclass _$_VehicleIconclassFromJson(Map<String, dynamic> json) {
 class _$_VehicleIconclassTearOff {
   const _$_VehicleIconclassTearOff();
 
-  __VehicleIconclass call(Vehicle v) {
+  __VehicleIconclass call(TransportationMode v) {
     return __VehicleIconclass(
       v,
     );
@@ -37,7 +37,7 @@ const _$VehicleIconclass = _$_VehicleIconclassTearOff();
 
 /// @nodoc
 mixin _$_VehicleIconclass {
-  Vehicle get v => throw _privateConstructorUsedError;
+  TransportationMode get v => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +50,7 @@ abstract class _$VehicleIconclassCopyWith<$Res> {
   factory _$VehicleIconclassCopyWith(
           _VehicleIconclass value, $Res Function(_VehicleIconclass) then) =
       __$VehicleIconclassCopyWithImpl<$Res>;
-  $Res call({Vehicle v});
+  $Res call({TransportationMode v});
 }
 
 /// @nodoc
@@ -70,7 +70,7 @@ class __$VehicleIconclassCopyWithImpl<$Res>
       v: v == freezed
           ? _value.v
           : v // ignore: cast_nullable_to_non_nullable
-              as Vehicle,
+              as TransportationMode,
     ));
   }
 }
@@ -82,7 +82,7 @@ abstract class _$_VehicleIconclassCopyWith<$Res>
           __VehicleIconclass value, $Res Function(__VehicleIconclass) then) =
       __$_VehicleIconclassCopyWithImpl<$Res>;
   @override
-  $Res call({Vehicle v});
+  $Res call({TransportationMode v});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class __$_VehicleIconclassCopyWithImpl<$Res>
       v == freezed
           ? _value.v
           : v // ignore: cast_nullable_to_non_nullable
-              as Vehicle,
+              as TransportationMode,
     ));
   }
 }
@@ -119,7 +119,7 @@ class _$__VehicleIconclass implements __VehicleIconclass {
       _$$__VehicleIconclassFromJson(json);
 
   @override
-  final Vehicle v;
+  final TransportationMode v;
 
   @override
   String toString() {
@@ -150,13 +150,13 @@ class _$__VehicleIconclass implements __VehicleIconclass {
 }
 
 abstract class __VehicleIconclass implements _VehicleIconclass {
-  const factory __VehicleIconclass(Vehicle v) = _$__VehicleIconclass;
+  const factory __VehicleIconclass(TransportationMode v) = _$__VehicleIconclass;
 
   factory __VehicleIconclass.fromJson(Map<String, dynamic> json) =
       _$__VehicleIconclass.fromJson;
 
   @override
-  Vehicle get v => throw _privateConstructorUsedError;
+  TransportationMode get v => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$_VehicleIconclassCopyWith<__VehicleIconclass> get copyWith =>

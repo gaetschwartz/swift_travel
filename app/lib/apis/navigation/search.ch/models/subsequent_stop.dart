@@ -14,12 +14,8 @@ class SbbSubsequentStop
     implements DelayedStop {
   factory SbbSubsequentStop({
     required String name,
-    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-    @Default(0)
-        int depDelay,
-    @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-    @Default(0)
-        int arrDelay,
+    @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+    @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
     String? id,
     @JsonKey(name: 'dep') DateTime? departure,
     @JsonKey(name: 'arr') DateTime? arrival,

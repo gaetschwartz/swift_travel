@@ -17,10 +17,10 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
               (v) => v == null
                   ? null
                   : SbbExit.fromJson(v as Map<String, dynamic>)),
-          depDelay: $checkedConvert(
-              'dep_delay', (v) => v == null ? 0 : delayFromJson(v)),
-          type: $checkedConvert(
-              'type', (v) => _$enumDecodeNullable(_$VehicleEnumMap, v)),
+          depDelay: $checkedConvert('dep_delay',
+              (v) => const DelayConverter().fromJson(v as String?)),
+          type: $checkedConvert('type',
+              (v) => _$enumDecodeNullable(_$TransportationModeEnumMap, v)),
           track: $checkedConvert('track', (v) => v as String?),
           terminal: $checkedConvert('terminal', (v) => v as String?),
           fgcolor: $checkedConvert('fgcolor', (v) => v as String?),
@@ -28,8 +28,7 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
           bgcolor: $checkedConvert('bgcolor', (v) => v as String?),
           tripid: $checkedConvert('tripid', (v) => v as String?),
           stopid: $checkedConvert('stopid', (v) => v as String?),
-          runningTime:
-              $checkedConvert('runningtime', (v) => (v as num?)?.toDouble()),
+          runningTime: $checkedConvert('runningtime', (v) => v as int?),
           line: $checkedConvert('line', (v) => v as String?),
           sbbStops: $checkedConvert(
               'stops',
@@ -43,9 +42,9 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
               (v) => v == null ? null : DateTime.parse(v as String)),
           arrival: $checkedConvert(
               'arrival', (v) => v == null ? null : DateTime.parse(v as String)),
-          normalTime: $checkedConvert('normalTime', (v) => v as int?),
+          normalTime: $checkedConvert('normal_time', (v) => v as int?),
           waitTime: $checkedConvert('waittime', (v) => v as int? ?? 0),
-          isaddress: $checkedConvert('isaddress', (v) => v as bool? ?? false),
+          isAddress: $checkedConvert('isaddress', (v) => v as bool? ?? false),
           lat: $checkedConvert('lat', (v) => (v as num?)?.toDouble()),
           lon: $checkedConvert('lon', (v) => (v as num?)?.toDouble()),
           x: $checkedConvert('x', (v) => const IntConverter().fromJson(v)),
@@ -65,7 +64,9 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
         'depDelay': 'dep_delay',
         'runningTime': 'runningtime',
         'sbbStops': 'stops',
-        'waitTime': 'waittime'
+        'normalTime': 'normal_time',
+        'waitTime': 'waittime',
+        'isAddress': 'isaddress'
       },
     );
 
@@ -81,8 +82,8 @@ Map<String, dynamic> _$$_SbbLegToJson(_$_SbbLeg instance) {
   }
 
   writeNotNull('exit', instance.sbbExit?.toJson());
-  writeNotNull('dep_delay', delayToJson(instance.depDelay));
-  writeNotNull('type', _$VehicleEnumMap[instance.type]);
+  writeNotNull('dep_delay', const DelayConverter().toJson(instance.depDelay));
+  writeNotNull('type', _$TransportationModeEnumMap[instance.type]);
   writeNotNull('track', instance.track);
   writeNotNull('terminal', instance.terminal);
   writeNotNull('fgcolor', instance.fgcolor);
@@ -96,9 +97,9 @@ Map<String, dynamic> _$$_SbbLegToJson(_$_SbbLeg instance) {
   writeNotNull('sbbName', instance.sbbName);
   writeNotNull('departure', instance.departure?.toIso8601String());
   writeNotNull('arrival', instance.arrival?.toIso8601String());
-  writeNotNull('normalTime', instance.normalTime);
+  writeNotNull('normal_time', instance.normalTime);
   val['waittime'] = instance.waitTime;
-  val['isaddress'] = instance.isaddress;
+  val['isaddress'] = instance.isAddress;
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);
   writeNotNull('x', const IntConverter().toJson(instance.x));
@@ -144,25 +145,25 @@ K? _$enumDecodeNullable<K, V>(
   return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
-const _$VehicleEnumMap = {
-  Vehicle.bus: 'bus',
-  Vehicle.post: 'post',
-  Vehicle.nightBus: 'night_bus',
-  Vehicle.tram: 'tram',
-  Vehicle.walk: 'walk',
-  Vehicle.strain: 'strain',
-  Vehicle.train: 'train',
-  Vehicle.expressTrain: 'express_train',
-  Vehicle.funicular: 'funicular',
-  Vehicle.business: 'business',
-  Vehicle.address: 'adr',
-  Vehicle.private: 'private',
-  Vehicle.gondola: 'gondola',
-  Vehicle.cablecar: 'cablecar',
-  Vehicle.chairlift: 'chairlift',
-  Vehicle.ship: 'ship',
-  Vehicle.str: 'str',
-  Vehicle.metro: 'metro',
-  Vehicle.rer: 'rer',
-  Vehicle.unknown: 'unknown',
+const _$TransportationModeEnumMap = {
+  TransportationMode.bus: 'bus',
+  TransportationMode.post: 'post',
+  TransportationMode.nightBus: 'night_bus',
+  TransportationMode.tram: 'tram',
+  TransportationMode.walk: 'walk',
+  TransportationMode.strain: 'strain',
+  TransportationMode.train: 'train',
+  TransportationMode.expressTrain: 'express_train',
+  TransportationMode.funicular: 'funicular',
+  TransportationMode.business: 'business',
+  TransportationMode.address: 'adr',
+  TransportationMode.private: 'private',
+  TransportationMode.gondola: 'gondola',
+  TransportationMode.cablecar: 'cablecar',
+  TransportationMode.chairlift: 'chairlift',
+  TransportationMode.ship: 'ship',
+  TransportationMode.str: 'str',
+  TransportationMode.metro: 'metro',
+  TransportationMode.rer: 'rer',
+  TransportationMode.unknown: 'unknown',
 };

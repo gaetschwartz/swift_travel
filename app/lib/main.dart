@@ -330,7 +330,7 @@ Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
     case '/stopDetails':
       return PlatformPageRoute(
         settings: settings,
-        builder: (_) => StopDetails(SbbStop(settings.arguments! as String)),
+        builder: (_) => StopDetails(SbbStop(name: settings.arguments! as String)),
       );
 
     case '/error':

@@ -78,7 +78,7 @@ void main() {
 
     group('sbbIcon >', () {
       testWidgets('.constructor()', (t) async {
-        for (final v in Vehicle.values) {
+        for (final v in TransportationMode.values) {
           final sbbIcon = SbbIcon(v);
 
           await t.pumpWidget(MaterialApp(home: Center(child: sbbIcon)));
@@ -87,7 +87,7 @@ void main() {
         }
       });
       testWidgets('.fromIconClass()', (t) async {
-        for (final v in Vehicle.values) {
+        for (final v in TransportationMode.values) {
           final text = describeEnum(v);
           final exp = RegExp('(?<=[a-z])[A-Z]');
           final result = text.replaceAllMapped(exp, (m) => '_${m.group(0)!}').toLowerCase();

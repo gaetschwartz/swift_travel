@@ -8,13 +8,13 @@ part of 'vehicle_iconclass.dart';
 
 _$__VehicleIconclass _$$__VehicleIconclassFromJson(Map<String, dynamic> json) =>
     _$__VehicleIconclass(
-      _$enumDecode(_$VehicleEnumMap, json['v']),
+      _$enumDecode(_$TransportationModeEnumMap, json['v']),
     );
 
 Map<String, dynamic> _$$__VehicleIconclassToJson(
         _$__VehicleIconclass instance) =>
     <String, dynamic>{
-      'v': _$VehicleEnumMap[instance.v],
+      'v': _$TransportationModeEnumMap[instance.v],
     };
 
 K _$enumDecode<K, V>(
@@ -43,25 +43,25 @@ K _$enumDecode<K, V>(
   ).key;
 }
 
-const _$VehicleEnumMap = {
-  Vehicle.bus: 'bus',
-  Vehicle.post: 'post',
-  Vehicle.nightBus: 'night_bus',
-  Vehicle.tram: 'tram',
-  Vehicle.walk: 'walk',
-  Vehicle.strain: 'strain',
-  Vehicle.train: 'train',
-  Vehicle.expressTrain: 'express_train',
-  Vehicle.funicular: 'funicular',
-  Vehicle.business: 'business',
-  Vehicle.address: 'adr',
-  Vehicle.private: 'private',
-  Vehicle.gondola: 'gondola',
-  Vehicle.cablecar: 'cablecar',
-  Vehicle.chairlift: 'chairlift',
-  Vehicle.ship: 'ship',
-  Vehicle.str: 'str',
-  Vehicle.metro: 'metro',
-  Vehicle.rer: 'rer',
-  Vehicle.unknown: 'unknown',
+const _$TransportationModeEnumMap = {
+  TransportationMode.bus: 'bus',
+  TransportationMode.post: 'post',
+  TransportationMode.nightBus: 'night_bus',
+  TransportationMode.tram: 'tram',
+  TransportationMode.walk: 'walk',
+  TransportationMode.strain: 'strain',
+  TransportationMode.train: 'train',
+  TransportationMode.expressTrain: 'express_train',
+  TransportationMode.funicular: 'funicular',
+  TransportationMode.business: 'business',
+  TransportationMode.address: 'adr',
+  TransportationMode.private: 'private',
+  TransportationMode.gondola: 'gondola',
+  TransportationMode.cablecar: 'cablecar',
+  TransportationMode.chairlift: 'chairlift',
+  TransportationMode.ship: 'ship',
+  TransportationMode.str: 'str',
+  TransportationMode.metro: 'metro',
+  TransportationMode.rer: 'rer',
+  TransportationMode.unknown: 'unknown',
 };

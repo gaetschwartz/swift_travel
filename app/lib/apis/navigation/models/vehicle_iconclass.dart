@@ -6,24 +6,29 @@ part 'vehicle_iconclass.g.dart';
 @freezed
 class _VehicleIconclass with _$_VehicleIconclass {
   @Deprecated('Do not use this class directly, use VehicleX.parse instead.')
-  const factory _VehicleIconclass(Vehicle v) = __VehicleIconclass;
+  const factory _VehicleIconclass(TransportationMode v) = __VehicleIconclass;
 
   @Deprecated('Do not use this class directly, use VehicleX.parse instead.')
   factory _VehicleIconclass.fromJson(Map<String, dynamic> json) =>
       _$_VehicleIconclassFromJson(json);
 }
 
-extension VehicleX on Vehicle {
-  static Vehicle parse(String s, {Vehicle unknownValue = Vehicle.unknown}) =>
-      _$enumDecode(_$VehicleEnumMap, s, unknownValue: unknownValue);
+extension TransportationModeX on TransportationMode {
+  static TransportationMode parse(String s,
+          {TransportationMode unknownValue = TransportationMode.unknown}) =>
+      _$enumDecode(_$TransportationModeEnumMap, s, unknownValue: unknownValue);
 
-  static const List<Vehicle> _privatePlaces = [Vehicle.address, Vehicle.business, Vehicle.private];
+  static const List<TransportationMode> _privatePlaces = [
+    TransportationMode.address,
+    TransportationMode.business,
+    TransportationMode.private
+  ];
 
   bool get isAddress => _privatePlaces.contains(this);
-  static bool isAnAddress(Vehicle? s) => s != null && s.isAddress;
+  static bool isAnAddress(TransportationMode? s) => s != null && s.isAddress;
 }
 
-enum Vehicle {
+enum TransportationMode {
   bus,
   post,
   @JsonValue('night_bus')

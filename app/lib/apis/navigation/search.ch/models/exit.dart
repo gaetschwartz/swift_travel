@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
@@ -9,26 +8,35 @@ import 'stop.dart';
 part 'exit.freezed.dart';
 part 'exit.g.dart';
 
-int delayFromJson(dynamic s) {
-  if (s is String && s != 'X') {
-    return int.tryParse(s) ?? _defaultDelay;
-  } else {
-    return _defaultDelay;
+class DelayConverter extends JsonConverter<int?, String?> {
+  const DelayConverter();
+
+  @override
+  int? fromJson(String? json) {
+    if (json == null) {
+      return null;
+    } else if (json is String && json != 'X') {
+      final tryParse = int.tryParse(json);
+      return tryParse == 0 ? null : tryParse;
+    } else {
+      return null;
+    }
   }
+
+  @override
+  String toJson(int? object) => object == null
+      ? "X"
+      : object >= 0
+          ? '+$object'
+          : object.toString();
 }
-
-const _defaultDelay = 0;
-
-String delayToJson(int d) => d >= 0 ? '+$d' : d.toString();
 
 @freezed
 class SbbExit with _$SbbExit, BaseStop, SbbDisplayNameMixin implements Exit {
   @JsonSerializable(includeIfNull: false, checked: true)
   factory SbbExit({
     required String name,
-    @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-    @Default(0)
-        int arrDelay,
+    @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
     DateTime? arrival,
     double? lat,
     double? lon,
@@ -55,4 +63,13 @@ class SbbExit with _$SbbExit, BaseStop, SbbDisplayNameMixin implements Exit {
 
   @override
   String? get id => stopid;
+
+  @override
+  String? get officialName => sbbName;
+
+  @override
+  bool get isAddress => isaddress;
+
+  @override
+  int get waitTime => waittime;
 }

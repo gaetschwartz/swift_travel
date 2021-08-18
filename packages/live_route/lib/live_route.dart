@@ -168,9 +168,9 @@ class LiveRouteController extends ChangeNotifier {
 
   static const _kDefaultDistanceThreshold = 500;
   static const _kDistanceThersholds = {
-    Vehicle.bus: 100,
-    Vehicle.walk: 100,
-    Vehicle.tram: 100,
+    TransportationMode.bus: 100,
+    TransportationMode.walk: 100,
+    TransportationMode.tram: 100,
   };
 
   static int getDistanceThreshHold(Leg? leg) =>

@@ -88,9 +88,9 @@ class _TransportLegTileState extends State<TransportLegTile> {
                     text: Format.time(widget.l.departure),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  if (widget.l.depDelay > 0)
+                  if (widget.l.depDelay != null)
                     TextSpan(
-                      text: Format.delay(widget.l.depDelay),
+                      text: Format.delay(widget.l.depDelay!),
                       style: const TextStyle(
                         color: _red,
                         fontWeight: FontWeight.bold,
@@ -114,9 +114,9 @@ class _TransportLegTileState extends State<TransportLegTile> {
                         text: Format.time(widget.l.exit!.arrival),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      if (widget.l.exit!.arrDelay > 0)
+                      if (widget.l.exit!.arrDelay != null)
                         TextSpan(
-                          text: Format.delay(widget.l.exit!.arrDelay),
+                          text: Format.delay(widget.l.exit!.arrDelay!),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: _red,
