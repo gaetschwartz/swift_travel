@@ -14,10 +14,10 @@ class SbbRouteConnection with _$SbbRouteConnection, RouteConnection {
   const factory SbbRouteConnection({
     required String from,
     required String to,
-    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson) required int depDelay,
+    @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
     DateTime? departure,
     DateTime? arrival,
-    double? duration,
+    @JsonKey(name: "duration") int? durationInSeconds,
     @JsonKey(name: 'legs') @Default(<SbbLeg>[]) List<SbbLeg> sbbLegs,
     @Default(<String, Disruption>{}) Map<String, Disruption> disruptions,
   }) = _SbbRouteConnection;
@@ -36,4 +36,8 @@ class SbbRouteConnection with _$SbbRouteConnection, RouteConnection {
     }
     return copyWith(sbbLegs: legs);
   }
+
+  @override
+  Duration? get duration =>
+      durationInSeconds == null ? null : Duration(seconds: durationInSeconds!.toInt());
 }

@@ -23,7 +23,7 @@ class _$SbbStationboardTearOff {
 
   _SbbStationboard call(
       {@JsonKey(name: 'stop')
-          SbbStop? sbbStop = const SbbStop(''),
+          SbbStop? sbbStop = const SbbStop(name: ''),
       @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
           List<SbbStationboardConnection>
               sbbConnections = const <SbbStationboardConnection>[],
@@ -174,7 +174,7 @@ class __$SbbStationboardCopyWithImpl<$Res>
 class _$_SbbStationboard extends _SbbStationboard {
   const _$_SbbStationboard(
       {@JsonKey(name: 'stop')
-          this.sbbStop = const SbbStop(''),
+          this.sbbStop = const SbbStop(name: ''),
       @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
           this.sbbConnections = const <SbbStationboardConnection>[],
       this.messages = const <Object>[]})

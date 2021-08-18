@@ -22,9 +22,9 @@ mixin WithTimeMixin {
   DateTime? get arrival;
 }
 
-mixin StationboardConnection {
+mixin BaseStationboardConnection {
   DateTime get time;
-  Vehicle get type;
+  TransportationMode get type;
   String get color;
   Stop get terminal;
   String? get line;
@@ -34,16 +34,15 @@ mixin StationboardConnection {
   String? get l;
 
   List<DelayedStop> get subsequentStops;
-
-  int get depDelay;
-  int get arrDelay;
 }
+
+abstract class StationboardConnection with BaseStationboardConnection, WithDelayMixin {}
 
 abstract class DelayedStop with WithDelayMixin implements Stop {}
 
 mixin WithDelayMixin {
-  int get depDelay;
-  int get arrDelay;
+  int? get depDelay;
+  int? get arrDelay;
 }
 
 mixin LocatedMixin {
@@ -51,4 +50,13 @@ mixin LocatedMixin {
   double? get lon;
 
   LatLon? get position;
+}
+
+abstract class Exit with WithDelayMixin, _ExitMixin implements Stop {}
+
+mixin _ExitMixin {
+  String? get officialName;
+  String? get track;
+  int get waitTime;
+  bool get isAddress;
 }

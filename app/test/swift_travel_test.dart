@@ -171,15 +171,15 @@ void main() {
       FakeableDateTime.fakeDate = DateTime(2021);
     });
     test('localRoute', () {
-      final route1 = LocalRoute.v2(const SbbStop('from'), const SbbStop('to'),
+      final route1 = LocalRoute.v2(const SbbStop(name: 'from'), const SbbStop(name: 'to'),
           displayName: 'name', timestamp: FakeableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
         SbbRouteConnection(from: 'from', to: 'to', depDelay: 0, departure: FakeableDateTime.now()),
         displayName: 'name',
       );
       final json = {
-        'from': const SbbStop('from').toJson(),
-        'to': const SbbStop('to').toJson(),
+        'from': const SbbStop(name: 'from').toJson(),
+        'to': const SbbStop(name: 'to').toJson(),
         'displayName': 'name',
         'timestamp': FakeableDateTime.now().toIso8601String(),
         'runtimeType': 'v2',
@@ -190,7 +190,7 @@ void main() {
     });
 
     test('favoriteStop', () {
-      final stop1 = FavoriteStop(stop: geneva, name: geneva, api: searchChApi.id.id);
+      final stop1 = FavoriteStop(stop: geneva, name: geneva, api: searchChApi.id.value);
       final stop2 = FavoriteStop.fromStop(geneva, api: searchChApi.id);
       final stop3 = FavoriteStop.fromCompletion(SbbCompletion(label: geneva), api: searchChApi.id);
       final stop4 =

@@ -5,13 +5,16 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
-import 'package:swift_travel/widgets/action_sheet.dart';
 
 import 'models/stationboard.dart';
 
 part 'navigation.freezed.dart';
 
+typedef Create<T> = T Function(Reader reader);
+
 @immutable
+
+/// A factory that alllows to obtain an instance of a Navigation API including its details.
 class NavigationApiFactory<T extends BaseNavigationApi> {
   const NavigationApiFactory(
     this.create, {
@@ -26,31 +29,33 @@ class NavigationApiFactory<T extends BaseNavigationApi> {
   final String shortName;
   final String countryEmoji;
   final String countryName;
-  final T Function(Reader config) create;
+  final Create<T> create;
   final NavigationApiId id;
 
   String get shortDesc => '$countryEmoji $shortName';
+
+  static final factories = <NavigationApiFactory>[searchChApi, sncfFactory];
+
+  static final defaultFactory = searchChApi;
+
+  static NavigationApiFactory<BaseNavigationApi> fromId(NavigationApiId id) => factories.firstWhere(
+        (f) => f.id.value == id.value,
+        orElse: () => defaultFactory,
+      );
 }
-
-final factories = <String, NavigationApiFactory>{
-  'sbb': searchChApi,
-  'sncf': sncfFactory,
-};
-
-late final factoriesAsActionSheets = factories.entries
-    .map((e) => ActionsSheetAction(title: Text(e.value.name), value: NavigationApiId(e.key)))
-    .toList(growable: false);
 
 @freezed
+
+/// Class containing a single String value representing an ID of a Navigation API.
 class NavigationApiId with _$NavigationApiId {
-  const factory NavigationApiId(String id) = _NavigationApiId;
+  const factory NavigationApiId(String value) = _NavigationApiId;
 }
 
+/// Base class for any Navigation API.
 abstract class BaseNavigationApi {
   Locale locale = const Locale('en');
 
-  static NavigationApiFactory getFactory(NavigationApiId id) => factories[id.id] ?? searchChApi;
-
+  /// Returns an autocompletion based on the provided query [string].
   Future<List<Completion>> complete(
     String string, {
     bool showCoordinates,
@@ -59,6 +64,7 @@ abstract class BaseNavigationApi {
     bool filterNull,
   });
 
+  /// Returns a list of stations close to the provided [lat] and [lon].
   Future<List<Completion>> findStation(
     double lat,
     double lon, {
@@ -67,6 +73,7 @@ abstract class BaseNavigationApi {
     bool showIds,
   });
 
+  /// Returns a timetable for a provided station (aka stop).
   Future<StationBoard> stationboard(
     Stop stop, {
     DateTime when,
@@ -79,6 +86,7 @@ abstract class BaseNavigationApi {
     List<TransportationTypes> transportationTypes,
   });
 
+  /// Returns a route from [departure] to [arrival].
   Future<NavRoute> route(
     String departure,
     String arrival, {
@@ -91,5 +99,6 @@ abstract class BaseNavigationApi {
 
   void dispose();
 
+  /// This method is used internally and should be used in [route] once the url to query has been built.
   Future<NavRoute> rawRoute(Uri query);
 }

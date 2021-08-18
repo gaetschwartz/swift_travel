@@ -12,8 +12,8 @@ _$_Exit _$$_ExitFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = _$_Exit(
           name: $checkedConvert('name', (v) => v as String),
-          arrDelay: $checkedConvert(
-              'arr_delay', (v) => v == null ? 0 : delayFromJson(v)),
+          arrDelay: $checkedConvert('arr_delay',
+              (v) => const DelayConverter().fromJson(v as String?)),
           arrival: $checkedConvert(
               'arrival', (v) => v == null ? null : DateTime.parse(v as String)),
           lat: $checkedConvert('lat', (v) => (v as num?)?.toDouble()),
@@ -42,7 +42,7 @@ Map<String, dynamic> _$$_ExitToJson(_$_Exit instance) {
     }
   }
 
-  writeNotNull('arr_delay', delayToJson(instance.arrDelay));
+  writeNotNull('arr_delay', const DelayConverter().toJson(instance.arrDelay));
   writeNotNull('arrival', instance.arrival?.toIso8601String());
   writeNotNull('lat', instance.lat);
   writeNotNull('lon', instance.lon);

@@ -25,9 +25,10 @@ class _$SbbLegTearOff {
       {required String name,
       @JsonKey(name: 'exit')
           SbbExit? sbbExit,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay = 0,
-      Vehicle? type,
+      @DelayConverter()
+      @JsonKey(name: 'dep_delay')
+          int? depDelay,
+      TransportationMode? type,
       String? track,
       String? terminal,
       String? fgcolor,
@@ -36,17 +37,19 @@ class _$SbbLegTearOff {
       String? tripid,
       String? stopid,
       @JsonKey(name: 'runningtime')
-          double? runningTime,
+          int? runningTime,
       String? line,
       @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
           List<SbbStop> sbbStops = const <SbbStop>[],
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
-      int? normalTime,
+      @JsonKey(name: "normal_time")
+          int? normalTime,
       @JsonKey(name: 'waittime', defaultValue: 0)
           int waitTime = 0,
-      bool isaddress = false,
+      @JsonKey(name: "isaddress")
+          bool isAddress = false,
       double? lat,
       double? lon,
       @IntConverter()
@@ -74,7 +77,7 @@ class _$SbbLegTearOff {
       arrival: arrival,
       normalTime: normalTime,
       waitTime: waitTime,
-      isaddress: isaddress,
+      isAddress: isAddress,
       lat: lat,
       lon: lon,
       x: x,
@@ -96,9 +99,10 @@ mixin _$SbbLeg {
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'exit')
   SbbExit? get sbbExit => throw _privateConstructorUsedError;
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay => throw _privateConstructorUsedError;
-  Vehicle? get type => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  int? get depDelay => throw _privateConstructorUsedError;
+  TransportationMode? get type => throw _privateConstructorUsedError;
   String? get track => throw _privateConstructorUsedError;
   String? get terminal => throw _privateConstructorUsedError;
   String? get fgcolor => throw _privateConstructorUsedError;
@@ -107,17 +111,19 @@ mixin _$SbbLeg {
   String? get tripid => throw _privateConstructorUsedError;
   String? get stopid => throw _privateConstructorUsedError;
   @JsonKey(name: 'runningtime')
-  double? get runningTime => throw _privateConstructorUsedError;
+  int? get runningTime => throw _privateConstructorUsedError;
   String? get line => throw _privateConstructorUsedError;
   @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
   String? get sbbName => throw _privateConstructorUsedError;
   DateTime? get departure => throw _privateConstructorUsedError;
   DateTime? get arrival => throw _privateConstructorUsedError;
+  @JsonKey(name: "normal_time")
   int? get normalTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'waittime', defaultValue: 0)
   int get waitTime => throw _privateConstructorUsedError;
-  bool get isaddress => throw _privateConstructorUsedError;
+  @JsonKey(name: "isaddress")
+  bool get isAddress => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get lon => throw _privateConstructorUsedError;
   @IntConverter()
@@ -137,11 +143,9 @@ abstract class $SbbLegCopyWith<$Res> {
       _$SbbLegCopyWithImpl<$Res>;
   $Res call(
       {String name,
-      @JsonKey(name: 'exit')
-          SbbExit? sbbExit,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
-      Vehicle? type,
+      @JsonKey(name: 'exit') SbbExit? sbbExit,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+      TransportationMode? type,
       String? track,
       String? terminal,
       String? fgcolor,
@@ -149,24 +153,19 @@ abstract class $SbbLegCopyWith<$Res> {
       String? bgcolor,
       String? tripid,
       String? stopid,
-      @JsonKey(name: 'runningtime')
-          double? runningTime,
+      @JsonKey(name: 'runningtime') int? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-          List<SbbStop> sbbStops,
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[]) List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
-      int? normalTime,
-      @JsonKey(name: 'waittime', defaultValue: 0)
-          int waitTime,
-      bool isaddress,
+      @JsonKey(name: "normal_time") int? normalTime,
+      @JsonKey(name: 'waittime', defaultValue: 0) int waitTime,
+      @JsonKey(name: "isaddress") bool isAddress,
       double? lat,
       double? lon,
-      @IntConverter()
-          int? x,
-      @IntConverter()
-          int? y,
+      @IntConverter() int? x,
+      @IntConverter() int? y,
       Map<String, String> attributes});
 
   $SbbExitCopyWith<$Res>? get sbbExit;
@@ -201,7 +200,7 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
     Object? arrival = freezed,
     Object? normalTime = freezed,
     Object? waitTime = freezed,
-    Object? isaddress = freezed,
+    Object? isAddress = freezed,
     Object? lat = freezed,
     Object? lon = freezed,
     Object? x = freezed,
@@ -220,11 +219,11 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
       depDelay: depDelay == freezed
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as Vehicle?,
+              as TransportationMode?,
       track: track == freezed
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
@@ -256,7 +255,7 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
       runningTime: runningTime == freezed
           ? _value.runningTime
           : runningTime // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as int?,
       line: line == freezed
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
@@ -285,9 +284,9 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
           ? _value.waitTime
           : waitTime // ignore: cast_nullable_to_non_nullable
               as int,
-      isaddress: isaddress == freezed
-          ? _value.isaddress
-          : isaddress // ignore: cast_nullable_to_non_nullable
+      isAddress: isAddress == freezed
+          ? _value.isAddress
+          : isAddress // ignore: cast_nullable_to_non_nullable
               as bool,
       lat: lat == freezed
           ? _value.lat
@@ -331,11 +330,9 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
   @override
   $Res call(
       {String name,
-      @JsonKey(name: 'exit')
-          SbbExit? sbbExit,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
-      Vehicle? type,
+      @JsonKey(name: 'exit') SbbExit? sbbExit,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+      TransportationMode? type,
       String? track,
       String? terminal,
       String? fgcolor,
@@ -343,24 +340,19 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       String? bgcolor,
       String? tripid,
       String? stopid,
-      @JsonKey(name: 'runningtime')
-          double? runningTime,
+      @JsonKey(name: 'runningtime') int? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-          List<SbbStop> sbbStops,
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[]) List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
-      int? normalTime,
-      @JsonKey(name: 'waittime', defaultValue: 0)
-          int waitTime,
-      bool isaddress,
+      @JsonKey(name: "normal_time") int? normalTime,
+      @JsonKey(name: 'waittime', defaultValue: 0) int waitTime,
+      @JsonKey(name: "isaddress") bool isAddress,
       double? lat,
       double? lon,
-      @IntConverter()
-          int? x,
-      @IntConverter()
-          int? y,
+      @IntConverter() int? x,
+      @IntConverter() int? y,
       Map<String, String> attributes});
 
   @override
@@ -397,7 +389,7 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
     Object? arrival = freezed,
     Object? normalTime = freezed,
     Object? waitTime = freezed,
-    Object? isaddress = freezed,
+    Object? isAddress = freezed,
     Object? lat = freezed,
     Object? lon = freezed,
     Object? x = freezed,
@@ -416,11 +408,11 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
       depDelay: depDelay == freezed
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as Vehicle?,
+              as TransportationMode?,
       track: track == freezed
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
@@ -452,7 +444,7 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
       runningTime: runningTime == freezed
           ? _value.runningTime
           : runningTime // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as int?,
       line: line == freezed
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
@@ -481,9 +473,9 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
           ? _value.waitTime
           : waitTime // ignore: cast_nullable_to_non_nullable
               as int,
-      isaddress: isaddress == freezed
-          ? _value.isaddress
-          : isaddress // ignore: cast_nullable_to_non_nullable
+      isAddress: isAddress == freezed
+          ? _value.isAddress
+          : isAddress // ignore: cast_nullable_to_non_nullable
               as bool,
       lat: lat == freezed
           ? _value.lat
@@ -517,8 +509,9 @@ class _$_SbbLeg extends _SbbLeg {
       {required this.name,
       @JsonKey(name: 'exit')
           this.sbbExit,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.depDelay = 0,
+      @DelayConverter()
+      @JsonKey(name: 'dep_delay')
+          this.depDelay,
       this.type,
       this.track,
       this.terminal,
@@ -535,10 +528,12 @@ class _$_SbbLeg extends _SbbLeg {
       this.sbbName,
       this.departure,
       this.arrival,
-      this.normalTime,
+      @JsonKey(name: "normal_time")
+          this.normalTime,
       @JsonKey(name: 'waittime', defaultValue: 0)
           this.waitTime = 0,
-      this.isaddress = false,
+      @JsonKey(name: "isaddress")
+          this.isAddress = false,
       this.lat,
       this.lon,
       @IntConverter()
@@ -557,10 +552,11 @@ class _$_SbbLeg extends _SbbLeg {
   @JsonKey(name: 'exit')
   final SbbExit? sbbExit;
   @override
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  final int depDelay;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  final int? depDelay;
   @override
-  final Vehicle? type;
+  final TransportationMode? type;
   @override
   final String? track;
   @override
@@ -577,7 +573,7 @@ class _$_SbbLeg extends _SbbLeg {
   final String? stopid;
   @override
   @JsonKey(name: 'runningtime')
-  final double? runningTime;
+  final int? runningTime;
   @override
   final String? line;
   @override
@@ -590,13 +586,14 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   final DateTime? arrival;
   @override
+  @JsonKey(name: "normal_time")
   final int? normalTime;
   @override
   @JsonKey(name: 'waittime', defaultValue: 0)
   final int waitTime;
-  @JsonKey(defaultValue: false)
   @override
-  final bool isaddress;
+  @JsonKey(name: "isaddress")
+  final bool isAddress;
   @override
   final double? lat;
   @override
@@ -613,7 +610,7 @@ class _$_SbbLeg extends _SbbLeg {
 
   @override
   String toString() {
-    return 'SbbLeg(name: $name, sbbExit: $sbbExit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, stopid: $stopid, runningTime: $runningTime, line: $line, sbbStops: $sbbStops, sbbName: $sbbName, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isaddress: $isaddress, lat: $lat, lon: $lon, x: $x, y: $y, attributes: $attributes)';
+    return 'SbbLeg(name: $name, sbbExit: $sbbExit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, stopid: $stopid, runningTime: $runningTime, line: $line, sbbStops: $sbbStops, sbbName: $sbbName, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isAddress: $isAddress, lat: $lat, lon: $lon, x: $x, y: $y, attributes: $attributes)';
   }
 
   @override
@@ -670,9 +667,9 @@ class _$_SbbLeg extends _SbbLeg {
             (identical(other.waitTime, waitTime) ||
                 const DeepCollectionEquality()
                     .equals(other.waitTime, waitTime)) &&
-            (identical(other.isaddress, isaddress) ||
+            (identical(other.isAddress, isAddress) ||
                 const DeepCollectionEquality()
-                    .equals(other.isaddress, isaddress)) &&
+                    .equals(other.isAddress, isAddress)) &&
             (identical(other.lat, lat) ||
                 const DeepCollectionEquality().equals(other.lat, lat)) &&
             (identical(other.lon, lon) ||
@@ -708,7 +705,7 @@ class _$_SbbLeg extends _SbbLeg {
       const DeepCollectionEquality().hash(arrival) ^
       const DeepCollectionEquality().hash(normalTime) ^
       const DeepCollectionEquality().hash(waitTime) ^
-      const DeepCollectionEquality().hash(isaddress) ^
+      const DeepCollectionEquality().hash(isAddress) ^
       const DeepCollectionEquality().hash(lat) ^
       const DeepCollectionEquality().hash(lon) ^
       const DeepCollectionEquality().hash(x) ^
@@ -729,11 +726,9 @@ class _$_SbbLeg extends _SbbLeg {
 abstract class _SbbLeg extends SbbLeg {
   factory _SbbLeg(
       {required String name,
-      @JsonKey(name: 'exit')
-          SbbExit? sbbExit,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
-      Vehicle? type,
+      @JsonKey(name: 'exit') SbbExit? sbbExit,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+      TransportationMode? type,
       String? track,
       String? terminal,
       String? fgcolor,
@@ -741,24 +736,19 @@ abstract class _SbbLeg extends SbbLeg {
       String? bgcolor,
       String? tripid,
       String? stopid,
-      @JsonKey(name: 'runningtime')
-          double? runningTime,
+      @JsonKey(name: 'runningtime') int? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-          List<SbbStop> sbbStops,
+      @JsonKey(name: 'stops', defaultValue: <SbbStop>[]) List<SbbStop> sbbStops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
-      int? normalTime,
-      @JsonKey(name: 'waittime', defaultValue: 0)
-          int waitTime,
-      bool isaddress,
+      @JsonKey(name: "normal_time") int? normalTime,
+      @JsonKey(name: 'waittime', defaultValue: 0) int waitTime,
+      @JsonKey(name: "isaddress") bool isAddress,
       double? lat,
       double? lon,
-      @IntConverter()
-          int? x,
-      @IntConverter()
-          int? y,
+      @IntConverter() int? x,
+      @IntConverter() int? y,
       Map<String, String> attributes}) = _$_SbbLeg;
   _SbbLeg._() : super._();
 
@@ -770,10 +760,11 @@ abstract class _SbbLeg extends SbbLeg {
   @JsonKey(name: 'exit')
   SbbExit? get sbbExit => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  int? get depDelay => throw _privateConstructorUsedError;
   @override
-  Vehicle? get type => throw _privateConstructorUsedError;
+  TransportationMode? get type => throw _privateConstructorUsedError;
   @override
   String? get track => throw _privateConstructorUsedError;
   @override
@@ -790,7 +781,7 @@ abstract class _SbbLeg extends SbbLeg {
   String? get stopid => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'runningtime')
-  double? get runningTime => throw _privateConstructorUsedError;
+  int? get runningTime => throw _privateConstructorUsedError;
   @override
   String? get line => throw _privateConstructorUsedError;
   @override
@@ -803,12 +794,14 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   DateTime? get arrival => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: "normal_time")
   int? get normalTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'waittime', defaultValue: 0)
   int get waitTime => throw _privateConstructorUsedError;
   @override
-  bool get isaddress => throw _privateConstructorUsedError;
+  @JsonKey(name: "isaddress")
+  bool get isAddress => throw _privateConstructorUsedError;
   @override
   double? get lat => throw _privateConstructorUsedError;
   @override

@@ -42,7 +42,7 @@ class CompletionTile extends ConsumerWidget {
   Widget build(BuildContext context, Reader watch) {
     final store = watch(storeProvider);
     final iconClass = sugg.getIcon();
-    final isPrivate = VehicleX.isAnAddress(sugg.type);
+    final isPrivate = TransportationModeX.isAnAddress(sugg.type);
 
     final isFav = sugg.favoriteName != null;
     final darwin = isDarwin(context);
@@ -99,7 +99,7 @@ class CompletionTile extends ConsumerWidget {
                 Nav.push(
                   context,
                   (context) => StopDetails(
-                    SbbStop(sugg.label, id: sugg.id),
+                    SbbStop(name: sugg.label, id: sugg.id),
                     key: Key(sugg.label),
                   ),
                   title: sugg.label,
@@ -242,7 +242,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
             .read(navigationAPIProvider)
             .stationboard(
               SbbStop(
-                widget.compl.label,
+                name: widget.compl.label,
                 id: widget.compl.id,
               ),
               showSubsequentStops: false,

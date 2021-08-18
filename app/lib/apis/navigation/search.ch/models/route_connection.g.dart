@@ -15,12 +15,13 @@ _$_SbbRouteConnection _$$_SbbRouteConnectionFromJson(
         final val = _$_SbbRouteConnection(
           from: $checkedConvert('from', (v) => v as String),
           to: $checkedConvert('to', (v) => v as String),
-          depDelay: $checkedConvert('dep_delay', (v) => delayFromJson(v)),
+          depDelay: $checkedConvert('dep_delay',
+              (v) => const DelayConverter().fromJson(v as String?)),
           departure: $checkedConvert('departure',
               (v) => v == null ? null : DateTime.parse(v as String)),
           arrival: $checkedConvert(
               'arrival', (v) => v == null ? null : DateTime.parse(v as String)),
-          duration: $checkedConvert('duration', (v) => (v as num?)?.toDouble()),
+          durationInSeconds: $checkedConvert('duration', (v) => v as int?),
           sbbLegs: $checkedConvert(
               'legs',
               (v) =>
@@ -39,7 +40,11 @@ _$_SbbRouteConnection _$$_SbbRouteConnectionFromJson(
         );
         return val;
       },
-      fieldKeyMap: const {'depDelay': 'dep_delay', 'sbbLegs': 'legs'},
+      fieldKeyMap: const {
+        'depDelay': 'dep_delay',
+        'durationInSeconds': 'duration',
+        'sbbLegs': 'legs'
+      },
     );
 
 Map<String, dynamic> _$$_SbbRouteConnectionToJson(
@@ -55,10 +60,10 @@ Map<String, dynamic> _$$_SbbRouteConnectionToJson(
     }
   }
 
-  writeNotNull('dep_delay', delayToJson(instance.depDelay));
+  writeNotNull('dep_delay', const DelayConverter().toJson(instance.depDelay));
   writeNotNull('departure', instance.departure?.toIso8601String());
   writeNotNull('arrival', instance.arrival?.toIso8601String());
-  writeNotNull('duration', instance.duration);
+  writeNotNull('duration', instance.durationInSeconds);
   val['legs'] = instance.sbbLegs.map((e) => e.toJson()).toList();
   val['disruptions'] =
       instance.disruptions.map((k, e) => MapEntry(k, e.toJson()));

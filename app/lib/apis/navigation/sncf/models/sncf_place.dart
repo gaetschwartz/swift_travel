@@ -26,7 +26,7 @@ class SncfPlace with _$SncfPlace, Completion {
   DataOrigin get origin => DataOrigin.data;
 
   @override
-  Vehicle? get type => null;
+  TransportationMode? get type => null;
 
   @override
   String get label => name;

@@ -141,9 +141,10 @@ class StopTile extends StatelessWidget {
                         text: Format.time(stop.departure ?? stop.arrival),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      if (stop.depDelay > 0 || stop.arrDelay > 0)
+                      if (stop.depDelay != null || stop.arrDelay != null)
                         TextSpan(
-                          text: Format.delay(stop.arrDelay > 0 ? stop.arrDelay : stop.depDelay),
+                          text:
+                              Format.delay(stop.arrDelay != null ? stop.arrDelay! : stop.depDelay!),
                           style: const TextStyle(
                             color: Colors.red,
                             fontWeight: FontWeight.bold,

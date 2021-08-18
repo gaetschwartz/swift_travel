@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/search.ch/models/base.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
 import 'exit.dart';
@@ -11,15 +12,13 @@ part 'leg.freezed.dart';
 part 'leg.g.dart';
 
 @freezed
-class SbbLeg with _$SbbLeg, Leg {
+class SbbLeg with _$SbbLeg, Leg, SbbDisplayNameMixin {
   @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
   factory SbbLeg({
     required String name,
     @JsonKey(name: 'exit') SbbExit? sbbExit,
-    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-    @Default(0)
-        int depDelay,
-    Vehicle? type,
+    @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+    TransportationMode? type,
     String? track,
     String? terminal,
     String? fgcolor,
@@ -27,15 +26,15 @@ class SbbLeg with _$SbbLeg, Leg {
     String? bgcolor,
     String? tripid,
     String? stopid,
-    @JsonKey(name: 'runningtime') double? runningTime,
+    @JsonKey(name: 'runningtime') int? runningTime,
     String? line,
     @Default(<SbbStop>[]) @JsonKey(name: 'stops', defaultValue: <SbbStop>[]) List<SbbStop> sbbStops,
     String? sbbName,
     DateTime? departure,
     DateTime? arrival,
-    int? normalTime,
+    @JsonKey(name: "normal_time") int? normalTime,
     @JsonKey(name: 'waittime', defaultValue: 0) @Default(0) int waitTime,
-    @Default(false) bool isaddress,
+    @JsonKey(name: "isaddress") @Default(false) bool isAddress,
     double? lat,
     double? lon,
     @IntConverter() int? x,
@@ -57,4 +56,10 @@ class SbbLeg with _$SbbLeg, Leg {
 
   @override
   late final LatLon? position = LatLon.computeFrom(lat: lat, lon: lon, x: x, y: y, name: name);
+
+  @override
+  String? get officialName => sbbName;
+
+  @override
+  Duration? get walkingTime => runningTime == null ? null : Duration(seconds: runningTime!);
 }

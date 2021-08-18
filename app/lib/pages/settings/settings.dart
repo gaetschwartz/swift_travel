@@ -88,10 +88,14 @@ class _SettingsPageState extends State<SettingsPage> {
               trailingBuilder: (v) => Text(v.toStringFull())),
         PropertyTile<NavigationApiId>(
           context.read(preferencesProvider).api,
-          items: factoriesAsActionSheets,
+          items: NavigationApiFactory.factories
+              .map(
+                (e) => ActionsSheetAction(title: Text(e.name), value: NavigationApiId(e.id.value)),
+              )
+              .toList(growable: false),
           title: Text(AppLoc.of(context).navigation_api),
           icon: const Icon(CupertinoIcons.link),
-          trailingBuilder: (v) => Text(BaseNavigationApi.getFactory(v).shortDesc),
+          trailingBuilder: (v) => Text(NavigationApiFactory.fromId(v).shortDesc),
           pageDescription: const Text('BETA: In the future the goal is to add more countries.'),
         ),
         PropertyTile<bool>(

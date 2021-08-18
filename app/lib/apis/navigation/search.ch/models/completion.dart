@@ -32,7 +32,7 @@ class SbbCompletion with _$SbbCompletion, Completion {
   factory SbbCompletion.fromJson(Map<String, dynamic> json) => _$SbbCompletionFromJson(json);
 
   @override
-  late final Vehicle? type = SbbIcon.getVehicle(iconClass);
+  late final TransportationMode? type = SbbIcon.getVehicle(iconClass);
 
   @override
   Widget getIcon({double? size}) => SbbIcon(type, size: size);

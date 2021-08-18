@@ -64,7 +64,7 @@ _$_FavoriteStop _$$_FavoriteStopFromJson(Map<String, dynamic> json) =>
     _$_FavoriteStop(
       stop: json['stop'] as String,
       name: json['name'] as String,
-      api: json['api'] as String? ?? 'sbb',
+      api: json['api'] as String?,
       id: json['id'] as String?,
     );
 
@@ -72,7 +72,6 @@ Map<String, dynamic> _$$_FavoriteStopToJson(_$_FavoriteStop instance) {
   final val = <String, dynamic>{
     'stop': instance.stop,
     'name': instance.name,
-    'api': instance.api,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -81,6 +80,7 @@ Map<String, dynamic> _$$_FavoriteStopToJson(_$_FavoriteStop instance) {
     }
   }
 
+  writeNotNull('api', instance.api);
   writeNotNull('id', instance.id);
   return val;
 }

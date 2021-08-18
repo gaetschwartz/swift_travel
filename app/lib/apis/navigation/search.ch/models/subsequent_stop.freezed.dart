@@ -23,15 +23,11 @@ class _$SbbSubsequentStopTearOff {
 
   _SbbSubsequentStop call(
       {required String name,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay = 0,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay = 0,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       String? id,
-      @JsonKey(name: 'dep')
-          DateTime? departure,
-      @JsonKey(name: 'arr')
-          DateTime? arrival,
+      @JsonKey(name: 'dep') DateTime? departure,
+      @JsonKey(name: 'arr') DateTime? arrival,
       double? lat,
       double? lon,
       int? x,
@@ -61,10 +57,12 @@ const $SbbSubsequentStop = _$SbbSubsequentStopTearOff();
 /// @nodoc
 mixin _$SbbSubsequentStop {
   String get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay => throw _privateConstructorUsedError;
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  int? get depDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'arr_delay')
+  int? get arrDelay => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'dep')
   DateTime? get departure => throw _privateConstructorUsedError;
@@ -88,15 +86,11 @@ abstract class $SbbSubsequentStopCopyWith<$Res> {
       _$SbbSubsequentStopCopyWithImpl<$Res>;
   $Res call(
       {String name,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       String? id,
-      @JsonKey(name: 'dep')
-          DateTime? departure,
-      @JsonKey(name: 'arr')
-          DateTime? arrival,
+      @JsonKey(name: 'dep') DateTime? departure,
+      @JsonKey(name: 'arr') DateTime? arrival,
       double? lat,
       double? lon,
       int? x,
@@ -133,11 +127,11 @@ class _$SbbSubsequentStopCopyWithImpl<$Res>
       depDelay: depDelay == freezed
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       arrDelay: arrDelay == freezed
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -179,15 +173,11 @@ abstract class _$SbbSubsequentStopCopyWith<$Res>
   @override
   $Res call(
       {String name,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       String? id,
-      @JsonKey(name: 'dep')
-          DateTime? departure,
-      @JsonKey(name: 'arr')
-          DateTime? arrival,
+      @JsonKey(name: 'dep') DateTime? departure,
+      @JsonKey(name: 'arr') DateTime? arrival,
       double? lat,
       double? lon,
       int? x,
@@ -226,11 +216,11 @@ class __$SbbSubsequentStopCopyWithImpl<$Res>
       depDelay: depDelay == freezed
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       arrDelay: arrDelay == freezed
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -268,15 +258,11 @@ class __$SbbSubsequentStopCopyWithImpl<$Res>
 class _$_SbbSubsequentStop extends _SbbSubsequentStop {
   _$_SbbSubsequentStop(
       {required this.name,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.depDelay = 0,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.arrDelay = 0,
+      @DelayConverter() @JsonKey(name: 'dep_delay') this.depDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') this.arrDelay,
       this.id,
-      @JsonKey(name: 'dep')
-          this.departure,
-      @JsonKey(name: 'arr')
-          this.arrival,
+      @JsonKey(name: 'dep') this.departure,
+      @JsonKey(name: 'arr') this.arrival,
       this.lat,
       this.lon,
       this.x,
@@ -289,11 +275,13 @@ class _$_SbbSubsequentStop extends _SbbSubsequentStop {
   @override
   final String name;
   @override
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  final int depDelay;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  final int? depDelay;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  final int arrDelay;
+  @DelayConverter()
+  @JsonKey(name: 'arr_delay')
+  final int? arrDelay;
   @override
   final String? id;
   @override
@@ -374,15 +362,11 @@ class _$_SbbSubsequentStop extends _SbbSubsequentStop {
 abstract class _SbbSubsequentStop extends SbbSubsequentStop {
   factory _SbbSubsequentStop(
       {required String name,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       String? id,
-      @JsonKey(name: 'dep')
-          DateTime? departure,
-      @JsonKey(name: 'arr')
-          DateTime? arrival,
+      @JsonKey(name: 'dep') DateTime? departure,
+      @JsonKey(name: 'arr') DateTime? arrival,
       double? lat,
       double? lon,
       int? x,
@@ -395,11 +379,13 @@ abstract class _SbbSubsequentStop extends SbbSubsequentStop {
   @override
   String get name => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  int? get depDelay => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'arr_delay')
+  int? get arrDelay => throw _privateConstructorUsedError;
   @override
   String? get id => throw _privateConstructorUsedError;
   @override

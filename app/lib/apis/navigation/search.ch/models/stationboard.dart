@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swift_travel/apis/navigation/models/mock_stop.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/models/stop.dart';
 
 import 'stationboard_connection.dart';
 import 'stop.dart';
@@ -22,7 +22,7 @@ class CustomStopConverter implements JsonConverter<Stop, Map<String, dynamic>?> 
       return object.toJson();
     }
     assert(false, 'Stop is supposed to be either a `SbbStop` to be serializable');
-    return const SbbStop('').toJson();
+    return const SbbStop(name: '').toJson();
   }
 
   static Stop customStopFromJson(Map<String, dynamic>? json) =>
@@ -33,7 +33,7 @@ class CustomStopConverter implements JsonConverter<Stop, Map<String, dynamic>?> 
 class SbbStationboard with _$SbbStationboard, StationBoard {
   @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
   const factory SbbStationboard({
-    @Default(SbbStop('')) @JsonKey(name: 'stop') SbbStop? sbbStop,
+    @Default(SbbStop(name: '')) @JsonKey(name: 'stop') SbbStop? sbbStop,
     @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
     @Default(<SbbStationboardConnection>[])
         List<SbbStationboardConnection> sbbConnections,

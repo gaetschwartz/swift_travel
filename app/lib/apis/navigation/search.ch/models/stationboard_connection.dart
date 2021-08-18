@@ -10,11 +10,11 @@ part 'stationboard_connection.freezed.dart';
 part 'stationboard_connection.g.dart';
 
 @freezed
-class SbbStationboardConnection with _$SbbStationboardConnection, StationboardConnection {
+class SbbStationboardConnection with _$SbbStationboardConnection implements StationboardConnection {
   @JsonSerializable(explicitToJson: true, checked: true)
   const factory SbbStationboardConnection({
     required DateTime time,
-    required Vehicle type,
+    required TransportationMode type,
     required String color,
     @JsonKey(name: 'terminal') required SbbStop sbbTerminal,
     String? line,
@@ -25,12 +25,8 @@ class SbbStationboardConnection with _$SbbStationboardConnection, StationboardCo
     @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
     @Default(<SbbSubsequentStop>[])
         List<SbbSubsequentStop> sbbSubsequentStops,
-    @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-    @Default(0)
-        int depDelay,
-    @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-    @Default(0)
-        int arrDelay,
+    @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+    @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
   }) = _SbbStationboardConnection;
   const SbbStationboardConnection._();
 

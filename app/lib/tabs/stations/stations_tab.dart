@@ -304,7 +304,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
       final first = completions.first;
       if (first.dist != null) {
-        final public = completions.where((c) => !VehicleX.isAnAddress(c.type));
+        final public = completions.where((c) => !TransportationModeX.isAnAddress(c.type));
         context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log('Found : ${public.first}');

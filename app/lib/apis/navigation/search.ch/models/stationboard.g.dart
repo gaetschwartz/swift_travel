@@ -15,7 +15,7 @@ _$_SbbStationboard _$$_SbbStationboardFromJson(Map<String, dynamic> json) =>
           sbbStop: $checkedConvert(
               'stop',
               (v) => v == null
-                  ? const SbbStop('')
+                  ? const SbbStop(name: '')
                   : SbbStop.fromJson(v as Map<String, dynamic>)),
           sbbConnections: $checkedConvert(
               'connections',

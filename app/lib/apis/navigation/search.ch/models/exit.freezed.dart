@@ -23,8 +23,7 @@ class _$SbbExitTearOff {
 
   _Exit call(
       {required String name,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay = 0,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       DateTime? arrival,
       double? lat,
       double? lon,
@@ -33,10 +32,8 @@ class _$SbbExitTearOff {
       String? track,
       int waittime = 0,
       bool isaddress = false,
-      @IntConverter()
-          int? x,
-      @IntConverter()
-          int? y}) {
+      @IntConverter() int? x,
+      @IntConverter() int? y}) {
     return _Exit(
       name: name,
       arrDelay: arrDelay,
@@ -64,8 +61,9 @@ const $SbbExit = _$SbbExitTearOff();
 /// @nodoc
 mixin _$SbbExit {
   String get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'arr_delay')
+  int? get arrDelay => throw _privateConstructorUsedError;
   DateTime? get arrival => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get lon => throw _privateConstructorUsedError;
@@ -90,8 +88,7 @@ abstract class $SbbExitCopyWith<$Res> {
       _$SbbExitCopyWithImpl<$Res>;
   $Res call(
       {String name,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       DateTime? arrival,
       double? lat,
       double? lon,
@@ -100,10 +97,8 @@ abstract class $SbbExitCopyWith<$Res> {
       String? track,
       int waittime,
       bool isaddress,
-      @IntConverter()
-          int? x,
-      @IntConverter()
-          int? y});
+      @IntConverter() int? x,
+      @IntConverter() int? y});
 }
 
 /// @nodoc
@@ -137,7 +132,7 @@ class _$SbbExitCopyWithImpl<$Res> implements $SbbExitCopyWith<$Res> {
       arrDelay: arrDelay == freezed
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       arrival: arrival == freezed
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
@@ -189,8 +184,7 @@ abstract class _$ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
   @override
   $Res call(
       {String name,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       DateTime? arrival,
       double? lat,
       double? lon,
@@ -199,10 +193,8 @@ abstract class _$ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
       String? track,
       int waittime,
       bool isaddress,
-      @IntConverter()
-          int? x,
-      @IntConverter()
-          int? y});
+      @IntConverter() int? x,
+      @IntConverter() int? y});
 }
 
 /// @nodoc
@@ -237,7 +229,7 @@ class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
       arrDelay: arrDelay == freezed
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       arrival: arrival == freezed
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
@@ -288,8 +280,7 @@ class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
 class _$_Exit extends _Exit {
   _$_Exit(
       {required this.name,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.arrDelay = 0,
+      @DelayConverter() @JsonKey(name: 'arr_delay') this.arrDelay,
       this.arrival,
       this.lat,
       this.lon,
@@ -298,10 +289,8 @@ class _$_Exit extends _Exit {
       this.track,
       this.waittime = 0,
       this.isaddress = false,
-      @IntConverter()
-          this.x,
-      @IntConverter()
-          this.y})
+      @IntConverter() this.x,
+      @IntConverter() this.y})
       : super._();
 
   factory _$_Exit.fromJson(Map<String, dynamic> json) => _$$_ExitFromJson(json);
@@ -309,8 +298,9 @@ class _$_Exit extends _Exit {
   @override
   final String name;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  final int arrDelay;
+  @DelayConverter()
+  @JsonKey(name: 'arr_delay')
+  final int? arrDelay;
   @override
   final DateTime? arrival;
   @override
@@ -406,8 +396,7 @@ class _$_Exit extends _Exit {
 abstract class _Exit extends SbbExit {
   factory _Exit(
       {required String name,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       DateTime? arrival,
       double? lat,
       double? lon,
@@ -416,10 +405,8 @@ abstract class _Exit extends SbbExit {
       String? track,
       int waittime,
       bool isaddress,
-      @IntConverter()
-          int? x,
-      @IntConverter()
-          int? y}) = _$_Exit;
+      @IntConverter() int? x,
+      @IntConverter() int? y}) = _$_Exit;
   _Exit._() : super._();
 
   factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
@@ -427,8 +414,9 @@ abstract class _Exit extends SbbExit {
   @override
   String get name => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'arr_delay')
+  int? get arrDelay => throw _privateConstructorUsedError;
   @override
   DateTime? get arrival => throw _privateConstructorUsedError;
   @override

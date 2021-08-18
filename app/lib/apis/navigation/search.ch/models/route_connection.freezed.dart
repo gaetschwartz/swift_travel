@@ -24,13 +24,11 @@ class _$SbbRouteConnectionTearOff {
   _SbbRouteConnection call(
       {required String from,
       required String to,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int depDelay,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
       DateTime? departure,
       DateTime? arrival,
-      double? duration,
-      @JsonKey(name: 'legs')
-          List<SbbLeg> sbbLegs = const <SbbLeg>[],
+      @JsonKey(name: "duration") int? durationInSeconds,
+      @JsonKey(name: 'legs') List<SbbLeg> sbbLegs = const <SbbLeg>[],
       Map<String, Disruption> disruptions = const <String, Disruption>{}}) {
     return _SbbRouteConnection(
       from: from,
@@ -38,7 +36,7 @@ class _$SbbRouteConnectionTearOff {
       depDelay: depDelay,
       departure: departure,
       arrival: arrival,
-      duration: duration,
+      durationInSeconds: durationInSeconds,
       sbbLegs: sbbLegs,
       disruptions: disruptions,
     );
@@ -56,11 +54,13 @@ const $SbbRouteConnection = _$SbbRouteConnectionTearOff();
 mixin _$SbbRouteConnection {
   String get from => throw _privateConstructorUsedError;
   String get to => throw _privateConstructorUsedError;
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  int? get depDelay => throw _privateConstructorUsedError;
   DateTime? get departure => throw _privateConstructorUsedError;
   DateTime? get arrival => throw _privateConstructorUsedError;
-  double? get duration => throw _privateConstructorUsedError;
+  @JsonKey(name: "duration")
+  int? get durationInSeconds => throw _privateConstructorUsedError;
   @JsonKey(name: 'legs')
   List<SbbLeg> get sbbLegs => throw _privateConstructorUsedError;
   Map<String, Disruption> get disruptions => throw _privateConstructorUsedError;
@@ -79,13 +79,11 @@ abstract class $SbbRouteConnectionCopyWith<$Res> {
   $Res call(
       {String from,
       String to,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
       DateTime? departure,
       DateTime? arrival,
-      double? duration,
-      @JsonKey(name: 'legs')
-          List<SbbLeg> sbbLegs,
+      @JsonKey(name: "duration") int? durationInSeconds,
+      @JsonKey(name: 'legs') List<SbbLeg> sbbLegs,
       Map<String, Disruption> disruptions});
 }
 
@@ -105,7 +103,7 @@ class _$SbbRouteConnectionCopyWithImpl<$Res>
     Object? depDelay = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
-    Object? duration = freezed,
+    Object? durationInSeconds = freezed,
     Object? sbbLegs = freezed,
     Object? disruptions = freezed,
   }) {
@@ -121,7 +119,7 @@ class _$SbbRouteConnectionCopyWithImpl<$Res>
       depDelay: depDelay == freezed
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       departure: departure == freezed
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
@@ -130,10 +128,10 @@ class _$SbbRouteConnectionCopyWithImpl<$Res>
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      duration: duration == freezed
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as double?,
+      durationInSeconds: durationInSeconds == freezed
+          ? _value.durationInSeconds
+          : durationInSeconds // ignore: cast_nullable_to_non_nullable
+              as int?,
       sbbLegs: sbbLegs == freezed
           ? _value.sbbLegs
           : sbbLegs // ignore: cast_nullable_to_non_nullable
@@ -156,13 +154,11 @@ abstract class _$SbbRouteConnectionCopyWith<$Res>
   $Res call(
       {String from,
       String to,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
       DateTime? departure,
       DateTime? arrival,
-      double? duration,
-      @JsonKey(name: 'legs')
-          List<SbbLeg> sbbLegs,
+      @JsonKey(name: "duration") int? durationInSeconds,
+      @JsonKey(name: 'legs') List<SbbLeg> sbbLegs,
       Map<String, Disruption> disruptions});
 }
 
@@ -184,7 +180,7 @@ class __$SbbRouteConnectionCopyWithImpl<$Res>
     Object? depDelay = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
-    Object? duration = freezed,
+    Object? durationInSeconds = freezed,
     Object? sbbLegs = freezed,
     Object? disruptions = freezed,
   }) {
@@ -200,7 +196,7 @@ class __$SbbRouteConnectionCopyWithImpl<$Res>
       depDelay: depDelay == freezed
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       departure: departure == freezed
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
@@ -209,10 +205,10 @@ class __$SbbRouteConnectionCopyWithImpl<$Res>
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      duration: duration == freezed
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as double?,
+      durationInSeconds: durationInSeconds == freezed
+          ? _value.durationInSeconds
+          : durationInSeconds // ignore: cast_nullable_to_non_nullable
+              as int?,
       sbbLegs: sbbLegs == freezed
           ? _value.sbbLegs
           : sbbLegs // ignore: cast_nullable_to_non_nullable
@@ -232,13 +228,11 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
   const _$_SbbRouteConnection(
       {required this.from,
       required this.to,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required this.depDelay,
+      @DelayConverter() @JsonKey(name: 'dep_delay') this.depDelay,
       this.departure,
       this.arrival,
-      this.duration,
-      @JsonKey(name: 'legs')
-          this.sbbLegs = const <SbbLeg>[],
+      @JsonKey(name: "duration") this.durationInSeconds,
+      @JsonKey(name: 'legs') this.sbbLegs = const <SbbLeg>[],
       this.disruptions = const <String, Disruption>{}})
       : super._();
 
@@ -250,14 +244,16 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
   @override
   final String to;
   @override
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  final int depDelay;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  final int? depDelay;
   @override
   final DateTime? departure;
   @override
   final DateTime? arrival;
   @override
-  final double? duration;
+  @JsonKey(name: "duration")
+  final int? durationInSeconds;
   @override
   @JsonKey(name: 'legs')
   final List<SbbLeg> sbbLegs;
@@ -267,7 +263,7 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
 
   @override
   String toString() {
-    return 'SbbRouteConnection(from: $from, to: $to, depDelay: $depDelay, departure: $departure, arrival: $arrival, duration: $duration, sbbLegs: $sbbLegs, disruptions: $disruptions)';
+    return 'SbbRouteConnection(from: $from, to: $to, depDelay: $depDelay, departure: $departure, arrival: $arrival, durationInSeconds: $durationInSeconds, sbbLegs: $sbbLegs, disruptions: $disruptions)';
   }
 
   @override
@@ -287,9 +283,9 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
             (identical(other.arrival, arrival) ||
                 const DeepCollectionEquality()
                     .equals(other.arrival, arrival)) &&
-            (identical(other.duration, duration) ||
+            (identical(other.durationInSeconds, durationInSeconds) ||
                 const DeepCollectionEquality()
-                    .equals(other.duration, duration)) &&
+                    .equals(other.durationInSeconds, durationInSeconds)) &&
             (identical(other.sbbLegs, sbbLegs) ||
                 const DeepCollectionEquality()
                     .equals(other.sbbLegs, sbbLegs)) &&
@@ -306,7 +302,7 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
       const DeepCollectionEquality().hash(depDelay) ^
       const DeepCollectionEquality().hash(departure) ^
       const DeepCollectionEquality().hash(arrival) ^
-      const DeepCollectionEquality().hash(duration) ^
+      const DeepCollectionEquality().hash(durationInSeconds) ^
       const DeepCollectionEquality().hash(sbbLegs) ^
       const DeepCollectionEquality().hash(disruptions);
 
@@ -325,13 +321,11 @@ abstract class _SbbRouteConnection extends SbbRouteConnection {
   const factory _SbbRouteConnection(
       {required String from,
       required String to,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          required int depDelay,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
       DateTime? departure,
       DateTime? arrival,
-      double? duration,
-      @JsonKey(name: 'legs')
-          List<SbbLeg> sbbLegs,
+      @JsonKey(name: "duration") int? durationInSeconds,
+      @JsonKey(name: 'legs') List<SbbLeg> sbbLegs,
       Map<String, Disruption> disruptions}) = _$_SbbRouteConnection;
   const _SbbRouteConnection._() : super._();
 
@@ -343,14 +337,16 @@ abstract class _SbbRouteConnection extends SbbRouteConnection {
   @override
   String get to => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  int? get depDelay => throw _privateConstructorUsedError;
   @override
   DateTime? get departure => throw _privateConstructorUsedError;
   @override
   DateTime? get arrival => throw _privateConstructorUsedError;
   @override
-  double? get duration => throw _privateConstructorUsedError;
+  @JsonKey(name: "duration")
+  int? get durationInSeconds => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'legs')
   List<SbbLeg> get sbbLegs => throw _privateConstructorUsedError;

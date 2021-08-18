@@ -38,17 +38,17 @@ class IntConverter implements JsonConverter<int?, Object?> {
       }
     }
     throw UnsupportedError(
-        '$runtimeType only supports ints, Strings and nums as an input, not ${object.runtimeType}');
+      '$runtimeType only supports ints, Strings and nums as an input, not ${object.runtimeType}',
+    );
   }
 }
 
 @freezed
 class SbbStop with _$SbbStop, BaseStop, SbbDisplayNameMixin implements Stop {
   @JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
-  const factory SbbStop(
-    String name, {
+  const factory SbbStop({
+    required String name,
     String? id,
-    String? stopid,
     @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
     @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
     double? lat,
@@ -58,8 +58,20 @@ class SbbStop with _$SbbStop, BaseStop, SbbDisplayNameMixin implements Stop {
   }) = _SbbStop;
   const SbbStop._();
 
-  factory SbbStop.fromFavoriteStop(FavoriteStop fav) => SbbStop(fav.name, id: fav.id);
+  factory SbbStop.fromFavoriteStop(FavoriteStop fav) => SbbStop(name: fav.name, id: fav.id);
   factory SbbStop.fromJson(Map<String, dynamic> json) => _$SbbStopFromJson(json);
+  factory SbbStop.fromStop(Stop stop) {
+    final position = stop.position;
+
+    return SbbStop(
+      name: stop.name,
+      id: stop.id,
+      departure: stop.departure,
+      arrival: stop.arrival,
+      lat: position?.lat,
+      lon: position?.lon,
+    );
+  }
 
   @override
   LatLon? get position => LatLon.computeFrom(lat: lat, lon: lon, x: x, y: y, name: name);

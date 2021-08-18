@@ -28,11 +28,6 @@ void main() {
       await prefs.clear();
     });
 
-    test('ids are conistent', () {
-      for (final e in factories.entries) {
-        expect(e.key, e.value.id.id);
-      }
-    });
     test('returns the right instance', () async {
       final container = ProviderContainer();
       final store = container.read(preferencesProvider);
@@ -46,8 +41,8 @@ void main() {
       navApi = container.read(navigationAPIProvider);
       expect(navApi, isA<SncfApi>());
 
-      for (final a in factories.entries) {
-        expect(a.value.shortDesc, isNotEmpty);
+      for (final a in NavigationApiFactory.factories) {
+        expect(a.shortDesc, isNotEmpty);
       }
     });
   });

@@ -24,7 +24,7 @@ class _$SbbStationboardConnectionTearOff {
 
   _SbbStationboardConnection call(
       {required DateTime time,
-      required Vehicle type,
+      required TransportationMode type,
       required String color,
       @JsonKey(name: 'terminal')
           required SbbStop sbbTerminal,
@@ -39,10 +39,12 @@ class _$SbbStationboardConnectionTearOff {
       @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop>
               sbbSubsequentStops = const <SbbSubsequentStop>[],
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay = 0,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay = 0}) {
+      @DelayConverter()
+      @JsonKey(name: 'dep_delay')
+          int? depDelay,
+      @DelayConverter()
+      @JsonKey(name: 'arr_delay')
+          int? arrDelay}) {
     return _SbbStationboardConnection(
       time: time,
       type: type,
@@ -70,7 +72,7 @@ const $SbbStationboardConnection = _$SbbStationboardConnectionTearOff();
 /// @nodoc
 mixin _$SbbStationboardConnection {
   DateTime get time => throw _privateConstructorUsedError;
-  Vehicle get type => throw _privateConstructorUsedError;
+  TransportationMode get type => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   @JsonKey(name: 'terminal')
   SbbStop get sbbTerminal => throw _privateConstructorUsedError;
@@ -85,10 +87,12 @@ mixin _$SbbStationboardConnection {
   @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
   List<SbbSubsequentStop> get sbbSubsequentStops =>
       throw _privateConstructorUsedError;
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay => throw _privateConstructorUsedError;
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  int? get depDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'arr_delay')
+  int? get arrDelay => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -103,7 +107,7 @@ abstract class $SbbStationboardConnectionCopyWith<$Res> {
       _$SbbStationboardConnectionCopyWithImpl<$Res>;
   $Res call(
       {DateTime time,
-      Vehicle type,
+      TransportationMode type,
       String color,
       @JsonKey(name: 'terminal')
           SbbStop sbbTerminal,
@@ -117,10 +121,12 @@ abstract class $SbbStationboardConnectionCopyWith<$Res> {
           String? l,
       @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop> sbbSubsequentStops,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay});
+      @DelayConverter()
+      @JsonKey(name: 'dep_delay')
+          int? depDelay,
+      @DelayConverter()
+      @JsonKey(name: 'arr_delay')
+          int? arrDelay});
 
   $SbbStopCopyWith<$Res> get sbbTerminal;
 }
@@ -157,7 +163,7 @@ class _$SbbStationboardConnectionCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as Vehicle,
+              as TransportationMode,
       color: color == freezed
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -193,11 +199,11 @@ class _$SbbStationboardConnectionCopyWithImpl<$Res>
       depDelay: depDelay == freezed
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       arrDelay: arrDelay == freezed
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 
@@ -218,7 +224,7 @@ abstract class _$SbbStationboardConnectionCopyWith<$Res>
   @override
   $Res call(
       {DateTime time,
-      Vehicle type,
+      TransportationMode type,
       String color,
       @JsonKey(name: 'terminal')
           SbbStop sbbTerminal,
@@ -232,10 +238,12 @@ abstract class _$SbbStationboardConnectionCopyWith<$Res>
           String? l,
       @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop> sbbSubsequentStops,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay});
+      @DelayConverter()
+      @JsonKey(name: 'dep_delay')
+          int? depDelay,
+      @DelayConverter()
+      @JsonKey(name: 'arr_delay')
+          int? arrDelay});
 
   @override
   $SbbStopCopyWith<$Res> get sbbTerminal;
@@ -276,7 +284,7 @@ class __$SbbStationboardConnectionCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as Vehicle,
+              as TransportationMode,
       color: color == freezed
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -312,11 +320,11 @@ class __$SbbStationboardConnectionCopyWithImpl<$Res>
       depDelay: depDelay == freezed
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       arrDelay: arrDelay == freezed
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -341,10 +349,12 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
           this.l,
       @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           this.sbbSubsequentStops = const <SbbSubsequentStop>[],
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.depDelay = 0,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          this.arrDelay = 0})
+      @DelayConverter()
+      @JsonKey(name: 'dep_delay')
+          this.depDelay,
+      @DelayConverter()
+      @JsonKey(name: 'arr_delay')
+          this.arrDelay})
       : super._();
 
   factory _$_SbbStationboardConnection.fromJson(Map<String, dynamic> json) =>
@@ -353,7 +363,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @override
   final DateTime time;
   @override
-  final Vehicle type;
+  final TransportationMode type;
   @override
   final String color;
   @override
@@ -377,11 +387,13 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
   final List<SbbSubsequentStop> sbbSubsequentStops;
   @override
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  final int depDelay;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  final int? depDelay;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  final int arrDelay;
+  @DelayConverter()
+  @JsonKey(name: 'arr_delay')
+  final int? arrDelay;
 
   @override
   String toString() {
@@ -455,7 +467,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
 abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   const factory _SbbStationboardConnection(
       {required DateTime time,
-      required Vehicle type,
+      required TransportationMode type,
       required String color,
       @JsonKey(name: 'terminal')
           required SbbStop sbbTerminal,
@@ -469,10 +481,12 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
           String? l,
       @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
           List<SbbSubsequentStop> sbbSubsequentStops,
-      @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int depDelay,
-      @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-          int arrDelay}) = _$_SbbStationboardConnection;
+      @DelayConverter()
+      @JsonKey(name: 'dep_delay')
+          int? depDelay,
+      @DelayConverter()
+      @JsonKey(name: 'arr_delay')
+          int? arrDelay}) = _$_SbbStationboardConnection;
   const _SbbStationboardConnection._() : super._();
 
   factory _SbbStationboardConnection.fromJson(Map<String, dynamic> json) =
@@ -481,7 +495,7 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   @override
   DateTime get time => throw _privateConstructorUsedError;
   @override
-  Vehicle get type => throw _privateConstructorUsedError;
+  TransportationMode get type => throw _privateConstructorUsedError;
   @override
   String get color => throw _privateConstructorUsedError;
   @override
@@ -505,11 +519,13 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   List<SbbSubsequentStop> get sbbSubsequentStops =>
       throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'dep_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get depDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'dep_delay')
+  int? get depDelay => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'arr_delay', fromJson: delayFromJson, toJson: delayToJson)
-  int get arrDelay => throw _privateConstructorUsedError;
+  @DelayConverter()
+  @JsonKey(name: 'arr_delay')
+  int? get arrDelay => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SbbStationboardConnectionCopyWith<_SbbStationboardConnection>

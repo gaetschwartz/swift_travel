@@ -369,8 +369,9 @@ class RoutePageState extends State<RoutePage> {
                           if (s == null) {
                             return;
                           }
-                          await favorites.addRoute(
-                              LocalRoute.v2(SbbStop(from.text), SbbStop(to.text), displayName: s));
+                          await favorites.addRoute(LocalRoute.v2(
+                              SbbStop(name: from.text), SbbStop(name: to.text),
+                              displayName: s));
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(content: Text('Route starred !')));
                         },

@@ -15,7 +15,7 @@ import 'package:swift_travel/apis/navigation/sncf/models/sncf_completion.dart';
 import 'package:swift_travel/constants/config.dart';
 
 final sncfFactory = NavigationApiFactory(
-  (reader) => SncfApi(reader),
+  (reader) => SncfApi._(reader),
   name: 'SNCF',
   shortName: 'SNCF',
   countryEmoji: '🇫🇷',
@@ -24,7 +24,7 @@ final sncfFactory = NavigationApiFactory(
 );
 
 class SncfApi extends BaseNavigationApi {
-  SncfApi(this.read);
+  SncfApi._(this.read);
 
   final Reader read;
 
