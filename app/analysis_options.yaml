@@ -17,24 +17,21 @@ analyzer:
 linter:
   rules:
     avoid_print: false
-
     prefer_final_fields: true
     prefer_final_in_for_each: true
     prefer_final_locals: true
-
-    # prefer_final_parameters: true
     prefer_const_constructors: true
     prefer_const_literals_to_create_immutables: true
 
 dart_code_metrics:
-  # anti-patterns:
-  # - long-method
-  # - long-parameter-list
+  anti-patterns:
+    - long-method
+    - long-parameter-list
   metrics:
     cyclomatic-complexity: 20
     maximum-nesting-level: 5
-    number-of-parameters: 5
-    source-lines-of-code: 50
+    number-of-parameters: 10
+    source-lines-of-code: 64
   metrics-exclude:
     - test/**
   rules:
