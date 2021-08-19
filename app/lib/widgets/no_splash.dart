@@ -4,6 +4,7 @@ class NoSplashFactory extends InteractiveInkFeatureFactory {
   const NoSplashFactory();
 
   @override
+  // ignore: long-parameter-list
   InteractiveInkFeature create({
     required MaterialInkController controller,
     required RenderBox referenceBox,

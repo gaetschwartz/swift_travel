@@ -30,12 +30,20 @@ RoutePrediction? _getCachedIfPresent(PredictionArguments args) => _newCache[args
 RoutePrediction? _setCached(PredictionArguments args, RoutePrediction prediction) =>
     _newCache[args.hashCode] = prediction;
 
+int _minutesDist(int a, int b) {
+  final diff = (a - b).abs();
+  return diff > Duration.minutesPerDay / 2 ? Duration.minutesPerDay - diff : diff;
+}
+
+int _weekdayDiff(int a, int b) {
+  final diff = (a - b).abs();
+  return diff > 3 ? 7 - diff : diff;
+}
+
 /// Cache
 
 RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments arguments) {
-  if (kDebugMode) {
-    print('Making a prediction from arguments $arguments');
-  }
+  if (kDebugMode) print('Making a prediction from arguments $arguments');
 
   if (routes.isEmpty) {
     print('Empty history, returning empty prediction');
@@ -61,21 +69,11 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
     final timestamp = route.timestamp;
     final time = arguments.dateTime;
     if (time != null && timestamp != null) {
-      int weekdayDiff(int a, int b) {
-        final diff = (a - b).abs();
-        return diff > 3 ? 7 - diff : diff;
-      }
-
-      int minutesDist(int a, int b) {
-        final diff = (a - b).abs();
-        return diff > Duration.minutesPerDay / 2 ? Duration.minutesPerDay - diff : diff;
-      }
-
       dist.add(
-        WeighedAddend(weekdayDiff(timestamp.weekday, time.weekday) * _daysFactor, 1, "weekdays"),
+        WeighedAddend(_weekdayDiff(timestamp.weekday, time.weekday) * _daysFactor, 1, "weekdays"),
       );
       dist.add(
-        WeighedAddend(minutesDist(timestamp.minutesOfDay, time.minutesOfDay) * _minutesFactor, 1,
+        WeighedAddend(_minutesDist(timestamp.minutesOfDay, time.minutesOfDay) * _minutesFactor, 1,
             "minutes of day"),
       );
     }
@@ -97,22 +95,25 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
       }
     }
 
-    //  if (kDebugMode) print(dist.overview);
-
     distances.add(Pair(route, dist.computed));
   }
 
   distances.sort((a, b) => a.second.value.compareTo(b.second.value));
-  final k = _k * newRoutes.length ~/ routes.length;
-  final top = distances.take(k);
 
-  if (kDebugMode) {
-    int i = 0;
-    for (final p in top) {
-      i++;
-      print('[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.second.overview}');
-    }
-  }
+  final top = distances.take(_k * newRoutes.length ~/ routes.length);
+
+  if (kDebugMode) _report(top);
+
+  final prediction = _computeWinner(top, arguments);
+  _setCached(arguments, prediction);
+  // print('Predicting $prediction');
+  return prediction;
+}
+
+RoutePrediction _computeWinner(
+  Iterable<Pair<LocalRoute, ComputedSum>> top,
+  PredictionArguments arguments,
+) {
   final map = <LocalRoute, int>{};
 
   var max = 0;
@@ -137,10 +138,15 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
 
   sum /= _k;
 
-  final prediction = RoutePrediction(majRoute, 1 - sum, arguments);
-  _setCached(arguments, prediction);
-  // print('Predicting $prediction');
-  return prediction;
+  return RoutePrediction(majRoute, 1 - sum, arguments);
+}
+
+void _report(Iterable<Pair<LocalRoute, ComputedSum>> top) {
+  int i = 0;
+  for (final p in top) {
+    i++;
+    print('[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.second.overview}');
+  }
 }
 
 extension on DateTime {

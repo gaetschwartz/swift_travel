@@ -265,6 +265,7 @@ Route<T> onUnknownRoute<T extends Object?>(RouteSettings settings, {required boo
   return MaterialPageRoute<T>(builder: (_) => PageNotFound(settings: settings));
 }
 
+// ignore: long-method
 Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
   log('Routing to ${settings.name}');
 
@@ -341,7 +342,6 @@ Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
         builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails?),
       );
   }
-  return null;
 }
 
 class Unfocus extends StatelessWidget {
