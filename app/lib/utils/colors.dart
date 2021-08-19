@@ -29,6 +29,7 @@ Color augment(Color c) {
 
 Color augment2(Color c, {double strength = 0.1}) {
   final avg = (c.blue + c.red + c.green) / 3;
+  // ignore: binary-expression-operand-order
   final factor = avg > 127 ? 1 - strength : 1 + strength;
   return Color.fromARGB(
     c.alpha,

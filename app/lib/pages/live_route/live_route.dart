@@ -7,6 +7,7 @@ import 'package:live_route/live_route.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/utils/strings/format.dart';
+import 'package:swift_travel/utils/types.dart';
 
 final AutoDisposeStreamProvider<Position> positionProvider =
     StreamProvider.autoDispose((_) => Geolocator.getPositionStream());
@@ -89,7 +90,14 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
             Expanded(
               flex: 3,
               child: ListView(
-                children: buildLegs(controller),
+                children: [
+                  for (var i = 0; i < widget.connection.legs.length; i++)
+                    _LegCard(
+                      controller: controller,
+                      i: i,
+                      leg: widget.connection.legs[i],
+                    )
+                ],
               ),
             ),
             ExpansionTile(
@@ -114,33 +122,44 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
           ],
         );
       }));
+}
 
-  List<Widget> buildLegs(LiveRouteController controller) => [
-        for (var i = 0; i < widget.connection.legs.length; i++)
-          _buildLeg(controller, i, widget.connection.legs[i])
-      ];
+class _LegCard extends StatelessWidget {
+  const _LegCard({
+    Key? key,
+    required this.controller,
+    required this.i,
+    required this.leg,
+  }) : super(key: key);
 
-  Card _buildLeg(LiveRouteController controller, int i, Leg l) {
-    final selected = controller.currentStop == null && l.name == controller.currentLeg?.name;
-    final dist = controller.legDistances[i] == null ? .0 : controller.legDistances[i]![-1];
+  final LiveRouteController controller;
+  final int i;
+  final Leg leg;
+
+  @override
+  Widget build(BuildContext context) {
+    final selected = controller.currentStop == null && leg.name == controller.currentLeg?.name;
+    final legDistance = controller.legDistances[i];
+    final dist = legDistance == null ? .0 : legDistance[-1];
     return Card(
       child: Column(
         children: [
           ListTile(
             selected: selected,
             title: Text(
-              l.name,
+              leg.name,
               style: TextStyle(fontWeight: selected ? FontWeight.bold : null),
             ),
             subtitle: dist != null ? Text(Format.distance(dist)) : null,
           ),
-          for (var j = 0; j < l.stops.length; j++) _buildStop(controller, i, j, l.stops[j]),
+          for (var j = 0; j < leg.stops.length; j++) _buildStop(controller, i, j, leg.stops[j]),
         ],
       ),
     );
   }
 
-  ListTile _buildStop(LiveRouteController controller, int i, int j, Stop s) {
+  @allowReturningWidgets
+  Widget _buildStop(LiveRouteController controller, int i, int j, Stop s) {
     final selected = s.name == controller.currentStop?.name;
     final dist = controller.legDistances[i]?[j];
     return ListTile(

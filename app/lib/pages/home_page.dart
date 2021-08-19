@@ -16,6 +16,7 @@ import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';
 import 'package:swift_travel/utils/colors.dart';
+import 'package:swift_travel/utils/types.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/page.dart';
 import 'package:swift_travel/widgets/route.dart';
@@ -124,6 +125,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
         ),
       );
 
+  @allowReturningWidgets
   Widget buildCupertinoTabScaffold(BuildContext context) => Consumer(builder: (context, w, _) {
         final tabController = w(tabProvider.notifier);
         return Scaffold(
@@ -159,6 +161,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
         c,
       ];
 
+  @allowReturningWidgets
   Widget buildScaffold(BuildContext context) => Consumer(builder: (context, w, _) {
         final controllers = w(tabProvider);
         final page = controllers.index % TabView.androidTabs.length;
@@ -403,37 +406,43 @@ final navigatorKeys = <GlobalKey<NavigatorState>>[
 
 final sideBarNavigatorKey = GlobalKey<NavigatorState>();
 
-AppBar materialAppBar(
-  BuildContext context, {
-  List<Widget> actions = const [],
-  bool showSettingsButton = true,
-  Widget? title,
-  Widget? leading,
-}) =>
-    AppBar(
-      automaticallyImplyLeading: false,
-      title: title,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: leading,
-      actions: [
-        ...actions,
-        if (showSettingsButton)
-          IconButton(
-              key: const Key('settings-button'),
-              tooltip: AppLoc.of(context).settings,
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                Vibration.instance.select();
-                Nav.push(
-                  context,
-                  (context) => const SettingsPage(),
-                  fullscreenDialog: true,
-                  rootNavigator: true,
-                );
+class MaterialAppBar extends AppBar {
+  MaterialAppBar({
+    this.showSettingsButton = true,
+    Key? key,
+    List<Widget> actions = const [],
+    Widget? title,
+    Widget? leading,
+  }) : super(
+          key: key,
+          automaticallyImplyLeading: false,
+          title: title,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: leading,
+          actions: [
+            ...actions,
+            if (showSettingsButton)
+              Builder(builder: (context) {
+                return IconButton(
+                    key: const Key('settings-button'),
+                    tooltip: AppLoc.of(context).settings,
+                    icon: const Icon(Icons.settings),
+                    onPressed: () {
+                      Vibration.instance.select();
+                      Nav.push(
+                        context,
+                        (context) => const SettingsPage(),
+                        fullscreenDialog: true,
+                        rootNavigator: true,
+                      );
+                    });
               }),
-      ],
-    );
+          ],
+        );
+
+  final bool showSettingsButton;
+}
 
 class SwiftCupertinoBar extends StatefulWidget implements ObstructingPreferredSizeWidget {
   const SwiftCupertinoBar({
@@ -474,13 +483,6 @@ class SwiftCupertinoBar extends StatefulWidget implements ObstructingPreferredSi
 class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
   String? get _previousPageTitle => PlatformRouteTitleMixin.getPreviousTitleOf(context);
   String? get _pageTitle => PlatformRouteTitleMixin.getPageTitleOf(context);
-  Widget? get _pageTitleWidget {
-    final title = _pageTitle;
-    if (title == null) {
-      return null;
-    }
-    return Text(title);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -489,12 +491,21 @@ class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
         : widget.previousPageTitle;
     // print('Previous page title is $prevPageTitle');
 
+    @allowReturningWidgets
+    Widget? _pageTitleWidget() {
+      final title = _pageTitle;
+      if (title == null) {
+        return null;
+      }
+      return Text(title);
+    }
+
     return CupertinoNavigationBar(
       leading: widget.leading,
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
       automaticallyImplyMiddle: widget.automaticallyImplyMiddle,
       previousPageTitle: prevPageTitle,
-      middle: widget.automaticallyImplyMiddle ? widget.middle ?? _pageTitleWidget : widget.middle,
+      middle: widget.automaticallyImplyMiddle ? widget.middle ?? _pageTitleWidget() : widget.middle,
       trailing: widget.trailing,
       backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(widget.opacity),
       brightness: widget.brightness,

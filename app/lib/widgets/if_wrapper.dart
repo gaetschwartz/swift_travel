@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-non-null-assertion
+
 import 'package:flutter/material.dart';
 import 'package:theming/responsive.dart';
 
@@ -5,21 +7,21 @@ class IfWrapper extends StatelessWidget {
   const IfWrapper({
     required this.condition,
     required this.builder,
-    this.child,
+    required this.child,
     this.elseBuilder,
     Key? key,
   }) : super(key: key);
 
   final bool condition;
-  final Widget Function(BuildContext context, Widget? child) builder;
   final Widget? child;
+  final Widget Function(BuildContext context, Widget? child) builder;
   final Widget Function(BuildContext context, Widget? child)? elseBuilder;
 
   @override
   Widget build(BuildContext context) => condition
       ? builder(context, child)
       : elseBuilder != null
-          ? elseBuilder!(context, child)
+          ? elseBuilder!.call(context, child)
           : child!;
 }
 
@@ -28,7 +30,7 @@ enum PlatformDesign {
   material,
 }
 
-class PlatformBuilder extends StatefulWidget {
+class PlatformBuilder extends StatelessWidget {
   const PlatformBuilder({
     required this.cupertinoBuilder,
     required this.materialBuilder,
@@ -37,33 +39,19 @@ class PlatformBuilder extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-  final Widget Function(BuildContext context, Widget? child) cupertinoBuilder;
   final Widget? child;
+  final Widget Function(BuildContext context, Widget? child) cupertinoBuilder;
   final Widget Function(BuildContext context, Widget? child) materialBuilder;
   final Widget Function(BuildContext context, PlatformDesign design)? builder;
 
   @override
-  _PlatformBuilderState createState() => _PlatformBuilderState();
-}
-
-class _PlatformBuilderState extends State<PlatformBuilder> {
-  late bool isCupertino;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    isCupertino = isDarwin(context);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final child = widget.child ??
-        widget.builder?.call(
+    final isCupertino = isDarwin(context);
+    final c = child ??
+        builder?.call(
           context,
           isCupertino ? PlatformDesign.cupertino : PlatformDesign.material,
         );
-    return isCupertino
-        ? widget.cupertinoBuilder(context, child)
-        : widget.materialBuilder(context, child);
+    return isCupertino ? cupertinoBuilder(context, c) : materialBuilder(context, c);
   }
 }

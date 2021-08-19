@@ -26,14 +26,19 @@ class TransportDetails extends StatefulWidget {
 
 class _TransportDetailsState extends State<TransportDetails> {
   late final stops = <Widget>[
-    _buildStop(
+    _Stop(
       SbbStop(name: widget.leg.name, departure: widget.leg.departure),
       isFirst: true,
+      leg: widget.leg,
     ),
-    ...widget.leg.stops.map(_buildStop),
-    _buildStop(
+    ...widget.leg.stops.map((s) => _Stop(
+          s,
+          leg: widget.leg,
+        )),
+    _Stop(
       SbbStop(name: widget.leg.exit!.name, departure: widget.leg.exit!.arrival),
       isLast: true,
+      leg: widget.leg,
     )
   ];
   late final List<Attribute> attributes = widget.leg.attributes.entries
@@ -84,7 +89,7 @@ class _TransportDetailsState extends State<TransportDetails> {
           } else if (!empty && i == stops.length + 1) {
             return const Divider();
           } else {
-            return buildAttributeTile(attributes[i - dividerCount - stops.length - 1]);
+            return _AttributeTile(att: attributes[i - dividerCount - stops.length - 1]);
           }
         },
         itemCount: attributes.length + dividerCount + stops.length + 1,
@@ -114,44 +119,24 @@ class _TransportDetailsState extends State<TransportDetails> {
       );
 
   String get title => AppLoc.of(context).journey_informations;
+}
 
-  Widget buildAttributeTile(Attribute att) => ListTile(
-        leading: IconTheme(
-          data: const IconThemeData(color: Colors.white, size: 16),
-          child: DecoratedBox(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              color: Colors.grey,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(4),
-              child: att.icon ?? const Icon(CupertinoIcons.info_circle),
-            ),
-          ),
-        ),
-        horizontalTitleGap: 0,
-        title: Text(att.message!),
-        dense: true,
-        trailing: Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,
-      );
+class _Stop extends StatelessWidget {
+  const _Stop(
+    this.stop, {
+    Key? key,
+    this.isFirst = false,
+    this.isLast = false,
+    required this.leg,
+  }) : super(key: key);
 
-  Widget _buildLine(bool isVisible) => Container(
-        width: isVisible ? 2 : 0,
-        color: Colors.grey.shade400,
-      );
+  final Stop stop;
+  final bool isFirst;
+  final bool isLast;
+  final Leg leg;
 
-  Widget _buildCircle() => Container(
-        decoration: BoxDecoration(
-            color: parseColor(widget.leg.bgcolor, Colors.black), shape: BoxShape.circle),
-        width: 12,
-        height: 12,
-      );
-
-  Widget _buildStop(
-    Stop stop, {
-    bool isFirst = false,
-    bool isLast = false,
-  }) {
+  @override
+  Widget build(BuildContext context) {
     final bold = isFirst || isLast;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -172,9 +157,9 @@ class _TransportDetailsState extends State<TransportDetails> {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(child: _buildLine(!isFirst)),
-                _buildCircle(),
-                Expanded(child: _buildLine(!isLast)),
+                Expanded(child: _Line(isVisible: !isFirst)),
+                _Circle(leg),
+                Expanded(child: _Line(isVisible: !isLast)),
               ],
             ),
             const SizedBox(width: 8),
@@ -189,4 +174,72 @@ class _TransportDetailsState extends State<TransportDetails> {
       ),
     );
   }
+}
+
+class _AttributeTile extends StatelessWidget {
+  const _AttributeTile({
+    Key? key,
+    required this.att,
+  }) : super(key: key);
+
+  final Attribute att;
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+        leading: IconTheme(
+          data: const IconThemeData(color: Colors.white, size: 16),
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(6)),
+              color: Colors.grey,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: att.icon ?? const Icon(CupertinoIcons.info_circle),
+            ),
+          ),
+        ),
+        horizontalTitleGap: 0,
+        title: Text(att.message!),
+        dense: true,
+        trailing: Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,
+      );
+}
+
+class _Circle extends StatelessWidget {
+  const _Circle(
+    this.leg, {
+    Key? key,
+  }) : super(key: key);
+
+  final Leg leg;
+
+  @override
+  Widget build(BuildContext context) => Container(
+        decoration:
+            BoxDecoration(color: parseColor(leg.bgcolor, Colors.black), shape: BoxShape.circle),
+        width: 12,
+        height: 12,
+      );
+}
+
+class _Line extends StatelessWidget {
+  const _Line({
+    Key? key,
+    required this.isVisible,
+  }) : super(key: key);
+
+  final bool isVisible;
+
+  @override
+  Widget build(BuildContext context) => isVisible
+      ? const SizedBox(
+          width: 2,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: Color(0xFFE0E0E0),
+            ),
+          ),
+        )
+      : const SizedBox();
 }

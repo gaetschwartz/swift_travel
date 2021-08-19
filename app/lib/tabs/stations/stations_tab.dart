@@ -97,7 +97,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
         ),
       ),
       materialBuilder: (context, child) => Scaffold(
-        appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_search)),
+        appBar: MaterialAppBar(title: Text(AppLoc.of(context).tabs_search)),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           bottom: false,
@@ -288,7 +288,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     } else {
       await fetch(s);
       _debouncer?.cancel();
-      _debouncer = Timer(const Duration(milliseconds: 500), () {});
+      _debouncer = Timer(const Duration(milliseconds: 500), () => 0);
     }
   }
 

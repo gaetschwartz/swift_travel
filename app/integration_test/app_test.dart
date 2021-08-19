@@ -61,7 +61,7 @@ void main() {
         expect(find.text(loc.tabs_route), findsWidgets);
         print('We are in the route details page');
 
-        app.navigatorKey.currentState!.pop();
+        app.navigatorKey.currentState?.pop();
         await t.pumpAndSettle();
         print('We are back');
 

@@ -63,6 +63,7 @@ dev_dependencies:
   json_serializable: ^5.0.0
   lint: ^1.1.1
   mockito: ^5.0.0-nullsafety.1
+  dart_code_metrics: ^4.2.0-dev.2
 
 flutter:
   uses-material-design: true

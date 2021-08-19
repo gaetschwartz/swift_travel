@@ -59,7 +59,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                     child: Column(
                       children: [
                         _Header(widget.l),
-                        buildCollapsed(context),
+                        _Collapsed(widget.l),
                       ],
                     ),
                   ),
@@ -73,8 +73,18 @@ class _TransportLegTileState extends State<TransportLegTile> {
       ),
     );
   }
+}
 
-  Widget buildCollapsed(BuildContext context) => DefaultTextStyle(
+class _Collapsed extends StatelessWidget {
+  const _Collapsed(
+    this.l, {
+    Key? key,
+  }) : super(key: key);
+
+  final Leg l;
+
+  @override
+  Widget build(BuildContext context) => DefaultTextStyle(
       style: Theme.of(context).textTheme.subtitle2!,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,12 +95,12 @@ class _TransportLegTileState extends State<TransportLegTile> {
               children: [
                 Text.rich(TextSpan(children: [
                   TextSpan(
-                    text: Format.time(widget.l.departure),
+                    text: Format.time(l.departure),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  if (widget.l.depDelay != null)
+                  if (l.depDelay != null)
                     TextSpan(
-                      text: Format.delay(widget.l.depDelay!),
+                      text: Format.delay(l.depDelay!),
                       style: const TextStyle(
                         color: _red,
                         fontWeight: FontWeight.bold,
@@ -98,11 +108,11 @@ class _TransportLegTileState extends State<TransportLegTile> {
                     ),
                 ])),
                 const SizedBox(width: 16),
-                Expanded(child: Text(widget.l.name)),
+                Expanded(child: Text(l.name)),
               ],
             ),
           ),
-          if (widget.l.exit != null)
+          if (l.exit != null)
             IconTheme(
               data: const IconThemeData(size: 16, color: Colors.white),
               child: Padding(
@@ -111,12 +121,12 @@ class _TransportLegTileState extends State<TransportLegTile> {
                   children: [
                     Text.rich(TextSpan(children: [
                       TextSpan(
-                        text: Format.time(widget.l.exit!.arrival),
+                        text: Format.time(l.exit!.arrival),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      if (widget.l.exit!.arrDelay != null)
+                      if (l.exit!.arrDelay != null)
                         TextSpan(
-                          text: Format.delay(widget.l.exit!.arrDelay!),
+                          text: Format.delay(l.exit!.arrDelay!),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: _red,
@@ -124,11 +134,11 @@ class _TransportLegTileState extends State<TransportLegTile> {
                         ),
                     ])),
                     const SizedBox(width: 16),
-                    Expanded(child: Text(widget.l.exit!.name)),
+                    Expanded(child: Text(l.exit!.name)),
                     InkWell(
                       onTap: () {
                         final darwin = isDarwin(context);
-                        final list = widget.l.attributes.entries
+                        final list = l.attributes.entries
                             .map((e) =>
                                 Attribute.attributes[e.key]?.copyWith(message: e.value) ??
                                 Attribute(code: e.key, message: e.value))
@@ -149,15 +159,15 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                     resizeToAvoidBottomInset: false,
                                     navigationBar: CupertinoNavigationBar(
                                       automaticallyImplyLeading: false,
-                                      middle: Text(
-                                          '${widget.l.line} ${AppLoc.of(context).to} ${widget.l.terminal}'),
+                                      middle:
+                                          Text('${l.line} ${AppLoc.of(context).to} ${l.terminal}'),
                                     ),
                                     child: SafeArea(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           const SizedBox(height: 8),
-                                          ...list.map(AttributesPage.buildAttributeTile),
+                                          ...list.map((att) => AttributeTile(att)),
                                           const SizedBox(height: 8),
                                         ],
                                       ),
@@ -171,7 +181,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       const SizedBox(height: 8),
-                                      ...list.map(AttributesPage.buildAttributeTile),
+                                      ...list.map((att) => AttributeTile(att)),
                                       const SizedBox(height: 8),
                                     ],
                                   ),
@@ -181,7 +191,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          ...widget.l.attributes.entries
+                          ...l.attributes.entries
                               .map((e) => Attribute.attributes[e.key])
                               .where((e) => e == null || !e.ignore)
                               .map((att) => Padding(
@@ -198,9 +208,9 @@ class _TransportLegTileState extends State<TransportLegTile> {
                                     ),
                                   ))
                               .take(3),
-                          if (widget.l.attributes.length > 3) ...[
+                          if (l.attributes.length > 3) ...[
                             const SizedBox(width: 2),
-                            Text('+${widget.l.attributes.length - 3}'),
+                            Text('+${l.attributes.length - 3}'),
                           ]
                         ],
                       ),

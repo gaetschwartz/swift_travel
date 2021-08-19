@@ -20,7 +20,7 @@ void main() {
   test('double flipped RouteTransformer', () {
     final routes = [localRoute, localRoute2];
     final doubled = const DoubleFlippedRouteTransformer().apply(routes).toList();
-    expect(doubled, hasLength(2 * routes.length));
+    expect(doubled, hasLength(routes.length * 2));
     expect(
         doubled,
         containsAll(<LocalRoute>[

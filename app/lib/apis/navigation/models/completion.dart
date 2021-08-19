@@ -23,6 +23,7 @@ mixin Completion {
   String? get favoriteName;
 
   /// Returns the icon for this completion.
+  // ignore: avoid-unused-parameters
   Widget getIcon({double? size});
 }
 

@@ -38,32 +38,44 @@ class AttributesPage extends StatelessWidget {
                 top: false,
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (context, i) => buildAttributeTile(attributes[i]),
+                    (context, i) => AttributeTile(attributes[i]),
                     childCount: attributes.length,
                   ),
                 ),
               ),
             ],
           ));
+}
 
-  static Widget buildAttributeTile(Attribute att) => ListTile(
-        leading: IconTheme(
-          data: const IconThemeData(color: Colors.white),
-          child: DecoratedBox(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              color: Colors.red,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(4),
-              child: att.icon ?? const Icon(CupertinoIcons.info_circle),
-            ),
+class AttributeTile extends StatelessWidget {
+  const AttributeTile(
+    this.att, {
+    Key? key,
+  }) : super(key: key);
+
+  final Attribute att;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: IconTheme(
+        data: const IconThemeData(color: Colors.white),
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            color: Colors.red,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(4),
+            child: att.icon ?? const Icon(CupertinoIcons.info_circle),
           ),
         ),
-        title: Text(att.message!),
-        dense: true,
-        subtitle: Env.isDebugMode ? Text(att.code) : null,
-        onTap: Env.isDebugMode ? () => Clipboard.setData(ClipboardData(text: att.code)) : null,
-        trailing: Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,
-      );
+      ),
+      title: Text(att.message!),
+      dense: true,
+      subtitle: Env.isDebugMode ? Text(att.code) : null,
+      onTap: Env.isDebugMode ? () => Clipboard.setData(ClipboardData(text: att.code)) : null,
+      trailing: Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,
+    );
+  }
 }

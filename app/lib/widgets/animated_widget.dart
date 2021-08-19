@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
@@ -58,12 +60,14 @@ class _InstantlyAnimatedWidgetState extends State<InstantlyAnimatedWidget>
 
     final delay = widget.delay();
     if (delay > Duration.zero) {
-      Future.delayed(delay, () {
-        if (mounted) {
-          controller.forward();
-        }
-      });
+      Future.delayed(delay, forward);
     } else {
+      controller.forward();
+    }
+  }
+
+  void forward() {
+    if (mounted) {
       controller.forward();
     }
   }
