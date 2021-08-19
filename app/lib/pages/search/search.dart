@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
@@ -13,6 +12,7 @@ import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/pages/search/models.dart';
 import 'package:swift_travel/prediction/complete.dart';
 import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/prediction/predict.dart';
@@ -22,54 +22,6 @@ import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:theming/responsive.dart';
-
-const _heroTag = 0xabcd;
-
-class CupertinoTextFieldConfiguration {
-  const CupertinoTextFieldConfiguration({
-    this.key,
-    this.focusNode,
-    this.prefix,
-    this.textInputAction,
-    this.inputFormatters,
-    this.placeholder,
-  });
-
-  final String? placeholder;
-  final List<TextInputFormatter>? inputFormatters;
-  final TextInputAction? textInputAction;
-  final Widget? prefix;
-  final FocusNode? focusNode;
-  final Key? key;
-
-  CupertinoTextField toCupertino({TextEditingController? controller}) => CupertinoTextField(
-        placeholder: placeholder,
-        inputFormatters: inputFormatters,
-        textInputAction: textInputAction,
-        prefix: prefix,
-        focusNode: focusNode,
-        controller: controller,
-        key: key,
-      );
-
-  Widget toTextField({TextEditingController? controller}) => Material(
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: placeholder,
-            prefixIcon: prefix,
-          ),
-          inputFormatters: inputFormatters,
-          textInputAction: textInputAction,
-          focusNode: focusNode,
-          controller: controller,
-          key: key,
-        ),
-      );
-}
-
-extension CupertinoTextFieldX on CupertinoTextField {
-  static CupertinoTextField fromConfiguration(CupertinoTextFieldConfiguration c) => c.toCupertino();
-}
 
 class Debouncer {
   Debouncer({this.duration = const Duration(milliseconds: 500)});
@@ -97,9 +49,9 @@ final _stateProvider = StateProvider<StationStates>((_) => const StationStates.e
 class SearchPage extends StatefulWidget {
   const SearchPage({
     required this.binder,
+    required this.heroTag,
     Key? key,
-    this.heroTag = _heroTag,
-    this.configuration = const CupertinoTextFieldConfiguration(),
+    this.configuration = const TextFieldConfiguration(),
     this.isDestination = false,
     this.dateTime,
   }) : super(key: key);
@@ -107,7 +59,7 @@ class SearchPage extends StatefulWidget {
   final TextStateBinder binder;
   // ignore: no-object-declaration
   final Object heroTag;
-  final CupertinoTextFieldConfiguration configuration;
+  final TextFieldConfiguration configuration;
   final bool isDestination;
   final DateTime? dateTime;
   static const closeSearchKey = Key('close-search');

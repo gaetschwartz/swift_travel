@@ -22,12 +22,14 @@ import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/pages/search/models.dart';
 import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/states/route_textfield_state.dart';
 import 'package:swift_travel/tabs/routes/route_view.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/utils/types.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/datepicker.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -195,8 +197,8 @@ class RoutePage extends StatefulWidget {
   }
 }
 
-final TextStateBinder from = TextStateBinder(TextEditingController(), fromTextfieldProvider);
-final TextStateBinder to = TextStateBinder(TextEditingController(), toTextfieldProvider);
+final TextStateBinder fromBinder = TextStateBinder(TextEditingController(), fromTextfieldProvider);
+final TextStateBinder toBinder = TextStateBinder(TextEditingController(), toTextfieldProvider);
 
 class RoutePageState extends State<RoutePage> {
   final FocusNode fnFrom = FocusNode();
@@ -231,13 +233,13 @@ class RoutePageState extends State<RoutePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     fromFormatter = MyTextFormatter(
-        AppLoc.of(context).current_location, from, context.read(fromTextfieldProvider));
+        AppLoc.of(context).current_location, fromBinder, context.read(fromTextfieldProvider));
     toFormatter = MyTextFormatter(
-        AppLoc.of(context).current_location, to, context.read(fromTextfieldProvider));
+        AppLoc.of(context).current_location, toBinder, context.read(fromTextfieldProvider));
     favorites = context.read(storeProvider);
     api = context.read(navigationAPIProvider);
-    from.syncState(context);
-    to.syncState(context);
+    fromBinder.syncState(context);
+    toBinder.syncState(context);
   }
 
   void _onFocusToChanged() {
@@ -256,8 +258,8 @@ class RoutePageState extends State<RoutePage> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
-      from.setString(context, widget.localRoute!.fromAsString);
-      to.setString(context, widget.localRoute!.toAsString);
+      fromBinder.setString(context, widget.localRoute!.fromAsString);
+      toBinder.setString(context, widget.localRoute!.toAsString);
     });
   }
 
@@ -265,8 +267,8 @@ class RoutePageState extends State<RoutePage> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
-      from.useCurrentLocation(context);
-      to.setString(context, widget.favStop!.stop);
+      fromBinder.useCurrentLocation(context);
+      toBinder.setString(context, widget.favStop!.stop);
     });
   }
 
@@ -279,7 +281,6 @@ class RoutePageState extends State<RoutePage> {
 
   @override
   Widget build(BuildContext context) {
-    final darwin = isDarwin(context);
     return PlatformBuilder(
       cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         navigationBar: const SwiftCupertinoBar(),
@@ -292,7 +293,7 @@ class RoutePageState extends State<RoutePage> {
             title: Text(widget.localRoute?.displayName ?? AppLoc.of(context).tabs_route)),
         body: child,
       ),
-      child: SafeArea(
+      builder: (_, d) => SafeArea(
         bottom: false,
         child: Column(
           children: <Widget>[
@@ -303,23 +304,11 @@ class RoutePageState extends State<RoutePage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 4, left: 8, top: 8, bottom: 4),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: buildFromField(context, isDarwin: darwin),
-                            ),
-                          ],
-                        ),
+                        child: buildFromField(context),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 4, left: 8, top: 4, bottom: 8),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: buildToField(context, isDarwin: darwin),
-                            ),
-                          ],
-                        ),
+                        child: buildToField(context),
                       ),
                     ],
                   ),
@@ -350,7 +339,9 @@ class RoutePageState extends State<RoutePage> {
 
                           log(favorites.routes.toString());
                           if (favorites.routes.any(
-                            (lr) => lr.fromAsString == from.text && lr.toAsString == to.text,
+                            (lr) =>
+                                lr.fromAsString == fromBinder.text &&
+                                lr.toAsString == toBinder.text,
                           )) {
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                 content: Text('This route is already in your favorites !')));
@@ -362,7 +353,7 @@ class RoutePageState extends State<RoutePage> {
                             return;
                           }
                           await favorites.addRoute(LocalRoute.v2(
-                              SbbStop(name: from.text), SbbStop(name: to.text),
+                              SbbStop(name: fromBinder.text), SbbStop(name: toBinder.text),
                               displayName: s));
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(content: Text('Route starred !')));
@@ -371,8 +362,9 @@ class RoutePageState extends State<RoutePage> {
                           final _store = w(storeProvider);
                           w(routeStatesProvider);
 
-                          return _store.routes.any(
-                                  (lr) => lr.fromAsString == from.text && lr.toAsString == to.text)
+                          return _store.routes.any((lr) =>
+                                  lr.fromAsString == fromBinder.text &&
+                                  lr.toAsString == toBinder.text)
                               ? const Icon(Icons.star)
                               : const Icon(Icons.star_border);
                         }),
@@ -388,12 +380,12 @@ class RoutePageState extends State<RoutePage> {
                                   unFocusFields();
                                   final sbbRoute = SbbRoute.fromJson(mockRoute);
 
-                                  from.setString(
+                                  fromBinder.setString(
                                     context,
                                     sbbRoute.connections.first.from,
                                     doLoad: false,
                                   );
-                                  to.setString(
+                                  toBinder.setString(
                                     context,
                                     sbbRoute.connections.first.to,
                                     doLoad: false,
@@ -477,139 +469,124 @@ class RoutePageState extends State<RoutePage> {
   static const routeToTextfieldKey = Key('route-to-textfield-key');
   static const routeToTextfieldKeyTap = Key('route-to-textfield-key-tap');
 
-  Widget buildFromField(BuildContext context, {required bool isDarwin}) {
-    CupertinoTextFieldConfiguration cupertinoTextFieldConfiguration() =>
-        CupertinoTextFieldConfiguration(
+  @allowReturningWidgets
+  Widget buildFromField(BuildContext context) => _TextField(
+        herotag: _fromHeroTag,
+        textfieldKey: routeFromTextfieldKeyTap,
+        binder: fromBinder,
+        textFieldConfiguration: TextFieldConfiguration(
           focusNode: fnFrom,
           inputFormatters: [fromFormatter],
           placeholder: AppLoc.of(context).departure,
           textInputAction: TextInputAction.next,
           key: routeFromTextfieldKey,
-        );
-
-    void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(
-          CupertinoPageRoute(
-            builder: (context) => SearchPage(
-              binder: from,
-              heroTag: _fromHeroTag,
-              configuration: cupertinoTextFieldConfiguration(),
-            ),
-          ),
-        );
-
-    if (isDarwin) {
-      return Hero(
-        tag: _fromHeroTag,
-        child: CupertinoTextField(
-          key: routeFromTextfieldKeyTap,
-          controller: from.controller,
-          focusNode: fnFrom,
-          onEditingComplete: fnTo.requestFocus,
-          placeholder: AppLoc.of(context).departure,
-          textInputAction: TextInputAction.next,
-          prefix: Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Consumer(
-                builder: (context, w, _) =>
-                    _IconForState(w(fromTextfieldProvider).state, iconSize: 16)),
-          ),
-          onTap: openSearch,
         ),
+        textInputAction: TextInputAction.next,
+        text: AppLoc.of(context).departure,
+        icon: Consumer(
+            builder: (context, w, _) =>
+                _IconForState(w(fromTextfieldProvider).state, iconSize: 16)),
       );
-    } else {
-      return Hero(
-        tag: _fromHeroTag,
-        child: Material(
-          child: TextField(
-            key: routeFromTextfieldKeyTap,
-            controller: from.controller,
-            focusNode: fnFrom,
-            onEditingComplete: fnTo.requestFocus,
-            decoration: InputDecoration(
-                hintText: AppLoc.of(context).departure,
-                prefixIcon: Consumer(
-                    builder: (context, w, _) =>
-                        _IconForState(w(fromTextfieldProvider).state, iconSize: 16))),
-            textInputAction: TextInputAction.next,
-            onTap: openSearch,
-          ),
-        ),
-      );
-    }
-  }
 
-  Widget buildToField(BuildContext context, {required bool isDarwin}) {
-    CupertinoTextFieldConfiguration cupertinoTextFieldConfiguration() =>
-        CupertinoTextFieldConfiguration(
+  @allowReturningWidgets
+  Widget buildToField(BuildContext context) => _TextField(
+        herotag: _toHeroTag,
+        textfieldKey: routeToTextfieldKeyTap,
+        binder: toBinder,
+        textFieldConfiguration: TextFieldConfiguration(
           focusNode: fnTo,
           inputFormatters: [toFormatter],
           placeholder: AppLoc.of(context).destination,
           textInputAction: TextInputAction.search,
           key: routeToTextfieldKey,
-        );
-
-    void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(
-          CupertinoPageRoute(
-            builder: (context) => SearchPage(
-              binder: to,
-              isDestination: true,
-              dateTime: context.read(dateProvider).state,
-              heroTag: _toHeroTag,
-              configuration: cupertinoTextFieldConfiguration(),
-            ),
-          ),
-        );
-
-    if (isDarwin) {
-      return Hero(
-        tag: _toHeroTag,
-        child: CupertinoTextField(
-          key: routeToTextfieldKeyTap,
-          focusNode: fnTo,
-          controller: to.controller,
-          placeholder: AppLoc.of(context).destination,
-          textInputAction: TextInputAction.search,
-          prefix: Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Consumer(
-                builder: (context, w, _) =>
-                    _IconForState(w(toTextfieldProvider).state, iconSize: 16)),
-          ),
-          onTap: openSearch,
         ),
-      );
-    } else {
-      return Hero(
-        tag: _toHeroTag,
-        child: Material(
-          child: TextField(
-            key: routeToTextfieldKeyTap,
-            focusNode: fnTo,
-            controller: to.controller,
-            decoration: InputDecoration(
-              hintText: AppLoc.of(context).destination,
-              prefixIcon: Consumer(
-                  builder: (context, w, _) =>
-                      _IconForState(w(toTextfieldProvider).state, iconSize: 16)),
-            ),
-            textInputAction: TextInputAction.search,
-            onTap: openSearch,
-          ),
+        icon: Consumer(
+          builder: (context, w, _) => _IconForState(w(toTextfieldProvider).state, iconSize: 16),
         ),
+        text: AppLoc.of(context).destination,
+        textInputAction: TextInputAction.search,
+        isDestination: true,
       );
-    }
-  }
 
   void switchInputs() {
-    final _from = from.state(context);
+    final _from = fromBinder.state(context);
 
-    from.init(context, to.state(context));
-    to.init(context, _from);
+    fromBinder.init(context, toBinder.state(context));
+    toBinder.init(context, _from);
   }
 
   void unFocusFields() {
     fnFrom.unfocus();
     fnTo.unfocus();
+  }
+}
+
+class _TextField extends StatelessWidget {
+  const _TextField({
+    Key? key,
+    required this.herotag,
+    required this.textfieldKey,
+    required this.binder,
+    required this.textFieldConfiguration,
+    required this.textInputAction,
+    required this.text,
+    required this.icon,
+    this.isDestination = false,
+  }) : super(key: key);
+
+  final String herotag;
+  final Key textfieldKey;
+  final TextStateBinder binder;
+  final TextFieldConfiguration textFieldConfiguration;
+  final TextInputAction textInputAction;
+  final String text;
+  final Widget icon;
+  final bool isDestination;
+
+  void openSearch(BuildContext context) => Navigator.of(context, rootNavigator: true).push<void>(
+        CupertinoPageRoute(
+          builder: (context) => SearchPage(
+            binder: binder,
+            heroTag: herotag,
+            configuration: textFieldConfiguration,
+            // new params
+            isDestination: isDestination,
+            dateTime: isDestination ? context.read(dateProvider).state : null,
+          ),
+        ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: herotag,
+      child: isDarwin(context)
+          ? CupertinoTextField(
+              key: textfieldKey,
+              focusNode: textFieldConfiguration.focusNode,
+              controller: binder.controller,
+              placeholder: text,
+              textInputAction: textInputAction,
+              prefix: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: icon,
+              ),
+              onTap: () => openSearch(context),
+            )
+          : Material(
+              child: TextField(
+                key: textfieldKey,
+                focusNode: textFieldConfiguration.focusNode,
+                controller: binder.controller,
+                decoration: InputDecoration(
+                  hintText: text,
+                  prefixIcon: icon,
+                ),
+                textInputAction: textInputAction,
+                onTap: () => openSearch(context),
+              ),
+            ),
+    );
   }
 }
 
