@@ -86,5 +86,6 @@
 	"share": "Share",
 	"journey_informations": "Journey information",
 	"direction": "Direction {dir}",
-	"itinerary": "Itinerary"
+	"itinerary": "Itinerary",
+	"unable_locate": "Unable to obtain location."
 }

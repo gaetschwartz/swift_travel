@@ -167,4 +167,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get itinerary => 'Percorso';
+
+  @override
+  String get unable_locate => 'Impossibile ottenere la posizione.';
 }

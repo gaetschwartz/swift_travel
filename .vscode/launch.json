@@ -15,7 +15,7 @@
       ]
     },
     {
-      "name": "Launch (fake release)",
+      "name": "Launch (mock release)",
       "request": "launch",
       "type": "dart",
       "program": "app/lib/main.dart",
@@ -67,13 +67,6 @@
       "type": "dart",
       "program": "app/lib/main.dart",
       "flutterMode": "profile"
-    },
-    {
-      "name": "Release",
-      "request": "launch",
-      "type": "dart",
-      "program": "app/lib/main.dart",
-      "flutterMode": "release"
     },
   ]
 }
