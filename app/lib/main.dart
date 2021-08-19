@@ -228,7 +228,7 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
           behavior: const NoOverscrollGlowBehavior(),
           child: child!,
         ),
-        child: child,
+        child: child!,
       ),
       initialRoute: 'loading',
     );
@@ -254,6 +254,7 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
           builder: (_) => const LoadingPage(),
         ));
     }
+
     return routes;
   }
 }

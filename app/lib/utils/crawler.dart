@@ -41,7 +41,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
       appBar: AppBar(
         title: const Text('Crawler'),
         actions: [
-          if (isRunning == false)
+          if (!isRunning)
             IconButton(
                 icon: const Icon(CupertinoIcons.share),
                 onPressed: () async {
@@ -80,7 +80,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                         for (final lr in routes) {
                           print('Fetching ${lr.fromAsString} -> ${lr.toAsString}');
                           for (var i = 0; i < 6; i++) {
-                            final timeOfDay = TimeOfDay(hour: 8 + 2 * i, minute: 0);
+                            final timeOfDay = TimeOfDay(hour: 8 + i * 2, minute: 0);
                             if (mounted) {
                               setState(() {
                                 current = lr.fromAsString;
@@ -152,7 +152,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                     itemBuilder: (context, i) {
                       final key = uHKeys[i];
                       final att = Attribute.attributes[key];
-                      return buildListTile(att, key, unHandled[key]!);
+                      return _Tile(att, key, unHandled[key]!);
                     },
                   ),
                 ],
@@ -165,7 +165,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                   itemBuilder: (context, i) {
                     final key = hKeys[i];
                     final att = Attribute.attributes[key];
-                    return buildListTile(att, key, handled[key]!);
+                    return _Tile(att, key, handled[key]!);
                   },
                 ),
               ],
@@ -175,24 +175,40 @@ class _CrawlerPageState extends State<CrawlerPage> {
       ),
     );
   }
+}
 
-  ListTile buildListTile(Attribute? att, String key, String value) => ListTile(
-        leading: IconTheme(
-          data: const IconThemeData(color: Colors.white),
-          child: DecoratedBox(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.red,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: att == null ? const SizedBox(height: 24, width: 24) : att.icon,
-            ),
+class _Tile extends StatelessWidget {
+  const _Tile(
+    this.att,
+    this.mapKey,
+    this.value, {
+    Key? key,
+  }) : super(key: key);
+
+  final Attribute? att;
+  final String mapKey;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: IconTheme(
+        data: const IconThemeData(color: Colors.white),
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+            color: Colors.red,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: att == null ? const SizedBox(height: 24, width: 24) : att!.icon,
           ),
         ),
-        title: Text(key),
-        subtitle: Text(value),
-        dense: true,
-        onTap: () => Clipboard.setData(ClipboardData(text: key)),
-      );
+      ),
+      title: Text(mapKey),
+      subtitle: Text(value),
+      dense: true,
+      onTap: () => Clipboard.setData(ClipboardData(text: mapKey)),
+    );
+  }
 }

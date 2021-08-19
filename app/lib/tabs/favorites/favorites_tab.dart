@@ -52,7 +52,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       ),
       materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: materialAppBar(context, title: Text(AppLoc.of(context).tabs_favourites)),
+        appBar: MaterialAppBar(title: Text(AppLoc.of(context).tabs_favourites)),
         floatingActionButton: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),

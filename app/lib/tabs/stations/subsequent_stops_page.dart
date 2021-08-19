@@ -30,11 +30,13 @@ class _NextStopsPageState extends State<NextStopsPage> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 10), (_) {
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    timer = Timer.periodic(const Duration(seconds: 10), rebuild);
+  }
+
+  void rebuild(void _) {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -95,22 +97,6 @@ class StopTile extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
 
-  Widget _buildLine(bool isVisible) => Container(
-        width: isVisible ? 1 : 0,
-        color: Colors.grey.shade400,
-      );
-
-  Widget _buildCircle(BuildContext context, StationboardConnection connection) => Container(
-        margin: const EdgeInsets.symmetric(vertical: 2),
-        decoration: BoxDecoration(
-          color: parseColor(
-              connection.color.substring(0, connection.color.indexOf('~')), Colors.black),
-          shape: BoxShape.circle,
-        ),
-        width: 16,
-        height: 16,
-      );
-
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: () =>
@@ -124,9 +110,9 @@ class StopTile extends StatelessWidget {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(child: _buildLine(!isFirst)),
-                    _buildCircle(context, connection),
-                    Expanded(child: _buildLine(!isLast)),
+                    Expanded(child: _Line(!isFirst)),
+                    _Circle(connection),
+                    Expanded(child: _Line(!isLast)),
                   ],
                 ),
                 const SizedBox(width: 16),
@@ -159,4 +145,50 @@ class StopTile extends StatelessWidget {
           ),
         ),
       );
+}
+
+class _Circle extends StatelessWidget {
+  const _Circle(
+    this.connection, {
+    Key? key,
+  }) : super(key: key);
+
+  final StationboardConnection connection;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 2),
+      decoration: BoxDecoration(
+        color:
+            parseColor(connection.color.substring(0, connection.color.indexOf('~')), Colors.black),
+        shape: BoxShape.circle,
+      ),
+      width: 16,
+      height: 16,
+    );
+  }
+}
+
+class _Line extends StatelessWidget {
+  const _Line(
+    this.isVisible, {
+    Key? key,
+  }) : super(key: key);
+
+  final bool isVisible;
+
+  @override
+  Widget build(BuildContext context) {
+    return isVisible
+        ? const SizedBox(
+            width: 1,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Color(0xFFE0E0E0),
+              ),
+            ),
+          )
+        : const SizedBox();
+  }
 }

@@ -42,191 +42,297 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  List<Widget> get children => [
-        _SectionTitle(title: Text(AppLoc.of(context).brightness)),
-        SizedBox(
-          key: const Key('settings-top-theme-section'),
-          height: 100,
-          child: Builder(builder: (context) {
-            final theme = DynamicTheme.of(context);
-            return ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                _ThememodeWidget(
-                  theme: theme,
-                  label: AppLoc.of(context).brightness_system,
-                  mode: ThemeMode.system,
-                ),
-                _ThememodeWidget(
-                  theme: theme,
-                  label: AppLoc.of(context).brightness_light,
-                  mode: ThemeMode.light,
-                ),
-                _ThememodeWidget(
-                  theme: theme,
-                  label: AppLoc.of(context).brightness_dark,
-                  mode: ThemeMode.dark,
-                ),
-              ],
-            );
-          }),
-        ),
-        _SectionTitle(title: Text(AppLoc.of(context).themes)),
-        const _ThemesSection(),
-        _SectionTitle(title: Text(AppLoc.of(context).font)),
-        buildFontChoiceTile(),
-        buildFontWeightTile(),
-        buildPlatformTile(),
-        if (Env.isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
-          PropertyTile<Maps>(context.read(preferencesProvider).mapsApp,
-              title: Text(AppLoc.of(context).maps_app),
-              icon: const Icon(Icons.map_rounded),
-              items: const [
-                ActionsSheetAction(value: Maps.apple, title: Text('Apple Maps')),
-                ActionsSheetAction(value: Maps.google, title: Text('Google Maps')),
-              ],
-              trailingBuilder: (v) => Text(v.toStringFull())),
-        PropertyTile<NavigationApiId>(
-          context.read(preferencesProvider).api,
-          items: NavigationApiFactory.factories
-              .map(
-                (e) => ActionsSheetAction(title: Text(e.name), value: NavigationApiId(e.id.value)),
-              )
-              .toList(growable: false),
-          title: Text(AppLoc.of(context).navigation_api),
-          icon: const Icon(CupertinoIcons.link),
-          trailingBuilder: (v) => Text(NavigationApiFactory.fromId(v).shortDesc),
-          pageDescription: const Text('BETA: In the future the goal is to add more countries.'),
-        ),
-        PropertyTile<bool>(
-          context.read(preferencesProvider).useAnalytics,
-          items: const [
-            ActionsSheetAction(value: true, title: Text('True')),
-            ActionsSheetAction(value: false, title: Text('False')),
-          ],
-          title: const Text('Use analytics'),
-          icon: const Icon(CupertinoIcons.list_bullet),
-          subtitle: const Text('The app collects anonymized crash reports'),
-        ),
-        const Divider(height: 0),
-        _SectionTitle(title: Text(AppLoc.of(context).more)),
-        ListTile(
-          leading: const Icon(CupertinoIcons.person_3_fill),
-          title: Text(AppLoc.of(context).our_team),
-          onTap: () =>
-              Navigator.of(context).push(PlatformPageRoute(builder: (_) => const TeamPage())),
-        ),
-        ListTile(
-            leading: const Icon(Icons.restore),
-            title: Text(AppLoc.of(context).reset_settings),
-            onTap: () async {
-              final c = await confirm(
-                context,
-                title: const Text('Reset settings ?'),
-                content: const Text('You will lose all of you favorites!'),
-                isConfirmDestructive: true,
-                confirm: Text(AppLoc.of(context).yes),
-                cancel: Text(AppLoc.of(context).no),
-              );
-              if (c != true) {
-                return;
-              }
-              final prefs = await SharedPreferences.getInstance();
-              final b = await prefs.clear();
-              log('Done : $b');
-              unawaited(SystemNavigator.pop(animated: true));
-            }),
-        const Divider(),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _SectionTitle(title: Text(AppLoc.of(context).developer)),
-            ListTile(
-                leading: const Icon(CupertinoIcons.search),
-                title: const Text('Attributes crawler'),
-                onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(
-                    PlatformPageRoute(
-                      builder: (context) => const CrawlerPage(),
+  void resetSettingsPrompt() async {
+    final c = await confirm(
+      context,
+      title: const Text('Reset settings ?'),
+      content: const Text('You will lose all of you favorites!'),
+      isConfirmDestructive: true,
+      confirm: Text(AppLoc.of(context).yes),
+      cancel: Text(AppLoc.of(context).no),
+    );
+    if (!c) return;
+
+    final prefs = await SharedPreferences.getInstance();
+    final b = await prefs.clear();
+    log('Done : $b');
+    unawaited(SystemNavigator.pop(animated: true));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final children = [
+      _SectionTitle(title: Text(AppLoc.of(context).brightness)),
+      SizedBox(
+        key: const Key('settings-top-theme-section'),
+        height: 100,
+        child: Builder(builder: (context) {
+          final theme = DynamicTheme.of(context);
+          return ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              _ThememodeWidget(
+                theme: theme,
+                label: AppLoc.of(context).brightness_system,
+                mode: ThemeMode.system,
+              ),
+              _ThememodeWidget(
+                theme: theme,
+                label: AppLoc.of(context).brightness_light,
+                mode: ThemeMode.light,
+              ),
+              _ThememodeWidget(
+                theme: theme,
+                label: AppLoc.of(context).brightness_dark,
+                mode: ThemeMode.dark,
+              ),
+            ],
+          );
+        }),
+      ),
+      _SectionTitle(title: Text(AppLoc.of(context).themes)),
+      const _ThemesSection(),
+      _SectionTitle(title: Text(AppLoc.of(context).font)),
+      const _FontChoiceTile(),
+      const _FontWeightTile(),
+      const _PlatformTile(),
+      if (Env.isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
+        PropertyTile<Maps>(context.read(preferencesProvider).mapsApp,
+            title: Text(AppLoc.of(context).maps_app),
+            icon: const Icon(Icons.map_rounded),
+            items: const [
+              ActionsSheetAction(value: Maps.apple, title: Text('Apple Maps')),
+              ActionsSheetAction(value: Maps.google, title: Text('Google Maps')),
+            ],
+            trailingBuilder: (v) => Text(v.toStringFull())),
+      PropertyTile<NavigationApiId>(
+        context.read(preferencesProvider).api,
+        items: NavigationApiFactory.factories
+            .map(
+              (e) => ActionsSheetAction(title: Text(e.name), value: NavigationApiId(e.id.value)),
+            )
+            .toList(growable: false),
+        title: Text(AppLoc.of(context).navigation_api),
+        icon: const Icon(CupertinoIcons.link),
+        trailingBuilder: (v) => Text(NavigationApiFactory.fromId(v).shortDesc),
+        pageDescription: const Text('BETA: In the future the goal is to add more countries.'),
+      ),
+      PropertyTile<bool>(
+        context.read(preferencesProvider).useAnalytics,
+        items: const [
+          ActionsSheetAction(value: true, title: Text('True')),
+          ActionsSheetAction(value: false, title: Text('False')),
+        ],
+        title: const Text('Use analytics'),
+        icon: const Icon(CupertinoIcons.list_bullet),
+        subtitle: const Text('The app collects anonymized crash reports'),
+      ),
+      const Divider(height: 0),
+      _SectionTitle(title: Text(AppLoc.of(context).more)),
+      ListTile(
+        leading: const Icon(CupertinoIcons.person_3_fill),
+        title: Text(AppLoc.of(context).our_team),
+        onTap: () =>
+            Navigator.of(context).push(PlatformPageRoute(builder: (_) => const TeamPage())),
+      ),
+      ListTile(
+          leading: const Icon(Icons.restore),
+          title: Text(AppLoc.of(context).reset_settings),
+          onTap: resetSettingsPrompt),
+      const Divider(),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _SectionTitle(title: Text(AppLoc.of(context).developer)),
+          ListTile(
+              leading: const Icon(CupertinoIcons.search),
+              title: const Text('Attributes crawler'),
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(
+                  PlatformPageRoute(
+                    builder: (context) => const CrawlerPage(),
+                  ),
+                );
+              }),
+          ListTile(
+              leading: const Icon(CupertinoIcons.clock),
+              title: const Text('Route history'),
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(
+                  PlatformPageRoute(
+                    builder: (context) => const RouteHistoryPage(),
+                  ),
+                );
+              }),
+          ListTile(
+            leading: const Icon(CupertinoIcons.clear),
+            title: const Text('Clear history'),
+            onTap: RouteHistoryRepository.i.clear,
+          ),
+          ListTile(
+              leading: const Icon(Icons.screen_lock_landscape),
+              title: const Text('Screen info'),
+              onTap: () {
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute(
+                    builder: (context) => Theme(
+                      data: ThemeData.light(),
+                      child: Builder(builder: (context) => const _ScreenPage()),
                     ),
-                  );
-                }),
-            ListTile(
-                leading: const Icon(CupertinoIcons.clock),
-                title: const Text('Route history'),
-                onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(
-                    PlatformPageRoute(
-                      builder: (context) => const RouteHistoryPage(),
-                    ),
-                  );
-                }),
-            ListTile(
-              leading: const Icon(CupertinoIcons.clear),
-              title: const Text('Clear history'),
-              onTap: RouteHistoryRepository.i.clear,
-            ),
-            ListTile(
-                leading: const Icon(Icons.screen_lock_landscape),
-                title: const Text('Screen info'),
-                onTap: () {
-                  Navigator.of(context).push<void>(
-                    MaterialPageRoute(
-                      builder: (context) => Theme(
-                        data: ThemeData.light(),
-                        child: Builder(builder: (context) => const _ScreenPage()),
-                      ),
-                    ),
-                  );
-                }),
-            ListTile(
-                leading: const Icon(Icons.warning_rounded),
-                title: const Text('Throw a Flutter error'),
-                onTap: () => throw StateError('Debug error')),
-            ListTile(
-                leading: const Icon(Icons.warning_rounded),
-                title: const Text('Throw a Dart error'),
-                onTap: () {
-                  try {
-                    throw const IntegerDivisionByZeroException();
-                  } on IntegerDivisionByZeroException catch (e, s) {
-                    reportDartError(e, s, library: 'settings', reason: 'voluntarirly');
-                  }
-                }),
-            ListTile(
-                leading: const Icon(Icons.open_in_browser),
-                title: const Text('Open incorrect page'),
-                onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
-            ListTile(
-                leading: const Icon(Icons.close),
-                title: const Text('Trigger a crash'),
-                onTap: () async {
-                  await FirebaseCrashlytics.instance.log('We trigger a crash');
-                  FirebaseCrashlytics.instance.crash();
-                }),
-          ],
-        ),
-        const ListTile(
-          isThreeLine: true,
-          dense: true,
-          title: Text(commitMessage),
-          subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
-        ),
-        const SizedBox(height: 32),
-        Padding(
-          key: const Key('settings-bottom-info'),
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Text(
-              '© Copyright Gaëtan Schwartz 2020',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
+                  ),
+                );
+              }),
+          ListTile(
+              leading: const Icon(Icons.warning_rounded),
+              title: const Text('Throw a Flutter error'),
+              onTap: () => throw StateError('Debug error')),
+          ListTile(
+              leading: const Icon(Icons.warning_rounded),
+              title: const Text('Throw a Dart error'),
+              onTap: () {
+                try {
+                  throw const IntegerDivisionByZeroException();
+                } on IntegerDivisionByZeroException catch (e, s) {
+                  reportDartError(e, s, library: 'settings', reason: 'voluntarirly');
+                }
+              }),
+          ListTile(
+              leading: const Icon(Icons.open_in_browser),
+              title: const Text('Open incorrect page'),
+              onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
+          ListTile(
+              leading: const Icon(Icons.close),
+              title: const Text('Trigger a crash'),
+              onTap: () async {
+                await FirebaseCrashlytics.instance.log('We trigger a crash');
+                FirebaseCrashlytics.instance.crash();
+              }),
+        ],
+      ),
+      const ListTile(
+        isThreeLine: true,
+        dense: true,
+        title: Text(commitMessage),
+        subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
+      ),
+      const SizedBox(height: 32),
+      Padding(
+        key: const Key('settings-bottom-info'),
+        padding: const EdgeInsets.all(8),
+        child: Center(
+          child: Text(
+            '© Copyright Gaëtan Schwartz 2020',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.subtitle2,
           ),
         ),
-      ];
+      ),
+    ];
 
-  Widget buildFontChoiceTile() {
+    return DividerTheme(
+      data: const DividerThemeData(indent: 16, endIndent: 16),
+      child: PlatformBuilder(
+          cupertinoBuilder: (context, child) => Material(
+                child: CupertinoPageScaffold(
+                  resizeToAvoidBottomInset: false,
+                  navigationBar: SwiftCupertinoBar(
+                    middle: Text(AppLoc.of(context).settings),
+                  ),
+                  child: child!,
+                ),
+              ),
+          materialBuilder: (context, child) => Scaffold(body: child),
+          builder: (context, design) => CustomScrollView(
+                key: const Key('settings-scrollview'),
+                slivers: [
+                  if (design == PlatformDesign.material)
+                    SliverAppBar(
+                      title: Text(AppLoc.of(context).settings),
+                      pinned: true,
+                      elevation: 8,
+                    ),
+                  SliverSafeArea(
+                    top: design == PlatformDesign.cupertino,
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, i) => children[i],
+                        childCount: children.length,
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+    );
+  }
+}
+
+class _PlatformTile extends StatelessWidget {
+  const _PlatformTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = DynamicTheme.of(context);
+    final p = defaultTargetPlatform;
+    return PropertyTile<TargetPlatform>(
+      SyncProperty<TargetPlatform>(
+        onSet: (p) => theme.platform = p,
+        defaultValue: theme.platform,
+      ),
+      trailingBuilder: (v) => Text(platformNames[v] ?? describeEnum(v)),
+      title: const Text('Platform'),
+      items: p == TargetPlatform.iOS || p == TargetPlatform.android
+          ? const [
+              ActionsSheetAction(value: TargetPlatform.android, title: Text('Android')),
+              ActionsSheetAction(value: TargetPlatform.iOS, title: Text('iOS')),
+            ]
+          : const [
+              ActionsSheetAction(value: TargetPlatform.macOS, title: Text('MacOS')),
+              ActionsSheetAction(value: TargetPlatform.windows, title: Text('Windows')),
+            ],
+    );
+  }
+}
+
+class _FontWeightTile extends StatelessWidget {
+  const _FontWeightTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = DynamicTheme.of(context);
+    const map = {-1: 'Light', 0: 'Normal', 1: 'Medium', 3: 'Bold'};
+    // final t = theme.font
+    //     .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
+    //     .bodyText1!;
+    return PropertyTile<int>(
+      SyncProperty<int>(
+        onSet: (delta) => theme.fontWeightDelta = delta,
+        defaultValue: theme.fontWeightDelta,
+      ),
+      title: const Text('Font weight'),
+      items: map.keys
+          .map((key) => ActionsSheetAction<int>(
+              value: key,
+              title: Text(
+                map[key]!,
+                //   style: t.apply(fontWeightDelta: key),
+              )))
+          .toList(growable: false),
+      trailingBuilder: (i) => Text(map[i] ?? ''),
+    );
+  }
+}
+
+class _FontChoiceTile extends StatelessWidget {
+  const _FontChoiceTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     final constrainedBox = ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 300),
       child: Builder(builder: (context) {
@@ -271,88 +377,6 @@ class _SettingsPageState extends State<SettingsPage> {
           alignment: Alignment.centerLeft,
         ));
   }
-
-  PropertyTile<TargetPlatform> buildPlatformTile() {
-    final theme = DynamicTheme.of(context);
-    final p = defaultTargetPlatform;
-    return PropertyTile<TargetPlatform>(
-      SyncProperty<TargetPlatform>(
-        onSet: (p) => theme.platform = p,
-        defaultValue: theme.platform,
-      ),
-      trailingBuilder: (v) => Text(platformNames[v] ?? describeEnum(v)),
-      title: const Text('Platform'),
-      items: p == TargetPlatform.iOS || p == TargetPlatform.android
-          ? const [
-              ActionsSheetAction(value: TargetPlatform.android, title: Text('Android')),
-              ActionsSheetAction(value: TargetPlatform.iOS, title: Text('iOS')),
-            ]
-          : const [
-              ActionsSheetAction(value: TargetPlatform.macOS, title: Text('MacOS')),
-              ActionsSheetAction(value: TargetPlatform.windows, title: Text('Windows')),
-            ],
-    );
-  }
-
-  PropertyTile<int> buildFontWeightTile() {
-    final theme = DynamicTheme.of(context);
-    const map = {-1: 'Light', 0: 'Normal', 1: 'Medium', 3: 'Bold'};
-    // final t = theme.font
-    //     .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
-    //     .bodyText1!;
-    return PropertyTile<int>(
-      SyncProperty<int>(
-        onSet: (delta) => theme.fontWeightDelta = delta,
-        defaultValue: theme.fontWeightDelta,
-      ),
-      title: const Text('Font weight'),
-      items: map.keys
-          .map((key) => ActionsSheetAction<int>(
-              value: key,
-              title: Text(
-                map[key]!,
-                //   style: t.apply(fontWeightDelta: key),
-              )))
-          .toList(growable: false),
-      trailingBuilder: (i) => Text(map[i] ?? ''),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) => DividerTheme(
-        data: const DividerThemeData(indent: 16, endIndent: 16),
-        child: PlatformBuilder(
-            cupertinoBuilder: (context, child) => Material(
-                  child: CupertinoPageScaffold(
-                    resizeToAvoidBottomInset: false,
-                    navigationBar: SwiftCupertinoBar(
-                      middle: Text(AppLoc.of(context).settings),
-                    ),
-                    child: child!,
-                  ),
-                ),
-            materialBuilder: (context, child) => Scaffold(body: child),
-            builder: (context, design) => CustomScrollView(
-                  key: const Key('settings-scrollview'),
-                  slivers: [
-                    if (design == PlatformDesign.material)
-                      SliverAppBar(
-                        title: Text(AppLoc.of(context).settings),
-                        pinned: true,
-                        elevation: 8,
-                      ),
-                    SliverSafeArea(
-                      top: design == PlatformDesign.cupertino,
-                      sliver: SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, i) => children[i],
-                          childCount: children.length,
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
-      );
 }
 
 class _ScreenPage extends StatelessWidget {
@@ -446,8 +470,8 @@ class __ThemesSectionState extends State<_ThemesSection> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  buildColorRow(ft.light),
-                                  buildColorRow(ft.dark),
+                                  _ColorRow(ft.light),
+                                  _ColorRow(ft.dark),
                                 ],
                               ),
                             ),
@@ -479,52 +503,76 @@ class __ThemesSectionState extends State<_ThemesSection> {
           const SizedBox(height: 8)
         ],
       );
+}
 
-  Widget buildColorRow(ColorScheme colorScheme) => ConstrainedBox(
-        constraints: const BoxConstraints(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: SizedBox.fromSize(
-                    size: const Size.square(30),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: colorScheme.brightness == Brightness.light
-                          ? const Icon(CupertinoIcons.brightness)
-                          : const Icon(CupertinoIcons.moon_stars),
-                    ),
+class _ColorRow extends StatelessWidget {
+  const _ColorRow(
+    this.colorScheme, {
+    Key? key,
+  }) : super(key: key);
+
+  final ColorScheme colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: SizedBox.fromSize(
+                  size: const Size.square(30),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: colorScheme.brightness == Brightness.light
+                        ? const Icon(CupertinoIcons.brightness)
+                        : const Icon(CupertinoIcons.moon_stars),
                   ),
                 ),
               ),
             ),
-            Expanded(child: colorCircle(colorScheme.primary)),
-            Expanded(child: colorCircle(colorScheme.secondary)),
-          ],
-        ),
-      );
+          ),
+          Expanded(child: _ColorCircle(colorScheme.primary)),
+          Expanded(child: _ColorCircle(colorScheme.secondary)),
+        ],
+      ),
+    );
+  }
+}
 
-  Widget colorCircle(Color color) => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: SizedBox.fromSize(
-            size: const Size.square(30),
-            child: Padding(
-              padding: const EdgeInsets.all(4),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: color, blurRadius: 8)],
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+class _ColorCircle extends StatelessWidget {
+  const _ColorCircle(
+    this.color, {
+    Key? key,
+  }) : super(key: key);
+
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: SizedBox.fromSize(
+          size: const Size.square(30),
+          child: Padding(
+            padding: const EdgeInsets.all(4),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                boxShadow: [BoxShadow(color: color, blurRadius: 8)],
+                color: color,
+                shape: BoxShape.circle,
               ),
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
 }
 
 class _ScrollProgress extends StatefulWidget {

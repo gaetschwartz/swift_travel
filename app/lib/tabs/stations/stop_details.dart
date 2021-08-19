@@ -11,6 +11,7 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/subsequent_stops_page.dart';
 import 'package:swift_travel/utils/strings/format.dart';
+import 'package:swift_travel/utils/types.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:swift_travel/widgets/route.dart';
 import 'package:swift_travel/widgets/sbb_icon.dart';
@@ -34,12 +35,14 @@ class _StopDetailsState extends State<StopDetails> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 15), (_) {
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    timer = Timer.periodic(const Duration(seconds: 15), update);
     refreshData();
+  }
+
+  void update(void _) {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -68,13 +71,7 @@ class _StopDetailsState extends State<StopDetails> {
       );
     } else {
       return NotificationListener<ScrollNotification>(
-        onNotification: (notif) {
-          final e = notif.metrics.pixels > 0;
-          if (e != _elevate) {
-            setState(() => _elevate = e);
-          }
-          return true;
-        },
+        onNotification: onNotification,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -99,6 +96,15 @@ class _StopDetailsState extends State<StopDetails> {
     }
   }
 
+  bool onNotification(ScrollNotification notif) {
+    final e = notif.metrics.pixels > 0;
+    if (e != _elevate) {
+      setState(() => _elevate = e);
+    }
+    return true;
+  }
+
+  @allowReturningWidgets
   Widget buildAndroidList() => RefreshIndicator(
         onRefresh: refreshData,
         child: data != null
@@ -112,14 +118,17 @@ class _StopDetailsState extends State<StopDetails> {
                           ),
                     itemCount: data!.connections.length * 2 + 1,
                   )
-                : buildNoData(data!)
+                : _NoData(context: context, s: data!)
             : const Center(child: CupertinoActivityIndicator()),
       );
 
+  @allowReturningWidgets
   Widget buildIOSList() => CustomScrollView(
         slivers: [
           SliverSafeArea(
-              bottom: false, sliver: CupertinoSliverRefreshControl(onRefresh: refreshData)),
+            bottom: false,
+            sliver: CupertinoSliverRefreshControl(onRefresh: refreshData),
+          ),
           if (data != null)
             SliverSafeArea(
                 top: false,
@@ -135,9 +144,7 @@ class _StopDetailsState extends State<StopDetails> {
                           childCount: data!.connections.length * 2 + 1,
                         ),
                       )
-                    : SliverFillRemaining(
-                        child: buildNoData(data!),
-                      ))
+                    : SliverFillRemaining(child: _NoData(context: context, s: data!)))
           else
             const SliverFillRemaining(
               child: Center(child: CupertinoActivityIndicator()),
@@ -145,7 +152,28 @@ class _StopDetailsState extends State<StopDetails> {
         ],
       );
 
-  Widget buildNoData(StationBoard s) => Padding(
+  Future<void> refreshData() async {
+    final stationBoard = await context.read(navigationAPIProvider).stationboard(
+          widget.stop,
+        );
+    if (mounted) {
+      setState(() => data = stationBoard);
+    }
+  }
+}
+
+class _NoData extends StatelessWidget {
+  const _NoData({
+    Key? key,
+    required this.context,
+    required this.s,
+  }) : super(key: key);
+
+  final BuildContext context;
+  final StationBoard s;
+
+  @override
+  Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.all(8),
         child: SizedBox(
           width: double.infinity,
@@ -168,15 +196,6 @@ class _StopDetailsState extends State<StopDetails> {
           ),
         ),
       );
-
-  Future<void> refreshData() async {
-    final stationBoard = await context.read(navigationAPIProvider).stationboard(
-          widget.stop,
-        );
-    if (mounted) {
-      setState(() => data = stationBoard);
-    }
-  }
 }
 
 class ConnectionTile extends StatelessWidget {

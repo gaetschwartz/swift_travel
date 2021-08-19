@@ -296,7 +296,7 @@ class RoutePageState extends State<RoutePage> {
       ),
       materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: materialAppBar(context,
+        appBar: MaterialAppBar(
             title: Text(widget.localRoute?.displayName ?? AppLoc.of(context).tabs_route)),
         body: child,
       ),
@@ -486,20 +486,24 @@ class RoutePageState extends State<RoutePage> {
   static const routeToTextfieldKeyTap = Key('route-to-textfield-key-tap');
 
   Widget buildFromField(BuildContext context, {required bool isDarwin}) {
-    late final cupertinoTextFieldConfiguration = CupertinoTextFieldConfiguration(
-      focusNode: fnFrom,
-      inputFormatters: [fromFormatter],
-      placeholder: AppLoc.of(context).departure,
-      textInputAction: TextInputAction.next,
-      key: routeFromTextfieldKey,
-    );
+    CupertinoTextFieldConfiguration cupertinoTextFieldConfiguration() =>
+        CupertinoTextFieldConfiguration(
+          focusNode: fnFrom,
+          inputFormatters: [fromFormatter],
+          placeholder: AppLoc.of(context).departure,
+          textInputAction: TextInputAction.next,
+          key: routeFromTextfieldKey,
+        );
 
-    void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
-        builder: (context) => SearchPage(
+    void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(
+          CupertinoPageRoute(
+            builder: (context) => SearchPage(
               binder: from,
               heroTag: _fromHeroTag,
-              configuration: cupertinoTextFieldConfiguration,
-            )));
+              configuration: cupertinoTextFieldConfiguration(),
+            ),
+          ),
+        );
 
     if (isDarwin) {
       return Hero(
@@ -515,7 +519,7 @@ class RoutePageState extends State<RoutePage> {
             padding: const EdgeInsets.only(left: 8),
             child: Consumer(
                 builder: (context, w, _) =>
-                    iconForState(w(fromTextfieldProvider).state, iconSize: 16)),
+                    _IconForState(w(fromTextfieldProvider).state, iconSize: 16)),
           ),
           onTap: openSearch,
         ),
@@ -533,7 +537,7 @@ class RoutePageState extends State<RoutePage> {
                 hintText: AppLoc.of(context).departure,
                 prefixIcon: Consumer(
                     builder: (context, w, _) =>
-                        iconForState(w(fromTextfieldProvider).state, iconSize: 16))),
+                        _IconForState(w(fromTextfieldProvider).state, iconSize: 16))),
             textInputAction: TextInputAction.next,
             onTap: openSearch,
           ),
@@ -543,22 +547,26 @@ class RoutePageState extends State<RoutePage> {
   }
 
   Widget buildToField(BuildContext context, {required bool isDarwin}) {
-    late final cupertinoTextFieldConfiguration = CupertinoTextFieldConfiguration(
-      focusNode: fnTo,
-      inputFormatters: [toFormatter],
-      placeholder: AppLoc.of(context).destination,
-      textInputAction: TextInputAction.search,
-      key: routeToTextfieldKey,
-    );
+    CupertinoTextFieldConfiguration cupertinoTextFieldConfiguration() =>
+        CupertinoTextFieldConfiguration(
+          focusNode: fnTo,
+          inputFormatters: [toFormatter],
+          placeholder: AppLoc.of(context).destination,
+          textInputAction: TextInputAction.search,
+          key: routeToTextfieldKey,
+        );
 
-    void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(CupertinoPageRoute(
-        builder: (context) => SearchPage(
+    void openSearch() => Navigator.of(context, rootNavigator: true).push<void>(
+          CupertinoPageRoute(
+            builder: (context) => SearchPage(
               binder: to,
               isDestination: true,
               dateTime: context.read(dateProvider).state,
               heroTag: _toHeroTag,
-              configuration: cupertinoTextFieldConfiguration,
-            )));
+              configuration: cupertinoTextFieldConfiguration(),
+            ),
+          ),
+        );
 
     if (isDarwin) {
       return Hero(
@@ -573,7 +581,7 @@ class RoutePageState extends State<RoutePage> {
             padding: const EdgeInsets.only(left: 8),
             child: Consumer(
                 builder: (context, w, _) =>
-                    iconForState(w(toTextfieldProvider).state, iconSize: 16)),
+                    _IconForState(w(toTextfieldProvider).state, iconSize: 16)),
           ),
           onTap: openSearch,
         ),
@@ -590,7 +598,7 @@ class RoutePageState extends State<RoutePage> {
               hintText: AppLoc.of(context).destination,
               prefixIcon: Consumer(
                   builder: (context, w, _) =>
-                      iconForState(w(toTextfieldProvider).state, iconSize: 16)),
+                      _IconForState(w(toTextfieldProvider).state, iconSize: 16)),
             ),
             textInputAction: TextInputAction.search,
             onTap: openSearch,
@@ -599,11 +607,6 @@ class RoutePageState extends State<RoutePage> {
       );
     }
   }
-
-  Widget iconForState(RouteTextfieldState state, {double iconSize = 24}) => state.maybeWhen(
-        useCurrentLocation: () => Icon(CupertinoIcons.location_fill, size: iconSize),
-        orElse: () => Icon(CupertinoIcons.textformat, size: iconSize),
-      );
 
   void switchInputs() {
     final _from = from.state(context);
@@ -615,6 +618,21 @@ class RoutePageState extends State<RoutePage> {
   void unFocusFields() {
     fnFrom.unfocus();
     fnTo.unfocus();
+  }
+}
+
+class _IconForState extends StatelessWidget {
+  const _IconForState(this.state, {Key? key, this.iconSize}) : super(key: key);
+
+  final RouteTextfieldState state;
+  final double? iconSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return state.maybeWhen(
+      useCurrentLocation: () => Icon(CupertinoIcons.location_fill, size: iconSize),
+      orElse: () => Icon(CupertinoIcons.textformat, size: iconSize),
+    );
   }
 }
 
@@ -991,23 +1009,27 @@ class __SegmentedState extends State<_Segmented> {
   late TimeType _type = widget.initialValue;
 
   @override
-  Widget build(BuildContext context) => CupertinoSlidingSegmentedControl<TimeType>(
-        groupValue: _type,
-        onValueChanged: (v) {
-          if (v != null) {
-            setState(() => _type = v);
-            widget.onChange(v);
-          }
-        },
-        children: {
-          TimeType.depart: Text(
-            AppLoc.of(context).departure,
-            style: CupertinoTheme.of(context).textTheme.textStyle,
-          ),
-          TimeType.arrival: Text(
-            AppLoc.of(context).arrival,
-            style: CupertinoTheme.of(context).textTheme.textStyle,
-          ),
-        },
-      );
+  Widget build(BuildContext context) {
+    return CupertinoSlidingSegmentedControl<TimeType>(
+      groupValue: _type,
+      onValueChanged: onValueChanged,
+      children: {
+        TimeType.depart: Text(
+          AppLoc.of(context).departure,
+          style: CupertinoTheme.of(context).textTheme.textStyle,
+        ),
+        TimeType.arrival: Text(
+          AppLoc.of(context).arrival,
+          style: CupertinoTheme.of(context).textTheme.textStyle,
+        ),
+      },
+    );
+  }
+
+  void onValueChanged(TimeType? v) {
+    if (v != null) {
+      setState(() => _type = v);
+      widget.onChange(v);
+    }
+  }
 }

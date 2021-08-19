@@ -105,6 +105,7 @@ class SearchPage extends StatefulWidget {
   }) : super(key: key);
 
   final TextStateBinder binder;
+  // ignore: no-object-declaration
   final Object heroTag;
   final CupertinoTextFieldConfiguration configuration;
   final bool isDestination;

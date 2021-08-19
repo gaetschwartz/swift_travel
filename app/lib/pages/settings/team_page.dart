@@ -80,40 +80,6 @@ class _TeamPageState extends State<TeamPage> {
     context.read(_contributorsProvider).state = contribs;
   }
 
-  Widget buildContributors() => Consumer(builder: (context, w, _) {
-        final contribs = w(_contributorsProvider).state;
-        if (contribs == null) {
-          return const SliverFillRemaining(
-              child: Center(child: CircularProgressIndicator.adaptive()));
-        }
-        return SliverPadding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-          sliver: SliverGrid(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 32,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (context, i) {
-                final c = contribs[i];
-                return Tooltip(
-                  message: c.login,
-                  child: InkWell(
-                    onTap: () => launch(c.htmlUrl),
-                    customBorder: const CircleBorder(),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(c.avatarUrl),
-                    ),
-                  ),
-                );
-              },
-              childCount: contribs.length,
-            ),
-          ),
-        );
-      });
-
   @override
   void dispose() {
     client.close();
@@ -133,7 +99,7 @@ class _TeamPageState extends State<TeamPage> {
               childCount: primaryMemberWidgets.length,
             )),
             const SliverToBoxAdapter(child: ListTile(title: Text('Contributors'))),
-            buildContributors(),
+            const _Contributors(),
             SliverToBoxAdapter(
               child: ExpansionTile(
                 title: const Text('Helpers'),
@@ -154,6 +120,49 @@ class _TeamPageState extends State<TeamPage> {
           ],
         ),
       );
+}
+
+class _Contributors extends StatelessWidget {
+  const _Contributors({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(builder: (context, w, _) {
+      final contribs = w(_contributorsProvider).state;
+      if (contribs == null) {
+        return const SliverFillRemaining(
+            child: Center(child: CircularProgressIndicator.adaptive()));
+      }
+      return SliverPadding(
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+        sliver: SliverGrid(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 32,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (context, i) {
+              final c = contribs[i];
+              return Tooltip(
+                message: c.login,
+                child: InkWell(
+                  onTap: () => launch(c.htmlUrl),
+                  customBorder: const CircleBorder(),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(c.avatarUrl),
+                  ),
+                ),
+              );
+            },
+            childCount: contribs.length,
+          ),
+        ),
+      );
+    });
+  }
 }
 
 class _MemberTile extends StatelessWidget {

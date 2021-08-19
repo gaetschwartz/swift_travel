@@ -104,7 +104,7 @@ MaterialColor createMaterialColor(Color color) {
   final b = color.blue;
 
   for (var i = 1; i < 10; i++) {
-    strengths.add(0.1 * i);
+    strengths.add(i * 0.1);
   }
 
   for (final strength in strengths) {

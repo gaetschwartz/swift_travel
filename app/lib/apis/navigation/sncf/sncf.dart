@@ -35,17 +35,20 @@ class SncfApi extends BaseNavigationApi {
 
   Future<Map<String, String?>> get globalParameters async {
     final c = await config;
+
     return {'key': c.sncfKey};
   }
 
   final _client = http.Client();
 
   @override
-  Future<List<Completion>> complete(String string,
-      {bool showCoordinates = true,
-      bool showIds = true,
-      bool noFavorites = true,
-      bool filterNull = true}) async {
+  Future<List<Completion>> complete(
+    String string, {
+    bool showCoordinates = true,
+    bool showIds = true,
+    bool noFavorites = true,
+    bool filterNull = true,
+  }) async {
     if (string.isEmpty) {
       return [];
     }
@@ -68,12 +71,18 @@ class SncfApi extends BaseNavigationApi {
     final sncfCompletion = SncfCompletion.fromJson(decode);
     final places = sncfCompletion.places;
     log('Found ${places.length} places');
+
     return places;
   }
 
   @override
-  Future<List<Completion>> findStation(double lat, double lon,
-      {int? accuracy, bool? showCoordinates, bool? showIds}) {
+  Future<List<Completion>> findStation(
+    double lat,
+    double lon, {
+    int? accuracy,
+    bool? showCoordinates,
+    bool? showIds,
+  }) {
     throw UnimplementedError('SNCF.findStation is not supported yet.');
   }
 

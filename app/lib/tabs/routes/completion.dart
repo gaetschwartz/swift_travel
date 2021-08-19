@@ -4,7 +4,7 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 
 class RouteCompletionTile extends StatelessWidget {
   const RouteCompletionTile(
-    this.suggestion, {
+    this.completion, {
     Key? key,
     this.onTap,
   }) : super(key: key);
@@ -12,37 +12,14 @@ class RouteCompletionTile extends StatelessWidget {
   const RouteCompletionTile.empty({
     Key? key,
     this.onTap,
-  })  : suggestion = null,
+  })  : completion = null,
         super(key: key);
 
-  final Completion? suggestion;
+  final Completion? completion;
   final VoidCallback? onTap;
 
-  Widget? buildIcon(BuildContext context) {
-    switch (suggestion!.origin) {
-      case DataOrigin.favorites:
-        return const Icon(CupertinoIcons.heart_fill, size: 20);
-      case DataOrigin.history:
-        return const Icon(CupertinoIcons.clock, size: 20);
-      case DataOrigin.data:
-        return suggestion!.getIcon(size: 20);
-      case DataOrigin.currentLocation:
-        return const Icon(CupertinoIcons.location_fill, size: 20);
-      case DataOrigin.prediction:
-        return const Icon(CupertinoIcons.wand_stars, size: 20);
-      case DataOrigin.loading:
-        return const SizedBox(
-          height: 20,
-          width: 20,
-          child: DecoratedBox(
-            decoration: BoxDecoration(color: Colors.black),
-          ),
-        );
-    }
-  }
-
   @override
-  Widget build(BuildContext context) => suggestion == null
+  Widget build(BuildContext context) => completion == null
       ? const ListTile(
           leading: SizedBox(
             height: 24,
@@ -58,13 +35,51 @@ class RouteCompletionTile extends StatelessWidget {
           dense: true,
         )
       : ListTile(
-          leading: buildIcon(context),
-          title: Text(suggestion!.favoriteName ?? suggestion!.label),
-          subtitle: suggestion!.favoriteName != null ? Text(suggestion!.label) : null,
-          trailing: suggestion!.favoriteName != null ? const Text('⭐') : null,
+          leading: _Icon(completion!),
+          title: Text(completion!.favoriteName ?? completion!.label),
+          subtitle: completion!.favoriteName != null ? Text(completion!.label) : null,
+          trailing: completion!.favoriteName != null ? const Text('⭐') : null,
           horizontalTitleGap: 0,
           dense: true,
           tileColor: Colors.transparent,
           onTap: onTap,
         );
+}
+
+class _Icon extends StatelessWidget {
+  const _Icon(
+    this.completion, {
+    Key? key,
+  }) : super(key: key);
+
+  final Completion completion;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconTheme(
+      data: const IconThemeData(size: 20),
+      child: () {
+        switch (completion.origin) {
+          case DataOrigin.favorites:
+            return const Icon(CupertinoIcons.heart_fill);
+          case DataOrigin.history:
+            return const Icon(CupertinoIcons.clock);
+          case DataOrigin.data:
+            return completion.getIcon();
+          case DataOrigin.currentLocation:
+            return const Icon(CupertinoIcons.location_fill);
+          case DataOrigin.prediction:
+            return const Icon(CupertinoIcons.wand_stars);
+          case DataOrigin.loading:
+            return const SizedBox(
+              height: 20,
+              width: 20,
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: Colors.black),
+              ),
+            );
+        }
+      }(),
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
+import 'package:swift_travel/utils/types.dart';
 
 class SbbIcon extends StatelessWidget {
   const SbbIcon(
@@ -26,6 +27,7 @@ class SbbIcon extends StatelessWidget {
   final double? size;
   final Color? color;
 
+  @allowReturningWidgets
   Widget getIcon(TransportationMode? v) {
     switch (v) {
       case TransportationMode.bus:

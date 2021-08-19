@@ -14,8 +14,10 @@ class _VehicleIconclass with _$_VehicleIconclass {
 }
 
 extension TransportationModeX on TransportationMode {
-  static TransportationMode parse(String s,
-          {TransportationMode unknownValue = TransportationMode.unknown}) =>
+  static TransportationMode parse(
+    String s, {
+    TransportationMode unknownValue = TransportationMode.unknown,
+  }) =>
       _$enumDecode(_$TransportationModeEnumMap, s, unknownValue: unknownValue);
 
   static const List<TransportationMode> _privatePlaces = [

@@ -24,26 +24,6 @@ class RouteTile extends StatelessWidget {
   final NavRoute route;
   final int i;
 
-  Widget rowIcon() {
-    final listWidget = <Widget>[];
-    final c = route.connections[i];
-    for (var i = 0; i < c.legs.length - 1; i++) {
-      final l = c.legs[i];
-      listWidget.add(SbbIcon(l.type, size: 18));
-    }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Wrap(spacing: 8, children: listWidget),
-        ),
-        const SizedBox(height: 4),
-        Text('${Format.time(c.departure)} - ${Format.time(c.arrival)}')
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final c = route.connections[i];
@@ -71,7 +51,7 @@ class RouteTile extends StatelessWidget {
             ),
             subtitle: Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
-              child: rowIcon(),
+              child: _RowIcon(route: route, i: i),
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -98,6 +78,37 @@ class RouteTile extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _RowIcon extends StatelessWidget {
+  const _RowIcon({
+    Key? key,
+    required this.route,
+    required this.i,
+  }) : super(key: key);
+
+  final NavRoute route;
+  final int i;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = route.connections[i];
+    final listWidget = <Widget>[
+      for (var i = 0; i < c.legs.length - 1; i++) SbbIcon(c.legs[i].type, size: 18)
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Wrap(spacing: 8, children: listWidget),
+        ),
+        const SizedBox(height: 4),
+        Text('${Format.time(c.departure)} - ${Format.time(c.arrival)}')
+      ],
     );
   }
 }
