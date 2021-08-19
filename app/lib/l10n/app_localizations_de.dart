@@ -167,4 +167,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get itinerary => 'Reiseplan';
+
+  @override
+  String get unable_locate => 'Der Standort kann nicht ermittelt werden.';
 }

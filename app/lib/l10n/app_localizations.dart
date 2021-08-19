@@ -403,6 +403,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Itinerary'**
   String get itinerary;
+
+  /// No description provided for @unable_locate.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to obtain location.'**
+  String get unable_locate;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

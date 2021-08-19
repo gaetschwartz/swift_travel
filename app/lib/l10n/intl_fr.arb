@@ -50,5 +50,6 @@
 	"share": "Partager",
 	"journey_informations": "Itinéraire",
 	"direction": "Direction {dir}",
-	"itinerary": "Itinéraire"
+	"itinerary": "Itinéraire",
+	"unable_locate": "Impossible d'obtenir la localisation."
 }

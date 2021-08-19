@@ -1,22 +1,11 @@
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
-import 'package:swift_travel/mocking/mocking.dart';
 
-late final _spoofedLocation = GeoLocation(
-  accuracy: 0,
-  altitude: 0,
-  heading: 0,
-  speed: 0,
-  speedAccuracy: 0,
-  timestamp: FakeableDateTime.now(),
-  latitude: 46.2225454,
-  longitude: 6.1385658,
-);
+const _spoofedLocation = GeoLocation(latitude: 46.2225454, longitude: 6.1385658);
 
 Future<GeoLocation> getLocation({
   LocationAccuracy desiredAccuracy = LocationAccuracy.bestForNavigation,
@@ -44,12 +33,13 @@ Future<GeoLocation> getLocation({
         throw PermissionDeniedException(permission.toString());
       }
     } on MissingPluginException {
-      if (kDebugMode) {
-        log('Location is not fully supported on this dervice, returned a spoofed location');
-        await Future.delayed(const Duration(seconds: 1), () {});
+      if (Env.isDebugMode) {
+        log('Location is not supported on this dervice, returned a spoofed location');
+        await Future<void>.delayed(const Duration(seconds: 1));
+        return _spoofedLocation;
+      } else {
+        rethrow;
       }
-
-      return _spoofedLocation;
     }
   }
 }

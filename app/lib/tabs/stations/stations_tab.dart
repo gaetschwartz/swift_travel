@@ -28,8 +28,10 @@ import 'package:swift_travel/widgets/listener.dart';
 import 'package:vibration/vibration.dart';
 
 final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
-final _locatingProvider = StateProvider((_) => false);
+final _locatingProvider = StateProvider((_) => _LoadingState.idle);
 final _loadingProvider = StateProvider((_) => false);
+
+enum _LoadingState { loading, idle, error }
 
 class StationsTab extends StatefulWidget {
   const StationsTab({Key? key}) : super(key: key);
@@ -163,7 +165,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                 IconButton(
                   icon: Consumer(builder: (context, w, _) {
                     final loading = w(_locatingProvider).state;
-                    return AnimatedLocation(loading: loading);
+                    return AnimatedLocation(loadingState: loading);
                   }),
                   tooltip: AppLoc.of(context).use_current_location,
                   onPressed: _getLocation,
@@ -294,7 +296,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
   Future<void> _getLocation() async {
     Vibration.instance.selectSoft();
-    context.read(_locatingProvider).state = true;
+    context.read(_locatingProvider).state = _LoadingState.loading;
 
     try {
       final p = await getLocation();
@@ -311,11 +313,26 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
           searchController.text = public.first.label;
         }
       }
+      context.read(_locatingProvider).state = _LoadingState.idle;
     } on Exception catch (e) {
-      log('', error: e, name: 'Location');
-    } finally {
-      context.read(_locatingProvider).state = false;
+      onError(e);
+    } on Error catch (e) {
+      onError(e);
     }
+  }
+
+  void onError(Object e) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(AppLoc.of(context).unable_locate),
+      behavior: SnackBarBehavior.floating,
+    ));
+    log('', error: e, name: 'Location');
+    context.read(_locatingProvider).state = _LoadingState.error;
+    Future.delayed(_kAnimDuration * (5 / 8), cancelAnimation);
+  }
+
+  void cancelAnimation() {
+    context.read(_locatingProvider).state = _LoadingState.idle;
   }
 
   Future<void> fetch(String query) async {
@@ -338,31 +355,32 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
 class AnimatedLocation extends StatefulWidget {
   const AnimatedLocation({
-    required this.loading,
+    required this.loadingState,
     Key? key,
   }) : super(key: key);
 
-  final bool loading;
+  final _LoadingState loadingState;
 
   @override
   _AnimatedLocationState createState() => _AnimatedLocationState();
 }
 
+const _kAnimDuration = Duration(milliseconds: 500);
+
 class _AnimatedLocationState extends State<AnimatedLocation> with SingleTickerProviderStateMixin {
   late final controller = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 500),
+    duration: _kAnimDuration,
     upperBound: 0.25,
   );
 
   @override
   void didUpdateWidget(covariant AnimatedLocation oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.loading) {
+    if (widget.loadingState == _LoadingState.loading) {
       controller.repeat(reverse: true);
-    } else {
-      final s = controller.status;
-      switch (s) {
+    } else if (widget.loadingState == _LoadingState.idle) {
+      switch (controller.status) {
         case AnimationStatus.forward:
           controller.forward();
           break;
@@ -371,10 +389,11 @@ class _AnimatedLocationState extends State<AnimatedLocation> with SingleTickerPr
           break;
 
         case AnimationStatus.dismissed:
-          break;
         case AnimationStatus.completed:
           break;
       }
+    } else if (widget.loadingState == _LoadingState.error) {
+      controller.repeat(reverse: true, period: _kAnimDuration * (1 / 4));
     }
   }
 
@@ -387,6 +406,9 @@ class _AnimatedLocationState extends State<AnimatedLocation> with SingleTickerPr
   @override
   Widget build(BuildContext context) => RotationTransition(
         turns: ReverseAnimation(controller),
-        child: const Icon(CupertinoIcons.location_fill),
+        child: Icon(
+          CupertinoIcons.location_fill,
+          color: widget.loadingState == _LoadingState.error ? Colors.redAccent : null,
+        ),
       );
 }

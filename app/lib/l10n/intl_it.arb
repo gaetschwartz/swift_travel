@@ -50,5 +50,6 @@
 	"share": "Azione",
 	"journey_informations": "Informazioni sul viaggio",
 	"direction": "In direzione di {dir}",
-	"itinerary": "Percorso"
+	"itinerary": "Percorso",
+	"unable_locate": "Impossibile ottenere la posizione."
 }

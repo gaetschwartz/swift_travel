@@ -50,5 +50,6 @@
 	"share": "Aktie",
 	"journey_informations": "Fahrtinfo",
 	"direction": "Richtung {dir}",
-	"itinerary": "Reiseplan"
+	"itinerary": "Reiseplan",
+	"unable_locate": "Der Standort kann nicht ermittelt werden."
 }
