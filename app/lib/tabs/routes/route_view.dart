@@ -228,8 +228,8 @@ class _PredictionTile extends StatelessWidget {
                 from: Text(pred.prediction!.fromAsString.stripAt()),
                 to: Text(pred.prediction!.toAsString.stripAt()),
                 onTap: () {
-                  from.setString(context, pred.prediction!.fromAsString);
-                  to.setString(context, pred.prediction!.toAsString);
+                  fromBinder.setString(context, pred.prediction!.fromAsString);
+                  toBinder.setString(context, pred.prediction!.toAsString);
                 },
                 title: Text(AppLoc.of(context).suggestion),
                 onLongPress: () {
