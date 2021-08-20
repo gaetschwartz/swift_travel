@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -360,14 +359,14 @@ class _EditorPageState extends State<EditorPage> {
     final boundary = (globalKey.currentContext?.findRenderObject())! as RenderRepaintBoundary;
 
     final ui.Image image = await boundary.toImage();
-    final directory = (await getApplicationDocumentsDirectory()).path;
+    final directory = (await getTemporaryDirectory()).path;
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
     final pngBytes = byteData!.buffer.asUint8List();
 
     final File imgFile = File(p.join(directory, filename));
     await imgFile.writeAsBytes(pngBytes);
-    log(imgFile.path);
+    print(imgFile.path);
   }
 
   String get filename =>
