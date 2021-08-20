@@ -38,8 +38,11 @@ jobs:
           path: artifacts/windows-release
       - name: Zip windows artifact
         run: |
+          set +x
+          set +e
+
           echo "ARCHIVE_NAME='swift-travel-windows-release-${{ env.COMMIT_NUMBER }}'" >> $GITHUB_ENV
-          mv windows-release/ $ARCHIVE_NAME/
+          cp -r windows-release $ARCHIVE_NAME
           zip -r windows-release.zip $ARCHIVE_NAME/
         working-directory: artifacts/
       - name: List dir
