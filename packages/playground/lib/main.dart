@@ -56,44 +56,50 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            EditorPage('header', (scale) => HeaderWidget(scale: scale * 128))),
-                  );
-                },
-                child: const Text('Header')),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        EditorPage('header', (scale) => HeaderWidget(scale: scale * 128)),
+                  ),
+                );
+              },
+              child: const Text('Header'),
+            ),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            EditorPage('widgets', (scale) => WidgetsShowcase(scale: scale * 128))),
-                  );
-                },
-                child: const Text('Widgets')),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        EditorPage('widgets', (scale) => WidgetsShowcase(scale: scale * 128)),
+                  ),
+                );
+              },
+              child: const Text('Widgets'),
+            ),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) {
-                        const scale = 128.0;
-                        return const BreatheWidget(scale: scale);
-                      },
-                    ),
-                  );
-                },
-                child: const Text('Breathe widget')),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) {
+                      const scale = 128.0;
+                      return const BreatheWidget(scale: scale);
+                    },
+                  ),
+                );
+              },
+              child: const Text('Breathe widget'),
+            ),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => PerspectiveWidget(),
-                    ),
-                  );
-                },
-                child: const Text('Perspective')),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => PerspectiveWidget(),
+                  ),
+                );
+              },
+              child: const Text('Perspective'),
+            ),
           ],
         ),
       ),
@@ -139,8 +145,11 @@ class CurveCanvas extends CustomPainter {
       points,
       Paint()..strokeWidth = 4,
     );
-    c.drawCircle(Offset(size.width * t, (1 - curve.transform(t)) * size.height), 8,
-        Paint()..color = Colors.red);
+    c.drawCircle(
+      Offset(size.width * t, (1 - curve.transform(t)) * size.height),
+      8,
+      Paint()..color = Colors.red,
+    );
   }
 
   @override
@@ -287,9 +296,10 @@ class _EditorPageState extends State<EditorPage> {
         child: Column(
           children: [
             SwitchListTile(
-                title: const Text('has background'),
-                value: hasBackground,
-                onChanged: (v) => setState(() => hasBackground = v)),
+              title: const Text('has background'),
+              value: hasBackground,
+              onChanged: (v) => setState(() => hasBackground = v),
+            ),
             ListTile(
               title: const Text("size type"),
               trailing: DropdownButton<SizeType>(
@@ -326,28 +336,32 @@ class _EditorPageState extends State<EditorPage> {
                   fonts: DynamicThemeData.defaultFonts,
                 ),
               ),
-              child: Builder(builder: (context) {
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                        boxShadow: [BoxShadow(blurRadius: 16, color: Color(0x800700b1))]),
-                    child: SizedBox.fromSize(
-                      child: wrapWithSize(
-                        DecoratedBox(
-                          decoration: const BoxDecoration(color: Colors.grey),
-                          child: RepaintBoundary(
+              child: Builder(
+                builder: (context) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
+                        boxShadow: [BoxShadow(blurRadius: 16, color: Color(0x800700b1))],
+                      ),
+                      child: SizedBox.fromSize(
+                        child: wrapWithSize(
+                          DecoratedBox(
+                            decoration: const BoxDecoration(color: Colors.grey),
+                            child: RepaintBoundary(
                               key: globalKey,
                               child: Container(
                                 color: hasBackground ? Colors.white : null,
                                 child: widget.builder(scale),
-                              )),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -393,85 +407,99 @@ class WidgetsShowcase extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      child: Builder(builder: (context) {
-        return Stack(
-          children: [
-            DefaultTextStyle(
-              style: GoogleFonts.openSans(
-                  textStyle: Theme.of(context).textTheme.bodyText1, fontSize: 24),
-              child: Padding(
+      child: Builder(
+        builder: (context) {
+          return Stack(
+            children: [
+              DefaultTextStyle(
+                style: GoogleFonts.openSans(
+                  textStyle: Theme.of(context).textTheme.bodyText1,
+                  fontSize: 24,
+                ),
+                child: Padding(
                   padding: EdgeInsets.all(scale / 2),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        SizedBox(
+                      Row(
+                        children: [
+                          SizedBox(
                             width: 400,
-                            child: RouteTile(route: SbbRoute.fromJson(mockRoute), i: 0)),
-                        const SizedBox(width: 32),
-                        const Text('Simple, readable information.')
-                      ]),
-                      Row(children: [
-                        SizedBox(
-                          width: 400,
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            margin: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(Radius.circular(16)),
-                              boxShadow: shadowListOf(context),
-                            ),
-                            child: Column(
-                              children: [
-                                WalkingTile(SbbRoute.fromJson(mockRoute).connections.first.legs[0]),
-                                TransportLegTile(
-                                  SbbRoute.fromJson(mockRoute).connections.first.legs[1],
-                                ),
-                              ],
+                            child: RouteTile(route: SbbRoute.fromJson(mockRoute), i: 0),
+                          ),
+                          const SizedBox(width: 32),
+                          const Text('Simple, readable information.')
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 400,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              margin: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                boxShadow: shadowListOf(context),
+                              ),
+                              child: Column(
+                                children: [
+                                  WalkingTile(
+                                    SbbRoute.fromJson(mockRoute).connections.first.legs[0],
+                                  ),
+                                  TransportLegTile(
+                                    SbbRoute.fromJson(mockRoute).connections.first.legs[1],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 32),
-                        const Text('Just the information need')
-                      ]),
-                      Row(children: [
-                        SizedBox(
-                          width: 400,
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            margin: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(Radius.circular(16)),
-                              boxShadow: shadowListOf(context),
-                            ),
-                            child: const RouteWidget(
-                              from: Text("Université populaire de Fribourg"),
-                              to: Text("Genève, Uni-Mail"),
-                              icon: Text('💡', style: TextStyle(fontSize: 24)),
-                              title: Text('Suggestion'),
-                              fromOverride: "From",
-                              toOverride: "To",
+                          const SizedBox(width: 32),
+                          const Text('Just the information need')
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 400,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              margin: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                boxShadow: shadowListOf(context),
+                              ),
+                              child: const RouteWidget(
+                                from: Text("Université populaire de Fribourg"),
+                                to: Text("Genève, Uni-Mail"),
+                                icon: Text('💡', style: TextStyle(fontSize: 24)),
+                                title: Text('Suggestion'),
+                                fromOverride: "From",
+                                toOverride: "To",
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 32),
-                        const Text('Smart suggestions')
-                      ]),
+                          const SizedBox(width: 32),
+                          const Text('Smart suggestions')
+                        ],
+                      ),
                     ],
-                  )),
-            ),
-            Positioned.fill(
-              child: GestureDetector(
-                onTap: () {},
-                behavior: HitTestBehavior.opaque,
-                child: Container(color: Colors.transparent),
+                  ),
+                ),
               ),
-            ),
-          ],
-        );
-      }),
+              Positioned.fill(
+                child: GestureDetector(
+                  onTap: () {},
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(color: Colors.transparent),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

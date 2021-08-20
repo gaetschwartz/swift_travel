@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts:
+  path:
   path_provider:
   swift_travel:
     path: ../../app

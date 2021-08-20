@@ -49,8 +49,8 @@ class _PerspectiveWidgetState extends State<PerspectiveWidget> {
               const SizedBox(width: 16),
               Text(a.toString()),
               Expanded(
-                  child:
-                      Slider(value: a, onChanged: (v) => setState(() => a = v), max: math.pi * 2)),
+                child: Slider(value: a, onChanged: (v) => setState(() => a = v), max: math.pi * 2),
+              ),
             ],
           ),
           Row(
@@ -58,8 +58,8 @@ class _PerspectiveWidgetState extends State<PerspectiveWidget> {
               const SizedBox(width: 16),
               Text(b.toString()),
               Expanded(
-                  child:
-                      Slider(value: b, onChanged: (v) => setState(() => b = v), max: math.pi * 2)),
+                child: Slider(value: b, onChanged: (v) => setState(() => b = v), max: math.pi * 2),
+              ),
             ],
           ),
           Row(
@@ -67,8 +67,8 @@ class _PerspectiveWidgetState extends State<PerspectiveWidget> {
               const SizedBox(width: 16),
               Text(c.toString()),
               Expanded(
-                  child:
-                      Slider(value: c, onChanged: (v) => setState(() => c = v), max: math.pi * 2)),
+                child: Slider(value: c, onChanged: (v) => setState(() => c = v), max: math.pi * 2),
+              ),
             ],
           ),
         ],
