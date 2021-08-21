@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
+import 'package:swift_travel/utils/strings/format.dart';
 
 import 'exit.dart';
 import 'stop.dart';
@@ -12,7 +15,7 @@ part 'stationboard_connection.g.dart';
 @freezed
 class SbbStationboardConnection with _$SbbStationboardConnection implements StationboardConnection {
   @JsonSerializable(explicitToJson: true, checked: true)
-  const factory SbbStationboardConnection({
+  factory SbbStationboardConnection({
     required DateTime time,
     required TransportationMode type,
     required String color,
@@ -28,7 +31,7 @@ class SbbStationboardConnection with _$SbbStationboardConnection implements Stat
     @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
     @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
   }) = _SbbStationboardConnection;
-  const SbbStationboardConnection._();
+  SbbStationboardConnection._();
 
   factory SbbStationboardConnection.fromJson(Map<String, dynamic> json) =>
       _$SbbStationboardConnectionFromJson(json);
@@ -38,4 +41,23 @@ class SbbStationboardConnection with _$SbbStationboardConnection implements Stat
 
   @override
   Stop get terminal => sbbTerminal;
+
+  @override
+  late final Color? bgcolor = () {
+    final i = color.indexOf('~');
+    if (i == -1) return null;
+    final bg = color.substring(0, i);
+    final c = parseColorInt(bg);
+    return c == null ? null : Color(c);
+  }();
+
+  @override
+  late final Color? fgcolor = () {
+    final first = color.indexOf('~');
+    if (first == -1) return null;
+    final last = color.lastIndexOf('~');
+    final fg = color.substring(first + 1, last);
+    final c = parseColorInt(fg);
+    return c == null ? null : Color(c);
+  }();
 }

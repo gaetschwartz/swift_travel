@@ -182,7 +182,6 @@ class _LinesWidget extends StatefulWidget {
 }
 
 class __LinesWidgetState extends State<_LinesWidget> {
-  static final _cache = LineCache.i;
   static const numberOfLines = 6;
 
   List<Widget>? lines;
@@ -225,11 +224,11 @@ class __LinesWidgetState extends State<_LinesWidget> {
     if (!Env.cacheLinesInDebug) {
       print('We are not caching lines');
     }
-    if (Env.cacheLinesInDebug && _cache.containsKey(widget.compl.label)) {
-      final l = _cache
+    if (Env.cacheLinesInDebug && LineCache.i.containsKey(widget.compl.label)) {
+      final l = LineCache.i
           .get(widget.compl.label)
           .lines
-          .map(_LineIcon.line)
+          .map((l) => _LineIcon(l))
           .take(numberOfLines + 1)
           .toList(growable: false);
       if (mounted) {
@@ -271,18 +270,19 @@ class __LinesWidgetState extends State<_LinesWidget> {
               return (la ?? double.infinity).compareTo(lb ?? double.infinity);
             }
           })
+          // ignore: deprecated_member_use_from_same_package
           .map((c) => Line(c.line, c.color))
           .toSet()
           .take(numberOfLines + 1);
 
-      final l2 = l.map(_LineIcon.line).toList(growable: false);
+      final l2 = l.map((l) => _LineIcon(l)).toList(growable: false);
 
       if (mounted) {
         setState(() => lines = l2);
       }
 
       if (Env.cacheLinesInDebug) {
-        await _cache.put(
+        await LineCache.i.put(
             widget.compl.label,
             LineCacheEntry(
                 timestamp: DateTime.now(),
@@ -304,7 +304,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
         ttl: Duration.minutesPerHour * 6,
       );
 
-      await _cache.put(widget.compl.label, entry);
+      await LineCache.i.put(widget.compl.label, entry);
     }
   }
 }
@@ -314,9 +314,6 @@ class _LineIcon extends StatelessWidget {
     this.l, {
     Key? key,
   }) : super(key: key);
-
-  // ignore: prefer_constructors_over_static_methods
-  static _LineIcon line(Line l) => _LineIcon(l);
 
   final Line l;
 

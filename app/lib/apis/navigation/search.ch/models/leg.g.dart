@@ -23,9 +23,9 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
               (v) => _$enumDecodeNullable(_$TransportationModeEnumMap, v)),
           track: $checkedConvert('track', (v) => v as String?),
           terminal: $checkedConvert('terminal', (v) => v as String?),
+          bgcolor: $checkedConvert('bgcolor', (v) => v as String?),
           fgcolor: $checkedConvert('fgcolor', (v) => v as String?),
           number: $checkedConvert('number', (v) => v as String?),
-          bgcolor: $checkedConvert('bgcolor', (v) => v as String?),
           tripid: $checkedConvert('tripid', (v) => v as String?),
           stopid: $checkedConvert('stopid', (v) => v as String?),
           runningTime: $checkedConvert('runningtime', (v) => v as int?),
@@ -86,9 +86,9 @@ Map<String, dynamic> _$$_SbbLegToJson(_$_SbbLeg instance) {
   writeNotNull('type', _$TransportationModeEnumMap[instance.type]);
   writeNotNull('track', instance.track);
   writeNotNull('terminal', instance.terminal);
+  writeNotNull('bgcolor', instance.bgcolor);
   writeNotNull('fgcolor', instance.fgcolor);
   writeNotNull('number', instance.number);
-  writeNotNull('bgcolor', instance.bgcolor);
   writeNotNull('tripid', instance.tripid);
   writeNotNull('stopid', instance.stopid);
   writeNotNull('runningtime', instance.runningTime);

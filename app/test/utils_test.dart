@@ -11,6 +11,7 @@ import 'package:swift_travel/utils/convert.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
+import 'package:swift_travel/widgets/line_icon.dart';
 
 void main() {
   final r = Random();
@@ -57,7 +58,7 @@ void main() {
       expect(Format.distance(10), '10 m');
       expect(Format.distance(1000), '1.0 km');
       expect(Format.distance(1234), '1.2 km');
-      expect(Format.distance(null), '');
+      expect(Format.distance(null), '?');
     });
 
     test('duration - en', () {

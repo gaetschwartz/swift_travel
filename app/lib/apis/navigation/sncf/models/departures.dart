@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/mock_stop.dart';
@@ -5,6 +7,7 @@ import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/sncf/models/context.dart';
+import 'package:swift_travel/utils/strings/format.dart';
 
 part 'departures.freezed.dart';
 part 'departures.g.dart';
@@ -96,6 +99,18 @@ class SncfDeparture with _$SncfDeparture implements StationboardConnection {
 
   @override
   String get color => '${displayInformations.color}~${displayInformations.textColor}~';
+
+  @override
+  Color? get bgcolor {
+    final c = parseColorInt(displayInformations.color);
+    return c == null ? null : Color(c);
+  }
+
+  @override
+  Color? get fgcolor {
+    final c = parseColorInt(displayInformations.textColor);
+    return c == null ? null : Color(c);
+  }
 }
 
 ///

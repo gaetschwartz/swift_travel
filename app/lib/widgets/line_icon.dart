@@ -4,44 +4,33 @@ import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 
 class LineIcon extends StatelessWidget {
-  factory LineIcon({
-    required String? line,
-    required String? background,
-    required String? foreground,
-    Color defaultBg = defaultBackground,
-    Color defaultFg = defaultForeground,
-    bool small = false,
-    Key? key,
-  }) =>
-      LineIcon.raw(
-        line: line,
-        foreground: parseColor(foreground, defaultFg),
-        background: parseColor(background, defaultBg),
-        small: small,
-        key: key,
-      );
-
   const LineIcon.raw({
     required this.line,
-    required this.foreground,
-    required this.background,
+    required Color? foreground,
+    required Color? background,
+    Color defaultBg = defaultBackground,
+    Color defaultFg = defaultForeground,
     this.small = false,
     Key? key,
-  }) : super(key: key);
+  })  : foreground = foreground ?? defaultFg,
+        background = background ?? defaultBg,
+        super(key: key);
 
   factory LineIcon.fromString({
     required String? line,
     required String colors,
+    Color defaultBg = defaultBackground,
+    Color defaultFg = defaultForeground,
     bool small = false,
     Key? key,
   }) {
     final i = colors.indexOf('~');
     final bg = colors.substring(0, i);
     final fg = colors.substring(i + 1, colors.lastIndexOf('~'));
-    return LineIcon(
+    return LineIcon.raw(
       line: line,
-      foreground: fg,
-      background: bg,
+      foreground: parseColor(fg, defaultFg),
+      background: parseColor(bg, defaultBg),
       small: small,
       key: key,
     );
@@ -64,17 +53,17 @@ class LineIcon extends StatelessWidget {
     bool small = false,
     Key? key,
   }) =>
-      LineIcon(
+      LineIcon.raw(
         line: l.line,
-        background: l.bgcolor,
-        foreground: l.fgcolor,
+        background: l.bgColor,
+        foreground: l.fgColor,
         small: small,
         key: key,
       );
 
   static const defaultForeground = Color(0xfff0f0f0);
   static const defaultBackground = Color(0xff000000);
-  static bool isValidLeg(Leg l) => l.line != null && l.fgcolor != null && l.bgcolor != null;
+  static bool isValidLeg(Leg l) => l.line != null && l.fgColor != null && l.bgColor != null;
 
   final Color foreground;
   final Color background;
@@ -102,4 +91,9 @@ class LineIcon extends StatelessWidget {
           overflow: TextOverflow.visible,
         ),
       ));
+}
+
+Color parseColor(String? s, Color defaultColor) {
+  final c = parseColorInt(s);
+  return c == null ? defaultColor : Color(c);
 }
