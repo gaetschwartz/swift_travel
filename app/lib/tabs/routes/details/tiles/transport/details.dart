@@ -72,10 +72,10 @@ class _TransportDetailsState extends State<TransportDetails> {
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    LineIcon(
+                    LineIcon.raw(
                       line: widget.leg.line,
-                      background: widget.leg.bgcolor,
-                      foreground: widget.leg.fgcolor,
+                      background: widget.leg.bgColor,
+                      foreground: widget.leg.fgColor,
                     ),
                     const SizedBox(width: 8),
                     Text(AppLoc.of(context).direction(widget.leg.terminal ?? '')),
@@ -104,11 +104,9 @@ class _TransportDetailsState extends State<TransportDetails> {
               padding: const EdgeInsets.all(2),
               child: IconTheme(
                 data: IconThemeData(
-                    color: parseColor(
-                      widget.leg.bgcolor,
-                      Theme.of(context).colorScheme.onBackground,
-                    ),
-                    size: 16),
+                  color: widget.leg.bgColor ?? Theme.of(context).colorScheme.onBackground,
+                  size: 16,
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(4),
                   child: att.icon ?? const Icon(CupertinoIcons.info_circle),
@@ -216,8 +214,7 @@ class _Circle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration:
-            BoxDecoration(color: parseColor(leg.bgcolor, Colors.black), shape: BoxShape.circle),
+        decoration: BoxDecoration(color: leg.bgColor ?? Colors.black, shape: BoxShape.circle),
         width: 12,
         height: 12,
       );

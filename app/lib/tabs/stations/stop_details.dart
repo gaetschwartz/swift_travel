@@ -220,8 +220,8 @@ class ConnectionTile extends StatelessWidget {
       )),
       title: Row(
         children: [
-          if (c.color.contains('~')) ...[
-            LineIcon.fromString(line: c.line, colors: c.color),
+          if (c.bgcolor != null) ...[
+            LineIcon.raw(line: c.line, foreground: c.fgcolor, background: c.bgcolor),
             const SizedBox(width: 8),
           ],
           Expanded(

@@ -31,9 +31,9 @@ class _$SbbLegTearOff {
       TransportationMode? type,
       String? track,
       String? terminal,
+      String? bgcolor,
       String? fgcolor,
       String? number,
-      String? bgcolor,
       String? tripid,
       String? stopid,
       @JsonKey(name: 'runningtime')
@@ -64,9 +64,9 @@ class _$SbbLegTearOff {
       type: type,
       track: track,
       terminal: terminal,
+      bgcolor: bgcolor,
       fgcolor: fgcolor,
       number: number,
-      bgcolor: bgcolor,
       tripid: tripid,
       stopid: stopid,
       runningTime: runningTime,
@@ -105,9 +105,9 @@ mixin _$SbbLeg {
   TransportationMode? get type => throw _privateConstructorUsedError;
   String? get track => throw _privateConstructorUsedError;
   String? get terminal => throw _privateConstructorUsedError;
+  String? get bgcolor => throw _privateConstructorUsedError;
   String? get fgcolor => throw _privateConstructorUsedError;
   String? get number => throw _privateConstructorUsedError;
-  String? get bgcolor => throw _privateConstructorUsedError;
   String? get tripid => throw _privateConstructorUsedError;
   String? get stopid => throw _privateConstructorUsedError;
   @JsonKey(name: 'runningtime')
@@ -148,9 +148,9 @@ abstract class $SbbLegCopyWith<$Res> {
       TransportationMode? type,
       String? track,
       String? terminal,
+      String? bgcolor,
       String? fgcolor,
       String? number,
-      String? bgcolor,
       String? tripid,
       String? stopid,
       @JsonKey(name: 'runningtime') int? runningTime,
@@ -187,9 +187,9 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
     Object? type = freezed,
     Object? track = freezed,
     Object? terminal = freezed,
+    Object? bgcolor = freezed,
     Object? fgcolor = freezed,
     Object? number = freezed,
-    Object? bgcolor = freezed,
     Object? tripid = freezed,
     Object? stopid = freezed,
     Object? runningTime = freezed,
@@ -232,6 +232,10 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
           ? _value.terminal
           : terminal // ignore: cast_nullable_to_non_nullable
               as String?,
+      bgcolor: bgcolor == freezed
+          ? _value.bgcolor
+          : bgcolor // ignore: cast_nullable_to_non_nullable
+              as String?,
       fgcolor: fgcolor == freezed
           ? _value.fgcolor
           : fgcolor // ignore: cast_nullable_to_non_nullable
@@ -239,10 +243,6 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
       number: number == freezed
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bgcolor: bgcolor == freezed
-          ? _value.bgcolor
-          : bgcolor // ignore: cast_nullable_to_non_nullable
               as String?,
       tripid: tripid == freezed
           ? _value.tripid
@@ -335,9 +335,9 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       TransportationMode? type,
       String? track,
       String? terminal,
+      String? bgcolor,
       String? fgcolor,
       String? number,
-      String? bgcolor,
       String? tripid,
       String? stopid,
       @JsonKey(name: 'runningtime') int? runningTime,
@@ -376,9 +376,9 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
     Object? type = freezed,
     Object? track = freezed,
     Object? terminal = freezed,
+    Object? bgcolor = freezed,
     Object? fgcolor = freezed,
     Object? number = freezed,
-    Object? bgcolor = freezed,
     Object? tripid = freezed,
     Object? stopid = freezed,
     Object? runningTime = freezed,
@@ -421,6 +421,10 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
           ? _value.terminal
           : terminal // ignore: cast_nullable_to_non_nullable
               as String?,
+      bgcolor: bgcolor == freezed
+          ? _value.bgcolor
+          : bgcolor // ignore: cast_nullable_to_non_nullable
+              as String?,
       fgcolor: fgcolor == freezed
           ? _value.fgcolor
           : fgcolor // ignore: cast_nullable_to_non_nullable
@@ -428,10 +432,6 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
       number: number == freezed
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bgcolor: bgcolor == freezed
-          ? _value.bgcolor
-          : bgcolor // ignore: cast_nullable_to_non_nullable
               as String?,
       tripid: tripid == freezed
           ? _value.tripid
@@ -515,9 +515,9 @@ class _$_SbbLeg extends _SbbLeg {
       this.type,
       this.track,
       this.terminal,
+      this.bgcolor,
       this.fgcolor,
       this.number,
-      this.bgcolor,
       this.tripid,
       this.stopid,
       @JsonKey(name: 'runningtime')
@@ -562,11 +562,11 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   final String? terminal;
   @override
+  final String? bgcolor;
+  @override
   final String? fgcolor;
   @override
   final String? number;
-  @override
-  final String? bgcolor;
   @override
   final String? tripid;
   @override
@@ -610,7 +610,7 @@ class _$_SbbLeg extends _SbbLeg {
 
   @override
   String toString() {
-    return 'SbbLeg(name: $name, sbbExit: $sbbExit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, fgcolor: $fgcolor, number: $number, bgcolor: $bgcolor, tripid: $tripid, stopid: $stopid, runningTime: $runningTime, line: $line, sbbStops: $sbbStops, sbbName: $sbbName, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isAddress: $isAddress, lat: $lat, lon: $lon, x: $x, y: $y, attributes: $attributes)';
+    return 'SbbLeg(name: $name, sbbExit: $sbbExit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, bgcolor: $bgcolor, fgcolor: $fgcolor, number: $number, tripid: $tripid, stopid: $stopid, runningTime: $runningTime, line: $line, sbbStops: $sbbStops, sbbName: $sbbName, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isAddress: $isAddress, lat: $lat, lon: $lon, x: $x, y: $y, attributes: $attributes)';
   }
 
   @override
@@ -632,14 +632,14 @@ class _$_SbbLeg extends _SbbLeg {
             (identical(other.terminal, terminal) ||
                 const DeepCollectionEquality()
                     .equals(other.terminal, terminal)) &&
+            (identical(other.bgcolor, bgcolor) ||
+                const DeepCollectionEquality()
+                    .equals(other.bgcolor, bgcolor)) &&
             (identical(other.fgcolor, fgcolor) ||
                 const DeepCollectionEquality()
                     .equals(other.fgcolor, fgcolor)) &&
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
-            (identical(other.bgcolor, bgcolor) ||
-                const DeepCollectionEquality()
-                    .equals(other.bgcolor, bgcolor)) &&
             (identical(other.tripid, tripid) ||
                 const DeepCollectionEquality().equals(other.tripid, tripid)) &&
             (identical(other.stopid, stopid) ||
@@ -692,9 +692,9 @@ class _$_SbbLeg extends _SbbLeg {
       const DeepCollectionEquality().hash(type) ^
       const DeepCollectionEquality().hash(track) ^
       const DeepCollectionEquality().hash(terminal) ^
+      const DeepCollectionEquality().hash(bgcolor) ^
       const DeepCollectionEquality().hash(fgcolor) ^
       const DeepCollectionEquality().hash(number) ^
-      const DeepCollectionEquality().hash(bgcolor) ^
       const DeepCollectionEquality().hash(tripid) ^
       const DeepCollectionEquality().hash(stopid) ^
       const DeepCollectionEquality().hash(runningTime) ^
@@ -731,9 +731,9 @@ abstract class _SbbLeg extends SbbLeg {
       TransportationMode? type,
       String? track,
       String? terminal,
+      String? bgcolor,
       String? fgcolor,
       String? number,
-      String? bgcolor,
       String? tripid,
       String? stopid,
       @JsonKey(name: 'runningtime') int? runningTime,
@@ -770,11 +770,11 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   String? get terminal => throw _privateConstructorUsedError;
   @override
+  String? get bgcolor => throw _privateConstructorUsedError;
+  @override
   String? get fgcolor => throw _privateConstructorUsedError;
   @override
   String? get number => throw _privateConstructorUsedError;
-  @override
-  String? get bgcolor => throw _privateConstructorUsedError;
   @override
   String? get tripid => throw _privateConstructorUsedError;
   @override

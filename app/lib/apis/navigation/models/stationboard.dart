@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
@@ -25,7 +27,13 @@ mixin WithTimeMixin {
 mixin BaseStationboardConnection {
   DateTime get time;
   TransportationMode get type;
+
+  @Deprecated("Use bgcolor and fgcolor")
   String get color;
+
+  Color? get bgcolor;
+  Color? get fgcolor;
+
   Stop get terminal;
   String? get line;
   String? get operator;

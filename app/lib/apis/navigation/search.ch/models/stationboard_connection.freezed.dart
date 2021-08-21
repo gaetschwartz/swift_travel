@@ -333,7 +333,7 @@ class __$SbbStationboardConnectionCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true, checked: true)
 class _$_SbbStationboardConnection extends _SbbStationboardConnection {
-  const _$_SbbStationboardConnection(
+  _$_SbbStationboardConnection(
       {required this.time,
       required this.type,
       required this.color,
@@ -465,7 +465,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
 }
 
 abstract class _SbbStationboardConnection extends SbbStationboardConnection {
-  const factory _SbbStationboardConnection(
+  factory _SbbStationboardConnection(
       {required DateTime time,
       required TransportationMode type,
       required String color,
@@ -487,7 +487,7 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
       @DelayConverter()
       @JsonKey(name: 'arr_delay')
           int? arrDelay}) = _$_SbbStationboardConnection;
-  const _SbbStationboardConnection._() : super._();
+  _SbbStationboardConnection._() : super._();
 
   factory _SbbStationboardConnection.fromJson(Map<String, dynamic> json) =
       _$_SbbStationboardConnection.fromJson;

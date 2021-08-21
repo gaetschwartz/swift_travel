@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 
 int? parseColorInt(String? s) {
+  const alpha = 0xff000000;
   if (s == null || s.isEmpty) {
     return null;
   } else if (s.length == 3) {
-    return int.parse('${s[0]}0${s[1]}0${s[2]}0', radix: 16) + 0xff000000;
+    return int.parse('${s[0]}0${s[1]}0${s[2]}0', radix: 16) | alpha;
   } else if (s.length == 6) {
-    return int.parse(s, radix: 16) + 0xff000000;
+    return int.parse(s, radix: 16) | alpha;
   } else {
     throw ArgumentError('Color code is not valid : $s');
   }
 }
 
-Color parseColor(String? s, Color defaultColor) {
-  final c = parseColorInt(s);
-  return c == null ? defaultColor : Color(c);
-}
-
 class Format {
   static String distance(double? d) => d == null
-      ? ''
+      ? '?'
       : d >= 1000
           ? '${(d / 1000).toStringAsFixed(1)} km'
           : '${d.round()} m';

@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/base.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
+import 'package:swift_travel/utils/strings/format.dart';
 
 import 'exit.dart';
 import 'stop.dart';
@@ -21,9 +24,9 @@ class SbbLeg with _$SbbLeg, Leg, SbbDisplayNameMixin {
     TransportationMode? type,
     String? track,
     String? terminal,
+    String? bgcolor,
     String? fgcolor,
     String? number,
-    String? bgcolor,
     String? tripid,
     String? stopid,
     @JsonKey(name: 'runningtime') int? runningTime,
@@ -62,4 +65,18 @@ class SbbLeg with _$SbbLeg, Leg, SbbDisplayNameMixin {
 
   @override
   Duration? get walkingTime => runningTime == null ? null : Duration(seconds: runningTime!);
+
+  @override
+  Color? get bgColor {
+    // ignore: deprecated_member_use_from_same_package
+    final c = parseColorInt(bgcolor);
+    return c == null ? null : Color(c);
+  }
+
+  @override
+  Color? get fgColor {
+    // ignore: deprecated_member_use_from_same_package
+    final c = parseColorInt(fgcolor);
+    return c == null ? null : Color(c);
+  }
 }

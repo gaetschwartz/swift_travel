@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
@@ -57,8 +59,9 @@ mixin Leg {
   TransportationMode? get type;
   String? get track;
   String? get terminal;
-  String? get fgcolor;
-  String? get bgcolor;
+
+  Color? get fgColor;
+  Color? get bgColor;
 
   String? get number;
   String? get tripid;
