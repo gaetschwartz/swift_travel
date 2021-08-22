@@ -37,20 +37,7 @@ import 'pages/settings/team_page.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-final isTest = () {
-  // ignore: do_not_use_environment
-  if (const bool.fromEnvironment('testing_mode')) {
-    return true;
-  }
-  var _isTest = false;
-  assert(() {
-    if (Platform.environment.containsKey('FLUTTER_TEST')) {
-      _isTest = true;
-    }
-    return true;
-  }(), '');
-  return _isTest;
-}();
+final isTest = Platform.environment.containsKey('FLUTTER_TEST');
 
 String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
 
@@ -67,10 +54,6 @@ void main() {
     print(Env.env);
   }
 
-  if (isTest) {
-    print('We are in a test');
-  }
-
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Env.overridePlatform) {
@@ -80,6 +63,8 @@ void main() {
 
   if (!isTest) {
     FlutterError.onError = reportFlutterError;
+  } else {
+    print('We are in a test');
   }
   runZonedGuarded(_runApp, reportDartError);
 }
