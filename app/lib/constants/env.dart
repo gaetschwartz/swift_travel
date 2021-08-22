@@ -10,7 +10,7 @@ class Env {
   static const page = String.fromEnvironment('PAGE');
   static const doShowErrors = bool.fromEnvironment('DO_SHOW_ERRORS');
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
-  static const cacheLinesInDebug = !kDebugMode && bool.fromEnvironment('CACHE_LINES_IN_DEBUG');
+  static const doCacheLines = !kDebugMode || bool.fromEnvironment('CACHE_LINES_IN_DEBUG');
   static const enableLiveRoute = bool.fromEnvironment('ENABLE_LIVE_ROUTE');
   static const enableAnimations = true;
 
@@ -23,7 +23,7 @@ class Env {
         'PAGE': page,
         'DO_SHOW_ERRORS': doShowErrors,
         'SPOOF_LOCATION': spoofLocation,
-        'CACHE_LINES_IN_DEBUG': cacheLinesInDebug,
+        'CACHE_LINES_IN_DEBUG': doCacheLines,
         'ENABLE_LIVE_ROUTE': enableLiveRoute,
       };
   static String get summary => env.toString();

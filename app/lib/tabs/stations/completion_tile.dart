@@ -221,10 +221,10 @@ class __LinesWidgetState extends State<_LinesWidget> {
   }
 
   Future<void> stationboard() async {
-    if (!Env.cacheLinesInDebug) {
+    if (!Env.doCacheLines) {
       print('We are not caching lines');
     }
-    if (Env.cacheLinesInDebug && LineCache.i.containsKey(widget.compl.label)) {
+    if (Env.doCacheLines && LineCache.i.containsKey(widget.compl.label)) {
       final l = LineCache.i
           .get(widget.compl.label)
           .lines
@@ -281,7 +281,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
         setState(() => lines = l2);
       }
 
-      if (Env.cacheLinesInDebug) {
+      if (Env.doCacheLines) {
         await LineCache.i.put(
             widget.compl.label,
             LineCacheEntry(
@@ -296,7 +296,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
     if (mounted) {
       setState(() => lines = []);
     }
-    if (Env.cacheLinesInDebug) {
+    if (Env.doCacheLines) {
       final entry = LineCacheEntry(
         timestamp: DateTime.now(),
         stop: widget.compl.label,

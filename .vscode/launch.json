@@ -11,7 +11,7 @@
       "program": "app/lib/main.dart",
       "args": [
         "--dart-define",
-        "CACHE_DEBUG=lines"
+        "CACHE_LINES_IN_DEBUG=true"
       ]
     },
     {
