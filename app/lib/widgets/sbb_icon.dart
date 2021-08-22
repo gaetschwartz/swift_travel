@@ -46,6 +46,7 @@ class SbbIcon extends StatelessWidget {
       case TransportationMode.rer:
       case TransportationMode.str:
       case TransportationMode.metro:
+      case TransportationMode.nightStrain:
         return const FaIcon(FontAwesomeIcons.train);
       case TransportationMode.business:
         return const FaIcon(FontAwesomeIcons.store);

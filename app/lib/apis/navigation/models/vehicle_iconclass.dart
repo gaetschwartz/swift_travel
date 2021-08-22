@@ -53,5 +53,7 @@ enum TransportationMode {
   str,
   metro,
   rer,
+  @JsonValue("night_strain")
+  nightStrain,
   unknown,
 }

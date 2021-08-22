@@ -21,7 +21,8 @@ _$_SbbRouteConnection _$$_SbbRouteConnectionFromJson(
               (v) => v == null ? null : DateTime.parse(v as String)),
           arrival: $checkedConvert(
               'arrival', (v) => v == null ? null : DateTime.parse(v as String)),
-          durationInSeconds: $checkedConvert('duration', (v) => v as int?),
+          durationInSeconds:
+              $checkedConvert('duration', (v) => (v as num?)?.toDouble()),
           sbbLegs: $checkedConvert(
               'legs',
               (v) =>
