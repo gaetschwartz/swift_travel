@@ -24,7 +24,6 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/extensions.dart';
 import 'package:swift_travel/utils/intents.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
@@ -188,21 +187,18 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
       shortcuts: _shortcuts,
       actions: {
         EscapeIntent: CallbackAction(onInvoke: (e) {
-          if (kDebugMode) {
-            print('Clearing sidebar');
-          }
+          // print('Clearing sidebar');
           context.read(sideTabBarProvider).state = null;
           sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
-          return null;
         }),
         TabIntent: TabAction((tab) {
-          print('Changing tab to $tab');
+          //print('Changing tab to $tab');
           context.read(tabProvider).index = tab;
         }),
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
-          print('Switching tab');
+          // print('Switching tab');
           final tabs = context.read(tabProvider);
-          tabs.index = (darwin ? TabView.iosTabs : TabView.androidTabs).modulo(tabs.index);
+          tabs.index = tabs.index % (darwin ? TabView.iosTabs.length : TabView.androidTabs.length);
         })
       },
       onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: darwin),
