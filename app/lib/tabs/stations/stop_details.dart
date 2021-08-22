@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/db/preferences.dart';
@@ -224,15 +225,11 @@ class ConnectionTile extends StatelessWidget {
             LineIcon.raw(line: c.line, foreground: c.fgcolor, background: c.bgcolor),
             const SizedBox(width: 8),
           ],
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                c.terminal.name,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
+          Text(
+            c.terminal.name,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
+          const Spacer(),
         ],
       ),
       subtitle: Padding(
@@ -242,24 +239,25 @@ class ConnectionTile extends StatelessWidget {
             SbbIcon(c.type, size: 16),
             const SizedBox(width: 8),
             Text.rich(
-              TextSpan(
-                  text: Format.time(c.time),
-                  style: Theme.of(context).textTheme.bodyText2,
-                  children: [
-                    if (c.arrDelay != null)
-                      TextSpan(
-                        text: Format.delay(c.arrDelay!),
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                  ]),
+              TextSpan(text: Format.time(c.time), children: [
+                if (c.arrDelay != null)
+                  TextSpan(
+                    text: Format.delay(c.arrDelay!),
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+              ]),
             ),
+            if (c.track != null) ...[
+              const Text(" | "),
+              buildTrack(),
+            ]
           ],
         ),
       ),
-      trailing: (c.depDelay != null)
+      trailing: c.depDelay != null
           ? Text(
               Format.duration(diff + Duration(minutes: c.depDelay!))!,
               style: const TextStyle(
@@ -268,6 +266,19 @@ class ConnectionTile extends StatelessWidget {
               ),
             )
           : Text(Format.duration(diff)!),
+    );
+  }
+
+  @allowReturningWidgets
+  Text buildTrack() {
+    final i = c.track!.indexOf("!");
+    final t = i == -1 ? c.track! : c.track!.substring(0, i);
+    return Text(
+      "Pl. $t",
+      style: TextStyle(
+        color: i != -1 ? Colors.red : null,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 }

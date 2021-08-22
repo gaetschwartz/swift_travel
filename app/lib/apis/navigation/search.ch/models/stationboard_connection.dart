@@ -30,6 +30,7 @@ class SbbStationboardConnection with _$SbbStationboardConnection implements Stat
         List<SbbSubsequentStop> sbbSubsequentStops,
     @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
     @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
+    String? track,
   }) = _SbbStationboardConnection;
   SbbStationboardConnection._();
 

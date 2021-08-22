@@ -231,6 +231,12 @@ class _Header extends StatelessWidget {
 
   final Leg l;
 
+  String fmtTrack(String s) {
+    final i = s.indexOf("!");
+    if (i == -1) return s;
+    return s.substring(0, i);
+  }
+
   @override
   Widget build(BuildContext context) => Column(
         children: [
@@ -252,8 +258,10 @@ class _Header extends StatelessWidget {
               ),
               if (l.track != null)
                 Text(
-                  'Pl. ${l.track}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  'Pl. ${fmtTrack(l.track!)}',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: l.track!.contains("!") ? Colors.red : null),
                 ),
             ],
           ),

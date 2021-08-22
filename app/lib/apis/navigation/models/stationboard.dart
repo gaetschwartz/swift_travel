@@ -40,6 +40,7 @@ mixin BaseStationboardConnection {
   String get number;
   String? get g;
   String? get l;
+  String? get track;
 
   List<DelayedStop> get subsequentStops;
 }

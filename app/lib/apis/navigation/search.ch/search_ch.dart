@@ -105,10 +105,10 @@ class SearchChApi extends BaseNavigationApi {
     DateTime? when,
     bool arrival = false,
     int? limit = 32,
-    bool showTracks = false,
+    bool showTracks = true,
     bool showSubsequentStops = true,
     bool showDelays = true,
-    bool showTrackchanges = false,
+    bool showTrackchanges = true,
     List<TransportationTypes> transportationTypes = const [],
   }) async {
     final params = {

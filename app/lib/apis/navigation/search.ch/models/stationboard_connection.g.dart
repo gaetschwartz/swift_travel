@@ -36,6 +36,7 @@ _$_SbbStationboardConnection _$$_SbbStationboardConnectionFromJson(
               (v) => const DelayConverter().fromJson(v as String?)),
           arrDelay: $checkedConvert('arr_delay',
               (v) => const DelayConverter().fromJson(v as String?)),
+          track: $checkedConvert('track', (v) => v as String?),
         );
         return val;
       },
@@ -65,6 +66,7 @@ Map<String, dynamic> _$$_SbbStationboardConnectionToJson(
           instance.sbbSubsequentStops.map((e) => e.toJson()).toList(),
       'dep_delay': const DelayConverter().toJson(instance.depDelay),
       'arr_delay': const DelayConverter().toJson(instance.arrDelay),
+      'track': instance.track,
     };
 
 K _$enumDecode<K, V>(
