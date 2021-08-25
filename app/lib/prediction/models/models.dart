@@ -1,4 +1,8 @@
+import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
@@ -108,4 +112,58 @@ class Pair<R, S> with _$Pair<R, S> {
   const Pair._();
 
   Pair<S, R> get flipped => Pair<S, R>(second, first);
+}
+
+@freezed
+class ContactCompletion with _$ContactCompletion implements NavigationCompletion {
+  const factory ContactCompletion(Contact contact) = _ContactCompletion;
+  const ContactCompletion._();
+
+  @override
+  DataOrigin get origin => DataOrigin.contacts;
+
+  @override
+  double? get dist => null;
+
+  @override
+  String? get favoriteName => null;
+
+  @override
+  Widget getIcon({double? size}) => throw UnimplementedError();
+
+  @override
+  String? get id => null;
+
+  @override
+  String get label => contact.displayName ?? '';
+
+  @override
+  TransportationMode? get type => null;
+}
+
+@freezed
+class CurrentLocationCompletion with _$CurrentLocationCompletion implements NavigationCompletion {
+  const factory CurrentLocationCompletion() = _CurrentLocationCompletion;
+  const CurrentLocationCompletion._();
+
+  @override
+  DataOrigin get origin => DataOrigin.currentLocation;
+
+  @override
+  double? get dist => null;
+
+  @override
+  String? get favoriteName => null;
+
+  @override
+  Widget getIcon({double? size}) => throw UnimplementedError();
+
+  @override
+  String? get id => null;
+
+  @override
+  String get label => "%current_location%";
+
+  @override
+  TransportationMode? get type => null;
 }

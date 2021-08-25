@@ -3,12 +3,9 @@ import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 
 /// The response to [BaseNavigationApi.complete]
-mixin Completion {
+abstract class NavigationCompletion {
   /// Name of the completion
   String get label;
-
-  /// Origin of the data, read [DataOrigin].
-  DataOrigin get origin;
 
   /// Distance in meters from the query (if available)
   double? get dist;
@@ -25,6 +22,9 @@ mixin Completion {
   /// Returns the icon for this completion.
   // ignore: avoid-unused-parameters
   Widget getIcon({double? size});
+
+  /// Origin of the data, read [DataOrigin].
+  DataOrigin get origin;
 }
 
 /// The origin of the completion.
@@ -46,4 +46,7 @@ enum DataOrigin {
 
   /// The data is a sample empty data to indicaate it's loading.
   loading,
+
+  /// Data is a contact
+  contacts
 }

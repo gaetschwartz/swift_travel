@@ -178,7 +178,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
             child: Consumer(builder: (context, w, _) {
               final itemPositionsListener = ItemPositionsListener.create();
 
-              return w(_stateProvider).state.map(
+              return w(_stateProvider).state.when(
                     completions: (c) => Column(
                       children: [
                         Padding(
@@ -197,8 +197,9 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                         Expanded(
                           child: ScrollablePositionedList.builder(
                             itemPositionsListener: itemPositionsListener,
+                            itemCount: c.length,
                             itemBuilder: (context, i) {
-                              final completion = c.completions[i];
+                              final completion = c[i];
                               return IfWrapper(
                                 key: ValueKey(completion),
                                 condition: Env.enableAnimations,
@@ -221,12 +222,11 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                 ),
                               );
                             },
-                            itemCount: c.completions.length,
                           ),
                         ),
                       ],
                     ),
-                    empty: (_) => Consumer(
+                    empty: () => Consumer(
                         builder: (context, w, _) => w(favoritesStatesProvider).state.map(
                               data: (c) => c.favorites.isEmpty
                                   ? Column(
@@ -259,7 +259,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                 ),
                               ),
                             )),
-                    network: (value) => Column(
+                    network: () => Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const FaIcon(
@@ -337,10 +337,10 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
   Future<void> fetch(String query) async {
     try {
-      final completionsWithFavs = await context
-          .read(completionEngineProvider)
-          .complete(query: query, doUseHistory: false)
-          .last;
+      final completionsWithFavs = await context.read(completionEngineProvider).completeNavigation(
+            query: query,
+            doUseHistory: false,
+          );
 
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {

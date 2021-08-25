@@ -113,7 +113,7 @@ class FavoriteStop with _$FavoriteStop, BaseStop, SbbDisplayNameMixin {
       _FavoriteStop(stop: stop, name: stop, api: api.value);
 
   factory FavoriteStop.fromCompletion(
-    Completion completion, {
+    NavigationCompletion completion, {
     required NavigationApiId api,
     String? name,
   }) =>

@@ -1212,3 +1212,209 @@ abstract class _Pair<R, S> extends Pair<R, S> {
   _$PairCopyWith<R, S, _Pair<R, S>> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$ContactCompletionTearOff {
+  const _$ContactCompletionTearOff();
+
+  _ContactCompletion call(Contact contact) {
+    return _ContactCompletion(
+      contact,
+    );
+  }
+}
+
+/// @nodoc
+const $ContactCompletion = _$ContactCompletionTearOff();
+
+/// @nodoc
+mixin _$ContactCompletion {
+  Contact get contact => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ContactCompletionCopyWith<ContactCompletion> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ContactCompletionCopyWith<$Res> {
+  factory $ContactCompletionCopyWith(
+          ContactCompletion value, $Res Function(ContactCompletion) then) =
+      _$ContactCompletionCopyWithImpl<$Res>;
+  $Res call({Contact contact});
+}
+
+/// @nodoc
+class _$ContactCompletionCopyWithImpl<$Res>
+    implements $ContactCompletionCopyWith<$Res> {
+  _$ContactCompletionCopyWithImpl(this._value, this._then);
+
+  final ContactCompletion _value;
+  // ignore: unused_field
+  final $Res Function(ContactCompletion) _then;
+
+  @override
+  $Res call({
+    Object? contact = freezed,
+  }) {
+    return _then(_value.copyWith(
+      contact: contact == freezed
+          ? _value.contact
+          : contact // ignore: cast_nullable_to_non_nullable
+              as Contact,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ContactCompletionCopyWith<$Res>
+    implements $ContactCompletionCopyWith<$Res> {
+  factory _$ContactCompletionCopyWith(
+          _ContactCompletion value, $Res Function(_ContactCompletion) then) =
+      __$ContactCompletionCopyWithImpl<$Res>;
+  @override
+  $Res call({Contact contact});
+}
+
+/// @nodoc
+class __$ContactCompletionCopyWithImpl<$Res>
+    extends _$ContactCompletionCopyWithImpl<$Res>
+    implements _$ContactCompletionCopyWith<$Res> {
+  __$ContactCompletionCopyWithImpl(
+      _ContactCompletion _value, $Res Function(_ContactCompletion) _then)
+      : super(_value, (v) => _then(v as _ContactCompletion));
+
+  @override
+  _ContactCompletion get _value => super._value as _ContactCompletion;
+
+  @override
+  $Res call({
+    Object? contact = freezed,
+  }) {
+    return _then(_ContactCompletion(
+      contact == freezed
+          ? _value.contact
+          : contact // ignore: cast_nullable_to_non_nullable
+              as Contact,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ContactCompletion extends _ContactCompletion {
+  const _$_ContactCompletion(this.contact) : super._();
+
+  @override
+  final Contact contact;
+
+  @override
+  String toString() {
+    return 'ContactCompletion(contact: $contact)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ContactCompletion &&
+            (identical(other.contact, contact) ||
+                const DeepCollectionEquality().equals(other.contact, contact)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(contact);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ContactCompletionCopyWith<_ContactCompletion> get copyWith =>
+      __$ContactCompletionCopyWithImpl<_ContactCompletion>(this, _$identity);
+}
+
+abstract class _ContactCompletion extends ContactCompletion {
+  const factory _ContactCompletion(Contact contact) = _$_ContactCompletion;
+  const _ContactCompletion._() : super._();
+
+  @override
+  Contact get contact => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$ContactCompletionCopyWith<_ContactCompletion> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+class _$CurrentLocationCompletionTearOff {
+  const _$CurrentLocationCompletionTearOff();
+
+  _CurrentLocationCompletion call() {
+    return const _CurrentLocationCompletion();
+  }
+}
+
+/// @nodoc
+const $CurrentLocationCompletion = _$CurrentLocationCompletionTearOff();
+
+/// @nodoc
+mixin _$CurrentLocationCompletion {}
+
+/// @nodoc
+abstract class $CurrentLocationCompletionCopyWith<$Res> {
+  factory $CurrentLocationCompletionCopyWith(CurrentLocationCompletion value,
+          $Res Function(CurrentLocationCompletion) then) =
+      _$CurrentLocationCompletionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$CurrentLocationCompletionCopyWithImpl<$Res>
+    implements $CurrentLocationCompletionCopyWith<$Res> {
+  _$CurrentLocationCompletionCopyWithImpl(this._value, this._then);
+
+  final CurrentLocationCompletion _value;
+  // ignore: unused_field
+  final $Res Function(CurrentLocationCompletion) _then;
+}
+
+/// @nodoc
+abstract class _$CurrentLocationCompletionCopyWith<$Res> {
+  factory _$CurrentLocationCompletionCopyWith(_CurrentLocationCompletion value,
+          $Res Function(_CurrentLocationCompletion) then) =
+      __$CurrentLocationCompletionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$CurrentLocationCompletionCopyWithImpl<$Res>
+    extends _$CurrentLocationCompletionCopyWithImpl<$Res>
+    implements _$CurrentLocationCompletionCopyWith<$Res> {
+  __$CurrentLocationCompletionCopyWithImpl(_CurrentLocationCompletion _value,
+      $Res Function(_CurrentLocationCompletion) _then)
+      : super(_value, (v) => _then(v as _CurrentLocationCompletion));
+
+  @override
+  _CurrentLocationCompletion get _value =>
+      super._value as _CurrentLocationCompletion;
+}
+
+/// @nodoc
+
+class _$_CurrentLocationCompletion extends _CurrentLocationCompletion {
+  const _$_CurrentLocationCompletion() : super._();
+
+  @override
+  String toString() {
+    return 'CurrentLocationCompletion()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _CurrentLocationCompletion);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+}
+
+abstract class _CurrentLocationCompletion extends CurrentLocationCompletion {
+  const factory _CurrentLocationCompletion() = _$_CurrentLocationCompletion;
+  const _CurrentLocationCompletion._() : super._();
+}

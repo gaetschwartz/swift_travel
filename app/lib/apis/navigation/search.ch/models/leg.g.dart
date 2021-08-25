@@ -165,5 +165,6 @@ const _$TransportationModeEnumMap = {
   TransportationMode.str: 'str',
   TransportationMode.metro: 'metro',
   TransportationMode.rer: 'rer',
+  TransportationMode.nightStrain: 'night_strain',
   TransportationMode.unknown: 'unknown',
 };

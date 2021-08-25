@@ -10,7 +10,7 @@ part 'completion.freezed.dart';
 part 'completion.g.dart';
 
 @freezed
-class SbbCompletion with _$SbbCompletion, Completion {
+class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
   @JsonSerializable(includeIfNull: false)
   factory SbbCompletion({
     required String label,

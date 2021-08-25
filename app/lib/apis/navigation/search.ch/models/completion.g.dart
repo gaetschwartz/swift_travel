@@ -82,4 +82,5 @@ const _$DataOriginEnumMap = {
   DataOrigin.currentLocation: 'currentLocation',
   DataOrigin.prediction: 'prediction',
   DataOrigin.loading: 'loading',
+  DataOrigin.contacts: 'contacts',
 };

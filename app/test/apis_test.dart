@@ -51,10 +51,10 @@ void main() {
 class MockNavigationApi extends BaseNavigationApi {
   MockNavigationApi({this.mockCompletions});
 
-  final List<Completion>? mockCompletions;
+  final List<NavigationCompletion>? mockCompletions;
 
   @override
-  Future<List<Completion>> complete(String? string,
+  Future<List<NavigationCompletion>> complete(String? string,
           {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) async =>
       mockCompletions ?? [SbbCompletion(label: 'Genève'), SbbCompletion(label: 'Genève Cornavin')];
 

@@ -100,17 +100,18 @@ class _StopInputDialogState extends State<StopInputDialog> {
               child: Consumer(builder: (context, w, _) {
                 final s = w(_stateProvider);
                 return s.state.maybeWhen(
-                    completions: (c) => ListView.builder(
-                          itemBuilder: (context, i) => RouteCompletionTile(
-                            c[i],
-                            onTap: () {
-                              Navigator.of(context).pop<String>(c[i].label);
-                              node.unfocus();
-                            },
-                          ),
-                          itemCount: c.length,
-                        ),
-                    orElse: () => const Center());
+                  completions: (c) => ListView.builder(
+                    itemBuilder: (context, i) => RouteCompletionTile(
+                      c[i],
+                      onTap: () {
+                        Navigator.of(context).pop<String>(c[i].label);
+                        node.unfocus();
+                      },
+                    ),
+                    itemCount: c.length,
+                  ),
+                  orElse: () => const SizedBox(),
+                );
               }),
             )
           ],

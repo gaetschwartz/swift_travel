@@ -61,9 +61,7 @@ mixin LocatedMixin {
   LatLon? get position;
 }
 
-abstract class Exit with WithDelayMixin, _ExitMixin implements Stop {}
-
-mixin _ExitMixin {
+abstract class Exit with WithDelayMixin implements Stop {
   String? get officialName;
   String? get track;
   int get waitTime;

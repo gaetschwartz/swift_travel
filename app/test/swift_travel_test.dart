@@ -23,6 +23,7 @@ import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/prediction/complete.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
 import 'apis_test.dart';
@@ -208,8 +209,6 @@ void main() {
   });
 
   test('completion', () async {
-    const currentLocation = 'Current location';
-
     final container = ProviderContainer(
       overrides: [
         storeProvider.overrideWithProvider(Provider((ref) => MockFavoriteStore(stops: [
@@ -234,16 +233,10 @@ void main() {
       ],
     );
 
-    final c = await container
-        .read(completionEngineProvider)
-        .complete(
-          query: geneva,
-          currentLocationString: currentLocation,
-        )
-        .last;
+    final c = await container.read(completionEngineProvider).complete(query: geneva).last;
 
-    final expected = [
-      SbbCompletion(label: currentLocation, origin: DataOrigin.currentLocation),
+    final expected = <NavigationCompletion>[
+      const CurrentLocationCompletion(),
       SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
       SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
       SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva, api: searchChApi.id)),

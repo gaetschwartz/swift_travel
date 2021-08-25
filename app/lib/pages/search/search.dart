@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -73,7 +74,6 @@ class _SearchPageState extends State<SearchPage> {
 
   late BaseFavoritesStore store;
   late BaseNavigationApi api;
-  late String currentLocation;
   final hist = RouteHistoryRepository.i;
   String? previousText;
 
@@ -97,7 +97,6 @@ class _SearchPageState extends State<SearchPage> {
     super.didChangeDependencies();
     api = context.read(navigationAPIProvider);
     store = context.read(storeProvider);
-    currentLocation = AppLoc.of(context).current_location;
   }
 
   Future<void> onChanged() async {
@@ -120,8 +119,8 @@ class _SearchPageState extends State<SearchPage> {
           .complete(
             query: query,
             doPredict: widget.isDestination,
-            currentLocationString: currentLocation,
             date: context.read(dateProvider).state,
+            doUseContacts: true,
           )
           .listen(
         (c) {
@@ -156,7 +155,6 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) => PlatformBuilder(
         cupertinoBuilder: (context, child) => Material(
           child: CupertinoPageScaffold(
-            resizeToAvoidBottomInset: false,
             navigationBar: SwiftCupertinoBar(
               transitionBetweenRoutes: false,
               middle: Hero(
@@ -169,7 +167,6 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
         materialBuilder: (context, child) => Scaffold(
-          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Hero(
                 tag: widget.heroTag,
@@ -182,11 +179,15 @@ class _SearchPageState extends State<SearchPage> {
         child: _Results(onTap: onSuggestionTapped),
       );
 
-  void onSuggestionTapped(Completion c) {
+  void onSuggestionTapped(NavigationCompletion c) {
     if (c.origin == DataOrigin.currentLocation) {
       print('It is current location');
       widget.binder.useCurrentLocation(context);
-    } else {
+    } else if (c is ContactCompletion) {
+      final string = c.contact.postalAddresses?.firstOrNull.toString();
+      if (string != null) widget.binder.setString(context, string);
+    }
+    {
       widget.binder.setString(context, c.label);
     }
     Navigator.of(context).pop();
@@ -221,24 +222,19 @@ class _Results extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final void Function(Completion completion) onTap;
+  final void Function(NavigationCompletion completion) onTap;
 
   @override
   Widget build(BuildContext context) => Consumer(builder: (context, w, _) {
         final state = w(_stateProvider);
-        return state.state.map(
+        return state.state.when(
           completions: (c) => CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 8),
                   child: SizedBox(
                     height: 4,
-                    child: Center(
-                      child: Consumer(
-                        builder: (context, w, _) => const SizedBox(),
-                      ),
-                    ),
                   ),
                 ),
               ),
@@ -246,14 +242,14 @@ class _Results extends StatelessWidget {
                 bottom: false,
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (context, i) => SuggestedTile(c.completions[i], onTap: onTap),
-                    childCount: c.completions.length,
+                    (context, i) => SuggestedTile(c[i], onTap: onTap),
+                    childCount: c.length,
                   ),
                 ),
               ),
             ],
           ),
-          empty: (_) => Column(
+          empty: () => Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -270,7 +266,7 @@ class _Results extends StatelessWidget {
               )
             ],
           ),
-          network: (value) => Column(
+          network: () => Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
@@ -295,12 +291,15 @@ class SuggestedTile extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
-  final Completion suggestion;
-  final ValueChanged<Completion>? onTap;
+  final NavigationCompletion suggestion;
+  final ValueChanged<NavigationCompletion>? onTap;
 
   @override
   Widget build(BuildContext context) {
     final isLoading = suggestion.origin == DataOrigin.loading;
+    final label = suggestion.origin == DataOrigin.currentLocation
+        ? AppLoc.of(context).current_location
+        : suggestion.label;
     return IfWrapper(
       condition: isLoading,
       builder: (context, child) => Shimmer.fromColors(
@@ -314,11 +313,11 @@ class SuggestedTile extends StatelessWidget {
         horizontalTitleGap: 8,
         title: isLoading
             ? Text(
-                suggestion.label,
+                label,
                 style: const TextStyle(backgroundColor: Colors.black, color: Colors.transparent),
               )
-            : Text(suggestion.favoriteName ?? suggestion.label),
-        subtitle: suggestion.favoriteName != null ? Text(suggestion.label) : null,
+            : Text(suggestion.favoriteName ?? label),
+        subtitle: suggestion.favoriteName != null ? Text(label) : null,
         trailing: suggestion.favoriteName != null
             ? (isDarwin(context) ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star))
             : null,
@@ -334,42 +333,42 @@ class _SuggestedTileIcon extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final Completion suggestion;
+  final NavigationCompletion suggestion;
 
   @override
   Widget build(BuildContext context) {
     switch (suggestion.origin) {
       case DataOrigin.favorites:
-        return Icon(
+        return const Icon(
           CupertinoIcons.heart_fill,
           size: 20,
-          color: IconTheme.of(context).color,
         );
       case DataOrigin.history:
-        return Icon(
+        return const Icon(
           CupertinoIcons.clock,
           size: 20,
-          color: IconTheme.of(context).color,
         );
       case DataOrigin.data:
         return suggestion.getIcon(size: 20);
       case DataOrigin.currentLocation:
-        return Icon(
+        return const Icon(
           CupertinoIcons.location_fill,
           size: 20,
-          color: IconTheme.of(context).color,
         );
       case DataOrigin.prediction:
-        return Icon(
+        return const Icon(
           CupertinoIcons.wand_stars,
           size: 20,
-          color: IconTheme.of(context).color,
         );
       case DataOrigin.loading:
-        return Icon(
+        return const Icon(
           CupertinoIcons.wand_stars,
           size: 20,
-          color: IconTheme.of(context).color,
+        );
+      case DataOrigin.contacts:
+        return const Icon(
+          CupertinoIcons.person,
+          size: 20,
         );
     }
   }

@@ -56,7 +56,7 @@ abstract class BaseNavigationApi {
   Locale locale = const Locale('en');
 
   /// Returns an autocompletion based on the provided query [string].
-  Future<List<Completion>> complete(
+  Future<List<NavigationCompletion>> complete(
     String string, {
     bool showCoordinates,
     bool showIds,
@@ -65,7 +65,7 @@ abstract class BaseNavigationApi {
   });
 
   /// Returns a list of stations close to the provided [lat] and [lon].
-  Future<List<Completion>> findStation(
+  Future<List<NavigationCompletion>> findStation(
     double lat,
     double lon, {
     int accuracy,

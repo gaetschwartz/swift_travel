@@ -8,7 +8,7 @@ part 'sncf_place.freezed.dart';
 part 'sncf_place.g.dart';
 
 @freezed
-class SncfPlace with _$SncfPlace, Completion {
+class SncfPlace with _$SncfPlace implements NavigationCompletion {
   @JsonSerializable(explicitToJson: true)
   const factory SncfPlace({
     required String name,

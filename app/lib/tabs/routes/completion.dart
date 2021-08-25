@@ -15,7 +15,7 @@ class RouteCompletionTile extends StatelessWidget {
   })  : completion = null,
         super(key: key);
 
-  final Completion? completion;
+  final NavigationCompletion? completion;
   final VoidCallback? onTap;
 
   @override
@@ -52,7 +52,7 @@ class _Icon extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final Completion completion;
+  final NavigationCompletion completion;
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +78,8 @@ class _Icon extends StatelessWidget {
                 decoration: BoxDecoration(color: Colors.black),
               ),
             );
+          case DataOrigin.contacts:
+            return const Icon(CupertinoIcons.person);
         }
       }(),
     );
