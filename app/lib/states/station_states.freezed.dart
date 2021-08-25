@@ -17,18 +17,18 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$StationStatesTearOff {
   const _$StationStatesTearOff();
 
-  StationStatesCompletions completions(List<Completion> completions) {
-    return StationStatesCompletions(
+  CompletionsStationStates completions(List<NavigationCompletion> completions) {
+    return CompletionsStationStates(
       completions,
     );
   }
 
-  StationStatesEmpty empty() {
-    return const StationStatesEmpty();
+  EmptyStationStates empty() {
+    return const EmptyStationStates();
   }
 
-  StationStatesNetworkError network() {
-    return const StationStatesNetworkError();
+  NetworkErrorStationStates network() {
+    return const NetworkErrorStationStates();
   }
 }
 
@@ -39,21 +39,22 @@ const $StationStates = _$StationStatesTearOff();
 mixin _$StationStates {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Completion> completions) completions,
+    required TResult Function(List<NavigationCompletion> completions)
+        completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Completion> completions)? completions,
+    TResult Function(List<NavigationCompletion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Completion> completions)? completions,
+    TResult Function(List<NavigationCompletion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
@@ -61,23 +62,23 @@ mixin _$StationStates {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(StationStatesCompletions value) completions,
-    required TResult Function(StationStatesEmpty value) empty,
-    required TResult Function(StationStatesNetworkError value) network,
+    required TResult Function(CompletionsStationStates value) completions,
+    required TResult Function(EmptyStationStates value) empty,
+    required TResult Function(NetworkErrorStationStates value) network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(StationStatesCompletions value)? completions,
-    TResult Function(StationStatesEmpty value)? empty,
-    TResult Function(StationStatesNetworkError value)? network,
+    TResult Function(CompletionsStationStates value)? completions,
+    TResult Function(EmptyStationStates value)? empty,
+    TResult Function(NetworkErrorStationStates value)? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(StationStatesCompletions value)? completions,
-    TResult Function(StationStatesEmpty value)? empty,
-    TResult Function(StationStatesNetworkError value)? network,
+    TResult Function(CompletionsStationStates value)? completions,
+    TResult Function(EmptyStationStates value)? empty,
+    TResult Function(NetworkErrorStationStates value)? network,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -101,45 +102,45 @@ class _$StationStatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $StationStatesCompletionsCopyWith<$Res> {
-  factory $StationStatesCompletionsCopyWith(StationStatesCompletions value,
-          $Res Function(StationStatesCompletions) then) =
-      _$StationStatesCompletionsCopyWithImpl<$Res>;
-  $Res call({List<Completion> completions});
+abstract class $CompletionsStationStatesCopyWith<$Res> {
+  factory $CompletionsStationStatesCopyWith(CompletionsStationStates value,
+          $Res Function(CompletionsStationStates) then) =
+      _$CompletionsStationStatesCopyWithImpl<$Res>;
+  $Res call({List<NavigationCompletion> completions});
 }
 
 /// @nodoc
-class _$StationStatesCompletionsCopyWithImpl<$Res>
+class _$CompletionsStationStatesCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
-    implements $StationStatesCompletionsCopyWith<$Res> {
-  _$StationStatesCompletionsCopyWithImpl(StationStatesCompletions _value,
-      $Res Function(StationStatesCompletions) _then)
-      : super(_value, (v) => _then(v as StationStatesCompletions));
+    implements $CompletionsStationStatesCopyWith<$Res> {
+  _$CompletionsStationStatesCopyWithImpl(CompletionsStationStates _value,
+      $Res Function(CompletionsStationStates) _then)
+      : super(_value, (v) => _then(v as CompletionsStationStates));
 
   @override
-  StationStatesCompletions get _value =>
-      super._value as StationStatesCompletions;
+  CompletionsStationStates get _value =>
+      super._value as CompletionsStationStates;
 
   @override
   $Res call({
     Object? completions = freezed,
   }) {
-    return _then(StationStatesCompletions(
+    return _then(CompletionsStationStates(
       completions == freezed
           ? _value.completions
           : completions // ignore: cast_nullable_to_non_nullable
-              as List<Completion>,
+              as List<NavigationCompletion>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$StationStatesCompletions implements StationStatesCompletions {
-  const _$StationStatesCompletions(this.completions);
+class _$CompletionsStationStates implements CompletionsStationStates {
+  const _$CompletionsStationStates(this.completions);
 
   @override
-  final List<Completion> completions;
+  final List<NavigationCompletion> completions;
 
   @override
   String toString() {
@@ -149,7 +150,7 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is StationStatesCompletions &&
+        (other is CompletionsStationStates &&
             (identical(other.completions, completions) ||
                 const DeepCollectionEquality()
                     .equals(other.completions, completions)));
@@ -161,14 +162,15 @@ class _$StationStatesCompletions implements StationStatesCompletions {
 
   @JsonKey(ignore: true)
   @override
-  $StationStatesCompletionsCopyWith<StationStatesCompletions> get copyWith =>
-      _$StationStatesCompletionsCopyWithImpl<StationStatesCompletions>(
+  $CompletionsStationStatesCopyWith<CompletionsStationStates> get copyWith =>
+      _$CompletionsStationStatesCopyWithImpl<CompletionsStationStates>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Completion> completions) completions,
+    required TResult Function(List<NavigationCompletion> completions)
+        completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) {
@@ -178,7 +180,7 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Completion> completions)? completions,
+    TResult Function(List<NavigationCompletion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
   }) {
@@ -188,7 +190,7 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Completion> completions)? completions,
+    TResult Function(List<NavigationCompletion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
@@ -202,9 +204,9 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(StationStatesCompletions value) completions,
-    required TResult Function(StationStatesEmpty value) empty,
-    required TResult Function(StationStatesNetworkError value) network,
+    required TResult Function(CompletionsStationStates value) completions,
+    required TResult Function(EmptyStationStates value) empty,
+    required TResult Function(NetworkErrorStationStates value) network,
   }) {
     return completions(this);
   }
@@ -212,9 +214,9 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(StationStatesCompletions value)? completions,
-    TResult Function(StationStatesEmpty value)? empty,
-    TResult Function(StationStatesNetworkError value)? network,
+    TResult Function(CompletionsStationStates value)? completions,
+    TResult Function(EmptyStationStates value)? empty,
+    TResult Function(NetworkErrorStationStates value)? network,
   }) {
     return completions?.call(this);
   }
@@ -222,9 +224,9 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(StationStatesCompletions value)? completions,
-    TResult Function(StationStatesEmpty value)? empty,
-    TResult Function(StationStatesNetworkError value)? network,
+    TResult Function(CompletionsStationStates value)? completions,
+    TResult Function(EmptyStationStates value)? empty,
+    TResult Function(NetworkErrorStationStates value)? network,
     required TResult orElse(),
   }) {
     if (completions != null) {
@@ -234,39 +236,40 @@ class _$StationStatesCompletions implements StationStatesCompletions {
   }
 }
 
-abstract class StationStatesCompletions implements StationStates {
-  const factory StationStatesCompletions(List<Completion> completions) =
-      _$StationStatesCompletions;
+abstract class CompletionsStationStates implements StationStates {
+  const factory CompletionsStationStates(
+      List<NavigationCompletion> completions) = _$CompletionsStationStates;
 
-  List<Completion> get completions => throw _privateConstructorUsedError;
+  List<NavigationCompletion> get completions =>
+      throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $StationStatesCompletionsCopyWith<StationStatesCompletions> get copyWith =>
+  $CompletionsStationStatesCopyWith<CompletionsStationStates> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $StationStatesEmptyCopyWith<$Res> {
-  factory $StationStatesEmptyCopyWith(
-          StationStatesEmpty value, $Res Function(StationStatesEmpty) then) =
-      _$StationStatesEmptyCopyWithImpl<$Res>;
+abstract class $EmptyStationStatesCopyWith<$Res> {
+  factory $EmptyStationStatesCopyWith(
+          EmptyStationStates value, $Res Function(EmptyStationStates) then) =
+      _$EmptyStationStatesCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StationStatesEmptyCopyWithImpl<$Res>
+class _$EmptyStationStatesCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
-    implements $StationStatesEmptyCopyWith<$Res> {
-  _$StationStatesEmptyCopyWithImpl(
-      StationStatesEmpty _value, $Res Function(StationStatesEmpty) _then)
-      : super(_value, (v) => _then(v as StationStatesEmpty));
+    implements $EmptyStationStatesCopyWith<$Res> {
+  _$EmptyStationStatesCopyWithImpl(
+      EmptyStationStates _value, $Res Function(EmptyStationStates) _then)
+      : super(_value, (v) => _then(v as EmptyStationStates));
 
   @override
-  StationStatesEmpty get _value => super._value as StationStatesEmpty;
+  EmptyStationStates get _value => super._value as EmptyStationStates;
 }
 
 /// @nodoc
 
-class _$StationStatesEmpty implements StationStatesEmpty {
-  const _$StationStatesEmpty();
+class _$EmptyStationStates implements EmptyStationStates {
+  const _$EmptyStationStates();
 
   @override
   String toString() {
@@ -275,7 +278,7 @@ class _$StationStatesEmpty implements StationStatesEmpty {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StationStatesEmpty);
+    return identical(this, other) || (other is EmptyStationStates);
   }
 
   @override
@@ -284,7 +287,8 @@ class _$StationStatesEmpty implements StationStatesEmpty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Completion> completions) completions,
+    required TResult Function(List<NavigationCompletion> completions)
+        completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) {
@@ -294,7 +298,7 @@ class _$StationStatesEmpty implements StationStatesEmpty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Completion> completions)? completions,
+    TResult Function(List<NavigationCompletion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
   }) {
@@ -304,7 +308,7 @@ class _$StationStatesEmpty implements StationStatesEmpty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Completion> completions)? completions,
+    TResult Function(List<NavigationCompletion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
@@ -318,9 +322,9 @@ class _$StationStatesEmpty implements StationStatesEmpty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(StationStatesCompletions value) completions,
-    required TResult Function(StationStatesEmpty value) empty,
-    required TResult Function(StationStatesNetworkError value) network,
+    required TResult Function(CompletionsStationStates value) completions,
+    required TResult Function(EmptyStationStates value) empty,
+    required TResult Function(NetworkErrorStationStates value) network,
   }) {
     return empty(this);
   }
@@ -328,9 +332,9 @@ class _$StationStatesEmpty implements StationStatesEmpty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(StationStatesCompletions value)? completions,
-    TResult Function(StationStatesEmpty value)? empty,
-    TResult Function(StationStatesNetworkError value)? network,
+    TResult Function(CompletionsStationStates value)? completions,
+    TResult Function(EmptyStationStates value)? empty,
+    TResult Function(NetworkErrorStationStates value)? network,
   }) {
     return empty?.call(this);
   }
@@ -338,9 +342,9 @@ class _$StationStatesEmpty implements StationStatesEmpty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(StationStatesCompletions value)? completions,
-    TResult Function(StationStatesEmpty value)? empty,
-    TResult Function(StationStatesNetworkError value)? network,
+    TResult Function(CompletionsStationStates value)? completions,
+    TResult Function(EmptyStationStates value)? empty,
+    TResult Function(NetworkErrorStationStates value)? network,
     required TResult orElse(),
   }) {
     if (empty != null) {
@@ -350,34 +354,34 @@ class _$StationStatesEmpty implements StationStatesEmpty {
   }
 }
 
-abstract class StationStatesEmpty implements StationStates {
-  const factory StationStatesEmpty() = _$StationStatesEmpty;
+abstract class EmptyStationStates implements StationStates {
+  const factory EmptyStationStates() = _$EmptyStationStates;
 }
 
 /// @nodoc
-abstract class $StationStatesNetworkErrorCopyWith<$Res> {
-  factory $StationStatesNetworkErrorCopyWith(StationStatesNetworkError value,
-          $Res Function(StationStatesNetworkError) then) =
-      _$StationStatesNetworkErrorCopyWithImpl<$Res>;
+abstract class $NetworkErrorStationStatesCopyWith<$Res> {
+  factory $NetworkErrorStationStatesCopyWith(NetworkErrorStationStates value,
+          $Res Function(NetworkErrorStationStates) then) =
+      _$NetworkErrorStationStatesCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StationStatesNetworkErrorCopyWithImpl<$Res>
+class _$NetworkErrorStationStatesCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
-    implements $StationStatesNetworkErrorCopyWith<$Res> {
-  _$StationStatesNetworkErrorCopyWithImpl(StationStatesNetworkError _value,
-      $Res Function(StationStatesNetworkError) _then)
-      : super(_value, (v) => _then(v as StationStatesNetworkError));
+    implements $NetworkErrorStationStatesCopyWith<$Res> {
+  _$NetworkErrorStationStatesCopyWithImpl(NetworkErrorStationStates _value,
+      $Res Function(NetworkErrorStationStates) _then)
+      : super(_value, (v) => _then(v as NetworkErrorStationStates));
 
   @override
-  StationStatesNetworkError get _value =>
-      super._value as StationStatesNetworkError;
+  NetworkErrorStationStates get _value =>
+      super._value as NetworkErrorStationStates;
 }
 
 /// @nodoc
 
-class _$StationStatesNetworkError implements StationStatesNetworkError {
-  const _$StationStatesNetworkError();
+class _$NetworkErrorStationStates implements NetworkErrorStationStates {
+  const _$NetworkErrorStationStates();
 
   @override
   String toString() {
@@ -386,7 +390,7 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StationStatesNetworkError);
+    return identical(this, other) || (other is NetworkErrorStationStates);
   }
 
   @override
@@ -395,7 +399,8 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Completion> completions) completions,
+    required TResult Function(List<NavigationCompletion> completions)
+        completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) {
@@ -405,7 +410,7 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Completion> completions)? completions,
+    TResult Function(List<NavigationCompletion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
   }) {
@@ -415,7 +420,7 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Completion> completions)? completions,
+    TResult Function(List<NavigationCompletion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
@@ -429,9 +434,9 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(StationStatesCompletions value) completions,
-    required TResult Function(StationStatesEmpty value) empty,
-    required TResult Function(StationStatesNetworkError value) network,
+    required TResult Function(CompletionsStationStates value) completions,
+    required TResult Function(EmptyStationStates value) empty,
+    required TResult Function(NetworkErrorStationStates value) network,
   }) {
     return network(this);
   }
@@ -439,9 +444,9 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(StationStatesCompletions value)? completions,
-    TResult Function(StationStatesEmpty value)? empty,
-    TResult Function(StationStatesNetworkError value)? network,
+    TResult Function(CompletionsStationStates value)? completions,
+    TResult Function(EmptyStationStates value)? empty,
+    TResult Function(NetworkErrorStationStates value)? network,
   }) {
     return network?.call(this);
   }
@@ -449,9 +454,9 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(StationStatesCompletions value)? completions,
-    TResult Function(StationStatesEmpty value)? empty,
-    TResult Function(StationStatesNetworkError value)? network,
+    TResult Function(CompletionsStationStates value)? completions,
+    TResult Function(EmptyStationStates value)? empty,
+    TResult Function(NetworkErrorStationStates value)? network,
     required TResult orElse(),
   }) {
     if (network != null) {
@@ -461,6 +466,6 @@ class _$StationStatesNetworkError implements StationStatesNetworkError {
   }
 }
 
-abstract class StationStatesNetworkError implements StationStates {
-  const factory StationStatesNetworkError() = _$StationStatesNetworkError;
+abstract class NetworkErrorStationStates implements StationStates {
+  const factory NetworkErrorStationStates() = _$NetworkErrorStationStates;
 }

@@ -6,6 +6,7 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
+import 'package:swift_travel/logic/contacts.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/prediction/models/models.dart';
@@ -22,29 +23,32 @@ final completionEngineProvider = Provider<CompletionEngine>((ref) {
   return completionEngine;
 });
 
-typedef UseCompletionEngineCallback = Stream<List<Completion>> Function(CompletionEngine engine);
+typedef UseCompletionEngineCallback = Stream<List<NavigationCompletion>> Function(
+    CompletionEngine engine);
 
 final completionStreamProvider =
-    StreamProvider.family<List<Completion>, UseCompletionEngineCallback>(
+    StreamProvider.family<List<NavigationCompletion>, UseCompletionEngineCallback>(
         (r, cb) => cb(r.watch(completionEngineProvider)));
 
 class CompletionEngine {
-  CompletionEngine(this.ref, {this.routeHistoryRepository});
+  CompletionEngine(
+    this.ref, {
+    RouteHistoryRepository? routeHistoryRepository,
+    ContactsRepository? contactsRepository,
+  })  : routeHistoryRepository = routeHistoryRepository ?? RouteHistoryRepository.i,
+        contactsRepository = contactsRepository ?? ContactsRepository.instance;
 
   final ProviderReference ref;
-  final RouteHistoryRepository? routeHistoryRepository;
+  final RouteHistoryRepository routeHistoryRepository;
+  final ContactsRepository contactsRepository;
 
-  Stream<List<Completion>> complete({
+  Future<List<NavigationCompletion>> completeNavigation({
     required String query,
-    DateTime? date,
-    bool doPredict = false,
-    String? currentLocationString,
     bool doUseHistory = true,
-  }) async* {
+  }) async {
     final favorites = ref.read(storeProvider).stops;
-    final history = doUseHistory
-        ? (routeHistoryRepository ?? RouteHistoryRepository.i).history
-        : <LocalRoute>[];
+    final history =
+        doUseHistory ? routeHistoryRepository.history : const Iterable<LocalRoute>.empty();
     final completions = await ref.read(navigationAPIProvider).complete(query);
     final distances = <FavoriteStop, double>{};
 
@@ -58,49 +62,111 @@ class CompletionEngine {
     final favs = distances.entries.toList(growable: false)
       ..sort((a, b) => a.value.compareTo(b.value));
 
-    final list =
-        returnedList(query, currentLocationString, null, history, favs, completions, doPredict);
+    return [
+      if (history.isNotEmpty)
+        ...history
+            .flatMap((e) => [
+                  SbbCompletion(label: e.fromAsString, origin: DataOrigin.history),
+                  SbbCompletion(label: e.toAsString, origin: DataOrigin.history),
+                ])
+            .take(_kMaxHistoryCount)
+            .toSet(),
+      ...favs
+          .take(min(favs.length, _kMaxFavoritesCount))
+          .map((e) => SbbCompletion.fromFavorite(e.key)),
+      ...completions,
+    ];
+  }
+
+  Stream<List<NavigationCompletion>> complete({
+    required String query,
+    DateTime? date,
+    bool doPredict = false,
+    bool doUseCurrentLocation = true,
+    bool doUseHistory = true,
+    bool doUseContacts = false,
+  }) async* {
+    assert(!doPredict || date != null, 'If you use prediction, you must provide a date argument');
+
+    final favorites = ref.read(storeProvider).stops;
+    final history = doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
+    final completions = await ref.read(navigationAPIProvider).complete(query);
+    final distances = <FavoriteStop, double>{};
+    final contacts = doUseContacts
+        ? (await contactsRepository.query(query)).map((e) => ContactCompletion(e))
+        : const Iterable<ContactCompletion>.empty();
+
+    for (final c in favorites) {
+      final leven = scaledLevenshtein(query, c.name.replaceAll(',', ''));
+      if (leven < _kConfidenceThreshold) {
+        distances[c] = leven;
+      }
+    }
+
+    final favs = distances.entries.toList(growable: false)
+      ..sort((a, b) => a.value.compareTo(b.value));
+
+    final historySet = history
+        .flatMap((e) => [
+              SbbCompletion(label: e.fromAsString, origin: DataOrigin.history),
+              SbbCompletion(label: e.toAsString, origin: DataOrigin.history),
+            ])
+        .take(_kMaxHistoryCount)
+        .toSet();
+
+    final favsIter = favs
+        .take(min(favs.length, _kMaxFavoritesCount))
+        .map((e) => SbbCompletion.fromFavorite(e.key));
+
+    final list = _returnedList(
+      q: query,
+      doUseCurrentLocation: doUseCurrentLocation,
+      history: historySet,
+      favs: favsIter,
+      completions: completions,
+      doPredict: doPredict,
+      prediction: null,
+      contacts: contacts,
+    );
     yield list;
 
     if (doPredict) {
-      assert(date != null, 'If you use prediction, you must provide a date argument');
       final prediction =
           await predictRoute(history, PredictionArguments.withSource(query, dateTime: date));
-      final event = returnedList(
-          query, currentLocationString, prediction, history, favs, completions, doPredict);
+      final event = _returnedList(
+        q: query,
+        doUseCurrentLocation: doUseCurrentLocation,
+        history: historySet,
+        favs: favsIter,
+        completions: completions,
+        doPredict: doPredict,
+        prediction: prediction,
+        contacts: contacts,
+      );
       yield event;
     }
   }
 
-  List<Completion> returnedList(
-    String query,
-    String? currentLocationString,
-    RoutePrediction? prediction,
-    Iterable<LocalRoute> history,
-    Iterable<MapEntry<FavoriteStop, double>> favs,
-    Iterable<Completion> completions,
-    // ignore: avoid_positional_boolean_parameters
-    bool doPredict,
-  ) =>
+  List<NavigationCompletion> _returnedList({
+    required String q,
+    required bool doUseCurrentLocation,
+    required Iterable<SbbCompletion> history,
+    required Iterable<SbbCompletion> favs,
+    required Iterable<NavigationCompletion> completions,
+    required bool doPredict,
+    required RoutePrediction? prediction,
+    required Iterable<ContactCompletion> contacts,
+  }) =>
       [
-        if (currentLocationString != null)
-          SbbCompletion(label: currentLocationString, origin: DataOrigin.currentLocation),
+        if (doUseCurrentLocation) const CurrentLocationCompletion(),
         if (doPredict)
           if (prediction == null)
-            SbbCompletion(label: query, origin: DataOrigin.loading)
+            SbbCompletion(label: q, origin: DataOrigin.loading)
           else if (prediction.prediction != null)
             SbbCompletion(label: prediction.prediction!.toAsString, origin: DataOrigin.prediction),
-        if (history.isNotEmpty)
-          ...history
-              .flatMap((e) => [
-                    SbbCompletion(label: e.fromAsString, origin: DataOrigin.history),
-                    SbbCompletion(label: e.toAsString, origin: DataOrigin.history),
-                  ])
-              .take(_kMaxHistoryCount)
-              .toSet(),
-        ...favs
-            .take(min(favs.length, _kMaxFavoritesCount))
-            .map((e) => SbbCompletion.fromFavorite(e.key)),
+        if (history.isNotEmpty) ...history,
+        ...favs,
+        ...contacts,
         ...completions,
       ];
 
@@ -110,9 +176,9 @@ class CompletionEngine {
 @Deprecated('Use CompletionEngine instead.')
 
 /// Add similar favorites to the completions
-List<Completion> completeWithFavorites({
+List<NavigationCompletion> completeWithFavorites({
   required Iterable<FavoriteStop> favorites,
-  required List<Completion> completions,
+  required List<NavigationCompletion> completions,
   required String query,
   required List<LocalRoute> history,
   String? currentLocationString,

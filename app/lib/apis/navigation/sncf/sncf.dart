@@ -42,7 +42,7 @@ class SncfApi extends BaseNavigationApi {
   final _client = http.Client();
 
   @override
-  Future<List<Completion>> complete(
+  Future<List<NavigationCompletion>> complete(
     String string, {
     bool showCoordinates = true,
     bool showIds = true,
@@ -76,7 +76,7 @@ class SncfApi extends BaseNavigationApi {
   }
 
   @override
-  Future<List<Completion>> findStation(
+  Future<List<NavigationCompletion>> findStation(
     double lat,
     double lon, {
     int? accuracy,

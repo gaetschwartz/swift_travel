@@ -34,7 +34,7 @@ class CompletionTile extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final Completion sugg;
+  final NavigationCompletion sugg;
 
   static const _kRadius = BorderRadius.all(Radius.circular(16));
 
@@ -175,7 +175,7 @@ class _LinesWidget extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-  final Completion compl;
+  final NavigationCompletion compl;
 
   @override
   __LinesWidgetState createState() => __LinesWidgetState();
