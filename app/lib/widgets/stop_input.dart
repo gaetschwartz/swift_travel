@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search/search.dart';
@@ -92,7 +92,7 @@ class _StopInputDialogState extends State<StopInputDialog> {
               child: TextField(
                 onSubmitted: submit,
                 focusNode: node,
-                decoration: InputDecoration(hintText: AppLoc.of(context).search_station),
+                decoration: InputDecoration(hintText: AppLocalizations.of(context).search_station),
                 onChanged: onChanged,
               ),
             ),

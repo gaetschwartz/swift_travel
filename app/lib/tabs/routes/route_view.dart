@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/db/history.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/prediction/predict.dart';
@@ -19,7 +19,7 @@ import 'package:swift_travel/widgets/route_widget.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 
-final _locationNotFound = RegExp(r'Stop ([\d\.,-\s]*) not found\.');
+final _locationNotFound = RegExp(r'Stop (.*) not found\.');
 
 class RoutesView extends StatelessWidget {
   const RoutesView({
@@ -48,20 +48,22 @@ class RoutesView extends StatelessWidget {
                       )
                     : SliverFillRemaining(
                         child: Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(16),
                           child: Center(
-                            child: routes.messages.isEmpty ||
-                                    _locationNotFound.hasMatch(routes.messages.first)
-                                ? Text(
-                                    "You don't seem to be in a supported area.",
-                                    style: Theme.of(context).textTheme.headline6,
-                                    textAlign: TextAlign.center,
-                                  )
-                                : Text(
-                                    routes.messages.join('\n'),
-                                    style: Theme.of(context).textTheme.headline6,
-                                    textAlign: TextAlign.center,
-                                  ),
+                            child: DefaultTextStyle(
+                              style:
+                                  Theme.of(context).textTheme.caption!.apply(fontSizeFactor: 1.4),
+                              child: routes.messages.isEmpty ||
+                                      _locationNotFound.hasMatch(routes.messages.first)
+                                  ? Text(
+                                      AppLocalizations.of(context).unsupported_area,
+                                      textAlign: TextAlign.center,
+                                    )
+                                  : Text(
+                                      routes.messages.join('\n'),
+                                      textAlign: TextAlign.center,
+                                    ),
+                            ),
                           ),
                         ),
                       ),
@@ -231,7 +233,7 @@ class _PredictionTile extends StatelessWidget {
                   fromBinder.setString(context, pred.prediction!.fromAsString);
                   toBinder.setString(context, pred.prediction!.toAsString);
                 },
-                title: Text(AppLoc.of(context).suggestion),
+                title: Text(AppLocalizations.of(context).suggestion),
                 onLongPress: () {
                   showDialog<void>(
                       context: context,
@@ -297,7 +299,7 @@ class _PredictionTile extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              AppLoc.of(context).find_a_route,
+              AppLocalizations.of(context).find_a_route,
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
             )

@@ -1,5 +1,5 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
@@ -116,7 +116,7 @@ class Pair<R, S> with _$Pair<R, S> {
 
 @freezed
 class ContactCompletion with _$ContactCompletion implements NavigationCompletion {
-  const factory ContactCompletion(Contact contact) = _ContactCompletion;
+  const factory ContactCompletion(FullContact contact) = _ContactCompletion;
   const ContactCompletion._();
 
   @override
@@ -135,7 +135,17 @@ class ContactCompletion with _$ContactCompletion implements NavigationCompletion
   String? get id => null;
 
   @override
-  String get label => contact.displayName ?? '';
+  String get label {
+    String name(StructuredName? n) {
+      if (n == null) {
+        return "";
+      } else {
+        return "${n.firstName} ${n.lastName}";
+      }
+    }
+
+    return name(contact.name);
+  }
 
   @override
   TransportationMode? get type => null;

@@ -1,4 +1,4 @@
-
+// ignore_for_file: non_constant_identifier_names
 
 
 import 'app_localizations.dart';
@@ -170,4 +170,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get unable_locate => 'Der Standort kann nicht ermittelt werden.';
+
+  @override
+  String get unsupported_area => 'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
+
+  @override
+  String get contact_no_address => 'Dieser Kontakt hat keine Adresse';
 }

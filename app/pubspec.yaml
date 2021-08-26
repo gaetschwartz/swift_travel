@@ -51,6 +51,8 @@ dependencies:
   url_strategy: ^0.2.0
   contacts_service: ^0.6.1
   permission_handler: ^8.1.4+2
+  fluttercontactpicker: ^4.5.1
+  fluentui_system_icons: ^1.1.136
 
 dev_dependencies:
   flutter_driver:

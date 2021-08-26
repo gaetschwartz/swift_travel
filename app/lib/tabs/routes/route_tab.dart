@@ -15,7 +15,7 @@ import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -232,10 +232,10 @@ class RoutePageState extends State<RoutePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    fromFormatter = MyTextFormatter(
-        AppLoc.of(context).current_location, fromBinder, context.read(fromTextfieldProvider));
-    toFormatter = MyTextFormatter(
-        AppLoc.of(context).current_location, toBinder, context.read(fromTextfieldProvider));
+    fromFormatter = MyTextFormatter(AppLocalizations.of(context).current_location, fromBinder,
+        context.read(fromTextfieldProvider));
+    toFormatter = MyTextFormatter(AppLocalizations.of(context).current_location, toBinder,
+        context.read(fromTextfieldProvider));
     favorites = context.read(storeProvider);
     api = context.read(navigationAPIProvider);
     fromBinder.syncState(context);
@@ -290,7 +290,7 @@ class RoutePageState extends State<RoutePage> {
       materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: MaterialAppBar(
-            title: Text(widget.localRoute?.displayName ?? AppLoc.of(context).tabs_route)),
+            title: Text(widget.localRoute?.displayName ?? AppLocalizations.of(context).tabs_route)),
         body: child,
       ),
       builder: (_, d) => SafeArea(
@@ -333,7 +333,7 @@ class RoutePageState extends State<RoutePage> {
                   Positioned(
                       left: 0,
                       child: IconButton(
-                        tooltip: AppLoc.of(context).fav_route,
+                        tooltip: AppLocalizations.of(context).fav_route,
                         onPressed: () async {
                           Vibration.instance.select();
 
@@ -441,7 +441,7 @@ class RoutePageState extends State<RoutePage> {
                   Positioned(
                     right: 0,
                     child: IconButton(
-                      tooltip: AppLoc.of(context).use_current_time,
+                      tooltip: AppLocalizations.of(context).use_current_time,
                       onPressed: () {
                         Vibration.instance.select();
                         unFocusFields();
@@ -477,12 +477,12 @@ class RoutePageState extends State<RoutePage> {
         textFieldConfiguration: TextFieldConfiguration(
           focusNode: fnFrom,
           inputFormatters: [fromFormatter],
-          placeholder: AppLoc.of(context).departure,
+          placeholder: AppLocalizations.of(context).departure,
           textInputAction: TextInputAction.next,
           key: routeFromTextfieldKey,
         ),
         textInputAction: TextInputAction.next,
-        text: AppLoc.of(context).departure,
+        text: AppLocalizations.of(context).departure,
         icon: Consumer(
             builder: (context, w, _) =>
                 _IconForState(w(fromTextfieldProvider).state, iconSize: 16)),
@@ -496,14 +496,14 @@ class RoutePageState extends State<RoutePage> {
         textFieldConfiguration: TextFieldConfiguration(
           focusNode: fnTo,
           inputFormatters: [toFormatter],
-          placeholder: AppLoc.of(context).destination,
+          placeholder: AppLocalizations.of(context).destination,
           textInputAction: TextInputAction.search,
           key: routeToTextfieldKey,
         ),
         icon: Consumer(
           builder: (context, w, _) => _IconForState(w(toTextfieldProvider).state, iconSize: 16),
         ),
-        text: AppLoc.of(context).destination,
+        text: AppLocalizations.of(context).destination,
         textInputAction: TextInputAction.search,
         isDestination: true,
       );
@@ -656,7 +656,7 @@ class TextStateBinder {
   String get text => controller.text;
 
   static String _computeCurrentLocation(BuildContext context) =>
-      AppLoc.of(context).current_location;
+      AppLocalizations.of(context).current_location;
 }
 
 class ShadowsAround extends StatelessWidget {
@@ -697,11 +697,11 @@ class __SegmentedState extends State<_Segmented> {
       onValueChanged: onValueChanged,
       children: {
         TimeType.depart: Text(
-          AppLoc.of(context).departure,
+          AppLocalizations.of(context).departure,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
         TimeType.arrival: Text(
-          AppLoc.of(context).arrival,
+          AppLocalizations.of(context).arrival,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
       },

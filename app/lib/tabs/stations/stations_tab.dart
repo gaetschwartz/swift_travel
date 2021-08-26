@@ -13,7 +13,7 @@ import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/store.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -91,7 +91,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     return PlatformBuilder(
       cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         navigationBar: SwiftCupertinoBar(
-          middle: Text(AppLoc.of(context).timetable),
+          middle: Text(AppLocalizations.of(context).timetable),
         ),
         resizeToAvoidBottomInset: false,
         child: SafeArea(
@@ -99,7 +99,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
         ),
       ),
       materialBuilder: (context, child) => Scaffold(
-        appBar: MaterialAppBar(title: Text(AppLoc.of(context).tabs_search)),
+        appBar: MaterialAppBar(title: Text(AppLocalizations.of(context).tabs_search)),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           bottom: false,
@@ -126,7 +126,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                               .copyWith(fontStyle: FontStyle.normal),
                           decoration: InputDecoration(
                             isDense: true,
-                            hintText: AppLoc.of(context).search_station,
+                            hintText: AppLocalizations.of(context).search_station,
                             border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -167,7 +167,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                     final loading = w(_locatingProvider).state;
                     return AnimatedLocation(loadingState: loading);
                   }),
-                  tooltip: AppLoc.of(context).use_current_location,
+                  tooltip: AppLocalizations.of(context).use_current_location,
                   onPressed: _getLocation,
                 )
               ],
@@ -323,7 +323,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
   void onError(Object e) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(AppLoc.of(context).unable_locate),
+      content: Text(AppLocalizations.of(context).unable_locate),
       behavior: SnackBarBehavior.floating,
     ));
     log('', error: e, name: 'Location');

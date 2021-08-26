@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/settings/properties/property.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/listener.dart';
@@ -49,7 +49,8 @@ class PropertyTile<T> extends StatelessWidget {
                     : () async {
                         final res = await showChoiceSheet<T>(context, items,
                             defaultValue: prop.value,
-                            cancel: ActionsSheetAction(title: Text(AppLoc.of(context).cancel)));
+                            cancel: ActionsSheetAction(
+                                title: Text(AppLocalizations.of(context).cancel)));
                         if (res != null) {
                           prop.setValue(res);
                         }

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/db/store.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
@@ -30,7 +30,7 @@ class FavoriteStationTile extends StatelessWidget {
       actionPane: const SlidableDrawerActionPane(),
       secondaryActions: <Widget>[
         IconSlideAction(
-          caption: AppLoc.of(context).delete,
+          caption: AppLocalizations.of(context).delete,
           color: Colors.red,
           icon: CupertinoIcons.delete,
           onTap: () => delete(context),
@@ -38,13 +38,13 @@ class FavoriteStationTile extends StatelessWidget {
       ],
       actions: [
         IconSlideAction(
-          caption: AppLoc.of(context).rename,
+          caption: AppLocalizations.of(context).rename,
           color: Colors.blue,
           icon: CupertinoIcons.pencil,
           onTap: () => rename(context),
         ),
         IconSlideAction(
-          caption: AppLoc.of(context).timetable,
+          caption: AppLocalizations.of(context).timetable,
           color: Colors.blue,
           icon: CupertinoIcons.list_number,
           onTap: () => Nav.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
@@ -88,25 +88,25 @@ class FavoriteStationTile extends StatelessWidget {
       context,
       [
         ActionsSheetAction(
-          title: Text(AppLoc.of(context).timetable),
+          title: Text(AppLocalizations.of(context).timetable),
           icon: const Icon(CupertinoIcons.list_number),
           onPressed: () =>
               Nav.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
         ),
         ActionsSheetAction(
-          title: Text(AppLoc.of(context).rename),
+          title: Text(AppLocalizations.of(context).rename),
           icon: const Icon(CupertinoIcons.pencil),
           onPressed: () => rename(context),
         ),
         ActionsSheetAction(
-          title: Text(AppLoc.of(context).delete),
+          title: Text(AppLocalizations.of(context).delete),
           icon: const Icon(CupertinoIcons.delete),
           onPressed: () => delete(context),
           isDestructive: true,
         ),
       ],
       cancel: ActionsSheetAction(
-        title: Text(AppLoc.of(context).close),
+        title: Text(AppLocalizations.of(context).close),
         icon: const Icon(CupertinoIcons.xmark),
       ),
     );
@@ -125,15 +125,15 @@ class FavoriteStationTile extends StatelessWidget {
   Future<void> delete(BuildContext context) async {
     final b = await confirm(
       context,
-      title: Text(AppLoc.of(context).delete_fav),
+      title: Text(AppLocalizations.of(context).delete_fav),
       content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
         TextSpan(
             text: '${stop.name} (${stop.stop})',
             style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(text: '?'),
       ])),
-      confirm: Text(AppLoc.of(context).yes),
-      cancel: Text(AppLoc.of(context).no),
+      confirm: Text(AppLocalizations.of(context).yes),
+      cancel: Text(AppLocalizations.of(context).no),
       isConfirmDestructive: true,
     );
     if (!b) {

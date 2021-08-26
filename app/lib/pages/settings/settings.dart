@@ -15,7 +15,7 @@ import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/preferences.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/settings/properties/tile.dart';
@@ -48,8 +48,8 @@ class _SettingsPageState extends State<SettingsPage> {
       title: const Text('Reset settings ?'),
       content: const Text('You will lose all of you favorites!'),
       isConfirmDestructive: true,
-      confirm: Text(AppLoc.of(context).yes),
-      cancel: Text(AppLoc.of(context).no),
+      confirm: Text(AppLocalizations.of(context).yes),
+      cancel: Text(AppLocalizations.of(context).no),
     );
     if (!c) return;
 
@@ -62,7 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final children = [
-      _SectionTitle(title: Text(AppLoc.of(context).brightness)),
+      _SectionTitle(title: Text(AppLocalizations.of(context).brightness)),
       SizedBox(
         key: const Key('settings-top-theme-section'),
         height: 100,
@@ -73,32 +73,32 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               _ThememodeWidget(
                 theme: theme,
-                label: AppLoc.of(context).brightness_system,
+                label: AppLocalizations.of(context).brightness_system,
                 mode: ThemeMode.system,
               ),
               _ThememodeWidget(
                 theme: theme,
-                label: AppLoc.of(context).brightness_light,
+                label: AppLocalizations.of(context).brightness_light,
                 mode: ThemeMode.light,
               ),
               _ThememodeWidget(
                 theme: theme,
-                label: AppLoc.of(context).brightness_dark,
+                label: AppLocalizations.of(context).brightness_dark,
                 mode: ThemeMode.dark,
               ),
             ],
           );
         }),
       ),
-      _SectionTitle(title: Text(AppLoc.of(context).themes)),
+      _SectionTitle(title: Text(AppLocalizations.of(context).themes)),
       const _ThemesSection(),
-      _SectionTitle(title: Text(AppLoc.of(context).font)),
+      _SectionTitle(title: Text(AppLocalizations.of(context).font)),
       const _FontChoiceTile(),
       const _FontWeightTile(),
       const _PlatformTile(),
       if (Env.isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
         PropertyTile<Maps>(context.read(preferencesProvider).mapsApp,
-            title: Text(AppLoc.of(context).maps_app),
+            title: Text(AppLocalizations.of(context).maps_app),
             icon: const Icon(Icons.map_rounded),
             items: const [
               ActionsSheetAction(value: Maps.apple, title: Text('Apple Maps')),
@@ -112,7 +112,7 @@ class _SettingsPageState extends State<SettingsPage> {
               (e) => ActionsSheetAction(title: Text(e.name), value: NavigationApiId(e.id.value)),
             )
             .toList(growable: false),
-        title: Text(AppLoc.of(context).navigation_api),
+        title: Text(AppLocalizations.of(context).navigation_api),
         icon: const Icon(CupertinoIcons.link),
         trailingBuilder: (v) => Text(NavigationApiFactory.fromId(v).shortDesc),
         pageDescription: const Text('BETA: In the future the goal is to add more countries.'),
@@ -128,22 +128,22 @@ class _SettingsPageState extends State<SettingsPage> {
         subtitle: const Text('The app collects anonymized crash reports'),
       ),
       const Divider(height: 0),
-      _SectionTitle(title: Text(AppLoc.of(context).more)),
+      _SectionTitle(title: Text(AppLocalizations.of(context).more)),
       ListTile(
         leading: const Icon(CupertinoIcons.person_3_fill),
-        title: Text(AppLoc.of(context).our_team),
+        title: Text(AppLocalizations.of(context).our_team),
         onTap: () =>
             Navigator.of(context).push(PlatformPageRoute(builder: (_) => const TeamPage())),
       ),
       ListTile(
           leading: const Icon(Icons.restore),
-          title: Text(AppLoc.of(context).reset_settings),
+          title: Text(AppLocalizations.of(context).reset_settings),
           onTap: resetSettingsPrompt),
       const Divider(),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _SectionTitle(title: Text(AppLoc.of(context).developer)),
+          _SectionTitle(title: Text(AppLocalizations.of(context).developer)),
           ListTile(
               leading: const Icon(CupertinoIcons.search),
               title: const Text('Attributes crawler'),
@@ -236,7 +236,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: CupertinoPageScaffold(
                   resizeToAvoidBottomInset: false,
                   navigationBar: SwiftCupertinoBar(
-                    middle: Text(AppLoc.of(context).settings),
+                    middle: Text(AppLocalizations.of(context).settings),
                   ),
                   child: child!,
                 ),
@@ -247,7 +247,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 slivers: [
                   if (design == PlatformDesign.material)
                     SliverAppBar(
-                      title: Text(AppLoc.of(context).settings),
+                      title: Text(AppLocalizations.of(context).settings),
                       pinned: true,
                       elevation: 8,
                     ),

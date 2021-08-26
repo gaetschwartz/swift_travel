@@ -51,5 +51,7 @@
 	"journey_informations": "Informazioni sul viaggio",
 	"direction": "In direzione di {dir}",
 	"itinerary": "Percorso",
-	"unable_locate": "Impossibile ottenere la posizione."
+	"unable_locate": "Impossibile ottenere la posizione.",
+	"unsupported_area": "Non sembra che tu sia in una zona supportata.",
+	"contact_no_address": "Questo contatto non ha nessun indirizzo"
 }

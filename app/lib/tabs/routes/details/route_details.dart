@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/constants/env.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/tabs/routes/details/snake.dart';
@@ -40,7 +40,7 @@ class RouteDetails extends StatelessWidget {
               child: CupertinoPageScaffold(
                 resizeToAvoidBottomInset: false,
                 navigationBar: SwiftCupertinoBar(
-                  middle: Text(AppLoc.of(context).tabs_route),
+                  middle: Text(AppLocalizations.of(context).tabs_route),
                   trailing: IconButton(
                     icon: const Icon(Icons.more_horiz),
                     onPressed: () => openShareAction(context, conn),
@@ -57,7 +57,7 @@ class RouteDetails extends StatelessWidget {
               slivers: [
                 if (platform == PlatformDesign.material)
                   SliverAppBar(
-                      title: Text(AppLoc.of(context).tabs_route),
+                      title: Text(AppLocalizations.of(context).tabs_route),
                       pinned: true,
                       floating: true,
                       leading: doShowCloseButton ? const CloseButton() : null,
@@ -94,7 +94,7 @@ class RouteDetails extends StatelessWidget {
           ActionsSheetAction(
             icon: const Icon(CupertinoIcons.play_fill),
             onPressed: () => openLive(context, conn),
-            title: Text(AppLoc.of(context).live_route),
+            title: Text(AppLocalizations.of(context).live_route),
           ),
         ActionsSheetAction(
           icon: const Icon(CupertinoIcons.game_controller),
@@ -106,11 +106,11 @@ class RouteDetails extends StatelessWidget {
           ActionsSheetAction(
             icon: const Icon(CupertinoIcons.share),
             onPressed: () => _shareRoute(context),
-            title: Text(AppLoc.of(context).share),
+            title: Text(AppLocalizations.of(context).share),
           )
       ],
       cancel: ActionsSheetAction(
-          icon: const Icon(CupertinoIcons.xmark), title: Text(AppLoc.of(context).close)),
+          icon: const Icon(CupertinoIcons.xmark), title: Text(AppLocalizations.of(context).close)),
     );
   }
 
@@ -150,12 +150,12 @@ class _Header extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _DataRow(AppLoc.of(context).departure, c.from.stripAt()),
-                  _DataRow(AppLoc.of(context).destination, c.to.stripAt()),
+                  _DataRow(AppLocalizations.of(context).departure, c.from.stripAt()),
+                  _DataRow(AppLocalizations.of(context).destination, c.to.stripAt()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(AppLoc.of(context).travel_duration),
+                      Text(AppLocalizations.of(context).travel_duration),
                       const SizedBox(width: 8),
                       Expanded(
                           child: Align(

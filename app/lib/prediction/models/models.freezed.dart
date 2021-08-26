@@ -1217,7 +1217,7 @@ abstract class _Pair<R, S> extends Pair<R, S> {
 class _$ContactCompletionTearOff {
   const _$ContactCompletionTearOff();
 
-  _ContactCompletion call(Contact contact) {
+  _ContactCompletion call(FullContact contact) {
     return _ContactCompletion(
       contact,
     );
@@ -1229,7 +1229,7 @@ const $ContactCompletion = _$ContactCompletionTearOff();
 
 /// @nodoc
 mixin _$ContactCompletion {
-  Contact get contact => throw _privateConstructorUsedError;
+  FullContact get contact => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ContactCompletionCopyWith<ContactCompletion> get copyWith =>
@@ -1241,7 +1241,7 @@ abstract class $ContactCompletionCopyWith<$Res> {
   factory $ContactCompletionCopyWith(
           ContactCompletion value, $Res Function(ContactCompletion) then) =
       _$ContactCompletionCopyWithImpl<$Res>;
-  $Res call({Contact contact});
+  $Res call({FullContact contact});
 }
 
 /// @nodoc
@@ -1261,7 +1261,7 @@ class _$ContactCompletionCopyWithImpl<$Res>
       contact: contact == freezed
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
-              as Contact,
+              as FullContact,
     ));
   }
 }
@@ -1273,7 +1273,7 @@ abstract class _$ContactCompletionCopyWith<$Res>
           _ContactCompletion value, $Res Function(_ContactCompletion) then) =
       __$ContactCompletionCopyWithImpl<$Res>;
   @override
-  $Res call({Contact contact});
+  $Res call({FullContact contact});
 }
 
 /// @nodoc
@@ -1295,7 +1295,7 @@ class __$ContactCompletionCopyWithImpl<$Res>
       contact == freezed
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
-              as Contact,
+              as FullContact,
     ));
   }
 }
@@ -1306,7 +1306,7 @@ class _$_ContactCompletion extends _ContactCompletion {
   const _$_ContactCompletion(this.contact) : super._();
 
   @override
-  final Contact contact;
+  final FullContact contact;
 
   @override
   String toString() {
@@ -1332,11 +1332,11 @@ class _$_ContactCompletion extends _ContactCompletion {
 }
 
 abstract class _ContactCompletion extends ContactCompletion {
-  const factory _ContactCompletion(Contact contact) = _$_ContactCompletion;
+  const factory _ContactCompletion(FullContact contact) = _$_ContactCompletion;
   const _ContactCompletion._() : super._();
 
   @override
-  Contact get contact => throw _privateConstructorUsedError;
+  FullContact get contact => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ContactCompletionCopyWith<_ContactCompletion> get copyWith =>

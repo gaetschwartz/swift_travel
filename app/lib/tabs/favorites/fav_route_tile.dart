@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/db/store.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
@@ -21,7 +21,7 @@ class FavoriteRouteTile extends StatelessWidget {
         actionPane: const SlidableDrawerActionPane(),
         secondaryActions: <Widget>[
           IconSlideAction(
-            caption: AppLoc.of(context).delete,
+            caption: AppLocalizations.of(context).delete,
             color: Colors.red,
             icon: CupertinoIcons.delete,
             onTap: () => deleteRoute(context),
@@ -29,7 +29,7 @@ class FavoriteRouteTile extends StatelessWidget {
         ],
         actions: [
           IconSlideAction(
-            caption: AppLoc.of(context).rename,
+            caption: AppLocalizations.of(context).rename,
             color: Colors.blue,
             icon: CupertinoIcons.pencil,
             onTap: () => rename(context),
@@ -60,19 +60,19 @@ class FavoriteRouteTile extends StatelessWidget {
         context,
         [
           ActionsSheetAction(
-            title: Text(AppLoc.of(context).rename),
+            title: Text(AppLocalizations.of(context).rename),
             icon: const Icon(CupertinoIcons.pencil),
             onPressed: () => rename(context),
           ),
           ActionsSheetAction(
             onPressed: () => deleteRoute(context),
-            title: Text(AppLoc.of(context).delete),
+            title: Text(AppLocalizations.of(context).delete),
             icon: const Icon(CupertinoIcons.delete),
             isDestructive: true,
           ),
         ],
         cancel: ActionsSheetAction<void>(
-          title: Text(AppLoc.of(context).cancel),
+          title: Text(AppLocalizations.of(context).cancel),
           icon: const Icon(CupertinoIcons.xmark),
         ),
       );
@@ -88,7 +88,7 @@ class FavoriteRouteTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            AppLoc.of(context).from,
+            AppLocalizations.of(context).from,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -96,7 +96,7 @@ class FavoriteRouteTile extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            AppLoc.of(context).to,
+            AppLocalizations.of(context).to,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
@@ -105,8 +105,8 @@ class FavoriteRouteTile extends StatelessWidget {
           ),
         ],
       ),
-      confirm: Text(AppLoc.of(context).yes),
-      cancel: Text(AppLoc.of(context).no),
+      confirm: Text(AppLocalizations.of(context).yes),
+      cancel: Text(AppLocalizations.of(context).no),
       isConfirmDestructive: true,
     );
     if (!b) {

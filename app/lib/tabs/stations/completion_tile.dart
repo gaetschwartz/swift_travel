@@ -14,7 +14,7 @@ import 'package:swift_travel/db/cache.dart';
 import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -131,8 +131,8 @@ class CompletionTile extends ConsumerWidget {
         [
           ActionsSheetAction(
             title: isFav
-                ? Text(AppLoc.of(context).remove_from_favoruites)
-                : Text(AppLoc.of(context).add_to_favs),
+                ? Text(AppLocalizations.of(context).remove_from_favoruites)
+                : Text(AppLocalizations.of(context).add_to_favs),
             icon: isFav
                 ? const Icon(CupertinoIcons.heart_slash)
                 : const Icon(CupertinoIcons.heart_fill),
@@ -143,7 +143,7 @@ class CompletionTile extends ConsumerWidget {
           )
         ],
         cancel: ActionsSheetAction(
-          title: Text(AppLoc.of(context).cancel),
+          title: Text(AppLocalizations.of(context).cancel),
           icon: const Icon(CupertinoIcons.xmark),
         ));
 

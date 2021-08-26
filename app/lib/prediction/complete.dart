@@ -84,7 +84,6 @@ class CompletionEngine {
     bool doPredict = false,
     bool doUseCurrentLocation = true,
     bool doUseHistory = true,
-    bool doUseContacts = false,
   }) async* {
     assert(!doPredict || date != null, 'If you use prediction, you must provide a date argument');
 
@@ -92,9 +91,6 @@ class CompletionEngine {
     final history = doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
     final completions = await ref.read(navigationAPIProvider).complete(query);
     final distances = <FavoriteStop, double>{};
-    final contacts = doUseContacts
-        ? (await contactsRepository.query(query)).map((e) => ContactCompletion(e))
-        : const Iterable<ContactCompletion>.empty();
 
     for (final c in favorites) {
       final leven = scaledLevenshtein(query, c.name.replaceAll(',', ''));
@@ -126,7 +122,6 @@ class CompletionEngine {
       completions: completions,
       doPredict: doPredict,
       prediction: null,
-      contacts: contacts,
     );
     yield list;
 
@@ -141,7 +136,6 @@ class CompletionEngine {
         completions: completions,
         doPredict: doPredict,
         prediction: prediction,
-        contacts: contacts,
       );
       yield event;
     }
@@ -155,7 +149,6 @@ class CompletionEngine {
     required Iterable<NavigationCompletion> completions,
     required bool doPredict,
     required RoutePrediction? prediction,
-    required Iterable<ContactCompletion> contacts,
   }) =>
       [
         if (doUseCurrentLocation) const CurrentLocationCompletion(),
@@ -166,7 +159,6 @@ class CompletionEngine {
             SbbCompletion(label: prediction.prediction!.toAsString, origin: DataOrigin.prediction),
         if (history.isNotEmpty) ...history,
         ...favs,
-        ...contacts,
         ...completions,
       ];
 

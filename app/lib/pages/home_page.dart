@@ -8,7 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octo_image/octo_image.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/settings/settings.dart';
@@ -60,28 +60,28 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
   late final cupertinoItems = [
     BottomNavigationBarItem(
       icon: const Icon(CupertinoIcons.search),
-      label: AppLoc.of(context).timetable,
+      label: AppLocalizations.of(context).timetable,
     ),
     BottomNavigationBarItem(
       icon: const Icon(CupertinoIcons.train_style_one),
-      label: AppLoc.of(context).tabs_route,
+      label: AppLocalizations.of(context).tabs_route,
     ),
     BottomNavigationBarItem(
       icon: const Icon(CupertinoIcons.square_favorites_alt),
       activeIcon: const Icon(CupertinoIcons.square_favorites_alt_fill),
-      label: AppLoc.of(context).tabs_favourites,
+      label: AppLocalizations.of(context).tabs_favourites,
     ),
     BottomNavigationBarItem(
       icon: const Icon(CupertinoIcons.settings),
       activeIcon: const Icon(CupertinoIcons.settings_solid),
-      label: AppLoc.of(context).settings,
+      label: AppLocalizations.of(context).settings,
     )
   ];
 
   late final titles = [
-    AppLoc.of(context).timetable,
-    AppLoc.of(context).tabs_route,
-    AppLoc.of(context).tabs_favourites,
+    AppLocalizations.of(context).timetable,
+    AppLocalizations.of(context).tabs_route,
+    AppLocalizations.of(context).tabs_favourites,
   ];
   late final materialItems = [
     BottomNavigationBarItem(
@@ -426,7 +426,7 @@ class MaterialAppBar extends AppBar {
               Builder(builder: (context) {
                 return IconButton(
                     key: const Key('settings-button'),
-                    tooltip: AppLoc.of(context).settings,
+                    tooltip: AppLocalizations.of(context).settings,
                     icon: const Icon(Icons.settings),
                     onPressed: () {
                       Vibration.instance.select();

@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/db/history.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
@@ -70,7 +70,7 @@ class RouteTile extends StatelessWidget {
               Nav.push(
                 context,
                 (context) => RouteDetails(route: route, i: i),
-                title: AppLoc.of(context).tabs_route,
+                title: AppLocalizations.of(context).tabs_route,
               );
               RouteHistoryRepository.i
                   .safeAdd(LocalRoute.fromRouteConnection(route.connections[i]));
