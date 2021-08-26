@@ -53,5 +53,8 @@
 	"itinerary": "Percorso",
 	"unable_locate": "Impossibile ottenere la posizione.",
 	"unsupported_area": "Non sembra che tu sia in una zona supportata.",
-	"contact_no_address": "Questo contatto non ha nessun indirizzo"
+	"contact_no_address": "Questo contatto non ha nessun indirizzo",
+	"contacts": "Contatti",
+	"failed_get_contact": "Impossibile ottenere la rubrica",
+	"new_fav": "Nuova fermata preferita"
 }

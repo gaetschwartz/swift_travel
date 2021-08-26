@@ -89,5 +89,8 @@
 	"itinerary": "Itinerary",
 	"unable_locate": "Unable to obtain location.",
 	"unsupported_area": "You don't seem to be in a supported area.",
-	"contact_no_address": "This contact doesn't have any address"
+	"contact_no_address": "This contact doesn't have any address",
+	"contacts": "Contacts",
+	"failed_get_contact": "Failed to obtain the address book",
+	"new_fav": "New favourite stop"
 }

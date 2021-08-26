@@ -57,11 +57,11 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
             shadowColor: ShadowTheme.of(context).buttonShadow!.color,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           ),
           onPressed: addFav,
           icon: const Icon(Icons.add),
-          label: Text(AppLocalizations.of(context).add_to_favs),
+          label: Text(AppLocalizations.of(context).new_fav),
         ),
         body: child,
       ),

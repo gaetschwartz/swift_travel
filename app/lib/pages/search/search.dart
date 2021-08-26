@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -154,33 +155,35 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   @override
-  Widget build(BuildContext context) => PlatformBuilder(
-        cupertinoBuilder: (context, child) => Material(
-          child: CupertinoPageScaffold(
-            navigationBar: SwiftCupertinoBar(
-              transitionBetweenRoutes: false,
-              middle: Hero(
-                tag: widget.heroTag,
-                child: widget.configuration.toCupertino(controller: widget.binder.controller),
+  Widget build(BuildContext context) => CupertinoScaffold(
+        body: PlatformBuilder(
+          cupertinoBuilder: (context, child) => Material(
+            child: CupertinoPageScaffold(
+              navigationBar: SwiftCupertinoBar(
+                transitionBetweenRoutes: false,
+                middle: Hero(
+                  tag: widget.heroTag,
+                  child: widget.configuration.toCupertino(controller: widget.binder.controller),
+                ),
+                trailing: _ClearButton(binder: widget.binder),
               ),
-              trailing: _ClearButton(binder: widget.binder),
+              child: child!,
             ),
-            child: child!,
           ),
-        ),
-        materialBuilder: (context, child) => Scaffold(
-          appBar: AppBar(
-            title: Hero(
-                tag: widget.heroTag,
-                child: widget.configuration.toTextField(controller: widget.binder.controller)),
-            actions: [_ClearButton(binder: widget.binder)],
-            leading: const CloseButton(key: SearchPage.closeSearchKey),
+          materialBuilder: (context, child) => Scaffold(
+            appBar: AppBar(
+              title: Hero(
+                  tag: widget.heroTag,
+                  child: widget.configuration.toTextField(controller: widget.binder.controller)),
+              actions: [_ClearButton(binder: widget.binder)],
+              leading: const CloseButton(key: SearchPage.closeSearchKey),
+            ),
+            body: child,
           ),
-          body: child,
-        ),
-        child: _Results(
-          onTap: onSuggestionTapped,
-          focusNode: widget.configuration.focusNode,
+          child: _Results(
+            onTap: onSuggestionTapped,
+            focusNode: widget.configuration.focusNode,
+          ),
         ),
       );
 
@@ -213,11 +216,12 @@ class _ClearButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListenableBuilder<TextEditingController>(
-        builder: (context, listenable, child) => Opacity(
+        builder: (context, listenable, child) => AnimatedOpacity(
           opacity: listenable.text.isEmpty ? 0 : 1,
+          duration: const Duration(milliseconds: 500),
           child: IconButton(
             color: CupertinoTheme.of(context).primaryColor,
-            onPressed: () => binder.clear(context),
+            onPressed: listenable.text.isEmpty ? null : () => binder.clear(context),
             icon: const Icon(CupertinoIcons.clear),
           ),
         ),
@@ -264,9 +268,10 @@ class _Results extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              IconButton(
+                              TextButton.icon(
                                 onPressed: () => pickContact(context),
-                                icon: const Icon(FluentIcons.contact_card_24_regular),
+                                icon: const Icon(FluentIcons.contact_card_group_24_regular),
+                                label: Text(AppLocalizations.of(context).contacts),
                               )
                             ],
                           ),

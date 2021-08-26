@@ -53,5 +53,8 @@
 	"itinerary": "Itinéraire",
 	"unable_locate": "Impossible d'obtenir la localisation.",
 	"unsupported_area": "Vous n'avez pas l'air d'être dans une zone prise en charge.",
-	"contact_no_address": "Ce contact n'a pas d'adresse"
+	"contact_no_address": "Ce contact n'a pas d'adresse",
+	"contacts": "Contacts",
+	"failed_get_contact": "Impossible d'obtenir le carnet d'adresses",
+	"new_fav": "Nouvel arrêt préféré"
 }

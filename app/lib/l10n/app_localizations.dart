@@ -421,6 +421,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This contact doesn\'t have any address'**
   String get contact_no_address;
+
+  /// No description provided for @contacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get contacts;
+
+  /// No description provided for @failed_get_contact.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to obtain the address book'**
+  String get failed_get_contact;
+
+  /// No description provided for @new_fav.
+  ///
+  /// In en, this message translates to:
+  /// **'New favourite stop'**
+  String get new_fav;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
