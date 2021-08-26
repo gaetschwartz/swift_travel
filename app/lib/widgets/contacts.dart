@@ -1,10 +1,11 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 
-Future<Contact?> showContactPicker(BuildContext context) => showCupertinoDialog<Contact>(
+Future<Contact?> showContactPicker(BuildContext context) => showCupertinoModalBottomSheet<Contact>(
       context: context,
       builder: (context) => const ContactsDialog(),
     );
@@ -51,18 +52,20 @@ class _ContactsDialogState extends State<ContactsDialog> {
         ),
         body: child,
       ),
-      child: contacts == null
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: contacts!.length,
-              itemBuilder: (context, i) {
-                final c = contacts!.elementAt(i);
-                return ListTile(
-                  title: Text(c.displayName ?? ""),
-                  onTap: () => Navigator.of(context).pop(c),
-                );
-              },
-            ),
+      child: Material(
+        child: contacts == null
+            ? const Center(child: CircularProgressIndicator.adaptive())
+            : ListView.builder(
+                itemCount: contacts!.length,
+                itemBuilder: (context, i) {
+                  final c = contacts!.elementAt(i);
+                  return ListTile(
+                    title: Text(c.displayName ?? ""),
+                    onTap: () => Navigator.of(context).pop(c),
+                  );
+                },
+              ),
+      ),
     );
   }
 }
