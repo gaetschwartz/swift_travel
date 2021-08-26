@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/db/preferences.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/utils/strings/markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -51,7 +51,7 @@ class WalkingTile extends StatelessWidget {
                     if (l.exit!.waitTime > 0)
                       Text.rich(
                         parseDecoratedText(
-                          AppLoc.of(context).walk_and_wait(
+                          AppLocalizations.of(context).walk_and_wait(
                             Format.duration(l.walkingTime)!,
                             Format.intToDuration(l.exit!.waitTime),
                           ),
@@ -61,7 +61,7 @@ class WalkingTile extends StatelessWidget {
                     else
                       Text.rich(
                         parseDecoratedText(
-                          AppLoc.of(context).walk(Format.duration(l.walkingTime)!),
+                          AppLocalizations.of(context).walk(Format.duration(l.walkingTime)!),
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                       ),

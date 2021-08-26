@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -52,7 +52,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       ),
       materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: MaterialAppBar(title: Text(AppLoc.of(context).tabs_favourites)),
+        appBar: MaterialAppBar(title: Text(AppLocalizations.of(context).tabs_favourites)),
         floatingActionButton: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
@@ -61,7 +61,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
           ),
           onPressed: addFav,
           icon: const Icon(Icons.add),
-          label: Text(AppLoc.of(context).add_to_favs),
+          label: Text(AppLocalizations.of(context).add_to_favs),
         ),
         body: child,
       ),

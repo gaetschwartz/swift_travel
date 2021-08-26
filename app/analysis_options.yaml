@@ -6,7 +6,6 @@ analyzer:
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
-    - "lib/l10n/**"
   strong-mode:
     implicit-dynamic: false
     implicit-casts: false

@@ -4,7 +4,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
 import 'package:swift_travel/constants/env.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/attributes_page.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/strings/format.dart';
@@ -159,8 +159,8 @@ class _Collapsed extends StatelessWidget {
                                     resizeToAvoidBottomInset: false,
                                     navigationBar: CupertinoNavigationBar(
                                       automaticallyImplyLeading: false,
-                                      middle:
-                                          Text('${l.line} ${AppLoc.of(context).to} ${l.terminal}'),
+                                      middle: Text(
+                                          '${l.line} ${AppLocalizations.of(context).to} ${l.terminal}'),
                                     ),
                                     child: SafeArea(
                                       child: Column(

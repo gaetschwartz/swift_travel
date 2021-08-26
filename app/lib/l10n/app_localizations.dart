@@ -1,4 +1,4 @@
-
+// ignore_for_file: non_constant_identifier_names
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -67,8 +67,8 @@ abstract class AppLocalizations {
 
   final String localeName;
 
-  static AppLocalizations? of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations);
+  static AppLocalizations of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
   static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
@@ -409,6 +409,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unable to obtain location.'**
   String get unable_locate;
+
+  /// No description provided for @unsupported_area.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t seem to be in a supported area.'**
+  String get unsupported_area;
+
+  /// No description provided for @contact_no_address.
+  ///
+  /// In en, this message translates to:
+  /// **'This contact doesn\'t have any address'**
+  String get contact_no_address;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

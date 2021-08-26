@@ -51,5 +51,7 @@
 	"journey_informations": "Fahrtinfo",
 	"direction": "Richtung {dir}",
 	"itinerary": "Reiseplan",
-	"unable_locate": "Der Standort kann nicht ermittelt werden."
+	"unable_locate": "Der Standort kann nicht ermittelt werden.",
+	"unsupported_area": "Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.",
+	"contact_no_address": "Dieser Kontakt hat keine Adresse"
 }

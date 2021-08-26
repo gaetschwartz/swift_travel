@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
 class RouteWidget extends StatelessWidget {
@@ -67,7 +67,7 @@ class RouteWidget extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                                 child: Text(
-                                  fromOverride ?? AppLoc.of(context).from.toCamelCase(),
+                                  fromOverride ?? AppLocalizations.of(context).from.toCamelCase(),
                                   style: Theme.of(context).textTheme.subtitle2,
                                 ),
                               ),
@@ -84,7 +84,7 @@ class RouteWidget extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                                 child: Text(
-                                  toOverride ?? AppLoc.of(context).to.toCamelCase(),
+                                  toOverride ?? AppLocalizations.of(context).to.toCamelCase(),
                                   style: Theme.of(context).textTheme.subtitle2,
                                 ),
                               ),

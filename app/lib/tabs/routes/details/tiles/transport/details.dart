@@ -5,7 +5,7 @@ import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/constants/env.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -78,7 +78,7 @@ class _TransportDetailsState extends State<TransportDetails> {
                       foreground: widget.leg.fgColor,
                     ),
                     const SizedBox(width: 8),
-                    Text(AppLoc.of(context).direction(widget.leg.terminal ?? '')),
+                    Text(AppLocalizations.of(context).direction(widget.leg.terminal ?? '')),
                   ],
                 ),
               ),
@@ -116,7 +116,7 @@ class _TransportDetailsState extends State<TransportDetails> {
         ],
       );
 
-  String get title => AppLoc.of(context).journey_informations;
+  String get title => AppLocalizations.of(context).journey_informations;
 }
 
 class _Stop extends StatelessWidget {

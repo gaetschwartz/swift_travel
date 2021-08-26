@@ -2,15 +2,17 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search/models.dart';
@@ -120,7 +122,6 @@ class _SearchPageState extends State<SearchPage> {
             query: query,
             doPredict: widget.isDestination,
             date: context.read(dateProvider).state,
-            doUseContacts: true,
           )
           .listen(
         (c) {
@@ -181,13 +182,17 @@ class _SearchPageState extends State<SearchPage> {
 
   void onSuggestionTapped(NavigationCompletion c) {
     if (c.origin == DataOrigin.currentLocation) {
-      print('It is current location');
+      print('Using current location');
       widget.binder.useCurrentLocation(context);
     } else if (c is ContactCompletion) {
-      final string = c.contact.postalAddresses?.firstOrNull.toString();
-      if (string != null) widget.binder.setString(context, string);
-    }
-    {
+      final a = c.contact.addresses.firstOrNull;
+      if (a != null) {
+        widget.binder.setString(context, a.toDetailedString());
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).contact_no_address)));
+      }
+    } else {
       widget.binder.setString(context, c.label);
     }
     Navigator.of(context).pop();
@@ -228,22 +233,30 @@ class _Results extends StatelessWidget {
   Widget build(BuildContext context) => Consumer(builder: (context, w, _) {
         final state = w(_stateProvider);
         return state.state.when(
-          completions: (c) => CustomScrollView(
-            slivers: [
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: SizedBox(
-                    height: 4,
-                  ),
+          completions: (c) => Stack(
+            children: [
+              Positioned.fill(
+                child: ListView.builder(
+                  itemBuilder: (context, i) => SuggestedTile(c[i], onTap: onTap),
+                  itemCount: c.length,
                 ),
               ),
-              SliverSafeArea(
-                bottom: false,
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, i) => SuggestedTile(c[i], onTap: onTap),
-                    childCount: c.length,
+              Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: Card(
+                  child: SizedBox(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: pickContact,
+                          icon: const Icon(FluentIcons.contact_card_24_regular),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -260,7 +273,7 @@ class _Results extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                AppLoc.of(context).search_station,
+                AppLocalizations.of(context).search_station,
                 style: Theme.of(context).textTheme.headline6,
                 textAlign: TextAlign.center,
               )
@@ -282,6 +295,17 @@ class _Results extends StatelessWidget {
           ),
         );
       });
+
+  void pickContact() async {
+    final FullContact contact;
+    try {
+      contact = await FlutterContactPicker.pickFullContact();
+    } on Exception catch (e, s) {
+      debugPrintStack(stackTrace: s, label: e.toString());
+      return;
+    }
+    onTap(ContactCompletion(contact));
+  }
 }
 
 class SuggestedTile extends StatelessWidget {
@@ -298,7 +322,7 @@ class SuggestedTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final isLoading = suggestion.origin == DataOrigin.loading;
     final label = suggestion.origin == DataOrigin.currentLocation
-        ? AppLoc.of(context).current_location
+        ? AppLocalizations.of(context).current_location
         : suggestion.label;
     return IfWrapper(
       condition: isLoading,
@@ -372,4 +396,13 @@ class _SuggestedTileIcon extends StatelessWidget {
         );
     }
   }
+}
+
+extension AddressX on Address {
+  String toDetailedString() => [
+        if (addressLine != null) ...addressLine!,
+        if (postcode != null || city != null)
+          "${postcode ?? ''}${city != null && postcode != null ? ' ' : ''}${city ?? ''}",
+        if (country != null) country,
+      ].join(", ");
 }

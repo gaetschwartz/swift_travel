@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -103,7 +103,7 @@ class WelcomePage extends StatelessWidget {
                           },
                           child: Row(
                             children: [
-                              Text(AppLoc.of(context).continue_),
+                              Text(AppLocalizations.of(context).continue_),
                               const SizedBox(width: 8),
                               const Icon(CupertinoIcons.chevron_forward),
                             ],

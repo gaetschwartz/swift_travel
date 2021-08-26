@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'models/contributor.dart';
@@ -89,7 +89,7 @@ class _TeamPageState extends State<TeamPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(AppLoc.of(context).our_team),
+          title: Text(AppLocalizations.of(context).our_team),
         ),
         body: CustomScrollView(
           slivers: [

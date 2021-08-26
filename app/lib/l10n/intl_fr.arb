@@ -51,5 +51,7 @@
 	"journey_informations": "Itinéraire",
 	"direction": "Direction {dir}",
 	"itinerary": "Itinéraire",
-	"unable_locate": "Impossible d'obtenir la localisation."
+	"unable_locate": "Impossible d'obtenir la localisation.",
+	"unsupported_area": "Vous n'avez pas l'air d'être dans une zone prise en charge.",
+	"contact_no_address": "Ce contact n'a pas d'adresse"
 }

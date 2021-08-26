@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/l10n.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/utils/strings/markdown.dart';
@@ -43,7 +43,7 @@ class ArrivedTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text.rich(parseDecoratedText(
-                  AppLoc.of(context).youll_be_there(Format.time(l.arrival)),
+                  AppLocalizations.of(context).youll_be_there(Format.time(l.arrival)),
                   style: Theme.of(context).textTheme.subtitle2,
                 )),
               ],
