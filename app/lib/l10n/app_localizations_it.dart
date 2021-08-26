@@ -176,4 +176,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get contact_no_address => 'Questo contatto non ha nessun indirizzo';
+
+  @override
+  String get contacts => 'Contatti';
+
+  @override
+  String get failed_get_contact => 'Impossibile ottenere la rubrica';
+
+  @override
+  String get new_fav => 'Nuova fermata preferita';
 }

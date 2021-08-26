@@ -176,4 +176,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get contact_no_address => 'Dieser Kontakt hat keine Adresse';
+
+  @override
+  String get contacts => 'Kontakte';
+
+  @override
+  String get failed_get_contact => 'Das Adressbuch kann nicht abgerufen werden';
+
+  @override
+  String get new_fav => 'Neue Lieblingshaltestelle';
 }

@@ -53,5 +53,8 @@
 	"itinerary": "Reiseplan",
 	"unable_locate": "Der Standort kann nicht ermittelt werden.",
 	"unsupported_area": "Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.",
-	"contact_no_address": "Dieser Kontakt hat keine Adresse"
+	"contact_no_address": "Dieser Kontakt hat keine Adresse",
+	"contacts": "Kontakte",
+	"failed_get_contact": "Das Adressbuch kann nicht abgerufen werden",
+	"new_fav": "Neue Lieblingshaltestelle"
 }
