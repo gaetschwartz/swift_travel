@@ -22,6 +22,7 @@ import 'package:swift_travel/prediction/predict.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/errors.dart';
+import 'package:swift_travel/widgets/contacts.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:theming/responsive.dart';
@@ -177,7 +178,10 @@ class _SearchPageState extends State<SearchPage> {
           ),
           body: child,
         ),
-        child: _Results(onTap: onSuggestionTapped),
+        child: _Results(
+          onTap: onSuggestionTapped,
+          focusNode: widget.configuration.focusNode,
+        ),
       );
 
   void onSuggestionTapped(NavigationCompletion c) {
@@ -185,9 +189,9 @@ class _SearchPageState extends State<SearchPage> {
       print('Using current location');
       widget.binder.useCurrentLocation(context);
     } else if (c is ContactCompletion) {
-      final a = c.contact.addresses.firstOrNull;
+      final a = c.contact.postalAddresses?.firstOrNull;
       if (a != null) {
-        widget.binder.setString(context, a.toDetailedString());
+        widget.binder.setString(context, a.toString());
       } else {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).contact_no_address)));
@@ -208,26 +212,29 @@ class _ClearButton extends StatelessWidget {
   final TextStateBinder binder;
 
   @override
-  Widget build(BuildContext context) => IconButton(
-        color: CupertinoTheme.of(context).primaryColor,
-        onPressed: () => binder.clear(context),
-        icon: ListenableBuilder<TextEditingController>(
-          builder: (context, listenable, child) => Offstage(
-            offstage: listenable.text.isEmpty,
-            child: const Icon(CupertinoIcons.clear),
+  Widget build(BuildContext context) => ListenableBuilder<TextEditingController>(
+        builder: (context, listenable, child) => Opacity(
+          opacity: listenable.text.isEmpty ? 0 : 1,
+          child: IconButton(
+            color: CupertinoTheme.of(context).primaryColor,
+            onPressed: () => binder.clear(context),
+            icon: const Icon(CupertinoIcons.clear),
           ),
-          listenable: binder.controller,
         ),
+        listenable: binder.controller,
       );
 }
 
 class _Results extends StatelessWidget {
   const _Results({
     required this.onTap,
+    required this.focusNode,
     Key? key,
   }) : super(key: key);
 
   final void Function(NavigationCompletion completion) onTap;
+
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) => Consumer(builder: (context, w, _) {
@@ -245,19 +252,28 @@ class _Results extends StatelessWidget {
                 bottom: 0,
                 right: 0,
                 left: 0,
-                child: Card(
-                  child: SizedBox(
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          onPressed: pickContact,
-                          icon: const Icon(FluentIcons.contact_card_24_regular),
-                        )
-                      ],
-                    ),
-                  ),
+                child: ListenableBuilder(
+                  listenable: focusNode!,
+                  builder: (context, _, __) {
+                    return AnimatedOpacity(
+                      duration: const Duration(milliseconds: 500),
+                      opacity: focusNode!.hasFocus ? 1 : 0,
+                      child: Card(
+                        child: SizedBox(
+                          height: 40,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                onPressed: () => pickContact(context),
+                                icon: const Icon(FluentIcons.contact_card_24_regular),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -296,15 +312,9 @@ class _Results extends StatelessWidget {
         );
       });
 
-  void pickContact() async {
-    final FullContact contact;
-    try {
-      contact = await FlutterContactPicker.pickFullContact();
-    } on Exception catch (e, s) {
-      debugPrintStack(stackTrace: s, label: e.toString());
-      return;
-    }
-    onTap(ContactCompletion(contact));
+  void pickContact(BuildContext context) async {
+    final c = await showContactPicker(context);
+    if (c != null) onTap(ContactCompletion(c));
   }
 }
 
