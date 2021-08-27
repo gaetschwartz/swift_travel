@@ -16,6 +16,11 @@ Future<Contact?> showContactPicker(BuildContext context) =>
 final contactsProvider = FutureProvider(
     (ref) async => (await ContactsService.getContacts(withThumbnails: true)).toList());
 
+final _filteredContacts = FutureProvider((ref) async {
+  final contacts = await ContactsService.getContacts(withThumbnails: true);
+  return contacts.where((c) => c.postalAddresses.isNotEmpty).toList();
+});
+
 class ContactsDialog extends StatelessWidget {
   const ContactsDialog({Key? key}) : super(key: key);
 
@@ -37,11 +42,11 @@ class ContactsDialog extends StatelessWidget {
         body: child,
       ),
       child: Material(child: Consumer(builder: (context, w, _) {
-        return w(contactsProvider).when(
+        return w(_filteredContacts).when(
           data: (contacts) => ListView.builder(
             itemCount: contacts.length,
             itemBuilder: (context, i) {
-              final c = contacts.elementAt(i);
+              final c = contacts[i];
               return ListTile(
                 title: Text(c.displayName ?? ""),
                 onTap: () => Navigator.of(context).pop(c),
