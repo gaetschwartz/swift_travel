@@ -80,7 +80,7 @@ class Format {
     return "$hrs$mins${h == 0 ? " ${_mins(locale, m)}" : ""}";
   }
 
-  static String time(DateTime? date, [Locale locale = const Locale('en')]) {
+  static String time(DateTime? date) {
     if (date == null) {
       return '';
     }

@@ -613,13 +613,13 @@ class TextStateBinder {
   ]);
 
   final TextEditingController controller;
-  final StateProvider<RouteTextfieldState>? provider;
+  final StateProvider<RouteTextfieldState> provider;
   final String Function(BuildContext) computeCurrentLocation;
 
-  void syncState(BuildContext context) => _setController(context.read(provider!).state, context);
+  void syncState(BuildContext context) => _setController(context.read(provider).state, context);
 
   void clear(BuildContext context) {
-    context.read(provider!).state = const RouteTextfieldState.empty();
+    context.read(provider).state = const RouteTextfieldState.empty();
     controller.clear();
   }
 
@@ -629,13 +629,13 @@ class TextStateBinder {
   }
 
   void setString(BuildContext context, String s, {bool doLoad = true}) {
-    context.read(provider!).state = RouteTextfieldState.text(s, doLoad: doLoad);
+    context.read(provider).state = RouteTextfieldState.text(s, doLoad: doLoad);
     controller.text = s;
   }
 
   void init(BuildContext context, RouteTextfieldState state) {
     _setController(state, context);
-    context.read(provider!).state = state;
+    context.read(provider).state = state;
   }
 
   void _setController(RouteTextfieldState state, BuildContext context) {
@@ -647,11 +647,11 @@ class TextStateBinder {
   }
 
   void useCurrentLocation(BuildContext context) {
-    context.read(provider!).state = const RouteTextfieldState.useCurrentLocation();
+    context.read(provider).state = const RouteTextfieldState.useCurrentLocation();
     controller.text = computeCurrentLocation(context);
   }
 
-  RouteTextfieldState state(BuildContext context) => context.read(provider!).state;
+  RouteTextfieldState state(BuildContext context) => context.read(provider).state;
 
   String get text => controller.text;
 

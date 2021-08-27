@@ -120,13 +120,13 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
           )),
         ]),
         child: PlatformBuilder(
-          cupertinoBuilder: (context, _) => buildCupertinoTabScaffold(context),
-          materialBuilder: (context, _) => buildScaffold(context),
+          cupertinoBuilder: (context, _) => buildCupertinoTabScaffold(),
+          materialBuilder: (context, _) => buildScaffold(),
         ),
       );
 
   @allowReturningWidgets
-  Widget buildCupertinoTabScaffold(BuildContext context) => Consumer(builder: (context, w, _) {
+  Widget buildCupertinoTabScaffold() => Consumer(builder: (context, w, _) {
         final tabController = w(tabProvider.notifier);
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -149,8 +149,8 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
               key: navigatorKeys[i],
               pages: [SingleWidgetPage<void>(TabView.iosTabs[i], title: cupertinoItems[i].label)],
               onPopPage: (_, dynamic __) => true,
-              onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: true),
-              onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: true),
+              onUnknownRoute: (settings) => onUnknownRoute(settings),
+              onGenerateRoute: (settings) => onGenerateRoute(settings),
             ),
           ),
         );
@@ -162,7 +162,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
       ];
 
   @allowReturningWidgets
-  Widget buildScaffold(BuildContext context) => Consumer(builder: (context, w, _) {
+  Widget buildScaffold() => Consumer(builder: (context, w, _) {
         final controllers = w(tabProvider);
         final page = controllers.index % TabView.androidTabs.length;
 
@@ -178,8 +178,8 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
               key: navigatorKeys[page],
               pages: [SingleWidgetPage<void>(TabView.androidTabs[page], name: titles[page])],
               onPopPage: (_, dynamic __) => true,
-              onUnknownRoute: (settings) => onUnknownRoute(settings, isDarwin: false),
-              onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: false),
+              onUnknownRoute: (settings) => onUnknownRoute(settings),
+              onGenerateRoute: (settings) => onGenerateRoute(settings),
             ),
           ),
         );

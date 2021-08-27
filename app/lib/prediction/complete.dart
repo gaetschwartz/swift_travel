@@ -141,6 +141,7 @@ class CompletionEngine {
     }
   }
 
+// ignore: long-parameter-list
   List<NavigationCompletion> _returnedList({
     required String q,
     required bool doUseCurrentLocation,

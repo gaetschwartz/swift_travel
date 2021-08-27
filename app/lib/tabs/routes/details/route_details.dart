@@ -114,11 +114,6 @@ class RouteDetails extends StatelessWidget {
     );
   }
 
-  PreferredSize buildPreferred(BuildContext context, RouteConnection c, Size size) => PreferredSize(
-        preferredSize: size,
-        child: SizedBox.fromSize(size: size, child: _Header(c)),
-      );
-
   void _shareRoute(BuildContext context) {
     Vibration.instance.select();
     shareRoute(context, route!, i);

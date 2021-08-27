@@ -56,6 +56,7 @@ Future<T?> showActionSheet<T>(
         );
 }
 
+// ignore: long-parameter-list
 Future<T?> showChoiceSheet<T>(
   BuildContext context,
   List<ActionsSheetAction<T>> actions, {
@@ -63,7 +64,6 @@ Future<T?> showChoiceSheet<T>(
   ActionsSheetAction<T>? cancel,
   Widget? title,
   Widget? message,
-  bool popBeforeReturn = false,
   T? defaultValue,
 }) {
   return isDarwin(context)
@@ -140,12 +140,14 @@ class _Tile<T> extends StatelessWidget {
   final bool isDarwin;
   final bool isSelected;
 
+  void onPressed(BuildContext context) {
+    Navigator.of(context).pop<T>(a.value);
+    a.onPressed?.call();
+  }
+
   @override
   Widget build(BuildContext context) => CupertinoActionSheetAction(
-        onPressed: () async {
-          Navigator.of(context).pop<T>(a.value);
-          a.onPressed?.call();
-        },
+        onPressed: () => onPressed(context),
         isDefaultAction: isSelected || a.isDefault,
         isDestructiveAction: a.isDestructive,
         child: PlatformBuilder(
@@ -172,7 +174,7 @@ class ActionsSheet<T> extends StatelessWidget {
   final T? defaultValue;
 
   @allowReturningWidgets
-  Iterable<Widget> buildChildren(BuildContext context) sync* {
+  Iterable<Widget> buildChildren() sync* {
     for (var i = 0; i < actions.length; i++) {
       final a = actions[i];
       yield _Tile<T>(a, isDarwin: false, isSelected: a.value == defaultValue);
@@ -214,7 +216,7 @@ class ActionsSheet<T> extends StatelessWidget {
                       const SizedBox(height: 4),
                       const Divider(indent: 16, endIndent: 16)
                     ],
-                    ...buildChildren(context)
+                    ...buildChildren()
                   ],
                 ),
               ),
