@@ -15,10 +15,10 @@ Future<Contact?> showContactPicker(BuildContext context) =>
     );
 
 final contactsProvider = FutureProvider(
-    (ref) async => (await ContactsService.getContacts(withThumbnails: true)).toList());
+    (ref) async => (await ContactsService.getContacts(withThumbnails: false)).toList());
 
 final _filteredContacts = FutureProvider((ref) async {
-  final contacts = await ContactsService.getContacts(withThumbnails: true);
+  final contacts = await ContactsService.getContacts(withThumbnails: false);
   return contacts.where((c) => c.postalAddresses.isNotEmpty).toList();
 });
 
