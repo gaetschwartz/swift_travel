@@ -63,9 +63,14 @@ class ContactsDialog extends StatelessWidget {
                   child: Text(AppLocalizations.of(context).no_contacts),
                 ),
           loading: () => const Center(child: CircularProgressIndicator.adaptive()),
-          error: (e, s) => Center(
-            child: Text(AppLocalizations.of(context).failed_get_contact),
-          ),
+          error: (e, s) {
+            debugPrintStack(stackTrace: s, label: e.toString());
+            return Center(
+              child: Text(
+                AppLocalizations.of(context).failed_get_contact,
+              ),
+            );
+          },
         );
       })),
     );
