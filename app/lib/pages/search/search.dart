@@ -321,7 +321,11 @@ class _Results extends StatelessWidget {
   void pickContact(BuildContext context) async {
     Vibration.instance.select();
     final c = await showContactPicker(context);
-    if (c != null) onTap(ContactCompletion(c));
+    if (c != null) {
+      print("Chose ${c.displayName}");
+      print("with address ${c.postalAddresses.firstOrNull}");
+      onTap(ContactCompletion(c));
+    }
   }
 }
 
