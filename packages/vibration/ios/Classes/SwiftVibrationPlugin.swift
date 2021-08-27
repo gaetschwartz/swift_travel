@@ -12,7 +12,7 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if (call.method == "vibrate"){
             let args = call.arguments as! String
-            print(args)
+           // print(args)
             if(args == "selection"){
                 
                 if #available(iOS 10.0, *) {
