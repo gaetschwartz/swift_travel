@@ -193,9 +193,11 @@ packages:
   contacts_service:
     dependency: "direct main"
     description:
-      name: contacts_service
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "84985048434b4cb4e5490f34c37e63c85520d3de"
+      url: "https://github.com/gaetschwartz/flutter_contacts.git"
+    source: git
     version: "0.6.1"
   convert:
     dependency: transitive

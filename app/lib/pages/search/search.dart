@@ -192,7 +192,7 @@ class _SearchPageState extends State<SearchPage> {
       print('Using current location');
       widget.binder.useCurrentLocation(context);
     } else if (c is ContactCompletion) {
-      final a = c.contact.postalAddresses?.firstOrNull;
+      final a = c.contact.postalAddresses.firstOrNull;
       if (a != null) {
         widget.binder.setString(context, a.toString());
       } else {
