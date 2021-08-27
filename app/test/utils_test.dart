@@ -24,7 +24,7 @@ void main() {
     expect(doubled, hasLength(routes.length * 2));
     expect(
         doubled,
-        containsAll(<LocalRoute>[
+        orderedEquals(<LocalRoute>[
           localRoute,
           localRoute.flipped,
           localRoute2,
@@ -40,15 +40,18 @@ void main() {
   });
 
   test('LV03 to WGS84', () {
-    final out = lv03ToWGS84Converter.convert(LV03Coordinates(100000, 700000));
+    final out = lv03ToWGS84Converter.convert(const LV03Coordinates(100000, 700000));
 
-    expect(out.lon, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
-    expect(out.lat, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
+    final lonMatcher = closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600);
+    final latMatcher = closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600);
+
+    expect(out.lon, lonMatcher);
+    expect(out.lat, latMatcher);
 
     final pos = SbbExit(name: 'test @700000, 100000').position;
     expect(pos, isNotNull);
-    expect(pos!.lon, closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600));
-    expect(pos.lat, closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600));
+    expect(pos!.lon, lonMatcher);
+    expect(pos.lat, latMatcher);
   });
 
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -56,5 +56,6 @@
 	"contact_no_address": "Dieser Kontakt hat keine Adresse",
 	"contacts": "Kontakte",
 	"failed_get_contact": "Das Adressbuch kann nicht abgerufen werden",
-	"new_fav": "Neue Lieblingshaltestelle"
+	"new_fav": "Neue Lieblingshaltestelle",
+	"no_contacts": "Ihr Adressbuch ist leer"
 }

@@ -56,5 +56,6 @@
 	"contact_no_address": "Questo contatto non ha nessun indirizzo",
 	"contacts": "Contatti",
 	"failed_get_contact": "Impossibile ottenere la rubrica",
-	"new_fav": "Nuova fermata preferita"
+	"new_fav": "Nuova fermata preferita",
+	"no_contacts": "La tua rubrica è vuota"
 }

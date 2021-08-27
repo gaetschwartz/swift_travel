@@ -439,6 +439,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New favourite stop'**
   String get new_fav;
+
+  /// No description provided for @no_contacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Your address book is empty'**
+  String get no_contacts;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

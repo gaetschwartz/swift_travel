@@ -185,4 +185,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get new_fav => 'Nuova fermata preferita';
+
+  @override
+  String get no_contacts => 'La tua rubrica è vuota';
 }

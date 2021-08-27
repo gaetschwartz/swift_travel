@@ -174,10 +174,6 @@ abstract class _LatLon extends LatLon {
   _$LatLonCopyWith<_LatLon> get copyWith => throw _privateConstructorUsedError;
 }
 
-LV03Coordinates _$LV03CoordinatesFromJson(Map<String, dynamic> json) {
-  return _LV03Coordinates.fromJson(json);
-}
-
 /// @nodoc
 class _$LV03CoordinatesTearOff {
   const _$LV03CoordinatesTearOff();
@@ -187,10 +183,6 @@ class _$LV03CoordinatesTearOff {
       x,
       y,
     );
-  }
-
-  LV03Coordinates fromJson(Map<String, Object> json) {
-    return LV03Coordinates.fromJson(json);
   }
 }
 
@@ -202,7 +194,6 @@ mixin _$LV03Coordinates {
   int get x => throw _privateConstructorUsedError;
   int get y => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $LV03CoordinatesCopyWith<LV03Coordinates> get copyWith =>
       throw _privateConstructorUsedError;
@@ -283,12 +274,9 @@ class __$LV03CoordinatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_LV03Coordinates implements _LV03Coordinates {
-  _$_LV03Coordinates(this.x, this.y);
 
-  factory _$_LV03Coordinates.fromJson(Map<String, dynamic> json) =>
-      _$$_LV03CoordinatesFromJson(json);
+class _$_LV03Coordinates extends _LV03Coordinates {
+  const _$_LV03Coordinates(this.x, this.y) : super._();
 
   @override
   final int x;
@@ -320,18 +308,11 @@ class _$_LV03Coordinates implements _LV03Coordinates {
   @override
   _$LV03CoordinatesCopyWith<_LV03Coordinates> get copyWith =>
       __$LV03CoordinatesCopyWithImpl<_LV03Coordinates>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_LV03CoordinatesToJson(this);
-  }
 }
 
-abstract class _LV03Coordinates implements LV03Coordinates {
-  factory _LV03Coordinates(int x, int y) = _$_LV03Coordinates;
-
-  factory _LV03Coordinates.fromJson(Map<String, dynamic> json) =
-      _$_LV03Coordinates.fromJson;
+abstract class _LV03Coordinates extends LV03Coordinates {
+  const factory _LV03Coordinates(int x, int y) = _$_LV03Coordinates;
+  const _LV03Coordinates._() : super._();
 
   @override
   int get x => throw _privateConstructorUsedError;

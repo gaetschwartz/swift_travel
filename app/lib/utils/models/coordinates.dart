@@ -23,7 +23,7 @@ class LatLon with _$LatLon {
 
   /// Converts LV03 coordinates from the swiss coordinates system to regular GPS coordinates (WGS84).
   /// See [LV03ToWGS84Converter]
-  factory LatLon.fromLV03(LV03Coordinates coords) => lv03ToWGS84Converter.convert(coords);
+  factory LatLon.fromLV03(LV03Coordinates coords) => coords.toLatLon();
 
   factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
 
@@ -65,16 +65,8 @@ class LatLon with _$LatLon {
     }
 
     if (name != null) {
-      final i = name.indexOf('@');
-
-      if (i != -1) {
-        final s = name.substring(i + 1);
-        final x2 = int.tryParse(s.split(',').last);
-        final y2 = int.tryParse(s.split(',').first);
-        if (y2 != null && x2 != null) {
-          return LatLon.fromLV03(LV03Coordinates(x2, y2));
-        }
-      }
+      final coords = LV03Coordinates.tryParse(name);
+      return coords?.toLatLon();
     }
 
     return null;
@@ -85,9 +77,25 @@ class LatLon with _$LatLon {
 
 @freezed
 class LV03Coordinates with _$LV03Coordinates {
-  factory LV03Coordinates(int x, int y) = _LV03Coordinates;
+  const factory LV03Coordinates(int x, int y) = _LV03Coordinates;
+  const LV03Coordinates._();
 
-  factory LV03Coordinates.fromJson(Map<String, dynamic> json) => _$LV03CoordinatesFromJson(json);
+  static LV03Coordinates? tryParse(String string) {
+    final indexOfAt = string.indexOf('@');
+    final indexOfComma = string.lastIndexOf(',');
+
+    if (indexOfAt != -1 && indexOfComma != -1) {
+      final substringX = string.substring(indexOfComma + 1);
+      final substringY = string.substring(indexOfAt + 1, indexOfComma);
+      final x2 = int.tryParse(substringX);
+      final y2 = int.tryParse(substringY);
+      if (y2 != null && x2 != null) {
+        return LV03Coordinates(x2, y2);
+      }
+    }
+  }
+
+  LatLon toLatLon() => lv03ToWGS84Converter.convert(this);
 }
 
 extension DoubleX on double {

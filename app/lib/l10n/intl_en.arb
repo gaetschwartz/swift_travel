@@ -92,5 +92,6 @@
 	"contact_no_address": "This contact doesn't have any address",
 	"contacts": "Contacts",
 	"failed_get_contact": "Failed to obtain the address book",
-	"new_fav": "New favourite stop"
+	"new_fav": "New favourite stop",
+	"no_contacts": "Your address book is empty"
 }
