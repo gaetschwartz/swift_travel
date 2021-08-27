@@ -185,4 +185,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get new_fav => 'New favourite stop';
+
+  @override
+  String get no_contacts => 'Your address book is empty';
 }

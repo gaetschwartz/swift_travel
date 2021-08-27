@@ -185,4 +185,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get new_fav => 'Nouvel arrêt préféré';
+
+  @override
+  String get no_contacts => 'Votre carnet d\'adresses est vide';
 }

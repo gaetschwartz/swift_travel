@@ -56,5 +56,6 @@
 	"contact_no_address": "Ce contact n'a pas d'adresse",
 	"contacts": "Contacts",
 	"failed_get_contact": "Impossible d'obtenir le carnet d'adresses",
-	"new_fav": "Nouvel arrêt préféré"
+	"new_fav": "Nouvel arrêt préféré",
+	"no_contacts": "Votre carnet d'adresses est vide"
 }
