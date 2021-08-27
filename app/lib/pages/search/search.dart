@@ -27,6 +27,7 @@ import 'package:swift_travel/widgets/contacts.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:theming/responsive.dart';
+import 'package:vibration/vibration.dart';
 
 class Debouncer {
   Debouncer({this.duration = const Duration(milliseconds: 500)});
@@ -318,6 +319,7 @@ class _Results extends StatelessWidget {
       });
 
   void pickContact(BuildContext context) async {
+    Vibration.instance.select();
     final c = await showContactPicker(context);
     if (c != null) onTap(ContactCompletion(c));
   }
