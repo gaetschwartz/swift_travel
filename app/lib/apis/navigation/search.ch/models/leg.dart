@@ -29,14 +29,14 @@ class SbbLeg with _$SbbLeg, Leg, SbbDisplayNameMixin {
     String? number,
     String? tripid,
     String? stopid,
-    @JsonKey(name: 'runningtime') int? runningTime,
+    @JsonKey(name: 'runningtime') double? runningTime,
     String? line,
     @Default(<SbbStop>[]) @JsonKey(name: 'stops', defaultValue: <SbbStop>[]) List<SbbStop> sbbStops,
     String? sbbName,
     DateTime? departure,
     DateTime? arrival,
-    @JsonKey(name: "normal_time") int? normalTime,
-    @JsonKey(name: 'waittime', defaultValue: 0) @Default(0) int waitTime,
+    @JsonKey(name: "normal_time") double? normalTime,
+    @JsonKey(name: 'waittime', defaultValue: 0) @Default(0) double waitTime,
     @JsonKey(name: "isaddress") @Default(false) bool isAddress,
     double? lat,
     double? lon,
@@ -64,7 +64,7 @@ class SbbLeg with _$SbbLeg, Leg, SbbDisplayNameMixin {
   String? get officialName => sbbName;
 
   @override
-  Duration? get walkingTime => runningTime == null ? null : Duration(seconds: runningTime!);
+  Duration? get walkingTime => runningTime == null ? null : Duration(seconds: runningTime!.round());
 
   @override
   Color? get bgColor {

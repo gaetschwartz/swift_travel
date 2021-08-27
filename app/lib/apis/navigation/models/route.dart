@@ -73,7 +73,7 @@ mixin Leg {
   String? get officialName;
   DateTime? get departure;
   DateTime? get arrival;
-  int get waitTime;
+  double get waitTime;
   bool get isAddress;
   Map<String, String> get attributes;
   String get displayName;

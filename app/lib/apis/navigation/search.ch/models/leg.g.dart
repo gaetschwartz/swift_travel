@@ -28,7 +28,8 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
           number: $checkedConvert('number', (v) => v as String?),
           tripid: $checkedConvert('tripid', (v) => v as String?),
           stopid: $checkedConvert('stopid', (v) => v as String?),
-          runningTime: $checkedConvert('runningtime', (v) => v as int?),
+          runningTime:
+              $checkedConvert('runningtime', (v) => (v as num?)?.toDouble()),
           line: $checkedConvert('line', (v) => v as String?),
           sbbStops: $checkedConvert(
               'stops',
@@ -42,8 +43,10 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
               (v) => v == null ? null : DateTime.parse(v as String)),
           arrival: $checkedConvert(
               'arrival', (v) => v == null ? null : DateTime.parse(v as String)),
-          normalTime: $checkedConvert('normal_time', (v) => v as int?),
-          waitTime: $checkedConvert('waittime', (v) => v as int? ?? 0),
+          normalTime:
+              $checkedConvert('normal_time', (v) => (v as num?)?.toDouble()),
+          waitTime:
+              $checkedConvert('waittime', (v) => (v as num?)?.toDouble() ?? 0),
           isAddress: $checkedConvert('isaddress', (v) => v as bool? ?? false),
           lat: $checkedConvert('lat', (v) => (v as num?)?.toDouble()),
           lon: $checkedConvert('lon', (v) => (v as num?)?.toDouble()),
