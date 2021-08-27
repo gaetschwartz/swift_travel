@@ -49,7 +49,8 @@ dependencies:
   shimmer: ^2.0.0-nullsafety.0
   url_launcher: ^6.0.0
   url_strategy: ^0.2.0
-  contacts_service: ^0.6.1
+  contacts_service:
+    git: https://github.com/gaetschwartz/flutter_contacts.git
   permission_handler: ^8.1.4+2
   fluttercontactpicker: ^4.5.1
   fluentui_system_icons: ^1.1.136
