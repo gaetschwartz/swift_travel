@@ -6,6 +6,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:vibration/vibration.dart';
 
 Future<Contact?> showContactPicker(BuildContext context) =>
     CupertinoScaffold.showCupertinoModalBottomSheet<Contact>(
@@ -49,7 +50,10 @@ class ContactsDialog extends StatelessWidget {
               final c = contacts[i];
               return ListTile(
                 title: Text(c.displayName ?? ""),
-                onTap: () => Navigator.of(context).pop(c),
+                onTap: () {
+                  Vibration.instance.select();
+                  Navigator.of(context).pop(c);
+                },
               );
             },
           ),

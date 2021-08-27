@@ -6,7 +6,6 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
-import 'package:swift_travel/logic/contacts.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/prediction/models/models.dart';
@@ -34,13 +33,10 @@ class CompletionEngine {
   CompletionEngine(
     this.ref, {
     RouteHistoryRepository? routeHistoryRepository,
-    ContactsRepository? contactsRepository,
-  })  : routeHistoryRepository = routeHistoryRepository ?? RouteHistoryRepository.i,
-        contactsRepository = contactsRepository ?? ContactsRepository.instance;
+  }) : routeHistoryRepository = routeHistoryRepository ?? RouteHistoryRepository.i;
 
   final ProviderReference ref;
   final RouteHistoryRepository routeHistoryRepository;
-  final ContactsRepository contactsRepository;
 
   Future<List<NavigationCompletion>> completeNavigation({
     required String query,

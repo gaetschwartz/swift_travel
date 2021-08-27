@@ -8,11 +8,11 @@ import 'package:flutter/services.dart';
 
 /// Namespace class for vibrations.
 class Vibration {
-  Vibration._();
+  const Vibration._();
 
   static late final instance = Vibration._();
 
-  static const MethodChannel _channel = MethodChannel('com.gaetanschwartz.vibration/channel');
+  static const MethodChannel _channel = MethodChannel('com.gaetschwartz.vibration/channel');
 
   Future<void> vibrate({
     required VibrationType type,
@@ -69,8 +69,7 @@ class Vibration {
 
 enum VibrationType { selection, light, medium, heavy, success, warning, error, normal, rigid, soft }
 
-
- /*  static _patterns(VibrationType type) {
+/*  static _patterns(VibrationType type) {
     const medium = [0, 35];
     switch (type) {
       case VibrationType.selection:
