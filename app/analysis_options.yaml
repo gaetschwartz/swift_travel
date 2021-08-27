@@ -29,7 +29,7 @@ dart_code_metrics:
   metrics:
     cyclomatic-complexity: 20
     maximum-nesting-level: 5
-    number-of-parameters: 8
+    number-of-parameters: 10
     source-lines-of-code: 64
   metrics-exclude:
     - test/**
