@@ -186,9 +186,9 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
           tabs.index = tabs.index % (darwin ? TabView.iosTabs.length : TabView.androidTabs.length);
         })
       },
-      onGenerateRoute: (settings) => onGenerateRoute(settings, isDarwin: darwin),
-      onUnknownRoute: (settings) => onUnknownRoute<void>(settings, isDarwin: darwin),
-      onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings, isDarwin: darwin),
+      onGenerateRoute: (settings) => onGenerateRoute(settings),
+      onUnknownRoute: (settings) => onUnknownRoute<void>(settings),
+      onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings),
       builder: (context, child) => PlatformBuilder(
         cupertinoBuilder: (context, child) {
           final t = Theme.of(context);
@@ -215,7 +215,7 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
     );
   }
 
-  List<Route> onGenerateInitialRoutes(String initialRoute, {required bool isDarwin}) {
+  List<Route> onGenerateInitialRoutes(String initialRoute) {
     log('Initial route : $initialRoute');
     final uri = Uri.tryParse(initialRoute)!;
 
@@ -240,14 +240,14 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
   }
 }
 
-Route<T> onUnknownRoute<T extends Object?>(RouteSettings settings, {required bool isDarwin}) {
+Route<T> onUnknownRoute<T extends Object?>(RouteSettings settings) {
   reportDartError('Unknown page : `${settings.name}`', StackTrace.current,
       library: 'router', reason: 'while trying to route', showSnackbar: false);
   return MaterialPageRoute<T>(builder: (_) => PageNotFound(settings: settings));
 }
 
 // ignore: long-method
-Route? onGenerateRoute(RouteSettings settings, {required bool isDarwin}) {
+Route? onGenerateRoute(RouteSettings settings) {
   log('Routing to ${settings.name}');
 
   switch (settings.name) {
