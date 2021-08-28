@@ -12,11 +12,17 @@ typedef JSON = Map<String, Object?>;
 
 /// Prediction
 
-Future<RoutePrediction> predictRoute(List<LocalRoute> routes, PredictionArguments arguments) async {
-  final full = FullArguments(routes, arguments);
-  final json = full.toJson();
-  final computed = await compute(_predictRouteJSON, json);
-  return RoutePrediction.fromJson(computed);
+Future<RoutePrediction> predictRoute(
+  List<LocalRoute> routes,
+  PredictionArguments arguments, {
+  bool useIsolate = true,
+}) async {
+  if (useIsolate) {
+    return predictRouteSync(routes, arguments);
+  } else {
+    final computed = await compute(_predictRouteJSON, FullArguments(routes, arguments).toJson());
+    return RoutePrediction.fromJson(computed);
+  }
 }
 
 JSON _predictRouteJSON(JSON input) {

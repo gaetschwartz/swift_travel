@@ -44,6 +44,7 @@ int _weekdayDiff(int a, int b) {
 
 RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments arguments) {
   if (kDebugMode) print('Making a prediction from arguments $arguments');
+  final watch = Stopwatch()..start();
 
   if (routes.isEmpty) {
     print('Empty history, returning empty prediction');
@@ -107,6 +108,9 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
   final prediction = _computeWinner(top, arguments);
   _setCached(arguments, prediction);
   // print('Predicting $prediction');
+
+  print("Prediction took ${watch.elapsedMilliseconds} ms");
+
   return prediction;
 }
 
