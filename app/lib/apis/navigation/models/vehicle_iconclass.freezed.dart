@@ -111,7 +111,6 @@ class __$_VehicleIconclassCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@Deprecated('Do not use this class directly, use VehicleX.parse instead.')
 class _$__VehicleIconclass implements __VehicleIconclass {
   const _$__VehicleIconclass(this.v);
 

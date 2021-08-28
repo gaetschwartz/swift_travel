@@ -5,10 +5,8 @@ part 'vehicle_iconclass.g.dart';
 
 @freezed
 class _VehicleIconclass with _$_VehicleIconclass {
-  @Deprecated('Do not use this class directly, use VehicleX.parse instead.')
   const factory _VehicleIconclass(TransportationMode v) = __VehicleIconclass;
 
-  @Deprecated('Do not use this class directly, use VehicleX.parse instead.')
   factory _VehicleIconclass.fromJson(Map<String, dynamic> json) =>
       _$_VehicleIconclassFromJson(json);
 }
