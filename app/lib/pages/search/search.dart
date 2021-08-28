@@ -195,6 +195,7 @@ class _SearchPageState extends State<SearchPage> {
     } else if (c is ContactCompletion) {
       final a = c.contact.postalAddresses.firstOrNull;
       if (a != null) {
+        print(c.contact.toMap());
         widget.binder.setString(context, a.toString());
       } else {
         ScaffoldMessenger.of(context)

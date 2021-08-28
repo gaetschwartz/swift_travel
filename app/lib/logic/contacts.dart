@@ -1,5 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:swift_travel/constants/env.dart';
 
 class ContactsRepository {
   ContactsRepository._();
@@ -10,6 +11,13 @@ class ContactsRepository {
   Iterable<Contact>? _contacts;
 
   Future<Iterable<Contact>> getAll({bool cache = false, bool withThumbnails = false}) async {
+    if (Env.doMockContacts) {
+      return const [
+        Contact(
+            displayName: "John Doe",
+            postalAddresses: [PostalAddress(street: "Chemin des colombettes 34, 1202 Genève")])
+      ];
+    }
     if (!_granted) {
       final request = await Permission.contacts.request();
       print("Status1: $request");
