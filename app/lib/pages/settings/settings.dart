@@ -21,6 +21,7 @@ import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/settings/properties/tile.dart';
 import 'package:swift_travel/pages/settings/route_history.dart';
 import 'package:swift_travel/pages/settings/team_page.dart';
+import 'package:swift_travel/terminal/terminal_widget.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/utils/crawler.dart';
@@ -144,6 +145,16 @@ class _SettingsPageState extends State<SettingsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _SectionTitle(title: Text(AppLocalizations.of(context).developer)),
+          ListTile(
+              leading: const Icon(CupertinoIcons.search),
+              title: const Text('Terminal'),
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(
+                  PlatformPageRoute(
+                    builder: (context) => const TerminalPage(),
+                  ),
+                );
+              }),
           ListTile(
               leading: const Icon(CupertinoIcons.search),
               title: const Text('Attributes crawler'),
