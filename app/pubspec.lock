@@ -63,7 +63,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.1"
+    version: "2.8.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -195,7 +195,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "84985048434b4cb4e5490f34c37e63c85520d3de"
+      resolved-ref: "2db05fa4456ea6b0ae8d9d74bb6a54f277b9876c"
       url: "https://github.com/gaetschwartz/flutter_contacts.git"
     source: git
     version: "0.6.1"
@@ -233,7 +233,7 @@ packages:
       name: dart_code_metrics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.0"
+    version: "4.2.1"
   dart_style:
     dependency: transitive
     description:
@@ -268,7 +268,7 @@ packages:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.0"
+    version: "1.6.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -289,14 +289,14 @@ packages:
       name: firebase_crashlytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   firebase_crashlytics_platform_interface:
     dependency: transitive
     description:
       name: firebase_crashlytics_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.1"
+    version: "3.1.2"
   fixnum:
     dependency: transitive
     description:
@@ -424,7 +424,7 @@ packages:
       name: geolocator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.4.0"
+    version: "7.5.0"
   geolocator_android:
     dependency: transitive
     description:
@@ -438,7 +438,7 @@ packages:
       name: geolocator_apple
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   geolocator_platform_interface:
     dependency: transitive
     description:
@@ -583,7 +583,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.10"
+    version: "0.12.11"
   meta:
     dependency: "direct main"
     description:
@@ -695,7 +695,7 @@ packages:
       name: platform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.2"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -931,7 +931,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.3"
   theming:
     dependency: "direct main"
     description:
@@ -1050,7 +1050,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.6"
+    version: "2.2.7"
   xdg_directories:
     dependency: transitive
     description:

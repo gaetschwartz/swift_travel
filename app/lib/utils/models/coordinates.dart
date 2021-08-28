@@ -89,7 +89,7 @@ class LV03Coordinates with _$LV03Coordinates {
       final substringY = string.substring(indexOfAt + 1, indexOfComma);
       final x2 = int.tryParse(substringX);
       final y2 = int.tryParse(substringY);
-      if (y2 != null && x2 != null) {
+      if (x2 != null && y2 != null) {
         return LV03Coordinates(x2, y2);
       }
     }
