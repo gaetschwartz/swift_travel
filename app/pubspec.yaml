@@ -27,7 +27,6 @@ dependencies:
   firebase_core: ^1.0.0
   firebase_crashlytics: ^2.0.0
   flex_color_scheme: ^3.0.1
-  flutter_hooks: ^0.18.0
   flutter_riverpod: ^0.14.0+1
   flutter_slidable: ^0.6.0-nullsafety.0
   font_awesome_flutter: ^9.0.0
