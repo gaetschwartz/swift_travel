@@ -5,21 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class Property<T extends Object?> extends ChangeNotifier implements ValueListenable<T> {
-  void Function(T value)? get onSet;
-  FutureOr<T>? Function(T?)? get getValue;
   FutureOr<void> setValue(T value);
 
-  FutureOr<void> computeValue();
-
-  static Property<T> fromSharedPreferences<T extends Object?>(
-          String key, T defaultValue, SharedPreferences prefs) =>
-      AsyncProperty<T>(
-        onSet: saveInPreferences(key, prefs),
-        getValue: getFromPreferences(key, prefs),
-        defaultValue: defaultValue,
-      );
-
-  static Property<bool> boolean(
+  static AsyncProperty<bool> boolean(
     String key,
     bool defaultValue,
     SharedPreferences prefs,
@@ -41,25 +29,25 @@ abstract class Property<T extends Object?> extends ChangeNotifier implements Val
         return object as T;
       };
 
-  static Future<void> Function(T) saveInPreferences<T>(
+  static Future<void> saveInPreferences<T>(
     String key,
+    T value,
     SharedPreferences prefs,
-  ) =>
-      (value) async {
-        if (value is String) {
-          await prefs.setString(key, value);
-        } else if (value is int) {
-          await prefs.setInt(key, value);
-        } else if (value is bool) {
-          await prefs.setBool(key, value);
-        } else if (value is List<String>) {
-          await prefs.setStringList(key, value);
-        } else if (value is double) {
-          await prefs.setDouble(key, value);
-        } else {
-          assert(false, 'Type ${value.runtimeType} is not supported for shared preferences');
-        }
-      };
+  ) async {
+    if (value is String) {
+      await prefs.setString(key, value);
+    } else if (value is int) {
+      await prefs.setInt(key, value);
+    } else if (value is bool) {
+      await prefs.setBool(key, value);
+    } else if (value is List<String>) {
+      await prefs.setStringList(key, value);
+    } else if (value is double) {
+      await prefs.setDouble(key, value);
+    } else {
+      assert(false, 'Type ${value.runtimeType} is not supported for shared preferences');
+    }
+  }
 }
 
 class SyncProperty<T extends Object?> extends Property<T> {
@@ -71,11 +59,14 @@ class SyncProperty<T extends Object?> extends Property<T> {
           null is T || defaultValue != null,
           'You need to provide a default value for non-nullable properties.',
         ),
-        _value = defaultValue!;
+        _value = defaultValue! {
+    if (getValue != null) {
+      _value = getValue!.call(defaultValue) ?? defaultValue!;
+      notifyListeners();
+    }
+  }
 
-  @override
   final void Function(T value)? onSet;
-  @override
   final T? Function(T?)? getValue;
   final T? defaultValue;
 
@@ -102,14 +93,6 @@ class SyncProperty<T extends Object?> extends Property<T> {
     onSet?.call(value);
     notifyListeners();
   }
-
-  @override
-  void computeValue() {
-    if (getValue != null) {
-      _value = getValue!.call(defaultValue) ?? defaultValue!;
-      notifyListeners();
-    }
-  }
 }
 
 class AsyncProperty<T extends Object?> extends Property<T> {
@@ -123,9 +106,7 @@ class AsyncProperty<T extends Object?> extends Property<T> {
         ),
         _value = defaultValue!;
 
-  @override
   final FutureOr<void> Function(T value)? onSet;
-  @override
   final FutureOr<T>? Function(T?)? getValue;
   final T? defaultValue;
 
@@ -144,11 +125,69 @@ class AsyncProperty<T extends Object?> extends Property<T> {
     notifyListeners();
   }
 
-  @override
-  Future<void> computeValue() async {
+  Future<void> init() async {
     if (getValue != null) {
       _value = await getValue!.call(defaultValue) ?? defaultValue!;
       notifyListeners();
     }
   }
 }
+
+class MappedSharedPreferencesProperty<TValue extends Object?, TEncValue extends Object?>
+    extends Property<TValue> {
+  MappedSharedPreferencesProperty(
+    this.key, {
+    required this.decode,
+    required this.encode,
+    this.defaultValue,
+  })  : assert(
+          null is TEncValue || defaultValue != null,
+          'You need to provide a default value for non-nullable properties.',
+        ),
+        _value = defaultValue!;
+
+  final String key;
+  final TValue? defaultValue;
+
+  TEncValue Function(TValue value) encode;
+  TValue Function(TEncValue value) decode;
+
+  TValue _value;
+
+  SharedPreferences? _prefs;
+
+  @override
+  TValue get value => _value;
+
+  @override
+  Future<void> setValue(TValue value) async {
+    if (value == _value) {
+      return;
+    }
+    _value = value;
+    _prefs ??= await SharedPreferences.getInstance();
+    notifyListeners();
+    await Property.saveInPreferences<TEncValue>(key, encode(value), _prefs!);
+  }
+
+  Future<void> init([SharedPreferences? prefs]) async {
+    _prefs = prefs ?? await SharedPreferences.getInstance();
+    final x = _prefs!.get(key) as TEncValue?;
+    _value = (x == null ? null : decode(x)) ?? defaultValue!;
+    notifyListeners();
+  }
+}
+
+class SimpleSharedPreferencesProperty<T extends Object?>
+    extends MappedSharedPreferencesProperty<T, T> {
+  SimpleSharedPreferencesProperty(String key, {T? defaultValue})
+      : super(
+          key,
+          decode: (v) => v,
+          encode: (v) => v,
+          defaultValue: defaultValue,
+        );
+}
+
+typedef SimpleSPProperty = SimpleSharedPreferencesProperty;
+typedef MappedSPProperty = MappedSharedPreferencesProperty;

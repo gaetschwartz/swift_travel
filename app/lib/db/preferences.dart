@@ -1,69 +1,64 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/pages/settings/properties/property.dart';
 
-final preferencesProvider = Provider<PreferencesBloc>((r) => PreferencesBloc.i);
+final preferencesProvider = Provider<PreferencesBloc>((r) => PreferencesBloc());
 
 class PreferencesBloc {
-  PreferencesBloc(this.prefix);
+  @visibleForTesting
+  PreferencesBloc();
 
+  static const String prefix = 'prefs_';
   static const String mapsKey = 'maps_app';
   static const String navigationApiKey = 'nav_api_id';
   static const String analyticsKey = 'accepted_analytics';
-  static late final i = PreferencesBloc('prefs_');
 
-  static late final ChangeNotifierProvider<Property<NavigationApiId>> apiProvider =
-      ChangeNotifierProvider((r) => r.watch(preferencesProvider).api);
-
-  final String prefix;
-  late SharedPreferences _prefs;
-
-  Future<void> _syncToPrefs(String key, int index) => _prefs.setInt(prefix + key, index);
-
-  T _getEnum<T>(String key, List<T> values, T defaultValue) {
-    final i = _prefs.getInt(prefix + key);
-    return i != null && i >= 0 && i < values.length ? values[i] : defaultValue;
-  }
-
-  late final mapsApp = AsyncProperty<Maps>(
-    defaultValue: Maps.google,
-    onSet: (v) => _syncToPrefs(mapsKey, v.index),
-    getValue: (d) => _getEnum(mapsKey, Maps.values, d),
+  final mapsApp = MappedSharedPreferencesProperty<NavigationApp, int>(
+    prefix + mapsKey,
+    defaultValue: NavigationApp.google,
+    decode: (i) => NavigationApp.values[i],
+    encode: (m) => m.index,
   );
 
-  late final api = AsyncProperty<NavigationApiId>(
+  final api = MappedSharedPreferencesProperty<NavigationApiId, String>(
+    prefix + navigationApiKey,
     defaultValue: searchChApi.id,
-    onSet: (v) => _prefs.setString(prefix + navigationApiKey, v.value),
-    getValue: (d) {
-      final string = _prefs.getString(prefix + navigationApiKey);
-      return string != null ? NavigationApiId(string) : null;
-    },
+    decode: (s) => NavigationApiId(s),
+    encode: (id) => id.value,
   );
 
-  late final useAnalytics = Property.boolean(prefix + analyticsKey, true, _prefs);
+  final useAnalytics =
+      SimpleSharedPreferencesProperty<bool>(prefix + analyticsKey, defaultValue: true);
+
+  final isDeveloper =
+      SimpleSharedPreferencesProperty<bool>(prefix + "is_developer", defaultValue: false);
 
   Future<void> loadFromPreferences({SharedPreferences? prefs}) async {
-    _prefs = prefs ?? await SharedPreferences.getInstance();
+    final _prefs = prefs ?? await SharedPreferences.getInstance();
 
-    await mapsApp.computeValue();
-    await api.computeValue();
-    await useAnalytics.computeValue();
+    await Future.wait([
+      mapsApp.init,
+      api.init,
+      useAnalytics.init,
+      isDeveloper.init,
+    ].map((e) => e(_prefs)));
   }
 }
 
-enum Maps {
+enum NavigationApp {
   apple,
   google,
 }
 
-extension MapsX on Maps {
+extension NavigationAppX on NavigationApp {
   String toStringFull() {
     switch (this) {
-      case Maps.apple:
+      case NavigationApp.apple:
         return 'Apple Maps';
-      case Maps.google:
+      case NavigationApp.google:
         return 'Google Maps';
     }
   }

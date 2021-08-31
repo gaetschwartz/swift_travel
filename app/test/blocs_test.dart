@@ -240,14 +240,14 @@ void main() {
 
       await store.loadFromPreferences();
       await store.api.setValue(searchChApi.id);
-      await store.mapsApp.setValue(Maps.apple);
+      await store.mapsApp.setValue(NavigationApp.apple);
 
       await store.api.setValue(sncfFactory.id);
-      await store.mapsApp.setValue(Maps.google);
+      await store.mapsApp.setValue(NavigationApp.google);
 
       await store.loadFromPreferences();
       expect(store.api.value, sncfFactory.id);
-      expect(store.mapsApp.value, Maps.google);
+      expect(store.mapsApp.value, NavigationApp.google);
     });
 
     tearDown(() async {
