@@ -14,8 +14,9 @@ class ContactsRepository {
     if (Env.doMockContacts) {
       return const [
         Contact(
-            displayName: "John Doe",
-            postalAddresses: [PostalAddress(street: "Chemin des colombettes 34, 1202 Genève")])
+          displayName: "John Doe",
+          postalAddresses: [PostalAddress(street: "Chemin des colombettes 34, 1202 Genève")],
+        )
       ];
     }
     if (!_granted) {
