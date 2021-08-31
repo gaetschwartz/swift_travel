@@ -3,6 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/main.dart';
@@ -13,8 +14,13 @@ const _doShowSnackbars = !kDebugMode || Env.doShowErrors;
 
 void ignoreError() {}
 
-void reportDartError(Object e, StackTrace? s,
-    {String library = '', String reason = '', bool showSnackbar = true}) {
+void reportDartError(
+  Object e,
+  StackTrace? s, {
+  String library = '',
+  String reason = '',
+  bool showSnackbar = true,
+}) async {
   print('Caught an error: ');
   debugPrintStack(stackTrace: s, label: '[$library] $e $reason');
 
@@ -52,12 +58,12 @@ void reportDartError(Object e, StackTrace? s,
     }
   }
 
-  if (_doReport) {
+  if (await _doReport) {
     FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
   }
 }
 
-void reportFlutterError(FlutterErrorDetails details) {
+void reportFlutterError(FlutterErrorDetails details) async {
   print('Caught a Flutter error: ${details.exception}');
   debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
 
@@ -87,12 +93,17 @@ void reportFlutterError(FlutterErrorDetails details) {
       debugPrintStack(stackTrace: s, label: e.toString());
     }
   }
-  if (_doReport) {
+  if (await _doReport) {
     FirebaseCrashlytics.instance.recordFlutterError(details);
   }
 }
 
-bool get _doReport => !kIsWeb && Firebase.apps.isNotEmpty && PreferencesBloc.i.useAnalytics.value;
+Future<bool> get _doReport async {
+  final instance = await SharedPreferences.getInstance();
+  return !kIsWeb &&
+      Firebase.apps.isNotEmpty &&
+      (instance.getBool(PreferencesBloc.prefix + PreferencesBloc.analyticsKey) ?? true);
+}
 
 class ErrorPage extends StatefulWidget {
   const ErrorPage(

@@ -98,12 +98,12 @@ class _SettingsPageState extends State<SettingsPage> {
       const _FontWeightTile(),
       const _PlatformTile(),
       if (Env.isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
-        PropertyTile<Maps>(context.read(preferencesProvider).mapsApp,
+        PropertyTile<NavigationApp>(context.read(preferencesProvider).mapsApp,
             title: Text(AppLocalizations.of(context).maps_app),
             icon: const Icon(Icons.map_rounded),
             items: const [
-              ActionsSheetAction(value: Maps.apple, title: Text('Apple Maps')),
-              ActionsSheetAction(value: Maps.google, title: Text('Google Maps')),
+              ActionsSheetAction(value: NavigationApp.apple, title: Text('Apple Maps')),
+              ActionsSheetAction(value: NavigationApp.google, title: Text('Google Maps')),
             ],
             trailingBuilder: (v) => Text(v.toStringFull())),
       PropertyTile<NavigationApiId>(
@@ -141,91 +141,92 @@ class _SettingsPageState extends State<SettingsPage> {
           title: Text(AppLocalizations.of(context).reset_settings),
           onTap: resetSettingsPrompt),
       const Divider(),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _SectionTitle(title: Text(AppLocalizations.of(context).developer)),
-          ListTile(
-              leading: const Icon(CupertinoIcons.search),
-              title: const Text('Terminal'),
-              onTap: () {
-                Navigator.of(context, rootNavigator: true).push(
-                  PlatformPageRoute(
-                    builder: (context) => const TerminalPage(),
-                  ),
-                );
-              }),
-          ListTile(
-              leading: const Icon(CupertinoIcons.search),
-              title: const Text('Attributes crawler'),
-              onTap: () {
-                Navigator.of(context, rootNavigator: true).push(
-                  PlatformPageRoute(
-                    builder: (context) => const CrawlerPage(),
-                  ),
-                );
-              }),
-          ListTile(
-              leading: const Icon(CupertinoIcons.clock),
-              title: const Text('Route history'),
-              onTap: () {
-                Navigator.of(context, rootNavigator: true).push(
-                  PlatformPageRoute(
-                    builder: (context) => const RouteHistoryPage(),
-                  ),
-                );
-              }),
-          ListTile(
-            leading: const Icon(CupertinoIcons.clear),
-            title: const Text('Clear history'),
-            onTap: RouteHistoryRepository.i.clear,
-          ),
-          ListTile(
-              leading: const Icon(Icons.screen_lock_landscape),
-              title: const Text('Screen info'),
-              onTap: () {
-                Navigator.of(context).push<void>(
-                  MaterialPageRoute(
-                    builder: (context) => Theme(
-                      data: ThemeData.light(),
-                      child: Builder(builder: (context) => const _ScreenPage()),
-                    ),
-                  ),
-                );
-              }),
-          ListTile(
-              leading: const Icon(Icons.warning_rounded),
-              title: const Text('Throw a Flutter error'),
-              onTap: () => throw StateError('Debug error')),
-          ListTile(
-              leading: const Icon(Icons.warning_rounded),
-              title: const Text('Throw a Dart error'),
-              onTap: () {
-                try {
-                  throw const IntegerDivisionByZeroException();
-                } on IntegerDivisionByZeroException catch (e, s) {
-                  reportDartError(e, s, library: 'settings', reason: 'voluntarirly');
-                }
-              }),
-          ListTile(
-              leading: const Icon(Icons.open_in_browser),
-              title: const Text('Open incorrect page'),
-              onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
-          ListTile(
-              leading: const Icon(Icons.close),
-              title: const Text('Trigger a crash'),
-              onTap: () async {
-                await FirebaseCrashlytics.instance.log('We trigger a crash');
-                FirebaseCrashlytics.instance.crash();
-              }),
-        ],
-      ),
-      const ListTile(
-        isThreeLine: true,
-        dense: true,
-        title: Text(commitMessage),
-        subtitle: Text('$buildNumber • $commitBuildDate\n$commitHash'),
-      ),
+      Consumer(builder: (context, w, _) {
+        if (w(isDeveloperProvider).value) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _SectionTitle(title: Text(AppLocalizations.of(context).developer)),
+              ListTile(
+                  leading: const Icon(CupertinoIcons.search),
+                  title: const Text('Terminal'),
+                  onTap: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                      PlatformPageRoute(
+                        builder: (context) => const TerminalPage(),
+                      ),
+                    );
+                  }),
+              ListTile(
+                  leading: const Icon(CupertinoIcons.search),
+                  title: const Text('Attributes crawler'),
+                  onTap: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                      PlatformPageRoute(
+                        builder: (context) => const CrawlerPage(),
+                      ),
+                    );
+                  }),
+              ListTile(
+                  leading: const Icon(CupertinoIcons.clock),
+                  title: const Text('Route history'),
+                  onTap: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                      PlatformPageRoute(
+                        builder: (context) => const RouteHistoryPage(),
+                      ),
+                    );
+                  }),
+              ListTile(
+                leading: const Icon(CupertinoIcons.clear),
+                title: const Text('Clear history'),
+                onTap: RouteHistoryRepository.i.clear,
+              ),
+              ListTile(
+                  leading: const Icon(Icons.screen_lock_landscape),
+                  title: const Text('Screen info'),
+                  onTap: () {
+                    Navigator.of(context).push<void>(
+                      MaterialPageRoute(
+                        builder: (context) => Theme(
+                          data: ThemeData.light(),
+                          child: Builder(builder: (context) => const _ScreenPage()),
+                        ),
+                      ),
+                    );
+                  }),
+              ListTile(
+                  leading: const Icon(Icons.warning_rounded),
+                  title: const Text('Throw a Flutter error'),
+                  onTap: () => throw StateError('Debug error')),
+              ListTile(
+                  leading: const Icon(Icons.warning_rounded),
+                  title: const Text('Throw a Dart error'),
+                  onTap: () {
+                    try {
+                      throw const IntegerDivisionByZeroException();
+                    } on IntegerDivisionByZeroException catch (e, s) {
+                      reportDartError(e, s, library: 'settings', reason: 'voluntarirly');
+                    }
+                  }),
+              ListTile(
+                  leading: const Icon(Icons.open_in_browser),
+                  title: const Text('Open incorrect page'),
+                  onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
+              ListTile(
+                  leading: const Icon(Icons.close),
+                  title: const Text('Trigger a crash'),
+                  onTap: () async {
+                    await FirebaseCrashlytics.instance.log('We trigger a crash');
+                    FirebaseCrashlytics.instance.crash();
+                  }),
+            ],
+          );
+        } else {
+          return const SizedBox();
+        }
+      }),
+      const BuildDetailsWidget(),
       const SizedBox(height: 32),
       Padding(
         key: const Key('settings-bottom-info'),
@@ -277,6 +278,40 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 }
 
+final _tapCountProvider = StateProvider((ref) => 0);
+
+final isDeveloperProvider =
+    ChangeNotifierProvider((ref) => ref.watch(preferencesProvider).isDeveloper);
+
+class BuildDetailsWidget extends StatelessWidget {
+  const BuildDetailsWidget({
+    Key? key,
+  }) : super(key: key);
+
+  void onTap(BuildContext context) {
+    final controller = context.read(_tapCountProvider);
+
+    if (controller.state == 6) {
+      context.read(preferencesProvider).isDeveloper.setValue(true);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("You are now a developer 😎")));
+    } else {
+      controller.state++;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      isThreeLine: true,
+      dense: true,
+      title: const Text(commitMessage),
+      subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
+      onTap: () => onTap(context),
+    );
+  }
+}
+
 class _PlatformTile extends StatelessWidget {
   const _PlatformTile({
     Key? key,
@@ -291,7 +326,7 @@ class _PlatformTile extends StatelessWidget {
         onSet: (p) => theme.platform = p,
         defaultValue: theme.platform,
       ),
-      trailingBuilder: (v) => Text(platformNames[v] ?? describeEnum(v)),
+      trailingBuilder: (v) => Text(v.name),
       title: const Text('Platform'),
       items: p == TargetPlatform.iOS || p == TargetPlatform.android
           ? const [
@@ -410,14 +445,24 @@ class _ScreenPage extends StatelessWidget {
       );
 }
 
-const platformNames = <TargetPlatform, String>{
-  TargetPlatform.android: 'Android',
-  TargetPlatform.iOS: 'iOS',
-  TargetPlatform.macOS: 'MacOS',
-  TargetPlatform.windows: 'Windows',
-  TargetPlatform.linux: 'Linux',
-  TargetPlatform.fuchsia: 'Fuchsia'
-};
+extension TargetPlatfromX on TargetPlatform {
+  String get name {
+    switch (this) {
+      case TargetPlatform.android:
+        return 'Android';
+      case TargetPlatform.iOS:
+        return 'iOS';
+      case TargetPlatform.macOS:
+        return 'MacOS';
+      case TargetPlatform.windows:
+        return 'Windows';
+      case TargetPlatform.linux:
+        return 'Linux';
+      case TargetPlatform.fuchsia:
+        return 'Fuchsia';
+    }
+  }
+}
 
 class _ThemesSection extends StatefulWidget {
   const _ThemesSection({

@@ -116,10 +116,10 @@ class WalkingTile extends StatelessWidget {
   String getMapsUrl(BuildContext context, String suffix) {
     final m = context.read(preferencesProvider).mapsApp.value;
     switch (m) {
-      case Maps.apple:
+      case NavigationApp.apple:
         log('Using Apple Maps');
         return _apple + suffix;
-      case Maps.google:
+      case NavigationApp.google:
         log('Using Google Maps');
         return _google + suffix;
     }
