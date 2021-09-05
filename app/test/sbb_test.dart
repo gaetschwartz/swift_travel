@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
@@ -19,15 +18,6 @@ void main() {
       expect(() => SbbStationboard.fromJson(mockStationboard), returnsNormally);
       expect(() => SbbRoute.fromJson(mockRoute), returnsNormally);
       print(SbbRoute.fromJson(mockRoute).connections.first);
-    },
-  );
-
-  test(
-    'attributes codes are consistent',
-    () {
-      for (final e in Attribute.attributes.entries) {
-        expect(e.key, e.value.code);
-      }
     },
   );
 

@@ -139,15 +139,13 @@ class _Collapsed extends StatelessWidget {
                       onTap: () {
                         final darwin = isDarwin(context);
                         final list = l.attributes.entries
-                            .map((e) =>
-                                Attribute.attributes[e.key]?.copyWith(message: e.value) ??
-                                Attribute(code: e.key, message: e.value))
+                            .map((e) => Attribute.fromAttribute(e))
                             .where((e) => !e.ignore)
                             .toList()
                           ..sort((a, b) => a.code.compareTo(b.code));
 
                         if (Env.isDebugMode) {
-                          list.add(const Attribute(
+                          list.add(Attribute(
                             code: 'dummy_code',
                             message: 'This is a dummy unhandled attribute',
                           ));
@@ -192,8 +190,8 @@ class _Collapsed extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           ...l.attributes.entries
-                              .map((e) => Attribute.attributes[e.key])
-                              .where((e) => e == null || !e.ignore)
+                              .map((e) => Attribute.fromAttribute(e))
+                              .where((e) => !e.ignore)
                               .map((att) => Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 1),
                                     child: DecoratedBox(
@@ -203,7 +201,7 @@ class _Collapsed extends StatelessWidget {
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(2),
-                                        child: att == null ? Attribute.defaultIcon : att.icon,
+                                        child: att.icon,
                                       ),
                                     ),
                                   ))
