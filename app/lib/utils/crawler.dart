@@ -97,7 +97,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                             for (final c in r.connections) {
                               for (final l in c.legs) {
                                 for (final e in l.attributes.entries) {
-                                  if (Attribute.attributes.containsKey(e.key)) {
+                                  if (AttributeData.isHandled(e.key)) {
                                     handled[e.key] = e.value;
                                   } else {
                                     unHandled[e.key] = e.value;
@@ -151,7 +151,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, i) {
                       final key = uHKeys[i];
-                      final att = Attribute.attributes[key];
+                      final att = AttributeData.fromCode(key);
                       return _Tile(att, key, unHandled[key]!);
                     },
                   ),
@@ -164,7 +164,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                   itemCount: handled.length,
                   itemBuilder: (context, i) {
                     final key = hKeys[i];
-                    final att = Attribute.attributes[key];
+                    final att = AttributeData.fromCode(key);
                     return _Tile(att, key, handled[key]!);
                   },
                 ),
@@ -185,7 +185,7 @@ class _Tile extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final Attribute? att;
+  final AttributeData att;
   final String mapKey;
   final String value;
 
@@ -201,7 +201,7 @@ class _Tile extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.all(8),
-            child: att == null ? const SizedBox(height: 24, width: 24) : att!.icon,
+            child: att.icon ?? const SizedBox(height: 24, width: 24),
           ),
         ),
       ),

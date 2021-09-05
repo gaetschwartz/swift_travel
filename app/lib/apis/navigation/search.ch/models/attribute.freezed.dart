@@ -17,16 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AttributeTearOff {
   const _$AttributeTearOff();
 
-  _Attribute call(
-      {required String code,
-      Widget? icon,
-      String? message,
-      bool ignore = false}) {
+  _Attribute call({required String code, String? message}) {
     return _Attribute(
       code: code,
-      icon: icon,
       message: message,
-      ignore: ignore,
     );
   }
 }
@@ -37,9 +31,7 @@ const $Attribute = _$AttributeTearOff();
 /// @nodoc
 mixin _$Attribute {
   String get code => throw _privateConstructorUsedError;
-  Widget? get icon => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
-  bool get ignore => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AttributeCopyWith<Attribute> get copyWith =>
@@ -50,7 +42,7 @@ mixin _$Attribute {
 abstract class $AttributeCopyWith<$Res> {
   factory $AttributeCopyWith(Attribute value, $Res Function(Attribute) then) =
       _$AttributeCopyWithImpl<$Res>;
-  $Res call({String code, Widget? icon, String? message, bool ignore});
+  $Res call({String code, String? message});
 }
 
 /// @nodoc
@@ -64,27 +56,17 @@ class _$AttributeCopyWithImpl<$Res> implements $AttributeCopyWith<$Res> {
   @override
   $Res call({
     Object? code = freezed,
-    Object? icon = freezed,
     Object? message = freezed,
-    Object? ignore = freezed,
   }) {
     return _then(_value.copyWith(
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      icon: icon == freezed
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as Widget?,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      ignore: ignore == freezed
-          ? _value.ignore
-          : ignore // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -95,7 +77,7 @@ abstract class _$AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
           _Attribute value, $Res Function(_Attribute) then) =
       __$AttributeCopyWithImpl<$Res>;
   @override
-  $Res call({String code, Widget? icon, String? message, bool ignore});
+  $Res call({String code, String? message});
 }
 
 /// @nodoc
@@ -110,23 +92,163 @@ class __$AttributeCopyWithImpl<$Res> extends _$AttributeCopyWithImpl<$Res>
   @override
   $Res call({
     Object? code = freezed,
-    Object? icon = freezed,
     Object? message = freezed,
-    Object? ignore = freezed,
   }) {
     return _then(_Attribute(
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      icon: icon == freezed
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as Widget?,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Attribute extends _Attribute {
+  _$_Attribute({required this.code, this.message}) : super._();
+
+  @override
+  final String code;
+  @override
+  final String? message;
+
+  @override
+  String toString() {
+    return 'Attribute(code: $code, message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Attribute &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(code) ^
+      const DeepCollectionEquality().hash(message);
+
+  @JsonKey(ignore: true)
+  @override
+  _$AttributeCopyWith<_Attribute> get copyWith =>
+      __$AttributeCopyWithImpl<_Attribute>(this, _$identity);
+}
+
+abstract class _Attribute extends Attribute {
+  factory _Attribute({required String code, String? message}) = _$_Attribute;
+  _Attribute._() : super._();
+
+  @override
+  String get code => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$AttributeCopyWith<_Attribute> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+class _$AttributeDataTearOff {
+  const _$AttributeDataTearOff();
+
+  _AttributeData call({Widget? icon, bool ignore = false}) {
+    return _AttributeData(
+      icon: icon,
+      ignore: ignore,
+    );
+  }
+}
+
+/// @nodoc
+const $AttributeData = _$AttributeDataTearOff();
+
+/// @nodoc
+mixin _$AttributeData {
+  Widget? get icon => throw _privateConstructorUsedError;
+  bool get ignore => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AttributeDataCopyWith<AttributeData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AttributeDataCopyWith<$Res> {
+  factory $AttributeDataCopyWith(
+          AttributeData value, $Res Function(AttributeData) then) =
+      _$AttributeDataCopyWithImpl<$Res>;
+  $Res call({Widget? icon, bool ignore});
+}
+
+/// @nodoc
+class _$AttributeDataCopyWithImpl<$Res>
+    implements $AttributeDataCopyWith<$Res> {
+  _$AttributeDataCopyWithImpl(this._value, this._then);
+
+  final AttributeData _value;
+  // ignore: unused_field
+  final $Res Function(AttributeData) _then;
+
+  @override
+  $Res call({
+    Object? icon = freezed,
+    Object? ignore = freezed,
+  }) {
+    return _then(_value.copyWith(
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Widget?,
+      ignore: ignore == freezed
+          ? _value.ignore
+          : ignore // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$AttributeDataCopyWith<$Res>
+    implements $AttributeDataCopyWith<$Res> {
+  factory _$AttributeDataCopyWith(
+          _AttributeData value, $Res Function(_AttributeData) then) =
+      __$AttributeDataCopyWithImpl<$Res>;
+  @override
+  $Res call({Widget? icon, bool ignore});
+}
+
+/// @nodoc
+class __$AttributeDataCopyWithImpl<$Res>
+    extends _$AttributeDataCopyWithImpl<$Res>
+    implements _$AttributeDataCopyWith<$Res> {
+  __$AttributeDataCopyWithImpl(
+      _AttributeData _value, $Res Function(_AttributeData) _then)
+      : super(_value, (v) => _then(v as _AttributeData));
+
+  @override
+  _AttributeData get _value => super._value as _AttributeData;
+
+  @override
+  $Res call({
+    Object? icon = freezed,
+    Object? ignore = freezed,
+  }) {
+    return _then(_AttributeData(
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Widget?,
       ignore: ignore == freezed
           ? _value.ignore
           : ignore // ignore: cast_nullable_to_non_nullable
@@ -137,36 +259,26 @@ class __$AttributeCopyWithImpl<$Res> extends _$AttributeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Attribute implements _Attribute {
-  const _$_Attribute(
-      {required this.code, this.icon, this.message, this.ignore = false});
+class _$_AttributeData implements _AttributeData {
+  const _$_AttributeData({this.icon, this.ignore = false});
 
   @override
-  final String code;
-  @override
   final Widget? icon;
-  @override
-  final String? message;
   @JsonKey(defaultValue: false)
   @override
   final bool ignore;
 
   @override
   String toString() {
-    return 'Attribute(code: $code, icon: $icon, message: $message, ignore: $ignore)';
+    return 'AttributeData(icon: $icon, ignore: $ignore)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Attribute &&
-            (identical(other.code, code) ||
-                const DeepCollectionEquality().equals(other.code, code)) &&
+        (other is _AttributeData &&
             (identical(other.icon, icon) ||
                 const DeepCollectionEquality().equals(other.icon, icon)) &&
-            (identical(other.message, message) ||
-                const DeepCollectionEquality()
-                    .equals(other.message, message)) &&
             (identical(other.ignore, ignore) ||
                 const DeepCollectionEquality().equals(other.ignore, ignore)));
   }
@@ -174,34 +286,24 @@ class _$_Attribute implements _Attribute {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(icon) ^
-      const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(ignore);
 
   @JsonKey(ignore: true)
   @override
-  _$AttributeCopyWith<_Attribute> get copyWith =>
-      __$AttributeCopyWithImpl<_Attribute>(this, _$identity);
+  _$AttributeDataCopyWith<_AttributeData> get copyWith =>
+      __$AttributeDataCopyWithImpl<_AttributeData>(this, _$identity);
 }
 
-abstract class _Attribute implements Attribute {
-  const factory _Attribute(
-      {required String code,
-      Widget? icon,
-      String? message,
-      bool ignore}) = _$_Attribute;
+abstract class _AttributeData implements AttributeData {
+  const factory _AttributeData({Widget? icon, bool ignore}) = _$_AttributeData;
 
   @override
-  String get code => throw _privateConstructorUsedError;
-  @override
   Widget? get icon => throw _privateConstructorUsedError;
-  @override
-  String? get message => throw _privateConstructorUsedError;
   @override
   bool get ignore => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AttributeCopyWith<_Attribute> get copyWith =>
+  _$AttributeDataCopyWith<_AttributeData> get copyWith =>
       throw _privateConstructorUsedError;
 }
