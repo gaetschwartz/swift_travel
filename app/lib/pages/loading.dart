@@ -117,12 +117,12 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     } on Exception catch (e, s) {
       await failedToLoadSettings(e, s, prefs);
       // ignore: avoid_catching_errors
-    } on Error catch (e) {
-      await failedToLoadSettings(e, e.stackTrace, prefs);
+    } on Error catch (e, s) {
+      await failedToLoadSettings(e, s, prefs);
     }
   }
 
-  Future<void> failedToLoadSettings(Object e, StackTrace? s, SharedPreferences prefs) async {
+  Future<void> failedToLoadSettings(Object e, StackTrace s, SharedPreferences prefs) async {
     reportDartError(e, s, library: 'loading', reason: 'while loading');
     final delete = await confirm(
       context,
@@ -181,8 +181,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       try {
         final args = await DeepLinkBloc.parseRouteArguments(
             widget.uri!, context.read(navigationAPIProvider));
-        final nav = Navigator.of(context);
-        unawaited(nav.pushNamed('/routeDetails', arguments: args));
+        Navigator.of(context).pushNamed('/routeDetails', arguments: args);
       } on Exception catch (e, s) {
         print(e);
         debugPrintStack(stackTrace: s);

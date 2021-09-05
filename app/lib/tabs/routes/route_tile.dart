@@ -13,6 +13,7 @@ import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:swift_travel/widgets/sbb_icon.dart';
+import 'package:vibration/vibration.dart';
 
 class RouteTile extends StatelessWidget {
   const RouteTile({
@@ -67,7 +68,8 @@ class RouteTile extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Nav.push(
+              Vibration.instance.select();
+              SideBar.push(
                 context,
                 (context) => RouteDetails(route: route, i: i),
                 title: AppLocalizations.of(context).tabs_route,

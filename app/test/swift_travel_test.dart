@@ -154,7 +154,10 @@ void main() {
         navigationAPIProvider.overrideWithValue(MockNavigationApi(mockCompletions: []))
       ]);
 
-      final c = await container.read(completionEngineProvider).complete(query: 'query').last;
+      final c = await container
+          .read(completionEngineProvider)
+          .complete(query: 'query', doUseCurrentLocation: false)
+          .last;
 
       expect(
         c,

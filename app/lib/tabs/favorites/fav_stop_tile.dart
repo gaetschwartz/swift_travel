@@ -47,7 +47,8 @@ class FavoriteStationTile extends StatelessWidget {
           caption: AppLocalizations.of(context).timetable,
           color: Colors.blue,
           icon: CupertinoIcons.list_number,
-          onTap: () => Nav.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
+          onTap: () =>
+              SideBar.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
         ),
       ],
       child: ListTile(
@@ -91,7 +92,7 @@ class FavoriteStationTile extends StatelessWidget {
           title: Text(AppLocalizations.of(context).timetable),
           icon: const Icon(CupertinoIcons.list_number),
           onPressed: () =>
-              Nav.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
+              SideBar.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
         ),
         ActionsSheetAction(
           title: Text(AppLocalizations.of(context).rename),

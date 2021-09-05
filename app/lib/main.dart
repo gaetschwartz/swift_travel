@@ -42,6 +42,12 @@ final isTest = Platform.environment.containsKey('FLUTTER_TEST');
 String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
 
 void main() {
+  preLaunchRoutine();
+
+  runZonedGuarded(() => runApp(const FullApp()), reportDartError);
+}
+
+void preLaunchRoutine() {
   if (kReleaseMode) {
     print(
       '=== Release mode ===\n'
@@ -54,19 +60,18 @@ void main() {
     print(Env.env);
   }
 
-  WidgetsFlutterBinding.ensureInitialized();
-
   if (Env.overridePlatform) {
     overridePlatform();
   }
   setPathUrlStrategy();
 
-  if (!isTest) {
-    FlutterError.onError = reportFlutterError;
-  } else {
+  if (isTest) {
     print('We are in a test');
+  } else {
+    FlutterError.onError = reportFlutterError;
   }
-  runZonedGuarded(_runApp, reportDartError);
+
+  WidgetsFlutterBinding.ensureInitialized();
 }
 
 void overridePlatform() {
@@ -87,11 +92,9 @@ void overridePlatform() {
       return;
   }
 
-  log('Overriding $defaultTargetPlatform by $platform');
+  print('Overriding $defaultTargetPlatform by $platform');
   debugDefaultTargetPlatformOverride = p;
 }
-
-void _runApp() => runApp(const FullApp());
 
 class FullApp extends StatefulWidget {
   const FullApp({
@@ -326,9 +329,9 @@ Route? onGenerateRoute(RouteSettings settings) {
 }
 
 class Unfocus extends StatelessWidget {
-  const Unfocus({Key? key, this.child}) : super(key: key);
+  const Unfocus({Key? key, required this.child}) : super(key: key);
 
-  final Widget? child;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -342,6 +345,5 @@ class NoOverscrollGlowBehavior extends ScrollBehavior {
   const NoOverscrollGlowBehavior();
 
   @override
-  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) =>
-      child;
+  Widget buildViewportChrome(context, child, axisDirection) => child;
 }

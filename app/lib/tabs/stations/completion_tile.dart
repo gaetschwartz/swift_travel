@@ -96,7 +96,7 @@ class CompletionTile extends ConsumerWidget {
             : () {
                 Vibration.instance.select();
 
-                Nav.push(
+                SideBar.push(
                   context,
                   (context) => StopDetails(
                     SbbStop(name: sugg.label, id: sugg.id),

@@ -97,9 +97,8 @@ class WelcomePage extends StatelessWidget {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
                           onPressed: () async {
-                            final nav = Navigator.of(context);
-                            await nav.pushNamed('/tuto');
-                            nav.pop();
+                            await Navigator.of(context).pushNamed('/tuto');
+                            Navigator.of(context).pop();
                           },
                           child: Row(
                             children: [
