@@ -61,7 +61,7 @@ class _StopDetailsState extends State<StopDetails> {
             trailing: IconButton(
                 icon: const Icon(Icons.double_arrow_rounded),
                 onPressed: () {
-                  Nav.push(
+                  SideBar.push(
                       context,
                       (context) => RoutePage.stop(FavoriteStop.fromStop(
                             widget.stop.name,
@@ -82,7 +82,7 @@ class _StopDetailsState extends State<StopDetails> {
               IconButton(
                   icon: const Icon(Icons.double_arrow_rounded),
                   onPressed: () {
-                    Nav.push(
+                    SideBar.push(
                         context,
                         (context) => RoutePage.stop(FavoriteStop.fromStop(
                               widget.stop.name,

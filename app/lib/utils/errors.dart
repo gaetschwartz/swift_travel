@@ -16,7 +16,7 @@ void ignoreError() {}
 
 void reportDartError(
   Object e,
-  StackTrace? s, {
+  StackTrace s, {
   String library = '',
   String reason = '',
   bool showSnackbar = true,

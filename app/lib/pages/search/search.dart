@@ -189,6 +189,8 @@ class _SearchPageState extends State<SearchPage> {
       );
 
   void onSuggestionTapped(NavigationCompletion c) {
+    Vibration.instance.select();
+
     if (c.origin == DataOrigin.currentLocation) {
       print('Using current location');
       widget.binder.useCurrentLocation(context);

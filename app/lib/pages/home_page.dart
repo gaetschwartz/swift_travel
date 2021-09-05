@@ -113,7 +113,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
             child: Material(
               child: Navigator(
                 key: sideBarNavigatorKey,
-                pages: const [SingleWidgetPage<void>(_SideBar())],
+                pages: const [SingleWidgetPage<void>(SideBar())],
                 onPopPage: (_, dynamic __) => false,
               ),
             ),
@@ -308,10 +308,33 @@ class _TabWidget extends StatelessWidget {
       ));
 }
 
-class _SideBar extends StatelessWidget {
-  const _SideBar({
+class SideBar extends StatelessWidget {
+  const SideBar({
     Key? key,
   }) : super(key: key);
+
+  static void push(
+    BuildContext context,
+    WidgetBuilder builder, {
+    RouteSettings? settings,
+    bool maintainState = true,
+    bool fullscreenDialog = false,
+    String? title,
+    bool rootNavigator = false,
+  }) {
+    if (shouldShowSidebar(context)) {
+      context.read(sideTabBarProvider).state = builder;
+      sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+    } else {
+      Navigator.of(context, rootNavigator: rootNavigator).push<void>(PlatformPageRoute(
+        builder: builder,
+        fullscreenDialog: fullscreenDialog,
+        maintainState: maintainState,
+        title: title,
+        settings: settings,
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) => Consumer(
@@ -351,52 +374,6 @@ class _SideBar extends StatelessWidget {
           ));
 }
 
-extension BuildContextX on BuildContext {
-  void push<T>(
-    WidgetBuilder builder, {
-    RouteSettings? settings,
-    bool maintainState = true,
-    bool fullscreenDialog = false,
-    String? title,
-    bool useRootNavigator = false,
-  }) {
-    if (shouldShowSidebar(this)) {
-      read(sideTabBarProvider).state = builder;
-      sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
-    } else {
-      Navigator.of(this, rootNavigator: useRootNavigator).push(PlatformPageRoute<T>(
-        builder: builder,
-        fullscreenDialog: fullscreenDialog,
-        maintainState: maintainState,
-        title: title,
-        settings: settings,
-      ));
-    }
-  }
-}
-
-class Nav {
-  const Nav._();
-
-  static void push<T extends Object?>(
-    BuildContext context,
-    WidgetBuilder builder, {
-    RouteSettings? settings,
-    bool maintainState = true,
-    bool fullscreenDialog = false,
-    String? title,
-    bool rootNavigator = false,
-  }) =>
-      context.push<T>(
-        builder,
-        settings: settings,
-        maintainState: maintainState,
-        fullscreenDialog: fullscreenDialog,
-        title: title,
-        useRootNavigator: rootNavigator,
-      );
-}
-
 final navigatorKeys = <GlobalKey<NavigatorState>>[
   GlobalKey(debugLabel: 'stations tab key'),
   GlobalKey(debugLabel: 'route tab key'),
@@ -430,7 +407,7 @@ class MaterialAppBar extends AppBar {
                     icon: const Icon(Icons.settings),
                     onPressed: () {
                       Vibration.instance.select();
-                      Nav.push(
+                      SideBar.push(
                         context,
                         (context) => const SettingsPage(),
                         fullscreenDialog: true,
