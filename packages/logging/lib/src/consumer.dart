@@ -13,17 +13,20 @@ abstract class LogConsumer {
   final MessagePrinter printer;
   final LogFilter filter;
 
+  @protected
   void log(LogMessage msg);
 
   @nonVirtual
+
+  /// Consume a message
   void consume(LogMessage msg) {
     if (filter(msg)) log(msg);
   }
 }
 
 /// Log messages to the dart console
-class PrintLogger extends LogConsumer {
-  const PrintLogger({
+class ConsoleLogger extends LogConsumer {
+  const ConsoleLogger({
     MessagePrinter printer = const SimplePrinter(),
     LogFilter logFilter = const AlwaysAllowFilter(),
   }) : super(printer, logFilter);
@@ -41,7 +44,7 @@ class LogAggregator extends LogConsumer {
 
   final int bufferSize;
 
-  final _queue = DoubleLinkedQueue<LogMessage>();
+  final _queue = Queue<LogMessage>();
 
   @override
   void log(LogMessage msg) {
@@ -51,7 +54,7 @@ class LogAggregator extends LogConsumer {
     }
   }
 
-  Iterable<LogMessage> get messages => List.from(_queue);
+  Iterable<LogMessage> get messages => _queue;
 
   Iterable<String> get logs => _queue.map<String>(printer);
 }
