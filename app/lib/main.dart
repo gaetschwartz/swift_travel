@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/constants/build.dart';
@@ -122,7 +122,7 @@ class _FullAppState extends State<FullApp> {
   @override
   void reassemble() {
     super.reassemble();
-    log('Reload theme');
+    log.log('Reload theme');
     dynamicThemeData.configure(themeConfiguration);
   }
 
@@ -219,7 +219,7 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
   }
 
   List<Route> onGenerateInitialRoutes(String initialRoute) {
-    log('Initial route : $initialRoute');
+    log.log('Initial route : $initialRoute');
     final uri = Uri.tryParse(initialRoute)!;
 
     final routes = <Route>[];
@@ -251,7 +251,7 @@ Route<T> onUnknownRoute<T extends Object?>(RouteSettings settings) {
 
 // ignore: long-method
 Route? onGenerateRoute(RouteSettings settings) {
-  log('Routing to ${settings.name}');
+  log.log('Routing to ${settings.name}');
 
   switch (settings.name) {
     case '/':

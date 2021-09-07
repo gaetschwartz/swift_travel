@@ -411,6 +411,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gaets_logging:
+    dependency: "direct main"
+    description:
+      path: "../packages/logging"
+      relative: true
+    source: path
+    version: "0.0.1"
   geolocator:
     dependency: "direct main"
     description:

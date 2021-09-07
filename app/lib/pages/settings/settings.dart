@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math' show min;
 import 'dart:ui';
 
@@ -8,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -56,7 +56,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
     final prefs = await SharedPreferences.getInstance();
     final b = await prefs.clear();
-    log('Done : $b');
+    log.log('Done : $b');
     unawaited(SystemNavigator.pop(animated: true));
   }
 
@@ -217,7 +217,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   leading: const Icon(Icons.close),
                   title: const Text('Trigger a crash'),
                   onTap: () async {
-                    await FirebaseCrashlytics.instance.log('We trigger a crash');
+                    log.log('We trigger a crash');
                     FirebaseCrashlytics.instance.crash();
                   }),
             ],

@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
@@ -86,7 +86,7 @@ class SearchChApi extends BaseNavigationApi {
     });
 
     if (kDebugMode) {
-      log(uri.toString());
+      log.log(uri.toString());
     }
     final response = await _client.get(uri, headers: headers);
     if (response.statusCode != 200) {
@@ -123,7 +123,7 @@ class SearchChApi extends BaseNavigationApi {
     };
     final s = queryBuilder('stationboard', params);
     if (kDebugMode) {
-      log(s.toString());
+      log.log(s.toString());
     }
 
     final response = await _client.get(s, headers: headers);
@@ -180,7 +180,7 @@ class SearchChApi extends BaseNavigationApi {
 
     final s = queryBuilder('route', params);
     if (Env.isDebugMode) {
-      log('builder: $s');
+      log.log('builder: $s');
     }
     return rawRoute(s);
   }

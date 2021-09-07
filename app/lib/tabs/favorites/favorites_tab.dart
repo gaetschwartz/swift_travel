@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
@@ -136,18 +135,18 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       var completions = await api.complete(s, showIds: true);
 
       if (completions.isEmpty) {
-        log("Didn't find a station, will try using routes as a hack...");
+        log.log("Didn't find a station, will try using routes as a hack...");
         final sbbRoute = await api.route(s, 'Bern', date: DateTime.now(), time: TimeOfDay.now());
         if (sbbRoute.connections.isNotEmpty) {
           final from = sbbRoute.connections.first.from;
-          log('Found $from');
+          log.log('Found $from');
           completions = await api.complete(from, showIds: true);
-          log(completions.toString());
+          log.log(completions.toString());
         }
       }
 
       if (completions.isEmpty) {
-        log("Didn't find anything for string $s");
+        log.log("Didn't find anything for string $s");
         return;
       }
 

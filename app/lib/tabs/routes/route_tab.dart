@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:geolocator/geolocator.dart' hide Position;
 import 'package:intl/intl.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -68,7 +68,7 @@ class Fetcher extends FetcherBase {
     final api = ref.read(navigationAPIProvider);
 
     if (kDebugMode) {
-      log('Something changed checking if we need to rebuild');
+      log.log('Something changed checking if we need to rebuild');
     }
 
     if (from.state is EmptyRouteState || to.state is EmptyRouteState) {
@@ -84,8 +84,8 @@ class Fetcher extends FetcherBase {
     }
 
     if (kDebugMode) {
-      log('From: ${from.state}');
-      log('To: ${to.state}');
+      log.log('From: ${from.state}');
+      log.log('To: ${to.state}');
     }
 
     GeoLocation? p;
@@ -107,7 +107,7 @@ class Fetcher extends FetcherBase {
           return '${p!.latitude},${p!.longitude}';
         },
       )!;
-      log('Fetching route from $departure to $arrival');
+      log.log('Fetching route from $departure to $arrival');
       final it = await api.route(
         departure,
         arrival,
@@ -117,7 +117,7 @@ class Fetcher extends FetcherBase {
       );
       state = RouteStates(it);
     } on SocketException catch (e, s) {
-      log('', error: e, stackTrace: s);
+      log.e(e.toString(), stackTrace: s);
       state = const RouteStates.networkException();
     } on MissingPluginException {
       state = const RouteStates.missingPluginException();
@@ -337,7 +337,7 @@ class RoutePageState extends State<RoutePage> {
                         onPressed: () async {
                           Vibration.instance.select();
 
-                          log(favorites.routes.toString());
+                          log.log(favorites.routes.toString());
                           if (favorites.routes.any(
                             (lr) =>
                                 lr.fromAsString == fromBinder.text &&
