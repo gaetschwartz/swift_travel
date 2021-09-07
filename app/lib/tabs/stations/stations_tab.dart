@@ -344,7 +344,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   Duration? computeDelay(int i) {
     final first = itemPositionsListener.itemPositions.value.firstOrNull?.index ?? 0;
     final last = itemPositionsListener.itemPositions.value.lastOrNull?.index;
-    if (i < first || (last != null && i > last)) return null;
+    if (last != null && i > last) return null;
     return Duration(milliseconds: 20 * (i - first));
   }
 }
@@ -369,6 +369,8 @@ class _AnimatedLocationState extends State<AnimatedLocation> with SingleTickerPr
     duration: _kAnimDuration,
     upperBound: 0.25,
   );
+
+  late final reverse = ReverseAnimation(controller);
 
   @override
   void didUpdateWidget(covariant AnimatedLocation oldWidget) {
@@ -401,7 +403,7 @@ class _AnimatedLocationState extends State<AnimatedLocation> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) => RotationTransition(
-        turns: ReverseAnimation(controller),
+        turns: reverse,
         child: Icon(
           CupertinoIcons.location_fill,
           color: widget.loadingState == _LoadingState.error ? Colors.redAccent : null,
