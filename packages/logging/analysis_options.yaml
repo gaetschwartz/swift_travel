@@ -1,0 +1,50 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  plugins:
+    - dart_code_metrics
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  strong-mode:
+    implicit-dynamic: false
+    implicit-casts: false
+  errors:
+    included_file_warning: ignore
+    invalid_annotation_target: ignore
+
+linter:
+  rules:
+    avoid_print: false
+    prefer_final_fields: true
+    prefer_final_in_for_each: true
+    prefer_final_locals: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+
+dart_code_metrics:
+  anti-patterns:
+    # - long-method
+    - long-parameter-list
+  metrics:
+    cyclomatic-complexity: 20
+    maximum-nesting-level: 5
+    number-of-parameters: 10
+    source-lines-of-code: 64
+  metrics-exclude:
+    - test/**
+  rules:
+    - no-boolean-literal-compare
+
+    - avoid-returning-widgets:
+        ignored-annotations:
+          - allowReturningWidgets
+    - prefer-extracting-callbacks
+    - no-equal-then-else
+    - binary-expression-operand-order
+    # - avoid-non-null-assertion
+    # - avoid-unused-parameters
+    # - no-magic-number:
+    #     allowed: [2]
+    # - no-object-declaration
+    - avoid-unnecessary-setstate

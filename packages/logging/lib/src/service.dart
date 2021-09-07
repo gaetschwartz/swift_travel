@@ -1,24 +1,20 @@
-import 'package:gaets_logging/logging.dart';
-import 'package:gaets_logging/src/consumer.dart';
-
-import 'filter.dart';
+import 'consumer.dart';
 import 'models.dart';
 
 class LoggingService {
-  const LoggingService(
-    Set<LogConsumer> consumers, {
-    this.filter = const AlwaysAllowFilter(),
-  }) : _consumers = consumers;
+  LoggingService(List<LogConsumer> consumers) : _consumers = consumers;
 
-  static LoggingService instance = const LoggingService({ConsoleLogger()});
-  final Set<LogConsumer> _consumers;
-  final LogFilter filter;
+  static late final LoggingService instance = LoggingService([const PrintLogger()]);
+
+  List<LogConsumer> _consumers;
 
   /// Register multiple consumers
   void registerAll(Iterable<LogConsumer> e) => _consumers.addAll(e);
 
   /// Register a consumer
   void register(LogConsumer l) => _consumers.add(l);
+
+  void setConsumers(List<LogConsumer> list) => _consumers = list;
 
   /// Log a message
   void log(
@@ -27,16 +23,14 @@ class LoggingService {
     String? channel,
   }) {
     final msg = LogMessage(
-      channel: channel,
       message: message,
-      createdAt: DateTime.now(),
+      channel: channel,
+      timestamp: DateTime.now(),
       level: level,
     );
 
-    if (filter(msg)) {
-      for (final l in _consumers) {
-        l.consume(msg);
-      }
+    for (final c in _consumers) {
+      c.consume(msg);
     }
   }
 
@@ -49,7 +43,7 @@ class LoggingService {
   }
 
   /// Log a serious crash, if possible
-  void crash(String e) => log(e, level: LogLevel.crash);
+  void crash(String e, {String? channel}) => log(e, level: LogLevel.crash, channel: channel);
 
   /// Log an error, like if something is thrown
   void e(String e, {String? channel}) => log(e, level: LogLevel.error, channel: channel);
@@ -59,10 +53,10 @@ class LoggingService {
       future(f(), channel: channel);
 
   /// Log a ui event, like tapping a button
-  void ui(String e) => log(e, channel: 'ui');
+  void ui(String msg) => log(msg, channel: 'ui');
 
   // Log an info
-  void i(String e, {String? channel}) => log(e, channel: channel);
+  void i(String msg, {String? channel}) => log(msg, channel: channel, level: LogLevel.info);
 }
 
 /// The singleton logger instance.
