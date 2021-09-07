@@ -15,9 +15,11 @@ dependencies:
   live_route:
     path: ../packages/live_route/
   theming:
-    path: ../packages//theming
+    path: ../packages/theming
   vibration:
-    path: ../packages//vibration
+    path: ../packages/vibration
+  gaets_logging:
+    path: ../packages/logging
   android_intent: ^2.0.0
   animations: ^2.0.0
   async: ^2.4.2

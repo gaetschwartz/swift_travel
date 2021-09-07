@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
@@ -61,7 +61,7 @@ class SncfApi extends BaseNavigationApi {
     final uri = Uri.https('api.navitia.io', '/v1/coverage/fr-idf/places', queryParameters);
 
     if (kDebugMode) {
-      log(uri.toString());
+      log.log(uri.toString());
     }
 
     final response = await _client.get(uri);
@@ -70,7 +70,7 @@ class SncfApi extends BaseNavigationApi {
     //  print(decode);
     final sncfCompletion = SncfCompletion.fromJson(decode);
     final places = sncfCompletion.places;
-    log('Found ${places.length} places');
+    log.log('Found ${places.length} places');
 
     return places;
   }
@@ -115,7 +115,7 @@ class SncfApi extends BaseNavigationApi {
     );
 
     if (kDebugMode) {
-      log(uri.toString());
+      log.log(uri.toString());
     }
 
     final response = await _client.get(uri);
@@ -129,7 +129,7 @@ class SncfApi extends BaseNavigationApi {
 
     final stationboard = SncfStationboard.fromJson(decode).copyWith(stop: stop);
     if (kDebugMode) {
-      log(stationboard.toString());
+      log.log(stationboard.toString());
     }
     return stationboard;
   }

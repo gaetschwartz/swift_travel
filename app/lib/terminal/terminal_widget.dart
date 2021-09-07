@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swift_travel/terminal/models.dart';
 
@@ -109,7 +109,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
           style: firaCode,
           child: GestureDetector(
             onTap: () {
-              log("Requesting focus");
+              log.log("Requesting focus");
               if (!focusNode.hasFocus) focusNode.requestFocus();
             },
             child: Consumer(builder: (context, w, _) {

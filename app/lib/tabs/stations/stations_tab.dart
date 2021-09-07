@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
@@ -309,7 +309,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
         final public = completions.where((c) => !TransportationModeX.isAnAddress(c.type));
         context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
-          log('Found : ${public.first}');
+          log.log('Found : ${public.first}');
           searchController.text = public.first.label;
         }
       }
@@ -322,11 +322,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   }
 
   void onError(Object e) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(AppLocalizations.of(context).unable_locate),
-      behavior: SnackBarBehavior.floating,
-    ));
-    log('', error: e, name: 'Location');
+    log.log(e.toString(), channel: 'Location');
     context.read(_locatingProvider).state = _LoadingState.error;
     Future.delayed(_kAnimDuration * (5 / 8), cancelAnimation);
   }

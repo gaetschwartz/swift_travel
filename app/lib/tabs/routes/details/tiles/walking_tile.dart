@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:android_intent/android_intent.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -83,7 +83,7 @@ class WalkingTile extends StatelessWidget {
       return;
     }
 
-    log(l.toString());
+    log.log(l.toString());
     // We should convert LV03 leg.x, leg.y to WGY84 because Switzerland is ✨edgy✨
     // http://geodesy.geo.admin.ch/reframe/lv03towgs84?easting=499692&northing=119844
     final legPos = l.position;
@@ -91,7 +91,7 @@ class WalkingTile extends StatelessWidget {
 
     final departure = legPos != null ? legPos.toCoordinatesString() : l.displayName;
     final arrival = exitPos != null ? exitPos.toCoordinatesString() : l.exit!.displayName;
-    log('($departure) => ($arrival)');
+    log.log('($departure) => ($arrival)');
 
     final suffix =
         '?saddr=${Uri.encodeComponent(departure)}&daddr=${Uri.encodeComponent(arrival)}&dirflg=w';
@@ -117,10 +117,10 @@ class WalkingTile extends StatelessWidget {
     final m = context.read(preferencesProvider).mapsApp.value;
     switch (m) {
       case NavigationApp.apple:
-        log('Using Apple Maps');
+        log.log('Using Apple Maps');
         return _apple + suffix;
       case NavigationApp.google:
-        log('Using Google Maps');
+        log.log('Using Google Maps');
         return _google + suffix;
     }
   }

@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/mocking/mocking.dart';
@@ -24,7 +23,7 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
   @override
   Future<void> onDatabaseExceededMaxSize() async {
     if (kDebugMode) {
-      log('Total size exceeded max size, cleaning');
+      log.log('Total size exceeded max size, cleaning');
     }
     await deleteAll(keys.take(20));
   }
@@ -41,7 +40,7 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
         .where((e) => now.difference(e.value.timestamp).inMinutes > e.value.ttl)
         .map((e) => e.key);
     if (kDebugMode && toDelete.isNotEmpty) {
-      log('Found these outdated cache entries: $toDelete');
+      log.log('Found these outdated cache entries: $toDelete');
     }
     await deleteAll(toDelete);
   }

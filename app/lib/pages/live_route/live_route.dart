@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:live_route/live_route.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
@@ -46,7 +45,7 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
       body: Consumer(builder: (context, w, _) {
         final controller = w(liveRouteControllerProvider);
         if (!controller.isRunning || !controller.isReady) {
-          log('Running : ${controller.isRunning}, read : ${controller.isReady}');
+          log.log('Running : ${controller.isRunning}, read : ${controller.isReady}');
           return const Center(child: CircularProgressIndicator());
         }
 

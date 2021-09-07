@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'consumer.dart';
@@ -56,7 +57,10 @@ class LoggingService {
   void crash(String e, {String? channel}) => _log(e, level: LogLevel.crash, channel: channel);
 
   /// Log an error, like if something is thrown
-  void e(String e, {String? channel}) => _log(e, level: LogLevel.error, channel: channel);
+  void e(String e, {String? channel, StackTrace? stackTrace}) {
+    _log(e, level: LogLevel.error, channel: channel);
+    if (stackTrace != null) debugPrintStack(stackTrace: stackTrace);
+  }
 
   /// Log a timed network operation
   Future<T> network<T extends Object?>(Future<T> Function() f, {String channel = 'network'}) =>

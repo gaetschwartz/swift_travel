@@ -1,10 +1,10 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
@@ -193,7 +193,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   }
 
   Future<void> _routeToDefault() {
-    log(Env.page);
+    log.log(Env.page);
 
     if (Env.page.isEmpty) {
       return Navigator.of(context).pushReplacement(

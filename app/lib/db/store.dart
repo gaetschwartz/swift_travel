@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/logic/quick_actions.dart';
@@ -212,7 +212,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
     await _checkState();
 
     if (!_stops.remove(favoriteStop)) {
-      log('$favoriteStop was not in favorites ?', name: 'Store');
+      log.log('$favoriteStop was not in favorites ?', channel: 'Store');
     }
     ref.read(favoritesStatesProvider).state = FavoritesStates.data(stops.toList(growable: false));
     await sync();

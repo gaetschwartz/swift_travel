@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
@@ -37,7 +37,7 @@ class DeepLinkBloc {
     required BaseNavigationApi Function() getApi,
     required void Function(Pair<NavRoute, int> pair) onNewRoute,
   }) async {
-    log('Initialize', name: 'LinksBloc');
+    log.log('Initialize', channel: 'LinksBloc');
     this.onNewRoute = onNewRoute;
     this.getApi = getApi;
 
@@ -47,7 +47,7 @@ class DeepLinkBloc {
     if (s != null) {
       await _onLink(s);
     } else {
-      log('No initial link');
+      log.log('No initial link');
     }
   }
 
@@ -58,7 +58,7 @@ class DeepLinkBloc {
       print('We have a new route $uri');
 
       final pair = await parseRouteArguments(uri, getApi());
-      log(pair.toString());
+      log.log(pair.toString());
 
       onNewRoute(pair);
     }
@@ -69,7 +69,7 @@ class DeepLinkBloc {
 
     final qUri = SearchChApi.queryBuilder('route', params);
     if (kDebugMode) {
-      log(qUri.toString());
+      log.log(qUri.toString());
     }
 
     final route = await navApi.rawRoute(qUri);

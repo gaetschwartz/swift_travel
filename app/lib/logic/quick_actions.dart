@@ -1,9 +1,8 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:math' show min;
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/services.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/main.dart';
@@ -21,19 +20,19 @@ class MyQuickActions {
   bool _debugInitialized = false;
 
   void init() {
-    log('Initialize', name: 'QuickActions');
+    log.log('Initialize', channel: 'QuickActions');
     try {
       const QuickActions().initialize(_init);
     } on MissingPluginException {
-      log('Unsupported for now on $platform');
+      log.log('Unsupported for now on $platform');
       _debugInitialized = true;
     }
   }
 
   Future<void> _init(String shortcutType) async {
     assert(!_debugInitialized, "Quick Actions aren't initialized.");
-    await FirebaseCrashlytics.instance.log('User tapped a quick action : `$shortcutType`');
-    log('Tapped shortcut $shortcutType', name: 'QuickActions');
+
+    log.log('Tapped shortcut $shortcutType', channel: 'QuickActions');
 
     final split = shortcutType.split('_');
 
@@ -42,7 +41,7 @@ class MyQuickActions {
     final actionId = split.first;
 
     if (actionId == 'route') {
-      log('Tapped route $shortcutType', name: 'QuickActions');
+      log.log('Tapped route $shortcutType', channel: 'QuickActions');
       final favsDb = FavRoutesDb.i;
       await favsDb.open();
 
@@ -50,7 +49,7 @@ class MyQuickActions {
 
       await navigatorKey.currentState!.pushNamed('/route', arguments: lr);
     } else if (actionId == 'fav') {
-      log('Tapped fav $shortcutType', name: 'QuickActions');
+      log.log('Tapped fav $shortcutType', channel: 'QuickActions');
       final stopsDB = FavStopsDb.i;
       await stopsDB.open();
 
@@ -67,7 +66,7 @@ class MyQuickActions {
     }
     final shortcuts = <ShortcutItem>[];
 
-    log('Add favorites $favorites', name: 'QuickActions');
+    log.log('Add favorites $favorites', channel: 'QuickActions');
     for (var i = 0; i < min(maxFavoriteStops, favorites.length); i++) {
       final fav = favorites[i];
       shortcuts.add(ShortcutItem(
@@ -77,7 +76,7 @@ class MyQuickActions {
       ));
     }
 
-    log('Add routes $routes', name: 'QuickActions');
+    log.log('Add routes $routes', channel: 'QuickActions');
     for (var i = 0; i < min(maxFavoriteRoutes, routes.length); i++) {
       final route = routes[i];
       shortcuts.add(ShortcutItem(
@@ -88,8 +87,8 @@ class MyQuickActions {
     }
     try {
       await const QuickActions().setShortcutItems(shortcuts);
-    } on MissingPluginException catch (e, s) {
-      log('Unsupported for now on $platform', stackTrace: s);
+    } on MissingPluginException {
+      log.log('Quick actions currently unspported on $platform');
     }
   }
 }
