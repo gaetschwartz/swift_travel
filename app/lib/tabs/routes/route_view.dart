@@ -203,7 +203,7 @@ final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
   final dateTime = ref.watch(dateProvider).state;
   LatLon? pos;
   try {
-    final loc = await getLocation().timeout(const Duration(seconds: 4));
+    final loc = await GeoLocationEngine.instance.getLocation().timeout(const Duration(seconds: 4));
     pos = LatLon.fromGeoLocation(loc);
   } on Exception {
     ignoreError();

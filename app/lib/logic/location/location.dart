@@ -10,11 +10,9 @@ class GeoLocationEngine {
   GeoLocationEngine._();
   static late final instance = GeoLocationEngine._();
 
-  DateTime? _lastUsed;
-
   Future<GeoLocation> getLocation({
-    LocationAccuracy desiredAccuracy = LocationAccuracy.bestForNavigation,
-    Duration? timeLimit,
+    LocationAccuracy accuracy = LocationAccuracy.best,
+    Duration? timeout,
   }) async {
     if (Env.spoofLocation) {
       return _spoofedLocation;
@@ -27,20 +25,27 @@ class GeoLocationEngine {
         }
 
         if (permission.isAccepted) {
-          final now = DateTime.now();
+          final lastKnown = await Geolocator.getLastKnownPosition();
 
-          Position? p;
+          if (lastKnown != null) {
+            final now = DateTime.now();
+            final timestamp = lastKnown.timestamp;
+            if (timestamp != null) {
+              final condition = now.difference(timestamp).inSeconds < 60;
+              log.log(
+                  "Obtained last known position which was $condition ago which is ${condition ? 'valid' : 'invalid'}");
 
-          if (_lastUsed != null && _lastUsed!.difference(now).inSeconds < 60) {
-            p = await Geolocator.getLastKnownPosition();
+              if (condition) return GeoLocation.fromPosition(lastKnown);
+            }
           }
 
-          p ??= await Geolocator.getCurrentPosition(
-            desiredAccuracy: desiredAccuracy,
-            timeLimit: timeLimit,
-          );
+          log.log(
+              "Last known location was invalid (too old or innexistent). Obtaining current one...");
 
-          _lastUsed = now;
+          final p = await Geolocator.getCurrentPosition(
+            desiredAccuracy: accuracy,
+            timeLimit: timeout,
+          );
 
           return GeoLocation.fromPosition(p);
         } else {
@@ -62,15 +67,6 @@ class GeoLocationEngine {
   }
 }
 
-Future<GeoLocation> getLocation({
-  LocationAccuracy desiredAccuracy = LocationAccuracy.bestForNavigation,
-  Duration? timeLimit,
-}) =>
-    GeoLocationEngine.instance.getLocation(
-      desiredAccuracy: desiredAccuracy,
-      timeLimit: timeLimit,
-    );
-
 extension LocationPermissionX on LocationPermission {
   bool get isAccepted {
     switch (this) {
@@ -84,4 +80,8 @@ extension LocationPermissionX on LocationPermission {
   }
 
   bool get isDenied => !isAccepted;
+}
+
+extension PositionX on Position {
+  GeoLocation toGeoLocation() => GeoLocation.fromPosition(this);
 }
