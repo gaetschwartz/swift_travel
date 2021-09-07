@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'models.dart';
 
@@ -17,15 +18,15 @@ class _$LogMessageTearOff {
   const _$LogMessageTearOff();
 
   _LogMessage call(
-      {required DateTime createdAt,
-      required String message,
-      String? channel,
-      LogLevel level = LogLevel.info}) {
+      {required String message,
+      LogLevel level = LogLevel.info,
+      required DateTime timestamp,
+      String? channel}) {
     return _LogMessage(
-      createdAt: createdAt,
       message: message,
-      channel: channel,
       level: level,
+      timestamp: timestamp,
+      channel: channel,
     );
   }
 }
@@ -35,10 +36,10 @@ const $LogMessage = _$LogMessageTearOff();
 
 /// @nodoc
 mixin _$LogMessage {
-  DateTime get createdAt => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
-  String? get channel => throw _privateConstructorUsedError;
   LogLevel get level => throw _privateConstructorUsedError;
+  DateTime get timestamp => throw _privateConstructorUsedError;
+  String? get channel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LogMessageCopyWith<LogMessage> get copyWith =>
@@ -51,7 +52,7 @@ abstract class $LogMessageCopyWith<$Res> {
           LogMessage value, $Res Function(LogMessage) then) =
       _$LogMessageCopyWithImpl<$Res>;
   $Res call(
-      {DateTime createdAt, String message, String? channel, LogLevel level});
+      {String message, LogLevel level, DateTime timestamp, String? channel});
 
   $LogLevelCopyWith<$Res> get level;
 }
@@ -66,28 +67,28 @@ class _$LogMessageCopyWithImpl<$Res> implements $LogMessageCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? createdAt = freezed,
     Object? message = freezed,
-    Object? channel = freezed,
     Object? level = freezed,
+    Object? timestamp = freezed,
+    Object? channel = freezed,
   }) {
     return _then(_value.copyWith(
-      createdAt: createdAt == freezed
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      channel: channel == freezed
-          ? _value.channel
-          : channel // ignore: cast_nullable_to_non_nullable
-              as String?,
       level: level == freezed
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as LogLevel,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      channel: channel == freezed
+          ? _value.channel
+          : channel // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -106,7 +107,7 @@ abstract class _$LogMessageCopyWith<$Res> implements $LogMessageCopyWith<$Res> {
       __$LogMessageCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime createdAt, String message, String? channel, LogLevel level});
+      {String message, LogLevel level, DateTime timestamp, String? channel});
 
   @override
   $LogLevelCopyWith<$Res> get level;
@@ -124,79 +125,79 @@ class __$LogMessageCopyWithImpl<$Res> extends _$LogMessageCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? createdAt = freezed,
     Object? message = freezed,
-    Object? channel = freezed,
     Object? level = freezed,
+    Object? timestamp = freezed,
+    Object? channel = freezed,
   }) {
     return _then(_LogMessage(
-      createdAt: createdAt == freezed
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      channel: channel == freezed
-          ? _value.channel
-          : channel // ignore: cast_nullable_to_non_nullable
-              as String?,
       level: level == freezed
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as LogLevel,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      channel: channel == freezed
+          ? _value.channel
+          : channel // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
+
 class _$_LogMessage implements _LogMessage {
   const _$_LogMessage(
-      {required this.createdAt,
-      required this.message,
-      this.channel,
-      this.level = LogLevel.info});
+      {required this.message,
+      this.level = LogLevel.info,
+      required this.timestamp,
+      this.channel});
 
   @override
-  final DateTime createdAt;
-  @override
   final String message;
-  @override
-  final String? channel;
   @JsonKey(defaultValue: LogLevel.info)
   @override
   final LogLevel level;
+  @override
+  final DateTime timestamp;
+  @override
+  final String? channel;
 
   @override
   String toString() {
-    return 'LogMessage(createdAt: $createdAt, message: $message, channel: $channel, level: $level)';
+    return 'LogMessage(message: $message, level: $level, timestamp: $timestamp, channel: $channel)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _LogMessage &&
-            (identical(other.createdAt, createdAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.createdAt, createdAt)) &&
             (identical(other.message, message) ||
                 const DeepCollectionEquality()
                     .equals(other.message, message)) &&
-            (identical(other.channel, channel) ||
-                const DeepCollectionEquality()
-                    .equals(other.channel, channel)) &&
             (identical(other.level, level) ||
-                const DeepCollectionEquality().equals(other.level, level)));
+                const DeepCollectionEquality().equals(other.level, level)) &&
+            (identical(other.timestamp, timestamp) ||
+                const DeepCollectionEquality()
+                    .equals(other.timestamp, timestamp)) &&
+            (identical(other.channel, channel) ||
+                const DeepCollectionEquality().equals(other.channel, channel)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(message) ^
-      const DeepCollectionEquality().hash(channel) ^
-      const DeepCollectionEquality().hash(level);
+      const DeepCollectionEquality().hash(level) ^
+      const DeepCollectionEquality().hash(timestamp) ^
+      const DeepCollectionEquality().hash(channel);
 
   @JsonKey(ignore: true)
   @override
@@ -206,19 +207,19 @@ class _$_LogMessage implements _LogMessage {
 
 abstract class _LogMessage implements LogMessage {
   const factory _LogMessage(
-      {required DateTime createdAt,
-      required String message,
-      String? channel,
-      LogLevel level}) = _$_LogMessage;
+      {required String message,
+      LogLevel level,
+      required DateTime timestamp,
+      String? channel}) = _$_LogMessage;
 
-  @override
-  DateTime get createdAt => throw _privateConstructorUsedError;
   @override
   String get message => throw _privateConstructorUsedError;
   @override
-  String? get channel => throw _privateConstructorUsedError;
-  @override
   LogLevel get level => throw _privateConstructorUsedError;
+  @override
+  DateTime get timestamp => throw _privateConstructorUsedError;
+  @override
+  String? get channel => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LogMessageCopyWith<_LogMessage> get copyWith =>
@@ -331,6 +332,7 @@ class __$LogLevelCopyWithImpl<$Res> extends _$LogLevelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_LogLevel implements _LogLevel {
   const _$_LogLevel(this.level, this.sentiment, this.name);
 

@@ -8,10 +8,10 @@ part 'models.freezed.dart';
 @freezed
 class LogMessage with _$LogMessage {
   const factory LogMessage({
-    required DateTime createdAt,
     required String message,
-    String? channel,
     @Default(LogLevel.info) LogLevel level,
+    required DateTime timestamp,
+    String? channel,
   }) = _LogMessage;
 }
 
