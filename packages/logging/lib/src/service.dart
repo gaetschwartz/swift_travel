@@ -1,10 +1,14 @@
+import 'dart:convert';
+
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'consumer.dart';
 import 'models.dart';
 
 class LoggingService {
   LoggingService(List<LogConsumer> consumers) : _consumers = consumers;
 
-  static late final LoggingService instance = LoggingService([const PrintLogger()]);
+  static late final LoggingService instance = LoggingService([const ConsoleLogger()]);
 
   List<LogConsumer> _consumers;
 
@@ -16,10 +20,12 @@ class LoggingService {
 
   void setConsumers(List<LogConsumer> list) => _consumers = list;
 
+  List<LogConsumer> get consumers => UnmodifiableListView(_consumers);
+
   /// Log a message
-  void log(
+  void _log(
     String message, {
-    LogLevel level = LogLevel.info,
+    required LogLevel level,
     String? channel,
   }) {
     final msg = LogMessage(
@@ -34,29 +40,42 @@ class LoggingService {
     }
   }
 
-  Future<T> future<T extends Object?>(Future<T> future, {String? channel}) async {
+  void log(String message, {LogLevel level = LogLevel.info, String? channel}) =>
+      _log(message, channel: channel, level: level);
+
+  Future<T> future<T extends Object?>(Future<T> future,
+      {String? channel, LogLevel level = LogLevel.info}) async {
     final s = Stopwatch()..start();
     final res = await future;
     s.stop();
-    log('(${s.elapsedMilliseconds} ms): $res', channel: channel);
+    _log('(${s.elapsedMilliseconds} ms): $res', channel: channel, level: level);
     return res;
   }
 
   /// Log a serious crash, if possible
-  void crash(String e, {String? channel}) => log(e, level: LogLevel.crash, channel: channel);
+  void crash(String e, {String? channel}) => _log(e, level: LogLevel.crash, channel: channel);
 
   /// Log an error, like if something is thrown
-  void e(String e, {String? channel}) => log(e, level: LogLevel.error, channel: channel);
+  void e(String e, {String? channel}) => _log(e, level: LogLevel.error, channel: channel);
 
   /// Log a timed network operation
   Future<T> network<T extends Object?>(Future<T> Function() f, {String channel = 'network'}) =>
       future(f(), channel: channel);
 
   /// Log a ui event, like tapping a button
-  void ui(String msg) => log(msg, channel: 'ui');
+  void ui(String msg, {LogLevel level = LogLevel.info}) => _log(msg, channel: 'ui', level: level);
 
   // Log an info
-  void i(String msg, {String? channel}) => log(msg, channel: channel, level: LogLevel.info);
+  void i(String msg, {String? channel, LogLevel level = LogLevel.info}) =>
+      _log(msg, channel: channel, level: level);
+
+  void json(
+    Object? json, {
+    String? indent,
+    String? channel,
+    LogLevel level = LogLevel.info,
+  }) =>
+      _log(JsonEncoder.withIndent(indent).convert(json), channel: channel, level: level);
 }
 
 /// The singleton logger instance.
