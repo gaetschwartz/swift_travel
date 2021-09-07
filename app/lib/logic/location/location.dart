@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
@@ -25,7 +26,7 @@ class GeoLocationEngine {
           permission = await Geolocator.requestPermission();
         }
 
-        if (permission.isDenied) {
+        if (permission.isAccepted) {
           final now = DateTime.now();
 
           Position? p;
@@ -43,6 +44,7 @@ class GeoLocationEngine {
 
           return GeoLocation.fromPosition(p);
         } else {
+          log.e("Failed to obtain permisisons for location: $permission");
           throw PermissionDeniedException(permission.toString());
         }
       } on MissingPluginException {
