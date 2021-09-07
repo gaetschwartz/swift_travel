@@ -7,7 +7,6 @@ import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/prediction/models/models.dart';
-import 'package:swift_travel/utils/convert.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
@@ -40,7 +39,7 @@ void main() {
   });
 
   test('LV03 to WGS84', () {
-    final out = lv03ToWGS84Converter.convert(const LV03Coordinates(100000, 700000));
+    final out = const LV03ToWGS84Converter().convert(const LV03Coordinates(100000, 700000));
 
     final lonMatcher = closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600);
     final latMatcher = closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600);

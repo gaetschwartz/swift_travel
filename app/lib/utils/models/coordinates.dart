@@ -1,8 +1,8 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
-import 'package:swift_travel/utils/convert.dart';
 
 part 'coordinates.freezed.dart';
 part 'coordinates.g.dart';
@@ -23,7 +23,7 @@ class LatLon with _$LatLon {
 
   /// Converts LV03 coordinates from the swiss coordinates system to regular GPS coordinates (WGS84).
   /// See [LV03ToWGS84Converter]
-  factory LatLon.fromLV03(LV03Coordinates coords) => coords.toLatLon();
+  factory LatLon.fromLV03(LV03Coordinates coords) => const LV03ToWGS84Converter().convert(coords);
 
   factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
 
@@ -95,12 +95,45 @@ class LV03Coordinates with _$LV03Coordinates {
     }
   }
 
-  LatLon toLatLon() => lv03ToWGS84Converter.convert(this);
+  LatLon toLatLon() => const LV03ToWGS84Converter().convert(this);
 }
 
 extension DoubleX on double {
   double toRadians() {
     const radiansFactor = pi / 180;
     return this * radiansFactor;
+  }
+}
+
+/// Converts LV03 coordinates from the swiss coordinates system to regular GPS coordinates (WGS84).
+/// This method is the approximate version which far more than enough for our usage.
+///
+/// See https://www.swisstopo.admin.ch/en/knowledge-facts/surveying-geodesy/reference-systems/switzerland.html
+class LV03ToWGS84Converter extends Converter<LV03Coordinates, LatLon> {
+  const LV03ToWGS84Converter();
+
+  @override
+  LatLon convert(LV03Coordinates input) {
+    final x = (input.x - 2e5) / 1e6;
+    final y = (input.y - 6e5) / 1e6;
+
+    final x2 = pow(x, 2);
+    final y2 = pow(y, 2);
+    const f = 100 / 36;
+
+    final lambdaP = (f * 2.6779094) +
+        (f * 4.728982) * y +
+        (f * 0.791484) * y * x +
+        (f * 0.1306) * y * x2 -
+        (f * 0.0436) * pow(y, 3);
+
+    final phiP = (f * 16.9023892) +
+        (f * 3.238272) * x -
+        (f * 0.270978) * y2 -
+        (f * 0.002528) * x2 -
+        (f * 0.0447) * y2 * x -
+        (f * 0.0140) * pow(x, 3);
+
+    return LatLon(phiP, lambdaP);
   }
 }

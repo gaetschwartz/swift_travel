@@ -95,7 +95,7 @@ class Fetcher extends FetcherBase {
         empty: () => null,
         text: (t, l) => t,
         useCurrentLocation: () async {
-          p ??= await getLocation();
+          p ??= await GeoLocationEngine.instance.getLocation();
           return '${p!.latitude},${p!.longitude}';
         },
       )!;
@@ -103,7 +103,7 @@ class Fetcher extends FetcherBase {
         empty: () => null,
         text: (t, l) => t,
         useCurrentLocation: () async {
-          p ??= await getLocation();
+          p ??= await GeoLocationEngine.instance.getLocation();
           return '${p!.latitude},${p!.longitude}';
         },
       )!;

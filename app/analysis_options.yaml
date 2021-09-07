@@ -41,7 +41,7 @@ dart_code_metrics:
           - allowReturningWidgets
     - prefer-extracting-callbacks
     - no-equal-then-else
-    - binary-expression-operand-order
+    # - binary-expression-operand-order
     # - avoid-non-null-assertion
     # - avoid-unused-parameters
     # - no-magic-number:

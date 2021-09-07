@@ -299,7 +299,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     context.read(_locatingProvider).state = _LoadingState.loading;
 
     try {
-      final p = await getLocation();
+      final p = await GeoLocationEngine.instance.getLocation();
 
       final completions =
           await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
