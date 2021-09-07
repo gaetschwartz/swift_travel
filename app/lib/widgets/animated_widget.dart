@@ -6,24 +6,23 @@ import 'package:flutter/material.dart';
 typedef AnimationBuilder = Widget Function(
     BuildContext context, Animation<double> animation, Widget child);
 
-const _kDefaultAnimation = Duration(milliseconds: 300);
-Duration _zeroDelay() => Duration.zero;
+const _kDefaultAnimationDuration = Duration(milliseconds: 300);
 
 class InstantlyAnimatedWidget extends StatefulWidget {
   const InstantlyAnimatedWidget({
     required this.child,
     required this.builder,
     Key? key,
-    this.duration = _kDefaultAnimation,
-    this.delay = _zeroDelay,
+    this.duration = _kDefaultAnimationDuration,
+    this.delay,
     this.start = 0.0,
     this.end = 1.0,
   }) : super(key: key);
 
   factory InstantlyAnimatedWidget.fade({
     required Widget child,
-    Duration duration = _kDefaultAnimation,
-    Duration Function() delay = _zeroDelay,
+    Duration duration = _kDefaultAnimationDuration,
+    Duration? delay,
   }) =>
       InstantlyAnimatedWidget(
         builder: fadeScale,
@@ -32,15 +31,13 @@ class InstantlyAnimatedWidget extends StatefulWidget {
         child: child,
       );
 
-  static AnimationBuilder get fadeScale => (context, animation, child) => FadeScaleTransition(
-        animation: animation,
-        child: child,
-      );
+  static AnimationBuilder get fadeScale =>
+      (context, animation, child) => FadeScaleTransition(animation: animation, child: child);
 
   final Widget child;
   final Duration duration;
   final AnimationBuilder builder;
-  final Duration Function() delay;
+  final Duration? delay;
   final double start;
   final double end;
 
@@ -58,8 +55,8 @@ class _InstantlyAnimatedWidgetState extends State<InstantlyAnimatedWidget>
 
     controller = AnimationController(vsync: this, duration: widget.duration);
 
-    final delay = widget.delay();
-    if (delay > Duration.zero) {
+    final delay = widget.delay;
+    if (delay != null) {
       Future.delayed(delay, forward);
     } else {
       controller.forward();

@@ -85,6 +85,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   @override
   bool get wantKeepAlive => true;
 
+  final itemPositionsListener = ItemPositionsListener.create();
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -176,8 +178,6 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
           const SizedBox(height: 8),
           Expanded(
             child: Consumer(builder: (context, w, _) {
-              final itemPositionsListener = ItemPositionsListener.create();
-
               return w(_stateProvider).state.when(
                     completions: (c) => Column(
                       children: [
@@ -204,14 +204,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                 key: ValueKey(completion),
                                 condition: Env.enableAnimations,
                                 builder: (context, child) => InstantlyAnimatedWidget(
-                                  delay: () {
-                                    final first = itemPositionsListener
-                                            .itemPositions.value.firstOrNull?.index ??
-                                        0;
-                                    return Duration(
-                                      milliseconds: 20 * (i - first),
-                                    );
-                                  },
+                                  delay: computeDelay(i),
                                   builder: InstantlyAnimatedWidget.fadeScale,
                                   start: 0.5,
                                   child: child!,
@@ -346,6 +339,13 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     } finally {
       context.read(_loadingProvider).state = false;
     }
+  }
+
+  Duration? computeDelay(int i) {
+    final first = itemPositionsListener.itemPositions.value.firstOrNull?.index ?? 0;
+    final last = itemPositionsListener.itemPositions.value.lastOrNull?.index;
+    if (i < first || (last != null && i > last)) return null;
+    return Duration(milliseconds: 20 * (i - first));
   }
 }
 
