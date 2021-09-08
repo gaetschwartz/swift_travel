@@ -155,7 +155,7 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
   @override
   Widget build(BuildContext context) {
     final theme = DynamicTheme.of(context);
-    final darwin = isDarwin(context);
+    final darwin = isThemeDarwin(context);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

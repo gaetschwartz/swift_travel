@@ -121,7 +121,7 @@ class RoutesView extends StatelessWidget {
               ),
               Expanded(
                   child: Center(
-                child: isDarwin(context)
+                child: isThemeDarwin(context)
                     ? const CupertinoButton.filled(
                         onPressed: Geolocator.openAppSettings,
                         child: Text('Open settings'),

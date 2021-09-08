@@ -9,7 +9,7 @@ import 'package:flutter/rendering.dart';
 
 enum ScreenSize { small, medium, large }
 
-bool isDarwin(BuildContext context) => Theme.of(context).platform.isDarwin;
+bool isThemeDarwin(BuildContext context) => Theme.of(context).platform.isDarwin;
 bool isPlatformDarwin(TargetPlatform p) => p.isDarwin;
 
 bool get isMobile => !kIsWeb && (Platform.isIOS || Platform.isAndroid);

@@ -59,7 +59,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    darwin = isDarwin(context);
+    darwin = isThemeDarwin(context);
   }
 
   @override

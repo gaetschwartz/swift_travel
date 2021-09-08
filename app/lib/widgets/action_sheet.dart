@@ -17,7 +17,7 @@ Future<T?> showActionSheet<T>(
   Widget? title,
   Widget? message,
 }) {
-  return isDarwin(context)
+  return isThemeDarwin(context)
       ? showCupertinoModalPopup<T>(
           context: context,
           useRootNavigator: useRootNavigator,
@@ -66,7 +66,7 @@ Future<T?> showChoiceSheet<T>(
   Widget? message,
   T? defaultValue,
 }) {
-  return isDarwin(context)
+  return isThemeDarwin(context)
       ? showCupertinoModalPopup<T>(
           context: context,
           useRootNavigator: useRootNavigator,

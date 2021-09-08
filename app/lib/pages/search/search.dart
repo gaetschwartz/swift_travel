@@ -367,7 +367,9 @@ class SuggestedTile extends StatelessWidget {
             : Text(suggestion.favoriteName ?? label),
         subtitle: suggestion.favoriteName != null ? Text(label) : null,
         trailing: suggestion.favoriteName != null
-            ? (isDarwin(context) ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star))
+            ? (isThemeDarwin(context)
+                ? const Icon(CupertinoIcons.heart_fill)
+                : const Icon(Icons.star))
             : null,
         dense: true,
       ),
