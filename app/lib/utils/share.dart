@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';

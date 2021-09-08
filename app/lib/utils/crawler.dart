@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/logic/navigation.dart';
