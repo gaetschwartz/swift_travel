@@ -1,4 +1,4 @@
-import 'dart:math' show min;
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -18,9 +18,9 @@ import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
-import 'package:swift_travel/pages/settings/properties/tile.dart';
-import 'package:swift_travel/pages/settings/route_history.dart';
-import 'package:swift_travel/pages/settings/team_page.dart';
+import 'package:swift_travel/settings/properties/tile.dart';
+import 'package:swift_travel/settings/route_history.dart';
+import 'package:swift_travel/settings/team_page.dart';
 import 'package:swift_travel/terminal/terminal_widget.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
@@ -651,7 +651,7 @@ class __ScrollProgressState extends State<_ScrollProgress> {
   void update() {
     if (mounted) {
       final p = widget._controller.position.pixels / widget._controller.position.maxScrollExtent;
-      setState(() => progress = min(1, p));
+      setState(() => progress = math.min(1, p));
     }
   }
 

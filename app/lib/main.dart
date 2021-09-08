@@ -16,9 +16,10 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/pages/loading.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
-import 'package:swift_travel/pages/settings/settings.dart';
 import 'package:swift_travel/pages/welcome.dart';
 import 'package:swift_travel/prediction/models/models.dart';
+import 'package:swift_travel/settings/settings.dart';
+import 'package:swift_travel/settings/team_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
@@ -33,7 +34,6 @@ import 'package:url_strategy/url_strategy.dart';
 
 import 'l10n/app_localizations.dart';
 import 'models/favorites.dart';
-import 'pages/settings/team_page.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();

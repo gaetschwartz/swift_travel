@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
-import 'package:swift_travel/pages/settings/properties/property.dart';
+import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/listener.dart';
 

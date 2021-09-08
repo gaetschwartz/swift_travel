@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
-import 'package:swift_travel/pages/settings/properties/property.dart';
+import 'package:swift_travel/settings/properties/property.dart';
 
 final preferencesProvider = Provider<PreferencesBloc>((r) => PreferencesBloc());
 
