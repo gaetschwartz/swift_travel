@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
-import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
 
+import 'models/completion.dart';
+import 'models/route.dart';
 import 'models/stationboard.dart';
+import 'search.ch/search_ch.dart';
+import 'sncf/sncf.dart';
 
 part 'navigation.freezed.dart';
 

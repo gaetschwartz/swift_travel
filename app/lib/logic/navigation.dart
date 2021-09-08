@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/db/preferences.dart';
-import 'package:swift_travel/pages/settings/properties/property.dart';
+import 'package:swift_travel/settings/properties/property.dart';
 
 final ChangeNotifierProvider<ChangeNotifierProperty<NavigationApiId>> apiProvider =
     ChangeNotifierProvider((r) => r.watch(preferencesProvider).api);
