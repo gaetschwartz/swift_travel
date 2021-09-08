@@ -21,6 +21,8 @@ import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/settings/properties/tile.dart';
 import 'package:swift_travel/settings/route_history.dart';
 import 'package:swift_travel/settings/team_page.dart';
+import 'package:swift_travel/settings/widgets/switch.dart';
+import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/terminal/terminal_widget.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
