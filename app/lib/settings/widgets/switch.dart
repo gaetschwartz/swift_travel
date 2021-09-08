@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/settings/properties/property.dart';
+import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:theming/responsive.dart';
 
-class SettingsSwitchTile extends StatefulWidget {
-  const SettingsSwitchTile({
+class SwiftSettingsSwitchTile extends StatefulWidget with WithLeading {
+  const SwiftSettingsSwitchTile({
     Key? key,
     required this.title,
-    required this.icon,
+    required this.leading,
     required this.initialValue,
     this.subtitle,
     this.onChanged,
@@ -15,16 +16,17 @@ class SettingsSwitchTile extends StatefulWidget {
         super(key: key);
 
   final Widget title;
-  final Widget icon;
+  @override
+  final Widget leading;
   final Widget? subtitle;
   final bool initialValue;
   final ValueChanged<bool>? onChanged;
   final ValueListenable<bool>? listenable;
 
-  SettingsSwitchTile.property({
+  SwiftSettingsSwitchTile.property({
     Key? key,
     required this.title,
-    required this.icon,
+    required this.leading,
     this.subtitle,
     required Property<bool> property,
   })  : initialValue = property.value,
@@ -33,10 +35,10 @@ class SettingsSwitchTile extends StatefulWidget {
         super(key: key);
 
   @override
-  State<SettingsSwitchTile> createState() => _SettingsSwitchTileState();
+  State<SwiftSettingsSwitchTile> createState() => _SwiftSettingsSwitchTileState();
 }
 
-class _SettingsSwitchTileState extends State<SettingsSwitchTile> {
+class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
   late bool value = widget.initialValue;
 
   @override
@@ -66,8 +68,9 @@ class _SettingsSwitchTileState extends State<SettingsSwitchTile> {
     final theme = Theme.of(context);
     final isDarwin = theme.platform.isDarwin;
     return ListTile(
+      horizontalTitleGap: 0,
       title: widget.title,
-      leading: widget.icon,
+      leading: widget.leading,
       subtitle: widget.subtitle,
       onTap: isDarwin
           ? null
