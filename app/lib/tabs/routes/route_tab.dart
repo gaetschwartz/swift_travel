@@ -560,7 +560,7 @@ class _TextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Hero(
       tag: herotag,
-      child: isDarwin(context)
+      child: isThemeDarwin(context)
           ? CupertinoTextField(
               key: textfieldKey,
               focusNode: textFieldConfiguration.focusNode,

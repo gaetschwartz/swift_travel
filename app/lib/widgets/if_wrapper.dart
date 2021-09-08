@@ -46,7 +46,7 @@ class PlatformBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isCupertino = isDarwin(context);
+    final isCupertino = isThemeDarwin(context);
     final c = child ??
         builder?.call(
           context,

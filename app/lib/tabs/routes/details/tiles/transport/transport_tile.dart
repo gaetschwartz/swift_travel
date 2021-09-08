@@ -137,7 +137,7 @@ class _Collapsed extends StatelessWidget {
                     Expanded(child: Text(l.exit!.name)),
                     InkWell(
                       onTap: () {
-                        final darwin = isDarwin(context);
+                        final darwin = isThemeDarwin(context);
                         final list = l.attributes.entries
                             .map((e) => Attribute.fromAttribute(e))
                             .where((e) => !e.ignore)

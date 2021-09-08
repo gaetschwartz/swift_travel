@@ -25,7 +25,7 @@ class FavoriteStationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final darwin = isDarwin(context);
+    final darwin = isThemeDarwin(context);
     return Slidable(
       actionPane: const SlidableDrawerActionPane(),
       secondaryActions: <Widget>[

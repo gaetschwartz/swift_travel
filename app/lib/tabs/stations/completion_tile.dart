@@ -45,7 +45,7 @@ class CompletionTile extends ConsumerWidget {
     final isPrivate = TransportationModeX.isAnAddress(sugg.type);
 
     final isFav = sugg.favoriteName != null;
-    final darwin = isDarwin(context);
+    final darwin = isThemeDarwin(context);
 
     final subtitle = [
       if (isFav) Text(sugg.label, overflow: TextOverflow.ellipsis),
