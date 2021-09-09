@@ -38,18 +38,18 @@ const List<Font> fonts = [
   Font("Inter", GoogleFonts.interTextTheme),
 ];
 
-const _light = ColorScheme.light();
-const _dark = ColorScheme.dark();
-
 final ThemeConfiguration themeConfiguration = ThemeConfiguration(
   fonts: fonts,
   defaultFont: fonts.first,
-  defaultTheme: 'default',
-  themes: {
-    'default': FullTheme(
+  defaultLightThemeId: "swift",
+  defaultDarkThemeId: "swift",
+  persist: true,
+  lightThemes: [
+    ExtendedTheme(
       name: 'Swift',
-      light: _light,
-      applyToLight: (theme) => theme.copyWith(
+      id: 'swift',
+      colorScheme: const ColorScheme.light(),
+      apply: (theme) => theme.copyWith(
         appBarTheme: AppBarTheme(
           color: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
@@ -59,7 +59,20 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
         ),
         cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(),
       ),
-      applyToDark: (theme) => theme.copyWith(
+      brightness: Brightness.light,
+      shadow: lightShadow,
+    ),
+    ExtendedTheme(
+      name: 'Abin',
+      id: "abin",
+      colorScheme: ColorScheme.light(primary: purpleAbin, secondary: blueAbin),
+      brightness: Brightness.light,
+      shadow: lightShadow,
+    ),
+  ],
+  darkThemes: [
+    ExtendedTheme(
+      apply: (theme) => theme.copyWith(
         appBarTheme: AppBarTheme(
           color: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
@@ -68,30 +81,20 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
           elevation: 0,
         ),
       ),
-      dark: _dark,
-      lightShadow: lightShadow,
-      darkShadow: darkShadow,
+      colorScheme: const ColorScheme.dark(),
+      shadow: darkShadow,
+      brightness: Brightness.dark,
+      id: 'swift',
+      name: 'Swift',
     ),
-    'abin': FullTheme(
+    ExtendedTheme(
       name: 'Abin',
-      light: ColorScheme.light(primary: purpleAbin, secondary: blueAbin),
-      dark: ColorScheme.dark(primary: purpleAbin, secondary: blueAbin),
-      lightShadow: lightShadow,
-      darkShadow: darkShadow,
+      id: 'abin',
+      colorScheme: ColorScheme.dark(primary: purpleAbin, secondary: blueAbin),
+      shadow: darkShadow,
+      brightness: Brightness.dark,
     ),
-    'david': FullTheme(
-      hide: true,
-      name: 'David',
-      light: ColorScheme.light(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),
-      dark: ColorScheme.dark(primary: Colors.pink[900]!, secondary: Colors.yellow[800]!),
-      applyToDark: (theme) => theme.copyWith(
-        appBarTheme:
-            theme.appBarTheme.copyWith(color: theme.colorScheme.primary, centerTitle: true),
-      ),
-      lightShadow: lightShadow,
-      darkShadow: darkShadow,
-    ),
-  },
+  ],
 );
 
 /// Utility method to create a material color from any given

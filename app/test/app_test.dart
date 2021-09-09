@@ -98,7 +98,7 @@ void main() {
       'main tab',
       (t) async {
         await t.pumpWidget(DynamicTheme(
-          theme: DynamicThemeData(),
+          theme: DynamicThemeData(DynamicThemeData.defaultConfig),
           child: ProviderScope(
               overrides: [
                 navigationAPIProvider.overrideWithValue(MockNavigationApi()),

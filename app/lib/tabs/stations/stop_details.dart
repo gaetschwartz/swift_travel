@@ -112,11 +112,8 @@ class _StopDetailsState extends State<StopDetails> {
             ? data!.errors.isEmpty
                 ? ListView.builder(
                     itemBuilder: (context, i) => i.isEven
-                        ? const Divider(height: 0)
-                        : ConnectionTile(
-                            c: data!.connections[i ~/ 2],
-                            s: data!.stop,
-                          ),
+                        ? const Divider(height: 0, thickness: 0.5)
+                        : ConnectionTile(c: data!.connections[i >> 2], s: data!.stop),
                     itemCount: data!.connections.length * 2 + 1,
                   )
                 : _NoData(context: context, s: data!)
@@ -137,11 +134,8 @@ class _StopDetailsState extends State<StopDetails> {
                     ? SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, i) => i.isEven
-                              ? const Divider(height: 0)
-                              : ConnectionTile(
-                                  c: data!.connections[i ~/ 2],
-                                  s: data!.stop,
-                                ),
+                              ? const Divider(height: 0, thickness: 0.5)
+                              : ConnectionTile(c: data!.connections[i >> 2], s: data!.stop),
                           childCount: data!.connections.length * 2 + 1,
                         ),
                       )

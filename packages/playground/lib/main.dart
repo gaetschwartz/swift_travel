@@ -320,22 +320,7 @@ class _EditorPageState extends State<EditorPage> {
               ),
             ),
             DynamicTheme(
-              theme: DynamicThemeData(
-                const ThemeConfiguration(
-                  themes: {
-                    'default': FullTheme(
-                      light: ColorScheme.light(),
-                      dark: ColorScheme.dark(),
-                      name: 'Default',
-                      lightShadow: lightShadow,
-                      darkShadow: darkShadow,
-                    )
-                  },
-                  defaultTheme: 'default',
-                  persist: false,
-                  fonts: DynamicThemeData.defaultFonts,
-                ),
-              ),
+              theme: DynamicThemeData(DynamicThemeData.defaultConfig),
               child: Builder(
                 builder: (context) {
                   return SingleChildScrollView(
