@@ -21,8 +21,6 @@ import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/settings/properties/tile.dart';
 import 'package:swift_travel/settings/route_history.dart';
 import 'package:swift_travel/settings/team_page.dart';
-import 'package:swift_travel/settings/widgets/switch.dart';
-import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/terminal/terminal_widget.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
@@ -93,8 +91,6 @@ class _SettingsPageState extends State<SettingsPage> {
           );
         }),
       ),
-      _SectionTitle(title: Text(AppLocalizations.of(context).themes)),
-      const _ThemesSection(),
       _SectionTitle(title: Text(AppLocalizations.of(context).font)),
       const _FontChoiceTile(),
       const _FontWeightTile(),
@@ -466,105 +462,8 @@ extension TargetPlatfromX on TargetPlatform {
   }
 }
 
-class _ThemesSection extends StatefulWidget {
-  const _ThemesSection({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  __ThemesSectionState createState() => __ThemesSectionState();
-}
-
-class __ThemesSectionState extends State<_ThemesSection> {
-  final ScrollController _controller = ScrollController();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          SizedBox(
-            height: 150,
-            child: Builder(builder: (context) {
-              final theme = DynamicTheme.of(context);
-              final list = theme.configuration.themes.entries
-                  .where((e) => !e.value.hide)
-                  .toList(growable: false);
-              return ListView.builder(
-                controller: _controller,
-                scrollDirection: Axis.horizontal,
-                itemCount: list.length,
-                itemBuilder: (context, i) {
-                  final ft = list[i].value;
-                  const radius = BorderRadius.all(Radius.circular(16));
-                  return Container(
-                    key: const Key('theme-card'),
-                    margin: const EdgeInsets.only(bottom: 16, right: 8, left: 8),
-                    width: 120,
-                    decoration: BoxDecoration(
-                      boxShadow: shadowListOf(context),
-                      color: Theme.of(context).cardColor,
-                      borderRadius: radius,
-                      border: ft == theme.theme
-                          ? Border.all(width: 2, color: primaryColor(context))
-                          : null,
-                    ),
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        Vibration.instance.select();
-                        theme.name = list[i].key;
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _ColorRow(ft.light),
-                                  _ColorRow(ft.dark),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Center(
-                                  child: Text(
-                                    ft.name,
-                                    style: Theme.of(context).textTheme.bodyText2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
-            }),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: _ScrollProgress(controller: _controller),
-          ),
-          const SizedBox(height: 8)
-        ],
-      );
-}
-
-class _ColorRow extends StatelessWidget {
-  const _ColorRow(
+class ColorRow extends StatelessWidget {
+  const ColorRow(
     this.colorScheme, {
     Key? key,
   }) : super(key: key);
@@ -722,8 +621,8 @@ class _ThememodeWidget extends StatelessWidget {
                     : null,
                 gradient: mode == ThemeMode.system
                     ? LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
-                        theme.theme.light.background,
-                        theme.theme.dark.background,
+                        theme.light.colorScheme.background,
+                        theme.dark.colorScheme.background,
                       ], stops: const [
                         0.5,
                         0.5

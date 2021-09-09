@@ -106,24 +106,13 @@ class FullApp extends StatefulWidget {
 }
 
 class _FullAppState extends State<FullApp> {
-  final DynamicThemeData dynamicThemeData = DynamicThemeData();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    dynamicThemeData.dispose();
-    super.dispose();
-  }
+  final DynamicThemeData dynamicThemeData = DynamicThemeData(DynamicThemeData.defaultConfig);
 
   @override
   void reassemble() {
     super.reassemble();
     log.log('Reload theme');
-    dynamicThemeData.configure(themeConfiguration);
+    dynamicThemeData.configure(themeConfiguration, doLog: true);
   }
 
   @override
@@ -156,6 +145,8 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
   Widget build(BuildContext context) {
     final theme = DynamicTheme.of(context);
     final darwin = isThemeDarwin(context);
+
+    print("Rebuild with platform ${theme.light.platform}");
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
