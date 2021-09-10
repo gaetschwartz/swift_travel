@@ -18,13 +18,16 @@ class ExtendedTheme with _$ExtendedTheme {
   const factory ExtendedTheme({
     required ColorScheme colorScheme,
     required String name,
+    required String id,
     @Default(_identity) ApplyTo<ThemeData> apply,
     @Default('Description') String description,
     @Default(ShadowTheme()) ShadowTheme shadow,
     @Default(false) bool hide,
-    required Brightness brightness,
-    required String id,
   }) = _ExtendedTheme;
+
+  const ExtendedTheme._();
+
+  Brightness get brightness => colorScheme.brightness;
 }
 
 @freezed

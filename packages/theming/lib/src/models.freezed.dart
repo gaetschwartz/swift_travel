@@ -169,7 +169,6 @@ class _$ExtendedThemeTearOff {
       String description = 'Description',
       ShadowTheme shadow = const ShadowTheme(),
       bool hide = false,
-      required Brightness brightness,
       required String id}) {
     return _ExtendedTheme(
       colorScheme: colorScheme,
@@ -178,7 +177,6 @@ class _$ExtendedThemeTearOff {
       description: description,
       shadow: shadow,
       hide: hide,
-      brightness: brightness,
       id: id,
     );
   }
@@ -195,7 +193,6 @@ mixin _$ExtendedTheme {
   String get description => throw _privateConstructorUsedError;
   ShadowTheme get shadow => throw _privateConstructorUsedError;
   bool get hide => throw _privateConstructorUsedError;
-  Brightness get brightness => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -215,7 +212,6 @@ abstract class $ExtendedThemeCopyWith<$Res> {
       String description,
       ShadowTheme shadow,
       bool hide,
-      Brightness brightness,
       String id});
 
   $ShadowThemeCopyWith<$Res> get shadow;
@@ -238,7 +234,6 @@ class _$ExtendedThemeCopyWithImpl<$Res>
     Object? description = freezed,
     Object? shadow = freezed,
     Object? hide = freezed,
-    Object? brightness = freezed,
     Object? id = freezed,
   }) {
     return _then(_value.copyWith(
@@ -266,10 +261,6 @@ class _$ExtendedThemeCopyWithImpl<$Res>
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool,
-      brightness: brightness == freezed
-          ? _value.brightness
-          : brightness // ignore: cast_nullable_to_non_nullable
-              as Brightness,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -299,7 +290,6 @@ abstract class _$ExtendedThemeCopyWith<$Res>
       String description,
       ShadowTheme shadow,
       bool hide,
-      Brightness brightness,
       String id});
 
   @override
@@ -325,7 +315,6 @@ class __$ExtendedThemeCopyWithImpl<$Res>
     Object? description = freezed,
     Object? shadow = freezed,
     Object? hide = freezed,
-    Object? brightness = freezed,
     Object? id = freezed,
   }) {
     return _then(_ExtendedTheme(
@@ -353,10 +342,6 @@ class __$ExtendedThemeCopyWithImpl<$Res>
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool,
-      brightness: brightness == freezed
-          ? _value.brightness
-          : brightness // ignore: cast_nullable_to_non_nullable
-              as Brightness,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -367,7 +352,7 @@ class __$ExtendedThemeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ExtendedTheme implements _ExtendedTheme {
+class _$_ExtendedTheme extends _ExtendedTheme {
   const _$_ExtendedTheme(
       {required this.colorScheme,
       required this.name,
@@ -375,8 +360,8 @@ class _$_ExtendedTheme implements _ExtendedTheme {
       this.description = 'Description',
       this.shadow = const ShadowTheme(),
       this.hide = false,
-      required this.brightness,
-      required this.id});
+      required this.id})
+      : super._();
 
   @override
   final ColorScheme colorScheme;
@@ -395,13 +380,11 @@ class _$_ExtendedTheme implements _ExtendedTheme {
   @override
   final bool hide;
   @override
-  final Brightness brightness;
-  @override
   final String id;
 
   @override
   String toString() {
-    return 'ExtendedTheme(colorScheme: $colorScheme, name: $name, apply: $apply, description: $description, shadow: $shadow, hide: $hide, brightness: $brightness, id: $id)';
+    return 'ExtendedTheme(colorScheme: $colorScheme, name: $name, apply: $apply, description: $description, shadow: $shadow, hide: $hide, id: $id)';
   }
 
   @override
@@ -422,9 +405,6 @@ class _$_ExtendedTheme implements _ExtendedTheme {
                 const DeepCollectionEquality().equals(other.shadow, shadow)) &&
             (identical(other.hide, hide) ||
                 const DeepCollectionEquality().equals(other.hide, hide)) &&
-            (identical(other.brightness, brightness) ||
-                const DeepCollectionEquality()
-                    .equals(other.brightness, brightness)) &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)));
   }
@@ -438,7 +418,6 @@ class _$_ExtendedTheme implements _ExtendedTheme {
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(shadow) ^
       const DeepCollectionEquality().hash(hide) ^
-      const DeepCollectionEquality().hash(brightness) ^
       const DeepCollectionEquality().hash(id);
 
   @JsonKey(ignore: true)
@@ -447,7 +426,7 @@ class _$_ExtendedTheme implements _ExtendedTheme {
       __$ExtendedThemeCopyWithImpl<_ExtendedTheme>(this, _$identity);
 }
 
-abstract class _ExtendedTheme implements ExtendedTheme {
+abstract class _ExtendedTheme extends ExtendedTheme {
   const factory _ExtendedTheme(
       {required ColorScheme colorScheme,
       required String name,
@@ -455,8 +434,8 @@ abstract class _ExtendedTheme implements ExtendedTheme {
       String description,
       ShadowTheme shadow,
       bool hide,
-      required Brightness brightness,
       required String id}) = _$_ExtendedTheme;
+  const _ExtendedTheme._() : super._();
 
   @override
   ColorScheme get colorScheme => throw _privateConstructorUsedError;
@@ -470,8 +449,6 @@ abstract class _ExtendedTheme implements ExtendedTheme {
   ShadowTheme get shadow => throw _privateConstructorUsedError;
   @override
   bool get hide => throw _privateConstructorUsedError;
-  @override
-  Brightness get brightness => throw _privateConstructorUsedError;
   @override
   String get id => throw _privateConstructorUsedError;
   @override
