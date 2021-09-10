@@ -76,7 +76,6 @@ class DynamicThemeData extends ChangeNotifier {
         colorScheme: ColorScheme.light(),
         name: 'Default',
         id: "default",
-        brightness: Brightness.light,
       ),
     ],
     darkThemes: [
@@ -84,7 +83,6 @@ class DynamicThemeData extends ChangeNotifier {
         colorScheme: ColorScheme.dark(),
         name: 'Default',
         id: "default",
-        brightness: Brightness.dark,
       ),
     ],
     persist: false,

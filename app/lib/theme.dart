@@ -8,10 +8,10 @@ import 'package:theming/dynamic_theme.dart';
 List<BoxShadow> shadowListOf(BuildContext context) =>
     ShadowTheme.of(context).shadows((s) => [s.buttonShadow]);
 
-final MaterialColor purpleAbin = createMaterialColor(const Color(0xffcbaacb));
-final MaterialColor blueAbin = createMaterialColor(const Color(0xffabdee6));
-final MaterialColor redAccent = createMaterialColor(Colors.redAccent);
-final MaterialColor white = createMaterialColor(Colors.white);
+final MaterialColor purpleAbin = const Color(0xffcbaacb).toMaterialColor();
+final MaterialColor blueAbin = const Color(0xffabdee6).toMaterialColor();
+final MaterialColor redAccent = Colors.redAccent.toMaterialColor();
+final MaterialColor white = Colors.white.toMaterialColor();
 
 const lightShadow = ShadowTheme(
   buttonShadow: BoxShadow(blurRadius: 8, color: Color(0x200700b1), offset: Offset(0, 4)),
@@ -59,14 +59,12 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
         ),
         cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(),
       ),
-      brightness: Brightness.light,
       shadow: lightShadow,
     ),
     ExtendedTheme(
       name: 'Abin',
       id: "abin",
-      colorScheme: ColorScheme.light(primary: purpleAbin, secondary: blueAbin),
-      brightness: Brightness.light,
+      colorScheme: ColorScheme.fromSwatch(primarySwatch: purpleAbin, brightness: Brightness.light),
       shadow: lightShadow,
     ),
   ],
@@ -83,42 +81,41 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
       ),
       colorScheme: const ColorScheme.dark(),
       shadow: darkShadow,
-      brightness: Brightness.dark,
       id: 'swift',
       name: 'Swift',
     ),
     ExtendedTheme(
       name: 'Abin',
       id: 'abin',
-      colorScheme: ColorScheme.dark(primary: purpleAbin, secondary: blueAbin),
+      colorScheme: ColorScheme.fromSwatch(primarySwatch: purpleAbin, brightness: Brightness.dark),
       shadow: darkShadow,
-      brightness: Brightness.dark,
     ),
   ],
 );
 
-/// Utility method to create a material color from any given
-/// color.
-MaterialColor createMaterialColor(Color color) {
-  final strengths = <double>[.05];
-  final swatch = <int, Color>{};
-  final r = color.red;
-  final g = color.green;
-  final b = color.blue;
+extension ColorX on Color {
+  /// Utility method to create a material color from any given
+  /// color.
+  MaterialColor toMaterialColor() {
+    if (this is MaterialColor) return this as MaterialColor;
 
-  for (var i = 1; i < 10; i++) {
-    strengths.add(i * 0.1);
+    final strengths = <double>[.05];
+    final swatch = <int, Color>{};
+
+    for (var i = 1; i < 10; i++) {
+      strengths.add(i * 0.1);
+    }
+
+    for (final strength in strengths) {
+      final ds = 0.5 - strength;
+      swatch[(strength * 1000).round()] = Color.fromARGB(
+        0xff,
+        red + ((ds < 0 ? red : (255 - red)) * ds).round(),
+        green + ((ds < 0 ? green : (255 - green)) * ds).round(),
+        blue + ((ds < 0 ? blue : (255 - blue)) * ds).round(),
+      );
+    }
+
+    return MaterialColor(value, swatch);
   }
-
-  for (final strength in strengths) {
-    final ds = 0.5 - strength;
-    swatch[(strength * 1000).round()] = Color.fromRGBO(
-      r + ((ds < 0 ? r : (255 - r)) * ds).round(),
-      g + ((ds < 0 ? g : (255 - g)) * ds).round(),
-      b + ((ds < 0 ? b : (255 - b)) * ds).round(),
-      1,
-    );
-  }
-
-  return MaterialColor(color.value, swatch);
 }
