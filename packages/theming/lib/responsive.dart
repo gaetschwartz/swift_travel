@@ -90,3 +90,7 @@ class Responsive {
 extension TargetPlatformX on TargetPlatform {
   bool get isDarwin => this == TargetPlatform.iOS || this == TargetPlatform.macOS;
 }
+
+extension ThemeDataX on ThemeData {
+  bool get isDarwin => platform.isDarwin;
+}

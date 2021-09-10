@@ -1,39 +1,32 @@
 import 'dart:math' as math;
 import 'dart:ui';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
-import 'package:pedantic/pedantic.dart';
+import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/constants/env.dart';
-import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
-import 'package:swift_travel/pages/page_not_found.dart';
+import 'package:swift_travel/settings/pages/customization.dart';
+import 'package:swift_travel/settings/pages/developer.dart';
 import 'package:swift_travel/settings/properties/tile.dart';
-import 'package:swift_travel/settings/route_history.dart';
 import 'package:swift_travel/settings/team_page.dart';
-import 'package:swift_travel/terminal/terminal_widget.dart';
+import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
-import 'package:swift_travel/utils/crawler.dart';
-import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
-import 'package:vibration/vibration.dart';
-
-import 'properties/property.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -57,44 +50,21 @@ class _SettingsPageState extends State<SettingsPage> {
     final prefs = await SharedPreferences.getInstance();
     final b = await prefs.clear();
     log.log('Done : $b');
-    unawaited(SystemNavigator.pop(animated: true));
+    SystemNavigator.pop(animated: true);
   }
 
   @override
   Widget build(BuildContext context) {
     final children = [
       _SectionTitle(title: Text(AppLocalizations.of(context).brightness)),
-      SizedBox(
-        key: const Key('settings-top-theme-section'),
-        height: 100,
-        child: Builder(builder: (context) {
-          final theme = DynamicTheme.of(context);
-          return ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              _ThememodeWidget(
-                theme: theme,
-                label: AppLocalizations.of(context).brightness_system,
-                mode: ThemeMode.system,
-              ),
-              _ThememodeWidget(
-                theme: theme,
-                label: AppLocalizations.of(context).brightness_light,
-                mode: ThemeMode.light,
-              ),
-              _ThememodeWidget(
-                theme: theme,
-                label: AppLocalizations.of(context).brightness_dark,
-                mode: ThemeMode.dark,
-              ),
-            ],
-          );
-        }),
+      const _ThemeModeList(),
+      const Gap(16),
+      SwiftSettingsTile(
+        title: Text(AppLocalizations.of(context).customization),
+        leading: const Icon(CupertinoIcons.wand_stars),
+        onTap: () => Navigator.of(context)
+            .push(PlatformPageRoute(builder: (_) => const CustomizationSettingsPage())),
       ),
-      _SectionTitle(title: Text(AppLocalizations.of(context).font)),
-      const _FontChoiceTile(),
-      const _FontWeightTile(),
-      const _PlatformTile(),
       if (Env.isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
         PropertyTile<NavigationApp>(context.read(preferencesProvider).mapsApp,
             title: Text(AppLocalizations.of(context).maps_app),
@@ -124,108 +94,36 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
         title: const Text('Use analytics'),
         icon: const Icon(CupertinoIcons.list_bullet),
-        subtitle: const Text('The app collects anonymized crash reports'),
+        subtitle: const Text('The app collects anonymized crash reports.'),
       ),
       const Divider(height: 0),
       _SectionTitle(title: Text(AppLocalizations.of(context).more)),
-      ListTile(
+      SwiftSettingsTile(
         leading: const Icon(CupertinoIcons.person_3_fill),
         title: Text(AppLocalizations.of(context).our_team),
-        onTap: () =>
-            Navigator.of(context).push(PlatformPageRoute(builder: (_) => const TeamPage())),
+        onTap: () => Navigator.of(context, rootNavigator: true)
+            .push(PlatformPageRoute(builder: (_) => const TeamPage())),
       ),
-      ListTile(
-          leading: const Icon(Icons.restore),
-          title: Text(AppLocalizations.of(context).reset_settings),
-          onTap: resetSettingsPrompt),
       const Divider(),
-      Consumer(builder: (context, w, _) {
-        if (w(isDeveloperProvider).value) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _SectionTitle(title: Text(AppLocalizations.of(context).developer)),
-              ListTile(
-                  leading: const Icon(CupertinoIcons.search),
-                  title: const Text('Terminal'),
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      PlatformPageRoute(
-                        builder: (context) => const TerminalPage(),
-                      ),
-                    );
-                  }),
-              ListTile(
-                  leading: const Icon(CupertinoIcons.search),
-                  title: const Text('Attributes crawler'),
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      PlatformPageRoute(
-                        builder: (context) => const CrawlerPage(),
-                      ),
-                    );
-                  }),
-              ListTile(
-                  leading: const Icon(CupertinoIcons.clock),
-                  title: const Text('Route history'),
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      PlatformPageRoute(
-                        builder: (context) => const RouteHistoryPage(),
-                      ),
-                    );
-                  }),
-              ListTile(
-                leading: const Icon(CupertinoIcons.clear),
-                title: const Text('Clear history'),
-                onTap: RouteHistoryRepository.i.clear,
-              ),
-              ListTile(
-                  leading: const Icon(Icons.screen_lock_landscape),
-                  title: const Text('Screen info'),
-                  onTap: () {
-                    Navigator.of(context).push<void>(
-                      MaterialPageRoute(
-                        builder: (context) => Theme(
-                          data: ThemeData.light(),
-                          child: Builder(builder: (context) => const _ScreenPage()),
-                        ),
-                      ),
-                    );
-                  }),
-              ListTile(
-                  leading: const Icon(Icons.warning_rounded),
-                  title: const Text('Throw a Flutter error'),
-                  onTap: () => throw StateError('Debug error')),
-              ListTile(
-                  leading: const Icon(Icons.warning_rounded),
-                  title: const Text('Throw a Dart error'),
-                  onTap: () {
-                    try {
-                      throw const IntegerDivisionByZeroException();
-                    } on IntegerDivisionByZeroException catch (e, s) {
-                      reportDartError(e, s, library: 'settings', reason: 'voluntarirly');
-                    }
-                  }),
-              ListTile(
-                  leading: const Icon(Icons.open_in_browser),
-                  title: const Text('Open incorrect page'),
-                  onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage')),
-              ListTile(
-                  leading: const Icon(Icons.close),
-                  title: const Text('Trigger a crash'),
-                  onTap: () async {
-                    log.log('We trigger a crash');
-                    FirebaseCrashlytics.instance.crash();
-                  }),
-            ],
-          );
-        } else {
-          return const SizedBox();
-        }
-      }),
+      SwiftSettingsTile(
+        leading: const Icon(Icons.restore),
+        title: Text(AppLocalizations.of(context).reset_settings),
+        onTap: resetSettingsPrompt,
+        showChevron: false,
+      ),
+      const Divider(),
+      Consumer(
+        builder: (context, w, _) => w(isDeveloperProvider).value
+            ? SwiftSettingsTile(
+                title: Text(AppLocalizations.of(context).developer),
+                leading: const Icon(Icons.developer_board),
+                onTap: () => Navigator.of(context)
+                    .push(PlatformPageRoute(builder: (_) => const DeveloperSettingsPage())),
+              )
+            : const SizedBox.shrink(),
+      ),
       const BuildDetailsWidget(),
-      const SizedBox(height: 32),
+      const Gap(32),
       Padding(
         key: const Key('settings-bottom-info'),
         padding: const EdgeInsets.all(8),
@@ -240,7 +138,7 @@ class _SettingsPageState extends State<SettingsPage> {
     ];
 
     return DividerTheme(
-      data: const DividerThemeData(indent: 16, endIndent: 16),
+      data: const DividerThemeData(indent: 16, endIndent: 16, thickness: 0.5),
       child: PlatformBuilder(
           cupertinoBuilder: (context, child) => Material(
                 child: CupertinoPageScaffold(
@@ -276,6 +174,43 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 }
 
+class _ThemeModeList extends StatelessWidget {
+  const _ThemeModeList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      key: const Key('settings-top-theme-section'),
+      height: 100,
+      child: Builder(builder: (context) {
+        final theme = DynamicTheme.of(context);
+        return ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            _ThememodeWidget(
+              theme: theme,
+              label: AppLocalizations.of(context).brightness_system,
+              mode: ThemeMode.system,
+            ),
+            _ThememodeWidget(
+              theme: theme,
+              label: AppLocalizations.of(context).brightness_light,
+              mode: ThemeMode.light,
+            ),
+            _ThememodeWidget(
+              theme: theme,
+              label: AppLocalizations.of(context).brightness_dark,
+              mode: ThemeMode.dark,
+            ),
+          ],
+        );
+      }),
+    );
+  }
+}
+
 final _tapCountProvider = StateProvider((ref) => 0);
 
 final isDeveloperProvider =
@@ -307,158 +242,6 @@ class BuildDetailsWidget extends StatelessWidget {
       subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
       onTap: () => onTap(context),
     );
-  }
-}
-
-class _PlatformTile extends StatelessWidget {
-  const _PlatformTile({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = DynamicTheme.of(context);
-    final p = defaultTargetPlatform;
-    return PropertyTile<TargetPlatform>(
-      SyncProperty<TargetPlatform>(
-        onSet: (p) => theme.platform = p,
-        defaultValue: theme.platform,
-      ),
-      trailingBuilder: (v) => Text(v.name),
-      title: const Text('Platform'),
-      items: p == TargetPlatform.iOS || p == TargetPlatform.android
-          ? const [
-              ActionsSheetAction(value: TargetPlatform.android, title: Text('Android')),
-              ActionsSheetAction(value: TargetPlatform.iOS, title: Text('iOS')),
-            ]
-          : const [
-              ActionsSheetAction(value: TargetPlatform.macOS, title: Text('MacOS')),
-              ActionsSheetAction(value: TargetPlatform.windows, title: Text('Windows')),
-            ],
-    );
-  }
-}
-
-class _FontWeightTile extends StatelessWidget {
-  const _FontWeightTile({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = DynamicTheme.of(context);
-    const map = {-1: 'Light', 0: 'Normal', 1: 'Medium', 3: 'Bold'};
-    // final t = theme.font
-    //     .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
-    //     .bodyText1!;
-    return PropertyTile<int>(
-      SyncProperty<int>(
-        onSet: (delta) => theme.fontWeightDelta = delta,
-        defaultValue: theme.fontWeightDelta,
-      ),
-      title: const Text('Font weight'),
-      items: map.keys
-          .map((key) => ActionsSheetAction<int>(
-              value: key,
-              title: Text(
-                map[key]!,
-                //   style: t.apply(fontWeightDelta: key),
-              )))
-          .toList(growable: false),
-      trailingBuilder: (i) => Text(map[i] ?? ''),
-    );
-  }
-}
-
-class _FontChoiceTile extends StatelessWidget {
-  const _FontChoiceTile({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final constrainedBox = ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 300),
-      child: Builder(builder: (context) {
-        final theme = DynamicTheme.of(context);
-        return DropdownButton<Font>(
-          value: theme.font,
-          items: theme.configuration.fonts
-              .map(
-                (f) => DropdownMenuItem(
-                    value: f,
-                    child: f == theme.font
-                        ? Row(
-                            children: [
-                              Expanded(
-                                child: Text(f.name,
-                                    style: f.textTheme(Typography.englishLike2018).bodyText1),
-                              ),
-                              const Icon(CupertinoIcons.checkmark_alt)
-                            ],
-                          )
-                        : Text(f.name, style: f.textTheme(Typography.englishLike2018).bodyText1)),
-              )
-              .toList(growable: false),
-          selectedItemBuilder: (context) => fonts
-              .map<Widget>((f) => Align(alignment: Alignment.centerLeft, child: Text(f.name)))
-              .toList(growable: false),
-          onChanged: (f) {
-            if (f == null) {
-              return;
-            }
-            Vibration.instance.select();
-            theme.fontIndex = theme.configuration.fonts.indexOf(f);
-          },
-        );
-      }),
-    );
-
-    return ListTile(
-        leading: const Icon(CupertinoIcons.textformat_abc),
-        title: Align(
-          child: constrainedBox,
-          alignment: Alignment.centerLeft,
-        ));
-  }
-}
-
-class _ScreenPage extends StatelessWidget {
-  const _ScreenPage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(),
-        body: ListView(
-          children: [
-            ErrorDataWidget('Screen size:', MediaQuery.of(context).size.toString()),
-            ErrorDataWidget('Orientation:', MediaQuery.of(context).orientation.toString()),
-            ErrorDataWidget(
-                'Text scale factor:', MediaQuery.of(context).textScaleFactor.toString()),
-            ErrorDataWidget('Pixel ratio:', MediaQuery.of(context).devicePixelRatio.toString()),
-          ],
-        ),
-      );
-}
-
-extension TargetPlatfromX on TargetPlatform {
-  String get name {
-    switch (this) {
-      case TargetPlatform.android:
-        return 'Android';
-      case TargetPlatform.iOS:
-        return 'iOS';
-      case TargetPlatform.macOS:
-        return 'MacOS';
-      case TargetPlatform.windows:
-        return 'Windows';
-      case TargetPlatform.linux:
-        return 'Linux';
-      case TargetPlatform.fuchsia:
-        return 'Fuchsia';
-    }
   }
 }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,7 +38,7 @@ class TeamPage extends StatefulWidget {
   static const secondaryCoders = <Member>[
     Member(
       'David M.',
-      role: 'Icon design\nTesting',
+      role: 'Icon design, testing',
       imageUrl: 'assets/profiles/david.jpg',
     ),
     Member(
@@ -55,30 +56,22 @@ class TeamPage extends StatefulWidget {
   _TeamPageState createState() => _TeamPageState();
 }
 
-final _contributorsProvider = StateProvider<List<Contributor>?>((_) => null);
+final _contributorsProvider = FutureProvider<List<Contributor>>((_) async {
+  final uri = Uri.parse('https://api.github.com/repos/gaetschwartz/swift_travel/contributors');
+  final r = await http.get(uri);
+  final list = jsonDecode(r.body) as List;
+  final contribs = list.map((dynamic e) => Contributor.fromJson(e as JSON)).toList();
+
+  return contribs;
+});
 
 class _TeamPageState extends State<TeamPage> {
   final primaryMemberWidgets =
-      TeamPage.primaryCoders.map((c) => _MemberTile(c)).toList(growable: false);
+      TeamPage.primaryCoders.map((c) => _MemberTile(c, dense: true)).toList(growable: false);
   final secondaryMembersWidgets =
-      TeamPage.secondaryCoders.map((c) => _MemberTile(c)).toList(growable: false);
+      TeamPage.secondaryCoders.map((c) => _MemberTile(c, dense: true)).toList(growable: false);
 
   final client = http.Client();
-
-  @override
-  void initState() {
-    super.initState();
-    getContributors();
-  }
-
-  Future<void> getContributors() async {
-    final uri = Uri.parse('https://api.github.com/repos/gaetschwartz/swift_travel/contributors');
-    final r = await client.get(uri);
-    final list = jsonDecode(r.body) as List;
-    final contribs = list.map((dynamic e) => Contributor.fromJson(e as JSON)).toList();
-
-    context.read(_contributorsProvider).state = contribs;
-  }
 
   @override
   void dispose() {
@@ -98,7 +91,13 @@ class _TeamPageState extends State<TeamPage> {
               (context, i) => primaryMemberWidgets[i],
               childCount: primaryMemberWidgets.length,
             )),
-            const SliverToBoxAdapter(child: ListTile(title: Text('Contributors'))),
+            const SliverToBoxAdapter(
+              child: ListTile(
+                horizontalTitleGap: 0,
+                leading: FaIcon(FontAwesomeIcons.github),
+                title: Text('Github Contributors'),
+              ),
+            ),
             const _Contributors(),
             SliverToBoxAdapter(
               child: ExpansionTile(
@@ -130,37 +129,33 @@ class _Contributors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, w, _) {
-      final contribs = w(_contributorsProvider).state;
-      if (contribs == null) {
-        return const SliverFillRemaining(
-            child: Center(child: CircularProgressIndicator.adaptive()));
-      }
-      return SliverPadding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-        sliver: SliverGrid(
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 32,
-            mainAxisSpacing: 4,
-            crossAxisSpacing: 4,
-          ),
+      return w(_contributorsProvider).when(data: (contribs) {
+        return SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, i) {
               final c = contribs[i];
-              return Tooltip(
-                message: c.login,
-                child: InkWell(
-                  onTap: () => launch(c.htmlUrl),
-                  customBorder: const CircleBorder(),
+              return ListTile(
+                leading: SizedBox(
+                  height: 36,
+                  width: 36,
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(c.avatarUrl),
                   ),
                 ),
+                onTap: () => launch(c.htmlUrl),
+                title: Text(c.login),
               );
             },
             childCount: contribs.length,
           ),
-        ),
-      );
+        );
+      }, loading: () {
+        return const SliverFillRemaining(
+          child: Center(child: CircularProgressIndicator.adaptive()),
+        );
+      }, error: (e, s) {
+        return SliverToBoxAdapter(child: Text(e.toString()));
+      });
     });
   }
 }
@@ -169,13 +164,16 @@ class _MemberTile extends StatelessWidget {
   const _MemberTile(
     this.c, {
     Key? key,
+    this.dense = false,
   }) : super(key: key);
 
   final Member c;
+  final bool dense;
 
   @override
   Widget build(BuildContext context) => ListTile(
         title: Text(c.name),
+        dense: dense,
         leading: SizedBox(
           height: 36,
           width: 36,
@@ -206,7 +204,6 @@ class _MemberTile extends StatelessWidget {
                 icon: const FaIcon(FontAwesomeIcons.envelope),
                 onPressed: () => launch('mailto:${c.email}')),
         ]),
-        isThreeLine: true,
       );
 }
 

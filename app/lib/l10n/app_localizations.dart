@@ -445,6 +445,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your address book is empty'**
   String get no_contacts;
+
+  /// No description provided for @customization.
+  ///
+  /// In en, this message translates to:
+  /// **'Customisation'**
+  String get customization;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/db/history.dart';
@@ -33,7 +34,7 @@ class RoutesView extends StatelessWidget {
         return fetcher.state.when(
           (routes) => CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(child: SizedBox(height: 8)),
+              const SliverGap(8),
               SliverSafeArea(
                 sliver: routes.connections.isNotEmpty
                     ? SliverList(
@@ -297,7 +298,7 @@ class _PredictionTile extends StatelessWidget {
               '🔎',
               style: TextStyle(fontSize: 48),
             ),
-            const SizedBox(height: 24),
+            const Gap(24),
             Text(
               AppLocalizations.of(context).find_a_route,
               style: Theme.of(context).textTheme.headline6,

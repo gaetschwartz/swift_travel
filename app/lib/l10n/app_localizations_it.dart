@@ -188,4 +188,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get no_contacts => 'La tua rubrica è vuota';
+
+  @override
+  String get customization => 'Personalizzazione';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
@@ -75,7 +76,7 @@ class _TransportDetailsState extends State<TransportDetails> {
                       background: widget.leg.bgColor,
                       foreground: widget.leg.fgColor,
                     ),
-                    const SizedBox(width: 8),
+                    const Gap(8),
                     Text(AppLocalizations.of(context).direction(widget.leg.terminal ?? '')),
                   ],
                 ),
@@ -158,7 +159,7 @@ class _Stop extends StatelessWidget {
                 Expanded(child: _Line(isVisible: !isLast)),
               ],
             ),
-            const SizedBox(width: 8),
+            const Gap(8),
             Expanded(
               child: Text(
                 stop.name,

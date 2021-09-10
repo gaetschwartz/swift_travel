@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gaets_logging/logging.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -35,7 +36,7 @@ class WalkingTile extends StatelessWidget {
                     Row(
                       children: [
                         const FaIcon(FontAwesomeIcons.walking),
-                        const SizedBox(width: 8),
+                        const Gap(8),
                         Expanded(
                           child: Text(
                             l.exit!.displayName,
@@ -47,7 +48,7 @@ class WalkingTile extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    const Gap(8),
                     if (l.exit!.waitTime > 0)
                       Text.rich(
                         parseDecoratedText(
@@ -68,7 +69,7 @@ class WalkingTile extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 16),
+              const Gap(16),
               const FaIcon(FontAwesomeIcons.map),
             ],
           ),

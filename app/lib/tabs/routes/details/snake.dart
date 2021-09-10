@@ -4,6 +4,7 @@ import 'dart:math' as m;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 
 class SneccGame extends StatefulWidget {
   const SneccGame({
@@ -188,7 +189,7 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const Gap(16),
                 Column(
                   children: [
                     ElevatedButton(
@@ -216,7 +217,7 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
                             ),
                           ),
                         ),
-                        const SizedBox(width: 32),
+                        const Gap(32),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(shape: const CircleBorder()),
                           onPressed: () => dir = Direction.right,
@@ -243,7 +244,7 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const Gap(16),
               ],
             ),
           ),

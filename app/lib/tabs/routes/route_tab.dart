@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
+import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart' hide Position;
 import 'package:intl/intl.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -453,7 +454,7 @@ class RoutePageState extends State<RoutePage> {
                 ],
               ),
             ),
-            const SizedBox(height: 8),
+            const Gap(8),
             const Divider(height: 0),
             const Expanded(child: RoutesView())
           ],

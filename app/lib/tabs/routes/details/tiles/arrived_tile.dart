@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/theme.dart';
@@ -31,7 +32,7 @@ class ArrivedTile extends StatelessWidget {
                 Row(
                   children: [
                     const FaIcon(FontAwesomeIcons.mapPin),
-                    const SizedBox(width: 8),
+                    const Gap(8),
                     Expanded(
                       child: Text(l.displayName,
                           style: Theme.of(context)
@@ -41,7 +42,7 @@ class ArrivedTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const Gap(8),
                 Text.rich(parseDecoratedText(
                   AppLocalizations.of(context).youll_be_there(Format.time(l.arrival)),
                   style: Theme.of(context).textTheme.subtitle2,

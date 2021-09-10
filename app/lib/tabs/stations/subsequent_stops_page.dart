@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/subsequent_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -115,7 +116,7 @@ class StopTile extends StatelessWidget {
                     Expanded(child: _Line(!isLast)),
                   ],
                 ),
-                const SizedBox(width: 16),
+                const Gap(16),
                 Expanded(
                   child: ListTile(
                     title: Text(

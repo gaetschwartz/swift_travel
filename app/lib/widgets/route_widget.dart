@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
@@ -41,7 +42,7 @@ class RouteWidget extends StatelessWidget {
                   child: icon,
                 )
               else
-                const SizedBox(width: 8),
+                const Gap(8),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -52,7 +53,7 @@ class RouteWidget extends StatelessWidget {
                         style: Theme.of(context).textTheme.subtitle1!,
                         child: title!,
                       ),
-                      const SizedBox(height: 8),
+                      const Gap(8),
                     ],
                     Row(
                       children: [
@@ -73,7 +74,7 @@ class RouteWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          const Gap(8),
                           Align(
                             alignment: Alignment.topLeft,
                             child: DecoratedBox(
@@ -91,7 +92,7 @@ class RouteWidget extends StatelessWidget {
                             ),
                           ),
                         ]),
-                        const SizedBox(width: 8),
+                        const Gap(8),
                         DefaultTextStyle(
                           style: Theme.of(context).textTheme.subtitle2!,
                           child: Expanded(
@@ -99,7 +100,7 @@ class RouteWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 from,
-                                const SizedBox(height: 8),
+                                const Gap(8),
                                 to,
                               ],
                             ),
@@ -116,7 +117,7 @@ class RouteWidget extends StatelessWidget {
                   child: trailing,
                 )
               else
-                const SizedBox(width: 16),
+                const Gap(16),
             ],
           ),
         ),

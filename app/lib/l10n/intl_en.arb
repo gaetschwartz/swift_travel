@@ -93,5 +93,6 @@
 	"contacts": "Contacts",
 	"failed_get_contact": "Failed to obtain the address book",
 	"new_fav": "New favourite stop",
-	"no_contacts": "Your address book is empty"
+	"no_contacts": "Your address book is empty",
+	"customization": "Customisation"
 }
