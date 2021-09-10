@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -65,7 +66,7 @@ class WelcomePage extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        const Gap(8),
                         const Center(
                           child: Text(
                             'We will help you 🚄🚶🏼‍♂️🚎🚶🏻‍♀🚌 !',
@@ -103,7 +104,7 @@ class WelcomePage extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(AppLocalizations.of(context).continue_),
-                              const SizedBox(width: 8),
+                              const Gap(8),
                               const Icon(CupertinoIcons.chevron_forward),
                             ],
                           ),
@@ -111,7 +112,7 @@ class WelcomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 32),
+                  const Gap(32),
                 ],
               ),
             ),

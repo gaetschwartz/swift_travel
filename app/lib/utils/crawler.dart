@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
@@ -129,7 +130,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
           Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(current)),
           Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(current2)),
           Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(currentSub)),
-          const SizedBox(height: 8),
+          const Gap(8),
           if (isRunning)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),

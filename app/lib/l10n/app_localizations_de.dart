@@ -188,4 +188,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get no_contacts => 'Ihr Adressbuch ist leer';
+
+  @override
+  String get customization => 'Personalisierung';
 }

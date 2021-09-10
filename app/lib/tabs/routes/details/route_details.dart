@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/constants/env.dart';
@@ -137,7 +138,7 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          const SizedBox(height: 8),
+          const Gap(8),
           DefaultTextStyle(
             style: Theme.of(context).textTheme.bodyText1!,
             child: Padding(
@@ -151,7 +152,7 @@ class _Header extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(AppLocalizations.of(context).travel_duration),
-                      const SizedBox(width: 8),
+                      const Gap(8),
                       Expanded(
                           child: Align(
                               alignment: Alignment.centerRight,
@@ -191,7 +192,7 @@ class _DataRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(title),
-          const SizedBox(width: 8),
+          const Gap(8),
           Expanded(
               child: Align(
                   alignment: Alignment.centerRight,

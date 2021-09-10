@@ -13,6 +13,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
     required this.leading,
     this.subtitle,
     this.onTap,
+    this.showChevron = true,
   }) : super(key: key);
 
   final Widget title;
@@ -20,6 +21,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
   final Widget leading;
   final Widget? subtitle;
   final VoidCallback? onTap;
+  final bool showChevron;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
                         ),
                       ),
                     ),
-                  Icon(CupertinoIcons.chevron_forward, color: subtitleColor)
+                  if (showChevron) Icon(CupertinoIcons.chevron_forward, color: subtitleColor)
                 ])
           : null,
     );

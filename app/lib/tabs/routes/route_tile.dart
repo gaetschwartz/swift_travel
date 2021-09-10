@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/db/history.dart';
@@ -46,7 +47,7 @@ class RouteTile extends StatelessWidget {
             title: Row(
               children: [
                 if (LineIcon.isValidLeg(leg)) LineIcon.fromLeg(leg) else SbbIcon(leg.type),
-                const SizedBox(width: 8),
+                const Gap(8),
                 Expanded(child: Text(leg.exit!.name)),
               ],
             ),
@@ -63,7 +64,7 @@ class RouteTile extends StatelessWidget {
                     Format.delay(c.depDelay!),
                     style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
                   ),
-                const SizedBox(width: 16),
+                const Gap(16),
                 const FaIcon(CupertinoIcons.chevron_forward),
               ],
             ),
@@ -108,7 +109,7 @@ class _RowIcon extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: Wrap(spacing: 8, children: listWidget),
         ),
-        const SizedBox(height: 4),
+        const Gap(4),
         Text('${Format.time(c.departure)} - ${Format.time(c.arrival)}')
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
@@ -54,7 +55,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 children: [
-                  const SizedBox(width: 12),
+                  const Gap(12),
                   Expanded(
                     child: Column(
                       children: [
@@ -107,7 +108,7 @@ class _Collapsed extends StatelessWidget {
                       ),
                     ),
                 ])),
-                const SizedBox(width: 16),
+                const Gap(16),
                 Expanded(child: Text(l.name)),
               ],
             ),
@@ -133,7 +134,7 @@ class _Collapsed extends StatelessWidget {
                           ),
                         ),
                     ])),
-                    const SizedBox(width: 16),
+                    const Gap(16),
                     Expanded(child: Text(l.exit!.name)),
                     InkWell(
                       onTap: () {
@@ -164,9 +165,9 @@ class _Collapsed extends StatelessWidget {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          const SizedBox(height: 8),
+                                          const Gap(8),
                                           ...list.map((att) => AttributeTile(att)),
-                                          const SizedBox(height: 8),
+                                          const Gap(8),
                                         ],
                                       ),
                                     ),
@@ -178,9 +179,9 @@ class _Collapsed extends StatelessWidget {
                               builder: (context) => Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const SizedBox(height: 8),
+                                      const Gap(8),
                                       ...list.map((att) => AttributeTile(att)),
-                                      const SizedBox(height: 8),
+                                      const Gap(8),
                                     ],
                                   ),
                               expand: false);
@@ -207,7 +208,7 @@ class _Collapsed extends StatelessWidget {
                                   ))
                               .take(3),
                           if (l.attributes.length > 3) ...[
-                            const SizedBox(width: 2),
+                            const Gap(2),
                             Text('+${l.attributes.length - 3}'),
                           ]
                         ],
@@ -241,7 +242,7 @@ class _Header extends StatelessWidget {
           Row(
             children: <Widget>[
               if (l.line != null) LineIcon.fromLeg(l) else SbbIcon(l.type),
-              const SizedBox(width: 8),
+              const Gap(8),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerLeft,

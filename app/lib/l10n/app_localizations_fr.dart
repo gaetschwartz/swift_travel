@@ -188,4 +188,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get no_contacts => 'Votre carnet d\'adresses est vide';
+
+  @override
+  String get customization => 'Personnalisation';
 }

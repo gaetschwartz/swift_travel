@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
+import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
@@ -296,7 +297,7 @@ class _Results extends StatelessWidget {
                 style: TextStyle(fontSize: 48),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 24),
+              const Gap(24),
               Text(
                 AppLocalizations.of(context).search_station,
                 style: Theme.of(context).textTheme.headline6,
@@ -311,7 +312,7 @@ class _Results extends StatelessWidget {
                 Icons.wifi_off,
                 size: 48,
               ),
-              const SizedBox(height: 16),
+              const Gap(16),
               Text(
                 'Network Error',
                 style: Theme.of(context).textTheme.headline6,

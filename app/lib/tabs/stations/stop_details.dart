@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -179,7 +180,7 @@ class _NoData extends StatelessWidget {
                 '😕',
                 style: TextStyle(fontSize: 64),
               ),
-              const SizedBox(height: 16),
+              const Gap(16),
               Text(
                 s.errors.isNotEmpty
                     ? s.errors.join('\n')
@@ -217,7 +218,7 @@ class ConnectionTile extends StatelessWidget {
         children: [
           if (c.bgcolor != null) ...[
             LineIcon.raw(line: c.line, foreground: c.fgcolor, background: c.bgcolor),
-            const SizedBox(width: 8),
+            const Gap(8),
           ],
           Text(
             c.terminal.name,
@@ -231,7 +232,7 @@ class ConnectionTile extends StatelessWidget {
         child: Row(
           children: <Widget>[
             SbbIcon(c.type, size: 16),
-            const SizedBox(width: 8),
+            const Gap(8),
             Text.rich(
               TextSpan(text: Format.time(c.time), children: [
                 if (c.arrDelay != null)

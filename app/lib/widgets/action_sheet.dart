@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/utils/types.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -197,7 +198,7 @@ class ActionsSheet<T> extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (title != null || message != null) const SizedBox(height: 12),
+                    if (title != null || message != null) const Gap(12),
                     if (title != null)
                       DefaultTextStyle(
                           style: Theme.of(context).textTheme.subtitle1!,
@@ -213,7 +214,7 @@ class ActionsSheet<T> extends StatelessWidget {
                             child: Center(child: message),
                           )),
                     if (title != null || message != null) ...[
-                      const SizedBox(height: 4),
+                      const Gap(4),
                       const Divider(indent: 16, endIndent: 16)
                     ],
                     ...buildChildren()

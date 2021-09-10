@@ -75,7 +75,7 @@ void preLaunchRoutine() {
 }
 
 void overridePlatform() {
-  late final TargetPlatform p;
+  final TargetPlatform p;
 
   switch (defaultTargetPlatform) {
     case TargetPlatform.windows:
@@ -145,8 +145,6 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
   Widget build(BuildContext context) {
     final theme = DynamicTheme.of(context);
     final darwin = isThemeDarwin(context);
-
-    print("Rebuild with platform ${theme.light.platform}");
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

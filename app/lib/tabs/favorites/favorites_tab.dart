@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
+import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
@@ -81,13 +82,13 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
                       '⭐',
                       style: TextStyle(fontSize: 64),
                     ),
-                    const SizedBox(height: 32),
+                    const Gap(32),
                     Text(
                       'You have no favorites !',
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 8),
+                    const Gap(8),
                     Text(
                       'You can add one by tapping the ➕ button.',
                       style: Theme.of(context).textTheme.subtitle1,

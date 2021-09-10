@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PageNotFound extends StatefulWidget {
@@ -87,7 +88,7 @@ class ErrorDataWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(name, style: Theme.of(context).textTheme.bodyText1),
-          const SizedBox(height: 4),
+          const Gap(4),
           Card(
             color: Colors.grey[100],
             child: Padding(
