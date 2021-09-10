@@ -194,10 +194,14 @@ class DynamicThemeData extends ChangeNotifier {
 
   Font get font => _config.fonts.safeGet(_fontIndex);
 
+  set font(Font font) {
+    final i = _config.fonts.indexWhere((f) => f.name == font.name);
+    fontIndex = i;
+  }
+
   int get fontIndex => _fontIndex;
 
   set fontIndex(int i) {
-    ArgumentError.checkNotNull(i, 'fontIndex');
     assert(i >= 0 && i < _config.fonts.length,
         '$fontIndex must be is not in range 0 (inclusive) to ${_config.fonts.length} (exclusive)');
 

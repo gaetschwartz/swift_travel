@@ -5,11 +5,11 @@ import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/properties/tile.dart';
-import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:theming/dialogs/choice.dart';
 import 'package:theming/dynamic_theme.dart';
-import 'package:vibration/vibration.dart';
 
 class CustomizationSettingsPage extends StatefulWidget {
   const CustomizationSettingsPage({Key? key}) : super(key: key);
@@ -118,12 +118,7 @@ class _FontWeightTile extends StatelessWidget {
       ),
       title: const Text('Font weight'),
       items: map.keys
-          .map((key) => ActionsSheetAction<int>(
-              value: key,
-              title: Text(
-                map[key]!,
-                //   style: t.apply(fontWeightDelta: key),
-              )))
+          .map((key) => ActionsSheetAction<int>(value: key, title: Text(map[key]!)))
           .toList(growable: false),
       trailingBuilder: (i) => Text(map[i] ?? ''),
     );
@@ -137,49 +132,36 @@ class _FontChoiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final constrainedBox = ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 300),
-      child: Builder(builder: (context) {
-        final theme = DynamicTheme.of(context);
-        return DropdownButton<Font>(
-          value: theme.font,
-          items: theme.configuration.fonts
-              .map(
-                (f) => DropdownMenuItem(
-                    value: f,
-                    child: f == theme.font
-                        ? Row(
-                            children: [
-                              Expanded(
-                                child: Text(f.name,
-                                    style: f.textTheme(Typography.englishLike2018).bodyText1),
-                              ),
-                              const Icon(CupertinoIcons.checkmark_alt)
-                            ],
-                          )
-                        : Text(f.name, style: f.textTheme(Typography.englishLike2018).bodyText1)),
-              )
-              .toList(growable: false),
-          selectedItemBuilder: (context) => fonts
-              .map<Widget>((f) => Align(alignment: Alignment.centerLeft, child: Text(f.name)))
-              .toList(growable: false),
-          onChanged: (f) {
-            if (f == null) {
-              return;
-            }
-            Vibration.instance.select();
-            theme.fontIndex = theme.configuration.fonts.indexOf(f);
-          },
-        );
-      }),
+    return SwiftSettingsTile(
+      leading: const Icon(CupertinoIcons.textformat_abc),
+      title: Text(AppLocalizations.of(context).font),
+      subtitle: Text(DynamicTheme.of(context).font.name),
+      onTap: () => onTap(context),
     );
+  }
 
-    return ListTile(
-        leading: const Icon(CupertinoIcons.textformat_abc),
-        title: Align(
-          child: constrainedBox,
-          alignment: Alignment.centerLeft,
-        ));
+  void onTap(BuildContext context) async {
+    final theme = DynamicTheme.of(context);
+    final f = await choose<Font>(
+      context,
+      choices: theme.configuration.fonts
+          .map(
+            (e) => Choice(
+              value: e,
+              child: Text(
+                e.name,
+                style: e.textTheme(Typography.englishLike2018).bodyText2,
+              ),
+            ),
+          )
+          .toList(),
+      title: Text(AppLocalizations.of(context).font),
+      value: theme.font,
+    );
+    final value = f.value;
+    if (value != null) {
+      theme.font = value;
+    }
   }
 }
 
