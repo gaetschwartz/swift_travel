@@ -36,7 +36,11 @@ class Choice<T> {
 class ChoiceResult<T> {
   const ChoiceResult(this.value, {this.gotCancelled = false});
 
-  final T value;
+  const ChoiceResult.cancelled()
+      : value = null,
+        gotCancelled = true;
+
+  final T? value;
   final bool gotCancelled;
 }
 
@@ -46,151 +50,70 @@ Future<ChoiceResult<T?>> choose<T>(
   required Widget title,
   Widget? message,
   Choice<Widget>? cancel,
-  T? defaultValue,
+  T? value,
   TargetPlatform? platformOverride,
   bool useRootNavigator = true,
   ModalConfiguration configuration = const BottomSheetConfiguration(),
-}) async =>
-    (isPlatformDarwin(platformOverride ?? Theme.of(context).platform)
-        ? await showCupertinoModalPopup<ChoiceResult<T>>(
-            context: context,
-            useRootNavigator: useRootNavigator,
-            builder: (context) => _IOSChoiceAlert<T>(
-              title: title,
-              message: message,
-              cancel: cancel,
-              choices: choices,
-            ),
-          )
-        : await showModal<ChoiceResult<T>>(
-            context: context,
-            configuration: configuration,
-            builder: (context) => _ChoiceAlert<T>(
-              title: title,
-              message: message,
-              cancel: cancel,
-              choices: choices,
-            ),
-          )) ??
-    ChoiceResult(defaultValue, gotCancelled: true);
-
-class _IOSChoiceAlert<T> extends StatelessWidget {
-  const _IOSChoiceAlert({
-    required this.title,
-    required this.choices,
-    required this.cancel,
-    required this.message,
-    Key? key,
-  }) : super(key: key);
-
-  final Widget title;
-  final Widget? message;
-  final List<Choice<T>> choices;
-  final Choice<Widget>? cancel;
-
-  @override
-  Widget build(BuildContext context) => CupertinoActionSheet(
-        title: title,
-        message: message,
-        cancelButton: cancel == null
-            ? null
-            : CupertinoActionSheetAction(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pop<ChoiceResult<T?>>(const ChoiceResult(null, gotCancelled: true));
-                  cancel!.onTap?.call();
-                },
-                isDefaultAction: cancel!.isDefault,
-                isDestructiveAction: cancel!.isDestructive,
-                child: cancel!.child,
-              ),
-        actions: choices
-            .map((v) => CupertinoActionSheetAction(
-                onPressed: () {
-                  Navigator.of(context).pop<ChoiceResult<T?>>(ChoiceResult(v.value));
-                  v.onTap?.call();
-                },
-                isDefaultAction: v.isDefault,
-                isDestructiveAction: v.isDestructive,
-                child: v.child))
-            .toList(),
-      );
+}) async {
+  return await Navigator.of(context).push<ChoiceResult<T?>>(
+        MaterialPageRoute(
+          builder: (_) => _ChoicePage(
+            title: title,
+            message: message,
+            choices: choices,
+            cancel: cancel,
+            value: value,
+          ),
+        ),
+      ) ??
+      ChoiceResult(value, gotCancelled: true);
 }
 
-class _ChoiceAlert<T> extends StatelessWidget {
-  const _ChoiceAlert({
+class _ChoicePage<T> extends StatelessWidget {
+  const _ChoicePage({
+    Key? key,
     required this.title,
+    required this.message,
     required this.choices,
     required this.cancel,
-    required this.message,
-    Key? key,
+    required this.value,
   }) : super(key: key);
 
   final Widget title;
   final Widget? message;
   final List<Choice<T>> choices;
   final Choice<Widget>? cancel;
+  final T? value;
 
   @override
   Widget build(BuildContext context) {
-    final widgets = choices
-        .map((v) => CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.of(context).pop<ChoiceResult<T?>>(ChoiceResult(v.value));
-              v.onTap?.call();
-            },
-            isDefaultAction: v.isDefault,
-            isDestructiveAction: v.isDestructive,
-            child: v.child))
-        .toList();
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(16)),
-          color: Theme.of(context).cardColor,
-        ),
-        child: Theme(
-          data: ThemeData(brightness: Theme.of(context).brightness),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child:
-                    DefaultTextStyle(style: Theme.of(context).textTheme.headline6!, child: title),
-              ),
-            ),
-            if (message != null)
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: DefaultTextStyle(
-                      style: Theme.of(context).textTheme.caption!, child: message!),
-                ),
-              ),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, i) => widgets[i],
-              separatorBuilder: (context, i) => const Divider(),
-              itemCount: widgets.length,
-            ),
-            if (cancel != null) ...[
-              const Divider(indent: 16, endIndent: 16, thickness: 1, height: 0),
-              CupertinoActionSheetAction(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pop<ChoiceResult<T?>>(const ChoiceResult(null, gotCancelled: true));
-                  cancel!.onTap?.call();
-                },
-                isDefaultAction: cancel!.isDefault,
-                isDestructiveAction: cancel!.isDestructive,
-                child: cancel!.child,
-              ),
-            ]
-          ]),
-        ),
-      ),
+    final child = ListView.builder(
+      itemBuilder: (context, i) {
+        final c = choices[i];
+        return ListTile(
+          horizontalTitleGap: 0,
+          leading: value != null
+              ? Icon(Icons.check, color: value == c.value ? null : Colors.transparent)
+              : null,
+          title: c.child,
+          onTap: () => Navigator.of(context).pop(ChoiceResult<T>(c.value)),
+        );
+      },
+      itemCount: choices.length,
     );
+
+    return isThemeDarwin(context)
+        ? CupertinoPageScaffold(
+            child: child,
+            navigationBar: CupertinoNavigationBar(
+              middle: title,
+            ),
+          )
+        : Scaffold(
+            body: child,
+            appBar: AppBar(
+              title: title,
+            ),
+          );
   }
 }
