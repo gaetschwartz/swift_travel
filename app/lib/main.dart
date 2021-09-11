@@ -26,7 +26,6 @@ import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/intents.dart';
-import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
@@ -181,17 +180,8 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
       onGenerateRoute: (settings) => onGenerateRoute(settings),
       onUnknownRoute: (settings) => onUnknownRoute<void>(settings),
       onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings),
-      builder: (context, child) => PlatformBuilder(
-        child: child!,
-        cupertinoBuilder: (context, child) {
-          Theme.of(context);
-          return child!;
-        },
-        materialBuilder: (context, child) => ScrollConfiguration(
-          child: child!,
-          behavior: const NoOverscrollGlowBehavior(),
-        ),
-      ),
+      scrollBehavior: const MaterialScrollBehavior(
+          androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
       initialRoute: 'loading',
     );
   }
@@ -319,8 +309,17 @@ class Unfocus extends StatelessWidget {
       );
 }
 
-class NoOverscrollGlowBehavior extends ScrollBehavior {
-  const NoOverscrollGlowBehavior();
+class NoOverscrollGlowConfiguration extends ScrollConfiguration {
+  const NoOverscrollGlowConfiguration({required Widget child, Key? key})
+      : super(
+          key: key,
+          child: child,
+          behavior: const _NoOverscrollGlowBehavior(),
+        );
+}
+
+class _NoOverscrollGlowBehavior extends ScrollBehavior {
+  const _NoOverscrollGlowBehavior();
 
   @override
   Widget buildViewportChrome(context, child, axisDirection) => child;
