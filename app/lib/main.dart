@@ -182,26 +182,15 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
       onUnknownRoute: (settings) => onUnknownRoute<void>(settings),
       onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings),
       builder: (context, child) => PlatformBuilder(
+        child: child!,
         cupertinoBuilder: (context, child) {
-          final t = Theme.of(context);
-          final cupertinoOverride = t.cupertinoOverrideTheme ?? const NoDefaultCupertinoThemeData();
-          return CupertinoTheme(
-            data: CupertinoThemeData(
-              brightness: t.brightness,
-              primaryColor: cupertinoOverride.primaryColor,
-              primaryContrastingColor: cupertinoOverride.primaryContrastingColor,
-              textTheme: cupertinoOverride.textTheme,
-              barBackgroundColor: cupertinoOverride.barBackgroundColor,
-              scaffoldBackgroundColor: cupertinoOverride.scaffoldBackgroundColor,
-            ),
-            child: child!,
-          );
+          Theme.of(context);
+          return child!;
         },
         materialBuilder: (context, child) => ScrollConfiguration(
-          behavior: const NoOverscrollGlowBehavior(),
           child: child!,
+          behavior: const NoOverscrollGlowBehavior(),
         ),
-        child: child!,
       ),
       initialRoute: 'loading',
     );
@@ -325,7 +314,7 @@ class Unfocus extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        onTap: FocusManager.instance.primaryFocus?.unfocus,
         child: child,
       );
 }

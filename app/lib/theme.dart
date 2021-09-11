@@ -44,6 +44,17 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
   defaultLightThemeId: "swift",
   defaultDarkThemeId: "swift",
   persist: true,
+  applyToAllThemes: (t) {
+    return t.copyWith(
+        cupertinoOverrideTheme: CupertinoThemeData(brightness: t.brightness).rawCopy(),
+        pageTransitionsTheme: const PageTransitionsTheme(builders: {
+          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+        }));
+  },
   lightThemes: [
     ExtendedTheme(
       name: 'Swift',
@@ -118,4 +129,15 @@ extension ColorX on Color {
 
     return MaterialColor(value, swatch);
   }
+}
+
+extension CupertinoThemeDataX on CupertinoThemeData {
+  CupertinoThemeData rawCopy() => CupertinoThemeData.raw(
+        brightness,
+        primaryColor,
+        primaryContrastingColor,
+        textTheme,
+        barBackgroundColor,
+        scaffoldBackgroundColor,
+      );
 }
