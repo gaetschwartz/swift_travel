@@ -178,10 +178,11 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
         })
       },
       onGenerateRoute: (settings) => onGenerateRoute(settings),
-      onUnknownRoute: (settings) => onUnknownRoute<void>(settings),
+      onUnknownRoute: (settings) => onUnknownRoute(settings),
       onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings),
       scrollBehavior: const MaterialScrollBehavior(
-          androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
+        androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
+      ),
       initialRoute: 'loading',
     );
   }
@@ -211,14 +212,14 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
   }
 }
 
-Route<T> onUnknownRoute<T extends Object?>(RouteSettings settings) {
+Route<void> onUnknownRoute(RouteSettings settings) {
   reportDartError('Unknown page : `${settings.name}`', StackTrace.current,
       library: 'router', reason: 'while trying to route', showSnackbar: false);
-  return MaterialPageRoute<T>(builder: (_) => PageNotFound(settings: settings));
+  return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
 }
 
 // ignore: long-method
-Route? onGenerateRoute(RouteSettings settings) {
+Route<void>? onGenerateRoute(RouteSettings settings) {
   log.log('Routing to ${settings.name}');
 
   switch (settings.name) {
@@ -307,20 +308,4 @@ class Unfocus extends StatelessWidget {
         onTap: FocusManager.instance.primaryFocus?.unfocus,
         child: child,
       );
-}
-
-class NoOverscrollGlowConfiguration extends ScrollConfiguration {
-  const NoOverscrollGlowConfiguration({required Widget child, Key? key})
-      : super(
-          key: key,
-          child: child,
-          behavior: const _NoOverscrollGlowBehavior(),
-        );
-}
-
-class _NoOverscrollGlowBehavior extends ScrollBehavior {
-  const _NoOverscrollGlowBehavior();
-
-  @override
-  Widget buildViewportChrome(context, child, axisDirection) => child;
 }
