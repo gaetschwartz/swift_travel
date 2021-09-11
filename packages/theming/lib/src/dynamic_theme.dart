@@ -317,7 +317,7 @@ class DynamicThemeData extends ChangeNotifier {
       platform: _platform,
     );
 
-    return (_config.applyToAllThemes & _lightTheme.apply)(data);
+    return _config.applyToAllThemes(_lightTheme.apply(data));
   }
 
   ThemeData _computeDarkTheme() {
@@ -327,7 +327,7 @@ class DynamicThemeData extends ChangeNotifier {
       platform: _platform,
     );
 
-    return (_config.applyToAllThemes & _darkTheme.apply)(data);
+    return _config.applyToAllThemes(_darkTheme.apply(data));
   }
 
   ShadowTheme get shadowLight => _lightTheme.shadow;
