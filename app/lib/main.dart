@@ -48,7 +48,7 @@ void main() {
 
 void preLaunchRoutine() {
   if (kReleaseMode) {
-    print(
+    log.log(
       '=== Release mode ===\n'
       'Build date: $commitBuildDate\n'
       'Commit message: $commitMessage\n'
@@ -56,7 +56,7 @@ void preLaunchRoutine() {
     );
   }
   if (kDebugMode) {
-    print(Env.env);
+    log.log(Env.env);
   }
 
   if (Env.overridePlatform) {
@@ -65,7 +65,7 @@ void preLaunchRoutine() {
   setPathUrlStrategy();
 
   if (isTest) {
-    print('We are in a test');
+    log.log('We are in a test');
   } else {
     FlutterError.onError = reportFlutterError;
   }
@@ -91,7 +91,7 @@ void overridePlatform() {
       return;
   }
 
-  print('Overriding $defaultTargetPlatform by $platform');
+  log.log('Overriding $defaultTargetPlatform by $platform');
   debugDefaultTargetPlatformOverride = p;
 }
 
@@ -163,23 +163,23 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
       shortcuts: _shortcuts,
       actions: {
         EscapeIntent: CallbackAction(onInvoke: (e) {
-          // print('Clearing sidebar');
+          // log.log('Clearing sidebar');
           context.read(sideTabBarProvider).state = null;
           sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
         }),
         TabIntent: TabAction((tab) {
-          //print('Changing tab to $tab');
+          //log.log('Changing tab to $tab');
           context.read(tabProvider).index = tab;
         }),
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
-          // print('Switching tab');
+          // log.log('Switching tab');
           final tabs = context.read(tabProvider);
           tabs.index = tabs.index % (darwin ? TabView.iosTabs.length : TabView.androidTabs.length);
         })
       },
-      onGenerateRoute: (settings) => onGenerateRoute(settings),
-      onUnknownRoute: (settings) => onUnknownRoute(settings),
-      onGenerateInitialRoutes: (settings) => onGenerateInitialRoutes(settings),
+      onGenerateRoute: onGenerateRoute,
+      onUnknownRoute: onUnknownRoute,
+      onGenerateInitialRoutes: onGenerateInitialRoutes,
       scrollBehavior: const MaterialScrollBehavior(
         androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
       ),
@@ -303,9 +303,11 @@ class Unfocus extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: FocusManager.instance.primaryFocus?.unfocus,
-        child: child,
-      );
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: FocusManager.instance.primaryFocus?.unfocus,
+      child: child,
+    );
+  }
 }

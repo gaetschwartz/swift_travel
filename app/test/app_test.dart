@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:swift_travel/apis/navigation/models/route.dart';
@@ -85,13 +86,13 @@ void main() {
     });
 
     setUp(() async {
-      print('Setup...');
+      log.log('Setup...');
       final d = Directory(dirPath);
       if (d.existsSync()) {
         await d.delete(recursive: true);
       }
       await openBoxes();
-      print('Setup done');
+      log.log('Setup done');
     });
 
     testWidgets(
@@ -118,12 +119,12 @@ void main() {
         ));
         await t.pumpAndSettle();
 
-        print('Tapping first textfield');
+        log.log('Tapping first textfield');
         final tapField = find.byKey(RoutePageState.routeFromTextfieldKeyTap);
         await t.tap(tapField);
         await t.pumpAndSettle();
 
-        print('Entering text in first textfield');
+        log.log('Entering text in first textfield');
         final field = find.byKey(RoutePageState.routeFromTextfieldKey);
         await t.enterText(field, 'Genève');
         await t.pumpAndSettle();
@@ -131,35 +132,35 @@ void main() {
         await t.tap(suggested);
         await t.pumpAndSettle();
 
-        print('Tapping second textfield');
+        log.log('Tapping second textfield');
         final tapField2 = find.byKey(RoutePageState.routeToTextfieldKeyTap);
         await t.tap(tapField2);
         await t.pumpAndSettle();
 
-        print('Entering text in second textfield');
+        log.log('Entering text in second textfield');
         final field2 = find.byKey(RoutePageState.routeToTextfieldKey);
         await t.enterText(field2, 'Lausanne');
         await t.pumpAndSettle();
         await t.tap(suggested);
         await t.pumpAndSettle();
 
-        print('Looking for route tile');
+        log.log('Looking for route tile');
         final tile = find.byType(RouteTile).first;
         final text = find.text('Genève, Cornavin');
         expect(tile, findsOneWidget);
         expect(text.first, findsOneWidget);
-        print('Found it, tapping the tile...');
+        log.log('Found it, tapping the tile...');
 
         await t.tap(tile);
         await t.pumpAndSettle();
 
         final localizations = await AppLocalizations.delegate.load(const Locale('en'));
         expect(find.text(localizations.tabs_route), findsOneWidget);
-        print('We are in the route details page');
+        log.log('We are in the route details page');
 
         navigatorKey.currentState!.pop();
         await t.pumpAndSettle();
-        print('We are back');
+        log.log('We are back');
 
         expect(tile, findsOneWidget);
         expect(text.first, findsOneWidget);

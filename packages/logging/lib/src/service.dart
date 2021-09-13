@@ -41,8 +41,8 @@ class LoggingService {
     }
   }
 
-  void log(String message, {LogLevel level = LogLevel.info, String? channel}) =>
-      _log(message, channel: channel, level: level);
+  void log(Object? message, {LogLevel level = LogLevel.info, String? channel}) =>
+      _log(message.toString(), channel: channel, level: level);
 
   Future<T> future<T extends Object?>(Future<T> future,
       {String? channel, LogLevel level = LogLevel.info}) async {

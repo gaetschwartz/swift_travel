@@ -1,4 +1,5 @@
 import 'package:contacts_service/contacts_service.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:swift_travel/constants/env.dart';
 
@@ -21,7 +22,7 @@ class ContactsRepository {
     }
     if (!_granted) {
       final request = await Permission.contacts.request();
-      print("Status1: $request");
+      log.log("Status1: $request");
 
       _granted = request.isGranted;
     }
@@ -30,11 +31,11 @@ class ContactsRepository {
         _contacts ??= await ContactsService.getContacts(withThumbnails: withThumbnails);
         return _contacts!;
       } else {
-        return await ContactsService.getContacts(withThumbnails: withThumbnails);
+        return ContactsService.getContacts(withThumbnails: withThumbnails);
       }
     } else {
       final status = await Permission.contacts.status;
-      print("Status2: $status");
+      log.log("Status2: $status");
       throw Exception("Contacts permission is needed. Status: $status");
     }
   }

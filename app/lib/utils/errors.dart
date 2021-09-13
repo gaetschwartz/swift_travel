@@ -3,6 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/preferences.dart';
@@ -14,6 +15,7 @@ const _doShowSnackbars = !kDebugMode || Env.doShowErrors;
 
 void ignoreError() {}
 
+// ignore: avoid_void_async
 void reportDartError(
   Object e,
   StackTrace s, {
@@ -21,7 +23,7 @@ void reportDartError(
   String reason = '',
   bool showSnackbar = true,
 }) async {
-  print('Caught an error: ');
+  log.log('Caught an error: ');
   debugPrintStack(stackTrace: s, label: '[$library] $e $reason');
 
   final details = FlutterErrorDetails(
@@ -59,12 +61,13 @@ void reportDartError(
   }
 
   if (await _doReport) {
-    FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
+    await FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
   }
 }
 
+// ignore: avoid_void_async
 void reportFlutterError(FlutterErrorDetails details) async {
-  print('Caught a Flutter error: ${details.exception}');
+  log.log('Caught a Flutter error: ${details.exception}');
   debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
 
   if (_doShowSnackbars) {
@@ -94,7 +97,7 @@ void reportFlutterError(FlutterErrorDetails details) async {
     }
   }
   if (await _doReport) {
-    FirebaseCrashlytics.instance.recordFlutterError(details);
+    await FirebaseCrashlytics.instance.recordFlutterError(details);
   }
 }
 

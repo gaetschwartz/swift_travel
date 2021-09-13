@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui';
 
@@ -36,7 +37,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  void resetSettingsPrompt() async {
+  Future<void> resetSettingsPrompt() async {
     final c = await confirm(
       context,
       title: const Text('Reset settings ?'),
@@ -50,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
     final prefs = await SharedPreferences.getInstance();
     final b = await prefs.clear();
     log.log('Done : $b');
-    SystemNavigator.pop(animated: true);
+    unawaited(SystemNavigator.pop(animated: true));
   }
 
   @override

@@ -53,9 +53,9 @@ class DeepLinkBloc {
 
   Future<void> _onLink(String link) async {
     final uri = Uri.parse(link);
-    print('Initial link: $uri');
+    log.log('Initial link: $uri');
     if (uri.path == '/route') {
-      print('We have a new route $uri');
+      log.log('We have a new route $uri');
 
       final pair = await parseRouteArguments(uri, getApi());
       log.log(pair.toString());
@@ -84,7 +84,7 @@ class DeepLinkBloc {
     try {
       return channel.invokeMethod<String>('initialLink');
     } on MissingPluginException {
-      print('Unsupported platform for deeplink');
+      log.log('Unsupported platform for deeplink');
       return null;
     }
   }

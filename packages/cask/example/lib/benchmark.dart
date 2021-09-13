@@ -52,10 +52,7 @@ Future<void> overridingPutBenchmark(int n) async {
 
   b.add(
     BenchmarkResult(
-        name: 'cask',
-        ms: s.elapsedMilliseconds,
-        runs: n,
-        size: File(c.path!).lengthSync()),
+        name: 'cask', ms: s.elapsedMilliseconds, runs: n, size: File(c.path!).lengthSync()),
   );
   s.reset();
   await c.clear();
@@ -71,10 +68,7 @@ Future<void> overridingPutBenchmark(int n) async {
 
   b.add(
     BenchmarkResult(
-        name: 'hive box',
-        ms: s.elapsedMilliseconds,
-        runs: n,
-        size: File(h.path!).lengthSync()),
+        name: 'hive box', ms: s.elapsedMilliseconds, runs: n, size: File(h.path!).lengthSync()),
   );
   s.reset();
   await h.clear();
@@ -89,8 +83,7 @@ Future<void> overridingPutBenchmark(int n) async {
   }
 
   b
-    ..add(BenchmarkResult(
-        name: 'shared_preferences', ms: s.elapsedMilliseconds, runs: n))
+    ..add(BenchmarkResult(name: 'shared_preferences', ms: s.elapsedMilliseconds, runs: n))
     ..log();
 
   await prefs.clear();
@@ -105,8 +98,7 @@ Future<void> putBenchmark(int n) async {
   await c.open();
 
   for (var i = 0; i < n; i++) {
-    final key =
-        ascii.decode(List.generate(r.nextInt(32), (i) => r.nextInt(64) + 64));
+    final key = ascii.decode(List.generate(r.nextInt(32), (i) => r.nextInt(64) + 64));
 
     s.start();
     await c.put(key, i);
@@ -126,8 +118,7 @@ Future<void> putBenchmark(int n) async {
   final h = await Hive.openBox<int>('benchmarked');
 
   for (var i = 0; i < n; i++) {
-    final key =
-        ascii.decode(List.generate(r.nextInt(32), (i) => r.nextInt(64) + 64));
+    final key = ascii.decode(List.generate(r.nextInt(32), (i) => r.nextInt(64) + 64));
 
     s.start();
     await h.put(key, i);
@@ -147,8 +138,7 @@ Future<void> putBenchmark(int n) async {
   final prefs = await SharedPreferences.getInstance();
 
   for (var i = 0; i < n; i++) {
-    final key =
-        ascii.decode(List.generate(r.nextInt(32), (i) => r.nextInt(64) + 64));
+    final key = ascii.decode(List.generate(r.nextInt(32), (i) => r.nextInt(64) + 64));
 
     s.start();
     await prefs.setInt(key, i);
@@ -156,8 +146,7 @@ Future<void> putBenchmark(int n) async {
   }
 
   b
-    ..add(BenchmarkResult(
-        name: 'shared_preferences', ms: s.elapsedMilliseconds, runs: n))
+    ..add(BenchmarkResult(name: 'shared_preferences', ms: s.elapsedMilliseconds, runs: n))
     ..log();
 
   await prefs.clear();

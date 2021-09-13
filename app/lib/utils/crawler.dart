@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
@@ -79,7 +80,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                       });
                       try {
                         for (final lr in routes) {
-                          print('Fetching ${lr.fromAsString} -> ${lr.toAsString}');
+                          log.log('Fetching ${lr.fromAsString} -> ${lr.toAsString}');
                           for (var i = 0; i < 6; i++) {
                             final timeOfDay = TimeOfDay(hour: 8 + i * 2, minute: 0);
                             if (mounted) {
@@ -113,7 +114,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                           if (mounted) {
                             setState(() => currentI++);
                           }
-                          print('Done fetching ${lr.fromAsString} -> ${lr.toAsString}');
+                          log.log('Done fetching ${lr.fromAsString} -> ${lr.toAsString}');
                         }
                       } finally {
                         if (mounted) {

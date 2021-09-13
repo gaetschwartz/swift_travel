@@ -127,9 +127,8 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
             builder: (_) => const StopInputDialog(title: 'Add a favorite'),
           );
 
-    if (s == null) {
-      return;
-    }
+    if (s == null) return;
+    if (!mounted) return;
 
     await load(context, future: () async {
       final api = context.read(navigationAPIProvider);
@@ -151,13 +150,15 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
         return;
       }
 
-      final completion = completions.first;
+      if (!mounted) return;
+
       final name = await input(context, title: const Text('What is the name of this stop'));
-      if (name == null) {
-        return;
-      }
+
+      if (name == null) return;
+      if (!mounted) return;
+
       await store.addStop(FavoriteStop.fromCompletion(
-        completion,
+        completions.first,
         name: name,
         api: context.read(preferencesProvider).api.value,
       ));

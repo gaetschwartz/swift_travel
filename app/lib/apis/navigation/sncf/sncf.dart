@@ -67,7 +67,7 @@ class SncfApi extends BaseNavigationApi {
     final response = await _client.get(uri);
 
     final decode = jsonDecode(response.body) as Map<String, dynamic>;
-    //  print(decode);
+    //  log.log(decode);
     final sncfCompletion = SncfCompletion.fromJson(decode);
     final places = sncfCompletion.places;
     log.log('Found ${places.length} places');
@@ -107,7 +107,7 @@ class SncfApi extends BaseNavigationApi {
       ...await globalParameters,
       if (when != null) 'from_datetime': when.toIso8601String(),
     };
-    print(stop);
+    log.log(stop);
     final uri = Uri.https(
       'api.navitia.io',
       '/v1/coverage/fr-idf/stop_areas/${stop.id ?? stop.name}/departures',
@@ -125,7 +125,7 @@ class SncfApi extends BaseNavigationApi {
     /*  final out = <String, dynamic>{...decode};
     out['links'] = <void>[];
     out['disruptions'] = <void>[];
-    print(const JsonEncoder.withIndent('|').convert(out)); */
+    log.log(const JsonEncoder.withIndent('|').convert(out)); */
 
     final stationboard = SncfStationboard.fromJson(decode).copyWith(stop: stop);
     if (kDebugMode) {

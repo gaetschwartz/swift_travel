@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
@@ -55,7 +56,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
     _box = await Hive.openBox<TEncValue>(boxKey, path: path);
     assert(_debugInitialized = true, '');
     if (doLog) {
-      print('Opened $this at ${box.path}');
+      log.log('Opened $this at ${box.path}');
     }
   }
 

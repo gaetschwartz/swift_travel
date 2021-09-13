@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -9,7 +12,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/cache.dart';
@@ -88,6 +90,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
 
     if (isMobile) {
       MyQuickActions.i.init();
+
       await context.read(linksProvider).init(
             onNewRoute: (p) => navigatorKey.currentState!.push(
               PlatformPageRoute(
@@ -181,9 +184,9 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       try {
         final args = await DeepLinkBloc.parseRouteArguments(
             widget.uri!, context.read(navigationAPIProvider));
-        Navigator.of(context).pushNamed('/routeDetails', arguments: args);
+        await Navigator.of(context).pushNamed('/routeDetails', arguments: args);
       } on Exception catch (e, s) {
-        print(e);
+        log.log(e);
         debugPrintStack(stackTrace: s);
         return _routeToDefault();
       }

@@ -144,7 +144,7 @@ class SearchChApi extends BaseNavigationApi {
       map = jsonDecode(body) as Map<String, dynamic>;
       w.stop();
       if (w.elapsedMilliseconds > 10) {
-        print(
+        log.log(
           '⚠ Took ${w.elapsedMilliseconds} ms to decode ${body.length} characters',
         );
         debugPrintStack();

@@ -54,7 +54,7 @@ class GeoLocationEngine {
         }
       } on MissingPluginException {
         if (Env.isDebugMode) {
-          print('Location is not supported on this dervice, returned a spoofed location');
+          log.log('Location is not supported on this dervice, returned a spoofed location');
           return Future<GeoLocation>.delayed(
             const Duration(milliseconds: 500),
             () => _spoofedLocation,

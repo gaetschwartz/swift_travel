@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class Property<T extends Object?> implements ValueListenable<T> {
+mixin Property<T extends Object?> implements ValueListenable<T> {
   FutureOr<void> setValue(T value);
   @override
   T get value;

@@ -16,7 +16,7 @@ import 'package:swift_travel/tabs/favorites/favorites_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/stations_tab.dart';
 import 'package:swift_travel/utils/colors.dart';
-import 'package:swift_travel/utils/types.dart';
+import 'package:swift_travel/utils/definitions.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/page.dart';
 import 'package:swift_travel/widgets/route.dart';
@@ -149,8 +149,8 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
               key: navigatorKeys[i],
               pages: [SingleWidgetPage<void>(TabView.iosTabs[i], title: cupertinoItems[i].label)],
               onPopPage: (_, dynamic __) => true,
-              onUnknownRoute: (settings) => onUnknownRoute(settings),
-              onGenerateRoute: (settings) => onGenerateRoute(settings),
+              onUnknownRoute: onUnknownRoute,
+              onGenerateRoute: onGenerateRoute,
             ),
           ),
         );
@@ -178,8 +178,8 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
               key: navigatorKeys[page],
               pages: [SingleWidgetPage<void>(TabView.androidTabs[page], name: titles[page])],
               onPopPage: (_, dynamic __) => true,
-              onUnknownRoute: (settings) => onUnknownRoute(settings),
-              onGenerateRoute: (settings) => onGenerateRoute(settings),
+              onUnknownRoute: onUnknownRoute,
+              onGenerateRoute: onGenerateRoute,
             ),
           ),
         );
@@ -466,7 +466,7 @@ class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
     final prevPageTitle = widget.automaticallyImplyLeading
         ? widget.previousPageTitle ?? _previousPageTitle
         : widget.previousPageTitle;
-    // print('Previous page title is $prevPageTitle');
+    // log.log('Previous page title is $prevPageTitle');
 
     @allowReturningWidgets
     Widget? _pageTitleWidget() {

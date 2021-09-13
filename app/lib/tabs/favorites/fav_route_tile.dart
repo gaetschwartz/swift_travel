@@ -46,11 +46,11 @@ class FavoriteRouteTile extends StatelessWidget {
       );
 
   Future<void> rename(BuildContext context) async {
+    final store = context.read(storeProvider);
     final displayName = await input(context, title: Text('How to rename "${route.displayName}" ?'));
     if (displayName == null) {
       return;
     }
-    final store = context.read(storeProvider);
     await store.removeRoute(route);
     await store.addRoute(route.copyWith(displayName: displayName));
     return;
@@ -78,6 +78,7 @@ class FavoriteRouteTile extends StatelessWidget {
       );
 
   Future<void> deleteRoute(BuildContext context) async {
+    final favoritesStore = context.read(storeProvider);
     final b = await confirm(
       context,
       title: Text.rich(TextSpan(text: 'Delete ', children: [
@@ -109,9 +110,8 @@ class FavoriteRouteTile extends StatelessWidget {
       cancel: Text(AppLocalizations.of(context).no),
       isConfirmDestructive: true,
     );
-    if (!b) {
-      return;
-    }
-    return context.read(storeProvider).removeRoute(route);
+    if (!b) return;
+
+    return favoritesStore.removeRoute(route);
   }
 }

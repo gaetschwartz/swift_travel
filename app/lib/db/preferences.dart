@@ -34,7 +34,7 @@ class PreferencesBloc {
       SimpleSharedPreferencesProperty<bool>(prefix + analyticsKey, defaultValue: true);
 
   final isDeveloper =
-      SimpleSharedPreferencesProperty<bool>(prefix + "is_developer", defaultValue: false);
+      SimpleSharedPreferencesProperty<bool>("${prefix}is_developer", defaultValue: false);
 
   Future<void> loadFromPreferences({SharedPreferences? prefs}) async {
     final _prefs = prefs ?? await SharedPreferences.getInstance();

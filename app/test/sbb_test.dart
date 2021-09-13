@@ -32,7 +32,7 @@ void main() {
     () {
       final json = JSON.from(mockRoute);
       json["count"] = 1;
-      json["connections"] = [(mockRoute["connections"] as List).first as JSON];
+      json["connections"] = [(mockRoute["connections"] as List?)!.first as JSON];
       final route = SbbRoute.fromJson(json);
 
       expect(sbbRoute.toJson(), route.toJson());
@@ -42,8 +42,8 @@ void main() {
 
 final sbbRoute = SbbRoute(
   count: 1,
-  minDuration: 11880.0,
-  maxDuration: 18840.0,
+  minDuration: 11880,
+  maxDuration: 18840,
   sbbConnections: [
     SbbRouteConnection(
       from: "Université de Genève, Genève, Rue du Général-Dufour 24",
@@ -752,7 +752,6 @@ final sbbRoute = SbbRoute(
             ),
             waittime: 0,
             isaddress: true,
-            y: null,
           ),
           type: TransportationMode.walk,
           stopid: "8507186",

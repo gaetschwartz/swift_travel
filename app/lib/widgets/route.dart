@@ -55,7 +55,7 @@ mixin PlatformRouteTitleMixin<T> on PageRoute<T> {
 
   static String? getPreviousTitleOf(BuildContext context) {
     final route = ModalRoute.of(context);
-    // print('Current route is a ${route.runtimeType}');
+    // log.log('Current route is a ${route.runtimeType}');
     if (route == null || route.isFirst) {
       return null;
     }
