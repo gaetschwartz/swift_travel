@@ -294,6 +294,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
     try {
       final p = await GeoLocationEngine.instance.getLocation();
+      if (!mounted) return;
 
       final completions =
           await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
@@ -301,15 +302,20 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
       final first = completions.first;
       if (first.dist != null) {
         final public = completions.where((c) => !TransportationModeX.isAnAddress(c.type));
+        if (!mounted) return;
+
         context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log.log('Found : ${public.first}');
           searchController.text = public.first.label;
         }
       }
+      if (!mounted) return;
+
       context.read(_locatingProvider).state = _LoadingState.idle;
     } on Exception catch (e) {
       onError(e);
+      // ignore: avoid_catching_errors
     } on Error catch (e) {
       onError(e);
     }
@@ -331,6 +337,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
             query: query,
             doUseHistory: false,
           );
+      if (!mounted) return;
 
       context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {

@@ -140,7 +140,7 @@ class _FontChoiceTile extends StatelessWidget {
     );
   }
 
-  void onTap(BuildContext context) async {
+  Future<void> onTap(BuildContext context) async {
     final theme = DynamicTheme.of(context);
     final f = await choose<Font>(
       context,

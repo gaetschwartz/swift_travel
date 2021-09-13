@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/settings/widgets/constants.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
-import 'package:swift_travel/utils/types.dart';
+import 'package:swift_travel/utils/definitions.dart';
 
 class CupertinoSettingsSection extends StatelessWidget {
   const CupertinoSettingsSection(
@@ -22,7 +22,7 @@ class CupertinoSettingsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemsWithDividers = buildItemsWithDividers();
-    final largeScreen = MediaQuery.of(context).size.width >= 768 ? true : false;
+    final largeScreen = MediaQuery.of(context).size.width >= 768;
 
     final columnChildren = <Widget>[
       if (header != null)
@@ -38,51 +38,52 @@ class CupertinoSettingsSection extends StatelessWidget {
             child: header,
           ),
         ),
-      largeScreen
-          ? Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                color: Theme.of(context).brightness == Brightness.light
-                    ? CupertinoColors.white
-                    : iosTileDarkColor,
+      if (largeScreen)
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            color: Theme.of(context).brightness == Brightness.light
+                ? CupertinoColors.white
+                : iosTileDarkColor,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: itemsWithDividers,
+          ),
+        )
+      else
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).brightness == Brightness.light
+                ? CupertinoColors.white
+                : iosTileDarkColor,
+            border: const Border(
+              top: BorderSide(
+                color: borderColor,
+                width: 0.3,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: itemsWithDividers,
-              ),
-            )
-          : Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? CupertinoColors.white
-                    : iosTileDarkColor,
-                border: const Border(
-                  top: BorderSide(
-                    color: borderColor,
-                    width: 0.3,
-                  ),
-                  bottom: BorderSide(
-                    color: borderColor,
-                    width: 0.3,
-                  ),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: itemsWithDividers,
+              bottom: BorderSide(
+                color: borderColor,
+                width: 0.3,
               ),
             ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: itemsWithDividers,
+          ),
+        ),
       if (footer != null)
         DefaultTextStyle(
           style: const TextStyle(
             color: groupSubtitle,
-            fontSize: 13.0,
+            fontSize: 13,
             letterSpacing: -0.08,
           ),
           child: Padding(
             padding: const EdgeInsets.only(
-              left: 15.0,
-              right: 15.0,
+              left: 15,
+              right: 15,
               top: 7.5,
             ),
             child: footer,

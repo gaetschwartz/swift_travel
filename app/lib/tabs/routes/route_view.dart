@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shimmer/shimmer.dart';
@@ -286,7 +287,7 @@ class _PredictionTile extends StatelessWidget {
             ),
           ),
           error: (e, s) {
-            print(e);
+            log.log(e);
             debugPrintStack(stackTrace: s);
             return child!;
           },

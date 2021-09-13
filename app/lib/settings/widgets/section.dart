@@ -2,14 +2,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:swift_travel/utils/types.dart';
+import 'package:swift_travel/utils/definitions.dart';
 
 import 'constants.dart';
 import 'cupertino_section.dart';
 
 @immutable
 abstract class AbstractSection extends StatelessWidget {
-  final bool showBottomDivider = false;
+  final bool showBottomDivider;
   final Widget titleWidget;
   final EdgeInsetsGeometry titlePadding;
 
@@ -17,6 +17,7 @@ abstract class AbstractSection extends StatelessWidget {
     Key? key,
     required this.titleWidget,
     this.titlePadding = defaultTitlePadding,
+    this.showBottomDivider = false,
   }) : super(key: key);
 }
 
@@ -38,7 +39,7 @@ class SettingsSection extends AbstractSection {
     this.subtitlePadding = defaultTitlePadding,
     this.titleTextStyle,
     this.platform,
-  })  : assert(maxLines == null || maxLines > 0),
+  })  : assert(maxLines == null || maxLines > 0, ""),
         super(
           key: key,
           titleWidget: titleWidget,
@@ -67,14 +68,13 @@ class SettingsSection extends AbstractSection {
       tiles,
       header: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DefaultTextStyle(
-            child: titleWidget,
             style: titleTextStyle ?? const TextStyle(),
             maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
+            child: titleWidget,
           ),
           if (subtitle != null)
             Padding(
@@ -93,7 +93,6 @@ class SettingsSection extends AbstractSection {
       Padding(
         padding: titlePadding,
         child: DefaultTextStyle(
-          child: titleWidget,
           style: titleTextStyle ??
               TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
@@ -101,6 +100,7 @@ class SettingsSection extends AbstractSection {
               ),
           maxLines: maxLines,
           overflow: TextOverflow.ellipsis,
+          child: titleWidget,
         ),
       ),
       if (subtitle != null)

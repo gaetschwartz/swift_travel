@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
-import 'package:swift_travel/utils/types.dart';
+import 'package:swift_travel/utils/definitions.dart';
 
 class SbbIcon extends StatelessWidget {
   const SbbIcon(

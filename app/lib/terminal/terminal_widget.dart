@@ -65,9 +65,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
 
   void clear() => context.read(terminalHistoryProvider).state = [];
 
-  final maxLength = commands
-      .map<int>((e) => e.command.length)
-      .fold<int>(0, (previousValue, element) => math.max(previousValue, element));
+  final maxLength = commands.map<int>((e) => e.command.length).fold(0, math.max);
 
   Future<void> handleCommand(String txt) async {
     final s = txt.trim().toLowerCase().split(" ");
@@ -104,7 +102,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
     final firaCode = GoogleFonts.firaCode(textStyle: Theme.of(context).textTheme.bodyText1);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: DefaultTextStyle(
           style: firaCode,
           child: GestureDetector(
@@ -235,7 +233,7 @@ class Prompt extends StatelessWidget {
         ),
       ),
       TextSpan(
-        text: "\$ ",
+        text: r"$ ",
         style: GoogleFonts.firaCode(
           textStyle: Theme.of(context).textTheme.bodyText1,
           letterSpacing: 1,

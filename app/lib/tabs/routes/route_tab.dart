@@ -29,8 +29,8 @@ import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/states/route_textfield_state.dart';
 import 'package:swift_travel/tabs/routes/route_view.dart';
 import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/definitions.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/utils/types.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/datepicker.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -356,6 +356,9 @@ class RoutePageState extends State<RoutePage> {
                           await favorites.addRoute(LocalRoute.v2(
                               SbbStop(name: fromBinder.text), SbbStop(name: toBinder.text),
                               displayName: s));
+
+                          if (!mounted) return;
+
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(content: Text('Route starred !')));
                         },
@@ -413,9 +416,9 @@ class RoutePageState extends State<RoutePage> {
                               ),
                               textColor: CupertinoColors.activeBlue,
                             );
-                            if (date != null) {
-                              _date.state = date;
-                            }
+                            if (date != null) _date.state = date;
+
+                            if (!mounted) return;
                             context.read(timeTypeProvider).state = type;
                           },
                           child: Consumer(builder: (context, w, _) {

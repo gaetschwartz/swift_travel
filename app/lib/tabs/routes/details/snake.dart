@@ -4,6 +4,7 @@ import 'dart:math' as m;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 
 class SneccGame extends StatefulWidget {
@@ -124,7 +125,7 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
         if (body != head) {
           isHead = false;
         } else if (body == head && !isHead) {
-          print(snecc);
+          log.log(snecc);
           showDialog<void>(
               context: context,
               builder: (_) => const AlertDialog(title: Text('You ate yourself !')));

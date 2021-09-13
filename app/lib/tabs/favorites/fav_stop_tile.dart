@@ -114,16 +114,17 @@ class FavoriteStationTile extends StatelessWidget {
   }
 
   Future<void> rename(BuildContext context) async {
+    final store = context.read(storeProvider);
     final s = await input(context, title: Text('How to rename "${stop.name}" ?'));
     if (s == null) {
       return;
     }
-    final store = context.read(storeProvider);
     await store.removeStop(stop);
     return store.addStop(stop.copyWith(name: s));
   }
 
   Future<void> delete(BuildContext context) async {
+    final favoritesStore = context.read(storeProvider);
     final b = await confirm(
       context,
       title: Text(AppLocalizations.of(context).delete_fav),
@@ -137,9 +138,8 @@ class FavoriteStationTile extends StatelessWidget {
       cancel: Text(AppLocalizations.of(context).no),
       isConfirmDestructive: true,
     );
-    if (!b) {
-      return;
-    }
-    return context.read(storeProvider).removeStop(stop);
+    if (!b) return;
+
+    return favoritesStore.removeStop(stop);
   }
 }

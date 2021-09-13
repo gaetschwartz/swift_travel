@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:ui';
 
@@ -5,6 +7,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
@@ -121,11 +124,12 @@ class CompletionTile extends ConsumerWidget {
     BuildContext context, {
     required BaseFavoritesStore store,
   }) async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    Vibration.instance.select();
+
     final favoriteStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
     final isFav = favoriteStop != null;
 
-    FocusManager.instance.primaryFocus?.unfocus();
-    Vibration.instance.select();
     final c = await showActionSheet<_Actions>(
         context,
         [
@@ -152,14 +156,14 @@ class CompletionTile extends ConsumerWidget {
         if (isFav) {
           await store.removeStop(favoriteStop!);
         } else {
+          final preferencesBloc = context.read(preferencesProvider);
           final name = await input(context, title: const Text('What is the name of this stop'));
-          if (name == null) {
-            return;
-          }
+          if (name == null) return;
+
           await store.addStop(FavoriteStop.fromCompletion(
             sugg,
             name: name,
-            api: context.read(preferencesProvider).api.value,
+            api: preferencesBloc.api.value,
           ));
         }
         break;
@@ -222,7 +226,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
 
   Future<void> stationboard() async {
     if (!Env.doCacheLines) {
-      print('We are not caching lines');
+      log.log('We are not caching lines');
     }
     if (Env.doCacheLines && LineCache.i.containsKey(widget.compl.label)) {
       final l = LineCache.i

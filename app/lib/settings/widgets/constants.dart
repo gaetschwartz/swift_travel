@@ -14,14 +14,14 @@ const iosPressedTileColorDark = Color.fromRGBO(44, 44, 46, 1);
 const iosPressedTileColorLight = Color.fromRGBO(230, 229, 235, 1);
 
 const defaultTitlePadding = EdgeInsets.only(
-  left: 15.0,
-  right: 15.0,
-  bottom: 6.0,
+  left: 15,
+  right: 15,
+  bottom: 6,
 );
 
 const defaultCupertinoForwardIcon = Icon(
   CupertinoIcons.forward,
-  size: 21.0,
+  size: 21,
   color: mediumGrayColor,
 );
 

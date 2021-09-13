@@ -1,6 +1,7 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/utils/math.dart';
@@ -43,11 +44,11 @@ int _weekdayDiff(int a, int b) {
 /// Cache
 
 RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments arguments) {
-  if (kDebugMode) print('Making a prediction from arguments $arguments');
+  if (kDebugMode) log.log('Making a prediction from arguments $arguments');
   final watch = Stopwatch()..start();
 
   if (routes.isEmpty) {
-    print('Empty history, returning empty prediction');
+    log.log('Empty history, returning empty prediction');
     return RoutePrediction.empty(arguments);
   }
 
@@ -88,9 +89,9 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
       final pos = route.map(v2: (v2) => v2.from.position, v1: (v1) => null);
       if (pos != null) {
         final scaledDist = arguments.latLon.distanceTo(pos);
-        // print('Adding dist of $dist for ${route.fromAsString}');
+        // log.log('Adding dist of $dist for ${route.fromAsString}');
         const fourtyKilometers = 40000;
-        dist.add(WeighedAddend(min(1, scaledDist / fourtyKilometers), 4, "position distance"));
+        dist.add(WeighedAddend(math.min(1, scaledDist / fourtyKilometers), 4, "position distance"));
       } else {
         continue;
       }
@@ -107,9 +108,9 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
 
   final prediction = _computeWinner(top, arguments);
   _setCached(arguments, prediction);
-  // print('Predicting $prediction');
+  // log.log('Predicting $prediction');
 
-  print("Prediction took ${watch.elapsedMilliseconds} ms");
+  log.log("Prediction took ${watch.elapsedMilliseconds} ms");
 
   return prediction;
 }
@@ -138,7 +139,7 @@ RoutePrediction _computeWinner(
     }
   }
 
-  // print('Winner is $majRoute with $max votes');
+  // log.log('Winner is $majRoute with $max votes');
 
   sum /= _k;
 
@@ -149,7 +150,7 @@ void _report(Iterable<Pair<LocalRoute, ComputedSum>> top) {
   int i = 0;
   for (final p in top) {
     i++;
-    print('[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.second.overview}');
+    log.log('[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.second.overview}');
   }
 }
 

@@ -38,21 +38,20 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
           ? Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                   if (subtitle != null)
                     SizedBox(
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 0.0),
+                          padding: EdgeInsets.zero,
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 100),
                             child: DefaultTextStyle(
                               style: theme.textTheme.subtitle1!.copyWith(color: subtitleColor),
                               softWrap: false,
                               textAlign: TextAlign.right,
-                              child: subtitle!,
                               overflow: TextOverflow.fade,
+                              child: subtitle!,
                             ),
                           ),
                         ),

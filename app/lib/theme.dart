@@ -75,7 +75,7 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
     ExtendedTheme(
       name: 'Abin',
       id: "abin",
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: purpleAbin, brightness: Brightness.light),
+      colorScheme: ColorScheme.fromSwatch(primarySwatch: purpleAbin),
       shadow: lightShadow,
     ),
   ],

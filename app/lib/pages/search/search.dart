@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
@@ -147,9 +148,9 @@ class _SearchPageState extends State<SearchPage> {
   Future<String?> getPrediction(String query) async {
     if (widget.isDestination) {
       final args = PredictionArguments.withSource(query, dateTime: widget.dateTime);
-      print('Predicting the destination with $args');
+      log.log('Predicting the destination with $args');
       final prediction = await predictRoute(hist.history, args);
-      print(prediction);
+      log.log(prediction);
       if (prediction.prediction != null && prediction.confidence > .2) {
         return prediction.prediction!.map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
       }
@@ -193,12 +194,12 @@ class _SearchPageState extends State<SearchPage> {
     Vibration.instance.select();
 
     if (c.origin == DataOrigin.currentLocation) {
-      print('Using current location');
+      log.log('Using current location');
       widget.binder.useCurrentLocation(context);
     } else if (c is ContactCompletion) {
       final a = c.contact.postalAddresses.firstOrNull;
       if (a != null) {
-        print(c.contact.toMap());
+        log.log(c.contact.toMap());
         widget.binder.setString(context, a.toString());
       } else {
         ScaffoldMessenger.of(context)
@@ -322,12 +323,12 @@ class _Results extends StatelessWidget {
         );
       });
 
-  void pickContact(BuildContext context) async {
+  Future<void> pickContact(BuildContext context) async {
     Vibration.instance.select();
     final c = await showContactPicker(context);
     if (c != null) {
-      print("Chose ${c.displayName}");
-      print("with address ${c.postalAddresses.firstOrNull}");
+      log.log("Chose ${c.displayName}");
+      log.log("with address ${c.postalAddresses.firstOrNull}");
       onTap(ContactCompletion(c));
     }
   }
