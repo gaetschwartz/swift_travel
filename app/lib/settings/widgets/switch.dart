@@ -100,7 +100,7 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
             }),
       ),
     );
-    if (widget.isSubtitleOutside)
+    if (widget.isSubtitleOutside) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -113,7 +113,8 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
             )
         ],
       );
-    else
+    } else {
       return child;
+    }
   }
 }
