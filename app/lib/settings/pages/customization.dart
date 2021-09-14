@@ -15,7 +15,8 @@ class CustomizationSettingsPage extends StatefulWidget {
   const CustomizationSettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<CustomizationSettingsPage> createState() => _CustomizationSettingsPageState();
+  State<CustomizationSettingsPage> createState() =>
+      _CustomizationSettingsPageState();
 }
 
 class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
@@ -88,12 +89,15 @@ class _PlatformTile extends StatelessWidget {
       title: const Text('Platform'),
       items: p == TargetPlatform.iOS || p == TargetPlatform.android
           ? const [
-              ActionsSheetAction(value: TargetPlatform.android, title: Text('Android')),
+              ActionsSheetAction(
+                  value: TargetPlatform.android, title: Text('Android')),
               ActionsSheetAction(value: TargetPlatform.iOS, title: Text('iOS')),
             ]
           : const [
-              ActionsSheetAction(value: TargetPlatform.macOS, title: Text('MacOS')),
-              ActionsSheetAction(value: TargetPlatform.windows, title: Text('Windows')),
+              ActionsSheetAction(
+                  value: TargetPlatform.macOS, title: Text('MacOS')),
+              ActionsSheetAction(
+                  value: TargetPlatform.windows, title: Text('Windows')),
             ],
     );
   }
@@ -118,7 +122,8 @@ class _FontWeightTile extends StatelessWidget {
       ),
       title: const Text('Font weight'),
       items: map.keys
-          .map((key) => ActionsSheetAction<int>(value: key, title: Text(map[key]!)))
+          .map((key) =>
+              ActionsSheetAction<int>(value: key, title: Text(map[key]!)))
           .toList(growable: false),
       trailingBuilder: (i) => Text(map[i] ?? ''),
     );
@@ -144,11 +149,11 @@ class _FontChoiceTile extends StatelessWidget {
     final theme = DynamicTheme.of(context);
     final f = await choose<Font>(
       context,
-      choices: theme.configuration.fonts
+      options: theme.configuration.fonts
           .map(
-            (e) => Choice(
+            (e) => ValueOption(
               value: e,
-              child: Text(
+              title: Text(
                 e.name,
                 style: e.textTheme(Typography.englishLike2018).bodyText2,
               ),

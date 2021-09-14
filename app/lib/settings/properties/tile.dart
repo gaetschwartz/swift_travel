@@ -6,7 +6,9 @@ import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/listener.dart';
 
+@Deprecated("Use SwiftSettingsPropertyTile")
 class PropertyTile<T> extends StatelessWidget {
+  @Deprecated("Use SwiftSettingsPropertyTile")
   const PropertyTile(
     this.property, {
     required this.items,
@@ -51,7 +53,8 @@ class PropertyTile<T> extends StatelessWidget {
                         final res = await showChoiceSheet<T>(context, items,
                             defaultValue: prop.value,
                             cancel: ActionsSheetAction(
-                                title: Text(AppLocalizations.of(context).cancel)));
+                                title:
+                                    Text(AppLocalizations.of(context).cancel)));
                         if (res != null) {
                           prop.setValue(res);
                         }
@@ -59,7 +62,8 @@ class PropertyTile<T> extends StatelessWidget {
                 horizontalTitleGap: 0,
                 trailing: showSwitch
                     ? Switch.adaptive(
-                        value: prop.value as bool, onChanged: (v) => prop.setValue(v as T))
+                        value: prop.value as bool,
+                        onChanged: (v) => prop.setValue(v as T))
                     : DefaultTextStyle(
                         style: CupertinoTheme.of(context)
                             .textTheme
@@ -68,7 +72,8 @@ class PropertyTile<T> extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            if (trailingBuilder != null) trailingBuilder!.call(prop.value),
+                            if (trailingBuilder != null)
+                              trailingBuilder!.call(prop.value),
                             if (showChevron) ...[
                               const Gap(8),
                               const Icon(CupertinoIcons.chevron_forward),
