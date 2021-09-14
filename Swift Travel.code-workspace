@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "app"
+		},
+		{
+			"path": "packages\\theming"
 		}
 	],
 	"settings": {}

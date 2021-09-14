@@ -8,17 +8,17 @@ import 'package:theming/responsive.dart';
 enum DefaultAction { cancel, confirm }
 
 @immutable
-class Choice<T> {
-  const Choice({
+class ValueOption<T> {
+  const ValueOption({
     required this.value,
-    required this.child,
+    required this.title,
     this.onTap,
     this.isDestructive = false,
     this.isDefault = false,
   });
 
-  const Choice.cancel({
-    required this.child,
+  const ValueOption.cancel({
+    required this.title,
     this.value,
     this.onTap,
     this.isDestructive = true,
@@ -29,7 +29,7 @@ class Choice<T> {
   final bool isDefault;
   final T? value;
   final VoidCallback? onTap;
-  final Widget child;
+  final Widget title;
 }
 
 @immutable
@@ -46,10 +46,9 @@ class ChoiceResult<T> {
 
 Future<ChoiceResult<T?>> choose<T>(
   BuildContext context, {
-  required List<Choice<T>> choices,
+  required List<ValueOption<T>> options,
   required Widget title,
   Widget? message,
-  Choice<Widget>? cancel,
   T? value,
   TargetPlatform? platformOverride,
   bool useRootNavigator = true,
@@ -60,8 +59,7 @@ Future<ChoiceResult<T?>> choose<T>(
           builder: (_) => _ChoicePage(
             title: title,
             message: message,
-            choices: choices,
-            cancel: cancel,
+            choices: options,
             value: value,
           ),
         ),
@@ -75,39 +73,54 @@ class _ChoicePage<T> extends StatelessWidget {
     required this.title,
     required this.message,
     required this.choices,
-    required this.cancel,
     required this.value,
   }) : super(key: key);
 
   final Widget title;
   final Widget? message;
-  final List<Choice<T>> choices;
-  final Choice<Widget>? cancel;
+  final List<ValueOption<T>> choices;
   final T? value;
 
   @override
   Widget build(BuildContext context) {
-    final child = ListView.builder(
-      itemBuilder: (context, i) {
-        final c = choices[i];
-        return ListTile(
-          horizontalTitleGap: 0,
-          leading: value != null
-              ? Icon(Icons.check, color: value == c.value ? null : Colors.transparent)
-              : null,
-          title: c.child,
-          onTap: () => Navigator.of(context).pop(ChoiceResult<T>(c.value)),
-        );
-      },
-      itemCount: choices.length,
-    );
+    const radius = Radius.circular(16);
+    final child = Padding(
+        padding: const EdgeInsets.all(8),
+        child: ListView.builder(
+          itemBuilder: (context, i) {
+            final c = choices[i];
+            return Material(
+              color: Colors.transparent,
+              child: ListTile(
+                horizontalTitleGap: 0,
+                tileColor: Theme.of(context).backgroundColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                  top: i == 0 ? radius : Radius.zero,
+                  bottom: i == choices.length - 1 ? radius : Radius.zero,
+                )),
+                leading: value != null
+                    ? Icon(
+                        Icons.check,
+                        color: value == c.value
+                            ? IconTheme.of(context).color
+                            : Colors.transparent,
+                      )
+                    : null,
+                title: c.title,
+                onTap: () =>
+                    Navigator.of(context).pop(ChoiceResult<T>(c.value)),
+              ),
+            );
+          },
+          itemCount: choices.length,
+        ));
 
     return isThemeDarwin(context)
         ? CupertinoPageScaffold(
-            child: child,
-            navigationBar: CupertinoNavigationBar(
-              middle: title,
-            ),
+            backgroundColor: CupertinoColors.systemGrey6,
+            navigationBar: CupertinoNavigationBar(middle: title),
+            child: Builder(builder: (context) => child),
           )
         : Scaffold(
             body: child,

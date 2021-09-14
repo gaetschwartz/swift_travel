@@ -15,14 +15,14 @@ import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/settings/pages/customization.dart';
 import 'package:swift_travel/settings/pages/developer.dart';
-import 'package:swift_travel/settings/properties/tile.dart';
 import 'package:swift_travel/settings/team_page.dart';
+import 'package:swift_travel/settings/widgets/switch.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
-import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
+import 'package:theming/dialogs/choice.dart';
 import 'package:theming/dynamic_theme.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -40,59 +40,65 @@ class _SettingsPageState extends State<SettingsPage> {
       const _ThemeModeList(),
       const Gap(16),
       SwiftSettingsTile(
-        tileBorders: TileBorders.top,
+        tileBorders: const TileBorders(top: true),
         title: Text(AppLocalizations.of(context).customization),
         leading: const Icon(CupertinoIcons.wand_stars),
         onTap: () => Navigator.of(context).push(PlatformPageRoute(
             builder: (_) => const CustomizationSettingsPage())),
       ),
       if (Env.isDebugMode || defaultTargetPlatform == TargetPlatform.iOS)
-        PropertyTile<NavigationApp>(context.read(preferencesProvider).mapsApp,
-            title: Text(AppLocalizations.of(context).maps_app),
-            icon: const Icon(Icons.map_rounded),
-            items: const [
-              ActionsSheetAction(
-                  value: NavigationApp.apple, title: Text('Apple Maps')),
-              ActionsSheetAction(
-                  value: NavigationApp.google, title: Text('Google Maps')),
-            ],
-            trailingBuilder: (v) => Text(v.toStringFull())),
-      PropertyTile<NavigationApiId>(
-        context.read(preferencesProvider).api,
-        items: NavigationApiFactory.factories
+        SwiftSettingsPropertyTile<NavigationApp>(
+          property: context.read(preferencesProvider).mapsApp,
+          title: Text(AppLocalizations.of(context).maps_app),
+          leading: const Icon(Icons.map_rounded),
+          options: const [
+            ValueOption(
+              value: NavigationApp.apple,
+              title: Text('Apple Maps'),
+            ),
+            ValueOption(
+              value: NavigationApp.google,
+              title: Text('Google Maps'),
+            ),
+          ],
+          valueBuilder: (context, v) => Text(v.toStringFull()),
+        ),
+      SwiftSettingsPropertyTile<NavigationApiId>(
+        property: context.read(preferencesProvider).api,
+        options: NavigationApiFactory.factories
             .map(
-              (e) => ActionsSheetAction(
+              (e) => ValueOption(
                   title: Text(e.name), value: NavigationApiId(e.id.value)),
             )
             .toList(growable: false),
         title: Text(AppLocalizations.of(context).navigation_api),
-        icon: const Icon(CupertinoIcons.link),
-        trailingBuilder: (v) => Text(NavigationApiFactory.fromId(v).shortDesc),
-        pageDescription: const Text(
-            'BETA: In the future the goal is to add more countries.'),
+        leading: const Icon(CupertinoIcons.link),
+        valueBuilder: (context, v) =>
+            Text(NavigationApiFactory.fromId(v).shortDesc),
+        /* pageDescription: const Text(
+            'BETA: In the future the goal is to add more countries.'),*/
       ),
-      PropertyTile<bool>(
-        context.read(preferencesProvider).useAnalytics,
-        items: const [
-          ActionsSheetAction(value: true, title: Text('True')),
-          ActionsSheetAction(value: false, title: Text('False')),
-        ],
+      SwiftSettingsSwitchTile.property(
+        property: context.read(preferencesProvider).useAnalytics,
         title: const Text('Use analytics'),
-        icon: const Icon(CupertinoIcons.list_bullet),
         subtitle: const Text('The app collects anonymized crash reports.'),
+        tileBorders: const TileBorders(bottom: true),
       ),
-      const Divider(height: 0),
       _SectionTitle(title: Text(AppLocalizations.of(context).more)),
-      SwiftSettingsTile(
-        tileBorders: TileBorders.top,
-        leading: const Icon(CupertinoIcons.person_3_fill),
-        title: Text(AppLocalizations.of(context).our_team),
-        onTap: () => Navigator.of(context, rootNavigator: true)
-            .push(PlatformPageRoute(builder: (_) => const TeamPage())),
-      ),
+      Consumer(builder: (context, w, _) {
+        final isDev = w(isDeveloperProvider).value;
+        return SwiftSettingsTile(
+          tileBorders: TileBorders(top: true, bottom: !isDev),
+          leading: const Icon(CupertinoIcons.person_3_fill),
+          title: Text(AppLocalizations.of(context).our_team),
+          onTap: () => Navigator.of(context, rootNavigator: true)
+              .push(PlatformPageRoute(builder: (_) => const TeamPage())),
+        );
+      }),
       Consumer(
         builder: (context, w, _) => w(isDeveloperProvider).value
             ? SwiftSettingsTile(
+                tileBorders: const TileBorders(bottom: true),
                 title: Text(AppLocalizations.of(context).developer),
                 leading: const Icon(Icons.developer_board),
                 onTap: () => Navigator.of(context).push(PlatformPageRoute(
@@ -122,7 +128,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 navigationBar: SwiftCupertinoBar(
                   middle: Text(AppLocalizations.of(context).settings),
                 ),
-                backgroundColor: CupertinoColors.systemGrey6,
+                backgroundColor: SettingsColor.background.resolveFrom(context),
                 child: child!,
               ),
             ),
@@ -150,6 +156,33 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
             ));
+  }
+}
+
+class SettingsColor {
+  final Color light;
+  final Color dark;
+
+  const SettingsColor({required this.light, required this.dark});
+
+  static const background = SettingsColor(
+    light: CupertinoColors.systemGrey6,
+    dark: CupertinoColors.systemBackground,
+  );
+
+  static const tile = SettingsColor(
+    light: CupertinoColors.systemBackground,
+    dark: CupertinoColors.darkBackgroundGray,
+  );
+
+  Color resolveFrom(BuildContext context) {
+    final brightness = CupertinoTheme.brightnessOf(context);
+    switch (brightness) {
+      case Brightness.dark:
+        return dark;
+      case Brightness.light:
+        return light;
+    }
   }
 }
 
