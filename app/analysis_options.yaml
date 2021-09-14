@@ -64,6 +64,7 @@ analyzer:
 # Explicitly disable only the rules we do not want.
 linter:
   rules:
+    prefer_initializing_formals: false
     sort_pub_dependencies: false
     prefer_relative_imports: false
     always_specify_types: false

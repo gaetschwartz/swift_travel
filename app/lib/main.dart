@@ -36,9 +36,10 @@ import 'models/favorites.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-final isTest = Platform.environment.containsKey('FLUTTER_TEST');
+bool get isTest => Platform.environment.containsKey('FLUTTER_TEST');
 
-String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
+String get platform =>
+    kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
 
 void main() {
   preLaunchRoutine();
@@ -105,7 +106,8 @@ class FullApp extends StatefulWidget {
 }
 
 class _FullAppState extends State<FullApp> {
-  final DynamicThemeData dynamicThemeData = DynamicThemeData(DynamicThemeData.defaultConfig);
+  final DynamicThemeData dynamicThemeData =
+      DynamicThemeData(DynamicThemeData.defaultConfig);
 
   @override
   void reassemble() {
@@ -174,7 +176,8 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
           // log.log('Switching tab');
           final tabs = context.read(tabProvider);
-          tabs.index = tabs.index % (darwin ? TabView.iosTabs.length : TabView.androidTabs.length);
+          tabs.index = tabs.index %
+              (darwin ? TabView.iosTabs.length : TabView.androidTabs.length);
         })
       },
       onGenerateRoute: onGenerateRoute,
@@ -280,12 +283,14 @@ Route<void>? onGenerateRoute(RouteSettings settings) {
     case '/liveRoute':
       return PlatformPageRoute(
         settings: settings,
-        builder: (_) => LiveRoutePage(connection: settings.arguments! as RouteConnection),
+        builder: (_) =>
+            LiveRoutePage(connection: settings.arguments! as RouteConnection),
       );
     case '/stopDetails':
       return PlatformPageRoute(
         settings: settings,
-        builder: (_) => StopDetails(SbbStop(name: settings.arguments! as String)),
+        builder: (_) =>
+            StopDetails(SbbStop(name: settings.arguments! as String)),
       );
 
     case '/error':

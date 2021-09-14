@@ -6,7 +6,8 @@ import 'package:swift_travel/mocking/mocking.dart';
 
 import 'db.dart';
 
-class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDatabaseMixin {
+class LineCache extends LocalDatabase<String, Map, LineCacheEntry>
+    with KeyedDatabaseMixin {
   @visibleForTesting
   LineCache()
       : super(
@@ -40,7 +41,9 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
         .where((e) => now.difference(e.value.timestamp).inMinutes > e.value.ttl)
         .map((e) => e.key);
     if (kDebugMode && toDelete.isNotEmpty) {
-      log.log('Found these outdated cache entries: $toDelete');
+      log.log(
+        'Found these outdated cache entries: ${toDelete.map(Uri.decodeComponent)}',
+      );
     }
     await deleteAll(toDelete);
   }

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui';
 
@@ -7,9 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/constants/env.dart';
@@ -26,7 +23,6 @@ import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
-import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dynamic_theme.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -37,23 +33,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  Future<void> resetSettingsPrompt() async {
-    final c = await confirm(
-      context,
-      title: const Text('Reset settings ?'),
-      content: const Text('You will lose all of you favorites!'),
-      isConfirmDestructive: true,
-      confirm: Text(AppLocalizations.of(context).yes),
-      cancel: Text(AppLocalizations.of(context).no),
-    );
-    if (!c) return;
-
-    final prefs = await SharedPreferences.getInstance();
-    final b = await prefs.clear();
-    log.log('Done : $b');
-    unawaited(SystemNavigator.pop(animated: true));
-  }
-
   @override
   Widget build(BuildContext context) {
     final children = [
@@ -61,31 +40,36 @@ class _SettingsPageState extends State<SettingsPage> {
       const _ThemeModeList(),
       const Gap(16),
       SwiftSettingsTile(
+        tileBorders: TileBorders.top,
         title: Text(AppLocalizations.of(context).customization),
         leading: const Icon(CupertinoIcons.wand_stars),
-        onTap: () => Navigator.of(context)
-            .push(PlatformPageRoute(builder: (_) => const CustomizationSettingsPage())),
+        onTap: () => Navigator.of(context).push(PlatformPageRoute(
+            builder: (_) => const CustomizationSettingsPage())),
       ),
-      if (Env.isDebugMode || Theme.of(context).platform == TargetPlatform.iOS)
+      if (Env.isDebugMode || defaultTargetPlatform == TargetPlatform.iOS)
         PropertyTile<NavigationApp>(context.read(preferencesProvider).mapsApp,
             title: Text(AppLocalizations.of(context).maps_app),
             icon: const Icon(Icons.map_rounded),
             items: const [
-              ActionsSheetAction(value: NavigationApp.apple, title: Text('Apple Maps')),
-              ActionsSheetAction(value: NavigationApp.google, title: Text('Google Maps')),
+              ActionsSheetAction(
+                  value: NavigationApp.apple, title: Text('Apple Maps')),
+              ActionsSheetAction(
+                  value: NavigationApp.google, title: Text('Google Maps')),
             ],
             trailingBuilder: (v) => Text(v.toStringFull())),
       PropertyTile<NavigationApiId>(
         context.read(preferencesProvider).api,
         items: NavigationApiFactory.factories
             .map(
-              (e) => ActionsSheetAction(title: Text(e.name), value: NavigationApiId(e.id.value)),
+              (e) => ActionsSheetAction(
+                  title: Text(e.name), value: NavigationApiId(e.id.value)),
             )
             .toList(growable: false),
         title: Text(AppLocalizations.of(context).navigation_api),
         icon: const Icon(CupertinoIcons.link),
         trailingBuilder: (v) => Text(NavigationApiFactory.fromId(v).shortDesc),
-        pageDescription: const Text('BETA: In the future the goal is to add more countries.'),
+        pageDescription: const Text(
+            'BETA: In the future the goal is to add more countries.'),
       ),
       PropertyTile<bool>(
         context.read(preferencesProvider).useAnalytics,
@@ -100,26 +84,19 @@ class _SettingsPageState extends State<SettingsPage> {
       const Divider(height: 0),
       _SectionTitle(title: Text(AppLocalizations.of(context).more)),
       SwiftSettingsTile(
+        tileBorders: TileBorders.top,
         leading: const Icon(CupertinoIcons.person_3_fill),
         title: Text(AppLocalizations.of(context).our_team),
         onTap: () => Navigator.of(context, rootNavigator: true)
             .push(PlatformPageRoute(builder: (_) => const TeamPage())),
       ),
-      const Divider(),
-      SwiftSettingsTile(
-        leading: const Icon(Icons.restore),
-        title: Text(AppLocalizations.of(context).reset_settings),
-        onTap: resetSettingsPrompt,
-        showChevron: false,
-      ),
-      const Divider(),
       Consumer(
         builder: (context, w, _) => w(isDeveloperProvider).value
             ? SwiftSettingsTile(
                 title: Text(AppLocalizations.of(context).developer),
                 leading: const Icon(Icons.developer_board),
-                onTap: () => Navigator.of(context)
-                    .push(PlatformPageRoute(builder: (_) => const DeveloperSettingsPage())),
+                onTap: () => Navigator.of(context).push(PlatformPageRoute(
+                    builder: (_) => const DeveloperSettingsPage())),
               )
             : const SizedBox.shrink(),
       ),
@@ -138,20 +115,21 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     ];
 
-    return DividerTheme(
-      data: const DividerThemeData(indent: 16, endIndent: 16, thickness: 0.5),
-      child: PlatformBuilder(
-          cupertinoBuilder: (context, child) => Material(
-                child: CupertinoPageScaffold(
-                  resizeToAvoidBottomInset: false,
-                  navigationBar: SwiftCupertinoBar(
-                    middle: Text(AppLocalizations.of(context).settings),
-                  ),
-                  child: child!,
+    return PlatformBuilder(
+        cupertinoBuilder: (context, child) => Material(
+              child: CupertinoPageScaffold(
+                resizeToAvoidBottomInset: false,
+                navigationBar: SwiftCupertinoBar(
+                  middle: Text(AppLocalizations.of(context).settings),
                 ),
+                backgroundColor: CupertinoColors.systemGrey6,
+                child: child!,
               ),
-          materialBuilder: (context, child) => Scaffold(body: child),
-          builder: (context, design) => CustomScrollView(
+            ),
+        materialBuilder: (context, child) => Scaffold(body: child),
+        builder: (context, design) => Padding(
+              padding: const EdgeInsets.all(8),
+              child: CustomScrollView(
                 key: const Key('settings-scrollview'),
                 slivers: [
                   if (design == PlatformDesign.material)
@@ -170,8 +148,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ],
-              )),
-    );
+              ),
+            ));
   }
 }
 
@@ -227,8 +205,8 @@ class BuildDetailsWidget extends StatelessWidget {
 
     if (controller.state == 6) {
       context.read(preferencesProvider).isDeveloper.setValue(true);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("You are now a developer 😎")));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("You are now a developer 😎")));
     } else {
       controller.state++;
     }
@@ -335,7 +313,8 @@ class __ScrollProgressState extends State<_ScrollProgress> {
 
   void update() {
     if (mounted) {
-      final p = widget._controller.position.pixels / widget._controller.position.maxScrollExtent;
+      final p = widget._controller.position.pixels /
+          widget._controller.position.maxScrollExtent;
       setState(() => progress = math.min(1, p));
     }
   }
@@ -404,13 +383,17 @@ class _ThememodeWidget extends StatelessWidget {
                       )
                     : null,
                 gradient: mode == ThemeMode.system
-                    ? LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
-                        theme.light.colorScheme.background,
-                        theme.dark.colorScheme.background,
-                      ], stops: const [
-                        0.5,
-                        0.5
-                      ])
+                    ? LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                            theme.light.colorScheme.background,
+                            theme.dark.colorScheme.background,
+                          ],
+                        stops: const [
+                            0.5,
+                            0.5
+                          ])
                     : null,
                 borderRadius: const BorderRadius.all(Radius.circular(16))),
             child: Center(
@@ -422,10 +405,12 @@ class _ThememodeWidget extends StatelessWidget {
                         child: Container(
                           color: Colors.white30,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 4),
+                            padding: const EdgeInsets.only(
+                                left: 8, right: 8, bottom: 8, top: 4),
                             child: Text(
                               label,
-                              style: t.textTheme.headline6!.copyWith(color: Colors.black),
+                              style: t.textTheme.headline6!
+                                  .copyWith(color: Colors.black),
                             ),
                           ),
                         ),
@@ -451,7 +436,10 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: DefaultTextStyle(
-          style: Theme.of(context).textTheme.headline6!.copyWith(color: primaryColor(context)),
+          style: Theme.of(context)
+              .textTheme
+              .headline6!
+              .copyWith(color: primaryColor(context)),
           textAlign: TextAlign.left,
           child: title,
         ),
