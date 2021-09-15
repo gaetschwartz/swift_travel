@@ -143,7 +143,7 @@ class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
   Widget build(BuildContext context) {
     return DividerTheme(
       data: const DividerThemeData(indent: 16, endIndent: 16, thickness: 0.5),
-      child: PlatformScaffold(
+      child: PlatformSettingsScaffold(
           title: Text(AppLocalizations.of(context).developer),
           child: ListView(
             children: children,
