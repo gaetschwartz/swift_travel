@@ -31,41 +31,22 @@ mixin Property<T extends Object?> implements ValueListenable<T> {
       };
 }
 
-abstract class ChangeNotifierProperty<T extends Object?> extends ChangeNotifier with Property<T> {}
+abstract class ChangeNotifierProperty<T extends Object?> extends ChangeNotifier
+    with Property<T> {}
 
 class SyncProperty<T extends Object?> extends ChangeNotifier with Property<T> {
   SyncProperty({
     this.onSet,
-    this.getValue,
-    this.defaultValue,
-  })  : assert(
-          null is T || defaultValue != null,
-          'You need to provide a default value for non-nullable properties.',
-        ),
-        _value = defaultValue! {
-    if (getValue != null) {
-      _value = getValue!.call() ?? defaultValue!;
-      notifyListeners();
-    }
-  }
+    required this.initialValue,
+  }) : _value = initialValue;
 
   final void Function(T value)? onSet;
-  final T? Function()? getValue;
-  final T? defaultValue;
+  final T initialValue;
 
   T _value;
 
   @override
   T get value => _value;
-
-  set value(T value) {
-    if (value == _value) {
-      return;
-    }
-    _value = value;
-    onSet?.call(value);
-    notifyListeners();
-  }
 
   @override
   Future<void> setValue(T value) async {
@@ -116,8 +97,8 @@ class AsyncProperty<T extends Object?> extends ChangeNotifier with Property<T> {
   }
 }
 
-class MappedSharedPreferencesProperty<TValue extends Object?, TEncValue extends Object?>
-    extends ChangeNotifierProperty<TValue> {
+class MappedSharedPreferencesProperty<TValue extends Object?,
+    TEncValue extends Object?> extends ChangeNotifierProperty<TValue> {
   MappedSharedPreferencesProperty(
     this.key, {
     required this.decode,
@@ -176,7 +157,8 @@ class MappedSharedPreferencesProperty<TValue extends Object?, TEncValue extends 
     } else if (value is double) {
       await prefs.setDouble(key, value);
     } else {
-      assert(false, 'Type ${value.runtimeType} is not supported for shared preferences');
+      assert(false,
+          'Type ${value.runtimeType} is not supported for shared preferences');
     }
   }
 }

@@ -20,9 +20,9 @@ import 'package:swift_travel/settings/widgets/switch.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
+import 'package:swift_travel/widgets/choice.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/route.dart';
-import 'package:theming/dialogs/choice.dart';
 import 'package:theming/dynamic_theme.dart';
 
 class SettingsPage extends StatefulWidget {

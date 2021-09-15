@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
+import 'package:swift_travel/widgets/choice.dart';
 import 'package:swift_travel/widgets/listener.dart';
-import 'package:theming/dialogs/choice.dart';
 import 'package:theming/responsive.dart';
 
 mixin WithLeading {
@@ -26,7 +26,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
   const SwiftSettingsTile({
     Key? key,
     required this.title,
-    required this.leading,
+    this.leading,
     this.subtitle,
     this.onTap,
     this.showChevron = true,
@@ -35,7 +35,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
 
   final Widget title;
   @override
-  final Widget leading;
+  final Widget? leading;
   final Widget? subtitle;
   final VoidCallback? onTap;
   final bool showChevron;
@@ -105,8 +105,8 @@ class SwiftSettingsPropertyTile<T> extends StatelessWidget with WithLeading {
   const SwiftSettingsPropertyTile({
     Key? key,
     required this.title,
-    required this.leading,
     required this.property,
+    this.leading,
     this.subtitle,
     this.onTap,
     this.showChevron = true,
@@ -117,7 +117,7 @@ class SwiftSettingsPropertyTile<T> extends StatelessWidget with WithLeading {
 
   final Widget title;
   @override
-  final Widget leading;
+  final Widget? leading;
   final Widget? subtitle;
   final VoidCallback? onTap;
   final bool showChevron;
@@ -136,24 +136,19 @@ class SwiftSettingsPropertyTile<T> extends StatelessWidget with WithLeading {
         builder: (context, p, _) => valueBuilder(context, p.value),
         listenable: property,
       ),
-      onTap: () => switchValue(context),
+      onTap: () => changeValue(context),
       showChevron: showChevron,
       tileBorders: tileBorders,
     );
   }
 
-  Future<void> switchValue(BuildContext context) async {
-    final c = await choose<T>(
+  Future<void> changeValue(BuildContext context) async {
+    await showPropertyPage<T>(
       context,
       options: options,
       title: title,
-      value: property.value,
+      property: property,
     );
-
-    final value = c.value;
-    if (value != null) {
-      property.setValue(value);
-    }
   }
 
   static Widget _valueBuilder(BuildContext _, dynamic val) =>

@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/settings/properties/property.dart';
-import 'package:swift_travel/settings/properties/tile.dart';
+import 'package:swift_travel/settings/settings.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
-import 'package:swift_travel/widgets/action_sheet.dart';
+import 'package:swift_travel/widgets/choice.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
-import 'package:theming/dialogs/choice.dart';
 import 'package:theming/dynamic_theme.dart';
 
 class CustomizationSettingsPage extends StatefulWidget {
@@ -20,26 +19,27 @@ class CustomizationSettingsPage extends StatefulWidget {
 }
 
 class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
-  final children = [
-    const _FontChoiceTile(),
-    const _FontWeightTile(),
-    const _PlatformTile(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return DividerTheme(
       data: const DividerThemeData(indent: 16, endIndent: 16, thickness: 0.5),
-      child: PlatformScaffold(
+      child: PlatformSettingsScaffold(
         title: Text(AppLocalizations.of(context).customization),
-        child: ListView(children: children),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: ListView(children: const [
+            _FontChoiceTile(),
+            // _FontWeightTile(),
+            _PlatformTile(),
+          ]),
+        ),
       ),
     );
   }
 }
 
-class PlatformScaffold extends StatelessWidget {
-  const PlatformScaffold({
+class PlatformSettingsScaffold extends StatelessWidget {
+  const PlatformSettingsScaffold({
     Key? key,
     required this.child,
     this.title,
@@ -54,6 +54,7 @@ class PlatformScaffold extends StatelessWidget {
       cupertinoBuilder: (context, child) => Material(
         child: CupertinoPageScaffold(
           resizeToAvoidBottomInset: false,
+          backgroundColor: SettingsColor.background.resolveFrom(context),
           navigationBar: SwiftCupertinoBar(
             middle: title,
           ),
@@ -80,23 +81,23 @@ class _PlatformTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = DynamicTheme.of(context);
     final p = defaultTargetPlatform;
-    return PropertyTile<TargetPlatform>(
-      SyncProperty<TargetPlatform>(
+    return SwiftSettingsPropertyTile<TargetPlatform>(
+      tileBorders: const TileBorders(bottom: true),
+      property: SyncProperty<TargetPlatform>(
         onSet: (p) => theme.platform = p,
-        defaultValue: theme.platform,
+        initialValue: theme.platform,
       ),
-      trailingBuilder: (v) => Text(v.name),
+      valueBuilder: (_, v) => Text(v.name),
       title: const Text('Platform'),
-      items: p == TargetPlatform.iOS || p == TargetPlatform.android
+      options: p == TargetPlatform.iOS || p == TargetPlatform.android
           ? const [
-              ActionsSheetAction(
+              ValueOption(
                   value: TargetPlatform.android, title: Text('Android')),
-              ActionsSheetAction(value: TargetPlatform.iOS, title: Text('iOS')),
+              ValueOption(value: TargetPlatform.iOS, title: Text('iOS')),
             ]
           : const [
-              ActionsSheetAction(
-                  value: TargetPlatform.macOS, title: Text('MacOS')),
-              ActionsSheetAction(
+              ValueOption(value: TargetPlatform.macOS, title: Text('MacOS')),
+              ValueOption(
                   value: TargetPlatform.windows, title: Text('Windows')),
             ],
     );
@@ -115,17 +116,17 @@ class _FontWeightTile extends StatelessWidget {
     // final t = theme.font
     //     .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
     //     .bodyText1!;
-    return PropertyTile<int>(
-      SyncProperty<int>(
+    return SwiftSettingsPropertyTile<int>(
+      property: SyncProperty<int>(
         onSet: (delta) => theme.fontWeightDelta = delta,
-        defaultValue: theme.fontWeightDelta,
+        initialValue: theme.fontWeightDelta,
       ),
+      leading: const Icon(Icons.text_fields),
       title: const Text('Font weight'),
-      items: map.keys
-          .map((key) =>
-              ActionsSheetAction<int>(value: key, title: Text(map[key]!)))
+      options: map.keys
+          .map((key) => ValueOption<int>(value: key, title: Text(map[key]!)))
           .toList(growable: false),
-      trailingBuilder: (i) => Text(map[i] ?? ''),
+      valueBuilder: (_, i) => Text(map[i] ?? ''),
     );
   }
 }
@@ -137,18 +138,11 @@ class _FontChoiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SwiftSettingsTile(
-      leading: const Icon(CupertinoIcons.textformat_abc),
+    final theme = DynamicTheme.of(context);
+    return SwiftSettingsPropertyTile<Font>(
+      tileBorders: const TileBorders(top: true),
       title: Text(AppLocalizations.of(context).font),
       subtitle: Text(DynamicTheme.of(context).font.name),
-      onTap: () => onTap(context),
-    );
-  }
-
-  Future<void> onTap(BuildContext context) async {
-    final theme = DynamicTheme.of(context);
-    final f = await choose<Font>(
-      context,
       options: theme.configuration.fonts
           .map(
             (e) => ValueOption(
@@ -160,13 +154,12 @@ class _FontChoiceTile extends StatelessWidget {
             ),
           )
           .toList(),
-      title: Text(AppLocalizations.of(context).font),
-      value: theme.font,
+      property: SyncProperty<Font>(
+        onSet: (f) => theme.font = f,
+        initialValue: theme.font,
+      ),
+      valueBuilder: (context, value) => Text(value.name),
     );
-    final value = f.value;
-    if (value != null) {
-      theme.font = value;
-    }
   }
 }
 
