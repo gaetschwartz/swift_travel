@@ -104,33 +104,6 @@ class _PlatformTile extends StatelessWidget {
   }
 }
 
-class _FontWeightTile extends StatelessWidget {
-  const _FontWeightTile({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = DynamicTheme.of(context);
-    const map = {-1: 'Light', 0: 'Normal', 1: 'Medium', 3: 'Bold'};
-    // final t = theme.font
-    //     .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
-    //     .bodyText1!;
-    return SwiftSettingsPropertyTile<int>(
-      property: SyncProperty<int>(
-        onSet: (delta) => theme.fontWeightDelta = delta,
-        initialValue: theme.fontWeightDelta,
-      ),
-      leading: const Icon(Icons.text_fields),
-      title: const Text('Font weight'),
-      options: map.keys
-          .map((key) => ValueOption<int>(value: key, title: Text(map[key]!)))
-          .toList(growable: false),
-      valueBuilder: (_, i) => Text(map[i] ?? ''),
-    );
-  }
-}
-
 class _FontChoiceTile extends StatelessWidget {
   const _FontChoiceTile({
     Key? key,
@@ -181,3 +154,30 @@ extension TargetPlatfromX on TargetPlatform {
     }
   }
 }
+
+/* class _FontWeightTile extends StatelessWidget {
+  const _FontWeightTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = DynamicTheme.of(context);
+    const map = {-1: 'Light', 0: 'Normal', 1: 'Medium', 3: 'Bold'};
+    // final t = theme.font
+    //     .textTheme(Typography.material2018(platform: Theme.of(context).platform).englishLike)
+    //     .bodyText1!;
+    return SwiftSettingsPropertyTile<int>(
+      property: SyncProperty<int>(
+        onSet: (delta) => theme.fontWeightDelta = delta,
+        initialValue: theme.fontWeightDelta,
+      ),
+      leading: const Icon(Icons.text_fields),
+      title: const Text('Font weight'),
+      options: map.keys
+          .map((key) => ValueOption<int>(value: key, title: Text(map[key]!)))
+          .toList(growable: false),
+      valueBuilder: (_, i) => Text(map[i] ?? ''),
+    );
+  }
+} */
