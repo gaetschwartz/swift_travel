@@ -113,7 +113,7 @@ class _SettingsPageState extends State<SettingsPage> {
         padding: const EdgeInsets.all(8),
         child: Center(
           child: Text(
-            '© Copyright Gaëtan Schwartz 2020',
+            '© Copyright Gaëtan Schwartz ${DateTime.now().year}',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.subtitle2,
           ),
