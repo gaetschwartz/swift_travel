@@ -42,7 +42,8 @@ class SwiftSettingsSwitchTile extends StatefulWidget with WithLeading {
         super(key: key);
 
   @override
-  State<SwiftSettingsSwitchTile> createState() => _SwiftSettingsSwitchTileState();
+  State<SwiftSettingsSwitchTile> createState() =>
+      _SwiftSettingsSwitchTileState();
 }
 
 class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
@@ -96,9 +97,12 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
                   child: object,
                 )),
         leading: widget.leading,
-        tileColor: isDarwin ? SettingsColor.tile.resolveFrom(context) : Colors.transparent,
+        tileColor: isDarwin
+            ? SettingsColor.tile.resolveFrom(context)
+            : Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: widget.tileBorders.toBorderRadius(SwiftSettingsTile.borderRadius),
+          borderRadius:
+              widget.tileBorders.toBorderRadius(SwiftSettingsTile.borderRadius),
         ),
         onTap: isDarwin ? null : () => setState(() => value = !value),
         trailing: Switch.adaptive(
@@ -116,7 +120,7 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
           child,
           if (widget.subtitle != null)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: DefaultTextStyle(
                 style: theme.textTheme.caption!,
                 child: widget.subtitle!,
