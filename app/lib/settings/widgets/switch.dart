@@ -75,7 +75,7 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDarwin = theme.platform.isDarwin;
-    const radius = Radius.circular(8);
+
     final child = Material(
       color: Colors.transparent,
       child: ListTile(
@@ -92,7 +92,8 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
             ? SettingsColor.tile.resolveFrom(context)
             : Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: widget.tileBorders.toBorderRadius(radius),
+          borderRadius:
+              widget.tileBorders.toBorderRadius(SwiftSettingsTile.borderRadius),
         ),
         onTap: isDarwin ? null : () => setState(() => value = !value),
         trailing: Switch.adaptive(

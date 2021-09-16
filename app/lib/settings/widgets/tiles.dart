@@ -46,9 +46,10 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
   final bool showChevron;
   final TileBorders tileBorders;
 
+  static const borderRadius = Radius.circular(12);
+
   @override
   Widget build(BuildContext context) {
-    const radius = Radius.circular(8);
     final theme = Theme.of(context);
     final isDarwin = theme.platform.isDarwin;
     final subtitleColor = theme.textTheme.caption?.color;
@@ -66,7 +67,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
               ? SettingsColor.tile.resolveFrom(context)
               : Colors.transparent,
           shape: RoundedRectangleBorder(
-              borderRadius: tileBorders.toBorderRadius(radius)),
+              borderRadius: tileBorders.toBorderRadius(borderRadius)),
           trailing: isDarwin
               ? Row(
                   mainAxisSize: MainAxisSize.min,
