@@ -7,9 +7,14 @@ import 'package:swift_travel/settings/widgets/settings_page_widget.dart';
 import 'package:swift_travel/settings/widgets/switch.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
 
-class AdvancedSettingsPage extends StatelessWidget {
+class AdvancedSettingsPage extends StatefulWidget {
   const AdvancedSettingsPage({Key? key}) : super(key: key);
 
+  @override
+  State<AdvancedSettingsPage> createState() => _AdvancedSettingsPageState();
+}
+
+class _AdvancedSettingsPageState extends State<AdvancedSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return SettingsPageWidget(
