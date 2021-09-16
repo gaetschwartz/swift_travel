@@ -451,6 +451,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Customisation'**
   String get customization;
+
+  /// No description provided for @advanced_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced settings'**
+  String get advanced_settings;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

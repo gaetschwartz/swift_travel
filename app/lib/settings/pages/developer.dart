@@ -9,8 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
-import 'package:swift_travel/settings/pages/customization.dart';
 import 'package:swift_travel/settings/route_history.dart';
+import 'package:swift_travel/settings/widgets/settings_page_widget.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/terminal/terminal_widget.dart';
 import 'package:swift_travel/utils/crawler.dart';
@@ -141,13 +141,9 @@ class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DividerTheme(
-      data: const DividerThemeData(indent: 16, endIndent: 16, thickness: 0.5),
-      child: PlatformSettingsScaffold(
-          title: Text(AppLocalizations.of(context).developer),
-          child: ListView(
-            children: children,
-          )),
+    return SettingsPageWidget(
+      title: Text(AppLocalizations.of(context).developer),
+      children: children,
     );
   }
 }

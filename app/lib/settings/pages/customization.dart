@@ -2,12 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
-import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/settings/properties/property.dart';
-import 'package:swift_travel/settings/settings.dart';
+import 'package:swift_travel/settings/widgets/settings_page_widget.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
-import 'package:swift_travel/widgets/choice.dart';
-import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/property_page.dart';
 import 'package:theming/dynamic_theme.dart';
 
 class CustomizationSettingsPage extends StatefulWidget {
@@ -21,53 +19,12 @@ class CustomizationSettingsPage extends StatefulWidget {
 class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return DividerTheme(
-      data: const DividerThemeData(indent: 16, endIndent: 16, thickness: 0.5),
-      child: PlatformSettingsScaffold(
-        title: Text(AppLocalizations.of(context).customization),
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: ListView(children: const [
-            _FontChoiceTile(),
-            // _FontWeightTile(),
-            _PlatformTile(),
-          ]),
-        ),
-      ),
-    );
-  }
-}
-
-class PlatformSettingsScaffold extends StatelessWidget {
-  const PlatformSettingsScaffold({
-    Key? key,
-    required this.child,
-    this.title,
-  }) : super(key: key);
-
-  final Widget child;
-  final Widget? title;
-
-  @override
-  Widget build(BuildContext context) {
-    return PlatformBuilder(
-      cupertinoBuilder: (context, child) => Material(
-        child: CupertinoPageScaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: SettingsColor.background.resolveFrom(context),
-          navigationBar: SwiftCupertinoBar(
-            middle: title,
-          ),
-          child: child!,
-        ),
-      ),
-      materialBuilder: (context, child) => Scaffold(
-        body: child,
-        appBar: AppBar(
-          title: title,
-        ),
-      ),
-      child: child,
+    return SettingsPageWidget(
+      title: Text(AppLocalizations.of(context).customization),
+      children: const [
+        _FontChoiceTile(),
+        _PlatformTile(),
+      ],
     );
   }
 }

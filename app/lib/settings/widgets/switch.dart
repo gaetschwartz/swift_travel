@@ -75,22 +75,25 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDarwin = theme.platform.isDarwin;
-    const radius = Radius.circular(16);
+    const radius = Radius.circular(8);
     final child = Material(
       color: Colors.transparent,
       child: ListTile(
         horizontalTitleGap: 0,
         title: widget.title,
-        subtitle: widget.isSubtitleOutside ? null : widget.subtitle,
+        subtitle: widget.isSubtitleOutside
+            ? null
+            : widget.subtitle?.wrap((object) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: object,
+                )),
         leading: widget.leading,
         tileColor: isDarwin
             ? SettingsColor.tile.resolveFrom(context)
             : Colors.transparent,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-          top: widget.tileBorders.top ? radius : Radius.zero,
-          bottom: widget.tileBorders.bottom ? radius : Radius.zero,
-        )),
+          borderRadius: widget.tileBorders.toBorderRadius(radius),
+        ),
         onTap: isDarwin ? null : () => setState(() => value = !value),
         trailing: Switch.adaptive(
             value: value,
@@ -106,10 +109,12 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
         children: [
           child,
           if (widget.subtitle != null)
-            DefaultTextStyle(
-              style: theme.textTheme.bodyText1!
-                  .copyWith(color: theme.textTheme.caption?.color),
-              child: widget.subtitle!,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              child: DefaultTextStyle(
+                style: theme.textTheme.caption!,
+                child: widget.subtitle!,
+              ),
             )
         ],
       );
@@ -117,4 +122,8 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
       return child;
     }
   }
+}
+
+extension ObjectX<T extends Object> on T {
+  S wrap<S>(S Function(T object) wrapper) => wrapper(this);
 }

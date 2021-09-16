@@ -94,5 +94,6 @@
 	"failed_get_contact": "Failed to obtain the address book",
 	"new_fav": "New favourite stop",
 	"no_contacts": "Your address book is empty",
-	"customization": "Customisation"
+	"customization": "Customisation",
+	"advanced_settings": "Advanced settings"
 }
