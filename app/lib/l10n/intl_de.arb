@@ -58,5 +58,6 @@
 	"failed_get_contact": "Das Adressbuch kann nicht abgerufen werden",
 	"new_fav": "Neue Lieblingshaltestelle",
 	"no_contacts": "Ihr Adressbuch ist leer",
-	"customization": "Personalisierung"
+	"customization": "Personalisierung",
+	"advanced_settings": "Erweiterte Einstellungen"
 }

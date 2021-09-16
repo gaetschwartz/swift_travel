@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
-import 'package:swift_travel/widgets/choice.dart';
 import 'package:swift_travel/widgets/listener.dart';
+import 'package:swift_travel/widgets/property_page.dart';
 import 'package:theming/responsive.dart';
 
 mixin WithLeading {
@@ -18,6 +18,11 @@ class TileBorders {
 
   static const none = TileBorders();
   static const all = TileBorders(top: true, bottom: true);
+
+  BorderRadius toBorderRadius(Radius radius) => BorderRadius.vertical(
+        top: top ? radius : Radius.zero,
+        bottom: bottom ? radius : Radius.zero,
+      );
 }
 
 typedef BuildVoidCallback = VoidCallback Function(BuildContext context);
@@ -43,7 +48,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
 
   @override
   Widget build(BuildContext context) {
-    const radius = Radius.circular(16);
+    const radius = Radius.circular(8);
     final theme = Theme.of(context);
     final isDarwin = theme.platform.isDarwin;
     final subtitleColor = theme.textTheme.caption?.color;
@@ -61,10 +66,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
               ? SettingsColor.tile.resolveFrom(context)
               : Colors.transparent,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-            top: tileBorders.top ? radius : Radius.zero,
-            bottom: tileBorders.bottom ? radius : Radius.zero,
-          )),
+              borderRadius: tileBorders.toBorderRadius(radius)),
           trailing: isDarwin
               ? Row(
                   mainAxisSize: MainAxisSize.min,

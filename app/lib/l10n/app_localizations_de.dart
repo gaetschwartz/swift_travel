@@ -191,4 +191,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get customization => 'Personalisierung';
+
+  @override
+  String get advanced_settings => 'Erweiterte Einstellungen';
 }

@@ -58,5 +58,6 @@
 	"failed_get_contact": "Impossibile ottenere la rubrica",
 	"new_fav": "Nuova fermata preferita",
 	"no_contacts": "La tua rubrica è vuota",
-	"customization": "Personalizzazione"
+	"customization": "Personalizzazione",
+	"advanced_settings": "Impostazioni avanzate"
 }

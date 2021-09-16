@@ -13,15 +13,15 @@ import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/settings/pages/advanced.dart';
 import 'package:swift_travel/settings/pages/customization.dart';
 import 'package:swift_travel/settings/pages/developer.dart';
 import 'package:swift_travel/settings/team_page.dart';
-import 'package:swift_travel/settings/widgets/switch.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
-import 'package:swift_travel/widgets/choice.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/property_page.dart';
 import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dynamic_theme.dart';
 
@@ -65,6 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       SwiftSettingsPropertyTile<NavigationApiId>(
         property: context.read(preferencesProvider).api,
+        tileBorders: const TileBorders(bottom: true),
         options: NavigationApiFactory.factories
             .map(
               (e) => ValueOption(
@@ -78,13 +79,14 @@ class _SettingsPageState extends State<SettingsPage> {
         /* pageDescription: const Text(
             'BETA: In the future the goal is to add more countries.'),*/
       ),
-      SwiftSettingsSwitchTile.property(
-        property: context.read(preferencesProvider).useAnalytics,
-        title: const Text('Use analytics'),
-        subtitle: const Text('The app collects anonymized crash reports.'),
-        tileBorders: const TileBorders(bottom: true),
-      ),
       _SectionTitle(title: Text(AppLocalizations.of(context).more)),
+      SwiftSettingsTile(
+        title: Text(AppLocalizations.of(context).advanced_settings),
+        leading: const Icon(Icons.settings),
+        onTap: () => Navigator.of(context, rootNavigator: true).push(
+            PlatformPageRoute(builder: (_) => const AdvancedSettingsPage())),
+        tileBorders: const TileBorders(top: true),
+      ),
       Consumer(builder: (context, w, _) {
         final isDev = w(isDeveloperProvider).value;
         return SwiftSettingsTile(
