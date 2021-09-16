@@ -4,8 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
+import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
+import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dialogs/configurations/bottom_sheet_configuration.dart';
 
 enum DefaultAction { cancel, confirm }
@@ -46,7 +48,7 @@ Future<void> showPropertyPage<T>(
   ModalConfiguration configuration = const BottomSheetConfiguration(),
 }) async {
   return Navigator.of(context).push<void>(
-    MaterialPageRoute(
+    PlatformPageRoute(
       builder: (_) => _PropertyPage(
         title: title,
         message: message,
@@ -73,14 +75,18 @@ class _PropertyPage<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const radius = Radius.circular(16);
-
     return PlatformBuilder(
-      cupertinoBuilder: (context, child) => CupertinoPageScaffold(
-        backgroundColor: SettingsColor.background.resolveFrom(context),
-        navigationBar: CupertinoNavigationBar(middle: title),
-        child: Builder(builder: (context) => child!),
-      ),
+      cupertinoBuilder: (context, child) {
+        final previousTitle = PlatformRouteTitleMixin.getPreviousTitleOf(context);
+        return CupertinoPageScaffold(
+          backgroundColor: SettingsColor.background.resolveFrom(context),
+          navigationBar: CupertinoNavigationBar(
+            middle: title,
+            previousPageTitle: previousTitle,
+          ),
+          child: Builder(builder: (context) => child!),
+        );
+      },
       materialBuilder: (context, child) => Scaffold(
         appBar: AppBar(title: title),
         body: child,
@@ -90,7 +96,8 @@ class _PropertyPage<T> extends StatelessWidget {
           child: ListenableBuilder<Property<T>>(
               listenable: property,
               builder: (context, prop, _) {
-                return ListView.builder(
+                return ListView.separated(
+                  separatorBuilder: (_, __) => const Divider(indent: 56, thickness: 0.5, height: 0),
                   itemBuilder: (context, i) {
                     final c = choices[i];
                     return Material(
@@ -100,9 +107,10 @@ class _PropertyPage<T> extends StatelessWidget {
                         tileColor: Theme.of(context).backgroundColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
-                          top: i == 0 ? radius : Radius.zero,
-                          bottom:
-                              i == choices.length - 1 ? radius : Radius.zero,
+                          top: i == 0 ? SwiftSettingsTile.borderRadius : Radius.zero,
+                          bottom: i == choices.length - 1
+                              ? SwiftSettingsTile.borderRadius
+                              : Radius.zero,
                         )),
                         leading: Icon(
                           Icons.check,

@@ -43,8 +43,10 @@ class _SettingsPageState extends State<SettingsPage> {
         tileBorders: const TileBorders(top: true),
         title: Text(AppLocalizations.of(context).customization),
         leading: const Icon(CupertinoIcons.wand_stars),
-        onTap: () => Navigator.of(context)
-            .push(PlatformPageRoute(builder: (_) => const CustomizationSettingsPage())),
+        onTap: () => Navigator.of(context).push(PlatformPageRoute(
+          builder: (_) => const CustomizationSettingsPage(),
+          title: AppLocalizations.of(context).customization,
+        )),
       ),
       if (Env.isDebugMode || defaultTargetPlatform == TargetPlatform.iOS)
         SwiftSettingsPropertyTile<NavigationApp>(
@@ -81,8 +83,10 @@ class _SettingsPageState extends State<SettingsPage> {
       SwiftSettingsTile(
         title: Text(AppLocalizations.of(context).advanced_settings),
         leading: const Icon(Icons.settings),
-        onTap: () => Navigator.of(context, rootNavigator: true)
-            .push(PlatformPageRoute(builder: (_) => const AdvancedSettingsPage())),
+        onTap: () => Navigator.of(context).push(PlatformPageRoute(
+          builder: (_) => const AdvancedSettingsPage(),
+          title: AppLocalizations.of(context).advanced_settings,
+        )),
         tileBorders: const TileBorders(top: true),
       ),
       Consumer(builder: (context, w, _) {
@@ -101,8 +105,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 tileBorders: const TileBorders(bottom: true),
                 title: Text(AppLocalizations.of(context).developer),
                 leading: const Icon(Icons.developer_board),
-                onTap: () => Navigator.of(context)
-                    .push(PlatformPageRoute(builder: (_) => const DeveloperSettingsPage())),
+                onTap: () => Navigator.of(context).push(PlatformPageRoute(
+                  builder: (_) => const DeveloperSettingsPage(),
+                  title: AppLocalizations.of(context).developer,
+                )),
               )
             : const SizedBox.shrink(),
       ),

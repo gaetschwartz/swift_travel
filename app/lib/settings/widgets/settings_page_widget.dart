@@ -7,11 +7,11 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 class SettingsPageWidget extends StatelessWidget {
   const SettingsPageWidget({
     Key? key,
-    required this.title,
+    this.title,
     required this.children,
   }) : super(key: key);
 
-  final Widget title;
+  final Widget? title;
   final List<Widget> children;
 
   @override
@@ -46,9 +46,7 @@ class PlatformSettingsScaffold extends StatelessWidget {
         child: CupertinoPageScaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: SettingsColor.background.resolveFrom(context),
-          navigationBar: SwiftCupertinoBar(
-            middle: title,
-          ),
+          navigationBar: SwiftCupertinoBar(middle: title),
           child: child!,
         ),
       ),

@@ -12,8 +12,7 @@ class CustomizationSettingsPage extends StatefulWidget {
   const CustomizationSettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<CustomizationSettingsPage> createState() =>
-      _CustomizationSettingsPageState();
+  State<CustomizationSettingsPage> createState() => _CustomizationSettingsPageState();
 }
 
 class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
@@ -48,14 +47,12 @@ class _PlatformTile extends StatelessWidget {
       title: const Text('Platform'),
       options: p == TargetPlatform.iOS || p == TargetPlatform.android
           ? const [
-              ValueOption(
-                  value: TargetPlatform.android, title: Text('Android')),
+              ValueOption(value: TargetPlatform.android, title: Text('Android')),
               ValueOption(value: TargetPlatform.iOS, title: Text('iOS')),
             ]
           : const [
               ValueOption(value: TargetPlatform.macOS, title: Text('MacOS')),
-              ValueOption(
-                  value: TargetPlatform.windows, title: Text('Windows')),
+              ValueOption(value: TargetPlatform.windows, title: Text('Windows')),
             ],
     );
   }

@@ -36,7 +36,7 @@ mixin PlatformRouteTitleMixin<T> on PageRoute<T> {
 
   @override
   void didChangePrevious(Route<dynamic>? previousRoute) {
-    late final String? previousTitleString;
+    final String? previousTitleString;
     if (previousRoute is CupertinoRouteTransitionMixin) {
       previousTitleString = previousRoute.title;
     } else if (previousRoute is PlatformRouteTitleMixin) {
