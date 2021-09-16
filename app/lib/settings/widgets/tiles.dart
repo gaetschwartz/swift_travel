@@ -36,6 +36,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
     this.onTap,
     this.showChevron = true,
     this.tileBorders = TileBorders.none,
+    this.showDividers = true,
   }) : super(key: key);
 
   final Widget title;
@@ -45,6 +46,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
   final VoidCallback? onTap;
   final bool showChevron;
   final TileBorders tileBorders;
+  final bool showDividers;
 
   static const borderRadius = Radius.circular(12);
 
@@ -53,53 +55,63 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
     final theme = Theme.of(context);
     final isDarwin = theme.platform.isDarwin;
     final subtitleColor = theme.textTheme.caption?.color;
-    return Material(
-      color: Colors.transparent,
-      child: Theme(
-        data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
-        child: ListTile(
-          horizontalTitleGap: 0,
-          title: title,
-          leading: leading,
-          subtitle: isDarwin ? null : subtitle,
-          onTap: onTap,
-          tileColor: isDarwin
-              ? SettingsColor.tile.resolveFrom(context)
-              : Colors.transparent,
-          shape: RoundedRectangleBorder(
-              borderRadius: tileBorders.toBorderRadius(borderRadius)),
-          trailing: isDarwin
-              ? Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                      if (subtitle != null)
-                        SizedBox(
-                          child: Center(
-                            child: Padding(
-                              padding: EdgeInsets.zero,
-                              child: ConstrainedBox(
-                                constraints:
-                                    const BoxConstraints(maxWidth: 100),
-                                child: DefaultTextStyle(
-                                  style: theme.textTheme.subtitle1!
-                                      .copyWith(color: subtitleColor),
-                                  softWrap: false,
-                                  textAlign: TextAlign.right,
-                                  overflow: TextOverflow.fade,
-                                  child: subtitle!,
+    return Column(
+      children: [
+        if (showDividers && !tileBorders.top) const Divider(indent: 56, thickness: 0.5, height: 0),
+        Material(
+          color: Colors.transparent,
+          child: Theme(
+            data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
+            child: ListTile(
+              horizontalTitleGap: 0,
+              dense: true,
+              title: DefaultTextStyle(
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(letterSpacing: 0)
+                    .apply(fontSizeFactor: 1.05),
+                child: title,
+              ),
+              leading: leading,
+              subtitle: isDarwin ? null : subtitle,
+              onTap: onTap,
+              tileColor: isDarwin ? SettingsColor.tile.resolveFrom(context) : Colors.transparent,
+              shape: RoundedRectangleBorder(borderRadius: tileBorders.toBorderRadius(borderRadius)),
+              trailing: isDarwin
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                          if (subtitle != null)
+                            SizedBox(
+                              child: Center(
+                                child: Padding(
+                                  padding: EdgeInsets.zero,
+                                  child: ConstrainedBox(
+                                    constraints: const BoxConstraints(maxWidth: 100),
+                                    child: DefaultTextStyle(
+                                      style:
+                                          theme.textTheme.subtitle1!.copyWith(color: subtitleColor),
+                                      softWrap: false,
+                                      textAlign: TextAlign.right,
+                                      overflow: TextOverflow.fade,
+                                      child: subtitle!,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      if (showChevron)
-                        Icon(CupertinoIcons.chevron_forward,
-                            color: subtitleColor)
-                    ])
-              : null,
+                          if (showChevron)
+                            Icon(CupertinoIcons.chevron_forward, color: subtitleColor)
+                        ])
+                  : null,
+            ),
+          ),
         ),
-      ),
+        if (showDividers && !tileBorders.bottom)
+          const Divider(indent: 56, thickness: 0.5, height: 0),
+      ],
     );
   }
 }
@@ -154,6 +166,5 @@ class SwiftSettingsPropertyTile<T> extends StatelessWidget with WithLeading {
     );
   }
 
-  static Widget _valueBuilder(BuildContext _, dynamic val) =>
-      Text(val.toString());
+  static Widget _valueBuilder(BuildContext _, dynamic val) => Text(val.toString());
 }

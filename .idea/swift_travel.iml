@@ -159,6 +159,16 @@
       <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/path_provider/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/live_route/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/live_route/build" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/permission_handler/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/permission_handler/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/fluttercontactpicker/build" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/fluttercontactpicker/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/contacts_service/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/contacts_service/build" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/permission_handler/build" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/permission_handler/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/fluttercontactpicker/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/app/ios/.symlinks/plugins/fluttercontactpicker/example/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

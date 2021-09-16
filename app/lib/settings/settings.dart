@@ -43,8 +43,8 @@ class _SettingsPageState extends State<SettingsPage> {
         tileBorders: const TileBorders(top: true),
         title: Text(AppLocalizations.of(context).customization),
         leading: const Icon(CupertinoIcons.wand_stars),
-        onTap: () => Navigator.of(context).push(PlatformPageRoute(
-            builder: (_) => const CustomizationSettingsPage())),
+        onTap: () => Navigator.of(context)
+            .push(PlatformPageRoute(builder: (_) => const CustomizationSettingsPage())),
       ),
       if (Env.isDebugMode || defaultTargetPlatform == TargetPlatform.iOS)
         SwiftSettingsPropertyTile<NavigationApp>(
@@ -68,14 +68,12 @@ class _SettingsPageState extends State<SettingsPage> {
         tileBorders: const TileBorders(bottom: true),
         options: NavigationApiFactory.factories
             .map(
-              (e) => ValueOption(
-                  title: Text(e.name), value: NavigationApiId(e.id.value)),
+              (e) => ValueOption(title: Text(e.name), value: NavigationApiId(e.id.value)),
             )
             .toList(growable: false),
         title: Text(AppLocalizations.of(context).navigation_api),
         leading: const Icon(CupertinoIcons.link),
-        valueBuilder: (context, v) =>
-            Text(NavigationApiFactory.fromId(v).shortDesc),
+        valueBuilder: (context, v) => Text(NavigationApiFactory.fromId(v).shortDesc),
         /* pageDescription: const Text(
             'BETA: In the future the goal is to add more countries.'),*/
       ),
@@ -83,14 +81,14 @@ class _SettingsPageState extends State<SettingsPage> {
       SwiftSettingsTile(
         title: Text(AppLocalizations.of(context).advanced_settings),
         leading: const Icon(Icons.settings),
-        onTap: () => Navigator.of(context, rootNavigator: true).push(
-            PlatformPageRoute(builder: (_) => const AdvancedSettingsPage())),
+        onTap: () => Navigator.of(context, rootNavigator: true)
+            .push(PlatformPageRoute(builder: (_) => const AdvancedSettingsPage())),
         tileBorders: const TileBorders(top: true),
       ),
       Consumer(builder: (context, w, _) {
         final isDev = w(isDeveloperProvider).value;
         return SwiftSettingsTile(
-          tileBorders: TileBorders(top: true, bottom: !isDev),
+          tileBorders: TileBorders(bottom: !isDev),
           leading: const Icon(CupertinoIcons.person_3_fill),
           title: Text(AppLocalizations.of(context).our_team),
           onTap: () => Navigator.of(context, rootNavigator: true)
@@ -103,8 +101,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 tileBorders: const TileBorders(bottom: true),
                 title: Text(AppLocalizations.of(context).developer),
                 leading: const Icon(Icons.developer_board),
-                onTap: () => Navigator.of(context).push(PlatformPageRoute(
-                    builder: (_) => const DeveloperSettingsPage())),
+                onTap: () => Navigator.of(context)
+                    .push(PlatformPageRoute(builder: (_) => const DeveloperSettingsPage())),
               )
             : const SizedBox.shrink(),
       ),
@@ -240,8 +238,8 @@ class BuildDetailsWidget extends StatelessWidget {
 
     if (controller.state == 6) {
       context.read(preferencesProvider).isDeveloper.setValue(true);
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("You are now a developer 😎")));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("You are now a developer 😎")));
     } else {
       controller.state++;
     }
@@ -348,8 +346,7 @@ class __ScrollProgressState extends State<_ScrollProgress> {
 
   void update() {
     if (mounted) {
-      final p = widget._controller.position.pixels /
-          widget._controller.position.maxScrollExtent;
+      final p = widget._controller.position.pixels / widget._controller.position.maxScrollExtent;
       setState(() => progress = math.min(1, p));
     }
   }
@@ -418,17 +415,13 @@ class _ThememodeWidget extends StatelessWidget {
                       )
                     : null,
                 gradient: mode == ThemeMode.system
-                    ? LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                            theme.light.colorScheme.background,
-                            theme.dark.colorScheme.background,
-                          ],
-                        stops: const [
-                            0.5,
-                            0.5
-                          ])
+                    ? LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
+                        theme.light.colorScheme.background,
+                        theme.dark.colorScheme.background,
+                      ], stops: const [
+                        0.5,
+                        0.5
+                      ])
                     : null,
                 borderRadius: const BorderRadius.all(Radius.circular(16))),
             child: Center(
@@ -440,12 +433,10 @@ class _ThememodeWidget extends StatelessWidget {
                         child: Container(
                           color: Colors.white30,
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, bottom: 8, top: 4),
+                            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 4),
                             child: Text(
                               label,
-                              style: t.textTheme.headline6!
-                                  .copyWith(color: Colors.black),
+                              style: t.textTheme.headline6!.copyWith(color: Colors.black),
                             ),
                           ),
                         ),
@@ -471,10 +462,7 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: DefaultTextStyle(
-          style: Theme.of(context)
-              .textTheme
-              .headline6!
-              .copyWith(color: primaryColor(context)),
+          style: Theme.of(context).textTheme.headline6!.copyWith(color: primaryColor(context)),
           textAlign: TextAlign.left,
           child: title,
         ),
