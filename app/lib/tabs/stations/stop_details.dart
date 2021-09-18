@@ -114,7 +114,8 @@ class _StopDetailsState extends State<StopDetails> {
                 ? ListView.builder(
                     itemBuilder: (context, i) => i.isEven
                         ? const Divider(height: 0, thickness: 0.5)
-                        : ConnectionTile(c: data!.connections[i >> 2], s: data!.stop),
+                        : ConnectionTile(
+                            c: data!.connections[i >> 1], s: data!.stop),
                     itemCount: data!.connections.length * 2 + 1,
                   )
                 : _NoData(context: context, s: data!)
@@ -136,11 +137,15 @@ class _StopDetailsState extends State<StopDetails> {
                         delegate: SliverChildBuilderDelegate(
                           (context, i) => i.isEven
                               ? const Divider(height: 0, thickness: 0.5)
-                              : ConnectionTile(c: data!.connections[i >> 2], s: data!.stop),
+                              : ConnectionTile(
+                                  c: data!.connections[i >> 1],
+                                  s: data!.stop,
+                                ),
                           childCount: data!.connections.length * 2 + 1,
                         ),
                       )
-                    : SliverFillRemaining(child: _NoData(context: context, s: data!)))
+                    : SliverFillRemaining(
+                        child: _NoData(context: context, s: data!)))
           else
             const SliverFillRemaining(
               child: Center(child: CupertinoActivityIndicator()),
@@ -217,7 +222,8 @@ class ConnectionTile extends StatelessWidget {
       title: Row(
         children: [
           if (c.bgcolor != null) ...[
-            LineIcon.raw(line: c.line, foreground: c.fgcolor, background: c.bgcolor),
+            LineIcon.raw(
+                line: c.line, foreground: c.fgcolor, background: c.bgcolor),
             const Gap(8),
           ],
           Text(
