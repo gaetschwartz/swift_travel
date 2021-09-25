@@ -151,7 +151,7 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldMessengerKey,
-      title: 'Tabi 旅',
+      title: "Swift Travel",
       theme: theme.light,
       darkTheme: theme.dark,
       themeMode: theme.themeMode,
