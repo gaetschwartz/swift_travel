@@ -12,7 +12,7 @@ class Vibration {
 
   static late final instance = Vibration._();
 
-  static const MethodChannel _channel = MethodChannel('com.gaetschwartz.vibration/channel');
+  static const MethodChannel _channel = MethodChannel('com.gaetanschwartz.vibration/channel');
 
   Future<void> vibrate({
     required VibrationType type,
