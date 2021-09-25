@@ -138,7 +138,7 @@ SPEC CHECKSUMS:
   geolocator_apple: b741765c55dc21950e3e106e8b3584e55cf81ce5
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
-  integration_test: 62e878779d19c79e80913db7dfe6c27b07754c2e
+  integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   path_provider: d1e9807085df1f9cc9318206cd649dc0b76be3de
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
@@ -151,4 +151,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 60dfd42ff6ea17249a5b01d38e3f454a491c00ee
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.0.beta.2

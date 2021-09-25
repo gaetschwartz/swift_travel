@@ -41,7 +41,7 @@ workflows:
                 set -e
                 set -x
 
-                flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT $SKSL_ARGUMENT
+                flutter build ios --config-only --no-codesign --release --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
           title: flutter build ios
       - xcode-archive@3: {}
       - deploy-to-itunesconnect-application-loader@1:
