@@ -20,8 +20,6 @@
     <string>????</string>
     <key>CFBundleVersion</key>
     <string>1.0</string>
-    <key>LSMinimumSystemVersion</key>
-    <string>9.0</string>
     <key>MinimumOSVersion</key>
     <string>9.0</string>
   </dict>
