@@ -6,6 +6,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -51,8 +52,7 @@ class Debouncer {
   }
 }
 
-final _stateProvider =
-    StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 
 class SearchPage extends StatefulWidget {
   const SearchPage({
@@ -138,8 +138,7 @@ class _SearchPageState extends State<SearchPage> {
           if (e is SocketException) {
             context.read(_stateProvider).state = const StationStates.network();
           } else if (e is Exception) {
-            reportDartError(e, s as StackTrace,
-                library: 'search', reason: 'while fetching');
+            reportDartError(e, s as StackTrace, library: 'search', reason: 'while fetching');
           }
         },
       );
@@ -148,14 +147,12 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<String?> getPrediction(String query) async {
     if (widget.isDestination) {
-      final args =
-          PredictionArguments.withSource(query, dateTime: widget.dateTime);
+      final args = PredictionArguments.withSource(query, dateTime: widget.dateTime);
       log.log('Predicting the destination with $args');
       final prediction = await predictRoute(hist.history, args);
       log.log(prediction);
       if (prediction.prediction != null && prediction.confidence > .2) {
-        return prediction.prediction!
-            .map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
+        return prediction.prediction!.map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
       }
     }
   }
@@ -169,8 +166,7 @@ class _SearchPageState extends State<SearchPage> {
                 transitionBetweenRoutes: false,
                 middle: Hero(
                   tag: widget.heroTag,
-                  child: widget.configuration
-                      .toCupertino(controller: widget.binder.controller),
+                  child: widget.configuration.toCupertino(controller: widget.binder.controller),
                 ),
                 trailing: _ClearButton(binder: widget.binder),
               ),
@@ -181,8 +177,7 @@ class _SearchPageState extends State<SearchPage> {
             appBar: AppBar(
               title: Hero(
                   tag: widget.heroTag,
-                  child: widget.configuration
-                      .toTextField(controller: widget.binder.controller)),
+                  child: widget.configuration.toTextField(controller: widget.binder.controller)),
               actions: [_ClearButton(binder: widget.binder)],
               leading: const CloseButton(key: SearchPage.closeSearchKey),
             ),
@@ -207,8 +202,8 @@ class _SearchPageState extends State<SearchPage> {
         log.log(c.contact.toMap());
         widget.binder.setString(context, a.toString());
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(AppLocalizations.of(context).contact_no_address)));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).contact_no_address)));
       }
     } else {
       widget.binder.setString(context, c.label);
@@ -226,15 +221,13 @@ class _ClearButton extends StatelessWidget {
   final TextStateBinder binder;
 
   @override
-  Widget build(BuildContext context) =>
-      ListenableBuilder<TextEditingController>(
+  Widget build(BuildContext context) => ListenableBuilder<TextEditingController>(
         builder: (context, listenable, child) => AnimatedOpacity(
           opacity: listenable.text.isEmpty ? 0 : 1,
           duration: const Duration(milliseconds: 500),
           child: IconButton(
             color: CupertinoTheme.of(context).primaryColor,
-            onPressed:
-                listenable.text.isEmpty ? null : () => binder.clear(context),
+            onPressed: listenable.text.isEmpty ? null : () => binder.clear(context),
             icon: const Icon(CupertinoIcons.clear),
           ),
         ),
@@ -261,8 +254,7 @@ class _Results extends StatelessWidget {
             children: [
               Positioned.fill(
                 child: ListView.builder(
-                  itemBuilder: (context, i) =>
-                      SuggestedTile(c[i], onTap: onTap),
+                  itemBuilder: (context, i) => SuggestedTile(c[i], onTap: onTap),
                   itemCount: c.length,
                 ),
               ),
@@ -284,10 +276,8 @@ class _Results extends StatelessWidget {
                             children: [
                               TextButton.icon(
                                 onPressed: () => pickContact(context),
-                                icon: const Icon(
-                                    FluentIcons.contact_card_group_24_regular),
-                                label:
-                                    Text(AppLocalizations.of(context).contacts),
+                                icon: const Icon(FluentIcons.contact_card_group_24_regular),
+                                label: Text(AppLocalizations.of(context).contacts),
                               )
                             ],
                           ),
@@ -374,8 +364,7 @@ class SuggestedTile extends StatelessWidget {
         title: isLoading
             ? Text(
                 label,
-                style: const TextStyle(
-                    backgroundColor: Colors.black, color: Colors.transparent),
+                style: const TextStyle(backgroundColor: Colors.black, color: Colors.transparent),
               )
             : Text(suggestion.favoriteName ?? label),
         subtitle: suggestion.favoriteName != null ? Text(label) : null,
@@ -435,4 +424,13 @@ class _SuggestedTileIcon extends StatelessWidget {
         );
     }
   }
+}
+
+extension AddressX on Address {
+  String toDetailedString() => [
+        if (addressLine != null) ...addressLine!,
+        if (postcode != null || city != null)
+          "${postcode ?? ''}${city != null && postcode != null ? ' ' : ''}${city ?? ''}",
+        if (country != null) country,
+      ].join(", ");
 }

@@ -53,6 +53,7 @@ dependencies:
   contacts_service:
     git: https://github.com/gaetschwartz/flutter_contacts.git
   permission_handler: ^8.1.4+2
+  fluttercontactpicker: ^4.5.1
   fluentui_system_icons: ^1.1.136
   gap: ^2.0.0
   http: ^0.13.3
@@ -78,6 +79,7 @@ flutter:
   # generate: true
   assets:
     - assets/profiles/
+    - assets/anims/
     - assets/pictures/
     - assets/config.json
 # flutter pub get

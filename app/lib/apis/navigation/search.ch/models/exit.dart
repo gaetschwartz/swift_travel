@@ -15,7 +15,7 @@ class DelayConverter extends JsonConverter<int?, String?> {
   int? fromJson(String? json) {
     if (json == null) {
       return null;
-    } else if (json != 'X') {
+    } else if (json is String && json != 'X') {
       final tryParse = int.tryParse(json);
       return tryParse == 0 ? null : tryParse;
     } else {
