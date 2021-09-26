@@ -146,15 +146,15 @@ SPEC CHECKSUMS:
   GoogleUtilities: 3df19e3c24f7bbc291d8b5809aa6b0d41e642437
   integration_test: 62e878779d19c79e80913db7dfe6c27b07754c2e
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  path_provider: d1e9807085df1f9cc9318206cd649dc0b76be3de
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
-  quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
+  quick_actions: cd83314083fa994182e6cd9e7516167a215a4f83
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
-  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
-  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  shared_preferences: 5033afbb22d372e15aff8ff766df9021b845f273
+  url_launcher: b6e016d912f04be9f5bf6e8e82dc599b7ba59649
   vibration: 08bf1a7e0b797d662a5027a161404fdcbe3ba168
 
 PODFILE CHECKSUM: 60dfd42ff6ea17249a5b01d38e3f454a491c00ee
 
-COCOAPODS: 1.11.0.beta.2
+COCOAPODS: 1.11.2
