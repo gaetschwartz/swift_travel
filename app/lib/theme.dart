@@ -14,11 +14,13 @@ final MaterialColor redAccent = Colors.redAccent.toMaterialColor();
 final MaterialColor white = Colors.white.toMaterialColor();
 
 const lightShadow = ShadowTheme(
-  buttonShadow: BoxShadow(blurRadius: 8, color: Color(0x200700b1), offset: Offset(0, 4)),
+  buttonShadow:
+      BoxShadow(blurRadius: 8, color: Color(0x200700b1), offset: Offset(0, 4)),
 );
 
 const darkShadow = ShadowTheme(
-  buttonShadow: BoxShadow(blurRadius: 4, color: Color(0x4C000000), offset: Offset(0, 4)),
+  buttonShadow:
+      BoxShadow(blurRadius: 4, color: Color(0x4C000000), offset: Offset(0, 4)),
 );
 
 TextTheme _platform(TextTheme t) => t;
@@ -46,9 +48,15 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
   persist: true,
   applyToAllThemes: (t) {
     return t.copyWith(
-      cupertinoOverrideTheme: CupertinoThemeData(brightness: t.brightness).rawCopy(),
-      pageTransitionsTheme: const PageTransitionsTheme(),
-    );
+        cupertinoOverrideTheme:
+            CupertinoThemeData(brightness: t.brightness).rawCopy(),
+        pageTransitionsTheme: const PageTransitionsTheme(builders: {
+          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+        }));
   },
   lightThemes: [
     ExtendedTheme(
@@ -92,7 +100,8 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
     ExtendedTheme(
       name: 'Abin',
       id: 'abin',
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: purpleAbin, brightness: Brightness.dark),
+      colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: purpleAbin, brightness: Brightness.dark),
       shadow: darkShadow,
     ),
   ],

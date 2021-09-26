@@ -4,7 +4,7 @@ import AudioToolbox
 
 public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "com.gaetanschwartz.vibration/channel", binaryMessenger: registrar.messenger())
+        let channel = FlutterMethodChannel(name: "com.gaetschwartz.vibration/channel", binaryMessenger: registrar.messenger())
         let instance = SwiftVibrationPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
