@@ -22,12 +22,17 @@ workflows:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - is_debug: yes
+            - is_debug: true
           title: Prebuild
       - flutter-installer@0:
           inputs:
             - installation_bundle_url: $FLUTTER_ARCHIVE_URL
             # - version: dev
+      - script-runner@0:
+          inputs:
+            - file_path: $BITRISE_SOURCE_DIR/CI/fix_flutter_90209.sh
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
+          title: Fix https://github.com/flutter/flutter/issues/90209
       - script-runner@0:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_sksl.sh
@@ -36,12 +41,12 @@ workflows:
       - script@1:
           inputs:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: |-
+            - content: >-
                 #!/usr/bin/env bash
                 set -e
                 set -x
 
-                flutter build ios --config-only --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT $SKSL_ARGUMENT
+                flutter build ios --config-only --no-codesign --release --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
           title: flutter build ios
       - xcode-archive@3: {}
       - deploy-to-itunesconnect-application-loader@1:
@@ -70,7 +75,7 @@ workflows:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - is_debug: yes
+            - is_debug: true
           title: Prebuild
       - cache-pull@2: {}
       - flutter-installer@0:
