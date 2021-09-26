@@ -6,41 +6,51 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:theming/responsive.dart';
 
-Color primaryColor(BuildContext context) => isThemeDarwin(context)
+Color platformPrimaryColor(BuildContext context) => isThemeDarwin(context)
     ? CupertinoTheme.of(context).primaryColor
     : Theme.of(context).colorScheme.secondary;
 
-Color lighten(Color c) =>
-    Color.fromARGB(c.alpha, c.red * 3 ~/ 4, c.green * 3 ~/ 4, c.blue * 3 ~/ 4);
+extension ColorX on Color {
+  Color operator *(double ratio) => Color.fromARGB(
+        alpha,
+        (red * ratio).round().clamp(0, 255),
+        (green * ratio).round().clamp(0, 255),
+        (blue * ratio).round().clamp(0, 255),
+      );
 
-int _sgnOfSub(num a, num b) => a > b ? -1 : 1;
+  Color lighten([double ratio = 3 / 4]) => this * ratio;
 
-Color augment(Color c) {
-  final std = sqrt(pow(c.red, 2) + pow(c.green, 2) + pow(c.blue, 2));
-  final total = std;
-  const factor = 1;
-  return Color.fromARGB(
-    c.alpha,
-    (c.red + _sgnOfSub(total, c.red) * pow(c.red - total, 2) * factor).toInt().clamp(0, 255),
-    (c.green + _sgnOfSub(total, c.green) * pow(c.green - total, 2) * factor).toInt().clamp(0, 255),
-    (c.blue + _sgnOfSub(total, c.blue) * pow(c.blue - total, 2) * factor).toInt().clamp(0, 255),
-  );
-}
+  Color darken([double ratio = 5 / 4]) => this * ratio;
 
-Color augment2(Color c, {double strength = 0.1}) {
-  final avg = (c.blue + c.red + c.green) / 3;
-  // ignore: binary-expression-operand-order
-  final factor = avg > 127 ? 1 - strength : 1 + strength;
-  return Color.fromARGB(
-    c.alpha,
-    (c.red * factor).round().clamp(0, 255),
-    (c.green * factor).round().clamp(0, 255),
-    (c.blue * factor).round().clamp(0, 255),
-  );
+  Color augmentSquared() {
+    final mean = (red + green + blue) / 3;
+
+    int _sgnOfSub(num a, num b) => a > b ? -1 : 1;
+
+    return Color.fromARGB(
+      alpha,
+      (red + _sgnOfSub(mean, red) * pow(red - mean, 2)).round().clamp(0, 255),
+      (green + _sgnOfSub(mean, green) * pow(green - mean, 2))
+          .round()
+          .clamp(0, 255),
+      (blue + _sgnOfSub(mean, blue) * pow(blue - mean, 2))
+          .round()
+          .clamp(0, 255),
+    );
+  }
+
+  Color augmentlinear([double strength = 0.1]) {
+    if (strength < 0 || strength > 1) throw RangeError.range(strength, 0, 1);
+
+    final factor =
+        ((blue + red + green) / 3) > 127 ? 1 - strength : 1 + strength;
+    return this * factor;
+  }
 }
 
 class GradientMask extends StatelessWidget {
-  const GradientMask({required this.child, required this.gradient, Key? key}) : super(key: key);
+  const GradientMask({required this.child, required this.gradient, Key? key})
+      : super(key: key);
   final Widget child;
   final Gradient gradient;
 

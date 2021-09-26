@@ -1,10 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/settings/properties/property.dart';
+import 'package:swift_travel/settings/settings.dart';
 import 'package:swift_travel/settings/widgets/settings_page_widget.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
+import 'package:swift_travel/theme.dart';
+import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/widgets/property_page.dart';
 import 'package:theming/dynamic_theme.dart';
 
@@ -12,7 +18,8 @@ class CustomizationSettingsPage extends StatefulWidget {
   const CustomizationSettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<CustomizationSettingsPage> createState() => _CustomizationSettingsPageState();
+  State<CustomizationSettingsPage> createState() =>
+      _CustomizationSettingsPageState();
 }
 
 class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
@@ -20,9 +27,12 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
   Widget build(BuildContext context) {
     return SettingsPageWidget(
       title: Text(AppLocalizations.of(context).customization),
-      children: const [
-        _FontChoiceTile(),
-        _PlatformTile(),
+      children: [
+        SectionTitle(title: Text(AppLocalizations.of(context).brightness)),
+        const _ThemeModeList(),
+        const Gap(16),
+        const _FontChoiceTile(),
+        const _PlatformTile(),
       ],
     );
   }
@@ -47,12 +57,14 @@ class _PlatformTile extends StatelessWidget {
       title: const Text('Platform'),
       options: p == TargetPlatform.iOS || p == TargetPlatform.android
           ? const [
-              ValueOption(value: TargetPlatform.android, title: Text('Android')),
+              ValueOption(
+                  value: TargetPlatform.android, title: Text('Android')),
               ValueOption(value: TargetPlatform.iOS, title: Text('iOS')),
             ]
           : const [
               ValueOption(value: TargetPlatform.macOS, title: Text('MacOS')),
-              ValueOption(value: TargetPlatform.windows, title: Text('Windows')),
+              ValueOption(
+                  value: TargetPlatform.windows, title: Text('Windows')),
             ],
     );
   }
@@ -106,6 +118,123 @@ extension TargetPlatfromX on TargetPlatform {
       case TargetPlatform.fuchsia:
         return 'Fuchsia';
     }
+  }
+}
+
+class _ThemeModeList extends StatelessWidget {
+  const _ThemeModeList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      key: const Key('settings-top-theme-section'),
+      height: 100,
+      child: Builder(builder: (context) {
+        final theme = DynamicTheme.of(context);
+        return ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            _ThememodeWidget(
+              theme: theme,
+              label: AppLocalizations.of(context).brightness_system,
+              mode: ThemeMode.system,
+            ),
+            _ThememodeWidget(
+              theme: theme,
+              label: AppLocalizations.of(context).brightness_light,
+              mode: ThemeMode.light,
+            ),
+            _ThememodeWidget(
+              theme: theme,
+              label: AppLocalizations.of(context).brightness_dark,
+              mode: ThemeMode.dark,
+            ),
+          ],
+        );
+      }),
+    );
+  }
+}
+
+class _ThememodeWidget extends StatelessWidget {
+  const _ThememodeWidget({
+    required this.theme,
+    required this.mode,
+    required this.label,
+    Key? key,
+  }) : super(key: key);
+
+  final DynamicThemeData theme;
+  final ThemeMode mode;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = DynamicTheme.resolve(
+      context,
+      mode,
+      theme.theme,
+      textTheme: Typography.englishLike2018,
+    );
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: InkWell(
+        onTap: () => theme.themeMode = mode,
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Container(
+            key: Key('mode-${describeEnum(mode).toLowerCase()}'),
+            decoration: BoxDecoration(
+                boxShadow: shadowListOf(context),
+                color: mode == ThemeMode.system ? null : t.cardColor,
+                border: theme.themeMode == mode
+                    ? Border.all(
+                        width: 2,
+                        color: platformPrimaryColor(context),
+                      )
+                    : null,
+                gradient: mode == ThemeMode.system
+                    ? LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                            theme.light.colorScheme.background,
+                            theme.dark.colorScheme.background,
+                          ],
+                        stops: const [
+                            0.5,
+                            0.5,
+                          ])
+                    : null,
+                borderRadius: const BorderRadius.all(Radius.circular(16))),
+            child: Center(
+              child: mode == ThemeMode.system
+                  ? ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                        child: Container(
+                          color: Colors.white30,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8, right: 8, bottom: 8, top: 4),
+                            child: Text(
+                              label,
+                              style: t.textTheme.headline6!
+                                  .copyWith(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Text(label, style: t.textTheme.headline6),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

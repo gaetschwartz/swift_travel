@@ -18,12 +18,10 @@ import 'package:swift_travel/settings/pages/customization.dart';
 import 'package:swift_travel/settings/pages/developer.dart';
 import 'package:swift_travel/settings/team_page.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
-import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/property_page.dart';
 import 'package:swift_travel/widgets/route.dart';
-import 'package:theming/dynamic_theme.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -36,9 +34,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final children = [
-      _SectionTitle(title: Text(AppLocalizations.of(context).brightness)),
-      const _ThemeModeList(),
-      const Gap(16),
+      SectionTitle(title: Text(AppLocalizations.of(context).settings)),
       SwiftSettingsTile(
         tileBorders: const TileBorders(top: true),
         title: Text(AppLocalizations.of(context).customization),
@@ -70,16 +66,18 @@ class _SettingsPageState extends State<SettingsPage> {
         tileBorders: const TileBorders(bottom: true),
         options: NavigationApiFactory.factories
             .map(
-              (e) => ValueOption(title: Text(e.name), value: NavigationApiId(e.id.value)),
+              (e) => ValueOption(
+                  title: Text(e.name), value: NavigationApiId(e.id.value)),
             )
             .toList(growable: false),
         title: Text(AppLocalizations.of(context).navigation_api),
         leading: const Icon(CupertinoIcons.link),
-        valueBuilder: (context, v) => Text(NavigationApiFactory.fromId(v).shortDesc),
+        valueBuilder: (context, v) =>
+            Text(NavigationApiFactory.fromId(v).shortDesc),
         /* pageDescription: const Text(
             'BETA: In the future the goal is to add more countries.'),*/
       ),
-      _SectionTitle(title: Text(AppLocalizations.of(context).more)),
+      SectionTitle(title: Text(AppLocalizations.of(context).more)),
       SwiftSettingsTile(
         title: Text(AppLocalizations.of(context).advanced_settings),
         leading: const Icon(Icons.settings),
@@ -192,43 +190,6 @@ class SettingsColor {
   }
 }
 
-class _ThemeModeList extends StatelessWidget {
-  const _ThemeModeList({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      key: const Key('settings-top-theme-section'),
-      height: 100,
-      child: Builder(builder: (context) {
-        final theme = DynamicTheme.of(context);
-        return ListView(
-          scrollDirection: Axis.horizontal,
-          children: [
-            _ThememodeWidget(
-              theme: theme,
-              label: AppLocalizations.of(context).brightness_system,
-              mode: ThemeMode.system,
-            ),
-            _ThememodeWidget(
-              theme: theme,
-              label: AppLocalizations.of(context).brightness_light,
-              mode: ThemeMode.light,
-            ),
-            _ThememodeWidget(
-              theme: theme,
-              label: AppLocalizations.of(context).brightness_dark,
-              mode: ThemeMode.dark,
-            ),
-          ],
-        );
-      }),
-    );
-  }
-}
-
 final _tapCountProvider = StateProvider((ref) => 0);
 
 final isDeveloperProvider =
@@ -244,8 +205,8 @@ class BuildDetailsWidget extends StatelessWidget {
 
     if (controller.state == 6) {
       context.read(preferencesProvider).isDeveloper.setValue(true);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("You are now a developer 😎")));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("You are now a developer 😎")));
     } else {
       controller.state++;
     }
@@ -352,7 +313,8 @@ class __ScrollProgressState extends State<_ScrollProgress> {
 
   void update() {
     if (mounted) {
-      final p = widget._controller.position.pixels / widget._controller.position.maxScrollExtent;
+      final p = widget._controller.position.pixels /
+          widget._controller.position.maxScrollExtent;
       setState(() => progress = math.min(1, p));
     }
   }
@@ -383,82 +345,8 @@ class __ScrollProgressState extends State<_ScrollProgress> {
       );
 }
 
-class _ThememodeWidget extends StatelessWidget {
-  const _ThememodeWidget({
-    required this.theme,
-    required this.mode,
-    required this.label,
-    Key? key,
-  }) : super(key: key);
-
-  final DynamicThemeData theme;
-  final ThemeMode mode;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = DynamicTheme.resolve(
-      context,
-      mode,
-      theme.theme,
-      textTheme: Typography.englishLike2018,
-    );
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: InkWell(
-        onTap: () => theme.themeMode = mode,
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Container(
-            key: Key('mode-${describeEnum(mode).toLowerCase()}'),
-            decoration: BoxDecoration(
-                boxShadow: shadowListOf(context),
-                color: mode == ThemeMode.system ? null : t.cardColor,
-                border: theme.themeMode == mode
-                    ? Border.all(
-                        width: 2,
-                        color: primaryColor(context),
-                      )
-                    : null,
-                gradient: mode == ThemeMode.system
-                    ? LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
-                        theme.light.colorScheme.background,
-                        theme.dark.colorScheme.background,
-                      ], stops: const [
-                        0.5,
-                        0.5
-                      ])
-                    : null,
-                borderRadius: const BorderRadius.all(Radius.circular(16))),
-            child: Center(
-              child: mode == ThemeMode.system
-                  ? ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                        child: Container(
-                          color: Colors.white30,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 4),
-                            child: Text(
-                              label,
-                              style: t.textTheme.headline6!.copyWith(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  : Text(label, style: t.textTheme.headline6),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({
+class SectionTitle extends StatelessWidget {
+  const SectionTitle({
     required this.title,
     Key? key,
   }) : super(key: key);
@@ -468,7 +356,10 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: DefaultTextStyle(
-          style: Theme.of(context).textTheme.headline6!.copyWith(color: primaryColor(context)),
+          style: Theme.of(context)
+              .textTheme
+              .headline6!
+              .copyWith(color: platformPrimaryColor(context)),
           textAlign: TextAlign.left,
           child: title,
         ),

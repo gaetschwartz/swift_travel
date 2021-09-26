@@ -13,14 +13,10 @@ class DelayConverter extends JsonConverter<int?, String?> {
 
   @override
   int? fromJson(String? json) {
-    if (json == null) {
-      return null;
-    } else if (json is String && json != 'X') {
-      final tryParse = int.tryParse(json);
-      return tryParse == 0 ? null : tryParse;
-    } else {
-      return null;
-    }
+    if (json == null || json == 'X') return null;
+
+    final value = int.tryParse(json);
+    return value == 0 ? null : value;
   }
 
   @override
@@ -50,10 +46,12 @@ class SbbExit with _$SbbExit, BaseStop, SbbDisplayNameMixin implements Exit {
   }) = _Exit;
   SbbExit._();
 
-  factory SbbExit.fromJson(Map<String, dynamic> json) => _$SbbExitFromJson(json);
+  factory SbbExit.fromJson(Map<String, dynamic> json) =>
+      _$SbbExitFromJson(json);
 
   @override
-  late final LatLon? position = LatLon.computeFrom(lat: lat, lon: lon, x: x, y: y, name: name);
+  late final LatLon? position =
+      LatLon.computeFrom(lat: lat, lon: lon, x: x, y: y, name: name);
 
   @override
   int get depDelay => 0;

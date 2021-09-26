@@ -48,15 +48,10 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
   persist: true,
   applyToAllThemes: (t) {
     return t.copyWith(
-        cupertinoOverrideTheme:
-            CupertinoThemeData(brightness: t.brightness).rawCopy(),
-        pageTransitionsTheme: const PageTransitionsTheme(builders: {
-          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
-          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
-        }));
+      cupertinoOverrideTheme:
+          CupertinoThemeData(brightness: t.brightness).rawCopy(),
+      pageTransitionsTheme: const PageTransitionsTheme(),
+    );
   },
   lightThemes: [
     ExtendedTheme(
