@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:live_route/live_route.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/utils/definitions.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 
@@ -24,13 +25,14 @@ class LiveRoutePage extends StatefulWidget {
 }
 
 class _LiveRoutePageState extends State<LiveRoutePage> {
-  late final LiveRouteController _controller = context.read(liveRouteControllerProvider);
+  late final LiveRouteController _controller =
+      context.read(liveRouteControllerProvider);
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!
-        .addPostFrameCallback((timeStamp) => _controller.startRoute(widget.connection));
+    WidgetsBinding.instance!.addPostFrameCallback(
+        (timeStamp) => _controller.startRoute(widget.connection));
   }
 
   @override
@@ -43,9 +45,10 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Live route')),
       body: Consumer(builder: (context, w, _) {
-        final controller = w(liveRouteControllerProvider);
+        final controller = w.watch(liveRouteControllerProvider);
         if (!controller.isRunning || !controller.isReady) {
-          log.log('Running : ${controller.isRunning}, read : ${controller.isReady}');
+          log.log(
+              'Running : ${controller.isRunning}, read : ${controller.isReady}');
           return const Center(child: CircularProgressIndicator());
         }
 
@@ -64,15 +67,22 @@ class _LiveRoutePageState extends State<LiveRoutePage> {
                           children: [
                             TextSpan(
                                 text: controller.currentLeg?.exit?.name,
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
                             const TextSpan(text: ' in '),
                             TextSpan(
-                                text: Format.duration(controller.routeData.timeUntilNextLeg),
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                                text: Format.duration(
+                                    controller.routeData.timeUntilNextLeg),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
                             TextSpan(
-                                text: ' (${Format.distance(controller.routeData.distUntilExit)})'),
+                                text:
+                                    ' (${Format.distance(controller.routeData.distUntilExit)})'),
                           ],
-                          style: Theme.of(context).textTheme.headline6!.apply(fontSizeFactor: 0.8),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .apply(fontSizeFactor: 0.8),
                         )),
                         Text(
                           controller.routeData.currentStopIndex == 2
@@ -137,7 +147,8 @@ class _LegCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selected = controller.currentStop == null && leg.name == controller.currentLeg?.name;
+    final selected = controller.currentStop == null &&
+        leg.name == controller.currentLeg?.name;
     final legDistance = controller.legDistances[i];
     final dist = legDistance == null ? .0 : legDistance[-1];
     return Card(
@@ -151,7 +162,8 @@ class _LegCard extends StatelessWidget {
             ),
             subtitle: dist != null ? Text(Format.distance(dist)) : null,
           ),
-          for (var j = 0; j < leg.stops.length; j++) _buildStop(controller, i, j, leg.stops[j]),
+          for (var j = 0; j < leg.stops.length; j++)
+            _buildStop(controller, i, j, leg.stops[j]),
         ],
       ),
     );
@@ -168,7 +180,9 @@ class _LegCard extends StatelessWidget {
         s.name,
         style: TextStyle(fontWeight: selected ? FontWeight.bold : null),
       ),
-      subtitle: dist != null ? Text(Format.distance(dist)) : const Text('No location data'),
+      subtitle: dist != null
+          ? Text(Format.distance(dist))
+          : const Text('No location data'),
     );
   }
 }

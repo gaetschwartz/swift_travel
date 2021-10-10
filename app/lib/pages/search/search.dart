@@ -16,6 +16,7 @@ import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search/models.dart';
 import 'package:swift_travel/prediction/complete.dart';
@@ -255,7 +256,7 @@ class _Results extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer(builder: (context, w, _) {
-        final state = w(_stateProvider);
+        final state = w.watch(_stateProvider);
         return state.state.when(
           completions: (c) => Stack(
             children: [

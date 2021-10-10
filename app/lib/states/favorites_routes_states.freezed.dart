@@ -151,14 +151,14 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is FavoritesRoutesStatesData &&
-            (identical(other.routes, routes) ||
-                const DeepCollectionEquality().equals(other.routes, routes)));
+        (other.runtimeType == runtimeType &&
+            other is FavoritesRoutesStatesData &&
+            const DeepCollectionEquality().equals(other.routes, routes));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(routes);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(routes));
 
   @JsonKey(ignore: true)
   @override
@@ -239,7 +239,7 @@ abstract class FavoritesRoutesStatesData implements FavoritesRoutesStates {
   const factory FavoritesRoutesStatesData(List<LocalRoute> routes) =
       _$FavoritesRoutesStatesData;
 
-  List<LocalRoute> get routes => throw _privateConstructorUsedError;
+  List<LocalRoute> get routes;
   @JsonKey(ignore: true)
   $FavoritesRoutesStatesDataCopyWith<FavoritesRoutesStatesData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -279,7 +279,9 @@ class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FavoritesRoutesStatesLoading);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FavoritesRoutesStatesLoading);
   }
 
   @override
@@ -407,15 +409,14 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is FavoritesRoutesStatesError &&
+        (other.runtimeType == runtimeType &&
+            other is FavoritesRoutesStatesError &&
             (identical(other.exception, exception) ||
-                const DeepCollectionEquality()
-                    .equals(other.exception, exception)));
+                other.exception == exception));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
+  int get hashCode => Object.hash(runtimeType, exception);
 
   @JsonKey(ignore: true)
   @override
@@ -497,7 +498,7 @@ abstract class FavoritesRoutesStatesError implements FavoritesRoutesStates {
   const factory FavoritesRoutesStatesError(Exception exception) =
       _$FavoritesRoutesStatesError;
 
-  Exception get exception => throw _privateConstructorUsedError;
+  Exception get exception;
   @JsonKey(ignore: true)
   $FavoritesRoutesStatesErrorCopyWith<FavoritesRoutesStatesError>
       get copyWith => throw _privateConstructorUsedError;

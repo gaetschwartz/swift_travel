@@ -51,7 +51,7 @@ class _$UnionTearOff {
     );
   }
 
-  Union fromJson(Map<String, Object> json) {
+  Union fromJson(Map<String, Object?> json) {
     return Union.fromJson(json);
   }
 }
@@ -171,14 +171,13 @@ class _$Person implements Person {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Person &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)));
+        (other.runtimeType == runtimeType &&
+            other is Person &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(name);
+  int get hashCode => Object.hash(runtimeType, name);
 
   @JsonKey(ignore: true)
   @override
@@ -264,7 +263,7 @@ abstract class Person implements Union {
 
   factory Person.fromJson(Map<String, dynamic> json) = _$Person.fromJson;
 
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @JsonKey(ignore: true)
   $PersonCopyWith<Person> get copyWith => throw _privateConstructorUsedError;
 }
@@ -324,18 +323,14 @@ class _$Animal implements Animal {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Animal &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.legs, legs) ||
-                const DeepCollectionEquality().equals(other.legs, legs)));
+        (other.runtimeType == runtimeType &&
+            other is Animal &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.legs, legs) || other.legs == legs));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(legs);
+  int get hashCode => Object.hash(runtimeType, name, legs);
 
   @JsonKey(ignore: true)
   @override
@@ -421,8 +416,8 @@ abstract class Animal implements Union {
 
   factory Animal.fromJson(Map<String, dynamic> json) = _$Animal.fromJson;
 
-  String get name => throw _privateConstructorUsedError;
-  int get legs => throw _privateConstructorUsedError;
+  String get name;
+  int get legs;
   @JsonKey(ignore: true)
   $AnimalCopyWith<Animal> get copyWith => throw _privateConstructorUsedError;
 }
@@ -475,14 +470,13 @@ class _$Number implements Number {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Number &&
-            (identical(other.number, number) ||
-                const DeepCollectionEquality().equals(other.number, number)));
+        (other.runtimeType == runtimeType &&
+            other is Number &&
+            (identical(other.number, number) || other.number == number));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(number);
+  int get hashCode => Object.hash(runtimeType, number);
 
   @JsonKey(ignore: true)
   @override
@@ -568,7 +562,7 @@ abstract class Number implements Union {
 
   factory Number.fromJson(Map<String, dynamic> json) = _$Number.fromJson;
 
-  int get number => throw _privateConstructorUsedError;
+  int get number;
   @JsonKey(ignore: true)
   $NumberCopyWith<Number> get copyWith => throw _privateConstructorUsedError;
 }

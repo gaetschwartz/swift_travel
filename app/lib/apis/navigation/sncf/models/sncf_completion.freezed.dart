@@ -27,7 +27,7 @@ class _$SncfCompletionTearOff {
     );
   }
 
-  SncfCompletion fromJson(Map<String, Object> json) {
+  SncfCompletion fromJson(Map<String, Object?> json) {
     return SncfCompletion.fromJson(json);
   }
 }
@@ -130,14 +130,14 @@ class _$_SncfCompletion implements _SncfCompletion {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfCompletion &&
-            (identical(other.places, places) ||
-                const DeepCollectionEquality().equals(other.places, places)));
+        (other.runtimeType == runtimeType &&
+            other is _SncfCompletion &&
+            const DeepCollectionEquality().equals(other.places, places));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(places);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(places));
 
   @JsonKey(ignore: true)
   @override
@@ -157,7 +157,7 @@ abstract class _SncfCompletion implements SncfCompletion {
       _$_SncfCompletion.fromJson;
 
   @override
-  List<SncfPlace> get places => throw _privateConstructorUsedError;
+  List<SncfPlace> get places;
   @override
   @JsonKey(ignore: true)
   _$SncfCompletionCopyWith<_SncfCompletion> get copyWith =>

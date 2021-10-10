@@ -133,7 +133,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
 
   @allowReturningWidgets
   Widget buildCupertinoTabScaffold() => Consumer(builder: (context, w, _) {
-        final tabController = w(tabProvider.notifier);
+        final tabController = w.watch(tabProvider.notifier);
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: CupertinoTabScaffold(
@@ -176,7 +176,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
 
   @allowReturningWidgets
   Widget buildScaffold() => Consumer(builder: (context, w, _) {
-        final controllers = w(tabProvider);
+        final controllers = w.watch(tabProvider);
         final page = controllers.index % TabView.androidTabs.length;
 
         return Scaffold(
@@ -363,7 +363,7 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Consumer(
       builder: (context, w, _) =>
-          w(sideTabBarProvider).state?.call(context) ??
+          w.watch(sideTabBarProvider).state?.call(context) ??
           Stack(
             children: [
               Positioned.fill(

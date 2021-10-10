@@ -20,7 +20,7 @@ dependencies:
     path: ../packages/vibration
   gaets_logging:
     path: ../packages/logging
-  android_intent_plus: ^2.0.0
+  android_intent_plus: ^3.0.1
   animations: ^2.0.0
   async: ^2.4.2
   collection: ^1.15.0
@@ -29,10 +29,10 @@ dependencies:
   firebase_core: ^1.0.0
   firebase_crashlytics: ^2.0.0
   flex_color_scheme: ^3.0.1
-  flutter_riverpod: ^0.14.0+1
+  flutter_riverpod: ^1.0.0-dev.11
   flutter_slidable: ^0.6.0
   font_awesome_flutter: ^9.0.0
-  freezed_annotation: ^0.14.0
+  freezed_annotation: ^0.15.0
   geolocator: ^7.0.1
   google_fonts: ^2.0.0
   hive: ^2.0.0
@@ -45,7 +45,7 @@ dependencies:
   process_run: ^0.12.0
   quick_actions: ^0.6.0
   scrollable_positioned_list: ^0.2.0-nullsafety.0
-  share_plus: ^2.0.0
+  share_plus: ^3.0.2
   shared_preferences: ^2.0.0
   shimmer: ^2.0.0
   url_launcher: ^6.0.0
@@ -67,11 +67,11 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.0.1
   flutter_lints: ^1.0.3
-  freezed: ^0.14.0-nullsafety.0
+  freezed: ^0.15.0+1
   json_serializable: ^5.0.0
   lint: ^1.1.1
   mockito: ^5.0.0-nullsafety.1
-  dart_code_metrics: ^4.2.1
+  #dart_code_metrics: ^4.2.1
 
 flutter:
   uses-material-design: true

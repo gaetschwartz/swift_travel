@@ -132,7 +132,8 @@ class _$EmptyRouteState implements EmptyRouteState {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is EmptyRouteState);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is EmptyRouteState);
   }
 
   @override
@@ -267,18 +268,14 @@ class _$TextRouteState implements TextRouteState {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is TextRouteState &&
-            (identical(other.text, text) ||
-                const DeepCollectionEquality().equals(other.text, text)) &&
-            (identical(other.doLoad, doLoad) ||
-                const DeepCollectionEquality().equals(other.doLoad, doLoad)));
+        (other.runtimeType == runtimeType &&
+            other is TextRouteState &&
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.doLoad, doLoad) || other.doLoad == doLoad));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(text) ^
-      const DeepCollectionEquality().hash(doLoad);
+  int get hashCode => Object.hash(runtimeType, text, doLoad);
 
   @JsonKey(ignore: true)
   @override
@@ -357,8 +354,8 @@ class _$TextRouteState implements TextRouteState {
 abstract class TextRouteState implements RouteTextfieldState {
   const factory TextRouteState(String text, {bool doLoad}) = _$TextRouteState;
 
-  String get text => throw _privateConstructorUsedError;
-  bool get doLoad => throw _privateConstructorUsedError;
+  String get text;
+  bool get doLoad;
   @JsonKey(ignore: true)
   $TextRouteStateCopyWith<TextRouteState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -395,7 +392,8 @@ class _$UseCurrentLocation implements UseCurrentLocation {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is UseCurrentLocation);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is UseCurrentLocation);
   }
 
   @override

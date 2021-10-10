@@ -57,19 +57,23 @@ class TeamPage extends StatefulWidget {
 }
 
 final _contributorsProvider = FutureProvider<List<Contributor>>((_) async {
-  final uri = Uri.parse('https://api.github.com/repos/gaetschwartz/swift_travel/contributors');
+  final uri = Uri.parse(
+      'https://api.github.com/repos/gaetschwartz/swift_travel/contributors');
   final r = await http.get(uri);
   final list = jsonDecode(r.body) as List;
-  final contribs = list.map((dynamic e) => Contributor.fromJson(e as JSON)).toList();
+  final contribs =
+      list.map((dynamic e) => Contributor.fromJson(e as JSON)).toList();
 
   return contribs;
 });
 
 class _TeamPageState extends State<TeamPage> {
-  final primaryMemberWidgets =
-      TeamPage.primaryCoders.map((c) => _MemberTile(c, dense: true)).toList(growable: false);
-  final secondaryMembersWidgets =
-      TeamPage.secondaryCoders.map((c) => _MemberTile(c, dense: true)).toList(growable: false);
+  final primaryMemberWidgets = TeamPage.primaryCoders
+      .map((c) => _MemberTile(c, dense: true))
+      .toList(growable: false);
+  final secondaryMembersWidgets = TeamPage.secondaryCoders
+      .map((c) => _MemberTile(c, dense: true))
+      .toList(growable: false);
 
   final client = http.Client();
 
@@ -110,8 +114,8 @@ class _TeamPageState extends State<TeamPage> {
                 width: double.infinity,
                 height: 64,
                 child: TextButton(
-                  onPressed: () =>
-                      showLicensePage(context: context, applicationIcon: const FlutterLogo()),
+                  onPressed: () => showLicensePage(
+                      context: context, applicationIcon: const FlutterLogo()),
                   child: const Text('View licenses'),
                 ),
               ),
@@ -129,7 +133,7 @@ class _Contributors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, w, _) {
-      return w(_contributorsProvider).when(data: (contribs) {
+      return w.watch(_contributorsProvider).when(data: (contribs) {
         return SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, i) {
@@ -149,11 +153,11 @@ class _Contributors extends StatelessWidget {
             childCount: contribs.length,
           ),
         );
-      }, loading: () {
+      }, loading: (_) {
         return const SliverFillRemaining(
           child: Center(child: CircularProgressIndicator.adaptive()),
         );
-      }, error: (e, s) {
+      }, error: (e, s, _) {
         return SliverToBoxAdapter(child: Text(e.toString()));
       });
     });
@@ -183,7 +187,9 @@ class _MemberTile extends StatelessWidget {
                 : c.isAssets
                     ? AssetImage(c.imageUrl!) as ImageProvider
                     : NetworkImage(c.imageUrl!),
-            child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user, size: 18) : null,
+            child: c.imageUrl == null
+                ? const FaIcon(FontAwesomeIcons.user, size: 18)
+                : null,
           ),
         ),
         subtitle: c.role == null ? null : Text(c.role!),
@@ -194,7 +200,8 @@ class _MemberTile extends StatelessWidget {
                 onPressed: () => launch(c.websiteUrl!)),
           if (c.githubUrl != null)
             IconButton(
-                icon: const FaIcon(FontAwesomeIcons.github), onPressed: () => launch(c.githubUrl!)),
+                icon: const FaIcon(FontAwesomeIcons.github),
+                onPressed: () => launch(c.githubUrl!)),
           if (c.twitterUrl != null)
             IconButton(
                 icon: const FaIcon(FontAwesomeIcons.twitter),

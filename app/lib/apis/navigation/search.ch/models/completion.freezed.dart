@@ -40,7 +40,7 @@ class _$SbbCompletionTearOff {
     );
   }
 
-  SbbCompletion fromJson(Map<String, Object> json) {
+  SbbCompletion fromJson(Map<String, Object?> json) {
     return SbbCompletion.fromJson(json);
   }
 }
@@ -245,35 +245,22 @@ class _$_SbbCompletion extends _SbbCompletion {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SbbCompletion &&
-            (identical(other.label, label) ||
-                const DeepCollectionEquality().equals(other.label, label)) &&
-            (identical(other.dist, dist) ||
-                const DeepCollectionEquality().equals(other.dist, dist)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SbbCompletion &&
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.dist, dist) || other.dist == dist) &&
             (identical(other.iconClass, iconClass) ||
-                const DeepCollectionEquality()
-                    .equals(other.iconClass, iconClass)) &&
-            (identical(other.html, html) ||
-                const DeepCollectionEquality().equals(other.html, html)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
+                other.iconClass == iconClass) &&
+            (identical(other.html, html) || other.html == html) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.favoriteName, favoriteName) ||
-                const DeepCollectionEquality()
-                    .equals(other.favoriteName, favoriteName)) &&
-            (identical(other.origin, origin) ||
-                const DeepCollectionEquality().equals(other.origin, origin)));
+                other.favoriteName == favoriteName) &&
+            (identical(other.origin, origin) || other.origin == origin));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(label) ^
-      const DeepCollectionEquality().hash(dist) ^
-      const DeepCollectionEquality().hash(iconClass) ^
-      const DeepCollectionEquality().hash(html) ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(favoriteName) ^
-      const DeepCollectionEquality().hash(origin);
+  int get hashCode => Object.hash(
+      runtimeType, label, dist, iconClass, html, id, favoriteName, origin);
 
   @JsonKey(ignore: true)
   @override
@@ -301,20 +288,20 @@ abstract class _SbbCompletion extends SbbCompletion {
       _$_SbbCompletion.fromJson;
 
   @override
-  String get label => throw _privateConstructorUsedError;
+  String get label;
   @override
-  double? get dist => throw _privateConstructorUsedError;
+  double? get dist;
   @override
   @JsonKey(name: 'iconclass')
-  String? get iconClass => throw _privateConstructorUsedError;
+  String? get iconClass;
   @override
-  String? get html => throw _privateConstructorUsedError;
+  String? get html;
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
-  String? get favoriteName => throw _privateConstructorUsedError;
+  String? get favoriteName;
   @override
-  DataOrigin get origin => throw _privateConstructorUsedError;
+  DataOrigin get origin;
   @override
   @JsonKey(ignore: true)
   _$SbbCompletionCopyWith<_SbbCompletion> get copyWith =>

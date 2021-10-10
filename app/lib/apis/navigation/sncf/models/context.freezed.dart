@@ -28,7 +28,7 @@ class _$SncfContextTearOff {
     );
   }
 
-  SncfContext fromJson(Map<String, Object> json) {
+  SncfContext fromJson(Map<String, Object?> json) {
     return SncfContext.fromJson(json);
   }
 }
@@ -140,20 +140,16 @@ class _$_SncfContext implements _SncfContext {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfContext &&
+        (other.runtimeType == runtimeType &&
+            other is _SncfContext &&
             (identical(other.dateTime, dateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.dateTime, dateTime)) &&
+                other.dateTime == dateTime) &&
             (identical(other.timezone, timezone) ||
-                const DeepCollectionEquality()
-                    .equals(other.timezone, timezone)));
+                other.timezone == timezone));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(dateTime) ^
-      const DeepCollectionEquality().hash(timezone);
+  int get hashCode => Object.hash(runtimeType, dateTime, timezone);
 
   @JsonKey(ignore: true)
   @override
@@ -174,9 +170,9 @@ abstract class _SncfContext implements SncfContext {
       _$_SncfContext.fromJson;
 
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
-  String? get timezone => throw _privateConstructorUsedError;
+  String? get timezone;
   @override
   @JsonKey(ignore: true)
   _$SncfContextCopyWith<_SncfContext> get copyWith =>

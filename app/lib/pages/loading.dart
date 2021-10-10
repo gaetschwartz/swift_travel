@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
@@ -42,9 +41,10 @@ class LoadingPage extends StatefulWidget {
   _LoadingPageState createState() => _LoadingPageState();
 }
 
-class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
-  late final _controller =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+class _LoadingPageState extends State<LoadingPage>
+    with TickerProviderStateMixin {
+  late final _controller = AnimationController(
+      vsync: this, duration: const Duration(milliseconds: 500));
   bool darwin = false;
 
   @override
@@ -101,7 +101,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
                 ),
               ),
             ),
-            getApi: () => navigatorKey.currentContext!.read(navigationAPIProvider),
+            getApi: () =>
+                navigatorKey.currentContext!.read(navigationAPIProvider),
           );
     }
   }
@@ -125,7 +126,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     }
   }
 
-  Future<void> failedToLoadSettings(Object e, StackTrace s, SharedPreferences prefs) async {
+  Future<void> failedToLoadSettings(
+      Object e, StackTrace s, SharedPreferences prefs) async {
     reportDartError(e, s, library: 'loading', reason: 'while loading');
     final delete = await confirm(
       context,
@@ -152,7 +154,8 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     }
   }
 
-  Future<String> getHivePathOf(Directory? appDir, [List<String> paths = const []]) async {
+  Future<String> getHivePathOf(Directory? appDir,
+      [List<String> paths = const []]) async {
     if (appDir == null) {
       throw Exception('Failed to get application path.');
     }
@@ -202,8 +205,10 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
       return Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           settings: const RouteSettings(name: '/'),
-          pageBuilder: (context, animation, secondaryAnimation) => const TabView(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const TabView(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(
             opacity: animation,
             child: child,
           ),

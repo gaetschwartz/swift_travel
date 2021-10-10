@@ -116,14 +116,13 @@ class _$_NavigationApiId implements _NavigationApiId {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _NavigationApiId &&
-            (identical(other.value, value) ||
-                const DeepCollectionEquality().equals(other.value, value)));
+        (other.runtimeType == runtimeType &&
+            other is _NavigationApiId &&
+            (identical(other.value, value) || other.value == value));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(value);
+  int get hashCode => Object.hash(runtimeType, value);
 
   @JsonKey(ignore: true)
   @override
@@ -135,7 +134,7 @@ abstract class _NavigationApiId implements NavigationApiId {
   const factory _NavigationApiId(String value) = _$_NavigationApiId;
 
   @override
-  String get value => throw _privateConstructorUsedError;
+  String get value;
   @override
   @JsonKey(ignore: true)
   _$NavigationApiIdCopyWith<_NavigationApiId> get copyWith =>

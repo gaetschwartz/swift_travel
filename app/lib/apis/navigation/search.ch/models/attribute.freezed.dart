@@ -125,18 +125,14 @@ class _$_Attribute extends _Attribute {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Attribute &&
-            (identical(other.code, code) ||
-                const DeepCollectionEquality().equals(other.code, code)) &&
-            (identical(other.message, message) ||
-                const DeepCollectionEquality().equals(other.message, message)));
+        (other.runtimeType == runtimeType &&
+            other is _Attribute &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(code) ^
-      const DeepCollectionEquality().hash(message);
+  int get hashCode => Object.hash(runtimeType, code, message);
 
   @JsonKey(ignore: true)
   @override
@@ -149,9 +145,9 @@ abstract class _Attribute extends Attribute {
   _Attribute._() : super._();
 
   @override
-  String get code => throw _privateConstructorUsedError;
+  String get code;
   @override
-  String? get message => throw _privateConstructorUsedError;
+  String? get message;
   @override
   @JsonKey(ignore: true)
   _$AttributeCopyWith<_Attribute> get copyWith =>
@@ -276,18 +272,14 @@ class _$_AttributeData implements _AttributeData {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _AttributeData &&
-            (identical(other.icon, icon) ||
-                const DeepCollectionEquality().equals(other.icon, icon)) &&
-            (identical(other.ignore, ignore) ||
-                const DeepCollectionEquality().equals(other.ignore, ignore)));
+        (other.runtimeType == runtimeType &&
+            other is _AttributeData &&
+            (identical(other.icon, icon) || other.icon == icon) &&
+            (identical(other.ignore, ignore) || other.ignore == ignore));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(icon) ^
-      const DeepCollectionEquality().hash(ignore);
+  int get hashCode => Object.hash(runtimeType, icon, ignore);
 
   @JsonKey(ignore: true)
   @override
@@ -299,9 +291,9 @@ abstract class _AttributeData implements AttributeData {
   const factory _AttributeData({Widget? icon, bool ignore}) = _$_AttributeData;
 
   @override
-  Widget? get icon => throw _privateConstructorUsedError;
+  Widget? get icon;
   @override
-  bool get ignore => throw _privateConstructorUsedError;
+  bool get ignore;
   @override
   @JsonKey(ignore: true)
   _$AttributeDataCopyWith<_AttributeData> get copyWith =>

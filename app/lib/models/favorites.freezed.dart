@@ -50,7 +50,7 @@ class _$LocalRouteTearOff {
     );
   }
 
-  LocalRoute fromJson(Map<String, Object> json) {
+  LocalRoute fromJson(Map<String, Object?> json) {
     return LocalRoute.fromJson(json);
   }
 }
@@ -229,26 +229,19 @@ class _$LocalRouteV1 extends LocalRouteV1 {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is LocalRouteV1 &&
-            (identical(other.from, from) ||
-                const DeepCollectionEquality().equals(other.from, from)) &&
-            (identical(other.to, to) ||
-                const DeepCollectionEquality().equals(other.to, to)) &&
+        (other.runtimeType == runtimeType &&
+            other is LocalRouteV1 &&
+            (identical(other.from, from) || other.from == from) &&
+            (identical(other.to, to) || other.to == to) &&
             (identical(other.displayName, displayName) ||
-                const DeepCollectionEquality()
-                    .equals(other.displayName, displayName)) &&
+                other.displayName == displayName) &&
             (identical(other.timestamp, timestamp) ||
-                const DeepCollectionEquality()
-                    .equals(other.timestamp, timestamp)));
+                other.timestamp == timestamp));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(from) ^
-      const DeepCollectionEquality().hash(to) ^
-      const DeepCollectionEquality().hash(displayName) ^
-      const DeepCollectionEquality().hash(timestamp);
+      Object.hash(runtimeType, from, to, displayName, timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -343,12 +336,12 @@ abstract class LocalRouteV1 extends LocalRoute {
   factory LocalRouteV1.fromJson(Map<String, dynamic> json) =
       _$LocalRouteV1.fromJson;
 
-  String get from => throw _privateConstructorUsedError;
-  String get to => throw _privateConstructorUsedError;
+  String get from;
+  String get to;
   @override
-  String? get displayName => throw _privateConstructorUsedError;
+  String? get displayName;
   @override
-  DateTime? get timestamp => throw _privateConstructorUsedError;
+  DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
   $LocalRouteV1CopyWith<LocalRouteV1> get copyWith =>
@@ -448,26 +441,19 @@ class _$LocalRouteV2 extends LocalRouteV2 {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is LocalRouteV2 &&
-            (identical(other.from, from) ||
-                const DeepCollectionEquality().equals(other.from, from)) &&
-            (identical(other.to, to) ||
-                const DeepCollectionEquality().equals(other.to, to)) &&
+        (other.runtimeType == runtimeType &&
+            other is LocalRouteV2 &&
+            (identical(other.from, from) || other.from == from) &&
+            (identical(other.to, to) || other.to == to) &&
             (identical(other.displayName, displayName) ||
-                const DeepCollectionEquality()
-                    .equals(other.displayName, displayName)) &&
+                other.displayName == displayName) &&
             (identical(other.timestamp, timestamp) ||
-                const DeepCollectionEquality()
-                    .equals(other.timestamp, timestamp)));
+                other.timestamp == timestamp));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(from) ^
-      const DeepCollectionEquality().hash(to) ^
-      const DeepCollectionEquality().hash(displayName) ^
-      const DeepCollectionEquality().hash(timestamp);
+      Object.hash(runtimeType, from, to, displayName, timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -562,12 +548,12 @@ abstract class LocalRouteV2 extends LocalRoute {
   factory LocalRouteV2.fromJson(Map<String, dynamic> json) =
       _$LocalRouteV2.fromJson;
 
-  SbbStop get from => throw _privateConstructorUsedError;
-  SbbStop get to => throw _privateConstructorUsedError;
+  SbbStop get from;
+  SbbStop get to;
   @override
-  String? get displayName => throw _privateConstructorUsedError;
+  String? get displayName;
   @override
-  DateTime? get timestamp => throw _privateConstructorUsedError;
+  DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
   $LocalRouteV2CopyWith<LocalRouteV2> get copyWith =>
@@ -592,7 +578,7 @@ class _$FavoriteStopTearOff {
     );
   }
 
-  FavoriteStop fromJson(Map<String, Object> json) {
+  FavoriteStop fromJson(Map<String, Object?> json) {
     return FavoriteStop.fromJson(json);
   }
 }
@@ -733,24 +719,16 @@ class _$_FavoriteStop extends _FavoriteStop {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _FavoriteStop &&
-            (identical(other.stop, stop) ||
-                const DeepCollectionEquality().equals(other.stop, stop)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.api, api) ||
-                const DeepCollectionEquality().equals(other.api, api)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)));
+        (other.runtimeType == runtimeType &&
+            other is _FavoriteStop &&
+            (identical(other.stop, stop) || other.stop == stop) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.api, api) || other.api == api) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(stop) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(api) ^
-      const DeepCollectionEquality().hash(id);
+  int get hashCode => Object.hash(runtimeType, stop, name, api, id);
 
   @JsonKey(ignore: true)
   @override
@@ -775,13 +753,13 @@ abstract class _FavoriteStop extends FavoriteStop {
       _$_FavoriteStop.fromJson;
 
   @override
-  String get stop => throw _privateConstructorUsedError;
+  String get stop;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String? get api => throw _privateConstructorUsedError;
+  String? get api;
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
   @JsonKey(ignore: true)
   _$FavoriteStopCopyWith<_FavoriteStop> get copyWith =>

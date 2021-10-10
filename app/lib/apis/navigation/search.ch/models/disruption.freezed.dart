@@ -40,7 +40,7 @@ class _$DisruptionTearOff {
     );
   }
 
-  Disruption fromJson(Map<String, Object> json) {
+  Disruption fromJson(Map<String, Object?> json) {
     return Disruption.fromJson(json);
   }
 }
@@ -239,35 +239,22 @@ class _$_Disruption implements _Disruption {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Disruption &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.header, header) ||
-                const DeepCollectionEquality().equals(other.header, header)) &&
-            (identical(other.lead, lead) ||
-                const DeepCollectionEquality().equals(other.lead, lead)) &&
-            (identical(other.text, text) ||
-                const DeepCollectionEquality().equals(other.text, text)) &&
+        (other.runtimeType == runtimeType &&
+            other is _Disruption &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.header, header) || other.header == header) &&
+            (identical(other.lead, lead) || other.lead == lead) &&
+            (identical(other.text, text) || other.text == text) &&
             (identical(other.timeRange, timeRange) ||
-                const DeepCollectionEquality()
-                    .equals(other.timeRange, timeRange)) &&
-            (identical(other.exact, exact) ||
-                const DeepCollectionEquality().equals(other.exact, exact)) &&
+                other.timeRange == timeRange) &&
+            (identical(other.exact, exact) || other.exact == exact) &&
             (identical(other.priority, priority) ||
-                const DeepCollectionEquality()
-                    .equals(other.priority, priority)));
+                other.priority == priority));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(header) ^
-      const DeepCollectionEquality().hash(lead) ^
-      const DeepCollectionEquality().hash(text) ^
-      const DeepCollectionEquality().hash(timeRange) ^
-      const DeepCollectionEquality().hash(exact) ^
-      const DeepCollectionEquality().hash(priority);
+  int get hashCode => Object.hash(
+      runtimeType, id, header, lead, text, timeRange, exact, priority);
 
   @JsonKey(ignore: true)
   @override
@@ -294,20 +281,20 @@ abstract class _Disruption implements Disruption {
       _$_Disruption.fromJson;
 
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
-  String? get header => throw _privateConstructorUsedError;
+  String? get header;
   @override
-  String? get lead => throw _privateConstructorUsedError;
+  String? get lead;
   @override
-  String? get text => throw _privateConstructorUsedError;
+  String? get text;
   @override
   @JsonKey(name: 'timerange')
-  String? get timeRange => throw _privateConstructorUsedError;
+  String? get timeRange;
   @override
-  bool? get exact => throw _privateConstructorUsedError;
+  bool? get exact;
   @override
-  int? get priority => throw _privateConstructorUsedError;
+  int? get priority;
   @override
   @JsonKey(ignore: true)
   _$DisruptionCopyWith<_Disruption> get copyWith =>

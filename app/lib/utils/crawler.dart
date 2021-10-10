@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:path/path.dart' as path;
@@ -15,6 +14,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/logic/navigation.dart';
+import 'package:swift_travel/main.dart';
 import 'package:theming/responsive.dart';
 
 class CrawlerPage extends StatefulWidget {
@@ -48,7 +48,8 @@ class _CrawlerPageState extends State<CrawlerPage> {
                 icon: const Icon(CupertinoIcons.share),
                 onPressed: () async {
                   final dir = await getTemporaryDirectory();
-                  final f = File(path.join(dir.path, 'swift_travel', 'crawler', 'crawled.json'));
+                  final f = File(path.join(
+                      dir.path, 'swift_travel', 'crawler', 'crawled.json'));
                   if (!f.existsSync()) {
                     await f.create(recursive: true);
                   }
@@ -80,9 +81,11 @@ class _CrawlerPageState extends State<CrawlerPage> {
                       });
                       try {
                         for (final lr in routes) {
-                          log.log('Fetching ${lr.fromAsString} -> ${lr.toAsString}');
+                          log.log(
+                              'Fetching ${lr.fromAsString} -> ${lr.toAsString}');
                           for (var i = 0; i < 6; i++) {
-                            final timeOfDay = TimeOfDay(hour: 8 + i * 2, minute: 0);
+                            final timeOfDay =
+                                TimeOfDay(hour: 8 + i * 2, minute: 0);
                             if (mounted) {
                               setState(() {
                                 current = lr.fromAsString;
@@ -90,12 +93,13 @@ class _CrawlerPageState extends State<CrawlerPage> {
                                 currentSub = timeOfDay.toString();
                               });
                             }
-                            final r = await context.read(navigationAPIProvider).route(
-                                  lr.fromAsString,
-                                  lr.toAsString,
-                                  date: DateTime.now(),
-                                  time: timeOfDay,
-                                );
+                            final r =
+                                await context.read(navigationAPIProvider).route(
+                                      lr.fromAsString,
+                                      lr.toAsString,
+                                      date: DateTime.now(),
+                                      time: timeOfDay,
+                                    );
                             for (final c in r.connections) {
                               for (final l in c.legs) {
                                 for (final e in l.attributes.entries) {
@@ -114,7 +118,8 @@ class _CrawlerPageState extends State<CrawlerPage> {
                           if (mounted) {
                             setState(() => currentI++);
                           }
-                          log.log('Done fetching ${lr.fromAsString} -> ${lr.toAsString}');
+                          log.log(
+                              'Done fetching ${lr.fromAsString} -> ${lr.toAsString}');
                         }
                       } finally {
                         if (mounted) {
@@ -122,15 +127,23 @@ class _CrawlerPageState extends State<CrawlerPage> {
                         }
                       }
                     },
-              icon: isRunning ? const Icon(Icons.stop) : const Icon(Icons.play_arrow))
+              icon: isRunning
+                  ? const Icon(Icons.stop)
+                  : const Icon(Icons.play_arrow))
         ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(current)),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(current2)),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(currentSub)),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(current)),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(current2)),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(currentSub)),
           const Gap(8),
           if (isRunning)
             Padding(

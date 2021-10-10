@@ -34,7 +34,7 @@ class _$LineCacheEntryTearOff {
     );
   }
 
-  LineCacheEntry fromJson(Map<String, Object> json) {
+  LineCacheEntry fromJson(Map<String, Object?> json) {
     return LineCacheEntry.fromJson(json);
   }
 }
@@ -189,25 +189,18 @@ class _$_LineCacheEntry implements _LineCacheEntry {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _LineCacheEntry &&
+        (other.runtimeType == runtimeType &&
+            other is _LineCacheEntry &&
             (identical(other.timestamp, timestamp) ||
-                const DeepCollectionEquality()
-                    .equals(other.timestamp, timestamp)) &&
-            (identical(other.stop, stop) ||
-                const DeepCollectionEquality().equals(other.stop, stop)) &&
-            (identical(other.lines, lines) ||
-                const DeepCollectionEquality().equals(other.lines, lines)) &&
-            (identical(other.ttl, ttl) ||
-                const DeepCollectionEquality().equals(other.ttl, ttl)));
+                other.timestamp == timestamp) &&
+            (identical(other.stop, stop) || other.stop == stop) &&
+            const DeepCollectionEquality().equals(other.lines, lines) &&
+            (identical(other.ttl, ttl) || other.ttl == ttl));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(timestamp) ^
-      const DeepCollectionEquality().hash(stop) ^
-      const DeepCollectionEquality().hash(lines) ^
-      const DeepCollectionEquality().hash(ttl);
+  int get hashCode => Object.hash(runtimeType, timestamp, stop,
+      const DeepCollectionEquality().hash(lines), ttl);
 
   @JsonKey(ignore: true)
   @override
@@ -231,17 +224,17 @@ abstract class _LineCacheEntry implements LineCacheEntry {
       _$_LineCacheEntry.fromJson;
 
   @override
-  DateTime get timestamp => throw _privateConstructorUsedError;
+  DateTime get timestamp;
   @override
-  String get stop => throw _privateConstructorUsedError;
+  String get stop;
   @override
-  List<Line> get lines => throw _privateConstructorUsedError;
+  List<Line> get lines;
   @override
 
   /// Time to live for this entry in minutes.
   ///
   /// Defaults to `7 days`.
-  int get ttl => throw _privateConstructorUsedError;
+  int get ttl;
   @override
   @JsonKey(ignore: true)
   _$LineCacheEntryCopyWith<_LineCacheEntry> get copyWith =>
@@ -263,7 +256,7 @@ class _$LineTearOff {
     );
   }
 
-  Line fromJson(Map<String, Object> json) {
+  Line fromJson(Map<String, Object?> json) {
     return Line.fromJson(json);
   }
 }
@@ -369,18 +362,14 @@ class _$_Line implements _Line {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Line &&
-            (identical(other.line, line) ||
-                const DeepCollectionEquality().equals(other.line, line)) &&
-            (identical(other.colors, colors) ||
-                const DeepCollectionEquality().equals(other.colors, colors)));
+        (other.runtimeType == runtimeType &&
+            other is _Line &&
+            (identical(other.line, line) || other.line == line) &&
+            (identical(other.colors, colors) || other.colors == colors));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(line) ^
-      const DeepCollectionEquality().hash(colors);
+  int get hashCode => Object.hash(runtimeType, line, colors);
 
   @JsonKey(ignore: true)
   @override
@@ -399,9 +388,9 @@ abstract class _Line implements Line {
   factory _Line.fromJson(Map<String, dynamic> json) = _$_Line.fromJson;
 
   @override
-  String? get line => throw _privateConstructorUsedError;
+  String? get line;
   @override
-  String get colors => throw _privateConstructorUsedError;
+  String get colors;
   @override
   @JsonKey(ignore: true)
   _$LineCopyWith<_Line> get copyWith => throw _privateConstructorUsedError;

@@ -42,7 +42,7 @@ class _$GeoLocationTearOff {
     );
   }
 
-  GeoLocation fromJson(Map<String, Object> json) {
+  GeoLocation fromJson(Map<String, Object?> json) {
     return GeoLocation.fromJson(json);
   }
 }
@@ -256,43 +256,27 @@ class _$_GeoLocation implements _GeoLocation {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _GeoLocation &&
+        (other.runtimeType == runtimeType &&
+            other is _GeoLocation &&
             (identical(other.latitude, latitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.latitude, latitude)) &&
+                other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.longitude, longitude)) &&
+                other.longitude == longitude) &&
             (identical(other.accuracy, accuracy) ||
-                const DeepCollectionEquality()
-                    .equals(other.accuracy, accuracy)) &&
+                other.accuracy == accuracy) &&
             (identical(other.altitude, altitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.altitude, altitude)) &&
-            (identical(other.heading, heading) ||
-                const DeepCollectionEquality()
-                    .equals(other.heading, heading)) &&
-            (identical(other.speed, speed) ||
-                const DeepCollectionEquality().equals(other.speed, speed)) &&
+                other.altitude == altitude) &&
+            (identical(other.heading, heading) || other.heading == heading) &&
+            (identical(other.speed, speed) || other.speed == speed) &&
             (identical(other.speedAccuracy, speedAccuracy) ||
-                const DeepCollectionEquality()
-                    .equals(other.speedAccuracy, speedAccuracy)) &&
+                other.speedAccuracy == speedAccuracy) &&
             (identical(other.timestamp, timestamp) ||
-                const DeepCollectionEquality()
-                    .equals(other.timestamp, timestamp)));
+                other.timestamp == timestamp));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(latitude) ^
-      const DeepCollectionEquality().hash(longitude) ^
-      const DeepCollectionEquality().hash(accuracy) ^
-      const DeepCollectionEquality().hash(altitude) ^
-      const DeepCollectionEquality().hash(heading) ^
-      const DeepCollectionEquality().hash(speed) ^
-      const DeepCollectionEquality().hash(speedAccuracy) ^
-      const DeepCollectionEquality().hash(timestamp);
+  int get hashCode => Object.hash(runtimeType, latitude, longitude, accuracy,
+      altitude, heading, speed, speedAccuracy, timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -320,21 +304,21 @@ abstract class _GeoLocation implements GeoLocation {
       _$_GeoLocation.fromJson;
 
   @override
-  double get latitude => throw _privateConstructorUsedError;
+  double get latitude;
   @override
-  double get longitude => throw _privateConstructorUsedError;
+  double get longitude;
   @override
-  double? get accuracy => throw _privateConstructorUsedError;
+  double? get accuracy;
   @override
-  double? get altitude => throw _privateConstructorUsedError;
+  double? get altitude;
   @override
-  double? get heading => throw _privateConstructorUsedError;
+  double? get heading;
   @override
-  double? get speed => throw _privateConstructorUsedError;
+  double? get speed;
   @override
-  double? get speedAccuracy => throw _privateConstructorUsedError;
+  double? get speedAccuracy;
   @override
-  DateTime? get timestamp => throw _privateConstructorUsedError;
+  DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
   _$GeoLocationCopyWith<_GeoLocation> get copyWith =>

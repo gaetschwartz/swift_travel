@@ -86,7 +86,7 @@ class _$SbbLegTearOff {
     );
   }
 
-  SbbLeg fromJson(Map<String, Object> json) {
+  SbbLeg fromJson(Map<String, Object?> json) {
     return SbbLeg.fromJson(json);
   }
 }
@@ -616,101 +616,72 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SbbLeg &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.sbbExit, sbbExit) ||
-                const DeepCollectionEquality()
-                    .equals(other.sbbExit, sbbExit)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SbbLeg &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.sbbExit, sbbExit) || other.sbbExit == sbbExit) &&
             (identical(other.depDelay, depDelay) ||
-                const DeepCollectionEquality()
-                    .equals(other.depDelay, depDelay)) &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)) &&
-            (identical(other.track, track) ||
-                const DeepCollectionEquality().equals(other.track, track)) &&
+                other.depDelay == depDelay) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.track, track) || other.track == track) &&
             (identical(other.terminal, terminal) ||
-                const DeepCollectionEquality()
-                    .equals(other.terminal, terminal)) &&
-            (identical(other.bgcolor, bgcolor) ||
-                const DeepCollectionEquality()
-                    .equals(other.bgcolor, bgcolor)) &&
-            (identical(other.fgcolor, fgcolor) ||
-                const DeepCollectionEquality()
-                    .equals(other.fgcolor, fgcolor)) &&
-            (identical(other.number, number) ||
-                const DeepCollectionEquality().equals(other.number, number)) &&
-            (identical(other.tripid, tripid) ||
-                const DeepCollectionEquality().equals(other.tripid, tripid)) &&
-            (identical(other.stopid, stopid) ||
-                const DeepCollectionEquality().equals(other.stopid, stopid)) &&
+                other.terminal == terminal) &&
+            (identical(other.bgcolor, bgcolor) || other.bgcolor == bgcolor) &&
+            (identical(other.fgcolor, fgcolor) || other.fgcolor == fgcolor) &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.tripid, tripid) || other.tripid == tripid) &&
+            (identical(other.stopid, stopid) || other.stopid == stopid) &&
             (identical(other.runningTime, runningTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.runningTime, runningTime)) &&
-            (identical(other.line, line) ||
-                const DeepCollectionEquality().equals(other.line, line)) &&
-            (identical(other.sbbStops, sbbStops) ||
-                const DeepCollectionEquality()
-                    .equals(other.sbbStops, sbbStops)) &&
-            (identical(other.sbbName, sbbName) ||
-                const DeepCollectionEquality()
-                    .equals(other.sbbName, sbbName)) &&
+                other.runningTime == runningTime) &&
+            (identical(other.line, line) || other.line == line) &&
+            const DeepCollectionEquality().equals(other.sbbStops, sbbStops) &&
+            (identical(other.sbbName, sbbName) || other.sbbName == sbbName) &&
             (identical(other.departure, departure) ||
-                const DeepCollectionEquality()
-                    .equals(other.departure, departure)) &&
-            (identical(other.arrival, arrival) ||
-                const DeepCollectionEquality()
-                    .equals(other.arrival, arrival)) &&
+                other.departure == departure) &&
+            (identical(other.arrival, arrival) || other.arrival == arrival) &&
             (identical(other.normalTime, normalTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.normalTime, normalTime)) &&
+                other.normalTime == normalTime) &&
             (identical(other.waitTime, waitTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.waitTime, waitTime)) &&
+                other.waitTime == waitTime) &&
             (identical(other.isAddress, isAddress) ||
-                const DeepCollectionEquality()
-                    .equals(other.isAddress, isAddress)) &&
-            (identical(other.lat, lat) ||
-                const DeepCollectionEquality().equals(other.lat, lat)) &&
-            (identical(other.lon, lon) ||
-                const DeepCollectionEquality().equals(other.lon, lon)) &&
-            (identical(other.x, x) ||
-                const DeepCollectionEquality().equals(other.x, x)) &&
-            (identical(other.y, y) ||
-                const DeepCollectionEquality().equals(other.y, y)) &&
-            (identical(other.attributes, attributes) ||
-                const DeepCollectionEquality()
-                    .equals(other.attributes, attributes)));
+                other.isAddress == isAddress) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y) &&
+            const DeepCollectionEquality()
+                .equals(other.attributes, attributes));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(sbbExit) ^
-      const DeepCollectionEquality().hash(depDelay) ^
-      const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(track) ^
-      const DeepCollectionEquality().hash(terminal) ^
-      const DeepCollectionEquality().hash(bgcolor) ^
-      const DeepCollectionEquality().hash(fgcolor) ^
-      const DeepCollectionEquality().hash(number) ^
-      const DeepCollectionEquality().hash(tripid) ^
-      const DeepCollectionEquality().hash(stopid) ^
-      const DeepCollectionEquality().hash(runningTime) ^
-      const DeepCollectionEquality().hash(line) ^
-      const DeepCollectionEquality().hash(sbbStops) ^
-      const DeepCollectionEquality().hash(sbbName) ^
-      const DeepCollectionEquality().hash(departure) ^
-      const DeepCollectionEquality().hash(arrival) ^
-      const DeepCollectionEquality().hash(normalTime) ^
-      const DeepCollectionEquality().hash(waitTime) ^
-      const DeepCollectionEquality().hash(isAddress) ^
-      const DeepCollectionEquality().hash(lat) ^
-      const DeepCollectionEquality().hash(lon) ^
-      const DeepCollectionEquality().hash(x) ^
-      const DeepCollectionEquality().hash(y) ^
-      const DeepCollectionEquality().hash(attributes);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        name,
+        sbbExit,
+        depDelay,
+        type,
+        track,
+        terminal,
+        bgcolor,
+        fgcolor,
+        number,
+        tripid,
+        stopid,
+        runningTime,
+        line,
+        const DeepCollectionEquality().hash(sbbStops),
+        sbbName,
+        departure,
+        arrival,
+        normalTime,
+        waitTime,
+        isAddress,
+        lat,
+        lon,
+        x,
+        y,
+        const DeepCollectionEquality().hash(attributes)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -755,65 +726,65 @@ abstract class _SbbLeg extends SbbLeg {
   factory _SbbLeg.fromJson(Map<String, dynamic> json) = _$_SbbLeg.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @JsonKey(name: 'exit')
-  SbbExit? get sbbExit => throw _privateConstructorUsedError;
+  SbbExit? get sbbExit;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
-  int? get depDelay => throw _privateConstructorUsedError;
+  int? get depDelay;
   @override
-  TransportationMode? get type => throw _privateConstructorUsedError;
+  TransportationMode? get type;
   @override
-  String? get track => throw _privateConstructorUsedError;
+  String? get track;
   @override
-  String? get terminal => throw _privateConstructorUsedError;
+  String? get terminal;
   @override
-  String? get bgcolor => throw _privateConstructorUsedError;
+  String? get bgcolor;
   @override
-  String? get fgcolor => throw _privateConstructorUsedError;
+  String? get fgcolor;
   @override
-  String? get number => throw _privateConstructorUsedError;
+  String? get number;
   @override
-  String? get tripid => throw _privateConstructorUsedError;
+  String? get tripid;
   @override
-  String? get stopid => throw _privateConstructorUsedError;
+  String? get stopid;
   @override
   @JsonKey(name: 'runningtime')
-  double? get runningTime => throw _privateConstructorUsedError;
+  double? get runningTime;
   @override
-  String? get line => throw _privateConstructorUsedError;
+  String? get line;
   @override
   @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-  List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
+  List<SbbStop> get sbbStops;
   @override
-  String? get sbbName => throw _privateConstructorUsedError;
+  String? get sbbName;
   @override
-  DateTime? get departure => throw _privateConstructorUsedError;
+  DateTime? get departure;
   @override
-  DateTime? get arrival => throw _privateConstructorUsedError;
+  DateTime? get arrival;
   @override
   @JsonKey(name: "normal_time")
-  double? get normalTime => throw _privateConstructorUsedError;
+  double? get normalTime;
   @override
   @JsonKey(name: 'waittime', defaultValue: 0)
-  double get waitTime => throw _privateConstructorUsedError;
+  double get waitTime;
   @override
   @JsonKey(name: "isaddress")
-  bool get isAddress => throw _privateConstructorUsedError;
+  bool get isAddress;
   @override
-  double? get lat => throw _privateConstructorUsedError;
+  double? get lat;
   @override
-  double? get lon => throw _privateConstructorUsedError;
-  @override
-  @IntConverter()
-  int? get x => throw _privateConstructorUsedError;
+  double? get lon;
   @override
   @IntConverter()
-  int? get y => throw _privateConstructorUsedError;
+  int? get x;
   @override
-  Map<String, String> get attributes => throw _privateConstructorUsedError;
+  @IntConverter()
+  int? get y;
+  @override
+  Map<String, String> get attributes;
   @override
   @JsonKey(ignore: true)
   _$SbbLegCopyWith<_SbbLeg> get copyWith => throw _privateConstructorUsedError;

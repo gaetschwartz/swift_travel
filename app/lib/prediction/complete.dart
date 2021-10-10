@@ -17,35 +17,37 @@ const _kMaxFavoritesCount = 3;
 const _kMaxHistoryCount = 3;
 
 final completionEngineProvider = Provider<CompletionEngine>((ref) {
-  final completionEngine = CompletionEngine(ref);
+  final completionEngine = CompletionEngine(ref.read);
   ref.onDispose(completionEngine.dispose);
   return completionEngine;
 });
 
-typedef UseCompletionEngineCallback = Stream<List<NavigationCompletion>> Function(
-    CompletionEngine engine);
+typedef UseCompletionEngineCallback = Stream<List<NavigationCompletion>>
+    Function(CompletionEngine engine);
 
-final completionStreamProvider =
-    StreamProvider.family<List<NavigationCompletion>, UseCompletionEngineCallback>(
-        (r, cb) => cb(r.watch(completionEngineProvider)));
+final completionStreamProvider = StreamProvider.family<
+        List<NavigationCompletion>, UseCompletionEngineCallback>(
+    (r, cb) => cb(r.watch(completionEngineProvider)));
 
 class CompletionEngine {
   CompletionEngine(
-    this.ref, {
+    this.read, {
     RouteHistoryRepository? routeHistoryRepository,
-  }) : routeHistoryRepository = routeHistoryRepository ?? RouteHistoryRepository.i;
+  }) : routeHistoryRepository =
+            routeHistoryRepository ?? RouteHistoryRepository.i;
 
-  final ProviderReference ref;
+  final T Function<T>(ProviderBase<T> provider) read;
   final RouteHistoryRepository routeHistoryRepository;
 
   Future<List<NavigationCompletion>> completeNavigation({
     required String query,
     bool doUseHistory = true,
   }) async {
-    final favorites = ref.read(storeProvider).stops;
-    final history =
-        doUseHistory ? routeHistoryRepository.history : const Iterable<LocalRoute>.empty();
-    final completions = await ref.read(navigationAPIProvider).complete(query);
+    final favorites = read(storeProvider).stops;
+    final history = doUseHistory
+        ? routeHistoryRepository.history
+        : const Iterable<LocalRoute>.empty();
+    final completions = await read(navigationAPIProvider).complete(query);
     final distances = <FavoriteStop, double>{};
 
     for (final c in favorites) {
@@ -62,8 +64,10 @@ class CompletionEngine {
       if (history.isNotEmpty)
         ...history
             .flatMap((e) => [
-                  SbbCompletion(label: e.fromAsString, origin: DataOrigin.history),
-                  SbbCompletion(label: e.toAsString, origin: DataOrigin.history),
+                  SbbCompletion(
+                      label: e.fromAsString, origin: DataOrigin.history),
+                  SbbCompletion(
+                      label: e.toAsString, origin: DataOrigin.history),
                 ])
             .take(_kMaxHistoryCount)
             .toSet(),
@@ -81,11 +85,13 @@ class CompletionEngine {
     bool doUseCurrentLocation = true,
     bool doUseHistory = true,
   }) async* {
-    assert(!doPredict || date != null, 'If you use prediction, you must provide a date argument');
+    assert(!doPredict || date != null,
+        'If you use prediction, you must provide a date argument');
 
-    final favorites = ref.read(storeProvider).stops;
-    final history = doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
-    final completions = await ref.read(navigationAPIProvider).complete(query);
+    final favorites = read(storeProvider).stops;
+    final history =
+        doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
+    final completions = await read(navigationAPIProvider).complete(query);
     final distances = <FavoriteStop, double>{};
 
     for (final c in favorites) {
@@ -122,8 +128,8 @@ class CompletionEngine {
     yield list;
 
     if (doPredict) {
-      final prediction =
-          await predictRoute(history, PredictionArguments.withSource(query, dateTime: date));
+      final prediction = await predictRoute(
+          history, PredictionArguments.withSource(query, dateTime: date));
       final event = _returnedList(
         q: query,
         doUseCurrentLocation: doUseCurrentLocation,
@@ -153,7 +159,9 @@ class CompletionEngine {
           if (prediction == null)
             SbbCompletion(label: q, origin: DataOrigin.loading)
           else if (prediction.prediction != null)
-            SbbCompletion(label: prediction.prediction!.toAsString, origin: DataOrigin.prediction),
+            SbbCompletion(
+                label: prediction.prediction!.toAsString,
+                origin: DataOrigin.prediction),
         if (history.isNotEmpty) ...history,
         ...favs,
         ...completions,
@@ -187,12 +195,15 @@ List<NavigationCompletion> completeWithFavorites({
 
   return [
     if (currentLocationString != null)
-      SbbCompletion(label: currentLocationString, origin: DataOrigin.currentLocation),
-    if (prediction != null) SbbCompletion(label: prediction, origin: DataOrigin.prediction),
+      SbbCompletion(
+          label: currentLocationString, origin: DataOrigin.currentLocation),
+    if (prediction != null)
+      SbbCompletion(label: prediction, origin: DataOrigin.prediction),
     if (history.isNotEmpty)
       ...history
           .flatMap((e) => [
-                SbbCompletion(label: e.fromAsString, origin: DataOrigin.history),
+                SbbCompletion(
+                    label: e.fromAsString, origin: DataOrigin.history),
                 SbbCompletion(label: e.toAsString, origin: DataOrigin.history),
               ])
           .take(_kMaxHistoryCount)

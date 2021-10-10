@@ -28,7 +28,7 @@ class _$LatLonTearOff {
     );
   }
 
-  LatLon fromJson(Map<String, Object> json) {
+  LatLon fromJson(Map<String, Object?> json) {
     return LatLon.fromJson(json);
   }
 }
@@ -135,18 +135,14 @@ class _$_LatLon extends _LatLon {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _LatLon &&
-            (identical(other.lat, lat) ||
-                const DeepCollectionEquality().equals(other.lat, lat)) &&
-            (identical(other.lon, lon) ||
-                const DeepCollectionEquality().equals(other.lon, lon)));
+        (other.runtimeType == runtimeType &&
+            other is _LatLon &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(lat) ^
-      const DeepCollectionEquality().hash(lon);
+  int get hashCode => Object.hash(runtimeType, lat, lon);
 
   @JsonKey(ignore: true)
   @override
@@ -166,9 +162,9 @@ abstract class _LatLon extends LatLon {
   factory _LatLon.fromJson(Map<String, dynamic> json) = _$_LatLon.fromJson;
 
   @override
-  double get lat => throw _privateConstructorUsedError;
+  double get lat;
   @override
-  double get lon => throw _privateConstructorUsedError;
+  double get lon;
   @override
   @JsonKey(ignore: true)
   _$LatLonCopyWith<_LatLon> get copyWith => throw _privateConstructorUsedError;
@@ -291,18 +287,14 @@ class _$_LV03Coordinates extends _LV03Coordinates {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _LV03Coordinates &&
-            (identical(other.x, x) ||
-                const DeepCollectionEquality().equals(other.x, x)) &&
-            (identical(other.y, y) ||
-                const DeepCollectionEquality().equals(other.y, y)));
+        (other.runtimeType == runtimeType &&
+            other is _LV03Coordinates &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(x) ^
-      const DeepCollectionEquality().hash(y);
+  int get hashCode => Object.hash(runtimeType, x, y);
 
   @JsonKey(ignore: true)
   @override
@@ -315,9 +307,9 @@ abstract class _LV03Coordinates extends LV03Coordinates {
   const _LV03Coordinates._() : super._();
 
   @override
-  int get x => throw _privateConstructorUsedError;
+  int get x;
   @override
-  int get y => throw _privateConstructorUsedError;
+  int get y;
   @override
   @JsonKey(ignore: true)
   _$LV03CoordinatesCopyWith<_LV03Coordinates> get copyWith =>

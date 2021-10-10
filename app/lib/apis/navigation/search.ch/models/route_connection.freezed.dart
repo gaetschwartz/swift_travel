@@ -42,7 +42,7 @@ class _$SbbRouteConnectionTearOff {
     );
   }
 
-  SbbRouteConnection fromJson(Map<String, Object> json) {
+  SbbRouteConnection fromJson(Map<String, Object?> json) {
     return SbbRouteConnection.fromJson(json);
   }
 }
@@ -269,42 +269,33 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SbbRouteConnection &&
-            (identical(other.from, from) ||
-                const DeepCollectionEquality().equals(other.from, from)) &&
-            (identical(other.to, to) ||
-                const DeepCollectionEquality().equals(other.to, to)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SbbRouteConnection &&
+            (identical(other.from, from) || other.from == from) &&
+            (identical(other.to, to) || other.to == to) &&
             (identical(other.depDelay, depDelay) ||
-                const DeepCollectionEquality()
-                    .equals(other.depDelay, depDelay)) &&
+                other.depDelay == depDelay) &&
             (identical(other.departure, departure) ||
-                const DeepCollectionEquality()
-                    .equals(other.departure, departure)) &&
-            (identical(other.arrival, arrival) ||
-                const DeepCollectionEquality()
-                    .equals(other.arrival, arrival)) &&
+                other.departure == departure) &&
+            (identical(other.arrival, arrival) || other.arrival == arrival) &&
             (identical(other.durationInSeconds, durationInSeconds) ||
-                const DeepCollectionEquality()
-                    .equals(other.durationInSeconds, durationInSeconds)) &&
-            (identical(other.sbbLegs, sbbLegs) ||
-                const DeepCollectionEquality()
-                    .equals(other.sbbLegs, sbbLegs)) &&
-            (identical(other.disruptions, disruptions) ||
-                const DeepCollectionEquality()
-                    .equals(other.disruptions, disruptions)));
+                other.durationInSeconds == durationInSeconds) &&
+            const DeepCollectionEquality().equals(other.sbbLegs, sbbLegs) &&
+            const DeepCollectionEquality()
+                .equals(other.disruptions, disruptions));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(from) ^
-      const DeepCollectionEquality().hash(to) ^
-      const DeepCollectionEquality().hash(depDelay) ^
-      const DeepCollectionEquality().hash(departure) ^
-      const DeepCollectionEquality().hash(arrival) ^
-      const DeepCollectionEquality().hash(durationInSeconds) ^
-      const DeepCollectionEquality().hash(sbbLegs) ^
-      const DeepCollectionEquality().hash(disruptions);
+  int get hashCode => Object.hash(
+      runtimeType,
+      from,
+      to,
+      depDelay,
+      departure,
+      arrival,
+      durationInSeconds,
+      const DeepCollectionEquality().hash(sbbLegs),
+      const DeepCollectionEquality().hash(disruptions));
 
   @JsonKey(ignore: true)
   @override
@@ -333,25 +324,25 @@ abstract class _SbbRouteConnection extends SbbRouteConnection {
       _$_SbbRouteConnection.fromJson;
 
   @override
-  String get from => throw _privateConstructorUsedError;
+  String get from;
   @override
-  String get to => throw _privateConstructorUsedError;
+  String get to;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
-  int? get depDelay => throw _privateConstructorUsedError;
+  int? get depDelay;
   @override
-  DateTime? get departure => throw _privateConstructorUsedError;
+  DateTime? get departure;
   @override
-  DateTime? get arrival => throw _privateConstructorUsedError;
+  DateTime? get arrival;
   @override
   @JsonKey(name: "duration")
-  double? get durationInSeconds => throw _privateConstructorUsedError;
+  double? get durationInSeconds;
   @override
   @JsonKey(name: 'legs')
-  List<SbbLeg> get sbbLegs => throw _privateConstructorUsedError;
+  List<SbbLeg> get sbbLegs;
   @override
-  Map<String, Disruption> get disruptions => throw _privateConstructorUsedError;
+  Map<String, Disruption> get disruptions;
   @override
   @JsonKey(ignore: true)
   _$SbbRouteConnectionCopyWith<_SbbRouteConnection> get copyWith =>

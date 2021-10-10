@@ -7,6 +7,7 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/states/station_states.dart';
@@ -27,7 +28,8 @@ class StopInputDialog extends StatefulWidget {
   _StopInputDialogState createState() => _StopInputDialogState();
 }
 
-final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider =
+    StateProvider<StationStates>((_) => const StationStates.empty());
 
 class _StopInputDialogState extends State<StopInputDialog> {
   late BaseNavigationApi api;
@@ -82,7 +84,8 @@ class _StopInputDialogState extends State<StopInputDialog> {
         ),
         materialBuilder: (context, child) => Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(leading: const CloseButton(), title: Text(widget.title)),
+          appBar:
+              AppBar(leading: const CloseButton(), title: Text(widget.title)),
           body: child,
         ),
         child: Column(
@@ -92,13 +95,14 @@ class _StopInputDialogState extends State<StopInputDialog> {
               child: TextField(
                 onSubmitted: submit,
                 focusNode: node,
-                decoration: InputDecoration(hintText: AppLocalizations.of(context).search_station),
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context).search_station),
                 onChanged: onChanged,
               ),
             ),
             Expanded(
               child: Consumer(builder: (context, w, _) {
-                final s = w(_stateProvider);
+                final s = w.watch(_stateProvider);
                 return s.state.maybeWhen(
                   completions: (c) => ListView.builder(
                     itemBuilder: (context, i) => RouteCompletionTile(
@@ -156,7 +160,8 @@ class RouteCompletionTile extends StatelessWidget {
       : ListTile(
           leading: _Icon(completion!),
           title: Text(completion!.favoriteName ?? completion!.label),
-          subtitle: completion!.favoriteName != null ? Text(completion!.label) : null,
+          subtitle:
+              completion!.favoriteName != null ? Text(completion!.label) : null,
           trailing: completion!.favoriteName != null ? const Text('⭐') : null,
           horizontalTitleGap: 0,
           dense: true,

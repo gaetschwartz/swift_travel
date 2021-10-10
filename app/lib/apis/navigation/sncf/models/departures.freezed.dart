@@ -34,7 +34,7 @@ class _$SncfStationboardTearOff {
     );
   }
 
-  SncfStationboard fromJson(Map<String, Object> json) {
+  SncfStationboard fromJson(Map<String, Object?> json) {
     return SncfStationboard.fromJson(json);
   }
 }
@@ -228,26 +228,18 @@ class _$_SncfStationboard extends _SncfStationboard
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfStationboard &&
-            (identical(other.context, context) ||
-                const DeepCollectionEquality()
-                    .equals(other.context, context)) &&
-            (identical(other.departures, departures) ||
-                const DeepCollectionEquality()
-                    .equals(other.departures, departures)) &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)) &&
-            (identical(other.stop, stop) ||
-                const DeepCollectionEquality().equals(other.stop, stop)));
+        (other.runtimeType == runtimeType &&
+            other is _SncfStationboard &&
+            (identical(other.context, context) || other.context == context) &&
+            const DeepCollectionEquality()
+                .equals(other.departures, departures) &&
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.stop, stop) || other.stop == stop));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(context) ^
-      const DeepCollectionEquality().hash(departures) ^
-      const DeepCollectionEquality().hash(error) ^
-      const DeepCollectionEquality().hash(stop);
+  int get hashCode => Object.hash(runtimeType, context,
+      const DeepCollectionEquality().hash(departures), error, stop);
 
   @JsonKey(ignore: true)
   @override
@@ -272,14 +264,14 @@ abstract class _SncfStationboard extends SncfStationboard {
       _$_SncfStationboard.fromJson;
 
   @override
-  SncfContext get context => throw _privateConstructorUsedError;
+  SncfContext get context;
   @override
-  List<SncfDeparture> get departures => throw _privateConstructorUsedError;
+  List<SncfDeparture> get departures;
   @override
-  SncfError? get error => throw _privateConstructorUsedError;
+  SncfError? get error;
   @override
   @JsonKey(ignore: true)
-  Stop get stop => throw _privateConstructorUsedError;
+  Stop get stop;
   @override
   @JsonKey(ignore: true)
   _$SncfStationboardCopyWith<_SncfStationboard> get copyWith =>
@@ -301,7 +293,7 @@ class _$SncfErrorTearOff {
     );
   }
 
-  SncfError fromJson(Map<String, Object> json) {
+  SncfError fromJson(Map<String, Object?> json) {
     return SncfError.fromJson(json);
   }
 }
@@ -419,18 +411,14 @@ class _$_SncfError with DiagnosticableTreeMixin implements _SncfError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfError &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.message, message) ||
-                const DeepCollectionEquality().equals(other.message, message)));
+        (other.runtimeType == runtimeType &&
+            other is _SncfError &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(message);
+  int get hashCode => Object.hash(runtimeType, id, message);
 
   @JsonKey(ignore: true)
   @override
@@ -450,9 +438,9 @@ abstract class _SncfError implements SncfError {
       _$_SncfError.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  String get message => throw _privateConstructorUsedError;
+  String get message;
   @override
   @JsonKey(ignore: true)
   _$SncfErrorCopyWith<_SncfError> get copyWith =>
@@ -481,7 +469,7 @@ class _$SncfDepartureTearOff {
     );
   }
 
-  SncfDeparture fromJson(Map<String, Object> json) {
+  SncfDeparture fromJson(Map<String, Object?> json) {
     return SncfDeparture.fromJson(json);
   }
 }
@@ -667,24 +655,19 @@ class _$_SncfDeparture extends _SncfDeparture with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfDeparture &&
+        (other.runtimeType == runtimeType &&
+            other is _SncfDeparture &&
             (identical(other.displayInformations, displayInformations) ||
-                const DeepCollectionEquality()
-                    .equals(other.displayInformations, displayInformations)) &&
+                other.displayInformations == displayInformations) &&
             (identical(other.stopDateTime, stopDateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.stopDateTime, stopDateTime)) &&
+                other.stopDateTime == stopDateTime) &&
             (identical(other.stopPoint, stopPoint) ||
-                const DeepCollectionEquality()
-                    .equals(other.stopPoint, stopPoint)));
+                other.stopPoint == stopPoint));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(displayInformations) ^
-      const DeepCollectionEquality().hash(stopDateTime) ^
-      const DeepCollectionEquality().hash(stopPoint);
+      Object.hash(runtimeType, displayInformations, stopDateTime, stopPoint);
 
   @JsonKey(ignore: true)
   @override
@@ -712,13 +695,13 @@ abstract class _SncfDeparture extends SncfDeparture {
 
   @override
   @JsonKey(name: 'display_informations')
-  SncfDispInfo get displayInformations => throw _privateConstructorUsedError;
+  SncfDispInfo get displayInformations;
   @override
   @JsonKey(name: 'stop_date_time')
-  SncfStopDateTime get stopDateTime => throw _privateConstructorUsedError;
+  SncfStopDateTime get stopDateTime;
   @override
   @JsonKey(name: 'stop_point')
-  SncfStopPoint get stopPoint => throw _privateConstructorUsedError;
+  SncfStopPoint get stopPoint;
   @override
   @JsonKey(ignore: true)
   _$SncfDepartureCopyWith<_SncfDeparture> get copyWith =>
@@ -740,7 +723,7 @@ class _$SncfStopPointTearOff {
     );
   }
 
-  SncfStopPoint fromJson(Map<String, Object> json) {
+  SncfStopPoint fromJson(Map<String, Object?> json) {
     return SncfStopPoint.fromJson(json);
   }
 }
@@ -855,16 +838,15 @@ class _$_SncfStopPoint with DiagnosticableTreeMixin implements _SncfStopPoint {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfStopPoint &&
-            (identical(other.commercialModes, commercialModes) ||
-                const DeepCollectionEquality()
-                    .equals(other.commercialModes, commercialModes)));
+        (other.runtimeType == runtimeType &&
+            other is _SncfStopPoint &&
+            const DeepCollectionEquality()
+                .equals(other.commercialModes, commercialModes));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(commercialModes);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(commercialModes));
 
   @JsonKey(ignore: true)
   @override
@@ -887,7 +869,7 @@ abstract class _SncfStopPoint implements SncfStopPoint {
 
   @override
   @JsonKey(name: 'commercial_modes')
-  List<SncfMode> get commercialModes => throw _privateConstructorUsedError;
+  List<SncfMode> get commercialModes;
   @override
   @JsonKey(ignore: true)
   _$SncfStopPointCopyWith<_SncfStopPoint> get copyWith =>
@@ -909,7 +891,7 @@ class _$SncfModeTearOff {
     );
   }
 
-  SncfMode fromJson(Map<String, Object> json) {
+  SncfMode fromJson(Map<String, Object?> json) {
     return SncfMode.fromJson(json);
   }
 }
@@ -1026,18 +1008,14 @@ class _$_SncfMode with DiagnosticableTreeMixin implements _SncfMode {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfMode &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)));
+        (other.runtimeType == runtimeType &&
+            other is _SncfMode &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name);
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @JsonKey(ignore: true)
   @override
@@ -1056,9 +1034,9 @@ abstract class _SncfMode implements SncfMode {
   factory _SncfMode.fromJson(Map<String, dynamic> json) = _$_SncfMode.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$SncfModeCopyWith<_SncfMode> get copyWith =>
@@ -1098,7 +1076,7 @@ class _$SncfStopDateTimeTearOff {
     );
   }
 
-  SncfStopDateTime fromJson(Map<String, Object> json) {
+  SncfStopDateTime fromJson(Map<String, Object?> json) {
     return SncfStopDateTime.fromJson(json);
   }
 }
@@ -1345,39 +1323,33 @@ class _$_SncfStopDateTime
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfStopDateTime &&
-            (identical(other.additionalInformations, additionalInformations) ||
-                const DeepCollectionEquality().equals(
-                    other.additionalInformations, additionalInformations)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SncfStopDateTime &&
+            const DeepCollectionEquality()
+                .equals(other.additionalInformations, additionalInformations) &&
             (identical(other.arrivalDateTime, arrivalDateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.arrivalDateTime, arrivalDateTime)) &&
+                other.arrivalDateTime == arrivalDateTime) &&
             (identical(other.baseArrivalDateTime, baseArrivalDateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.baseArrivalDateTime, baseArrivalDateTime)) &&
+                other.baseArrivalDateTime == baseArrivalDateTime) &&
             (identical(other.baseDepartureDateTime, baseDepartureDateTime) ||
-                const DeepCollectionEquality().equals(
-                    other.baseDepartureDateTime, baseDepartureDateTime)) &&
+                other.baseDepartureDateTime == baseDepartureDateTime) &&
             (identical(other.departureDateTime, departureDateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.departureDateTime, departureDateTime)) &&
+                other.departureDateTime == departureDateTime) &&
             (identical(other.dataFreshness, dataFreshness) ||
-                const DeepCollectionEquality()
-                    .equals(other.dataFreshness, dataFreshness)) &&
-            (identical(other.links, links) ||
-                const DeepCollectionEquality().equals(other.links, links)));
+                other.dataFreshness == dataFreshness) &&
+            const DeepCollectionEquality().equals(other.links, links));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(additionalInformations) ^
-      const DeepCollectionEquality().hash(arrivalDateTime) ^
-      const DeepCollectionEquality().hash(baseArrivalDateTime) ^
-      const DeepCollectionEquality().hash(baseDepartureDateTime) ^
-      const DeepCollectionEquality().hash(departureDateTime) ^
-      const DeepCollectionEquality().hash(dataFreshness) ^
-      const DeepCollectionEquality().hash(links);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(additionalInformations),
+      arrivalDateTime,
+      baseArrivalDateTime,
+      baseDepartureDateTime,
+      departureDateTime,
+      dataFreshness,
+      const DeepCollectionEquality().hash(links));
 
   @JsonKey(ignore: true)
   @override
@@ -1411,24 +1383,24 @@ abstract class _SncfStopDateTime implements SncfStopDateTime {
 
   @override
   @JsonKey(name: 'additional_informations')
-  List<Object> get additionalInformations => throw _privateConstructorUsedError;
+  List<Object> get additionalInformations;
   @override
   @JsonKey(name: 'arrival_date_time')
-  DateTime get arrivalDateTime => throw _privateConstructorUsedError;
+  DateTime get arrivalDateTime;
   @override
   @JsonKey(name: 'base_arrival_date_time')
-  DateTime get baseArrivalDateTime => throw _privateConstructorUsedError;
+  DateTime get baseArrivalDateTime;
   @override
   @JsonKey(name: 'base_departure_date_time')
-  DateTime get baseDepartureDateTime => throw _privateConstructorUsedError;
+  DateTime get baseDepartureDateTime;
   @override
   @JsonKey(name: 'departure_date_time')
-  DateTime get departureDateTime => throw _privateConstructorUsedError;
+  DateTime get departureDateTime;
   @override
   @JsonKey(name: 'data_freshness')
-  String get dataFreshness => throw _privateConstructorUsedError;
+  String get dataFreshness;
   @override
-  List<Object> get links => throw _privateConstructorUsedError;
+  List<Object> get links;
   @override
   @JsonKey(ignore: true)
   _$SncfStopDateTimeCopyWith<_SncfStopDateTime> get copyWith =>
@@ -1476,7 +1448,7 @@ class _$SncfDispInfoTearOff {
     );
   }
 
-  SncfDispInfo fromJson(Map<String, Object> json) {
+  SncfDispInfo fromJson(Map<String, Object?> json) {
     return SncfDispInfo.fromJson(json);
   }
 }
@@ -1815,63 +1787,49 @@ class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfDispInfo &&
-            (identical(other.code, code) ||
-                const DeepCollectionEquality().equals(other.code, code)) &&
-            (identical(other.color, color) ||
-                const DeepCollectionEquality().equals(other.color, color)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SncfDispInfo &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.color, color) || other.color == color) &&
             (identical(other.commercialMode, commercialMode) ||
-                const DeepCollectionEquality()
-                    .equals(other.commercialMode, commercialMode)) &&
+                other.commercialMode == commercialMode) &&
             (identical(other.description, description) ||
-                const DeepCollectionEquality()
-                    .equals(other.description, description)) &&
+                other.description == description) &&
             (identical(other.direction, direction) ||
-                const DeepCollectionEquality()
-                    .equals(other.direction, direction)) &&
-            (identical(other.equipments, equipments) ||
-                const DeepCollectionEquality()
-                    .equals(other.equipments, equipments)) &&
+                other.direction == direction) &&
+            const DeepCollectionEquality()
+                .equals(other.equipments, equipments) &&
             (identical(other.headsign, headsign) ||
-                const DeepCollectionEquality()
-                    .equals(other.headsign, headsign)) &&
-            (identical(other.label, label) ||
-                const DeepCollectionEquality().equals(other.label, label)) &&
-            (identical(other.links, links) ||
-                const DeepCollectionEquality().equals(other.links, links)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.network, network) ||
-                const DeepCollectionEquality()
-                    .equals(other.network, network)) &&
+                other.headsign == headsign) &&
+            (identical(other.label, label) || other.label == label) &&
+            const DeepCollectionEquality().equals(other.links, links) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.network, network) || other.network == network) &&
             (identical(other.physicalMode, physicalMode) ||
-                const DeepCollectionEquality()
-                    .equals(other.physicalMode, physicalMode)) &&
+                other.physicalMode == physicalMode) &&
             (identical(other.textColor, textColor) ||
-                const DeepCollectionEquality()
-                    .equals(other.textColor, textColor)) &&
+                other.textColor == textColor) &&
             (identical(other.tripShortName, tripShortName) ||
-                const DeepCollectionEquality()
-                    .equals(other.tripShortName, tripShortName)));
+                other.tripShortName == tripShortName));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(code) ^
-      const DeepCollectionEquality().hash(color) ^
-      const DeepCollectionEquality().hash(commercialMode) ^
-      const DeepCollectionEquality().hash(description) ^
-      const DeepCollectionEquality().hash(direction) ^
-      const DeepCollectionEquality().hash(equipments) ^
-      const DeepCollectionEquality().hash(headsign) ^
-      const DeepCollectionEquality().hash(label) ^
-      const DeepCollectionEquality().hash(links) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(network) ^
-      const DeepCollectionEquality().hash(physicalMode) ^
-      const DeepCollectionEquality().hash(textColor) ^
-      const DeepCollectionEquality().hash(tripShortName);
+  int get hashCode => Object.hash(
+      runtimeType,
+      code,
+      color,
+      commercialMode,
+      description,
+      direction,
+      const DeepCollectionEquality().hash(equipments),
+      headsign,
+      label,
+      const DeepCollectionEquality().hash(links),
+      name,
+      network,
+      physicalMode,
+      textColor,
+      tripShortName);
 
   @JsonKey(ignore: true)
   @override
@@ -1906,37 +1864,37 @@ abstract class _SncfDispInfo implements SncfDispInfo {
       _$_SncfDispInfo.fromJson;
 
   @override
-  String get code => throw _privateConstructorUsedError;
+  String get code;
   @override
-  String get color => throw _privateConstructorUsedError;
+  String get color;
   @override
   @JsonKey(name: 'commercial_mode')
-  String get commercialMode => throw _privateConstructorUsedError;
+  String get commercialMode;
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
   @override
-  String get direction => throw _privateConstructorUsedError;
+  String get direction;
   @override
-  List<Object> get equipments => throw _privateConstructorUsedError;
+  List<Object> get equipments;
   @override
-  String get headsign => throw _privateConstructorUsedError;
+  String get headsign;
   @override
-  String get label => throw _privateConstructorUsedError;
+  String get label;
   @override
-  List<Object> get links => throw _privateConstructorUsedError;
+  List<Object> get links;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get network => throw _privateConstructorUsedError;
+  String get network;
   @override
   @JsonKey(name: 'physical_mode')
-  String get physicalMode => throw _privateConstructorUsedError;
+  String get physicalMode;
   @override
   @JsonKey(name: 'text_color')
-  String get textColor => throw _privateConstructorUsedError;
+  String get textColor;
   @override
   @JsonKey(name: 'trip_short_name')
-  String get tripShortName => throw _privateConstructorUsedError;
+  String get tripShortName;
   @override
   @JsonKey(ignore: true)
   _$SncfDispInfoCopyWith<_SncfDispInfo> get copyWith =>

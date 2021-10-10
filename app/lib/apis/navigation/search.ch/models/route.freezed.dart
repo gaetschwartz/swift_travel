@@ -44,7 +44,7 @@ class _$SbbRouteTearOff {
     );
   }
 
-  SbbRoute fromJson(Map<String, Object> json) {
+  SbbRoute fromJson(Map<String, Object?> json) {
     return SbbRoute.fromJson(json);
   }
 }
@@ -258,39 +258,32 @@ class _$_SbbRoute extends _SbbRoute {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SbbRoute &&
-            (identical(other.count, count) ||
-                const DeepCollectionEquality().equals(other.count, count)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SbbRoute &&
+            (identical(other.count, count) || other.count == count) &&
             (identical(other.minDuration, minDuration) ||
-                const DeepCollectionEquality()
-                    .equals(other.minDuration, minDuration)) &&
+                other.minDuration == minDuration) &&
             (identical(other.maxDuration, maxDuration) ||
-                const DeepCollectionEquality()
-                    .equals(other.maxDuration, maxDuration)) &&
-            (identical(other.sbbConnections, sbbConnections) ||
-                const DeepCollectionEquality()
-                    .equals(other.sbbConnections, sbbConnections)) &&
-            (identical(other.messages, messages) ||
-                const DeepCollectionEquality()
-                    .equals(other.messages, messages)) &&
+                other.maxDuration == maxDuration) &&
+            const DeepCollectionEquality()
+                .equals(other.sbbConnections, sbbConnections) &&
+            const DeepCollectionEquality().equals(other.messages, messages) &&
             (identical(other.requestUrl, requestUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.requestUrl, requestUrl)) &&
+                other.requestUrl == requestUrl) &&
             (identical(other.dateTime, dateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.dateTime, dateTime)));
+                other.dateTime == dateTime));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(count) ^
-      const DeepCollectionEquality().hash(minDuration) ^
-      const DeepCollectionEquality().hash(maxDuration) ^
-      const DeepCollectionEquality().hash(sbbConnections) ^
-      const DeepCollectionEquality().hash(messages) ^
-      const DeepCollectionEquality().hash(requestUrl) ^
-      const DeepCollectionEquality().hash(dateTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      count,
+      minDuration,
+      maxDuration,
+      const DeepCollectionEquality().hash(sbbConnections),
+      const DeepCollectionEquality().hash(messages),
+      requestUrl,
+      dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -320,23 +313,22 @@ abstract class _SbbRoute extends SbbRoute {
   factory _SbbRoute.fromJson(Map<String, dynamic> json) = _$_SbbRoute.fromJson;
 
   @override
-  int get count => throw _privateConstructorUsedError;
+  int get count;
   @override
   @JsonKey(name: 'min_duration')
-  double? get minDuration => throw _privateConstructorUsedError;
+  double? get minDuration;
   @override
   @JsonKey(name: 'max_duration')
-  double? get maxDuration => throw _privateConstructorUsedError;
+  double? get maxDuration;
   @override
   @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
-  List<SbbRouteConnection> get sbbConnections =>
-      throw _privateConstructorUsedError;
+  List<SbbRouteConnection> get sbbConnections;
   @override
-  List<String> get messages => throw _privateConstructorUsedError;
+  List<String> get messages;
   @override
-  String? get requestUrl => throw _privateConstructorUsedError;
+  String? get requestUrl;
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
   _$SbbRouteCopyWith<_SbbRoute> get copyWith =>

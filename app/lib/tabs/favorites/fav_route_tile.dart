@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
@@ -41,13 +41,15 @@ class FavoriteRouteTile extends StatelessWidget {
           to: Text(route.toAsString.stripAt()),
           onLongPress: () => more(context),
           trailing: const Icon(CupertinoIcons.chevron_forward),
-          onTap: () => Navigator.of(context).pushNamed('/route', arguments: route),
+          onTap: () =>
+              Navigator.of(context).pushNamed('/route', arguments: route),
         ),
       );
 
   Future<void> rename(BuildContext context) async {
     final store = context.read(storeProvider);
-    final displayName = await input(context, title: Text('How to rename "${route.displayName}" ?'));
+    final displayName = await input(context,
+        title: Text('How to rename "${route.displayName}" ?'));
     if (displayName == null) {
       return;
     }
@@ -82,7 +84,9 @@ class FavoriteRouteTile extends StatelessWidget {
     final b = await confirm(
       context,
       title: Text.rich(TextSpan(text: 'Delete ', children: [
-        TextSpan(text: route.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
+        TextSpan(
+            text: route.displayName,
+            style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(text: ' ?'),
       ])),
       content: Column(

@@ -8,6 +8,7 @@ import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -28,7 +29,8 @@ class FavoritesTab extends StatefulWidget {
   _FavoritesTabState createState() => _FavoritesTabState();
 }
 
-class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClientMixin {
+class _FavoritesTabState extends State<FavoritesTab>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -46,13 +48,15 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(
-          trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
+          trailing: IconButton(
+              icon: const Icon(CupertinoIcons.add), onPressed: addFav),
         ),
         child: child!,
       ),
       materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: MaterialAppBar(title: Text(AppLocalizations.of(context).tabs_favourites)),
+        appBar: MaterialAppBar(
+            title: Text(AppLocalizations.of(context).tabs_favourites)),
         floatingActionButton: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
@@ -66,10 +70,12 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
         body: child,
       ),
       builder: (context, d) => Consumer(builder: (context, w, _) {
-        final stops = w(favoritesStatesProvider)
+        final stops = w
+            .watch(favoritesStatesProvider)
             .state
             .maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
-        final routes = w(favoritesRoutesStatesProvider)
+        final routes = w
+            .watch(favoritesRoutesStatesProvider)
             .state
             .maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
 
@@ -121,7 +127,9 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
 
     final s = isThemeDarwin(context)
         ? await showCupertinoModalBottomSheet<String>(
-            context: context, builder: (context) => const StopInputDialog(title: 'Add a favorite'))
+            context: context,
+            builder: (context) =>
+                const StopInputDialog(title: 'Add a favorite'))
         : await showMaterialModalBottomSheet<String>(
             context: context,
             builder: (_) => const StopInputDialog(title: 'Add a favorite'),
@@ -136,7 +144,8 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
 
       if (completions.isEmpty) {
         log.log("Didn't find a station, will try using routes as a hack...");
-        final sbbRoute = await api.route(s, 'Bern', date: DateTime.now(), time: TimeOfDay.now());
+        final sbbRoute = await api.route(s, 'Bern',
+            date: DateTime.now(), time: TimeOfDay.now());
         if (sbbRoute.connections.isNotEmpty) {
           final from = sbbRoute.connections.first.from;
           log.log('Found $from');
@@ -152,7 +161,8 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
 
       if (!mounted) return;
 
-      final name = await input(context, title: const Text('What is the name of this stop'));
+      final name = await input(context,
+          title: const Text('What is the name of this stop'));
 
       if (name == null) return;
       if (!mounted) return;
