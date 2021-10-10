@@ -27,7 +27,7 @@ class _$ConfigTearOff {
     );
   }
 
-  Config fromJson(Map<String, Object> json) {
+  Config fromJson(Map<String, Object?> json) {
     return Config.fromJson(json);
   }
 }
@@ -121,14 +121,13 @@ class _$_Config implements _Config {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Config &&
-            (identical(other.sncfKey, sncfKey) ||
-                const DeepCollectionEquality().equals(other.sncfKey, sncfKey)));
+        (other.runtimeType == runtimeType &&
+            other is _Config &&
+            (identical(other.sncfKey, sncfKey) || other.sncfKey == sncfKey));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(sncfKey);
+  int get hashCode => Object.hash(runtimeType, sncfKey);
 
   @JsonKey(ignore: true)
   @override
@@ -147,7 +146,7 @@ abstract class _Config implements Config {
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 
   @override
-  String? get sncfKey => throw _privateConstructorUsedError;
+  String? get sncfKey;
   @override
   @JsonKey(ignore: true)
   _$ConfigCopyWith<_Config> get copyWith => throw _privateConstructorUsedError;

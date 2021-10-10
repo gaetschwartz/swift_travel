@@ -63,7 +63,7 @@ class _$SbbStationboardConnectionTearOff {
     );
   }
 
-  SbbStationboardConnection fromJson(Map<String, Object> json) {
+  SbbStationboardConnection fromJson(Map<String, Object?> json) {
     return SbbStationboardConnection.fromJson(json);
   }
 }
@@ -421,56 +421,44 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SbbStationboardConnection &&
-            (identical(other.time, time) ||
-                const DeepCollectionEquality().equals(other.time, time)) &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)) &&
-            (identical(other.color, color) ||
-                const DeepCollectionEquality().equals(other.color, color)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SbbStationboardConnection &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.color, color) || other.color == color) &&
             (identical(other.sbbTerminal, sbbTerminal) ||
-                const DeepCollectionEquality()
-                    .equals(other.sbbTerminal, sbbTerminal)) &&
-            (identical(other.line, line) ||
-                const DeepCollectionEquality().equals(other.line, line)) &&
+                other.sbbTerminal == sbbTerminal) &&
+            (identical(other.line, line) || other.line == line) &&
             (identical(other.operator, operator) ||
-                const DeepCollectionEquality()
-                    .equals(other.operator, operator)) &&
-            (identical(other.number, number) ||
-                const DeepCollectionEquality().equals(other.number, number)) &&
-            (identical(other.g, g) ||
-                const DeepCollectionEquality().equals(other.g, g)) &&
-            (identical(other.l, l) ||
-                const DeepCollectionEquality().equals(other.l, l)) &&
-            (identical(other.sbbSubsequentStops, sbbSubsequentStops) ||
-                const DeepCollectionEquality()
-                    .equals(other.sbbSubsequentStops, sbbSubsequentStops)) &&
+                other.operator == operator) &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.g, g) || other.g == g) &&
+            (identical(other.l, l) || other.l == l) &&
+            const DeepCollectionEquality()
+                .equals(other.sbbSubsequentStops, sbbSubsequentStops) &&
             (identical(other.depDelay, depDelay) ||
-                const DeepCollectionEquality()
-                    .equals(other.depDelay, depDelay)) &&
+                other.depDelay == depDelay) &&
             (identical(other.arrDelay, arrDelay) ||
-                const DeepCollectionEquality()
-                    .equals(other.arrDelay, arrDelay)) &&
-            (identical(other.track, track) ||
-                const DeepCollectionEquality().equals(other.track, track)));
+                other.arrDelay == arrDelay) &&
+            (identical(other.track, track) || other.track == track));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(time) ^
-      const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(color) ^
-      const DeepCollectionEquality().hash(sbbTerminal) ^
-      const DeepCollectionEquality().hash(line) ^
-      const DeepCollectionEquality().hash(operator) ^
-      const DeepCollectionEquality().hash(number) ^
-      const DeepCollectionEquality().hash(g) ^
-      const DeepCollectionEquality().hash(l) ^
-      const DeepCollectionEquality().hash(sbbSubsequentStops) ^
-      const DeepCollectionEquality().hash(depDelay) ^
-      const DeepCollectionEquality().hash(arrDelay) ^
-      const DeepCollectionEquality().hash(track);
+  int get hashCode => Object.hash(
+      runtimeType,
+      time,
+      type,
+      color,
+      sbbTerminal,
+      line,
+      operator,
+      number,
+      g,
+      l,
+      const DeepCollectionEquality().hash(sbbSubsequentStops),
+      depDelay,
+      arrDelay,
+      track);
 
   @JsonKey(ignore: true)
   @override
@@ -515,41 +503,40 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
       _$_SbbStationboardConnection.fromJson;
 
   @override
-  DateTime get time => throw _privateConstructorUsedError;
+  DateTime get time;
   @override
-  TransportationMode get type => throw _privateConstructorUsedError;
+  TransportationMode get type;
   @override
-  String get color => throw _privateConstructorUsedError;
+  String get color;
   @override
   @JsonKey(name: 'terminal')
-  SbbStop get sbbTerminal => throw _privateConstructorUsedError;
+  SbbStop get sbbTerminal;
   @override
-  String? get line => throw _privateConstructorUsedError;
+  String? get line;
   @override
   @JsonKey(name: 'operator')
-  String? get operator => throw _privateConstructorUsedError;
+  String? get operator;
   @override
-  String get number => throw _privateConstructorUsedError;
+  String get number;
   @override
   @JsonKey(name: '*G')
-  String? get g => throw _privateConstructorUsedError;
+  String? get g;
   @override
   @JsonKey(name: '*L')
-  String? get l => throw _privateConstructorUsedError;
+  String? get l;
   @override
   @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-  List<SbbSubsequentStop> get sbbSubsequentStops =>
-      throw _privateConstructorUsedError;
+  List<SbbSubsequentStop> get sbbSubsequentStops;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
-  int? get depDelay => throw _privateConstructorUsedError;
+  int? get depDelay;
   @override
   @DelayConverter()
   @JsonKey(name: 'arr_delay')
-  int? get arrDelay => throw _privateConstructorUsedError;
+  int? get arrDelay;
   @override
-  String? get track => throw _privateConstructorUsedError;
+  String? get track;
   @override
   @JsonKey(ignore: true)
   _$SbbStationboardConnectionCopyWith<_SbbStationboardConnection>

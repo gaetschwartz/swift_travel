@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
@@ -47,8 +47,8 @@ class FavoriteStationTile extends StatelessWidget {
           caption: AppLocalizations.of(context).timetable,
           color: Colors.blue,
           icon: CupertinoIcons.list_number,
-          onTap: () =>
-              SideBar.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
+          onTap: () => SideBar.push(context,
+              (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
         ),
       ],
       child: ListTile(
@@ -76,7 +76,8 @@ class FavoriteStationTile extends StatelessWidget {
         ),
         onTap: () => Navigator.of(context).pushNamed('/route', arguments: stop),
         onLongPress: () => edit(context),
-        trailing: Icon(CupertinoIcons.chevron_forward, color: IconTheme.of(context).color),
+        trailing: Icon(CupertinoIcons.chevron_forward,
+            color: IconTheme.of(context).color),
         title: Text(stop.name),
         subtitle: Text(stop.stop, overflow: TextOverflow.ellipsis),
       ),
@@ -91,8 +92,8 @@ class FavoriteStationTile extends StatelessWidget {
         ActionsSheetAction(
           title: Text(AppLocalizations.of(context).timetable),
           icon: const Icon(CupertinoIcons.list_number),
-          onPressed: () =>
-              SideBar.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
+          onPressed: () => SideBar.push(context,
+              (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
         ),
         ActionsSheetAction(
           title: Text(AppLocalizations.of(context).rename),
@@ -115,7 +116,8 @@ class FavoriteStationTile extends StatelessWidget {
 
   Future<void> rename(BuildContext context) async {
     final store = context.read(storeProvider);
-    final s = await input(context, title: Text('How to rename "${stop.name}" ?'));
+    final s =
+        await input(context, title: Text('How to rename "${stop.name}" ?'));
     if (s == null) {
       return;
     }
@@ -128,7 +130,8 @@ class FavoriteStationTile extends StatelessWidget {
     final b = await confirm(
       context,
       title: Text(AppLocalizations.of(context).delete_fav),
-      content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
+      content:
+          Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
         TextSpan(
             text: '${stop.name} (${stop.stop})',
             style: const TextStyle(fontWeight: FontWeight.bold)),

@@ -212,34 +212,29 @@ class _$_TextFieldConfiguration extends _TextFieldConfiguration {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _TextFieldConfiguration &&
+        (other.runtimeType == runtimeType &&
+            other is _TextFieldConfiguration &&
             (identical(other.placeholder, placeholder) ||
-                const DeepCollectionEquality()
-                    .equals(other.placeholder, placeholder)) &&
-            (identical(other.inputFormatters, inputFormatters) ||
-                const DeepCollectionEquality()
-                    .equals(other.inputFormatters, inputFormatters)) &&
+                other.placeholder == placeholder) &&
+            const DeepCollectionEquality()
+                .equals(other.inputFormatters, inputFormatters) &&
             (identical(other.textInputAction, textInputAction) ||
-                const DeepCollectionEquality()
-                    .equals(other.textInputAction, textInputAction)) &&
-            (identical(other.prefix, prefix) ||
-                const DeepCollectionEquality().equals(other.prefix, prefix)) &&
+                other.textInputAction == textInputAction) &&
+            (identical(other.prefix, prefix) || other.prefix == prefix) &&
             (identical(other.focusNode, focusNode) ||
-                const DeepCollectionEquality()
-                    .equals(other.focusNode, focusNode)) &&
-            (identical(other.key, key) ||
-                const DeepCollectionEquality().equals(other.key, key)));
+                other.focusNode == focusNode) &&
+            (identical(other.key, key) || other.key == key));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(placeholder) ^
-      const DeepCollectionEquality().hash(inputFormatters) ^
-      const DeepCollectionEquality().hash(textInputAction) ^
-      const DeepCollectionEquality().hash(prefix) ^
-      const DeepCollectionEquality().hash(focusNode) ^
-      const DeepCollectionEquality().hash(key);
+  int get hashCode => Object.hash(
+      runtimeType,
+      placeholder,
+      const DeepCollectionEquality().hash(inputFormatters),
+      textInputAction,
+      prefix,
+      focusNode,
+      key);
 
   @JsonKey(ignore: true)
   @override
@@ -259,18 +254,17 @@ abstract class _TextFieldConfiguration extends TextFieldConfiguration {
   const _TextFieldConfiguration._() : super._();
 
   @override
-  String? get placeholder => throw _privateConstructorUsedError;
+  String? get placeholder;
   @override
-  List<TextInputFormatter>? get inputFormatters =>
-      throw _privateConstructorUsedError;
+  List<TextInputFormatter>? get inputFormatters;
   @override
-  TextInputAction? get textInputAction => throw _privateConstructorUsedError;
+  TextInputAction? get textInputAction;
   @override
-  Widget? get prefix => throw _privateConstructorUsedError;
+  Widget? get prefix;
   @override
-  FocusNode? get focusNode => throw _privateConstructorUsedError;
+  FocusNode? get focusNode;
   @override
-  Key? get key => throw _privateConstructorUsedError;
+  Key? get key;
   @override
   @JsonKey(ignore: true)
   _$TextFieldConfigurationCopyWith<_TextFieldConfiguration> get copyWith =>

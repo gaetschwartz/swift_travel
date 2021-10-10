@@ -12,6 +12,7 @@ import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/settings/pages/advanced.dart';
 import 'package:swift_travel/settings/pages/customization.dart';
@@ -88,7 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
         tileBorders: const TileBorders(top: true),
       ),
       Consumer(builder: (context, w, _) {
-        final isDev = w(isDeveloperProvider).value;
+        final isDev = w.watch(isDeveloperProvider).value;
         return SwiftSettingsTile(
           tileBorders: TileBorders(bottom: !isDev),
           leading: const Icon(CupertinoIcons.person_3_fill),
@@ -98,7 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
         );
       }),
       Consumer(
-        builder: (context, w, _) => w(isDeveloperProvider).value
+        builder: (context, w, _) => w.watch(isDeveloperProvider).value
             ? SwiftSettingsTile(
                 tileBorders: const TileBorders(bottom: true),
                 title: Text(AppLocalizations.of(context).developer),

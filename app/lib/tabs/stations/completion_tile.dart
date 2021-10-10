@@ -19,6 +19,7 @@ import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
@@ -42,8 +43,8 @@ class CompletionTile extends ConsumerWidget {
   static const _kRadius = BorderRadius.all(Radius.circular(16));
 
   @override
-  Widget build(BuildContext context, Reader watch) {
-    final store = watch(storeProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final store = ref.watch(storeProvider);
     final iconClass = sugg.getIcon();
     final isPrivate = TransportationModeX.isAnAddress(sugg.type);
 
@@ -74,7 +75,9 @@ class CompletionTile extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isFav)
-              darwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star)
+              darwin
+                  ? const Icon(CupertinoIcons.heart_fill)
+                  : const Icon(Icons.star)
             else
               iconClass,
           ],
@@ -127,7 +130,8 @@ class CompletionTile extends ConsumerWidget {
     FocusManager.instance.primaryFocus?.unfocus();
     Vibration.instance.select();
 
-    final favoriteStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
+    final favoriteStop =
+        store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
     final isFav = favoriteStop != null;
 
     final c = await showActionSheet<_Actions>(
@@ -140,8 +144,9 @@ class CompletionTile extends ConsumerWidget {
             icon: isFav
                 ? const Icon(CupertinoIcons.heart_slash)
                 : const Icon(CupertinoIcons.heart_fill),
-            cupertinoIcon:
-                isFav ? const Icon(CupertinoIcons.heart_slash) : const Icon(CupertinoIcons.heart),
+            cupertinoIcon: isFav
+                ? const Icon(CupertinoIcons.heart_slash)
+                : const Icon(CupertinoIcons.heart),
             onPressed: () => _Actions.favorite,
             isDestructive: isFav,
           )
@@ -157,7 +162,8 @@ class CompletionTile extends ConsumerWidget {
           await store.removeStop(favoriteStop!);
         } else {
           final preferencesBloc = context.read(preferencesProvider);
-          final name = await input(context, title: const Text('What is the name of this stop'));
+          final name = await input(context,
+              title: const Text('What is the name of this stop'));
           if (name == null) return;
 
           await store.addStop(FavoriteStop.fromCompletion(
@@ -200,7 +206,10 @@ class __LinesWidgetState extends State<_LinesWidget> {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(top: 4),
         child: lines == null
-            ? const SizedBox(width: 8, height: 8, child: CircularProgressIndicator.adaptive())
+            ? const SizedBox(
+                width: 8,
+                height: 8,
+                child: CircularProgressIndicator.adaptive())
             : SizedBox(
                 width: double.infinity,
                 child: ClipRect(

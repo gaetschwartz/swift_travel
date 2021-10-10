@@ -30,7 +30,7 @@ class _$RoutePredictionTearOff {
     );
   }
 
-  RoutePrediction fromJson(Map<String, Object> json) {
+  RoutePrediction fromJson(Map<String, Object?> json) {
     return RoutePrediction.fromJson(json);
   }
 }
@@ -193,24 +193,19 @@ class _$_RoutePrediction implements _RoutePrediction {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _RoutePrediction &&
+        (other.runtimeType == runtimeType &&
+            other is _RoutePrediction &&
             (identical(other.prediction, prediction) ||
-                const DeepCollectionEquality()
-                    .equals(other.prediction, prediction)) &&
+                other.prediction == prediction) &&
             (identical(other.confidence, confidence) ||
-                const DeepCollectionEquality()
-                    .equals(other.confidence, confidence)) &&
+                other.confidence == confidence) &&
             (identical(other.arguments, arguments) ||
-                const DeepCollectionEquality()
-                    .equals(other.arguments, arguments)));
+                other.arguments == arguments));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(prediction) ^
-      const DeepCollectionEquality().hash(confidence) ^
-      const DeepCollectionEquality().hash(arguments);
+      Object.hash(runtimeType, prediction, confidence, arguments);
 
   @JsonKey(ignore: true)
   @override
@@ -232,11 +227,11 @@ abstract class _RoutePrediction implements RoutePrediction {
 
   @override
   @LocalRouteConverter()
-  LocalRoute? get prediction => throw _privateConstructorUsedError;
+  LocalRoute? get prediction;
   @override
-  double get confidence => throw _privateConstructorUsedError;
+  double get confidence;
   @override
-  PredictionArguments get arguments => throw _privateConstructorUsedError;
+  PredictionArguments get arguments;
   @override
   @JsonKey(ignore: true)
   _$RoutePredictionCopyWith<_RoutePrediction> get copyWith =>
@@ -258,7 +253,7 @@ class _$FullArgumentsTearOff {
     );
   }
 
-  FullArguments fromJson(Map<String, Object> json) {
+  FullArguments fromJson(Map<String, Object?> json) {
     return FullArguments.fromJson(json);
   }
 }
@@ -385,19 +380,16 @@ class _$_FullArguments implements _FullArguments {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _FullArguments &&
-            (identical(other.routes, routes) ||
-                const DeepCollectionEquality().equals(other.routes, routes)) &&
+        (other.runtimeType == runtimeType &&
+            other is _FullArguments &&
+            const DeepCollectionEquality().equals(other.routes, routes) &&
             (identical(other.arguments, arguments) ||
-                const DeepCollectionEquality()
-                    .equals(other.arguments, arguments)));
+                other.arguments == arguments));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(routes) ^
-      const DeepCollectionEquality().hash(arguments);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(routes), arguments);
 
   @JsonKey(ignore: true)
   @override
@@ -419,9 +411,9 @@ abstract class _FullArguments implements FullArguments {
       _$_FullArguments.fromJson;
 
   @override
-  List<LocalRoute> get routes => throw _privateConstructorUsedError;
+  List<LocalRoute> get routes;
   @override
-  PredictionArguments get arguments => throw _privateConstructorUsedError;
+  PredictionArguments get arguments;
   @override
   @JsonKey(ignore: true)
   _$FullArgumentsCopyWith<_FullArguments> get copyWith =>
@@ -467,7 +459,7 @@ class _$PredictionArgumentsTearOff {
     );
   }
 
-  PredictionArguments fromJson(Map<String, Object> json) {
+  PredictionArguments fromJson(Map<String, Object?> json) {
     return PredictionArguments.fromJson(json);
   }
 }
@@ -613,15 +605,14 @@ class _$EmptyArgument extends EmptyArgument {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is EmptyArgument &&
+        (other.runtimeType == runtimeType &&
+            other is EmptyArgument &&
             (identical(other.dateTime, dateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.dateTime, dateTime)));
+                other.dateTime == dateTime));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(dateTime);
+  int get hashCode => Object.hash(runtimeType, dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -710,7 +701,7 @@ abstract class EmptyArgument extends PredictionArguments {
       _$EmptyArgument.fromJson;
 
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
   $EmptyArgumentCopyWith<EmptyArgument> get copyWith =>
@@ -779,19 +770,15 @@ class _$SourceDateArguments extends SourceDateArguments {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is SourceDateArguments &&
-            (identical(other.source, source) ||
-                const DeepCollectionEquality().equals(other.source, source)) &&
+        (other.runtimeType == runtimeType &&
+            other is SourceDateArguments &&
+            (identical(other.source, source) || other.source == source) &&
             (identical(other.dateTime, dateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.dateTime, dateTime)));
+                other.dateTime == dateTime));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(source) ^
-      const DeepCollectionEquality().hash(dateTime);
+  int get hashCode => Object.hash(runtimeType, source, dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -880,9 +867,9 @@ abstract class SourceDateArguments extends PredictionArguments {
   factory SourceDateArguments.fromJson(Map<String, dynamic> json) =
       _$SourceDateArguments.fromJson;
 
-  String get source => throw _privateConstructorUsedError;
+  String get source;
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
   $SourceDateArgumentsCopyWith<SourceDateArguments> get copyWith =>
@@ -959,19 +946,15 @@ class _$LocationArgument extends LocationArgument {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is LocationArgument &&
-            (identical(other.latLon, latLon) ||
-                const DeepCollectionEquality().equals(other.latLon, latLon)) &&
+        (other.runtimeType == runtimeType &&
+            other is LocationArgument &&
+            (identical(other.latLon, latLon) || other.latLon == latLon) &&
             (identical(other.dateTime, dateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.dateTime, dateTime)));
+                other.dateTime == dateTime));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(latLon) ^
-      const DeepCollectionEquality().hash(dateTime);
+  int get hashCode => Object.hash(runtimeType, latLon, dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -1060,9 +1043,9 @@ abstract class LocationArgument extends PredictionArguments {
   factory LocationArgument.fromJson(Map<String, dynamic> json) =
       _$LocationArgument.fromJson;
 
-  LatLon get latLon => throw _privateConstructorUsedError;
+  LatLon get latLon;
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
   $LocationArgumentCopyWith<LocationArgument> get copyWith =>
@@ -1180,18 +1163,17 @@ class _$_Pair<R, S> extends _Pair<R, S> {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Pair<R, S> &&
-            (identical(other.first, first) ||
-                const DeepCollectionEquality().equals(other.first, first)) &&
-            (identical(other.second, second) ||
-                const DeepCollectionEquality().equals(other.second, second)));
+        (other.runtimeType == runtimeType &&
+            other is _Pair<R, S> &&
+            const DeepCollectionEquality().equals(other.first, first) &&
+            const DeepCollectionEquality().equals(other.second, second));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(first) ^
-      const DeepCollectionEquality().hash(second);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(first),
+      const DeepCollectionEquality().hash(second));
 
   @JsonKey(ignore: true)
   @override
@@ -1204,9 +1186,9 @@ abstract class _Pair<R, S> extends Pair<R, S> {
   const _Pair._() : super._();
 
   @override
-  R get first => throw _privateConstructorUsedError;
+  R get first;
   @override
-  S get second => throw _privateConstructorUsedError;
+  S get second;
   @override
   @JsonKey(ignore: true)
   _$PairCopyWith<R, S, _Pair<R, S>> get copyWith =>
@@ -1316,14 +1298,13 @@ class _$_ContactCompletion extends _ContactCompletion {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ContactCompletion &&
-            (identical(other.contact, contact) ||
-                const DeepCollectionEquality().equals(other.contact, contact)));
+        (other.runtimeType == runtimeType &&
+            other is _ContactCompletion &&
+            (identical(other.contact, contact) || other.contact == contact));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(contact);
+  int get hashCode => Object.hash(runtimeType, contact);
 
   @JsonKey(ignore: true)
   @override
@@ -1336,7 +1317,7 @@ abstract class _ContactCompletion extends ContactCompletion {
   const _ContactCompletion._() : super._();
 
   @override
-  Contact get contact => throw _privateConstructorUsedError;
+  Contact get contact;
   @override
   @JsonKey(ignore: true)
   _$ContactCompletionCopyWith<_ContactCompletion> get copyWith =>
@@ -1407,7 +1388,9 @@ class _$_CurrentLocationCompletion extends _CurrentLocationCompletion {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _CurrentLocationCompletion);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _CurrentLocationCompletion);
   }
 
   @override

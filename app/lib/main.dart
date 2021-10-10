@@ -316,3 +316,8 @@ class Unfocus extends StatelessWidget {
     );
   }
 }
+
+extension BuildContextX on BuildContext {
+  T read<T>(ProviderBase<T> provider) =>
+      ProviderScope.containerOf(this, listen: false).read(provider);
+}

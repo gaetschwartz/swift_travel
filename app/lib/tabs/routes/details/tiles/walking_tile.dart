@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/utils/strings/markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -62,7 +62,8 @@ class WalkingTile extends StatelessWidget {
                     else
                       Text.rich(
                         parseDecoratedText(
-                          AppLocalizations.of(context).walk(Format.duration(l.walkingTime)!),
+                          AppLocalizations.of(context)
+                              .walk(Format.duration(l.walkingTime)!),
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                       ),
@@ -90,8 +91,10 @@ class WalkingTile extends StatelessWidget {
     final legPos = l.position;
     final exitPos = l.exit!.position;
 
-    final departure = legPos != null ? legPos.toCoordinatesString() : l.displayName;
-    final arrival = exitPos != null ? exitPos.toCoordinatesString() : l.exit!.displayName;
+    final departure =
+        legPos != null ? legPos.toCoordinatesString() : l.displayName;
+    final arrival =
+        exitPos != null ? exitPos.toCoordinatesString() : l.exit!.displayName;
     log.log('($departure) => ($arrival)');
 
     final suffix =

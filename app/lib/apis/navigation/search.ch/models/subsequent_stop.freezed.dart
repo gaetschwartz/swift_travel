@@ -46,7 +46,7 @@ class _$SbbSubsequentStopTearOff {
     );
   }
 
-  SbbSubsequentStop fromJson(Map<String, Object> json) {
+  SbbSubsequentStop fromJson(Map<String, Object?> json) {
     return SbbSubsequentStop.fromJson(json);
   }
 }
@@ -307,46 +307,26 @@ class _$_SbbSubsequentStop extends _SbbSubsequentStop {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SbbSubsequentStop &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SbbSubsequentStop &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.depDelay, depDelay) ||
-                const DeepCollectionEquality()
-                    .equals(other.depDelay, depDelay)) &&
+                other.depDelay == depDelay) &&
             (identical(other.arrDelay, arrDelay) ||
-                const DeepCollectionEquality()
-                    .equals(other.arrDelay, arrDelay)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
+                other.arrDelay == arrDelay) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.departure, departure) ||
-                const DeepCollectionEquality()
-                    .equals(other.departure, departure)) &&
-            (identical(other.arrival, arrival) ||
-                const DeepCollectionEquality()
-                    .equals(other.arrival, arrival)) &&
-            (identical(other.lat, lat) ||
-                const DeepCollectionEquality().equals(other.lat, lat)) &&
-            (identical(other.lon, lon) ||
-                const DeepCollectionEquality().equals(other.lon, lon)) &&
-            (identical(other.x, x) ||
-                const DeepCollectionEquality().equals(other.x, x)) &&
-            (identical(other.y, y) ||
-                const DeepCollectionEquality().equals(other.y, y)));
+                other.departure == departure) &&
+            (identical(other.arrival, arrival) || other.arrival == arrival) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(depDelay) ^
-      const DeepCollectionEquality().hash(arrDelay) ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(departure) ^
-      const DeepCollectionEquality().hash(arrival) ^
-      const DeepCollectionEquality().hash(lat) ^
-      const DeepCollectionEquality().hash(lon) ^
-      const DeepCollectionEquality().hash(x) ^
-      const DeepCollectionEquality().hash(y);
+  int get hashCode => Object.hash(runtimeType, name, depDelay, arrDelay, id,
+      departure, arrival, lat, lon, x, y);
 
   @JsonKey(ignore: true)
   @override
@@ -377,31 +357,31 @@ abstract class _SbbSubsequentStop extends SbbSubsequentStop {
       _$_SbbSubsequentStop.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
-  int? get depDelay => throw _privateConstructorUsedError;
+  int? get depDelay;
   @override
   @DelayConverter()
   @JsonKey(name: 'arr_delay')
-  int? get arrDelay => throw _privateConstructorUsedError;
+  int? get arrDelay;
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
   @JsonKey(name: 'dep')
-  DateTime? get departure => throw _privateConstructorUsedError;
+  DateTime? get departure;
   @override
   @JsonKey(name: 'arr')
-  DateTime? get arrival => throw _privateConstructorUsedError;
+  DateTime? get arrival;
   @override
-  double? get lat => throw _privateConstructorUsedError;
+  double? get lat;
   @override
-  double? get lon => throw _privateConstructorUsedError;
+  double? get lon;
   @override
-  int? get x => throw _privateConstructorUsedError;
+  int? get x;
   @override
-  int? get y => throw _privateConstructorUsedError;
+  int? get y;
   @override
   @JsonKey(ignore: true)
   _$SbbSubsequentStopCopyWith<_SbbSubsequentStop> get copyWith =>

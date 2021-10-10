@@ -30,7 +30,7 @@ class RoutesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer(builder: (context, w, _) {
-        final fetcher = w(routeStatesProvider);
+        final fetcher = w.watch(routeStatesProvider);
 
         return fetcher.state.when(
           (routes) => CustomScrollView(
@@ -53,12 +53,16 @@ class RoutesView extends StatelessWidget {
                           padding: const EdgeInsets.all(16),
                           child: Center(
                             child: DefaultTextStyle(
-                              style:
-                                  Theme.of(context).textTheme.caption!.apply(fontSizeFactor: 1.4),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .apply(fontSizeFactor: 1.4),
                               child: routes.messages.isEmpty ||
-                                      _locationNotFound.hasMatch(routes.messages.first)
+                                      _locationNotFound
+                                          .hasMatch(routes.messages.first)
                                   ? Text(
-                                      AppLocalizations.of(context).unsupported_area,
+                                      AppLocalizations.of(context)
+                                          .unsupported_area,
                                       textAlign: TextAlign.center,
                                     )
                                   : Text(
@@ -131,7 +135,8 @@ class RoutesView extends StatelessWidget {
                     : ElevatedButton(
                         onPressed: Geolocator.openAppSettings,
                         style: ElevatedButton.styleFrom(
-                          shadowColor: ShadowTheme.of(context).buttonShadow?.color,
+                          shadowColor:
+                              ShadowTheme.of(context).buttonShadow?.color,
                           elevation: 8,
                           shape: const StadiumBorder(),
                         ),
@@ -166,7 +171,8 @@ class RoutesView extends StatelessWidget {
               ),
             ],
           ),
-          loading: () => const Center(child: CircularProgressIndicator.adaptive()),
+          loading: () =>
+              const Center(child: CircularProgressIndicator.adaptive()),
           empty: () => const Align(
             alignment: Alignment.topCenter,
             child: _PredictionTile(),
@@ -205,7 +211,9 @@ final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
   final dateTime = ref.watch(dateProvider).state;
   LatLon? pos;
   try {
-    final loc = await GeoLocationEngine.instance.getLocation().timeout(const Duration(seconds: 4));
+    final loc = await GeoLocationEngine.instance
+        .getLocation()
+        .timeout(const Duration(seconds: 4));
     pos = LatLon.fromGeoLocation(loc);
   } on Exception {
     ignoreError();
@@ -214,7 +222,9 @@ final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
   final routes = RouteHistoryRepository.i.history;
   return predictRoute(
     routes,
-    pos != null ? LocationArgument(pos, dateTime: null) : EmptyArgument(dateTime: dateTime),
+    pos != null
+        ? LocationArgument(pos, dateTime: null)
+        : EmptyArgument(dateTime: dateTime),
   );
 });
 
@@ -225,73 +235,74 @@ class _PredictionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer(
-        builder: (context, watch, child) => watch(_predictionProvider).when(
-          data: (pred) {
-            if (pred.prediction != null) {
-              return RouteWidget(
-                from: Text(pred.prediction!.fromAsString.stripAt()),
-                to: Text(pred.prediction!.toAsString.stripAt()),
-                onTap: () {
-                  fromBinder.setString(context, pred.prediction!.fromAsString);
-                  toBinder.setString(context, pred.prediction!.toAsString);
-                },
-                title: Text(AppLocalizations.of(context).suggestion),
-                onLongPress: () {
-                  showDialog<void>(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: const Text('Arguments'),
-                            content: Text(
-                                const JsonEncoder.withIndent(' ').convert(pred.arguments.toJson())),
-                          ));
-                },
-              );
-            } else {
-              return child!;
-            }
-          },
-          loading: () => Shimmer.fromColors(
-            baseColor: Colors.grey,
-            highlightColor: Colors.white,
-            child: const RouteWidget(
-              from: Align(
-                alignment: Alignment.centerLeft,
-                child: SizedBox(
-                  height: 16,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.black),
-                    child: Text('                           '),
+        builder: (context, r, child) => r.watch(_predictionProvider).when(
+              data: (pred) {
+                if (pred.prediction != null) {
+                  return RouteWidget(
+                    from: Text(pred.prediction!.fromAsString.stripAt()),
+                    to: Text(pred.prediction!.toAsString.stripAt()),
+                    onTap: () {
+                      fromBinder.setString(
+                          context, pred.prediction!.fromAsString);
+                      toBinder.setString(context, pred.prediction!.toAsString);
+                    },
+                    title: Text(AppLocalizations.of(context).suggestion),
+                    onLongPress: () {
+                      showDialog<void>(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: const Text('Arguments'),
+                                content: Text(const JsonEncoder.withIndent(' ')
+                                    .convert(pred.arguments.toJson())),
+                              ));
+                    },
+                  );
+                } else {
+                  return child!;
+                }
+              },
+              loading: (_) => Shimmer.fromColors(
+                baseColor: Colors.grey,
+                highlightColor: Colors.white,
+                child: const RouteWidget(
+                  from: Align(
+                    alignment: Alignment.centerLeft,
+                    child: SizedBox(
+                      height: 16,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: Colors.black),
+                        child: Text('                           '),
+                      ),
+                    ),
+                  ),
+                  to: Align(
+                    alignment: Alignment.centerLeft,
+                    child: SizedBox(
+                      height: 16,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: Colors.black),
+                        child: Text('           '),
+                      ),
+                    ),
+                  ),
+                  title: Align(
+                    alignment: Alignment.centerLeft,
+                    child: SizedBox(
+                      height: 16,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: Colors.black),
+                        child: Text('               '),
+                      ),
+                    ),
                   ),
                 ),
               ),
-              to: Align(
-                alignment: Alignment.centerLeft,
-                child: SizedBox(
-                  height: 16,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.black),
-                    child: Text('           '),
-                  ),
-                ),
-              ),
-              title: Align(
-                alignment: Alignment.centerLeft,
-                child: SizedBox(
-                  height: 16,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.black),
-                    child: Text('               '),
-                  ),
-                ),
-              ),
+              error: (e, s, _) {
+                log.log(e);
+                debugPrintStack(stackTrace: s);
+                return child!;
+              },
             ),
-          ),
-          error: (e, s) {
-            log.log(e);
-            debugPrintStack(stackTrace: s);
-            return child!;
-          },
-        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

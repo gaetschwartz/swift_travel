@@ -35,7 +35,7 @@ class _$SbbStationboardTearOff {
     );
   }
 
-  SbbStationboard fromJson(Map<String, Object> json) {
+  SbbStationboard fromJson(Map<String, Object?> json) {
     return SbbStationboard.fromJson(json);
   }
 }
@@ -201,24 +201,20 @@ class _$_SbbStationboard extends _SbbStationboard {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SbbStationboard &&
-            (identical(other.sbbStop, sbbStop) ||
-                const DeepCollectionEquality()
-                    .equals(other.sbbStop, sbbStop)) &&
-            (identical(other.sbbConnections, sbbConnections) ||
-                const DeepCollectionEquality()
-                    .equals(other.sbbConnections, sbbConnections)) &&
-            (identical(other.messages, messages) ||
-                const DeepCollectionEquality()
-                    .equals(other.messages, messages)));
+        (other.runtimeType == runtimeType &&
+            other is _SbbStationboard &&
+            (identical(other.sbbStop, sbbStop) || other.sbbStop == sbbStop) &&
+            const DeepCollectionEquality()
+                .equals(other.sbbConnections, sbbConnections) &&
+            const DeepCollectionEquality().equals(other.messages, messages));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(sbbStop) ^
-      const DeepCollectionEquality().hash(sbbConnections) ^
-      const DeepCollectionEquality().hash(messages);
+  int get hashCode => Object.hash(
+      runtimeType,
+      sbbStop,
+      const DeepCollectionEquality().hash(sbbConnections),
+      const DeepCollectionEquality().hash(messages));
 
   @JsonKey(ignore: true)
   @override
@@ -245,13 +241,12 @@ abstract class _SbbStationboard extends SbbStationboard {
 
   @override
   @JsonKey(name: 'stop')
-  SbbStop? get sbbStop => throw _privateConstructorUsedError;
+  SbbStop? get sbbStop;
   @override
   @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
-  List<SbbStationboardConnection> get sbbConnections =>
-      throw _privateConstructorUsedError;
+  List<SbbStationboardConnection> get sbbConnections;
   @override
-  List<Object> get messages => throw _privateConstructorUsedError;
+  List<Object> get messages;
   @override
   @JsonKey(ignore: true)
   _$SbbStationboardCopyWith<_SbbStationboard> get copyWith =>

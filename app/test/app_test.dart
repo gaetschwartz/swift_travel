@@ -30,7 +30,7 @@ import 'blocs_test.dart';
 
 class MockFetcher extends FetcherBase {
   @override
-  Future<void> fetch(ProviderReference ref) async {
+  Future<void> fetch(ProviderRefBase ref) async {
     state = RouteStates(SbbRoute.fromJson(mockRoute));
   }
 }
@@ -52,10 +52,12 @@ void main() {
       '&dtm=1g3ashk'
       '&i=0',
     );
-    DeepLinkBloc.channel.setMockMethodCallHandler((methodCall) async => uri.toString());
+    DeepLinkBloc.channel
+        .setMockMethodCallHandler((methodCall) async => uri.toString());
 
-    final c = ProviderContainer(
-        overrides: [navigationAPIProvider.overrideWithValue(MockNavigationApi())]);
+    final c = ProviderContainer(overrides: [
+      navigationAPIProvider.overrideWithValue(MockNavigationApi())
+    ]);
 
     late Pair<NavRoute, int> p;
     await c.read(linksProvider).init(
@@ -81,7 +83,8 @@ void main() {
     late final String dirPath;
     setUpAll(() async {
       final directory = await getTempDirForTests();
-      dirPath = path.join(directory.path, 'swift_travel', 'test_results', 'route_tab_test');
+      dirPath = path.join(
+          directory.path, 'swift_travel', 'test_results', 'route_tab_test');
       Hive.init(dirPath);
     });
 
@@ -154,7 +157,8 @@ void main() {
         await t.tap(tile);
         await t.pumpAndSettle();
 
-        final localizations = await AppLocalizations.delegate.load(const Locale('en'));
+        final localizations =
+            await AppLocalizations.delegate.load(const Locale('en'));
         expect(find.text(localizations.tabs_route), findsOneWidget);
         log.log('We are in the route details page');
 

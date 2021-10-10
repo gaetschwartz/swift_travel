@@ -190,14 +190,13 @@ class _$RSData implements RSData {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is RSData &&
-            (identical(other.routes, routes) ||
-                const DeepCollectionEquality().equals(other.routes, routes)));
+        (other.runtimeType == runtimeType &&
+            other is RSData &&
+            (identical(other.routes, routes) || other.routes == routes));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(routes);
+  int get hashCode => Object.hash(runtimeType, routes);
 
   @JsonKey(ignore: true)
   @override
@@ -304,7 +303,7 @@ class _$RSData implements RSData {
 abstract class RSData implements RouteStates {
   const factory RSData(NavRoute routes) = _$RSData;
 
-  NavRoute get routes => throw _privateConstructorUsedError;
+  NavRoute get routes;
   @JsonKey(ignore: true)
   $RSDataCopyWith<RSData> get copyWith => throw _privateConstructorUsedError;
 }
@@ -340,7 +339,8 @@ class _$RSNetworkException implements RSNetworkException {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RSNetworkException);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is RSNetworkException);
   }
 
   @override
@@ -482,7 +482,9 @@ class _$RSLocationPermissionNotGranted
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RSLocationPermissionNotGranted);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is RSLocationPermissionNotGranted);
   }
 
   @override
@@ -622,7 +624,8 @@ class _$RSMissingPluginException implements RSMissingPluginException {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RSMissingPluginException);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is RSMissingPluginException);
   }
 
   @override
@@ -776,15 +779,14 @@ class _$RSException implements RSException {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is RSException &&
-            (identical(other.exception, exception) ||
-                const DeepCollectionEquality()
-                    .equals(other.exception, exception)));
+        (other.runtimeType == runtimeType &&
+            other is RSException &&
+            const DeepCollectionEquality().equals(other.exception, exception));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
   @override
@@ -891,7 +893,7 @@ class _$RSException implements RSException {
 abstract class RSException implements RouteStates {
   const factory RSException(Object exception) = _$RSException;
 
-  Object get exception => throw _privateConstructorUsedError;
+  Object get exception;
   @JsonKey(ignore: true)
   $RSExceptionCopyWith<RSException> get copyWith =>
       throw _privateConstructorUsedError;
@@ -925,7 +927,8 @@ class _$RSEmpty implements RSEmpty {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RSEmpty);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is RSEmpty);
   }
 
   @override
@@ -1060,7 +1063,8 @@ class _$RSLoading implements RSLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RSLoading);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is RSLoading);
   }
 
   @override

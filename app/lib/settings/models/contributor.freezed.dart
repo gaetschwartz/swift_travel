@@ -64,7 +64,7 @@ class _$ContributorTearOff {
     );
   }
 
-  Contributor fromJson(Map<String, Object> json) {
+  Contributor fromJson(Map<String, Object?> json) {
     return Contributor.fromJson(json);
   }
 }
@@ -482,83 +482,65 @@ class _$_Contributor implements _Contributor {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Contributor &&
-            (identical(other.login, login) ||
-                const DeepCollectionEquality().equals(other.login, login)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.nodeId, nodeId) ||
-                const DeepCollectionEquality().equals(other.nodeId, nodeId)) &&
+        (other.runtimeType == runtimeType &&
+            other is _Contributor &&
+            (identical(other.login, login) || other.login == login) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.nodeId, nodeId) || other.nodeId == nodeId) &&
             (identical(other.avatarUrl, avatarUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.avatarUrl, avatarUrl)) &&
+                other.avatarUrl == avatarUrl) &&
             (identical(other.gravatarId, gravatarId) ||
-                const DeepCollectionEquality()
-                    .equals(other.gravatarId, gravatarId)) &&
-            (identical(other.url, url) ||
-                const DeepCollectionEquality().equals(other.url, url)) &&
-            (identical(other.htmlUrl, htmlUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.htmlUrl, htmlUrl)) &&
+                other.gravatarId == gravatarId) &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.htmlUrl, htmlUrl) || other.htmlUrl == htmlUrl) &&
             (identical(other.followersUrl, followersUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.followersUrl, followersUrl)) &&
+                other.followersUrl == followersUrl) &&
             (identical(other.followingUrl, followingUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.followingUrl, followingUrl)) &&
+                other.followingUrl == followingUrl) &&
             (identical(other.gistsUrl, gistsUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.gistsUrl, gistsUrl)) &&
+                other.gistsUrl == gistsUrl) &&
             (identical(other.starredUrl, starredUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.starredUrl, starredUrl)) &&
+                other.starredUrl == starredUrl) &&
             (identical(other.subscriptionsUrl, subscriptionsUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.subscriptionsUrl, subscriptionsUrl)) &&
+                other.subscriptionsUrl == subscriptionsUrl) &&
             (identical(other.organizationsUrl, organizationsUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.organizationsUrl, organizationsUrl)) &&
+                other.organizationsUrl == organizationsUrl) &&
             (identical(other.reposUrl, reposUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.reposUrl, reposUrl)) &&
+                other.reposUrl == reposUrl) &&
             (identical(other.eventsUrl, eventsUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.eventsUrl, eventsUrl)) &&
+                other.eventsUrl == eventsUrl) &&
             (identical(other.receivedEventsUrl, receivedEventsUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.receivedEventsUrl, receivedEventsUrl)) &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)) &&
+                other.receivedEventsUrl == receivedEventsUrl) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.siteAdmin, siteAdmin) ||
-                const DeepCollectionEquality()
-                    .equals(other.siteAdmin, siteAdmin)) &&
+                other.siteAdmin == siteAdmin) &&
             (identical(other.contributions, contributions) ||
-                const DeepCollectionEquality()
-                    .equals(other.contributions, contributions)));
+                other.contributions == contributions));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(login) ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(nodeId) ^
-      const DeepCollectionEquality().hash(avatarUrl) ^
-      const DeepCollectionEquality().hash(gravatarId) ^
-      const DeepCollectionEquality().hash(url) ^
-      const DeepCollectionEquality().hash(htmlUrl) ^
-      const DeepCollectionEquality().hash(followersUrl) ^
-      const DeepCollectionEquality().hash(followingUrl) ^
-      const DeepCollectionEquality().hash(gistsUrl) ^
-      const DeepCollectionEquality().hash(starredUrl) ^
-      const DeepCollectionEquality().hash(subscriptionsUrl) ^
-      const DeepCollectionEquality().hash(organizationsUrl) ^
-      const DeepCollectionEquality().hash(reposUrl) ^
-      const DeepCollectionEquality().hash(eventsUrl) ^
-      const DeepCollectionEquality().hash(receivedEventsUrl) ^
-      const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(siteAdmin) ^
-      const DeepCollectionEquality().hash(contributions);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        login,
+        id,
+        nodeId,
+        avatarUrl,
+        gravatarId,
+        url,
+        htmlUrl,
+        followersUrl,
+        followingUrl,
+        gistsUrl,
+        starredUrl,
+        subscriptionsUrl,
+        organizationsUrl,
+        reposUrl,
+        eventsUrl,
+        receivedEventsUrl,
+        type,
+        siteAdmin,
+        contributions
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -597,57 +579,57 @@ abstract class _Contributor implements Contributor {
       _$_Contributor.fromJson;
 
   @override
-  String get login => throw _privateConstructorUsedError;
+  String get login;
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
   @JsonKey(name: 'node_id')
-  String get nodeId => throw _privateConstructorUsedError;
+  String get nodeId;
   @override
   @JsonKey(name: 'avatar_url')
-  String get avatarUrl => throw _privateConstructorUsedError;
+  String get avatarUrl;
   @override
   @JsonKey(name: 'gravatar_id')
-  String get gravatarId => throw _privateConstructorUsedError;
+  String get gravatarId;
   @override
-  String get url => throw _privateConstructorUsedError;
+  String get url;
   @override
   @JsonKey(name: 'html_url')
-  String get htmlUrl => throw _privateConstructorUsedError;
+  String get htmlUrl;
   @override
   @JsonKey(name: 'followers_url')
-  String get followersUrl => throw _privateConstructorUsedError;
+  String get followersUrl;
   @override
   @JsonKey(name: 'following_url')
-  String get followingUrl => throw _privateConstructorUsedError;
+  String get followingUrl;
   @override
   @JsonKey(name: 'gists_url')
-  String get gistsUrl => throw _privateConstructorUsedError;
+  String get gistsUrl;
   @override
   @JsonKey(name: 'starred_url')
-  String get starredUrl => throw _privateConstructorUsedError;
+  String get starredUrl;
   @override
   @JsonKey(name: 'subscriptions_url')
-  String get subscriptionsUrl => throw _privateConstructorUsedError;
+  String get subscriptionsUrl;
   @override
   @JsonKey(name: 'organizations_url')
-  String get organizationsUrl => throw _privateConstructorUsedError;
+  String get organizationsUrl;
   @override
   @JsonKey(name: 'repos_url')
-  String get reposUrl => throw _privateConstructorUsedError;
+  String get reposUrl;
   @override
   @JsonKey(name: 'events_url')
-  String get eventsUrl => throw _privateConstructorUsedError;
+  String get eventsUrl;
   @override
   @JsonKey(name: 'received_events_url')
-  String get receivedEventsUrl => throw _privateConstructorUsedError;
+  String get receivedEventsUrl;
   @override
-  String get type => throw _privateConstructorUsedError;
+  String get type;
   @override
   @JsonKey(name: 'site_admin')
-  bool get siteAdmin => throw _privateConstructorUsedError;
+  bool get siteAdmin;
   @override
-  int get contributions => throw _privateConstructorUsedError;
+  int get contributions;
   @override
   @JsonKey(ignore: true)
   _$ContributorCopyWith<_Contributor> get copyWith =>

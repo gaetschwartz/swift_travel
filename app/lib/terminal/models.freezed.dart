@@ -172,26 +172,22 @@ class _$_TerminalContext implements _TerminalContext {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _TerminalContext &&
-            (identical(other.command, command) ||
-                const DeepCollectionEquality()
-                    .equals(other.command, command)) &&
-            (identical(other.w, w) ||
-                const DeepCollectionEquality().equals(other.w, w)) &&
+        (other.runtimeType == runtimeType &&
+            other is _TerminalContext &&
+            const DeepCollectionEquality().equals(other.command, command) &&
+            (identical(other.w, w) || other.w == w) &&
             (identical(other.stateController, stateController) ||
-                const DeepCollectionEquality()
-                    .equals(other.stateController, stateController)) &&
-            (identical(other.context, context) ||
-                const DeepCollectionEquality().equals(other.context, context)));
+                other.stateController == stateController) &&
+            (identical(other.context, context) || other.context == context));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(command) ^
-      const DeepCollectionEquality().hash(w) ^
-      const DeepCollectionEquality().hash(stateController) ^
-      const DeepCollectionEquality().hash(context);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(command),
+      w,
+      stateController,
+      context);
 
   @JsonKey(ignore: true)
   @override
@@ -207,14 +203,13 @@ abstract class _TerminalContext implements TerminalContext {
       BuildContext context) = _$_TerminalContext;
 
   @override
-  List<String> get command => throw _privateConstructorUsedError;
+  List<String> get command;
   @override
-  void Function(String, String) get w => throw _privateConstructorUsedError;
+  void Function(String, String) get w;
   @override
-  StateController<List<TerminalCommandResult>> get stateController =>
-      throw _privateConstructorUsedError;
+  StateController<List<TerminalCommandResult>> get stateController;
   @override
-  BuildContext get context => throw _privateConstructorUsedError;
+  BuildContext get context;
   @override
   @JsonKey(ignore: true)
   _$TerminalContextCopyWith<_TerminalContext> get copyWith =>
@@ -338,19 +333,14 @@ class _$_TerminalCommandResult implements _TerminalCommandResult {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _TerminalCommandResult &&
-            (identical(other.command, command) ||
-                const DeepCollectionEquality()
-                    .equals(other.command, command)) &&
-            (identical(other.result, result) ||
-                const DeepCollectionEquality().equals(other.result, result)));
+        (other.runtimeType == runtimeType &&
+            other is _TerminalCommandResult &&
+            (identical(other.command, command) || other.command == command) &&
+            (identical(other.result, result) || other.result == result));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(command) ^
-      const DeepCollectionEquality().hash(result);
+  int get hashCode => Object.hash(runtimeType, command, result);
 
   @JsonKey(ignore: true)
   @override
@@ -364,9 +354,9 @@ abstract class _TerminalCommandResult implements TerminalCommandResult {
       _$_TerminalCommandResult;
 
   @override
-  String get command => throw _privateConstructorUsedError;
+  String get command;
   @override
-  String get result => throw _privateConstructorUsedError;
+  String get result;
   @override
   @JsonKey(ignore: true)
   _$TerminalCommandResultCopyWith<_TerminalCommandResult> get copyWith =>
@@ -512,23 +502,16 @@ class _$_CommandDefinition implements _CommandDefinition {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _CommandDefinition &&
-            (identical(other.command, command) ||
-                const DeepCollectionEquality()
-                    .equals(other.command, command)) &&
+        (other.runtimeType == runtimeType &&
+            other is _CommandDefinition &&
+            (identical(other.command, command) || other.command == command) &&
             (identical(other.description, description) ||
-                const DeepCollectionEquality()
-                    .equals(other.description, description)) &&
-            (identical(other.run, run) ||
-                const DeepCollectionEquality().equals(other.run, run)));
+                other.description == description) &&
+            (identical(other.run, run) || other.run == run));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(command) ^
-      const DeepCollectionEquality().hash(description) ^
-      const DeepCollectionEquality().hash(run);
+  int get hashCode => Object.hash(runtimeType, command, description, run);
 
   @JsonKey(ignore: true)
   @override
@@ -541,12 +524,11 @@ abstract class _CommandDefinition implements CommandDefinition {
       FutureOr<void> Function(TerminalContext) run) = _$_CommandDefinition;
 
   @override
-  String get command => throw _privateConstructorUsedError;
+  String get command;
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
   @override
-  FutureOr<void> Function(TerminalContext) get run =>
-      throw _privateConstructorUsedError;
+  FutureOr<void> Function(TerminalContext) get run;
   @override
   @JsonKey(ignore: true)
   _$CommandDefinitionCopyWith<_CommandDefinition> get copyWith =>

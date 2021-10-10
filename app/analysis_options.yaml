@@ -8,7 +8,7 @@
 include: all_lint_rules.yaml
 analyzer:
   plugins:
-    - dart_code_metrics
+  #- dart_code_metrics
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"

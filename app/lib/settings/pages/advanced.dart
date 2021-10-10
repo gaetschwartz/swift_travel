@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
+import 'package:swift_travel/main.dart';
 import 'package:swift_travel/settings/widgets/settings_page_widget.dart';
 import 'package:swift_travel/settings/widgets/switch.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';

@@ -150,15 +150,14 @@ class _$FavoritesStatesData implements FavoritesStatesData {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is FavoritesStatesData &&
-            (identical(other.favorites, favorites) ||
-                const DeepCollectionEquality()
-                    .equals(other.favorites, favorites)));
+        (other.runtimeType == runtimeType &&
+            other is FavoritesStatesData &&
+            const DeepCollectionEquality().equals(other.favorites, favorites));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(favorites);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(favorites));
 
   @JsonKey(ignore: true)
   @override
@@ -238,7 +237,7 @@ abstract class FavoritesStatesData implements FavoritesStates {
   const factory FavoritesStatesData(List<FavoriteStop> favorites) =
       _$FavoritesStatesData;
 
-  List<FavoriteStop> get favorites => throw _privateConstructorUsedError;
+  List<FavoriteStop> get favorites;
   @JsonKey(ignore: true)
   $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -275,7 +274,8 @@ class _$FavoritesStatesLoading implements FavoritesStatesLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FavoritesStatesLoading);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is FavoritesStatesLoading);
   }
 
   @override
@@ -402,15 +402,14 @@ class _$FavoritesStatesError implements FavoritesStatesError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is FavoritesStatesError &&
+        (other.runtimeType == runtimeType &&
+            other is FavoritesStatesError &&
             (identical(other.exception, exception) ||
-                const DeepCollectionEquality()
-                    .equals(other.exception, exception)));
+                other.exception == exception));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
+  int get hashCode => Object.hash(runtimeType, exception);
 
   @JsonKey(ignore: true)
   @override
@@ -491,7 +490,7 @@ abstract class FavoritesStatesError implements FavoritesStates {
   const factory FavoritesStatesError(Exception exception) =
       _$FavoritesStatesError;
 
-  Exception get exception => throw _privateConstructorUsedError;
+  Exception get exception;
   @JsonKey(ignore: true)
   $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith =>
       throw _privateConstructorUsedError;

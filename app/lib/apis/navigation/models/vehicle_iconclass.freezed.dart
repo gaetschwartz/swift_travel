@@ -27,7 +27,7 @@ class _$_VehicleIconclassTearOff {
     );
   }
 
-  _VehicleIconclass fromJson(Map<String, Object> json) {
+  _VehicleIconclass fromJson(Map<String, Object?> json) {
     return _VehicleIconclass.fromJson(json);
   }
 }
@@ -128,14 +128,13 @@ class _$__VehicleIconclass implements __VehicleIconclass {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is __VehicleIconclass &&
-            (identical(other.v, v) ||
-                const DeepCollectionEquality().equals(other.v, v)));
+        (other.runtimeType == runtimeType &&
+            other is __VehicleIconclass &&
+            (identical(other.v, v) || other.v == v));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(v);
+  int get hashCode => Object.hash(runtimeType, v);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +154,7 @@ abstract class __VehicleIconclass implements _VehicleIconclass {
       _$__VehicleIconclass.fromJson;
 
   @override
-  TransportationMode get v => throw _privateConstructorUsedError;
+  TransportationMode get v;
   @override
   @JsonKey(ignore: true)
   _$_VehicleIconclassCopyWith<__VehicleIconclass> get copyWith =>

@@ -42,7 +42,7 @@ class _$SbbStopTearOff {
     );
   }
 
-  SbbStop fromJson(Map<String, Object> json) {
+  SbbStop fromJson(Map<String, Object?> json) {
     return SbbStop.fromJson(json);
   }
 }
@@ -261,38 +261,22 @@ class _$_SbbStop extends _SbbStop {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SbbStop &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SbbStop &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.departure, departure) ||
-                const DeepCollectionEquality()
-                    .equals(other.departure, departure)) &&
-            (identical(other.arrival, arrival) ||
-                const DeepCollectionEquality()
-                    .equals(other.arrival, arrival)) &&
-            (identical(other.lat, lat) ||
-                const DeepCollectionEquality().equals(other.lat, lat)) &&
-            (identical(other.lon, lon) ||
-                const DeepCollectionEquality().equals(other.lon, lon)) &&
-            (identical(other.x, x) ||
-                const DeepCollectionEquality().equals(other.x, x)) &&
-            (identical(other.y, y) ||
-                const DeepCollectionEquality().equals(other.y, y)));
+                other.departure == departure) &&
+            (identical(other.arrival, arrival) || other.arrival == arrival) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(departure) ^
-      const DeepCollectionEquality().hash(arrival) ^
-      const DeepCollectionEquality().hash(lat) ^
-      const DeepCollectionEquality().hash(lon) ^
-      const DeepCollectionEquality().hash(x) ^
-      const DeepCollectionEquality().hash(y);
+      Object.hash(runtimeType, name, id, departure, arrival, lat, lon, x, y);
 
   @JsonKey(ignore: true)
   @override
@@ -320,25 +304,25 @@ abstract class _SbbStop extends SbbStop {
   factory _SbbStop.fromJson(Map<String, dynamic> json) = _$_SbbStop.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String? get id => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(fromJson: _fromJson, toJson: _toJson)
-  DateTime? get departure => throw _privateConstructorUsedError;
+  String? get id;
   @override
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
-  DateTime? get arrival => throw _privateConstructorUsedError;
+  DateTime? get departure;
   @override
-  double? get lat => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _fromJson, toJson: _toJson)
+  DateTime? get arrival;
   @override
-  double? get lon => throw _privateConstructorUsedError;
+  double? get lat;
+  @override
+  double? get lon;
   @override
   @IntConverter()
-  int? get x => throw _privateConstructorUsedError;
+  int? get x;
   @override
   @IntConverter()
-  int? get y => throw _privateConstructorUsedError;
+  int? get y;
   @override
   @JsonKey(ignore: true)
   _$SbbStopCopyWith<_SbbStop> get copyWith =>

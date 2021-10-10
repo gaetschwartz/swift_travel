@@ -150,15 +150,15 @@ class _$CompletionsStationStates implements CompletionsStationStates {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is CompletionsStationStates &&
-            (identical(other.completions, completions) ||
-                const DeepCollectionEquality()
-                    .equals(other.completions, completions)));
+        (other.runtimeType == runtimeType &&
+            other is CompletionsStationStates &&
+            const DeepCollectionEquality()
+                .equals(other.completions, completions));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(completions);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(completions));
 
   @JsonKey(ignore: true)
   @override
@@ -240,8 +240,7 @@ abstract class CompletionsStationStates implements StationStates {
   const factory CompletionsStationStates(
       List<NavigationCompletion> completions) = _$CompletionsStationStates;
 
-  List<NavigationCompletion> get completions =>
-      throw _privateConstructorUsedError;
+  List<NavigationCompletion> get completions;
   @JsonKey(ignore: true)
   $CompletionsStationStatesCopyWith<CompletionsStationStates> get copyWith =>
       throw _privateConstructorUsedError;
@@ -278,7 +277,8 @@ class _$EmptyStationStates implements EmptyStationStates {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is EmptyStationStates);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is EmptyStationStates);
   }
 
   @override
@@ -390,7 +390,9 @@ class _$NetworkErrorStationStates implements NetworkErrorStationStates {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is NetworkErrorStationStates);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is NetworkErrorStationStates);
   }
 
   @override

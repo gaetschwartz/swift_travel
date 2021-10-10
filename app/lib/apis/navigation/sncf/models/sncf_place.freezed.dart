@@ -29,7 +29,7 @@ class _$SncfPlaceTearOff {
     );
   }
 
-  SncfPlace fromJson(Map<String, Object> json) {
+  SncfPlace fromJson(Map<String, Object?> json) {
     return SncfPlace.fromJson(json);
   }
 }
@@ -153,22 +153,16 @@ class _$_SncfPlace extends _SncfPlace {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SncfPlace &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
+        (other.runtimeType == runtimeType &&
+            other is _SncfPlace &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.favoriteName, favoriteName) ||
-                const DeepCollectionEquality()
-                    .equals(other.favoriteName, favoriteName)));
+                other.favoriteName == favoriteName));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(favoriteName);
+  int get hashCode => Object.hash(runtimeType, name, id, favoriteName);
 
   @JsonKey(ignore: true)
   @override
@@ -190,11 +184,11 @@ abstract class _SncfPlace extends SncfPlace {
       _$_SncfPlace.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
-  String? get favoriteName => throw _privateConstructorUsedError;
+  String? get favoriteName;
   @override
   @JsonKey(ignore: true)
   _$SncfPlaceCopyWith<_SncfPlace> get copyWith =>
