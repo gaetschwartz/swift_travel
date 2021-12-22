@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
@@ -36,8 +35,7 @@ class TerminalWidget extends StatefulWidget {
   _TerminalWidgetState createState() => _TerminalWidgetState();
 }
 
-final terminalHistoryProvider =
-    StateProvider.autoDispose((ref) => <TerminalCommandResult>[]);
+final terminalHistoryProvider = StateProvider.autoDispose((ref) => <TerminalCommandResult>[]);
 
 class _TerminalWidgetState extends State<TerminalWidget> {
   final TextEditingController controller = TextEditingController();
@@ -69,13 +67,11 @@ class _TerminalWidgetState extends State<TerminalWidget> {
 
   void clear() => context.read(terminalHistoryProvider).state = [];
 
-  final maxLength =
-      commands.map<int>((e) => e.command.length).fold(0, math.max);
+  final maxLength = commands.map<int>((e) => e.command.length).fold(0, math.max);
 
   Future<void> handleCommand(String txt) async {
     final s = txt.trim().toLowerCase().split(" ");
-    final def =
-        commands.firstWhereOrNull((element) => element.command == s.first);
+    final def = commands.firstWhereOrNull((element) => element.command == s.first);
     if (def == null) {
       if (s.first == "help") {
         write(s.first,
@@ -84,8 +80,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
         write(s.first, "Unknown command `${s.first}`, try `help` for help.");
       }
     } else {
-      def.run(TerminalContext(
-          s, write, context.read(terminalHistoryProvider), context));
+      def.run(TerminalContext(s, write, context.read(terminalHistoryProvider), context));
     }
     controller.text = "";
   }
@@ -106,8 +101,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final firaCode =
-        GoogleFonts.firaCode(textStyle: Theme.of(context).textTheme.bodyText1);
+    final firaCode = GoogleFonts.firaCode(textStyle: Theme.of(context).textTheme.bodyText1);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -138,10 +132,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        children: [
-                          const Prompt(),
-                          Text(terminalCommandResult.command)
-                        ],
+                        children: [const Prompt(), Text(terminalCommandResult.command)],
                       ),
                       Text(terminalCommandResult.result),
                     ],
@@ -192,8 +183,7 @@ class _PrompTextFieldState extends State<PrompTextField> {
             onSubmitted: (s) {
               widget.handleCommand(s);
 
-              WidgetsBinding.instance!
-                  .addPostFrameCallback((_) => widget.focusNode.requestFocus());
+              WidgetsBinding.instance!.addPostFrameCallback((_) => widget.focusNode.requestFocus());
             },
             decoration: const InputDecoration(
               isCollapsed: true,

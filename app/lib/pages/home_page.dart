@@ -2,10 +2,7 @@ import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -35,12 +32,7 @@ class TabView extends StatefulWidget {
   @override
   _TabViewState createState() => _TabViewState();
 
-  static const iosTabs = [
-    StationsTab(),
-    RouteTab(),
-    FavoritesTab(),
-    SettingsPage()
-  ];
+  static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), SettingsPage()];
   static const androidTabs = [StationsTab(), RouteTab(), FavoritesTab()];
   static const sideBarWidth = 350.0;
 }
@@ -59,8 +51,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    context.read(navigationAPIProvider).locale =
-        Localizations.localeOf(context);
+    context.read(navigationAPIProvider).locale = Localizations.localeOf(context);
   }
 
   late final cupertinoItems = [
@@ -143,24 +134,17 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
               onTap: (i) {
                 Vibration.instance.selectSoft();
                 if (i == oldI) {
-                  navigatorKeys[i]
-                      .currentState!
-                      .popUntil((route) => route.isFirst);
+                  navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
                   context.read(sideTabBarProvider).state = null;
                 }
                 oldI = i;
               },
-              backgroundColor: CupertinoTheme.of(context)
-                  .barBackgroundColor
-                  .withOpacity(0.5),
+              backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
               items: cupertinoItems,
             ),
             tabBuilder: (context, i) => Navigator(
               key: navigatorKeys[i],
-              pages: [
-                SingleWidgetPage<void>(TabView.iosTabs[i],
-                    title: cupertinoItems[i].label)
-              ],
+              pages: [SingleWidgetPage<void>(TabView.iosTabs[i], title: cupertinoItems[i].label)],
               onPopPage: (_, dynamic __) => true,
               onUnknownRoute: onUnknownRoute,
               onGenerateRoute: onGenerateRoute,
@@ -182,18 +166,14 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
         return Scaffold(
           key: const Key('home-scaffold'),
           resizeToAvoidBottomInset: false,
-          bottomNavigationBar: SwiftNavigationBar(
-              controllers: controllers, page: page, items: materialItems),
+          bottomNavigationBar:
+              SwiftNavigationBar(controllers: controllers, page: page, items: materialItems),
           body: PageTransitionSwitcher(
-            transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
-                child,
+            transitionBuilder: (child, primaryAnimation, secondaryAnimation) => child,
             duration: Duration.zero,
             child: Navigator(
               key: navigatorKeys[page],
-              pages: [
-                SingleWidgetPage<void>(TabView.androidTabs[page],
-                    name: titles[page])
-              ],
+              pages: [SingleWidgetPage<void>(TabView.androidTabs[page], name: titles[page])],
               onPopPage: (_, dynamic __) => true,
               onUnknownRoute: onUnknownRoute,
               onGenerateRoute: onGenerateRoute,
@@ -228,8 +208,7 @@ class SwiftNavigationBar extends StatelessWidget {
         color: Theme.of(context).cardColor,
         boxShadow: [
           BoxShadow(
-            color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey)
-                .withAlpha(24),
+            color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey).withAlpha(24),
             blurRadius: 32,
           )
         ],
@@ -277,10 +256,7 @@ class _TabWidget extends StatelessWidget {
   Widget build(BuildContext context) => Expanded(
           child: DefaultTextStyle(
         style: page == i
-            ? Theme.of(context)
-                .textTheme
-                .bodyText2!
-                .copyWith(color: activeColor)
+            ? Theme.of(context).textTheme.bodyText2!.copyWith(color: activeColor)
             : Theme.of(context).textTheme.bodyText2!,
         child: Center(
           child: Padding(
@@ -292,9 +268,7 @@ class _TabWidget extends StatelessWidget {
                 if (controllers.index != i) {
                   controllers.index = i;
                 } else {
-                  navigatorKeys[i]
-                      .currentState
-                      ?.popUntil((route) => route.isFirst);
+                  navigatorKeys[i].currentState?.popUntil((route) => route.isFirst);
                   context.read(sideTabBarProvider).state = null;
                 }
               },
@@ -349,8 +323,7 @@ class SideBar extends StatelessWidget {
       context.read(sideTabBarProvider).state = builder;
       sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {
-      Navigator.of(context, rootNavigator: rootNavigator)
-          .push<void>(PlatformPageRoute(
+      Navigator.of(context, rootNavigator: rootNavigator).push<void>(PlatformPageRoute(
         builder: builder,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState,
@@ -385,11 +358,8 @@ class SideBar extends StatelessWidget {
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                       child: Container(
-                        color: Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.5),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 12),
+                        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         child: const Text(
                             'Start searching a station or an itinerary to start using the app'),
                       ),
@@ -448,8 +418,7 @@ class MaterialAppBar extends AppBar {
   final bool showSettingsButton;
 }
 
-class SwiftCupertinoBar extends StatefulWidget
-    implements ObstructingPreferredSizeWidget {
+class SwiftCupertinoBar extends StatefulWidget implements ObstructingPreferredSizeWidget {
   const SwiftCupertinoBar({
     Key? key,
     this.leading,
@@ -479,16 +448,14 @@ class SwiftCupertinoBar extends StatefulWidget
   _SwiftCupertinoBarState createState() => _SwiftCupertinoBarState();
 
   @override
-  Size get preferredSize =>
-      const Size.fromHeight(kMinInteractiveDimensionCupertino);
+  Size get preferredSize => const Size.fromHeight(kMinInteractiveDimensionCupertino);
 
   @override
   bool shouldFullyObstruct(BuildContext context) => opacity == 1.0;
 }
 
 class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
-  String? get _previousPageTitle =>
-      PlatformRouteTitleMixin.getPreviousTitleOf(context);
+  String? get _previousPageTitle => PlatformRouteTitleMixin.getPreviousTitleOf(context);
   String? get _pageTitle => PlatformRouteTitleMixin.getPageTitleOf(context);
 
   @override
@@ -512,13 +479,9 @@ class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
       automaticallyImplyMiddle: widget.automaticallyImplyMiddle,
       previousPageTitle: prevPageTitle,
-      middle: widget.automaticallyImplyMiddle
-          ? widget.middle ?? _pageTitleWidget()
-          : widget.middle,
+      middle: widget.automaticallyImplyMiddle ? widget.middle ?? _pageTitleWidget() : widget.middle,
       trailing: widget.trailing,
-      backgroundColor: CupertinoTheme.of(context)
-          .barBackgroundColor
-          .withOpacity(widget.opacity),
+      backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(widget.opacity),
       brightness: widget.brightness,
       padding: widget.padding,
       transitionBetweenRoutes: widget.transitionBetweenRoutes,

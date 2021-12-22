@@ -1,7 +1,5 @@
 // ignore: must_be_immutable
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:swift_travel/utils/definitions.dart';
 
 import 'constants.dart';

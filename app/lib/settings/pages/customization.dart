@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -18,8 +17,7 @@ class CustomizationSettingsPage extends StatefulWidget {
   const CustomizationSettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<CustomizationSettingsPage> createState() =>
-      _CustomizationSettingsPageState();
+  State<CustomizationSettingsPage> createState() => _CustomizationSettingsPageState();
 }
 
 class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
@@ -57,14 +55,12 @@ class _PlatformTile extends StatelessWidget {
       title: const Text('Platform'),
       options: p == TargetPlatform.iOS || p == TargetPlatform.android
           ? const [
-              ValueOption(
-                  value: TargetPlatform.android, title: Text('Android')),
+              ValueOption(value: TargetPlatform.android, title: Text('Android')),
               ValueOption(value: TargetPlatform.iOS, title: Text('iOS')),
             ]
           : const [
               ValueOption(value: TargetPlatform.macOS, title: Text('MacOS')),
-              ValueOption(
-                  value: TargetPlatform.windows, title: Text('Windows')),
+              ValueOption(value: TargetPlatform.windows, title: Text('Windows')),
             ],
     );
   }
@@ -196,17 +192,13 @@ class _ThememodeWidget extends StatelessWidget {
                       )
                     : null,
                 gradient: mode == ThemeMode.system
-                    ? LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                            theme.light.colorScheme.background,
-                            theme.dark.colorScheme.background,
-                          ],
-                        stops: const [
-                            0.5,
-                            0.5,
-                          ])
+                    ? LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
+                        theme.light.colorScheme.background,
+                        theme.dark.colorScheme.background,
+                      ], stops: const [
+                        0.5,
+                        0.5,
+                      ])
                     : null,
                 borderRadius: const BorderRadius.all(Radius.circular(16))),
             child: Center(
@@ -218,12 +210,10 @@ class _ThememodeWidget extends StatelessWidget {
                         child: Container(
                           color: Colors.white30,
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, bottom: 8, top: 4),
+                            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 4),
                             child: Text(
                               label,
-                              style: t.textTheme.headline6!
-                                  .copyWith(color: Colors.black),
+                              style: t.textTheme.headline6!.copyWith(color: Colors.black),
                             ),
                           ),
                         ),

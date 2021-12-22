@@ -1,10 +1,8 @@
 import 'dart:math' as math;
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -67,14 +65,12 @@ class _SettingsPageState extends State<SettingsPage> {
         tileBorders: const TileBorders(bottom: true),
         options: NavigationApiFactory.factories
             .map(
-              (e) => ValueOption(
-                  title: Text(e.name), value: NavigationApiId(e.id.value)),
+              (e) => ValueOption(title: Text(e.name), value: NavigationApiId(e.id.value)),
             )
             .toList(growable: false),
         title: Text(AppLocalizations.of(context).navigation_api),
         leading: const Icon(CupertinoIcons.link),
-        valueBuilder: (context, v) =>
-            Text(NavigationApiFactory.fromId(v).shortDesc),
+        valueBuilder: (context, v) => Text(NavigationApiFactory.fromId(v).shortDesc),
         /* pageDescription: const Text(
             'BETA: In the future the goal is to add more countries.'),*/
       ),
@@ -206,8 +202,8 @@ class BuildDetailsWidget extends StatelessWidget {
 
     if (controller.state == 6) {
       context.read(preferencesProvider).isDeveloper.setValue(true);
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("You are now a developer 😎")));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("You are now a developer 😎")));
     } else {
       controller.state++;
     }
@@ -314,8 +310,7 @@ class __ScrollProgressState extends State<_ScrollProgress> {
 
   void update() {
     if (mounted) {
-      final p = widget._controller.position.pixels /
-          widget._controller.position.maxScrollExtent;
+      final p = widget._controller.position.pixels / widget._controller.position.maxScrollExtent;
       setState(() => progress = math.min(1, p));
     }
   }
@@ -357,10 +352,8 @@ class SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: DefaultTextStyle(
-          style: Theme.of(context)
-              .textTheme
-              .headline6!
-              .copyWith(color: platformPrimaryColor(context)),
+          style:
+              Theme.of(context).textTheme.headline6!.copyWith(color: platformPrimaryColor(context)),
           textAlign: TextAlign.left,
           child: title,
         ),

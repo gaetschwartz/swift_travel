@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 const mediumGrayColor = Color(0xFFC7C7CC);
 const itemPressedColor = Color(0xFFD9D9D9);
