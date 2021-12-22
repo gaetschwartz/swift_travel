@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
@@ -75,9 +74,7 @@ class CompletionTile extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isFav)
-              darwin
-                  ? const Icon(CupertinoIcons.heart_fill)
-                  : const Icon(Icons.star)
+              darwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star)
             else
               iconClass,
           ],
@@ -130,8 +127,7 @@ class CompletionTile extends ConsumerWidget {
     FocusManager.instance.primaryFocus?.unfocus();
     Vibration.instance.select();
 
-    final favoriteStop =
-        store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
+    final favoriteStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
     final isFav = favoriteStop != null;
 
     final c = await showActionSheet<_Actions>(
@@ -144,9 +140,8 @@ class CompletionTile extends ConsumerWidget {
             icon: isFav
                 ? const Icon(CupertinoIcons.heart_slash)
                 : const Icon(CupertinoIcons.heart_fill),
-            cupertinoIcon: isFav
-                ? const Icon(CupertinoIcons.heart_slash)
-                : const Icon(CupertinoIcons.heart),
+            cupertinoIcon:
+                isFav ? const Icon(CupertinoIcons.heart_slash) : const Icon(CupertinoIcons.heart),
             onPressed: () => _Actions.favorite,
             isDestructive: isFav,
           )
@@ -162,8 +157,7 @@ class CompletionTile extends ConsumerWidget {
           await store.removeStop(favoriteStop!);
         } else {
           final preferencesBloc = context.read(preferencesProvider);
-          final name = await input(context,
-              title: const Text('What is the name of this stop'));
+          final name = await input(context, title: const Text('What is the name of this stop'));
           if (name == null) return;
 
           await store.addStop(FavoriteStop.fromCompletion(
@@ -206,10 +200,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(top: 4),
         child: lines == null
-            ? const SizedBox(
-                width: 8,
-                height: 8,
-                child: CircularProgressIndicator.adaptive())
+            ? const SizedBox(width: 8, height: 8, child: CircularProgressIndicator.adaptive())
             : SizedBox(
                 width: double.infinity,
                 child: ClipRect(

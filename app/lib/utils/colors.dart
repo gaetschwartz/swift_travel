@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -30,27 +29,21 @@ extension ColorX on Color {
     return Color.fromARGB(
       alpha,
       (red + _sgnOfSub(mean, red) * pow(red - mean, 2)).round().clamp(0, 255),
-      (green + _sgnOfSub(mean, green) * pow(green - mean, 2))
-          .round()
-          .clamp(0, 255),
-      (blue + _sgnOfSub(mean, blue) * pow(blue - mean, 2))
-          .round()
-          .clamp(0, 255),
+      (green + _sgnOfSub(mean, green) * pow(green - mean, 2)).round().clamp(0, 255),
+      (blue + _sgnOfSub(mean, blue) * pow(blue - mean, 2)).round().clamp(0, 255),
     );
   }
 
   Color augmentlinear([double strength = 0.1]) {
     if (strength < 0 || strength > 1) throw RangeError.range(strength, 0, 1);
 
-    final factor =
-        ((blue + red + green) / 3) > 127 ? 1 - strength : 1 + strength;
+    final factor = ((blue + red + green) / 3) > 127 ? 1 - strength : 1 + strength;
     return this * factor;
   }
 }
 
 class GradientMask extends StatelessWidget {
-  const GradientMask({required this.child, required this.gradient, Key? key})
-      : super(key: key);
+  const GradientMask({required this.child, required this.gradient, Key? key}) : super(key: key);
   final Widget child;
   final Gradient gradient;
 

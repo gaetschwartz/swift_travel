@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,8 +28,7 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:vibration/vibration.dart';
 
-final _stateProvider =
-    StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
 final _locatingProvider = StateProvider((_) => _LoadingState.idle);
 final _loadingProvider = StateProvider((_) => false);
 
@@ -43,8 +41,7 @@ class StationsTab extends StatefulWidget {
   _StationsTabState createState() => _StationsTabState();
 }
 
-class _StationsTabState extends State<StationsTab>
-    with AutomaticKeepAliveClientMixin {
+class _StationsTabState extends State<StationsTab> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -62,8 +59,7 @@ class _StationsTabWidget extends StatefulWidget {
   _StationsTabWidgetState createState() => _StationsTabWidgetState();
 }
 
-class _StationsTabWidgetState extends State<_StationsTabWidget>
-    with AutomaticKeepAliveClientMixin {
+class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   Timer? _debouncer;
@@ -106,8 +102,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
         ),
       ),
       materialBuilder: (context, child) => Scaffold(
-        appBar: MaterialAppBar(
-            title: Text(AppLocalizations.of(context).tabs_search)),
+        appBar: MaterialAppBar(title: Text(AppLocalizations.of(context).tabs_search)),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           bottom: false,
@@ -134,12 +129,10 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
                               .copyWith(fontStyle: FontStyle.normal),
                           decoration: InputDecoration(
                             isDense: true,
-                            hintText:
-                                AppLocalizations.of(context).search_station,
+                            hintText: AppLocalizations.of(context).search_station,
                             border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
                             ),
                             filled: true,
                             fillColor: Theme.of(context).cardColor,
@@ -149,9 +142,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
                         ListenableBuilder<TextEditingController>(
                           listenable: searchController,
                           builder: (context, controller, child) =>
-                              controller.text.isEmpty
-                                  ? const SizedBox()
-                                  : child!,
+                              controller.text.isEmpty ? const SizedBox() : child!,
                           child: Positioned(
                             right: 0,
                             top: 0,
@@ -197,10 +188,9 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
                             height: 4,
                             child: Center(
                               child: Consumer(
-                                builder: (context, w, _) =>
-                                    w.watch(_loadingProvider).state
-                                        ? const LinearProgressIndicator()
-                                        : const SizedBox(),
+                                builder: (context, w, _) => w.watch(_loadingProvider).state
+                                    ? const LinearProgressIndicator()
+                                    : const SizedBox(),
                               ),
                             ),
                           ),
@@ -214,8 +204,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
                               return IfWrapper(
                                 key: ValueKey(completion),
                                 condition: Env.enableAnimations,
-                                builder: (context, child) =>
-                                    InstantlyAnimatedWidget(
+                                builder: (context, child) => InstantlyAnimatedWidget(
                                   delay: computeDelay(i),
                                   builder: InstantlyAnimatedWidget.fadeScale,
                                   start: 0.5,
@@ -232,14 +221,10 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
                       ],
                     ),
                     empty: () => Consumer(
-                        builder: (context, w, _) => w
-                            .watch(favoritesStatesProvider)
-                            .state
-                            .map(
+                        builder: (context, w, _) => w.watch(favoritesStatesProvider).state.map(
                               data: (c) => c.favorites.isEmpty
                                   ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           '🔎',
@@ -248,23 +233,19 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
                                         const Gap(24),
                                         Text(
                                           'Search a station',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6,
+                                          style: Theme.of(context).textTheme.headline6,
                                           textAlign: TextAlign.center,
                                         )
                                       ],
                                     )
                                   : ListView.builder(
-                                      itemBuilder: (context, i) =>
-                                          CompletionTile(
-                                        SbbCompletion.fromFavorite(
-                                            c.favorites[i]),
+                                      itemBuilder: (context, i) => CompletionTile(
+                                        SbbCompletion.fromFavorite(c.favorites[i]),
                                       ),
                                       itemCount: c.favorites.length,
                                     ),
-                              loading: (_) => const Center(
-                                  child: CircularProgressIndicator.adaptive()),
+                              loading: (_) =>
+                                  const Center(child: CircularProgressIndicator.adaptive()),
                               exception: (e) => Center(
                                 child: Text(
                                   e.exception.toString(),
@@ -315,18 +296,15 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
       final p = await GeoLocationEngine.instance.getLocation();
       if (!mounted) return;
 
-      final completions = await context
-          .read(navigationAPIProvider)
-          .findStation(p.latitude, p.longitude);
+      final completions =
+          await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
 
       final first = completions.first;
       if (first.dist != null) {
-        final public =
-            completions.where((c) => !TransportationModeX.isAnAddress(c.type));
+        final public = completions.where((c) => !TransportationModeX.isAnAddress(c.type));
         if (!mounted) return;
 
-        context.read(_stateProvider).state =
-            StationStates.completions(completions);
+        context.read(_stateProvider).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log.log('Found : ${public.first}');
           searchController.text = public.first.label;
@@ -355,15 +333,13 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
 
   Future<void> fetch(String query) async {
     try {
-      final completionsWithFavs =
-          await context.read(completionEngineProvider).completeNavigation(
-                query: query,
-                doUseHistory: false,
-              );
+      final completionsWithFavs = await context.read(completionEngineProvider).completeNavigation(
+            query: query,
+            doUseHistory: false,
+          );
       if (!mounted) return;
 
-      context.read(_stateProvider).state =
-          StationStates.completions(completionsWithFavs);
+      context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
       context.read(_stateProvider).state = const StationStates.network();
     } on Exception catch (e, s) {
@@ -374,8 +350,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget>
   }
 
   Duration? computeDelay(int i) {
-    final first =
-        itemPositionsListener.itemPositions.value.firstOrNull?.index ?? 0;
+    final first = itemPositionsListener.itemPositions.value.firstOrNull?.index ?? 0;
     final last = itemPositionsListener.itemPositions.value.lastOrNull?.index;
     if (last != null && i > last) return null;
     return Duration(milliseconds: 20 * (i - first));
@@ -396,8 +371,7 @@ class AnimatedLocation extends StatefulWidget {
 
 const _kAnimDuration = Duration(milliseconds: 500);
 
-class _AnimatedLocationState extends State<AnimatedLocation>
-    with SingleTickerProviderStateMixin {
+class _AnimatedLocationState extends State<AnimatedLocation> with SingleTickerProviderStateMixin {
   late final controller = AnimationController(
     vsync: this,
     duration: _kAnimDuration,
@@ -440,9 +414,7 @@ class _AnimatedLocationState extends State<AnimatedLocation>
         turns: reverse,
         child: Icon(
           CupertinoIcons.location_fill,
-          color: widget.loadingState == _LoadingState.error
-              ? Colors.redAccent
-              : null,
+          color: widget.loadingState == _LoadingState.error ? Colors.redAccent : null,
         ),
       );
 }

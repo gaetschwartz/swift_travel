@@ -1,6 +1,5 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
@@ -80,8 +79,7 @@ class _PropertyPage<T> extends StatelessWidget {
         backgroundColor: SettingsColor.background.resolveFrom(context),
         navigationBar: CupertinoNavigationBar(
           middle: title,
-          previousPageTitle:
-              PlatformRouteTitleMixin.getPreviousTitleOf(context),
+          previousPageTitle: PlatformRouteTitleMixin.getPreviousTitleOf(context),
         ),
         child: Builder(builder: (context) => child!),
       ),
@@ -95,8 +93,7 @@ class _PropertyPage<T> extends StatelessWidget {
               listenable: property,
               builder: (context, prop, _) {
                 return ListView.separated(
-                  separatorBuilder: (_, __) =>
-                      const Divider(indent: 56, thickness: 0.5, height: 0),
+                  separatorBuilder: (_, __) => const Divider(indent: 56, thickness: 0.5, height: 0),
                   itemBuilder: (context, i) {
                     final c = choices[i];
                     return Material(
@@ -106,9 +103,7 @@ class _PropertyPage<T> extends StatelessWidget {
                         tileColor: Theme.of(context).backgroundColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
-                          top: i == 0
-                              ? SwiftSettingsTile.borderRadius
-                              : Radius.zero,
+                          top: i == 0 ? SwiftSettingsTile.borderRadius : Radius.zero,
                           bottom: i == choices.length - 1
                               ? SwiftSettingsTile.borderRadius
                               : Radius.zero,
