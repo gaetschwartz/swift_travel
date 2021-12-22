@@ -7,7 +7,7 @@ packages:
       name: android_intent_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.2"
   animations:
     dependency: transitive
     description:
@@ -187,7 +187,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0+3"
+    version: "1.0.3"
   flutter_slidable:
     dependency: transitive
     description:
@@ -218,7 +218,7 @@ packages:
       name: freezed_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.3"
+    version: "0.15.0"
   gaets_logging:
     dependency: transitive
     description:
@@ -498,7 +498,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0+3"
+    version: "1.0.3"
   scrollable_positioned_list:
     dependency: transitive
     description:
@@ -512,7 +512,7 @@ packages:
       name: share_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.4"
+    version: "3.0.4"
   share_plus_linux:
     dependency: transitive
     description:
@@ -734,7 +734,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   vibration:
     dependency: transitive
     description:
