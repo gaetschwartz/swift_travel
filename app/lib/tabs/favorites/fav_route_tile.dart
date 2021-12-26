@@ -18,38 +18,41 @@ class FavoriteRouteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Slidable(
-        actionPane: const SlidableDrawerActionPane(),
-        secondaryActions: <Widget>[
-          IconSlideAction(
-            caption: AppLocalizations.of(context).delete,
-            color: Colors.red,
-            icon: CupertinoIcons.delete,
-            onTap: () => deleteRoute(context),
-          ),
-        ],
-        actions: [
-          IconSlideAction(
-            caption: AppLocalizations.of(context).rename,
-            color: Colors.blue,
-            icon: CupertinoIcons.pencil,
-            onTap: () => rename(context),
-          ),
-        ],
+        endActionPane: ActionPane(
+          motion: const ScrollMotion(),
+          children: [
+            SlidableAction(
+              label: AppLocalizations.of(context).rename,
+              backgroundColor: Colors.blue,
+              icon: CupertinoIcons.pencil,
+              onPressed: rename,
+            ),
+          ],
+        ),
+        startActionPane: ActionPane(
+          motion: const ScrollMotion(),
+          children: <Widget>[
+            SlidableAction(
+              label: AppLocalizations.of(context).delete,
+              backgroundColor: Colors.red,
+              icon: CupertinoIcons.delete,
+              onPressed: deleteRoute,
+            ),
+          ],
+        ),
         child: RouteWidget(
           title: Text(route.displayName!),
           from: Text(route.fromAsString.stripAt()),
           to: Text(route.toAsString.stripAt()),
           onLongPress: () => more(context),
           trailing: const Icon(CupertinoIcons.chevron_forward),
-          onTap: () =>
-              Navigator.of(context).pushNamed('/route', arguments: route),
+          onTap: () => Navigator.of(context).pushNamed('/route', arguments: route),
         ),
       );
 
   Future<void> rename(BuildContext context) async {
     final store = context.read(storeProvider);
-    final displayName = await input(context,
-        title: Text('How to rename "${route.displayName}" ?'));
+    final displayName = await input(context, title: Text('How to rename "${route.displayName}" ?'));
     if (displayName == null) {
       return;
     }
@@ -84,9 +87,7 @@ class FavoriteRouteTile extends StatelessWidget {
     final b = await confirm(
       context,
       title: Text.rich(TextSpan(text: 'Delete ', children: [
-        TextSpan(
-            text: route.displayName,
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+        TextSpan(text: route.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(text: ' ?'),
       ])),
       content: Column(

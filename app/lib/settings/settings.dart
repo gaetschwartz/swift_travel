@@ -198,7 +198,7 @@ class BuildDetailsWidget extends StatelessWidget {
   }) : super(key: key);
 
   void onTap(BuildContext context) {
-    final controller = context.read(_tapCountProvider);
+    final controller = context.read(_tapCountProvider.state);
 
     if (controller.state == 6) {
       context.read(preferencesProvider).isDeveloper.setValue(true);

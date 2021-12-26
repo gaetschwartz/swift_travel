@@ -15,8 +15,8 @@ Future<Contact?> showContactPicker(BuildContext context) =>
       builder: (context) => const ContactsDialog(),
     );
 
-final contactsProvider = FutureProvider(
-    (ref) async => (await ContactsRepository.instance.getAll()).toList());
+final contactsProvider =
+    FutureProvider((ref) async => (await ContactsRepository.instance.getAll()).toList());
 
 final _filteredContacts = FutureProvider((ref) async {
   final contacts = await ContactsRepository.instance.getAll();
@@ -62,9 +62,8 @@ class ContactsDialog extends StatelessWidget {
                   : Center(
                       child: Text(AppLocalizations.of(context).no_contacts),
                     ),
-              loading: (_) =>
-                  const Center(child: CircularProgressIndicator.adaptive()),
-              error: (e, s, _) {
+              loading: () => const Center(child: CircularProgressIndicator.adaptive()),
+              error: (e, s) {
                 debugPrintStack(stackTrace: s, label: e.toString());
                 return Center(
                   child: Text(

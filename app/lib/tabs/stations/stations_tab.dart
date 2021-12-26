@@ -154,7 +154,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                     Vibration.instance.select();
                                     searchController.text = '';
                                     focusNode.unfocus();
-                                    context.read(_stateProvider).state =
+                                    context.read(_stateProvider.state).state =
                                         const StationStates.empty();
                                   }),
                             ),
@@ -167,7 +167,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                 const Gap(8),
                 IconButton(
                   icon: Consumer(builder: (context, w, _) {
-                    final loading = w.watch(_locatingProvider).state;
+                    final loading = w.watch(_locatingProvider.state).state;
                     return AnimatedLocation(loadingState: loading);
                   }),
                   tooltip: AppLocalizations.of(context).use_current_location,
@@ -179,7 +179,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
           const Gap(8),
           Expanded(
             child: Consumer(builder: (context, w, _) {
-              return w.watch(_stateProvider).state.when(
+              return w.watch(_stateProvider.state).state.when(
                     completions: (c) => Column(
                       children: [
                         Padding(
@@ -188,7 +188,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                             height: 4,
                             child: Center(
                               child: Consumer(
-                                builder: (context, w, _) => w.watch(_loadingProvider).state
+                                builder: (context, w, _) => w.watch(_loadingProvider)
                                     ? const LinearProgressIndicator()
                                     : const SizedBox(),
                               ),
@@ -221,7 +221,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                       ],
                     ),
                     empty: () => Consumer(
-                        builder: (context, w, _) => w.watch(favoritesStatesProvider).state.map(
+                        builder: (context, w, _) => w.watch(favoritesStatesProvider).map(
                               data: (c) => c.favorites.isEmpty
                                   ? Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -276,7 +276,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
   }
 
   Future<void> debounce(BuildContext context, String s) async {
-    context.read(_loadingProvider).state = true;
+    context.read(_loadingProvider.state).state = true;
     // Debounce
     if (_debouncer?.isActive ?? false) {
       _debouncer?.cancel();
@@ -290,7 +290,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
   Future<void> _getLocation() async {
     Vibration.instance.selectSoft();
-    context.read(_locatingProvider).state = _LoadingState.loading;
+    context.read(_locatingProvider.state).state = _LoadingState.loading;
 
     try {
       final p = await GeoLocationEngine.instance.getLocation();
@@ -304,7 +304,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
         final public = completions.where((c) => !TransportationModeX.isAnAddress(c.type));
         if (!mounted) return;
 
-        context.read(_stateProvider).state = StationStates.completions(completions);
+        context.read(_stateProvider.state).state = StationStates.completions(completions);
         if (public.isNotEmpty) {
           log.log('Found : ${public.first}');
           searchController.text = public.first.label;
@@ -312,7 +312,7 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
       }
       if (!mounted) return;
 
-      context.read(_locatingProvider).state = _LoadingState.idle;
+      context.read(_locatingProvider.state).state = _LoadingState.idle;
     } on Exception catch (e) {
       onError(e);
       // ignore: avoid_catching_errors
@@ -323,12 +323,12 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
   void onError(Object e) {
     log.log(e.toString(), channel: 'Location');
-    context.read(_locatingProvider).state = _LoadingState.error;
+    context.read(_locatingProvider.state).state = _LoadingState.error;
     Future.delayed(_kAnimDuration * (5 / 8), cancelAnimation);
   }
 
   void cancelAnimation() {
-    context.read(_locatingProvider).state = _LoadingState.idle;
+    context.read(_locatingProvider.state).state = _LoadingState.idle;
   }
 
   Future<void> fetch(String query) async {
@@ -339,13 +339,13 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
           );
       if (!mounted) return;
 
-      context.read(_stateProvider).state = StationStates.completions(completionsWithFavs);
+      context.read(_stateProvider.state).state = StationStates.completions(completionsWithFavs);
     } on SocketException {
-      context.read(_stateProvider).state = const StationStates.network();
+      context.read(_stateProvider.state).state = const StationStates.network();
     } on Exception catch (e, s) {
       reportDartError(e, s);
     } finally {
-      context.read(_loadingProvider).state = false;
+      context.read(_loadingProvider.state).state = false;
     }
   }
 
