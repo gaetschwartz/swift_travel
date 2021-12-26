@@ -14,7 +14,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Union _$UnionFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String?) {
+  switch (json['type']) {
     case 'default':
       return Person.fromJson(json);
     case 'animal':
@@ -23,8 +23,8 @@ Union _$UnionFromJson(Map<String, dynamic> json) {
       return Number.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'Union',
-          'Invalid union type "${json['runtimeType']}"!');
+      throw CheckedFromJsonException(
+          json, 'type', 'Union', 'Invalid union type "${json['type']}"!');
   }
 }
 
@@ -155,13 +155,16 @@ class _$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Person implements Person {
-  const _$Person(this.name);
+  const _$Person(this.name, {String? $type}) : $type = $type ?? 'default';
 
   factory _$Person.fromJson(Map<String, dynamic> json) =>
       _$$PersonFromJson(json);
 
   @override
   final String name;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   @override
   String toString() {
@@ -254,7 +257,7 @@ class _$Person implements Person {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PersonToJson(this)..['runtimeType'] = 'default';
+    return _$$PersonToJson(this);
   }
 }
 
@@ -305,7 +308,8 @@ class _$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Animal implements Animal {
-  const _$Animal(this.name, this.legs);
+  const _$Animal(this.name, this.legs, {String? $type})
+      : $type = $type ?? 'animal';
 
   factory _$Animal.fromJson(Map<String, dynamic> json) =>
       _$$AnimalFromJson(json);
@@ -314,6 +318,9 @@ class _$Animal implements Animal {
   final String name;
   @override
   final int legs;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   @override
   String toString() {
@@ -407,7 +414,7 @@ class _$Animal implements Animal {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AnimalToJson(this)..['runtimeType'] = 'animal';
+    return _$$AnimalToJson(this);
   }
 }
 
@@ -454,13 +461,16 @@ class _$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Number implements Number {
-  const _$Number(this.number);
+  const _$Number(this.number, {String? $type}) : $type = $type ?? 'number';
 
   factory _$Number.fromJson(Map<String, dynamic> json) =>
       _$$NumberFromJson(json);
 
   @override
   final int number;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   @override
   String toString() {
@@ -553,7 +563,7 @@ class _$Number implements Number {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$NumberToJson(this)..['runtimeType'] = 'number';
+    return _$$NumberToJson(this);
   }
 }
 

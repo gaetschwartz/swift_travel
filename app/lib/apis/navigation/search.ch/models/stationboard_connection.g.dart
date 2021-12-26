@@ -15,7 +15,7 @@ _$_SbbStationboardConnection _$$_SbbStationboardConnectionFromJson(
         final val = _$_SbbStationboardConnection(
           time: $checkedConvert('time', (v) => DateTime.parse(v as String)),
           type: $checkedConvert(
-              'type', (v) => _$enumDecode(_$TransportationModeEnumMap, v)),
+              'type', (v) => $enumDecode(_$TransportationModeEnumMap, v)),
           color: $checkedConvert('color', (v) => v as String),
           sbbTerminal: $checkedConvert(
               'terminal', (v) => SbbStop.fromJson(v as Map<String, dynamic>)),
@@ -68,32 +68,6 @@ Map<String, dynamic> _$$_SbbStationboardConnectionToJson(
       'arr_delay': const DelayConverter().toJson(instance.arrDelay),
       'track': instance.track,
     };
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
 
 const _$TransportationModeEnumMap = {
   TransportationMode.bus: 'bus',

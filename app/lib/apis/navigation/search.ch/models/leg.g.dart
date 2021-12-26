@@ -20,7 +20,7 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
           depDelay: $checkedConvert('dep_delay',
               (v) => const DelayConverter().fromJson(v as String?)),
           type: $checkedConvert('type',
-              (v) => _$enumDecodeNullable(_$TransportationModeEnumMap, v)),
+              (v) => $enumDecodeNullable(_$TransportationModeEnumMap, v)),
           track: $checkedConvert('track', (v) => v as String?),
           terminal: $checkedConvert('terminal', (v) => v as String?),
           bgcolor: $checkedConvert('bgcolor', (v) => v as String?),
@@ -109,43 +109,6 @@ Map<String, dynamic> _$$_SbbLegToJson(_$_SbbLeg instance) {
   writeNotNull('y', const IntConverter().toJson(instance.y));
   val['attributes'] = instance.attributes;
   return val;
-}
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
-
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$TransportationModeEnumMap = {

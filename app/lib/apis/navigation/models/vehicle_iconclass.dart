@@ -16,7 +16,7 @@ extension TransportationModeX on TransportationMode {
     String s, {
     TransportationMode unknownValue = TransportationMode.unknown,
   }) =>
-      _$enumDecode(_$TransportationModeEnumMap, s, unknownValue: unknownValue);
+      $enumDecode(_$TransportationModeEnumMap, s, unknownValue: unknownValue);
 
   static const List<TransportationMode> _privatePlaces = [
     TransportationMode.address,

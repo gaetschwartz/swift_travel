@@ -14,7 +14,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 LocalRoute _$LocalRouteFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String?) {
+  switch (json['runtimeType']) {
     case 'v1':
       return LocalRouteV1.fromJson(json);
     case 'v2':
@@ -206,8 +206,10 @@ class _$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 @Deprecated("Use v2")
 class _$LocalRouteV1 extends LocalRouteV1 {
-  const _$LocalRouteV1(this.from, this.to, {this.displayName, this.timestamp})
-      : super._();
+  const _$LocalRouteV1(this.from, this.to,
+      {this.displayName, this.timestamp, String? $type})
+      : $type = $type ?? 'v1',
+        super._();
 
   factory _$LocalRouteV1.fromJson(Map<String, dynamic> json) =>
       _$$LocalRouteV1FromJson(json);
@@ -220,6 +222,9 @@ class _$LocalRouteV1 extends LocalRouteV1 {
   final String? displayName;
   @override
   final DateTime? timestamp;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
 
   @override
   String toString() {
@@ -324,7 +329,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocalRouteV1ToJson(this)..['runtimeType'] = 'v1';
+    return _$$LocalRouteV1ToJson(this);
   }
 }
 
@@ -418,8 +423,10 @@ class _$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class _$LocalRouteV2 extends LocalRouteV2 {
-  const _$LocalRouteV2(this.from, this.to, {this.displayName, this.timestamp})
-      : super._();
+  const _$LocalRouteV2(this.from, this.to,
+      {this.displayName, this.timestamp, String? $type})
+      : $type = $type ?? 'v2',
+        super._();
 
   factory _$LocalRouteV2.fromJson(Map<String, dynamic> json) =>
       _$$LocalRouteV2FromJson(json);
@@ -432,6 +439,9 @@ class _$LocalRouteV2 extends LocalRouteV2 {
   final String? displayName;
   @override
   final DateTime? timestamp;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
 
   @override
   String toString() {
@@ -536,7 +546,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocalRouteV2ToJson(this)..['runtimeType'] = 'v2';
+    return _$$LocalRouteV2ToJson(this);
   }
 }
 
