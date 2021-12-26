@@ -230,16 +230,20 @@ class _$_SncfStationboard extends _SncfStationboard
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SncfStationboard &&
-            (identical(other.context, context) || other.context == context) &&
+            const DeepCollectionEquality().equals(other.context, context) &&
             const DeepCollectionEquality()
                 .equals(other.departures, departures) &&
-            (identical(other.error, error) || other.error == error) &&
-            (identical(other.stop, stop) || other.stop == stop));
+            const DeepCollectionEquality().equals(other.error, error) &&
+            const DeepCollectionEquality().equals(other.stop, stop));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, context,
-      const DeepCollectionEquality().hash(departures), error, stop);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(context),
+      const DeepCollectionEquality().hash(departures),
+      const DeepCollectionEquality().hash(error),
+      const DeepCollectionEquality().hash(stop));
 
   @JsonKey(ignore: true)
   @override
@@ -413,12 +417,15 @@ class _$_SncfError with DiagnosticableTreeMixin implements _SncfError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SncfError &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.message, message) || other.message == message));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, message);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(message));
 
   @JsonKey(ignore: true)
   @override
@@ -657,17 +664,19 @@ class _$_SncfDeparture extends _SncfDeparture with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SncfDeparture &&
-            (identical(other.displayInformations, displayInformations) ||
-                other.displayInformations == displayInformations) &&
-            (identical(other.stopDateTime, stopDateTime) ||
-                other.stopDateTime == stopDateTime) &&
-            (identical(other.stopPoint, stopPoint) ||
-                other.stopPoint == stopPoint));
+            const DeepCollectionEquality()
+                .equals(other.displayInformations, displayInformations) &&
+            const DeepCollectionEquality()
+                .equals(other.stopDateTime, stopDateTime) &&
+            const DeepCollectionEquality().equals(other.stopPoint, stopPoint));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, displayInformations, stopDateTime, stopPoint);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(displayInformations),
+      const DeepCollectionEquality().hash(stopDateTime),
+      const DeepCollectionEquality().hash(stopPoint));
 
   @JsonKey(ignore: true)
   @override
@@ -1010,12 +1019,15 @@ class _$_SncfMode with DiagnosticableTreeMixin implements _SncfMode {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SncfMode &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name));
 
   @JsonKey(ignore: true)
   @override
@@ -1327,16 +1339,16 @@ class _$_SncfStopDateTime
             other is _SncfStopDateTime &&
             const DeepCollectionEquality()
                 .equals(other.additionalInformations, additionalInformations) &&
-            (identical(other.arrivalDateTime, arrivalDateTime) ||
-                other.arrivalDateTime == arrivalDateTime) &&
-            (identical(other.baseArrivalDateTime, baseArrivalDateTime) ||
-                other.baseArrivalDateTime == baseArrivalDateTime) &&
-            (identical(other.baseDepartureDateTime, baseDepartureDateTime) ||
-                other.baseDepartureDateTime == baseDepartureDateTime) &&
-            (identical(other.departureDateTime, departureDateTime) ||
-                other.departureDateTime == departureDateTime) &&
-            (identical(other.dataFreshness, dataFreshness) ||
-                other.dataFreshness == dataFreshness) &&
+            const DeepCollectionEquality()
+                .equals(other.arrivalDateTime, arrivalDateTime) &&
+            const DeepCollectionEquality()
+                .equals(other.baseArrivalDateTime, baseArrivalDateTime) &&
+            const DeepCollectionEquality()
+                .equals(other.baseDepartureDateTime, baseDepartureDateTime) &&
+            const DeepCollectionEquality()
+                .equals(other.departureDateTime, departureDateTime) &&
+            const DeepCollectionEquality()
+                .equals(other.dataFreshness, dataFreshness) &&
             const DeepCollectionEquality().equals(other.links, links));
   }
 
@@ -1344,11 +1356,11 @@ class _$_SncfStopDateTime
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(additionalInformations),
-      arrivalDateTime,
-      baseArrivalDateTime,
-      baseDepartureDateTime,
-      departureDateTime,
-      dataFreshness,
+      const DeepCollectionEquality().hash(arrivalDateTime),
+      const DeepCollectionEquality().hash(baseArrivalDateTime),
+      const DeepCollectionEquality().hash(baseDepartureDateTime),
+      const DeepCollectionEquality().hash(departureDateTime),
+      const DeepCollectionEquality().hash(dataFreshness),
       const DeepCollectionEquality().hash(links));
 
   @JsonKey(ignore: true)
@@ -1789,47 +1801,44 @@ class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SncfDispInfo &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.color, color) || other.color == color) &&
-            (identical(other.commercialMode, commercialMode) ||
-                other.commercialMode == commercialMode) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.direction, direction) ||
-                other.direction == direction) &&
+            const DeepCollectionEquality().equals(other.code, code) &&
+            const DeepCollectionEquality().equals(other.color, color) &&
+            const DeepCollectionEquality()
+                .equals(other.commercialMode, commercialMode) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
+            const DeepCollectionEquality().equals(other.direction, direction) &&
             const DeepCollectionEquality()
                 .equals(other.equipments, equipments) &&
-            (identical(other.headsign, headsign) ||
-                other.headsign == headsign) &&
-            (identical(other.label, label) || other.label == label) &&
+            const DeepCollectionEquality().equals(other.headsign, headsign) &&
+            const DeepCollectionEquality().equals(other.label, label) &&
             const DeepCollectionEquality().equals(other.links, links) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.network, network) || other.network == network) &&
-            (identical(other.physicalMode, physicalMode) ||
-                other.physicalMode == physicalMode) &&
-            (identical(other.textColor, textColor) ||
-                other.textColor == textColor) &&
-            (identical(other.tripShortName, tripShortName) ||
-                other.tripShortName == tripShortName));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.network, network) &&
+            const DeepCollectionEquality()
+                .equals(other.physicalMode, physicalMode) &&
+            const DeepCollectionEquality().equals(other.textColor, textColor) &&
+            const DeepCollectionEquality()
+                .equals(other.tripShortName, tripShortName));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      code,
-      color,
-      commercialMode,
-      description,
-      direction,
+      const DeepCollectionEquality().hash(code),
+      const DeepCollectionEquality().hash(color),
+      const DeepCollectionEquality().hash(commercialMode),
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(direction),
       const DeepCollectionEquality().hash(equipments),
-      headsign,
-      label,
+      const DeepCollectionEquality().hash(headsign),
+      const DeepCollectionEquality().hash(label),
       const DeepCollectionEquality().hash(links),
-      name,
-      network,
-      physicalMode,
-      textColor,
-      tripShortName);
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(network),
+      const DeepCollectionEquality().hash(physicalMode),
+      const DeepCollectionEquality().hash(textColor),
+      const DeepCollectionEquality().hash(tripShortName));
 
   @JsonKey(ignore: true)
   @override

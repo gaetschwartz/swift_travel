@@ -173,7 +173,7 @@ class _$_LineCacheEntry implements _LineCacheEntry {
   final String stop;
   @override
   final List<Line> lines;
-  @JsonKey(defaultValue: Duration.minutesPerDay * 7)
+  @JsonKey()
   @override
 
   /// Time to live for this entry in minutes.
@@ -191,16 +191,19 @@ class _$_LineCacheEntry implements _LineCacheEntry {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LineCacheEntry &&
-            (identical(other.timestamp, timestamp) ||
-                other.timestamp == timestamp) &&
-            (identical(other.stop, stop) || other.stop == stop) &&
+            const DeepCollectionEquality().equals(other.timestamp, timestamp) &&
+            const DeepCollectionEquality().equals(other.stop, stop) &&
             const DeepCollectionEquality().equals(other.lines, lines) &&
-            (identical(other.ttl, ttl) || other.ttl == ttl));
+            const DeepCollectionEquality().equals(other.ttl, ttl));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, timestamp, stop,
-      const DeepCollectionEquality().hash(lines), ttl);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(timestamp),
+      const DeepCollectionEquality().hash(stop),
+      const DeepCollectionEquality().hash(lines),
+      const DeepCollectionEquality().hash(ttl));
 
   @JsonKey(ignore: true)
   @override
@@ -364,12 +367,15 @@ class _$_Line implements _Line {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Line &&
-            (identical(other.line, line) || other.line == line) &&
-            (identical(other.colors, colors) || other.colors == colors));
+            const DeepCollectionEquality().equals(other.line, line) &&
+            const DeepCollectionEquality().equals(other.colors, colors));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, line, colors);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(line),
+      const DeepCollectionEquality().hash(colors));
 
   @JsonKey(ignore: true)
   @override

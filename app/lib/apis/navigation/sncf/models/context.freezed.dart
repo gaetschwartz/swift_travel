@@ -142,14 +142,15 @@ class _$_SncfContext implements _SncfContext {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SncfContext &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime) &&
-            (identical(other.timezone, timezone) ||
-                other.timezone == timezone));
+            const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
+            const DeepCollectionEquality().equals(other.timezone, timezone));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, dateTime, timezone);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(dateTime),
+      const DeepCollectionEquality().hash(timezone));
 
   @JsonKey(ignore: true)
   @override

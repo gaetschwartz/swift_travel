@@ -404,12 +404,12 @@ class _$FavoritesStatesError implements FavoritesStatesError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is FavoritesStatesError &&
-            (identical(other.exception, exception) ||
-                other.exception == exception));
+            const DeepCollectionEquality().equals(other.exception, exception));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, exception);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
   @override

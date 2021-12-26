@@ -127,12 +127,15 @@ class _$_Attribute extends _Attribute {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Attribute &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.message, message) || other.message == message));
+            const DeepCollectionEquality().equals(other.code, code) &&
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, code, message);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(code),
+      const DeepCollectionEquality().hash(message));
 
   @JsonKey(ignore: true)
   @override
@@ -260,7 +263,7 @@ class _$_AttributeData implements _AttributeData {
 
   @override
   final Widget? icon;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool ignore;
 
@@ -274,12 +277,15 @@ class _$_AttributeData implements _AttributeData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AttributeData &&
-            (identical(other.icon, icon) || other.icon == icon) &&
-            (identical(other.ignore, ignore) || other.ignore == ignore));
+            const DeepCollectionEquality().equals(other.icon, icon) &&
+            const DeepCollectionEquality().equals(other.ignore, ignore));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, icon, ignore);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(icon),
+      const DeepCollectionEquality().hash(ignore));
 
   @JsonKey(ignore: true)
   @override

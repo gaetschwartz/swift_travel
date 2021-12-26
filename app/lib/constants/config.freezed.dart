@@ -123,11 +123,12 @@ class _$_Config implements _Config {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Config &&
-            (identical(other.sncfKey, sncfKey) || other.sncfKey == sncfKey));
+            const DeepCollectionEquality().equals(other.sncfKey, sncfKey));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sncfKey);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(sncfKey));
 
   @JsonKey(ignore: true)
   @override

@@ -484,62 +484,57 @@ class _$_Contributor implements _Contributor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Contributor &&
-            (identical(other.login, login) || other.login == login) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.nodeId, nodeId) || other.nodeId == nodeId) &&
-            (identical(other.avatarUrl, avatarUrl) ||
-                other.avatarUrl == avatarUrl) &&
-            (identical(other.gravatarId, gravatarId) ||
-                other.gravatarId == gravatarId) &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.htmlUrl, htmlUrl) || other.htmlUrl == htmlUrl) &&
-            (identical(other.followersUrl, followersUrl) ||
-                other.followersUrl == followersUrl) &&
-            (identical(other.followingUrl, followingUrl) ||
-                other.followingUrl == followingUrl) &&
-            (identical(other.gistsUrl, gistsUrl) ||
-                other.gistsUrl == gistsUrl) &&
-            (identical(other.starredUrl, starredUrl) ||
-                other.starredUrl == starredUrl) &&
-            (identical(other.subscriptionsUrl, subscriptionsUrl) ||
-                other.subscriptionsUrl == subscriptionsUrl) &&
-            (identical(other.organizationsUrl, organizationsUrl) ||
-                other.organizationsUrl == organizationsUrl) &&
-            (identical(other.reposUrl, reposUrl) ||
-                other.reposUrl == reposUrl) &&
-            (identical(other.eventsUrl, eventsUrl) ||
-                other.eventsUrl == eventsUrl) &&
-            (identical(other.receivedEventsUrl, receivedEventsUrl) ||
-                other.receivedEventsUrl == receivedEventsUrl) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.siteAdmin, siteAdmin) ||
-                other.siteAdmin == siteAdmin) &&
-            (identical(other.contributions, contributions) ||
-                other.contributions == contributions));
+            const DeepCollectionEquality().equals(other.login, login) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.nodeId, nodeId) &&
+            const DeepCollectionEquality().equals(other.avatarUrl, avatarUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.gravatarId, gravatarId) &&
+            const DeepCollectionEquality().equals(other.url, url) &&
+            const DeepCollectionEquality().equals(other.htmlUrl, htmlUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.followersUrl, followersUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.followingUrl, followingUrl) &&
+            const DeepCollectionEquality().equals(other.gistsUrl, gistsUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.starredUrl, starredUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.subscriptionsUrl, subscriptionsUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.organizationsUrl, organizationsUrl) &&
+            const DeepCollectionEquality().equals(other.reposUrl, reposUrl) &&
+            const DeepCollectionEquality().equals(other.eventsUrl, eventsUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.receivedEventsUrl, receivedEventsUrl) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other.siteAdmin, siteAdmin) &&
+            const DeepCollectionEquality()
+                .equals(other.contributions, contributions));
   }
 
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        login,
-        id,
-        nodeId,
-        avatarUrl,
-        gravatarId,
-        url,
-        htmlUrl,
-        followersUrl,
-        followingUrl,
-        gistsUrl,
-        starredUrl,
-        subscriptionsUrl,
-        organizationsUrl,
-        reposUrl,
-        eventsUrl,
-        receivedEventsUrl,
-        type,
-        siteAdmin,
-        contributions
+        const DeepCollectionEquality().hash(login),
+        const DeepCollectionEquality().hash(id),
+        const DeepCollectionEquality().hash(nodeId),
+        const DeepCollectionEquality().hash(avatarUrl),
+        const DeepCollectionEquality().hash(gravatarId),
+        const DeepCollectionEquality().hash(url),
+        const DeepCollectionEquality().hash(htmlUrl),
+        const DeepCollectionEquality().hash(followersUrl),
+        const DeepCollectionEquality().hash(followingUrl),
+        const DeepCollectionEquality().hash(gistsUrl),
+        const DeepCollectionEquality().hash(starredUrl),
+        const DeepCollectionEquality().hash(subscriptionsUrl),
+        const DeepCollectionEquality().hash(organizationsUrl),
+        const DeepCollectionEquality().hash(reposUrl),
+        const DeepCollectionEquality().hash(eventsUrl),
+        const DeepCollectionEquality().hash(receivedEventsUrl),
+        const DeepCollectionEquality().hash(type),
+        const DeepCollectionEquality().hash(siteAdmin),
+        const DeepCollectionEquality().hash(contributions)
       ]);
 
   @JsonKey(ignore: true)

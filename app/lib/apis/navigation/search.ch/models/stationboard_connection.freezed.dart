@@ -390,7 +390,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @override
   @JsonKey(name: 'operator')
   final String? operator;
-  @JsonKey(defaultValue: '')
+  @JsonKey()
   @override
   final String number;
   @override
@@ -423,42 +423,39 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SbbStationboardConnection &&
-            (identical(other.time, time) || other.time == time) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.color, color) || other.color == color) &&
-            (identical(other.sbbTerminal, sbbTerminal) ||
-                other.sbbTerminal == sbbTerminal) &&
-            (identical(other.line, line) || other.line == line) &&
-            (identical(other.operator, operator) ||
-                other.operator == operator) &&
-            (identical(other.number, number) || other.number == number) &&
-            (identical(other.g, g) || other.g == g) &&
-            (identical(other.l, l) || other.l == l) &&
+            const DeepCollectionEquality().equals(other.time, time) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other.color, color) &&
+            const DeepCollectionEquality()
+                .equals(other.sbbTerminal, sbbTerminal) &&
+            const DeepCollectionEquality().equals(other.line, line) &&
+            const DeepCollectionEquality().equals(other.operator, operator) &&
+            const DeepCollectionEquality().equals(other.number, number) &&
+            const DeepCollectionEquality().equals(other.g, g) &&
+            const DeepCollectionEquality().equals(other.l, l) &&
             const DeepCollectionEquality()
                 .equals(other.sbbSubsequentStops, sbbSubsequentStops) &&
-            (identical(other.depDelay, depDelay) ||
-                other.depDelay == depDelay) &&
-            (identical(other.arrDelay, arrDelay) ||
-                other.arrDelay == arrDelay) &&
-            (identical(other.track, track) || other.track == track));
+            const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
+            const DeepCollectionEquality().equals(other.arrDelay, arrDelay) &&
+            const DeepCollectionEquality().equals(other.track, track));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      time,
-      type,
-      color,
-      sbbTerminal,
-      line,
-      operator,
-      number,
-      g,
-      l,
+      const DeepCollectionEquality().hash(time),
+      const DeepCollectionEquality().hash(type),
+      const DeepCollectionEquality().hash(color),
+      const DeepCollectionEquality().hash(sbbTerminal),
+      const DeepCollectionEquality().hash(line),
+      const DeepCollectionEquality().hash(operator),
+      const DeepCollectionEquality().hash(number),
+      const DeepCollectionEquality().hash(g),
+      const DeepCollectionEquality().hash(l),
       const DeepCollectionEquality().hash(sbbSubsequentStops),
-      depDelay,
-      arrDelay,
-      track);
+      const DeepCollectionEquality().hash(depDelay),
+      const DeepCollectionEquality().hash(arrDelay),
+      const DeepCollectionEquality().hash(track));
 
   @JsonKey(ignore: true)
   @override

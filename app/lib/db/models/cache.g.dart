@@ -13,7 +13,7 @@ _$_LineCacheEntry _$$_LineCacheEntryFromJson(Map<String, dynamic> json) =>
       lines: (json['lines'] as List<dynamic>)
           .map((e) => const LineConverter().fromJson(e as Map))
           .toList(),
-      ttl: json['ttl'] as int? ?? 10080,
+      ttl: json['ttl'] as int? ?? Duration.minutesPerDay * 7,
     );
 
 Map<String, dynamic> _$$_LineCacheEntryToJson(_$_LineCacheEntry instance) =>

@@ -233,7 +233,7 @@ class _$_SbbCompletion extends _SbbCompletion {
   final String? id;
   @override
   final String? favoriteName;
-  @JsonKey(defaultValue: DataOrigin.data)
+  @JsonKey()
   @override
   final DataOrigin origin;
 
@@ -247,20 +247,26 @@ class _$_SbbCompletion extends _SbbCompletion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SbbCompletion &&
-            (identical(other.label, label) || other.label == label) &&
-            (identical(other.dist, dist) || other.dist == dist) &&
-            (identical(other.iconClass, iconClass) ||
-                other.iconClass == iconClass) &&
-            (identical(other.html, html) || other.html == html) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.favoriteName, favoriteName) ||
-                other.favoriteName == favoriteName) &&
-            (identical(other.origin, origin) || other.origin == origin));
+            const DeepCollectionEquality().equals(other.label, label) &&
+            const DeepCollectionEquality().equals(other.dist, dist) &&
+            const DeepCollectionEquality().equals(other.iconClass, iconClass) &&
+            const DeepCollectionEquality().equals(other.html, html) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality()
+                .equals(other.favoriteName, favoriteName) &&
+            const DeepCollectionEquality().equals(other.origin, origin));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, label, dist, iconClass, html, id, favoriteName, origin);
+      runtimeType,
+      const DeepCollectionEquality().hash(label),
+      const DeepCollectionEquality().hash(dist),
+      const DeepCollectionEquality().hash(iconClass),
+      const DeepCollectionEquality().hash(html),
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(favoriteName),
+      const DeepCollectionEquality().hash(origin));
 
   @JsonKey(ignore: true)
   @override

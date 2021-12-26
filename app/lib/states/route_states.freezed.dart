@@ -192,11 +192,12 @@ class _$RSData implements RSData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is RSData &&
-            (identical(other.routes, routes) || other.routes == routes));
+            const DeepCollectionEquality().equals(other.routes, routes));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, routes);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(routes));
 
   @JsonKey(ignore: true)
   @override

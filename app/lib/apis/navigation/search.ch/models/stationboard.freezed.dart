@@ -189,7 +189,7 @@ class _$_SbbStationboard extends _SbbStationboard {
   @override
   @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
   final List<SbbStationboardConnection> sbbConnections;
-  @JsonKey(defaultValue: const <Object>[])
+  @JsonKey()
   @override
   final List<Object> messages;
 
@@ -203,7 +203,7 @@ class _$_SbbStationboard extends _SbbStationboard {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SbbStationboard &&
-            (identical(other.sbbStop, sbbStop) || other.sbbStop == sbbStop) &&
+            const DeepCollectionEquality().equals(other.sbbStop, sbbStop) &&
             const DeepCollectionEquality()
                 .equals(other.sbbConnections, sbbConnections) &&
             const DeepCollectionEquality().equals(other.messages, messages));
@@ -212,7 +212,7 @@ class _$_SbbStationboard extends _SbbStationboard {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      sbbStop,
+      const DeepCollectionEquality().hash(sbbStop),
       const DeepCollectionEquality().hash(sbbConnections),
       const DeepCollectionEquality().hash(messages));
 

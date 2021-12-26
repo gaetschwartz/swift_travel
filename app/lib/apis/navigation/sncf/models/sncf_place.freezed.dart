@@ -155,14 +155,18 @@ class _$_SncfPlace extends _SncfPlace {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SncfPlace &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.favoriteName, favoriteName) ||
-                other.favoriteName == favoriteName));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality()
+                .equals(other.favoriteName, favoriteName));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, id, favoriteName);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(favoriteName));
 
   @JsonKey(ignore: true)
   @override

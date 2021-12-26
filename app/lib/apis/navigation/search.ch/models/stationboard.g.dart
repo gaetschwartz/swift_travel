@@ -29,7 +29,7 @@ _$_SbbStationboard _$$_SbbStationboardFromJson(Map<String, dynamic> json) =>
               'messages',
               (v) =>
                   (v as List<dynamic>?)?.map((e) => e as Object).toList() ??
-                  []),
+                  const <Object>[]),
         );
         return val;
       },

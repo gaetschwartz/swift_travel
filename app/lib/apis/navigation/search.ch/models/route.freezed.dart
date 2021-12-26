@@ -230,7 +230,7 @@ class _$_SbbRoute extends _SbbRoute {
   factory _$_SbbRoute.fromJson(Map<String, dynamic> json) =>
       _$$_SbbRouteFromJson(json);
 
-  @JsonKey(defaultValue: 0)
+  @JsonKey()
   @override
   final int count;
   @override
@@ -242,7 +242,7 @@ class _$_SbbRoute extends _SbbRoute {
   @override
   @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
   final List<SbbRouteConnection> sbbConnections;
-  @JsonKey(defaultValue: const <String>[])
+  @JsonKey()
   @override
   final List<String> messages;
   @override
@@ -260,30 +260,29 @@ class _$_SbbRoute extends _SbbRoute {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SbbRoute &&
-            (identical(other.count, count) || other.count == count) &&
-            (identical(other.minDuration, minDuration) ||
-                other.minDuration == minDuration) &&
-            (identical(other.maxDuration, maxDuration) ||
-                other.maxDuration == maxDuration) &&
+            const DeepCollectionEquality().equals(other.count, count) &&
+            const DeepCollectionEquality()
+                .equals(other.minDuration, minDuration) &&
+            const DeepCollectionEquality()
+                .equals(other.maxDuration, maxDuration) &&
             const DeepCollectionEquality()
                 .equals(other.sbbConnections, sbbConnections) &&
             const DeepCollectionEquality().equals(other.messages, messages) &&
-            (identical(other.requestUrl, requestUrl) ||
-                other.requestUrl == requestUrl) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime));
+            const DeepCollectionEquality()
+                .equals(other.requestUrl, requestUrl) &&
+            const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      count,
-      minDuration,
-      maxDuration,
+      const DeepCollectionEquality().hash(count),
+      const DeepCollectionEquality().hash(minDuration),
+      const DeepCollectionEquality().hash(maxDuration),
       const DeepCollectionEquality().hash(sbbConnections),
       const DeepCollectionEquality().hash(messages),
-      requestUrl,
-      dateTime);
+      const DeepCollectionEquality().hash(requestUrl),
+      const DeepCollectionEquality().hash(dateTime));
 
   @JsonKey(ignore: true)
   @override

@@ -11,7 +11,7 @@ _$_SncfCompletion _$$_SncfCompletionFromJson(Map<String, dynamic> json) =>
       places: (json['places'] as List<dynamic>?)
               ?.map((e) => SncfPlace.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          [],
+          const <SncfPlace>[],
     );
 
 Map<String, dynamic> _$$_SncfCompletionToJson(_$_SncfCompletion instance) =>
