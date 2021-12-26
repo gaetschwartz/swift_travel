@@ -41,11 +41,13 @@ _$EmptyArgument _$$EmptyArgumentFromJson(Map<String, dynamic> json) =>
       dateTime: json['dateTime'] == null
           ? null
           : DateTime.parse(json['dateTime'] as String),
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$EmptyArgumentToJson(_$EmptyArgument instance) =>
     <String, dynamic>{
       'dateTime': instance.dateTime?.toIso8601String(),
+      'type': instance.$type,
     };
 
 _$SourceDateArguments _$$SourceDateArgumentsFromJson(
@@ -55,6 +57,7 @@ _$SourceDateArguments _$$SourceDateArgumentsFromJson(
       dateTime: json['dateTime'] == null
           ? null
           : DateTime.parse(json['dateTime'] as String),
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$SourceDateArgumentsToJson(
@@ -62,6 +65,7 @@ Map<String, dynamic> _$$SourceDateArgumentsToJson(
     <String, dynamic>{
       'source': instance.source,
       'dateTime': instance.dateTime?.toIso8601String(),
+      'type': instance.$type,
     };
 
 _$LocationArgument _$$LocationArgumentFromJson(Map<String, dynamic> json) =>
@@ -70,10 +74,12 @@ _$LocationArgument _$$LocationArgumentFromJson(Map<String, dynamic> json) =>
       dateTime: json['dateTime'] == null
           ? null
           : DateTime.parse(json['dateTime'] as String),
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$LocationArgumentToJson(_$LocationArgument instance) =>
     <String, dynamic>{
       'latLon': instance.latLon.toJson(),
       'dateTime': instance.dateTime?.toIso8601String(),
+      'type': instance.$type,
     };

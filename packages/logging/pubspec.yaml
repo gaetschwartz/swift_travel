@@ -9,11 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  freezed_annotation: ^0.15.0
+  freezed_annotation: ^1.1.0
   intl: ^0.17.0
 
 dev_dependencies:
-  freezed: ^0.15.0+1
+  freezed: ^1.1.0
   build_runner: ^2.0.2
   flutter_test:
     sdk: flutter

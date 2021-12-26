@@ -19,7 +19,7 @@ class _$TerminalContextTearOff {
 
   _TerminalContext call(
       List<String> command,
-      void Function(String, String) w,
+      Writer w,
       StateController<List<TerminalCommandResult>> stateController,
       BuildContext context) {
     return _TerminalContext(
@@ -37,7 +37,7 @@ const $TerminalContext = _$TerminalContextTearOff();
 /// @nodoc
 mixin _$TerminalContext {
   List<String> get command => throw _privateConstructorUsedError;
-  void Function(String, String) get w => throw _privateConstructorUsedError;
+  Writer get w => throw _privateConstructorUsedError;
   StateController<List<TerminalCommandResult>> get stateController =>
       throw _privateConstructorUsedError;
   BuildContext get context => throw _privateConstructorUsedError;
@@ -54,7 +54,7 @@ abstract class $TerminalContextCopyWith<$Res> {
       _$TerminalContextCopyWithImpl<$Res>;
   $Res call(
       {List<String> command,
-      void Function(String, String) w,
+      Writer w,
       StateController<List<TerminalCommandResult>> stateController,
       BuildContext context});
 }
@@ -83,7 +83,7 @@ class _$TerminalContextCopyWithImpl<$Res>
       w: w == freezed
           ? _value.w
           : w // ignore: cast_nullable_to_non_nullable
-              as void Function(String, String),
+              as Writer,
       stateController: stateController == freezed
           ? _value.stateController
           : stateController // ignore: cast_nullable_to_non_nullable
@@ -105,7 +105,7 @@ abstract class _$TerminalContextCopyWith<$Res>
   @override
   $Res call(
       {List<String> command,
-      void Function(String, String) w,
+      Writer w,
       StateController<List<TerminalCommandResult>> stateController,
       BuildContext context});
 }
@@ -136,7 +136,7 @@ class __$TerminalContextCopyWithImpl<$Res>
       w == freezed
           ? _value.w
           : w // ignore: cast_nullable_to_non_nullable
-              as void Function(String, String),
+              as Writer,
       stateController == freezed
           ? _value.stateController
           : stateController // ignore: cast_nullable_to_non_nullable
@@ -158,7 +158,7 @@ class _$_TerminalContext implements _TerminalContext {
   @override
   final List<String> command;
   @override
-  final void Function(String, String) w;
+  final Writer w;
   @override
   final StateController<List<TerminalCommandResult>> stateController;
   @override
@@ -198,14 +198,14 @@ class _$_TerminalContext implements _TerminalContext {
 abstract class _TerminalContext implements TerminalContext {
   const factory _TerminalContext(
       List<String> command,
-      void Function(String, String) w,
+      Writer w,
       StateController<List<TerminalCommandResult>> stateController,
       BuildContext context) = _$_TerminalContext;
 
   @override
   List<String> get command;
   @override
-  void Function(String, String) get w;
+  Writer get w;
   @override
   StateController<List<TerminalCommandResult>> get stateController;
   @override

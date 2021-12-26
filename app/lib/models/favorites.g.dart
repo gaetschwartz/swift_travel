@@ -14,6 +14,7 @@ _$LocalRouteV1 _$$LocalRouteV1FromJson(Map<String, dynamic> json) =>
       timestamp: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
+      $type: json['runtimeType'] as String?,
     );
 
 Map<String, dynamic> _$$LocalRouteV1ToJson(_$LocalRouteV1 instance) {
@@ -30,6 +31,7 @@ Map<String, dynamic> _$$LocalRouteV1ToJson(_$LocalRouteV1 instance) {
 
   writeNotNull('displayName', instance.displayName);
   writeNotNull('timestamp', instance.timestamp?.toIso8601String());
+  val['runtimeType'] = instance.$type;
   return val;
 }
 
@@ -41,6 +43,7 @@ _$LocalRouteV2 _$$LocalRouteV2FromJson(Map<String, dynamic> json) =>
       timestamp: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
+      $type: json['runtimeType'] as String?,
     );
 
 Map<String, dynamic> _$$LocalRouteV2ToJson(_$LocalRouteV2 instance) {
@@ -57,6 +60,7 @@ Map<String, dynamic> _$$LocalRouteV2ToJson(_$LocalRouteV2 instance) {
 
   writeNotNull('displayName', instance.displayName);
   writeNotNull('timestamp', instance.timestamp?.toIso8601String());
+  val['runtimeType'] = instance.$type;
   return val;
 }
 

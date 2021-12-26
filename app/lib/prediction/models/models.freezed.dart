@@ -421,7 +421,7 @@ abstract class _FullArguments implements FullArguments {
 }
 
 PredictionArguments _$PredictionArgumentsFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String?) {
+  switch (json['type']) {
     case 'empty':
       return EmptyArgument.fromJson(json);
     case 'withSource':
@@ -430,8 +430,8 @@ PredictionArguments _$PredictionArgumentsFromJson(Map<String, dynamic> json) {
       return LocationArgument.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'PredictionArguments',
-          'Invalid union type "${json['runtimeType']}"!');
+      throw CheckedFromJsonException(json, 'type', 'PredictionArguments',
+          'Invalid union type "${json['type']}"!');
   }
 }
 
@@ -589,13 +589,18 @@ class _$EmptyArgumentCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$EmptyArgument extends EmptyArgument {
-  const _$EmptyArgument({required this.dateTime}) : super._();
+  const _$EmptyArgument({required this.dateTime, String? $type})
+      : $type = $type ?? 'empty',
+        super._();
 
   factory _$EmptyArgument.fromJson(Map<String, dynamic> json) =>
       _$$EmptyArgumentFromJson(json);
 
   @override
   final DateTime? dateTime;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   @override
   String toString() {
@@ -689,7 +694,7 @@ class _$EmptyArgument extends EmptyArgument {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EmptyArgumentToJson(this)..['runtimeType'] = 'empty';
+    return _$$EmptyArgumentToJson(this);
   }
 }
 
@@ -751,8 +756,10 @@ class _$SourceDateArgumentsCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$SourceDateArguments extends SourceDateArguments {
-  const _$SourceDateArguments(this.source, {required this.dateTime})
-      : super._();
+  const _$SourceDateArguments(this.source,
+      {required this.dateTime, String? $type})
+      : $type = $type ?? 'withSource',
+        super._();
 
   factory _$SourceDateArguments.fromJson(Map<String, dynamic> json) =>
       _$$SourceDateArgumentsFromJson(json);
@@ -761,6 +768,9 @@ class _$SourceDateArguments extends SourceDateArguments {
   final String source;
   @override
   final DateTime? dateTime;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   @override
   String toString() {
@@ -855,7 +865,7 @@ class _$SourceDateArguments extends SourceDateArguments {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SourceDateArgumentsToJson(this)..['runtimeType'] = 'withSource';
+    return _$$SourceDateArgumentsToJson(this);
   }
 }
 
@@ -928,7 +938,9 @@ class _$LocationArgumentCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$LocationArgument extends LocationArgument {
-  const _$LocationArgument(this.latLon, {required this.dateTime}) : super._();
+  const _$LocationArgument(this.latLon, {required this.dateTime, String? $type})
+      : $type = $type ?? 'withLocation',
+        super._();
 
   factory _$LocationArgument.fromJson(Map<String, dynamic> json) =>
       _$$LocationArgumentFromJson(json);
@@ -937,6 +949,9 @@ class _$LocationArgument extends LocationArgument {
   final LatLon latLon;
   @override
   final DateTime? dateTime;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   @override
   String toString() {
@@ -1031,7 +1046,7 @@ class _$LocationArgument extends LocationArgument {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocationArgumentToJson(this)..['runtimeType'] = 'withLocation';
+    return _$$LocationArgumentToJson(this);
   }
 }
 
