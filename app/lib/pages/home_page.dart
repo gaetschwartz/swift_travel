@@ -135,7 +135,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
                 Vibration.instance.selectSoft();
                 if (i == oldI) {
                   navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
-                  context.read(sideTabBarProvider).state = null;
+                  context.read(sideTabBarProvider.state).state = null;
                 }
                 oldI = i;
               },
@@ -269,7 +269,7 @@ class _TabWidget extends StatelessWidget {
                   controllers.index = i;
                 } else {
                   navigatorKeys[i].currentState?.popUntil((route) => route.isFirst);
-                  context.read(sideTabBarProvider).state = null;
+                  context.read(sideTabBarProvider.state).state = null;
                 }
               },
               splashColor: Theme.of(context).primaryColor.withAlpha(32),
@@ -320,7 +320,7 @@ class SideBar extends StatelessWidget {
     bool rootNavigator = false,
   }) {
     if (shouldShowSidebar(context)) {
-      context.read(sideTabBarProvider).state = builder;
+      context.read(sideTabBarProvider.state).state = builder;
       sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {
       Navigator.of(context, rootNavigator: rootNavigator).push<void>(PlatformPageRoute(
@@ -336,7 +336,7 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Consumer(
       builder: (context, w, _) =>
-          w.watch(sideTabBarProvider).state?.call(context) ??
+          w.watch(sideTabBarProvider)?.call(context) ??
           Stack(
             children: [
               Positioned.fill(

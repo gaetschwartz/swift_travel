@@ -53,16 +53,12 @@ class RoutesView extends StatelessWidget {
                           padding: const EdgeInsets.all(16),
                           child: Center(
                             child: DefaultTextStyle(
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption!
-                                  .apply(fontSizeFactor: 1.4),
+                              style:
+                                  Theme.of(context).textTheme.caption!.apply(fontSizeFactor: 1.4),
                               child: routes.messages.isEmpty ||
-                                      _locationNotFound
-                                          .hasMatch(routes.messages.first)
+                                      _locationNotFound.hasMatch(routes.messages.first)
                                   ? Text(
-                                      AppLocalizations.of(context)
-                                          .unsupported_area,
+                                      AppLocalizations.of(context).unsupported_area,
                                       textAlign: TextAlign.center,
                                     )
                                   : Text(
@@ -135,8 +131,7 @@ class RoutesView extends StatelessWidget {
                     : ElevatedButton(
                         onPressed: Geolocator.openAppSettings,
                         style: ElevatedButton.styleFrom(
-                          shadowColor:
-                              ShadowTheme.of(context).buttonShadow?.color,
+                          shadowColor: ShadowTheme.of(context).buttonShadow?.color,
                           elevation: 8,
                           shape: const StadiumBorder(),
                         ),
@@ -171,8 +166,7 @@ class RoutesView extends StatelessWidget {
               ),
             ],
           ),
-          loading: () =>
-              const Center(child: CircularProgressIndicator.adaptive()),
+          loading: () => const Center(child: CircularProgressIndicator.adaptive()),
           empty: () => const Align(
             alignment: Alignment.topCenter,
             child: _PredictionTile(),
@@ -208,12 +202,10 @@ class RoutesView extends StatelessWidget {
 }
 
 final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
-  final dateTime = ref.watch(dateProvider).state;
+  final dateTime = ref.watch(dateProvider.state).state;
   LatLon? pos;
   try {
-    final loc = await GeoLocationEngine.instance
-        .getLocation()
-        .timeout(const Duration(seconds: 4));
+    final loc = await GeoLocationEngine.instance.getLocation().timeout(const Duration(seconds: 4));
     pos = LatLon.fromGeoLocation(loc);
   } on Exception {
     ignoreError();
@@ -222,9 +214,7 @@ final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
   final routes = RouteHistoryRepository.i.history;
   return predictRoute(
     routes,
-    pos != null
-        ? LocationArgument(pos, dateTime: null)
-        : EmptyArgument(dateTime: dateTime),
+    pos != null ? LocationArgument(pos, dateTime: null) : EmptyArgument(dateTime: dateTime),
   );
 });
 
@@ -242,8 +232,7 @@ class _PredictionTile extends StatelessWidget {
                     from: Text(pred.prediction!.fromAsString.stripAt()),
                     to: Text(pred.prediction!.toAsString.stripAt()),
                     onTap: () {
-                      fromBinder.setString(
-                          context, pred.prediction!.fromAsString);
+                      fromBinder.setString(context, pred.prediction!.fromAsString);
                       toBinder.setString(context, pred.prediction!.toAsString);
                     },
                     title: Text(AppLocalizations.of(context).suggestion),
@@ -261,7 +250,7 @@ class _PredictionTile extends StatelessWidget {
                   return child!;
                 }
               },
-              loading: (_) => Shimmer.fromColors(
+              loading: () => Shimmer.fromColors(
                 baseColor: Colors.grey,
                 highlightColor: Colors.white,
                 child: const RouteWidget(
@@ -297,7 +286,7 @@ class _PredictionTile extends StatelessWidget {
                   ),
                 ),
               ),
-              error: (e, s, _) {
+              error: (e, s) {
                 log.log(e);
                 debugPrintStack(stackTrace: s);
                 return child!;

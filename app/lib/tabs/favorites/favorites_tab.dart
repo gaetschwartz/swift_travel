@@ -29,8 +29,7 @@ class FavoritesTab extends StatefulWidget {
   _FavoritesTabState createState() => _FavoritesTabState();
 }
 
-class _FavoritesTabState extends State<FavoritesTab>
-    with AutomaticKeepAliveClientMixin {
+class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -48,15 +47,13 @@ class _FavoritesTabState extends State<FavoritesTab>
       cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(
-          trailing: IconButton(
-              icon: const Icon(CupertinoIcons.add), onPressed: addFav),
+          trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
         ),
         child: child!,
       ),
       materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: MaterialAppBar(
-            title: Text(AppLocalizations.of(context).tabs_favourites)),
+        appBar: MaterialAppBar(title: Text(AppLocalizations.of(context).tabs_favourites)),
         floatingActionButton: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
@@ -71,11 +68,11 @@ class _FavoritesTabState extends State<FavoritesTab>
       ),
       builder: (context, d) => Consumer(builder: (context, w, _) {
         final stops = w
-            .watch(favoritesStatesProvider)
+            .watch(favoritesStatesProvider.state)
             .state
             .maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
         final routes = w
-            .watch(favoritesRoutesStatesProvider)
+            .watch(favoritesRoutesStatesProvider.state)
             .state
             .maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
 
@@ -127,9 +124,7 @@ class _FavoritesTabState extends State<FavoritesTab>
 
     final s = isThemeDarwin(context)
         ? await showCupertinoModalBottomSheet<String>(
-            context: context,
-            builder: (context) =>
-                const StopInputDialog(title: 'Add a favorite'))
+            context: context, builder: (context) => const StopInputDialog(title: 'Add a favorite'))
         : await showMaterialModalBottomSheet<String>(
             context: context,
             builder: (_) => const StopInputDialog(title: 'Add a favorite'),
@@ -144,8 +139,7 @@ class _FavoritesTabState extends State<FavoritesTab>
 
       if (completions.isEmpty) {
         log.log("Didn't find a station, will try using routes as a hack...");
-        final sbbRoute = await api.route(s, 'Bern',
-            date: DateTime.now(), time: TimeOfDay.now());
+        final sbbRoute = await api.route(s, 'Bern', date: DateTime.now(), time: TimeOfDay.now());
         if (sbbRoute.connections.isNotEmpty) {
           final from = sbbRoute.connections.first.from;
           log.log('Found $from');
@@ -161,8 +155,7 @@ class _FavoritesTabState extends State<FavoritesTab>
 
       if (!mounted) return;
 
-      final name = await input(context,
-          title: const Text('What is the name of this stop'));
+      final name = await input(context, title: const Text('What is the name of this stop'));
 
       if (name == null) return;
       if (!mounted) return;

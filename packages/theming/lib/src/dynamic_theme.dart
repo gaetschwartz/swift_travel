@@ -395,7 +395,6 @@ ThemeData _themeDataFrom({
     platform: platform,
     brightness: colorScheme.brightness,
     primaryColor: primarySurfaceColor,
-    primaryColorBrightness: ThemeData.estimateBrightnessForColor(primarySurfaceColor),
     canvasColor: colorScheme.background,
     scaffoldBackgroundColor: colorScheme.background,
     bottomAppBarColor: colorScheme.surface,

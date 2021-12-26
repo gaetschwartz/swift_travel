@@ -44,7 +44,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
   final int cache = 25;
 
   void write(String cmd, String result) {
-    final history = context.read(terminalHistoryProvider);
+    final history = context.read(terminalHistoryProvider.state);
     final newList = List<TerminalCommandResult>.from(history.state);
     if (history.state.length > cache) {
       newList.removeRange(0, newList.length - cache);
@@ -65,7 +65,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
     );
   }
 
-  void clear() => context.read(terminalHistoryProvider).state = [];
+  void clear() => context.read(terminalHistoryProvider.state).state = [];
 
   final maxLength = commands.map<int>((e) => e.command.length).fold(0, math.max);
 
@@ -80,7 +80,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
         write(s.first, "Unknown command `${s.first}`, try `help` for help.");
       }
     } else {
-      def.run(TerminalContext(s, write, context.read(terminalHistoryProvider), context));
+      def.run(TerminalContext(s, write, context.read(terminalHistoryProvider.state), context));
     }
     controller.text = "";
   }
@@ -113,7 +113,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
               if (!focusNode.hasFocus) focusNode.requestFocus();
             },
             child: Consumer(builder: (context, w, _) {
-              final commands = w.watch(terminalHistoryProvider).state;
+              final commands = w.watch(terminalHistoryProvider);
               return ListView.builder(
                 controller: scrollController,
                 itemCount: commands.length + 1,

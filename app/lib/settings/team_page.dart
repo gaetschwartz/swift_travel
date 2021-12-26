@@ -147,11 +147,11 @@ class _Contributors extends StatelessWidget {
             childCount: contribs.length,
           ),
         );
-      }, loading: (_) {
+      }, loading: () {
         return const SliverFillRemaining(
           child: Center(child: CircularProgressIndicator.adaptive()),
         );
-      }, error: (e, s, _) {
+      }, error: (e, s) {
         return SliverToBoxAdapter(child: Text(e.toString()));
       });
     });

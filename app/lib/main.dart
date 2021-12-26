@@ -163,7 +163,7 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
       actions: {
         EscapeIntent: CallbackAction(onInvoke: (e) {
           // log.log('Clearing sidebar');
-          context.read(sideTabBarProvider).state = null;
+          context.read(sideTabBarProvider.state).state = null;
           sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
         }),
         TabIntent: TabAction((tab) {

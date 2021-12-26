@@ -27,30 +27,35 @@ class FavoriteStationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final darwin = isThemeDarwin(context);
     return Slidable(
-      actionPane: const SlidableDrawerActionPane(),
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: AppLocalizations.of(context).delete,
-          color: Colors.red,
-          icon: CupertinoIcons.delete,
-          onTap: () => delete(context),
-        ),
-      ],
-      actions: [
-        IconSlideAction(
-          caption: AppLocalizations.of(context).rename,
-          color: Colors.blue,
-          icon: CupertinoIcons.pencil,
-          onTap: () => rename(context),
-        ),
-        IconSlideAction(
-          caption: AppLocalizations.of(context).timetable,
-          color: Colors.blue,
-          icon: CupertinoIcons.list_number,
-          onTap: () => SideBar.push(context,
-              (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
-        ),
-      ],
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: <Widget>[
+          SlidableAction(
+            label: AppLocalizations.of(context).delete,
+            backgroundColor: Colors.red,
+            icon: CupertinoIcons.delete,
+            onPressed: delete,
+          ),
+        ],
+      ),
+      startActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            label: AppLocalizations.of(context).rename,
+            backgroundColor: Colors.blue,
+            icon: CupertinoIcons.pencil,
+            onPressed: rename,
+          ),
+          SlidableAction(
+            label: AppLocalizations.of(context).timetable,
+            backgroundColor: Colors.blue,
+            icon: CupertinoIcons.list_number,
+            onPressed: (context) =>
+                SideBar.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
+          ),
+        ],
+      ),
       child: ListTile(
         horizontalTitleGap: 8,
         leading: Column(
@@ -76,8 +81,7 @@ class FavoriteStationTile extends StatelessWidget {
         ),
         onTap: () => Navigator.of(context).pushNamed('/route', arguments: stop),
         onLongPress: () => edit(context),
-        trailing: Icon(CupertinoIcons.chevron_forward,
-            color: IconTheme.of(context).color),
+        trailing: Icon(CupertinoIcons.chevron_forward, color: IconTheme.of(context).color),
         title: Text(stop.name),
         subtitle: Text(stop.stop, overflow: TextOverflow.ellipsis),
       ),
@@ -92,8 +96,8 @@ class FavoriteStationTile extends StatelessWidget {
         ActionsSheetAction(
           title: Text(AppLocalizations.of(context).timetable),
           icon: const Icon(CupertinoIcons.list_number),
-          onPressed: () => SideBar.push(context,
-              (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
+          onPressed: () =>
+              SideBar.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
         ),
         ActionsSheetAction(
           title: Text(AppLocalizations.of(context).rename),
@@ -116,8 +120,7 @@ class FavoriteStationTile extends StatelessWidget {
 
   Future<void> rename(BuildContext context) async {
     final store = context.read(storeProvider);
-    final s =
-        await input(context, title: Text('How to rename "${stop.name}" ?'));
+    final s = await input(context, title: Text('How to rename "${stop.name}" ?'));
     if (s == null) {
       return;
     }
@@ -130,8 +133,7 @@ class FavoriteStationTile extends StatelessWidget {
     final b = await confirm(
       context,
       title: Text(AppLocalizations.of(context).delete_fav),
-      content:
-          Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
+      content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
         TextSpan(
             text: '${stop.name} (${stop.stop})',
             style: const TextStyle(fontWeight: FontWeight.bold)),
