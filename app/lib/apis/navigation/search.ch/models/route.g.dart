@@ -28,7 +28,7 @@ _$_SbbRoute _$$_SbbRouteFromJson(Map<String, dynamic> json) => $checkedCreate(
               'messages',
               (v) =>
                   (v as List<dynamic>?)?.map((e) => e as String).toList() ??
-                  []),
+                  const <String>[]),
           requestUrl: $checkedConvert('requestUrl', (v) => v as String?),
           dateTime: $checkedConvert('dateTime',
               (v) => v == null ? null : DateTime.parse(v as String)),

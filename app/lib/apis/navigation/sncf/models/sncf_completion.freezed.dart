@@ -118,7 +118,7 @@ class _$_SncfCompletion implements _SncfCompletion {
   factory _$_SncfCompletion.fromJson(Map<String, dynamic> json) =>
       _$$_SncfCompletionFromJson(json);
 
-  @JsonKey(defaultValue: const <SncfPlace>[])
+  @JsonKey()
   @override
   final List<SncfPlace> places;
 

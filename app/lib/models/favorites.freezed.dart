@@ -236,17 +236,20 @@ class _$LocalRouteV1 extends LocalRouteV1 {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is LocalRouteV1 &&
-            (identical(other.from, from) || other.from == from) &&
-            (identical(other.to, to) || other.to == to) &&
-            (identical(other.displayName, displayName) ||
-                other.displayName == displayName) &&
-            (identical(other.timestamp, timestamp) ||
-                other.timestamp == timestamp));
+            const DeepCollectionEquality().equals(other.from, from) &&
+            const DeepCollectionEquality().equals(other.to, to) &&
+            const DeepCollectionEquality()
+                .equals(other.displayName, displayName) &&
+            const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, from, to, displayName, timestamp);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(from),
+      const DeepCollectionEquality().hash(to),
+      const DeepCollectionEquality().hash(displayName),
+      const DeepCollectionEquality().hash(timestamp));
 
   @JsonKey(ignore: true)
   @override
@@ -453,17 +456,20 @@ class _$LocalRouteV2 extends LocalRouteV2 {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is LocalRouteV2 &&
-            (identical(other.from, from) || other.from == from) &&
-            (identical(other.to, to) || other.to == to) &&
-            (identical(other.displayName, displayName) ||
-                other.displayName == displayName) &&
-            (identical(other.timestamp, timestamp) ||
-                other.timestamp == timestamp));
+            const DeepCollectionEquality().equals(other.from, from) &&
+            const DeepCollectionEquality().equals(other.to, to) &&
+            const DeepCollectionEquality()
+                .equals(other.displayName, displayName) &&
+            const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, from, to, displayName, timestamp);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(from),
+      const DeepCollectionEquality().hash(to),
+      const DeepCollectionEquality().hash(displayName),
+      const DeepCollectionEquality().hash(timestamp));
 
   @JsonKey(ignore: true)
   @override
@@ -731,14 +737,19 @@ class _$_FavoriteStop extends _FavoriteStop {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FavoriteStop &&
-            (identical(other.stop, stop) || other.stop == stop) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.api, api) || other.api == api) &&
-            (identical(other.id, id) || other.id == id));
+            const DeepCollectionEquality().equals(other.stop, stop) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.api, api) &&
+            const DeepCollectionEquality().equals(other.id, id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, stop, name, api, id);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(stop),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(api),
+      const DeepCollectionEquality().hash(id));
 
   @JsonKey(ignore: true)
   @override

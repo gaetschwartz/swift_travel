@@ -241,20 +241,25 @@ class _$_Disruption implements _Disruption {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Disruption &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.header, header) || other.header == header) &&
-            (identical(other.lead, lead) || other.lead == lead) &&
-            (identical(other.text, text) || other.text == text) &&
-            (identical(other.timeRange, timeRange) ||
-                other.timeRange == timeRange) &&
-            (identical(other.exact, exact) || other.exact == exact) &&
-            (identical(other.priority, priority) ||
-                other.priority == priority));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.header, header) &&
+            const DeepCollectionEquality().equals(other.lead, lead) &&
+            const DeepCollectionEquality().equals(other.text, text) &&
+            const DeepCollectionEquality().equals(other.timeRange, timeRange) &&
+            const DeepCollectionEquality().equals(other.exact, exact) &&
+            const DeepCollectionEquality().equals(other.priority, priority));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, header, lead, text, timeRange, exact, priority);
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(header),
+      const DeepCollectionEquality().hash(lead),
+      const DeepCollectionEquality().hash(text),
+      const DeepCollectionEquality().hash(timeRange),
+      const DeepCollectionEquality().hash(exact),
+      const DeepCollectionEquality().hash(priority));
 
   @JsonKey(ignore: true)
   @override

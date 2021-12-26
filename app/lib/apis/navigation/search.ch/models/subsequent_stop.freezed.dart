@@ -309,24 +309,31 @@ class _$_SbbSubsequentStop extends _SbbSubsequentStop {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SbbSubsequentStop &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.depDelay, depDelay) ||
-                other.depDelay == depDelay) &&
-            (identical(other.arrDelay, arrDelay) ||
-                other.arrDelay == arrDelay) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.departure, departure) ||
-                other.departure == departure) &&
-            (identical(other.arrival, arrival) || other.arrival == arrival) &&
-            (identical(other.lat, lat) || other.lat == lat) &&
-            (identical(other.lon, lon) || other.lon == lon) &&
-            (identical(other.x, x) || other.x == x) &&
-            (identical(other.y, y) || other.y == y));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
+            const DeepCollectionEquality().equals(other.arrDelay, arrDelay) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.departure, departure) &&
+            const DeepCollectionEquality().equals(other.arrival, arrival) &&
+            const DeepCollectionEquality().equals(other.lat, lat) &&
+            const DeepCollectionEquality().equals(other.lon, lon) &&
+            const DeepCollectionEquality().equals(other.x, x) &&
+            const DeepCollectionEquality().equals(other.y, y));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, depDelay, arrDelay, id,
-      departure, arrival, lat, lon, x, y);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(depDelay),
+      const DeepCollectionEquality().hash(arrDelay),
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(departure),
+      const DeepCollectionEquality().hash(arrival),
+      const DeepCollectionEquality().hash(lat),
+      const DeepCollectionEquality().hash(lon),
+      const DeepCollectionEquality().hash(x),
+      const DeepCollectionEquality().hash(y));
 
   @JsonKey(ignore: true)
   @override

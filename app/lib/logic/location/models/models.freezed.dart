@@ -258,25 +258,28 @@ class _$_GeoLocation implements _GeoLocation {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GeoLocation &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude) &&
-            (identical(other.accuracy, accuracy) ||
-                other.accuracy == accuracy) &&
-            (identical(other.altitude, altitude) ||
-                other.altitude == altitude) &&
-            (identical(other.heading, heading) || other.heading == heading) &&
-            (identical(other.speed, speed) || other.speed == speed) &&
-            (identical(other.speedAccuracy, speedAccuracy) ||
-                other.speedAccuracy == speedAccuracy) &&
-            (identical(other.timestamp, timestamp) ||
-                other.timestamp == timestamp));
+            const DeepCollectionEquality().equals(other.latitude, latitude) &&
+            const DeepCollectionEquality().equals(other.longitude, longitude) &&
+            const DeepCollectionEquality().equals(other.accuracy, accuracy) &&
+            const DeepCollectionEquality().equals(other.altitude, altitude) &&
+            const DeepCollectionEquality().equals(other.heading, heading) &&
+            const DeepCollectionEquality().equals(other.speed, speed) &&
+            const DeepCollectionEquality()
+                .equals(other.speedAccuracy, speedAccuracy) &&
+            const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, latitude, longitude, accuracy,
-      altitude, heading, speed, speedAccuracy, timestamp);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(latitude),
+      const DeepCollectionEquality().hash(longitude),
+      const DeepCollectionEquality().hash(accuracy),
+      const DeepCollectionEquality().hash(altitude),
+      const DeepCollectionEquality().hash(heading),
+      const DeepCollectionEquality().hash(speed),
+      const DeepCollectionEquality().hash(speedAccuracy),
+      const DeepCollectionEquality().hash(timestamp));
 
   @JsonKey(ignore: true)
   @override

@@ -195,17 +195,19 @@ class _$_RoutePrediction implements _RoutePrediction {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _RoutePrediction &&
-            (identical(other.prediction, prediction) ||
-                other.prediction == prediction) &&
-            (identical(other.confidence, confidence) ||
-                other.confidence == confidence) &&
-            (identical(other.arguments, arguments) ||
-                other.arguments == arguments));
+            const DeepCollectionEquality()
+                .equals(other.prediction, prediction) &&
+            const DeepCollectionEquality()
+                .equals(other.confidence, confidence) &&
+            const DeepCollectionEquality().equals(other.arguments, arguments));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, prediction, confidence, arguments);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(prediction),
+      const DeepCollectionEquality().hash(confidence),
+      const DeepCollectionEquality().hash(arguments));
 
   @JsonKey(ignore: true)
   @override
@@ -383,13 +385,14 @@ class _$_FullArguments implements _FullArguments {
         (other.runtimeType == runtimeType &&
             other is _FullArguments &&
             const DeepCollectionEquality().equals(other.routes, routes) &&
-            (identical(other.arguments, arguments) ||
-                other.arguments == arguments));
+            const DeepCollectionEquality().equals(other.arguments, arguments));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(routes), arguments);
+      runtimeType,
+      const DeepCollectionEquality().hash(routes),
+      const DeepCollectionEquality().hash(arguments));
 
   @JsonKey(ignore: true)
   @override
@@ -421,7 +424,7 @@ abstract class _FullArguments implements FullArguments {
 }
 
 PredictionArguments _$PredictionArgumentsFromJson(Map<String, dynamic> json) {
-  switch (json['type']) {
+  switch (json['runtimeType']) {
     case 'empty':
       return EmptyArgument.fromJson(json);
     case 'withSource':
@@ -430,8 +433,8 @@ PredictionArguments _$PredictionArgumentsFromJson(Map<String, dynamic> json) {
       return LocationArgument.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'type', 'PredictionArguments',
-          'Invalid union type "${json['type']}"!');
+      throw CheckedFromJsonException(json, 'runtimeType', 'PredictionArguments',
+          'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
@@ -599,7 +602,7 @@ class _$EmptyArgument extends EmptyArgument {
   @override
   final DateTime? dateTime;
 
-  @JsonKey(name: 'type')
+  @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
@@ -612,12 +615,12 @@ class _$EmptyArgument extends EmptyArgument {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is EmptyArgument &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime));
+            const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, dateTime);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(dateTime));
 
   @JsonKey(ignore: true)
   @override
@@ -769,7 +772,7 @@ class _$SourceDateArguments extends SourceDateArguments {
   @override
   final DateTime? dateTime;
 
-  @JsonKey(name: 'type')
+  @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
@@ -782,13 +785,15 @@ class _$SourceDateArguments extends SourceDateArguments {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SourceDateArguments &&
-            (identical(other.source, source) || other.source == source) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime));
+            const DeepCollectionEquality().equals(other.source, source) &&
+            const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, source, dateTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(source),
+      const DeepCollectionEquality().hash(dateTime));
 
   @JsonKey(ignore: true)
   @override
@@ -950,7 +955,7 @@ class _$LocationArgument extends LocationArgument {
   @override
   final DateTime? dateTime;
 
-  @JsonKey(name: 'type')
+  @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
@@ -963,13 +968,15 @@ class _$LocationArgument extends LocationArgument {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is LocationArgument &&
-            (identical(other.latLon, latLon) || other.latLon == latLon) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime));
+            const DeepCollectionEquality().equals(other.latLon, latLon) &&
+            const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, latLon, dateTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(latLon),
+      const DeepCollectionEquality().hash(dateTime));
 
   @JsonKey(ignore: true)
   @override
@@ -1315,11 +1322,12 @@ class _$_ContactCompletion extends _ContactCompletion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ContactCompletion &&
-            (identical(other.contact, contact) || other.contact == contact));
+            const DeepCollectionEquality().equals(other.contact, contact));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, contact);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(contact));
 
   @JsonKey(ignore: true)
   @override

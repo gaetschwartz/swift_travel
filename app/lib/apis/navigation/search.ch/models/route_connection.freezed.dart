@@ -257,7 +257,7 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
   @override
   @JsonKey(name: 'legs')
   final List<SbbLeg> sbbLegs;
-  @JsonKey(defaultValue: const <String, Disruption>{})
+  @JsonKey()
   @override
   final Map<String, Disruption> disruptions;
 
@@ -271,15 +271,13 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SbbRouteConnection &&
-            (identical(other.from, from) || other.from == from) &&
-            (identical(other.to, to) || other.to == to) &&
-            (identical(other.depDelay, depDelay) ||
-                other.depDelay == depDelay) &&
-            (identical(other.departure, departure) ||
-                other.departure == departure) &&
-            (identical(other.arrival, arrival) || other.arrival == arrival) &&
-            (identical(other.durationInSeconds, durationInSeconds) ||
-                other.durationInSeconds == durationInSeconds) &&
+            const DeepCollectionEquality().equals(other.from, from) &&
+            const DeepCollectionEquality().equals(other.to, to) &&
+            const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
+            const DeepCollectionEquality().equals(other.departure, departure) &&
+            const DeepCollectionEquality().equals(other.arrival, arrival) &&
+            const DeepCollectionEquality()
+                .equals(other.durationInSeconds, durationInSeconds) &&
             const DeepCollectionEquality().equals(other.sbbLegs, sbbLegs) &&
             const DeepCollectionEquality()
                 .equals(other.disruptions, disruptions));
@@ -288,12 +286,12 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      from,
-      to,
-      depDelay,
-      departure,
-      arrival,
-      durationInSeconds,
+      const DeepCollectionEquality().hash(from),
+      const DeepCollectionEquality().hash(to),
+      const DeepCollectionEquality().hash(depDelay),
+      const DeepCollectionEquality().hash(departure),
+      const DeepCollectionEquality().hash(arrival),
+      const DeepCollectionEquality().hash(durationInSeconds),
       const DeepCollectionEquality().hash(sbbLegs),
       const DeepCollectionEquality().hash(disruptions));
 

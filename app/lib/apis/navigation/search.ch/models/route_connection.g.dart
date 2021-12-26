@@ -37,7 +37,7 @@ _$_SbbRouteConnection _$$_SbbRouteConnectionFromJson(
                     (k, e) => MapEntry(
                         k, Disruption.fromJson(e as Map<String, dynamic>)),
                   ) ??
-                  {}),
+                  const <String, Disruption>{}),
         );
         return val;
       },

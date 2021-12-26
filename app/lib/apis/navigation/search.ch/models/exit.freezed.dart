@@ -313,10 +313,10 @@ class _$_Exit extends _Exit {
   final String? stopid;
   @override
   final String? track;
-  @JsonKey(defaultValue: 0)
+  @JsonKey()
   @override
   final int waittime;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool isaddress;
   @override
@@ -336,26 +336,35 @@ class _$_Exit extends _Exit {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Exit &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.arrDelay, arrDelay) ||
-                other.arrDelay == arrDelay) &&
-            (identical(other.arrival, arrival) || other.arrival == arrival) &&
-            (identical(other.lat, lat) || other.lat == lat) &&
-            (identical(other.lon, lon) || other.lon == lon) &&
-            (identical(other.sbbName, sbbName) || other.sbbName == sbbName) &&
-            (identical(other.stopid, stopid) || other.stopid == stopid) &&
-            (identical(other.track, track) || other.track == track) &&
-            (identical(other.waittime, waittime) ||
-                other.waittime == waittime) &&
-            (identical(other.isaddress, isaddress) ||
-                other.isaddress == isaddress) &&
-            (identical(other.x, x) || other.x == x) &&
-            (identical(other.y, y) || other.y == y));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.arrDelay, arrDelay) &&
+            const DeepCollectionEquality().equals(other.arrival, arrival) &&
+            const DeepCollectionEquality().equals(other.lat, lat) &&
+            const DeepCollectionEquality().equals(other.lon, lon) &&
+            const DeepCollectionEquality().equals(other.sbbName, sbbName) &&
+            const DeepCollectionEquality().equals(other.stopid, stopid) &&
+            const DeepCollectionEquality().equals(other.track, track) &&
+            const DeepCollectionEquality().equals(other.waittime, waittime) &&
+            const DeepCollectionEquality().equals(other.isaddress, isaddress) &&
+            const DeepCollectionEquality().equals(other.x, x) &&
+            const DeepCollectionEquality().equals(other.y, y));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, arrDelay, arrival, lat,
-      lon, sbbName, stopid, track, waittime, isaddress, x, y);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(arrDelay),
+      const DeepCollectionEquality().hash(arrival),
+      const DeepCollectionEquality().hash(lat),
+      const DeepCollectionEquality().hash(lon),
+      const DeepCollectionEquality().hash(sbbName),
+      const DeepCollectionEquality().hash(stopid),
+      const DeepCollectionEquality().hash(track),
+      const DeepCollectionEquality().hash(waittime),
+      const DeepCollectionEquality().hash(isaddress),
+      const DeepCollectionEquality().hash(x),
+      const DeepCollectionEquality().hash(y));
 
   @JsonKey(ignore: true)
   @override

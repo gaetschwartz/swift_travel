@@ -58,7 +58,7 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
                   (v as Map<String, dynamic>?)?.map(
                     (k, e) => MapEntry(k, e as String),
                   ) ??
-                  {}),
+                  const <String, String>{}),
         );
         return val;
       },

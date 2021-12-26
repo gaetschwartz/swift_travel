@@ -130,11 +130,12 @@ class _$__VehicleIconclass implements __VehicleIconclass {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is __VehicleIconclass &&
-            (identical(other.v, v) || other.v == v));
+            const DeepCollectionEquality().equals(other.v, v));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, v);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(v));
 
   @JsonKey(ignore: true)
   @override

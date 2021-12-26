@@ -137,12 +137,15 @@ class _$_LatLon extends _LatLon {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LatLon &&
-            (identical(other.lat, lat) || other.lat == lat) &&
-            (identical(other.lon, lon) || other.lon == lon));
+            const DeepCollectionEquality().equals(other.lat, lat) &&
+            const DeepCollectionEquality().equals(other.lon, lon));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, lat, lon);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(lat),
+      const DeepCollectionEquality().hash(lon));
 
   @JsonKey(ignore: true)
   @override
@@ -289,12 +292,15 @@ class _$_LV03Coordinates extends _LV03Coordinates {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LV03Coordinates &&
-            (identical(other.x, x) || other.x == x) &&
-            (identical(other.y, y) || other.y == y));
+            const DeepCollectionEquality().equals(other.x, x) &&
+            const DeepCollectionEquality().equals(other.y, y));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, x, y);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(x),
+      const DeepCollectionEquality().hash(y));
 
   @JsonKey(ignore: true)
   @override

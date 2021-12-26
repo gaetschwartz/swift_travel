@@ -256,7 +256,7 @@ class _$TextRouteState implements TextRouteState {
 
   @override
   final String text;
-  @JsonKey(defaultValue: true)
+  @JsonKey()
   @override
   final bool doLoad;
 
@@ -270,12 +270,15 @@ class _$TextRouteState implements TextRouteState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is TextRouteState &&
-            (identical(other.text, text) || other.text == text) &&
-            (identical(other.doLoad, doLoad) || other.doLoad == doLoad));
+            const DeepCollectionEquality().equals(other.text, text) &&
+            const DeepCollectionEquality().equals(other.doLoad, doLoad));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, text, doLoad);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(text),
+      const DeepCollectionEquality().hash(doLoad));
 
   @JsonKey(ignore: true)
   @override

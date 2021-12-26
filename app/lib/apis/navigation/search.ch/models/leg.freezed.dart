@@ -604,7 +604,7 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   @IntConverter()
   final int? y;
-  @JsonKey(defaultValue: const <String, String>{})
+  @JsonKey()
   @override
   final Map<String, String> attributes;
 
@@ -618,37 +618,32 @@ class _$_SbbLeg extends _SbbLeg {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SbbLeg &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.sbbExit, sbbExit) || other.sbbExit == sbbExit) &&
-            (identical(other.depDelay, depDelay) ||
-                other.depDelay == depDelay) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.track, track) || other.track == track) &&
-            (identical(other.terminal, terminal) ||
-                other.terminal == terminal) &&
-            (identical(other.bgcolor, bgcolor) || other.bgcolor == bgcolor) &&
-            (identical(other.fgcolor, fgcolor) || other.fgcolor == fgcolor) &&
-            (identical(other.number, number) || other.number == number) &&
-            (identical(other.tripid, tripid) || other.tripid == tripid) &&
-            (identical(other.stopid, stopid) || other.stopid == stopid) &&
-            (identical(other.runningTime, runningTime) ||
-                other.runningTime == runningTime) &&
-            (identical(other.line, line) || other.line == line) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.sbbExit, sbbExit) &&
+            const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other.track, track) &&
+            const DeepCollectionEquality().equals(other.terminal, terminal) &&
+            const DeepCollectionEquality().equals(other.bgcolor, bgcolor) &&
+            const DeepCollectionEquality().equals(other.fgcolor, fgcolor) &&
+            const DeepCollectionEquality().equals(other.number, number) &&
+            const DeepCollectionEquality().equals(other.tripid, tripid) &&
+            const DeepCollectionEquality().equals(other.stopid, stopid) &&
+            const DeepCollectionEquality()
+                .equals(other.runningTime, runningTime) &&
+            const DeepCollectionEquality().equals(other.line, line) &&
             const DeepCollectionEquality().equals(other.sbbStops, sbbStops) &&
-            (identical(other.sbbName, sbbName) || other.sbbName == sbbName) &&
-            (identical(other.departure, departure) ||
-                other.departure == departure) &&
-            (identical(other.arrival, arrival) || other.arrival == arrival) &&
-            (identical(other.normalTime, normalTime) ||
-                other.normalTime == normalTime) &&
-            (identical(other.waitTime, waitTime) ||
-                other.waitTime == waitTime) &&
-            (identical(other.isAddress, isAddress) ||
-                other.isAddress == isAddress) &&
-            (identical(other.lat, lat) || other.lat == lat) &&
-            (identical(other.lon, lon) || other.lon == lon) &&
-            (identical(other.x, x) || other.x == x) &&
-            (identical(other.y, y) || other.y == y) &&
+            const DeepCollectionEquality().equals(other.sbbName, sbbName) &&
+            const DeepCollectionEquality().equals(other.departure, departure) &&
+            const DeepCollectionEquality().equals(other.arrival, arrival) &&
+            const DeepCollectionEquality()
+                .equals(other.normalTime, normalTime) &&
+            const DeepCollectionEquality().equals(other.waitTime, waitTime) &&
+            const DeepCollectionEquality().equals(other.isAddress, isAddress) &&
+            const DeepCollectionEquality().equals(other.lat, lat) &&
+            const DeepCollectionEquality().equals(other.lon, lon) &&
+            const DeepCollectionEquality().equals(other.x, x) &&
+            const DeepCollectionEquality().equals(other.y, y) &&
             const DeepCollectionEquality()
                 .equals(other.attributes, attributes));
   }
@@ -656,30 +651,30 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        name,
-        sbbExit,
-        depDelay,
-        type,
-        track,
-        terminal,
-        bgcolor,
-        fgcolor,
-        number,
-        tripid,
-        stopid,
-        runningTime,
-        line,
+        const DeepCollectionEquality().hash(name),
+        const DeepCollectionEquality().hash(sbbExit),
+        const DeepCollectionEquality().hash(depDelay),
+        const DeepCollectionEquality().hash(type),
+        const DeepCollectionEquality().hash(track),
+        const DeepCollectionEquality().hash(terminal),
+        const DeepCollectionEquality().hash(bgcolor),
+        const DeepCollectionEquality().hash(fgcolor),
+        const DeepCollectionEquality().hash(number),
+        const DeepCollectionEquality().hash(tripid),
+        const DeepCollectionEquality().hash(stopid),
+        const DeepCollectionEquality().hash(runningTime),
+        const DeepCollectionEquality().hash(line),
         const DeepCollectionEquality().hash(sbbStops),
-        sbbName,
-        departure,
-        arrival,
-        normalTime,
-        waitTime,
-        isAddress,
-        lat,
-        lon,
-        x,
-        y,
+        const DeepCollectionEquality().hash(sbbName),
+        const DeepCollectionEquality().hash(departure),
+        const DeepCollectionEquality().hash(arrival),
+        const DeepCollectionEquality().hash(normalTime),
+        const DeepCollectionEquality().hash(waitTime),
+        const DeepCollectionEquality().hash(isAddress),
+        const DeepCollectionEquality().hash(lat),
+        const DeepCollectionEquality().hash(lon),
+        const DeepCollectionEquality().hash(x),
+        const DeepCollectionEquality().hash(y),
         const DeepCollectionEquality().hash(attributes)
       ]);
 

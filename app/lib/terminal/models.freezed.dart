@@ -176,9 +176,9 @@ class _$_TerminalContext implements _TerminalContext {
             other is _TerminalContext &&
             const DeepCollectionEquality().equals(other.command, command) &&
             (identical(other.w, w) || other.w == w) &&
-            (identical(other.stateController, stateController) ||
-                other.stateController == stateController) &&
-            (identical(other.context, context) || other.context == context));
+            const DeepCollectionEquality()
+                .equals(other.stateController, stateController) &&
+            const DeepCollectionEquality().equals(other.context, context));
   }
 
   @override
@@ -186,8 +186,8 @@ class _$_TerminalContext implements _TerminalContext {
       runtimeType,
       const DeepCollectionEquality().hash(command),
       w,
-      stateController,
-      context);
+      const DeepCollectionEquality().hash(stateController),
+      const DeepCollectionEquality().hash(context));
 
   @JsonKey(ignore: true)
   @override
@@ -335,12 +335,15 @@ class _$_TerminalCommandResult implements _TerminalCommandResult {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _TerminalCommandResult &&
-            (identical(other.command, command) || other.command == command) &&
-            (identical(other.result, result) || other.result == result));
+            const DeepCollectionEquality().equals(other.command, command) &&
+            const DeepCollectionEquality().equals(other.result, result));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, command, result);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(command),
+      const DeepCollectionEquality().hash(result));
 
   @JsonKey(ignore: true)
   @override
@@ -504,14 +507,18 @@ class _$_CommandDefinition implements _CommandDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CommandDefinition &&
-            (identical(other.command, command) || other.command == command) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
+            const DeepCollectionEquality().equals(other.command, command) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
             (identical(other.run, run) || other.run == run));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, command, description, run);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(command),
+      const DeepCollectionEquality().hash(description),
+      run);
 
   @JsonKey(ignore: true)
   @override

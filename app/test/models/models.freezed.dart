@@ -14,7 +14,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Union _$UnionFromJson(Map<String, dynamic> json) {
-  switch (json['type']) {
+  switch (json['runtimeType']) {
     case 'default':
       return Person.fromJson(json);
     case 'animal':
@@ -23,8 +23,8 @@ Union _$UnionFromJson(Map<String, dynamic> json) {
       return Number.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(
-          json, 'type', 'Union', 'Invalid union type "${json['type']}"!');
+      throw CheckedFromJsonException(json, 'runtimeType', 'Union',
+          'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
@@ -163,7 +163,7 @@ class _$Person implements Person {
   @override
   final String name;
 
-  @JsonKey(name: 'type')
+  @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
@@ -176,11 +176,12 @@ class _$Person implements Person {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Person &&
-            (identical(other.name, name) || other.name == name));
+            const DeepCollectionEquality().equals(other.name, name));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(name));
 
   @JsonKey(ignore: true)
   @override
@@ -319,7 +320,7 @@ class _$Animal implements Animal {
   @override
   final int legs;
 
-  @JsonKey(name: 'type')
+  @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
@@ -332,12 +333,15 @@ class _$Animal implements Animal {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Animal &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.legs, legs) || other.legs == legs));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.legs, legs));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, legs);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(legs));
 
   @JsonKey(ignore: true)
   @override
@@ -469,7 +473,7 @@ class _$Number implements Number {
   @override
   final int number;
 
-  @JsonKey(name: 'type')
+  @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
@@ -482,11 +486,12 @@ class _$Number implements Number {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Number &&
-            (identical(other.number, number) || other.number == number));
+            const DeepCollectionEquality().equals(other.number, number));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, number);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(number));
 
   @JsonKey(ignore: true)
   @override

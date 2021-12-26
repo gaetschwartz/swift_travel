@@ -214,27 +214,26 @@ class _$_TextFieldConfiguration extends _TextFieldConfiguration {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _TextFieldConfiguration &&
-            (identical(other.placeholder, placeholder) ||
-                other.placeholder == placeholder) &&
+            const DeepCollectionEquality()
+                .equals(other.placeholder, placeholder) &&
             const DeepCollectionEquality()
                 .equals(other.inputFormatters, inputFormatters) &&
-            (identical(other.textInputAction, textInputAction) ||
-                other.textInputAction == textInputAction) &&
-            (identical(other.prefix, prefix) || other.prefix == prefix) &&
-            (identical(other.focusNode, focusNode) ||
-                other.focusNode == focusNode) &&
-            (identical(other.key, key) || other.key == key));
+            const DeepCollectionEquality()
+                .equals(other.textInputAction, textInputAction) &&
+            const DeepCollectionEquality().equals(other.prefix, prefix) &&
+            const DeepCollectionEquality().equals(other.focusNode, focusNode) &&
+            const DeepCollectionEquality().equals(other.key, key));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      placeholder,
+      const DeepCollectionEquality().hash(placeholder),
       const DeepCollectionEquality().hash(inputFormatters),
-      textInputAction,
-      prefix,
-      focusNode,
-      key);
+      const DeepCollectionEquality().hash(textInputAction),
+      const DeepCollectionEquality().hash(prefix),
+      const DeepCollectionEquality().hash(focusNode),
+      const DeepCollectionEquality().hash(key));
 
   @JsonKey(ignore: true)
   @override
