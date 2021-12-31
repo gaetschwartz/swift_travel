@@ -11,7 +11,7 @@ workflows:
       - certificate-and-profile-installer@1: {}
       - script@1:
           inputs:
-            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh dev
+            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh beta
           title: Get latest version
       - cache-pull@2: {}
       - script-runner@0:
@@ -27,7 +27,6 @@ workflows:
       - flutter-installer@0:
           inputs:
             - installation_bundle_url: $FLUTTER_ARCHIVE_URL
-            # - version: dev
       - script-runner@0:
           inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/fix_flutter_90209.sh
