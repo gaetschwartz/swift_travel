@@ -57,7 +57,7 @@ int levenshtein(String stringA, String stringB, {bool caseSensitive = false}) {
   final v1 = List<int>.filled(t.length + 1, 0);
 
   for (var i = 0; i < s.length; i++) {
-    v1[0] = i + 1;
+    v1.first = i + 1;
 
     for (var j = 0; j < t.length; j++) {
       final cost = (s[i] == t[j]) ? 0 : 1;

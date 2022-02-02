@@ -363,11 +363,10 @@ class RoutePageState extends State<RoutePage> {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(content: Text('Route starred !')));
                         },
-                        icon: Consumer(builder: (context, w, _) {
-                          final _store = w.watch(storeProvider);
-                          w.watch(routeStatesProvider);
+                        icon: Consumer(builder: (context, ref, _) {
+                          ref.watch(routeStatesProvider);
 
-                          return _store.routes.any((lr) =>
+                          return ref.watch(storeProvider).routes.any((lr) =>
                                   lr.fromAsString == fromBinder.text &&
                                   lr.toAsString == toBinder.text)
                               ? const Icon(Icons.star)
@@ -405,11 +404,11 @@ class RoutePageState extends State<RoutePage> {
                           onPressed: () async {
                             Vibration.instance.select();
                             var type = context.read(timeTypeProvider.state).state;
-                            final _date = context.read(dateProvider.state);
+                            final currentDate = context.read(dateProvider.state);
                             final date = await pickDate(
                               context,
-                              initialDateTime:
-                                  _date.state.subtract(Duration(minutes: _date.state.minute % 5)),
+                              initialDateTime: currentDate.state
+                                  .subtract(Duration(minutes: currentDate.state.minute % 5)),
                               minuteInterval: 5,
                               bottom: _Segmented(
                                 onChange: (v) => type = v,
@@ -417,17 +416,17 @@ class RoutePageState extends State<RoutePage> {
                               ),
                               textColor: CupertinoColors.activeBlue,
                             );
-                            if (date != null) _date.state = date;
+                            if (date != null) currentDate.state = date;
 
                             if (!mounted) return;
                             context.read(timeTypeProvider.state).state = type;
                           },
                           child: Consumer(builder: (context, w, _) {
-                            final _date = w.watch(dateProvider.state);
-                            final _time = w.watch(timeTypeProvider.state);
-                            final dateFormatted = DateFormat('d MMM y').format(_date.state);
-                            final timeFormatted = DateFormat('H:mm').format(_date.state);
-                            final type = describeEnum(_time.state);
+                            final date = w.watch(dateProvider.state);
+                            final time = w.watch(timeTypeProvider.state);
+                            final dateFormatted = DateFormat('d MMM y').format(date.state);
+                            final timeFormatted = DateFormat('H:mm').format(date.state);
+                            final type = describeEnum(time.state);
                             return Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -517,10 +516,10 @@ class RoutePageState extends State<RoutePage> {
       );
 
   void switchInputs() {
-    final _from = fromBinder.state(context);
+    final from = fromBinder.state(context);
 
     fromBinder.init(context, toBinder.state(context));
-    toBinder.init(context, _from);
+    toBinder.init(context, from);
   }
 
   void unFocusFields() {
@@ -674,10 +673,8 @@ class ShadowsAround extends StatelessWidget {
   final Widget? child;
 
   @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          boxShadow: shadowListOf(context),
-        ),
+  Widget build(BuildContext context) => DecoratedBox(
+        decoration: BoxDecoration(boxShadow: shadowListOf(context)),
         child: child,
       );
 }

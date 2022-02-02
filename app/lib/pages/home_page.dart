@@ -83,7 +83,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
   late final materialItems = [
     BottomNavigationBarItem(
       icon: const Icon(CupertinoIcons.search),
-      label: titles[0],
+      label: titles.first,
     ),
     BottomNavigationBarItem(
       icon: const Icon(CupertinoIcons.list_dash),
@@ -201,7 +201,7 @@ class SwiftNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _activeColor = activeColor ?? Theme.of(context).colorScheme.secondary;
+    final activeColor = this.activeColor ?? Theme.of(context).colorScheme.secondary;
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -225,7 +225,7 @@ class SwiftNavigationBar extends StatelessWidget {
                     page: page,
                     item: items[i],
                     i: i,
-                    activeColor: _activeColor,
+                    activeColor: activeColor,
                   ),
               ],
             ),

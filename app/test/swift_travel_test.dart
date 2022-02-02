@@ -53,8 +53,7 @@ void main() {
     late RouteHistoryRepository hist;
     setUpAll(() async {
       final temp = await getTempDirForTests();
-      final dir =
-          path.join(temp.path, 'swift_travel', 'test_results', 'route_history');
+      final dir = path.join(temp.path, 'swift_travel', 'test_results', 'route_history');
       Hive.init(dir);
     });
 
@@ -127,7 +126,7 @@ void main() {
 
     test('throws when not accessed properly', () {
       final hist = RouteHistoryRepository();
-      expect(() async => await hist.add(route1), throwsAssertionError);
+      expect(() => hist.add(route1), throwsAssertionError);
     });
     test('safe add works', () async {
       final hist = RouteHistoryRepository();
@@ -136,25 +135,24 @@ void main() {
     });
 
     test('completion', () async {
-      // HACK: This looks really sus
-      final container = ProviderContainer();
-
-      container.updateOverrides([
-        completionEngineProvider.overrideWithValue(
-          CompletionEngine(
-            container.read,
-            routeHistoryRepository: MockRouteHistory(
-              mockedHistory: [
-                route1,
-                route3,
-                route1,
-                route3,
-              ],
+      // HACK: Not really sure if this is the best way to test this
+      final container = ProviderContainer(overrides: [
+        completionEngineProvider.overrideWithProvider(
+          Provider(
+            (r) => CompletionEngine(
+              r.read,
+              routeHistoryRepository: MockRouteHistory(
+                mockedHistory: [
+                  route1,
+                  route3,
+                  route1,
+                  route3,
+                ],
+              ),
             ),
           ),
         ),
-        navigationAPIProvider
-            .overrideWithValue(MockNavigationApi(mockCompletions: []))
+        navigationAPIProvider.overrideWithValue(MockNavigationApi(mockCompletions: []))
       ]);
 
       final c = await container
@@ -178,15 +176,10 @@ void main() {
       FakeableDateTime.fakeDate = DateTime(2021);
     });
     test('localRoute', () {
-      final route1 = LocalRoute.v2(
-          const SbbStop(name: 'from'), const SbbStop(name: 'to'),
+      final route1 = LocalRoute.v2(const SbbStop(name: 'from'), const SbbStop(name: 'to'),
           displayName: 'name', timestamp: FakeableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
-        SbbRouteConnection(
-            from: 'from',
-            to: 'to',
-            depDelay: 0,
-            departure: FakeableDateTime.now()),
+        SbbRouteConnection(from: 'from', to: 'to', depDelay: 0, departure: FakeableDateTime.now()),
         displayName: 'name',
       );
       final json = {
@@ -202,13 +195,11 @@ void main() {
     });
 
     test('favoriteStop', () {
-      final stop1 =
-          FavoriteStop(stop: geneva, name: geneva, api: searchChApi.id.value);
+      final stop1 = FavoriteStop(stop: geneva, name: geneva, api: searchChApi.id.value);
       final stop2 = FavoriteStop.fromStop(geneva, api: searchChApi.id);
-      final stop3 = FavoriteStop.fromCompletion(SbbCompletion(label: geneva),
-          api: searchChApi.id);
-      final stop4 = FavoriteStop.fromJson(
-          <String, Object>{'stop': geneva, 'name': geneva, 'api': 'sbb'});
+      final stop3 = FavoriteStop.fromCompletion(SbbCompletion(label: geneva), api: searchChApi.id);
+      final stop4 =
+          FavoriteStop.fromJson(<String, Object>{'stop': geneva, 'name': geneva, 'api': 'sbb'});
 
       expect(stop1, equals(stop2));
       expect(stop2, equals(stop3));
@@ -222,11 +213,9 @@ void main() {
   });
 
   test('completion', () async {
-    final container = ProviderContainer();
-
-    // HACK: This looks really sus
-    container.updateOverrides(
-      [
+    late ProviderContainer container;
+    container = ProviderContainer(
+      overrides: [
         storeProvider.overrideWithValue(MockFavoriteStore(stops: [
           FavoriteStop.fromStop(geneva, api: searchChApi.id),
           FavoriteStop.fromStop('Genève gare', api: searchChApi.id),
@@ -236,30 +225,28 @@ void main() {
         navigationAPIProvider.overrideWithValue(
           MockNavigationApi(mockCompletions: [SbbCompletion(label: geneva)]),
         ),
-        completionEngineProvider.overrideWithValue(
-          CompletionEngine(
-            container.read,
-            routeHistoryRepository: MockRouteHistory(mockedHistory: [route1]),
+        completionEngineProvider.overrideWithProvider(
+          Provider(
+            (r) => CompletionEngine(
+              r.read,
+              routeHistoryRepository: MockRouteHistory(mockedHistory: [route1]),
+            ),
           ),
         )
       ],
     );
 
-    final c = await container
-        .read(completionEngineProvider)
-        .complete(query: geneva)
-        .last;
+    // HACK: Not really sure if this is the best way to test this
+
+    final c = await container.read(completionEngineProvider).complete(query: geneva).last;
 
     final expected = <NavigationCompletion>[
       const CurrentLocationCompletion(),
       SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
       SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
-      SbbCompletion.fromFavorite(
-          FavoriteStop.fromStop(geneva, api: searchChApi.id)),
-      SbbCompletion.fromFavorite(
-          FavoriteStop.fromStop('Genève gare', api: searchChApi.id)),
-      SbbCompletion.fromFavorite(
-          FavoriteStop.fromStop('Genève nord', api: searchChApi.id)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva, api: searchChApi.id)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare', api: searchChApi.id)),
+      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord', api: searchChApi.id)),
       SbbCompletion(label: 'Genève'),
     ];
 

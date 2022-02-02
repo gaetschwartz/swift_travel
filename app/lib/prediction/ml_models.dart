@@ -147,7 +147,7 @@ RoutePrediction _computeWinner(
 }
 
 void _report(Iterable<Pair<LocalRoute, ComputedSum>> top) {
-  int i = 0;
+  var i = 0;
   for (final p in top) {
     i++;
     log.log('[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.second.overview}');

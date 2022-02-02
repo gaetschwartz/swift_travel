@@ -176,11 +176,11 @@ class _MemberTile extends StatelessWidget {
           height: 36,
           width: 36,
           child: CircleAvatar(
-            backgroundImage: c.imageUrl == null
+            backgroundImage: (c.imageUrl == null
                 ? null
                 : c.isAssets
-                    ? AssetImage(c.imageUrl!) as ImageProvider
-                    : NetworkImage(c.imageUrl!),
+                    ? AssetImage(c.imageUrl!)
+                    : NetworkImage(c.imageUrl!)) as ImageProvider?,
             child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user, size: 18) : null,
           ),
         ),

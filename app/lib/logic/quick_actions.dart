@@ -15,7 +15,7 @@ class MyQuickActions {
   static const maxFavoriteRoutes = 5;
   static const maxFavoriteStops = 5;
 
-  static late final i = MyQuickActions._();
+  static final i = MyQuickActions._();
 
   bool _debugInitialized = false;
 

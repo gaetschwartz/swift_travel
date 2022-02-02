@@ -14,6 +14,7 @@ Map<String, Object?> get mockStationboard =>
 class FakeableDateTime {
   FakeableDateTime._();
 
+  // ignore:avoid-global-state
   static DateTime? fakeDate;
 
   /// Returns the value of `fakeDate` if specified, else the current `DateTime` (`DateTime.now()`).

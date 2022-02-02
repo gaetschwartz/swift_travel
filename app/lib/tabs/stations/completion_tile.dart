@@ -154,7 +154,7 @@ class CompletionTile extends ConsumerWidget {
     switch (c) {
       case _Actions.favorite:
         if (isFav) {
-          await store.removeStop(favoriteStop!);
+          await store.removeStop(favoriteStop);
         } else {
           final preferencesBloc = context.read(preferencesProvider);
           final name = await input(context, title: const Text('What is the name of this stop'));
@@ -232,7 +232,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
       final l = LineCache.i
           .get(widget.compl.label)
           .lines
-          .map((l) => _LineIcon(l))
+          .map(_LineIcon.new)
           .take(numberOfLines + 1)
           .toList(growable: false);
       if (mounted) {
@@ -279,7 +279,7 @@ class __LinesWidgetState extends State<_LinesWidget> {
           .toSet()
           .take(numberOfLines + 1);
 
-      final l2 = l.map((l) => _LineIcon(l)).toList(growable: false);
+      final l2 = l.map(_LineIcon.new).toList(growable: false);
 
       if (mounted) {
         setState(() => lines = l2);

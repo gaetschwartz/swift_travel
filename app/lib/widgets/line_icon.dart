@@ -74,7 +74,7 @@ class LineIcon extends StatelessWidget {
   Widget build(BuildContext context) => DecoratedBox(
       decoration: BoxDecoration(
         boxShadow: [BoxShadow(color: background.withOpacity(0.4), blurRadius: small ? 2 : 8)],
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: const BorderRadius.all(Radius.circular(32)),
         color: background,
       ),
       child: Padding(

@@ -6,7 +6,7 @@ import 'package:swift_travel/constants/env.dart';
 class ContactsRepository {
   ContactsRepository._();
 
-  static late final instance = ContactsRepository._();
+  static final instance = ContactsRepository._();
 
   bool _granted = false;
   Iterable<Contact>? _contacts;

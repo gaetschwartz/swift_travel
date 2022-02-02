@@ -180,7 +180,7 @@ class _ThememodeWidget extends StatelessWidget {
         onTap: () => theme.themeMode = mode,
         child: AspectRatio(
           aspectRatio: 1,
-          child: Container(
+          child: DecoratedBox(
             key: Key('mode-${describeEnum(mode).toLowerCase()}'),
             decoration: BoxDecoration(
                 boxShadow: shadowListOf(context),

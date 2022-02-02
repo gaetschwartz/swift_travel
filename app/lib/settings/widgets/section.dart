@@ -55,7 +55,8 @@ class SettingsSection extends AbstractSection {
       case TargetPlatform.fuchsia:
         return androidSection(context);
 
-      default:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
         return iosSection();
     }
   }

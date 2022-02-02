@@ -17,7 +17,7 @@ class LatLon with _$LatLon {
 
   factory LatLon.fromList(List<double> coords) {
     assert(coords.length >= 2, 'The coordinates list needs to contain at least 2 elements');
-    return _LatLon(coords[0], coords[1]);
+    return _LatLon(coords.first, coords[1]);
   }
   factory LatLon.fromGeoLocation(GeoLocation loc) => _LatLon(loc.latitude, loc.longitude);
 

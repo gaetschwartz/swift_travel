@@ -140,7 +140,7 @@ class _Collapsed extends StatelessWidget {
                       onTap: () {
                         final darwin = isThemeDarwin(context);
                         final list = l.attributes.entries
-                            .map((e) => Attribute.fromAttribute(e))
+                            .map(Attribute.fromAttribute)
                             .where((e) => !e.ignore)
                             .toList()
                           ..sort((a, b) => a.code.compareTo(b.code));
@@ -166,7 +166,7 @@ class _Collapsed extends StatelessWidget {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           const Gap(8),
-                                          ...list.map((att) => AttributeTile(att)),
+                                          ...list.map(AttributeTile.new),
                                           const Gap(8),
                                         ],
                                       ),
@@ -180,7 +180,7 @@ class _Collapsed extends StatelessWidget {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       const Gap(8),
-                                      ...list.map((att) => AttributeTile(att)),
+                                      ...list.map(AttributeTile.new),
                                       const Gap(8),
                                     ],
                                   ),
@@ -191,7 +191,7 @@ class _Collapsed extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           ...l.attributes.entries
-                              .map((e) => Attribute.fromAttribute(e))
+                              .map(Attribute.fromAttribute)
                               .where((e) => !e.ignore)
                               .map((att) => Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 1),

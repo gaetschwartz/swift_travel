@@ -14,13 +14,13 @@ import 'package:swift_travel/apis/navigation/sncf/models/departures.dart';
 import 'package:swift_travel/apis/navigation/sncf/models/sncf_completion.dart';
 import 'package:swift_travel/constants/config.dart';
 
-final sncfFactory = NavigationApiFactory(
-  (reader) => SncfApi._(reader),
+const sncfFactory = NavigationApiFactory(
+  SncfApi._,
   name: 'SNCF',
   shortName: 'SNCF',
   countryEmoji: '🇫🇷',
   countryName: 'France',
-  id: const NavigationApiId('sncf'),
+  id: NavigationApiId('sncf'),
 );
 
 class SncfApi extends BaseNavigationApi {
