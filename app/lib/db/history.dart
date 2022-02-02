@@ -16,7 +16,7 @@ class RouteHistoryRepository extends LocalDatabase<int, String, LocalRoute>
           encode: (d) => jsonEncode(d.toJson()),
         );
 
-  static late final i = RouteHistoryRepository();
+  static final i = RouteHistoryRepository();
 
   List<LocalRoute> get history => values.toList(growable: false);
 

@@ -120,8 +120,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
       key is String ? _maxStringSize(Uri.encodeComponent(key)) as TKey : key;
 
   Map<TKey, TValue> get map {
-    final _map = box.toMap();
-    return _map.map((dynamic key, value) => MapEntry(key! as TKey, decode(value)));
+    return box.toMap().map((dynamic key, value) => MapEntry(key! as TKey, decode(value)));
   }
 }
 

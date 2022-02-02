@@ -39,7 +39,7 @@ class CupertinoSettingsSection extends StatelessWidget {
           ),
         ),
       if (largeScreen)
-        Container(
+        DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(20)),
             color: Theme.of(context).brightness == Brightness.light
@@ -52,7 +52,7 @@ class CupertinoSettingsSection extends StatelessWidget {
           ),
         )
       else
-        Container(
+        DecoratedBox(
           decoration: BoxDecoration(
             color: Theme.of(context).brightness == Brightness.light
                 ? CupertinoColors.white
@@ -105,9 +105,10 @@ class CupertinoSettingsSection extends StatelessWidget {
   @allowReturningWidgets
   List<Widget> buildItemsWithDividers() {
     final itemsWithDividers = <Widget>[];
-    for (int i = 0; i < items.length; i++) {
+    for (var i = 0; i < items.length; i++) {
       itemsWithDividers.add(items[i]);
       if (i < items.length - 1) {
+        // ignore: avoid-unrelated-type-assertions
         final leftPadding = (items[i] is WithLeading && items[i + 1] is WithLeading)
             ? ((items[i] as WithLeading).leading == null ? 15.0 : 54.0)
             : 0.0;

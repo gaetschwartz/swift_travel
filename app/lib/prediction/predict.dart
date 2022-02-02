@@ -7,7 +7,7 @@ import 'package:swift_travel/prediction/models/models.dart';
 
 typedef JSON = Map<String, Object?>;
 
-// ignore: todo
+// ignore: todo, flutter_style_todos
 // TODO: In the future, we should create a separate [Isolate] instead of spawning one each time.
 
 /// Prediction

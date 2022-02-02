@@ -8,7 +8,7 @@ const _spoofedLocation = GeoLocation(latitude: 46.2225454, longitude: 6.1385658)
 
 class GeoLocationEngine {
   GeoLocationEngine._();
-  static late final instance = GeoLocationEngine._();
+  static final instance = GeoLocationEngine._();
 
   Future<GeoLocation> getLocation({
     LocationAccuracy accuracy = LocationAccuracy.best,
@@ -18,7 +18,7 @@ class GeoLocationEngine {
       return _spoofedLocation;
     } else {
       try {
-        LocationPermission permission = await Geolocator.checkPermission();
+        var permission = await Geolocator.checkPermission();
 
         if (permission == LocationPermission.denied) {
           permission = await Geolocator.requestPermission();
@@ -72,6 +72,7 @@ extension LocationPermissionX on LocationPermission {
     switch (this) {
       case LocationPermission.denied:
       case LocationPermission.deniedForever:
+      case LocationPermission.unableToDetermine:
         return false;
       case LocationPermission.whileInUse:
       case LocationPermission.always:

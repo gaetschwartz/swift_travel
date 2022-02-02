@@ -25,7 +25,7 @@ abstract class BaseFavoritesStore extends ChangeNotifier {
 }
 
 final storeProvider =
-    ChangeNotifierProvider<BaseFavoritesStore>((r) => FavoritesSharedPreferencesStore(r));
+    ChangeNotifierProvider<BaseFavoritesStore>(FavoritesSharedPreferencesStore.new);
 final favoritesStatesProvider =
     StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());
 final favoritesRoutesStatesProvider =
@@ -95,7 +95,7 @@ class FavRoutesDb extends LocalDatabase<int, Map, LocalRoute> with IndexedDataba
           encode: (d) => d.toJson(),
         );
 
-  static late final i = FavRoutesDb();
+  static final i = FavRoutesDb();
 
   List<LocalRoute> get routes => values.toList(growable: false);
 
@@ -114,7 +114,7 @@ class FavStopsDb extends LocalDatabase<int, Map, FavoriteStop> with IndexedDatab
           encode: (d) => d.toJson(),
         );
 
-  static late final i = FavStopsDb();
+  static final i = FavStopsDb();
 
   List<FavoriteStop> get stops => values.toList(growable: false);
 

@@ -43,7 +43,7 @@ class _TransportDetailsState extends State<TransportDetails> {
     )
   ];
   late final List<Attribute> attributes = widget.leg.attributes.entries
-      .map((e) => Attribute.fromAttribute(e))
+      .map(Attribute.fromAttribute)
       .where((e) => !e.ignore)
       .toList(growable: false);
 

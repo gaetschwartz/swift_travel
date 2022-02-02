@@ -26,7 +26,7 @@ class PreferencesBloc {
   final api = MappedSharedPreferencesProperty<NavigationApiId, String>(
     prefix + navigationApiKey,
     defaultValue: searchChApi.id,
-    decode: (s) => NavigationApiId(s),
+    decode: NavigationApiId.new,
     encode: (id) => id.value,
   );
 
@@ -37,14 +37,14 @@ class PreferencesBloc {
       SimpleSharedPreferencesProperty<bool>("${prefix}is_developer", defaultValue: false);
 
   Future<void> loadFromPreferences({SharedPreferences? prefs}) async {
-    final _prefs = prefs ?? await SharedPreferences.getInstance();
+    final p = prefs ?? await SharedPreferences.getInstance();
 
     await Future.wait([
       mapsApp.init,
       api.init,
       useAnalytics.init,
       isDeveloper.init,
-    ].map((e) => e(_prefs)));
+    ].map((e) => e(p)));
   }
 }
 

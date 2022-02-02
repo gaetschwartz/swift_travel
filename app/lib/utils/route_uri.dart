@@ -68,18 +68,20 @@ Map<String, String> encodeRouteUri(Uri uri, int i) {
   }
 
   final year = int.parse(date[2]);
-  final month = int.parse(date[0]);
+  final month = int.parse(date.first);
   final day = int.parse(date[1]);
 
   final datetime = DateTime(
     year,
     month,
     day,
-    int.parse(time[0]),
+    int.parse(time.first),
     int.parse(time[1]),
   );
 
-  oldParams..remove('time')..remove('date');
+  oldParams
+    ..remove('time')
+    ..remove('date');
 
   for (final e in oldParams.entries) {
     final newKey = translate.entries.firstWhereOrNull((e2) => e.key == e2.value)?.key ?? e.key;

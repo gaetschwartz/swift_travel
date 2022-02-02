@@ -15,7 +15,7 @@ class LineCache extends LocalDatabase<String, Map, LineCacheEntry> with KeyedDat
           encode: (d) => d.toJson(),
         );
 
-  static late final i = LineCache();
+  static final i = LineCache();
 
   List<LineCacheEntry> get entries => values.toList(growable: false);
 
