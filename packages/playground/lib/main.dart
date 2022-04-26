@@ -128,7 +128,8 @@ class MyCurve extends Curve {
   final double thresh;
 
   @override
-  double transform(double t) => t < thresh ? 0 : Curves.easeInOutCubic.transform(t / thresh - 1);
+  double transform(double t) =>
+      t < thresh ? 0 : Curves.easeInOutCubic.transform(t / thresh - 1);
 }
 
 class CurveCanvas extends CustomPainter {
@@ -160,7 +161,8 @@ class CurveCanvas extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
-class _BreatheWidgetState extends State<BreatheWidget> with SingleTickerProviderStateMixin {
+class _BreatheWidgetState extends State<BreatheWidget>
+    with SingleTickerProviderStateMixin {
   late final AnimationController controller = AnimationController(vsync: this);
   late final CurvedAnimation a;
   static const curve = Curves.easeInOutCirc;
@@ -213,7 +215,8 @@ class _BreatheWidgetState extends State<BreatheWidget> with SingleTickerProvider
                           blurRadius: a.value * widget.scale,
                         )
                       ],
-                      borderRadius: BorderRadius.all(Radius.circular(widget.scale / 2)),
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(widget.scale / 2)),
                       color: Colors.white,
                       image: const DecorationImage(
                         image: AssetImage(
@@ -321,8 +324,9 @@ class _EditorPageState extends State<EditorPage> {
                       ),
                     )
                     .toList(),
-                selectedItemBuilder: (context) =>
-                    SizeType.values.map((e) => Center(child: Text(e.toString()))).toList(),
+                selectedItemBuilder: (context) => SizeType.values
+                    .map((e) => Center(child: Text(e.toString())))
+                    .toList(),
                 value: sizeType,
                 onChanged: (v) {
                   if (v != null) setState(() => sizeType = v);
@@ -337,7 +341,9 @@ class _EditorPageState extends State<EditorPage> {
                     scrollDirection: Axis.horizontal,
                     child: DecoratedBox(
                       decoration: const BoxDecoration(
-                        boxShadow: [BoxShadow(blurRadius: 16, color: Color(0x800700b1))],
+                        boxShadow: [
+                          BoxShadow(blurRadius: 16, color: Color(0x800700b1))
+                        ],
                       ),
                       child: SizedBox.fromSize(
                         child: wrapWithSize(
@@ -365,7 +371,8 @@ class _EditorPageState extends State<EditorPage> {
   }
 
   Future<void> screenshot() async {
-    final boundary = (globalKey.currentContext?.findRenderObject())! as RenderRepaintBoundary;
+    final boundary = (globalKey.currentContext?.findRenderObject())!
+        as RenderRepaintBoundary;
 
     final ui.Image image = await boundary.toImage();
     final directory = (await getTemporaryDirectory()).path;
@@ -378,8 +385,12 @@ class _EditorPageState extends State<EditorPage> {
     print(imgFile.path);
   }
 
-  String get filename =>
-      '${[widget.name, if (hasBackground) 'bg', describeEnum(sizeType), scale].join('-')}.png';
+  String get filename => '${[
+        widget.name,
+        if (hasBackground) 'bg',
+        describeEnum(sizeType),
+        scale
+      ].join('-')}.png';
 }
 
 class WidgetsShowcase extends StatelessWidget {
@@ -438,16 +449,23 @@ class WidgetsShowcase extends StatelessWidget {
                               margin: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
                                 boxShadow: shadowListOf(context),
                               ),
                               child: Column(
                                 children: [
                                   WalkingTile(
-                                    SbbRoute.fromJson(mockRoute).connections.first.legs[0],
+                                    SbbRoute.fromJson(mockRoute)
+                                        .connections
+                                        .first
+                                        .legs[0],
                                   ),
                                   TransportLegTile(
-                                    SbbRoute.fromJson(mockRoute).connections.first.legs[1],
+                                    SbbRoute.fromJson(mockRoute)
+                                        .connections
+                                        .first
+                                        .legs[1],
                                   ),
                                 ],
                               ),
@@ -466,13 +484,15 @@ class WidgetsShowcase extends StatelessWidget {
                               margin: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
                                 boxShadow: shadowListOf(context),
                               ),
                               child: const RouteWidget(
                                 from: Text("Université populaire de Fribourg"),
                                 to: Text("Genève, Uni-Mail"),
-                                icon: Text('💡', style: TextStyle(fontSize: 24)),
+                                icon:
+                                    Text('💡', style: TextStyle(fontSize: 24)),
                                 title: Text('Suggestion'),
                                 fromOverride: "From",
                                 toOverride: "To",
@@ -537,7 +557,7 @@ class HeaderWidget extends StatelessWidget {
           ),
           SizedBox(width: scale / 2),
           Text(
-            'Tabi 旅',
+            'Swift Travel',
             style: GoogleFonts.ubuntu(fontSize: scale, letterSpacing: 0),
           ),
         ],
