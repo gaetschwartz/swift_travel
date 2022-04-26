@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/attribute.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -18,7 +18,8 @@ class AttributesPage extends StatelessWidget {
   Widget build(BuildContext context) => PlatformBuilder(
       cupertinoBuilder: (context, child) => Material(
             child: CupertinoPageScaffold(
-              navigationBar: const SwiftCupertinoBar(middle: Text('Attributes')),
+              navigationBar:
+                  const SwiftCupertinoBar(middle: Text('Attributes')),
               child: child!,
             ),
           ),
@@ -74,8 +75,11 @@ class AttributeTile extends StatelessWidget {
       title: Text(att.message!),
       dense: true,
       subtitle: Env.isDebugMode ? Text(att.code) : null,
-      onTap: Env.isDebugMode ? () => Clipboard.setData(ClipboardData(text: att.code)) : null,
-      trailing: Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,
+      onTap: Env.isDebugMode
+          ? () => Clipboard.setData(ClipboardData(text: att.code))
+          : null,
+      trailing:
+          Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,
     );
   }
 }

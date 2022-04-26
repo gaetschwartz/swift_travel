@@ -26,22 +26,22 @@ const _days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 class _RouteHistoryPageState extends State<RouteHistoryPage> {
   @override
   Widget build(BuildContext context) {
-    final routes = RouteHistoryRepository.i.history;
-    final pred = const KnnRouteModel().predict(
-        FullArguments(routes, PredictionArguments.empty(dateTime: FakeableDateTime.now())));
+    final routes = RouteHistoryRepository.instance.history;
+    final pred = const KnnRouteModel().predict(FullArguments(
+        routes, PredictionArguments.empty(dateTime: FakeableDateTime.now())));
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).push<void>(
-                    MaterialPageRoute(builder: (context) => _RoutesJson(routes: routes)));
+                Navigator.of(context).push<void>(MaterialPageRoute(
+                    builder: (context) => _RoutesJson(routes: routes)));
               },
               icon: const Icon(Icons.print)),
           IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () async {
-                await RouteHistoryRepository.i.clear();
+                await RouteHistoryRepository.instance.clear();
                 setState(() {});
               }),
         ],
@@ -51,7 +51,8 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
           if (pred.prediction != null) ...[
             const Text('Predicted route :'),
             ListTile(
-                title: Text('Confidence : ${(pred.confidence * 100).toStringAsFixed(2)} %'),
+                title: Text(
+                    'Confidence : ${(pred.confidence * 100).toStringAsFixed(2)} %'),
                 subtitle: Text(pred.arguments.toString())),
             ListTile(
               title: Text(pred.prediction!.fromAsString),

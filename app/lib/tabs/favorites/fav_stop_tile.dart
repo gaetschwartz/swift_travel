@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
@@ -15,7 +15,7 @@ import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
-class FavoriteStationTile extends StatelessWidget {
+class FavoriteStationTile extends ConsumerStatefulWidget {
   const FavoriteStationTile(
     this.stop, {
     Key? key,
@@ -23,6 +23,12 @@ class FavoriteStationTile extends StatelessWidget {
 
   final FavoriteStop stop;
 
+  @override
+  ConsumerState<FavoriteStationTile> createState() =>
+      _FavoriteStationTileState();
+}
+
+class _FavoriteStationTileState extends ConsumerState<FavoriteStationTile> {
   @override
   Widget build(BuildContext context) {
     final darwin = isThemeDarwin(context);
@@ -51,8 +57,10 @@ class FavoriteStationTile extends StatelessWidget {
             label: AppLocalizations.of(context).timetable,
             backgroundColor: Colors.blue,
             icon: CupertinoIcons.list_number,
-            onPressed: (context) =>
-                SideBar.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
+            onPressed: (context) => SideBar.push(
+                context,
+                (context) =>
+                    StopDetails(SbbStop.fromFavoriteStop(widget.stop))),
           ),
         ],
       ),
@@ -79,11 +87,13 @@ class FavoriteStationTile extends StatelessWidget {
               ),
           ],
         ),
-        onTap: () => Navigator.of(context).pushNamed('/route', arguments: stop),
+        onTap: () =>
+            Navigator.of(context).pushNamed('/route', arguments: widget.stop),
         onLongPress: () => edit(context),
-        trailing: Icon(CupertinoIcons.chevron_forward, color: IconTheme.of(context).color),
-        title: Text(stop.name),
-        subtitle: Text(stop.stop, overflow: TextOverflow.ellipsis),
+        trailing: Icon(CupertinoIcons.chevron_forward,
+            color: IconTheme.of(context).color),
+        title: Text(widget.stop.name),
+        subtitle: Text(widget.stop.stop, overflow: TextOverflow.ellipsis),
       ),
     );
   }
@@ -96,8 +106,8 @@ class FavoriteStationTile extends StatelessWidget {
         ActionsSheetAction(
           title: Text(AppLocalizations.of(context).timetable),
           icon: const Icon(CupertinoIcons.list_number),
-          onPressed: () =>
-              SideBar.push(context, (context) => StopDetails(SbbStop.fromFavoriteStop(stop))),
+          onPressed: () => SideBar.push(context,
+              (context) => StopDetails(SbbStop.fromFavoriteStop(widget.stop))),
         ),
         ActionsSheetAction(
           title: Text(AppLocalizations.of(context).rename),
@@ -119,23 +129,25 @@ class FavoriteStationTile extends StatelessWidget {
   }
 
   Future<void> rename(BuildContext context) async {
-    final store = context.read(storeProvider);
-    final s = await input(context, title: Text('How to rename "${stop.name}" ?'));
+    final store = ref.read(storeProvider);
+    final s = await input(context,
+        title: Text('How to rename "${widget.stop.name}" ?'));
     if (s == null) {
       return;
     }
-    await store.removeStop(stop);
-    return store.addStop(stop.copyWith(name: s));
+    await store.removeStop(widget.stop);
+    return store.addStop(widget.stop.copyWith(name: s));
   }
 
   Future<void> delete(BuildContext context) async {
-    final favoritesStore = context.read(storeProvider);
+    final favoritesStore = ref.read(storeProvider);
     final b = await confirm(
       context,
       title: Text(AppLocalizations.of(context).delete_fav),
-      content: Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
+      content:
+          Text.rich(TextSpan(text: 'Do you really want to delete ', children: [
         TextSpan(
-            text: '${stop.name} (${stop.stop})',
+            text: '${widget.stop.name} (${widget.stop.stop})',
             style: const TextStyle(fontWeight: FontWeight.bold)),
         const TextSpan(text: '?'),
       ])),
@@ -145,6 +157,6 @@ class FavoriteStationTile extends StatelessWidget {
     );
     if (!b) return;
 
-    return favoritesStore.removeStop(stop);
+    return favoritesStore.removeStop(widget.stop);
   }
 }

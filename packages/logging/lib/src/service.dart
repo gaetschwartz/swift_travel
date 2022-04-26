@@ -1,7 +1,7 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'consumer.dart';
 import 'models.dart';
@@ -9,7 +9,8 @@ import 'models.dart';
 class LoggingService {
   LoggingService(List<LogConsumer> consumers) : _consumers = consumers;
 
-  static late final LoggingService instance = LoggingService([const ConsoleLogger()]);
+  static late final LoggingService instance =
+      LoggingService([const ConsoleLogger()]);
 
   List<LogConsumer> _consumers;
 
@@ -41,7 +42,8 @@ class LoggingService {
     }
   }
 
-  void log(Object? message, {LogLevel level = LogLevel.info, String? channel}) =>
+  void log(Object? message,
+          {LogLevel level = LogLevel.info, String? channel}) =>
       _log(message.toString(), channel: channel, level: level);
 
   Future<T> future<T extends Object?>(Future<T> future,
@@ -54,7 +56,8 @@ class LoggingService {
   }
 
   /// Log a serious crash, if possible
-  void crash(String e, {String? channel}) => _log(e, level: LogLevel.crash, channel: channel);
+  void crash(String e, {String? channel}) =>
+      _log(e, level: LogLevel.crash, channel: channel);
 
   /// Log an error, like if something is thrown
   void e(String e, {String? channel, StackTrace? stackTrace}) {
@@ -63,11 +66,13 @@ class LoggingService {
   }
 
   /// Log a timed network operation
-  Future<T> network<T extends Object?>(Future<T> Function() f, {String channel = 'network'}) =>
+  Future<T> network<T extends Object?>(Future<T> Function() f,
+          {String channel = 'network'}) =>
       future(f(), channel: channel);
 
   /// Log a ui event, like tapping a button
-  void ui(String msg, {LogLevel level = LogLevel.info}) => _log(msg, channel: 'ui', level: level);
+  void ui(String msg, {LogLevel level = LogLevel.info}) =>
+      _log(msg, channel: 'ui', level: level);
 
   // Log an info
   void i(String msg, {String? channel, LogLevel level = LogLevel.info}) =>
@@ -79,7 +84,8 @@ class LoggingService {
     String? channel,
     LogLevel level = LogLevel.info,
   }) =>
-      _log(JsonEncoder.withIndent(indent).convert(json), channel: channel, level: level);
+      _log(JsonEncoder.withIndent(indent).convert(json),
+          channel: channel, level: level);
 }
 
 /// The singleton logger instance.

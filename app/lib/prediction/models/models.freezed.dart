@@ -12,32 +12,11 @@ part of 'models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 RoutePrediction _$RoutePredictionFromJson(Map<String, dynamic> json) {
   return _RoutePrediction.fromJson(json);
 }
-
-/// @nodoc
-class _$RoutePredictionTearOff {
-  const _$RoutePredictionTearOff();
-
-  _RoutePrediction call(@LocalRouteConverter() LocalRoute? prediction,
-      double confidence, PredictionArguments arguments) {
-    return _RoutePrediction(
-      prediction,
-      confidence,
-      arguments,
-    );
-  }
-
-  RoutePrediction fromJson(Map<String, Object?> json) {
-    return RoutePrediction.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $RoutePrediction = _$RoutePredictionTearOff();
 
 /// @nodoc
 mixin _$RoutePrediction {
@@ -203,6 +182,7 @@ class _$_RoutePrediction implements _RoutePrediction {
             const DeepCollectionEquality().equals(other.arguments, arguments));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -222,19 +202,21 @@ class _$_RoutePrediction implements _RoutePrediction {
 }
 
 abstract class _RoutePrediction implements RoutePrediction {
-  const factory _RoutePrediction(@LocalRouteConverter() LocalRoute? prediction,
-      double confidence, PredictionArguments arguments) = _$_RoutePrediction;
+  const factory _RoutePrediction(
+      @LocalRouteConverter() final LocalRoute? prediction,
+      final double confidence,
+      final PredictionArguments arguments) = _$_RoutePrediction;
 
   factory _RoutePrediction.fromJson(Map<String, dynamic> json) =
       _$_RoutePrediction.fromJson;
 
   @override
   @LocalRouteConverter()
-  LocalRoute? get prediction;
+  LocalRoute? get prediction => throw _privateConstructorUsedError;
   @override
-  double get confidence;
+  double get confidence => throw _privateConstructorUsedError;
   @override
-  PredictionArguments get arguments;
+  PredictionArguments get arguments => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RoutePredictionCopyWith<_RoutePrediction> get copyWith =>
@@ -244,25 +226,6 @@ abstract class _RoutePrediction implements RoutePrediction {
 FullArguments _$FullArgumentsFromJson(Map<String, dynamic> json) {
   return _FullArguments.fromJson(json);
 }
-
-/// @nodoc
-class _$FullArgumentsTearOff {
-  const _$FullArgumentsTearOff();
-
-  _FullArguments call(List<LocalRoute> routes, PredictionArguments arguments) {
-    return _FullArguments(
-      routes,
-      arguments,
-    );
-  }
-
-  FullArguments fromJson(Map<String, Object?> json) {
-    return FullArguments.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $FullArguments = _$FullArgumentsTearOff();
 
 /// @nodoc
 mixin _$FullArguments {
@@ -365,13 +328,19 @@ class __$FullArgumentsCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$_FullArguments implements _FullArguments {
-  const _$_FullArguments(this.routes, this.arguments);
+  const _$_FullArguments(final List<LocalRoute> routes, this.arguments)
+      : _routes = routes;
 
   factory _$_FullArguments.fromJson(Map<String, dynamic> json) =>
       _$$_FullArgumentsFromJson(json);
 
+  final List<LocalRoute> _routes;
   @override
-  final List<LocalRoute> routes;
+  List<LocalRoute> get routes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_routes);
+  }
+
   @override
   final PredictionArguments arguments;
 
@@ -389,6 +358,7 @@ class _$_FullArguments implements _FullArguments {
             const DeepCollectionEquality().equals(other.arguments, arguments));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -408,16 +378,16 @@ class _$_FullArguments implements _FullArguments {
 
 abstract class _FullArguments implements FullArguments {
   const factory _FullArguments(
-          List<LocalRoute> routes, PredictionArguments arguments) =
+          final List<LocalRoute> routes, final PredictionArguments arguments) =
       _$_FullArguments;
 
   factory _FullArguments.fromJson(Map<String, dynamic> json) =
       _$_FullArguments.fromJson;
 
   @override
-  List<LocalRoute> get routes;
+  List<LocalRoute> get routes => throw _privateConstructorUsedError;
   @override
-  PredictionArguments get arguments;
+  PredictionArguments get arguments => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FullArgumentsCopyWith<_FullArguments> get copyWith =>
@@ -440,41 +410,8 @@ PredictionArguments _$PredictionArgumentsFromJson(Map<String, dynamic> json) {
 }
 
 /// @nodoc
-class _$PredictionArgumentsTearOff {
-  const _$PredictionArgumentsTearOff();
-
-  EmptyArgument empty({required DateTime? dateTime}) {
-    return EmptyArgument(
-      dateTime: dateTime,
-    );
-  }
-
-  SourceDateArguments withSource(String source, {required DateTime? dateTime}) {
-    return SourceDateArguments(
-      source,
-      dateTime: dateTime,
-    );
-  }
-
-  LocationArgument withLocation(LatLon latLon, {required DateTime? dateTime}) {
-    return LocationArgument(
-      latLon,
-      dateTime: dateTime,
-    );
-  }
-
-  PredictionArguments fromJson(Map<String, Object?> json) {
-    return PredictionArguments.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $PredictionArguments = _$PredictionArgumentsTearOff();
-
-/// @nodoc
 mixin _$PredictionArguments {
   DateTime? get dateTime => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(DateTime? dateTime) empty,
@@ -593,7 +530,7 @@ class _$EmptyArgumentCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$EmptyArgument extends EmptyArgument {
-  const _$EmptyArgument({required this.dateTime, String? $type})
+  const _$EmptyArgument({required this.dateTime, final String? $type})
       : $type = $type ?? 'empty',
         super._();
 
@@ -619,6 +556,7 @@ class _$EmptyArgument extends EmptyArgument {
             const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(dateTime));
@@ -703,14 +641,15 @@ class _$EmptyArgument extends EmptyArgument {
 }
 
 abstract class EmptyArgument extends PredictionArguments {
-  const factory EmptyArgument({required DateTime? dateTime}) = _$EmptyArgument;
+  const factory EmptyArgument({required final DateTime? dateTime}) =
+      _$EmptyArgument;
   const EmptyArgument._() : super._();
 
   factory EmptyArgument.fromJson(Map<String, dynamic> json) =
       _$EmptyArgument.fromJson;
 
   @override
-  DateTime? get dateTime;
+  DateTime? get dateTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $EmptyArgumentCopyWith<EmptyArgument> get copyWith =>
@@ -761,7 +700,7 @@ class _$SourceDateArgumentsCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$SourceDateArguments extends SourceDateArguments {
   const _$SourceDateArguments(this.source,
-      {required this.dateTime, String? $type})
+      {required this.dateTime, final String? $type})
       : $type = $type ?? 'withSource',
         super._();
 
@@ -790,6 +729,7 @@ class _$SourceDateArguments extends SourceDateArguments {
             const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -876,16 +816,16 @@ class _$SourceDateArguments extends SourceDateArguments {
 }
 
 abstract class SourceDateArguments extends PredictionArguments {
-  const factory SourceDateArguments(String source,
-      {required DateTime? dateTime}) = _$SourceDateArguments;
+  const factory SourceDateArguments(final String source,
+      {required final DateTime? dateTime}) = _$SourceDateArguments;
   const SourceDateArguments._() : super._();
 
   factory SourceDateArguments.fromJson(Map<String, dynamic> json) =
       _$SourceDateArguments.fromJson;
 
-  String get source;
+  String get source => throw _privateConstructorUsedError;
   @override
-  DateTime? get dateTime;
+  DateTime? get dateTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $SourceDateArgumentsCopyWith<SourceDateArguments> get copyWith =>
@@ -944,7 +884,8 @@ class _$LocationArgumentCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$LocationArgument extends LocationArgument {
-  const _$LocationArgument(this.latLon, {required this.dateTime, String? $type})
+  const _$LocationArgument(this.latLon,
+      {required this.dateTime, final String? $type})
       : $type = $type ?? 'withLocation',
         super._();
 
@@ -973,6 +914,7 @@ class _$LocationArgument extends LocationArgument {
             const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1059,36 +1001,21 @@ class _$LocationArgument extends LocationArgument {
 }
 
 abstract class LocationArgument extends PredictionArguments {
-  const factory LocationArgument(LatLon latLon, {required DateTime? dateTime}) =
-      _$LocationArgument;
+  const factory LocationArgument(final LatLon latLon,
+      {required final DateTime? dateTime}) = _$LocationArgument;
   const LocationArgument._() : super._();
 
   factory LocationArgument.fromJson(Map<String, dynamic> json) =
       _$LocationArgument.fromJson;
 
-  LatLon get latLon;
+  LatLon get latLon => throw _privateConstructorUsedError;
   @override
-  DateTime? get dateTime;
+  DateTime? get dateTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $LocationArgumentCopyWith<LocationArgument> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$PairTearOff {
-  const _$PairTearOff();
-
-  _Pair<R, S> call<R, S>(R first, S second) {
-    return _Pair<R, S>(
-      first,
-      second,
-    );
-  }
-}
-
-/// @nodoc
-const $Pair = _$PairTearOff();
 
 /// @nodoc
 mixin _$Pair<R, S> {
@@ -1205,32 +1132,18 @@ class _$_Pair<R, S> extends _Pair<R, S> {
 }
 
 abstract class _Pair<R, S> extends Pair<R, S> {
-  const factory _Pair(R first, S second) = _$_Pair<R, S>;
+  const factory _Pair(final R first, final S second) = _$_Pair<R, S>;
   const _Pair._() : super._();
 
   @override
-  R get first;
+  R get first => throw _privateConstructorUsedError;
   @override
-  S get second;
+  S get second => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PairCopyWith<R, S, _Pair<R, S>> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$ContactCompletionTearOff {
-  const _$ContactCompletionTearOff();
-
-  _ContactCompletion call(Contact contact) {
-    return _ContactCompletion(
-      contact,
-    );
-  }
-}
-
-/// @nodoc
-const $ContactCompletion = _$ContactCompletionTearOff();
 
 /// @nodoc
 mixin _$ContactCompletion {
@@ -1337,28 +1250,17 @@ class _$_ContactCompletion extends _ContactCompletion {
 }
 
 abstract class _ContactCompletion extends ContactCompletion {
-  const factory _ContactCompletion(Contact contact) = _$_ContactCompletion;
+  const factory _ContactCompletion(final Contact contact) =
+      _$_ContactCompletion;
   const _ContactCompletion._() : super._();
 
   @override
-  Contact get contact;
+  Contact get contact => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ContactCompletionCopyWith<_ContactCompletion> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$CurrentLocationCompletionTearOff {
-  const _$CurrentLocationCompletionTearOff();
-
-  _CurrentLocationCompletion call() {
-    return const _CurrentLocationCompletion();
-  }
-}
-
-/// @nodoc
-const $CurrentLocationCompletion = _$CurrentLocationCompletionTearOff();
 
 /// @nodoc
 mixin _$CurrentLocationCompletion {}

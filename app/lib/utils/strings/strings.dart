@@ -15,7 +15,8 @@ extension StringUtils on String {
     return length >= other ? substring(0, other) + trailing : this;
   }
 
-  TextSpan parseMarkdown({TextStyle? style}) => parseDecoratedText(this, style: style);
+  TextSpan parseMarkdown({TextStyle? style}) =>
+      parseDecoratedText(this, style: style);
 
   /// Levenshtein distance to another string
   int distanceTo(String other, {bool caseSensitive = false}) =>
@@ -27,7 +28,8 @@ extension StringUtils on String {
 
   String toCamelCase() =>
       this[0].toUpperCase() +
-      substring(1).replaceAllMapped(RegExp(r'\s(\w)'), (m) => m[1]!.toUpperCase());
+      substring(1)
+          .replaceAllMapped(RegExp(r'\s(\w)'), (m) => m[1]!.toUpperCase());
 
   String stripAt() {
     final i = indexOf('@');
@@ -79,6 +81,7 @@ int levenshtein(String stringA, String stringB, {bool caseSensitive = false}) {
 /// ```
 ///
 /// See also: https://en.wikipedia.org/wiki/Levenshtein_distance
-double scaledLevenshtein(String stringA, String stringB, {bool caseSensitive = false}) =>
+double scaledLevenshtein(String stringA, String stringB,
+        {bool caseSensitive = false}) =>
     levenshtein(stringA, stringB, caseSensitive: caseSensitive) /
     max(stringA.length, stringB.length);

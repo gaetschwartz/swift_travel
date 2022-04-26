@@ -3,7 +3,7 @@ import 'dart:math' show min;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -34,7 +34,7 @@ class CompletionEngine {
     this.read, {
     RouteHistoryRepository? routeHistoryRepository,
   }) : routeHistoryRepository =
-            routeHistoryRepository ?? RouteHistoryRepository.i;
+            routeHistoryRepository ?? RouteHistoryRepository.instance;
 
   final T Function<T>(ProviderBase<T> provider) read;
   final RouteHistoryRepository routeHistoryRepository;
@@ -48,17 +48,16 @@ class CompletionEngine {
         ? routeHistoryRepository.history
         : const Iterable<LocalRoute>.empty();
     final completions = await read(navigationAPIProvider).complete(query);
-    final distances = <FavoriteStop, double>{};
+    final distances = <MapEntry<FavoriteStop, double>>[];
 
     for (final c in favorites) {
       final leven = scaledLevenshtein(query, c.name.replaceAll(',', ''));
       if (leven < _kConfidenceThreshold) {
-        distances[c] = leven;
+        distances.add(MapEntry(c, leven));
       }
     }
 
-    final favs = distances.entries.toList(growable: false)
-      ..sort((a, b) => a.value.compareTo(b.value));
+    final favs = distances..sort((a, b) => a.value.compareTo(b.value));
 
     return [
       if (history.isNotEmpty)
@@ -72,7 +71,7 @@ class CompletionEngine {
             .take(_kMaxHistoryCount)
             .toSet(),
       ...favs
-          .take(min(favs.length, _kMaxFavoritesCount))
+          .take(_kMaxFavoritesCount)
           .map((e) => SbbCompletion.fromFavorite(e.key)),
       ...completions,
     ];

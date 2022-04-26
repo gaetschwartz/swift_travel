@@ -74,7 +74,8 @@ class ValueAction<T> extends Action {
   Object invoke(covariant ValueIntent<T> intent) => onInvoke(intent.value);
 }
 
-class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMixin {
+class _SneccGameState extends State<SneccGame>
+    with SingleTickerProviderStateMixin {
   final r = m.Random();
   final snecc = ListQueue<Point?>();
   int tick = 0;
@@ -128,7 +129,8 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
           log.log(snecc);
           showDialog<void>(
               context: context,
-              builder: (_) => const AlertDialog(title: Text('You ate yourself !')));
+              builder: (_) =>
+                  const AlertDialog(title: Text('You ate yourself !')));
           stop();
           setState(() => tick = t);
           return;
@@ -141,9 +143,13 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
         if (period >= 175) {
           period -= 25;
         }
-      } else if (head!.x >= gridSize || head!.x < 0 || head!.y >= gridSize || head!.y < 0) {
+      } else if (head!.x >= gridSize ||
+          head!.x < 0 ||
+          head!.y >= gridSize ||
+          head!.y < 0) {
         showDialog<void>(
-            context: context, builder: (_) => const AlertDialog(title: Text('You lost !')));
+            context: context,
+            builder: (_) => const AlertDialog(title: Text('You lost !')));
         stop();
       }
       setState(() => tick = t);
@@ -163,19 +169,27 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
   Widget build(BuildContext context) => SafeArea(
         child: FocusableActionDetector(
           shortcuts: {
-            LogicalKeySet(LogicalKeyboardKey.arrowUp): const ValueIntent(Direction.up),
-            LogicalKeySet(LogicalKeyboardKey.arrowDown): const ValueIntent(Direction.down),
-            LogicalKeySet(LogicalKeyboardKey.arrowRight): const ValueIntent(Direction.right),
-            LogicalKeySet(LogicalKeyboardKey.arrowLeft): const ValueIntent(Direction.left),
+            LogicalKeySet(LogicalKeyboardKey.arrowUp):
+                const ValueIntent(Direction.up),
+            LogicalKeySet(LogicalKeyboardKey.arrowDown):
+                const ValueIntent(Direction.down),
+            LogicalKeySet(LogicalKeyboardKey.arrowRight):
+                const ValueIntent(Direction.right),
+            LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+                const ValueIntent(Direction.left),
           },
-          actions: {ValueIntent: ValueAction<Direction>((value) => dir = value)},
+          actions: {
+            ValueIntent: ValueAction<Direction>((value) => dir = value)
+          },
           child: Scaffold(
             appBar: AppBar(
               title: const Text('Snecc game'),
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: started ? stop : start,
-              child: started ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
+              child: started
+                  ? const Icon(Icons.stop)
+                  : const Icon(Icons.play_arrow),
             ),
             body: Column(
               children: [
@@ -185,7 +199,8 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
                     child: Center(
                       child: AspectRatio(
                         aspectRatio: 1,
-                        child: CustomPaint(painter: MyPainter(gridSize, snecc, food)),
+                        child: CustomPaint(
+                            painter: MyPainter(gridSize, snecc, food)),
                       ),
                     ),
                   ),
@@ -194,7 +209,8 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
                 Column(
                   children: [
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                      style:
+                          ElevatedButton.styleFrom(shape: const CircleBorder()),
                       onPressed: () => dir = Direction.up,
                       child: const Padding(
                         padding: EdgeInsets.all(8),
@@ -208,7 +224,8 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                          style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder()),
                           onPressed: () => dir = Direction.left,
                           child: const Padding(
                             padding: EdgeInsets.all(8),
@@ -220,7 +237,8 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
                         ),
                         const Gap(32),
                         ElevatedButton(
-                          style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                          style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder()),
                           onPressed: () => dir = Direction.right,
                           child: const Padding(
                             padding: EdgeInsets.all(8),
@@ -233,7 +251,8 @@ class _SneccGameState extends State<SneccGame> with SingleTickerProviderStateMix
                       ],
                     ),
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                      style:
+                          ElevatedButton.styleFrom(shape: const CircleBorder()),
                       onPressed: () => dir = Direction.down,
                       child: const Padding(
                         padding: EdgeInsets.all(8),
@@ -274,13 +293,16 @@ class MyPainter extends CustomPainter {
     for (var i = 0; i <= gridSize; i++) {
       canvas
         ..drawLine(Offset(0, i * block), Offset(gridSize * block, i * block), p)
-        ..drawLine(Offset(i * block, 0), Offset(i * block, gridSize * block), p);
+        ..drawLine(
+            Offset(i * block, 0), Offset(i * block, gridSize * block), p);
     }
     for (final p in snecc) {
-      canvas.drawRect(Offset(p!.x * block, p.y * block) & Size(block, block), p2);
+      canvas.drawRect(
+          Offset(p!.x * block, p.y * block) & Size(block, block), p2);
     }
     if (food != null) {
-      canvas.drawRect(Offset(food!.x * block, food!.y * block) & Size(block, block), fud);
+      canvas.drawRect(
+          Offset(food!.x * block, food!.y * block) & Size(block, block), fud);
     }
   }
 

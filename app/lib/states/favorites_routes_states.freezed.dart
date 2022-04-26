@@ -12,31 +12,7 @@ part of 'favorites_routes_states.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$FavoritesRoutesStatesTearOff {
-  const _$FavoritesRoutesStatesTearOff();
-
-  FavoritesRoutesStatesData data(List<LocalRoute> routes) {
-    return FavoritesRoutesStatesData(
-      routes,
-    );
-  }
-
-  FavoritesRoutesStatesLoading loading() {
-    return const FavoritesRoutesStatesLoading();
-  }
-
-  FavoritesRoutesStatesError exception(Exception exception) {
-    return FavoritesRoutesStatesError(
-      exception,
-    );
-  }
-}
-
-/// @nodoc
-const $FavoritesRoutesStates = _$FavoritesRoutesStatesTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$FavoritesRoutesStates {
@@ -139,10 +115,15 @@ class _$FavoritesRoutesStatesDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
-  const _$FavoritesRoutesStatesData(this.routes);
+  const _$FavoritesRoutesStatesData(final List<LocalRoute> routes)
+      : _routes = routes;
 
+  final List<LocalRoute> _routes;
   @override
-  final List<LocalRoute> routes;
+  List<LocalRoute> get routes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_routes);
+  }
 
   @override
   String toString() {
@@ -237,10 +218,10 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
 }
 
 abstract class FavoritesRoutesStatesData implements FavoritesRoutesStates {
-  const factory FavoritesRoutesStatesData(List<LocalRoute> routes) =
+  const factory FavoritesRoutesStatesData(final List<LocalRoute> routes) =
       _$FavoritesRoutesStatesData;
 
-  List<LocalRoute> get routes;
+  List<LocalRoute> get routes => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FavoritesRoutesStatesDataCopyWith<FavoritesRoutesStatesData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -496,10 +477,10 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
 }
 
 abstract class FavoritesRoutesStatesError implements FavoritesRoutesStates {
-  const factory FavoritesRoutesStatesError(Exception exception) =
+  const factory FavoritesRoutesStatesError(final Exception exception) =
       _$FavoritesRoutesStatesError;
 
-  Exception get exception;
+  Exception get exception => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FavoritesRoutesStatesErrorCopyWith<FavoritesRoutesStatesError>
       get copyWith => throw _privateConstructorUsedError;

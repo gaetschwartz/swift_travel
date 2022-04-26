@@ -12,7 +12,7 @@ part of 'favorites.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 LocalRoute _$LocalRouteFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
@@ -28,42 +28,9 @@ LocalRoute _$LocalRouteFromJson(Map<String, dynamic> json) {
 }
 
 /// @nodoc
-class _$LocalRouteTearOff {
-  const _$LocalRouteTearOff();
-
-  LocalRouteV1 v1(String from, String to,
-      {String? displayName, DateTime? timestamp}) {
-    return LocalRouteV1(
-      from,
-      to,
-      displayName: displayName,
-      timestamp: timestamp,
-    );
-  }
-
-  LocalRouteV2 v2(SbbStop from, SbbStop to,
-      {String? displayName, DateTime? timestamp}) {
-    return LocalRouteV2(
-      from,
-      to,
-      displayName: displayName,
-      timestamp: timestamp,
-    );
-  }
-
-  LocalRoute fromJson(Map<String, Object?> json) {
-    return LocalRoute.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $LocalRoute = _$LocalRouteTearOff();
-
-/// @nodoc
 mixin _$LocalRoute {
   String? get displayName => throw _privateConstructorUsedError;
   DateTime? get timestamp => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -208,7 +175,7 @@ class _$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 @Deprecated("Use v2")
 class _$LocalRouteV1 extends LocalRouteV1 {
   const _$LocalRouteV1(this.from, this.to,
-      {this.displayName, this.timestamp, String? $type})
+      {this.displayName, this.timestamp, final String? $type})
       : $type = $type ?? 'v1',
         super._();
 
@@ -244,6 +211,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
             const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -338,19 +306,19 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 }
 
 abstract class LocalRouteV1 extends LocalRoute {
-  const factory LocalRouteV1(String from, String to,
-      {String? displayName, DateTime? timestamp}) = _$LocalRouteV1;
+  const factory LocalRouteV1(final String from, final String to,
+      {final String? displayName, final DateTime? timestamp}) = _$LocalRouteV1;
   const LocalRouteV1._() : super._();
 
   factory LocalRouteV1.fromJson(Map<String, dynamic> json) =
       _$LocalRouteV1.fromJson;
 
-  String get from;
-  String get to;
+  String get from => throw _privateConstructorUsedError;
+  String get to => throw _privateConstructorUsedError;
   @override
-  String? get displayName;
+  String? get displayName => throw _privateConstructorUsedError;
   @override
-  DateTime? get timestamp;
+  DateTime? get timestamp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $LocalRouteV1CopyWith<LocalRouteV1> get copyWith =>
@@ -428,7 +396,7 @@ class _$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class _$LocalRouteV2 extends LocalRouteV2 {
   const _$LocalRouteV2(this.from, this.to,
-      {this.displayName, this.timestamp, String? $type})
+      {this.displayName, this.timestamp, final String? $type})
       : $type = $type ?? 'v2',
         super._();
 
@@ -464,6 +432,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
             const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -558,19 +527,19 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 }
 
 abstract class LocalRouteV2 extends LocalRoute {
-  const factory LocalRouteV2(SbbStop from, SbbStop to,
-      {String? displayName, DateTime? timestamp}) = _$LocalRouteV2;
+  const factory LocalRouteV2(final SbbStop from, final SbbStop to,
+      {final String? displayName, final DateTime? timestamp}) = _$LocalRouteV2;
   const LocalRouteV2._() : super._();
 
   factory LocalRouteV2.fromJson(Map<String, dynamic> json) =
       _$LocalRouteV2.fromJson;
 
-  SbbStop get from;
-  SbbStop get to;
+  SbbStop get from => throw _privateConstructorUsedError;
+  SbbStop get to => throw _privateConstructorUsedError;
   @override
-  String? get displayName;
+  String? get displayName => throw _privateConstructorUsedError;
   @override
-  DateTime? get timestamp;
+  DateTime? get timestamp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $LocalRouteV2CopyWith<LocalRouteV2> get copyWith =>
@@ -580,28 +549,6 @@ abstract class LocalRouteV2 extends LocalRoute {
 FavoriteStop _$FavoriteStopFromJson(Map<String, dynamic> json) {
   return _FavoriteStop.fromJson(json);
 }
-
-/// @nodoc
-class _$FavoriteStopTearOff {
-  const _$FavoriteStopTearOff();
-
-  _FavoriteStop call(
-      {required String stop, required String name, String? api, String? id}) {
-    return _FavoriteStop(
-      stop: stop,
-      name: name,
-      api: api,
-      id: id,
-    );
-  }
-
-  FavoriteStop fromJson(Map<String, Object?> json) {
-    return FavoriteStop.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $FavoriteStop = _$FavoriteStopTearOff();
 
 /// @nodoc
 mixin _$FavoriteStop {
@@ -744,6 +691,7 @@ class _$_FavoriteStop extends _FavoriteStop {
             const DeepCollectionEquality().equals(other.id, id));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -765,23 +713,23 @@ class _$_FavoriteStop extends _FavoriteStop {
 
 abstract class _FavoriteStop extends FavoriteStop {
   const factory _FavoriteStop(
-      {required String stop,
-      required String name,
-      String? api,
-      String? id}) = _$_FavoriteStop;
+      {required final String stop,
+      required final String name,
+      final String? api,
+      final String? id}) = _$_FavoriteStop;
   const _FavoriteStop._() : super._();
 
   factory _FavoriteStop.fromJson(Map<String, dynamic> json) =
       _$_FavoriteStop.fromJson;
 
   @override
-  String get stop;
+  String get stop => throw _privateConstructorUsedError;
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String? get api;
+  String? get api => throw _privateConstructorUsedError;
   @override
-  String? get id;
+  String? get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FavoriteStopCopyWith<_FavoriteStop> get copyWith =>

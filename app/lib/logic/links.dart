@@ -6,12 +6,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
+import 'navigation.dart';
+
 final linksProvider = Provider<DeepLinkBloc>((ref) {
-  final deepLinkBloc = DeepLinkBloc();
+  final deepLinkBloc = DeepLinkBloc(ref.read);
   ref.onDispose(deepLinkBloc.dispose);
   return deepLinkBloc;
 });
@@ -26,20 +28,22 @@ class InvalidRouteException implements Exception {
 }
 
 class DeepLinkBloc {
-  static const stream = EventChannel('com.gaetanschwartz.swift_travel.deeplink/events');
-  static const channel = MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
+  static const stream =
+      EventChannel('com.gaetanschwartz.swift_travel.deeplink/events');
+  static const channel =
+      MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
 
   late StreamSubscription _sub;
-  late void Function(Pair<NavRoute, int> pair) onNewRoute;
-  late BaseNavigationApi Function() getApi;
+  void Function(Pair<NavRoute, int> pair)? onNewRoute;
+  final Reader read;
+
+  DeepLinkBloc(this.read);
 
   Future<void> init({
-    required BaseNavigationApi Function() getApi,
     required void Function(Pair<NavRoute, int> pair) onNewRoute,
   }) async {
     log.log('Initialize', channel: 'LinksBloc');
     this.onNewRoute = onNewRoute;
-    this.getApi = getApi;
 
     _sub = stream.receiveBroadcastStream().cast<String>().listen(_onLink);
 
@@ -57,14 +61,15 @@ class DeepLinkBloc {
     if (uri.path == '/route') {
       log.log('We have a new route $uri');
 
-      final pair = await parseRouteArguments(uri, getApi());
+      final pair = await parseRouteArguments(uri, read(navigationAPIProvider));
       log.log(pair.toString());
 
-      onNewRoute(pair);
+      onNewRoute?.call(pair);
     }
   }
 
-  static Future<Pair<NavRoute, int>> parseRouteArguments(Uri uri, BaseNavigationApi navApi) async {
+  static Future<Pair<NavRoute, int>> parseRouteArguments(
+      Uri uri, BaseNavigationApi navApi) async {
     final params = decodeRouteUri(uri);
 
     final qUri = SearchChApi.queryBuilder('route', params);

@@ -12,31 +12,7 @@ part of 'favorites_states.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$FavoritesStatesTearOff {
-  const _$FavoritesStatesTearOff();
-
-  FavoritesStatesData data(List<FavoriteStop> favorites) {
-    return FavoritesStatesData(
-      favorites,
-    );
-  }
-
-  FavoritesStatesLoading loading() {
-    return const FavoritesStatesLoading();
-  }
-
-  FavoritesStatesError exception(Exception exception) {
-    return FavoritesStatesError(
-      exception,
-    );
-  }
-}
-
-/// @nodoc
-const $FavoritesStates = _$FavoritesStatesTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$FavoritesStates {
@@ -138,10 +114,15 @@ class _$FavoritesStatesDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FavoritesStatesData implements FavoritesStatesData {
-  const _$FavoritesStatesData(this.favorites);
+  const _$FavoritesStatesData(final List<FavoriteStop> favorites)
+      : _favorites = favorites;
 
+  final List<FavoriteStop> _favorites;
   @override
-  final List<FavoriteStop> favorites;
+  List<FavoriteStop> get favorites {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_favorites);
+  }
 
   @override
   String toString() {
@@ -235,10 +216,10 @@ class _$FavoritesStatesData implements FavoritesStatesData {
 }
 
 abstract class FavoritesStatesData implements FavoritesStates {
-  const factory FavoritesStatesData(List<FavoriteStop> favorites) =
+  const factory FavoritesStatesData(final List<FavoriteStop> favorites) =
       _$FavoritesStatesData;
 
-  List<FavoriteStop> get favorites;
+  List<FavoriteStop> get favorites => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -488,10 +469,10 @@ class _$FavoritesStatesError implements FavoritesStatesError {
 }
 
 abstract class FavoritesStatesError implements FavoritesStates {
-  const factory FavoritesStatesError(Exception exception) =
+  const factory FavoritesStatesError(final Exception exception) =
       _$FavoritesStatesError;
 
-  Exception get exception;
+  Exception get exception => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith =>
       throw _privateConstructorUsedError;

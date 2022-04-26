@@ -4,7 +4,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
 
-const _spoofedLocation = GeoLocation(latitude: 46.2225454, longitude: 6.1385658);
+const _spoofedLocation =
+    GeoLocation(latitude: 46.2225454, longitude: 6.1385658);
 
 class GeoLocationEngine {
   GeoLocationEngine._();
@@ -54,7 +55,8 @@ class GeoLocationEngine {
         }
       } on MissingPluginException {
         if (Env.isDebugMode) {
-          log.log('Location is not supported on this dervice, returned a spoofed location');
+          log.log(
+              'Location is not supported on this dervice, returned a spoofed location');
           return Future<GeoLocation>.delayed(
             const Duration(milliseconds: 500),
             () => _spoofedLocation,

@@ -12,44 +12,11 @@ part of 'models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 GeoLocation _$GeoLocationFromJson(Map<String, dynamic> json) {
   return _GeoLocation.fromJson(json);
 }
-
-/// @nodoc
-class _$GeoLocationTearOff {
-  const _$GeoLocationTearOff();
-
-  _GeoLocation call(
-      {required double latitude,
-      required double longitude,
-      double? accuracy,
-      double? altitude,
-      double? heading,
-      double? speed,
-      double? speedAccuracy,
-      DateTime? timestamp}) {
-    return _GeoLocation(
-      latitude: latitude,
-      longitude: longitude,
-      accuracy: accuracy,
-      altitude: altitude,
-      heading: heading,
-      speed: speed,
-      speedAccuracy: speedAccuracy,
-      timestamp: timestamp,
-    );
-  }
-
-  GeoLocation fromJson(Map<String, Object?> json) {
-    return GeoLocation.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $GeoLocation = _$GeoLocationTearOff();
 
 /// @nodoc
 mixin _$GeoLocation {
@@ -270,6 +237,7 @@ class _$_GeoLocation implements _GeoLocation {
             const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -295,34 +263,34 @@ class _$_GeoLocation implements _GeoLocation {
 
 abstract class _GeoLocation implements GeoLocation {
   const factory _GeoLocation(
-      {required double latitude,
-      required double longitude,
-      double? accuracy,
-      double? altitude,
-      double? heading,
-      double? speed,
-      double? speedAccuracy,
-      DateTime? timestamp}) = _$_GeoLocation;
+      {required final double latitude,
+      required final double longitude,
+      final double? accuracy,
+      final double? altitude,
+      final double? heading,
+      final double? speed,
+      final double? speedAccuracy,
+      final DateTime? timestamp}) = _$_GeoLocation;
 
   factory _GeoLocation.fromJson(Map<String, dynamic> json) =
       _$_GeoLocation.fromJson;
 
   @override
-  double get latitude;
+  double get latitude => throw _privateConstructorUsedError;
   @override
-  double get longitude;
+  double get longitude => throw _privateConstructorUsedError;
   @override
-  double? get accuracy;
+  double? get accuracy => throw _privateConstructorUsedError;
   @override
-  double? get altitude;
+  double? get altitude => throw _privateConstructorUsedError;
   @override
-  double? get heading;
+  double? get heading => throw _privateConstructorUsedError;
   @override
-  double? get speed;
+  double? get speed => throw _privateConstructorUsedError;
   @override
-  double? get speedAccuracy;
+  double? get speedAccuracy => throw _privateConstructorUsedError;
   @override
-  DateTime? get timestamp;
+  DateTime? get timestamp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$GeoLocationCopyWith<_GeoLocation> get copyWith =>

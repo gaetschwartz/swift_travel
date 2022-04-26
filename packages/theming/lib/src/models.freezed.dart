@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'models.dart';
@@ -11,22 +12,7 @@ part of 'models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$FontTearOff {
-  const _$FontTearOff();
-
-  _Font call(String name, TextTheme Function(TextTheme) textTheme) {
-    return _Font(
-      name,
-      textTheme,
-    );
-  }
-}
-
-/// @nodoc
-const $Font = _$FontTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$Font {
@@ -124,19 +110,16 @@ class _$_Font implements _Font {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Font &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
+        (other.runtimeType == runtimeType &&
+            other is _Font &&
+            const DeepCollectionEquality().equals(other.name, name) &&
             (identical(other.textTheme, textTheme) ||
-                const DeepCollectionEquality()
-                    .equals(other.textTheme, textTheme)));
+                other.textTheme == textTheme));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(textTheme);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(name), textTheme);
 
   @JsonKey(ignore: true)
   @override
@@ -145,7 +128,8 @@ class _$_Font implements _Font {
 }
 
 abstract class _Font implements Font {
-  const factory _Font(String name, TextTheme Function(TextTheme) textTheme) =
+  const factory _Font(
+          final String name, final TextTheme Function(TextTheme) textTheme) =
       _$_Font;
 
   @override
@@ -159,41 +143,14 @@ abstract class _Font implements Font {
 }
 
 /// @nodoc
-class _$ExtendedThemeTearOff {
-  const _$ExtendedThemeTearOff();
-
-  _ExtendedTheme call(
-      {required ColorScheme colorScheme,
-      required String name,
-      ThemeData Function(ThemeData) apply = _identity,
-      String description = 'Description',
-      ShadowTheme shadow = const ShadowTheme(),
-      bool hide = false,
-      required String id}) {
-    return _ExtendedTheme(
-      colorScheme: colorScheme,
-      name: name,
-      apply: apply,
-      description: description,
-      shadow: shadow,
-      hide: hide,
-      id: id,
-    );
-  }
-}
-
-/// @nodoc
-const $ExtendedTheme = _$ExtendedThemeTearOff();
-
-/// @nodoc
 mixin _$ExtendedTheme {
   ColorScheme get colorScheme => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  ThemeData Function(ThemeData) get apply => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  ApplyTo<ThemeData> get apply => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   ShadowTheme get shadow => throw _privateConstructorUsedError;
   bool get hide => throw _privateConstructorUsedError;
-  String get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ExtendedThemeCopyWith<ExtendedTheme> get copyWith =>
@@ -208,11 +165,11 @@ abstract class $ExtendedThemeCopyWith<$Res> {
   $Res call(
       {ColorScheme colorScheme,
       String name,
-      ThemeData Function(ThemeData) apply,
+      String id,
+      ApplyTo<ThemeData> apply,
       String description,
       ShadowTheme shadow,
-      bool hide,
-      String id});
+      bool hide});
 
   $ShadowThemeCopyWith<$Res> get shadow;
 }
@@ -230,11 +187,11 @@ class _$ExtendedThemeCopyWithImpl<$Res>
   $Res call({
     Object? colorScheme = freezed,
     Object? name = freezed,
+    Object? id = freezed,
     Object? apply = freezed,
     Object? description = freezed,
     Object? shadow = freezed,
     Object? hide = freezed,
-    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       colorScheme: colorScheme == freezed
@@ -245,10 +202,14 @@ class _$ExtendedThemeCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       apply: apply == freezed
           ? _value.apply
           : apply // ignore: cast_nullable_to_non_nullable
-              as ThemeData Function(ThemeData),
+              as ApplyTo<ThemeData>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -261,10 +222,6 @@ class _$ExtendedThemeCopyWithImpl<$Res>
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool,
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 
@@ -286,11 +243,11 @@ abstract class _$ExtendedThemeCopyWith<$Res>
   $Res call(
       {ColorScheme colorScheme,
       String name,
-      ThemeData Function(ThemeData) apply,
+      String id,
+      ApplyTo<ThemeData> apply,
       String description,
       ShadowTheme shadow,
-      bool hide,
-      String id});
+      bool hide});
 
   @override
   $ShadowThemeCopyWith<$Res> get shadow;
@@ -311,11 +268,11 @@ class __$ExtendedThemeCopyWithImpl<$Res>
   $Res call({
     Object? colorScheme = freezed,
     Object? name = freezed,
+    Object? id = freezed,
     Object? apply = freezed,
     Object? description = freezed,
     Object? shadow = freezed,
     Object? hide = freezed,
-    Object? id = freezed,
   }) {
     return _then(_ExtendedTheme(
       colorScheme: colorScheme == freezed
@@ -326,10 +283,14 @@ class __$ExtendedThemeCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       apply: apply == freezed
           ? _value.apply
           : apply // ignore: cast_nullable_to_non_nullable
-              as ThemeData Function(ThemeData),
+              as ApplyTo<ThemeData>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -342,10 +303,6 @@ class __$ExtendedThemeCopyWithImpl<$Res>
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool,
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -356,69 +313,63 @@ class _$_ExtendedTheme extends _ExtendedTheme {
   const _$_ExtendedTheme(
       {required this.colorScheme,
       required this.name,
+      required this.id,
       this.apply = _identity,
       this.description = 'Description',
       this.shadow = const ShadowTheme(),
-      this.hide = false,
-      required this.id})
+      this.hide = false})
       : super._();
 
   @override
   final ColorScheme colorScheme;
   @override
   final String name;
-  @JsonKey(defaultValue: _identity)
-  @override
-  final ThemeData Function(ThemeData) apply;
-  @JsonKey(defaultValue: 'Description')
-  @override
-  final String description;
-  @JsonKey(defaultValue: const ShadowTheme())
-  @override
-  final ShadowTheme shadow;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool hide;
   @override
   final String id;
+  @override
+  @JsonKey()
+  final ApplyTo<ThemeData> apply;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
+  final ShadowTheme shadow;
+  @override
+  @JsonKey()
+  final bool hide;
 
   @override
   String toString() {
-    return 'ExtendedTheme(colorScheme: $colorScheme, name: $name, apply: $apply, description: $description, shadow: $shadow, hide: $hide, id: $id)';
+    return 'ExtendedTheme(colorScheme: $colorScheme, name: $name, id: $id, apply: $apply, description: $description, shadow: $shadow, hide: $hide)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ExtendedTheme &&
-            (identical(other.colorScheme, colorScheme) ||
-                const DeepCollectionEquality()
-                    .equals(other.colorScheme, colorScheme)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.apply, apply) ||
-                const DeepCollectionEquality().equals(other.apply, apply)) &&
-            (identical(other.description, description) ||
-                const DeepCollectionEquality()
-                    .equals(other.description, description)) &&
-            (identical(other.shadow, shadow) ||
-                const DeepCollectionEquality().equals(other.shadow, shadow)) &&
-            (identical(other.hide, hide) ||
-                const DeepCollectionEquality().equals(other.hide, hide)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)));
+        (other.runtimeType == runtimeType &&
+            other is _ExtendedTheme &&
+            const DeepCollectionEquality()
+                .equals(other.colorScheme, colorScheme) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            (identical(other.apply, apply) || other.apply == apply) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
+            const DeepCollectionEquality().equals(other.shadow, shadow) &&
+            const DeepCollectionEquality().equals(other.hide, hide));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(colorScheme) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(apply) ^
-      const DeepCollectionEquality().hash(description) ^
-      const DeepCollectionEquality().hash(shadow) ^
-      const DeepCollectionEquality().hash(hide) ^
-      const DeepCollectionEquality().hash(id);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(colorScheme),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(id),
+      apply,
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(shadow),
+      const DeepCollectionEquality().hash(hide));
 
   @JsonKey(ignore: true)
   @override
@@ -428,13 +379,13 @@ class _$_ExtendedTheme extends _ExtendedTheme {
 
 abstract class _ExtendedTheme extends ExtendedTheme {
   const factory _ExtendedTheme(
-      {required ColorScheme colorScheme,
-      required String name,
-      ThemeData Function(ThemeData) apply,
-      String description,
-      ShadowTheme shadow,
-      bool hide,
-      required String id}) = _$_ExtendedTheme;
+      {required final ColorScheme colorScheme,
+      required final String name,
+      required final String id,
+      final ApplyTo<ThemeData> apply,
+      final String description,
+      final ShadowTheme shadow,
+      final bool hide}) = _$_ExtendedTheme;
   const _ExtendedTheme._() : super._();
 
   @override
@@ -442,7 +393,9 @@ abstract class _ExtendedTheme extends ExtendedTheme {
   @override
   String get name => throw _privateConstructorUsedError;
   @override
-  ThemeData Function(ThemeData) get apply => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  @override
+  ApplyTo<ThemeData> get apply => throw _privateConstructorUsedError;
   @override
   String get description => throw _privateConstructorUsedError;
   @override
@@ -450,27 +403,10 @@ abstract class _ExtendedTheme extends ExtendedTheme {
   @override
   bool get hide => throw _privateConstructorUsedError;
   @override
-  String get id => throw _privateConstructorUsedError;
-  @override
   @JsonKey(ignore: true)
   _$ExtendedThemeCopyWith<_ExtendedTheme> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$FullThemeTearOff {
-  const _$FullThemeTearOff();
-
-  _FullTheme call({required ExtendedTheme light, required ExtendedTheme dark}) {
-    return _FullTheme(
-      light: light,
-      dark: dark,
-    );
-  }
-}
-
-/// @nodoc
-const $FullTheme = _$FullThemeTearOff();
 
 /// @nodoc
 mixin _$FullTheme {
@@ -591,18 +527,17 @@ class _$_FullTheme implements _FullTheme {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _FullTheme &&
-            (identical(other.light, light) ||
-                const DeepCollectionEquality().equals(other.light, light)) &&
-            (identical(other.dark, dark) ||
-                const DeepCollectionEquality().equals(other.dark, dark)));
+        (other.runtimeType == runtimeType &&
+            other is _FullTheme &&
+            const DeepCollectionEquality().equals(other.light, light) &&
+            const DeepCollectionEquality().equals(other.dark, dark));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(light) ^
-      const DeepCollectionEquality().hash(dark);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(light),
+      const DeepCollectionEquality().hash(dark));
 
   @JsonKey(ignore: true)
   @override
@@ -612,8 +547,8 @@ class _$_FullTheme implements _FullTheme {
 
 abstract class _FullTheme implements FullTheme {
   const factory _FullTheme(
-      {required ExtendedTheme light,
-      required ExtendedTheme dark}) = _$_FullTheme;
+      {required final ExtendedTheme light,
+      required final ExtendedTheme dark}) = _$_FullTheme;
 
   @override
   ExtendedTheme get light => throw _privateConstructorUsedError;
@@ -624,20 +559,6 @@ abstract class _FullTheme implements FullTheme {
   _$FullThemeCopyWith<_FullTheme> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$ShadowThemeTearOff {
-  const _$ShadowThemeTearOff();
-
-  _ShadowTheme call({BoxShadow? buttonShadow}) {
-    return _ShadowTheme(
-      buttonShadow: buttonShadow,
-    );
-  }
-}
-
-/// @nodoc
-const $ShadowTheme = _$ShadowThemeTearOff();
 
 /// @nodoc
 mixin _$ShadowTheme {
@@ -726,15 +647,15 @@ class _$_ShadowTheme extends _ShadowTheme {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ShadowTheme &&
-            (identical(other.buttonShadow, buttonShadow) ||
-                const DeepCollectionEquality()
-                    .equals(other.buttonShadow, buttonShadow)));
+        (other.runtimeType == runtimeType &&
+            other is _ShadowTheme &&
+            const DeepCollectionEquality()
+                .equals(other.buttonShadow, buttonShadow));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(buttonShadow);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(buttonShadow));
 
   @JsonKey(ignore: true)
   @override
@@ -743,7 +664,7 @@ class _$_ShadowTheme extends _ShadowTheme {
 }
 
 abstract class _ShadowTheme extends ShadowTheme {
-  const factory _ShadowTheme({BoxShadow? buttonShadow}) = _$_ShadowTheme;
+  const factory _ShadowTheme({final BoxShadow? buttonShadow}) = _$_ShadowTheme;
   const _ShadowTheme._() : super._();
 
   @override
@@ -753,41 +674,6 @@ abstract class _ShadowTheme extends ShadowTheme {
   _$ShadowThemeCopyWith<_ShadowTheme> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$ThemeConfigurationTearOff {
-  const _$ThemeConfigurationTearOff();
-
-  _ThemeConfiguration call(
-      {required List<ExtendedTheme> lightThemes,
-      required List<ExtendedTheme> darkThemes,
-      required List<Font> fonts,
-      String prefix = 'dyn_theme_',
-      ThemeMode defaultThemeMode = ThemeMode.system,
-      bool persist = true,
-      String? defaultLightThemeId,
-      String? defaultDarkThemeId,
-      Font? defaultFont,
-      TextTheme defaultTextTheme = Typography.englishLike2018,
-      ThemeData Function(ThemeData) applyToAllThemes = _identity}) {
-    return _ThemeConfiguration(
-      lightThemes: lightThemes,
-      darkThemes: darkThemes,
-      fonts: fonts,
-      prefix: prefix,
-      defaultThemeMode: defaultThemeMode,
-      persist: persist,
-      defaultLightThemeId: defaultLightThemeId,
-      defaultDarkThemeId: defaultDarkThemeId,
-      defaultFont: defaultFont,
-      defaultTextTheme: defaultTextTheme,
-      applyToAllThemes: applyToAllThemes,
-    );
-  }
-}
-
-/// @nodoc
-const $ThemeConfiguration = _$ThemeConfigurationTearOff();
 
 /// @nodoc
 mixin _$ThemeConfiguration {
@@ -1015,9 +901,9 @@ class __$ThemeConfigurationCopyWithImpl<$Res>
 
 class _$_ThemeConfiguration extends _ThemeConfiguration {
   const _$_ThemeConfiguration(
-      {required this.lightThemes,
-      required this.darkThemes,
-      required this.fonts,
+      {required final List<ExtendedTheme> lightThemes,
+      required final List<ExtendedTheme> darkThemes,
+      required final List<Font> fonts,
       this.prefix = 'dyn_theme_',
       this.defaultThemeMode = ThemeMode.system,
       this.persist = true,
@@ -1026,22 +912,40 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
       this.defaultFont,
       this.defaultTextTheme = Typography.englishLike2018,
       this.applyToAllThemes = _identity})
-      : super._();
+      : _lightThemes = lightThemes,
+        _darkThemes = darkThemes,
+        _fonts = fonts,
+        super._();
+
+  final List<ExtendedTheme> _lightThemes;
+  @override
+  List<ExtendedTheme> get lightThemes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lightThemes);
+  }
+
+  final List<ExtendedTheme> _darkThemes;
+  @override
+  List<ExtendedTheme> get darkThemes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_darkThemes);
+  }
+
+  final List<Font> _fonts;
+  @override
+  List<Font> get fonts {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_fonts);
+  }
 
   @override
-  final List<ExtendedTheme> lightThemes;
-  @override
-  final List<ExtendedTheme> darkThemes;
-  @override
-  final List<Font> fonts;
-  @JsonKey(defaultValue: 'dyn_theme_')
-  @override
+  @JsonKey()
   final String prefix;
-  @JsonKey(defaultValue: ThemeMode.system)
   @override
+  @JsonKey()
   final ThemeMode defaultThemeMode;
-  @JsonKey(defaultValue: true)
   @override
+  @JsonKey()
   final bool persist;
   @override
   final String? defaultLightThemeId;
@@ -1049,11 +953,11 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
   final String? defaultDarkThemeId;
   @override
   final Font? defaultFont;
-  @JsonKey(defaultValue: Typography.englishLike2018)
   @override
+  @JsonKey()
   final TextTheme defaultTextTheme;
-  @JsonKey(defaultValue: _identity)
   @override
+  @JsonKey()
   final ThemeData Function(ThemeData) applyToAllThemes;
 
   @override
@@ -1064,54 +968,43 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ThemeConfiguration &&
-            (identical(other.lightThemes, lightThemes) ||
-                const DeepCollectionEquality()
-                    .equals(other.lightThemes, lightThemes)) &&
-            (identical(other.darkThemes, darkThemes) ||
-                const DeepCollectionEquality()
-                    .equals(other.darkThemes, darkThemes)) &&
-            (identical(other.fonts, fonts) ||
-                const DeepCollectionEquality().equals(other.fonts, fonts)) &&
-            (identical(other.prefix, prefix) ||
-                const DeepCollectionEquality().equals(other.prefix, prefix)) &&
-            (identical(other.defaultThemeMode, defaultThemeMode) ||
-                const DeepCollectionEquality()
-                    .equals(other.defaultThemeMode, defaultThemeMode)) &&
-            (identical(other.persist, persist) ||
-                const DeepCollectionEquality()
-                    .equals(other.persist, persist)) &&
-            (identical(other.defaultLightThemeId, defaultLightThemeId) ||
-                const DeepCollectionEquality()
-                    .equals(other.defaultLightThemeId, defaultLightThemeId)) &&
-            (identical(other.defaultDarkThemeId, defaultDarkThemeId) ||
-                const DeepCollectionEquality()
-                    .equals(other.defaultDarkThemeId, defaultDarkThemeId)) &&
-            (identical(other.defaultFont, defaultFont) ||
-                const DeepCollectionEquality()
-                    .equals(other.defaultFont, defaultFont)) &&
-            (identical(other.defaultTextTheme, defaultTextTheme) ||
-                const DeepCollectionEquality()
-                    .equals(other.defaultTextTheme, defaultTextTheme)) &&
+        (other.runtimeType == runtimeType &&
+            other is _ThemeConfiguration &&
+            const DeepCollectionEquality()
+                .equals(other.lightThemes, lightThemes) &&
+            const DeepCollectionEquality()
+                .equals(other.darkThemes, darkThemes) &&
+            const DeepCollectionEquality().equals(other.fonts, fonts) &&
+            const DeepCollectionEquality().equals(other.prefix, prefix) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultThemeMode, defaultThemeMode) &&
+            const DeepCollectionEquality().equals(other.persist, persist) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultLightThemeId, defaultLightThemeId) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultDarkThemeId, defaultDarkThemeId) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultFont, defaultFont) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultTextTheme, defaultTextTheme) &&
             (identical(other.applyToAllThemes, applyToAllThemes) ||
-                const DeepCollectionEquality()
-                    .equals(other.applyToAllThemes, applyToAllThemes)));
+                other.applyToAllThemes == applyToAllThemes));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(lightThemes) ^
-      const DeepCollectionEquality().hash(darkThemes) ^
-      const DeepCollectionEquality().hash(fonts) ^
-      const DeepCollectionEquality().hash(prefix) ^
-      const DeepCollectionEquality().hash(defaultThemeMode) ^
-      const DeepCollectionEquality().hash(persist) ^
-      const DeepCollectionEquality().hash(defaultLightThemeId) ^
-      const DeepCollectionEquality().hash(defaultDarkThemeId) ^
-      const DeepCollectionEquality().hash(defaultFont) ^
-      const DeepCollectionEquality().hash(defaultTextTheme) ^
-      const DeepCollectionEquality().hash(applyToAllThemes);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(lightThemes),
+      const DeepCollectionEquality().hash(darkThemes),
+      const DeepCollectionEquality().hash(fonts),
+      const DeepCollectionEquality().hash(prefix),
+      const DeepCollectionEquality().hash(defaultThemeMode),
+      const DeepCollectionEquality().hash(persist),
+      const DeepCollectionEquality().hash(defaultLightThemeId),
+      const DeepCollectionEquality().hash(defaultDarkThemeId),
+      const DeepCollectionEquality().hash(defaultFont),
+      const DeepCollectionEquality().hash(defaultTextTheme),
+      applyToAllThemes);
 
   @JsonKey(ignore: true)
   @override
@@ -1121,17 +1014,18 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
 
 abstract class _ThemeConfiguration extends ThemeConfiguration {
   const factory _ThemeConfiguration(
-      {required List<ExtendedTheme> lightThemes,
-      required List<ExtendedTheme> darkThemes,
-      required List<Font> fonts,
-      String prefix,
-      ThemeMode defaultThemeMode,
-      bool persist,
-      String? defaultLightThemeId,
-      String? defaultDarkThemeId,
-      Font? defaultFont,
-      TextTheme defaultTextTheme,
-      ThemeData Function(ThemeData) applyToAllThemes}) = _$_ThemeConfiguration;
+          {required final List<ExtendedTheme> lightThemes,
+          required final List<ExtendedTheme> darkThemes,
+          required final List<Font> fonts,
+          final String prefix,
+          final ThemeMode defaultThemeMode,
+          final bool persist,
+          final String? defaultLightThemeId,
+          final String? defaultDarkThemeId,
+          final Font? defaultFont,
+          final TextTheme defaultTextTheme,
+          final ThemeData Function(ThemeData) applyToAllThemes}) =
+      _$_ThemeConfiguration;
   const _ThemeConfiguration._() : super._();
 
   @override

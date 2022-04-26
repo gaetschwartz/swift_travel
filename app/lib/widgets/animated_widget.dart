@@ -31,8 +31,8 @@ class InstantlyAnimatedWidget extends StatefulWidget {
         child: child,
       );
 
-  static AnimationBuilder get fadeScale =>
-      (context, animation, child) => FadeScaleTransition(animation: animation, child: child);
+  static AnimationBuilder get fadeScale => (context, animation, child) =>
+      FadeScaleTransition(animation: animation, child: child);
 
   final Widget child;
   final Duration duration;
@@ -42,7 +42,8 @@ class InstantlyAnimatedWidget extends StatefulWidget {
   final double end;
 
   @override
-  _InstantlyAnimatedWidgetState createState() => _InstantlyAnimatedWidgetState();
+  _InstantlyAnimatedWidgetState createState() =>
+      _InstantlyAnimatedWidgetState();
 }
 
 class _InstantlyAnimatedWidgetState extends State<InstantlyAnimatedWidget>
@@ -76,5 +77,6 @@ class _InstantlyAnimatedWidgetState extends State<InstantlyAnimatedWidget>
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(context, controller, widget.child);
+  Widget build(BuildContext context) =>
+      widget.builder(context, controller, widget.child);
 }

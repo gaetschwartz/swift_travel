@@ -59,7 +59,8 @@ class MyQuickActions {
     }
   }
 
-  Future<void> setActions(List<LocalRoute> routes, List<FavoriteStop> favorites) async {
+  Future<void> setActions(
+      List<LocalRoute> routes, List<FavoriteStop> favorites) async {
     if (!isMobile) {
       log.log('Actions not supported for now on $platform');
       return;

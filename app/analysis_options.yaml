@@ -480,7 +480,7 @@ linter:
     # Lint           disabled : https://pub.dev/packages/lint
     # VG Analysis    enabled  : https://pub.dev/packages/very_good_analysis
     # RydMike        enabled  : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
-    #flutter_style_todos: false
+    flutter_style_todos: false
 
     # AVOID using library private types in public APIs.
     #

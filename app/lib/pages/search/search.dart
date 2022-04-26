@@ -16,7 +16,6 @@ import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search/models.dart';
 import 'package:swift_travel/prediction/complete.dart';
@@ -24,6 +23,7 @@ import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/prediction/predict.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
+import 'package:swift_travel/utils/definitions.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/contacts.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -52,9 +52,10 @@ class Debouncer {
   }
 }
 
-final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider =
+    StateProvider<StationStates>((_) => const StationStates.empty());
 
-class SearchPage extends StatefulWidget {
+class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({
     required this.binder,
     required this.heroTag,
@@ -76,19 +77,19 @@ class SearchPage extends StatefulWidget {
   _SearchPageState createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends ConsumerState<SearchPage> {
   final debouncer = Debouncer();
 
   late BaseFavoritesStore store;
   late BaseNavigationApi api;
-  final hist = RouteHistoryRepository.i;
+  final hist = RouteHistoryRepository.instance;
   String? previousText;
 
   @override
   void initState() {
     super.initState();
     widget.binder.controller.addListener(onChanged);
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) => onChanged());
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => onChanged());
   }
 
   @override
@@ -102,8 +103,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    api = context.read(navigationAPIProvider);
-    store = context.read(storeProvider);
+    api = ref.read(navigationAPIProvider);
+    store = ref.read(storeProvider);
   }
 
   Future<void> onChanged() async {
@@ -121,24 +122,26 @@ class _SearchPageState extends State<SearchPage> {
       await _sub!.cancel();
     }
     if (mounted) {
-      _sub = context
+      _sub = ref
           .read(completionEngineProvider)
           .complete(
             query: query,
             doPredict: widget.isDestination,
-            date: context.read(dateProvider.state).state,
+            date: ref.read(dateProvider.state).state,
           )
           .listen(
         (c) {
           if (mounted) {
-            context.read(_stateProvider.state).state = StationStates.completions(c);
+            ref.read(_stateProvider.state).state = StationStates.completions(c);
           }
         },
         onError: (dynamic e, dynamic s) {
           if (e is SocketException) {
-            context.read(_stateProvider.state).state = const StationStates.network();
+            ref.read(_stateProvider.state).state =
+                const StationStates.network();
           } else if (e is Exception) {
-            reportDartError(e, s as StackTrace, library: 'search', reason: 'while fetching');
+            reportDartError(e, s as StackTrace,
+                library: 'search', reason: 'while fetching');
           }
         },
       );
@@ -147,12 +150,14 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<String?> getPrediction(String query) async {
     if (widget.isDestination) {
-      final args = PredictionArguments.withSource(query, dateTime: widget.dateTime);
+      final args =
+          PredictionArguments.withSource(query, dateTime: widget.dateTime);
       log.log('Predicting the destination with $args');
       final prediction = await predictRoute(hist.history, args);
       log.log(prediction);
       if (prediction.prediction != null && prediction.confidence > .2) {
-        return prediction.prediction!.map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
+        return prediction.prediction!
+            .map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
       }
     }
   }
@@ -166,7 +171,8 @@ class _SearchPageState extends State<SearchPage> {
                 transitionBetweenRoutes: false,
                 middle: Hero(
                   tag: widget.heroTag,
-                  child: widget.configuration.toCupertino(controller: widget.binder.controller),
+                  child: widget.configuration
+                      .toCupertino(controller: widget.binder.controller),
                 ),
                 trailing: _ClearButton(binder: widget.binder),
               ),
@@ -177,7 +183,8 @@ class _SearchPageState extends State<SearchPage> {
             appBar: AppBar(
               title: Hero(
                   tag: widget.heroTag,
-                  child: widget.configuration.toTextField(controller: widget.binder.controller)),
+                  child: widget.configuration
+                      .toTextField(controller: widget.binder.controller)),
               actions: [_ClearButton(binder: widget.binder)],
               leading: const CloseButton(key: SearchPage.closeSearchKey),
             ),
@@ -202,8 +209,8 @@ class _SearchPageState extends State<SearchPage> {
         log.log(c.contact.toMap());
         widget.binder.setString(context, a.toString());
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).contact_no_address)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(AppLocalizations.of(context).contact_no_address)));
       }
     } else {
       widget.binder.setString(context, c.label);
@@ -221,13 +228,15 @@ class _ClearButton extends StatelessWidget {
   final TextStateBinder binder;
 
   @override
-  Widget build(BuildContext context) => ListenableBuilder<TextEditingController>(
+  Widget build(BuildContext context) =>
+      ListenableBuilder<TextEditingController>(
         builder: (context, listenable, child) => AnimatedOpacity(
           opacity: listenable.text.isEmpty ? 0 : 1,
           duration: const Duration(milliseconds: 500),
           child: IconButton(
             color: CupertinoTheme.of(context).primaryColor,
-            onPressed: listenable.text.isEmpty ? null : () => binder.clear(context),
+            onPressed:
+                listenable.text.isEmpty ? null : () => binder.clear(context),
             icon: const Icon(CupertinoIcons.clear),
           ),
         ),
@@ -254,7 +263,8 @@ class _Results extends StatelessWidget {
             children: [
               Positioned.fill(
                 child: ListView.builder(
-                  itemBuilder: (context, i) => SuggestedTile(c[i], onTap: onTap),
+                  itemBuilder: (context, i) =>
+                      SuggestedTile(c[i], onTap: onTap),
                   itemCount: c.length,
                 ),
               ),
@@ -276,8 +286,10 @@ class _Results extends StatelessWidget {
                             children: [
                               TextButton.icon(
                                 onPressed: () => pickContact(context),
-                                icon: const Icon(FluentIcons.contact_card_group_24_regular),
-                                label: Text(AppLocalizations.of(context).contacts),
+                                icon: const Icon(
+                                    FluentIcons.contact_card_group_24_regular),
+                                label:
+                                    Text(AppLocalizations.of(context).contacts),
                               )
                             ],
                           ),
@@ -364,7 +376,8 @@ class SuggestedTile extends StatelessWidget {
         title: isLoading
             ? Text(
                 label,
-                style: const TextStyle(backgroundColor: Colors.black, color: Colors.transparent),
+                style: const TextStyle(
+                    backgroundColor: Colors.black, color: Colors.transparent),
               )
             : Text(suggestion.favoriteName ?? label),
         subtitle: suggestion.favoriteName != null ? Text(label) : null,
@@ -387,41 +400,31 @@ class _SuggestedTileIcon extends StatelessWidget {
 
   final NavigationCompletion suggestion;
 
-  @override
-  Widget build(BuildContext context) {
+  @allowReturningWidgets
+  Widget icon() {
     switch (suggestion.origin) {
       case DataOrigin.favorites:
-        return const Icon(
-          CupertinoIcons.heart_fill,
-          size: 20,
-        );
+        return const Icon(CupertinoIcons.heart_fill);
       case DataOrigin.history:
-        return const Icon(
-          CupertinoIcons.clock,
-          size: 20,
-        );
+        return const Icon(CupertinoIcons.clock);
       case DataOrigin.data:
-        return suggestion.getIcon(size: 20);
+        return suggestion.icon;
       case DataOrigin.currentLocation:
-        return const Icon(
-          CupertinoIcons.location_fill,
-          size: 20,
-        );
+        return const Icon(CupertinoIcons.location_fill);
       case DataOrigin.prediction:
-        return const Icon(
-          CupertinoIcons.wand_stars,
-          size: 20,
-        );
+        return const Icon(CupertinoIcons.wand_stars);
       case DataOrigin.loading:
-        return const Icon(
-          CupertinoIcons.wand_stars,
-          size: 20,
-        );
+        return const Icon(CupertinoIcons.wand_stars);
       case DataOrigin.contacts:
-        return const Icon(
-          CupertinoIcons.person,
-          size: 20,
-        );
+        return const Icon(CupertinoIcons.person);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconTheme(
+      data: Theme.of(context).iconTheme.copyWith(size: 20),
+      child: icon(),
+    );
   }
 }

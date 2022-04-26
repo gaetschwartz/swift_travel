@@ -28,5 +28,6 @@ class GeoLocation with _$GeoLocation {
         timestamp: p.timestamp,
       );
 
-  factory GeoLocation.fromJson(Map<String, dynamic> json) => _$GeoLocationFromJson(json);
+  factory GeoLocation.fromJson(Map<String, dynamic> json) =>
+      _$GeoLocationFromJson(json);
 }

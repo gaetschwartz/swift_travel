@@ -10,7 +10,8 @@ class Env {
   static const page = String.fromEnvironment('PAGE');
   static const doShowErrors = bool.fromEnvironment('DO_SHOW_ERRORS');
   static const spoofLocation = bool.fromEnvironment('SPOOF_LOCATION');
-  static const doCacheLines = !kDebugMode || bool.fromEnvironment('CACHE_LINES_IN_DEBUG');
+  static const doCacheLines =
+      !kDebugMode || bool.fromEnvironment('CACHE_LINES_IN_DEBUG');
   static const enableLiveRoute = bool.fromEnvironment('ENABLE_LIVE_ROUTE');
   static const doMockContacts = bool.fromEnvironment('DO_MOCK_CONTACTS');
   static const enableAnimations = true;

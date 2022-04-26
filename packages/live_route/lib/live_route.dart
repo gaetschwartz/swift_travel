@@ -1,18 +1,19 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:developer';
 
 import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 
-final liveRouteControllerProvider = ChangeNotifierProvider((r) => LiveRouteController());
+final liveRouteControllerProvider =
+    ChangeNotifierProvider((r) => LiveRouteController());
 
 @immutable
 class RouteData {
@@ -50,7 +51,8 @@ abstract class BaseLiveRouteController extends ChangeNotifier {
 }
 
 class TimeBasedLiveRouteController extends BaseLiveRouteController {
-  late final RestartableTimer timer = RestartableTimer(const Duration(seconds: 1), _update);
+  late final RestartableTimer timer =
+      RestartableTimer(const Duration(seconds: 1), _update);
 
   @override
   Future<void> startRoute(RouteConnection connection) async {
@@ -114,16 +116,19 @@ class LiveRouteController extends ChangeNotifier {
 
   final Map<int, Map<int, double>> _legDistances = {};
 
-  Map<int, Map<int, double>> get legDistances => UnmodifiableMapView(_legDistances);
+  Map<int, Map<int, double>> get legDistances =>
+      UnmodifiableMapView(_legDistances);
 
   Position? get position => _position;
 
   RouteConnection? get connection => _connection;
 
-  Leg? get closestLeg => isRunning && _closestLeg != null ? _connection!.legs[_closestLeg!] : null;
+  Leg? get closestLeg =>
+      isRunning && _closestLeg != null ? _connection!.legs[_closestLeg!] : null;
 
-  Stop? get closestStop =>
-      closestLeg != null && _closestStop != null ? closestLeg!.stops[_closestStop!] : null;
+  Stop? get closestStop => closestLeg != null && _closestStop != null
+      ? closestLeg!.stops[_closestStop!]
+      : null;
 
   bool get isReady => _isReady;
 
@@ -134,7 +139,8 @@ class LiveRouteController extends ChangeNotifier {
   int? _currentStop;
   int? _currentLeg;
 
-  Leg? get currentLeg => isRunning && _currentLeg != null ? _connection!.legs[_currentLeg!] : null;
+  Leg? get currentLeg =>
+      isRunning && _currentLeg != null ? _connection!.legs[_currentLeg!] : null;
 
   Stop? get currentStop =>
       currentLeg != null && _currentStop != null && currentLeg!.stops.isNotEmpty
@@ -167,9 +173,9 @@ class LiveRouteController extends ChangeNotifier {
 
   static const _kDefaultDistanceThreshold = 500;
   static const _kDistanceThersholds = {
-    TransportationMode.bus: 100,
-    TransportationMode.walk: 100,
-    TransportationMode.tram: 100,
+    PlaceType.bus: 100,
+    PlaceType.walk: 100,
+    PlaceType.tram: 100,
   };
 
   static int getDistanceThreshHold(Leg? leg) =>
@@ -218,7 +224,8 @@ class LiveRouteController extends ChangeNotifier {
 
       final d = l.position == null
           ? double.infinity
-          : Geolocator.distanceBetween(l.position!.lat, l.position!.lon, p.latitude, p.longitude);
+          : Geolocator.distanceBetween(
+              l.position!.lat, l.position!.lon, p.latitude, p.longitude);
 
       _legDistances[i]![-1] = d;
 
@@ -231,7 +238,8 @@ class LiveRouteController extends ChangeNotifier {
             if (s.lat == null || s.lon == null) {
               continue;
             }
-            final d = Geolocator.distanceBetween(s.lat!, s.lon!, p.latitude, p.longitude);
+            final d = Geolocator.distanceBetween(
+                s.lat!, s.lon!, p.latitude, p.longitude);
             _legDistances[i]![j] = d;
             if (d < dist) {
               closestLeg = i;
@@ -258,15 +266,17 @@ class LiveRouteController extends ChangeNotifier {
     }
 
     if (currentStop != null) {
-      final distFromCurrToExt = Geolocator.distanceBetween(
-          currentStop!.lat!, currentStop!.lon!, currentLeg!.exit!.lat!, currentLeg!.exit!.lon!);
-      final distUntilExit = Geolocator.distanceBetween(
-          currentLeg!.exit!.lat!, currentLeg!.exit!.lon!, position!.latitude, position!.longitude);
+      final distFromCurrToExt = Geolocator.distanceBetween(currentStop!.lat!,
+          currentStop!.lon!, currentLeg!.exit!.lat!, currentLeg!.exit!.lon!);
+      final distUntilExit = Geolocator.distanceBetween(currentLeg!.exit!.lat!,
+          currentLeg!.exit!.lon!, position!.latitude, position!.longitude);
 
       final d = distUntilExit / distFromCurrToExt;
-      final perc = (currentLeg!.stops.length - _currentStop! * d) / currentLeg!.stops.length;
+      final perc = (currentLeg!.stops.length - _currentStop! * d) /
+          currentLeg!.stops.length;
 
-      final timeUntilNextLeg = currentLeg!.exit!.arrival!.difference(currentStop!.departure!) * d;
+      final timeUntilNextLeg =
+          currentLeg!.exit!.arrival!.difference(currentStop!.departure!) * d;
 
       _routeData = RouteData(
         currentStopIndex: _currentStop,

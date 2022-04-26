@@ -25,11 +25,13 @@ Map<String, dynamic> _$$_LineCacheEntryToJson(_$_LineCacheEntry instance) =>
     };
 
 _$_Line _$$_LineFromJson(Map<String, dynamic> json) => _$_Line(
-      json['line'] as String?,
-      json['colors'] as String,
+      line: json['line'] as String?,
+      bgColor: json['bgColor'] as int?,
+      fgColor: json['fgColor'] as int?,
     );
 
 Map<String, dynamic> _$$_LineToJson(_$_Line instance) => <String, dynamic>{
       'line': instance.line,
-      'colors': instance.colors,
+      'bgColor': instance.bgColor,
+      'fgColor': instance.fgColor,
     };

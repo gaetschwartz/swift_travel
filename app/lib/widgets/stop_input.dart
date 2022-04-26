@@ -4,17 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 
-class StopInputDialog extends StatefulWidget {
+class StopInputDialog extends ConsumerStatefulWidget {
   const StopInputDialog({
     Key? key,
     this.title = '',
@@ -28,11 +26,10 @@ class StopInputDialog extends StatefulWidget {
   _StopInputDialogState createState() => _StopInputDialogState();
 }
 
-final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider =
+    StateProvider<StationStates>((_) => const StationStates.empty());
 
-class _StopInputDialogState extends State<StopInputDialog> {
-  late BaseNavigationApi api;
-
+class _StopInputDialogState extends ConsumerState<StopInputDialog> {
   final node = FocusNode();
   final debouncer = Debouncer();
 
@@ -50,74 +47,69 @@ class _StopInputDialogState extends State<StopInputDialog> {
     super.dispose();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    api = context.read(navigationAPIProvider);
-  }
-
-  void onChanged(String s) {
-    debouncer.debounce(() => fetch(s));
-  }
-
   Future<void> fetch(String query) async {
+    final api = ref.read(navigationAPIProvider);
     try {
       final compls = await api.complete(query);
 
       if (mounted) {
-        context.read(_stateProvider.state).state = StationStates.completions(compls);
+        ref.read(_stateProvider.state).state =
+            StationStates.completions(compls);
       }
     } on SocketException {
-      context.read(_stateProvider.state).state = const StationStates.network();
+      ref.read(_stateProvider.state).state = const StationStates.network();
     } on Exception catch (e, s) {
       reportDartError(e, s, library: 'search', reason: 'while fetching');
     }
   }
 
   @override
-  Widget build(BuildContext context) => PlatformBuilder(
-        cupertinoBuilder: (context, child) => CupertinoPageScaffold(
-          resizeToAvoidBottomInset: false,
-          navigationBar: SwiftCupertinoBar(middle: Text(widget.title)),
-          child: SafeArea(child: child!),
-        ),
-        materialBuilder: (context, child) => Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(leading: const CloseButton(), title: Text(widget.title)),
-          body: child,
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: TextField(
-                onSubmitted: submit,
-                focusNode: node,
-                decoration: InputDecoration(hintText: AppLocalizations.of(context).search_station),
-                onChanged: onChanged,
-              ),
+  Widget build(BuildContext context) {
+    return PlatformBuilder(
+      cupertinoBuilder: (context, child) => CupertinoPageScaffold(
+        resizeToAvoidBottomInset: false,
+        navigationBar: SwiftCupertinoBar(middle: Text(widget.title)),
+        child: SafeArea(child: child!),
+      ),
+      materialBuilder: (context, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(leading: const CloseButton(), title: Text(widget.title)),
+        body: child,
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: TextField(
+              onSubmitted: submit,
+              focusNode: node,
+              decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context).search_station),
+              onChanged: (s) => debouncer.debounce(() => fetch(s)),
             ),
-            Expanded(
-              child: Consumer(builder: (context, w, _) {
-                final s = w.watch(_stateProvider);
-                return s.maybeWhen(
-                  completions: (c) => ListView.builder(
-                    itemBuilder: (context, i) => RouteCompletionTile(
-                      c[i],
-                      onTap: () {
-                        Navigator.of(context).pop<String>(c[i].label);
-                        node.unfocus();
-                      },
-                    ),
-                    itemCount: c.length,
+          ),
+          Expanded(
+            child: Consumer(builder: (context, w, _) {
+              final s = w.watch(_stateProvider);
+              return s.maybeWhen(
+                completions: (c) => ListView.builder(
+                  itemBuilder: (context, i) => RouteCompletionTile(
+                    c[i],
+                    onTap: () {
+                      Navigator.of(context).pop<String>(c[i].label);
+                      node.unfocus();
+                    },
                   ),
-                  orElse: () => const SizedBox(),
-                );
-              }),
-            )
-          ],
-        ),
-      );
+                  itemCount: c.length,
+                ),
+                orElse: () => const SizedBox(),
+              );
+            }),
+          )
+        ],
+      ),
+    );
+  }
 
   void submit(String s) => Navigator.of(context).pop<String>(s);
 }
@@ -157,7 +149,8 @@ class RouteCompletionTile extends StatelessWidget {
       : ListTile(
           leading: _Icon(completion!),
           title: Text(completion!.favoriteName ?? completion!.label),
-          subtitle: completion!.favoriteName != null ? Text(completion!.label) : null,
+          subtitle:
+              completion!.favoriteName != null ? Text(completion!.label) : null,
           trailing: completion!.favoriteName != null ? const Text('⭐') : null,
           horizontalTitleGap: 0,
           dense: true,
@@ -185,7 +178,7 @@ class _Icon extends StatelessWidget {
           case DataOrigin.history:
             return const Icon(CupertinoIcons.clock);
           case DataOrigin.data:
-            return completion.getIcon();
+            return completion.icon;
           case DataOrigin.currentLocation:
             return const Icon(CupertinoIcons.location_fill);
           case DataOrigin.prediction:

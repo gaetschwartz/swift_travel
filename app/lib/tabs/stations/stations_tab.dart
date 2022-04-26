@@ -10,7 +10,7 @@ import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -28,7 +28,8 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:vibration/vibration.dart';
 
-final _stateProvider = StateProvider<StationStates>((_) => const StationStates.empty());
+final _stateProvider =
+    StateProvider<StationStates>((_) => const StationStates.empty());
 final _locatingProvider = StateProvider((_) => _LoadingState.idle);
 final _loadingProvider = StateProvider((_) => false);
 
@@ -41,7 +42,8 @@ class StationsTab extends StatefulWidget {
   _StationsTabState createState() => _StationsTabState();
 }
 
-class _StationsTabState extends State<StationsTab> with AutomaticKeepAliveClientMixin {
+class _StationsTabState extends State<StationsTab>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -52,14 +54,14 @@ class _StationsTabState extends State<StationsTab> with AutomaticKeepAliveClient
   bool get wantKeepAlive => true;
 }
 
-class _StationsTabWidget extends StatefulWidget {
+class _StationsTabWidget extends ConsumerStatefulWidget {
   const _StationsTabWidget();
 
   @override
   _StationsTabWidgetState createState() => _StationsTabWidgetState();
 }
 
-class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKeepAliveClientMixin {
+class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
   final TextEditingController searchController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   Timer? _debouncer;
@@ -83,26 +85,21 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     super.dispose();
   }
 
-  @override
-  bool get wantKeepAlive => true;
-
   final itemPositionsListener = ItemPositionsListener.create();
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return PlatformBuilder(
       cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         navigationBar: SwiftCupertinoBar(
           middle: Text(AppLocalizations.of(context).timetable),
         ),
         resizeToAvoidBottomInset: false,
-        child: SafeArea(
-          child: child!,
-        ),
+        child: SafeArea(child: child!),
       ),
       materialBuilder: (context, child) => Scaffold(
-        appBar: MaterialAppBar(title: Text(AppLocalizations.of(context).tabs_search)),
+        appBar: MaterialAppBar(
+            title: Text(AppLocalizations.of(context).tabs_search)),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           bottom: false,
@@ -129,20 +126,24 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                               .copyWith(fontStyle: FontStyle.normal),
                           decoration: InputDecoration(
                             isDense: true,
-                            hintText: AppLocalizations.of(context).search_station,
+                            hintText:
+                                AppLocalizations.of(context).search_station,
                             border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
                             ),
                             filled: true,
                             fillColor: Theme.of(context).cardColor,
                           ),
-                          onChanged: (s) => debounce(context, s),
+                          onChanged: debounce,
                         ),
                         ListenableBuilder<TextEditingController>(
                           listenable: searchController,
                           builder: (context, controller, child) =>
-                              controller.text.isEmpty ? const SizedBox() : child!,
+                              controller.text.isEmpty
+                                  ? const SizedBox()
+                                  : child!,
                           child: Positioned(
                             right: 0,
                             top: 0,
@@ -188,9 +189,10 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                             height: 4,
                             child: Center(
                               child: Consumer(
-                                builder: (context, w, _) => w.watch(_loadingProvider)
-                                    ? const LinearProgressIndicator()
-                                    : const SizedBox(),
+                                builder: (context, w, _) =>
+                                    w.watch(_loadingProvider)
+                                        ? const LinearProgressIndicator()
+                                        : const SizedBox(),
                               ),
                             ),
                           ),
@@ -204,7 +206,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                               return IfWrapper(
                                 key: ValueKey(completion),
                                 condition: Env.enableAnimations,
-                                builder: (context, child) => InstantlyAnimatedWidget(
+                                builder: (context, child) =>
+                                    InstantlyAnimatedWidget(
                                   delay: computeDelay(i),
                                   builder: InstantlyAnimatedWidget.fadeScale,
                                   start: 0.5,
@@ -221,10 +224,13 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                       ],
                     ),
                     empty: () => Consumer(
-                        builder: (context, w, _) => w.watch(favoritesStatesProvider).map(
+                        builder: (context, w, _) => w
+                            .watch(favoritesStatesProvider)
+                            .map(
                               data: (c) => c.favorites.isEmpty
                                   ? Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           '🔎',
@@ -233,19 +239,23 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
                                         const Gap(24),
                                         Text(
                                           'Search a station',
-                                          style: Theme.of(context).textTheme.headline6,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
                                           textAlign: TextAlign.center,
                                         )
                                       ],
                                     )
                                   : ListView.builder(
-                                      itemBuilder: (context, i) => CompletionTile(
-                                        SbbCompletion.fromFavorite(c.favorites[i]),
+                                      itemBuilder: (context, i) =>
+                                          CompletionTile(
+                                        SbbCompletion.fromFavorite(
+                                            c.favorites[i]),
                                       ),
                                       itemCount: c.favorites.length,
                                     ),
-                              loading: (_) =>
-                                  const Center(child: CircularProgressIndicator.adaptive()),
+                              loading: (_) => const Center(
+                                  child: CircularProgressIndicator.adaptive()),
                               exception: (e) => Center(
                                 child: Text(
                                   e.exception.toString(),
@@ -275,8 +285,8 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
     );
   }
 
-  Future<void> debounce(BuildContext context, String s) async {
-    context.read(_loadingProvider.state).state = true;
+  Future<void> debounce(String s) async {
+    ref.read(_loadingProvider.state).state = true;
     // Debounce
     if (_debouncer?.isActive ?? false) {
       _debouncer?.cancel();
@@ -296,15 +306,18 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
       final p = await GeoLocationEngine.instance.getLocation();
       if (!mounted) return;
 
-      final completions =
-          await context.read(navigationAPIProvider).findStation(p.latitude, p.longitude);
+      final completions = await context
+          .read(navigationAPIProvider)
+          .find(p.latitude, p.longitude);
 
       final first = completions.first;
       if (first.dist != null) {
-        final public = completions.where((c) => !TransportationModeX.isAnAddress(c.type));
+        final public =
+            completions.where((c) => !TransportationModeX.isAnAddress(c.type));
         if (!mounted) return;
 
-        context.read(_stateProvider.state).state = StationStates.completions(completions);
+        context.read(_stateProvider.state).state =
+            StationStates.completions(completions);
         if (public.isNotEmpty) {
           log.log('Found : ${public.first}');
           searchController.text = public.first.label;
@@ -333,24 +346,27 @@ class _StationsTabWidgetState extends State<_StationsTabWidget> with AutomaticKe
 
   Future<void> fetch(String query) async {
     try {
-      final completionsWithFavs = await context.read(completionEngineProvider).completeNavigation(
-            query: query,
-            doUseHistory: false,
-          );
+      final completionsWithFavs =
+          await ref.read(completionEngineProvider).completeNavigation(
+                query: query,
+                doUseHistory: false,
+              );
       if (!mounted) return;
 
-      context.read(_stateProvider.state).state = StationStates.completions(completionsWithFavs);
+      ref.read(_stateProvider.state).state =
+          StationStates.completions(completionsWithFavs);
     } on SocketException {
-      context.read(_stateProvider.state).state = const StationStates.network();
+      ref.read(_stateProvider.state).state = const StationStates.network();
     } on Exception catch (e, s) {
       reportDartError(e, s);
     } finally {
-      context.read(_loadingProvider.state).state = false;
+      ref.read(_loadingProvider.state).state = false;
     }
   }
 
   Duration? computeDelay(int i) {
-    final first = itemPositionsListener.itemPositions.value.firstOrNull?.index ?? 0;
+    final first =
+        itemPositionsListener.itemPositions.value.firstOrNull?.index ?? 0;
     final last = itemPositionsListener.itemPositions.value.lastOrNull?.index;
     if (last != null && i > last) return null;
     return Duration(milliseconds: 20 * (i - first));
@@ -371,7 +387,8 @@ class AnimatedLocation extends StatefulWidget {
 
 const _kAnimDuration = Duration(milliseconds: 500);
 
-class _AnimatedLocationState extends State<AnimatedLocation> with SingleTickerProviderStateMixin {
+class _AnimatedLocationState extends State<AnimatedLocation>
+    with SingleTickerProviderStateMixin {
   late final controller = AnimationController(
     vsync: this,
     duration: _kAnimDuration,
@@ -414,7 +431,9 @@ class _AnimatedLocationState extends State<AnimatedLocation> with SingleTickerPr
         turns: reverse,
         child: Icon(
           CupertinoIcons.location_fill,
-          color: widget.loadingState == _LoadingState.error ? Colors.redAccent : null,
+          color: widget.loadingState == _LoadingState.error
+              ? Colors.redAccent
+              : null,
         ),
       );
 }

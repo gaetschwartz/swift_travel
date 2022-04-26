@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/subsequent_stop.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/subsequent_stop.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/utils/strings/format.dart';
@@ -100,8 +100,8 @@ class StopTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: () =>
-            Navigator.of(context).push(PlatformPageRoute(builder: (context) => StopDetails(stop))),
+        onTap: () => Navigator.of(context)
+            .push(PlatformPageRoute(builder: (context) => StopDetails(stop))),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SizedBox(
@@ -130,8 +130,9 @@ class StopTile extends StatelessWidget {
                       ),
                       if (stop.depDelay != null || stop.arrDelay != null)
                         TextSpan(
-                          text:
-                              Format.delay(stop.arrDelay != null ? stop.arrDelay! : stop.depDelay!),
+                          text: Format.delay(stop.arrDelay != null
+                              ? stop.arrDelay!
+                              : stop.depDelay!),
                           style: const TextStyle(
                             color: Colors.red,
                             fontWeight: FontWeight.bold,

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 
 final preferencesProvider = Provider<PreferencesBloc>((r) => PreferencesBloc());
@@ -30,11 +30,13 @@ class PreferencesBloc {
     encode: (id) => id.value,
   );
 
-  final useAnalytics =
-      SimpleSharedPreferencesProperty<bool>(prefix + analyticsKey, defaultValue: true);
+  final useAnalytics = SimpleSharedPreferencesProperty<bool>(
+      prefix + analyticsKey,
+      defaultValue: true);
 
-  final isDeveloper =
-      SimpleSharedPreferencesProperty<bool>("${prefix}is_developer", defaultValue: false);
+  final isDeveloper = SimpleSharedPreferencesProperty<bool>(
+      "${prefix}is_developer",
+      defaultValue: false);
 
   Future<void> loadFromPreferences({SharedPreferences? prefs}) async {
     final p = prefs ?? await SharedPreferences.getInstance();

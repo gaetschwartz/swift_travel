@@ -14,7 +14,11 @@ void main() {
     group('lineIcon >', () {
       const lineIcon =
           LineIcon.raw(foreground: Color(0xffffffff), background: Color(0xff72c1f0), line: '5');
-      final lineIcon2 = LineIcon.fromLine(const Line('5', '72c1f0~ffffff~'));
+      final lineIcon2 = LineIcon.fromLine(const Line(
+        line: '5',
+        bgColor: 0xff72c1f0,
+        fgColor: 0xffffffff,
+      ));
 
       Future<void> testLineIcon(WidgetTester t, LineIcon lineIcon) async {
         await t.pumpWidget(MaterialApp(home: Center(child: lineIcon)));
@@ -78,7 +82,7 @@ void main() {
 
     group('sbbIcon >', () {
       testWidgets('.constructor()', (t) async {
-        for (final v in TransportationMode.values) {
+        for (final v in PlaceType.values) {
           final sbbIcon = SbbIcon(v);
 
           await t.pumpWidget(MaterialApp(home: Center(child: sbbIcon)));
@@ -87,7 +91,7 @@ void main() {
         }
       });
       testWidgets('.fromIconClass()', (t) async {
-        for (final v in TransportationMode.values) {
+        for (final v in PlaceType.values) {
           final text = describeEnum(v);
           final exp = RegExp('(?<=[a-z])[A-Z]');
           final result = text.replaceAllMapped(exp, (m) => '_${m.group(0)!}').toLowerCase();

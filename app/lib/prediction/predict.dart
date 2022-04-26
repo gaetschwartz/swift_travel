@@ -20,7 +20,8 @@ Future<RoutePrediction> predictRoute(
   if (useIsolate) {
     return predictRouteSync(routes, arguments);
   } else {
-    final computed = await compute(_predictRouteJSON, FullArguments(routes, arguments).toJson());
+    final computed = await compute(
+        _predictRouteJSON, FullArguments(routes, arguments).toJson());
     return RoutePrediction.fromJson(computed);
   }
 }

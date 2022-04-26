@@ -12,33 +12,15 @@ part of 'vehicle_iconclass.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 _VehicleIconclass _$_VehicleIconclassFromJson(Map<String, dynamic> json) {
   return __VehicleIconclass.fromJson(json);
 }
 
 /// @nodoc
-class _$_VehicleIconclassTearOff {
-  const _$_VehicleIconclassTearOff();
-
-  __VehicleIconclass call(TransportationMode v) {
-    return __VehicleIconclass(
-      v,
-    );
-  }
-
-  _VehicleIconclass fromJson(Map<String, Object?> json) {
-    return _VehicleIconclass.fromJson(json);
-  }
-}
-
-/// @nodoc
-const _$VehicleIconclass = _$_VehicleIconclassTearOff();
-
-/// @nodoc
 mixin _$_VehicleIconclass {
-  TransportationMode get v => throw _privateConstructorUsedError;
+  PlaceType get v => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +33,7 @@ abstract class _$VehicleIconclassCopyWith<$Res> {
   factory _$VehicleIconclassCopyWith(
           _VehicleIconclass value, $Res Function(_VehicleIconclass) then) =
       __$VehicleIconclassCopyWithImpl<$Res>;
-  $Res call({TransportationMode v});
+  $Res call({PlaceType v});
 }
 
 /// @nodoc
@@ -71,7 +53,7 @@ class __$VehicleIconclassCopyWithImpl<$Res>
       v: v == freezed
           ? _value.v
           : v // ignore: cast_nullable_to_non_nullable
-              as TransportationMode,
+              as PlaceType,
     ));
   }
 }
@@ -83,7 +65,7 @@ abstract class _$_VehicleIconclassCopyWith<$Res>
           __VehicleIconclass value, $Res Function(__VehicleIconclass) then) =
       __$_VehicleIconclassCopyWithImpl<$Res>;
   @override
-  $Res call({TransportationMode v});
+  $Res call({PlaceType v});
 }
 
 /// @nodoc
@@ -105,7 +87,7 @@ class __$_VehicleIconclassCopyWithImpl<$Res>
       v == freezed
           ? _value.v
           : v // ignore: cast_nullable_to_non_nullable
-              as TransportationMode,
+              as PlaceType,
     ));
   }
 }
@@ -119,7 +101,7 @@ class _$__VehicleIconclass implements __VehicleIconclass {
       _$$__VehicleIconclassFromJson(json);
 
   @override
-  final TransportationMode v;
+  final PlaceType v;
 
   @override
   String toString() {
@@ -134,6 +116,7 @@ class _$__VehicleIconclass implements __VehicleIconclass {
             const DeepCollectionEquality().equals(other.v, v));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(v));
@@ -150,13 +133,13 @@ class _$__VehicleIconclass implements __VehicleIconclass {
 }
 
 abstract class __VehicleIconclass implements _VehicleIconclass {
-  const factory __VehicleIconclass(TransportationMode v) = _$__VehicleIconclass;
+  const factory __VehicleIconclass(final PlaceType v) = _$__VehicleIconclass;
 
   factory __VehicleIconclass.fromJson(Map<String, dynamic> json) =
       _$__VehicleIconclass.fromJson;
 
   @override
-  TransportationMode get v;
+  PlaceType get v => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$_VehicleIconclassCopyWith<__VehicleIconclass> get copyWith =>

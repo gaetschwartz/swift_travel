@@ -84,9 +84,12 @@ Map<String, String> encodeRouteUri(Uri uri, int i) {
     ..remove('date');
 
   for (final e in oldParams.entries) {
-    final newKey = translate.entries.firstWhereOrNull((e2) => e.key == e2.value)?.key ?? e.key;
+    final newKey =
+        translate.entries.firstWhereOrNull((e2) => e.key == e2.value)?.key ??
+            e.key;
     final newValue =
-        translate.entries.firstWhereOrNull((e2) => e.value == e2.value)?.key ?? e.value;
+        translate.entries.firstWhereOrNull((e2) => e.value == e2.value)?.key ??
+            e.value;
     params[newKey] = newValue;
   }
 

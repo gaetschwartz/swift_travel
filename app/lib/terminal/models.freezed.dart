@@ -12,28 +12,7 @@ part of 'models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$TerminalContextTearOff {
-  const _$TerminalContextTearOff();
-
-  _TerminalContext call(
-      List<String> command,
-      Writer w,
-      StateController<List<TerminalCommandResult>> stateController,
-      BuildContext context) {
-    return _TerminalContext(
-      command,
-      w,
-      stateController,
-      context,
-    );
-  }
-}
-
-/// @nodoc
-const $TerminalContext = _$TerminalContextTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$TerminalContext {
@@ -154,10 +133,16 @@ class __$TerminalContextCopyWithImpl<$Res>
 
 class _$_TerminalContext implements _TerminalContext {
   const _$_TerminalContext(
-      this.command, this.w, this.stateController, this.context);
+      final List<String> command, this.w, this.stateController, this.context)
+      : _command = command;
 
+  final List<String> _command;
   @override
-  final List<String> command;
+  List<String> get command {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_command);
+  }
+
   @override
   final Writer w;
   @override
@@ -198,39 +183,25 @@ class _$_TerminalContext implements _TerminalContext {
 
 abstract class _TerminalContext implements TerminalContext {
   const factory _TerminalContext(
-      List<String> command,
-      Writer w,
-      StateController<List<TerminalCommandResult>> stateController,
-      BuildContext context) = _$_TerminalContext;
+      final List<String> command,
+      final Writer w,
+      final StateController<List<TerminalCommandResult>> stateController,
+      final BuildContext context) = _$_TerminalContext;
 
   @override
-  List<String> get command;
+  List<String> get command => throw _privateConstructorUsedError;
   @override
-  Writer get w;
+  Writer get w => throw _privateConstructorUsedError;
   @override
-  StateController<List<TerminalCommandResult>> get stateController;
+  StateController<List<TerminalCommandResult>> get stateController =>
+      throw _privateConstructorUsedError;
   @override
-  BuildContext get context;
+  BuildContext get context => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TerminalContextCopyWith<_TerminalContext> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$TerminalCommandResultTearOff {
-  const _$TerminalCommandResultTearOff();
-
-  _TerminalCommandResult call(String command, String result) {
-    return _TerminalCommandResult(
-      command,
-      result,
-    );
-  }
-}
-
-/// @nodoc
-const $TerminalCommandResult = _$TerminalCommandResultTearOff();
 
 /// @nodoc
 mixin _$TerminalCommandResult {
@@ -354,35 +325,18 @@ class _$_TerminalCommandResult implements _TerminalCommandResult {
 }
 
 abstract class _TerminalCommandResult implements TerminalCommandResult {
-  const factory _TerminalCommandResult(String command, String result) =
-      _$_TerminalCommandResult;
+  const factory _TerminalCommandResult(
+      final String command, final String result) = _$_TerminalCommandResult;
 
   @override
-  String get command;
+  String get command => throw _privateConstructorUsedError;
   @override
-  String get result;
+  String get result => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TerminalCommandResultCopyWith<_TerminalCommandResult> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$CommandDefinitionTearOff {
-  const _$CommandDefinitionTearOff();
-
-  _CommandDefinition call(String command, String description,
-      FutureOr<void> Function(TerminalContext) run) {
-    return _CommandDefinition(
-      command,
-      description,
-      run,
-    );
-  }
-}
-
-/// @nodoc
-const $CommandDefinition = _$CommandDefinitionTearOff();
 
 /// @nodoc
 mixin _$CommandDefinition {
@@ -528,15 +482,19 @@ class _$_CommandDefinition implements _CommandDefinition {
 }
 
 abstract class _CommandDefinition implements CommandDefinition {
-  const factory _CommandDefinition(String command, String description,
-      FutureOr<void> Function(TerminalContext) run) = _$_CommandDefinition;
+  const factory _CommandDefinition(
+          final String command,
+          final String description,
+          final FutureOr<void> Function(TerminalContext) run) =
+      _$_CommandDefinition;
 
   @override
-  String get command;
+  String get command => throw _privateConstructorUsedError;
   @override
-  String get description;
+  String get description => throw _privateConstructorUsedError;
   @override
-  FutureOr<void> Function(TerminalContext) get run;
+  FutureOr<void> Function(TerminalContext) get run =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CommandDefinitionCopyWith<_CommandDefinition> get copyWith =>

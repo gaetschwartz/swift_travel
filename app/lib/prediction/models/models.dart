@@ -21,7 +21,8 @@ class RoutePrediction with _$RoutePrediction {
   factory RoutePrediction.empty(PredictionArguments arguments) =>
       RoutePrediction(null, 0, arguments);
 
-  factory RoutePrediction.fromJson(Map<String, dynamic> json) => _$RoutePredictionFromJson(json);
+  factory RoutePrediction.fromJson(Map<String, dynamic> json) =>
+      _$RoutePredictionFromJson(json);
 }
 
 @freezed
@@ -32,25 +33,28 @@ class FullArguments with _$FullArguments {
     PredictionArguments arguments,
   ) = _FullArguments;
 
-  factory FullArguments.fromJson(Map<String, dynamic> json) => _$FullArgumentsFromJson(json);
+  factory FullArguments.fromJson(Map<String, dynamic> json) =>
+      _$FullArgumentsFromJson(json);
 }
 
 @freezed
 class PredictionArguments with _$PredictionArguments {
   @JsonSerializable(explicitToJson: true)
-  const factory PredictionArguments.empty({required DateTime? dateTime}) = EmptyArgument;
+  const factory PredictionArguments.empty({required DateTime? dateTime}) =
+      EmptyArgument;
 
   const PredictionArguments._();
 
   @JsonSerializable(explicitToJson: true)
-  const factory PredictionArguments.withSource(String source, {required DateTime? dateTime}) =
-      SourceDateArguments;
+  const factory PredictionArguments.withSource(String source,
+      {required DateTime? dateTime}) = SourceDateArguments;
 
   @JsonSerializable(explicitToJson: true)
-  const factory PredictionArguments.withLocation(LatLon latLon, {required DateTime? dateTime}) =
-      LocationArgument;
+  const factory PredictionArguments.withLocation(LatLon latLon,
+      {required DateTime? dateTime}) = LocationArgument;
 
-  factory PredictionArguments.from(DateTime dateTime, {String? source, LatLon? pos}) {
+  factory PredictionArguments.from(DateTime dateTime,
+      {String? source, LatLon? pos}) {
     if (pos != null) {
       return PredictionArguments.withLocation(pos, dateTime: dateTime);
     }
@@ -115,7 +119,9 @@ class Pair<R, S> with _$Pair<R, S> {
 }
 
 @freezed
-class ContactCompletion with _$ContactCompletion implements NavigationCompletion {
+class ContactCompletion
+    with _$ContactCompletion
+    implements NavigationCompletion {
   const factory ContactCompletion(Contact contact) = _ContactCompletion;
   const ContactCompletion._();
 
@@ -129,7 +135,7 @@ class ContactCompletion with _$ContactCompletion implements NavigationCompletion
   String? get favoriteName => null;
 
   @override
-  Widget getIcon({double? size}) => throw UnimplementedError();
+  Widget get icon => throw UnimplementedError();
 
   @override
   String? get id => null;
@@ -138,11 +144,13 @@ class ContactCompletion with _$ContactCompletion implements NavigationCompletion
   String get label => contact.displayName ?? "";
 
   @override
-  TransportationMode? get type => null;
+  PlaceType? get type => null;
 }
 
 @freezed
-class CurrentLocationCompletion with _$CurrentLocationCompletion implements NavigationCompletion {
+class CurrentLocationCompletion
+    with _$CurrentLocationCompletion
+    implements NavigationCompletion {
   const factory CurrentLocationCompletion() = _CurrentLocationCompletion;
   const CurrentLocationCompletion._();
 
@@ -156,7 +164,7 @@ class CurrentLocationCompletion with _$CurrentLocationCompletion implements Navi
   String? get favoriteName => null;
 
   @override
-  Widget getIcon({double? size}) => throw UnimplementedError();
+  Widget get icon => throw UnimplementedError();
 
   @override
   String? get id => null;
@@ -165,5 +173,5 @@ class CurrentLocationCompletion with _$CurrentLocationCompletion implements Navi
   String get label => "%current_location%";
 
   @override
-  TransportationMode? get type => null;
+  PlaceType? get type => null;
 }

@@ -41,9 +41,10 @@ class LineIcon extends StatelessWidget {
     bool small = false,
     Key? key,
   }) =>
-      LineIcon.fromString(
+      LineIcon.raw(
         line: l.line,
-        colors: l.colors,
+        background: l.bgColor == null ? null : Color(l.bgColor!),
+        foreground: l.fgColor == null ? null : Color(l.fgColor!),
         small: small,
         key: key,
       );
@@ -63,7 +64,8 @@ class LineIcon extends StatelessWidget {
 
   static const defaultForeground = Color(0xfff0f0f0);
   static const defaultBackground = Color(0xff000000);
-  static bool isValidLeg(Leg l) => l.line != null && l.fgColor != null && l.bgColor != null;
+  static bool isValidLeg(Leg l) =>
+      l.line != null && l.fgColor != null && l.bgColor != null;
 
   final Color foreground;
   final Color background;
@@ -73,7 +75,10 @@ class LineIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) => DecoratedBox(
       decoration: BoxDecoration(
-        boxShadow: [BoxShadow(color: background.withOpacity(0.4), blurRadius: small ? 2 : 8)],
+        boxShadow: [
+          BoxShadow(
+              color: background.withOpacity(0.4), blurRadius: small ? 2 : 8)
+        ],
         borderRadius: const BorderRadius.all(Radius.circular(32)),
         color: background,
       ),

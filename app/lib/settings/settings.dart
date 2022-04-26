@@ -10,7 +10,6 @@ import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/settings/pages/advanced.dart';
 import 'package:swift_travel/settings/pages/customization.dart';
@@ -22,14 +21,14 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/property_page.dart';
 import 'package:swift_travel/widgets/route.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsPageState extends ConsumerState<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final children = [
@@ -45,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       if (Env.isDebugMode || defaultTargetPlatform == TargetPlatform.iOS)
         SwiftSettingsPropertyTile<NavigationApp>(
-          property: context.read(preferencesProvider).mapsApp,
+          property: ref.read(preferencesProvider).mapsApp,
           title: Text(AppLocalizations.of(context).maps_app),
           leading: const Icon(Icons.map_rounded),
           options: const [
@@ -61,16 +60,18 @@ class _SettingsPageState extends State<SettingsPage> {
           valueBuilder: (context, v) => Text(v.toStringFull()),
         ),
       SwiftSettingsPropertyTile<NavigationApiId>(
-        property: context.read(preferencesProvider).api,
+        property: ref.read(preferencesProvider).api,
         tileBorders: const TileBorders(bottom: true),
         options: NavigationApiFactory.factories
             .map(
-              (e) => ValueOption(title: Text(e.name), value: NavigationApiId(e.id.value)),
+              (e) => ValueOption(
+                  title: Text(e.name), value: NavigationApiId(e.id.value)),
             )
             .toList(growable: false),
         title: Text(AppLocalizations.of(context).navigation_api),
         leading: const Icon(CupertinoIcons.link),
-        valueBuilder: (context, v) => Text(NavigationApiFactory.fromId(v).shortDesc),
+        valueBuilder: (context, v) =>
+            Text(NavigationApiFactory.fromId(v).shortDesc),
         /* pageDescription: const Text(
             'BETA: In the future the goal is to add more countries.'),*/
       ),
@@ -192,31 +193,31 @@ final _tapCountProvider = StateProvider((ref) => 0);
 final isDeveloperProvider =
     ChangeNotifierProvider((ref) => ref.watch(preferencesProvider).isDeveloper);
 
-class BuildDetailsWidget extends StatelessWidget {
+class BuildDetailsWidget extends ConsumerWidget {
   const BuildDetailsWidget({
     Key? key,
   }) : super(key: key);
 
-  void onTap(BuildContext context) {
-    final controller = context.read(_tapCountProvider.state);
+  void onTap(BuildContext context, WidgetRef ref) {
+    final controller = ref.read(_tapCountProvider.state);
 
     if (controller.state == 6) {
-      context.read(preferencesProvider).isDeveloper.setValue(true);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("You are now a developer 😎")));
+      ref.read(preferencesProvider).isDeveloper.setValue(true);
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("You are now a developer 😎")));
     } else {
       controller.state++;
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       isThreeLine: true,
       dense: true,
       title: const Text(commitMessage),
       subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
-      onTap: () => onTap(context),
+      onTap: () => onTap(context, ref),
     );
   }
 }
@@ -310,7 +311,8 @@ class __ScrollProgressState extends State<_ScrollProgress> {
 
   void update() {
     if (mounted) {
-      final p = widget._controller.position.pixels / widget._controller.position.maxScrollExtent;
+      final p = widget._controller.position.pixels /
+          widget._controller.position.maxScrollExtent;
       setState(() => progress = math.min(1, p));
     }
   }
@@ -352,8 +354,10 @@ class SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: DefaultTextStyle(
-          style:
-              Theme.of(context).textTheme.headline6!.copyWith(color: platformPrimaryColor(context)),
+          style: Theme.of(context)
+              .textTheme
+              .headline6!
+              .copyWith(color: platformPrimaryColor(context)),
           textAlign: TextAlign.left,
           child: title,
         ),

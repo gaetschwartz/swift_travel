@@ -20,7 +20,8 @@ class TerminalContext with _$TerminalContext {
 
 @freezed
 class TerminalCommandResult with _$TerminalCommandResult {
-  const factory TerminalCommandResult(String command, String result) = _TerminalCommandResult;
+  const factory TerminalCommandResult(String command, String result) =
+      _TerminalCommandResult;
 }
 
 @freezed
@@ -33,7 +34,10 @@ class CommandDefinition with _$CommandDefinition {
 }
 
 final commands = [
-  CommandDefinition("hello", "Hello World command !", (c) => c.w("hello", "Hello")),
-  CommandDefinition("whoami", "Who am I ??", (c) => c.w("whoami", "Gaëtan Schwartz")),
-  CommandDefinition("clear", "Clear the console", (c) => c.stateController.state = []),
+  CommandDefinition(
+      "hello", "Hello World command !", (c) => c.w("hello", "Hello")),
+  CommandDefinition(
+      "whoami", "Who am I ??", (c) => c.w("whoami", "Gaëtan Schwartz")),
+  CommandDefinition(
+      "clear", "Clear the console", (c) => c.stateController.state = []),
 ];

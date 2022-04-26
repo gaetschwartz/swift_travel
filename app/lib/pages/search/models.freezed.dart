@@ -12,32 +12,7 @@ part of 'models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$TextFieldConfigurationTearOff {
-  const _$TextFieldConfigurationTearOff();
-
-  _TextFieldConfiguration call(
-      {String? placeholder,
-      List<TextInputFormatter>? inputFormatters,
-      TextInputAction? textInputAction,
-      Widget? prefix,
-      FocusNode? focusNode,
-      Key? key}) {
-    return _TextFieldConfiguration(
-      placeholder: placeholder,
-      inputFormatters: inputFormatters,
-      textInputAction: textInputAction,
-      prefix: prefix,
-      focusNode: focusNode,
-      key: key,
-    );
-  }
-}
-
-/// @nodoc
-const $TextFieldConfiguration = _$TextFieldConfigurationTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$TextFieldConfiguration {
@@ -185,17 +160,25 @@ class __$TextFieldConfigurationCopyWithImpl<$Res>
 class _$_TextFieldConfiguration extends _TextFieldConfiguration {
   const _$_TextFieldConfiguration(
       {this.placeholder,
-      this.inputFormatters,
+      final List<TextInputFormatter>? inputFormatters,
       this.textInputAction,
       this.prefix,
       this.focusNode,
       this.key})
-      : super._();
+      : _inputFormatters = inputFormatters,
+        super._();
 
   @override
   final String? placeholder;
+  final List<TextInputFormatter>? _inputFormatters;
   @override
-  final List<TextInputFormatter>? inputFormatters;
+  List<TextInputFormatter>? get inputFormatters {
+    final value = _inputFormatters;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final TextInputAction? textInputAction;
   @override
@@ -245,26 +228,27 @@ class _$_TextFieldConfiguration extends _TextFieldConfiguration {
 
 abstract class _TextFieldConfiguration extends TextFieldConfiguration {
   const factory _TextFieldConfiguration(
-      {String? placeholder,
-      List<TextInputFormatter>? inputFormatters,
-      TextInputAction? textInputAction,
-      Widget? prefix,
-      FocusNode? focusNode,
-      Key? key}) = _$_TextFieldConfiguration;
+      {final String? placeholder,
+      final List<TextInputFormatter>? inputFormatters,
+      final TextInputAction? textInputAction,
+      final Widget? prefix,
+      final FocusNode? focusNode,
+      final Key? key}) = _$_TextFieldConfiguration;
   const _TextFieldConfiguration._() : super._();
 
   @override
-  String? get placeholder;
+  String? get placeholder => throw _privateConstructorUsedError;
   @override
-  List<TextInputFormatter>? get inputFormatters;
+  List<TextInputFormatter>? get inputFormatters =>
+      throw _privateConstructorUsedError;
   @override
-  TextInputAction? get textInputAction;
+  TextInputAction? get textInputAction => throw _privateConstructorUsedError;
   @override
-  Widget? get prefix;
+  Widget? get prefix => throw _privateConstructorUsedError;
   @override
-  FocusNode? get focusNode;
+  FocusNode? get focusNode => throw _privateConstructorUsedError;
   @override
-  Key? get key;
+  Key? get key => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TextFieldConfigurationCopyWith<_TextFieldConfiguration> get copyWith =>

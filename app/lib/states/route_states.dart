@@ -7,7 +7,8 @@ part 'route_states.freezed.dart';
 class RouteStates with _$RouteStates {
   const factory RouteStates(NavRoute routes) = RSData;
   const factory RouteStates.networkException() = RSNetworkException;
-  const factory RouteStates.locationPermissionNotGranted() = RSLocationPermissionNotGranted;
+  const factory RouteStates.locationPermissionNotGranted() =
+      RSLocationPermissionNotGranted;
   const factory RouteStates.missingPluginException() = RSMissingPluginException;
   const factory RouteStates.exception(Object exception) = RSException;
   const factory RouteStates.empty() = RSEmpty;

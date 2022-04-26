@@ -24,12 +24,12 @@ abstract class BaseFavoritesStore extends ChangeNotifier {
   Iterable<FavoriteStop> get stops;
 }
 
-final storeProvider =
-    ChangeNotifierProvider<BaseFavoritesStore>(FavoritesSharedPreferencesStore.new);
+final storeProvider = ChangeNotifierProvider<BaseFavoritesStore>(
+    FavoritesSharedPreferencesStore.new);
 final favoritesStatesProvider =
     StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());
-final favoritesRoutesStatesProvider =
-    StateProvider<FavoritesRoutesStates>((_) => const FavoritesRoutesStates.loading());
+final favoritesRoutesStatesProvider = StateProvider<FavoritesRoutesStates>(
+    (_) => const FavoritesRoutesStates.loading());
 
 class HiveFavoritesStore extends BaseFavoritesStore {
   final favRoutesDb = FavRoutesDb();
@@ -85,7 +85,8 @@ class HiveFavoritesStore extends BaseFavoritesStore {
   }
 }
 
-class FavRoutesDb extends LocalDatabase<int, Map, LocalRoute> with IndexedDatabaseMixin {
+class FavRoutesDb extends LocalDatabase<int, Map, LocalRoute>
+    with IndexedDatabaseMixin {
   @visibleForTesting
   FavRoutesDb()
       : super(
@@ -104,7 +105,8 @@ class FavRoutesDb extends LocalDatabase<int, Map, LocalRoute> with IndexedDataba
   void onDatabaseExceededMaxSize() {}
 }
 
-class FavStopsDb extends LocalDatabase<int, Map, FavoriteStop> with IndexedDatabaseMixin {
+class FavStopsDb extends LocalDatabase<int, Map, FavoriteStop>
+    with IndexedDatabaseMixin {
   @visibleForTesting
   FavStopsDb()
       : super(
@@ -147,8 +149,10 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
   @override
   Future<void> init({SharedPreferences? prefs, bool doNotify = true}) async {
     if (doNotify) {
-      ref.read(favoritesStatesProvider.state).state = const FavoritesStates.loading();
-      ref.read(favoritesRoutesStatesProvider.state).state = const FavoritesRoutesStates.loading();
+      ref.read(favoritesStatesProvider.state).state =
+          const FavoritesStates.loading();
+      ref.read(favoritesRoutesStatesProvider.state).state =
+          const FavoritesRoutesStates.loading();
     }
     _prefs = prefs ?? await SharedPreferences.getInstance();
 
@@ -235,13 +239,14 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
     }
     await _prefs!.setStringList(stopsKey, stops);
 
-    final routes = _routes.map((e) => jsonEncode(e.toJson())).toList(growable: false);
+    final routes =
+        _routes.map((e) => jsonEncode(e.toJson())).toList(growable: false);
 
     await _prefs!.setStringList(routesKey, routes);
 
     if (isMobile) {
-      await MyQuickActions.i
-          .setActions(_routes.toList(growable: false), _stops.toList(growable: false));
+      await MyQuickActions.i.setActions(
+          _routes.toList(growable: false), _stops.toList(growable: false));
     }
   }
 

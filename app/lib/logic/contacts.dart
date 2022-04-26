@@ -11,12 +11,15 @@ class ContactsRepository {
   bool _granted = false;
   Iterable<Contact>? _contacts;
 
-  Future<Iterable<Contact>> getAll({bool cache = false, bool withThumbnails = false}) async {
+  Future<Iterable<Contact>> getAll(
+      {bool cache = false, bool withThumbnails = false}) async {
     if (Env.doMockContacts) {
       return const [
         Contact(
           displayName: "John Doe",
-          postalAddresses: [PostalAddress(street: "Chemin des colombettes 34, 1202 Genève")],
+          postalAddresses: [
+            PostalAddress(street: "Chemin des colombettes 34, 1202 Genève")
+          ],
         )
       ];
     }
@@ -28,7 +31,8 @@ class ContactsRepository {
     }
     if (_granted) {
       if (cache) {
-        _contacts ??= await ContactsService.getContacts(withThumbnails: withThumbnails);
+        _contacts ??=
+            await ContactsService.getContacts(withThumbnails: withThumbnails);
         return _contacts!;
       } else {
         return ContactsService.getContacts(withThumbnails: withThumbnails);

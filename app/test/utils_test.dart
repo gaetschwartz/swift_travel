@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/exit.dart';
+import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -32,7 +33,8 @@ class ExtendedTheme with _$ExtendedTheme {
 
 @freezed
 class FullTheme with _$FullTheme {
-  const factory FullTheme({required ExtendedTheme light, required ExtendedTheme dark}) = _FullTheme;
+  const factory FullTheme(
+      {required ExtendedTheme light, required ExtendedTheme dark}) = _FullTheme;
 }
 
 ThemeData _identity(ThemeData t) => t;
@@ -72,7 +74,8 @@ class ThemeConfiguration with _$ThemeConfiguration {
     String? defaultDarkThemeId,
     Font? defaultFont,
     @Default(Typography.englishLike2018) TextTheme defaultTextTheme,
-    @Default(_identity) ThemeData Function(ThemeData themeData) applyToAllThemes,
+    @Default(_identity)
+        ThemeData Function(ThemeData themeData) applyToAllThemes,
   }) = _ThemeConfiguration;
 
   const ThemeConfiguration._();

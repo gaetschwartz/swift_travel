@@ -8,8 +8,8 @@ import 'package:gaets_logging/logging.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
+import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -52,16 +52,15 @@ void main() {
       '&dtm=1g3ashk'
       '&i=0',
     );
-    DeepLinkBloc.channel.setMockMethodCallHandler((methodCall) async => uri.toString());
+    DeepLinkBloc.channel
+        .setMockMethodCallHandler((methodCall) async => uri.toString());
 
-    final c = ProviderContainer(
-        overrides: [navigationAPIProvider.overrideWithValue(MockNavigationApi())]);
+    final c = ProviderContainer(overrides: [
+      navigationAPIProvider.overrideWithValue(MockNavigationApi())
+    ]);
 
     late Pair<NavRoute, int> p;
-    await c.read(linksProvider).init(
-          getApi: () => c.read(navigationAPIProvider),
-          onNewRoute: (map) => p = map,
-        );
+    await c.read(linksProvider).init(onNewRoute: (map) => p = map);
 
     expect(p, isNotNull);
     expect(p.first, isNotNull);
@@ -81,7 +80,8 @@ void main() {
     late final String dirPath;
     setUpAll(() async {
       final directory = await getTempDirForTests();
-      dirPath = path.join(directory.path, 'swift_travel', 'test_results', 'route_tab_test');
+      dirPath = path.join(
+          directory.path, 'swift_travel', 'test_results', 'route_tab_test');
       Hive.init(dirPath);
     });
 
@@ -154,7 +154,8 @@ void main() {
         await t.tap(tile);
         await t.pumpAndSettle();
 
-        final localizations = await AppLocalizations.delegate.load(const Locale('en'));
+        final localizations =
+            await AppLocalizations.delegate.load(const Locale('en'));
         expect(find.text(localizations.tabs_route), findsOneWidget);
         log.log('We are in the route details page');
 
@@ -174,11 +175,11 @@ void main() {
 Future<void> openBoxes() async {
   await FavRoutesDb.i.open();
   await FavStopsDb.i.open();
-  await RouteHistoryRepository.i.open();
+  await RouteHistoryRepository.instance.open();
 }
 
 Future<void> clearBoxes() async {
   await FavRoutesDb.i.clear();
   await FavStopsDb.i.clear();
-  await RouteHistoryRepository.i.clear();
+  await RouteHistoryRepository.instance.clear();
 }

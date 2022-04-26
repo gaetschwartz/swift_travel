@@ -5,27 +5,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/attribute.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:theming/responsive.dart';
 
-class CrawlerPage extends StatefulWidget {
+class CrawlerPage extends ConsumerStatefulWidget {
   const CrawlerPage({Key? key}) : super(key: key);
 
   @override
   _CrawlerPageState createState() => _CrawlerPageState();
 }
 
-class _CrawlerPageState extends State<CrawlerPage> {
-  final routes = RouteHistoryRepository.i.history;
+class _CrawlerPageState extends ConsumerState<CrawlerPage> {
+  final routes = RouteHistoryRepository.instance.history;
   Map<String, String> handled = {};
   Map<String, String> unHandled = {};
 
@@ -94,7 +94,7 @@ class _CrawlerPageState extends State<CrawlerPage> {
                               });
                             }
                             final r =
-                                await context.read(navigationAPIProvider).route(
+                                await ref.read(navigationAPIProvider).route(
                                       lr.fromAsString,
                                       lr.toAsString,
                                       date: DateTime.now(),

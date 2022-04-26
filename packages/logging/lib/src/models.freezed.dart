@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'models.dart';
@@ -11,28 +12,7 @@ part of 'models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$LogMessageTearOff {
-  const _$LogMessageTearOff();
-
-  _LogMessage call(
-      {required String message,
-      LogLevel level = LogLevel.info,
-      required DateTime timestamp,
-      String? channel}) {
-    return _LogMessage(
-      message: message,
-      level: level,
-      timestamp: timestamp,
-      channel: channel,
-    );
-  }
-}
-
-/// @nodoc
-const $LogMessage = _$LogMessageTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$LogMessage {
@@ -162,8 +142,8 @@ class _$_LogMessage implements _LogMessage {
 
   @override
   final String message;
-  @JsonKey(defaultValue: LogLevel.info)
   @override
+  @JsonKey()
   final LogLevel level;
   @override
   final DateTime timestamp;
@@ -178,26 +158,21 @@ class _$_LogMessage implements _LogMessage {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _LogMessage &&
-            (identical(other.message, message) ||
-                const DeepCollectionEquality()
-                    .equals(other.message, message)) &&
-            (identical(other.level, level) ||
-                const DeepCollectionEquality().equals(other.level, level)) &&
-            (identical(other.timestamp, timestamp) ||
-                const DeepCollectionEquality()
-                    .equals(other.timestamp, timestamp)) &&
-            (identical(other.channel, channel) ||
-                const DeepCollectionEquality().equals(other.channel, channel)));
+        (other.runtimeType == runtimeType &&
+            other is _LogMessage &&
+            const DeepCollectionEquality().equals(other.message, message) &&
+            const DeepCollectionEquality().equals(other.level, level) &&
+            const DeepCollectionEquality().equals(other.timestamp, timestamp) &&
+            const DeepCollectionEquality().equals(other.channel, channel));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(message) ^
-      const DeepCollectionEquality().hash(level) ^
-      const DeepCollectionEquality().hash(timestamp) ^
-      const DeepCollectionEquality().hash(channel);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(message),
+      const DeepCollectionEquality().hash(level),
+      const DeepCollectionEquality().hash(timestamp),
+      const DeepCollectionEquality().hash(channel));
 
   @JsonKey(ignore: true)
   @override
@@ -207,10 +182,10 @@ class _$_LogMessage implements _LogMessage {
 
 abstract class _LogMessage implements LogMessage {
   const factory _LogMessage(
-      {required String message,
-      LogLevel level,
-      required DateTime timestamp,
-      String? channel}) = _$_LogMessage;
+      {required final String message,
+      final LogLevel level,
+      required final DateTime timestamp,
+      final String? channel}) = _$_LogMessage;
 
   @override
   String get message => throw _privateConstructorUsedError;
@@ -225,22 +200,6 @@ abstract class _LogMessage implements LogMessage {
   _$LogMessageCopyWith<_LogMessage> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$LogLevelTearOff {
-  const _$LogLevelTearOff();
-
-  _LogLevel _(int level, Sentiment sentiment, String name) {
-    return _LogLevel(
-      level,
-      sentiment,
-      name,
-    );
-  }
-}
-
-/// @nodoc
-const $LogLevel = _$LogLevelTearOff();
 
 /// @nodoc
 mixin _$LogLevel {
@@ -351,22 +310,19 @@ class _$_LogLevel implements _LogLevel {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _LogLevel &&
-            (identical(other.level, level) ||
-                const DeepCollectionEquality().equals(other.level, level)) &&
-            (identical(other.sentiment, sentiment) ||
-                const DeepCollectionEquality()
-                    .equals(other.sentiment, sentiment)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)));
+        (other.runtimeType == runtimeType &&
+            other is _LogLevel &&
+            const DeepCollectionEquality().equals(other.level, level) &&
+            const DeepCollectionEquality().equals(other.sentiment, sentiment) &&
+            const DeepCollectionEquality().equals(other.name, name));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(level) ^
-      const DeepCollectionEquality().hash(sentiment) ^
-      const DeepCollectionEquality().hash(name);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(level),
+      const DeepCollectionEquality().hash(sentiment),
+      const DeepCollectionEquality().hash(name));
 
   @JsonKey(ignore: true)
   @override
@@ -375,7 +331,8 @@ class _$_LogLevel implements _LogLevel {
 }
 
 abstract class _LogLevel implements LogLevel {
-  const factory _LogLevel(int level, Sentiment sentiment, String name) =
+  const factory _LogLevel(
+          final int level, final Sentiment sentiment, final String name) =
       _$_LogLevel;
 
   @override

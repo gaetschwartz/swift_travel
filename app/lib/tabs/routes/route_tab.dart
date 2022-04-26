@@ -11,9 +11,9 @@ import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart' hide Position;
 import 'package:intl/intl.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
+import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -38,14 +38,25 @@ import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
-final timeTypeProvider = StateProvider((_) => TimeType.depart);
+final timeTypeProvider = StateProvider((_) => TimeType.departure);
 final dateProvider = StateProvider((_) => DateTime.now());
 
-final fromTextfieldProvider = StateProvider((_) => const RouteTextfieldState.useCurrentLocation());
-final toTextfieldProvider = StateProvider((_) => const RouteTextfieldState.empty());
+final fromTextfieldProvider =
+    StateProvider((_) => const RouteTextfieldState.useCurrentLocation());
+final toTextfieldProvider =
+    StateProvider((_) => const RouteTextfieldState.empty());
 
-final fetcherProvider = Provider<FetcherBase>((_) => Fetcher());
-final routeStatesProvider = ChangeNotifierProvider((ref) => ref.watch(fetcherProvider)..fetch(ref));
+@visibleForTesting
+final fetcherProvider = Provider.autoDispose<FetcherBase>((_) {
+  _.keepAlive();
+  return Fetcher();
+});
+final routeStatesProvider = ChangeNotifierProvider.autoDispose((ref) {
+  ref.keepAlive();
+  final fetcher = ref.watch(fetcherProvider);
+  fetcher.fetch(ref);
+  return fetcher;
+});
 
 abstract class FetcherBase extends ChangeNotifier {
   Future<void> fetch(Ref ref);
@@ -78,8 +89,10 @@ class Fetcher extends FetcherBase {
         state = const RouteStates.empty();
       }
       return;
-    } else if (from.state.maybeWhen(text: (t, l) => t.isEmpty || !l, orElse: () => false) ||
-        to.state.maybeWhen(text: (t, l) => t.isEmpty || !l, orElse: () => false)) {
+    } else if (from.state
+            .maybeWhen(text: (t, l) => t.isEmpty || !l, orElse: () => false) ||
+        to.state
+            .maybeWhen(text: (t, l) => t.isEmpty || !l, orElse: () => false)) {
       return;
     } else {
       state = const RouteStates.loading();
@@ -115,7 +128,7 @@ class Fetcher extends FetcherBase {
         arrival,
         date: date,
         time: TimeOfDay.fromDateTime(date),
-        typeTime: timeType,
+        timeType: timeType,
       );
       state = RouteStates(it);
     } on SocketException catch (e, s) {
@@ -141,7 +154,8 @@ class RouteTab extends StatefulWidget {
   _RouteTabState createState() => _RouteTabState();
 }
 
-class _RouteTabState extends State<RouteTab> with AutomaticKeepAliveClientMixin {
+class _RouteTabState extends State<RouteTab>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -160,8 +174,10 @@ class MyTextFormatter extends TextInputFormatter {
   final StateController<RouteTextfieldState> state;
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.text.length != oldValue.text.length && oldValue.text == currentLocation) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.length != oldValue.text.length &&
+        oldValue.text == currentLocation) {
       binder.clearWithoutContext(state);
       return TextEditingValue.empty;
     } else {
@@ -170,7 +186,7 @@ class MyTextFormatter extends TextInputFormatter {
   }
 }
 
-class RoutePage extends StatefulWidget {
+class RoutePage extends ConsumerStatefulWidget {
   const RoutePage({Key? key})
       : favStop = null,
         localRoute = null,
@@ -199,10 +215,12 @@ class RoutePage extends StatefulWidget {
   }
 }
 
-final TextStateBinder fromBinder = TextStateBinder(TextEditingController(), fromTextfieldProvider);
-final TextStateBinder toBinder = TextStateBinder(TextEditingController(), toTextfieldProvider);
+final TextStateBinder fromBinder =
+    TextStateBinder(TextEditingController(), fromTextfieldProvider);
+final TextStateBinder toBinder =
+    TextStateBinder(TextEditingController(), toTextfieldProvider);
 
-class RoutePageState extends State<RoutePage> {
+class RoutePageState extends ConsumerState<RoutePage> {
   final FocusNode fnFrom = FocusNode();
   final FocusNode fnTo = FocusNode();
 
@@ -210,7 +228,7 @@ class RoutePageState extends State<RoutePage> {
   late MyTextFormatter toFormatter;
   late BaseFavoritesStore favorites;
   late BaseNavigationApi api;
-  final historyRepository = RouteHistoryRepository.i;
+  final historyRepository = RouteHistoryRepository.instance;
 
   @override
   void initState() {
@@ -226,20 +244,22 @@ class RoutePageState extends State<RoutePage> {
   }
 
   void clearProviders() {
-    context.read(routeStatesProvider).state = const RouteStates.empty();
-    context.read(dateProvider.state).state = DateTime.now();
-    context.read(timeTypeProvider.state).state = TimeType.depart;
+    ref.read(routeStatesProvider).state = const RouteStates.empty();
+    ref.read(dateProvider.state).state = DateTime.now();
+    ref.read(timeTypeProvider.state).state = TimeType.departure;
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    fromFormatter = MyTextFormatter(AppLocalizations.of(context).current_location, fromBinder,
-        context.read(fromTextfieldProvider.state));
-    toFormatter = MyTextFormatter(AppLocalizations.of(context).current_location, toBinder,
-        context.read(fromTextfieldProvider.state));
-    favorites = context.read(storeProvider);
-    api = context.read(navigationAPIProvider);
+    fromFormatter = MyTextFormatter(
+        AppLocalizations.of(context).current_location,
+        fromBinder,
+        ref.read(fromTextfieldProvider.state));
+    toFormatter = MyTextFormatter(AppLocalizations.of(context).current_location,
+        toBinder, ref.read(fromTextfieldProvider.state));
+    favorites = ref.read(storeProvider);
+    api = ref.read(navigationAPIProvider);
     fromBinder.syncState(context);
     toBinder.syncState(context);
   }
@@ -257,7 +277,7 @@ class RoutePageState extends State<RoutePage> {
   }
 
   void useLocalRoute() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
       fromBinder.setString(context, widget.localRoute!.fromAsString);
@@ -266,7 +286,7 @@ class RoutePageState extends State<RoutePage> {
   }
 
   void goToDest() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
       fromBinder.useCurrentLocation(context);
@@ -292,7 +312,8 @@ class RoutePageState extends State<RoutePage> {
       materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: MaterialAppBar(
-            title: Text(widget.localRoute?.displayName ?? AppLocalizations.of(context).tabs_route)),
+            title: Text(widget.localRoute?.displayName ??
+                AppLocalizations.of(context).tabs_route)),
         body: child,
       ),
       builder: (_, d) => SafeArea(
@@ -305,11 +326,13 @@ class RoutePageState extends State<RoutePage> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 4, left: 8, top: 8, bottom: 4),
+                        padding: const EdgeInsets.only(
+                            right: 4, left: 8, top: 8, bottom: 4),
                         child: buildFromField(context),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 4, left: 8, top: 4, bottom: 8),
+                        padding: const EdgeInsets.only(
+                            right: 4, left: 8, top: 4, bottom: 8),
                         child: buildToField(context),
                       ),
                     ],
@@ -345,23 +368,27 @@ class RoutePageState extends State<RoutePage> {
                                 lr.fromAsString == fromBinder.text &&
                                 lr.toAsString == toBinder.text,
                           )) {
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                content: Text('This route is already in your favorites !')));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'This route is already in your favorites !')));
                             return;
                           }
 
-                          final s = await input(context, title: const Text('Enter route name'));
+                          final s = await input(context,
+                              title: const Text('Enter route name'));
                           if (s == null) {
                             return;
                           }
                           await favorites.addRoute(LocalRoute.v2(
-                              SbbStop(name: fromBinder.text), SbbStop(name: toBinder.text),
+                              SbbStop(name: fromBinder.text),
+                              SbbStop(name: toBinder.text),
                               displayName: s));
 
                           if (!mounted) return;
 
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(content: Text('Route starred !')));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Route starred !')));
                         },
                         icon: Consumer(builder: (context, ref, _) {
                           ref.watch(routeStatesProvider);
@@ -395,20 +422,23 @@ class RoutePageState extends State<RoutePage> {
                                     doLoad: false,
                                   );
 
-                                  context.read(routeStatesProvider).state = RouteStates(sbbRoute);
+                                  ref.read(routeStatesProvider).state =
+                                      RouteStates(sbbRoute);
                                 }
                               : null,
                           style: TextButton.styleFrom(
                               shape: const StadiumBorder(),
-                              primary: Theme.of(context).textTheme.button!.color),
+                              primary:
+                                  Theme.of(context).textTheme.button!.color),
                           onPressed: () async {
                             Vibration.instance.select();
-                            var type = context.read(timeTypeProvider.state).state;
-                            final currentDate = context.read(dateProvider.state);
+                            var type = ref.read(timeTypeProvider.state).state;
+                            final currentDate = ref.read(dateProvider.state);
                             final date = await pickDate(
                               context,
-                              initialDateTime: currentDate.state
-                                  .subtract(Duration(minutes: currentDate.state.minute % 5)),
+                              initialDateTime: currentDate.state.subtract(
+                                  Duration(
+                                      minutes: currentDate.state.minute % 5)),
                               minuteInterval: 5,
                               bottom: _Segmented(
                                 onChange: (v) => type = v,
@@ -419,21 +449,26 @@ class RoutePageState extends State<RoutePage> {
                             if (date != null) currentDate.state = date;
 
                             if (!mounted) return;
-                            context.read(timeTypeProvider.state).state = type;
+                            ref.read(timeTypeProvider.state).state = type;
                           },
                           child: Consumer(builder: (context, w, _) {
                             final date = w.watch(dateProvider.state);
                             final time = w.watch(timeTypeProvider.state);
-                            final dateFormatted = DateFormat('d MMM y').format(date.state);
-                            final timeFormatted = DateFormat('H:mm').format(date.state);
+                            final dateFormatted =
+                                DateFormat('d MMM y').format(date.state);
+                            final timeFormatted =
+                                DateFormat('H:mm').format(date.state);
                             final type = describeEnum(time.state);
                             return Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text('${type[0].toUpperCase()}${type.substring(1, 3)}.'),
-                                const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
+                                Text(
+                                    '${type[0].toUpperCase()}${type.substring(1, 3)}.'),
+                                const VerticalDivider(
+                                    indent: 12, endIndent: 12, thickness: 1.5),
                                 Text(dateFormatted),
-                                const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
+                                const VerticalDivider(
+                                    indent: 12, endIndent: 12, thickness: 1.5),
                                 Text(timeFormatted),
                               ],
                             );
@@ -449,7 +484,7 @@ class RoutePageState extends State<RoutePage> {
                       onPressed: () {
                         Vibration.instance.select();
                         unFocusFields();
-                        context.read(dateProvider.state).state = DateTime.now();
+                        ref.read(dateProvider.state).state = DateTime.now();
                       },
                       icon: const Icon(Icons.restore),
                     ),
@@ -507,8 +542,9 @@ class RoutePageState extends State<RoutePage> {
           key: routeToTextfieldKey,
         ),
         icon: Consumer(
-          builder: (context, w, _) =>
-              _IconForState(w.watch(toTextfieldProvider.state).state, iconSize: 16),
+          builder: (context, w, _) => _IconForState(
+              w.watch(toTextfieldProvider.state).state,
+              iconSize: 16),
         ),
         text: AppLocalizations.of(context).destination,
         textInputAction: TextInputAction.search,
@@ -528,7 +564,7 @@ class RoutePageState extends State<RoutePage> {
   }
 }
 
-class _TextField extends StatelessWidget {
+class _TextField extends ConsumerStatefulWidget {
   const _TextField({
     Key? key,
     required this.herotag,
@@ -550,15 +586,23 @@ class _TextField extends StatelessWidget {
   final Widget icon;
   final bool isDestination;
 
-  void openSearch(BuildContext context) => Navigator.of(context, rootNavigator: true).push<void>(
+  @override
+  ConsumerState<_TextField> createState() => _TextFieldState();
+}
+
+class _TextFieldState extends ConsumerState<_TextField> {
+  void openSearch(BuildContext context) =>
+      Navigator.of(context, rootNavigator: true).push<void>(
         CupertinoPageRoute(
           builder: (context) => SearchPage(
-            binder: binder,
-            heroTag: herotag,
-            configuration: textFieldConfiguration,
+            binder: widget.binder,
+            heroTag: widget.herotag,
+            configuration: widget.textFieldConfiguration,
             // new params
-            isDestination: isDestination,
-            dateTime: isDestination ? context.read(dateProvider.state).state : null,
+            isDestination: widget.isDestination,
+            dateTime: widget.isDestination
+                ? ref.read(dateProvider.state).state
+                : null,
           ),
         ),
       );
@@ -566,30 +610,30 @@ class _TextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: herotag,
+      tag: widget.herotag,
       child: isThemeDarwin(context)
           ? CupertinoTextField(
-              key: textfieldKey,
-              focusNode: textFieldConfiguration.focusNode,
-              controller: binder.controller,
-              placeholder: text,
-              textInputAction: textInputAction,
+              key: widget.textfieldKey,
+              focusNode: widget.textFieldConfiguration.focusNode,
+              controller: widget.binder.controller,
+              placeholder: widget.text,
+              textInputAction: widget.textInputAction,
               prefix: Padding(
                 padding: const EdgeInsets.only(left: 8),
-                child: icon,
+                child: widget.icon,
               ),
               onTap: () => openSearch(context),
             )
           : Material(
               child: TextField(
-                key: textfieldKey,
-                focusNode: textFieldConfiguration.focusNode,
-                controller: binder.controller,
+                key: widget.textfieldKey,
+                focusNode: widget.textFieldConfiguration.focusNode,
+                controller: widget.binder.controller,
                 decoration: InputDecoration(
-                  hintText: text,
-                  prefixIcon: icon,
+                  hintText: widget.text,
+                  prefixIcon: widget.icon,
                 ),
-                textInputAction: textInputAction,
+                textInputAction: widget.textInputAction,
                 onTap: () => openSearch(context),
               ),
             ),
@@ -606,7 +650,8 @@ class _IconForState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return state.maybeWhen(
-      useCurrentLocation: () => Icon(CupertinoIcons.location_fill, size: iconSize),
+      useCurrentLocation: () =>
+          Icon(CupertinoIcons.location_fill, size: iconSize),
       orElse: () => Icon(CupertinoIcons.textformat, size: iconSize),
     );
   }
@@ -637,7 +682,8 @@ class TextStateBinder {
   }
 
   void setString(BuildContext context, String s, {bool doLoad = true}) {
-    context.read(provider.state).state = RouteTextfieldState.text(s, doLoad: doLoad);
+    context.read(provider.state).state =
+        RouteTextfieldState.text(s, doLoad: doLoad);
     controller.text = s;
   }
 
@@ -655,11 +701,13 @@ class TextStateBinder {
   }
 
   void useCurrentLocation(BuildContext context) {
-    context.read(provider.state).state = const RouteTextfieldState.useCurrentLocation();
+    context.read(provider.state).state =
+        const RouteTextfieldState.useCurrentLocation();
     controller.text = computeCurrentLocation(context);
   }
 
-  RouteTextfieldState state(BuildContext context) => context.read(provider.state).state;
+  RouteTextfieldState state(BuildContext context) =>
+      context.read(provider.state).state;
 
   String get text => controller.text;
 
@@ -702,7 +750,7 @@ class __SegmentedState extends State<_Segmented> {
       groupValue: _type,
       onValueChanged: onValueChanged,
       children: {
-        TimeType.depart: Text(
+        TimeType.departure: Text(
           AppLocalizations.of(context).departure,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),

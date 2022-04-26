@@ -5,30 +5,31 @@ part 'vehicle_iconclass.g.dart';
 
 @freezed
 class _VehicleIconclass with _$_VehicleIconclass {
-  const factory _VehicleIconclass(TransportationMode v) = __VehicleIconclass;
+  const factory _VehicleIconclass(PlaceType v) = __VehicleIconclass;
 
+  // ignore: unused_element
   factory _VehicleIconclass.fromJson(Map<String, dynamic> json) =>
       _$_VehicleIconclassFromJson(json);
 }
 
-extension TransportationModeX on TransportationMode {
-  static TransportationMode parse(
+extension TransportationModeX on PlaceType {
+  static PlaceType parse(
     String s, {
-    TransportationMode unknownValue = TransportationMode.unknown,
+    PlaceType unknownValue = PlaceType.unknown,
   }) =>
-      $enumDecode(_$TransportationModeEnumMap, s, unknownValue: unknownValue);
+      $enumDecode(_$PlaceTypeEnumMap, s, unknownValue: unknownValue);
 
-  static const List<TransportationMode> _privatePlaces = [
-    TransportationMode.address,
-    TransportationMode.business,
-    TransportationMode.private
+  static const List<PlaceType> _privatePlaces = [
+    PlaceType.address,
+    PlaceType.business,
+    PlaceType.private
   ];
 
   bool get isAddress => _privatePlaces.contains(this);
-  static bool isAnAddress(TransportationMode? s) => s != null && s.isAddress;
+  static bool isAnAddress(PlaceType? s) => s != null && s.isAddress;
 }
 
-enum TransportationMode {
+enum PlaceType {
   bus,
   post,
   @JsonValue('night_bus')

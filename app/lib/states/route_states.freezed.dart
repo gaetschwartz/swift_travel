@@ -12,47 +12,7 @@ part of 'route_states.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$RouteStatesTearOff {
-  const _$RouteStatesTearOff();
-
-  RSData call(NavRoute routes) {
-    return RSData(
-      routes,
-    );
-  }
-
-  RSNetworkException networkException() {
-    return const RSNetworkException();
-  }
-
-  RSLocationPermissionNotGranted locationPermissionNotGranted() {
-    return const RSLocationPermissionNotGranted();
-  }
-
-  RSMissingPluginException missingPluginException() {
-    return const RSMissingPluginException();
-  }
-
-  RSException exception(Object exception) {
-    return RSException(
-      exception,
-    );
-  }
-
-  RSEmpty empty() {
-    return const RSEmpty();
-  }
-
-  RSLoading loading() {
-    return const RSLoading();
-  }
-}
-
-/// @nodoc
-const $RouteStates = _$RouteStatesTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$RouteStates {
@@ -303,9 +263,9 @@ class _$RSData implements RSData {
 }
 
 abstract class RSData implements RouteStates {
-  const factory RSData(NavRoute routes) = _$RSData;
+  const factory RSData(final NavRoute routes) = _$RSData;
 
-  NavRoute get routes;
+  NavRoute get routes => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $RSDataCopyWith<RSData> get copyWith => throw _privateConstructorUsedError;
 }
@@ -893,9 +853,9 @@ class _$RSException implements RSException {
 }
 
 abstract class RSException implements RouteStates {
-  const factory RSException(Object exception) = _$RSException;
+  const factory RSException(final Object exception) = _$RSException;
 
-  Object get exception;
+  Object get exception => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $RSExceptionCopyWith<RSException> get copyWith =>
       throw _privateConstructorUsedError;

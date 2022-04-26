@@ -12,7 +12,7 @@ part of 'models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Union _$UnionFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
@@ -28,37 +28,6 @@ Union _$UnionFromJson(Map<String, dynamic> json) {
           'Invalid union type "${json['runtimeType']}"!');
   }
 }
-
-/// @nodoc
-class _$UnionTearOff {
-  const _$UnionTearOff();
-
-  Person call(String name) {
-    return Person(
-      name,
-    );
-  }
-
-  Animal animal(String name, int legs) {
-    return Animal(
-      name,
-      legs,
-    );
-  }
-
-  Number number(int number) {
-    return Number(
-      number,
-    );
-  }
-
-  Union fromJson(Map<String, Object?> json) {
-    return Union.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Union = _$UnionTearOff();
 
 /// @nodoc
 mixin _$Union {
@@ -156,7 +125,7 @@ class _$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Person implements Person {
-  const _$Person(this.name, {String? $type}) : $type = $type ?? 'default';
+  const _$Person(this.name, {final String? $type}) : $type = $type ?? 'default';
 
   factory _$Person.fromJson(Map<String, dynamic> json) =>
       _$$PersonFromJson(json);
@@ -180,6 +149,7 @@ class _$Person implements Person {
             const DeepCollectionEquality().equals(other.name, name));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(name));
@@ -264,11 +234,11 @@ class _$Person implements Person {
 }
 
 abstract class Person implements Union {
-  const factory Person(String name) = _$Person;
+  const factory Person(final String name) = _$Person;
 
   factory Person.fromJson(Map<String, dynamic> json) = _$Person.fromJson;
 
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PersonCopyWith<Person> get copyWith => throw _privateConstructorUsedError;
 }
@@ -310,7 +280,7 @@ class _$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Animal implements Animal {
-  const _$Animal(this.name, this.legs, {String? $type})
+  const _$Animal(this.name, this.legs, {final String? $type})
       : $type = $type ?? 'animal';
 
   factory _$Animal.fromJson(Map<String, dynamic> json) =>
@@ -338,6 +308,7 @@ class _$Animal implements Animal {
             const DeepCollectionEquality().equals(other.legs, legs));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -424,12 +395,12 @@ class _$Animal implements Animal {
 }
 
 abstract class Animal implements Union {
-  const factory Animal(String name, int legs) = _$Animal;
+  const factory Animal(final String name, final int legs) = _$Animal;
 
   factory Animal.fromJson(Map<String, dynamic> json) = _$Animal.fromJson;
 
-  String get name;
-  int get legs;
+  String get name => throw _privateConstructorUsedError;
+  int get legs => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AnimalCopyWith<Animal> get copyWith => throw _privateConstructorUsedError;
 }
@@ -466,7 +437,8 @@ class _$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Number implements Number {
-  const _$Number(this.number, {String? $type}) : $type = $type ?? 'number';
+  const _$Number(this.number, {final String? $type})
+      : $type = $type ?? 'number';
 
   factory _$Number.fromJson(Map<String, dynamic> json) =>
       _$$NumberFromJson(json);
@@ -490,6 +462,7 @@ class _$Number implements Number {
             const DeepCollectionEquality().equals(other.number, number));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(number));
@@ -574,11 +547,11 @@ class _$Number implements Number {
 }
 
 abstract class Number implements Union {
-  const factory Number(int number) = _$Number;
+  const factory Number(final int number) = _$Number;
 
   factory Number.fromJson(Map<String, dynamic> json) = _$Number.fromJson;
 
-  int get number;
+  int get number => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NumberCopyWith<Number> get copyWith => throw _privateConstructorUsedError;
 }

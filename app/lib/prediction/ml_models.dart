@@ -17,7 +17,8 @@ class KnnRouteModel implements RouteMLModel {
   const KnnRouteModel();
 
   @override
-  RoutePrediction predict(FullArguments input) => predictRouteSync(input.routes, input.arguments);
+  RoutePrediction predict(FullArguments input) =>
+      predictRouteSync(input.routes, input.arguments);
 }
 
 const _k = 5;
@@ -27,13 +28,17 @@ const _daysFactor = 1 / 4;
 const _minutesFactor = 1 / Duration.minutesPerDay;
 
 final _newCache = <int, RoutePrediction>{};
-RoutePrediction? _getCachedIfPresent(PredictionArguments args) => _newCache[args.hashCode];
-RoutePrediction? _setCached(PredictionArguments args, RoutePrediction prediction) =>
+RoutePrediction? _getCachedIfPresent(PredictionArguments args) =>
+    _newCache[args.hashCode];
+RoutePrediction? _setCached(
+        PredictionArguments args, RoutePrediction prediction) =>
     _newCache[args.hashCode] = prediction;
 
 int _minutesDist(int a, int b) {
   final diff = (a - b).abs();
-  return diff > Duration.minutesPerDay / 2 ? Duration.minutesPerDay - diff : diff;
+  return diff > Duration.minutesPerDay / 2
+      ? Duration.minutesPerDay - diff
+      : diff;
 }
 
 int _weekdayDiff(int a, int b) {
@@ -43,7 +48,8 @@ int _weekdayDiff(int a, int b) {
 
 /// Cache
 
-RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments arguments) {
+RoutePrediction predictRouteSync(
+    List<LocalRoute> routes, PredictionArguments arguments) {
   if (kDebugMode) log.log('Making a prediction from arguments $arguments');
   final watch = Stopwatch()..start();
 
@@ -72,17 +78,25 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
     final time = arguments.dateTime;
     if (time != null && timestamp != null) {
       dist.add(
-        WeighedAddend(_weekdayDiff(timestamp.weekday, time.weekday) * _daysFactor, 1, "weekdays"),
+        WeighedAddend(
+            _weekdayDiff(timestamp.weekday, time.weekday) * _daysFactor,
+            1,
+            "weekdays"),
       );
       dist.add(
-        WeighedAddend(_minutesDist(timestamp.minutesOfDay, time.minutesOfDay) * _minutesFactor, 1,
+        WeighedAddend(
+            _minutesDist(timestamp.minutesOfDay, time.minutesOfDay) *
+                _minutesFactor,
+            1,
             "minutes of day"),
       );
     }
 
     if (arguments is SourceDateArguments) {
       dist.add(WeighedAddend(
-          arguments.source.scaledDistanceTo(route.fromAsString), 1, "string distance"));
+          arguments.source.scaledDistanceTo(route.fromAsString),
+          1,
+          "string distance"));
     }
 
     if (arguments is LocationArgument) {
@@ -91,7 +105,8 @@ RoutePrediction predictRouteSync(List<LocalRoute> routes, PredictionArguments ar
         final scaledDist = arguments.latLon.distanceTo(pos);
         // log.log('Adding dist of $dist for ${route.fromAsString}');
         const fourtyKilometers = 40000;
-        dist.add(WeighedAddend(math.min(1, scaledDist / fourtyKilometers), 4, "position distance"));
+        dist.add(WeighedAddend(math.min(1, scaledDist / fourtyKilometers), 4,
+            "position distance"));
       } else {
         continue;
       }
@@ -150,7 +165,8 @@ void _report(Iterable<Pair<LocalRoute, ComputedSum>> top) {
   var i = 0;
   for (final p in top) {
     i++;
-    log.log('[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.second.overview}');
+    log.log(
+        '[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.second.overview}');
   }
 }
 

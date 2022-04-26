@@ -12,30 +12,11 @@ part of 'coordinates.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 LatLon _$LatLonFromJson(Map<String, dynamic> json) {
   return _LatLon.fromJson(json);
 }
-
-/// @nodoc
-class _$LatLonTearOff {
-  const _$LatLonTearOff();
-
-  _LatLon call(double lat, double lon) {
-    return _LatLon(
-      lat,
-      lon,
-    );
-  }
-
-  LatLon fromJson(Map<String, Object?> json) {
-    return LatLon.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $LatLon = _$LatLonTearOff();
 
 /// @nodoc
 mixin _$LatLon {
@@ -142,6 +123,7 @@ class _$_LatLon extends _LatLon {
             const DeepCollectionEquality().equals(other.lon, lon));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -160,34 +142,19 @@ class _$_LatLon extends _LatLon {
 }
 
 abstract class _LatLon extends LatLon {
-  const factory _LatLon(double lat, double lon) = _$_LatLon;
+  const factory _LatLon(final double lat, final double lon) = _$_LatLon;
   const _LatLon._() : super._();
 
   factory _LatLon.fromJson(Map<String, dynamic> json) = _$_LatLon.fromJson;
 
   @override
-  double get lat;
+  double get lat => throw _privateConstructorUsedError;
   @override
-  double get lon;
+  double get lon => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LatLonCopyWith<_LatLon> get copyWith => throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$LV03CoordinatesTearOff {
-  const _$LV03CoordinatesTearOff();
-
-  _LV03Coordinates call(int x, int y) {
-    return _LV03Coordinates(
-      x,
-      y,
-    );
-  }
-}
-
-/// @nodoc
-const $LV03Coordinates = _$LV03CoordinatesTearOff();
 
 /// @nodoc
 mixin _$LV03Coordinates {
@@ -310,13 +277,13 @@ class _$_LV03Coordinates extends _LV03Coordinates {
 }
 
 abstract class _LV03Coordinates extends LV03Coordinates {
-  const factory _LV03Coordinates(int x, int y) = _$_LV03Coordinates;
+  const factory _LV03Coordinates(final int x, final int y) = _$_LV03Coordinates;
   const _LV03Coordinates._() : super._();
 
   @override
-  int get x;
+  int get x => throw _privateConstructorUsedError;
   @override
-  int get y;
+  int get y => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LV03CoordinatesCopyWith<_LV03Coordinates> get copyWith =>

@@ -1,17 +1,19 @@
+import 'dart:ui';
+
 import 'package:flutter/src/material/time.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // ignore: depend_on_referenced_packages
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
+import 'package:swift_travel/apis/navigation/france/france.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
-import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
@@ -63,7 +65,7 @@ class MockNavigationApi extends BaseNavigationApi {
   void dispose() {}
 
   @override
-  Future<List<SbbCompletion>> findStation(double lat, double lon,
+  Future<List<SbbCompletion>> find(double lat, double lon,
           {int? accuracy, bool? showCoordinates, bool? showIds}) =>
       Future.value([
         SbbCompletion(label: 'Genève'),
@@ -78,23 +80,23 @@ class MockNavigationApi extends BaseNavigationApi {
   }
 
   @override
-  Future<SbbStationboard> stationboard(Stop stop,
-          {DateTime? when,
-          bool? arrival,
-          int? limit,
-          bool? showTracks,
-          bool? showSubsequentStops,
-          bool? showDelays,
-          bool? showTrackchanges,
-          List<TransportationTypes>? transportationTypes}) =>
+  Future<SbbStationboard> stationboard(
+    Stop stop, {
+    DateTime? when,
+    TimeType? timeType,
+    List<TransportationTypes>? transportationTypes,
+  }) =>
       Future.value(SbbStationboard.fromJson(mockStationboard));
 
   @override
   Future<SbbRoute> route(String departure, String arrival,
           {required DateTime date,
           required TimeOfDay time,
-          TimeType? typeTime,
+          TimeType? timeType,
           bool? showDelays,
           int? previous}) =>
       Future.value(SbbRoute.fromJson(mockRoute));
+
+  @override
+  Locale locale = const Locale('fr', 'CH');
 }
