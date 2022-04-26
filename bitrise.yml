@@ -117,3 +117,6 @@ app:
 trigger_map:
   - push_branch: deploy
     workflow: deploy-ios
+meta:
+  bitrise.io:
+    stack: osx-xcode-edge
