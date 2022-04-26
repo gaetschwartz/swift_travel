@@ -123,7 +123,7 @@ For more help on the `freezed` package, see [the package documentation](https://
 Finally, make sure to specify in your Pull-Request the link or quick instructions on how to obtain a key for this api key.
 
 ## Complete example
-For a complete example, see the implementation of the `search.ch` api in [`lib/apis/navigation/search.ch/`](../lib/apis/navigation/search.ch/).
+For a complete example, see the implementation of the `search.ch` api in [`lib/apis/navigation/switzerland/`](../lib/apis/navigation/switzerland/).
 
 ## Need more help ?
 Contact me on [Twitter](https://twitter.com/gaetschwartz).

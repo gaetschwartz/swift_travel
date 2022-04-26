@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
@@ -22,18 +22,19 @@ import 'package:vibration/vibration.dart';
 import 'fav_route_tile.dart';
 import 'fav_stop_tile.dart';
 
-class FavoritesTab extends StatefulWidget {
+class FavoritesTab extends ConsumerStatefulWidget {
   const FavoritesTab({Key? key}) : super(key: key);
 
   @override
   _FavoritesTabState createState() => _FavoritesTabState();
 }
 
-class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClientMixin {
+class _FavoritesTabState extends ConsumerState<FavoritesTab>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
-  late final BaseFavoritesStore store = context.read(storeProvider);
+  late final BaseFavoritesStore store = ref.read(storeProvider);
 
   @override
   void didChangeDependencies() {
@@ -47,13 +48,15 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(
-          trailing: IconButton(icon: const Icon(CupertinoIcons.add), onPressed: addFav),
+          trailing: IconButton(
+              icon: const Icon(CupertinoIcons.add), onPressed: addFav),
         ),
         child: child!,
       ),
       materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: MaterialAppBar(title: Text(AppLocalizations.of(context).tabs_favourites)),
+        appBar: MaterialAppBar(
+            title: Text(AppLocalizations.of(context).tabs_favourites)),
         floatingActionButton: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
@@ -124,7 +127,9 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
 
     final s = isThemeDarwin(context)
         ? await showCupertinoModalBottomSheet<String>(
-            context: context, builder: (context) => const StopInputDialog(title: 'Add a favorite'))
+            context: context,
+            builder: (context) =>
+                const StopInputDialog(title: 'Add a favorite'))
         : await showMaterialModalBottomSheet<String>(
             context: context,
             builder: (_) => const StopInputDialog(title: 'Add a favorite'),
@@ -134,12 +139,18 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
     if (!mounted) return;
 
     await load(context, future: () async {
-      final api = context.read(navigationAPIProvider);
+      final api = ref.read(navigationAPIProvider);
       var completions = await api.complete(s, showIds: true);
 
       if (completions.isEmpty) {
         log.log("Didn't find a station, will try using routes as a hack...");
-        final sbbRoute = await api.route(s, 'Bern', date: DateTime.now(), time: TimeOfDay.now());
+        final sbbRoute = await api.route(
+          s,
+          'Bern',
+          date: DateTime.now(),
+          time: TimeOfDay.now(),
+          timeType: TimeType.departure,
+        );
         if (sbbRoute.connections.isNotEmpty) {
           final from = sbbRoute.connections.first.from;
           log.log('Found $from');
@@ -155,7 +166,8 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
 
       if (!mounted) return;
 
-      final name = await input(context, title: const Text('What is the name of this stop'));
+      final name = await input(context,
+          title: const Text('What is the name of this stop'));
 
       if (name == null) return;
       if (!mounted) return;
@@ -163,7 +175,7 @@ class _FavoritesTabState extends State<FavoritesTab> with AutomaticKeepAliveClie
       await store.addStop(FavoriteStop.fromCompletion(
         completions.first,
         name: name,
-        api: context.read(preferencesProvider).api.value,
+        api: ref.read(preferencesProvider).api.value,
       ));
     });
   }

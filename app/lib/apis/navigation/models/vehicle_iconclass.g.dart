@@ -8,35 +8,35 @@ part of 'vehicle_iconclass.dart';
 
 _$__VehicleIconclass _$$__VehicleIconclassFromJson(Map<String, dynamic> json) =>
     _$__VehicleIconclass(
-      $enumDecode(_$TransportationModeEnumMap, json['v']),
+      $enumDecode(_$PlaceTypeEnumMap, json['v']),
     );
 
 Map<String, dynamic> _$$__VehicleIconclassToJson(
         _$__VehicleIconclass instance) =>
     <String, dynamic>{
-      'v': _$TransportationModeEnumMap[instance.v],
+      'v': _$PlaceTypeEnumMap[instance.v],
     };
 
-const _$TransportationModeEnumMap = {
-  TransportationMode.bus: 'bus',
-  TransportationMode.post: 'post',
-  TransportationMode.nightBus: 'night_bus',
-  TransportationMode.tram: 'tram',
-  TransportationMode.walk: 'walk',
-  TransportationMode.strain: 'strain',
-  TransportationMode.train: 'train',
-  TransportationMode.expressTrain: 'express_train',
-  TransportationMode.funicular: 'funicular',
-  TransportationMode.business: 'business',
-  TransportationMode.address: 'adr',
-  TransportationMode.private: 'private',
-  TransportationMode.gondola: 'gondola',
-  TransportationMode.cablecar: 'cablecar',
-  TransportationMode.chairlift: 'chairlift',
-  TransportationMode.ship: 'ship',
-  TransportationMode.str: 'str',
-  TransportationMode.metro: 'metro',
-  TransportationMode.rer: 'rer',
-  TransportationMode.nightStrain: 'night_strain',
-  TransportationMode.unknown: 'unknown',
+const _$PlaceTypeEnumMap = {
+  PlaceType.bus: 'bus',
+  PlaceType.post: 'post',
+  PlaceType.nightBus: 'night_bus',
+  PlaceType.tram: 'tram',
+  PlaceType.walk: 'walk',
+  PlaceType.strain: 'strain',
+  PlaceType.train: 'train',
+  PlaceType.expressTrain: 'express_train',
+  PlaceType.funicular: 'funicular',
+  PlaceType.business: 'business',
+  PlaceType.address: 'adr',
+  PlaceType.private: 'private',
+  PlaceType.gondola: 'gondola',
+  PlaceType.cablecar: 'cablecar',
+  PlaceType.chairlift: 'chairlift',
+  PlaceType.ship: 'ship',
+  PlaceType.str: 'str',
+  PlaceType.metro: 'metro',
+  PlaceType.rer: 'rer',
+  PlaceType.nightStrain: 'night_strain',
+  PlaceType.unknown: 'unknown',
 };

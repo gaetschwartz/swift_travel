@@ -12,30 +12,7 @@ part of 'route_textfield_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$RouteTextfieldStateTearOff {
-  const _$RouteTextfieldStateTearOff();
-
-  EmptyRouteState empty() {
-    return const EmptyRouteState();
-  }
-
-  TextRouteState text(String text, {bool doLoad = true}) {
-    return TextRouteState(
-      text,
-      doLoad: doLoad,
-    );
-  }
-
-  UseCurrentLocation useCurrentLocation() {
-    return const UseCurrentLocation();
-  }
-}
-
-/// @nodoc
-const $RouteTextfieldState = _$RouteTextfieldStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$RouteTextfieldState {
@@ -257,8 +234,8 @@ class _$TextRouteState implements TextRouteState {
 
   @override
   final String text;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool doLoad;
 
   @override
@@ -356,10 +333,11 @@ class _$TextRouteState implements TextRouteState {
 }
 
 abstract class TextRouteState implements RouteTextfieldState {
-  const factory TextRouteState(String text, {bool doLoad}) = _$TextRouteState;
+  const factory TextRouteState(final String text, {final bool doLoad}) =
+      _$TextRouteState;
 
-  String get text;
-  bool get doLoad;
+  String get text => throw _privateConstructorUsedError;
+  bool get doLoad => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TextRouteStateCopyWith<TextRouteState> get copyWith =>
       throw _privateConstructorUsedError;

@@ -11,8 +11,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // ignore: depend_on_referenced_packages
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
-import 'package:swift_travel/apis/navigation/sncf/sncf.dart';
+import 'package:swift_travel/apis/navigation/france/france.dart';
+import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -38,18 +38,17 @@ void main() {
     setUpAll(() async {
       final directory = await getTempDirForTests();
 
-      final dir = path.join(directory.path, 'swift_travel', 'test_results',
-          'HiveFavoritesStoreTest');
+      final dir =
+          path.join(directory.path, 'swift_travel', 'test_results', 'HiveFavoritesStoreTest');
       Hive.init(dir);
 
-      SharedPreferencesStorePlatform.instance =
-          InMemorySharedPreferencesStore.empty();
+      SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
       prefs = await SharedPreferences.getInstance();
     });
 
     setUp(() async {
-      container = ProviderContainer(
-          overrides: [storeProvider.overrideWithValue(HiveFavoritesStore())]);
+      container =
+          ProviderContainer(overrides: [storeProvider.overrideWithValue(HiveFavoritesStore())]);
     });
 
     tearDown(() async {

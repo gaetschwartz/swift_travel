@@ -7,7 +7,8 @@ import 'package:meta/meta.dart';
 
 typedef DataConverter<R, S> = S Function(R data);
 
-abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TValue extends Object> {
+abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
+    TValue extends Object> {
   LocalDatabase({
     required this.encode,
     required this.decode,
@@ -29,9 +30,11 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
 
   @nonVirtual
   Box<TEncValue> get box {
-    assert(_debugInitialized, '$this needs to be initiated using `open()` before this operation.');
+    assert(_debugInitialized,
+        '$this needs to be initiated using `open()` before this operation.');
     if (_box == null) {
-      throw StateError("Tried $this's box before opening it. Use `open()` first.");
+      throw StateError(
+          "Tried $this's box before opening it. Use `open()` first.");
     }
     return _box!;
   }
@@ -103,7 +106,8 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
   TValue get last => decode(box.get(keys.last)!);
 
   Iterable<TKey> get keys => box.keys.cast();
-  Future<void> deleteAll(Iterable<TKey> keys) => box.deleteAll(keys.map<TKey>(sanitizeKey));
+  Future<void> deleteAll(Iterable<TKey> keys) =>
+      box.deleteAll(keys.map<TKey>(sanitizeKey));
   Future<void> delete(TKey key) => box.delete(sanitizeKey(key));
 
   bool containsKey(TKey key) => box.containsKey(sanitizeKey(key));
@@ -120,12 +124,14 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object, TVal
       key is String ? _maxStringSize(Uri.encodeComponent(key)) as TKey : key;
 
   Map<TKey, TValue> get map {
-    return box.toMap().map((dynamic key, value) => MapEntry(key! as TKey, decode(value)));
+    return box
+        .toMap()
+        .map((dynamic key, value) => MapEntry(key! as TKey, decode(value)));
   }
 }
 
-mixin KeyedDatabaseMixin<TKey extends Object, TEncValue extends Object, TValue extends Object>
-    on LocalDatabase<TKey, TEncValue, TValue> {
+mixin KeyedDatabaseMixin<TKey extends Object, TEncValue extends Object,
+    TValue extends Object> on LocalDatabase<TKey, TEncValue, TValue> {
   Future<void> safePut(TKey key, TValue value) async {
     if (_box == null) {
       await open();
@@ -155,8 +161,8 @@ mixin IndexedDatabaseMixin<TEncValue extends Object, TValue extends Object>
   Future<void> hashDelete(TValue data) => delete(data.hashCode);
 }
 
-class SimpleDatabase<TKey extends Object, TEncValue extends Object, TValue extends Object>
-    extends LocalDatabase<TKey, TEncValue, TValue> {
+class SimpleDatabase<TKey extends Object, TEncValue extends Object,
+    TValue extends Object> extends LocalDatabase<TKey, TEncValue, TValue> {
   SimpleDatabase({
     required String boxKey,
     required int maxSize,

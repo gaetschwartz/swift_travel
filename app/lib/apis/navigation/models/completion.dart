@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 
-/// The response to [BaseNavigationApi.complete]
+/// The response to [NavigationCompletionDelegateApi.complete]
 abstract class NavigationCompletion {
   /// Name of the completion
   String get label;
@@ -14,14 +14,14 @@ abstract class NavigationCompletion {
   String? get id;
 
   /// Type of the completion
-  TransportationMode? get type;
+  PlaceType? get type;
 
   /// If this completion is a favorite, its name.
   String? get favoriteName;
 
   /// Returns the icon for this completion.
   // ignore: avoid-unused-parameters
-  Widget getIcon({double? size});
+  Widget get icon;
 
   /// Origin of the data, read [DataOrigin].
   DataOrigin get origin;

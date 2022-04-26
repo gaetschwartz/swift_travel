@@ -8,8 +8,10 @@ part of 'config.dart';
 
 _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
       sncfKey: json['sncfKey'] as String?,
+      triasKey: json['triasKey'] as String?,
     );
 
 Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
       'sncfKey': instance.sncfKey,
+      'triasKey': instance.triasKey,
     };

@@ -52,6 +52,8 @@ class PlatformBuilder extends StatelessWidget {
           context,
           isCupertino ? PlatformDesign.cupertino : PlatformDesign.material,
         );
-    return isCupertino ? cupertinoBuilder(context, c) : materialBuilder(context, c);
+    return isCupertino
+        ? cupertinoBuilder(context, c)
+        : materialBuilder(context, c);
   }
 }

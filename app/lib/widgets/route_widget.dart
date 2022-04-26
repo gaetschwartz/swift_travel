@@ -57,41 +57,57 @@ class RouteWidget extends StatelessWidget {
                     ],
                     Row(
                       children: [
-                        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Theme.of(context).primaryColor),
-                                borderRadius: const BorderRadius.all(Radius.circular(4)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                                child: Text(
-                                  fromOverride ?? AppLocalizations.of(context).from.toCamelCase(),
-                                  style: Theme.of(context).textTheme.subtitle2,
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Theme.of(context).primaryColor),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4, vertical: 2),
+                                    child: Text(
+                                      fromOverride ??
+                                          AppLocalizations.of(context)
+                                              .from
+                                              .toCamelCase(),
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                          const Gap(8),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Theme.of(context).primaryColor),
-                                borderRadius: const BorderRadius.all(Radius.circular(4)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                                child: Text(
-                                  toOverride ?? AppLocalizations.of(context).to.toCamelCase(),
-                                  style: Theme.of(context).textTheme.subtitle2,
+                              const Gap(8),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Theme.of(context).primaryColor),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4, vertical: 2),
+                                    child: Text(
+                                      toOverride ??
+                                          AppLocalizations.of(context)
+                                              .to
+                                              .toCamelCase(),
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ]),
+                            ]),
                         const Gap(8),
                         DefaultTextStyle(
                           style: Theme.of(context).textTheme.subtitle2!,

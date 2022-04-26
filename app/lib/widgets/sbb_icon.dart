@@ -15,7 +15,7 @@ class SbbIcon extends StatelessWidget {
       : vehicle = getVehicle(iconclass),
         super(key: key);
 
-  static TransportationMode? getVehicle(String? iconclass) {
+  static PlaceType? getVehicle(String? iconclass) {
     if (iconclass == null) {
       return null;
     }
@@ -23,45 +23,45 @@ class SbbIcon extends StatelessWidget {
     return TransportationModeX.parse(substring);
   }
 
-  final TransportationMode? vehicle;
+  final PlaceType? vehicle;
   final double? size;
   final Color? color;
 
   @allowReturningWidgets
-  Widget getIcon(TransportationMode? v) {
+  Widget getIcon(PlaceType? v) {
     switch (v) {
-      case TransportationMode.bus:
+      case PlaceType.bus:
         return const FaIcon(FontAwesomeIcons.bus);
-      case TransportationMode.post:
-      case TransportationMode.nightBus:
-        return const FaIcon(FontAwesomeIcons.busAlt);
-      case TransportationMode.tram:
-        return const FaIcon(FontAwesomeIcons.subway);
-      case TransportationMode.walk:
-        return const FaIcon(FontAwesomeIcons.walking);
-      case TransportationMode.strain:
-      case TransportationMode.train:
-      case TransportationMode.expressTrain:
-      case TransportationMode.funicular:
-      case TransportationMode.rer:
-      case TransportationMode.str:
-      case TransportationMode.metro:
-      case TransportationMode.nightStrain:
+      case PlaceType.post:
+      case PlaceType.nightBus:
+        return const FaIcon(FontAwesomeIcons.busSimple);
+      case PlaceType.tram:
+        return const FaIcon(FontAwesomeIcons.trainSubway);
+      case PlaceType.walk:
+        return const FaIcon(FontAwesomeIcons.personWalking);
+      case PlaceType.strain:
+      case PlaceType.train:
+      case PlaceType.expressTrain:
+      case PlaceType.funicular:
+      case PlaceType.rer:
+      case PlaceType.str:
+      case PlaceType.metro:
+      case PlaceType.nightStrain:
         return const FaIcon(FontAwesomeIcons.train);
-      case TransportationMode.business:
+      case PlaceType.business:
         return const FaIcon(FontAwesomeIcons.store);
-      case TransportationMode.address:
-        return const FaIcon(FontAwesomeIcons.home);
-      case TransportationMode.private:
+      case PlaceType.address:
+        return const FaIcon(FontAwesomeIcons.house);
+      case PlaceType.private:
         return const FaIcon(FontAwesomeIcons.building);
-      case TransportationMode.gondola:
-      case TransportationMode.ship:
+      case PlaceType.gondola:
+      case PlaceType.ship:
         return const FaIcon(FontAwesomeIcons.ship);
-      case TransportationMode.cablecar:
-      case TransportationMode.chairlift:
-        return const FaIcon(FontAwesomeIcons.tram);
+      case PlaceType.cablecar:
+      case PlaceType.chairlift:
+        return const FaIcon(FontAwesomeIcons.trainTram);
       case null:
-      case TransportationMode.unknown:
+      case PlaceType.unknown:
         return const FaIcon(FontAwesomeIcons.question);
     }
   }

@@ -208,7 +208,8 @@ class ActionsSheet<T> extends StatelessWidget {
                       DefaultTextStyle(
                           style: Theme.of(context).textTheme.caption!,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 8, right: 8, top: title != null ? 8 : 0),
+                            padding: EdgeInsets.only(
+                                left: 8, right: 8, top: title != null ? 8 : 0),
                             child: Center(child: message),
                           )),
                     if (title != null || message != null) ...[

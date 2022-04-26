@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/exit.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/leg.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/exit.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/leg.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/route_connection.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 
 typedef JSON = Map<String, Object?>;
@@ -71,7 +71,7 @@ final sbbRoute = SbbRoute(
             x: 500002,
             y: 117126,
           ),
-          type: TransportationMode.walk,
+          type: PlaceType.walk,
           terminal: "Genève, Plainpalais",
           runningTime: 300,
           sbbStops: [],
@@ -97,7 +97,7 @@ final sbbRoute = SbbRoute(
             x: 499967,
             y: 118415,
           ),
-          type: TransportationMode.tram,
+          type: PlaceType.tram,
           terminal: "Genève, Nations",
           fgcolor: "fff",
           bgcolor: "996633",
@@ -175,7 +175,7 @@ final sbbRoute = SbbRoute(
             x: 499969,
             y: 118468,
           ),
-          type: TransportationMode.walk,
+          type: PlaceType.walk,
           stopid: "8587057",
           runningTime: 300,
           sbbStops: [],
@@ -210,7 +210,7 @@ final sbbRoute = SbbRoute(
             x: 600038,
             y: 199750,
           ),
-          type: TransportationMode.expressTrain,
+          type: PlaceType.expressTrain,
           track: "6",
           terminal: "St. Gallen",
           fgcolor: "fff",
@@ -285,7 +285,7 @@ final sbbRoute = SbbRoute(
             x: 614591,
             y: 178203,
           ),
-          type: TransportationMode.expressTrain,
+          type: PlaceType.expressTrain,
           track: "6",
           terminal: "Interlaken Ost",
           fgcolor: "fff",
@@ -333,7 +333,7 @@ final sbbRoute = SbbRoute(
             x: 614613,
             y: 178234,
           ),
-          type: TransportationMode.walk,
+          type: PlaceType.walk,
           stopid: "8507100",
           runningTime: 240,
           sbbStops: [],
@@ -367,7 +367,7 @@ final sbbRoute = SbbRoute(
             x: 626275,
             y: 170323,
           ),
-          type: TransportationMode.bus,
+          type: PlaceType.bus,
           track: "A",
           terminal: "Interlaken Ost, Bahnhof",
           fgcolor: "fff",
@@ -753,7 +753,7 @@ final sbbRoute = SbbRoute(
             waittime: 0,
             isaddress: true,
           ),
-          type: TransportationMode.walk,
+          type: PlaceType.walk,
           stopid: "8507186",
           runningTime: 240,
           sbbStops: [],

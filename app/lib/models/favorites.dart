@@ -1,15 +1,17 @@
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/base.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/base.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
 
 part 'favorites.freezed.dart';
 part 'favorites.g.dart';
 
-class LocalRouteConverter implements JsonConverter<LocalRoute, Map<String, dynamic>> {
+class LocalRouteConverter
+    implements JsonConverter<LocalRoute, Map<String, dynamic>> {
   const LocalRouteConverter();
 
   static const key = 'runtimeType';
@@ -117,7 +119,11 @@ class FavoriteStop with _$FavoriteStop, BaseStop, SbbDisplayNameMixin {
     required NavigationApiId api,
     String? name,
   }) =>
-      _FavoriteStop(stop: completion.label, name: name ?? completion.label, api: api.value);
+      _FavoriteStop(
+          stop: completion.label,
+          name: name ?? completion.label,
+          api: api.value);
 
-  factory FavoriteStop.fromJson(Map<String, dynamic> json) => _$FavoriteStopFromJson(json);
+  factory FavoriteStop.fromJson(Map<String, dynamic> json) =>
+      _$FavoriteStopFromJson(json);
 }

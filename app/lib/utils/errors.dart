@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,7 @@ void reportDartError(
   if (_doShowSnackbars && showSnackbar) {
     try {
       Vibration.instance.error();
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         scaffoldMessengerKey.currentState!
           ..removeCurrentSnackBar()
           ..showSnackBar(SnackBar(
@@ -48,8 +47,8 @@ void reportDartError(
               label: 'Details',
               onPressed: () {
                 scaffoldMessengerKey.currentState!.removeCurrentSnackBar();
-                navigatorKey.currentState!
-                    .push<void>(MaterialPageRoute(builder: (_) => ErrorPage(details)));
+                navigatorKey.currentState!.push<void>(
+                    MaterialPageRoute(builder: (_) => ErrorPage(details)));
               },
             ),
           ));
@@ -61,19 +60,20 @@ void reportDartError(
   }
 
   if (await _doReport) {
-    await FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
+    //await FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
   }
 }
 
 // ignore: avoid_void_async
 void reportFlutterError(FlutterErrorDetails details) async {
   log.log('Caught a Flutter error: ${details.exception}');
-  debugPrintStack(stackTrace: details.stack, label: details.exception.toString());
+  debugPrintStack(
+      stackTrace: details.stack, label: details.exception.toString());
 
   if (_doShowSnackbars) {
     try {
       Vibration.instance.error();
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         scaffoldMessengerKey.currentState!
           ..removeCurrentSnackBar()
           ..showSnackBar(SnackBar(
@@ -85,8 +85,8 @@ void reportFlutterError(FlutterErrorDetails details) async {
               label: 'Details',
               onPressed: () {
                 scaffoldMessengerKey.currentState!.removeCurrentSnackBar();
-                navigatorKey.currentState!
-                    .push<void>(MaterialPageRoute(builder: (_) => ErrorPage(details)));
+                navigatorKey.currentState!.push<void>(
+                    MaterialPageRoute(builder: (_) => ErrorPage(details)));
               },
             ),
           ));
@@ -97,7 +97,7 @@ void reportFlutterError(FlutterErrorDetails details) async {
     }
   }
   if (await _doReport) {
-    await FirebaseCrashlytics.instance.recordFlutterError(details);
+    //await FirebaseCrashlytics.instance.recordFlutterError(details);
   }
 }
 
@@ -105,7 +105,9 @@ Future<bool> get _doReport async {
   final instance = await SharedPreferences.getInstance();
   return !kIsWeb &&
       Firebase.apps.isNotEmpty &&
-      (instance.getBool(PreferencesBloc.prefix + PreferencesBloc.analyticsKey) ?? true);
+      (instance
+              .getBool(PreferencesBloc.prefix + PreferencesBloc.analyticsKey) ??
+          true);
 }
 
 class ErrorPage extends StatefulWidget {

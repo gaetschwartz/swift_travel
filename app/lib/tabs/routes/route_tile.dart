@@ -29,8 +29,8 @@ class RouteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = route.connections[i];
-    final leg = c.legs.firstWhereOrNull(
-            (l) => l.type != TransportationMode.walk && l.type != null && l != c.legs.last) ??
+    final leg = c.legs.firstWhereOrNull((l) =>
+            l.type != PlaceType.walk && l.type != null && l != c.legs.last) ??
         c.legs.first;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -46,7 +46,10 @@ class RouteTile extends StatelessWidget {
             isThreeLine: true,
             title: Row(
               children: [
-                if (LineIcon.isValidLeg(leg)) LineIcon.fromLeg(leg) else SbbIcon(leg.type),
+                if (LineIcon.isValidLeg(leg))
+                  LineIcon.fromLeg(leg)
+                else
+                  SbbIcon(leg.type),
                 const Gap(8),
                 Expanded(child: Text(leg.exit!.name)),
               ],
@@ -62,7 +65,8 @@ class RouteTile extends StatelessWidget {
                 if (c.depDelay != null)
                   Text(
                     Format.delay(c.depDelay!),
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFFFF5252)),
                   ),
                 const Gap(16),
                 const FaIcon(CupertinoIcons.chevron_forward),
@@ -75,8 +79,8 @@ class RouteTile extends StatelessWidget {
                 (context) => RouteDetails(route: route, i: i),
                 title: AppLocalizations.of(context).tabs_route,
               );
-              RouteHistoryRepository.i
-                  .safeAdd(LocalRoute.fromRouteConnection(route.connections[i]));
+              RouteHistoryRepository.instance.safeAdd(
+                  LocalRoute.fromRouteConnection(route.connections[i]));
             },
           ),
         ),
@@ -99,7 +103,8 @@ class _RowIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = route.connections[i];
     final listWidget = <Widget>[
-      for (var i = 0; i < c.legs.length - 1; i++) SbbIcon(c.legs[i].type, size: 18)
+      for (var i = 0; i < c.legs.length - 1; i++)
+        SbbIcon(c.legs[i].type, size: 18)
     ];
 
     return Column(

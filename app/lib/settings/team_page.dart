@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/l10n/app_localizations.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'models/contributor.dart';
 
@@ -55,19 +55,23 @@ class TeamPage extends StatefulWidget {
 }
 
 final _contributorsProvider = FutureProvider<List<Contributor>>((_) async {
-  final uri = Uri.parse('https://api.github.com/repos/gaetschwartz/swift_travel/contributors');
+  final uri = Uri.parse(
+      'https://api.github.com/repos/gaetschwartz/swift_travel/contributors');
   final r = await http.get(uri);
   final list = jsonDecode(r.body) as List;
-  final contribs = list.map((dynamic e) => Contributor.fromJson(e as JSON)).toList();
+  final contribs =
+      list.map((dynamic e) => Contributor.fromJson(e as JSON)).toList();
 
   return contribs;
 });
 
 class _TeamPageState extends State<TeamPage> {
-  final primaryMemberWidgets =
-      TeamPage.primaryCoders.map((c) => _MemberTile(c, dense: true)).toList(growable: false);
-  final secondaryMembersWidgets =
-      TeamPage.secondaryCoders.map((c) => _MemberTile(c, dense: true)).toList(growable: false);
+  final primaryMemberWidgets = TeamPage.primaryCoders
+      .map((c) => _MemberTile(c, dense: true))
+      .toList(growable: false);
+  final secondaryMembersWidgets = TeamPage.secondaryCoders
+      .map((c) => _MemberTile(c, dense: true))
+      .toList(growable: false);
 
   final client = http.Client();
 
@@ -108,8 +112,8 @@ class _TeamPageState extends State<TeamPage> {
                 width: double.infinity,
                 height: 64,
                 child: TextButton(
-                  onPressed: () =>
-                      showLicensePage(context: context, applicationIcon: const FlutterLogo()),
+                  onPressed: () => showLicensePage(
+                      context: context, applicationIcon: const FlutterLogo()),
                   child: const Text('View licenses'),
                 ),
               ),
@@ -140,7 +144,7 @@ class _Contributors extends StatelessWidget {
                     backgroundImage: NetworkImage(c.avatarUrl),
                   ),
                 ),
-                onTap: () => launch(c.htmlUrl),
+                onTap: () => launchUrlString(c.htmlUrl),
                 title: Text(c.login),
               );
             },
@@ -181,7 +185,9 @@ class _MemberTile extends StatelessWidget {
                 : c.isAssets
                     ? AssetImage(c.imageUrl!)
                     : NetworkImage(c.imageUrl!)) as ImageProvider?,
-            child: c.imageUrl == null ? const FaIcon(FontAwesomeIcons.user, size: 18) : null,
+            child: c.imageUrl == null
+                ? const FaIcon(FontAwesomeIcons.user, size: 18)
+                : null,
           ),
         ),
         subtitle: c.role == null ? null : Text(c.role!),
@@ -189,18 +195,19 @@ class _MemberTile extends StatelessWidget {
           if (c.websiteUrl != null)
             IconButton(
                 icon: const FaIcon(FontAwesomeIcons.paperclip),
-                onPressed: () => launch(c.websiteUrl!)),
+                onPressed: () => launchUrlString(c.websiteUrl!)),
           if (c.githubUrl != null)
             IconButton(
-                icon: const FaIcon(FontAwesomeIcons.github), onPressed: () => launch(c.githubUrl!)),
+                icon: const FaIcon(FontAwesomeIcons.github),
+                onPressed: () => launchUrlString(c.githubUrl!)),
           if (c.twitterUrl != null)
             IconButton(
                 icon: const FaIcon(FontAwesomeIcons.twitter),
-                onPressed: () => launch(c.twitterUrl!)),
+                onPressed: () => launchUrlString(c.twitterUrl!)),
           if (c.email != null)
             IconButton(
                 icon: const FaIcon(FontAwesomeIcons.envelope),
-                onPressed: () => launch('mailto:${c.email}')),
+                onPressed: () => launchUrlString('mailto:${c.email}')),
         ]),
       );
 }

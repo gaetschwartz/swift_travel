@@ -15,7 +15,11 @@ Future<void> shareRoute(BuildContext context, NavRoute route, int i) async {
   final params = encodeRouteUri(Uri.parse(route.requestUrl!), i);
   log.log(params);
 
-  final sharedUri = Uri(scheme: 'https', host: websiteHost, path: 'route', queryParameters: params);
+  final sharedUri = Uri(
+      scheme: 'https',
+      host: websiteHost,
+      path: 'route',
+      queryParameters: params);
   log.log(sharedUri);
 
   if (kIsWeb) {

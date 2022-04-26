@@ -78,7 +78,9 @@ class RouteDetails extends StatelessWidget {
                   top: false,
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (_, i) => i == 0 ? DepartureTile(conn) : LegTile(conn.legs[i - 1]),
+                      (_, i) => i == 0
+                          ? DepartureTile(conn)
+                          : LegTile(conn.legs[i - 1]),
                       childCount: conn.legs.length + 1,
                     ),
                   ),
@@ -99,8 +101,8 @@ class RouteDetails extends StatelessWidget {
           ),
         ActionsSheetAction(
           icon: const Icon(CupertinoIcons.game_controller),
-          onPressed: () => Navigator.of(context)
-              .push<void>(CupertinoPageRoute(builder: (_) => const SneccGame())),
+          onPressed: () => Navigator.of(context).push<void>(
+              CupertinoPageRoute(builder: (_) => const SneccGame())),
           title: const Text('Snake'),
         ),
         if (kIsWeb || isMobile)
@@ -111,7 +113,8 @@ class RouteDetails extends StatelessWidget {
           )
       ],
       cancel: ActionsSheetAction(
-          icon: const Icon(CupertinoIcons.xmark), title: Text(AppLocalizations.of(context).close)),
+          icon: const Icon(CupertinoIcons.xmark),
+          title: Text(AppLocalizations.of(context).close)),
     );
   }
 
@@ -122,8 +125,8 @@ class RouteDetails extends StatelessWidget {
 
   void openLive(BuildContext context, RouteConnection c) {
     Vibration.instance.select();
-    Navigator.of(context)
-        .push<void>(MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c)));
+    Navigator.of(context).push<void>(
+        MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c)));
   }
 }
 
@@ -146,8 +149,10 @@ class _Header extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _DataRow(AppLocalizations.of(context).departure, c.from.stripAt()),
-                  _DataRow(AppLocalizations.of(context).destination, c.to.stripAt()),
+                  _DataRow(
+                      AppLocalizations.of(context).departure, c.from.stripAt()),
+                  _DataRow(
+                      AppLocalizations.of(context).destination, c.to.stripAt()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -161,8 +166,10 @@ class _Header extends StatelessWidget {
                                   TextSpan(
                                       text:
                                           '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
-                                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                                  TextSpan(text: ' (${Format.duration(c.duration)})')
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                      text: ' (${Format.duration(c.duration)})')
                                 ]),
                                 textAlign: TextAlign.end,
                               )))
@@ -216,7 +223,7 @@ class LegTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) => leg.exit == null
       ? ArrivedTile(leg)
-      : leg.type == TransportationMode.walk
+      : leg.type == PlaceType.walk
           ? WalkingTile(leg)
           : TransportLegTile(leg);
 }

@@ -33,7 +33,8 @@ TextSpan parseDecoratedText(String text, {TextStyle? style}) {
   return TextSpan(children: spans, style: style);
 }
 
-void _addSpan(List<TextSpan> spans, StringBuffer buffer, bool bold, bool italic) {
+void _addSpan(
+    List<TextSpan> spans, StringBuffer buffer, bool bold, bool italic) {
   spans.add(
     TextSpan(
       text: buffer.toString(),

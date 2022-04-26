@@ -12,11 +12,12 @@ class RouteHistoryRepository extends LocalDatabase<int, String, LocalRoute>
       : super(
           boxKey: 'route_history',
           maxSize: maxSize,
-          decode: (d) => LocalRoute.fromJson(jsonDecode(d) as Map<String, dynamic>),
+          decode: (d) =>
+              LocalRoute.fromJson(jsonDecode(d) as Map<String, dynamic>),
           encode: (d) => jsonEncode(d.toJson()),
         );
 
-  static final i = RouteHistoryRepository();
+  static final instance = RouteHistoryRepository();
 
   List<LocalRoute> get history => values.toList(growable: false);
 

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/attribute.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/attribute.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -77,7 +77,8 @@ class _TransportDetailsState extends State<TransportDetails> {
                       foreground: widget.leg.fgColor,
                     ),
                     const Gap(8),
-                    Text(AppLocalizations.of(context).direction(widget.leg.terminal ?? '')),
+                    Text(AppLocalizations.of(context)
+                        .direction(widget.leg.terminal ?? '')),
                   ],
                 ),
               ),
@@ -88,7 +89,8 @@ class _TransportDetailsState extends State<TransportDetails> {
           } else if (!empty && i == stops.length + 1) {
             return const Divider();
           } else {
-            return _AttributeTile(att: attributes[i - dividerCount - stops.length - 1]);
+            return _AttributeTile(
+                att: attributes[i - dividerCount - stops.length - 1]);
           }
         },
         itemCount: attributes.length + dividerCount + stops.length + 1,
@@ -103,7 +105,8 @@ class _TransportDetailsState extends State<TransportDetails> {
               padding: const EdgeInsets.all(2),
               child: IconTheme(
                 data: IconThemeData(
-                  color: widget.leg.bgColor ?? Theme.of(context).colorScheme.onBackground,
+                  color: widget.leg.bgColor ??
+                      Theme.of(context).colorScheme.onBackground,
                   size: 16,
                 ),
                 child: Padding(
@@ -147,7 +150,8 @@ class _Stop extends StatelessWidget {
               child: stop.departure != null
                   ? Text(
                       Format.time(stop.departure),
-                      style: TextStyle(fontWeight: bold ? FontWeight.bold : null),
+                      style:
+                          TextStyle(fontWeight: bold ? FontWeight.bold : null),
                     )
                   : const SizedBox(),
             ),
@@ -199,7 +203,9 @@ class _AttributeTile extends StatelessWidget {
         horizontalTitleGap: 0,
         title: Text(att.message!),
         dense: true,
-        trailing: Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,
+        trailing: Env.isDebugMode && att.icon == null
+            ? const Text('Unhandled')
+            : null,
       );
 }
 
@@ -213,7 +219,8 @@ class _Circle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(color: leg.bgColor ?? Colors.black, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+            color: leg.bgColor ?? Colors.black, shape: BoxShape.circle),
         width: 12,
         height: 12,
       );

@@ -26,13 +26,18 @@ final tabProvider = ChangeNotifierProvider<CupertinoTabController>((ref) {
   return cupertinoPageController;
 });
 
-class TabView extends StatefulWidget {
+class TabView extends ConsumerStatefulWidget {
   const TabView({Key? key}) : super(key: key);
 
   @override
   _TabViewState createState() => _TabViewState();
 
-  static const iosTabs = [StationsTab(), RouteTab(), FavoritesTab(), SettingsPage()];
+  static const iosTabs = [
+    StationsTab(),
+    RouteTab(),
+    FavoritesTab(),
+    SettingsPage()
+  ];
   static const androidTabs = [StationsTab(), RouteTab(), FavoritesTab()];
   static const sideBarWidth = 350.0;
 }
@@ -45,13 +50,14 @@ bool shouldShowSidebar(BuildContext context) {
   return s > TabView.sideBarWidth && mq.orientation == Orientation.landscape;
 }
 
-class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
+class _TabViewState extends ConsumerState<TabView>
+    with SingleTickerProviderStateMixin {
   int oldI = 0;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    context.read(navigationAPIProvider).locale = Localizations.localeOf(context);
+    ref.read(navigationAPIProvider).locale = Localizations.localeOf(context);
   }
 
   late final cupertinoItems = [
@@ -134,17 +140,24 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
               onTap: (i) {
                 Vibration.instance.selectSoft();
                 if (i == oldI) {
-                  navigatorKeys[i].currentState!.popUntil((route) => route.isFirst);
-                  context.read(sideTabBarProvider.state).state = null;
+                  navigatorKeys[i]
+                      .currentState!
+                      .popUntil((route) => route.isFirst);
+                  ref.read(sideTabBarProvider.state).state = null;
                 }
                 oldI = i;
               },
-              backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(0.5),
+              backgroundColor: CupertinoTheme.of(context)
+                  .barBackgroundColor
+                  .withOpacity(0.5),
               items: cupertinoItems,
             ),
             tabBuilder: (context, i) => Navigator(
               key: navigatorKeys[i],
-              pages: [SingleWidgetPage<void>(TabView.iosTabs[i], title: cupertinoItems[i].label)],
+              pages: [
+                SingleWidgetPage<void>(TabView.iosTabs[i],
+                    title: cupertinoItems[i].label)
+              ],
               onPopPage: (_, dynamic __) => true,
               onUnknownRoute: onUnknownRoute,
               onGenerateRoute: onGenerateRoute,
@@ -166,14 +179,18 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
         return Scaffold(
           key: const Key('home-scaffold'),
           resizeToAvoidBottomInset: false,
-          bottomNavigationBar:
-              SwiftNavigationBar(controllers: controllers, page: page, items: materialItems),
+          bottomNavigationBar: SwiftNavigationBar(
+              controllers: controllers, page: page, items: materialItems),
           body: PageTransitionSwitcher(
-            transitionBuilder: (child, primaryAnimation, secondaryAnimation) => child,
+            transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
+                child,
             duration: Duration.zero,
             child: Navigator(
               key: navigatorKeys[page],
-              pages: [SingleWidgetPage<void>(TabView.androidTabs[page], name: titles[page])],
+              pages: [
+                SingleWidgetPage<void>(TabView.androidTabs[page],
+                    name: titles[page])
+              ],
               onPopPage: (_, dynamic __) => true,
               onUnknownRoute: onUnknownRoute,
               onGenerateRoute: onGenerateRoute,
@@ -201,14 +218,16 @@ class SwiftNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activeColor = this.activeColor ?? Theme.of(context).colorScheme.secondary;
+    final activeColor =
+        this.activeColor ?? Theme.of(context).colorScheme.secondary;
 
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         boxShadow: [
           BoxShadow(
-            color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey).withAlpha(24),
+            color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey)
+                .withAlpha(24),
             blurRadius: 32,
           )
         ],
@@ -236,7 +255,7 @@ class SwiftNavigationBar extends StatelessWidget {
   }
 }
 
-class _TabWidget extends StatelessWidget {
+class _TabWidget extends ConsumerWidget {
   const _TabWidget({
     required this.page,
     required this.controllers,
@@ -253,10 +272,13 @@ class _TabWidget extends StatelessWidget {
   final Color activeColor;
 
   @override
-  Widget build(BuildContext context) => Expanded(
+  Widget build(BuildContext context, WidgetRef ref) => Expanded(
           child: DefaultTextStyle(
         style: page == i
-            ? Theme.of(context).textTheme.bodyText2!.copyWith(color: activeColor)
+            ? Theme.of(context)
+                .textTheme
+                .bodyText2!
+                .copyWith(color: activeColor)
             : Theme.of(context).textTheme.bodyText2!,
         child: Center(
           child: Padding(
@@ -268,8 +290,10 @@ class _TabWidget extends StatelessWidget {
                 if (controllers.index != i) {
                   controllers.index = i;
                 } else {
-                  navigatorKeys[i].currentState?.popUntil((route) => route.isFirst);
-                  context.read(sideTabBarProvider.state).state = null;
+                  navigatorKeys[i]
+                      .currentState
+                      ?.popUntil((route) => route.isFirst);
+                  ref.read(sideTabBarProvider.state).state = null;
                 }
               },
               splashColor: Theme.of(context).primaryColor.withAlpha(32),
@@ -305,7 +329,7 @@ class _TabWidget extends StatelessWidget {
       ));
 }
 
-class SideBar extends StatelessWidget {
+class SideBar extends ConsumerWidget {
   const SideBar({
     Key? key,
   }) : super(key: key);
@@ -320,10 +344,11 @@ class SideBar extends StatelessWidget {
     bool rootNavigator = false,
   }) {
     if (shouldShowSidebar(context)) {
-      context.read(sideTabBarProvider.state).state = builder;
+      readFromContext(context, sideTabBarProvider.state).state = builder;
       sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {
-      Navigator.of(context, rootNavigator: rootNavigator).push<void>(PlatformPageRoute(
+      Navigator.of(context, rootNavigator: rootNavigator)
+          .push<void>(PlatformPageRoute(
         builder: builder,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState,
@@ -334,41 +359,44 @@ class SideBar extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Consumer(
-      builder: (context, w, _) =>
-          w.watch(sideTabBarProvider)?.call(context) ??
-          Stack(
-            children: [
-              Positioned.fill(
-                child: OctoImage(
-                  image: const AssetImage('assets/pictures/train.jfif'),
-                  placeholderBuilder: OctoPlaceholder.blurHash(
-                    'qwJRdKRORjayoej[fja{_4Rjf5fQayj@fRj[%MkDaejtWCazj@j[%1tRfkWBj[f7azayWDj]ogayoejsayayoff5ogofWBWBayoe',
-                  ),
-                  errorBuilder: OctoError.icon(color: Colors.red),
-                  fit: BoxFit.cover,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(sideTabBarProvider)?.call(context) ??
+        Stack(
+          children: [
+            Positioned.fill(
+              child: OctoImage(
+                image: const AssetImage('assets/pictures/train.jfif'),
+                placeholderBuilder: OctoPlaceholder.blurHash(
+                  'qwJRdKRORjayoej[fja{_4Rjf5fQayj@fRj[%MkDaejtWCazj@j[%1tRfkWBj[f7azayWDj]ogayoejsayayoff5ogofWBWBayoe',
                 ),
+                errorBuilder: OctoError.icon(color: Colors.red),
+                fit: BoxFit.cover,
               ),
-              Positioned.fill(
-                  child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(
-                        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                        child: const Text(
-                            'Start searching a station or an itinerary to start using the app'),
-                      ),
+            ),
+            Positioned.fill(
+                child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Container(
+                      color: Theme.of(context)
+                          .scaffoldBackgroundColor
+                          .withOpacity(0.5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
+                      child: const Text(
+                          'Start searching a station or an itinerary to start using the app'),
                     ),
                   ),
                 ),
-              )),
-            ],
-          ));
+              ),
+            )),
+          ],
+        );
+  }
 }
 
 final navigatorKeys = <GlobalKey<NavigatorState>>[
@@ -418,7 +446,8 @@ class MaterialAppBar extends AppBar {
   final bool showSettingsButton;
 }
 
-class SwiftCupertinoBar extends StatefulWidget implements ObstructingPreferredSizeWidget {
+class SwiftCupertinoBar extends StatefulWidget
+    implements ObstructingPreferredSizeWidget {
   const SwiftCupertinoBar({
     Key? key,
     this.leading,
@@ -448,14 +477,16 @@ class SwiftCupertinoBar extends StatefulWidget implements ObstructingPreferredSi
   _SwiftCupertinoBarState createState() => _SwiftCupertinoBarState();
 
   @override
-  Size get preferredSize => const Size.fromHeight(kMinInteractiveDimensionCupertino);
+  Size get preferredSize =>
+      const Size.fromHeight(kMinInteractiveDimensionCupertino);
 
   @override
   bool shouldFullyObstruct(BuildContext context) => opacity == 1.0;
 }
 
 class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
-  String? get _previousPageTitle => PlatformRouteTitleMixin.getPreviousTitleOf(context);
+  String? get _previousPageTitle =>
+      PlatformRouteTitleMixin.getPreviousTitleOf(context);
   String? get _pageTitle => PlatformRouteTitleMixin.getPageTitleOf(context);
 
   @override
@@ -479,9 +510,13 @@ class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
       automaticallyImplyMiddle: widget.automaticallyImplyMiddle,
       previousPageTitle: prevPageTitle,
-      middle: widget.automaticallyImplyMiddle ? widget.middle ?? _pageTitleWidget() : widget.middle,
+      middle: widget.automaticallyImplyMiddle
+          ? widget.middle ?? _pageTitleWidget()
+          : widget.middle,
       trailing: widget.trailing,
-      backgroundColor: CupertinoTheme.of(context).barBackgroundColor.withOpacity(widget.opacity),
+      backgroundColor: CupertinoTheme.of(context)
+          .barBackgroundColor
+          .withOpacity(widget.opacity),
       brightness: widget.brightness,
       padding: widget.padding,
       transitionBetweenRoutes: widget.transitionBetweenRoutes,

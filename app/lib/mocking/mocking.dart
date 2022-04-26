@@ -4,12 +4,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'mocking.g.dart';
 
 @JsonLiteral('route.json', asConst: true)
-Map<String, Object?> get mockRoute =>
-    kDebugMode ? _$mockRouteJsonLiteral : throw UnsupportedError('Only mock on debug');
+Map<String, Object?> get mockRoute => kDebugMode
+    ? _$mockRouteJsonLiteral
+    : throw UnsupportedError('Only mock on debug');
 
 @JsonLiteral('stationboard.json', asConst: true)
-Map<String, Object?> get mockStationboard =>
-    kDebugMode ? _$mockStationboardJsonLiteral : throw UnsupportedError('Only mock on debug');
+Map<String, Object?> get mockStationboard => kDebugMode
+    ? _$mockStationboardJsonLiteral
+    : throw UnsupportedError('Only mock on debug');
 
 class FakeableDateTime {
   FakeableDateTime._();

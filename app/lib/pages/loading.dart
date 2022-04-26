@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
@@ -32,7 +33,7 @@ import 'package:theming/responsive.dart';
 
 const _tutoKey = 'hasAlreadySeenTuto';
 
-class LoadingPage extends StatefulWidget {
+class LoadingPage extends ConsumerStatefulWidget {
   const LoadingPage({this.uri, Key? key}) : super(key: key);
 
   final Uri? uri;
@@ -41,7 +42,7 @@ class LoadingPage extends StatefulWidget {
   _LoadingPageState createState() => _LoadingPageState();
 }
 
-class _LoadingPageState extends State<LoadingPage>
+class _LoadingPageState extends ConsumerState<LoadingPage>
     with TickerProviderStateMixin {
   late final _controller = AnimationController(
       vsync: this, duration: const Duration(milliseconds: 500));
@@ -52,7 +53,7 @@ class _LoadingPageState extends State<LoadingPage>
     super.initState();
 
     if (Env.page != 'loading') {
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) => init());
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) => init());
     }
 
     _controller.forward();
@@ -91,33 +92,30 @@ class _LoadingPageState extends State<LoadingPage>
     if (isMobile) {
       MyQuickActions.i.init();
 
-      await context.read(linksProvider).init(
-            onNewRoute: (p) => navigatorKey.currentState!.push(
-              PlatformPageRoute(
-                builder: (_) => RouteDetails(
-                  route: p.first,
-                  i: p.second,
-                  doShowCloseButton: true,
+      await ref.read(linksProvider).init(
+          onNewRoute: (p) => navigatorKey.currentState!.push(
+                PlatformPageRoute(
+                  builder: (_) => RouteDetails(
+                    route: p.first,
+                    i: p.second,
+                    doShowCloseButton: true,
+                  ),
                 ),
-              ),
-            ),
-            getApi: () =>
-                navigatorKey.currentContext!.read(navigationAPIProvider),
-          );
+              ));
     }
   }
 
   Future<void> initSettings(SharedPreferences prefs) async {
     await initHive();
     await Future.wait([
-      RouteHistoryRepository.i.open(),
+      RouteHistoryRepository.instance.open(),
       LineCache.i.open(),
     ]);
 
     try {
       await DynamicTheme.of(context).configure(themeConfiguration);
-      await context.read(preferencesProvider).loadFromPreferences(prefs: prefs);
-      await context.read(storeProvider).init(prefs: prefs);
+      await ref.read(preferencesProvider).loadFromPreferences(prefs: prefs);
+      await ref.read(storeProvider).init(prefs: prefs);
     } on Exception catch (e, s) {
       await failedToLoadSettings(e, s, prefs);
       // ignore: avoid_catching_errors
@@ -186,7 +184,7 @@ class _LoadingPageState extends State<LoadingPage>
     if (widget.uri != null) {
       try {
         final args = await DeepLinkBloc.parseRouteArguments(
-            widget.uri!, context.read(navigationAPIProvider));
+            widget.uri!, ref.read(navigationAPIProvider));
         await Navigator.of(context).pushNamed('/routeDetails', arguments: args);
       } on Exception catch (e, s) {
         log.log(e);

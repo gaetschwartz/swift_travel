@@ -16,14 +16,17 @@ class LatLon with _$LatLon {
   const LatLon._();
 
   factory LatLon.fromList(List<double> coords) {
-    assert(coords.length >= 2, 'The coordinates list needs to contain at least 2 elements');
+    assert(coords.length >= 2,
+        'The coordinates list needs to contain at least 2 elements');
     return _LatLon(coords.first, coords[1]);
   }
-  factory LatLon.fromGeoLocation(GeoLocation loc) => _LatLon(loc.latitude, loc.longitude);
+  factory LatLon.fromGeoLocation(GeoLocation loc) =>
+      _LatLon(loc.latitude, loc.longitude);
 
   /// Converts LV03 coordinates from the swiss coordinates system to regular GPS coordinates (WGS84).
   /// See [LV03ToWGS84Converter]
-  factory LatLon.fromLV03(LV03Coordinates coords) => const LV03ToWGS84Converter().convert(coords);
+  factory LatLon.fromLV03(LV03Coordinates coords) =>
+      const LV03ToWGS84Converter().convert(coords);
 
   factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
 
@@ -43,7 +46,9 @@ class LatLon with _$LatLon {
     final dLon = (end.lon - start.lon).toRadians();
 
     final a = pow(sin(dLat / 2), 2) +
-        pow(sin(dLon / 2), 2) * cos(start.lat.toRadians()) * cos(end.lat.toRadians());
+        pow(sin(dLon / 2), 2) *
+            cos(start.lat.toRadians()) *
+            cos(end.lat.toRadians());
     final c = 2 * asin(sqrt(a));
 
     return earthRadius * c;

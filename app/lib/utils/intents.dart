@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-final ctrl =
-    Platform.isIOS || Platform.isMacOS ? LogicalKeyboardKey.meta : LogicalKeyboardKey.control;
+final ctrl = Platform.isIOS || Platform.isMacOS
+    ? LogicalKeyboardKey.meta
+    : LogicalKeyboardKey.control;
 
 class TabIntent extends Intent {
   const TabIntent(this.tab);

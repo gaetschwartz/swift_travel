@@ -8,7 +8,8 @@ class ListenableBuilder<T extends Listenable> extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-  final Widget Function(BuildContext context, T listenable, Widget? child) builder;
+  final Widget Function(BuildContext context, T listenable, Widget? child)
+      builder;
   final T listenable;
   final Widget? child;
 
@@ -16,7 +17,8 @@ class ListenableBuilder<T extends Listenable> extends StatefulWidget {
   _ListenableBuilderState<T> createState() => _ListenableBuilderState<T>();
 }
 
-class _ListenableBuilderState<T extends Listenable> extends State<ListenableBuilder<T>> {
+class _ListenableBuilderState<T extends Listenable>
+    extends State<ListenableBuilder<T>> {
   @override
   void initState() {
     super.initState();
@@ -33,7 +35,8 @@ class _ListenableBuilderState<T extends Listenable> extends State<ListenableBuil
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(context, widget.listenable, widget.child);
+  Widget build(BuildContext context) =>
+      widget.builder(context, widget.listenable, widget.child);
 
   @override
   void dispose() {

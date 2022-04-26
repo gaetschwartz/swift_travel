@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -83,7 +82,7 @@ class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
     ListTile(
       leading: const Icon(CupertinoIcons.clear),
       title: const Text('Clear history'),
-      onTap: RouteHistoryRepository.i.clear,
+      onTap: RouteHistoryRepository.instance.clear,
     ),
     Builder(builder: (context) {
       return ListTile(
@@ -120,16 +119,9 @@ class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
       return ListTile(
           leading: const Icon(Icons.open_in_browser),
           title: const Text('Open incorrect page'),
-          onTap: () => Navigator.of(context).pushNamed('/thisIsNotACorrectPage'));
+          onTap: () =>
+              Navigator.of(context).pushNamed('/thisIsNotACorrectPage'));
     }),
-    ListTile(
-        leading: const Icon(Icons.close),
-        title: const Text('Trigger a crash'),
-        // ignore: prefer-extracting-callbacks
-        onTap: () {
-          log.log('We trigger a crash');
-          FirebaseCrashlytics.instance.crash();
-        }),
   ];
 
   void openTerminal() {
@@ -159,11 +151,14 @@ class _ScreenPage extends StatelessWidget {
         appBar: AppBar(),
         body: ListView(
           children: [
-            ErrorDataWidget('Screen size:', MediaQuery.of(context).size.toString()),
-            ErrorDataWidget('Orientation:', MediaQuery.of(context).orientation.toString()),
             ErrorDataWidget(
-                'Text scale factor:', MediaQuery.of(context).textScaleFactor.toString()),
-            ErrorDataWidget('Pixel ratio:', MediaQuery.of(context).devicePixelRatio.toString()),
+                'Screen size:', MediaQuery.of(context).size.toString()),
+            ErrorDataWidget(
+                'Orientation:', MediaQuery.of(context).orientation.toString()),
+            ErrorDataWidget('Text scale factor:',
+                MediaQuery.of(context).textScaleFactor.toString()),
+            ErrorDataWidget('Pixel ratio:',
+                MediaQuery.of(context).devicePixelRatio.toString()),
           ],
         ),
       );

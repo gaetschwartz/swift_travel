@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class PlatformPageRoute<T extends Object?> extends MaterialWithModalsPageRoute<T>
-    with PlatformRouteTitleMixin {
+class PlatformPageRoute<T extends Object?>
+    extends MaterialWithModalsPageRoute<T> with PlatformRouteTitleMixin {
   PlatformPageRoute({
     required WidgetBuilder builder,
     RouteSettings? settings,

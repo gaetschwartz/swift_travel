@@ -27,5 +27,6 @@ class Contributor with _$Contributor {
     required int contributions,
   }) = _Contributor;
 
-  factory Contributor.fromJson(Map<String, dynamic> json) => _$ContributorFromJson(json);
+  factory Contributor.fromJson(Map<String, dynamic> json) =>
+      _$ContributorFromJson(json);
 }

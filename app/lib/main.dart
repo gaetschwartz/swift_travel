@@ -8,7 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
 import 'package:swift_travel/constants/build.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -37,7 +37,8 @@ final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 bool get isTest => Platform.environment.containsKey('FLUTTER_TEST');
 
-String get platform => kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
+String get platform =>
+    kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
 
 void main() {
   preLaunchRoutine();
@@ -104,7 +105,8 @@ class FullApp extends StatefulWidget {
 }
 
 class _FullAppState extends State<FullApp> {
-  final DynamicThemeData dynamicThemeData = DynamicThemeData(DynamicThemeData.defaultConfig);
+  final DynamicThemeData dynamicThemeData =
+      DynamicThemeData(DynamicThemeData.defaultConfig);
 
   @override
   void reassemble() {
@@ -122,7 +124,7 @@ class _FullAppState extends State<FullApp> {
       );
 }
 
-class SwiftTravelApp extends StatefulWidget {
+class SwiftTravelApp extends ConsumerStatefulWidget {
   const SwiftTravelApp({Key? key}) : super(key: key);
 
   @override
@@ -138,7 +140,7 @@ final _shortcuts = {
   LogicalKeySet(ctrl, LogicalKeyboardKey.digit4): const TabIntent(3),
 };
 
-class _SwiftTravelAppState extends State<SwiftTravelApp> {
+class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
   @override
   Widget build(BuildContext context) {
     final theme = DynamicTheme.of(context);
@@ -163,25 +165,23 @@ class _SwiftTravelAppState extends State<SwiftTravelApp> {
       actions: {
         EscapeIntent: CallbackAction(onInvoke: (e) {
           // log.log('Clearing sidebar');
-          context.read(sideTabBarProvider.state).state = null;
+          ref.read(sideTabBarProvider.state).state = null;
           sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
         }),
         TabIntent: TabAction((tab) {
           //log.log('Changing tab to $tab');
-          context.read(tabProvider).index = tab;
+          ref.read(tabProvider).index = tab;
         }),
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
           // log.log('Switching tab');
-          final tabs = context.read(tabProvider);
-          tabs.index = tabs.index % (darwin ? TabView.iosTabs.length : TabView.androidTabs.length);
+          final tabs = ref.read(tabProvider);
+          tabs.index = tabs.index %
+              (darwin ? TabView.iosTabs.length : TabView.androidTabs.length);
         })
       },
       onGenerateRoute: onGenerateRoute,
       onUnknownRoute: onUnknownRoute,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
-      scrollBehavior: const MaterialScrollBehavior(
-        androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
-      ),
       initialRoute: 'loading',
     );
   }
@@ -279,12 +279,14 @@ Route<void>? onGenerateRoute(RouteSettings settings) {
     case '/liveRoute':
       return PlatformPageRoute(
         settings: settings,
-        builder: (_) => LiveRoutePage(connection: settings.arguments! as RouteConnection),
+        builder: (_) =>
+            LiveRoutePage(connection: settings.arguments! as RouteConnection),
       );
     case '/stopDetails':
       return PlatformPageRoute(
         settings: settings,
-        builder: (_) => StopDetails(SbbStop(name: settings.arguments! as String)),
+        builder: (_) =>
+            StopDetails(SbbStop(name: settings.arguments! as String)),
       );
 
     case '/error':
@@ -312,6 +314,12 @@ class Unfocus extends StatelessWidget {
 }
 
 extension BuildContextX on BuildContext {
-  T read<T>(ProviderBase<T> provider) =>
-      ProviderScope.containerOf(this, listen: false).read(provider);
+  // @Deprecated("User ref.read instead")
+  T read<T>(ProviderBase<T> provider) {
+    return readFromContext(this, provider);
+  }
+}
+
+T readFromContext<T>(BuildContext context, ProviderBase<T> provider) {
+  return ProviderScope.containerOf(context, listen: false).read(provider);
 }

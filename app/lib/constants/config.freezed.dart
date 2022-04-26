@@ -12,33 +12,16 @@ part of 'config.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Config _$ConfigFromJson(Map<String, dynamic> json) {
   return _Config.fromJson(json);
 }
 
 /// @nodoc
-class _$ConfigTearOff {
-  const _$ConfigTearOff();
-
-  _Config call({String? sncfKey}) {
-    return _Config(
-      sncfKey: sncfKey,
-    );
-  }
-
-  Config fromJson(Map<String, Object?> json) {
-    return Config.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Config = _$ConfigTearOff();
-
-/// @nodoc
 mixin _$Config {
   String? get sncfKey => throw _privateConstructorUsedError;
+  String? get triasKey => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +32,7 @@ mixin _$Config {
 abstract class $ConfigCopyWith<$Res> {
   factory $ConfigCopyWith(Config value, $Res Function(Config) then) =
       _$ConfigCopyWithImpl<$Res>;
-  $Res call({String? sncfKey});
+  $Res call({String? sncfKey, String? triasKey});
 }
 
 /// @nodoc
@@ -63,11 +46,16 @@ class _$ConfigCopyWithImpl<$Res> implements $ConfigCopyWith<$Res> {
   @override
   $Res call({
     Object? sncfKey = freezed,
+    Object? triasKey = freezed,
   }) {
     return _then(_value.copyWith(
       sncfKey: sncfKey == freezed
           ? _value.sncfKey
           : sncfKey // ignore: cast_nullable_to_non_nullable
+              as String?,
+      triasKey: triasKey == freezed
+          ? _value.triasKey
+          : triasKey // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -78,7 +66,7 @@ abstract class _$ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
   factory _$ConfigCopyWith(_Config value, $Res Function(_Config) then) =
       __$ConfigCopyWithImpl<$Res>;
   @override
-  $Res call({String? sncfKey});
+  $Res call({String? sncfKey, String? triasKey});
 }
 
 /// @nodoc
@@ -93,11 +81,16 @@ class __$ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
   @override
   $Res call({
     Object? sncfKey = freezed,
+    Object? triasKey = freezed,
   }) {
     return _then(_Config(
       sncfKey: sncfKey == freezed
           ? _value.sncfKey
           : sncfKey // ignore: cast_nullable_to_non_nullable
+              as String?,
+      triasKey: triasKey == freezed
+          ? _value.triasKey
+          : triasKey // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -106,17 +99,19 @@ class __$ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Config implements _Config {
-  const _$_Config({this.sncfKey});
+  const _$_Config({this.sncfKey, this.triasKey});
 
   factory _$_Config.fromJson(Map<String, dynamic> json) =>
       _$$_ConfigFromJson(json);
 
   @override
   final String? sncfKey;
+  @override
+  final String? triasKey;
 
   @override
   String toString() {
-    return 'Config(sncfKey: $sncfKey)';
+    return 'Config(sncfKey: $sncfKey, triasKey: $triasKey)';
   }
 
   @override
@@ -124,12 +119,16 @@ class _$_Config implements _Config {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Config &&
-            const DeepCollectionEquality().equals(other.sncfKey, sncfKey));
+            const DeepCollectionEquality().equals(other.sncfKey, sncfKey) &&
+            const DeepCollectionEquality().equals(other.triasKey, triasKey));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(sncfKey));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(sncfKey),
+      const DeepCollectionEquality().hash(triasKey));
 
   @JsonKey(ignore: true)
   @override
@@ -143,12 +142,15 @@ class _$_Config implements _Config {
 }
 
 abstract class _Config implements Config {
-  const factory _Config({String? sncfKey}) = _$_Config;
+  const factory _Config({final String? sncfKey, final String? triasKey}) =
+      _$_Config;
 
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 
   @override
-  String? get sncfKey;
+  String? get sncfKey => throw _privateConstructorUsedError;
+  @override
+  String? get triasKey => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ConfigCopyWith<_Config> get copyWith => throw _privateConstructorUsedError;

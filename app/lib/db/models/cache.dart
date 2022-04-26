@@ -28,12 +28,17 @@ class LineCacheEntry with _$LineCacheEntry {
     @Default(Duration.minutesPerDay * 7) int ttl,
   }) = _LineCacheEntry;
 
-  factory LineCacheEntry.fromJson(Map<String, dynamic> json) => _$LineCacheEntryFromJson(json);
+  factory LineCacheEntry.fromJson(Map<String, dynamic> json) =>
+      _$LineCacheEntryFromJson(json);
 }
 
 @freezed
 class Line with _$Line {
-  const factory Line(String? line, String colors) = _Line;
+  const factory Line({
+    required String? line,
+    required int? bgColor,
+    required int? fgColor,
+  }) = _Line;
 
   factory Line.fromJson(Map<String, dynamic> json) => _$LineFromJson(json);
 }

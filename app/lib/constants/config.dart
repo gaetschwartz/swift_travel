@@ -21,6 +21,7 @@ final configProvider = FutureProvider<Config>((ref) async {
 class Config with _$Config {
   const factory Config({
     String? sncfKey,
+    String? triasKey,
   }) = _Config;
 
   factory Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);

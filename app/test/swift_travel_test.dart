@@ -11,10 +11,10 @@ import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/completion.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/route_connection.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
-import 'package:swift_travel/apis/navigation/search.ch/search_ch.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/route_connection.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
+import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/db/history.dart';
@@ -53,7 +53,8 @@ void main() {
     late RouteHistoryRepository hist;
     setUpAll(() async {
       final temp = await getTempDirForTests();
-      final dir = path.join(temp.path, 'swift_travel', 'test_results', 'route_history');
+      final dir =
+          path.join(temp.path, 'swift_travel', 'test_results', 'route_history');
       Hive.init(dir);
     });
 
@@ -63,7 +64,7 @@ void main() {
     });
 
     tearDown(() async {
-      await Hive.deleteBoxFromDisk(RouteHistoryRepository.i.boxKey);
+      await Hive.deleteBoxFromDisk(RouteHistoryRepository.instance.boxKey);
     });
 
     test('size is smaller than 1 Mb for maxSize', () async {
@@ -116,12 +117,14 @@ void main() {
 
     test(
       'instance is a singleton',
-      () => expect(RouteHistoryRepository.i, RouteHistoryRepository.i),
+      () => expect(
+          RouteHistoryRepository.instance, RouteHistoryRepository.instance),
     );
 
     test(
       'singleton != new instance',
-      () => expect(RouteHistoryRepository.i, isNot(RouteHistoryRepository())),
+      () => expect(
+          RouteHistoryRepository.instance, isNot(RouteHistoryRepository())),
     );
 
     test('throws when not accessed properly', () {
@@ -152,7 +155,8 @@ void main() {
             ),
           ),
         ),
-        navigationAPIProvider.overrideWithValue(MockNavigationApi(mockCompletions: []))
+        navigationAPIProvider
+            .overrideWithValue(MockNavigationApi(mockCompletions: []))
       ]);
 
       final c = await container
@@ -176,10 +180,15 @@ void main() {
       FakeableDateTime.fakeDate = DateTime(2021);
     });
     test('localRoute', () {
-      final route1 = LocalRoute.v2(const SbbStop(name: 'from'), const SbbStop(name: 'to'),
+      final route1 = LocalRoute.v2(
+          const SbbStop(name: 'from'), const SbbStop(name: 'to'),
           displayName: 'name', timestamp: FakeableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
-        SbbRouteConnection(from: 'from', to: 'to', depDelay: 0, departure: FakeableDateTime.now()),
+        SbbRouteConnection(
+            from: 'from',
+            to: 'to',
+            depDelay: 0,
+            departure: FakeableDateTime.now()),
         displayName: 'name',
       );
       final json = {
@@ -195,11 +204,13 @@ void main() {
     });
 
     test('favoriteStop', () {
-      final stop1 = FavoriteStop(stop: geneva, name: geneva, api: searchChApi.id.value);
+      final stop1 =
+          FavoriteStop(stop: geneva, name: geneva, api: searchChApi.id.value);
       final stop2 = FavoriteStop.fromStop(geneva, api: searchChApi.id);
-      final stop3 = FavoriteStop.fromCompletion(SbbCompletion(label: geneva), api: searchChApi.id);
-      final stop4 =
-          FavoriteStop.fromJson(<String, Object>{'stop': geneva, 'name': geneva, 'api': 'sbb'});
+      final stop3 = FavoriteStop.fromCompletion(SbbCompletion(label: geneva),
+          api: searchChApi.id);
+      final stop4 = FavoriteStop.fromJson(
+          <String, Object>{'stop': geneva, 'name': geneva, 'api': 'sbb'});
 
       expect(stop1, equals(stop2));
       expect(stop2, equals(stop3));
@@ -238,15 +249,21 @@ void main() {
 
     // HACK: Not really sure if this is the best way to test this
 
-    final c = await container.read(completionEngineProvider).complete(query: geneva).last;
+    final c = await container
+        .read(completionEngineProvider)
+        .complete(query: geneva)
+        .last;
 
     final expected = <NavigationCompletion>[
       const CurrentLocationCompletion(),
       SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
       SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
-      SbbCompletion.fromFavorite(FavoriteStop.fromStop(geneva, api: searchChApi.id)),
-      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève gare', api: searchChApi.id)),
-      SbbCompletion.fromFavorite(FavoriteStop.fromStop('Genève nord', api: searchChApi.id)),
+      SbbCompletion.fromFavorite(
+          FavoriteStop.fromStop(geneva, api: searchChApi.id)),
+      SbbCompletion.fromFavorite(
+          FavoriteStop.fromStop('Genève gare', api: searchChApi.id)),
+      SbbCompletion.fromFavorite(
+          FavoriteStop.fromStop('Genève nord', api: searchChApi.id)),
       SbbCompletion(label: 'Genève'),
     ];
 
@@ -326,7 +343,7 @@ void main() {
           'to': 'Badenerstrasse 549, 8048 Zürich',
           'date': '12/31/2021',
           'time': '0:0',
-          'time_type': describeEnum(TimeType.depart),
+          'time_type': describeEnum(TimeType.departure),
           'show_trackchanges': 0,
           'show_delays': 0,
         },

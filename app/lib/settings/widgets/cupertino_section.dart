@@ -93,8 +93,9 @@ class CupertinoSettingsSection extends StatelessWidget {
 
     final top = header == null ? 35.0 : 22.0;
     return Padding(
-      padding:
-          largeScreen ? EdgeInsets.only(top: top, left: 22, right: 22) : EdgeInsets.only(top: top),
+      padding: largeScreen
+          ? EdgeInsets.only(top: top, left: 22, right: 22)
+          : EdgeInsets.only(top: top),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: columnChildren,
@@ -108,10 +109,11 @@ class CupertinoSettingsSection extends StatelessWidget {
     for (var i = 0; i < items.length; i++) {
       itemsWithDividers.add(items[i]);
       if (i < items.length - 1) {
-        // ignore: avoid-unrelated-type-assertions
-        final leftPadding = (items[i] is WithLeading && items[i + 1] is WithLeading)
-            ? ((items[i] as WithLeading).leading == null ? 15.0 : 54.0)
-            : 0.0;
+        final leftPadding =
+            // ignore: avoid-unrelated-type-assertions
+            (items[i] is WithLeading && items[i + 1] is WithLeading)
+                ? ((items[i] as WithLeading).leading == null ? 15.0 : 54.0)
+                : 0.0;
 
         itemsWithDividers.add(Divider(
           height: 0.3,

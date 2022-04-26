@@ -96,7 +96,8 @@ class WelcomePage extends StatelessWidget {
                       SizedBox(
                         height: 48,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+                          style: ElevatedButton.styleFrom(
+                              shape: const StadiumBorder()),
                           onPressed: () {
                             Navigator.of(context).pushReplacementNamed('/tuto');
                           },
@@ -126,11 +127,12 @@ class BezierClipper2 extends CustomClipper<Path> {
   Path _getFinalClip(Size size) {
     final path_0 = Path();
     path_0.moveTo(size.width, 0);
-    path_0.quadraticBezierTo(size.width * 1.01, size.height * 0.40, size.width, size.height * 0.34);
-    path_0.cubicTo(size.width * 0.49, size.height * 0.01, size.width * 0.54, size.height * 0.76,
-        size.width * 0.33, size.height * 0.76);
-    path_0.cubicTo(size.width * 0.16, size.height * 0.76, size.width * 0.08, size.height * 0.16,
-        size.width * 0.05, size.height * 0.07);
+    path_0.quadraticBezierTo(
+        size.width * 1.01, size.height * 0.40, size.width, size.height * 0.34);
+    path_0.cubicTo(size.width * 0.49, size.height * 0.01, size.width * 0.54,
+        size.height * 0.76, size.width * 0.33, size.height * 0.76);
+    path_0.cubicTo(size.width * 0.16, size.height * 0.76, size.width * 0.08,
+        size.height * 0.16, size.width * 0.05, size.height * 0.07);
     path_0.quadraticBezierTo(size.width * 0.03, size.height * 0.01, 0, 0);
 
     return path_0;
@@ -149,12 +151,14 @@ class BezierClipper extends CustomClipper<Path> {
   Path _getFinalClip(Size size) {
     final path_0 = Path();
     path_0.moveTo(size.width, size.height);
-    path_0.quadraticBezierTo(size.width * 1.00, size.height * 0.44, size.width, size.height * 0.37);
-    path_0.cubicTo(size.width * 0.97, size.height * 0.34, size.width * 0.74, size.height * 0.20,
-        size.width * 0.59, size.height * 0.64);
-    path_0.cubicTo(size.width * 0.44, size.height * 1.02, size.width * 0.42, size.height * 0.80,
-        size.width * 0.26, size.height * 0.66);
-    path_0.quadraticBezierTo(size.width * 0.10, size.height * 0.57, 0, size.height);
+    path_0.quadraticBezierTo(
+        size.width * 1.00, size.height * 0.44, size.width, size.height * 0.37);
+    path_0.cubicTo(size.width * 0.97, size.height * 0.34, size.width * 0.74,
+        size.height * 0.20, size.width * 0.59, size.height * 0.64);
+    path_0.cubicTo(size.width * 0.44, size.height * 1.02, size.width * 0.42,
+        size.height * 0.80, size.width * 0.26, size.height * 0.66);
+    path_0.quadraticBezierTo(
+        size.width * 0.10, size.height * 0.57, 0, size.height);
 
     return path_0;
   }

@@ -12,29 +12,7 @@ part of 'station_states.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$StationStatesTearOff {
-  const _$StationStatesTearOff();
-
-  CompletionsStationStates completions(List<NavigationCompletion> completions) {
-    return CompletionsStationStates(
-      completions,
-    );
-  }
-
-  EmptyStationStates empty() {
-    return const EmptyStationStates();
-  }
-
-  NetworkErrorStationStates network() {
-    return const NetworkErrorStationStates();
-  }
-}
-
-/// @nodoc
-const $StationStates = _$StationStatesTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$StationStates {
@@ -138,10 +116,15 @@ class _$CompletionsStationStatesCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CompletionsStationStates implements CompletionsStationStates {
-  const _$CompletionsStationStates(this.completions);
+  const _$CompletionsStationStates(final List<NavigationCompletion> completions)
+      : _completions = completions;
 
+  final List<NavigationCompletion> _completions;
   @override
-  final List<NavigationCompletion> completions;
+  List<NavigationCompletion> get completions {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_completions);
+  }
 
   @override
   String toString() {
@@ -239,9 +222,11 @@ class _$CompletionsStationStates implements CompletionsStationStates {
 
 abstract class CompletionsStationStates implements StationStates {
   const factory CompletionsStationStates(
-      List<NavigationCompletion> completions) = _$CompletionsStationStates;
+          final List<NavigationCompletion> completions) =
+      _$CompletionsStationStates;
 
-  List<NavigationCompletion> get completions;
+  List<NavigationCompletion> get completions =>
+      throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CompletionsStationStatesCopyWith<CompletionsStationStates> get copyWith =>
       throw _privateConstructorUsedError;

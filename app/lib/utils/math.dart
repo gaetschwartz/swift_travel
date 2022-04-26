@@ -17,10 +17,12 @@ class Sum {
 
   String get overview {
     final s = value;
-    final b = StringBuffer("  Sum: ${value.toStringAsPrecision(4)}\n  Overview:\n");
+    final b =
+        StringBuffer("  Sum: ${value.toStringAsPrecision(4)}\n  Overview:\n");
     for (var i = 0; i < addends.length; i++) {
       final a = addends[i];
-      b.writeln("    ${a.name}: \t ${a.repr} (${(a.value * 100 / s).toStringAsFixed(2)}%)");
+      b.writeln(
+          "    ${a.name}: \t ${a.repr} (${(a.value * 100 / s).toStringAsFixed(2)}%)");
     }
     return b.toString();
   }

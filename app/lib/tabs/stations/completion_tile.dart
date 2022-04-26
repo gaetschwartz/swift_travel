@@ -10,7 +10,7 @@ import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
-import 'package:swift_travel/apis/navigation/search.ch/models/stop.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/cache.dart';
 import 'package:swift_travel/db/models/cache.dart';
@@ -18,7 +18,6 @@ import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
@@ -31,7 +30,7 @@ import 'package:vibration/vibration.dart';
 
 enum _Actions { favorite }
 
-class CompletionTile extends ConsumerWidget {
+class CompletionTile extends ConsumerStatefulWidget {
   const CompletionTile(
     this.sugg, {
     Key? key,
@@ -42,44 +41,49 @@ class CompletionTile extends ConsumerWidget {
   static const _kRadius = BorderRadius.all(Radius.circular(16));
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final store = ref.watch(storeProvider);
-    final iconClass = sugg.getIcon();
-    final isPrivate = TransportationModeX.isAnAddress(sugg.type);
+  ConsumerState<CompletionTile> createState() => _CompletionTileState();
+}
 
-    final isFav = sugg.favoriteName != null;
+class _CompletionTileState extends ConsumerState<CompletionTile> {
+  @override
+  Widget build(BuildContext context) {
+    final store = ref.watch(storeProvider);
+    final iconClass = widget.sugg.icon;
+    final isPrivate = TransportationModeX.isAnAddress(widget.sugg.type);
+
+    final isFav = widget.sugg.favoriteName != null;
     final darwin = isThemeDarwin(context);
 
     final subtitle = [
-      if (isFav) Text(sugg.label, overflow: TextOverflow.ellipsis),
-      if (sugg.dist != null) Text('${sugg.dist!.round()}m'),
+      if (isFav) Text(widget.sugg.label, overflow: TextOverflow.ellipsis),
+      if (widget.sugg.dist != null) Text('${widget.sugg.dist!.round()}m'),
       if (!isPrivate)
-        _LinesWidget(
-          compl: sugg,
-          key: Key(sugg.label),
-        )
+        _LinesWidget(key: Key(widget.sugg.label), compl: widget.sugg)
     ];
 
     final listTile = DecoratedBox(
       decoration: BoxDecoration(
         boxShadow: shadowListOf(context),
         color: Theme.of(context).cardColor,
-        borderRadius: _kRadius,
+        borderRadius: CompletionTile._kRadius,
       ),
       child: ListTile(
         horizontalTitleGap: 0,
         dense: true,
-        shape: const RoundedRectangleBorder(borderRadius: _kRadius),
+        shape:
+            const RoundedRectangleBorder(borderRadius: CompletionTile._kRadius),
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isFav)
-              darwin ? const Icon(CupertinoIcons.heart_fill) : const Icon(Icons.star)
+              darwin
+                  ? const Icon(CupertinoIcons.heart_fill)
+                  : const Icon(Icons.star)
             else
               iconClass,
           ],
         ),
-        title: Text(isFav ? sugg.favoriteName! : sugg.label),
+        title: Text(isFav ? widget.sugg.favoriteName! : widget.sugg.label),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: subtitle,
@@ -102,10 +106,10 @@ class CompletionTile extends ConsumerWidget {
                 SideBar.push(
                   context,
                   (context) => StopDetails(
-                    SbbStop(name: sugg.label, id: sugg.id),
-                    key: Key(sugg.label),
+                    SbbStop(name: widget.sugg.label, id: widget.sugg.id),
+                    key: Key(widget.sugg.label),
                   ),
-                  title: sugg.label,
+                  title: widget.sugg.label,
                 );
                 FocusManager.instance.primaryFocus?.unfocus();
               },
@@ -127,7 +131,8 @@ class CompletionTile extends ConsumerWidget {
     FocusManager.instance.primaryFocus?.unfocus();
     Vibration.instance.select();
 
-    final favoriteStop = store.stops.firstWhereOrNull((f) => f.stop == sugg.label);
+    final favoriteStop =
+        store.stops.firstWhereOrNull((f) => f.stop == widget.sugg.label);
     final isFav = favoriteStop != null;
 
     final c = await showActionSheet<_Actions>(
@@ -140,8 +145,9 @@ class CompletionTile extends ConsumerWidget {
             icon: isFav
                 ? const Icon(CupertinoIcons.heart_slash)
                 : const Icon(CupertinoIcons.heart_fill),
-            cupertinoIcon:
-                isFav ? const Icon(CupertinoIcons.heart_slash) : const Icon(CupertinoIcons.heart),
+            cupertinoIcon: isFav
+                ? const Icon(CupertinoIcons.heart_slash)
+                : const Icon(CupertinoIcons.heart),
             onPressed: () => _Actions.favorite,
             isDestructive: isFav,
           )
@@ -156,12 +162,13 @@ class CompletionTile extends ConsumerWidget {
         if (isFav) {
           await store.removeStop(favoriteStop);
         } else {
-          final preferencesBloc = context.read(preferencesProvider);
-          final name = await input(context, title: const Text('What is the name of this stop'));
+          final preferencesBloc = ref.read(preferencesProvider);
+          final name = await input(context,
+              title: const Text('What is the name of this stop'));
           if (name == null) return;
 
           await store.addStop(FavoriteStop.fromCompletion(
-            sugg,
+            widget.sugg,
             name: name,
             api: preferencesBloc.api.value,
           ));
@@ -173,7 +180,7 @@ class CompletionTile extends ConsumerWidget {
   }
 }
 
-class _LinesWidget extends StatefulWidget {
+class _LinesWidget extends ConsumerStatefulWidget {
   const _LinesWidget({
     required this.compl,
     Key? key,
@@ -185,7 +192,7 @@ class _LinesWidget extends StatefulWidget {
   __LinesWidgetState createState() => __LinesWidgetState();
 }
 
-class __LinesWidgetState extends State<_LinesWidget> {
+class __LinesWidgetState extends ConsumerState<_LinesWidget> {
   static const numberOfLines = 6;
 
   List<Widget>? lines;
@@ -200,7 +207,10 @@ class __LinesWidgetState extends State<_LinesWidget> {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(top: 4),
         child: lines == null
-            ? const SizedBox(width: 8, height: 8, child: CircularProgressIndicator.adaptive())
+            ? const SizedBox(
+                width: 8,
+                height: 8,
+                child: CircularProgressIndicator.adaptive())
             : SizedBox(
                 width: double.infinity,
                 child: ClipRect(
@@ -241,15 +251,14 @@ class __LinesWidgetState extends State<_LinesWidget> {
     } else {
       final StationBoard sData;
       try {
-        sData = await context
+        sData = await ref
             .read(navigationAPIProvider)
             .stationboard(
               SbbStop(
                 name: widget.compl.label,
                 id: widget.compl.id,
               ),
-              showSubsequentStops: false,
-              showDelays: false,
+              when: DateTime.now(),
             )
             .timeout(const Duration(seconds: 1));
       } on TimeoutException {
@@ -275,7 +284,11 @@ class __LinesWidgetState extends State<_LinesWidget> {
             }
           })
           // ignore: deprecated_member_use_from_same_package
-          .map((c) => Line(c.line, c.color))
+          .map((c) => Line(
+                line: c.line,
+                bgColor: c.bgcolor?.value,
+                fgColor: c.fgcolor?.value,
+              ))
           .toSet()
           .take(numberOfLines + 1);
 

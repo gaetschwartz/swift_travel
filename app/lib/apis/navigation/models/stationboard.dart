@@ -26,10 +26,7 @@ mixin WithTimeMixin {
 
 mixin BaseStationboardConnection {
   DateTime get time;
-  TransportationMode get type;
-
-  @Deprecated("Use bgcolor and fgcolor")
-  String get color;
+  PlaceType get type;
 
   Color? get bgcolor;
   Color? get fgcolor;
@@ -45,7 +42,8 @@ mixin BaseStationboardConnection {
   List<DelayedStop> get subsequentStops;
 }
 
-abstract class StationboardConnection with BaseStationboardConnection, WithDelayMixin {}
+abstract class StationboardConnection
+    with BaseStationboardConnection, WithDelayMixin {}
 
 abstract class DelayedStop with WithDelayMixin implements Stop {}
 
