@@ -1,10 +1,11 @@
 import 'dart:math' as math;
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/prediction/models/models.dart';
-import 'package:swift_travel/utils/math.dart';
+import 'package:swift_travel/utils/models/coordinates.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
 abstract class MLModel<Input, Output> {
@@ -21,11 +22,7 @@ class KnnRouteModel implements RouteMLModel {
       predictRouteSync(input.routes, input.arguments);
 }
 
-const _k = 5;
-
-/// Factor for weekdays, it's a max of 4 days of difference
-const _daysFactor = 1 / 4;
-const _minutesFactor = 1 / Duration.minutesPerDay;
+const _k = 3;
 
 final _newCache = <int, RoutePrediction>{};
 RoutePrediction? _getCachedIfPresent(PredictionArguments args) =>
@@ -33,18 +30,6 @@ RoutePrediction? _getCachedIfPresent(PredictionArguments args) =>
 RoutePrediction? _setCached(
         PredictionArguments args, RoutePrediction prediction) =>
     _newCache[args.hashCode] = prediction;
-
-int _minutesDist(int a, int b) {
-  final diff = (a - b).abs();
-  return diff > Duration.minutesPerDay / 2
-      ? Duration.minutesPerDay - diff
-      : diff;
-}
-
-int _weekdayDiff(int a, int b) {
-  final diff = (a - b).abs();
-  return diff > 3 ? 7 - diff : diff;
-}
 
 /// Cache
 
@@ -63,7 +48,7 @@ RoutePrediction predictRouteSync(
     return cachedPrediction;
   }
 
-  final distances = <Pair<LocalRoute, ComputedSum>>[];
+  final distances = <Triple<LocalRoute, ValueVector, double>>[];
 
   final newRoutes = arguments
       .maybeMap(
@@ -71,55 +56,37 @@ RoutePrediction predictRouteSync(
         orElse: () => const DoubleFlippedRouteTransformer(),
       )
       .apply(routes);
+
+  final argVect = PrettyVector(
+    day: arguments.dateTime?.day,
+    minutes: arguments.dateTime?.minutesOfDay,
+    name: arguments.mapOrNull(withSource: (value) => value.source),
+    position: arguments.mapOrNull(withLocation: (value) => value.latLon),
+  ).toVector();
+
   for (final route in newRoutes) {
-    final dist = Sum();
+    final time = route.timestamp;
+    final weekday = time?.weekday;
+    final minutes = time?.minutesOfDay;
 
-    final timestamp = route.timestamp;
-    final time = arguments.dateTime;
-    if (time != null && timestamp != null) {
-      dist.add(
-        WeighedAddend(
-            _weekdayDiff(timestamp.weekday, time.weekday) * _daysFactor,
-            1,
-            "weekdays"),
-      );
-      dist.add(
-        WeighedAddend(
-            _minutesDist(timestamp.minutesOfDay, time.minutesOfDay) *
-                _minutesFactor,
-            1,
-            "minutes of day"),
-      );
-    }
+    final source = route.fromAsString;
+    final pos = route.map(v2: (v2) => v2.from.position, v1: (v1) => null);
 
-    if (arguments is SourceDateArguments) {
-      dist.add(WeighedAddend(
-          arguments.source.scaledDistanceTo(route.fromAsString),
-          1,
-          "string distance"));
-    }
+    final routeVect = PrettyVector(
+      day: weekday,
+      minutes: minutes,
+      name: source,
+      position: pos,
+    ).toVector();
 
-    if (arguments is LocationArgument) {
-      final pos = route.map(v2: (v2) => v2.from.position, v1: (v1) => null);
-      if (pos != null) {
-        final scaledDist = arguments.latLon.distanceTo(pos);
-        // log.log('Adding dist of $dist for ${route.fromAsString}');
-        const fourtyKilometers = 40000;
-        dist.add(WeighedAddend(math.min(1, scaledDist / fourtyKilometers), 4,
-            "position distance"));
-      } else {
-        continue;
-      }
-    }
-
-    distances.add(Pair(route, dist.computed));
+    distances.add(Triple(route, routeVect, routeVect.distanceTo(argVect)));
   }
 
-  distances.sort((a, b) => a.second.value.compareTo(b.second.value));
+  distances.sort((a, b) => a.third.compareTo(b.third));
 
   final top = distances.take(_k * newRoutes.length ~/ routes.length);
 
-  if (kDebugMode) _report(top);
+  if (kDebugMode) _report(top, argVect);
 
   final prediction = _computeWinner(top, arguments);
   _setCached(arguments, prediction);
@@ -131,7 +98,7 @@ RoutePrediction predictRouteSync(
 }
 
 RoutePrediction _computeWinner(
-  Iterable<Pair<LocalRoute, ComputedSum>> top,
+  Iterable<Triple<LocalRoute, ValueVector, double>> top,
   PredictionArguments arguments,
 ) {
   final map = <LocalRoute, int>{};
@@ -150,7 +117,7 @@ RoutePrediction _computeWinner(
 
     if (r.first.fromAsString == majRoute.fromAsString &&
         r.first.toAsString == majRoute.toAsString) {
-      sum += r.second.value;
+      sum += r.third;
     }
   }
 
@@ -161,15 +128,133 @@ RoutePrediction _computeWinner(
   return RoutePrediction(majRoute, 1 - sum, arguments);
 }
 
-void _report(Iterable<Pair<LocalRoute, ComputedSum>> top) {
+void _report(
+    Iterable<Triple<LocalRoute, ValueVector, double>> top, ValueVector arg) {
   var i = 0;
   for (final p in top) {
     i++;
     log.log(
-        '[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.second.overview}');
+        '[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.third}');
   }
 }
 
 extension on DateTime {
   int get minutesOfDay => hour * 60 + minute;
+}
+
+class PrettyVector {
+  final int? day;
+  final int? minutes;
+  final String? name;
+  final LatLon? position;
+
+  PrettyVector(
+      {required this.day, required this.minutes, this.name, this.position});
+
+  static const daysFactor = 1 / 7;
+  static const minutesFactor = 1 / Duration.minutesPerDay;
+
+  ValueVector toVector() => ValueVector(
+        [
+          DoubleValue((day ?? 0) * daysFactor, "day", factor: daysFactor),
+          DoubleValue((minutes ?? 0) * minutesFactor, "minutes",
+              factor: minutesFactor),
+          StringValue(name, "name"),
+          PositionValue(position, "position"),
+        ],
+      );
+}
+
+abstract class Value<T> {
+  final T value;
+  final String description;
+
+  Value(this.value, this.description);
+
+  @override
+  String toString() => '$value ($description)';
+
+  double distanceTo(Value<T> other);
+}
+
+class StringValue extends Value<String?> {
+  StringValue(String? value, String description) : super(value, description);
+
+  @override
+  double distanceTo(covariant StringValue other) {
+    if (value == null || other.value == null) {
+      return 0;
+    }
+    return value!.scaledDistanceTo(other.value!);
+  }
+}
+
+class DoubleValue extends Value<double> {
+  DoubleValue(double value, String description, {this.factor = 1})
+      : super(value, description);
+  final double factor;
+
+  @override
+  double distanceTo(covariant DoubleValue other) => value - other.value;
+}
+
+class PositionValue extends Value<LatLon?> {
+  PositionValue(LatLon? value, String description) : super(value, description);
+  static const switzerlandWidth = 350000;
+
+  @override
+  double distanceTo(covariant PositionValue other) {
+    if (value == null || other.value == null) {
+      return 0;
+    }
+    return value!.distanceTo(other.value!) / switzerlandWidth;
+  }
+}
+
+class ValueVector {
+  final List<Value> values;
+
+  ValueVector(this.values);
+
+  ValueVector.from(Iterable<Value> values) : values = values.toList();
+
+  @override
+  String toString() => "(${values.join(', ')})";
+
+  double distanceTo(ValueVector other) {
+    return values
+        .zip<Value, num>(other.values, (a, b) => math.pow(a.distanceTo(b), 2))
+        .sum
+        .toDouble();
+  }
+}
+
+extension ListXy<T> on List<T> {
+  Iterable<S> zip<R, S>(Iterable<R> other, S Function(T, R) f) sync* {
+    var i = 0;
+    for (final a in this) {
+      yield f(a, other.elementAt(i));
+      i++;
+    }
+  }
+}
+
+extension ListPairX<T, U> on List<Pair<T, U>> {
+  Map<T, U> toMap() => {
+        for (final p in this) p.first: p.second,
+      };
+}
+
+extension ListTripleX<T, U, V> on List<Triple<T, U, V>> {
+  Map<T, Pair<U, V>> toMap() => {
+        for (final p in this) p.first: Pair(p.second, p.third),
+      };
+
+  Map<U, Pair<T, V>> toMap2() => {
+        for (final p in this) p.second: Pair(p.first, p.third),
+      };
+
+  Map<V, Pair<T, U>> toMap3() => {
+        for (final p in this) p.third: Pair(p.first, p.second),
+      };
 }

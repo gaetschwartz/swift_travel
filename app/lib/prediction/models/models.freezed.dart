@@ -1146,6 +1146,157 @@ abstract class _Pair<R, S> extends Pair<R, S> {
 }
 
 /// @nodoc
+mixin _$Triple<R, S, T> {
+  R get first => throw _privateConstructorUsedError;
+  S get second => throw _privateConstructorUsedError;
+  T get third => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $TripleCopyWith<R, S, T, Triple<R, S, T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TripleCopyWith<R, S, T, $Res> {
+  factory $TripleCopyWith(
+          Triple<R, S, T> value, $Res Function(Triple<R, S, T>) then) =
+      _$TripleCopyWithImpl<R, S, T, $Res>;
+  $Res call({R first, S second, T third});
+}
+
+/// @nodoc
+class _$TripleCopyWithImpl<R, S, T, $Res>
+    implements $TripleCopyWith<R, S, T, $Res> {
+  _$TripleCopyWithImpl(this._value, this._then);
+
+  final Triple<R, S, T> _value;
+  // ignore: unused_field
+  final $Res Function(Triple<R, S, T>) _then;
+
+  @override
+  $Res call({
+    Object? first = freezed,
+    Object? second = freezed,
+    Object? third = freezed,
+  }) {
+    return _then(_value.copyWith(
+      first: first == freezed
+          ? _value.first
+          : first // ignore: cast_nullable_to_non_nullable
+              as R,
+      second: second == freezed
+          ? _value.second
+          : second // ignore: cast_nullable_to_non_nullable
+              as S,
+      third: third == freezed
+          ? _value.third
+          : third // ignore: cast_nullable_to_non_nullable
+              as T,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$TripleCopyWith<R, S, T, $Res>
+    implements $TripleCopyWith<R, S, T, $Res> {
+  factory _$TripleCopyWith(
+          _Triple<R, S, T> value, $Res Function(_Triple<R, S, T>) then) =
+      __$TripleCopyWithImpl<R, S, T, $Res>;
+  @override
+  $Res call({R first, S second, T third});
+}
+
+/// @nodoc
+class __$TripleCopyWithImpl<R, S, T, $Res>
+    extends _$TripleCopyWithImpl<R, S, T, $Res>
+    implements _$TripleCopyWith<R, S, T, $Res> {
+  __$TripleCopyWithImpl(
+      _Triple<R, S, T> _value, $Res Function(_Triple<R, S, T>) _then)
+      : super(_value, (v) => _then(v as _Triple<R, S, T>));
+
+  @override
+  _Triple<R, S, T> get _value => super._value as _Triple<R, S, T>;
+
+  @override
+  $Res call({
+    Object? first = freezed,
+    Object? second = freezed,
+    Object? third = freezed,
+  }) {
+    return _then(_Triple<R, S, T>(
+      first == freezed
+          ? _value.first
+          : first // ignore: cast_nullable_to_non_nullable
+              as R,
+      second == freezed
+          ? _value.second
+          : second // ignore: cast_nullable_to_non_nullable
+              as S,
+      third == freezed
+          ? _value.third
+          : third // ignore: cast_nullable_to_non_nullable
+              as T,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Triple<R, S, T> implements _Triple<R, S, T> {
+  const _$_Triple(this.first, this.second, this.third);
+
+  @override
+  final R first;
+  @override
+  final S second;
+  @override
+  final T third;
+
+  @override
+  String toString() {
+    return 'Triple<$R, $S, $T>(first: $first, second: $second, third: $third)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Triple<R, S, T> &&
+            const DeepCollectionEquality().equals(other.first, first) &&
+            const DeepCollectionEquality().equals(other.second, second) &&
+            const DeepCollectionEquality().equals(other.third, third));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(first),
+      const DeepCollectionEquality().hash(second),
+      const DeepCollectionEquality().hash(third));
+
+  @JsonKey(ignore: true)
+  @override
+  _$TripleCopyWith<R, S, T, _Triple<R, S, T>> get copyWith =>
+      __$TripleCopyWithImpl<R, S, T, _Triple<R, S, T>>(this, _$identity);
+}
+
+abstract class _Triple<R, S, T> implements Triple<R, S, T> {
+  const factory _Triple(final R first, final S second, final T third) =
+      _$_Triple<R, S, T>;
+
+  @override
+  R get first => throw _privateConstructorUsedError;
+  @override
+  S get second => throw _privateConstructorUsedError;
+  @override
+  T get third => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$TripleCopyWith<R, S, T, _Triple<R, S, T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ContactCompletion {
   Contact get contact => throw _privateConstructorUsedError;
 

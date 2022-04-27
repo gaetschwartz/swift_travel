@@ -119,6 +119,11 @@ class Pair<R, S> with _$Pair<R, S> {
 }
 
 @freezed
+class Triple<R, S, T> with _$Triple<R, S, T> {
+  const factory Triple(R first, S second, T third) = _Triple;
+}
+
+@freezed
 class ContactCompletion
     with _$ContactCompletion
     implements NavigationCompletion {
