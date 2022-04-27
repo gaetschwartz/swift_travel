@@ -372,7 +372,7 @@ packages:
   gaets_logging:
     dependency: "direct main"
     description:
-      path: "..\\packages\\logging"
+      path: "../packages/logging"
       relative: true
     source: path
     version: "0.0.1"
@@ -538,7 +538,7 @@ packages:
   live_route:
     dependency: "direct main"
     description:
-      path: "..\\packages\\live_route"
+      path: "../packages/live_route"
       relative: true
     source: path
     version: "0.0.1"
@@ -1012,7 +1012,7 @@ packages:
   theming:
     dependency: "direct main"
     description:
-      path: "..\\packages\\theming"
+      path: "../packages/theming"
       relative: true
     source: path
     version: "0.0.1"
@@ -1103,7 +1103,7 @@ packages:
   vibration:
     dependency: "direct main"
     description:
-      path: "..\\packages\\vibration"
+      path: "../packages/vibration"
       relative: true
     source: path
     version: "0.0.1"
