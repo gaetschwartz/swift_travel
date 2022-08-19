@@ -86,8 +86,8 @@ class WelcomePage extends StatelessWidget {
                           onPressed: () => Navigator.pop(context),
                           style: ElevatedButton.styleFrom(
                             shape: const StadiumBorder(),
-                            primary: Colors.white,
-                            onPrimary: Theme.of(context).primaryColor,
+                            backgroundColor: Colors.white,
+                            foregroundColor: Theme.of(context).primaryColor,
                           ),
                           icon: const Icon(Icons.skip_next),
                           label: const Text('Skip tutorial'),
