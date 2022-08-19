@@ -428,7 +428,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
                               : null,
                           style: TextButton.styleFrom(
                               shape: const StadiumBorder(),
-                              primary:
+                              backgroundColor:
                                   Theme.of(context).textTheme.button!.color),
                           onPressed: () async {
                             Vibration.instance.select();

@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-
 import 'app_localizations.dart';
 
 /// The translations for Italian (`it`).

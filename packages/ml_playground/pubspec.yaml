@@ -13,5 +13,5 @@ dev_dependencies:
 dependencies:
   csv: ^5.0.1
   ml_algo: ^16.2.4
-  ml_dataframe: ^0.5.1
-  ml_preprocessing: ^6.0.1
+  ml_dataframe: ^1.6.0
+  ml_preprocessing: ^7.0.2

@@ -24,17 +24,15 @@ extension ColorX on Color {
   Color augmentSquared() {
     final mean = (red + green + blue) / 3;
 
-    int _sgnOfSub(num a, num b) => a > b ? -1 : 1;
+    int sgnOfSub(num a, num b) => a > b ? -1 : 1;
 
     return Color.fromARGB(
       alpha,
-      (red + _sgnOfSub(mean, red) * pow(red - mean, 2)).round().clamp(0, 255),
-      (green + _sgnOfSub(mean, green) * pow(green - mean, 2))
+      (red + sgnOfSub(mean, red) * pow(red - mean, 2)).round().clamp(0, 255),
+      (green + sgnOfSub(mean, green) * pow(green - mean, 2))
           .round()
           .clamp(0, 255),
-      (blue + _sgnOfSub(mean, blue) * pow(blue - mean, 2))
-          .round()
-          .clamp(0, 255),
+      (blue + sgnOfSub(mean, blue) * pow(blue - mean, 2)).round().clamp(0, 255),
     );
   }
 

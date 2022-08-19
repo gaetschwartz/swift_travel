@@ -9,7 +9,7 @@ import 'models.dart';
 class LoggingService {
   LoggingService(List<LogConsumer> consumers) : _consumers = consumers;
 
-  static late final LoggingService instance =
+  static final LoggingService instance =
       LoggingService([const ConsoleLogger()]);
 
   List<LogConsumer> _consumers;

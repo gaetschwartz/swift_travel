@@ -511,7 +511,7 @@ class WidgetsShowcase extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {},
                   behavior: HitTestBehavior.opaque,
-                  child: Container(color: Colors.transparent),
+                  child: const ColoredBox(color: Colors.transparent),
                 ),
               ),
             ],

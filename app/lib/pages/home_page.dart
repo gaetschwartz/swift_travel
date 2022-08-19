@@ -497,7 +497,7 @@ class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
     // log.log('Previous page title is $prevPageTitle');
 
     @allowReturningWidgets
-    Widget? _pageTitleWidget() {
+    Widget? pageTitleWidget() {
       final title = _pageTitle;
       if (title == null) {
         return null;
@@ -511,7 +511,7 @@ class _SwiftCupertinoBarState extends State<SwiftCupertinoBar> {
       automaticallyImplyMiddle: widget.automaticallyImplyMiddle,
       previousPageTitle: prevPageTitle,
       middle: widget.automaticallyImplyMiddle
-          ? widget.middle ?? _pageTitleWidget()
+          ? widget.middle ?? pageTitleWidget()
           : widget.middle,
       trailing: widget.trailing,
       backgroundColor: CupertinoTheme.of(context)
