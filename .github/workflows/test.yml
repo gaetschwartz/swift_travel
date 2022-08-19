@@ -54,9 +54,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     name: build android
-    strategy:
-      matrix:
-        flutter_channel: [beta, dev]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -74,7 +71,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v1
         with:
-          channel: ${{ matrix.flutter_channel }}
+          channel: ${{ env.flutter_channel }}
       - name: Get packages
         working-directory: app/
         run: flutter packages get
