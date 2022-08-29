@@ -80,31 +80,31 @@ class _$FavoritesStatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $FavoritesStatesDataCopyWith<$Res> {
-  factory $FavoritesStatesDataCopyWith(
-          FavoritesStatesData value, $Res Function(FavoritesStatesData) then) =
-      _$FavoritesStatesDataCopyWithImpl<$Res>;
+abstract class _$$FavoritesStatesDataCopyWith<$Res> {
+  factory _$$FavoritesStatesDataCopyWith(_$FavoritesStatesData value,
+          $Res Function(_$FavoritesStatesData) then) =
+      __$$FavoritesStatesDataCopyWithImpl<$Res>;
   $Res call({List<FavoriteStop> favorites});
 }
 
 /// @nodoc
-class _$FavoritesStatesDataCopyWithImpl<$Res>
+class __$$FavoritesStatesDataCopyWithImpl<$Res>
     extends _$FavoritesStatesCopyWithImpl<$Res>
-    implements $FavoritesStatesDataCopyWith<$Res> {
-  _$FavoritesStatesDataCopyWithImpl(
-      FavoritesStatesData _value, $Res Function(FavoritesStatesData) _then)
-      : super(_value, (v) => _then(v as FavoritesStatesData));
+    implements _$$FavoritesStatesDataCopyWith<$Res> {
+  __$$FavoritesStatesDataCopyWithImpl(
+      _$FavoritesStatesData _value, $Res Function(_$FavoritesStatesData) _then)
+      : super(_value, (v) => _then(v as _$FavoritesStatesData));
 
   @override
-  FavoritesStatesData get _value => super._value as FavoritesStatesData;
+  _$FavoritesStatesData get _value => super._value as _$FavoritesStatesData;
 
   @override
   $Res call({
     Object? favorites = freezed,
   }) {
-    return _then(FavoritesStatesData(
+    return _then(_$FavoritesStatesData(
       favorites == freezed
-          ? _value.favorites
+          ? _value._favorites
           : favorites // ignore: cast_nullable_to_non_nullable
               as List<FavoriteStop>,
     ));
@@ -133,18 +133,20 @@ class _$FavoritesStatesData implements FavoritesStatesData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is FavoritesStatesData &&
-            const DeepCollectionEquality().equals(other.favorites, favorites));
+            other is _$FavoritesStatesData &&
+            const DeepCollectionEquality()
+                .equals(other._favorites, _favorites));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(favorites));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_favorites));
 
   @JsonKey(ignore: true)
   @override
-  $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith =>
-      _$FavoritesStatesDataCopyWithImpl<FavoritesStatesData>(this, _$identity);
+  _$$FavoritesStatesDataCopyWith<_$FavoritesStatesData> get copyWith =>
+      __$$FavoritesStatesDataCopyWithImpl<_$FavoritesStatesData>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -219,29 +221,30 @@ abstract class FavoritesStatesData implements FavoritesStates {
   const factory FavoritesStatesData(final List<FavoriteStop> favorites) =
       _$FavoritesStatesData;
 
-  List<FavoriteStop> get favorites => throw _privateConstructorUsedError;
+  List<FavoriteStop> get favorites;
   @JsonKey(ignore: true)
-  $FavoritesStatesDataCopyWith<FavoritesStatesData> get copyWith =>
+  _$$FavoritesStatesDataCopyWith<_$FavoritesStatesData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FavoritesStatesLoadingCopyWith<$Res> {
-  factory $FavoritesStatesLoadingCopyWith(FavoritesStatesLoading value,
-          $Res Function(FavoritesStatesLoading) then) =
-      _$FavoritesStatesLoadingCopyWithImpl<$Res>;
+abstract class _$$FavoritesStatesLoadingCopyWith<$Res> {
+  factory _$$FavoritesStatesLoadingCopyWith(_$FavoritesStatesLoading value,
+          $Res Function(_$FavoritesStatesLoading) then) =
+      __$$FavoritesStatesLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesStatesLoadingCopyWithImpl<$Res>
+class __$$FavoritesStatesLoadingCopyWithImpl<$Res>
     extends _$FavoritesStatesCopyWithImpl<$Res>
-    implements $FavoritesStatesLoadingCopyWith<$Res> {
-  _$FavoritesStatesLoadingCopyWithImpl(FavoritesStatesLoading _value,
-      $Res Function(FavoritesStatesLoading) _then)
-      : super(_value, (v) => _then(v as FavoritesStatesLoading));
+    implements _$$FavoritesStatesLoadingCopyWith<$Res> {
+  __$$FavoritesStatesLoadingCopyWithImpl(_$FavoritesStatesLoading _value,
+      $Res Function(_$FavoritesStatesLoading) _then)
+      : super(_value, (v) => _then(v as _$FavoritesStatesLoading));
 
   @override
-  FavoritesStatesLoading get _value => super._value as FavoritesStatesLoading;
+  _$FavoritesStatesLoading get _value =>
+      super._value as _$FavoritesStatesLoading;
 }
 
 /// @nodoc
@@ -257,7 +260,7 @@ class _$FavoritesStatesLoading implements FavoritesStatesLoading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is FavoritesStatesLoading);
+        (other.runtimeType == runtimeType && other is _$FavoritesStatesLoading);
   }
 
   @override
@@ -337,29 +340,29 @@ abstract class FavoritesStatesLoading implements FavoritesStates {
 }
 
 /// @nodoc
-abstract class $FavoritesStatesErrorCopyWith<$Res> {
-  factory $FavoritesStatesErrorCopyWith(FavoritesStatesError value,
-          $Res Function(FavoritesStatesError) then) =
-      _$FavoritesStatesErrorCopyWithImpl<$Res>;
+abstract class _$$FavoritesStatesErrorCopyWith<$Res> {
+  factory _$$FavoritesStatesErrorCopyWith(_$FavoritesStatesError value,
+          $Res Function(_$FavoritesStatesError) then) =
+      __$$FavoritesStatesErrorCopyWithImpl<$Res>;
   $Res call({Exception exception});
 }
 
 /// @nodoc
-class _$FavoritesStatesErrorCopyWithImpl<$Res>
+class __$$FavoritesStatesErrorCopyWithImpl<$Res>
     extends _$FavoritesStatesCopyWithImpl<$Res>
-    implements $FavoritesStatesErrorCopyWith<$Res> {
-  _$FavoritesStatesErrorCopyWithImpl(
-      FavoritesStatesError _value, $Res Function(FavoritesStatesError) _then)
-      : super(_value, (v) => _then(v as FavoritesStatesError));
+    implements _$$FavoritesStatesErrorCopyWith<$Res> {
+  __$$FavoritesStatesErrorCopyWithImpl(_$FavoritesStatesError _value,
+      $Res Function(_$FavoritesStatesError) _then)
+      : super(_value, (v) => _then(v as _$FavoritesStatesError));
 
   @override
-  FavoritesStatesError get _value => super._value as FavoritesStatesError;
+  _$FavoritesStatesError get _value => super._value as _$FavoritesStatesError;
 
   @override
   $Res call({
     Object? exception = freezed,
   }) {
-    return _then(FavoritesStatesError(
+    return _then(_$FavoritesStatesError(
       exception == freezed
           ? _value.exception
           : exception // ignore: cast_nullable_to_non_nullable
@@ -385,7 +388,7 @@ class _$FavoritesStatesError implements FavoritesStatesError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is FavoritesStatesError &&
+            other is _$FavoritesStatesError &&
             const DeepCollectionEquality().equals(other.exception, exception));
   }
 
@@ -395,8 +398,8 @@ class _$FavoritesStatesError implements FavoritesStatesError {
 
   @JsonKey(ignore: true)
   @override
-  $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith =>
-      _$FavoritesStatesErrorCopyWithImpl<FavoritesStatesError>(
+  _$$FavoritesStatesErrorCopyWith<_$FavoritesStatesError> get copyWith =>
+      __$$FavoritesStatesErrorCopyWithImpl<_$FavoritesStatesError>(
           this, _$identity);
 
   @override
@@ -472,8 +475,8 @@ abstract class FavoritesStatesError implements FavoritesStates {
   const factory FavoritesStatesError(final Exception exception) =
       _$FavoritesStatesError;
 
-  Exception get exception => throw _privateConstructorUsedError;
+  Exception get exception;
   @JsonKey(ignore: true)
-  $FavoritesStatesErrorCopyWith<FavoritesStatesError> get copyWith =>
+  _$$FavoritesStatesErrorCopyWith<_$FavoritesStatesError> get copyWith =>
       throw _privateConstructorUsedError;
 }

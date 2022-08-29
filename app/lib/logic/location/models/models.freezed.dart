@@ -108,11 +108,11 @@ class _$GeoLocationCopyWithImpl<$Res> implements $GeoLocationCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$GeoLocationCopyWith<$Res>
+abstract class _$$_GeoLocationCopyWith<$Res>
     implements $GeoLocationCopyWith<$Res> {
-  factory _$GeoLocationCopyWith(
-          _GeoLocation value, $Res Function(_GeoLocation) then) =
-      __$GeoLocationCopyWithImpl<$Res>;
+  factory _$$_GeoLocationCopyWith(
+          _$_GeoLocation value, $Res Function(_$_GeoLocation) then) =
+      __$$_GeoLocationCopyWithImpl<$Res>;
   @override
   $Res call(
       {double latitude,
@@ -126,14 +126,14 @@ abstract class _$GeoLocationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$GeoLocationCopyWithImpl<$Res> extends _$GeoLocationCopyWithImpl<$Res>
-    implements _$GeoLocationCopyWith<$Res> {
-  __$GeoLocationCopyWithImpl(
-      _GeoLocation _value, $Res Function(_GeoLocation) _then)
-      : super(_value, (v) => _then(v as _GeoLocation));
+class __$$_GeoLocationCopyWithImpl<$Res> extends _$GeoLocationCopyWithImpl<$Res>
+    implements _$$_GeoLocationCopyWith<$Res> {
+  __$$_GeoLocationCopyWithImpl(
+      _$_GeoLocation _value, $Res Function(_$_GeoLocation) _then)
+      : super(_value, (v) => _then(v as _$_GeoLocation));
 
   @override
-  _GeoLocation get _value => super._value as _GeoLocation;
+  _$_GeoLocation get _value => super._value as _$_GeoLocation;
 
   @override
   $Res call({
@@ -146,7 +146,7 @@ class __$GeoLocationCopyWithImpl<$Res> extends _$GeoLocationCopyWithImpl<$Res>
     Object? speedAccuracy = freezed,
     Object? timestamp = freezed,
   }) {
-    return _then(_GeoLocation(
+    return _then(_$_GeoLocation(
       latitude: latitude == freezed
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -225,7 +225,7 @@ class _$_GeoLocation implements _GeoLocation {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _GeoLocation &&
+            other is _$_GeoLocation &&
             const DeepCollectionEquality().equals(other.latitude, latitude) &&
             const DeepCollectionEquality().equals(other.longitude, longitude) &&
             const DeepCollectionEquality().equals(other.accuracy, accuracy) &&
@@ -252,12 +252,14 @@ class _$_GeoLocation implements _GeoLocation {
 
   @JsonKey(ignore: true)
   @override
-  _$GeoLocationCopyWith<_GeoLocation> get copyWith =>
-      __$GeoLocationCopyWithImpl<_GeoLocation>(this, _$identity);
+  _$$_GeoLocationCopyWith<_$_GeoLocation> get copyWith =>
+      __$$_GeoLocationCopyWithImpl<_$_GeoLocation>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GeoLocationToJson(this);
+    return _$$_GeoLocationToJson(
+      this,
+    );
   }
 }
 
@@ -276,23 +278,23 @@ abstract class _GeoLocation implements GeoLocation {
       _$_GeoLocation.fromJson;
 
   @override
-  double get latitude => throw _privateConstructorUsedError;
+  double get latitude;
   @override
-  double get longitude => throw _privateConstructorUsedError;
+  double get longitude;
   @override
-  double? get accuracy => throw _privateConstructorUsedError;
+  double? get accuracy;
   @override
-  double? get altitude => throw _privateConstructorUsedError;
+  double? get altitude;
   @override
-  double? get heading => throw _privateConstructorUsedError;
+  double? get heading;
   @override
-  double? get speed => throw _privateConstructorUsedError;
+  double? get speed;
   @override
-  double? get speedAccuracy => throw _privateConstructorUsedError;
+  double? get speedAccuracy;
   @override
-  DateTime? get timestamp => throw _privateConstructorUsedError;
+  DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
-  _$GeoLocationCopyWith<_GeoLocation> get copyWith =>
+  _$$_GeoLocationCopyWith<_$_GeoLocation> get copyWith =>
       throw _privateConstructorUsedError;
 }

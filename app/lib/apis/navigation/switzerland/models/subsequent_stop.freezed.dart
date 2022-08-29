@@ -129,11 +129,11 @@ class _$SbbSubsequentStopCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SbbSubsequentStopCopyWith<$Res>
+abstract class _$$_SbbSubsequentStopCopyWith<$Res>
     implements $SbbSubsequentStopCopyWith<$Res> {
-  factory _$SbbSubsequentStopCopyWith(
-          _SbbSubsequentStop value, $Res Function(_SbbSubsequentStop) then) =
-      __$SbbSubsequentStopCopyWithImpl<$Res>;
+  factory _$$_SbbSubsequentStopCopyWith(_$_SbbSubsequentStop value,
+          $Res Function(_$_SbbSubsequentStop) then) =
+      __$$_SbbSubsequentStopCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -149,15 +149,15 @@ abstract class _$SbbSubsequentStopCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SbbSubsequentStopCopyWithImpl<$Res>
+class __$$_SbbSubsequentStopCopyWithImpl<$Res>
     extends _$SbbSubsequentStopCopyWithImpl<$Res>
-    implements _$SbbSubsequentStopCopyWith<$Res> {
-  __$SbbSubsequentStopCopyWithImpl(
-      _SbbSubsequentStop _value, $Res Function(_SbbSubsequentStop) _then)
-      : super(_value, (v) => _then(v as _SbbSubsequentStop));
+    implements _$$_SbbSubsequentStopCopyWith<$Res> {
+  __$$_SbbSubsequentStopCopyWithImpl(
+      _$_SbbSubsequentStop _value, $Res Function(_$_SbbSubsequentStop) _then)
+      : super(_value, (v) => _then(v as _$_SbbSubsequentStop));
 
   @override
-  _SbbSubsequentStop get _value => super._value as _SbbSubsequentStop;
+  _$_SbbSubsequentStop get _value => super._value as _$_SbbSubsequentStop;
 
   @override
   $Res call({
@@ -172,7 +172,7 @@ class __$SbbSubsequentStopCopyWithImpl<$Res>
     Object? x = freezed,
     Object? y = freezed,
   }) {
-    return _then(_SbbSubsequentStop(
+    return _then(_$_SbbSubsequentStop(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -272,7 +272,7 @@ class _$_SbbSubsequentStop extends _SbbSubsequentStop {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SbbSubsequentStop &&
+            other is _$_SbbSubsequentStop &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
             const DeepCollectionEquality().equals(other.arrDelay, arrDelay) &&
@@ -302,12 +302,15 @@ class _$_SbbSubsequentStop extends _SbbSubsequentStop {
 
   @JsonKey(ignore: true)
   @override
-  _$SbbSubsequentStopCopyWith<_SbbSubsequentStop> get copyWith =>
-      __$SbbSubsequentStopCopyWithImpl<_SbbSubsequentStop>(this, _$identity);
+  _$$_SbbSubsequentStopCopyWith<_$_SbbSubsequentStop> get copyWith =>
+      __$$_SbbSubsequentStopCopyWithImpl<_$_SbbSubsequentStop>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbSubsequentStopToJson(this);
+    return _$$_SbbSubsequentStopToJson(
+      this,
+    );
   }
 }
 
@@ -329,33 +332,33 @@ abstract class _SbbSubsequentStop extends SbbSubsequentStop {
       _$_SbbSubsequentStop.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
-  int? get depDelay => throw _privateConstructorUsedError;
+  int? get depDelay;
   @override
   @DelayConverter()
   @JsonKey(name: 'arr_delay')
-  int? get arrDelay => throw _privateConstructorUsedError;
+  int? get arrDelay;
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
   @JsonKey(name: 'dep')
-  DateTime? get departure => throw _privateConstructorUsedError;
+  DateTime? get departure;
   @override
   @JsonKey(name: 'arr')
-  DateTime? get arrival => throw _privateConstructorUsedError;
+  DateTime? get arrival;
   @override
-  double? get lat => throw _privateConstructorUsedError;
+  double? get lat;
   @override
-  double? get lon => throw _privateConstructorUsedError;
+  double? get lon;
   @override
-  int? get x => throw _privateConstructorUsedError;
+  int? get x;
   @override
-  int? get y => throw _privateConstructorUsedError;
+  int? get y;
   @override
   @JsonKey(ignore: true)
-  _$SbbSubsequentStopCopyWith<_SbbSubsequentStop> get copyWith =>
+  _$$_SbbSubsequentStopCopyWith<_$_SbbSubsequentStop> get copyWith =>
       throw _privateConstructorUsedError;
 }

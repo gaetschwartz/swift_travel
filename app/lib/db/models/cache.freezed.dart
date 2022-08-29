@@ -81,25 +81,25 @@ class _$LineCacheEntryCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$LineCacheEntryCopyWith<$Res>
+abstract class _$$_LineCacheEntryCopyWith<$Res>
     implements $LineCacheEntryCopyWith<$Res> {
-  factory _$LineCacheEntryCopyWith(
-          _LineCacheEntry value, $Res Function(_LineCacheEntry) then) =
-      __$LineCacheEntryCopyWithImpl<$Res>;
+  factory _$$_LineCacheEntryCopyWith(
+          _$_LineCacheEntry value, $Res Function(_$_LineCacheEntry) then) =
+      __$$_LineCacheEntryCopyWithImpl<$Res>;
   @override
   $Res call({DateTime timestamp, String stop, List<Line> lines, int ttl});
 }
 
 /// @nodoc
-class __$LineCacheEntryCopyWithImpl<$Res>
+class __$$_LineCacheEntryCopyWithImpl<$Res>
     extends _$LineCacheEntryCopyWithImpl<$Res>
-    implements _$LineCacheEntryCopyWith<$Res> {
-  __$LineCacheEntryCopyWithImpl(
-      _LineCacheEntry _value, $Res Function(_LineCacheEntry) _then)
-      : super(_value, (v) => _then(v as _LineCacheEntry));
+    implements _$$_LineCacheEntryCopyWith<$Res> {
+  __$$_LineCacheEntryCopyWithImpl(
+      _$_LineCacheEntry _value, $Res Function(_$_LineCacheEntry) _then)
+      : super(_value, (v) => _then(v as _$_LineCacheEntry));
 
   @override
-  _LineCacheEntry get _value => super._value as _LineCacheEntry;
+  _$_LineCacheEntry get _value => super._value as _$_LineCacheEntry;
 
   @override
   $Res call({
@@ -108,7 +108,7 @@ class __$LineCacheEntryCopyWithImpl<$Res>
     Object? lines = freezed,
     Object? ttl = freezed,
   }) {
-    return _then(_LineCacheEntry(
+    return _then(_$_LineCacheEntry(
       timestamp: timestamp == freezed
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
@@ -118,7 +118,7 @@ class __$LineCacheEntryCopyWithImpl<$Res>
           : stop // ignore: cast_nullable_to_non_nullable
               as String,
       lines: lines == freezed
-          ? _value.lines
+          ? _value._lines
           : lines // ignore: cast_nullable_to_non_nullable
               as List<Line>,
       ttl: ttl == freezed
@@ -171,10 +171,10 @@ class _$_LineCacheEntry implements _LineCacheEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LineCacheEntry &&
+            other is _$_LineCacheEntry &&
             const DeepCollectionEquality().equals(other.timestamp, timestamp) &&
             const DeepCollectionEquality().equals(other.stop, stop) &&
-            const DeepCollectionEquality().equals(other.lines, lines) &&
+            const DeepCollectionEquality().equals(other._lines, _lines) &&
             const DeepCollectionEquality().equals(other.ttl, ttl));
   }
 
@@ -184,17 +184,19 @@ class _$_LineCacheEntry implements _LineCacheEntry {
       runtimeType,
       const DeepCollectionEquality().hash(timestamp),
       const DeepCollectionEquality().hash(stop),
-      const DeepCollectionEquality().hash(lines),
+      const DeepCollectionEquality().hash(_lines),
       const DeepCollectionEquality().hash(ttl));
 
   @JsonKey(ignore: true)
   @override
-  _$LineCacheEntryCopyWith<_LineCacheEntry> get copyWith =>
-      __$LineCacheEntryCopyWithImpl<_LineCacheEntry>(this, _$identity);
+  _$$_LineCacheEntryCopyWith<_$_LineCacheEntry> get copyWith =>
+      __$$_LineCacheEntryCopyWithImpl<_$_LineCacheEntry>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LineCacheEntryToJson(this);
+    return _$$_LineCacheEntryToJson(
+      this,
+    );
   }
 }
 
@@ -209,20 +211,20 @@ abstract class _LineCacheEntry implements LineCacheEntry {
       _$_LineCacheEntry.fromJson;
 
   @override
-  DateTime get timestamp => throw _privateConstructorUsedError;
+  DateTime get timestamp;
   @override
-  String get stop => throw _privateConstructorUsedError;
+  String get stop;
   @override
-  List<Line> get lines => throw _privateConstructorUsedError;
+  List<Line> get lines;
   @override
 
   /// Time to live for this entry in minutes.
   ///
   /// Defaults to `7 days`.
-  int get ttl => throw _privateConstructorUsedError;
+  int get ttl;
   @override
   @JsonKey(ignore: true)
-  _$LineCacheEntryCopyWith<_LineCacheEntry> get copyWith =>
+  _$$_LineCacheEntryCopyWith<_$_LineCacheEntry> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -280,21 +282,21 @@ class _$LineCopyWithImpl<$Res> implements $LineCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$LineCopyWith<$Res> implements $LineCopyWith<$Res> {
-  factory _$LineCopyWith(_Line value, $Res Function(_Line) then) =
-      __$LineCopyWithImpl<$Res>;
+abstract class _$$_LineCopyWith<$Res> implements $LineCopyWith<$Res> {
+  factory _$$_LineCopyWith(_$_Line value, $Res Function(_$_Line) then) =
+      __$$_LineCopyWithImpl<$Res>;
   @override
   $Res call({String? line, int? bgColor, int? fgColor});
 }
 
 /// @nodoc
-class __$LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res>
-    implements _$LineCopyWith<$Res> {
-  __$LineCopyWithImpl(_Line _value, $Res Function(_Line) _then)
-      : super(_value, (v) => _then(v as _Line));
+class __$$_LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res>
+    implements _$$_LineCopyWith<$Res> {
+  __$$_LineCopyWithImpl(_$_Line _value, $Res Function(_$_Line) _then)
+      : super(_value, (v) => _then(v as _$_Line));
 
   @override
-  _Line get _value => super._value as _Line;
+  _$_Line get _value => super._value as _$_Line;
 
   @override
   $Res call({
@@ -302,7 +304,7 @@ class __$LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res>
     Object? bgColor = freezed,
     Object? fgColor = freezed,
   }) {
-    return _then(_Line(
+    return _then(_$_Line(
       line: line == freezed
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
@@ -343,7 +345,7 @@ class _$_Line implements _Line {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Line &&
+            other is _$_Line &&
             const DeepCollectionEquality().equals(other.line, line) &&
             const DeepCollectionEquality().equals(other.bgColor, bgColor) &&
             const DeepCollectionEquality().equals(other.fgColor, fgColor));
@@ -359,12 +361,14 @@ class _$_Line implements _Line {
 
   @JsonKey(ignore: true)
   @override
-  _$LineCopyWith<_Line> get copyWith =>
-      __$LineCopyWithImpl<_Line>(this, _$identity);
+  _$$_LineCopyWith<_$_Line> get copyWith =>
+      __$$_LineCopyWithImpl<_$_Line>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LineToJson(this);
+    return _$$_LineToJson(
+      this,
+    );
   }
 }
 
@@ -377,12 +381,12 @@ abstract class _Line implements Line {
   factory _Line.fromJson(Map<String, dynamic> json) = _$_Line.fromJson;
 
   @override
-  String? get line => throw _privateConstructorUsedError;
+  String? get line;
   @override
-  int? get bgColor => throw _privateConstructorUsedError;
+  int? get bgColor;
   @override
-  int? get fgColor => throw _privateConstructorUsedError;
+  int? get fgColor;
   @override
   @JsonKey(ignore: true)
-  _$LineCopyWith<_Line> get copyWith => throw _privateConstructorUsedError;
+  _$$_LineCopyWith<_$_Line> get copyWith => throw _privateConstructorUsedError;
 }

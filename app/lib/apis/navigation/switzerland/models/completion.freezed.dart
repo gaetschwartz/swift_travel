@@ -103,11 +103,11 @@ class _$SbbCompletionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SbbCompletionCopyWith<$Res>
+abstract class _$$_SbbCompletionCopyWith<$Res>
     implements $SbbCompletionCopyWith<$Res> {
-  factory _$SbbCompletionCopyWith(
-          _SbbCompletion value, $Res Function(_SbbCompletion) then) =
-      __$SbbCompletionCopyWithImpl<$Res>;
+  factory _$$_SbbCompletionCopyWith(
+          _$_SbbCompletion value, $Res Function(_$_SbbCompletion) then) =
+      __$$_SbbCompletionCopyWithImpl<$Res>;
   @override
   $Res call(
       {String label,
@@ -120,15 +120,15 @@ abstract class _$SbbCompletionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SbbCompletionCopyWithImpl<$Res>
+class __$$_SbbCompletionCopyWithImpl<$Res>
     extends _$SbbCompletionCopyWithImpl<$Res>
-    implements _$SbbCompletionCopyWith<$Res> {
-  __$SbbCompletionCopyWithImpl(
-      _SbbCompletion _value, $Res Function(_SbbCompletion) _then)
-      : super(_value, (v) => _then(v as _SbbCompletion));
+    implements _$$_SbbCompletionCopyWith<$Res> {
+  __$$_SbbCompletionCopyWithImpl(
+      _$_SbbCompletion _value, $Res Function(_$_SbbCompletion) _then)
+      : super(_value, (v) => _then(v as _$_SbbCompletion));
 
   @override
-  _SbbCompletion get _value => super._value as _SbbCompletion;
+  _$_SbbCompletion get _value => super._value as _$_SbbCompletion;
 
   @override
   $Res call({
@@ -140,7 +140,7 @@ class __$SbbCompletionCopyWithImpl<$Res>
     Object? favoriteName = freezed,
     Object? origin = freezed,
   }) {
-    return _then(_SbbCompletion(
+    return _then(_$_SbbCompletion(
       label: label == freezed
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
@@ -216,7 +216,7 @@ class _$_SbbCompletion extends _SbbCompletion {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SbbCompletion &&
+            other is _$_SbbCompletion &&
             const DeepCollectionEquality().equals(other.label, label) &&
             const DeepCollectionEquality().equals(other.dist, dist) &&
             const DeepCollectionEquality().equals(other.iconClass, iconClass) &&
@@ -241,12 +241,14 @@ class _$_SbbCompletion extends _SbbCompletion {
 
   @JsonKey(ignore: true)
   @override
-  _$SbbCompletionCopyWith<_SbbCompletion> get copyWith =>
-      __$SbbCompletionCopyWithImpl<_SbbCompletion>(this, _$identity);
+  _$$_SbbCompletionCopyWith<_$_SbbCompletion> get copyWith =>
+      __$$_SbbCompletionCopyWithImpl<_$_SbbCompletion>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbCompletionToJson(this);
+    return _$$_SbbCompletionToJson(
+      this,
+    );
   }
 }
 
@@ -265,22 +267,22 @@ abstract class _SbbCompletion extends SbbCompletion {
       _$_SbbCompletion.fromJson;
 
   @override
-  String get label => throw _privateConstructorUsedError;
+  String get label;
   @override
-  double? get dist => throw _privateConstructorUsedError;
+  double? get dist;
   @override
   @JsonKey(name: 'iconclass')
-  String? get iconClass => throw _privateConstructorUsedError;
+  String? get iconClass;
   @override
-  String? get html => throw _privateConstructorUsedError;
+  String? get html;
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
-  String? get favoriteName => throw _privateConstructorUsedError;
+  String? get favoriteName;
   @override
-  DataOrigin get origin => throw _privateConstructorUsedError;
+  DataOrigin get origin;
   @override
   @JsonKey(ignore: true)
-  _$SbbCompletionCopyWith<_SbbCompletion> get copyWith =>
+  _$$_SbbCompletionCopyWith<_$_SbbCompletion> get copyWith =>
       throw _privateConstructorUsedError;
 }

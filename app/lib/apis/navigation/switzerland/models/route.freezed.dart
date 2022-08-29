@@ -107,9 +107,10 @@ class _$SbbRouteCopyWithImpl<$Res> implements $SbbRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SbbRouteCopyWith<$Res> implements $SbbRouteCopyWith<$Res> {
-  factory _$SbbRouteCopyWith(_SbbRoute value, $Res Function(_SbbRoute) then) =
-      __$SbbRouteCopyWithImpl<$Res>;
+abstract class _$$_SbbRouteCopyWith<$Res> implements $SbbRouteCopyWith<$Res> {
+  factory _$$_SbbRouteCopyWith(
+          _$_SbbRoute value, $Res Function(_$_SbbRoute) then) =
+      __$$_SbbRouteCopyWithImpl<$Res>;
   @override
   $Res call(
       {int count,
@@ -125,13 +126,14 @@ abstract class _$SbbRouteCopyWith<$Res> implements $SbbRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$SbbRouteCopyWithImpl<$Res> extends _$SbbRouteCopyWithImpl<$Res>
-    implements _$SbbRouteCopyWith<$Res> {
-  __$SbbRouteCopyWithImpl(_SbbRoute _value, $Res Function(_SbbRoute) _then)
-      : super(_value, (v) => _then(v as _SbbRoute));
+class __$$_SbbRouteCopyWithImpl<$Res> extends _$SbbRouteCopyWithImpl<$Res>
+    implements _$$_SbbRouteCopyWith<$Res> {
+  __$$_SbbRouteCopyWithImpl(
+      _$_SbbRoute _value, $Res Function(_$_SbbRoute) _then)
+      : super(_value, (v) => _then(v as _$_SbbRoute));
 
   @override
-  _SbbRoute get _value => super._value as _SbbRoute;
+  _$_SbbRoute get _value => super._value as _$_SbbRoute;
 
   @override
   $Res call({
@@ -143,7 +145,7 @@ class __$SbbRouteCopyWithImpl<$Res> extends _$SbbRouteCopyWithImpl<$Res>
     Object? requestUrl = freezed,
     Object? dateTime = freezed,
   }) {
-    return _then(_SbbRoute(
+    return _then(_$_SbbRoute(
       count: count == freezed
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -157,11 +159,11 @@ class __$SbbRouteCopyWithImpl<$Res> extends _$SbbRouteCopyWithImpl<$Res>
           : maxDuration // ignore: cast_nullable_to_non_nullable
               as double?,
       sbbConnections: sbbConnections == freezed
-          ? _value.sbbConnections
+          ? _value._sbbConnections
           : sbbConnections // ignore: cast_nullable_to_non_nullable
               as List<SbbRouteConnection>,
       messages: messages == freezed
-          ? _value.messages
+          ? _value._messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<String>,
       requestUrl: requestUrl == freezed
@@ -208,7 +210,6 @@ class _$_SbbRoute extends _SbbRoute {
   @override
   @JsonKey(name: 'max_duration')
   final double? maxDuration;
-  @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
   final List<SbbRouteConnection> _sbbConnections;
   @override
   @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
@@ -239,15 +240,15 @@ class _$_SbbRoute extends _SbbRoute {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SbbRoute &&
+            other is _$_SbbRoute &&
             const DeepCollectionEquality().equals(other.count, count) &&
             const DeepCollectionEquality()
                 .equals(other.minDuration, minDuration) &&
             const DeepCollectionEquality()
                 .equals(other.maxDuration, maxDuration) &&
             const DeepCollectionEquality()
-                .equals(other.sbbConnections, sbbConnections) &&
-            const DeepCollectionEquality().equals(other.messages, messages) &&
+                .equals(other._sbbConnections, _sbbConnections) &&
+            const DeepCollectionEquality().equals(other._messages, _messages) &&
             const DeepCollectionEquality()
                 .equals(other.requestUrl, requestUrl) &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime));
@@ -260,19 +261,21 @@ class _$_SbbRoute extends _SbbRoute {
       const DeepCollectionEquality().hash(count),
       const DeepCollectionEquality().hash(minDuration),
       const DeepCollectionEquality().hash(maxDuration),
-      const DeepCollectionEquality().hash(sbbConnections),
-      const DeepCollectionEquality().hash(messages),
+      const DeepCollectionEquality().hash(_sbbConnections),
+      const DeepCollectionEquality().hash(_messages),
       const DeepCollectionEquality().hash(requestUrl),
       const DeepCollectionEquality().hash(dateTime));
 
   @JsonKey(ignore: true)
   @override
-  _$SbbRouteCopyWith<_SbbRoute> get copyWith =>
-      __$SbbRouteCopyWithImpl<_SbbRoute>(this, _$identity);
+  _$$_SbbRouteCopyWith<_$_SbbRoute> get copyWith =>
+      __$$_SbbRouteCopyWithImpl<_$_SbbRoute>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbRouteToJson(this);
+    return _$$_SbbRouteToJson(
+      this,
+    );
   }
 }
 
@@ -293,25 +296,24 @@ abstract class _SbbRoute extends SbbRoute {
   factory _SbbRoute.fromJson(Map<String, dynamic> json) = _$_SbbRoute.fromJson;
 
   @override
-  int get count => throw _privateConstructorUsedError;
+  int get count;
   @override
   @JsonKey(name: 'min_duration')
-  double? get minDuration => throw _privateConstructorUsedError;
+  double? get minDuration;
   @override
   @JsonKey(name: 'max_duration')
-  double? get maxDuration => throw _privateConstructorUsedError;
+  double? get maxDuration;
   @override
   @JsonKey(name: 'connections', defaultValue: <SbbRouteConnection>[])
-  List<SbbRouteConnection> get sbbConnections =>
-      throw _privateConstructorUsedError;
+  List<SbbRouteConnection> get sbbConnections;
   @override
-  List<String> get messages => throw _privateConstructorUsedError;
+  List<String> get messages;
   @override
-  String? get requestUrl => throw _privateConstructorUsedError;
+  String? get requestUrl;
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
-  _$SbbRouteCopyWith<_SbbRoute> get copyWith =>
+  _$$_SbbRouteCopyWith<_$_SbbRoute> get copyWith =>
       throw _privateConstructorUsedError;
 }

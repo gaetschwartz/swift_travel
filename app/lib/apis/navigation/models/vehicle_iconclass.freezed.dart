@@ -59,31 +59,31 @@ class __$VehicleIconclassCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$_VehicleIconclassCopyWith<$Res>
+abstract class _$$__VehicleIconclassCopyWith<$Res>
     implements _$VehicleIconclassCopyWith<$Res> {
-  factory _$_VehicleIconclassCopyWith(
-          __VehicleIconclass value, $Res Function(__VehicleIconclass) then) =
-      __$_VehicleIconclassCopyWithImpl<$Res>;
+  factory _$$__VehicleIconclassCopyWith(_$__VehicleIconclass value,
+          $Res Function(_$__VehicleIconclass) then) =
+      __$$__VehicleIconclassCopyWithImpl<$Res>;
   @override
   $Res call({PlaceType v});
 }
 
 /// @nodoc
-class __$_VehicleIconclassCopyWithImpl<$Res>
+class __$$__VehicleIconclassCopyWithImpl<$Res>
     extends __$VehicleIconclassCopyWithImpl<$Res>
-    implements _$_VehicleIconclassCopyWith<$Res> {
-  __$_VehicleIconclassCopyWithImpl(
-      __VehicleIconclass _value, $Res Function(__VehicleIconclass) _then)
-      : super(_value, (v) => _then(v as __VehicleIconclass));
+    implements _$$__VehicleIconclassCopyWith<$Res> {
+  __$$__VehicleIconclassCopyWithImpl(
+      _$__VehicleIconclass _value, $Res Function(_$__VehicleIconclass) _then)
+      : super(_value, (v) => _then(v as _$__VehicleIconclass));
 
   @override
-  __VehicleIconclass get _value => super._value as __VehicleIconclass;
+  _$__VehicleIconclass get _value => super._value as _$__VehicleIconclass;
 
   @override
   $Res call({
     Object? v = freezed,
   }) {
-    return _then(__VehicleIconclass(
+    return _then(_$__VehicleIconclass(
       v == freezed
           ? _value.v
           : v // ignore: cast_nullable_to_non_nullable
@@ -112,7 +112,7 @@ class _$__VehicleIconclass implements __VehicleIconclass {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is __VehicleIconclass &&
+            other is _$__VehicleIconclass &&
             const DeepCollectionEquality().equals(other.v, v));
   }
 
@@ -123,12 +123,15 @@ class _$__VehicleIconclass implements __VehicleIconclass {
 
   @JsonKey(ignore: true)
   @override
-  _$_VehicleIconclassCopyWith<__VehicleIconclass> get copyWith =>
-      __$_VehicleIconclassCopyWithImpl<__VehicleIconclass>(this, _$identity);
+  _$$__VehicleIconclassCopyWith<_$__VehicleIconclass> get copyWith =>
+      __$$__VehicleIconclassCopyWithImpl<_$__VehicleIconclass>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$__VehicleIconclassToJson(this);
+    return _$$__VehicleIconclassToJson(
+      this,
+    );
   }
 }
 
@@ -139,9 +142,9 @@ abstract class __VehicleIconclass implements _VehicleIconclass {
       _$__VehicleIconclass.fromJson;
 
   @override
-  PlaceType get v => throw _privateConstructorUsedError;
+  PlaceType get v;
   @override
   @JsonKey(ignore: true)
-  _$_VehicleIconclassCopyWith<__VehicleIconclass> get copyWith =>
+  _$$__VehicleIconclassCopyWith<_$__VehicleIconclass> get copyWith =>
       throw _privateConstructorUsedError;
 }

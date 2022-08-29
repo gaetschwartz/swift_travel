@@ -8,19 +8,31 @@ part of 'models.dart';
 
 _$_RoutePrediction _$$_RoutePredictionFromJson(Map<String, dynamic> json) =>
     _$_RoutePrediction(
-      json['prediction'] == null
-          ? null
-          : LocalRoute.fromJson(json['prediction'] as Map<String, dynamic>),
+      _$JsonConverterFromJson<Map<String, dynamic>, LocalRoute>(
+          json['prediction'], const LocalRouteConverter().fromJson),
       (json['confidence'] as num).toDouble(),
       PredictionArguments.fromJson(json['arguments'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_RoutePredictionToJson(_$_RoutePrediction instance) =>
     <String, dynamic>{
-      'prediction': instance.prediction?.toJson(),
+      'prediction': _$JsonConverterToJson<Map<String, dynamic>, LocalRoute>(
+          instance.prediction, const LocalRouteConverter().toJson),
       'confidence': instance.confidence,
       'arguments': instance.arguments.toJson(),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
 
 _$_FullArguments _$$_FullArgumentsFromJson(Map<String, dynamic> json) =>
     _$_FullArguments(

@@ -54,31 +54,31 @@ class _$NavigationApiIdCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$NavigationApiIdCopyWith<$Res>
+abstract class _$$_NavigationApiIdCopyWith<$Res>
     implements $NavigationApiIdCopyWith<$Res> {
-  factory _$NavigationApiIdCopyWith(
-          _NavigationApiId value, $Res Function(_NavigationApiId) then) =
-      __$NavigationApiIdCopyWithImpl<$Res>;
+  factory _$$_NavigationApiIdCopyWith(
+          _$_NavigationApiId value, $Res Function(_$_NavigationApiId) then) =
+      __$$_NavigationApiIdCopyWithImpl<$Res>;
   @override
   $Res call({String value});
 }
 
 /// @nodoc
-class __$NavigationApiIdCopyWithImpl<$Res>
+class __$$_NavigationApiIdCopyWithImpl<$Res>
     extends _$NavigationApiIdCopyWithImpl<$Res>
-    implements _$NavigationApiIdCopyWith<$Res> {
-  __$NavigationApiIdCopyWithImpl(
-      _NavigationApiId _value, $Res Function(_NavigationApiId) _then)
-      : super(_value, (v) => _then(v as _NavigationApiId));
+    implements _$$_NavigationApiIdCopyWith<$Res> {
+  __$$_NavigationApiIdCopyWithImpl(
+      _$_NavigationApiId _value, $Res Function(_$_NavigationApiId) _then)
+      : super(_value, (v) => _then(v as _$_NavigationApiId));
 
   @override
-  _NavigationApiId get _value => super._value as _NavigationApiId;
+  _$_NavigationApiId get _value => super._value as _$_NavigationApiId;
 
   @override
   $Res call({
     Object? value = freezed,
   }) {
-    return _then(_NavigationApiId(
+    return _then(_$_NavigationApiId(
       value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -104,7 +104,7 @@ class _$_NavigationApiId implements _NavigationApiId {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _NavigationApiId &&
+            other is _$_NavigationApiId &&
             const DeepCollectionEquality().equals(other.value, value));
   }
 
@@ -114,17 +114,17 @@ class _$_NavigationApiId implements _NavigationApiId {
 
   @JsonKey(ignore: true)
   @override
-  _$NavigationApiIdCopyWith<_NavigationApiId> get copyWith =>
-      __$NavigationApiIdCopyWithImpl<_NavigationApiId>(this, _$identity);
+  _$$_NavigationApiIdCopyWith<_$_NavigationApiId> get copyWith =>
+      __$$_NavigationApiIdCopyWithImpl<_$_NavigationApiId>(this, _$identity);
 }
 
 abstract class _NavigationApiId implements NavigationApiId {
   const factory _NavigationApiId(final String value) = _$_NavigationApiId;
 
   @override
-  String get value => throw _privateConstructorUsedError;
+  String get value;
   @override
   @JsonKey(ignore: true)
-  _$NavigationApiIdCopyWith<_NavigationApiId> get copyWith =>
+  _$$_NavigationApiIdCopyWith<_$_NavigationApiId> get copyWith =>
       throw _privateConstructorUsedError;
 }

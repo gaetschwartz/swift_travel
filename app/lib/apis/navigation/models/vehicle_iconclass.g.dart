@@ -14,7 +14,7 @@ _$__VehicleIconclass _$$__VehicleIconclassFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$__VehicleIconclassToJson(
         _$__VehicleIconclass instance) =>
     <String, dynamic>{
-      'v': _$PlaceTypeEnumMap[instance.v],
+      'v': _$PlaceTypeEnumMap[instance.v]!,
     };
 
 const _$PlaceTypeEnumMap = {

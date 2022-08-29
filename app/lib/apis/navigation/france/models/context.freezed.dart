@@ -64,31 +64,31 @@ class _$SncfContextCopyWithImpl<$Res> implements $SncfContextCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SncfContextCopyWith<$Res>
+abstract class _$$_SncfContextCopyWith<$Res>
     implements $SncfContextCopyWith<$Res> {
-  factory _$SncfContextCopyWith(
-          _SncfContext value, $Res Function(_SncfContext) then) =
-      __$SncfContextCopyWithImpl<$Res>;
+  factory _$$_SncfContextCopyWith(
+          _$_SncfContext value, $Res Function(_$_SncfContext) then) =
+      __$$_SncfContextCopyWithImpl<$Res>;
   @override
   $Res call({DateTime? dateTime, String? timezone});
 }
 
 /// @nodoc
-class __$SncfContextCopyWithImpl<$Res> extends _$SncfContextCopyWithImpl<$Res>
-    implements _$SncfContextCopyWith<$Res> {
-  __$SncfContextCopyWithImpl(
-      _SncfContext _value, $Res Function(_SncfContext) _then)
-      : super(_value, (v) => _then(v as _SncfContext));
+class __$$_SncfContextCopyWithImpl<$Res> extends _$SncfContextCopyWithImpl<$Res>
+    implements _$$_SncfContextCopyWith<$Res> {
+  __$$_SncfContextCopyWithImpl(
+      _$_SncfContext _value, $Res Function(_$_SncfContext) _then)
+      : super(_value, (v) => _then(v as _$_SncfContext));
 
   @override
-  _SncfContext get _value => super._value as _SncfContext;
+  _$_SncfContext get _value => super._value as _$_SncfContext;
 
   @override
   $Res call({
     Object? dateTime = freezed,
     Object? timezone = freezed,
   }) {
-    return _then(_SncfContext(
+    return _then(_$_SncfContext(
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -123,7 +123,7 @@ class _$_SncfContext implements _SncfContext {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfContext &&
+            other is _$_SncfContext &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
             const DeepCollectionEquality().equals(other.timezone, timezone));
   }
@@ -137,12 +137,14 @@ class _$_SncfContext implements _SncfContext {
 
   @JsonKey(ignore: true)
   @override
-  _$SncfContextCopyWith<_SncfContext> get copyWith =>
-      __$SncfContextCopyWithImpl<_SncfContext>(this, _$identity);
+  _$$_SncfContextCopyWith<_$_SncfContext> get copyWith =>
+      __$$_SncfContextCopyWithImpl<_$_SncfContext>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfContextToJson(this);
+    return _$$_SncfContextToJson(
+      this,
+    );
   }
 }
 
@@ -154,11 +156,11 @@ abstract class _SncfContext implements SncfContext {
       _$_SncfContext.fromJson;
 
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
-  String? get timezone => throw _privateConstructorUsedError;
+  String? get timezone;
   @override
   @JsonKey(ignore: true)
-  _$SncfContextCopyWith<_SncfContext> get copyWith =>
+  _$$_SncfContextCopyWith<_$_SncfContext> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -34,7 +34,7 @@ Map<String, dynamic> _$$_SbbCompletionToJson(_$_SbbCompletion instance) {
   writeNotNull('html', instance.html);
   writeNotNull('id', instance.id);
   writeNotNull('favoriteName', instance.favoriteName);
-  val['origin'] = _$DataOriginEnumMap[instance.origin];
+  val['origin'] = _$DataOriginEnumMap[instance.origin]!;
   return val;
 }
 

@@ -110,9 +110,10 @@ class _$SbbStopCopyWithImpl<$Res> implements $SbbStopCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SbbStopCopyWith<$Res> implements $SbbStopCopyWith<$Res> {
-  factory _$SbbStopCopyWith(_SbbStop value, $Res Function(_SbbStop) then) =
-      __$SbbStopCopyWithImpl<$Res>;
+abstract class _$$_SbbStopCopyWith<$Res> implements $SbbStopCopyWith<$Res> {
+  factory _$$_SbbStopCopyWith(
+          _$_SbbStop value, $Res Function(_$_SbbStop) then) =
+      __$$_SbbStopCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -126,13 +127,13 @@ abstract class _$SbbStopCopyWith<$Res> implements $SbbStopCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
-    implements _$SbbStopCopyWith<$Res> {
-  __$SbbStopCopyWithImpl(_SbbStop _value, $Res Function(_SbbStop) _then)
-      : super(_value, (v) => _then(v as _SbbStop));
+class __$$_SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
+    implements _$$_SbbStopCopyWith<$Res> {
+  __$$_SbbStopCopyWithImpl(_$_SbbStop _value, $Res Function(_$_SbbStop) _then)
+      : super(_value, (v) => _then(v as _$_SbbStop));
 
   @override
-  _SbbStop get _value => super._value as _SbbStop;
+  _$_SbbStop get _value => super._value as _$_SbbStop;
 
   @override
   $Res call({
@@ -145,7 +146,7 @@ class __$SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
     Object? x = freezed,
     Object? y = freezed,
   }) {
-    return _then(_SbbStop(
+    return _then(_$_SbbStop(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -230,7 +231,7 @@ class _$_SbbStop extends _SbbStop {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SbbStop &&
+            other is _$_SbbStop &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.departure, departure) &&
@@ -256,12 +257,14 @@ class _$_SbbStop extends _SbbStop {
 
   @JsonKey(ignore: true)
   @override
-  _$SbbStopCopyWith<_SbbStop> get copyWith =>
-      __$SbbStopCopyWithImpl<_SbbStop>(this, _$identity);
+  _$$_SbbStopCopyWith<_$_SbbStop> get copyWith =>
+      __$$_SbbStopCopyWithImpl<_$_SbbStop>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbStopToJson(this);
+    return _$$_SbbStopToJson(
+      this,
+    );
   }
 }
 
@@ -280,27 +283,27 @@ abstract class _SbbStop extends SbbStop {
   factory _SbbStop.fromJson(Map<String, dynamic> json) = _$_SbbStop.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String? get id => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(fromJson: _fromJson, toJson: _toJson)
-  DateTime? get departure => throw _privateConstructorUsedError;
+  String? get id;
   @override
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
-  DateTime? get arrival => throw _privateConstructorUsedError;
+  DateTime? get departure;
   @override
-  double? get lat => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _fromJson, toJson: _toJson)
+  DateTime? get arrival;
   @override
-  double? get lon => throw _privateConstructorUsedError;
+  double? get lat;
+  @override
+  double? get lon;
   @override
   @IntConverter()
-  int? get x => throw _privateConstructorUsedError;
+  int? get x;
   @override
   @IntConverter()
-  int? get y => throw _privateConstructorUsedError;
+  int? get y;
   @override
   @JsonKey(ignore: true)
-  _$SbbStopCopyWith<_SbbStop> get copyWith =>
+  _$$_SbbStopCopyWith<_$_SbbStop> get copyWith =>
       throw _privateConstructorUsedError;
 }
