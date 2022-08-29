@@ -138,9 +138,9 @@ class _$SbbExitCopyWithImpl<$Res> implements $SbbExitCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
-  factory _$ExitCopyWith(_Exit value, $Res Function(_Exit) then) =
-      __$ExitCopyWithImpl<$Res>;
+abstract class _$$_ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
+  factory _$$_ExitCopyWith(_$_Exit value, $Res Function(_$_Exit) then) =
+      __$$_ExitCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -158,13 +158,13 @@ abstract class _$ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
-    implements _$ExitCopyWith<$Res> {
-  __$ExitCopyWithImpl(_Exit _value, $Res Function(_Exit) _then)
-      : super(_value, (v) => _then(v as _Exit));
+class __$$_ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
+    implements _$$_ExitCopyWith<$Res> {
+  __$$_ExitCopyWithImpl(_$_Exit _value, $Res Function(_$_Exit) _then)
+      : super(_value, (v) => _then(v as _$_Exit));
 
   @override
-  _Exit get _value => super._value as _Exit;
+  _$_Exit get _value => super._value as _$_Exit;
 
   @override
   $Res call({
@@ -181,7 +181,7 @@ class __$ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
     Object? x = freezed,
     Object? y = freezed,
   }) {
-    return _then(_Exit(
+    return _then(_$_Exit(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -295,7 +295,7 @@ class _$_Exit extends _Exit {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Exit &&
+            other is _$_Exit &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.arrDelay, arrDelay) &&
             const DeepCollectionEquality().equals(other.arrival, arrival) &&
@@ -329,12 +329,14 @@ class _$_Exit extends _Exit {
 
   @JsonKey(ignore: true)
   @override
-  _$ExitCopyWith<_Exit> get copyWith =>
-      __$ExitCopyWithImpl<_Exit>(this, _$identity);
+  _$$_ExitCopyWith<_$_Exit> get copyWith =>
+      __$$_ExitCopyWithImpl<_$_Exit>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ExitToJson(this);
+    return _$$_ExitToJson(
+      this,
+    );
   }
 }
 
@@ -357,34 +359,34 @@ abstract class _Exit extends SbbExit {
   factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @DelayConverter()
   @JsonKey(name: 'arr_delay')
-  int? get arrDelay => throw _privateConstructorUsedError;
+  int? get arrDelay;
   @override
-  DateTime? get arrival => throw _privateConstructorUsedError;
+  DateTime? get arrival;
   @override
-  double? get lat => throw _privateConstructorUsedError;
+  double? get lat;
   @override
-  double? get lon => throw _privateConstructorUsedError;
+  double? get lon;
   @override
-  String? get sbbName => throw _privateConstructorUsedError;
+  String? get sbbName;
   @override
-  String? get stopid => throw _privateConstructorUsedError;
+  String? get stopid;
   @override
-  String? get track => throw _privateConstructorUsedError;
+  String? get track;
   @override
-  int get waittime => throw _privateConstructorUsedError;
+  int get waittime;
   @override
-  bool get isaddress => throw _privateConstructorUsedError;
-  @override
-  @IntConverter()
-  int? get x => throw _privateConstructorUsedError;
+  bool get isaddress;
   @override
   @IntConverter()
-  int? get y => throw _privateConstructorUsedError;
+  int? get x;
+  @override
+  @IntConverter()
+  int? get y;
   @override
   @JsonKey(ignore: true)
-  _$ExitCopyWith<_Exit> get copyWith => throw _privateConstructorUsedError;
+  _$$_ExitCopyWith<_$_Exit> get copyWith => throw _privateConstructorUsedError;
 }

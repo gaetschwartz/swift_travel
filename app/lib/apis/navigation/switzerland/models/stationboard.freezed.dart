@@ -92,11 +92,11 @@ class _$SbbStationboardCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SbbStationboardCopyWith<$Res>
+abstract class _$$_SbbStationboardCopyWith<$Res>
     implements $SbbStationboardCopyWith<$Res> {
-  factory _$SbbStationboardCopyWith(
-          _SbbStationboard value, $Res Function(_SbbStationboard) then) =
-      __$SbbStationboardCopyWithImpl<$Res>;
+  factory _$$_SbbStationboardCopyWith(
+          _$_SbbStationboard value, $Res Function(_$_SbbStationboard) then) =
+      __$$_SbbStationboardCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'stop')
@@ -110,15 +110,15 @@ abstract class _$SbbStationboardCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SbbStationboardCopyWithImpl<$Res>
+class __$$_SbbStationboardCopyWithImpl<$Res>
     extends _$SbbStationboardCopyWithImpl<$Res>
-    implements _$SbbStationboardCopyWith<$Res> {
-  __$SbbStationboardCopyWithImpl(
-      _SbbStationboard _value, $Res Function(_SbbStationboard) _then)
-      : super(_value, (v) => _then(v as _SbbStationboard));
+    implements _$$_SbbStationboardCopyWith<$Res> {
+  __$$_SbbStationboardCopyWithImpl(
+      _$_SbbStationboard _value, $Res Function(_$_SbbStationboard) _then)
+      : super(_value, (v) => _then(v as _$_SbbStationboard));
 
   @override
-  _SbbStationboard get _value => super._value as _SbbStationboard;
+  _$_SbbStationboard get _value => super._value as _$_SbbStationboard;
 
   @override
   $Res call({
@@ -126,17 +126,17 @@ class __$SbbStationboardCopyWithImpl<$Res>
     Object? sbbConnections = freezed,
     Object? messages = freezed,
   }) {
-    return _then(_SbbStationboard(
+    return _then(_$_SbbStationboard(
       sbbStop: sbbStop == freezed
           ? _value.sbbStop
           : sbbStop // ignore: cast_nullable_to_non_nullable
               as SbbStop?,
       sbbConnections: sbbConnections == freezed
-          ? _value.sbbConnections
+          ? _value._sbbConnections
           : sbbConnections // ignore: cast_nullable_to_non_nullable
               as List<SbbStationboardConnection>,
       messages: messages == freezed
-          ? _value.messages
+          ? _value._messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<Object>,
     ));
@@ -164,7 +164,6 @@ class _$_SbbStationboard extends _SbbStationboard {
   @override
   @JsonKey(name: 'stop')
   final SbbStop? sbbStop;
-  @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
   final List<SbbStationboardConnection> _sbbConnections;
   @override
   @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
@@ -190,11 +189,11 @@ class _$_SbbStationboard extends _SbbStationboard {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SbbStationboard &&
+            other is _$_SbbStationboard &&
             const DeepCollectionEquality().equals(other.sbbStop, sbbStop) &&
             const DeepCollectionEquality()
-                .equals(other.sbbConnections, sbbConnections) &&
-            const DeepCollectionEquality().equals(other.messages, messages));
+                .equals(other._sbbConnections, _sbbConnections) &&
+            const DeepCollectionEquality().equals(other._messages, _messages));
   }
 
   @JsonKey(ignore: true)
@@ -202,17 +201,19 @@ class _$_SbbStationboard extends _SbbStationboard {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(sbbStop),
-      const DeepCollectionEquality().hash(sbbConnections),
-      const DeepCollectionEquality().hash(messages));
+      const DeepCollectionEquality().hash(_sbbConnections),
+      const DeepCollectionEquality().hash(_messages));
 
   @JsonKey(ignore: true)
   @override
-  _$SbbStationboardCopyWith<_SbbStationboard> get copyWith =>
-      __$SbbStationboardCopyWithImpl<_SbbStationboard>(this, _$identity);
+  _$$_SbbStationboardCopyWith<_$_SbbStationboard> get copyWith =>
+      __$$_SbbStationboardCopyWithImpl<_$_SbbStationboard>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbStationboardToJson(this);
+    return _$$_SbbStationboardToJson(
+      this,
+    );
   }
 }
 
@@ -230,15 +231,14 @@ abstract class _SbbStationboard extends SbbStationboard {
 
   @override
   @JsonKey(name: 'stop')
-  SbbStop? get sbbStop => throw _privateConstructorUsedError;
+  SbbStop? get sbbStop;
   @override
   @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
-  List<SbbStationboardConnection> get sbbConnections =>
-      throw _privateConstructorUsedError;
+  List<SbbStationboardConnection> get sbbConnections;
   @override
-  List<Object> get messages => throw _privateConstructorUsedError;
+  List<Object> get messages;
   @override
   @JsonKey(ignore: true)
-  _$SbbStationboardCopyWith<_SbbStationboard> get copyWith =>
+  _$$_SbbStationboardCopyWith<_$_SbbStationboard> get copyWith =>
       throw _privateConstructorUsedError;
 }

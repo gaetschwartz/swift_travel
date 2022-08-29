@@ -54,7 +54,7 @@ Map<String, dynamic> _$$_SbbStationboardConnectionToJson(
         _$_SbbStationboardConnection instance) =>
     <String, dynamic>{
       'time': instance.time.toIso8601String(),
-      'type': _$PlaceTypeEnumMap[instance.type],
+      'type': _$PlaceTypeEnumMap[instance.type]!,
       'color': instance.color,
       'terminal': instance.sbbTerminal.toJson(),
       'line': instance.line,

@@ -99,11 +99,11 @@ class _$TriasLocationCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TriasLocationCopyWith<$Res>
+abstract class _$$_TriasLocationCopyWith<$Res>
     implements $TriasLocationCopyWith<$Res> {
-  factory _$TriasLocationCopyWith(
-          _TriasLocation value, $Res Function(_TriasLocation) then) =
-      __$TriasLocationCopyWithImpl<$Res>;
+  factory _$$_TriasLocationCopyWith(
+          _$_TriasLocation value, $Res Function(_$_TriasLocation) then) =
+      __$$_TriasLocationCopyWithImpl<$Res>;
   @override
   $Res call(
       {String stopPointName,
@@ -118,15 +118,15 @@ abstract class _$TriasLocationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TriasLocationCopyWithImpl<$Res>
+class __$$_TriasLocationCopyWithImpl<$Res>
     extends _$TriasLocationCopyWithImpl<$Res>
-    implements _$TriasLocationCopyWith<$Res> {
-  __$TriasLocationCopyWithImpl(
-      _TriasLocation _value, $Res Function(_TriasLocation) _then)
-      : super(_value, (v) => _then(v as _TriasLocation));
+    implements _$$_TriasLocationCopyWith<$Res> {
+  __$$_TriasLocationCopyWithImpl(
+      _$_TriasLocation _value, $Res Function(_$_TriasLocation) _then)
+      : super(_value, (v) => _then(v as _$_TriasLocation));
 
   @override
-  _TriasLocation get _value => super._value as _TriasLocation;
+  _$_TriasLocation get _value => super._value as _$_TriasLocation;
 
   @override
   $Res call({
@@ -137,7 +137,7 @@ class __$TriasLocationCopyWithImpl<$Res>
     Object? probability = freezed,
     Object? modes = freezed,
   }) {
-    return _then(_TriasLocation(
+    return _then(_$_TriasLocation(
       stopPointName: stopPointName == freezed
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
@@ -159,7 +159,7 @@ class __$TriasLocationCopyWithImpl<$Res>
           : probability // ignore: cast_nullable_to_non_nullable
               as double,
       modes: modes == freezed
-          ? _value.modes
+          ? _value._modes
           : modes // ignore: cast_nullable_to_non_nullable
               as List<TriasPtMode>,
     ));
@@ -207,7 +207,7 @@ class _$_TriasLocation extends _TriasLocation {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasLocation &&
+            other is _$_TriasLocation &&
             const DeepCollectionEquality()
                 .equals(other.stopPointName, stopPointName) &&
             const DeepCollectionEquality()
@@ -217,7 +217,7 @@ class _$_TriasLocation extends _TriasLocation {
             const DeepCollectionEquality().equals(other.complete, complete) &&
             const DeepCollectionEquality()
                 .equals(other.probability, probability) &&
-            const DeepCollectionEquality().equals(other.modes, modes));
+            const DeepCollectionEquality().equals(other._modes, _modes));
   }
 
   @override
@@ -228,12 +228,12 @@ class _$_TriasLocation extends _TriasLocation {
       const DeepCollectionEquality().hash(geoPosition),
       const DeepCollectionEquality().hash(complete),
       const DeepCollectionEquality().hash(probability),
-      const DeepCollectionEquality().hash(modes));
+      const DeepCollectionEquality().hash(_modes));
 
   @JsonKey(ignore: true)
   @override
-  _$TriasLocationCopyWith<_TriasLocation> get copyWith =>
-      __$TriasLocationCopyWithImpl<_TriasLocation>(this, _$identity);
+  _$$_TriasLocationCopyWith<_$_TriasLocation> get copyWith =>
+      __$$_TriasLocationCopyWithImpl<_$_TriasLocation>(this, _$identity);
 }
 
 abstract class _TriasLocation extends TriasLocation {
@@ -247,20 +247,20 @@ abstract class _TriasLocation extends TriasLocation {
   const _TriasLocation._() : super._();
 
   @override
-  String get stopPointName => throw _privateConstructorUsedError;
+  String get stopPointName;
   @override
-  String get stopPointRef => throw _privateConstructorUsedError;
+  String get stopPointRef;
   @override
-  TriasGeoPosition get geoPosition => throw _privateConstructorUsedError;
+  TriasGeoPosition get geoPosition;
   @override
-  bool get complete => throw _privateConstructorUsedError;
+  bool get complete;
   @override
-  double get probability => throw _privateConstructorUsedError;
+  double get probability;
   @override
-  List<TriasPtMode> get modes => throw _privateConstructorUsedError;
+  List<TriasPtMode> get modes;
   @override
   @JsonKey(ignore: true)
-  _$TriasLocationCopyWith<_TriasLocation> get copyWith =>
+  _$$_TriasLocationCopyWith<_$_TriasLocation> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -309,31 +309,31 @@ class _$TriasPtModeCopyWithImpl<$Res> implements $TriasPtModeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$TriasPtModeCopyWith<$Res>
+abstract class _$$_TriasPtModeCopyWith<$Res>
     implements $TriasPtModeCopyWith<$Res> {
-  factory _$TriasPtModeCopyWith(
-          _TriasPtMode value, $Res Function(_TriasPtMode) then) =
-      __$TriasPtModeCopyWithImpl<$Res>;
+  factory _$$_TriasPtModeCopyWith(
+          _$_TriasPtMode value, $Res Function(_$_TriasPtMode) then) =
+      __$$_TriasPtModeCopyWithImpl<$Res>;
   @override
   $Res call({String mode, String? submode});
 }
 
 /// @nodoc
-class __$TriasPtModeCopyWithImpl<$Res> extends _$TriasPtModeCopyWithImpl<$Res>
-    implements _$TriasPtModeCopyWith<$Res> {
-  __$TriasPtModeCopyWithImpl(
-      _TriasPtMode _value, $Res Function(_TriasPtMode) _then)
-      : super(_value, (v) => _then(v as _TriasPtMode));
+class __$$_TriasPtModeCopyWithImpl<$Res> extends _$TriasPtModeCopyWithImpl<$Res>
+    implements _$$_TriasPtModeCopyWith<$Res> {
+  __$$_TriasPtModeCopyWithImpl(
+      _$_TriasPtMode _value, $Res Function(_$_TriasPtMode) _then)
+      : super(_value, (v) => _then(v as _$_TriasPtMode));
 
   @override
-  _TriasPtMode get _value => super._value as _TriasPtMode;
+  _$_TriasPtMode get _value => super._value as _$_TriasPtMode;
 
   @override
   $Res call({
     Object? mode = freezed,
     Object? submode = freezed,
   }) {
-    return _then(_TriasPtMode(
+    return _then(_$_TriasPtMode(
       mode == freezed
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
@@ -365,7 +365,7 @@ class _$_TriasPtMode implements _TriasPtMode {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasPtMode &&
+            other is _$_TriasPtMode &&
             const DeepCollectionEquality().equals(other.mode, mode) &&
             const DeepCollectionEquality().equals(other.submode, submode));
   }
@@ -378,8 +378,8 @@ class _$_TriasPtMode implements _TriasPtMode {
 
   @JsonKey(ignore: true)
   @override
-  _$TriasPtModeCopyWith<_TriasPtMode> get copyWith =>
-      __$TriasPtModeCopyWithImpl<_TriasPtMode>(this, _$identity);
+  _$$_TriasPtModeCopyWith<_$_TriasPtMode> get copyWith =>
+      __$$_TriasPtModeCopyWithImpl<_$_TriasPtMode>(this, _$identity);
 }
 
 abstract class _TriasPtMode implements TriasPtMode {
@@ -387,12 +387,12 @@ abstract class _TriasPtMode implements TriasPtMode {
       _$_TriasPtMode;
 
   @override
-  String get mode => throw _privateConstructorUsedError;
+  String get mode;
   @override
-  String? get submode => throw _privateConstructorUsedError;
+  String? get submode;
   @override
   @JsonKey(ignore: true)
-  _$TriasPtModeCopyWith<_TriasPtMode> get copyWith =>
+  _$$_TriasPtModeCopyWith<_$_TriasPtMode> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -483,11 +483,11 @@ class _$TriasStationBoardCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TriasStationBoardCopyWith<$Res>
+abstract class _$$_TriasStationBoardCopyWith<$Res>
     implements $TriasStationBoardCopyWith<$Res> {
-  factory _$TriasStationBoardCopyWith(
-          _TriasStationBoard value, $Res Function(_TriasStationBoard) then) =
-      __$TriasStationBoardCopyWithImpl<$Res>;
+  factory _$$_TriasStationBoardCopyWith(_$_TriasStationBoard value,
+          $Res Function(_$_TriasStationBoard) then) =
+      __$$_TriasStationBoardCopyWithImpl<$Res>;
   @override
   $Res call(
       {Stop stop,
@@ -503,15 +503,15 @@ abstract class _$TriasStationBoardCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TriasStationBoardCopyWithImpl<$Res>
+class __$$_TriasStationBoardCopyWithImpl<$Res>
     extends _$TriasStationBoardCopyWithImpl<$Res>
-    implements _$TriasStationBoardCopyWith<$Res> {
-  __$TriasStationBoardCopyWithImpl(
-      _TriasStationBoard _value, $Res Function(_TriasStationBoard) _then)
-      : super(_value, (v) => _then(v as _TriasStationBoard));
+    implements _$$_TriasStationBoardCopyWith<$Res> {
+  __$$_TriasStationBoardCopyWithImpl(
+      _$_TriasStationBoard _value, $Res Function(_$_TriasStationBoard) _then)
+      : super(_value, (v) => _then(v as _$_TriasStationBoard));
 
   @override
-  _TriasStationBoard get _value => super._value as _TriasStationBoard;
+  _$_TriasStationBoard get _value => super._value as _$_TriasStationBoard;
 
   @override
   $Res call({
@@ -521,7 +521,7 @@ class __$TriasStationBoardCopyWithImpl<$Res>
     Object? thisCall = freezed,
     Object? onwardCalls = freezed,
   }) {
-    return _then(_TriasStationBoard(
+    return _then(_$_TriasStationBoard(
       stop: stop == freezed
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
@@ -531,7 +531,7 @@ class __$TriasStationBoardCopyWithImpl<$Res>
           : service // ignore: cast_nullable_to_non_nullable
               as TriasService,
       previousCalls: previousCalls == freezed
-          ? _value.previousCalls
+          ? _value._previousCalls
           : previousCalls // ignore: cast_nullable_to_non_nullable
               as List<TriasPreviousCall>,
       thisCall: thisCall == freezed
@@ -539,7 +539,7 @@ class __$TriasStationBoardCopyWithImpl<$Res>
           : thisCall // ignore: cast_nullable_to_non_nullable
               as TriasThisCall,
       onwardCalls: onwardCalls == freezed
-          ? _value.onwardCalls
+          ? _value._onwardCalls
           : onwardCalls // ignore: cast_nullable_to_non_nullable
               as List<TriasOnwardCall>,
     ));
@@ -588,14 +588,14 @@ class _$_TriasStationBoard extends _TriasStationBoard {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasStationBoard &&
+            other is _$_TriasStationBoard &&
             const DeepCollectionEquality().equals(other.stop, stop) &&
             const DeepCollectionEquality().equals(other.service, service) &&
             const DeepCollectionEquality()
-                .equals(other.previousCalls, previousCalls) &&
+                .equals(other._previousCalls, _previousCalls) &&
             const DeepCollectionEquality().equals(other.thisCall, thisCall) &&
             const DeepCollectionEquality()
-                .equals(other.onwardCalls, onwardCalls));
+                .equals(other._onwardCalls, _onwardCalls));
   }
 
   @override
@@ -603,14 +603,15 @@ class _$_TriasStationBoard extends _TriasStationBoard {
       runtimeType,
       const DeepCollectionEquality().hash(stop),
       const DeepCollectionEquality().hash(service),
-      const DeepCollectionEquality().hash(previousCalls),
+      const DeepCollectionEquality().hash(_previousCalls),
       const DeepCollectionEquality().hash(thisCall),
-      const DeepCollectionEquality().hash(onwardCalls));
+      const DeepCollectionEquality().hash(_onwardCalls));
 
   @JsonKey(ignore: true)
   @override
-  _$TriasStationBoardCopyWith<_TriasStationBoard> get copyWith =>
-      __$TriasStationBoardCopyWithImpl<_TriasStationBoard>(this, _$identity);
+  _$$_TriasStationBoardCopyWith<_$_TriasStationBoard> get copyWith =>
+      __$$_TriasStationBoardCopyWithImpl<_$_TriasStationBoard>(
+          this, _$identity);
 }
 
 abstract class _TriasStationBoard extends TriasStationBoard {
@@ -623,19 +624,18 @@ abstract class _TriasStationBoard extends TriasStationBoard {
   const _TriasStationBoard._() : super._();
 
   @override
-  Stop get stop => throw _privateConstructorUsedError;
+  Stop get stop;
   @override
-  TriasService get service => throw _privateConstructorUsedError;
+  TriasService get service;
   @override
-  List<TriasPreviousCall> get previousCalls =>
-      throw _privateConstructorUsedError;
+  List<TriasPreviousCall> get previousCalls;
   @override
-  TriasThisCall get thisCall => throw _privateConstructorUsedError;
+  TriasThisCall get thisCall;
   @override
-  List<TriasOnwardCall> get onwardCalls => throw _privateConstructorUsedError;
+  List<TriasOnwardCall> get onwardCalls;
   @override
   @JsonKey(ignore: true)
-  _$TriasStationBoardCopyWith<_TriasStationBoard> get copyWith =>
+  _$$_TriasStationBoardCopyWith<_$_TriasStationBoard> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -756,11 +756,11 @@ class _$TriasServiceCopyWithImpl<$Res> implements $TriasServiceCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$TriasServiceCopyWith<$Res>
+abstract class _$$_TriasServiceCopyWith<$Res>
     implements $TriasServiceCopyWith<$Res> {
-  factory _$TriasServiceCopyWith(
-          _TriasService value, $Res Function(_TriasService) then) =
-      __$TriasServiceCopyWithImpl<$Res>;
+  factory _$$_TriasServiceCopyWith(
+          _$_TriasService value, $Res Function(_$_TriasService) then) =
+      __$$_TriasServiceCopyWithImpl<$Res>;
   @override
   $Res call(
       {String operatingDayRef,
@@ -778,14 +778,15 @@ abstract class _$TriasServiceCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TriasServiceCopyWithImpl<$Res> extends _$TriasServiceCopyWithImpl<$Res>
-    implements _$TriasServiceCopyWith<$Res> {
-  __$TriasServiceCopyWithImpl(
-      _TriasService _value, $Res Function(_TriasService) _then)
-      : super(_value, (v) => _then(v as _TriasService));
+class __$$_TriasServiceCopyWithImpl<$Res>
+    extends _$TriasServiceCopyWithImpl<$Res>
+    implements _$$_TriasServiceCopyWith<$Res> {
+  __$$_TriasServiceCopyWithImpl(
+      _$_TriasService _value, $Res Function(_$_TriasService) _then)
+      : super(_value, (v) => _then(v as _$_TriasService));
 
   @override
-  _TriasService get _value => super._value as _TriasService;
+  _$_TriasService get _value => super._value as _$_TriasService;
 
   @override
   $Res call({
@@ -802,7 +803,7 @@ class __$TriasServiceCopyWithImpl<$Res> extends _$TriasServiceCopyWithImpl<$Res>
     Object? destinationStopPointRef = freezed,
     Object? destinationText = freezed,
   }) {
-    return _then(_TriasService(
+    return _then(_$_TriasService(
       operatingDayRef: operatingDayRef == freezed
           ? _value.operatingDayRef
           : operatingDayRef // ignore: cast_nullable_to_non_nullable
@@ -820,11 +821,11 @@ class __$TriasServiceCopyWithImpl<$Res> extends _$TriasServiceCopyWithImpl<$Res>
           : directionRef // ignore: cast_nullable_to_non_nullable
               as String,
       modes: modes == freezed
-          ? _value.modes
+          ? _value._modes
           : modes // ignore: cast_nullable_to_non_nullable
               as List<TriasMode>,
       attributes: attributes == freezed
-          ? _value.attributes
+          ? _value._attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as List<TriasAttribute>,
       publishedLineName: publishedLineName == freezed
@@ -918,7 +919,7 @@ class _$_TriasService implements _TriasService {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasService &&
+            other is _$_TriasService &&
             const DeepCollectionEquality()
                 .equals(other.operatingDayRef, operatingDayRef) &&
             const DeepCollectionEquality()
@@ -926,9 +927,9 @@ class _$_TriasService implements _TriasService {
             const DeepCollectionEquality().equals(other.lineRef, lineRef) &&
             const DeepCollectionEquality()
                 .equals(other.directionRef, directionRef) &&
-            const DeepCollectionEquality().equals(other.modes, modes) &&
+            const DeepCollectionEquality().equals(other._modes, _modes) &&
             const DeepCollectionEquality()
-                .equals(other.attributes, attributes) &&
+                .equals(other._attributes, _attributes) &&
             const DeepCollectionEquality()
                 .equals(other.publishedLineName, publishedLineName) &&
             const DeepCollectionEquality()
@@ -950,8 +951,8 @@ class _$_TriasService implements _TriasService {
       const DeepCollectionEquality().hash(journeyRef),
       const DeepCollectionEquality().hash(lineRef),
       const DeepCollectionEquality().hash(directionRef),
-      const DeepCollectionEquality().hash(modes),
-      const DeepCollectionEquality().hash(attributes),
+      const DeepCollectionEquality().hash(_modes),
+      const DeepCollectionEquality().hash(_attributes),
       const DeepCollectionEquality().hash(publishedLineName),
       const DeepCollectionEquality().hash(operatorRef),
       const DeepCollectionEquality().hash(originStopPointRef),
@@ -961,8 +962,8 @@ class _$_TriasService implements _TriasService {
 
   @JsonKey(ignore: true)
   @override
-  _$TriasServiceCopyWith<_TriasService> get copyWith =>
-      __$TriasServiceCopyWithImpl<_TriasService>(this, _$identity);
+  _$$_TriasServiceCopyWith<_$_TriasService> get copyWith =>
+      __$$_TriasServiceCopyWithImpl<_$_TriasService>(this, _$identity);
 }
 
 abstract class _TriasService implements TriasService {
@@ -981,32 +982,32 @@ abstract class _TriasService implements TriasService {
       required final String destinationText}) = _$_TriasService;
 
   @override
-  String get operatingDayRef => throw _privateConstructorUsedError;
+  String get operatingDayRef;
   @override
-  String get journeyRef => throw _privateConstructorUsedError;
+  String get journeyRef;
   @override
-  String get lineRef => throw _privateConstructorUsedError;
+  String get lineRef;
   @override
-  String get directionRef => throw _privateConstructorUsedError;
+  String get directionRef;
   @override
-  List<TriasMode> get modes => throw _privateConstructorUsedError;
+  List<TriasMode> get modes;
   @override
-  List<TriasAttribute> get attributes => throw _privateConstructorUsedError;
+  List<TriasAttribute> get attributes;
   @override
-  String get publishedLineName => throw _privateConstructorUsedError;
+  String get publishedLineName;
   @override
-  String get operatorRef => throw _privateConstructorUsedError;
+  String get operatorRef;
   @override
-  String get originStopPointRef => throw _privateConstructorUsedError;
+  String get originStopPointRef;
   @override
-  String get originText => throw _privateConstructorUsedError;
+  String get originText;
   @override
-  String get destinationStopPointRef => throw _privateConstructorUsedError;
+  String get destinationStopPointRef;
   @override
-  String get destinationText => throw _privateConstructorUsedError;
+  String get destinationText;
   @override
   @JsonKey(ignore: true)
-  _$TriasServiceCopyWith<_TriasService> get copyWith =>
+  _$$_TriasServiceCopyWith<_$_TriasService> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1066,22 +1067,23 @@ class _$TriasModeCopyWithImpl<$Res> implements $TriasModeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$TriasModeCopyWith<$Res> implements $TriasModeCopyWith<$Res> {
-  factory _$TriasModeCopyWith(
-          _TriasMode value, $Res Function(_TriasMode) then) =
-      __$TriasModeCopyWithImpl<$Res>;
+abstract class _$$_TriasModeCopyWith<$Res> implements $TriasModeCopyWith<$Res> {
+  factory _$$_TriasModeCopyWith(
+          _$_TriasMode value, $Res Function(_$_TriasMode) then) =
+      __$$_TriasModeCopyWithImpl<$Res>;
   @override
   $Res call({String mode, String? submode, String? name, String? language});
 }
 
 /// @nodoc
-class __$TriasModeCopyWithImpl<$Res> extends _$TriasModeCopyWithImpl<$Res>
-    implements _$TriasModeCopyWith<$Res> {
-  __$TriasModeCopyWithImpl(_TriasMode _value, $Res Function(_TriasMode) _then)
-      : super(_value, (v) => _then(v as _TriasMode));
+class __$$_TriasModeCopyWithImpl<$Res> extends _$TriasModeCopyWithImpl<$Res>
+    implements _$$_TriasModeCopyWith<$Res> {
+  __$$_TriasModeCopyWithImpl(
+      _$_TriasMode _value, $Res Function(_$_TriasMode) _then)
+      : super(_value, (v) => _then(v as _$_TriasMode));
 
   @override
-  _TriasMode get _value => super._value as _TriasMode;
+  _$_TriasMode get _value => super._value as _$_TriasMode;
 
   @override
   $Res call({
@@ -1090,7 +1092,7 @@ class __$TriasModeCopyWithImpl<$Res> extends _$TriasModeCopyWithImpl<$Res>
     Object? name = freezed,
     Object? language = freezed,
   }) {
-    return _then(_TriasMode(
+    return _then(_$_TriasMode(
       mode == freezed
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
@@ -1134,7 +1136,7 @@ class _$_TriasMode implements _TriasMode {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasMode &&
+            other is _$_TriasMode &&
             const DeepCollectionEquality().equals(other.mode, mode) &&
             const DeepCollectionEquality().equals(other.submode, submode) &&
             const DeepCollectionEquality().equals(other.name, name) &&
@@ -1151,8 +1153,8 @@ class _$_TriasMode implements _TriasMode {
 
   @JsonKey(ignore: true)
   @override
-  _$TriasModeCopyWith<_TriasMode> get copyWith =>
-      __$TriasModeCopyWithImpl<_TriasMode>(this, _$identity);
+  _$$_TriasModeCopyWith<_$_TriasMode> get copyWith =>
+      __$$_TriasModeCopyWithImpl<_$_TriasMode>(this, _$identity);
 }
 
 abstract class _TriasMode implements TriasMode {
@@ -1162,16 +1164,16 @@ abstract class _TriasMode implements TriasMode {
       final String? language}) = _$_TriasMode;
 
   @override
-  String get mode => throw _privateConstructorUsedError;
+  String get mode;
   @override
-  String? get submode => throw _privateConstructorUsedError;
+  String? get submode;
   @override
-  String? get name => throw _privateConstructorUsedError;
+  String? get name;
   @override
-  String? get language => throw _privateConstructorUsedError;
+  String? get language;
   @override
   @JsonKey(ignore: true)
-  _$TriasModeCopyWith<_TriasMode> get copyWith =>
+  _$$_TriasModeCopyWith<_$_TriasMode> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1221,32 +1223,32 @@ class _$TriasAttributeCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TriasAttributeCopyWith<$Res>
+abstract class _$$_TriasAttributeCopyWith<$Res>
     implements $TriasAttributeCopyWith<$Res> {
-  factory _$TriasAttributeCopyWith(
-          _TriasAttribute value, $Res Function(_TriasAttribute) then) =
-      __$TriasAttributeCopyWithImpl<$Res>;
+  factory _$$_TriasAttributeCopyWith(
+          _$_TriasAttribute value, $Res Function(_$_TriasAttribute) then) =
+      __$$_TriasAttributeCopyWithImpl<$Res>;
   @override
   $Res call({String code, String text});
 }
 
 /// @nodoc
-class __$TriasAttributeCopyWithImpl<$Res>
+class __$$_TriasAttributeCopyWithImpl<$Res>
     extends _$TriasAttributeCopyWithImpl<$Res>
-    implements _$TriasAttributeCopyWith<$Res> {
-  __$TriasAttributeCopyWithImpl(
-      _TriasAttribute _value, $Res Function(_TriasAttribute) _then)
-      : super(_value, (v) => _then(v as _TriasAttribute));
+    implements _$$_TriasAttributeCopyWith<$Res> {
+  __$$_TriasAttributeCopyWithImpl(
+      _$_TriasAttribute _value, $Res Function(_$_TriasAttribute) _then)
+      : super(_value, (v) => _then(v as _$_TriasAttribute));
 
   @override
-  _TriasAttribute get _value => super._value as _TriasAttribute;
+  _$_TriasAttribute get _value => super._value as _$_TriasAttribute;
 
   @override
   $Res call({
     Object? code = freezed,
     Object? text = freezed,
   }) {
-    return _then(_TriasAttribute(
+    return _then(_$_TriasAttribute(
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -1278,7 +1280,7 @@ class _$_TriasAttribute implements _TriasAttribute {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasAttribute &&
+            other is _$_TriasAttribute &&
             const DeepCollectionEquality().equals(other.code, code) &&
             const DeepCollectionEquality().equals(other.text, text));
   }
@@ -1291,8 +1293,8 @@ class _$_TriasAttribute implements _TriasAttribute {
 
   @JsonKey(ignore: true)
   @override
-  _$TriasAttributeCopyWith<_TriasAttribute> get copyWith =>
-      __$TriasAttributeCopyWithImpl<_TriasAttribute>(this, _$identity);
+  _$$_TriasAttributeCopyWith<_$_TriasAttribute> get copyWith =>
+      __$$_TriasAttributeCopyWithImpl<_$_TriasAttribute>(this, _$identity);
 }
 
 abstract class _TriasAttribute implements TriasAttribute {
@@ -1301,12 +1303,12 @@ abstract class _TriasAttribute implements TriasAttribute {
       required final String text}) = _$_TriasAttribute;
 
   @override
-  String get code => throw _privateConstructorUsedError;
+  String get code;
   @override
-  String get text => throw _privateConstructorUsedError;
+  String get text;
   @override
   @JsonKey(ignore: true)
-  _$TriasAttributeCopyWith<_TriasAttribute> get copyWith =>
+  _$$_TriasAttributeCopyWith<_$_TriasAttribute> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1388,11 +1390,11 @@ class _$TriasOnwardCallCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TriasOnwardCallCopyWith<$Res>
+abstract class _$$_TriasOnwardCallCopyWith<$Res>
     implements $TriasOnwardCallCopyWith<$Res> {
-  factory _$TriasOnwardCallCopyWith(
-          _TriasOnwardCall value, $Res Function(_TriasOnwardCall) then) =
-      __$TriasOnwardCallCopyWithImpl<$Res>;
+  factory _$$_TriasOnwardCallCopyWith(
+          _$_TriasOnwardCall value, $Res Function(_$_TriasOnwardCall) then) =
+      __$$_TriasOnwardCallCopyWithImpl<$Res>;
   @override
   $Res call(
       {String stopPointRef,
@@ -1406,15 +1408,15 @@ abstract class _$TriasOnwardCallCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TriasOnwardCallCopyWithImpl<$Res>
+class __$$_TriasOnwardCallCopyWithImpl<$Res>
     extends _$TriasOnwardCallCopyWithImpl<$Res>
-    implements _$TriasOnwardCallCopyWith<$Res> {
-  __$TriasOnwardCallCopyWithImpl(
-      _TriasOnwardCall _value, $Res Function(_TriasOnwardCall) _then)
-      : super(_value, (v) => _then(v as _TriasOnwardCall));
+    implements _$$_TriasOnwardCallCopyWith<$Res> {
+  __$$_TriasOnwardCallCopyWithImpl(
+      _$_TriasOnwardCall _value, $Res Function(_$_TriasOnwardCall) _then)
+      : super(_value, (v) => _then(v as _$_TriasOnwardCall));
 
   @override
-  _TriasOnwardCall get _value => super._value as _TriasOnwardCall;
+  _$_TriasOnwardCall get _value => super._value as _$_TriasOnwardCall;
 
   @override
   $Res call({
@@ -1424,7 +1426,7 @@ class __$TriasOnwardCallCopyWithImpl<$Res>
     Object? serviceArrival = freezed,
     Object? stopSeqNumber = freezed,
   }) {
-    return _then(_TriasOnwardCall(
+    return _then(_$_TriasOnwardCall(
       stopPointRef: stopPointRef == freezed
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
@@ -1480,7 +1482,7 @@ class _$_TriasOnwardCall extends _TriasOnwardCall {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasOnwardCall &&
+            other is _$_TriasOnwardCall &&
             const DeepCollectionEquality()
                 .equals(other.stopPointRef, stopPointRef) &&
             const DeepCollectionEquality()
@@ -1504,8 +1506,8 @@ class _$_TriasOnwardCall extends _TriasOnwardCall {
 
   @JsonKey(ignore: true)
   @override
-  _$TriasOnwardCallCopyWith<_TriasOnwardCall> get copyWith =>
-      __$TriasOnwardCallCopyWithImpl<_TriasOnwardCall>(this, _$identity);
+  _$$_TriasOnwardCallCopyWith<_$_TriasOnwardCall> get copyWith =>
+      __$$_TriasOnwardCallCopyWithImpl<_$_TriasOnwardCall>(this, _$identity);
 }
 
 abstract class _TriasOnwardCall extends TriasOnwardCall {
@@ -1518,18 +1520,18 @@ abstract class _TriasOnwardCall extends TriasOnwardCall {
   const _TriasOnwardCall._() : super._();
 
   @override
-  String get stopPointRef => throw _privateConstructorUsedError;
+  String get stopPointRef;
   @override
-  String get stopPointName => throw _privateConstructorUsedError;
+  String get stopPointName;
   @override
-  String get plannedBay => throw _privateConstructorUsedError;
+  String get plannedBay;
   @override
-  TriasServiceTime get serviceArrival => throw _privateConstructorUsedError;
+  TriasServiceTime get serviceArrival;
   @override
-  String get stopSeqNumber => throw _privateConstructorUsedError;
+  String get stopSeqNumber;
   @override
   @JsonKey(ignore: true)
-  _$TriasOnwardCallCopyWith<_TriasOnwardCall> get copyWith =>
+  _$$_TriasOnwardCallCopyWith<_$_TriasOnwardCall> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1579,32 +1581,32 @@ class _$TriasServiceTimeCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TriasServiceTimeCopyWith<$Res>
+abstract class _$$_TriasServiceTimeCopyWith<$Res>
     implements $TriasServiceTimeCopyWith<$Res> {
-  factory _$TriasServiceTimeCopyWith(
-          _TriasServiceTime value, $Res Function(_TriasServiceTime) then) =
-      __$TriasServiceTimeCopyWithImpl<$Res>;
+  factory _$$_TriasServiceTimeCopyWith(
+          _$_TriasServiceTime value, $Res Function(_$_TriasServiceTime) then) =
+      __$$_TriasServiceTimeCopyWithImpl<$Res>;
   @override
   $Res call({DateTime timetabledTime, DateTime estimatedTime});
 }
 
 /// @nodoc
-class __$TriasServiceTimeCopyWithImpl<$Res>
+class __$$_TriasServiceTimeCopyWithImpl<$Res>
     extends _$TriasServiceTimeCopyWithImpl<$Res>
-    implements _$TriasServiceTimeCopyWith<$Res> {
-  __$TriasServiceTimeCopyWithImpl(
-      _TriasServiceTime _value, $Res Function(_TriasServiceTime) _then)
-      : super(_value, (v) => _then(v as _TriasServiceTime));
+    implements _$$_TriasServiceTimeCopyWith<$Res> {
+  __$$_TriasServiceTimeCopyWithImpl(
+      _$_TriasServiceTime _value, $Res Function(_$_TriasServiceTime) _then)
+      : super(_value, (v) => _then(v as _$_TriasServiceTime));
 
   @override
-  _TriasServiceTime get _value => super._value as _TriasServiceTime;
+  _$_TriasServiceTime get _value => super._value as _$_TriasServiceTime;
 
   @override
   $Res call({
     Object? timetabledTime = freezed,
     Object? estimatedTime = freezed,
   }) {
-    return _then(_TriasServiceTime(
+    return _then(_$_TriasServiceTime(
       timetabledTime: timetabledTime == freezed
           ? _value.timetabledTime
           : timetabledTime // ignore: cast_nullable_to_non_nullable
@@ -1638,7 +1640,7 @@ class _$_TriasServiceTime extends _TriasServiceTime {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasServiceTime &&
+            other is _$_TriasServiceTime &&
             const DeepCollectionEquality()
                 .equals(other.timetabledTime, timetabledTime) &&
             const DeepCollectionEquality()
@@ -1653,8 +1655,8 @@ class _$_TriasServiceTime extends _TriasServiceTime {
 
   @JsonKey(ignore: true)
   @override
-  _$TriasServiceTimeCopyWith<_TriasServiceTime> get copyWith =>
-      __$TriasServiceTimeCopyWithImpl<_TriasServiceTime>(this, _$identity);
+  _$$_TriasServiceTimeCopyWith<_$_TriasServiceTime> get copyWith =>
+      __$$_TriasServiceTimeCopyWithImpl<_$_TriasServiceTime>(this, _$identity);
 }
 
 abstract class _TriasServiceTime extends TriasServiceTime {
@@ -1664,12 +1666,12 @@ abstract class _TriasServiceTime extends TriasServiceTime {
   const _TriasServiceTime._() : super._();
 
   @override
-  DateTime get timetabledTime => throw _privateConstructorUsedError;
+  DateTime get timetabledTime;
   @override
-  DateTime get estimatedTime => throw _privateConstructorUsedError;
+  DateTime get estimatedTime;
   @override
   @JsonKey(ignore: true)
-  _$TriasServiceTimeCopyWith<_TriasServiceTime> get copyWith =>
+  _$$_TriasServiceTimeCopyWith<_$_TriasServiceTime> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1766,11 +1768,11 @@ class _$TriasPreviousCallCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TriasPreviousCallCopyWith<$Res>
+abstract class _$$_TriasPreviousCallCopyWith<$Res>
     implements $TriasPreviousCallCopyWith<$Res> {
-  factory _$TriasPreviousCallCopyWith(
-          _TriasPreviousCall value, $Res Function(_TriasPreviousCall) then) =
-      __$TriasPreviousCallCopyWithImpl<$Res>;
+  factory _$$_TriasPreviousCallCopyWith(_$_TriasPreviousCall value,
+          $Res Function(_$_TriasPreviousCall) then) =
+      __$$_TriasPreviousCallCopyWithImpl<$Res>;
   @override
   $Res call(
       {String stopPointRef,
@@ -1787,15 +1789,15 @@ abstract class _$TriasPreviousCallCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TriasPreviousCallCopyWithImpl<$Res>
+class __$$_TriasPreviousCallCopyWithImpl<$Res>
     extends _$TriasPreviousCallCopyWithImpl<$Res>
-    implements _$TriasPreviousCallCopyWith<$Res> {
-  __$TriasPreviousCallCopyWithImpl(
-      _TriasPreviousCall _value, $Res Function(_TriasPreviousCall) _then)
-      : super(_value, (v) => _then(v as _TriasPreviousCall));
+    implements _$$_TriasPreviousCallCopyWith<$Res> {
+  __$$_TriasPreviousCallCopyWithImpl(
+      _$_TriasPreviousCall _value, $Res Function(_$_TriasPreviousCall) _then)
+      : super(_value, (v) => _then(v as _$_TriasPreviousCall));
 
   @override
-  _TriasPreviousCall get _value => super._value as _TriasPreviousCall;
+  _$_TriasPreviousCall get _value => super._value as _$_TriasPreviousCall;
 
   @override
   $Res call({
@@ -1806,7 +1808,7 @@ class __$TriasPreviousCallCopyWithImpl<$Res>
     Object? serviceDeparture = freezed,
     Object? stopSeqNumber = freezed,
   }) {
-    return _then(_TriasPreviousCall(
+    return _then(_$_TriasPreviousCall(
       stopPointRef: stopPointRef == freezed
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
@@ -1869,7 +1871,7 @@ class _$_TriasPreviousCall extends _TriasPreviousCall {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasPreviousCall &&
+            other is _$_TriasPreviousCall &&
             const DeepCollectionEquality()
                 .equals(other.stopPointRef, stopPointRef) &&
             const DeepCollectionEquality()
@@ -1896,8 +1898,9 @@ class _$_TriasPreviousCall extends _TriasPreviousCall {
 
   @JsonKey(ignore: true)
   @override
-  _$TriasPreviousCallCopyWith<_TriasPreviousCall> get copyWith =>
-      __$TriasPreviousCallCopyWithImpl<_TriasPreviousCall>(this, _$identity);
+  _$$_TriasPreviousCallCopyWith<_$_TriasPreviousCall> get copyWith =>
+      __$$_TriasPreviousCallCopyWithImpl<_$_TriasPreviousCall>(
+          this, _$identity);
 }
 
 abstract class _TriasPreviousCall extends TriasPreviousCall {
@@ -1911,20 +1914,20 @@ abstract class _TriasPreviousCall extends TriasPreviousCall {
   const _TriasPreviousCall._() : super._();
 
   @override
-  String get stopPointRef => throw _privateConstructorUsedError;
+  String get stopPointRef;
   @override
-  String get stopPointName => throw _privateConstructorUsedError;
+  String get stopPointName;
   @override
-  String get plannedBay => throw _privateConstructorUsedError;
+  String get plannedBay;
   @override
-  TriasServiceTime get serviceArrival => throw _privateConstructorUsedError;
+  TriasServiceTime get serviceArrival;
   @override
-  TriasServiceTime get serviceDeparture => throw _privateConstructorUsedError;
+  TriasServiceTime get serviceDeparture;
   @override
-  String get stopSeqNumber => throw _privateConstructorUsedError;
+  String get stopSeqNumber;
   @override
   @JsonKey(ignore: true)
-  _$TriasPreviousCallCopyWith<_TriasPreviousCall> get copyWith =>
+  _$$_TriasPreviousCallCopyWith<_$_TriasPreviousCall> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2013,11 +2016,11 @@ class _$TriasThisCallCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TriasThisCallCopyWith<$Res>
+abstract class _$$_TriasThisCallCopyWith<$Res>
     implements $TriasThisCallCopyWith<$Res> {
-  factory _$TriasThisCallCopyWith(
-          _TriasThisCall value, $Res Function(_TriasThisCall) then) =
-      __$TriasThisCallCopyWithImpl<$Res>;
+  factory _$$_TriasThisCallCopyWith(
+          _$_TriasThisCall value, $Res Function(_$_TriasThisCall) then) =
+      __$$_TriasThisCallCopyWithImpl<$Res>;
   @override
   $Res call(
       {String stopPointRef,
@@ -2032,15 +2035,15 @@ abstract class _$TriasThisCallCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TriasThisCallCopyWithImpl<$Res>
+class __$$_TriasThisCallCopyWithImpl<$Res>
     extends _$TriasThisCallCopyWithImpl<$Res>
-    implements _$TriasThisCallCopyWith<$Res> {
-  __$TriasThisCallCopyWithImpl(
-      _TriasThisCall _value, $Res Function(_TriasThisCall) _then)
-      : super(_value, (v) => _then(v as _TriasThisCall));
+    implements _$$_TriasThisCallCopyWith<$Res> {
+  __$$_TriasThisCallCopyWithImpl(
+      _$_TriasThisCall _value, $Res Function(_$_TriasThisCall) _then)
+      : super(_value, (v) => _then(v as _$_TriasThisCall));
 
   @override
-  _TriasThisCall get _value => super._value as _TriasThisCall;
+  _$_TriasThisCall get _value => super._value as _$_TriasThisCall;
 
   @override
   $Res call({
@@ -2051,7 +2054,7 @@ class __$TriasThisCallCopyWithImpl<$Res>
     Object? serviceDeparture = freezed,
     Object? stopSeqNumber = freezed,
   }) {
-    return _then(_TriasThisCall(
+    return _then(_$_TriasThisCall(
       stopPointRef: stopPointRef == freezed
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
@@ -2114,7 +2117,7 @@ class _$_TriasThisCall extends _TriasThisCall {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasThisCall &&
+            other is _$_TriasThisCall &&
             const DeepCollectionEquality()
                 .equals(other.stopPointRef, stopPointRef) &&
             const DeepCollectionEquality()
@@ -2141,8 +2144,8 @@ class _$_TriasThisCall extends _TriasThisCall {
 
   @JsonKey(ignore: true)
   @override
-  _$TriasThisCallCopyWith<_TriasThisCall> get copyWith =>
-      __$TriasThisCallCopyWithImpl<_TriasThisCall>(this, _$identity);
+  _$$_TriasThisCallCopyWith<_$_TriasThisCall> get copyWith =>
+      __$$_TriasThisCallCopyWithImpl<_$_TriasThisCall>(this, _$identity);
 }
 
 abstract class _TriasThisCall extends TriasThisCall {
@@ -2156,20 +2159,20 @@ abstract class _TriasThisCall extends TriasThisCall {
   const _TriasThisCall._() : super._();
 
   @override
-  String get stopPointRef => throw _privateConstructorUsedError;
+  String get stopPointRef;
   @override
-  String get stopPointName => throw _privateConstructorUsedError;
+  String get stopPointName;
   @override
-  String get plannedBay => throw _privateConstructorUsedError;
+  String get plannedBay;
   @override
-  String get estimatedBay => throw _privateConstructorUsedError;
+  String get estimatedBay;
   @override
-  TriasServiceTime get serviceDeparture => throw _privateConstructorUsedError;
+  TriasServiceTime get serviceDeparture;
   @override
-  String get stopSeqNumber => throw _privateConstructorUsedError;
+  String get stopSeqNumber;
   @override
   @JsonKey(ignore: true)
-  _$TriasThisCallCopyWith<_TriasThisCall> get copyWith =>
+  _$$_TriasThisCallCopyWith<_$_TriasThisCall> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2219,32 +2222,32 @@ class _$TriasGeoPositionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TriasGeoPositionCopyWith<$Res>
+abstract class _$$_TriasGeoPositionCopyWith<$Res>
     implements $TriasGeoPositionCopyWith<$Res> {
-  factory _$TriasGeoPositionCopyWith(
-          _TriasGeoPosition value, $Res Function(_TriasGeoPosition) then) =
-      __$TriasGeoPositionCopyWithImpl<$Res>;
+  factory _$$_TriasGeoPositionCopyWith(
+          _$_TriasGeoPosition value, $Res Function(_$_TriasGeoPosition) then) =
+      __$$_TriasGeoPositionCopyWithImpl<$Res>;
   @override
   $Res call({double latitude, double longitude});
 }
 
 /// @nodoc
-class __$TriasGeoPositionCopyWithImpl<$Res>
+class __$$_TriasGeoPositionCopyWithImpl<$Res>
     extends _$TriasGeoPositionCopyWithImpl<$Res>
-    implements _$TriasGeoPositionCopyWith<$Res> {
-  __$TriasGeoPositionCopyWithImpl(
-      _TriasGeoPosition _value, $Res Function(_TriasGeoPosition) _then)
-      : super(_value, (v) => _then(v as _TriasGeoPosition));
+    implements _$$_TriasGeoPositionCopyWith<$Res> {
+  __$$_TriasGeoPositionCopyWithImpl(
+      _$_TriasGeoPosition _value, $Res Function(_$_TriasGeoPosition) _then)
+      : super(_value, (v) => _then(v as _$_TriasGeoPosition));
 
   @override
-  _TriasGeoPosition get _value => super._value as _TriasGeoPosition;
+  _$_TriasGeoPosition get _value => super._value as _$_TriasGeoPosition;
 
   @override
   $Res call({
     Object? latitude = freezed,
     Object? longitude = freezed,
   }) {
-    return _then(_TriasGeoPosition(
+    return _then(_$_TriasGeoPosition(
       latitude: latitude == freezed
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -2276,7 +2279,7 @@ class _$_TriasGeoPosition implements _TriasGeoPosition {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TriasGeoPosition &&
+            other is _$_TriasGeoPosition &&
             const DeepCollectionEquality().equals(other.latitude, latitude) &&
             const DeepCollectionEquality().equals(other.longitude, longitude));
   }
@@ -2289,8 +2292,8 @@ class _$_TriasGeoPosition implements _TriasGeoPosition {
 
   @JsonKey(ignore: true)
   @override
-  _$TriasGeoPositionCopyWith<_TriasGeoPosition> get copyWith =>
-      __$TriasGeoPositionCopyWithImpl<_TriasGeoPosition>(this, _$identity);
+  _$$_TriasGeoPositionCopyWith<_$_TriasGeoPosition> get copyWith =>
+      __$$_TriasGeoPositionCopyWithImpl<_$_TriasGeoPosition>(this, _$identity);
 }
 
 abstract class _TriasGeoPosition implements TriasGeoPosition {
@@ -2299,11 +2302,11 @@ abstract class _TriasGeoPosition implements TriasGeoPosition {
       required final double longitude}) = _$_TriasGeoPosition;
 
   @override
-  double get latitude => throw _privateConstructorUsedError;
+  double get latitude;
   @override
-  double get longitude => throw _privateConstructorUsedError;
+  double get longitude;
   @override
   @JsonKey(ignore: true)
-  _$TriasGeoPositionCopyWith<_TriasGeoPosition> get copyWith =>
+  _$$_TriasGeoPositionCopyWith<_$_TriasGeoPosition> get copyWith =>
       throw _privateConstructorUsedError;
 }

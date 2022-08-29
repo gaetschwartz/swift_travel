@@ -81,32 +81,32 @@ class _$StationStatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $CompletionsStationStatesCopyWith<$Res> {
-  factory $CompletionsStationStatesCopyWith(CompletionsStationStates value,
-          $Res Function(CompletionsStationStates) then) =
-      _$CompletionsStationStatesCopyWithImpl<$Res>;
+abstract class _$$CompletionsStationStatesCopyWith<$Res> {
+  factory _$$CompletionsStationStatesCopyWith(_$CompletionsStationStates value,
+          $Res Function(_$CompletionsStationStates) then) =
+      __$$CompletionsStationStatesCopyWithImpl<$Res>;
   $Res call({List<NavigationCompletion> completions});
 }
 
 /// @nodoc
-class _$CompletionsStationStatesCopyWithImpl<$Res>
+class __$$CompletionsStationStatesCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
-    implements $CompletionsStationStatesCopyWith<$Res> {
-  _$CompletionsStationStatesCopyWithImpl(CompletionsStationStates _value,
-      $Res Function(CompletionsStationStates) _then)
-      : super(_value, (v) => _then(v as CompletionsStationStates));
+    implements _$$CompletionsStationStatesCopyWith<$Res> {
+  __$$CompletionsStationStatesCopyWithImpl(_$CompletionsStationStates _value,
+      $Res Function(_$CompletionsStationStates) _then)
+      : super(_value, (v) => _then(v as _$CompletionsStationStates));
 
   @override
-  CompletionsStationStates get _value =>
-      super._value as CompletionsStationStates;
+  _$CompletionsStationStates get _value =>
+      super._value as _$CompletionsStationStates;
 
   @override
   $Res call({
     Object? completions = freezed,
   }) {
-    return _then(CompletionsStationStates(
+    return _then(_$CompletionsStationStates(
       completions == freezed
-          ? _value.completions
+          ? _value._completions
           : completions // ignore: cast_nullable_to_non_nullable
               as List<NavigationCompletion>,
     ));
@@ -135,20 +135,21 @@ class _$CompletionsStationStates implements CompletionsStationStates {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is CompletionsStationStates &&
+            other is _$CompletionsStationStates &&
             const DeepCollectionEquality()
-                .equals(other.completions, completions));
+                .equals(other._completions, _completions));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(completions));
+      runtimeType, const DeepCollectionEquality().hash(_completions));
 
   @JsonKey(ignore: true)
   @override
-  $CompletionsStationStatesCopyWith<CompletionsStationStates> get copyWith =>
-      _$CompletionsStationStatesCopyWithImpl<CompletionsStationStates>(
-          this, _$identity);
+  _$$CompletionsStationStatesCopyWith<_$CompletionsStationStates>
+      get copyWith =>
+          __$$CompletionsStationStatesCopyWithImpl<_$CompletionsStationStates>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -225,30 +226,29 @@ abstract class CompletionsStationStates implements StationStates {
           final List<NavigationCompletion> completions) =
       _$CompletionsStationStates;
 
-  List<NavigationCompletion> get completions =>
-      throw _privateConstructorUsedError;
+  List<NavigationCompletion> get completions;
   @JsonKey(ignore: true)
-  $CompletionsStationStatesCopyWith<CompletionsStationStates> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CompletionsStationStatesCopyWith<_$CompletionsStationStates>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EmptyStationStatesCopyWith<$Res> {
-  factory $EmptyStationStatesCopyWith(
-          EmptyStationStates value, $Res Function(EmptyStationStates) then) =
-      _$EmptyStationStatesCopyWithImpl<$Res>;
+abstract class _$$EmptyStationStatesCopyWith<$Res> {
+  factory _$$EmptyStationStatesCopyWith(_$EmptyStationStates value,
+          $Res Function(_$EmptyStationStates) then) =
+      __$$EmptyStationStatesCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$EmptyStationStatesCopyWithImpl<$Res>
+class __$$EmptyStationStatesCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
-    implements $EmptyStationStatesCopyWith<$Res> {
-  _$EmptyStationStatesCopyWithImpl(
-      EmptyStationStates _value, $Res Function(EmptyStationStates) _then)
-      : super(_value, (v) => _then(v as EmptyStationStates));
+    implements _$$EmptyStationStatesCopyWith<$Res> {
+  __$$EmptyStationStatesCopyWithImpl(
+      _$EmptyStationStates _value, $Res Function(_$EmptyStationStates) _then)
+      : super(_value, (v) => _then(v as _$EmptyStationStates));
 
   @override
-  EmptyStationStates get _value => super._value as EmptyStationStates;
+  _$EmptyStationStates get _value => super._value as _$EmptyStationStates;
 }
 
 /// @nodoc
@@ -264,7 +264,7 @@ class _$EmptyStationStates implements EmptyStationStates {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is EmptyStationStates);
+        (other.runtimeType == runtimeType && other is _$EmptyStationStates);
   }
 
   @override
@@ -345,23 +345,24 @@ abstract class EmptyStationStates implements StationStates {
 }
 
 /// @nodoc
-abstract class $NetworkErrorStationStatesCopyWith<$Res> {
-  factory $NetworkErrorStationStatesCopyWith(NetworkErrorStationStates value,
-          $Res Function(NetworkErrorStationStates) then) =
-      _$NetworkErrorStationStatesCopyWithImpl<$Res>;
+abstract class _$$NetworkErrorStationStatesCopyWith<$Res> {
+  factory _$$NetworkErrorStationStatesCopyWith(
+          _$NetworkErrorStationStates value,
+          $Res Function(_$NetworkErrorStationStates) then) =
+      __$$NetworkErrorStationStatesCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$NetworkErrorStationStatesCopyWithImpl<$Res>
+class __$$NetworkErrorStationStatesCopyWithImpl<$Res>
     extends _$StationStatesCopyWithImpl<$Res>
-    implements $NetworkErrorStationStatesCopyWith<$Res> {
-  _$NetworkErrorStationStatesCopyWithImpl(NetworkErrorStationStates _value,
-      $Res Function(NetworkErrorStationStates) _then)
-      : super(_value, (v) => _then(v as NetworkErrorStationStates));
+    implements _$$NetworkErrorStationStatesCopyWith<$Res> {
+  __$$NetworkErrorStationStatesCopyWithImpl(_$NetworkErrorStationStates _value,
+      $Res Function(_$NetworkErrorStationStates) _then)
+      : super(_value, (v) => _then(v as _$NetworkErrorStationStates));
 
   @override
-  NetworkErrorStationStates get _value =>
-      super._value as NetworkErrorStationStates;
+  _$NetworkErrorStationStates get _value =>
+      super._value as _$NetworkErrorStationStates;
 }
 
 /// @nodoc
@@ -378,7 +379,7 @@ class _$NetworkErrorStationStates implements NetworkErrorStationStates {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is NetworkErrorStationStates);
+            other is _$NetworkErrorStationStates);
   }
 
   @override

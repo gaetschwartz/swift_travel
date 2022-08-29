@@ -58,29 +58,30 @@ class _$AttributeCopyWithImpl<$Res> implements $AttributeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
-  factory _$AttributeCopyWith(
-          _Attribute value, $Res Function(_Attribute) then) =
-      __$AttributeCopyWithImpl<$Res>;
+abstract class _$$_AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
+  factory _$$_AttributeCopyWith(
+          _$_Attribute value, $Res Function(_$_Attribute) then) =
+      __$$_AttributeCopyWithImpl<$Res>;
   @override
   $Res call({String code, String? message});
 }
 
 /// @nodoc
-class __$AttributeCopyWithImpl<$Res> extends _$AttributeCopyWithImpl<$Res>
-    implements _$AttributeCopyWith<$Res> {
-  __$AttributeCopyWithImpl(_Attribute _value, $Res Function(_Attribute) _then)
-      : super(_value, (v) => _then(v as _Attribute));
+class __$$_AttributeCopyWithImpl<$Res> extends _$AttributeCopyWithImpl<$Res>
+    implements _$$_AttributeCopyWith<$Res> {
+  __$$_AttributeCopyWithImpl(
+      _$_Attribute _value, $Res Function(_$_Attribute) _then)
+      : super(_value, (v) => _then(v as _$_Attribute));
 
   @override
-  _Attribute get _value => super._value as _Attribute;
+  _$_Attribute get _value => super._value as _$_Attribute;
 
   @override
   $Res call({
     Object? code = freezed,
     Object? message = freezed,
   }) {
-    return _then(_Attribute(
+    return _then(_$_Attribute(
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -112,7 +113,7 @@ class _$_Attribute extends _Attribute {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Attribute &&
+            other is _$_Attribute &&
             const DeepCollectionEquality().equals(other.code, code) &&
             const DeepCollectionEquality().equals(other.message, message));
   }
@@ -125,8 +126,8 @@ class _$_Attribute extends _Attribute {
 
   @JsonKey(ignore: true)
   @override
-  _$AttributeCopyWith<_Attribute> get copyWith =>
-      __$AttributeCopyWithImpl<_Attribute>(this, _$identity);
+  _$$_AttributeCopyWith<_$_Attribute> get copyWith =>
+      __$$_AttributeCopyWithImpl<_$_Attribute>(this, _$identity);
 }
 
 abstract class _Attribute extends Attribute {
@@ -135,12 +136,12 @@ abstract class _Attribute extends Attribute {
   _Attribute._() : super._();
 
   @override
-  String get code => throw _privateConstructorUsedError;
+  String get code;
   @override
-  String? get message => throw _privateConstructorUsedError;
+  String? get message;
   @override
   @JsonKey(ignore: true)
-  _$AttributeCopyWith<_Attribute> get copyWith =>
+  _$$_AttributeCopyWith<_$_Attribute> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -190,32 +191,32 @@ class _$AttributeDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$AttributeDataCopyWith<$Res>
+abstract class _$$_AttributeDataCopyWith<$Res>
     implements $AttributeDataCopyWith<$Res> {
-  factory _$AttributeDataCopyWith(
-          _AttributeData value, $Res Function(_AttributeData) then) =
-      __$AttributeDataCopyWithImpl<$Res>;
+  factory _$$_AttributeDataCopyWith(
+          _$_AttributeData value, $Res Function(_$_AttributeData) then) =
+      __$$_AttributeDataCopyWithImpl<$Res>;
   @override
   $Res call({Widget? icon, bool ignore});
 }
 
 /// @nodoc
-class __$AttributeDataCopyWithImpl<$Res>
+class __$$_AttributeDataCopyWithImpl<$Res>
     extends _$AttributeDataCopyWithImpl<$Res>
-    implements _$AttributeDataCopyWith<$Res> {
-  __$AttributeDataCopyWithImpl(
-      _AttributeData _value, $Res Function(_AttributeData) _then)
-      : super(_value, (v) => _then(v as _AttributeData));
+    implements _$$_AttributeDataCopyWith<$Res> {
+  __$$_AttributeDataCopyWithImpl(
+      _$_AttributeData _value, $Res Function(_$_AttributeData) _then)
+      : super(_value, (v) => _then(v as _$_AttributeData));
 
   @override
-  _AttributeData get _value => super._value as _AttributeData;
+  _$_AttributeData get _value => super._value as _$_AttributeData;
 
   @override
   $Res call({
     Object? icon = freezed,
     Object? ignore = freezed,
   }) {
-    return _then(_AttributeData(
+    return _then(_$_AttributeData(
       icon: icon == freezed
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
@@ -248,7 +249,7 @@ class _$_AttributeData implements _AttributeData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _AttributeData &&
+            other is _$_AttributeData &&
             const DeepCollectionEquality().equals(other.icon, icon) &&
             const DeepCollectionEquality().equals(other.ignore, ignore));
   }
@@ -261,8 +262,8 @@ class _$_AttributeData implements _AttributeData {
 
   @JsonKey(ignore: true)
   @override
-  _$AttributeDataCopyWith<_AttributeData> get copyWith =>
-      __$AttributeDataCopyWithImpl<_AttributeData>(this, _$identity);
+  _$$_AttributeDataCopyWith<_$_AttributeData> get copyWith =>
+      __$$_AttributeDataCopyWithImpl<_$_AttributeData>(this, _$identity);
 }
 
 abstract class _AttributeData implements AttributeData {
@@ -270,11 +271,11 @@ abstract class _AttributeData implements AttributeData {
       _$_AttributeData;
 
   @override
-  Widget? get icon => throw _privateConstructorUsedError;
+  Widget? get icon;
   @override
-  bool get ignore => throw _privateConstructorUsedError;
+  bool get ignore;
   @override
   @JsonKey(ignore: true)
-  _$AttributeDataCopyWith<_AttributeData> get copyWith =>
+  _$$_AttributeDataCopyWith<_$_AttributeData> get copyWith =>
       throw _privateConstructorUsedError;
 }

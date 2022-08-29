@@ -69,22 +69,23 @@ class _$SncfPlaceCopyWithImpl<$Res> implements $SncfPlaceCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SncfPlaceCopyWith<$Res> implements $SncfPlaceCopyWith<$Res> {
-  factory _$SncfPlaceCopyWith(
-          _SncfPlace value, $Res Function(_SncfPlace) then) =
-      __$SncfPlaceCopyWithImpl<$Res>;
+abstract class _$$_SncfPlaceCopyWith<$Res> implements $SncfPlaceCopyWith<$Res> {
+  factory _$$_SncfPlaceCopyWith(
+          _$_SncfPlace value, $Res Function(_$_SncfPlace) then) =
+      __$$_SncfPlaceCopyWithImpl<$Res>;
   @override
   $Res call({String name, String? id, String? favoriteName});
 }
 
 /// @nodoc
-class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
-    implements _$SncfPlaceCopyWith<$Res> {
-  __$SncfPlaceCopyWithImpl(_SncfPlace _value, $Res Function(_SncfPlace) _then)
-      : super(_value, (v) => _then(v as _SncfPlace));
+class __$$_SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
+    implements _$$_SncfPlaceCopyWith<$Res> {
+  __$$_SncfPlaceCopyWithImpl(
+      _$_SncfPlace _value, $Res Function(_$_SncfPlace) _then)
+      : super(_value, (v) => _then(v as _$_SncfPlace));
 
   @override
-  _SncfPlace get _value => super._value as _SncfPlace;
+  _$_SncfPlace get _value => super._value as _$_SncfPlace;
 
   @override
   $Res call({
@@ -92,7 +93,7 @@ class __$SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
     Object? id = freezed,
     Object? favoriteName = freezed,
   }) {
-    return _then(_SncfPlace(
+    return _then(_$_SncfPlace(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -135,7 +136,7 @@ class _$_SncfPlace extends _SncfPlace {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfPlace &&
+            other is _$_SncfPlace &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality()
@@ -152,12 +153,14 @@ class _$_SncfPlace extends _SncfPlace {
 
   @JsonKey(ignore: true)
   @override
-  _$SncfPlaceCopyWith<_SncfPlace> get copyWith =>
-      __$SncfPlaceCopyWithImpl<_SncfPlace>(this, _$identity);
+  _$$_SncfPlaceCopyWith<_$_SncfPlace> get copyWith =>
+      __$$_SncfPlaceCopyWithImpl<_$_SncfPlace>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfPlaceToJson(this);
+    return _$$_SncfPlaceToJson(
+      this,
+    );
   }
 }
 
@@ -172,13 +175,13 @@ abstract class _SncfPlace extends SncfPlace {
       _$_SncfPlace.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
-  String? get favoriteName => throw _privateConstructorUsedError;
+  String? get favoriteName;
   @override
   @JsonKey(ignore: true)
-  _$SncfPlaceCopyWith<_SncfPlace> get copyWith =>
+  _$$_SncfPlaceCopyWith<_$_SncfPlace> get copyWith =>
       throw _privateConstructorUsedError;
 }

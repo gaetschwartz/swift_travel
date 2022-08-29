@@ -91,11 +91,11 @@ class _$TextFieldConfigurationCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TextFieldConfigurationCopyWith<$Res>
+abstract class _$$_TextFieldConfigurationCopyWith<$Res>
     implements $TextFieldConfigurationCopyWith<$Res> {
-  factory _$TextFieldConfigurationCopyWith(_TextFieldConfiguration value,
-          $Res Function(_TextFieldConfiguration) then) =
-      __$TextFieldConfigurationCopyWithImpl<$Res>;
+  factory _$$_TextFieldConfigurationCopyWith(_$_TextFieldConfiguration value,
+          $Res Function(_$_TextFieldConfiguration) then) =
+      __$$_TextFieldConfigurationCopyWithImpl<$Res>;
   @override
   $Res call(
       {String? placeholder,
@@ -107,15 +107,16 @@ abstract class _$TextFieldConfigurationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TextFieldConfigurationCopyWithImpl<$Res>
+class __$$_TextFieldConfigurationCopyWithImpl<$Res>
     extends _$TextFieldConfigurationCopyWithImpl<$Res>
-    implements _$TextFieldConfigurationCopyWith<$Res> {
-  __$TextFieldConfigurationCopyWithImpl(_TextFieldConfiguration _value,
-      $Res Function(_TextFieldConfiguration) _then)
-      : super(_value, (v) => _then(v as _TextFieldConfiguration));
+    implements _$$_TextFieldConfigurationCopyWith<$Res> {
+  __$$_TextFieldConfigurationCopyWithImpl(_$_TextFieldConfiguration _value,
+      $Res Function(_$_TextFieldConfiguration) _then)
+      : super(_value, (v) => _then(v as _$_TextFieldConfiguration));
 
   @override
-  _TextFieldConfiguration get _value => super._value as _TextFieldConfiguration;
+  _$_TextFieldConfiguration get _value =>
+      super._value as _$_TextFieldConfiguration;
 
   @override
   $Res call({
@@ -126,13 +127,13 @@ class __$TextFieldConfigurationCopyWithImpl<$Res>
     Object? focusNode = freezed,
     Object? key = freezed,
   }) {
-    return _then(_TextFieldConfiguration(
+    return _then(_$_TextFieldConfiguration(
       placeholder: placeholder == freezed
           ? _value.placeholder
           : placeholder // ignore: cast_nullable_to_non_nullable
               as String?,
       inputFormatters: inputFormatters == freezed
-          ? _value.inputFormatters
+          ? _value._inputFormatters
           : inputFormatters // ignore: cast_nullable_to_non_nullable
               as List<TextInputFormatter>?,
       textInputAction: textInputAction == freezed
@@ -197,11 +198,11 @@ class _$_TextFieldConfiguration extends _TextFieldConfiguration {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TextFieldConfiguration &&
+            other is _$_TextFieldConfiguration &&
             const DeepCollectionEquality()
                 .equals(other.placeholder, placeholder) &&
             const DeepCollectionEquality()
-                .equals(other.inputFormatters, inputFormatters) &&
+                .equals(other._inputFormatters, _inputFormatters) &&
             const DeepCollectionEquality()
                 .equals(other.textInputAction, textInputAction) &&
             const DeepCollectionEquality().equals(other.prefix, prefix) &&
@@ -213,7 +214,7 @@ class _$_TextFieldConfiguration extends _TextFieldConfiguration {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(placeholder),
-      const DeepCollectionEquality().hash(inputFormatters),
+      const DeepCollectionEquality().hash(_inputFormatters),
       const DeepCollectionEquality().hash(textInputAction),
       const DeepCollectionEquality().hash(prefix),
       const DeepCollectionEquality().hash(focusNode),
@@ -221,8 +222,8 @@ class _$_TextFieldConfiguration extends _TextFieldConfiguration {
 
   @JsonKey(ignore: true)
   @override
-  _$TextFieldConfigurationCopyWith<_TextFieldConfiguration> get copyWith =>
-      __$TextFieldConfigurationCopyWithImpl<_TextFieldConfiguration>(
+  _$$_TextFieldConfigurationCopyWith<_$_TextFieldConfiguration> get copyWith =>
+      __$$_TextFieldConfigurationCopyWithImpl<_$_TextFieldConfiguration>(
           this, _$identity);
 }
 
@@ -237,20 +238,19 @@ abstract class _TextFieldConfiguration extends TextFieldConfiguration {
   const _TextFieldConfiguration._() : super._();
 
   @override
-  String? get placeholder => throw _privateConstructorUsedError;
+  String? get placeholder;
   @override
-  List<TextInputFormatter>? get inputFormatters =>
-      throw _privateConstructorUsedError;
+  List<TextInputFormatter>? get inputFormatters;
   @override
-  TextInputAction? get textInputAction => throw _privateConstructorUsedError;
+  TextInputAction? get textInputAction;
   @override
-  Widget? get prefix => throw _privateConstructorUsedError;
+  Widget? get prefix;
   @override
-  FocusNode? get focusNode => throw _privateConstructorUsedError;
+  FocusNode? get focusNode;
   @override
-  Key? get key => throw _privateConstructorUsedError;
+  Key? get key;
   @override
   @JsonKey(ignore: true)
-  _$TextFieldConfigurationCopyWith<_TextFieldConfiguration> get copyWith =>
+  _$$_TextFieldConfigurationCopyWith<_$_TextFieldConfiguration> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -173,11 +173,12 @@ class _$SbbStationboardConnectionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SbbStationboardConnectionCopyWith<$Res>
+abstract class _$$_SbbStationboardConnectionCopyWith<$Res>
     implements $SbbStationboardConnectionCopyWith<$Res> {
-  factory _$SbbStationboardConnectionCopyWith(_SbbStationboardConnection value,
-          $Res Function(_SbbStationboardConnection) then) =
-      __$SbbStationboardConnectionCopyWithImpl<$Res>;
+  factory _$$_SbbStationboardConnectionCopyWith(
+          _$_SbbStationboardConnection value,
+          $Res Function(_$_SbbStationboardConnection) then) =
+      __$$_SbbStationboardConnectionCopyWithImpl<$Res>;
   @override
   $Res call(
       {DateTime time,
@@ -208,16 +209,17 @@ abstract class _$SbbStationboardConnectionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SbbStationboardConnectionCopyWithImpl<$Res>
+class __$$_SbbStationboardConnectionCopyWithImpl<$Res>
     extends _$SbbStationboardConnectionCopyWithImpl<$Res>
-    implements _$SbbStationboardConnectionCopyWith<$Res> {
-  __$SbbStationboardConnectionCopyWithImpl(_SbbStationboardConnection _value,
-      $Res Function(_SbbStationboardConnection) _then)
-      : super(_value, (v) => _then(v as _SbbStationboardConnection));
+    implements _$$_SbbStationboardConnectionCopyWith<$Res> {
+  __$$_SbbStationboardConnectionCopyWithImpl(
+      _$_SbbStationboardConnection _value,
+      $Res Function(_$_SbbStationboardConnection) _then)
+      : super(_value, (v) => _then(v as _$_SbbStationboardConnection));
 
   @override
-  _SbbStationboardConnection get _value =>
-      super._value as _SbbStationboardConnection;
+  _$_SbbStationboardConnection get _value =>
+      super._value as _$_SbbStationboardConnection;
 
   @override
   $Res call({
@@ -235,7 +237,7 @@ class __$SbbStationboardConnectionCopyWithImpl<$Res>
     Object? arrDelay = freezed,
     Object? track = freezed,
   }) {
-    return _then(_SbbStationboardConnection(
+    return _then(_$_SbbStationboardConnection(
       time: time == freezed
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -273,7 +275,7 @@ class __$SbbStationboardConnectionCopyWithImpl<$Res>
           : l // ignore: cast_nullable_to_non_nullable
               as String?,
       sbbSubsequentStops: sbbSubsequentStops == freezed
-          ? _value.sbbSubsequentStops
+          ? _value._sbbSubsequentStops
           : sbbSubsequentStops // ignore: cast_nullable_to_non_nullable
               as List<SbbSubsequentStop>,
       depDelay: depDelay == freezed
@@ -349,7 +351,6 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @override
   @JsonKey(name: '*L')
   final String? l;
-  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
   final List<SbbSubsequentStop> _sbbSubsequentStops;
   @override
   @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
@@ -378,7 +379,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SbbStationboardConnection &&
+            other is _$_SbbStationboardConnection &&
             const DeepCollectionEquality().equals(other.time, time) &&
             const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality().equals(other.color, color) &&
@@ -390,7 +391,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
             const DeepCollectionEquality().equals(other.g, g) &&
             const DeepCollectionEquality().equals(other.l, l) &&
             const DeepCollectionEquality()
-                .equals(other.sbbSubsequentStops, sbbSubsequentStops) &&
+                .equals(other._sbbSubsequentStops, _sbbSubsequentStops) &&
             const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
             const DeepCollectionEquality().equals(other.arrDelay, arrDelay) &&
             const DeepCollectionEquality().equals(other.track, track));
@@ -409,21 +410,22 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
       const DeepCollectionEquality().hash(number),
       const DeepCollectionEquality().hash(g),
       const DeepCollectionEquality().hash(l),
-      const DeepCollectionEquality().hash(sbbSubsequentStops),
+      const DeepCollectionEquality().hash(_sbbSubsequentStops),
       const DeepCollectionEquality().hash(depDelay),
       const DeepCollectionEquality().hash(arrDelay),
       const DeepCollectionEquality().hash(track));
 
   @JsonKey(ignore: true)
   @override
-  _$SbbStationboardConnectionCopyWith<_SbbStationboardConnection>
-      get copyWith =>
-          __$SbbStationboardConnectionCopyWithImpl<_SbbStationboardConnection>(
-              this, _$identity);
+  _$$_SbbStationboardConnectionCopyWith<_$_SbbStationboardConnection>
+      get copyWith => __$$_SbbStationboardConnectionCopyWithImpl<
+          _$_SbbStationboardConnection>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbStationboardConnectionToJson(this);
+    return _$$_SbbStationboardConnectionToJson(
+      this,
+    );
   }
 }
 
@@ -457,43 +459,42 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
       _$_SbbStationboardConnection.fromJson;
 
   @override
-  DateTime get time => throw _privateConstructorUsedError;
+  DateTime get time;
   @override
-  PlaceType get type => throw _privateConstructorUsedError;
+  PlaceType get type;
   @override
-  String get color => throw _privateConstructorUsedError;
+  String get color;
   @override
   @JsonKey(name: 'terminal')
-  SbbStop get sbbTerminal => throw _privateConstructorUsedError;
+  SbbStop get sbbTerminal;
   @override
-  String? get line => throw _privateConstructorUsedError;
+  String? get line;
   @override
   @JsonKey(name: 'operator')
-  String? get operator => throw _privateConstructorUsedError;
+  String? get operator;
   @override
-  String get number => throw _privateConstructorUsedError;
+  String get number;
   @override
   @JsonKey(name: '*G')
-  String? get g => throw _privateConstructorUsedError;
+  String? get g;
   @override
   @JsonKey(name: '*L')
-  String? get l => throw _privateConstructorUsedError;
+  String? get l;
   @override
   @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-  List<SbbSubsequentStop> get sbbSubsequentStops =>
-      throw _privateConstructorUsedError;
+  List<SbbSubsequentStop> get sbbSubsequentStops;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
-  int? get depDelay => throw _privateConstructorUsedError;
+  int? get depDelay;
   @override
   @DelayConverter()
   @JsonKey(name: 'arr_delay')
-  int? get arrDelay => throw _privateConstructorUsedError;
+  int? get arrDelay;
   @override
-  String? get track => throw _privateConstructorUsedError;
+  String? get track;
   @override
   @JsonKey(ignore: true)
-  _$SbbStationboardConnectionCopyWith<_SbbStationboardConnection>
+  _$$_SbbStationboardConnectionCopyWith<_$_SbbStationboardConnection>
       get copyWith => throw _privateConstructorUsedError;
 }

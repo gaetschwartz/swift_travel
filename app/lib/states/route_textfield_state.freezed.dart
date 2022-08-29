@@ -80,22 +80,22 @@ class _$RouteTextfieldStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $EmptyRouteStateCopyWith<$Res> {
-  factory $EmptyRouteStateCopyWith(
-          EmptyRouteState value, $Res Function(EmptyRouteState) then) =
-      _$EmptyRouteStateCopyWithImpl<$Res>;
+abstract class _$$EmptyRouteStateCopyWith<$Res> {
+  factory _$$EmptyRouteStateCopyWith(
+          _$EmptyRouteState value, $Res Function(_$EmptyRouteState) then) =
+      __$$EmptyRouteStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$EmptyRouteStateCopyWithImpl<$Res>
+class __$$EmptyRouteStateCopyWithImpl<$Res>
     extends _$RouteTextfieldStateCopyWithImpl<$Res>
-    implements $EmptyRouteStateCopyWith<$Res> {
-  _$EmptyRouteStateCopyWithImpl(
-      EmptyRouteState _value, $Res Function(EmptyRouteState) _then)
-      : super(_value, (v) => _then(v as EmptyRouteState));
+    implements _$$EmptyRouteStateCopyWith<$Res> {
+  __$$EmptyRouteStateCopyWithImpl(
+      _$EmptyRouteState _value, $Res Function(_$EmptyRouteState) _then)
+      : super(_value, (v) => _then(v as _$EmptyRouteState));
 
   @override
-  EmptyRouteState get _value => super._value as EmptyRouteState;
+  _$EmptyRouteState get _value => super._value as _$EmptyRouteState;
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class _$EmptyRouteState implements EmptyRouteState {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is EmptyRouteState);
+        (other.runtimeType == runtimeType && other is _$EmptyRouteState);
   }
 
   @override
@@ -191,30 +191,30 @@ abstract class EmptyRouteState implements RouteTextfieldState {
 }
 
 /// @nodoc
-abstract class $TextRouteStateCopyWith<$Res> {
-  factory $TextRouteStateCopyWith(
-          TextRouteState value, $Res Function(TextRouteState) then) =
-      _$TextRouteStateCopyWithImpl<$Res>;
+abstract class _$$TextRouteStateCopyWith<$Res> {
+  factory _$$TextRouteStateCopyWith(
+          _$TextRouteState value, $Res Function(_$TextRouteState) then) =
+      __$$TextRouteStateCopyWithImpl<$Res>;
   $Res call({String text, bool doLoad});
 }
 
 /// @nodoc
-class _$TextRouteStateCopyWithImpl<$Res>
+class __$$TextRouteStateCopyWithImpl<$Res>
     extends _$RouteTextfieldStateCopyWithImpl<$Res>
-    implements $TextRouteStateCopyWith<$Res> {
-  _$TextRouteStateCopyWithImpl(
-      TextRouteState _value, $Res Function(TextRouteState) _then)
-      : super(_value, (v) => _then(v as TextRouteState));
+    implements _$$TextRouteStateCopyWith<$Res> {
+  __$$TextRouteStateCopyWithImpl(
+      _$TextRouteState _value, $Res Function(_$TextRouteState) _then)
+      : super(_value, (v) => _then(v as _$TextRouteState));
 
   @override
-  TextRouteState get _value => super._value as TextRouteState;
+  _$TextRouteState get _value => super._value as _$TextRouteState;
 
   @override
   $Res call({
     Object? text = freezed,
     Object? doLoad = freezed,
   }) {
-    return _then(TextRouteState(
+    return _then(_$TextRouteState(
       text == freezed
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -247,7 +247,7 @@ class _$TextRouteState implements TextRouteState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is TextRouteState &&
+            other is _$TextRouteState &&
             const DeepCollectionEquality().equals(other.text, text) &&
             const DeepCollectionEquality().equals(other.doLoad, doLoad));
   }
@@ -260,8 +260,8 @@ class _$TextRouteState implements TextRouteState {
 
   @JsonKey(ignore: true)
   @override
-  $TextRouteStateCopyWith<TextRouteState> get copyWith =>
-      _$TextRouteStateCopyWithImpl<TextRouteState>(this, _$identity);
+  _$$TextRouteStateCopyWith<_$TextRouteState> get copyWith =>
+      __$$TextRouteStateCopyWithImpl<_$TextRouteState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -336,30 +336,30 @@ abstract class TextRouteState implements RouteTextfieldState {
   const factory TextRouteState(final String text, {final bool doLoad}) =
       _$TextRouteState;
 
-  String get text => throw _privateConstructorUsedError;
-  bool get doLoad => throw _privateConstructorUsedError;
+  String get text;
+  bool get doLoad;
   @JsonKey(ignore: true)
-  $TextRouteStateCopyWith<TextRouteState> get copyWith =>
+  _$$TextRouteStateCopyWith<_$TextRouteState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UseCurrentLocationCopyWith<$Res> {
-  factory $UseCurrentLocationCopyWith(
-          UseCurrentLocation value, $Res Function(UseCurrentLocation) then) =
-      _$UseCurrentLocationCopyWithImpl<$Res>;
+abstract class _$$UseCurrentLocationCopyWith<$Res> {
+  factory _$$UseCurrentLocationCopyWith(_$UseCurrentLocation value,
+          $Res Function(_$UseCurrentLocation) then) =
+      __$$UseCurrentLocationCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$UseCurrentLocationCopyWithImpl<$Res>
+class __$$UseCurrentLocationCopyWithImpl<$Res>
     extends _$RouteTextfieldStateCopyWithImpl<$Res>
-    implements $UseCurrentLocationCopyWith<$Res> {
-  _$UseCurrentLocationCopyWithImpl(
-      UseCurrentLocation _value, $Res Function(UseCurrentLocation) _then)
-      : super(_value, (v) => _then(v as UseCurrentLocation));
+    implements _$$UseCurrentLocationCopyWith<$Res> {
+  __$$UseCurrentLocationCopyWithImpl(
+      _$UseCurrentLocation _value, $Res Function(_$UseCurrentLocation) _then)
+      : super(_value, (v) => _then(v as _$UseCurrentLocation));
 
   @override
-  UseCurrentLocation get _value => super._value as UseCurrentLocation;
+  _$UseCurrentLocation get _value => super._value as _$UseCurrentLocation;
 }
 
 /// @nodoc
@@ -375,7 +375,7 @@ class _$UseCurrentLocation implements UseCurrentLocation {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is UseCurrentLocation);
+        (other.runtimeType == runtimeType && other is _$UseCurrentLocation);
   }
 
   @override

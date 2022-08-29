@@ -80,32 +80,33 @@ class _$FavoritesRoutesStatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $FavoritesRoutesStatesDataCopyWith<$Res> {
-  factory $FavoritesRoutesStatesDataCopyWith(FavoritesRoutesStatesData value,
-          $Res Function(FavoritesRoutesStatesData) then) =
-      _$FavoritesRoutesStatesDataCopyWithImpl<$Res>;
+abstract class _$$FavoritesRoutesStatesDataCopyWith<$Res> {
+  factory _$$FavoritesRoutesStatesDataCopyWith(
+          _$FavoritesRoutesStatesData value,
+          $Res Function(_$FavoritesRoutesStatesData) then) =
+      __$$FavoritesRoutesStatesDataCopyWithImpl<$Res>;
   $Res call({List<LocalRoute> routes});
 }
 
 /// @nodoc
-class _$FavoritesRoutesStatesDataCopyWithImpl<$Res>
+class __$$FavoritesRoutesStatesDataCopyWithImpl<$Res>
     extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
-    implements $FavoritesRoutesStatesDataCopyWith<$Res> {
-  _$FavoritesRoutesStatesDataCopyWithImpl(FavoritesRoutesStatesData _value,
-      $Res Function(FavoritesRoutesStatesData) _then)
-      : super(_value, (v) => _then(v as FavoritesRoutesStatesData));
+    implements _$$FavoritesRoutesStatesDataCopyWith<$Res> {
+  __$$FavoritesRoutesStatesDataCopyWithImpl(_$FavoritesRoutesStatesData _value,
+      $Res Function(_$FavoritesRoutesStatesData) _then)
+      : super(_value, (v) => _then(v as _$FavoritesRoutesStatesData));
 
   @override
-  FavoritesRoutesStatesData get _value =>
-      super._value as FavoritesRoutesStatesData;
+  _$FavoritesRoutesStatesData get _value =>
+      super._value as _$FavoritesRoutesStatesData;
 
   @override
   $Res call({
     Object? routes = freezed,
   }) {
-    return _then(FavoritesRoutesStatesData(
+    return _then(_$FavoritesRoutesStatesData(
       routes == freezed
-          ? _value.routes
+          ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<LocalRoute>,
     ));
@@ -134,19 +135,19 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is FavoritesRoutesStatesData &&
-            const DeepCollectionEquality().equals(other.routes, routes));
+            other is _$FavoritesRoutesStatesData &&
+            const DeepCollectionEquality().equals(other._routes, _routes));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(routes));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_routes));
 
   @JsonKey(ignore: true)
   @override
-  $FavoritesRoutesStatesDataCopyWith<FavoritesRoutesStatesData> get copyWith =>
-      _$FavoritesRoutesStatesDataCopyWithImpl<FavoritesRoutesStatesData>(
-          this, _$identity);
+  _$$FavoritesRoutesStatesDataCopyWith<_$FavoritesRoutesStatesData>
+      get copyWith => __$$FavoritesRoutesStatesDataCopyWithImpl<
+          _$FavoritesRoutesStatesData>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -221,32 +222,32 @@ abstract class FavoritesRoutesStatesData implements FavoritesRoutesStates {
   const factory FavoritesRoutesStatesData(final List<LocalRoute> routes) =
       _$FavoritesRoutesStatesData;
 
-  List<LocalRoute> get routes => throw _privateConstructorUsedError;
+  List<LocalRoute> get routes;
   @JsonKey(ignore: true)
-  $FavoritesRoutesStatesDataCopyWith<FavoritesRoutesStatesData> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$FavoritesRoutesStatesDataCopyWith<_$FavoritesRoutesStatesData>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FavoritesRoutesStatesLoadingCopyWith<$Res> {
-  factory $FavoritesRoutesStatesLoadingCopyWith(
-          FavoritesRoutesStatesLoading value,
-          $Res Function(FavoritesRoutesStatesLoading) then) =
-      _$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>;
+abstract class _$$FavoritesRoutesStatesLoadingCopyWith<$Res> {
+  factory _$$FavoritesRoutesStatesLoadingCopyWith(
+          _$FavoritesRoutesStatesLoading value,
+          $Res Function(_$FavoritesRoutesStatesLoading) then) =
+      __$$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>
+class __$$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>
     extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
-    implements $FavoritesRoutesStatesLoadingCopyWith<$Res> {
-  _$FavoritesRoutesStatesLoadingCopyWithImpl(
-      FavoritesRoutesStatesLoading _value,
-      $Res Function(FavoritesRoutesStatesLoading) _then)
-      : super(_value, (v) => _then(v as FavoritesRoutesStatesLoading));
+    implements _$$FavoritesRoutesStatesLoadingCopyWith<$Res> {
+  __$$FavoritesRoutesStatesLoadingCopyWithImpl(
+      _$FavoritesRoutesStatesLoading _value,
+      $Res Function(_$FavoritesRoutesStatesLoading) _then)
+      : super(_value, (v) => _then(v as _$FavoritesRoutesStatesLoading));
 
   @override
-  FavoritesRoutesStatesLoading get _value =>
-      super._value as FavoritesRoutesStatesLoading;
+  _$FavoritesRoutesStatesLoading get _value =>
+      super._value as _$FavoritesRoutesStatesLoading;
 }
 
 /// @nodoc
@@ -263,7 +264,7 @@ class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is FavoritesRoutesStatesLoading);
+            other is _$FavoritesRoutesStatesLoading);
   }
 
   @override
@@ -343,30 +344,32 @@ abstract class FavoritesRoutesStatesLoading implements FavoritesRoutesStates {
 }
 
 /// @nodoc
-abstract class $FavoritesRoutesStatesErrorCopyWith<$Res> {
-  factory $FavoritesRoutesStatesErrorCopyWith(FavoritesRoutesStatesError value,
-          $Res Function(FavoritesRoutesStatesError) then) =
-      _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>;
+abstract class _$$FavoritesRoutesStatesErrorCopyWith<$Res> {
+  factory _$$FavoritesRoutesStatesErrorCopyWith(
+          _$FavoritesRoutesStatesError value,
+          $Res Function(_$FavoritesRoutesStatesError) then) =
+      __$$FavoritesRoutesStatesErrorCopyWithImpl<$Res>;
   $Res call({Exception exception});
 }
 
 /// @nodoc
-class _$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
+class __$$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
     extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
-    implements $FavoritesRoutesStatesErrorCopyWith<$Res> {
-  _$FavoritesRoutesStatesErrorCopyWithImpl(FavoritesRoutesStatesError _value,
-      $Res Function(FavoritesRoutesStatesError) _then)
-      : super(_value, (v) => _then(v as FavoritesRoutesStatesError));
+    implements _$$FavoritesRoutesStatesErrorCopyWith<$Res> {
+  __$$FavoritesRoutesStatesErrorCopyWithImpl(
+      _$FavoritesRoutesStatesError _value,
+      $Res Function(_$FavoritesRoutesStatesError) _then)
+      : super(_value, (v) => _then(v as _$FavoritesRoutesStatesError));
 
   @override
-  FavoritesRoutesStatesError get _value =>
-      super._value as FavoritesRoutesStatesError;
+  _$FavoritesRoutesStatesError get _value =>
+      super._value as _$FavoritesRoutesStatesError;
 
   @override
   $Res call({
     Object? exception = freezed,
   }) {
-    return _then(FavoritesRoutesStatesError(
+    return _then(_$FavoritesRoutesStatesError(
       exception == freezed
           ? _value.exception
           : exception // ignore: cast_nullable_to_non_nullable
@@ -392,7 +395,7 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is FavoritesRoutesStatesError &&
+            other is _$FavoritesRoutesStatesError &&
             const DeepCollectionEquality().equals(other.exception, exception));
   }
 
@@ -402,10 +405,9 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
 
   @JsonKey(ignore: true)
   @override
-  $FavoritesRoutesStatesErrorCopyWith<FavoritesRoutesStatesError>
-      get copyWith =>
-          _$FavoritesRoutesStatesErrorCopyWithImpl<FavoritesRoutesStatesError>(
-              this, _$identity);
+  _$$FavoritesRoutesStatesErrorCopyWith<_$FavoritesRoutesStatesError>
+      get copyWith => __$$FavoritesRoutesStatesErrorCopyWithImpl<
+          _$FavoritesRoutesStatesError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -480,8 +482,8 @@ abstract class FavoritesRoutesStatesError implements FavoritesRoutesStates {
   const factory FavoritesRoutesStatesError(final Exception exception) =
       _$FavoritesRoutesStatesError;
 
-  Exception get exception => throw _privateConstructorUsedError;
+  Exception get exception;
   @JsonKey(ignore: true)
-  $FavoritesRoutesStatesErrorCopyWith<FavoritesRoutesStatesError>
+  _$$FavoritesRoutesStatesErrorCopyWith<_$FavoritesRoutesStatesError>
       get copyWith => throw _privateConstructorUsedError;
 }

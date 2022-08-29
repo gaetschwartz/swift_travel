@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/france/models/context.dart';
 import 'package:swift_travel/apis/navigation/models/mock_stop.dart';

@@ -62,28 +62,28 @@ class _$LatLonCopyWithImpl<$Res> implements $LatLonCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$LatLonCopyWith<$Res> implements $LatLonCopyWith<$Res> {
-  factory _$LatLonCopyWith(_LatLon value, $Res Function(_LatLon) then) =
-      __$LatLonCopyWithImpl<$Res>;
+abstract class _$$_LatLonCopyWith<$Res> implements $LatLonCopyWith<$Res> {
+  factory _$$_LatLonCopyWith(_$_LatLon value, $Res Function(_$_LatLon) then) =
+      __$$_LatLonCopyWithImpl<$Res>;
   @override
   $Res call({double lat, double lon});
 }
 
 /// @nodoc
-class __$LatLonCopyWithImpl<$Res> extends _$LatLonCopyWithImpl<$Res>
-    implements _$LatLonCopyWith<$Res> {
-  __$LatLonCopyWithImpl(_LatLon _value, $Res Function(_LatLon) _then)
-      : super(_value, (v) => _then(v as _LatLon));
+class __$$_LatLonCopyWithImpl<$Res> extends _$LatLonCopyWithImpl<$Res>
+    implements _$$_LatLonCopyWith<$Res> {
+  __$$_LatLonCopyWithImpl(_$_LatLon _value, $Res Function(_$_LatLon) _then)
+      : super(_value, (v) => _then(v as _$_LatLon));
 
   @override
-  _LatLon get _value => super._value as _LatLon;
+  _$_LatLon get _value => super._value as _$_LatLon;
 
   @override
   $Res call({
     Object? lat = freezed,
     Object? lon = freezed,
   }) {
-    return _then(_LatLon(
+    return _then(_$_LatLon(
       lat == freezed
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
@@ -118,7 +118,7 @@ class _$_LatLon extends _LatLon {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LatLon &&
+            other is _$_LatLon &&
             const DeepCollectionEquality().equals(other.lat, lat) &&
             const DeepCollectionEquality().equals(other.lon, lon));
   }
@@ -132,12 +132,14 @@ class _$_LatLon extends _LatLon {
 
   @JsonKey(ignore: true)
   @override
-  _$LatLonCopyWith<_LatLon> get copyWith =>
-      __$LatLonCopyWithImpl<_LatLon>(this, _$identity);
+  _$$_LatLonCopyWith<_$_LatLon> get copyWith =>
+      __$$_LatLonCopyWithImpl<_$_LatLon>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LatLonToJson(this);
+    return _$$_LatLonToJson(
+      this,
+    );
   }
 }
 
@@ -148,12 +150,13 @@ abstract class _LatLon extends LatLon {
   factory _LatLon.fromJson(Map<String, dynamic> json) = _$_LatLon.fromJson;
 
   @override
-  double get lat => throw _privateConstructorUsedError;
+  double get lat;
   @override
-  double get lon => throw _privateConstructorUsedError;
+  double get lon;
   @override
   @JsonKey(ignore: true)
-  _$LatLonCopyWith<_LatLon> get copyWith => throw _privateConstructorUsedError;
+  _$$_LatLonCopyWith<_$_LatLon> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -202,32 +205,32 @@ class _$LV03CoordinatesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$LV03CoordinatesCopyWith<$Res>
+abstract class _$$_LV03CoordinatesCopyWith<$Res>
     implements $LV03CoordinatesCopyWith<$Res> {
-  factory _$LV03CoordinatesCopyWith(
-          _LV03Coordinates value, $Res Function(_LV03Coordinates) then) =
-      __$LV03CoordinatesCopyWithImpl<$Res>;
+  factory _$$_LV03CoordinatesCopyWith(
+          _$_LV03Coordinates value, $Res Function(_$_LV03Coordinates) then) =
+      __$$_LV03CoordinatesCopyWithImpl<$Res>;
   @override
   $Res call({int x, int y});
 }
 
 /// @nodoc
-class __$LV03CoordinatesCopyWithImpl<$Res>
+class __$$_LV03CoordinatesCopyWithImpl<$Res>
     extends _$LV03CoordinatesCopyWithImpl<$Res>
-    implements _$LV03CoordinatesCopyWith<$Res> {
-  __$LV03CoordinatesCopyWithImpl(
-      _LV03Coordinates _value, $Res Function(_LV03Coordinates) _then)
-      : super(_value, (v) => _then(v as _LV03Coordinates));
+    implements _$$_LV03CoordinatesCopyWith<$Res> {
+  __$$_LV03CoordinatesCopyWithImpl(
+      _$_LV03Coordinates _value, $Res Function(_$_LV03Coordinates) _then)
+      : super(_value, (v) => _then(v as _$_LV03Coordinates));
 
   @override
-  _LV03Coordinates get _value => super._value as _LV03Coordinates;
+  _$_LV03Coordinates get _value => super._value as _$_LV03Coordinates;
 
   @override
   $Res call({
     Object? x = freezed,
     Object? y = freezed,
   }) {
-    return _then(_LV03Coordinates(
+    return _then(_$_LV03Coordinates(
       x == freezed
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
@@ -259,7 +262,7 @@ class _$_LV03Coordinates extends _LV03Coordinates {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LV03Coordinates &&
+            other is _$_LV03Coordinates &&
             const DeepCollectionEquality().equals(other.x, x) &&
             const DeepCollectionEquality().equals(other.y, y));
   }
@@ -272,8 +275,8 @@ class _$_LV03Coordinates extends _LV03Coordinates {
 
   @JsonKey(ignore: true)
   @override
-  _$LV03CoordinatesCopyWith<_LV03Coordinates> get copyWith =>
-      __$LV03CoordinatesCopyWithImpl<_LV03Coordinates>(this, _$identity);
+  _$$_LV03CoordinatesCopyWith<_$_LV03Coordinates> get copyWith =>
+      __$$_LV03CoordinatesCopyWithImpl<_$_LV03Coordinates>(this, _$identity);
 }
 
 abstract class _LV03Coordinates extends LV03Coordinates {
@@ -281,11 +284,11 @@ abstract class _LV03Coordinates extends LV03Coordinates {
   const _LV03Coordinates._() : super._();
 
   @override
-  int get x => throw _privateConstructorUsedError;
+  int get x;
   @override
-  int get y => throw _privateConstructorUsedError;
+  int get y;
   @override
   @JsonKey(ignore: true)
-  _$LV03CoordinatesCopyWith<_LV03Coordinates> get copyWith =>
+  _$$_LV03CoordinatesCopyWith<_$_LV03Coordinates> get copyWith =>
       throw _privateConstructorUsedError;
 }

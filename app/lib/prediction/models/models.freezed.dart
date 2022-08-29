@@ -96,11 +96,11 @@ class _$RoutePredictionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$RoutePredictionCopyWith<$Res>
+abstract class _$$_RoutePredictionCopyWith<$Res>
     implements $RoutePredictionCopyWith<$Res> {
-  factory _$RoutePredictionCopyWith(
-          _RoutePrediction value, $Res Function(_RoutePrediction) then) =
-      __$RoutePredictionCopyWithImpl<$Res>;
+  factory _$$_RoutePredictionCopyWith(
+          _$_RoutePrediction value, $Res Function(_$_RoutePrediction) then) =
+      __$$_RoutePredictionCopyWithImpl<$Res>;
   @override
   $Res call(
       {@LocalRouteConverter() LocalRoute? prediction,
@@ -114,15 +114,15 @@ abstract class _$RoutePredictionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$RoutePredictionCopyWithImpl<$Res>
+class __$$_RoutePredictionCopyWithImpl<$Res>
     extends _$RoutePredictionCopyWithImpl<$Res>
-    implements _$RoutePredictionCopyWith<$Res> {
-  __$RoutePredictionCopyWithImpl(
-      _RoutePrediction _value, $Res Function(_RoutePrediction) _then)
-      : super(_value, (v) => _then(v as _RoutePrediction));
+    implements _$$_RoutePredictionCopyWith<$Res> {
+  __$$_RoutePredictionCopyWithImpl(
+      _$_RoutePrediction _value, $Res Function(_$_RoutePrediction) _then)
+      : super(_value, (v) => _then(v as _$_RoutePrediction));
 
   @override
-  _RoutePrediction get _value => super._value as _RoutePrediction;
+  _$_RoutePrediction get _value => super._value as _$_RoutePrediction;
 
   @override
   $Res call({
@@ -130,7 +130,7 @@ class __$RoutePredictionCopyWithImpl<$Res>
     Object? confidence = freezed,
     Object? arguments = freezed,
   }) {
-    return _then(_RoutePrediction(
+    return _then(_$_RoutePrediction(
       prediction == freezed
           ? _value.prediction
           : prediction // ignore: cast_nullable_to_non_nullable
@@ -174,7 +174,7 @@ class _$_RoutePrediction implements _RoutePrediction {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _RoutePrediction &&
+            other is _$_RoutePrediction &&
             const DeepCollectionEquality()
                 .equals(other.prediction, prediction) &&
             const DeepCollectionEquality()
@@ -192,12 +192,14 @@ class _$_RoutePrediction implements _RoutePrediction {
 
   @JsonKey(ignore: true)
   @override
-  _$RoutePredictionCopyWith<_RoutePrediction> get copyWith =>
-      __$RoutePredictionCopyWithImpl<_RoutePrediction>(this, _$identity);
+  _$$_RoutePredictionCopyWith<_$_RoutePrediction> get copyWith =>
+      __$$_RoutePredictionCopyWithImpl<_$_RoutePrediction>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RoutePredictionToJson(this);
+    return _$$_RoutePredictionToJson(
+      this,
+    );
   }
 }
 
@@ -212,14 +214,14 @@ abstract class _RoutePrediction implements RoutePrediction {
 
   @override
   @LocalRouteConverter()
-  LocalRoute? get prediction => throw _privateConstructorUsedError;
+  LocalRoute? get prediction;
   @override
-  double get confidence => throw _privateConstructorUsedError;
+  double get confidence;
   @override
-  PredictionArguments get arguments => throw _privateConstructorUsedError;
+  PredictionArguments get arguments;
   @override
   @JsonKey(ignore: true)
-  _$RoutePredictionCopyWith<_RoutePrediction> get copyWith =>
+  _$$_RoutePredictionCopyWith<_$_RoutePrediction> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -283,11 +285,11 @@ class _$FullArgumentsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$FullArgumentsCopyWith<$Res>
+abstract class _$$_FullArgumentsCopyWith<$Res>
     implements $FullArgumentsCopyWith<$Res> {
-  factory _$FullArgumentsCopyWith(
-          _FullArguments value, $Res Function(_FullArguments) then) =
-      __$FullArgumentsCopyWithImpl<$Res>;
+  factory _$$_FullArgumentsCopyWith(
+          _$_FullArguments value, $Res Function(_$_FullArguments) then) =
+      __$$_FullArgumentsCopyWithImpl<$Res>;
   @override
   $Res call({List<LocalRoute> routes, PredictionArguments arguments});
 
@@ -296,24 +298,24 @@ abstract class _$FullArgumentsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$FullArgumentsCopyWithImpl<$Res>
+class __$$_FullArgumentsCopyWithImpl<$Res>
     extends _$FullArgumentsCopyWithImpl<$Res>
-    implements _$FullArgumentsCopyWith<$Res> {
-  __$FullArgumentsCopyWithImpl(
-      _FullArguments _value, $Res Function(_FullArguments) _then)
-      : super(_value, (v) => _then(v as _FullArguments));
+    implements _$$_FullArgumentsCopyWith<$Res> {
+  __$$_FullArgumentsCopyWithImpl(
+      _$_FullArguments _value, $Res Function(_$_FullArguments) _then)
+      : super(_value, (v) => _then(v as _$_FullArguments));
 
   @override
-  _FullArguments get _value => super._value as _FullArguments;
+  _$_FullArguments get _value => super._value as _$_FullArguments;
 
   @override
   $Res call({
     Object? routes = freezed,
     Object? arguments = freezed,
   }) {
-    return _then(_FullArguments(
+    return _then(_$_FullArguments(
       routes == freezed
-          ? _value.routes
+          ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<LocalRoute>,
       arguments == freezed
@@ -353,8 +355,8 @@ class _$_FullArguments implements _FullArguments {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FullArguments &&
-            const DeepCollectionEquality().equals(other.routes, routes) &&
+            other is _$_FullArguments &&
+            const DeepCollectionEquality().equals(other._routes, _routes) &&
             const DeepCollectionEquality().equals(other.arguments, arguments));
   }
 
@@ -362,17 +364,19 @@ class _$_FullArguments implements _FullArguments {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(routes),
+      const DeepCollectionEquality().hash(_routes),
       const DeepCollectionEquality().hash(arguments));
 
   @JsonKey(ignore: true)
   @override
-  _$FullArgumentsCopyWith<_FullArguments> get copyWith =>
-      __$FullArgumentsCopyWithImpl<_FullArguments>(this, _$identity);
+  _$$_FullArgumentsCopyWith<_$_FullArguments> get copyWith =>
+      __$$_FullArgumentsCopyWithImpl<_$_FullArguments>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FullArgumentsToJson(this);
+    return _$$_FullArgumentsToJson(
+      this,
+    );
   }
 }
 
@@ -385,12 +389,12 @@ abstract class _FullArguments implements FullArguments {
       _$_FullArguments.fromJson;
 
   @override
-  List<LocalRoute> get routes => throw _privateConstructorUsedError;
+  List<LocalRoute> get routes;
   @override
-  PredictionArguments get arguments => throw _privateConstructorUsedError;
+  PredictionArguments get arguments;
   @override
   @JsonKey(ignore: true)
-  _$FullArgumentsCopyWith<_FullArguments> get copyWith =>
+  _$$_FullArgumentsCopyWith<_$_FullArguments> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -493,31 +497,31 @@ class _$PredictionArgumentsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $EmptyArgumentCopyWith<$Res>
+abstract class _$$EmptyArgumentCopyWith<$Res>
     implements $PredictionArgumentsCopyWith<$Res> {
-  factory $EmptyArgumentCopyWith(
-          EmptyArgument value, $Res Function(EmptyArgument) then) =
-      _$EmptyArgumentCopyWithImpl<$Res>;
+  factory _$$EmptyArgumentCopyWith(
+          _$EmptyArgument value, $Res Function(_$EmptyArgument) then) =
+      __$$EmptyArgumentCopyWithImpl<$Res>;
   @override
   $Res call({DateTime? dateTime});
 }
 
 /// @nodoc
-class _$EmptyArgumentCopyWithImpl<$Res>
+class __$$EmptyArgumentCopyWithImpl<$Res>
     extends _$PredictionArgumentsCopyWithImpl<$Res>
-    implements $EmptyArgumentCopyWith<$Res> {
-  _$EmptyArgumentCopyWithImpl(
-      EmptyArgument _value, $Res Function(EmptyArgument) _then)
-      : super(_value, (v) => _then(v as EmptyArgument));
+    implements _$$EmptyArgumentCopyWith<$Res> {
+  __$$EmptyArgumentCopyWithImpl(
+      _$EmptyArgument _value, $Res Function(_$EmptyArgument) _then)
+      : super(_value, (v) => _then(v as _$EmptyArgument));
 
   @override
-  EmptyArgument get _value => super._value as EmptyArgument;
+  _$EmptyArgument get _value => super._value as _$EmptyArgument;
 
   @override
   $Res call({
     Object? dateTime = freezed,
   }) {
-    return _then(EmptyArgument(
+    return _then(_$EmptyArgument(
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -552,7 +556,7 @@ class _$EmptyArgument extends EmptyArgument {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is EmptyArgument &&
+            other is _$EmptyArgument &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
 
@@ -563,8 +567,8 @@ class _$EmptyArgument extends EmptyArgument {
 
   @JsonKey(ignore: true)
   @override
-  $EmptyArgumentCopyWith<EmptyArgument> get copyWith =>
-      _$EmptyArgumentCopyWithImpl<EmptyArgument>(this, _$identity);
+  _$$EmptyArgumentCopyWith<_$EmptyArgument> get copyWith =>
+      __$$EmptyArgumentCopyWithImpl<_$EmptyArgument>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -636,7 +640,9 @@ class _$EmptyArgument extends EmptyArgument {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EmptyArgumentToJson(this);
+    return _$$EmptyArgumentToJson(
+      this,
+    );
   }
 }
 
@@ -649,40 +655,40 @@ abstract class EmptyArgument extends PredictionArguments {
       _$EmptyArgument.fromJson;
 
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
-  $EmptyArgumentCopyWith<EmptyArgument> get copyWith =>
+  _$$EmptyArgumentCopyWith<_$EmptyArgument> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SourceDateArgumentsCopyWith<$Res>
+abstract class _$$SourceDateArgumentsCopyWith<$Res>
     implements $PredictionArgumentsCopyWith<$Res> {
-  factory $SourceDateArgumentsCopyWith(
-          SourceDateArguments value, $Res Function(SourceDateArguments) then) =
-      _$SourceDateArgumentsCopyWithImpl<$Res>;
+  factory _$$SourceDateArgumentsCopyWith(_$SourceDateArguments value,
+          $Res Function(_$SourceDateArguments) then) =
+      __$$SourceDateArgumentsCopyWithImpl<$Res>;
   @override
   $Res call({String source, DateTime? dateTime});
 }
 
 /// @nodoc
-class _$SourceDateArgumentsCopyWithImpl<$Res>
+class __$$SourceDateArgumentsCopyWithImpl<$Res>
     extends _$PredictionArgumentsCopyWithImpl<$Res>
-    implements $SourceDateArgumentsCopyWith<$Res> {
-  _$SourceDateArgumentsCopyWithImpl(
-      SourceDateArguments _value, $Res Function(SourceDateArguments) _then)
-      : super(_value, (v) => _then(v as SourceDateArguments));
+    implements _$$SourceDateArgumentsCopyWith<$Res> {
+  __$$SourceDateArgumentsCopyWithImpl(
+      _$SourceDateArguments _value, $Res Function(_$SourceDateArguments) _then)
+      : super(_value, (v) => _then(v as _$SourceDateArguments));
 
   @override
-  SourceDateArguments get _value => super._value as SourceDateArguments;
+  _$SourceDateArguments get _value => super._value as _$SourceDateArguments;
 
   @override
   $Res call({
     Object? source = freezed,
     Object? dateTime = freezed,
   }) {
-    return _then(SourceDateArguments(
+    return _then(_$SourceDateArguments(
       source == freezed
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -724,7 +730,7 @@ class _$SourceDateArguments extends SourceDateArguments {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is SourceDateArguments &&
+            other is _$SourceDateArguments &&
             const DeepCollectionEquality().equals(other.source, source) &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
@@ -738,8 +744,9 @@ class _$SourceDateArguments extends SourceDateArguments {
 
   @JsonKey(ignore: true)
   @override
-  $SourceDateArgumentsCopyWith<SourceDateArguments> get copyWith =>
-      _$SourceDateArgumentsCopyWithImpl<SourceDateArguments>(this, _$identity);
+  _$$SourceDateArgumentsCopyWith<_$SourceDateArguments> get copyWith =>
+      __$$SourceDateArgumentsCopyWithImpl<_$SourceDateArguments>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -811,7 +818,9 @@ class _$SourceDateArguments extends SourceDateArguments {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SourceDateArgumentsToJson(this);
+    return _$$SourceDateArgumentsToJson(
+      this,
+    );
   }
 }
 
@@ -823,21 +832,21 @@ abstract class SourceDateArguments extends PredictionArguments {
   factory SourceDateArguments.fromJson(Map<String, dynamic> json) =
       _$SourceDateArguments.fromJson;
 
-  String get source => throw _privateConstructorUsedError;
+  String get source;
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
-  $SourceDateArgumentsCopyWith<SourceDateArguments> get copyWith =>
+  _$$SourceDateArgumentsCopyWith<_$SourceDateArguments> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocationArgumentCopyWith<$Res>
+abstract class _$$LocationArgumentCopyWith<$Res>
     implements $PredictionArgumentsCopyWith<$Res> {
-  factory $LocationArgumentCopyWith(
-          LocationArgument value, $Res Function(LocationArgument) then) =
-      _$LocationArgumentCopyWithImpl<$Res>;
+  factory _$$LocationArgumentCopyWith(
+          _$LocationArgument value, $Res Function(_$LocationArgument) then) =
+      __$$LocationArgumentCopyWithImpl<$Res>;
   @override
   $Res call({LatLon latLon, DateTime? dateTime});
 
@@ -845,22 +854,22 @@ abstract class $LocationArgumentCopyWith<$Res>
 }
 
 /// @nodoc
-class _$LocationArgumentCopyWithImpl<$Res>
+class __$$LocationArgumentCopyWithImpl<$Res>
     extends _$PredictionArgumentsCopyWithImpl<$Res>
-    implements $LocationArgumentCopyWith<$Res> {
-  _$LocationArgumentCopyWithImpl(
-      LocationArgument _value, $Res Function(LocationArgument) _then)
-      : super(_value, (v) => _then(v as LocationArgument));
+    implements _$$LocationArgumentCopyWith<$Res> {
+  __$$LocationArgumentCopyWithImpl(
+      _$LocationArgument _value, $Res Function(_$LocationArgument) _then)
+      : super(_value, (v) => _then(v as _$LocationArgument));
 
   @override
-  LocationArgument get _value => super._value as LocationArgument;
+  _$LocationArgument get _value => super._value as _$LocationArgument;
 
   @override
   $Res call({
     Object? latLon = freezed,
     Object? dateTime = freezed,
   }) {
-    return _then(LocationArgument(
+    return _then(_$LocationArgument(
       latLon == freezed
           ? _value.latLon
           : latLon // ignore: cast_nullable_to_non_nullable
@@ -909,7 +918,7 @@ class _$LocationArgument extends LocationArgument {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LocationArgument &&
+            other is _$LocationArgument &&
             const DeepCollectionEquality().equals(other.latLon, latLon) &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
@@ -923,8 +932,8 @@ class _$LocationArgument extends LocationArgument {
 
   @JsonKey(ignore: true)
   @override
-  $LocationArgumentCopyWith<LocationArgument> get copyWith =>
-      _$LocationArgumentCopyWithImpl<LocationArgument>(this, _$identity);
+  _$$LocationArgumentCopyWith<_$LocationArgument> get copyWith =>
+      __$$LocationArgumentCopyWithImpl<_$LocationArgument>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -996,7 +1005,9 @@ class _$LocationArgument extends LocationArgument {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocationArgumentToJson(this);
+    return _$$LocationArgumentToJson(
+      this,
+    );
   }
 }
 
@@ -1008,12 +1019,12 @@ abstract class LocationArgument extends PredictionArguments {
   factory LocationArgument.fromJson(Map<String, dynamic> json) =
       _$LocationArgument.fromJson;
 
-  LatLon get latLon => throw _privateConstructorUsedError;
+  LatLon get latLon;
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
-  $LocationArgumentCopyWith<LocationArgument> get copyWith =>
+  _$$LocationArgumentCopyWith<_$LocationArgument> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1061,28 +1072,31 @@ class _$PairCopyWithImpl<R, S, $Res> implements $PairCopyWith<R, S, $Res> {
 }
 
 /// @nodoc
-abstract class _$PairCopyWith<R, S, $Res> implements $PairCopyWith<R, S, $Res> {
-  factory _$PairCopyWith(_Pair<R, S> value, $Res Function(_Pair<R, S>) then) =
-      __$PairCopyWithImpl<R, S, $Res>;
+abstract class _$$_PairCopyWith<R, S, $Res>
+    implements $PairCopyWith<R, S, $Res> {
+  factory _$$_PairCopyWith(
+          _$_Pair<R, S> value, $Res Function(_$_Pair<R, S>) then) =
+      __$$_PairCopyWithImpl<R, S, $Res>;
   @override
   $Res call({R first, S second});
 }
 
 /// @nodoc
-class __$PairCopyWithImpl<R, S, $Res> extends _$PairCopyWithImpl<R, S, $Res>
-    implements _$PairCopyWith<R, S, $Res> {
-  __$PairCopyWithImpl(_Pair<R, S> _value, $Res Function(_Pair<R, S>) _then)
-      : super(_value, (v) => _then(v as _Pair<R, S>));
+class __$$_PairCopyWithImpl<R, S, $Res> extends _$PairCopyWithImpl<R, S, $Res>
+    implements _$$_PairCopyWith<R, S, $Res> {
+  __$$_PairCopyWithImpl(
+      _$_Pair<R, S> _value, $Res Function(_$_Pair<R, S>) _then)
+      : super(_value, (v) => _then(v as _$_Pair<R, S>));
 
   @override
-  _Pair<R, S> get _value => super._value as _Pair<R, S>;
+  _$_Pair<R, S> get _value => super._value as _$_Pair<R, S>;
 
   @override
   $Res call({
     Object? first = freezed,
     Object? second = freezed,
   }) {
-    return _then(_Pair<R, S>(
+    return _then(_$_Pair<R, S>(
       first == freezed
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
@@ -1114,7 +1128,7 @@ class _$_Pair<R, S> extends _Pair<R, S> {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Pair<R, S> &&
+            other is _$_Pair<R, S> &&
             const DeepCollectionEquality().equals(other.first, first) &&
             const DeepCollectionEquality().equals(other.second, second));
   }
@@ -1127,8 +1141,8 @@ class _$_Pair<R, S> extends _Pair<R, S> {
 
   @JsonKey(ignore: true)
   @override
-  _$PairCopyWith<R, S, _Pair<R, S>> get copyWith =>
-      __$PairCopyWithImpl<R, S, _Pair<R, S>>(this, _$identity);
+  _$$_PairCopyWith<R, S, _$_Pair<R, S>> get copyWith =>
+      __$$_PairCopyWithImpl<R, S, _$_Pair<R, S>>(this, _$identity);
 }
 
 abstract class _Pair<R, S> extends Pair<R, S> {
@@ -1136,12 +1150,12 @@ abstract class _Pair<R, S> extends Pair<R, S> {
   const _Pair._() : super._();
 
   @override
-  R get first => throw _privateConstructorUsedError;
+  R get first;
   @override
-  S get second => throw _privateConstructorUsedError;
+  S get second;
   @override
   @JsonKey(ignore: true)
-  _$PairCopyWith<R, S, _Pair<R, S>> get copyWith =>
+  _$$_PairCopyWith<R, S, _$_Pair<R, S>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1197,25 +1211,25 @@ class _$TripleCopyWithImpl<R, S, T, $Res>
 }
 
 /// @nodoc
-abstract class _$TripleCopyWith<R, S, T, $Res>
+abstract class _$$_TripleCopyWith<R, S, T, $Res>
     implements $TripleCopyWith<R, S, T, $Res> {
-  factory _$TripleCopyWith(
-          _Triple<R, S, T> value, $Res Function(_Triple<R, S, T>) then) =
-      __$TripleCopyWithImpl<R, S, T, $Res>;
+  factory _$$_TripleCopyWith(
+          _$_Triple<R, S, T> value, $Res Function(_$_Triple<R, S, T>) then) =
+      __$$_TripleCopyWithImpl<R, S, T, $Res>;
   @override
   $Res call({R first, S second, T third});
 }
 
 /// @nodoc
-class __$TripleCopyWithImpl<R, S, T, $Res>
+class __$$_TripleCopyWithImpl<R, S, T, $Res>
     extends _$TripleCopyWithImpl<R, S, T, $Res>
-    implements _$TripleCopyWith<R, S, T, $Res> {
-  __$TripleCopyWithImpl(
-      _Triple<R, S, T> _value, $Res Function(_Triple<R, S, T>) _then)
-      : super(_value, (v) => _then(v as _Triple<R, S, T>));
+    implements _$$_TripleCopyWith<R, S, T, $Res> {
+  __$$_TripleCopyWithImpl(
+      _$_Triple<R, S, T> _value, $Res Function(_$_Triple<R, S, T>) _then)
+      : super(_value, (v) => _then(v as _$_Triple<R, S, T>));
 
   @override
-  _Triple<R, S, T> get _value => super._value as _Triple<R, S, T>;
+  _$_Triple<R, S, T> get _value => super._value as _$_Triple<R, S, T>;
 
   @override
   $Res call({
@@ -1223,7 +1237,7 @@ class __$TripleCopyWithImpl<R, S, T, $Res>
     Object? second = freezed,
     Object? third = freezed,
   }) {
-    return _then(_Triple<R, S, T>(
+    return _then(_$_Triple<R, S, T>(
       first == freezed
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
@@ -1261,7 +1275,7 @@ class _$_Triple<R, S, T> implements _Triple<R, S, T> {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Triple<R, S, T> &&
+            other is _$_Triple<R, S, T> &&
             const DeepCollectionEquality().equals(other.first, first) &&
             const DeepCollectionEquality().equals(other.second, second) &&
             const DeepCollectionEquality().equals(other.third, third));
@@ -1276,8 +1290,8 @@ class _$_Triple<R, S, T> implements _Triple<R, S, T> {
 
   @JsonKey(ignore: true)
   @override
-  _$TripleCopyWith<R, S, T, _Triple<R, S, T>> get copyWith =>
-      __$TripleCopyWithImpl<R, S, T, _Triple<R, S, T>>(this, _$identity);
+  _$$_TripleCopyWith<R, S, T, _$_Triple<R, S, T>> get copyWith =>
+      __$$_TripleCopyWithImpl<R, S, T, _$_Triple<R, S, T>>(this, _$identity);
 }
 
 abstract class _Triple<R, S, T> implements Triple<R, S, T> {
@@ -1285,14 +1299,14 @@ abstract class _Triple<R, S, T> implements Triple<R, S, T> {
       _$_Triple<R, S, T>;
 
   @override
-  R get first => throw _privateConstructorUsedError;
+  R get first;
   @override
-  S get second => throw _privateConstructorUsedError;
+  S get second;
   @override
-  T get third => throw _privateConstructorUsedError;
+  T get third;
   @override
   @JsonKey(ignore: true)
-  _$TripleCopyWith<R, S, T, _Triple<R, S, T>> get copyWith =>
+  _$$_TripleCopyWith<R, S, T, _$_Triple<R, S, T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1336,31 +1350,31 @@ class _$ContactCompletionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$ContactCompletionCopyWith<$Res>
+abstract class _$$_ContactCompletionCopyWith<$Res>
     implements $ContactCompletionCopyWith<$Res> {
-  factory _$ContactCompletionCopyWith(
-          _ContactCompletion value, $Res Function(_ContactCompletion) then) =
-      __$ContactCompletionCopyWithImpl<$Res>;
+  factory _$$_ContactCompletionCopyWith(_$_ContactCompletion value,
+          $Res Function(_$_ContactCompletion) then) =
+      __$$_ContactCompletionCopyWithImpl<$Res>;
   @override
   $Res call({Contact contact});
 }
 
 /// @nodoc
-class __$ContactCompletionCopyWithImpl<$Res>
+class __$$_ContactCompletionCopyWithImpl<$Res>
     extends _$ContactCompletionCopyWithImpl<$Res>
-    implements _$ContactCompletionCopyWith<$Res> {
-  __$ContactCompletionCopyWithImpl(
-      _ContactCompletion _value, $Res Function(_ContactCompletion) _then)
-      : super(_value, (v) => _then(v as _ContactCompletion));
+    implements _$$_ContactCompletionCopyWith<$Res> {
+  __$$_ContactCompletionCopyWithImpl(
+      _$_ContactCompletion _value, $Res Function(_$_ContactCompletion) _then)
+      : super(_value, (v) => _then(v as _$_ContactCompletion));
 
   @override
-  _ContactCompletion get _value => super._value as _ContactCompletion;
+  _$_ContactCompletion get _value => super._value as _$_ContactCompletion;
 
   @override
   $Res call({
     Object? contact = freezed,
   }) {
-    return _then(_ContactCompletion(
+    return _then(_$_ContactCompletion(
       contact == freezed
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
@@ -1386,7 +1400,7 @@ class _$_ContactCompletion extends _ContactCompletion {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ContactCompletion &&
+            other is _$_ContactCompletion &&
             const DeepCollectionEquality().equals(other.contact, contact));
   }
 
@@ -1396,8 +1410,9 @@ class _$_ContactCompletion extends _ContactCompletion {
 
   @JsonKey(ignore: true)
   @override
-  _$ContactCompletionCopyWith<_ContactCompletion> get copyWith =>
-      __$ContactCompletionCopyWithImpl<_ContactCompletion>(this, _$identity);
+  _$$_ContactCompletionCopyWith<_$_ContactCompletion> get copyWith =>
+      __$$_ContactCompletionCopyWithImpl<_$_ContactCompletion>(
+          this, _$identity);
 }
 
 abstract class _ContactCompletion extends ContactCompletion {
@@ -1406,10 +1421,10 @@ abstract class _ContactCompletion extends ContactCompletion {
   const _ContactCompletion._() : super._();
 
   @override
-  Contact get contact => throw _privateConstructorUsedError;
+  Contact get contact;
   @override
   @JsonKey(ignore: true)
-  _$ContactCompletionCopyWith<_ContactCompletion> get copyWith =>
+  _$$_ContactCompletionCopyWith<_$_ContactCompletion> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1434,23 +1449,25 @@ class _$CurrentLocationCompletionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$CurrentLocationCompletionCopyWith<$Res> {
-  factory _$CurrentLocationCompletionCopyWith(_CurrentLocationCompletion value,
-          $Res Function(_CurrentLocationCompletion) then) =
-      __$CurrentLocationCompletionCopyWithImpl<$Res>;
+abstract class _$$_CurrentLocationCompletionCopyWith<$Res> {
+  factory _$$_CurrentLocationCompletionCopyWith(
+          _$_CurrentLocationCompletion value,
+          $Res Function(_$_CurrentLocationCompletion) then) =
+      __$$_CurrentLocationCompletionCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$CurrentLocationCompletionCopyWithImpl<$Res>
+class __$$_CurrentLocationCompletionCopyWithImpl<$Res>
     extends _$CurrentLocationCompletionCopyWithImpl<$Res>
-    implements _$CurrentLocationCompletionCopyWith<$Res> {
-  __$CurrentLocationCompletionCopyWithImpl(_CurrentLocationCompletion _value,
-      $Res Function(_CurrentLocationCompletion) _then)
-      : super(_value, (v) => _then(v as _CurrentLocationCompletion));
+    implements _$$_CurrentLocationCompletionCopyWith<$Res> {
+  __$$_CurrentLocationCompletionCopyWithImpl(
+      _$_CurrentLocationCompletion _value,
+      $Res Function(_$_CurrentLocationCompletion) _then)
+      : super(_value, (v) => _then(v as _$_CurrentLocationCompletion));
 
   @override
-  _CurrentLocationCompletion get _value =>
-      super._value as _CurrentLocationCompletion;
+  _$_CurrentLocationCompletion get _value =>
+      super._value as _$_CurrentLocationCompletion;
 }
 
 /// @nodoc
@@ -1467,7 +1484,7 @@ class _$_CurrentLocationCompletion extends _CurrentLocationCompletion {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CurrentLocationCompletion);
+            other is _$_CurrentLocationCompletion);
   }
 
   @override

@@ -94,26 +94,26 @@ class _$UnionCopyWithImpl<$Res> implements $UnionCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $PersonCopyWith<$Res> {
-  factory $PersonCopyWith(Person value, $Res Function(Person) then) =
-      _$PersonCopyWithImpl<$Res>;
+abstract class _$$PersonCopyWith<$Res> {
+  factory _$$PersonCopyWith(_$Person value, $Res Function(_$Person) then) =
+      __$$PersonCopyWithImpl<$Res>;
   $Res call({String name});
 }
 
 /// @nodoc
-class _$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
-    implements $PersonCopyWith<$Res> {
-  _$PersonCopyWithImpl(Person _value, $Res Function(Person) _then)
-      : super(_value, (v) => _then(v as Person));
+class __$$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
+    implements _$$PersonCopyWith<$Res> {
+  __$$PersonCopyWithImpl(_$Person _value, $Res Function(_$Person) _then)
+      : super(_value, (v) => _then(v as _$Person));
 
   @override
-  Person get _value => super._value as Person;
+  _$Person get _value => super._value as _$Person;
 
   @override
   $Res call({
     Object? name = freezed,
   }) {
-    return _then(Person(
+    return _then(_$Person(
       name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -145,7 +145,7 @@ class _$Person implements Person {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is Person &&
+            other is _$Person &&
             const DeepCollectionEquality().equals(other.name, name));
   }
 
@@ -156,8 +156,8 @@ class _$Person implements Person {
 
   @JsonKey(ignore: true)
   @override
-  $PersonCopyWith<Person> get copyWith =>
-      _$PersonCopyWithImpl<Person>(this, _$identity);
+  _$$PersonCopyWith<_$Person> get copyWith =>
+      __$$PersonCopyWithImpl<_$Person>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -229,7 +229,9 @@ class _$Person implements Person {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PersonToJson(this);
+    return _$$PersonToJson(
+      this,
+    );
   }
 }
 
@@ -238,33 +240,34 @@ abstract class Person implements Union {
 
   factory Person.fromJson(Map<String, dynamic> json) = _$Person.fromJson;
 
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @JsonKey(ignore: true)
-  $PersonCopyWith<Person> get copyWith => throw _privateConstructorUsedError;
+  _$$PersonCopyWith<_$Person> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AnimalCopyWith<$Res> {
-  factory $AnimalCopyWith(Animal value, $Res Function(Animal) then) =
-      _$AnimalCopyWithImpl<$Res>;
+abstract class _$$AnimalCopyWith<$Res> {
+  factory _$$AnimalCopyWith(_$Animal value, $Res Function(_$Animal) then) =
+      __$$AnimalCopyWithImpl<$Res>;
   $Res call({String name, int legs});
 }
 
 /// @nodoc
-class _$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
-    implements $AnimalCopyWith<$Res> {
-  _$AnimalCopyWithImpl(Animal _value, $Res Function(Animal) _then)
-      : super(_value, (v) => _then(v as Animal));
+class __$$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
+    implements _$$AnimalCopyWith<$Res> {
+  __$$AnimalCopyWithImpl(_$Animal _value, $Res Function(_$Animal) _then)
+      : super(_value, (v) => _then(v as _$Animal));
 
   @override
-  Animal get _value => super._value as Animal;
+  _$Animal get _value => super._value as _$Animal;
 
   @override
   $Res call({
     Object? name = freezed,
     Object? legs = freezed,
   }) {
-    return _then(Animal(
+    return _then(_$Animal(
       name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -303,7 +306,7 @@ class _$Animal implements Animal {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is Animal &&
+            other is _$Animal &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.legs, legs));
   }
@@ -317,8 +320,8 @@ class _$Animal implements Animal {
 
   @JsonKey(ignore: true)
   @override
-  $AnimalCopyWith<Animal> get copyWith =>
-      _$AnimalCopyWithImpl<Animal>(this, _$identity);
+  _$$AnimalCopyWith<_$Animal> get copyWith =>
+      __$$AnimalCopyWithImpl<_$Animal>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -390,7 +393,9 @@ class _$Animal implements Animal {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AnimalToJson(this);
+    return _$$AnimalToJson(
+      this,
+    );
   }
 }
 
@@ -399,33 +404,34 @@ abstract class Animal implements Union {
 
   factory Animal.fromJson(Map<String, dynamic> json) = _$Animal.fromJson;
 
-  String get name => throw _privateConstructorUsedError;
-  int get legs => throw _privateConstructorUsedError;
+  String get name;
+  int get legs;
   @JsonKey(ignore: true)
-  $AnimalCopyWith<Animal> get copyWith => throw _privateConstructorUsedError;
+  _$$AnimalCopyWith<_$Animal> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $NumberCopyWith<$Res> {
-  factory $NumberCopyWith(Number value, $Res Function(Number) then) =
-      _$NumberCopyWithImpl<$Res>;
+abstract class _$$NumberCopyWith<$Res> {
+  factory _$$NumberCopyWith(_$Number value, $Res Function(_$Number) then) =
+      __$$NumberCopyWithImpl<$Res>;
   $Res call({int number});
 }
 
 /// @nodoc
-class _$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
-    implements $NumberCopyWith<$Res> {
-  _$NumberCopyWithImpl(Number _value, $Res Function(Number) _then)
-      : super(_value, (v) => _then(v as Number));
+class __$$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
+    implements _$$NumberCopyWith<$Res> {
+  __$$NumberCopyWithImpl(_$Number _value, $Res Function(_$Number) _then)
+      : super(_value, (v) => _then(v as _$Number));
 
   @override
-  Number get _value => super._value as Number;
+  _$Number get _value => super._value as _$Number;
 
   @override
   $Res call({
     Object? number = freezed,
   }) {
-    return _then(Number(
+    return _then(_$Number(
       number == freezed
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
@@ -458,7 +464,7 @@ class _$Number implements Number {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is Number &&
+            other is _$Number &&
             const DeepCollectionEquality().equals(other.number, number));
   }
 
@@ -469,8 +475,8 @@ class _$Number implements Number {
 
   @JsonKey(ignore: true)
   @override
-  $NumberCopyWith<Number> get copyWith =>
-      _$NumberCopyWithImpl<Number>(this, _$identity);
+  _$$NumberCopyWith<_$Number> get copyWith =>
+      __$$NumberCopyWithImpl<_$Number>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -542,7 +548,9 @@ class _$Number implements Number {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$NumberToJson(this);
+    return _$$NumberToJson(
+      this,
+    );
   }
 }
 
@@ -551,7 +559,8 @@ abstract class Number implements Union {
 
   factory Number.fromJson(Map<String, dynamic> json) = _$Number.fromJson;
 
-  int get number => throw _privateConstructorUsedError;
+  int get number;
   @JsonKey(ignore: true)
-  $NumberCopyWith<Number> get copyWith => throw _privateConstructorUsedError;
+  _$$NumberCopyWith<_$Number> get copyWith =>
+      throw _privateConstructorUsedError;
 }

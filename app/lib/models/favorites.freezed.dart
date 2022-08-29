@@ -122,24 +122,24 @@ class _$LocalRouteCopyWithImpl<$Res> implements $LocalRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $LocalRouteV1CopyWith<$Res>
+abstract class _$$LocalRouteV1CopyWith<$Res>
     implements $LocalRouteCopyWith<$Res> {
-  factory $LocalRouteV1CopyWith(
-          LocalRouteV1 value, $Res Function(LocalRouteV1) then) =
-      _$LocalRouteV1CopyWithImpl<$Res>;
+  factory _$$LocalRouteV1CopyWith(
+          _$LocalRouteV1 value, $Res Function(_$LocalRouteV1) then) =
+      __$$LocalRouteV1CopyWithImpl<$Res>;
   @override
   $Res call({String from, String to, String? displayName, DateTime? timestamp});
 }
 
 /// @nodoc
-class _$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
-    implements $LocalRouteV1CopyWith<$Res> {
-  _$LocalRouteV1CopyWithImpl(
-      LocalRouteV1 _value, $Res Function(LocalRouteV1) _then)
-      : super(_value, (v) => _then(v as LocalRouteV1));
+class __$$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
+    implements _$$LocalRouteV1CopyWith<$Res> {
+  __$$LocalRouteV1CopyWithImpl(
+      _$LocalRouteV1 _value, $Res Function(_$LocalRouteV1) _then)
+      : super(_value, (v) => _then(v as _$LocalRouteV1));
 
   @override
-  LocalRouteV1 get _value => super._value as LocalRouteV1;
+  _$LocalRouteV1 get _value => super._value as _$LocalRouteV1;
 
   @override
   $Res call({
@@ -148,7 +148,7 @@ class _$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
     Object? displayName = freezed,
     Object? timestamp = freezed,
   }) {
-    return _then(LocalRouteV1(
+    return _then(_$LocalRouteV1(
       from == freezed
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -203,7 +203,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LocalRouteV1 &&
+            other is _$LocalRouteV1 &&
             const DeepCollectionEquality().equals(other.from, from) &&
             const DeepCollectionEquality().equals(other.to, to) &&
             const DeepCollectionEquality()
@@ -222,8 +222,8 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 
   @JsonKey(ignore: true)
   @override
-  $LocalRouteV1CopyWith<LocalRouteV1> get copyWith =>
-      _$LocalRouteV1CopyWithImpl<LocalRouteV1>(this, _$identity);
+  _$$LocalRouteV1CopyWith<_$LocalRouteV1> get copyWith =>
+      __$$LocalRouteV1CopyWithImpl<_$LocalRouteV1>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -301,7 +301,9 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocalRouteV1ToJson(this);
+    return _$$LocalRouteV1ToJson(
+      this,
+    );
   }
 }
 
@@ -313,24 +315,24 @@ abstract class LocalRouteV1 extends LocalRoute {
   factory LocalRouteV1.fromJson(Map<String, dynamic> json) =
       _$LocalRouteV1.fromJson;
 
-  String get from => throw _privateConstructorUsedError;
-  String get to => throw _privateConstructorUsedError;
+  String get from;
+  String get to;
   @override
-  String? get displayName => throw _privateConstructorUsedError;
+  String? get displayName;
   @override
-  DateTime? get timestamp => throw _privateConstructorUsedError;
+  DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
-  $LocalRouteV1CopyWith<LocalRouteV1> get copyWith =>
+  _$$LocalRouteV1CopyWith<_$LocalRouteV1> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocalRouteV2CopyWith<$Res>
+abstract class _$$LocalRouteV2CopyWith<$Res>
     implements $LocalRouteCopyWith<$Res> {
-  factory $LocalRouteV2CopyWith(
-          LocalRouteV2 value, $Res Function(LocalRouteV2) then) =
-      _$LocalRouteV2CopyWithImpl<$Res>;
+  factory _$$LocalRouteV2CopyWith(
+          _$LocalRouteV2 value, $Res Function(_$LocalRouteV2) then) =
+      __$$LocalRouteV2CopyWithImpl<$Res>;
   @override
   $Res call(
       {SbbStop from, SbbStop to, String? displayName, DateTime? timestamp});
@@ -340,14 +342,14 @@ abstract class $LocalRouteV2CopyWith<$Res>
 }
 
 /// @nodoc
-class _$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
-    implements $LocalRouteV2CopyWith<$Res> {
-  _$LocalRouteV2CopyWithImpl(
-      LocalRouteV2 _value, $Res Function(LocalRouteV2) _then)
-      : super(_value, (v) => _then(v as LocalRouteV2));
+class __$$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
+    implements _$$LocalRouteV2CopyWith<$Res> {
+  __$$LocalRouteV2CopyWithImpl(
+      _$LocalRouteV2 _value, $Res Function(_$LocalRouteV2) _then)
+      : super(_value, (v) => _then(v as _$LocalRouteV2));
 
   @override
-  LocalRouteV2 get _value => super._value as LocalRouteV2;
+  _$LocalRouteV2 get _value => super._value as _$LocalRouteV2;
 
   @override
   $Res call({
@@ -356,7 +358,7 @@ class _$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
     Object? displayName = freezed,
     Object? timestamp = freezed,
   }) {
-    return _then(LocalRouteV2(
+    return _then(_$LocalRouteV2(
       from == freezed
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -424,7 +426,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LocalRouteV2 &&
+            other is _$LocalRouteV2 &&
             const DeepCollectionEquality().equals(other.from, from) &&
             const DeepCollectionEquality().equals(other.to, to) &&
             const DeepCollectionEquality()
@@ -443,8 +445,8 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 
   @JsonKey(ignore: true)
   @override
-  $LocalRouteV2CopyWith<LocalRouteV2> get copyWith =>
-      _$LocalRouteV2CopyWithImpl<LocalRouteV2>(this, _$identity);
+  _$$LocalRouteV2CopyWith<_$LocalRouteV2> get copyWith =>
+      __$$LocalRouteV2CopyWithImpl<_$LocalRouteV2>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -522,7 +524,9 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocalRouteV2ToJson(this);
+    return _$$LocalRouteV2ToJson(
+      this,
+    );
   }
 }
 
@@ -534,15 +538,15 @@ abstract class LocalRouteV2 extends LocalRoute {
   factory LocalRouteV2.fromJson(Map<String, dynamic> json) =
       _$LocalRouteV2.fromJson;
 
-  SbbStop get from => throw _privateConstructorUsedError;
-  SbbStop get to => throw _privateConstructorUsedError;
+  SbbStop get from;
+  SbbStop get to;
   @override
-  String? get displayName => throw _privateConstructorUsedError;
+  String? get displayName;
   @override
-  DateTime? get timestamp => throw _privateConstructorUsedError;
+  DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
-  $LocalRouteV2CopyWith<LocalRouteV2> get copyWith =>
+  _$$LocalRouteV2CopyWith<_$LocalRouteV2> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -608,24 +612,25 @@ class _$FavoriteStopCopyWithImpl<$Res> implements $FavoriteStopCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$FavoriteStopCopyWith<$Res>
+abstract class _$$_FavoriteStopCopyWith<$Res>
     implements $FavoriteStopCopyWith<$Res> {
-  factory _$FavoriteStopCopyWith(
-          _FavoriteStop value, $Res Function(_FavoriteStop) then) =
-      __$FavoriteStopCopyWithImpl<$Res>;
+  factory _$$_FavoriteStopCopyWith(
+          _$_FavoriteStop value, $Res Function(_$_FavoriteStop) then) =
+      __$$_FavoriteStopCopyWithImpl<$Res>;
   @override
   $Res call({String stop, String name, String? api, String? id});
 }
 
 /// @nodoc
-class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
-    implements _$FavoriteStopCopyWith<$Res> {
-  __$FavoriteStopCopyWithImpl(
-      _FavoriteStop _value, $Res Function(_FavoriteStop) _then)
-      : super(_value, (v) => _then(v as _FavoriteStop));
+class __$$_FavoriteStopCopyWithImpl<$Res>
+    extends _$FavoriteStopCopyWithImpl<$Res>
+    implements _$$_FavoriteStopCopyWith<$Res> {
+  __$$_FavoriteStopCopyWithImpl(
+      _$_FavoriteStop _value, $Res Function(_$_FavoriteStop) _then)
+      : super(_value, (v) => _then(v as _$_FavoriteStop));
 
   @override
-  _FavoriteStop get _value => super._value as _FavoriteStop;
+  _$_FavoriteStop get _value => super._value as _$_FavoriteStop;
 
   @override
   $Res call({
@@ -634,7 +639,7 @@ class __$FavoriteStopCopyWithImpl<$Res> extends _$FavoriteStopCopyWithImpl<$Res>
     Object? api = freezed,
     Object? id = freezed,
   }) {
-    return _then(_FavoriteStop(
+    return _then(_$_FavoriteStop(
       stop: stop == freezed
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
@@ -684,7 +689,7 @@ class _$_FavoriteStop extends _FavoriteStop {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FavoriteStop &&
+            other is _$_FavoriteStop &&
             const DeepCollectionEquality().equals(other.stop, stop) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.api, api) &&
@@ -702,12 +707,14 @@ class _$_FavoriteStop extends _FavoriteStop {
 
   @JsonKey(ignore: true)
   @override
-  _$FavoriteStopCopyWith<_FavoriteStop> get copyWith =>
-      __$FavoriteStopCopyWithImpl<_FavoriteStop>(this, _$identity);
+  _$$_FavoriteStopCopyWith<_$_FavoriteStop> get copyWith =>
+      __$$_FavoriteStopCopyWithImpl<_$_FavoriteStop>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FavoriteStopToJson(this);
+    return _$$_FavoriteStopToJson(
+      this,
+    );
   }
 }
 
@@ -723,15 +730,15 @@ abstract class _FavoriteStop extends FavoriteStop {
       _$_FavoriteStop.fromJson;
 
   @override
-  String get stop => throw _privateConstructorUsedError;
+  String get stop;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String? get api => throw _privateConstructorUsedError;
+  String? get api;
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
   @JsonKey(ignore: true)
-  _$FavoriteStopCopyWith<_FavoriteStop> get copyWith =>
+  _$$_FavoriteStopCopyWith<_$_FavoriteStop> get copyWith =>
       throw _privateConstructorUsedError;
 }

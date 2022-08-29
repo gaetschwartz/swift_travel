@@ -59,33 +59,33 @@ class _$SncfCompletionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SncfCompletionCopyWith<$Res>
+abstract class _$$_SncfCompletionCopyWith<$Res>
     implements $SncfCompletionCopyWith<$Res> {
-  factory _$SncfCompletionCopyWith(
-          _SncfCompletion value, $Res Function(_SncfCompletion) then) =
-      __$SncfCompletionCopyWithImpl<$Res>;
+  factory _$$_SncfCompletionCopyWith(
+          _$_SncfCompletion value, $Res Function(_$_SncfCompletion) then) =
+      __$$_SncfCompletionCopyWithImpl<$Res>;
   @override
   $Res call({List<SncfPlace> places});
 }
 
 /// @nodoc
-class __$SncfCompletionCopyWithImpl<$Res>
+class __$$_SncfCompletionCopyWithImpl<$Res>
     extends _$SncfCompletionCopyWithImpl<$Res>
-    implements _$SncfCompletionCopyWith<$Res> {
-  __$SncfCompletionCopyWithImpl(
-      _SncfCompletion _value, $Res Function(_SncfCompletion) _then)
-      : super(_value, (v) => _then(v as _SncfCompletion));
+    implements _$$_SncfCompletionCopyWith<$Res> {
+  __$$_SncfCompletionCopyWithImpl(
+      _$_SncfCompletion _value, $Res Function(_$_SncfCompletion) _then)
+      : super(_value, (v) => _then(v as _$_SncfCompletion));
 
   @override
-  _SncfCompletion get _value => super._value as _SncfCompletion;
+  _$_SncfCompletion get _value => super._value as _$_SncfCompletion;
 
   @override
   $Res call({
     Object? places = freezed,
   }) {
-    return _then(_SncfCompletion(
+    return _then(_$_SncfCompletion(
       places: places == freezed
-          ? _value.places
+          ? _value._places
           : places // ignore: cast_nullable_to_non_nullable
               as List<SncfPlace>,
     ));
@@ -119,23 +119,25 @@ class _$_SncfCompletion implements _SncfCompletion {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfCompletion &&
-            const DeepCollectionEquality().equals(other.places, places));
+            other is _$_SncfCompletion &&
+            const DeepCollectionEquality().equals(other._places, _places));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(places));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_places));
 
   @JsonKey(ignore: true)
   @override
-  _$SncfCompletionCopyWith<_SncfCompletion> get copyWith =>
-      __$SncfCompletionCopyWithImpl<_SncfCompletion>(this, _$identity);
+  _$$_SncfCompletionCopyWith<_$_SncfCompletion> get copyWith =>
+      __$$_SncfCompletionCopyWithImpl<_$_SncfCompletion>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfCompletionToJson(this);
+    return _$$_SncfCompletionToJson(
+      this,
+    );
   }
 }
 
@@ -146,9 +148,9 @@ abstract class _SncfCompletion implements SncfCompletion {
       _$_SncfCompletion.fromJson;
 
   @override
-  List<SncfPlace> get places => throw _privateConstructorUsedError;
+  List<SncfPlace> get places;
   @override
   @JsonKey(ignore: true)
-  _$SncfCompletionCopyWith<_SncfCompletion> get copyWith =>
+  _$$_SncfCompletionCopyWith<_$_SncfCompletion> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -103,11 +103,11 @@ class _$SncfStationboardCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SncfStationboardCopyWith<$Res>
+abstract class _$$_SncfStationboardCopyWith<$Res>
     implements $SncfStationboardCopyWith<$Res> {
-  factory _$SncfStationboardCopyWith(
-          _SncfStationboard value, $Res Function(_SncfStationboard) then) =
-      __$SncfStationboardCopyWithImpl<$Res>;
+  factory _$$_SncfStationboardCopyWith(
+          _$_SncfStationboard value, $Res Function(_$_SncfStationboard) then) =
+      __$$_SncfStationboardCopyWithImpl<$Res>;
   @override
   $Res call(
       {SncfContext context,
@@ -122,15 +122,15 @@ abstract class _$SncfStationboardCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SncfStationboardCopyWithImpl<$Res>
+class __$$_SncfStationboardCopyWithImpl<$Res>
     extends _$SncfStationboardCopyWithImpl<$Res>
-    implements _$SncfStationboardCopyWith<$Res> {
-  __$SncfStationboardCopyWithImpl(
-      _SncfStationboard _value, $Res Function(_SncfStationboard) _then)
-      : super(_value, (v) => _then(v as _SncfStationboard));
+    implements _$$_SncfStationboardCopyWith<$Res> {
+  __$$_SncfStationboardCopyWithImpl(
+      _$_SncfStationboard _value, $Res Function(_$_SncfStationboard) _then)
+      : super(_value, (v) => _then(v as _$_SncfStationboard));
 
   @override
-  _SncfStationboard get _value => super._value as _SncfStationboard;
+  _$_SncfStationboard get _value => super._value as _$_SncfStationboard;
 
   @override
   $Res call({
@@ -139,13 +139,13 @@ class __$SncfStationboardCopyWithImpl<$Res>
     Object? error = freezed,
     Object? stop = freezed,
   }) {
-    return _then(_SncfStationboard(
+    return _then(_$_SncfStationboard(
       context: context == freezed
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as SncfContext,
       departures: departures == freezed
-          ? _value.departures
+          ? _value._departures
           : departures // ignore: cast_nullable_to_non_nullable
               as List<SncfDeparture>,
       error: error == freezed
@@ -163,8 +163,7 @@ class __$SncfStationboardCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_SncfStationboard extends _SncfStationboard
-    with DiagnosticableTreeMixin {
+class _$_SncfStationboard extends _SncfStationboard {
   const _$_SncfStationboard(
       {required this.context,
       required final List<SncfDeparture> departures,
@@ -192,29 +191,18 @@ class _$_SncfStationboard extends _SncfStationboard
   final Stop stop;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'SncfStationboard(context: $context, departures: $departures, error: $error, stop: $stop)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SncfStationboard'))
-      ..add(DiagnosticsProperty('context', context))
-      ..add(DiagnosticsProperty('departures', departures))
-      ..add(DiagnosticsProperty('error', error))
-      ..add(DiagnosticsProperty('stop', stop));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfStationboard &&
+            other is _$_SncfStationboard &&
             const DeepCollectionEquality().equals(other.context, context) &&
             const DeepCollectionEquality()
-                .equals(other.departures, departures) &&
+                .equals(other._departures, _departures) &&
             const DeepCollectionEquality().equals(other.error, error) &&
             const DeepCollectionEquality().equals(other.stop, stop));
   }
@@ -224,18 +212,20 @@ class _$_SncfStationboard extends _SncfStationboard
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(context),
-      const DeepCollectionEquality().hash(departures),
+      const DeepCollectionEquality().hash(_departures),
       const DeepCollectionEquality().hash(error),
       const DeepCollectionEquality().hash(stop));
 
   @JsonKey(ignore: true)
   @override
-  _$SncfStationboardCopyWith<_SncfStationboard> get copyWith =>
-      __$SncfStationboardCopyWithImpl<_SncfStationboard>(this, _$identity);
+  _$$_SncfStationboardCopyWith<_$_SncfStationboard> get copyWith =>
+      __$$_SncfStationboardCopyWithImpl<_$_SncfStationboard>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfStationboardToJson(this);
+    return _$$_SncfStationboardToJson(
+      this,
+    );
   }
 }
 
@@ -251,17 +241,17 @@ abstract class _SncfStationboard extends SncfStationboard {
       _$_SncfStationboard.fromJson;
 
   @override
-  SncfContext get context => throw _privateConstructorUsedError;
+  SncfContext get context;
   @override
-  List<SncfDeparture> get departures => throw _privateConstructorUsedError;
+  List<SncfDeparture> get departures;
   @override
-  SncfError? get error => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  Stop get stop => throw _privateConstructorUsedError;
+  SncfError? get error;
   @override
   @JsonKey(ignore: true)
-  _$SncfStationboardCopyWith<_SncfStationboard> get copyWith =>
+  Stop get stop;
+  @override
+  @JsonKey(ignore: true)
+  _$$_SncfStationboardCopyWith<_$_SncfStationboard> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -314,29 +304,30 @@ class _$SncfErrorCopyWithImpl<$Res> implements $SncfErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SncfErrorCopyWith<$Res> implements $SncfErrorCopyWith<$Res> {
-  factory _$SncfErrorCopyWith(
-          _SncfError value, $Res Function(_SncfError) then) =
-      __$SncfErrorCopyWithImpl<$Res>;
+abstract class _$$_SncfErrorCopyWith<$Res> implements $SncfErrorCopyWith<$Res> {
+  factory _$$_SncfErrorCopyWith(
+          _$_SncfError value, $Res Function(_$_SncfError) then) =
+      __$$_SncfErrorCopyWithImpl<$Res>;
   @override
   $Res call({String id, String message});
 }
 
 /// @nodoc
-class __$SncfErrorCopyWithImpl<$Res> extends _$SncfErrorCopyWithImpl<$Res>
-    implements _$SncfErrorCopyWith<$Res> {
-  __$SncfErrorCopyWithImpl(_SncfError _value, $Res Function(_SncfError) _then)
-      : super(_value, (v) => _then(v as _SncfError));
+class __$$_SncfErrorCopyWithImpl<$Res> extends _$SncfErrorCopyWithImpl<$Res>
+    implements _$$_SncfErrorCopyWith<$Res> {
+  __$$_SncfErrorCopyWithImpl(
+      _$_SncfError _value, $Res Function(_$_SncfError) _then)
+      : super(_value, (v) => _then(v as _$_SncfError));
 
   @override
-  _SncfError get _value => super._value as _SncfError;
+  _$_SncfError get _value => super._value as _$_SncfError;
 
   @override
   $Res call({
     Object? id = freezed,
     Object? message = freezed,
   }) {
-    return _then(_SncfError(
+    return _then(_$_SncfError(
       id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -351,7 +342,7 @@ class __$SncfErrorCopyWithImpl<$Res> extends _$SncfErrorCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SncfError with DiagnosticableTreeMixin implements _SncfError {
+class _$_SncfError implements _SncfError {
   const _$_SncfError(this.id, this.message);
 
   factory _$_SncfError.fromJson(Map<String, dynamic> json) =>
@@ -363,24 +354,15 @@ class _$_SncfError with DiagnosticableTreeMixin implements _SncfError {
   final String message;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'SncfError(id: $id, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SncfError'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfError &&
+            other is _$_SncfError &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.message, message));
   }
@@ -394,12 +376,14 @@ class _$_SncfError with DiagnosticableTreeMixin implements _SncfError {
 
   @JsonKey(ignore: true)
   @override
-  _$SncfErrorCopyWith<_SncfError> get copyWith =>
-      __$SncfErrorCopyWithImpl<_SncfError>(this, _$identity);
+  _$$_SncfErrorCopyWith<_$_SncfError> get copyWith =>
+      __$$_SncfErrorCopyWithImpl<_$_SncfError>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfErrorToJson(this);
+    return _$$_SncfErrorToJson(
+      this,
+    );
   }
 }
 
@@ -411,12 +395,12 @@ abstract class _SncfError implements SncfError {
       _$_SncfError.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  String get message => throw _privateConstructorUsedError;
+  String get message;
   @override
   @JsonKey(ignore: true)
-  _$SncfErrorCopyWith<_SncfError> get copyWith =>
+  _$$_SncfErrorCopyWith<_$_SncfError> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -508,11 +492,11 @@ class _$SncfDepartureCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SncfDepartureCopyWith<$Res>
+abstract class _$$_SncfDepartureCopyWith<$Res>
     implements $SncfDepartureCopyWith<$Res> {
-  factory _$SncfDepartureCopyWith(
-          _SncfDeparture value, $Res Function(_SncfDeparture) then) =
-      __$SncfDepartureCopyWithImpl<$Res>;
+  factory _$$_SncfDepartureCopyWith(
+          _$_SncfDeparture value, $Res Function(_$_SncfDeparture) then) =
+      __$$_SncfDepartureCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'display_informations') SncfDispInfo displayInformations,
@@ -528,15 +512,15 @@ abstract class _$SncfDepartureCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SncfDepartureCopyWithImpl<$Res>
+class __$$_SncfDepartureCopyWithImpl<$Res>
     extends _$SncfDepartureCopyWithImpl<$Res>
-    implements _$SncfDepartureCopyWith<$Res> {
-  __$SncfDepartureCopyWithImpl(
-      _SncfDeparture _value, $Res Function(_SncfDeparture) _then)
-      : super(_value, (v) => _then(v as _SncfDeparture));
+    implements _$$_SncfDepartureCopyWith<$Res> {
+  __$$_SncfDepartureCopyWithImpl(
+      _$_SncfDeparture _value, $Res Function(_$_SncfDeparture) _then)
+      : super(_value, (v) => _then(v as _$_SncfDeparture));
 
   @override
-  _SncfDeparture get _value => super._value as _SncfDeparture;
+  _$_SncfDeparture get _value => super._value as _$_SncfDeparture;
 
   @override
   $Res call({
@@ -544,7 +528,7 @@ class __$SncfDepartureCopyWithImpl<$Res>
     Object? stopDateTime = freezed,
     Object? stopPoint = freezed,
   }) {
-    return _then(_SncfDeparture(
+    return _then(_$_SncfDeparture(
       displayInformations: displayInformations == freezed
           ? _value.displayInformations
           : displayInformations // ignore: cast_nullable_to_non_nullable
@@ -564,7 +548,7 @@ class __$SncfDepartureCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_SncfDeparture extends _SncfDeparture with DiagnosticableTreeMixin {
+class _$_SncfDeparture extends _SncfDeparture {
   const _$_SncfDeparture(
       {@JsonKey(name: 'display_informations') required this.displayInformations,
       @JsonKey(name: 'stop_date_time') required this.stopDateTime,
@@ -585,25 +569,15 @@ class _$_SncfDeparture extends _SncfDeparture with DiagnosticableTreeMixin {
   final SncfStopPoint stopPoint;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'SncfDeparture(displayInformations: $displayInformations, stopDateTime: $stopDateTime, stopPoint: $stopPoint)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SncfDeparture'))
-      ..add(DiagnosticsProperty('displayInformations', displayInformations))
-      ..add(DiagnosticsProperty('stopDateTime', stopDateTime))
-      ..add(DiagnosticsProperty('stopPoint', stopPoint));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfDeparture &&
+            other is _$_SncfDeparture &&
             const DeepCollectionEquality()
                 .equals(other.displayInformations, displayInformations) &&
             const DeepCollectionEquality()
@@ -621,12 +595,14 @@ class _$_SncfDeparture extends _SncfDeparture with DiagnosticableTreeMixin {
 
   @JsonKey(ignore: true)
   @override
-  _$SncfDepartureCopyWith<_SncfDeparture> get copyWith =>
-      __$SncfDepartureCopyWithImpl<_SncfDeparture>(this, _$identity);
+  _$$_SncfDepartureCopyWith<_$_SncfDeparture> get copyWith =>
+      __$$_SncfDepartureCopyWithImpl<_$_SncfDeparture>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfDepartureToJson(this);
+    return _$$_SncfDepartureToJson(
+      this,
+    );
   }
 }
 
@@ -645,16 +621,16 @@ abstract class _SncfDeparture extends SncfDeparture {
 
   @override
   @JsonKey(name: 'display_informations')
-  SncfDispInfo get displayInformations => throw _privateConstructorUsedError;
+  SncfDispInfo get displayInformations;
   @override
   @JsonKey(name: 'stop_date_time')
-  SncfStopDateTime get stopDateTime => throw _privateConstructorUsedError;
+  SncfStopDateTime get stopDateTime;
   @override
   @JsonKey(name: 'stop_point')
-  SncfStopPoint get stopPoint => throw _privateConstructorUsedError;
+  SncfStopPoint get stopPoint;
   @override
   @JsonKey(ignore: true)
-  _$SncfDepartureCopyWith<_SncfDeparture> get copyWith =>
+  _$$_SncfDepartureCopyWith<_$_SncfDeparture> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -705,34 +681,34 @@ class _$SncfStopPointCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SncfStopPointCopyWith<$Res>
+abstract class _$$_SncfStopPointCopyWith<$Res>
     implements $SncfStopPointCopyWith<$Res> {
-  factory _$SncfStopPointCopyWith(
-          _SncfStopPoint value, $Res Function(_SncfStopPoint) then) =
-      __$SncfStopPointCopyWithImpl<$Res>;
+  factory _$$_SncfStopPointCopyWith(
+          _$_SncfStopPoint value, $Res Function(_$_SncfStopPoint) then) =
+      __$$_SncfStopPointCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'commercial_modes') List<SncfMode> commercialModes});
 }
 
 /// @nodoc
-class __$SncfStopPointCopyWithImpl<$Res>
+class __$$_SncfStopPointCopyWithImpl<$Res>
     extends _$SncfStopPointCopyWithImpl<$Res>
-    implements _$SncfStopPointCopyWith<$Res> {
-  __$SncfStopPointCopyWithImpl(
-      _SncfStopPoint _value, $Res Function(_SncfStopPoint) _then)
-      : super(_value, (v) => _then(v as _SncfStopPoint));
+    implements _$$_SncfStopPointCopyWith<$Res> {
+  __$$_SncfStopPointCopyWithImpl(
+      _$_SncfStopPoint _value, $Res Function(_$_SncfStopPoint) _then)
+      : super(_value, (v) => _then(v as _$_SncfStopPoint));
 
   @override
-  _SncfStopPoint get _value => super._value as _SncfStopPoint;
+  _$_SncfStopPoint get _value => super._value as _$_SncfStopPoint;
 
   @override
   $Res call({
     Object? commercialModes = freezed,
   }) {
-    return _then(_SncfStopPoint(
+    return _then(_$_SncfStopPoint(
       commercialModes == freezed
-          ? _value.commercialModes
+          ? _value._commercialModes
           : commercialModes // ignore: cast_nullable_to_non_nullable
               as List<SncfMode>,
     ));
@@ -742,7 +718,7 @@ class __$SncfStopPointCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_SncfStopPoint with DiagnosticableTreeMixin implements _SncfStopPoint {
+class _$_SncfStopPoint implements _SncfStopPoint {
   const _$_SncfStopPoint(
       @JsonKey(name: 'commercial_modes') final List<SncfMode> commercialModes)
       : _commercialModes = commercialModes;
@@ -750,7 +726,6 @@ class _$_SncfStopPoint with DiagnosticableTreeMixin implements _SncfStopPoint {
   factory _$_SncfStopPoint.fromJson(Map<String, dynamic> json) =>
       _$$_SncfStopPointFromJson(json);
 
-  @JsonKey(name: 'commercial_modes')
   final List<SncfMode> _commercialModes;
   @override
   @JsonKey(name: 'commercial_modes')
@@ -760,40 +735,34 @@ class _$_SncfStopPoint with DiagnosticableTreeMixin implements _SncfStopPoint {
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'SncfStopPoint(commercialModes: $commercialModes)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SncfStopPoint'))
-      ..add(DiagnosticsProperty('commercialModes', commercialModes));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfStopPoint &&
+            other is _$_SncfStopPoint &&
             const DeepCollectionEquality()
-                .equals(other.commercialModes, commercialModes));
+                .equals(other._commercialModes, _commercialModes));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(commercialModes));
+      runtimeType, const DeepCollectionEquality().hash(_commercialModes));
 
   @JsonKey(ignore: true)
   @override
-  _$SncfStopPointCopyWith<_SncfStopPoint> get copyWith =>
-      __$SncfStopPointCopyWithImpl<_SncfStopPoint>(this, _$identity);
+  _$$_SncfStopPointCopyWith<_$_SncfStopPoint> get copyWith =>
+      __$$_SncfStopPointCopyWithImpl<_$_SncfStopPoint>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfStopPointToJson(this);
+    return _$$_SncfStopPointToJson(
+      this,
+    );
   }
 }
 
@@ -807,10 +776,10 @@ abstract class _SncfStopPoint implements SncfStopPoint {
 
   @override
   @JsonKey(name: 'commercial_modes')
-  List<SncfMode> get commercialModes => throw _privateConstructorUsedError;
+  List<SncfMode> get commercialModes;
   @override
   @JsonKey(ignore: true)
-  _$SncfStopPointCopyWith<_SncfStopPoint> get copyWith =>
+  _$$_SncfStopPointCopyWith<_$_SncfStopPoint> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -863,28 +832,30 @@ class _$SncfModeCopyWithImpl<$Res> implements $SncfModeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SncfModeCopyWith<$Res> implements $SncfModeCopyWith<$Res> {
-  factory _$SncfModeCopyWith(_SncfMode value, $Res Function(_SncfMode) then) =
-      __$SncfModeCopyWithImpl<$Res>;
+abstract class _$$_SncfModeCopyWith<$Res> implements $SncfModeCopyWith<$Res> {
+  factory _$$_SncfModeCopyWith(
+          _$_SncfMode value, $Res Function(_$_SncfMode) then) =
+      __$$_SncfModeCopyWithImpl<$Res>;
   @override
   $Res call({String id, String name});
 }
 
 /// @nodoc
-class __$SncfModeCopyWithImpl<$Res> extends _$SncfModeCopyWithImpl<$Res>
-    implements _$SncfModeCopyWith<$Res> {
-  __$SncfModeCopyWithImpl(_SncfMode _value, $Res Function(_SncfMode) _then)
-      : super(_value, (v) => _then(v as _SncfMode));
+class __$$_SncfModeCopyWithImpl<$Res> extends _$SncfModeCopyWithImpl<$Res>
+    implements _$$_SncfModeCopyWith<$Res> {
+  __$$_SncfModeCopyWithImpl(
+      _$_SncfMode _value, $Res Function(_$_SncfMode) _then)
+      : super(_value, (v) => _then(v as _$_SncfMode));
 
   @override
-  _SncfMode get _value => super._value as _SncfMode;
+  _$_SncfMode get _value => super._value as _$_SncfMode;
 
   @override
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
   }) {
-    return _then(_SncfMode(
+    return _then(_$_SncfMode(
       id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -899,7 +870,7 @@ class __$SncfModeCopyWithImpl<$Res> extends _$SncfModeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SncfMode with DiagnosticableTreeMixin implements _SncfMode {
+class _$_SncfMode implements _SncfMode {
   const _$_SncfMode(this.id, this.name);
 
   factory _$_SncfMode.fromJson(Map<String, dynamic> json) =>
@@ -911,24 +882,15 @@ class _$_SncfMode with DiagnosticableTreeMixin implements _SncfMode {
   final String name;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'SncfMode(id: $id, name: $name)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SncfMode'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfMode &&
+            other is _$_SncfMode &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name));
   }
@@ -942,12 +904,14 @@ class _$_SncfMode with DiagnosticableTreeMixin implements _SncfMode {
 
   @JsonKey(ignore: true)
   @override
-  _$SncfModeCopyWith<_SncfMode> get copyWith =>
-      __$SncfModeCopyWithImpl<_SncfMode>(this, _$identity);
+  _$$_SncfModeCopyWith<_$_SncfMode> get copyWith =>
+      __$$_SncfModeCopyWithImpl<_$_SncfMode>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfModeToJson(this);
+    return _$$_SncfModeToJson(
+      this,
+    );
   }
 }
 
@@ -957,12 +921,12 @@ abstract class _SncfMode implements SncfMode {
   factory _SncfMode.fromJson(Map<String, dynamic> json) = _$_SncfMode.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @JsonKey(ignore: true)
-  _$SncfModeCopyWith<_SncfMode> get copyWith =>
+  _$$_SncfModeCopyWith<_$_SncfMode> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1066,11 +1030,11 @@ class _$SncfStopDateTimeCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SncfStopDateTimeCopyWith<$Res>
+abstract class _$$_SncfStopDateTimeCopyWith<$Res>
     implements $SncfStopDateTimeCopyWith<$Res> {
-  factory _$SncfStopDateTimeCopyWith(
-          _SncfStopDateTime value, $Res Function(_SncfStopDateTime) then) =
-      __$SncfStopDateTimeCopyWithImpl<$Res>;
+  factory _$$_SncfStopDateTimeCopyWith(
+          _$_SncfStopDateTime value, $Res Function(_$_SncfStopDateTime) then) =
+      __$$_SncfStopDateTimeCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'additional_informations')
@@ -1089,15 +1053,15 @@ abstract class _$SncfStopDateTimeCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SncfStopDateTimeCopyWithImpl<$Res>
+class __$$_SncfStopDateTimeCopyWithImpl<$Res>
     extends _$SncfStopDateTimeCopyWithImpl<$Res>
-    implements _$SncfStopDateTimeCopyWith<$Res> {
-  __$SncfStopDateTimeCopyWithImpl(
-      _SncfStopDateTime _value, $Res Function(_SncfStopDateTime) _then)
-      : super(_value, (v) => _then(v as _SncfStopDateTime));
+    implements _$$_SncfStopDateTimeCopyWith<$Res> {
+  __$$_SncfStopDateTimeCopyWithImpl(
+      _$_SncfStopDateTime _value, $Res Function(_$_SncfStopDateTime) _then)
+      : super(_value, (v) => _then(v as _$_SncfStopDateTime));
 
   @override
-  _SncfStopDateTime get _value => super._value as _SncfStopDateTime;
+  _$_SncfStopDateTime get _value => super._value as _$_SncfStopDateTime;
 
   @override
   $Res call({
@@ -1109,9 +1073,9 @@ class __$SncfStopDateTimeCopyWithImpl<$Res>
     Object? dataFreshness = freezed,
     Object? links = freezed,
   }) {
-    return _then(_SncfStopDateTime(
+    return _then(_$_SncfStopDateTime(
       additionalInformations: additionalInformations == freezed
-          ? _value.additionalInformations
+          ? _value._additionalInformations
           : additionalInformations // ignore: cast_nullable_to_non_nullable
               as List<Object>,
       arrivalDateTime: arrivalDateTime == freezed
@@ -1135,7 +1099,7 @@ class __$SncfStopDateTimeCopyWithImpl<$Res>
           : dataFreshness // ignore: cast_nullable_to_non_nullable
               as String,
       links: links == freezed
-          ? _value.links
+          ? _value._links
           : links // ignore: cast_nullable_to_non_nullable
               as List<Object>,
     ));
@@ -1144,9 +1108,7 @@ class __$SncfStopDateTimeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SncfStopDateTime
-    with DiagnosticableTreeMixin
-    implements _SncfStopDateTime {
+class _$_SncfStopDateTime implements _SncfStopDateTime {
   const _$_SncfStopDateTime(
       {@JsonKey(name: 'additional_informations')
           required final List<Object> additionalInformations,
@@ -1167,7 +1129,6 @@ class _$_SncfStopDateTime
   factory _$_SncfStopDateTime.fromJson(Map<String, dynamic> json) =>
       _$$_SncfStopDateTimeFromJson(json);
 
-  @JsonKey(name: 'additional_informations')
   final List<Object> _additionalInformations;
   @override
   @JsonKey(name: 'additional_informations')
@@ -1199,32 +1160,17 @@ class _$_SncfStopDateTime
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'SncfStopDateTime(additionalInformations: $additionalInformations, arrivalDateTime: $arrivalDateTime, baseArrivalDateTime: $baseArrivalDateTime, baseDepartureDateTime: $baseDepartureDateTime, departureDateTime: $departureDateTime, dataFreshness: $dataFreshness, links: $links)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SncfStopDateTime'))
-      ..add(
-          DiagnosticsProperty('additionalInformations', additionalInformations))
-      ..add(DiagnosticsProperty('arrivalDateTime', arrivalDateTime))
-      ..add(DiagnosticsProperty('baseArrivalDateTime', baseArrivalDateTime))
-      ..add(DiagnosticsProperty('baseDepartureDateTime', baseDepartureDateTime))
-      ..add(DiagnosticsProperty('departureDateTime', departureDateTime))
-      ..add(DiagnosticsProperty('dataFreshness', dataFreshness))
-      ..add(DiagnosticsProperty('links', links));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfStopDateTime &&
-            const DeepCollectionEquality()
-                .equals(other.additionalInformations, additionalInformations) &&
+            other is _$_SncfStopDateTime &&
+            const DeepCollectionEquality().equals(
+                other._additionalInformations, _additionalInformations) &&
             const DeepCollectionEquality()
                 .equals(other.arrivalDateTime, arrivalDateTime) &&
             const DeepCollectionEquality()
@@ -1235,29 +1181,31 @@ class _$_SncfStopDateTime
                 .equals(other.departureDateTime, departureDateTime) &&
             const DeepCollectionEquality()
                 .equals(other.dataFreshness, dataFreshness) &&
-            const DeepCollectionEquality().equals(other.links, links));
+            const DeepCollectionEquality().equals(other._links, _links));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(additionalInformations),
+      const DeepCollectionEquality().hash(_additionalInformations),
       const DeepCollectionEquality().hash(arrivalDateTime),
       const DeepCollectionEquality().hash(baseArrivalDateTime),
       const DeepCollectionEquality().hash(baseDepartureDateTime),
       const DeepCollectionEquality().hash(departureDateTime),
       const DeepCollectionEquality().hash(dataFreshness),
-      const DeepCollectionEquality().hash(links));
+      const DeepCollectionEquality().hash(_links));
 
   @JsonKey(ignore: true)
   @override
-  _$SncfStopDateTimeCopyWith<_SncfStopDateTime> get copyWith =>
-      __$SncfStopDateTimeCopyWithImpl<_SncfStopDateTime>(this, _$identity);
+  _$$_SncfStopDateTimeCopyWith<_$_SncfStopDateTime> get copyWith =>
+      __$$_SncfStopDateTimeCopyWithImpl<_$_SncfStopDateTime>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfStopDateTimeToJson(this);
+    return _$$_SncfStopDateTimeToJson(
+      this,
+    );
   }
 }
 
@@ -1282,27 +1230,27 @@ abstract class _SncfStopDateTime implements SncfStopDateTime {
 
   @override
   @JsonKey(name: 'additional_informations')
-  List<Object> get additionalInformations => throw _privateConstructorUsedError;
+  List<Object> get additionalInformations;
   @override
   @JsonKey(name: 'arrival_date_time')
-  DateTime get arrivalDateTime => throw _privateConstructorUsedError;
+  DateTime get arrivalDateTime;
   @override
   @JsonKey(name: 'base_arrival_date_time')
-  DateTime get baseArrivalDateTime => throw _privateConstructorUsedError;
+  DateTime get baseArrivalDateTime;
   @override
   @JsonKey(name: 'base_departure_date_time')
-  DateTime get baseDepartureDateTime => throw _privateConstructorUsedError;
+  DateTime get baseDepartureDateTime;
   @override
   @JsonKey(name: 'departure_date_time')
-  DateTime get departureDateTime => throw _privateConstructorUsedError;
+  DateTime get departureDateTime;
   @override
   @JsonKey(name: 'data_freshness')
-  String get dataFreshness => throw _privateConstructorUsedError;
+  String get dataFreshness;
   @override
-  List<Object> get links => throw _privateConstructorUsedError;
+  List<Object> get links;
   @override
   @JsonKey(ignore: true)
-  _$SncfStopDateTimeCopyWith<_SncfStopDateTime> get copyWith =>
+  _$$_SncfStopDateTimeCopyWith<_$_SncfStopDateTime> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1446,11 +1394,11 @@ class _$SncfDispInfoCopyWithImpl<$Res> implements $SncfDispInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SncfDispInfoCopyWith<$Res>
+abstract class _$$_SncfDispInfoCopyWith<$Res>
     implements $SncfDispInfoCopyWith<$Res> {
-  factory _$SncfDispInfoCopyWith(
-          _SncfDispInfo value, $Res Function(_SncfDispInfo) then) =
-      __$SncfDispInfoCopyWithImpl<$Res>;
+  factory _$$_SncfDispInfoCopyWith(
+          _$_SncfDispInfo value, $Res Function(_$_SncfDispInfo) then) =
+      __$$_SncfDispInfoCopyWithImpl<$Res>;
   @override
   $Res call(
       {String code,
@@ -1470,14 +1418,15 @@ abstract class _$SncfDispInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SncfDispInfoCopyWithImpl<$Res> extends _$SncfDispInfoCopyWithImpl<$Res>
-    implements _$SncfDispInfoCopyWith<$Res> {
-  __$SncfDispInfoCopyWithImpl(
-      _SncfDispInfo _value, $Res Function(_SncfDispInfo) _then)
-      : super(_value, (v) => _then(v as _SncfDispInfo));
+class __$$_SncfDispInfoCopyWithImpl<$Res>
+    extends _$SncfDispInfoCopyWithImpl<$Res>
+    implements _$$_SncfDispInfoCopyWith<$Res> {
+  __$$_SncfDispInfoCopyWithImpl(
+      _$_SncfDispInfo _value, $Res Function(_$_SncfDispInfo) _then)
+      : super(_value, (v) => _then(v as _$_SncfDispInfo));
 
   @override
-  _SncfDispInfo get _value => super._value as _SncfDispInfo;
+  _$_SncfDispInfo get _value => super._value as _$_SncfDispInfo;
 
   @override
   $Res call({
@@ -1496,7 +1445,7 @@ class __$SncfDispInfoCopyWithImpl<$Res> extends _$SncfDispInfoCopyWithImpl<$Res>
     Object? textColor = freezed,
     Object? tripShortName = freezed,
   }) {
-    return _then(_SncfDispInfo(
+    return _then(_$_SncfDispInfo(
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -1518,7 +1467,7 @@ class __$SncfDispInfoCopyWithImpl<$Res> extends _$SncfDispInfoCopyWithImpl<$Res>
           : direction // ignore: cast_nullable_to_non_nullable
               as String,
       equipments: equipments == freezed
-          ? _value.equipments
+          ? _value._equipments
           : equipments // ignore: cast_nullable_to_non_nullable
               as List<Object>,
       headsign: headsign == freezed
@@ -1530,7 +1479,7 @@ class __$SncfDispInfoCopyWithImpl<$Res> extends _$SncfDispInfoCopyWithImpl<$Res>
           : label // ignore: cast_nullable_to_non_nullable
               as String,
       links: links == freezed
-          ? _value.links
+          ? _value._links
           : links // ignore: cast_nullable_to_non_nullable
               as List<Object>,
       name: name == freezed
@@ -1559,7 +1508,7 @@ class __$SncfDispInfoCopyWithImpl<$Res> extends _$SncfDispInfoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
+class _$_SncfDispInfo implements _SncfDispInfo {
   const _$_SncfDispInfo(
       {required this.code,
       required this.color,
@@ -1625,36 +1574,15 @@ class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
   final String tripShortName;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'SncfDispInfo(code: $code, color: $color, commercialMode: $commercialMode, description: $description, direction: $direction, equipments: $equipments, headsign: $headsign, label: $label, links: $links, name: $name, network: $network, physicalMode: $physicalMode, textColor: $textColor, tripShortName: $tripShortName)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SncfDispInfo'))
-      ..add(DiagnosticsProperty('code', code))
-      ..add(DiagnosticsProperty('color', color))
-      ..add(DiagnosticsProperty('commercialMode', commercialMode))
-      ..add(DiagnosticsProperty('description', description))
-      ..add(DiagnosticsProperty('direction', direction))
-      ..add(DiagnosticsProperty('equipments', equipments))
-      ..add(DiagnosticsProperty('headsign', headsign))
-      ..add(DiagnosticsProperty('label', label))
-      ..add(DiagnosticsProperty('links', links))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('network', network))
-      ..add(DiagnosticsProperty('physicalMode', physicalMode))
-      ..add(DiagnosticsProperty('textColor', textColor))
-      ..add(DiagnosticsProperty('tripShortName', tripShortName));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SncfDispInfo &&
+            other is _$_SncfDispInfo &&
             const DeepCollectionEquality().equals(other.code, code) &&
             const DeepCollectionEquality().equals(other.color, color) &&
             const DeepCollectionEquality()
@@ -1663,10 +1591,10 @@ class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
                 .equals(other.description, description) &&
             const DeepCollectionEquality().equals(other.direction, direction) &&
             const DeepCollectionEquality()
-                .equals(other.equipments, equipments) &&
+                .equals(other._equipments, _equipments) &&
             const DeepCollectionEquality().equals(other.headsign, headsign) &&
             const DeepCollectionEquality().equals(other.label, label) &&
-            const DeepCollectionEquality().equals(other.links, links) &&
+            const DeepCollectionEquality().equals(other._links, _links) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.network, network) &&
             const DeepCollectionEquality()
@@ -1685,10 +1613,10 @@ class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
       const DeepCollectionEquality().hash(commercialMode),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(direction),
-      const DeepCollectionEquality().hash(equipments),
+      const DeepCollectionEquality().hash(_equipments),
       const DeepCollectionEquality().hash(headsign),
       const DeepCollectionEquality().hash(label),
-      const DeepCollectionEquality().hash(links),
+      const DeepCollectionEquality().hash(_links),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(network),
       const DeepCollectionEquality().hash(physicalMode),
@@ -1697,12 +1625,14 @@ class _$_SncfDispInfo with DiagnosticableTreeMixin implements _SncfDispInfo {
 
   @JsonKey(ignore: true)
   @override
-  _$SncfDispInfoCopyWith<_SncfDispInfo> get copyWith =>
-      __$SncfDispInfoCopyWithImpl<_SncfDispInfo>(this, _$identity);
+  _$$_SncfDispInfoCopyWith<_$_SncfDispInfo> get copyWith =>
+      __$$_SncfDispInfoCopyWithImpl<_$_SncfDispInfo>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfDispInfoToJson(this);
+    return _$$_SncfDispInfoToJson(
+      this,
+    );
   }
 }
 
@@ -1731,39 +1661,39 @@ abstract class _SncfDispInfo implements SncfDispInfo {
       _$_SncfDispInfo.fromJson;
 
   @override
-  String get code => throw _privateConstructorUsedError;
+  String get code;
   @override
-  String get color => throw _privateConstructorUsedError;
+  String get color;
   @override
   @JsonKey(name: 'commercial_mode')
-  String get commercialMode => throw _privateConstructorUsedError;
+  String get commercialMode;
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
   @override
-  String get direction => throw _privateConstructorUsedError;
+  String get direction;
   @override
-  List<Object> get equipments => throw _privateConstructorUsedError;
+  List<Object> get equipments;
   @override
-  String get headsign => throw _privateConstructorUsedError;
+  String get headsign;
   @override
-  String get label => throw _privateConstructorUsedError;
+  String get label;
   @override
-  List<Object> get links => throw _privateConstructorUsedError;
+  List<Object> get links;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get network => throw _privateConstructorUsedError;
+  String get network;
   @override
   @JsonKey(name: 'physical_mode')
-  String get physicalMode => throw _privateConstructorUsedError;
+  String get physicalMode;
   @override
   @JsonKey(name: 'text_color')
-  String get textColor => throw _privateConstructorUsedError;
+  String get textColor;
   @override
   @JsonKey(name: 'trip_short_name')
-  String get tripShortName => throw _privateConstructorUsedError;
+  String get tripShortName;
   @override
   @JsonKey(ignore: true)
-  _$SncfDispInfoCopyWith<_SncfDispInfo> get copyWith =>
+  _$$_SncfDispInfoCopyWith<_$_SncfDispInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }

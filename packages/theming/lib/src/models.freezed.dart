@@ -58,28 +58,28 @@ class _$FontCopyWithImpl<$Res> implements $FontCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$FontCopyWith<$Res> implements $FontCopyWith<$Res> {
-  factory _$FontCopyWith(_Font value, $Res Function(_Font) then) =
-      __$FontCopyWithImpl<$Res>;
+abstract class _$$_FontCopyWith<$Res> implements $FontCopyWith<$Res> {
+  factory _$$_FontCopyWith(_$_Font value, $Res Function(_$_Font) then) =
+      __$$_FontCopyWithImpl<$Res>;
   @override
   $Res call({String name, TextTheme Function(TextTheme) textTheme});
 }
 
 /// @nodoc
-class __$FontCopyWithImpl<$Res> extends _$FontCopyWithImpl<$Res>
-    implements _$FontCopyWith<$Res> {
-  __$FontCopyWithImpl(_Font _value, $Res Function(_Font) _then)
-      : super(_value, (v) => _then(v as _Font));
+class __$$_FontCopyWithImpl<$Res> extends _$FontCopyWithImpl<$Res>
+    implements _$$_FontCopyWith<$Res> {
+  __$$_FontCopyWithImpl(_$_Font _value, $Res Function(_$_Font) _then)
+      : super(_value, (v) => _then(v as _$_Font));
 
   @override
-  _Font get _value => super._value as _Font;
+  _$_Font get _value => super._value as _$_Font;
 
   @override
   $Res call({
     Object? name = freezed,
     Object? textTheme = freezed,
   }) {
-    return _then(_Font(
+    return _then(_$_Font(
       name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -111,7 +111,7 @@ class _$_Font implements _Font {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Font &&
+            other is _$_Font &&
             const DeepCollectionEquality().equals(other.name, name) &&
             (identical(other.textTheme, textTheme) ||
                 other.textTheme == textTheme));
@@ -123,8 +123,8 @@ class _$_Font implements _Font {
 
   @JsonKey(ignore: true)
   @override
-  _$FontCopyWith<_Font> get copyWith =>
-      __$FontCopyWithImpl<_Font>(this, _$identity);
+  _$$_FontCopyWith<_$_Font> get copyWith =>
+      __$$_FontCopyWithImpl<_$_Font>(this, _$identity);
 }
 
 abstract class _Font implements Font {
@@ -133,13 +133,12 @@ abstract class _Font implements Font {
       _$_Font;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  TextTheme Function(TextTheme) get textTheme =>
-      throw _privateConstructorUsedError;
+  TextTheme Function(TextTheme) get textTheme;
   @override
   @JsonKey(ignore: true)
-  _$FontCopyWith<_Font> get copyWith => throw _privateConstructorUsedError;
+  _$$_FontCopyWith<_$_Font> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -234,11 +233,11 @@ class _$ExtendedThemeCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$ExtendedThemeCopyWith<$Res>
+abstract class _$$_ExtendedThemeCopyWith<$Res>
     implements $ExtendedThemeCopyWith<$Res> {
-  factory _$ExtendedThemeCopyWith(
-          _ExtendedTheme value, $Res Function(_ExtendedTheme) then) =
-      __$ExtendedThemeCopyWithImpl<$Res>;
+  factory _$$_ExtendedThemeCopyWith(
+          _$_ExtendedTheme value, $Res Function(_$_ExtendedTheme) then) =
+      __$$_ExtendedThemeCopyWithImpl<$Res>;
   @override
   $Res call(
       {ColorScheme colorScheme,
@@ -254,15 +253,15 @@ abstract class _$ExtendedThemeCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ExtendedThemeCopyWithImpl<$Res>
+class __$$_ExtendedThemeCopyWithImpl<$Res>
     extends _$ExtendedThemeCopyWithImpl<$Res>
-    implements _$ExtendedThemeCopyWith<$Res> {
-  __$ExtendedThemeCopyWithImpl(
-      _ExtendedTheme _value, $Res Function(_ExtendedTheme) _then)
-      : super(_value, (v) => _then(v as _ExtendedTheme));
+    implements _$$_ExtendedThemeCopyWith<$Res> {
+  __$$_ExtendedThemeCopyWithImpl(
+      _$_ExtendedTheme _value, $Res Function(_$_ExtendedTheme) _then)
+      : super(_value, (v) => _then(v as _$_ExtendedTheme));
 
   @override
-  _ExtendedTheme get _value => super._value as _ExtendedTheme;
+  _$_ExtendedTheme get _value => super._value as _$_ExtendedTheme;
 
   @override
   $Res call({
@@ -274,7 +273,7 @@ class __$ExtendedThemeCopyWithImpl<$Res>
     Object? shadow = freezed,
     Object? hide = freezed,
   }) {
-    return _then(_ExtendedTheme(
+    return _then(_$_ExtendedTheme(
       colorScheme: colorScheme == freezed
           ? _value.colorScheme
           : colorScheme // ignore: cast_nullable_to_non_nullable
@@ -348,7 +347,7 @@ class _$_ExtendedTheme extends _ExtendedTheme {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ExtendedTheme &&
+            other is _$_ExtendedTheme &&
             const DeepCollectionEquality()
                 .equals(other.colorScheme, colorScheme) &&
             const DeepCollectionEquality().equals(other.name, name) &&
@@ -373,8 +372,8 @@ class _$_ExtendedTheme extends _ExtendedTheme {
 
   @JsonKey(ignore: true)
   @override
-  _$ExtendedThemeCopyWith<_ExtendedTheme> get copyWith =>
-      __$ExtendedThemeCopyWithImpl<_ExtendedTheme>(this, _$identity);
+  _$$_ExtendedThemeCopyWith<_$_ExtendedTheme> get copyWith =>
+      __$$_ExtendedThemeCopyWithImpl<_$_ExtendedTheme>(this, _$identity);
 }
 
 abstract class _ExtendedTheme extends ExtendedTheme {
@@ -389,22 +388,22 @@ abstract class _ExtendedTheme extends ExtendedTheme {
   const _ExtendedTheme._() : super._();
 
   @override
-  ColorScheme get colorScheme => throw _privateConstructorUsedError;
+  ColorScheme get colorScheme;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  ApplyTo<ThemeData> get apply => throw _privateConstructorUsedError;
+  ApplyTo<ThemeData> get apply;
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
   @override
-  ShadowTheme get shadow => throw _privateConstructorUsedError;
+  ShadowTheme get shadow;
   @override
-  bool get hide => throw _privateConstructorUsedError;
+  bool get hide;
   @override
   @JsonKey(ignore: true)
-  _$ExtendedThemeCopyWith<_ExtendedTheme> get copyWith =>
+  _$$_ExtendedThemeCopyWith<_$_ExtendedTheme> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -469,10 +468,10 @@ class _$FullThemeCopyWithImpl<$Res> implements $FullThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$FullThemeCopyWith<$Res> implements $FullThemeCopyWith<$Res> {
-  factory _$FullThemeCopyWith(
-          _FullTheme value, $Res Function(_FullTheme) then) =
-      __$FullThemeCopyWithImpl<$Res>;
+abstract class _$$_FullThemeCopyWith<$Res> implements $FullThemeCopyWith<$Res> {
+  factory _$$_FullThemeCopyWith(
+          _$_FullTheme value, $Res Function(_$_FullTheme) then) =
+      __$$_FullThemeCopyWithImpl<$Res>;
   @override
   $Res call({ExtendedTheme light, ExtendedTheme dark});
 
@@ -483,20 +482,21 @@ abstract class _$FullThemeCopyWith<$Res> implements $FullThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$FullThemeCopyWithImpl<$Res> extends _$FullThemeCopyWithImpl<$Res>
-    implements _$FullThemeCopyWith<$Res> {
-  __$FullThemeCopyWithImpl(_FullTheme _value, $Res Function(_FullTheme) _then)
-      : super(_value, (v) => _then(v as _FullTheme));
+class __$$_FullThemeCopyWithImpl<$Res> extends _$FullThemeCopyWithImpl<$Res>
+    implements _$$_FullThemeCopyWith<$Res> {
+  __$$_FullThemeCopyWithImpl(
+      _$_FullTheme _value, $Res Function(_$_FullTheme) _then)
+      : super(_value, (v) => _then(v as _$_FullTheme));
 
   @override
-  _FullTheme get _value => super._value as _FullTheme;
+  _$_FullTheme get _value => super._value as _$_FullTheme;
 
   @override
   $Res call({
     Object? light = freezed,
     Object? dark = freezed,
   }) {
-    return _then(_FullTheme(
+    return _then(_$_FullTheme(
       light: light == freezed
           ? _value.light
           : light // ignore: cast_nullable_to_non_nullable
@@ -528,7 +528,7 @@ class _$_FullTheme implements _FullTheme {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FullTheme &&
+            other is _$_FullTheme &&
             const DeepCollectionEquality().equals(other.light, light) &&
             const DeepCollectionEquality().equals(other.dark, dark));
   }
@@ -541,8 +541,8 @@ class _$_FullTheme implements _FullTheme {
 
   @JsonKey(ignore: true)
   @override
-  _$FullThemeCopyWith<_FullTheme> get copyWith =>
-      __$FullThemeCopyWithImpl<_FullTheme>(this, _$identity);
+  _$$_FullThemeCopyWith<_$_FullTheme> get copyWith =>
+      __$$_FullThemeCopyWithImpl<_$_FullTheme>(this, _$identity);
 }
 
 abstract class _FullTheme implements FullTheme {
@@ -551,12 +551,12 @@ abstract class _FullTheme implements FullTheme {
       required final ExtendedTheme dark}) = _$_FullTheme;
 
   @override
-  ExtendedTheme get light => throw _privateConstructorUsedError;
+  ExtendedTheme get light;
   @override
-  ExtendedTheme get dark => throw _privateConstructorUsedError;
+  ExtendedTheme get dark;
   @override
   @JsonKey(ignore: true)
-  _$FullThemeCopyWith<_FullTheme> get copyWith =>
+  _$$_FullThemeCopyWith<_$_FullTheme> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -599,30 +599,30 @@ class _$ShadowThemeCopyWithImpl<$Res> implements $ShadowThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ShadowThemeCopyWith<$Res>
+abstract class _$$_ShadowThemeCopyWith<$Res>
     implements $ShadowThemeCopyWith<$Res> {
-  factory _$ShadowThemeCopyWith(
-          _ShadowTheme value, $Res Function(_ShadowTheme) then) =
-      __$ShadowThemeCopyWithImpl<$Res>;
+  factory _$$_ShadowThemeCopyWith(
+          _$_ShadowTheme value, $Res Function(_$_ShadowTheme) then) =
+      __$$_ShadowThemeCopyWithImpl<$Res>;
   @override
   $Res call({BoxShadow? buttonShadow});
 }
 
 /// @nodoc
-class __$ShadowThemeCopyWithImpl<$Res> extends _$ShadowThemeCopyWithImpl<$Res>
-    implements _$ShadowThemeCopyWith<$Res> {
-  __$ShadowThemeCopyWithImpl(
-      _ShadowTheme _value, $Res Function(_ShadowTheme) _then)
-      : super(_value, (v) => _then(v as _ShadowTheme));
+class __$$_ShadowThemeCopyWithImpl<$Res> extends _$ShadowThemeCopyWithImpl<$Res>
+    implements _$$_ShadowThemeCopyWith<$Res> {
+  __$$_ShadowThemeCopyWithImpl(
+      _$_ShadowTheme _value, $Res Function(_$_ShadowTheme) _then)
+      : super(_value, (v) => _then(v as _$_ShadowTheme));
 
   @override
-  _ShadowTheme get _value => super._value as _ShadowTheme;
+  _$_ShadowTheme get _value => super._value as _$_ShadowTheme;
 
   @override
   $Res call({
     Object? buttonShadow = freezed,
   }) {
-    return _then(_ShadowTheme(
+    return _then(_$_ShadowTheme(
       buttonShadow: buttonShadow == freezed
           ? _value.buttonShadow
           : buttonShadow // ignore: cast_nullable_to_non_nullable
@@ -648,7 +648,7 @@ class _$_ShadowTheme extends _ShadowTheme {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ShadowTheme &&
+            other is _$_ShadowTheme &&
             const DeepCollectionEquality()
                 .equals(other.buttonShadow, buttonShadow));
   }
@@ -659,8 +659,8 @@ class _$_ShadowTheme extends _ShadowTheme {
 
   @JsonKey(ignore: true)
   @override
-  _$ShadowThemeCopyWith<_ShadowTheme> get copyWith =>
-      __$ShadowThemeCopyWithImpl<_ShadowTheme>(this, _$identity);
+  _$$_ShadowThemeCopyWith<_$_ShadowTheme> get copyWith =>
+      __$$_ShadowThemeCopyWithImpl<_$_ShadowTheme>(this, _$identity);
 }
 
 abstract class _ShadowTheme extends ShadowTheme {
@@ -668,10 +668,10 @@ abstract class _ShadowTheme extends ShadowTheme {
   const _ShadowTheme._() : super._();
 
   @override
-  BoxShadow? get buttonShadow => throw _privateConstructorUsedError;
+  BoxShadow? get buttonShadow;
   @override
   @JsonKey(ignore: true)
-  _$ShadowThemeCopyWith<_ShadowTheme> get copyWith =>
+  _$$_ShadowThemeCopyWith<_$_ShadowTheme> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -800,11 +800,11 @@ class _$ThemeConfigurationCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$ThemeConfigurationCopyWith<$Res>
+abstract class _$$_ThemeConfigurationCopyWith<$Res>
     implements $ThemeConfigurationCopyWith<$Res> {
-  factory _$ThemeConfigurationCopyWith(
-          _ThemeConfiguration value, $Res Function(_ThemeConfiguration) then) =
-      __$ThemeConfigurationCopyWithImpl<$Res>;
+  factory _$$_ThemeConfigurationCopyWith(_$_ThemeConfiguration value,
+          $Res Function(_$_ThemeConfiguration) then) =
+      __$$_ThemeConfigurationCopyWithImpl<$Res>;
   @override
   $Res call(
       {List<ExtendedTheme> lightThemes,
@@ -824,15 +824,15 @@ abstract class _$ThemeConfigurationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ThemeConfigurationCopyWithImpl<$Res>
+class __$$_ThemeConfigurationCopyWithImpl<$Res>
     extends _$ThemeConfigurationCopyWithImpl<$Res>
-    implements _$ThemeConfigurationCopyWith<$Res> {
-  __$ThemeConfigurationCopyWithImpl(
-      _ThemeConfiguration _value, $Res Function(_ThemeConfiguration) _then)
-      : super(_value, (v) => _then(v as _ThemeConfiguration));
+    implements _$$_ThemeConfigurationCopyWith<$Res> {
+  __$$_ThemeConfigurationCopyWithImpl(
+      _$_ThemeConfiguration _value, $Res Function(_$_ThemeConfiguration) _then)
+      : super(_value, (v) => _then(v as _$_ThemeConfiguration));
 
   @override
-  _ThemeConfiguration get _value => super._value as _ThemeConfiguration;
+  _$_ThemeConfiguration get _value => super._value as _$_ThemeConfiguration;
 
   @override
   $Res call({
@@ -848,17 +848,17 @@ class __$ThemeConfigurationCopyWithImpl<$Res>
     Object? defaultTextTheme = freezed,
     Object? applyToAllThemes = freezed,
   }) {
-    return _then(_ThemeConfiguration(
+    return _then(_$_ThemeConfiguration(
       lightThemes: lightThemes == freezed
-          ? _value.lightThemes
+          ? _value._lightThemes
           : lightThemes // ignore: cast_nullable_to_non_nullable
               as List<ExtendedTheme>,
       darkThemes: darkThemes == freezed
-          ? _value.darkThemes
+          ? _value._darkThemes
           : darkThemes // ignore: cast_nullable_to_non_nullable
               as List<ExtendedTheme>,
       fonts: fonts == freezed
-          ? _value.fonts
+          ? _value._fonts
           : fonts // ignore: cast_nullable_to_non_nullable
               as List<Font>,
       prefix: prefix == freezed
@@ -969,12 +969,12 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ThemeConfiguration &&
+            other is _$_ThemeConfiguration &&
             const DeepCollectionEquality()
-                .equals(other.lightThemes, lightThemes) &&
+                .equals(other._lightThemes, _lightThemes) &&
             const DeepCollectionEquality()
-                .equals(other.darkThemes, darkThemes) &&
-            const DeepCollectionEquality().equals(other.fonts, fonts) &&
+                .equals(other._darkThemes, _darkThemes) &&
+            const DeepCollectionEquality().equals(other._fonts, _fonts) &&
             const DeepCollectionEquality().equals(other.prefix, prefix) &&
             const DeepCollectionEquality()
                 .equals(other.defaultThemeMode, defaultThemeMode) &&
@@ -994,9 +994,9 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(lightThemes),
-      const DeepCollectionEquality().hash(darkThemes),
-      const DeepCollectionEquality().hash(fonts),
+      const DeepCollectionEquality().hash(_lightThemes),
+      const DeepCollectionEquality().hash(_darkThemes),
+      const DeepCollectionEquality().hash(_fonts),
       const DeepCollectionEquality().hash(prefix),
       const DeepCollectionEquality().hash(defaultThemeMode),
       const DeepCollectionEquality().hash(persist),
@@ -1008,8 +1008,9 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
 
   @JsonKey(ignore: true)
   @override
-  _$ThemeConfigurationCopyWith<_ThemeConfiguration> get copyWith =>
-      __$ThemeConfigurationCopyWithImpl<_ThemeConfiguration>(this, _$identity);
+  _$$_ThemeConfigurationCopyWith<_$_ThemeConfiguration> get copyWith =>
+      __$$_ThemeConfigurationCopyWithImpl<_$_ThemeConfiguration>(
+          this, _$identity);
 }
 
 abstract class _ThemeConfiguration extends ThemeConfiguration {
@@ -1029,30 +1030,29 @@ abstract class _ThemeConfiguration extends ThemeConfiguration {
   const _ThemeConfiguration._() : super._();
 
   @override
-  List<ExtendedTheme> get lightThemes => throw _privateConstructorUsedError;
+  List<ExtendedTheme> get lightThemes;
   @override
-  List<ExtendedTheme> get darkThemes => throw _privateConstructorUsedError;
+  List<ExtendedTheme> get darkThemes;
   @override
-  List<Font> get fonts => throw _privateConstructorUsedError;
+  List<Font> get fonts;
   @override
-  String get prefix => throw _privateConstructorUsedError;
+  String get prefix;
   @override
-  ThemeMode get defaultThemeMode => throw _privateConstructorUsedError;
+  ThemeMode get defaultThemeMode;
   @override
-  bool get persist => throw _privateConstructorUsedError;
+  bool get persist;
   @override
-  String? get defaultLightThemeId => throw _privateConstructorUsedError;
+  String? get defaultLightThemeId;
   @override
-  String? get defaultDarkThemeId => throw _privateConstructorUsedError;
+  String? get defaultDarkThemeId;
   @override
-  Font? get defaultFont => throw _privateConstructorUsedError;
+  Font? get defaultFont;
   @override
-  TextTheme get defaultTextTheme => throw _privateConstructorUsedError;
+  TextTheme get defaultTextTheme;
   @override
-  ThemeData Function(ThemeData) get applyToAllThemes =>
-      throw _privateConstructorUsedError;
+  ThemeData Function(ThemeData) get applyToAllThemes;
   @override
   @JsonKey(ignore: true)
-  _$ThemeConfigurationCopyWith<_ThemeConfiguration> get copyWith =>
+  _$$_ThemeConfigurationCopyWith<_$_ThemeConfiguration> get copyWith =>
       throw _privateConstructorUsedError;
 }

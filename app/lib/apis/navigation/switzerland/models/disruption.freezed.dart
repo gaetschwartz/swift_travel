@@ -102,10 +102,11 @@ class _$DisruptionCopyWithImpl<$Res> implements $DisruptionCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$DisruptionCopyWith<$Res> implements $DisruptionCopyWith<$Res> {
-  factory _$DisruptionCopyWith(
-          _Disruption value, $Res Function(_Disruption) then) =
-      __$DisruptionCopyWithImpl<$Res>;
+abstract class _$$_DisruptionCopyWith<$Res>
+    implements $DisruptionCopyWith<$Res> {
+  factory _$$_DisruptionCopyWith(
+          _$_Disruption value, $Res Function(_$_Disruption) then) =
+      __$$_DisruptionCopyWithImpl<$Res>;
   @override
   $Res call(
       {String? id,
@@ -118,14 +119,14 @@ abstract class _$DisruptionCopyWith<$Res> implements $DisruptionCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
-    implements _$DisruptionCopyWith<$Res> {
-  __$DisruptionCopyWithImpl(
-      _Disruption _value, $Res Function(_Disruption) _then)
-      : super(_value, (v) => _then(v as _Disruption));
+class __$$_DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
+    implements _$$_DisruptionCopyWith<$Res> {
+  __$$_DisruptionCopyWithImpl(
+      _$_Disruption _value, $Res Function(_$_Disruption) _then)
+      : super(_value, (v) => _then(v as _$_Disruption));
 
   @override
-  _Disruption get _value => super._value as _Disruption;
+  _$_Disruption get _value => super._value as _$_Disruption;
 
   @override
   $Res call({
@@ -137,7 +138,7 @@ class __$DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
     Object? exact = freezed,
     Object? priority = freezed,
   }) {
-    return _then(_Disruption(
+    return _then(_$_Disruption(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -210,7 +211,7 @@ class _$_Disruption implements _Disruption {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Disruption &&
+            other is _$_Disruption &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.header, header) &&
             const DeepCollectionEquality().equals(other.lead, lead) &&
@@ -234,12 +235,14 @@ class _$_Disruption implements _Disruption {
 
   @JsonKey(ignore: true)
   @override
-  _$DisruptionCopyWith<_Disruption> get copyWith =>
-      __$DisruptionCopyWithImpl<_Disruption>(this, _$identity);
+  _$$_DisruptionCopyWith<_$_Disruption> get copyWith =>
+      __$$_DisruptionCopyWithImpl<_$_Disruption>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DisruptionToJson(this);
+    return _$$_DisruptionToJson(
+      this,
+    );
   }
 }
 
@@ -257,22 +260,22 @@ abstract class _Disruption implements Disruption {
       _$_Disruption.fromJson;
 
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
-  String? get header => throw _privateConstructorUsedError;
+  String? get header;
   @override
-  String? get lead => throw _privateConstructorUsedError;
+  String? get lead;
   @override
-  String? get text => throw _privateConstructorUsedError;
+  String? get text;
   @override
   @JsonKey(name: 'timerange')
-  String? get timeRange => throw _privateConstructorUsedError;
+  String? get timeRange;
   @override
-  bool? get exact => throw _privateConstructorUsedError;
+  bool? get exact;
   @override
-  int? get priority => throw _privateConstructorUsedError;
+  int? get priority;
   @override
   @JsonKey(ignore: true)
-  _$DisruptionCopyWith<_Disruption> get copyWith =>
+  _$$_DisruptionCopyWith<_$_Disruption> get copyWith =>
       throw _privateConstructorUsedError;
 }

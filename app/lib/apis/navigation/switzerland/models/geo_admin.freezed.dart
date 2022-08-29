@@ -78,26 +78,26 @@ class _$SearchCompletionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SearchCompletionCopyWith<$Res>
+abstract class _$$_SearchCompletionCopyWith<$Res>
     implements $SearchCompletionCopyWith<$Res> {
-  factory _$SearchCompletionCopyWith(
-          _SearchCompletion value, $Res Function(_SearchCompletion) then) =
-      __$SearchCompletionCopyWithImpl<$Res>;
+  factory _$$_SearchCompletionCopyWith(
+          _$_SearchCompletion value, $Res Function(_$_SearchCompletion) then) =
+      __$$_SearchCompletionCopyWithImpl<$Res>;
   @override
   $Res call(
       {String? label, String? html, String? iconclass, String? corrected});
 }
 
 /// @nodoc
-class __$SearchCompletionCopyWithImpl<$Res>
+class __$$_SearchCompletionCopyWithImpl<$Res>
     extends _$SearchCompletionCopyWithImpl<$Res>
-    implements _$SearchCompletionCopyWith<$Res> {
-  __$SearchCompletionCopyWithImpl(
-      _SearchCompletion _value, $Res Function(_SearchCompletion) _then)
-      : super(_value, (v) => _then(v as _SearchCompletion));
+    implements _$$_SearchCompletionCopyWith<$Res> {
+  __$$_SearchCompletionCopyWithImpl(
+      _$_SearchCompletion _value, $Res Function(_$_SearchCompletion) _then)
+      : super(_value, (v) => _then(v as _$_SearchCompletion));
 
   @override
-  _SearchCompletion get _value => super._value as _SearchCompletion;
+  _$_SearchCompletion get _value => super._value as _$_SearchCompletion;
 
   @override
   $Res call({
@@ -106,7 +106,7 @@ class __$SearchCompletionCopyWithImpl<$Res>
     Object? iconclass = freezed,
     Object? corrected = freezed,
   }) {
-    return _then(_SearchCompletion(
+    return _then(_$_SearchCompletion(
       label: label == freezed
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
@@ -155,7 +155,7 @@ class _$_SearchCompletion implements _SearchCompletion {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SearchCompletion &&
+            other is _$_SearchCompletion &&
             const DeepCollectionEquality().equals(other.label, label) &&
             const DeepCollectionEquality().equals(other.html, html) &&
             const DeepCollectionEquality().equals(other.iconclass, iconclass) &&
@@ -173,12 +173,14 @@ class _$_SearchCompletion implements _SearchCompletion {
 
   @JsonKey(ignore: true)
   @override
-  _$SearchCompletionCopyWith<_SearchCompletion> get copyWith =>
-      __$SearchCompletionCopyWithImpl<_SearchCompletion>(this, _$identity);
+  _$$_SearchCompletionCopyWith<_$_SearchCompletion> get copyWith =>
+      __$$_SearchCompletionCopyWithImpl<_$_SearchCompletion>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SearchCompletionToJson(this);
+    return _$$_SearchCompletionToJson(
+      this,
+    );
   }
 }
 
@@ -193,16 +195,16 @@ abstract class _SearchCompletion implements SearchCompletion {
       _$_SearchCompletion.fromJson;
 
   @override
-  String? get label => throw _privateConstructorUsedError;
+  String? get label;
   @override
-  String? get html => throw _privateConstructorUsedError;
+  String? get html;
   @override
-  String? get iconclass => throw _privateConstructorUsedError;
+  String? get iconclass;
   @override
-  String? get corrected => throw _privateConstructorUsedError;
+  String? get corrected;
   @override
   @JsonKey(ignore: true)
-  _$SearchCompletionCopyWith<_SearchCompletion> get copyWith =>
+  _$$_SearchCompletionCopyWith<_$_SearchCompletion> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -274,11 +276,11 @@ class _$GeoAdminResultCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$GeoAdminResultCopyWith<$Res>
+abstract class _$$_GeoAdminResultCopyWith<$Res>
     implements $GeoAdminResultCopyWith<$Res> {
-  factory _$GeoAdminResultCopyWith(
-          _GeoAdminResult value, $Res Function(_GeoAdminResult) then) =
-      __$GeoAdminResultCopyWithImpl<$Res>;
+  factory _$$_GeoAdminResultCopyWith(
+          _$_GeoAdminResult value, $Res Function(_$_GeoAdminResult) then) =
+      __$$_GeoAdminResultCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'id') int intId, int weight, GeoAdminAttributes attrs});
@@ -288,15 +290,15 @@ abstract class _$GeoAdminResultCopyWith<$Res>
 }
 
 /// @nodoc
-class __$GeoAdminResultCopyWithImpl<$Res>
+class __$$_GeoAdminResultCopyWithImpl<$Res>
     extends _$GeoAdminResultCopyWithImpl<$Res>
-    implements _$GeoAdminResultCopyWith<$Res> {
-  __$GeoAdminResultCopyWithImpl(
-      _GeoAdminResult _value, $Res Function(_GeoAdminResult) _then)
-      : super(_value, (v) => _then(v as _GeoAdminResult));
+    implements _$$_GeoAdminResultCopyWith<$Res> {
+  __$$_GeoAdminResultCopyWithImpl(
+      _$_GeoAdminResult _value, $Res Function(_$_GeoAdminResult) _then)
+      : super(_value, (v) => _then(v as _$_GeoAdminResult));
 
   @override
-  _GeoAdminResult get _value => super._value as _GeoAdminResult;
+  _$_GeoAdminResult get _value => super._value as _$_GeoAdminResult;
 
   @override
   $Res call({
@@ -304,7 +306,7 @@ class __$GeoAdminResultCopyWithImpl<$Res>
     Object? weight = freezed,
     Object? attrs = freezed,
   }) {
-    return _then(_GeoAdminResult(
+    return _then(_$_GeoAdminResult(
       intId: intId == freezed
           ? _value.intId
           : intId // ignore: cast_nullable_to_non_nullable
@@ -351,7 +353,7 @@ class _$_GeoAdminResult extends _GeoAdminResult {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _GeoAdminResult &&
+            other is _$_GeoAdminResult &&
             const DeepCollectionEquality().equals(other.intId, intId) &&
             const DeepCollectionEquality().equals(other.weight, weight) &&
             const DeepCollectionEquality().equals(other.attrs, attrs));
@@ -367,12 +369,14 @@ class _$_GeoAdminResult extends _GeoAdminResult {
 
   @JsonKey(ignore: true)
   @override
-  _$GeoAdminResultCopyWith<_GeoAdminResult> get copyWith =>
-      __$GeoAdminResultCopyWithImpl<_GeoAdminResult>(this, _$identity);
+  _$$_GeoAdminResultCopyWith<_$_GeoAdminResult> get copyWith =>
+      __$$_GeoAdminResultCopyWithImpl<_$_GeoAdminResult>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GeoAdminResultToJson(this);
+    return _$$_GeoAdminResultToJson(
+      this,
+    );
   }
 }
 
@@ -388,14 +392,14 @@ abstract class _GeoAdminResult extends GeoAdminResult {
 
   @override
   @JsonKey(name: 'id')
-  int get intId => throw _privateConstructorUsedError;
+  int get intId;
   @override
-  int get weight => throw _privateConstructorUsedError;
+  int get weight;
   @override
-  GeoAdminAttributes get attrs => throw _privateConstructorUsedError;
+  GeoAdminAttributes get attrs;
   @override
   @JsonKey(ignore: true)
-  _$GeoAdminResultCopyWith<_GeoAdminResult> get copyWith =>
+  _$$_GeoAdminResultCopyWith<_$_GeoAdminResult> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -504,11 +508,11 @@ class _$GeoAdminAttributesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$GeoAdminAttributesCopyWith<$Res>
+abstract class _$$_GeoAdminAttributesCopyWith<$Res>
     implements $GeoAdminAttributesCopyWith<$Res> {
-  factory _$GeoAdminAttributesCopyWith(
-          _GeoAdminAttributes value, $Res Function(_GeoAdminAttributes) then) =
-      __$GeoAdminAttributesCopyWithImpl<$Res>;
+  factory _$$_GeoAdminAttributesCopyWith(_$_GeoAdminAttributes value,
+          $Res Function(_$_GeoAdminAttributes) then) =
+      __$$_GeoAdminAttributesCopyWithImpl<$Res>;
   @override
   $Res call(
       {String origin,
@@ -523,15 +527,15 @@ abstract class _$GeoAdminAttributesCopyWith<$Res>
 }
 
 /// @nodoc
-class __$GeoAdminAttributesCopyWithImpl<$Res>
+class __$$_GeoAdminAttributesCopyWithImpl<$Res>
     extends _$GeoAdminAttributesCopyWithImpl<$Res>
-    implements _$GeoAdminAttributesCopyWith<$Res> {
-  __$GeoAdminAttributesCopyWithImpl(
-      _GeoAdminAttributes _value, $Res Function(_GeoAdminAttributes) _then)
-      : super(_value, (v) => _then(v as _GeoAdminAttributes));
+    implements _$$_GeoAdminAttributesCopyWith<$Res> {
+  __$$_GeoAdminAttributesCopyWithImpl(
+      _$_GeoAdminAttributes _value, $Res Function(_$_GeoAdminAttributes) _then)
+      : super(_value, (v) => _then(v as _$_GeoAdminAttributes));
 
   @override
-  _GeoAdminAttributes get _value => super._value as _GeoAdminAttributes;
+  _$_GeoAdminAttributes get _value => super._value as _$_GeoAdminAttributes;
 
   @override
   $Res call({
@@ -545,7 +549,7 @@ class __$GeoAdminAttributesCopyWithImpl<$Res>
     Object? zoomlevel = freezed,
     Object? htmlLabel = freezed,
   }) {
-    return _then(_GeoAdminAttributes(
+    return _then(_$_GeoAdminAttributes(
       origin: origin == freezed
           ? _value.origin
           : origin // ignore: cast_nullable_to_non_nullable
@@ -635,7 +639,7 @@ class _$_GeoAdminAttributes extends _GeoAdminAttributes {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _GeoAdminAttributes &&
+            other is _$_GeoAdminAttributes &&
             const DeepCollectionEquality().equals(other.origin, origin) &&
             const DeepCollectionEquality().equals(other.featureId, featureId) &&
             const DeepCollectionEquality().equals(other.detail, detail) &&
@@ -663,12 +667,15 @@ class _$_GeoAdminAttributes extends _GeoAdminAttributes {
 
   @JsonKey(ignore: true)
   @override
-  _$GeoAdminAttributesCopyWith<_GeoAdminAttributes> get copyWith =>
-      __$GeoAdminAttributesCopyWithImpl<_GeoAdminAttributes>(this, _$identity);
+  _$$_GeoAdminAttributesCopyWith<_$_GeoAdminAttributes> get copyWith =>
+      __$$_GeoAdminAttributesCopyWithImpl<_$_GeoAdminAttributes>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GeoAdminAttributesToJson(this);
+    return _$$_GeoAdminAttributesToJson(
+      this,
+    );
   }
 }
 
@@ -690,28 +697,28 @@ abstract class _GeoAdminAttributes extends GeoAdminAttributes {
       _$_GeoAdminAttributes.fromJson;
 
   @override
-  String get origin => throw _privateConstructorUsedError;
+  String get origin;
   @override
   @JsonKey(name: "featureId")
-  String? get featureId => throw _privateConstructorUsedError;
+  String? get featureId;
   @override
-  String get detail => throw _privateConstructorUsedError;
+  String get detail;
   @override
-  int get rank => throw _privateConstructorUsedError;
+  int get rank;
   @override
   @JsonKey(name: 'num')
-  int? get number => throw _privateConstructorUsedError;
+  int? get number;
   @override
-  double get y => throw _privateConstructorUsedError;
+  double get y;
   @override
-  double get x => throw _privateConstructorUsedError;
+  double get x;
   @override
-  int get zoomlevel => throw _privateConstructorUsedError;
+  int get zoomlevel;
   @override
   @JsonKey(name: 'label')
-  String get htmlLabel => throw _privateConstructorUsedError;
+  String get htmlLabel;
   @override
   @JsonKey(ignore: true)
-  _$GeoAdminAttributesCopyWith<_GeoAdminAttributes> get copyWith =>
+  _$$_GeoAdminAttributesCopyWith<_$_GeoAdminAttributes> get copyWith =>
       throw _privateConstructorUsedError;
 }

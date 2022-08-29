@@ -199,11 +199,11 @@ class _$ContributorCopyWithImpl<$Res> implements $ContributorCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ContributorCopyWith<$Res>
+abstract class _$$_ContributorCopyWith<$Res>
     implements $ContributorCopyWith<$Res> {
-  factory _$ContributorCopyWith(
-          _Contributor value, $Res Function(_Contributor) then) =
-      __$ContributorCopyWithImpl<$Res>;
+  factory _$$_ContributorCopyWith(
+          _$_Contributor value, $Res Function(_$_Contributor) then) =
+      __$$_ContributorCopyWithImpl<$Res>;
   @override
   $Res call(
       {String login,
@@ -228,14 +228,14 @@ abstract class _$ContributorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ContributorCopyWithImpl<$Res> extends _$ContributorCopyWithImpl<$Res>
-    implements _$ContributorCopyWith<$Res> {
-  __$ContributorCopyWithImpl(
-      _Contributor _value, $Res Function(_Contributor) _then)
-      : super(_value, (v) => _then(v as _Contributor));
+class __$$_ContributorCopyWithImpl<$Res> extends _$ContributorCopyWithImpl<$Res>
+    implements _$$_ContributorCopyWith<$Res> {
+  __$$_ContributorCopyWithImpl(
+      _$_Contributor _value, $Res Function(_$_Contributor) _then)
+      : super(_value, (v) => _then(v as _$_Contributor));
 
   @override
-  _Contributor get _value => super._value as _Contributor;
+  _$_Contributor get _value => super._value as _$_Contributor;
 
   @override
   $Res call({
@@ -259,7 +259,7 @@ class __$ContributorCopyWithImpl<$Res> extends _$ContributorCopyWithImpl<$Res>
     Object? siteAdmin = freezed,
     Object? contributions = freezed,
   }) {
-    return _then(_Contributor(
+    return _then(_$_Contributor(
       login: login == freezed
           ? _value.login
           : login // ignore: cast_nullable_to_non_nullable
@@ -429,7 +429,7 @@ class _$_Contributor implements _Contributor {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Contributor &&
+            other is _$_Contributor &&
             const DeepCollectionEquality().equals(other.login, login) &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.nodeId, nodeId) &&
@@ -486,12 +486,14 @@ class _$_Contributor implements _Contributor {
 
   @JsonKey(ignore: true)
   @override
-  _$ContributorCopyWith<_Contributor> get copyWith =>
-      __$ContributorCopyWithImpl<_Contributor>(this, _$identity);
+  _$$_ContributorCopyWith<_$_Contributor> get copyWith =>
+      __$$_ContributorCopyWithImpl<_$_Contributor>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ContributorToJson(this);
+    return _$$_ContributorToJson(
+      this,
+    );
   }
 }
 
@@ -535,59 +537,59 @@ abstract class _Contributor implements Contributor {
       _$_Contributor.fromJson;
 
   @override
-  String get login => throw _privateConstructorUsedError;
+  String get login;
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
   @JsonKey(name: 'node_id')
-  String get nodeId => throw _privateConstructorUsedError;
+  String get nodeId;
   @override
   @JsonKey(name: 'avatar_url')
-  String get avatarUrl => throw _privateConstructorUsedError;
+  String get avatarUrl;
   @override
   @JsonKey(name: 'gravatar_id')
-  String get gravatarId => throw _privateConstructorUsedError;
+  String get gravatarId;
   @override
-  String get url => throw _privateConstructorUsedError;
+  String get url;
   @override
   @JsonKey(name: 'html_url')
-  String get htmlUrl => throw _privateConstructorUsedError;
+  String get htmlUrl;
   @override
   @JsonKey(name: 'followers_url')
-  String get followersUrl => throw _privateConstructorUsedError;
+  String get followersUrl;
   @override
   @JsonKey(name: 'following_url')
-  String get followingUrl => throw _privateConstructorUsedError;
+  String get followingUrl;
   @override
   @JsonKey(name: 'gists_url')
-  String get gistsUrl => throw _privateConstructorUsedError;
+  String get gistsUrl;
   @override
   @JsonKey(name: 'starred_url')
-  String get starredUrl => throw _privateConstructorUsedError;
+  String get starredUrl;
   @override
   @JsonKey(name: 'subscriptions_url')
-  String get subscriptionsUrl => throw _privateConstructorUsedError;
+  String get subscriptionsUrl;
   @override
   @JsonKey(name: 'organizations_url')
-  String get organizationsUrl => throw _privateConstructorUsedError;
+  String get organizationsUrl;
   @override
   @JsonKey(name: 'repos_url')
-  String get reposUrl => throw _privateConstructorUsedError;
+  String get reposUrl;
   @override
   @JsonKey(name: 'events_url')
-  String get eventsUrl => throw _privateConstructorUsedError;
+  String get eventsUrl;
   @override
   @JsonKey(name: 'received_events_url')
-  String get receivedEventsUrl => throw _privateConstructorUsedError;
+  String get receivedEventsUrl;
   @override
-  String get type => throw _privateConstructorUsedError;
+  String get type;
   @override
   @JsonKey(name: 'site_admin')
-  bool get siteAdmin => throw _privateConstructorUsedError;
+  bool get siteAdmin;
   @override
-  int get contributions => throw _privateConstructorUsedError;
+  int get contributions;
   @override
   @JsonKey(ignore: true)
-  _$ContributorCopyWith<_Contributor> get copyWith =>
+  _$$_ContributorCopyWith<_$_Contributor> get copyWith =>
       throw _privateConstructorUsedError;
 }

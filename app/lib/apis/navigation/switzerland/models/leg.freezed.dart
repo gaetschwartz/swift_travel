@@ -248,9 +248,9 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
-  factory _$SbbLegCopyWith(_SbbLeg value, $Res Function(_SbbLeg) then) =
-      __$SbbLegCopyWithImpl<$Res>;
+abstract class _$$_SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
+  factory _$$_SbbLegCopyWith(_$_SbbLeg value, $Res Function(_$_SbbLeg) then) =
+      __$$_SbbLegCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -284,13 +284,13 @@ abstract class _$SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
-    implements _$SbbLegCopyWith<$Res> {
-  __$SbbLegCopyWithImpl(_SbbLeg _value, $Res Function(_SbbLeg) _then)
-      : super(_value, (v) => _then(v as _SbbLeg));
+class __$$_SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
+    implements _$$_SbbLegCopyWith<$Res> {
+  __$$_SbbLegCopyWithImpl(_$_SbbLeg _value, $Res Function(_$_SbbLeg) _then)
+      : super(_value, (v) => _then(v as _$_SbbLeg));
 
   @override
-  _SbbLeg get _value => super._value as _SbbLeg;
+  _$_SbbLeg get _value => super._value as _$_SbbLeg;
 
   @override
   $Res call({
@@ -320,7 +320,7 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
     Object? y = freezed,
     Object? attributes = freezed,
   }) {
-    return _then(_SbbLeg(
+    return _then(_$_SbbLeg(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -374,7 +374,7 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
           : line // ignore: cast_nullable_to_non_nullable
               as String?,
       sbbStops: sbbStops == freezed
-          ? _value.sbbStops
+          ? _value._sbbStops
           : sbbStops // ignore: cast_nullable_to_non_nullable
               as List<SbbStop>,
       sbbName: sbbName == freezed
@@ -418,7 +418,7 @@ class __$SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
           : y // ignore: cast_nullable_to_non_nullable
               as int?,
       attributes: attributes == freezed
-          ? _value.attributes
+          ? _value._attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
     ));
@@ -502,7 +502,6 @@ class _$_SbbLeg extends _SbbLeg {
   final double? runningTime;
   @override
   final String? line;
-  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
   final List<SbbStop> _sbbStops;
   @override
   @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
@@ -553,7 +552,7 @@ class _$_SbbLeg extends _SbbLeg {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SbbLeg &&
+            other is _$_SbbLeg &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.sbbExit, sbbExit) &&
             const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
@@ -568,7 +567,7 @@ class _$_SbbLeg extends _SbbLeg {
             const DeepCollectionEquality()
                 .equals(other.runningTime, runningTime) &&
             const DeepCollectionEquality().equals(other.line, line) &&
-            const DeepCollectionEquality().equals(other.sbbStops, sbbStops) &&
+            const DeepCollectionEquality().equals(other._sbbStops, _sbbStops) &&
             const DeepCollectionEquality().equals(other.sbbName, sbbName) &&
             const DeepCollectionEquality().equals(other.departure, departure) &&
             const DeepCollectionEquality().equals(other.arrival, arrival) &&
@@ -581,7 +580,7 @@ class _$_SbbLeg extends _SbbLeg {
             const DeepCollectionEquality().equals(other.x, x) &&
             const DeepCollectionEquality().equals(other.y, y) &&
             const DeepCollectionEquality()
-                .equals(other.attributes, attributes));
+                .equals(other._attributes, _attributes));
   }
 
   @JsonKey(ignore: true)
@@ -601,7 +600,7 @@ class _$_SbbLeg extends _SbbLeg {
         const DeepCollectionEquality().hash(stopid),
         const DeepCollectionEquality().hash(runningTime),
         const DeepCollectionEquality().hash(line),
-        const DeepCollectionEquality().hash(sbbStops),
+        const DeepCollectionEquality().hash(_sbbStops),
         const DeepCollectionEquality().hash(sbbName),
         const DeepCollectionEquality().hash(departure),
         const DeepCollectionEquality().hash(arrival),
@@ -612,17 +611,19 @@ class _$_SbbLeg extends _SbbLeg {
         const DeepCollectionEquality().hash(lon),
         const DeepCollectionEquality().hash(x),
         const DeepCollectionEquality().hash(y),
-        const DeepCollectionEquality().hash(attributes)
+        const DeepCollectionEquality().hash(_attributes)
       ]);
 
   @JsonKey(ignore: true)
   @override
-  _$SbbLegCopyWith<_SbbLeg> get copyWith =>
-      __$SbbLegCopyWithImpl<_SbbLeg>(this, _$identity);
+  _$$_SbbLegCopyWith<_$_SbbLeg> get copyWith =>
+      __$$_SbbLegCopyWithImpl<_$_SbbLeg>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbLegToJson(this);
+    return _$$_SbbLegToJson(
+      this,
+    );
   }
 }
 
@@ -668,66 +669,67 @@ abstract class _SbbLeg extends SbbLeg {
   factory _SbbLeg.fromJson(Map<String, dynamic> json) = _$_SbbLeg.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @JsonKey(name: 'exit')
-  SbbExit? get sbbExit => throw _privateConstructorUsedError;
+  SbbExit? get sbbExit;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
-  int? get depDelay => throw _privateConstructorUsedError;
+  int? get depDelay;
   @override
-  PlaceType? get type => throw _privateConstructorUsedError;
+  PlaceType? get type;
   @override
-  String? get track => throw _privateConstructorUsedError;
+  String? get track;
   @override
-  String? get terminal => throw _privateConstructorUsedError;
+  String? get terminal;
   @override
-  String? get bgcolor => throw _privateConstructorUsedError;
+  String? get bgcolor;
   @override
-  String? get fgcolor => throw _privateConstructorUsedError;
+  String? get fgcolor;
   @override
-  String? get number => throw _privateConstructorUsedError;
+  String? get number;
   @override
-  String? get tripid => throw _privateConstructorUsedError;
+  String? get tripid;
   @override
-  String? get stopid => throw _privateConstructorUsedError;
+  String? get stopid;
   @override
   @JsonKey(name: 'runningtime')
-  double? get runningTime => throw _privateConstructorUsedError;
+  double? get runningTime;
   @override
-  String? get line => throw _privateConstructorUsedError;
+  String? get line;
   @override
   @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-  List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
+  List<SbbStop> get sbbStops;
   @override
-  String? get sbbName => throw _privateConstructorUsedError;
+  String? get sbbName;
   @override
-  DateTime? get departure => throw _privateConstructorUsedError;
+  DateTime? get departure;
   @override
-  DateTime? get arrival => throw _privateConstructorUsedError;
+  DateTime? get arrival;
   @override
   @JsonKey(name: "normal_time")
-  double? get normalTime => throw _privateConstructorUsedError;
+  double? get normalTime;
   @override
   @JsonKey(name: 'waittime', defaultValue: 0)
-  double get waitTime => throw _privateConstructorUsedError;
+  double get waitTime;
   @override
   @JsonKey(name: "isaddress")
-  bool get isAddress => throw _privateConstructorUsedError;
+  bool get isAddress;
   @override
-  double? get lat => throw _privateConstructorUsedError;
+  double? get lat;
   @override
-  double? get lon => throw _privateConstructorUsedError;
-  @override
-  @IntConverter()
-  int? get x => throw _privateConstructorUsedError;
+  double? get lon;
   @override
   @IntConverter()
-  int? get y => throw _privateConstructorUsedError;
+  int? get x;
   @override
-  Map<String, String> get attributes => throw _privateConstructorUsedError;
+  @IntConverter()
+  int? get y;
+  @override
+  Map<String, String> get attributes;
   @override
   @JsonKey(ignore: true)
-  _$SbbLegCopyWith<_SbbLeg> get copyWith => throw _privateConstructorUsedError;
+  _$$_SbbLegCopyWith<_$_SbbLeg> get copyWith =>
+      throw _privateConstructorUsedError;
 }

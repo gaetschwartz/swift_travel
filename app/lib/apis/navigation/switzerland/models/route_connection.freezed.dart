@@ -113,11 +113,11 @@ class _$SbbRouteConnectionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SbbRouteConnectionCopyWith<$Res>
+abstract class _$$_SbbRouteConnectionCopyWith<$Res>
     implements $SbbRouteConnectionCopyWith<$Res> {
-  factory _$SbbRouteConnectionCopyWith(
-          _SbbRouteConnection value, $Res Function(_SbbRouteConnection) then) =
-      __$SbbRouteConnectionCopyWithImpl<$Res>;
+  factory _$$_SbbRouteConnectionCopyWith(_$_SbbRouteConnection value,
+          $Res Function(_$_SbbRouteConnection) then) =
+      __$$_SbbRouteConnectionCopyWithImpl<$Res>;
   @override
   $Res call(
       {String from,
@@ -131,15 +131,15 @@ abstract class _$SbbRouteConnectionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SbbRouteConnectionCopyWithImpl<$Res>
+class __$$_SbbRouteConnectionCopyWithImpl<$Res>
     extends _$SbbRouteConnectionCopyWithImpl<$Res>
-    implements _$SbbRouteConnectionCopyWith<$Res> {
-  __$SbbRouteConnectionCopyWithImpl(
-      _SbbRouteConnection _value, $Res Function(_SbbRouteConnection) _then)
-      : super(_value, (v) => _then(v as _SbbRouteConnection));
+    implements _$$_SbbRouteConnectionCopyWith<$Res> {
+  __$$_SbbRouteConnectionCopyWithImpl(
+      _$_SbbRouteConnection _value, $Res Function(_$_SbbRouteConnection) _then)
+      : super(_value, (v) => _then(v as _$_SbbRouteConnection));
 
   @override
-  _SbbRouteConnection get _value => super._value as _SbbRouteConnection;
+  _$_SbbRouteConnection get _value => super._value as _$_SbbRouteConnection;
 
   @override
   $Res call({
@@ -152,7 +152,7 @@ class __$SbbRouteConnectionCopyWithImpl<$Res>
     Object? sbbLegs = freezed,
     Object? disruptions = freezed,
   }) {
-    return _then(_SbbRouteConnection(
+    return _then(_$_SbbRouteConnection(
       from: from == freezed
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -178,11 +178,11 @@ class __$SbbRouteConnectionCopyWithImpl<$Res>
           : durationInSeconds // ignore: cast_nullable_to_non_nullable
               as double?,
       sbbLegs: sbbLegs == freezed
-          ? _value.sbbLegs
+          ? _value._sbbLegs
           : sbbLegs // ignore: cast_nullable_to_non_nullable
               as List<SbbLeg>,
       disruptions: disruptions == freezed
-          ? _value.disruptions
+          ? _value._disruptions
           : disruptions // ignore: cast_nullable_to_non_nullable
               as Map<String, Disruption>,
     ));
@@ -224,7 +224,6 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
   @override
   @JsonKey(name: "duration")
   final double? durationInSeconds;
-  @JsonKey(name: 'legs')
   final List<SbbLeg> _sbbLegs;
   @override
   @JsonKey(name: 'legs')
@@ -250,7 +249,7 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SbbRouteConnection &&
+            other is _$_SbbRouteConnection &&
             const DeepCollectionEquality().equals(other.from, from) &&
             const DeepCollectionEquality().equals(other.to, to) &&
             const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
@@ -258,9 +257,9 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
             const DeepCollectionEquality().equals(other.arrival, arrival) &&
             const DeepCollectionEquality()
                 .equals(other.durationInSeconds, durationInSeconds) &&
-            const DeepCollectionEquality().equals(other.sbbLegs, sbbLegs) &&
+            const DeepCollectionEquality().equals(other._sbbLegs, _sbbLegs) &&
             const DeepCollectionEquality()
-                .equals(other.disruptions, disruptions));
+                .equals(other._disruptions, _disruptions));
   }
 
   @JsonKey(ignore: true)
@@ -273,17 +272,20 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
       const DeepCollectionEquality().hash(departure),
       const DeepCollectionEquality().hash(arrival),
       const DeepCollectionEquality().hash(durationInSeconds),
-      const DeepCollectionEquality().hash(sbbLegs),
-      const DeepCollectionEquality().hash(disruptions));
+      const DeepCollectionEquality().hash(_sbbLegs),
+      const DeepCollectionEquality().hash(_disruptions));
 
   @JsonKey(ignore: true)
   @override
-  _$SbbRouteConnectionCopyWith<_SbbRouteConnection> get copyWith =>
-      __$SbbRouteConnectionCopyWithImpl<_SbbRouteConnection>(this, _$identity);
+  _$$_SbbRouteConnectionCopyWith<_$_SbbRouteConnection> get copyWith =>
+      __$$_SbbRouteConnectionCopyWithImpl<_$_SbbRouteConnection>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbRouteConnectionToJson(this);
+    return _$$_SbbRouteConnectionToJson(
+      this,
+    );
   }
 }
 
@@ -303,27 +305,27 @@ abstract class _SbbRouteConnection extends SbbRouteConnection {
       _$_SbbRouteConnection.fromJson;
 
   @override
-  String get from => throw _privateConstructorUsedError;
+  String get from;
   @override
-  String get to => throw _privateConstructorUsedError;
+  String get to;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
-  int? get depDelay => throw _privateConstructorUsedError;
+  int? get depDelay;
   @override
-  DateTime? get departure => throw _privateConstructorUsedError;
+  DateTime? get departure;
   @override
-  DateTime? get arrival => throw _privateConstructorUsedError;
+  DateTime? get arrival;
   @override
   @JsonKey(name: "duration")
-  double? get durationInSeconds => throw _privateConstructorUsedError;
+  double? get durationInSeconds;
   @override
   @JsonKey(name: 'legs')
-  List<SbbLeg> get sbbLegs => throw _privateConstructorUsedError;
+  List<SbbLeg> get sbbLegs;
   @override
-  Map<String, Disruption> get disruptions => throw _privateConstructorUsedError;
+  Map<String, Disruption> get disruptions;
   @override
   @JsonKey(ignore: true)
-  _$SbbRouteConnectionCopyWith<_SbbRouteConnection> get copyWith =>
+  _$$_SbbRouteConnectionCopyWith<_$_SbbRouteConnection> get copyWith =>
       throw _privateConstructorUsedError;
 }

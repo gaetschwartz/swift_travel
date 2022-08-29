@@ -62,28 +62,28 @@ class _$ConfigCopyWithImpl<$Res> implements $ConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
-  factory _$ConfigCopyWith(_Config value, $Res Function(_Config) then) =
-      __$ConfigCopyWithImpl<$Res>;
+abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
+  factory _$$_ConfigCopyWith(_$_Config value, $Res Function(_$_Config) then) =
+      __$$_ConfigCopyWithImpl<$Res>;
   @override
   $Res call({String? sncfKey, String? triasKey});
 }
 
 /// @nodoc
-class __$ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
-    implements _$ConfigCopyWith<$Res> {
-  __$ConfigCopyWithImpl(_Config _value, $Res Function(_Config) _then)
-      : super(_value, (v) => _then(v as _Config));
+class __$$_ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
+    implements _$$_ConfigCopyWith<$Res> {
+  __$$_ConfigCopyWithImpl(_$_Config _value, $Res Function(_$_Config) _then)
+      : super(_value, (v) => _then(v as _$_Config));
 
   @override
-  _Config get _value => super._value as _Config;
+  _$_Config get _value => super._value as _$_Config;
 
   @override
   $Res call({
     Object? sncfKey = freezed,
     Object? triasKey = freezed,
   }) {
-    return _then(_Config(
+    return _then(_$_Config(
       sncfKey: sncfKey == freezed
           ? _value.sncfKey
           : sncfKey // ignore: cast_nullable_to_non_nullable
@@ -118,7 +118,7 @@ class _$_Config implements _Config {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Config &&
+            other is _$_Config &&
             const DeepCollectionEquality().equals(other.sncfKey, sncfKey) &&
             const DeepCollectionEquality().equals(other.triasKey, triasKey));
   }
@@ -132,12 +132,14 @@ class _$_Config implements _Config {
 
   @JsonKey(ignore: true)
   @override
-  _$ConfigCopyWith<_Config> get copyWith =>
-      __$ConfigCopyWithImpl<_Config>(this, _$identity);
+  _$$_ConfigCopyWith<_$_Config> get copyWith =>
+      __$$_ConfigCopyWithImpl<_$_Config>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ConfigToJson(this);
+    return _$$_ConfigToJson(
+      this,
+    );
   }
 }
 
@@ -148,10 +150,11 @@ abstract class _Config implements Config {
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 
   @override
-  String? get sncfKey => throw _privateConstructorUsedError;
+  String? get sncfKey;
   @override
-  String? get triasKey => throw _privateConstructorUsedError;
+  String? get triasKey;
   @override
   @JsonKey(ignore: true)
-  _$ConfigCopyWith<_Config> get copyWith => throw _privateConstructorUsedError;
+  _$$_ConfigCopyWith<_$_Config> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -77,11 +77,11 @@ class _$TerminalContextCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TerminalContextCopyWith<$Res>
+abstract class _$$_TerminalContextCopyWith<$Res>
     implements $TerminalContextCopyWith<$Res> {
-  factory _$TerminalContextCopyWith(
-          _TerminalContext value, $Res Function(_TerminalContext) then) =
-      __$TerminalContextCopyWithImpl<$Res>;
+  factory _$$_TerminalContextCopyWith(
+          _$_TerminalContext value, $Res Function(_$_TerminalContext) then) =
+      __$$_TerminalContextCopyWithImpl<$Res>;
   @override
   $Res call(
       {List<String> command,
@@ -91,15 +91,15 @@ abstract class _$TerminalContextCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TerminalContextCopyWithImpl<$Res>
+class __$$_TerminalContextCopyWithImpl<$Res>
     extends _$TerminalContextCopyWithImpl<$Res>
-    implements _$TerminalContextCopyWith<$Res> {
-  __$TerminalContextCopyWithImpl(
-      _TerminalContext _value, $Res Function(_TerminalContext) _then)
-      : super(_value, (v) => _then(v as _TerminalContext));
+    implements _$$_TerminalContextCopyWith<$Res> {
+  __$$_TerminalContextCopyWithImpl(
+      _$_TerminalContext _value, $Res Function(_$_TerminalContext) _then)
+      : super(_value, (v) => _then(v as _$_TerminalContext));
 
   @override
-  _TerminalContext get _value => super._value as _TerminalContext;
+  _$_TerminalContext get _value => super._value as _$_TerminalContext;
 
   @override
   $Res call({
@@ -108,9 +108,9 @@ class __$TerminalContextCopyWithImpl<$Res>
     Object? stateController = freezed,
     Object? context = freezed,
   }) {
-    return _then(_TerminalContext(
+    return _then(_$_TerminalContext(
       command == freezed
-          ? _value.command
+          ? _value._command
           : command // ignore: cast_nullable_to_non_nullable
               as List<String>,
       w == freezed
@@ -159,8 +159,8 @@ class _$_TerminalContext implements _TerminalContext {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TerminalContext &&
-            const DeepCollectionEquality().equals(other.command, command) &&
+            other is _$_TerminalContext &&
+            const DeepCollectionEquality().equals(other._command, _command) &&
             (identical(other.w, w) || other.w == w) &&
             const DeepCollectionEquality()
                 .equals(other.stateController, stateController) &&
@@ -170,15 +170,15 @@ class _$_TerminalContext implements _TerminalContext {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(command),
+      const DeepCollectionEquality().hash(_command),
       w,
       const DeepCollectionEquality().hash(stateController),
       const DeepCollectionEquality().hash(context));
 
   @JsonKey(ignore: true)
   @override
-  _$TerminalContextCopyWith<_TerminalContext> get copyWith =>
-      __$TerminalContextCopyWithImpl<_TerminalContext>(this, _$identity);
+  _$$_TerminalContextCopyWith<_$_TerminalContext> get copyWith =>
+      __$$_TerminalContextCopyWithImpl<_$_TerminalContext>(this, _$identity);
 }
 
 abstract class _TerminalContext implements TerminalContext {
@@ -189,17 +189,16 @@ abstract class _TerminalContext implements TerminalContext {
       final BuildContext context) = _$_TerminalContext;
 
   @override
-  List<String> get command => throw _privateConstructorUsedError;
+  List<String> get command;
   @override
-  Writer get w => throw _privateConstructorUsedError;
+  Writer get w;
   @override
-  StateController<List<TerminalCommandResult>> get stateController =>
-      throw _privateConstructorUsedError;
+  StateController<List<TerminalCommandResult>> get stateController;
   @override
-  BuildContext get context => throw _privateConstructorUsedError;
+  BuildContext get context;
   @override
   @JsonKey(ignore: true)
-  _$TerminalContextCopyWith<_TerminalContext> get copyWith =>
+  _$$_TerminalContextCopyWith<_$_TerminalContext> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -249,32 +248,33 @@ class _$TerminalCommandResultCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$TerminalCommandResultCopyWith<$Res>
+abstract class _$$_TerminalCommandResultCopyWith<$Res>
     implements $TerminalCommandResultCopyWith<$Res> {
-  factory _$TerminalCommandResultCopyWith(_TerminalCommandResult value,
-          $Res Function(_TerminalCommandResult) then) =
-      __$TerminalCommandResultCopyWithImpl<$Res>;
+  factory _$$_TerminalCommandResultCopyWith(_$_TerminalCommandResult value,
+          $Res Function(_$_TerminalCommandResult) then) =
+      __$$_TerminalCommandResultCopyWithImpl<$Res>;
   @override
   $Res call({String command, String result});
 }
 
 /// @nodoc
-class __$TerminalCommandResultCopyWithImpl<$Res>
+class __$$_TerminalCommandResultCopyWithImpl<$Res>
     extends _$TerminalCommandResultCopyWithImpl<$Res>
-    implements _$TerminalCommandResultCopyWith<$Res> {
-  __$TerminalCommandResultCopyWithImpl(_TerminalCommandResult _value,
-      $Res Function(_TerminalCommandResult) _then)
-      : super(_value, (v) => _then(v as _TerminalCommandResult));
+    implements _$$_TerminalCommandResultCopyWith<$Res> {
+  __$$_TerminalCommandResultCopyWithImpl(_$_TerminalCommandResult _value,
+      $Res Function(_$_TerminalCommandResult) _then)
+      : super(_value, (v) => _then(v as _$_TerminalCommandResult));
 
   @override
-  _TerminalCommandResult get _value => super._value as _TerminalCommandResult;
+  _$_TerminalCommandResult get _value =>
+      super._value as _$_TerminalCommandResult;
 
   @override
   $Res call({
     Object? command = freezed,
     Object? result = freezed,
   }) {
-    return _then(_TerminalCommandResult(
+    return _then(_$_TerminalCommandResult(
       command == freezed
           ? _value.command
           : command // ignore: cast_nullable_to_non_nullable
@@ -306,7 +306,7 @@ class _$_TerminalCommandResult implements _TerminalCommandResult {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TerminalCommandResult &&
+            other is _$_TerminalCommandResult &&
             const DeepCollectionEquality().equals(other.command, command) &&
             const DeepCollectionEquality().equals(other.result, result));
   }
@@ -319,8 +319,8 @@ class _$_TerminalCommandResult implements _TerminalCommandResult {
 
   @JsonKey(ignore: true)
   @override
-  _$TerminalCommandResultCopyWith<_TerminalCommandResult> get copyWith =>
-      __$TerminalCommandResultCopyWithImpl<_TerminalCommandResult>(
+  _$$_TerminalCommandResultCopyWith<_$_TerminalCommandResult> get copyWith =>
+      __$$_TerminalCommandResultCopyWithImpl<_$_TerminalCommandResult>(
           this, _$identity);
 }
 
@@ -329,12 +329,12 @@ abstract class _TerminalCommandResult implements TerminalCommandResult {
       final String command, final String result) = _$_TerminalCommandResult;
 
   @override
-  String get command => throw _privateConstructorUsedError;
+  String get command;
   @override
-  String get result => throw _privateConstructorUsedError;
+  String get result;
   @override
   @JsonKey(ignore: true)
-  _$TerminalCommandResultCopyWith<_TerminalCommandResult> get copyWith =>
+  _$$_TerminalCommandResultCopyWith<_$_TerminalCommandResult> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -394,11 +394,11 @@ class _$CommandDefinitionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$CommandDefinitionCopyWith<$Res>
+abstract class _$$_CommandDefinitionCopyWith<$Res>
     implements $CommandDefinitionCopyWith<$Res> {
-  factory _$CommandDefinitionCopyWith(
-          _CommandDefinition value, $Res Function(_CommandDefinition) then) =
-      __$CommandDefinitionCopyWithImpl<$Res>;
+  factory _$$_CommandDefinitionCopyWith(_$_CommandDefinition value,
+          $Res Function(_$_CommandDefinition) then) =
+      __$$_CommandDefinitionCopyWithImpl<$Res>;
   @override
   $Res call(
       {String command,
@@ -407,15 +407,15 @@ abstract class _$CommandDefinitionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$CommandDefinitionCopyWithImpl<$Res>
+class __$$_CommandDefinitionCopyWithImpl<$Res>
     extends _$CommandDefinitionCopyWithImpl<$Res>
-    implements _$CommandDefinitionCopyWith<$Res> {
-  __$CommandDefinitionCopyWithImpl(
-      _CommandDefinition _value, $Res Function(_CommandDefinition) _then)
-      : super(_value, (v) => _then(v as _CommandDefinition));
+    implements _$$_CommandDefinitionCopyWith<$Res> {
+  __$$_CommandDefinitionCopyWithImpl(
+      _$_CommandDefinition _value, $Res Function(_$_CommandDefinition) _then)
+      : super(_value, (v) => _then(v as _$_CommandDefinition));
 
   @override
-  _CommandDefinition get _value => super._value as _CommandDefinition;
+  _$_CommandDefinition get _value => super._value as _$_CommandDefinition;
 
   @override
   $Res call({
@@ -423,7 +423,7 @@ class __$CommandDefinitionCopyWithImpl<$Res>
     Object? description = freezed,
     Object? run = freezed,
   }) {
-    return _then(_CommandDefinition(
+    return _then(_$_CommandDefinition(
       command == freezed
           ? _value.command
           : command // ignore: cast_nullable_to_non_nullable
@@ -461,7 +461,7 @@ class _$_CommandDefinition implements _CommandDefinition {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CommandDefinition &&
+            other is _$_CommandDefinition &&
             const DeepCollectionEquality().equals(other.command, command) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
@@ -477,8 +477,9 @@ class _$_CommandDefinition implements _CommandDefinition {
 
   @JsonKey(ignore: true)
   @override
-  _$CommandDefinitionCopyWith<_CommandDefinition> get copyWith =>
-      __$CommandDefinitionCopyWithImpl<_CommandDefinition>(this, _$identity);
+  _$$_CommandDefinitionCopyWith<_$_CommandDefinition> get copyWith =>
+      __$$_CommandDefinitionCopyWithImpl<_$_CommandDefinition>(
+          this, _$identity);
 }
 
 abstract class _CommandDefinition implements CommandDefinition {
@@ -489,14 +490,13 @@ abstract class _CommandDefinition implements CommandDefinition {
       _$_CommandDefinition;
 
   @override
-  String get command => throw _privateConstructorUsedError;
+  String get command;
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
   @override
-  FutureOr<void> Function(TerminalContext) get run =>
-      throw _privateConstructorUsedError;
+  FutureOr<void> Function(TerminalContext) get run;
   @override
   @JsonKey(ignore: true)
-  _$CommandDefinitionCopyWith<_CommandDefinition> get copyWith =>
+  _$$_CommandDefinitionCopyWith<_$_CommandDefinition> get copyWith =>
       throw _privateConstructorUsedError;
 }
