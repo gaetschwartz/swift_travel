@@ -3,55 +3,6 @@ format_version: "8"
 default_step_lib_source: "https://github.com/bitrise-io/bitrise-steplib.git"
 project_type: flutter
 workflows:
-  deploy-ios:
-    steps:
-      - activate-ssh-key@4:
-          run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-      - git-clone@6: {}
-      - certificate-and-profile-installer@1: {}
-      - script@1:
-          inputs:
-            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh beta
-          title: Get latest version
-      - cache-pull@2: {}
-      - script-runner@0:
-          inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_git_data.sh
-          title: Get git data
-      - script-runner@0:
-          inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
-            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - is_debug: true
-          title: Prebuild
-      - flutter-installer@0:
-          inputs:
-            - installation_bundle_url: $FLUTTER_ARCHIVE_URL
-      - script-runner@0:
-          inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_sksl.sh
-            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-          title: compute sksl shaders
-      - script@1:
-          inputs:
-            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: |-
-                #!/usr/bin/env bash
-                set -e
-                set -o pipefail
-                set -x
-
-                flutter build ios --config-only --release --no-codesign --build-number $COMMIT_NUMBER
-          title: flutter build ios
-      - xcode-archive@4: {}
-      - deploy-to-itunesconnect-application-loader@1:
-          inputs:
-            - password: $APPLE_PASSWORD
-            - app_password: $APPLE_2FA
-            - itunescon_user: $APPLE_EMAIL
-      - cache-push@2: {}
-    after_run: []
-
   build:
     steps:
       - activate-ssh-key@4:
@@ -86,13 +37,62 @@ workflows:
           inputs:
             - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
             - ios_additional_params: >-
-                --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT $SKSL_ARGUMENT
+                --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
+                $SKSL_ARGUMENT
             - android_additional_params: >-
                 --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform
                 android-arm64
       - cache-push@2: {}
     after_run: []
-
+  deploy-ios:
+    steps:
+      - activate-ssh-key@4:
+          run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - git-clone@6: {}
+      - certificate-and-profile-installer@1: {}
+      - script@1:
+          inputs:
+            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh beta
+          title: Get latest version
+      - cache-pull@2: {}
+      - script-runner@0:
+          inputs:
+            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_git_data.sh
+          title: Get git data
+      - script-runner@0:
+          inputs:
+            - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - is_debug: true
+          title: Prebuild
+      - flutter-installer@0:
+          inputs:
+            - installation_bundle_url: $FLUTTER_ARCHIVE_URL
+      - script-runner@0:
+          inputs:
+            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_sksl.sh
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
+          title: compute sksl shaders
+      - script@1:
+          inputs:
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                set -o pipefail
+                flutter build ios --config-only --no-codesign --release --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
+          title: flutter build ios
+      - xcode-archive@4.6:
+          inputs:
+            - distribution_method: app-store
+            - export_development_team: Y2PPW6ETTC
+      - deploy-to-itunesconnect-application-loader@1:
+          inputs:
+            - password: $APPLE_PASSWORD
+            - app_password: $APPLE_2FA
+            - itunescon_user: $APPLE_EMAIL
+      - cache-push@2: {}
+    after_run: []
 app:
   envs:
     - opts:
