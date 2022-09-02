@@ -35,10 +35,13 @@ workflows:
       - script@1:
           inputs:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: >-
+            - content: |-
                 #!/usr/bin/env bash
-                set -ex
-                flutter build ios --config-only --no-codesign --release --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
+                set -e
+                set -o pipefail
+                set -x
+
+                flutter build ios --config-only --release --no-codesign --build-number $COMMIT_NUMBER
           title: flutter build ios
       - xcode-archive@4: {}
       - deploy-to-itunesconnect-application-loader@1:
