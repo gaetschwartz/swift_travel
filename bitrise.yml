@@ -29,11 +29,6 @@ workflows:
             - installation_bundle_url: $FLUTTER_ARCHIVE_URL
       - script-runner@0:
           inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/fix_flutter_90209.sh
-            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-          title: Fix https://github.com/flutter/flutter/issues/90209
-      - script-runner@0:
-          inputs:
             - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_sksl.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
           title: compute sksl shaders
@@ -42,9 +37,7 @@ workflows:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
             - content: >-
                 #!/usr/bin/env bash
-                set -e
-                set -x
-
+                set -ex
                 flutter build ios --config-only --no-codesign --release --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
           title: flutter build ios
       - xcode-archive@4: {}
