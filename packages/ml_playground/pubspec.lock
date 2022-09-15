@@ -49,7 +49,7 @@ packages:
       name: ml_algo
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "16.15.2"
+    version: "16.17.3"
   ml_dataframe:
     dependency: "direct main"
     description:
