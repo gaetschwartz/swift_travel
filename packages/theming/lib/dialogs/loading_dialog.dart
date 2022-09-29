@@ -110,7 +110,7 @@ class _LoadingDialogState<T> extends State<_LoadingDialog<T>> {
             const CircularProgressIndicator(),
             const SizedBox(width: 16),
             DefaultTextStyle(
-              style: Theme.of(context).textTheme.headline6!,
+              style: Theme.of(context).textTheme.titleLarge!,
               child: widget.title,
             ),
           ],

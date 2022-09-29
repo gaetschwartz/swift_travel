@@ -351,19 +351,19 @@ extension ThemeDataX on ThemeData {
 
 extension TextThemeX on TextTheme {
   TextTheme applyFontWeightDelta(int fontWeightDelta) => copyWith(
-        headline1: headline1?.apply(fontWeightDelta: fontWeightDelta),
-        headline2: headline2?.apply(fontWeightDelta: fontWeightDelta),
-        headline3: headline3?.apply(fontWeightDelta: fontWeightDelta),
-        headline4: headline4?.apply(fontWeightDelta: fontWeightDelta),
-        headline5: headline5?.apply(fontWeightDelta: fontWeightDelta),
-        headline6: headline6?.apply(fontWeightDelta: fontWeightDelta),
-        subtitle1: subtitle1?.apply(fontWeightDelta: fontWeightDelta),
-        subtitle2: subtitle2?.apply(fontWeightDelta: fontWeightDelta),
-        bodyText1: bodyText1?.apply(fontWeightDelta: fontWeightDelta),
-        bodyText2: bodyText2?.apply(fontWeightDelta: fontWeightDelta),
-        caption: caption?.apply(fontWeightDelta: fontWeightDelta),
-        button: button?.apply(fontWeightDelta: fontWeightDelta),
-        overline: overline?.apply(fontWeightDelta: fontWeightDelta),
+        displayLarge: displayLarge?.apply(fontWeightDelta: fontWeightDelta),
+        displayMedium: displayMedium?.apply(fontWeightDelta: fontWeightDelta),
+        displaySmall: displaySmall?.apply(fontWeightDelta: fontWeightDelta),
+        headlineMedium: headlineMedium?.apply(fontWeightDelta: fontWeightDelta),
+        headlineSmall: headlineSmall?.apply(fontWeightDelta: fontWeightDelta),
+        titleLarge: titleLarge?.apply(fontWeightDelta: fontWeightDelta),
+        titleMedium: titleMedium?.apply(fontWeightDelta: fontWeightDelta),
+        titleSmall: titleSmall?.apply(fontWeightDelta: fontWeightDelta),
+        bodyLarge: bodyLarge?.apply(fontWeightDelta: fontWeightDelta),
+        bodyMedium: bodyMedium?.apply(fontWeightDelta: fontWeightDelta),
+        bodySmall: bodySmall?.apply(fontWeightDelta: fontWeightDelta),
+        labelLarge: labelLarge?.apply(fontWeightDelta: fontWeightDelta),
+        labelSmall: labelSmall?.apply(fontWeightDelta: fontWeightDelta),
       );
 }
 

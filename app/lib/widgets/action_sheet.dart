@@ -199,14 +199,14 @@ class ActionsSheet<T> extends StatelessWidget {
                     if (title != null || message != null) const Gap(12),
                     if (title != null)
                       DefaultTextStyle(
-                          style: Theme.of(context).textTheme.subtitle1!,
+                          style: Theme.of(context).textTheme.titleMedium!,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 8, right: 8),
                             child: Center(child: title),
                           )),
                     if (message != null)
                       DefaultTextStyle(
-                          style: Theme.of(context).textTheme.caption!,
+                          style: Theme.of(context).textTheme.bodySmall!,
                           child: Padding(
                             padding: EdgeInsets.only(
                                 left: 8, right: 8, top: title != null ? 8 : 0),

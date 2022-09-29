@@ -419,7 +419,7 @@ class WidgetsShowcase extends StatelessWidget {
             children: [
               DefaultTextStyle(
                 style: GoogleFonts.openSans(
-                  textStyle: Theme.of(context).textTheme.bodyText1,
+                  textStyle: Theme.of(context).textTheme.bodyLarge,
                   fontSize: 24,
                 ),
                 child: Padding(

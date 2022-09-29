@@ -143,7 +143,7 @@ class _Header extends StatelessWidget {
         children: [
           const Gap(8),
           DefaultTextStyle(
-            style: Theme.of(context).textTheme.bodyText1!,
+            style: Theme.of(context).textTheme.bodyLarge!,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Column(

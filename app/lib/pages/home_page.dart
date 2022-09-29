@@ -277,9 +277,9 @@ class _TabWidget extends ConsumerWidget {
         style: page == i
             ? Theme.of(context)
                 .textTheme
-                .bodyText2!
+                .bodyMedium!
                 .copyWith(color: activeColor)
-            : Theme.of(context).textTheme.bodyText2!,
+            : Theme.of(context).textTheme.bodyMedium!,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2),

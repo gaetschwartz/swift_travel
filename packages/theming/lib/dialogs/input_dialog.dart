@@ -213,7 +213,7 @@ class __TextInputDialogState extends State<_TextInputDialog> {
             child: DefaultTextStyle(
                 style: Theme.of(context)
                     .textTheme
-                    .button!
+                    .labelLarge!
                     .copyWith(color: Theme.of(context).colorScheme.secondary),
                 child: widget.submit),
           )

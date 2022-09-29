@@ -35,7 +35,7 @@ class DepartureTile extends StatelessWidget {
                       child: Text(text,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(fontWeight: FontWeight.bold)),
                     ),
                   ],

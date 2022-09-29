@@ -313,7 +313,7 @@ class _Results extends StatelessWidget {
               const Gap(24),
               Text(
                 AppLocalizations.of(context).search_station,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               )
             ],
@@ -328,7 +328,7 @@ class _Results extends StatelessWidget {
               const Gap(16),
               Text(
                 'Network Error',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ],
           ),

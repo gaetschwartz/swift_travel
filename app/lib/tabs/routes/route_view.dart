@@ -55,7 +55,7 @@ class RoutesView extends StatelessWidget {
                             child: DefaultTextStyle(
                               style: Theme.of(context)
                                   .textTheme
-                                  .caption!
+                                  .bodySmall!
                                   .apply(fontSizeFactor: 1.4),
                               child: routes.messages.isEmpty ||
                                       _locationNotFound
@@ -93,7 +93,7 @@ class RoutesView extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Text(
                   'Network Error',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             ],
@@ -118,7 +118,7 @@ class RoutesView extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       child: Text(
                         'This app requires location permissions !',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),
                     )
@@ -164,7 +164,7 @@ class RoutesView extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Text(
                     e.toString(),
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -196,7 +196,7 @@ class RoutesView extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Text(
                     'Location is not supported on this device',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -313,7 +313,7 @@ class _PredictionTile extends StatelessWidget {
             const Gap(24),
             Text(
               AppLocalizations.of(context).find_a_route,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             )
           ],

@@ -101,7 +101,7 @@ class FavoriteRouteTile extends ConsumerWidget {
         children: [
           Text(
             AppLocalizations.of(context).from,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           Text(
             route.fromAsString,
@@ -109,7 +109,7 @@ class FavoriteRouteTile extends ConsumerWidget {
           ),
           Text(
             AppLocalizations.of(context).to,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           Text(
             route.toAsString,

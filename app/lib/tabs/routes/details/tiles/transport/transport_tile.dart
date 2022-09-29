@@ -86,7 +86,7 @@ class _Collapsed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => DefaultTextStyle(
-      style: Theme.of(context).textTheme.subtitle2!,
+      style: Theme.of(context).textTheme.titleSmall!,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -252,7 +252,7 @@ class _Header extends StatelessWidget {
                     l.terminal!,
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle1!
+                        .titleMedium!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),

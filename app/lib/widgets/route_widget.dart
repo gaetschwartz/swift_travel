@@ -50,7 +50,7 @@ class RouteWidget extends StatelessWidget {
                   children: [
                     if (title != null) ...[
                       DefaultTextStyle(
-                        style: Theme.of(context).textTheme.subtitle1!,
+                        style: Theme.of(context).textTheme.titleMedium!,
                         child: title!,
                       ),
                       const Gap(8),
@@ -78,7 +78,7 @@ class RouteWidget extends StatelessWidget {
                                               .from
                                               .toCamelCase(),
                                       style:
-                                          Theme.of(context).textTheme.subtitle2,
+                                          Theme.of(context).textTheme.titleSmall,
                                     ),
                                   ),
                                 ),
@@ -102,7 +102,7 @@ class RouteWidget extends StatelessWidget {
                                               .to
                                               .toCamelCase(),
                                       style:
-                                          Theme.of(context).textTheme.subtitle2,
+                                          Theme.of(context).textTheme.titleSmall,
                                     ),
                                   ),
                                 ),
@@ -110,7 +110,7 @@ class RouteWidget extends StatelessWidget {
                             ]),
                         const Gap(8),
                         DefaultTextStyle(
-                          style: Theme.of(context).textTheme.subtitle2!,
+                          style: Theme.of(context).textTheme.titleSmall!,
                           child: Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
