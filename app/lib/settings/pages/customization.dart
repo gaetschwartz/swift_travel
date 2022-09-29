@@ -87,7 +87,7 @@ class _FontChoiceTile extends StatelessWidget {
               value: e,
               title: Text(
                 e.name,
-                style: e.textTheme(Typography.englishLike2018).bodyText2,
+                style: e.textTheme(Typography.englishLike2018).bodyMedium,
               ),
             ),
           )
@@ -221,14 +221,14 @@ class _ThememodeWidget extends StatelessWidget {
                                 left: 8, right: 8, bottom: 8, top: 4),
                             child: Text(
                               label,
-                              style: t.textTheme.headline6!
+                              style: t.textTheme.titleLarge!
                                   .copyWith(color: Colors.black),
                             ),
                           ),
                         ),
                       ),
                     )
-                  : Text(label, style: t.textTheme.headline6),
+                  : Text(label, style: t.textTheme.titleLarge),
             ),
           ),
         ),

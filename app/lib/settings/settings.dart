@@ -117,7 +117,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           child: Text(
             '© Copyright Gaëtan Schwartz ${DateTime.now().year}',
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
       ),
@@ -356,7 +356,7 @@ class SectionTitle extends StatelessWidget {
         child: DefaultTextStyle(
           style: Theme.of(context)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(color: platformPrimaryColor(context)),
           textAlign: TextAlign.left,
           child: title,

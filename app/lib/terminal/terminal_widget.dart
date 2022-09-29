@@ -106,7 +106,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
   @override
   Widget build(BuildContext context) {
     final firaCode =
-        GoogleFonts.firaCode(textStyle: Theme.of(context).textTheme.bodyText1);
+        GoogleFonts.firaCode(textStyle: Theme.of(context).textTheme.bodyLarge);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -220,7 +220,7 @@ class Prompt extends StatelessWidget {
       TextSpan(
         text: "gaetan@work",
         style: GoogleFonts.firaCode(
-          textStyle: Theme.of(context).textTheme.bodyText1,
+          textStyle: Theme.of(context).textTheme.bodyLarge,
           color: const Color(0xFF8AE232),
           letterSpacing: 1,
           fontSize: fontSize,
@@ -229,7 +229,7 @@ class Prompt extends StatelessWidget {
       TextSpan(
         text: ":",
         style: GoogleFonts.firaCode(
-          textStyle: Theme.of(context).textTheme.bodyText1,
+          textStyle: Theme.of(context).textTheme.bodyLarge,
           letterSpacing: 1,
           fontSize: fontSize,
         ),
@@ -237,7 +237,7 @@ class Prompt extends StatelessWidget {
       TextSpan(
         text: "~",
         style: GoogleFonts.firaCode(
-          textStyle: Theme.of(context).textTheme.bodyText1,
+          textStyle: Theme.of(context).textTheme.bodyLarge,
           color: const Color(0xFF8AE232),
           letterSpacing: 1,
           fontSize: fontSize,
@@ -246,7 +246,7 @@ class Prompt extends StatelessWidget {
       TextSpan(
         text: r"$ ",
         style: GoogleFonts.firaCode(
-          textStyle: Theme.of(context).textTheme.bodyText1,
+          textStyle: Theme.of(context).textTheme.bodyLarge,
           letterSpacing: 1,
           fontSize: fontSize,
         ),

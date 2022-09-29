@@ -91,13 +91,13 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
                     const Gap(32),
                     Text(
                       'You have no favorites !',
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
                     const Gap(8),
                     Text(
                       'You can add one by tapping the ➕ button.',
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),
                   ],

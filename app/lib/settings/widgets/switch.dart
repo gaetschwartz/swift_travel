@@ -85,7 +85,7 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
         title: DefaultTextStyle(
           style: Theme.of(context)
               .textTheme
-              .bodyText1!
+              .bodyLarge!
               .copyWith(letterSpacing: 0)
               .apply(fontSizeFactor: 1.05),
           child: widget.title,
@@ -122,7 +122,7 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: DefaultTextStyle(
-                style: theme.textTheme.caption!,
+                style: theme.textTheme.bodySmall!,
                 child: widget.subtitle!,
               ),
             )

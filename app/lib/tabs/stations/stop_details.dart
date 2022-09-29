@@ -190,7 +190,7 @@ class _NoData extends StatelessWidget {
                 s.errors.isNotEmpty
                     ? s.errors.join('\n')
                     : "We couldn't find any departures from this location",
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               )
             ],

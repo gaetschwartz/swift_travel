@@ -37,7 +37,7 @@ class ArrivedTile extends StatelessWidget {
                       child: Text(l.displayName,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(fontWeight: FontWeight.bold)),
                     ),
                   ],
@@ -46,7 +46,7 @@ class ArrivedTile extends StatelessWidget {
                 Text.rich(parseDecoratedText(
                   AppLocalizations.of(context)
                       .youll_be_there(Format.time(l.arrival)),
-                  style: Theme.of(context).textTheme.subtitle2,
+                  style: Theme.of(context).textTheme.titleSmall,
                 )),
               ],
             ),

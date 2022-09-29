@@ -54,7 +54,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDarwin = theme.platform.isDarwin;
-    final subtitleColor = theme.textTheme.caption?.color;
+    final subtitleColor = theme.textTheme.bodySmall?.color;
     return Column(
       children: [
         if (showDividers && !tileBorders.top)
@@ -70,7 +70,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
               title: DefaultTextStyle(
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1!
+                    .bodyLarge!
                     .copyWith(letterSpacing: 0)
                     .apply(fontSizeFactor: 1.05),
                 child: title,
@@ -97,7 +97,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
                                     constraints:
                                         const BoxConstraints(maxWidth: 100),
                                     child: DefaultTextStyle(
-                                      style: theme.textTheme.subtitle1!
+                                      style: theme.textTheme.titleMedium!
                                           .copyWith(color: subtitleColor),
                                       softWrap: false,
                                       textAlign: TextAlign.right,

@@ -118,7 +118,7 @@ class _ConfirmationAlert extends StatelessWidget {
             child: DefaultTextStyle(
               style: Theme.of(context)
                   .textTheme
-                  .button!
+                  .labelLarge!
                   .copyWith(color: Theme.of(context).colorScheme.onSurface),
               child: cancel,
             ),
@@ -128,7 +128,7 @@ class _ConfirmationAlert extends StatelessWidget {
             child: DefaultTextStyle(
               style: Theme.of(context)
                   .textTheme
-                  .button!
+                  .labelLarge!
                   .copyWith(color: Theme.of(context).colorScheme.secondary),
               child: confirm,
             ),

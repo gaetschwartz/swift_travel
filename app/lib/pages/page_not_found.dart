@@ -80,14 +80,14 @@ class ErrorDataWidget extends StatelessWidget {
     final text = Text(value!,
         style: Theme.of(context)
             .textTheme
-            .bodyText2!
+            .bodyMedium!
             .copyWith(fontFamily: GoogleFonts.firaCode().fontFamily));
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(name, style: Theme.of(context).textTheme.bodyText1),
+          Text(name, style: Theme.of(context).textTheme.bodyLarge),
           const Gap(4),
           Card(
             color: Colors.grey[100],

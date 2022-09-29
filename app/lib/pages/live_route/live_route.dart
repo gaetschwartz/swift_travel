@@ -81,14 +81,14 @@ class _LiveRoutePageState extends ConsumerState<LiveRoutePage> {
                             ],
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .titleLarge!
                                 .apply(fontSizeFactor: 0.8),
                           )),
                           Text(
                             controller.routeData.currentStopIndex == 2
                                 ? 'Get off next stop'
                                 : '${controller.routeData.currentStopIndex} stops left',
-                            style: Theme.of(context).textTheme.subtitle2,
+                            style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],
                       ),

@@ -31,7 +31,7 @@ class Format {
     if (m > 60) {
       final hour = m ~/ 60;
       final minutes = m % 60;
-      return '${hour.toString()}${_hs(locale)}${minutes.toString().padLeft(2, '0')}';
+      return '$hour${_hs(locale)}${minutes.toString().padLeft(2, '0')}';
     }
     if (m == 0) {
       return _now(locale);

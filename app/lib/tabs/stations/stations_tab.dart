@@ -241,7 +241,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                                           'Search a station',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6,
+                                              .titleLarge,
                                           textAlign: TextAlign.center,
                                         )
                                       ],
@@ -259,7 +259,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                               exception: (e) => Center(
                                 child: Text(
                                   e.exception.toString(),
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ),
                             )),
@@ -273,7 +273,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                         const Gap(16),
                         Text(
                           'Network Error',
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],
                     ),

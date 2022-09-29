@@ -50,7 +50,7 @@ class _WalkingTileState extends ConsumerState<WalkingTile> {
                             widget.l.exit!.displayName,
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -64,7 +64,7 @@ class _WalkingTileState extends ConsumerState<WalkingTile> {
                             Format.duration(widget.l.walkingTime)!,
                             Format.intToDuration(widget.l.exit!.waitTime),
                           ),
-                          style: Theme.of(context).textTheme.subtitle2,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       )
                     else
@@ -72,7 +72,7 @@ class _WalkingTileState extends ConsumerState<WalkingTile> {
                         parseDecoratedText(
                           AppLocalizations.of(context)
                               .walk(Format.duration(widget.l.walkingTime)!),
-                          style: Theme.of(context).textTheme.subtitle2,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
                   ],
