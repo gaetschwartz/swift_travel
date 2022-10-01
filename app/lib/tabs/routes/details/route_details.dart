@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +46,7 @@ class RouteDetails extends StatelessWidget {
                   middle: Text(AppLocalizations.of(context).tabs_route),
                   trailing: IconButton(
                     icon: const Icon(Icons.more_horiz),
-                    onPressed: () => openShareAction(context, conn),
+                    onPressed: () async => openShareAction(context, conn),
                   ),
                 ),
                 child: child!,
@@ -66,7 +68,7 @@ class RouteDetails extends StatelessWidget {
                       actions: <Widget>[
                         IconButton(
                           icon: const Icon(Icons.more_horiz),
-                          onPressed: () => openShareAction(context, conn),
+                          onPressed: () async => openShareAction(context, conn),
                         ),
                       ]),
                 SliverSafeArea(
@@ -89,8 +91,9 @@ class RouteDetails extends StatelessWidget {
             ));
   }
 
-  void openShareAction(BuildContext context, RouteConnection conn) {
-    showActionSheet<void>(
+  Future<void> openShareAction(
+      BuildContext context, RouteConnection conn) async {
+    await showActionSheet<void>(
       context,
       [
         if (Env.isLiveRouteEnabled)
@@ -118,15 +121,15 @@ class RouteDetails extends StatelessWidget {
     );
   }
 
-  void _shareRoute(BuildContext context) {
+  Future<void> _shareRoute(BuildContext context) async {
     Vibration.instance.select();
-    shareRoute(context, route!, i);
+    await shareRoute(context, route!, i);
   }
 
   void openLive(BuildContext context, RouteConnection c) {
     Vibration.instance.select();
-    Navigator.of(context).push<void>(
-        MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c)));
+    unawaited(Navigator.of(context).push<void>(
+        MaterialPageRoute(builder: (_) => LiveRoutePage(connection: c))));
   }
 }
 

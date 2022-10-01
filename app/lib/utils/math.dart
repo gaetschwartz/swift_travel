@@ -18,11 +18,11 @@ class Sum {
   String get overview {
     final s = value;
     final b =
-        StringBuffer("  Sum: ${value.toStringAsPrecision(4)}\n  Overview:\n");
+        StringBuffer('  Sum: ${value.toStringAsPrecision(4)}\n  Overview:\n');
     for (var i = 0; i < addends.length; i++) {
       final a = addends[i];
       b.writeln(
-          "    ${a.name}: \t ${a.repr} (${(a.value * 100 / s).toStringAsFixed(2)}%)");
+          '    ${a.name}: \t ${a.repr} (${(a.value * 100 / s).toStringAsFixed(2)}%)');
     }
     return b.toString();
   }
@@ -74,10 +74,10 @@ class WeighedAddend extends Addend {
 
   @override
   String toString() {
-    return "WeighedAddend($_value, $weight, $name)";
+    return 'WeighedAddend($_value, $weight, $name)';
   }
 
   @override
   String get repr =>
-      "${_value.toStringAsFixed(3)}*${weight.toStringAsFixed(3)}=${value.toStringAsFixed(3)}";
+      '${_value.toStringAsFixed(3)}*${weight.toStringAsFixed(3)}=${value.toStringAsFixed(3)}';
 }

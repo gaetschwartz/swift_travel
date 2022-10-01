@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:math' as m;
 
@@ -127,10 +128,9 @@ class _SneccGameState extends State<SneccGame>
           isHead = false;
         } else if (body == head && !isHead) {
           log.log(snecc);
-          showDialog<void>(
+          unawaited(showDialog<void>(
               context: context,
-              builder: (_) =>
-                  const AlertDialog(title: Text('You ate yourself !')));
+              builder: (_) => const AlertDialog(title: Text('You died!'))));
           stop();
           setState(() => tick = t);
           return;
@@ -147,9 +147,9 @@ class _SneccGameState extends State<SneccGame>
           head!.x < 0 ||
           head!.y >= gridSize ||
           head!.y < 0) {
-        showDialog<void>(
+        unawaited(showDialog<void>(
             context: context,
-            builder: (_) => const AlertDialog(title: Text('You lost !')));
+            builder: (_) => const AlertDialog(title: Text('You lost !'))));
         stop();
       }
       setState(() => tick = t);

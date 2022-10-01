@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/terminal/models.dart';
 
 class TerminalPage extends StatelessWidget {
@@ -26,7 +25,7 @@ class TerminalPage extends StatelessWidget {
   }
 }
 
-class TerminalWidget extends StatefulWidget {
+class TerminalWidget extends ConsumerStatefulWidget {
   const TerminalWidget({
     Key? key,
   }) : super(key: key);
@@ -38,14 +37,14 @@ class TerminalWidget extends StatefulWidget {
 final terminalHistoryProvider =
     StateProvider.autoDispose((ref) => <TerminalCommandResult>[]);
 
-class _TerminalWidgetState extends State<TerminalWidget> {
+class _TerminalWidgetState extends ConsumerState<TerminalWidget> {
   final TextEditingController controller = TextEditingController();
   final ScrollController scrollController = ScrollController();
   final FocusNode focusNode = FocusNode();
   final int cache = 25;
 
   void write(String cmd, String result) {
-    final history = context.read(terminalHistoryProvider.state);
+    final history = ref.read(terminalHistoryProvider.state);
     final newList = List<TerminalCommandResult>.from(history.state);
     if (history.state.length > cache) {
       newList.removeRange(0, newList.length - cache);
@@ -54,7 +53,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
     history.state = newList;
 
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => scrollBottom(),
+      (_) => unawaited(scrollBottom()),
     );
   }
 
@@ -66,27 +65,29 @@ class _TerminalWidgetState extends State<TerminalWidget> {
     );
   }
 
-  void clear() => context.read(terminalHistoryProvider.state).state = [];
+  void clear() => ref.read(terminalHistoryProvider.state).state = [];
 
   final maxLength =
       commands.map<int>((e) => e.command.length).fold(0, math.max);
 
   Future<void> handleCommand(String txt) async {
-    final s = txt.trim().toLowerCase().split(" ");
+    final s = txt.trim().toLowerCase().split(' ');
     final def =
         commands.firstWhereOrNull((element) => element.command == s.first);
     if (def == null) {
-      if (s.first == "help") {
+      if (s.first == 'help') {
         write(s.first,
             "Here are the available commands : \n\n${commands.map((c) => "  ${c.command}:${" " * (maxLength + 2 - c.command.length)}${c.description}").join("\n")}");
       } else {
-        write(s.first, "Unknown command `${s.first}`, try `help` for help.");
+        write(s.first, 'Unknown command `${s.first}`, try `help` for help.');
       }
     } else {
-      def.run(TerminalContext(
-          s, write, context.read(terminalHistoryProvider.state), context));
+      def.run(
+        TerminalContext(
+            s, write, ref.read(terminalHistoryProvider.state), context),
+      );
     }
-    controller.text = "";
+    controller.text = '';
   }
 
   @override
@@ -100,7 +101,8 @@ class _TerminalWidgetState extends State<TerminalWidget> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => scrollBottom());
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => unawaited(scrollBottom()));
   }
 
   @override
@@ -114,7 +116,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
           style: firaCode,
           child: GestureDetector(
             onTap: () {
-              log.log("Requesting focus");
+              log.log('Requesting focus');
               if (!focusNode.hasFocus) focusNode.requestFocus();
             },
             child: Consumer(builder: (context, w, _) {
@@ -129,7 +131,7 @@ class _TerminalWidgetState extends State<TerminalWidget> {
                       focusNode: focusNode,
                       text: controller,
                       handleCommand: handleCommand,
-                      key: const ValueKey("terminal-prompt-textfield"),
+                      key: const ValueKey('terminal-prompt-textfield'),
                     );
                   }
                   final terminalCommandResult = commands[i];
@@ -218,7 +220,7 @@ class Prompt extends StatelessWidget {
 
     return Text.rich(TextSpan(children: [
       TextSpan(
-        text: "gaetan@work",
+        text: 'gaetan@work',
         style: GoogleFonts.firaCode(
           textStyle: Theme.of(context).textTheme.bodyLarge,
           color: const Color(0xFF8AE232),
@@ -227,7 +229,7 @@ class Prompt extends StatelessWidget {
         ),
       ),
       TextSpan(
-        text: ":",
+        text: ':',
         style: GoogleFonts.firaCode(
           textStyle: Theme.of(context).textTheme.bodyLarge,
           letterSpacing: 1,
@@ -235,7 +237,7 @@ class Prompt extends StatelessWidget {
         ),
       ),
       TextSpan(
-        text: "~",
+        text: '~',
         style: GoogleFonts.firaCode(
           textStyle: Theme.of(context).textTheme.bodyLarge,
           color: const Color(0xFF8AE232),
@@ -244,7 +246,7 @@ class Prompt extends StatelessWidget {
         ),
       ),
       TextSpan(
-        text: r"$ ",
+        text: r'$ ',
         style: GoogleFonts.firaCode(
           textStyle: Theme.of(context).textTheme.bodyLarge,
           letterSpacing: 1,

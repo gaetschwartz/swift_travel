@@ -31,12 +31,12 @@ const searchChApi = NavigationApiFactory(
 );
 
 class SearchChApi extends BaseNavigationApi {
-  SearchChApi(this.reader);
+  SearchChApi(this.ref);
 
   static const queryBuilder =
       QueryBuilder<String>('timetable.search.ch', _json);
   static String _json(String s) => '/api/$s.json';
-  final Reader reader;
+  final Ref ref;
 
   final _client = http.Client();
 
@@ -46,7 +46,8 @@ class SearchChApi extends BaseNavigationApi {
   Map<String, String> get headers =>
       {'accept-language': locale.toLanguageTag()};
 
-  late final trias = reader(configProvider.future)
+  late final trias = ref
+      .read(configProvider.future)
       .then((value) => Trias2020Api(value.triasKey!));
 
   @override
@@ -227,7 +228,6 @@ class SearchChApi extends BaseNavigationApi {
 
   @override
   void dispose() {
-    print("!!!!!!!!!!!!!!!!! Client is being disposed");
     _client.close();
   }
 }

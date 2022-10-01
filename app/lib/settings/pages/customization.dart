@@ -214,7 +214,7 @@ class _ThememodeWidget extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                        child: Container(
+                        child: ColoredBox(
                           color: Colors.white30,
                           child: Padding(
                             padding: const EdgeInsets.only(

@@ -34,7 +34,7 @@ class LocalRoute with _$LocalRoute {
   const LocalRoute._();
 
   @JsonSerializable(includeIfNull: false)
-  @Deprecated("Use v2")
+  @Deprecated('Use v2')
   const factory LocalRoute.v1(
     String from,
     String to, {

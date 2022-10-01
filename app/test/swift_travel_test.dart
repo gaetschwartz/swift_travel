@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_await_in_return
+// ignore_for_file: unnecessary_await_in_return, avoid_print
 
 import 'dart:async';
 import 'dart:io';
@@ -129,7 +129,7 @@ void main() {
 
     test('throws when not accessed properly', () {
       final hist = RouteHistoryRepository();
-      expect(() => hist.add(route1), throwsAssertionError);
+      expect(() async => hist.add(route1), throwsAssertionError);
     });
     test('safe add works', () async {
       final hist = RouteHistoryRepository();
@@ -227,12 +227,16 @@ void main() {
     late ProviderContainer container;
     container = ProviderContainer(
       overrides: [
-        storeProvider.overrideWithValue(MockFavoriteStore(stops: [
-          FavoriteStop.fromStop(geneva, api: searchChApi.id),
-          FavoriteStop.fromStop('Genève gare', api: searchChApi.id),
-          FavoriteStop.fromStop('Genève nord', api: searchChApi.id),
-          FavoriteStop.fromStop('Lausanne Aéroport', api: searchChApi.id),
-        ])),
+        storeProvider.overrideWithProvider(
+          ChangeNotifierProvider(
+            (ref) => MockFavoriteStore(stops: [
+              FavoriteStop.fromStop(geneva, api: searchChApi.id),
+              FavoriteStop.fromStop('Genève gare', api: searchChApi.id),
+              FavoriteStop.fromStop('Genève nord', api: searchChApi.id),
+              FavoriteStop.fromStop('Lausanne Aéroport', api: searchChApi.id),
+            ]),
+          ),
+        ),
         navigationAPIProvider.overrideWithValue(
           MockNavigationApi(mockCompletions: [SbbCompletion(label: geneva)]),
         ),

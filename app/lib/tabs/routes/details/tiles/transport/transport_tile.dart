@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -45,11 +47,11 @@ class _TransportLegTileState extends State<TransportLegTile> {
         child: InkWell(
           borderRadius: borderRadius,
           onTap: () {
-            Navigator.of(context).push(
+            unawaited(Navigator.of(context).push(
               PlatformPageRoute(
                 builder: (context) => TransportDetails(leg: widget.l),
               ),
-            );
+            ));
           },
           child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -137,7 +139,7 @@ class _Collapsed extends StatelessWidget {
                     const Gap(16),
                     Expanded(child: Text(l.exit!.name)),
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
                         final darwin = isThemeDarwin(context);
                         final list = l.attributes.entries
                             .map(Attribute.fromAttribute)
@@ -152,7 +154,7 @@ class _Collapsed extends StatelessWidget {
                           ));
                         }
                         if (darwin) {
-                          showCupertinoModalBottomSheet<void>(
+                          await showCupertinoModalBottomSheet<void>(
                               context: context,
                               builder: (context) => CupertinoPageScaffold(
                                     resizeToAvoidBottomInset: false,
@@ -174,7 +176,7 @@ class _Collapsed extends StatelessWidget {
                                   ),
                               expand: false);
                         } else {
-                          showMaterialModalBottomSheet<void>(
+                          await showMaterialModalBottomSheet<void>(
                               context: context,
                               builder: (context) => Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -233,7 +235,7 @@ class _Header extends StatelessWidget {
   final Leg l;
 
   String fmtTrack(String s) {
-    final i = s.indexOf("!");
+    final i = s.indexOf('!');
     if (i == -1) return s;
     return s.substring(0, i);
   }
@@ -262,7 +264,7 @@ class _Header extends StatelessWidget {
                   'Pl. ${fmtTrack(l.track!)}',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: l.track!.contains("!") ? Colors.red : null),
+                      color: l.track!.contains('!') ? Colors.red : null),
                 ),
             ],
           ),

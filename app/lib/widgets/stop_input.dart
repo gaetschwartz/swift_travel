@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -85,7 +86,7 @@ class _StopInputDialogState extends ConsumerState<StopInputDialog> {
               focusNode: node,
               decoration: InputDecoration(
                   hintText: AppLocalizations.of(context).search_station),
-              onChanged: (s) => debouncer.debounce(() => fetch(s)),
+              onChanged: (s) => unawaited(debouncer.debounce(() => fetch(s))),
             ),
           ),
           Expanded(

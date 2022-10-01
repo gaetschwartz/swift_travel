@@ -52,7 +52,7 @@ enum PlaceType {
   str,
   metro,
   rer,
-  @JsonValue("night_strain")
+  @JsonValue('night_strain')
   nightStrain,
   unknown,
 }

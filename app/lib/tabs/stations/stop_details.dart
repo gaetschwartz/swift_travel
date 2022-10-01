@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
@@ -18,7 +18,7 @@ import 'package:swift_travel/widgets/route.dart';
 import 'package:swift_travel/widgets/sbb_icon.dart';
 import 'package:theming/responsive.dart';
 
-class StopDetails extends StatefulWidget {
+class StopDetails extends ConsumerStatefulWidget {
   const StopDetails(this.stop, {Key? key}) : super(key: key);
 
   final Stop stop;
@@ -27,7 +27,7 @@ class StopDetails extends StatefulWidget {
   _StopDetailsState createState() => _StopDetailsState();
 }
 
-class _StopDetailsState extends State<StopDetails> {
+class _StopDetailsState extends ConsumerState<StopDetails> {
   StationBoard? data;
 
   late Timer timer;
@@ -37,7 +37,7 @@ class _StopDetailsState extends State<StopDetails> {
   void initState() {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 15), update);
-    refreshData();
+    unawaited(refreshData());
   }
 
   void update(void _) {
@@ -65,7 +65,7 @@ class _StopDetailsState extends State<StopDetails> {
                       context,
                       (context) => RoutePage.stop(FavoriteStop.fromStop(
                             widget.stop.name,
-                            api: context.read(preferencesProvider).api.value,
+                            api: ref.read(preferencesProvider).api.value,
                           )));
                 })),
         child: buildIOSList(),
@@ -86,7 +86,7 @@ class _StopDetailsState extends State<StopDetails> {
                         context,
                         (context) => RoutePage.stop(FavoriteStop.fromStop(
                               widget.stop.name,
-                              api: context.read(preferencesProvider).api.value,
+                              api: ref.read(preferencesProvider).api.value,
                             )));
                   })
             ],
@@ -153,7 +153,7 @@ class _StopDetailsState extends State<StopDetails> {
       );
 
   Future<void> refreshData() async {
-    final stationBoard = await context.read(navigationAPIProvider).stationboard(
+    final stationBoard = await ref.read(navigationAPIProvider).stationboard(
           widget.stop,
           when: DateTime.now(),
         );
@@ -215,10 +215,10 @@ class ConnectionTile extends StatelessWidget {
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      onTap: () => Navigator.of(context).push(PlatformPageRoute(
+      onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
         builder: (context) => NextStopsPage(c: c, s: s),
         title: s!.name,
-      )),
+      ))),
       title: Row(
         children: [
           if (c.bgcolor != null) ...[
@@ -252,7 +252,7 @@ class ConnectionTile extends StatelessWidget {
               ]),
             ),
             if (c.track != null) ...[
-              const Text(" | "),
+              const Text(' | '),
               buildTrack(),
             ]
           ],
@@ -272,10 +272,10 @@ class ConnectionTile extends StatelessWidget {
 
   @allowReturningWidgets
   Text buildTrack() {
-    final i = c.track!.indexOf("!");
+    final i = c.track!.indexOf('!');
     final t = i == -1 ? c.track! : c.track!.substring(0, i);
     return Text(
-      "Pl. $t",
+      'Pl. $t',
       style: TextStyle(
         color: i != -1 ? Colors.red : null,
         fontWeight: FontWeight.bold,

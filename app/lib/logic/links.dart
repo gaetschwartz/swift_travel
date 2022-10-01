@@ -13,7 +13,7 @@ import 'package:swift_travel/utils/route_uri.dart';
 import 'navigation.dart';
 
 final linksProvider = Provider<DeepLinkBloc>((ref) {
-  final deepLinkBloc = DeepLinkBloc(ref.read);
+  final deepLinkBloc = DeepLinkBloc(ref);
   ref.onDispose(deepLinkBloc.dispose);
   return deepLinkBloc;
 });
@@ -33,11 +33,11 @@ class DeepLinkBloc {
   static const channel =
       MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
 
-  late StreamSubscription _sub;
+  late StreamSubscription<String> _sub;
   void Function(Pair<NavRoute, int> pair)? onNewRoute;
-  final Reader read;
+  final Ref ref;
 
-  DeepLinkBloc(this.read);
+  DeepLinkBloc(this.ref);
 
   Future<void> init({
     required void Function(Pair<NavRoute, int> pair) onNewRoute,
@@ -61,7 +61,8 @@ class DeepLinkBloc {
     if (uri.path == '/route') {
       log.log('We have a new route $uri');
 
-      final pair = await parseRouteArguments(uri, read(navigationAPIProvider));
+      final pair =
+          await parseRouteArguments(uri, ref.read(navigationAPIProvider));
       log.log(pair.toString());
 
       onNewRoute?.call(pair);
@@ -83,7 +84,9 @@ class DeepLinkBloc {
     return Pair(route, i);
   }
 
-  void dispose() => _sub.cancel();
+  void dispose() {
+    unawaited(_sub.cancel());
+  }
 
   Future<String?> getInitialLink() async {
     try {

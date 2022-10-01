@@ -112,7 +112,7 @@ class _FullAppState extends State<FullApp> {
   void reassemble() {
     super.reassemble();
     log.log('Reload theme');
-    dynamicThemeData.configure(themeConfiguration, doLog: true);
+    unawaited(dynamicThemeData.configure(themeConfiguration, doLog: true));
   }
 
   @override
@@ -150,7 +150,7 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldMessengerKey,
-      title: "Swift Travel",
+      title: 'Swift Travel',
       theme: theme.light,
       darkTheme: theme.dark,
       themeMode: theme.themeMode,
@@ -167,6 +167,7 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
           // log.log('Clearing sidebar');
           ref.read(sideTabBarProvider.state).state = null;
           sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          return null;
         }),
         TabIntent: TabAction((tab) {
           //log.log('Changing tab to $tab');
@@ -177,6 +178,7 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
           final tabs = ref.read(tabProvider);
           tabs.index = tabs.index %
               (darwin ? TabView.iosTabs.length : TabView.androidTabs.length);
+          return null;
         })
       },
       onGenerateRoute: onGenerateRoute,
@@ -186,11 +188,11 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
     );
   }
 
-  List<Route> onGenerateInitialRoutes(String initialRoute) {
+  List<Route<void>> onGenerateInitialRoutes(String initialRoute) {
     log.log('Initial route : $initialRoute');
     final uri = Uri.tryParse(initialRoute)!;
 
-    final routes = <Route>[];
+    final routes = <Route<void>>[];
 
     switch (uri.path) {
       case '/route':
@@ -296,6 +298,7 @@ Route<void>? onGenerateRoute(RouteSettings settings) {
         builder: (_) => ErrorPage(settings.arguments as FlutterErrorDetails?),
       );
   }
+  return null;
 }
 
 class Unfocus extends StatelessWidget {
@@ -313,13 +316,10 @@ class Unfocus extends StatelessWidget {
   }
 }
 
-extension BuildContextX on BuildContext {
-  // @Deprecated("User ref.read instead")
-  T read<T>(ProviderBase<T> provider) {
-    return readFromContext(this, provider);
-  }
-}
-
-T readFromContext<T>(BuildContext context, ProviderBase<T> provider) {
+@Deprecated(
+  'This is to be used only in very exceptional cases, should almost always be replaced by using `Ref.read` instead.',
+)
+// ignore: unreachable_from_main
+T readFromContext<T>(BuildContext context, ProviderListenable<T> provider) {
   return ProviderScope.containerOf(context, listen: false).read(provider);
 }

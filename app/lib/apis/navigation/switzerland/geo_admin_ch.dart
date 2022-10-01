@@ -39,9 +39,9 @@ class GeoAdminEngine implements NavigationCompletionDelegateApi {
           '${resp.statusCode} (${resp.reasonPhrase})');
     }
     final parsed = jsonDecode(resp.body) as Map;
-    final results = parsed["results"] as List<dynamic>;
+    final results = parsed['results'] as List<dynamic>;
     return results
-        .cast<Map>()
+        .cast<Map<dynamic, dynamic>>()
         .map((final e) => GeoAdminResult.fromJson(e.cast<String, dynamic>()))
         .toList();
   }

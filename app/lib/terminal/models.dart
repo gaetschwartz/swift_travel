@@ -35,9 +35,9 @@ class CommandDefinition with _$CommandDefinition {
 
 final commands = [
   CommandDefinition(
-      "hello", "Hello World command !", (c) => c.w("hello", "Hello")),
+      'hello', 'Hello World command !', (c) => c.w('hello', 'Hello')),
   CommandDefinition(
-      "whoami", "Who am I ??", (c) => c.w("whoami", "Gaëtan Schwartz")),
+      'whoami', 'Who am I ??', (c) => c.w('whoami', 'Gaëtan Schwartz')),
   CommandDefinition(
-      "clear", "Clear the console", (c) => c.stateController.state = []),
+      'clear', 'Clear the console', (c) => c.stateController.state = []),
 ];

@@ -1,11 +1,64 @@
-# RydMike LINTER Preferences v1.2.5
-# This gist: https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
-# Include and activate all lint rules, later below we disable the not used or desired ones.
+# RydMike LINTER Preferences v2.0.0
+#
+# Get this file here: https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
+#
+# We include and activate all lint rules, later below we disable the not used or desired ones.
 # You can find a list of all lint rules to put in your all_lint_rules.yaml file here:
 # https://dart-lang.github.io/linter/lints/options/options.html
-# For a comparison of all lint rules settings in rule styles listed below, please see this
+#
+# For a full comparison of all lint rules settings in rule styles listed below, please see this
 # sheet: https://docs.google.com/spreadsheets/d/1Nc1gFjmCOMubWZD7f2E4fLhWN7LYaOE__tsA7bf2NjA
-include: all_lint_rules.yaml
+#
+# The version used for comparing setting with other linters for the settings
+# that are turned OFF here, or have a quick placeholder for turning it OFF, are
+# as follows:
+#
+# Core           v2.0.0     : https://pub.dev/packages/lints
+# Recommended    v2.0.0     : https://pub.dev/packages/lints
+# Flutter Lints  v2.0.1     : https://pub.dev/packages/flutter_lints
+# Pedantic       v1.11.1    : https://pub.dev/packages/pedantic
+# Effective Dart v1.3.2     : https://pub.dev/packages/effective_dart
+# Flutter repo   master     : https://github.com/flutter/flutter/blob/master/analysis_options.yaml
+# Lint           v1.8.2     : https://pub.dev/packages/lint
+# VG Analysis    v3.0.0     : https://pub.dev/packages/very_good_analysis
+# RydMike        v2.0.0     : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
+#
+include: package:all_lint_rules_community/all.yaml
+
+dart_code_metrics:
+  anti-patterns:
+  # - long-method
+  # - long-parameter-list
+  metrics:
+    cyclomatic-complexity: 20
+    maximum-nesting-level: 5
+    source-lines-of-code: 64
+  metrics-exclude:
+    - test/**
+  rules:
+    - no-boolean-literal-compare
+    - avoid-returning-widgets:
+        ignored-annotations:
+          - allowReturningWidgets
+    - avoid-nested-conditional-expressions:
+        acceptable-level: 2
+    - no-equal-then-else
+    - avoid-unnecessary-setstate
+    - prefer-last
+    - prefer-first
+    - prefer-const-border-radius
+    - avoid-missing-enum-constant-in-map
+    - avoid-unnecessary-type-casts
+    - avoid-unnecessary-type-assertions
+    - avoid-unrelated-type-assertions
+    - no-equal-then-else
+    - avoid-unused-parameters
+    - avoid-global-state
+    - avoid-throw-in-catch-block
+    - prefer-iterable-of
+    - avoid-shrink-wrap-in-lists
+    - avoid-use-expanded-as-spacer
+    - prefer-correct-edge-insets-constructor
 
 analyzer:
   plugins:
@@ -16,16 +69,18 @@ analyzer:
     - "test/.test_coverage.dart"
     - "bin/cache/**"
     - "lib/generated_plugin_registrant.dart"
-    - "app/lib/l10n/**"
-    - "lib/l10n/**"
 
-  strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
+  # For more information see:
+  # https://dart.dev/guides/language/analysis-options#enabling-additional-type-checks
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
 
   errors:
     # Without ignore here, we cause import of all_lint_rules to warn, because some rules conflict.
     # We explicitly enabled even conflicting rules and are fixing the conflicts in this file.
+    # Put it to warning temporarily, if you need troubleshoot lint rule settings.
     included_file_warning: ignore
 
     # Treat missing required parameters as an error, not as a hint or a warning.
@@ -33,7 +88,10 @@ analyzer:
 
     # Treat missing returns as an error, not as a hint or a warning.
     missing_return: error
-    body_might_complete_normally_nullable: ignore
+
+    # Allow self-reference to deprecated members. This is done because otherwise we have
+    # to annotate every member in every test, assert, etc., when we deprecate something.
+    deprecated_member_use_from_same_package: ignore
 
     # DON'T assign new values to parameters of methods or functions.
     #
@@ -47,7 +105,7 @@ analyzer:
     # does get in the way a bit if all you want to do is a null to default value release runtime
     # safety/fallback assignment. For that use case you have to add a local rule override. With
     # null-safety, the need for this kind of null check and re-assignment to default if null,
-    # pretty much goes away. Considering the comment in:
+    # is rarely needed. Considering the comment in:
     # https://dart-lang.github.io/linter/lints/parameter_assignments.html:
     # "Assigning new values to parameters is generally a bad practice unless an operator
     # such as ??= is used. Otherwise, arbitrarily reassigning parameters is usually a mistake."
@@ -60,17 +118,15 @@ analyzer:
 
     # Allow having TODOs in the code.
     todo: ignore
+
     invalid_annotation_target: ignore
-    one_member_abstracts: ignore
-    hack: ignore
 
 # LINTER Preferences
 #
 # Explicitly disable only the rules we do not want.
 linter:
   rules:
-    sort_pub_dependencies: false
-    use_build_context_synchronously: false
+    library_private_types_in_public_api: false
     # ALWAYS separate the control structure expression from its statement.
     #
     # https://dart-lang.github.io/linter/lints/always_put_control_body_on_new_line.html
@@ -95,7 +151,7 @@ linter:
     #
     # https://dart-lang.github.io/linter/lints/always_put_required_named_parameters_first.html
     #
-    # Conflicts with the convention used by flutter, which puts `Key key`
+    # Conflicts with the convention used by Flutter, which puts `Key key` first
     # and `@required Widget child` last.
     #
     # Other known linters use:
@@ -189,6 +245,7 @@ linter:
     # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
     always_use_package_imports: false
     prefer_relative_imports: false
+
     # AVOID annotating with dynamic when not required.
     #
     # https://dart-lang.github.io/linter/lints/avoid_annotating_with_dynamic.html
@@ -344,7 +401,7 @@ linter:
     # RydMike                 : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
     #   RELEASE:     enabled  : By commenting it out. (default)
     #   DEVELOPMENT: disabled : Uncomment below if the warnings bother you during dev or making a console app.
-    avoid_print: false
+    # avoid_print: false
 
     # AVOID redundant argument values.
     #
@@ -397,7 +454,7 @@ linter:
     # Lint           disabled : https://pub.dev/packages/lint
     # VG Analysis    disabled : https://pub.dev/packages/very_good_analysis
     # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
-    # avoid_types_on_closure_parameters: false
+    avoid_types_on_closure_parameters: false
 
     # DO Use the cascading style when successively invoking methods on the same reference.
     #
@@ -482,32 +539,6 @@ linter:
     # RydMike        enabled  : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
     flutter_style_todos: false
 
-    # AVOID using library private types in public APIs.
-    #
-    # https://dart-lang.github.io/linter/lints/library_private_types_in_public_api.html
-    #
-    # For the purposes of this lint, a public API is considered to be any top-level or member
-    # declaration unless the declaration is library private or contained in a declaration that's library private.
-    #
-    # Disabled, this lint is triggered when using a private class for createState() in StatefulWidget.
-    # Since that is the default, it is a bit peculiar that this lint is triggered by it. Yes you
-    # can make it with a public class too, but that is not always ideal or the intent either.
-    # Considering this, it is strange the Flutter repo has the rule enabled as well
-    # as Very Good Analysis in version 2.4.0.
-    #
-    # Other known linters use:
-    #
-    # Core           disabled : https://pub.dev/packages/lints
-    # Recommended    disabled : https://pub.dev/packages/lints
-    # Flutter Lints  disabled : https://pub.dev/packages/flutter_lints
-    # Pedantic       disabled : https://pub.dev/packages/pedantic
-    # Effective Dart disabled : https://pub.dev/packages/effective_dart
-    # Flutter repo   enabled  : https://github.com/flutter/flutter/blob/master/analysis_options.yaml
-    # Lint           disabled : https://pub.dev/packages/lint
-    # VG Analysis    enabled  : https://pub.dev/packages/very_good_analysis
-    # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
-    library_private_types_in_public_api: false
-
     # AVOID lines longer than 80 characters
     #
     # https://dart-lang.github.io/linter/lints/lines_longer_than_80_chars.html
@@ -576,7 +607,7 @@ linter:
     # Lint           disabled : https://pub.dev/packages/lint
     # VG Analysis    enabled  : https://pub.dev/packages/very_good_analysis
     # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
-    omit_local_variable_types: true
+    omit_local_variable_types: false
 
     # PREFER asserts with a message string.
     #
@@ -671,7 +702,6 @@ linter:
     # VG Analysis    disabled : https://pub.dev/packages/very_good_analysis
     # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
     prefer_double_quotes: false
-    prefer_single_quotes: false
 
     # CONSIDER using => for short members whose body is a single return statement.
     #
@@ -847,35 +877,3 @@ linter:
     # VG Analysis    disabled : https://pub.dev/packages/very_good_analysis
     # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
     unnecessary_final: false
-
-dart_code_metrics:
-  anti-patterns:
-  # - long-method
-  # - long-parameter-list
-  metrics:
-    cyclomatic-complexity: 20
-    maximum-nesting-level: 5
-    source-lines-of-code: 64
-  metrics-exclude:
-    - test/**
-  rules:
-    - no-boolean-literal-compare
-    - avoid-returning-widgets:
-        ignored-annotations:
-          - allowReturningWidgets
-    # - prefer-extracting-callbacks
-    - no-equal-then-else
-    - avoid-unnecessary-setstate
-    - prefer-last
-    - prefer-first
-    # - prefer-conditional-expressions
-    # - prefer-trailing-comma
-    - prefer-const-border-radius
-    - avoid-missing-enum-constant-in-map
-    - avoid-unnecessary-type-casts
-    - avoid-unnecessary-type-assertions
-    - avoid-unrelated-type-assertions
-    - no-equal-then-else
-    # - no-object-declaration
-    - avoid-global-state
-    # - avoid-ignoring-return-values

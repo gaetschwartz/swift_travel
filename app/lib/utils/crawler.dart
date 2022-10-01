@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -154,34 +155,58 @@ class _CrawlerPageState extends ConsumerState<CrawlerPage> {
             ),
           const Divider(height: 0),
           Expanded(
-            child: ListView(
+            child: CustomScrollView(
               primary: true,
-              children: [
+              slivers: [
                 if (unHandled.isNotEmpty) ...[
-                  const ListTile(title: Text('Unhandled'), dense: true),
-                  const Divider(),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: unHandled.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, i) {
-                      final key = uHKeys[i];
-                      final att = AttributeData.fromCode(key);
-                      return _Tile(att, key, unHandled[key]!);
-                    },
+                  const SliverToBoxAdapter(
+                    child: ListTile(title: Text('Unhandled'), dense: true),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: Divider(),
+                  ),
+                  SliverList(
+                    // shrinkWrap: true,
+                    // itemCount: unHandled.length,
+                    // physics: const NeverScrollableScrollPhysics(),
+                    // itemBuilder: (context, i) {
+                    //   final key = uHKeys[i];
+                    //   final att = AttributeData.fromCode(key);
+                    //   return _Tile(att, key, unHandled[key]!);
+                    // },
+                    delegate: SliverChildBuilderDelegate(
+                      (context, i) {
+                        final key = uHKeys[i];
+                        final att = AttributeData.fromCode(key);
+                        return _Tile(att, key, unHandled[key]!);
+                      },
+                      childCount: unHandled.length,
+                    ),
                   ),
                 ],
-                const ListTile(title: Text('Handled'), dense: true),
-                const Divider(),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: handled.length,
-                  itemBuilder: (context, i) {
-                    final key = hKeys[i];
-                    final att = AttributeData.fromCode(key);
-                    return _Tile(att, key, handled[key]!);
-                  },
+                const SliverToBoxAdapter(
+                  child: ListTile(title: Text('Handled'), dense: true),
+                ),
+                const SliverToBoxAdapter(
+                  child: Divider(),
+                ),
+                SliverList(
+                  // shrinkWrap: true,
+                  // itemCount: handled.length,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  // itemBuilder: (context, i) {
+                  //   final key = hKeys[i];
+                  //   final att = AttributeData.fromCode(key);
+                  //   return _Tile(att, key, handled[key]!);
+                  // },
+                  delegate: SliverChildBuilderDelegate(
+                    (context, i) {
+                      final key = hKeys[i];
+                      final att = AttributeData.fromCode(key);
+                      return _Tile(att, key, handled[key]!);
+                    },
+                    childCount: handled.length,
+                  ),
                 ),
               ],
             ),
@@ -223,7 +248,7 @@ class _Tile extends StatelessWidget {
       title: Text(mapKey),
       subtitle: Text(value),
       dense: true,
-      onTap: () => Clipboard.setData(ClipboardData(text: mapKey)),
+      onTap: () => unawaited(Clipboard.setData(ClipboardData(text: mapKey))),
     );
   }
 }

@@ -24,9 +24,9 @@ const sncfFactory = NavigationApiFactory(
 );
 
 class SncfApi extends BaseNavigationApi {
-  SncfApi._(this.read);
+  SncfApi._(this.ref);
 
-  final Reader read;
+  final Ref ref;
 
   @override
 
@@ -35,7 +35,7 @@ class SncfApi extends BaseNavigationApi {
   @override
   set locale(Locale locale) {}
 
-  late final config = read(configProvider.future);
+  late final config = ref.read(configProvider.future);
 
   Future<Map<String, String?>> get globalParameters async {
     final c = await config;

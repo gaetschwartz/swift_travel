@@ -100,8 +100,8 @@ class StopTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: () => Navigator.of(context)
-            .push(PlatformPageRoute(builder: (context) => StopDetails(stop))),
+        onTap: () => unawaited(Navigator.of(context)
+            .push(PlatformPageRoute(builder: (context) => StopDetails(stop)))),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SizedBox(

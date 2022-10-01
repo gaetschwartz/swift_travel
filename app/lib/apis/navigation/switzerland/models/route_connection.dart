@@ -17,7 +17,7 @@ class SbbRouteConnection with _$SbbRouteConnection, RouteConnection {
     @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
     DateTime? departure,
     DateTime? arrival,
-    @JsonKey(name: "duration") double? durationInSeconds,
+    @JsonKey(name: 'duration') double? durationInSeconds,
     @JsonKey(name: 'legs') @Default(<SbbLeg>[]) List<SbbLeg> sbbLegs,
     @Default(<String, Disruption>{}) Map<String, Disruption> disruptions,
   }) = _SbbRouteConnection;

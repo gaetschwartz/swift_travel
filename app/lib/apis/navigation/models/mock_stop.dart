@@ -21,8 +21,11 @@ class MockStop with BaseStop implements Stop {
   LatLon? get position => assertedReturn(null);
 
   T assertedReturn<T>(T val) {
-    assert(false,
-        "This class's fields are not meant to be accessed, it is only used as a placeholder");
+    assert(
+      false,
+      "This class's fields are not meant to be accessed,"
+      ' it is only used as a placeholder',
+    );
     return val;
   }
 

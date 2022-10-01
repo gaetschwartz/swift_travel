@@ -89,12 +89,12 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   void initState() {
     super.initState();
     widget.binder.controller.addListener(onChanged);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => onChanged());
+    WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(onChanged()));
   }
 
   @override
   void dispose() {
-    _sub?.cancel();
+    unawaited(_sub?.cancel());
     debouncer.dispose();
     widget.binder.controller.removeListener(onChanged);
     super.dispose();
@@ -115,7 +115,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     }
   }
 
-  StreamSubscription? _sub;
+  StreamSubscription<List<NavigationCompletion>>? _sub;
 
   Future<void> fetch(String query) async {
     if (_sub != null) {
@@ -160,6 +160,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             .map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
       }
     }
+    return null;
   }
 
   @override
@@ -207,13 +208,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       final a = c.contact.postalAddresses.firstOrNull;
       if (a != null) {
         log.log(c.contact.toMap());
-        widget.binder.setString(context, a.toString());
+        widget.binder.setString(a.toString());
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(AppLocalizations.of(context).contact_no_address)));
       }
     } else {
-      widget.binder.setString(context, c.label);
+      widget.binder.setString(c.label);
     }
     Navigator.of(context).pop();
   }
@@ -235,8 +236,7 @@ class _ClearButton extends StatelessWidget {
           duration: const Duration(milliseconds: 500),
           child: IconButton(
             color: CupertinoTheme.of(context).primaryColor,
-            onPressed:
-                listenable.text.isEmpty ? null : () => binder.clear(context),
+            onPressed: listenable.text.isEmpty ? null : binder.clear,
             icon: const Icon(CupertinoIcons.clear),
           ),
         ),
@@ -285,7 +285,8 @@ class _Results extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               TextButton.icon(
-                                onPressed: () => pickContact(context),
+                                onPressed: () =>
+                                    unawaited(pickContact(context)),
                                 icon: const Icon(
                                     FluentIcons.contact_card_group_24_regular),
                                 label:
@@ -339,8 +340,8 @@ class _Results extends StatelessWidget {
     Vibration.instance.select();
     final c = await showContactPicker(context);
     if (c != null) {
-      log.log("Chose ${c.displayName}");
-      log.log("with address ${c.postalAddresses.firstOrNull}");
+      log.log('Chose ${c.displayName}');
+      log.log('with address ${c.postalAddresses.firstOrNull}');
       onTap(ContactCompletion(c));
     }
   }

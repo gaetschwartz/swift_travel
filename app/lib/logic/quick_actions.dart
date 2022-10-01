@@ -19,10 +19,10 @@ class MyQuickActions {
 
   bool _debugInitialized = false;
 
-  void init() {
+  Future<void> init() async {
     log.log('Initialize', channel: 'QuickActions');
     try {
-      const QuickActions().initialize(_init);
+      await const QuickActions().initialize(_init);
     } on MissingPluginException {
       log.log('Unsupported for now on $platform');
       _debugInitialized = true;

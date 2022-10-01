@@ -98,6 +98,7 @@ class LV03Coordinates with _$LV03Coordinates {
         return LV03Coordinates(x2, y2);
       }
     }
+    return null;
   }
 
   LatLon toLatLon() => const LV03ToWGS84Converter().convert(this);

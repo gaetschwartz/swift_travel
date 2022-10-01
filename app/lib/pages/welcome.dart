@@ -1,5 +1,7 @@
 // ignore_for_file: cascade_invocations
 
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -99,7 +101,10 @@ class WelcomePage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               shape: const StadiumBorder()),
                           onPressed: () {
-                            Navigator.of(context).pushReplacementNamed('/tuto');
+                            unawaited(
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/tuto'),
+                            );
                           },
                           child: Row(
                             children: [

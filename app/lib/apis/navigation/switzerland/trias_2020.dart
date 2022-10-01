@@ -283,6 +283,7 @@ class Trias2020RequestBuilder {
 }
 
 @immutable
+// ignore: one_member_abstracts
 abstract class _QueryType {
   String render();
 }

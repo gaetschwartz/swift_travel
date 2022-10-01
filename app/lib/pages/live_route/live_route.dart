@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
@@ -31,7 +33,10 @@ class _LiveRoutePageState extends ConsumerState<LiveRoutePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
-        (timeStamp) => _controller.startRoute(widget.connection));
+      (_) {
+        unawaited(_controller.startRoute(widget.connection));
+      },
+    );
   }
 
   @override

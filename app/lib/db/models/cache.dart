@@ -3,14 +3,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'cache.freezed.dart';
 part 'cache.g.dart';
 
-class LineConverter implements JsonConverter<Line, Map> {
+class LineConverter implements JsonConverter<Line, Map<dynamic, dynamic>> {
   const LineConverter();
 
   @override
-  Line fromJson(Map json) => Line.fromJson(json.cast<String, dynamic>());
+  Line fromJson(Map<dynamic, dynamic> json) =>
+      Line.fromJson(json.cast<String, dynamic>());
 
   @override
-  Map toJson(Line object) => object.toJson();
+  Map<dynamic, dynamic> toJson(Line object) => object.toJson();
 }
 
 @freezed

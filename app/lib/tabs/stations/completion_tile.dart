@@ -89,13 +89,13 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
           children: subtitle,
         ),
         isThreeLine: subtitle.length > 1,
-        onLongPress: () => more(context, store: store),
+        onLongPress: () async => more(context, store: store),
         trailing: isPrivate
             ? IconButton(
                 icon: const Icon(Icons.more_horiz),
-                onPressed: () {
+                onPressed: () async {
                   Vibration.instance.select();
-                  more(context, store: store);
+                  await more(context, store: store);
                 })
             : const Icon(CupertinoIcons.chevron_forward),
         onTap: isPrivate
@@ -200,7 +200,7 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
   @override
   void initState() {
     super.initState();
-    getData();
+    unawaited(getData());
   }
 
   @override

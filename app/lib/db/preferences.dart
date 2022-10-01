@@ -35,7 +35,7 @@ class PreferencesBloc {
       defaultValue: true);
 
   final isDeveloper = SimpleSharedPreferencesProperty<bool>(
-      "${prefix}is_developer",
+      '${prefix}is_developer',
       defaultValue: false);
 
   Future<void> loadFromPreferences({SharedPreferences? prefs}) async {

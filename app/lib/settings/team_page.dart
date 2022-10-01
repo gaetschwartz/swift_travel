@@ -144,7 +144,7 @@ class _Contributors extends StatelessWidget {
                     backgroundImage: NetworkImage(c.avatarUrl),
                   ),
                 ),
-                onTap: () => launchUrlString(c.htmlUrl),
+                onTap: () async => launchUrlString(c.htmlUrl),
                 title: Text(c.login),
               );
             },
@@ -195,19 +195,19 @@ class _MemberTile extends StatelessWidget {
           if (c.websiteUrl != null)
             IconButton(
                 icon: const FaIcon(FontAwesomeIcons.paperclip),
-                onPressed: () => launchUrlString(c.websiteUrl!)),
+                onPressed: () async => launchUrlString(c.websiteUrl!)),
           if (c.githubUrl != null)
             IconButton(
                 icon: const FaIcon(FontAwesomeIcons.github),
-                onPressed: () => launchUrlString(c.githubUrl!)),
+                onPressed: () async => launchUrlString(c.githubUrl!)),
           if (c.twitterUrl != null)
             IconButton(
                 icon: const FaIcon(FontAwesomeIcons.twitter),
-                onPressed: () => launchUrlString(c.twitterUrl!)),
+                onPressed: () async => launchUrlString(c.twitterUrl!)),
           if (c.email != null)
             IconButton(
                 icon: const FaIcon(FontAwesomeIcons.envelope),
-                onPressed: () => launchUrlString('mailto:${c.email}')),
+                onPressed: () async => launchUrlString('mailto:${c.email}')),
         ]),
       );
 }

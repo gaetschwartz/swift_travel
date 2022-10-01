@@ -8,6 +8,7 @@ import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
+// ignore: one_member_abstracts
 abstract class MLModel<Input, Output> {
   Output predict(Input input);
 }
@@ -92,7 +93,7 @@ RoutePrediction predictRouteSync(
   _setCached(arguments, prediction);
   // log.log('Predicting $prediction');
 
-  log.log("Prediction took ${watch.elapsedMilliseconds} ms");
+  log.log('Prediction took ${watch.elapsedMilliseconds} ms');
 
   return prediction;
 }
@@ -129,7 +130,10 @@ RoutePrediction _computeWinner(
 }
 
 void _report(
-    Iterable<Triple<LocalRoute, ValueVector, double>> top, ValueVector arg) {
+  Iterable<Triple<LocalRoute, ValueVector, double>> top,
+  ValueVector arg,
+) {
+  log.log('arg: $arg');
   var i = 0;
   for (final p in top) {
     i++;
@@ -156,11 +160,11 @@ class PrettyVector {
 
   ValueVector toVector() => ValueVector(
         [
-          DoubleValue((day ?? 0) * daysFactor, "day", factor: daysFactor),
-          DoubleValue((minutes ?? 0) * minutesFactor, "minutes",
+          DoubleValue((day ?? 0) * daysFactor, 'day', factor: daysFactor),
+          DoubleValue((minutes ?? 0) * minutesFactor, 'minutes',
               factor: minutesFactor),
-          StringValue(name, "name"),
-          PositionValue(position, "position"),
+          StringValue(name, 'name'),
+          PositionValue(position, 'position'),
         ],
       );
 }
@@ -212,18 +216,19 @@ class PositionValue extends Value<LatLon?> {
 }
 
 class ValueVector {
-  final List<Value> values;
+  final List<Value<dynamic>> values;
 
   ValueVector(this.values);
 
-  ValueVector.from(Iterable<Value> values) : values = values.toList();
+  ValueVector.from(Iterable<Value<dynamic>> values) : values = values.toList();
 
   @override
   String toString() => "(${values.join(', ')})";
 
   double distanceTo(ValueVector other) {
     return values
-        .zip<Value, num>(other.values, (a, b) => math.pow(a.distanceTo(b), 2))
+        .zip<Value<dynamic>, num>(
+            other.values, (a, b) => math.pow(a.distanceTo(b), 2))
         .sum
         .toDouble();
   }
