@@ -76,7 +76,7 @@ class AttributeTile extends StatelessWidget {
       dense: true,
       subtitle: Env.isDebugMode ? Text(att.code) : null,
       onTap: Env.isDebugMode
-          ? () => Clipboard.setData(ClipboardData(text: att.code))
+          ? () async => Clipboard.setData(ClipboardData(text: att.code))
           : null,
       trailing:
           Env.isDebugMode && att.icon == null ? const Text('Unhandled') : null,

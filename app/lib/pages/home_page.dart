@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:animations/animations.dart';
@@ -344,17 +345,18 @@ class SideBar extends ConsumerWidget {
     bool rootNavigator = false,
   }) {
     if (shouldShowSidebar(context)) {
+      // ignore: deprecated_member_use_from_same_package
       readFromContext(context, sideTabBarProvider.state).state = builder;
       sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {
-      Navigator.of(context, rootNavigator: rootNavigator)
+      unawaited(Navigator.of(context, rootNavigator: rootNavigator)
           .push<void>(PlatformPageRoute(
         builder: builder,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState,
         title: title,
         settings: settings,
-      ));
+      )));
     }
   }
 

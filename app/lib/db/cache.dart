@@ -5,7 +5,8 @@ import 'package:swift_travel/mocking/mocking.dart';
 
 import 'db.dart';
 
-class LineCache extends LocalDatabase<String, Map, LineCacheEntry>
+class LineCache
+    extends LocalDatabase<String, Map<dynamic, dynamic>, LineCacheEntry>
     with KeyedDatabaseMixin {
   @visibleForTesting
   LineCache()

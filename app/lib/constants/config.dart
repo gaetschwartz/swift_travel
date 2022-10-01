@@ -11,7 +11,7 @@ final configProvider = FutureProvider<Config>((ref) async {
   const key = 'assets/config.json';
   final content = await rootBundle.loadString(key);
   if (content.isEmpty) {
-    throw Exception("Config file provided at $key is empty.");
+    throw Exception('Config file provided at $key is empty.');
   }
   final json = jsonDecode(content) as Map<String, dynamic>;
   return Config.fromJson(json);

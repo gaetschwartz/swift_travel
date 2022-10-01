@@ -85,6 +85,7 @@ class PredictionArguments with _$PredictionArguments {
   }
 }
 
+// ignore: one_member_abstracts
 abstract class IterableTransformer<T> {
   Iterable<T> apply(Iterable<T> iterable);
 }
@@ -146,7 +147,7 @@ class ContactCompletion
   String? get id => null;
 
   @override
-  String get label => contact.displayName ?? "";
+  String get label => contact.displayName ?? '';
 
   @override
   PlaceType? get type => null;
@@ -175,7 +176,7 @@ class CurrentLocationCompletion
   String? get id => null;
 
   @override
-  String get label => "%current_location%";
+  String get label => '%current_location%';
 
   @override
   PlaceType? get type => null;

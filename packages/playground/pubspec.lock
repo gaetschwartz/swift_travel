@@ -180,7 +180,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-dev.9"
+    version: "2.0.0"
   flutter_slidable:
     dependency: transitive
     description:
@@ -554,14 +554,14 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-dev.9"
+    version: "2.0.0"
   scrollable_positioned_list:
     dependency: transitive
     description:
       name: scrollable_positioned_list
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.4"
+    version: "0.3.5"
   share_plus:
     dependency: transitive
     description:

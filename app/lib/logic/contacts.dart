@@ -16,16 +16,16 @@ class ContactsRepository {
     if (Env.doMockContacts) {
       return const [
         Contact(
-          displayName: "John Doe",
+          displayName: 'John Doe',
           postalAddresses: [
-            PostalAddress(street: "Chemin des colombettes 34, 1202 Genève")
+            PostalAddress(street: 'Chemin des colombettes 34, 1202 Genève')
           ],
         )
       ];
     }
     if (!_granted) {
       final request = await Permission.contacts.request();
-      log.log("Status1: $request");
+      log.log('Status1: $request');
 
       _granted = request.isGranted;
     }
@@ -39,8 +39,8 @@ class ContactsRepository {
       }
     } else {
       final status = await Permission.contacts.status;
-      log.log("Status2: $status");
-      throw Exception("Contacts permission is needed. Status: $status");
+      log.log('Status2: $status');
+      throw Exception('Contacts permission is needed. Status: $status');
     }
   }
 }

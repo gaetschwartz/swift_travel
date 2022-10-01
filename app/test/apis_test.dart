@@ -23,7 +23,8 @@ void main() {
 
   group('navigation api >', () {
     setUpAll(() async {
-      SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
+      SharedPreferencesStorePlatform.instance =
+          InMemorySharedPreferencesStore.empty();
     });
 
     tearDown(() async {
@@ -51,6 +52,7 @@ void main() {
   });
 }
 
+// ignore: unreachable_from_main
 class MockNavigationApi extends BaseNavigationApi {
   MockNavigationApi({this.mockCompletions});
 
@@ -58,8 +60,12 @@ class MockNavigationApi extends BaseNavigationApi {
 
   @override
   Future<List<NavigationCompletion>> complete(String? string,
-          {bool? showCoordinates, bool? showIds, bool? noFavorites, bool? filterNull}) async =>
-      mockCompletions ?? [SbbCompletion(label: 'Genève'), SbbCompletion(label: 'Genève Cornavin')];
+          {bool? showCoordinates,
+          bool? showIds,
+          bool? noFavorites,
+          bool? filterNull}) async =>
+      mockCompletions ??
+      [SbbCompletion(label: 'Genève'), SbbCompletion(label: 'Genève Cornavin')];
 
   @override
   void dispose() {}
@@ -76,7 +82,8 @@ class MockNavigationApi extends BaseNavigationApi {
   @override
   Future<SbbRoute> rawRoute(Uri query) {
     rawQueries.add(query);
-    return Future.value(SbbRoute.fromJson(mockRoute).copyWith(requestUrl: query.toString()));
+    return Future.value(
+        SbbRoute.fromJson(mockRoute).copyWith(requestUrl: query.toString()));
   }
 
   @override

@@ -25,10 +25,6 @@ class RoutesListener extends Mock {
   void call(Iterable<LocalRoute> value);
 }
 
-class PrefsListener extends Mock {
-  void call();
-}
-
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   group('HiveFavoritesStore >', () {
@@ -38,17 +34,23 @@ void main() {
     setUpAll(() async {
       final directory = await getTempDirForTests();
 
-      final dir =
-          path.join(directory.path, 'swift_travel', 'test_results', 'HiveFavoritesStoreTest');
+      final dir = path.join(directory.path, 'swift_travel', 'test_results',
+          'HiveFavoritesStoreTest');
       Hive.init(dir);
 
-      SharedPreferencesStorePlatform.instance = InMemorySharedPreferencesStore.empty();
+      SharedPreferencesStorePlatform.instance =
+          InMemorySharedPreferencesStore.empty();
       prefs = await SharedPreferences.getInstance();
     });
 
     setUp(() async {
-      container =
-          ProviderContainer(overrides: [storeProvider.overrideWithValue(HiveFavoritesStore())]);
+      container = ProviderContainer(overrides: [
+        storeProvider.overrideWithProvider(
+          ChangeNotifierProvider(
+            (ref) => HiveFavoritesStore(),
+          ),
+        )
+      ]);
     });
 
     tearDown(() async {

@@ -37,7 +37,7 @@ class SettingsSection extends AbstractSection {
     this.subtitlePadding = defaultTitlePadding,
     this.titleTextStyle,
     this.platform,
-  })  : assert(maxLines == null || maxLines > 0, ""),
+  })  : assert(maxLines == null || maxLines > 0, ''),
         super(
           key: key,
           titleWidget: titleWidget,
@@ -88,33 +88,40 @@ class SettingsSection extends AbstractSection {
 
   @allowReturningWidgets
   Widget androidSection(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: titlePadding,
-        child: DefaultTextStyle(
-          style: titleTextStyle ??
-              TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
-                fontWeight: FontWeight.bold,
-              ),
-          maxLines: maxLines,
-          overflow: TextOverflow.ellipsis,
-          child: titleWidget,
-        ),
-      ),
-      if (subtitle != null)
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Padding(
-          padding: subtitlePadding,
-          child: subtitle,
+          padding: titlePadding,
+          child: DefaultTextStyle(
+            style: titleTextStyle ??
+                TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                ),
+            maxLines: maxLines,
+            overflow: TextOverflow.ellipsis,
+            child: titleWidget,
+          ),
         ),
-      ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: tiles.length,
-        separatorBuilder: (context, _) => const Divider(height: 1),
-        itemBuilder: (context, i) => tiles[i],
-      ),
-      if (showBottomDivider) const Divider(height: 1)
-    ]);
+        if (subtitle != null)
+          Padding(
+            padding: subtitlePadding,
+            child: subtitle,
+          ),
+        // ListView.separated(
+        //   physics: const NeverScrollableScrollPhysics(),
+        //   shrinkWrap: true,
+        //   itemCount: tiles.length,
+        //   separatorBuilder: (context, _) => const Divider(height: 1),
+        //   itemBuilder: (context, i) => tiles[i],
+        // ),
+        for (int i = 0; i < tiles.length; i++) ...[
+          tiles[i],
+          if (i != tiles.length - 1 || showBottomDivider)
+            const Divider(height: 1),
+        ],
+      ],
+    );
   }
 }

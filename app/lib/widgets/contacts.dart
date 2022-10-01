@@ -51,7 +51,7 @@ class ContactsDialog extends StatelessWidget {
                       itemBuilder: (context, i) {
                         final c = contacts[i];
                         return ListTile(
-                          title: Text(c.displayName ?? ""),
+                          title: Text(c.displayName ?? ''),
                           onTap: () {
                             Vibration.instance.select();
                             Navigator.of(context).pop(c);

@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swift_travel/apis/navigation/switzerland/trias_2020.dart';
 
-const api = '57c5dbbbf1fe4d0001000018bb0dbd76e57e488f87af009dd6509224';
-
 void main() {
   test(
     'test parse location response',

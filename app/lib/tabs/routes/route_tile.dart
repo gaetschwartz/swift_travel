@@ -72,14 +72,14 @@ class RouteTile extends StatelessWidget {
                 const FaIcon(CupertinoIcons.chevron_forward),
               ],
             ),
-            onTap: () {
+            onTap: () async {
               Vibration.instance.select();
               SideBar.push(
                 context,
                 (context) => RouteDetails(route: route, i: i),
                 title: AppLocalizations.of(context).tabs_route,
               );
-              RouteHistoryRepository.instance.safeAdd(
+              await RouteHistoryRepository.instance.safeAdd(
                   LocalRoute.fromRouteConnection(route.connections[i]));
             },
           ),

@@ -24,7 +24,7 @@ const darkShadow = ShadowTheme(
 TextTheme _platform(TextTheme t) => t;
 
 const List<Font> fonts = [
-  Font("Platform", _platform),
+  Font('Platform', _platform),
   Font('Montserrat', GoogleFonts.montserratTextTheme),
   Font('Lexend', GoogleFonts.lexendDecaTextTheme),
   Font('Muli', GoogleFonts.mulishTextTheme),
@@ -35,14 +35,14 @@ const List<Font> fonts = [
   Font('Source Sans Pro', GoogleFonts.sourceSansProTextTheme),
   Font('Poppins', GoogleFonts.poppinsTextTheme),
   Font('Ubuntu', GoogleFonts.ubuntuTextTheme),
-  Font("Inter", GoogleFonts.interTextTheme),
+  Font('Inter', GoogleFonts.interTextTheme),
 ];
 
 final ThemeConfiguration themeConfiguration = ThemeConfiguration(
   fonts: fonts,
   defaultFont: fonts.first,
-  defaultLightThemeId: "swift",
-  defaultDarkThemeId: "swift",
+  defaultLightThemeId: 'swift',
+  defaultDarkThemeId: 'swift',
   persist: true,
   applyToAllThemes: (t) {
     return t.copyWith(
@@ -69,7 +69,7 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
     ),
     ExtendedTheme(
       name: 'Abin',
-      id: "abin",
+      id: 'abin',
       colorScheme: ColorScheme.fromSwatch(primarySwatch: purpleAbin),
       shadow: lightShadow,
     ),

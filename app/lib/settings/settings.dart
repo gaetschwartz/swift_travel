@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
@@ -37,10 +38,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         tileBorders: const TileBorders(top: true),
         title: Text(AppLocalizations.of(context).customization),
         leading: const Icon(CupertinoIcons.wand_stars),
-        onTap: () => Navigator.of(context).push(PlatformPageRoute(
+        onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
           builder: (_) => const CustomizationSettingsPage(),
           title: AppLocalizations.of(context).customization,
-        )),
+        ))),
       ),
       if (Env.isDebugMode || defaultTargetPlatform == TargetPlatform.iOS)
         SwiftSettingsPropertyTile<NavigationApp>(
@@ -79,10 +80,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       SwiftSettingsTile(
         title: Text(AppLocalizations.of(context).advanced_settings),
         leading: const Icon(Icons.settings),
-        onTap: () => Navigator.of(context).push(PlatformPageRoute(
+        onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
           builder: (_) => const AdvancedSettingsPage(),
           title: AppLocalizations.of(context).advanced_settings,
-        )),
+        ))),
         tileBorders: const TileBorders(top: true),
       ),
       Consumer(builder: (context, w, _) {
@@ -91,22 +92,25 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           tileBorders: TileBorders(bottom: !isDev),
           leading: const Icon(CupertinoIcons.person_3_fill),
           title: Text(AppLocalizations.of(context).our_team),
-          onTap: () => Navigator.of(context, rootNavigator: true)
-              .push(PlatformPageRoute(builder: (_) => const TeamPage())),
+          onTap: () => unawaited(Navigator.of(context, rootNavigator: true)
+              .push(PlatformPageRoute(builder: (_) => const TeamPage()))),
         );
       }),
       Consumer(
-        builder: (context, w, _) => w.watch(isDeveloperProvider).value
-            ? SwiftSettingsTile(
-                tileBorders: const TileBorders(bottom: true),
-                title: Text(AppLocalizations.of(context).developer),
-                leading: const Icon(Icons.developer_board),
-                onTap: () => Navigator.of(context).push(PlatformPageRoute(
-                  builder: (_) => const DeveloperSettingsPage(),
-                  title: AppLocalizations.of(context).developer,
-                )),
-              )
-            : const SizedBox.shrink(),
+        builder: (context, ref, _) {
+          return ref.watch(isDeveloperProvider).value
+              ? SwiftSettingsTile(
+                  tileBorders: const TileBorders(bottom: true),
+                  title: Text(AppLocalizations.of(context).developer),
+                  leading: const Icon(Icons.developer_board),
+                  onTap: () =>
+                      unawaited(Navigator.of(context).push(PlatformPageRoute(
+                    builder: (_) => const DeveloperSettingsPage(),
+                    title: AppLocalizations.of(context).developer,
+                  ))),
+                )
+              : const SizedBox.shrink();
+        },
       ),
       const BuildDetailsWidget(),
       const Gap(32),
@@ -198,13 +202,13 @@ class BuildDetailsWidget extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  void onTap(BuildContext context, WidgetRef ref) {
+  Future<void> onTap(BuildContext context, WidgetRef ref) async {
     final controller = ref.read(_tapCountProvider.state);
 
     if (controller.state == 6) {
-      ref.read(preferencesProvider).isDeveloper.setValue(true);
+      unawaited(ref.read(preferencesProvider).isDeveloper.setValue(true));
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("You are now a developer 😎")));
+          const SnackBar(content: Text('You are now a developer 😎')));
     } else {
       controller.state++;
     }
@@ -217,7 +221,7 @@ class BuildDetailsWidget extends ConsumerWidget {
       dense: true,
       title: const Text(commitMessage),
       subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
-      onTap: () => onTap(context, ref),
+      onTap: () async => onTap(context, ref),
     );
   }
 }
@@ -352,7 +356,7 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        padding: const EdgeInsets.all(8),
         child: DefaultTextStyle(
           style: Theme.of(context)
               .textTheme

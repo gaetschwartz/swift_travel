@@ -20,7 +20,6 @@ import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/logic/location/models/models.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -215,10 +214,29 @@ class RoutePage extends ConsumerStatefulWidget {
   }
 }
 
-final TextStateBinder fromBinder =
-    TextStateBinder(TextEditingController(), fromTextfieldProvider);
-final TextStateBinder toBinder =
-    TextStateBinder(TextEditingController(), toTextfieldProvider);
+final fromBinderProvider = Provider(
+  (ref) {
+    final textStateBinder = TextStateBinder(
+      controller: TextEditingController(),
+      provider: fromTextfieldProvider,
+      ref: ref,
+    );
+    ref.onDispose(textStateBinder.dispose);
+    return textStateBinder;
+  },
+);
+
+final toBinderProvider = Provider(
+  (ref) {
+    final textStateBinder = TextStateBinder(
+      controller: TextEditingController(),
+      provider: toTextfieldProvider,
+      ref: ref,
+    );
+    ref.onDispose(textStateBinder.dispose);
+    return textStateBinder;
+  },
+);
 
 class RoutePageState extends ConsumerState<RoutePage> {
   final FocusNode fnFrom = FocusNode();
@@ -253,15 +271,19 @@ class RoutePageState extends ConsumerState<RoutePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     fromFormatter = MyTextFormatter(
-        AppLocalizations.of(context).current_location,
-        fromBinder,
-        ref.read(fromTextfieldProvider.state));
-    toFormatter = MyTextFormatter(AppLocalizations.of(context).current_location,
-        toBinder, ref.read(fromTextfieldProvider.state));
+      AppLocalizations.of(context).current_location,
+      ref.read(fromBinderProvider),
+      ref.read(fromTextfieldProvider.state),
+    );
+    toFormatter = MyTextFormatter(
+      AppLocalizations.of(context).current_location,
+      ref.read(toBinderProvider),
+      ref.read(fromTextfieldProvider.state),
+    );
     favorites = ref.read(storeProvider);
     api = ref.read(navigationAPIProvider);
-    fromBinder.syncState(context);
-    toBinder.syncState(context);
+    ref.read(fromBinderProvider).syncState(context);
+    ref.read(toBinderProvider).syncState(context);
   }
 
   void _onFocusToChanged() {
@@ -280,8 +302,8 @@ class RoutePageState extends ConsumerState<RoutePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
-      fromBinder.setString(context, widget.localRoute!.fromAsString);
-      toBinder.setString(context, widget.localRoute!.toAsString);
+      ref.read(fromBinderProvider).setString(widget.localRoute!.fromAsString);
+      ref.read(toBinderProvider).setString(widget.localRoute!.toAsString);
     });
   }
 
@@ -289,8 +311,8 @@ class RoutePageState extends ConsumerState<RoutePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
-      fromBinder.useCurrentLocation(context);
-      toBinder.setString(context, widget.favStop!.stop);
+      ref.read(fromBinderProvider).useCurrentLocation(context);
+      ref.read(toBinderProvider).setString(widget.favStop!.stop);
     });
   }
 
@@ -365,8 +387,10 @@ class RoutePageState extends ConsumerState<RoutePage> {
                           log.log(favorites.routes.toString());
                           if (favorites.routes.any(
                             (lr) =>
-                                lr.fromAsString == fromBinder.text &&
-                                lr.toAsString == toBinder.text,
+                                lr.fromAsString ==
+                                    ref.read(fromBinderProvider).text &&
+                                lr.toAsString ==
+                                    ref.read(toBinderProvider).text,
                           )) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -381,8 +405,8 @@ class RoutePageState extends ConsumerState<RoutePage> {
                             return;
                           }
                           await favorites.addRoute(LocalRoute.v2(
-                              SbbStop(name: fromBinder.text),
-                              SbbStop(name: toBinder.text),
+                              SbbStop(name: ref.read(fromBinderProvider).text),
+                              SbbStop(name: ref.read(toBinderProvider).text),
                               displayName: s));
 
                           if (!mounted) return;
@@ -394,8 +418,10 @@ class RoutePageState extends ConsumerState<RoutePage> {
                           ref.watch(routeStatesProvider);
 
                           return ref.watch(storeProvider).routes.any((lr) =>
-                                  lr.fromAsString == fromBinder.text &&
-                                  lr.toAsString == toBinder.text)
+                                  lr.fromAsString ==
+                                      ref.read(fromBinderProvider).text &&
+                                  lr.toAsString ==
+                                      ref.read(toBinderProvider).text)
                               ? const Icon(Icons.star)
                               : const Icon(Icons.star_border);
                         }),
@@ -411,16 +437,14 @@ class RoutePageState extends ConsumerState<RoutePage> {
                                   unFocusFields();
                                   final sbbRoute = SbbRoute.fromJson(mockRoute);
 
-                                  fromBinder.setString(
-                                    context,
-                                    sbbRoute.connections.first.from,
-                                    doLoad: false,
-                                  );
-                                  toBinder.setString(
-                                    context,
-                                    sbbRoute.connections.first.to,
-                                    doLoad: false,
-                                  );
+                                  ref.read(fromBinderProvider).setString(
+                                        sbbRoute.connections.first.from,
+                                        doLoad: false,
+                                      );
+                                  ref.read(toBinderProvider).setString(
+                                        sbbRoute.connections.first.to,
+                                        doLoad: false,
+                                      );
 
                                   ref.read(routeStatesProvider).state =
                                       RouteStates(sbbRoute);
@@ -428,8 +452,10 @@ class RoutePageState extends ConsumerState<RoutePage> {
                               : null,
                           style: TextButton.styleFrom(
                               shape: const StadiumBorder(),
-                              backgroundColor:
-                                  Theme.of(context).textTheme.labelLarge!.color),
+                              backgroundColor: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .color),
                           onPressed: () async {
                             Vibration.instance.select();
                             var type = ref.read(timeTypeProvider.state).state;
@@ -512,7 +538,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
   Widget buildFromField(BuildContext context) => _TextField(
         herotag: _fromHeroTag,
         textfieldKey: routeFromTextfieldKeyTap,
-        binder: fromBinder,
+        binder: ref.read(fromBinderProvider),
         textFieldConfiguration: TextFieldConfiguration(
           focusNode: fnFrom,
           inputFormatters: [fromFormatter],
@@ -533,7 +559,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
   Widget buildToField(BuildContext context) => _TextField(
         herotag: _toHeroTag,
         textfieldKey: routeToTextfieldKeyTap,
-        binder: toBinder,
+        binder: ref.read(toBinderProvider),
         textFieldConfiguration: TextFieldConfiguration(
           focusNode: fnTo,
           inputFormatters: [toFormatter],
@@ -552,10 +578,13 @@ class RoutePageState extends ConsumerState<RoutePage> {
       );
 
   void switchInputs() {
-    final from = fromBinder.state(context);
+    final from = ref.read(fromBinderProvider).state();
 
-    fromBinder.init(context, toBinder.state(context));
-    toBinder.init(context, from);
+    ref.read(fromBinderProvider).init(
+          context,
+          ref.read(toBinderProvider).state(),
+        );
+    ref.read(toBinderProvider).init(context, from);
   }
 
   void unFocusFields() {
@@ -591,21 +620,21 @@ class _TextField extends ConsumerStatefulWidget {
 }
 
 class _TextFieldState extends ConsumerState<_TextField> {
-  void openSearch(BuildContext context) =>
-      Navigator.of(context, rootNavigator: true).push<void>(
-        CupertinoPageRoute(
-          builder: (context) => SearchPage(
-            binder: widget.binder,
-            heroTag: widget.herotag,
-            configuration: widget.textFieldConfiguration,
-            // new params
-            isDestination: widget.isDestination,
-            dateTime: widget.isDestination
-                ? ref.read(dateProvider.state).state
-                : null,
-          ),
+  void openSearch(BuildContext context) {
+    unawaited(Navigator.of(context, rootNavigator: true).push<void>(
+      CupertinoPageRoute(
+        builder: (context) => SearchPage(
+          binder: widget.binder,
+          heroTag: widget.herotag,
+          configuration: widget.textFieldConfiguration,
+          // new params
+          isDestination: widget.isDestination,
+          dateTime:
+              widget.isDestination ? ref.read(dateProvider.state).state : null,
         ),
-      );
+      ),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -658,21 +687,24 @@ class _IconForState extends StatelessWidget {
 }
 
 class TextStateBinder {
-  const TextStateBinder(
-    this.controller,
-    this.provider, [
+  const TextStateBinder({
+    required this.controller,
+    required this.provider,
+    required this.ref,
     this.computeCurrentLocation = _computeCurrentLocation,
-  ]);
+  });
 
   final TextEditingController controller;
   final StateProvider<RouteTextfieldState> provider;
   final String Function(BuildContext) computeCurrentLocation;
+  final Ref ref;
 
-  void syncState(BuildContext context) =>
-      _setController(context.read(provider.state).state, context);
+  void syncState(BuildContext context) {
+    _setController(ref.read(provider.state).state, context);
+  }
 
-  void clear(BuildContext context) {
-    context.read(provider.state).state = const RouteTextfieldState.empty();
+  void clear() {
+    ref.read(provider.state).state = const RouteTextfieldState.empty();
     controller.clear();
   }
 
@@ -681,15 +713,15 @@ class TextStateBinder {
     controller.clear();
   }
 
-  void setString(BuildContext context, String s, {bool doLoad = true}) {
-    context.read(provider.state).state =
+  void setString(String s, {bool doLoad = true}) {
+    ref.read(provider.state).state =
         RouteTextfieldState.text(s, doLoad: doLoad);
     controller.text = s;
   }
 
   void init(BuildContext context, RouteTextfieldState state) {
     _setController(state, context);
-    context.read(provider.state).state = state;
+    ref.read(provider.state).state = state;
   }
 
   void _setController(RouteTextfieldState state, BuildContext context) {
@@ -701,18 +733,21 @@ class TextStateBinder {
   }
 
   void useCurrentLocation(BuildContext context) {
-    context.read(provider.state).state =
+    ref.read(provider.state).state =
         const RouteTextfieldState.useCurrentLocation();
     controller.text = computeCurrentLocation(context);
   }
 
-  RouteTextfieldState state(BuildContext context) =>
-      context.read(provider.state).state;
+  RouteTextfieldState state() => ref.read(provider.state).state;
 
   String get text => controller.text;
 
   static String _computeCurrentLocation(BuildContext context) =>
       AppLocalizations.of(context).current_location;
+
+  void dispose() {
+    controller.dispose();
+  }
 }
 
 class ShadowsAround extends StatelessWidget {

@@ -109,7 +109,7 @@ class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
         // ignore: prefer-extracting-callbacks
         onTap: () {
           reportDartError(
-            const ProcessException("swift_travel", []),
+            const ProcessException('swift_travel', []),
             StackTrace.current,
             library: 'settings',
             reason: 'voluntarirly',
@@ -125,11 +125,11 @@ class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
   ];
 
   void openTerminal() {
-    Navigator.of(context, rootNavigator: true).push(
+    unawaited(Navigator.of(context, rootNavigator: true).push(
       PlatformPageRoute(
         builder: (context) => const TerminalPage(),
       ),
-    );
+    ));
   }
 
   @override

@@ -41,7 +41,7 @@ class GeoLocationEngine {
           }
 
           log.log(
-              "Last known location was invalid (too old or innexistent). Obtaining current one...");
+              'Last known location was invalid (too old or innexistent). Obtaining current one...');
 
           final p = await Geolocator.getCurrentPosition(
             desiredAccuracy: accuracy,
@@ -50,7 +50,7 @@ class GeoLocationEngine {
 
           return GeoLocation.fromPosition(p);
         } else {
-          log.e("Failed to obtain permisisons for location: $permission");
+          log.e('Failed to obtain permisisons for location: $permission');
           throw PermissionDeniedException(permission.toString());
         }
       } on MissingPluginException {

@@ -9,7 +9,7 @@ final ChangeNotifierProvider<ChangeNotifierProperty<NavigationApiId>>
 
 final navigationAPIProvider = Provider<BaseNavigationApi>((ref) {
   final apiType = ref.watch(apiProvider);
-  final api = NavigationApiFactory.fromId(apiType.value).create(ref.read);
+  final api = NavigationApiFactory.fromId(apiType.value).create(ref);
   ref.onDispose(api.dispose);
   return api;
 });

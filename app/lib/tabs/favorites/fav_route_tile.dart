@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +28,7 @@ class FavoriteRouteTile extends ConsumerWidget {
             label: AppLocalizations.of(context).rename,
             backgroundColor: Colors.blue,
             icon: CupertinoIcons.pencil,
-            onPressed: (context) => rename(context, ref),
+            onPressed: (context) async => rename(context, ref),
           ),
         ],
       ),
@@ -37,7 +39,7 @@ class FavoriteRouteTile extends ConsumerWidget {
             label: AppLocalizations.of(context).delete,
             backgroundColor: Colors.red,
             icon: CupertinoIcons.delete,
-            onPressed: (context) => deleteRoute(context, ref),
+            onPressed: (context) async => deleteRoute(context, ref),
           ),
         ],
       ),
@@ -45,10 +47,10 @@ class FavoriteRouteTile extends ConsumerWidget {
         title: Text(route.displayName!),
         from: Text(route.fromAsString.stripAt()),
         to: Text(route.toAsString.stripAt()),
-        onLongPress: () => more(context, ref),
+        onLongPress: () async => more(context, ref),
         trailing: const Icon(CupertinoIcons.chevron_forward),
-        onTap: () =>
-            Navigator.of(context).pushNamed('/route', arguments: route),
+        onTap: () => unawaited(
+            Navigator.of(context).pushNamed('/route', arguments: route)),
       ),
     );
   }
@@ -65,26 +67,28 @@ class FavoriteRouteTile extends ConsumerWidget {
     return;
   }
 
-  void more(BuildContext context, WidgetRef ref) => showActionSheet<void>(
-        context,
-        [
-          ActionsSheetAction(
-            title: Text(AppLocalizations.of(context).rename),
-            icon: const Icon(CupertinoIcons.pencil),
-            onPressed: () => rename(context, ref),
-          ),
-          ActionsSheetAction(
-            onPressed: () => deleteRoute(context, ref),
-            title: Text(AppLocalizations.of(context).delete),
-            icon: const Icon(CupertinoIcons.delete),
-            isDestructive: true,
-          ),
-        ],
-        cancel: ActionsSheetAction<void>(
-          title: Text(AppLocalizations.of(context).cancel),
-          icon: const Icon(CupertinoIcons.xmark),
+  Future<void> more(BuildContext context, WidgetRef ref) async {
+    await showActionSheet<void>(
+      context,
+      [
+        ActionsSheetAction(
+          title: Text(AppLocalizations.of(context).rename),
+          icon: const Icon(CupertinoIcons.pencil),
+          onPressed: () => rename(context, ref),
         ),
-      );
+        ActionsSheetAction(
+          onPressed: () => deleteRoute(context, ref),
+          title: Text(AppLocalizations.of(context).delete),
+          icon: const Icon(CupertinoIcons.delete),
+          isDestructive: true,
+        ),
+      ],
+      cancel: ActionsSheetAction<void>(
+        title: Text(AppLocalizations.of(context).cancel),
+        icon: const Icon(CupertinoIcons.xmark),
+      ),
+    );
+  }
 
   Future<void> deleteRoute(BuildContext context, WidgetRef ref) async {
     final favoritesStore = ref.read(storeProvider);

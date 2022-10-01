@@ -65,6 +65,7 @@ mixin PlatformRouteTitleMixin<T> on PageRoute<T> {
     if (route is CupertinoRouteTransitionMixin) {
       return route.previousTitle.value;
     }
+    return null;
   }
 
   static String? getPageTitleOf(BuildContext context) {
@@ -79,5 +80,6 @@ mixin PlatformRouteTitleMixin<T> on PageRoute<T> {
     if (route is CupertinoRouteTransitionMixin) {
       return route.title;
     }
+    return null;
   }
 }

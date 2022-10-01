@@ -32,7 +32,7 @@ class WalkingTile extends ConsumerStatefulWidget {
 class _WalkingTileState extends ConsumerState<WalkingTile> {
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: () => openRoute(context),
+        onTap: openRoute,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
@@ -85,7 +85,7 @@ class _WalkingTileState extends ConsumerState<WalkingTile> {
         ),
       );
 
-  Future<void> openRoute(BuildContext context) async {
+  Future<void> openRoute() async {
     if (widget.l.exit == null) {
       return;
     }

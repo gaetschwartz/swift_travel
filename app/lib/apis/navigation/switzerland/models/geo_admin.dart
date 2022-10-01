@@ -59,7 +59,7 @@ class GeoAdminResult with _$GeoAdminResult implements NavigationCompletion {
 class GeoAdminAttributes with _$GeoAdminAttributes {
   const factory GeoAdminAttributes({
     required final String origin,
-    @JsonKey(name: "featureId") required final String? featureId,
+    @JsonKey(name: 'featureId') required final String? featureId,
     required final String detail,
     required final int rank,
     @JsonKey(name: 'num') final int? number,

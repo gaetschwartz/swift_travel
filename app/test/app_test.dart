@@ -177,9 +177,3 @@ Future<void> openBoxes() async {
   await FavStopsDb.i.open();
   await RouteHistoryRepository.instance.open();
 }
-
-Future<void> clearBoxes() async {
-  await FavRoutesDb.i.clear();
-  await FavStopsDb.i.clear();
-  await RouteHistoryRepository.instance.clear();
-}

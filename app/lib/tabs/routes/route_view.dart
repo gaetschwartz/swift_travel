@@ -234,21 +234,26 @@ class _PredictionTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Consumer(
-        builder: (context, r, child) => r.watch(_predictionProvider).when(
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ref, child) {
+        return ref.watch(_predictionProvider).when(
               data: (pred) {
                 if (pred.prediction != null) {
                   return RouteWidget(
                     from: Text(pred.prediction!.fromAsString.stripAt()),
                     to: Text(pred.prediction!.toAsString.stripAt()),
                     onTap: () {
-                      fromBinder.setString(
-                          context, pred.prediction!.fromAsString);
-                      toBinder.setString(context, pred.prediction!.toAsString);
+                      ref
+                          .read(fromBinderProvider)
+                          .setString(pred.prediction!.fromAsString);
+                      ref
+                          .read(toBinderProvider)
+                          .setString(pred.prediction!.toAsString);
                     },
                     title: Text(AppLocalizations.of(context).suggestion),
-                    onLongPress: () {
-                      showDialog<void>(
+                    onLongPress: () async {
+                      await showDialog<void>(
                           context: context,
                           builder: (context) => AlertDialog(
                                 title: const Text('Arguments'),
@@ -302,21 +307,23 @@ class _PredictionTile extends StatelessWidget {
                 debugPrintStack(stackTrace: s);
                 return child!;
               },
-            ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              '🔎',
-              style: TextStyle(fontSize: 48),
-            ),
-            const Gap(24),
-            Text(
-              AppLocalizations.of(context).find_a_route,
-              style: Theme.of(context).textTheme.titleLarge,
-              textAlign: TextAlign.center,
-            )
-          ],
-        ),
-      );
+            );
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            '🔎',
+            style: TextStyle(fontSize: 48),
+          ),
+          const Gap(24),
+          Text(
+            AppLocalizations.of(context).find_a_route,
+            style: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
+    );
+  }
 }

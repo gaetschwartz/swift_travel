@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -34,8 +35,8 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).push<void>(MaterialPageRoute(
-                    builder: (context) => _RoutesJson(routes: routes)));
+                unawaited(Navigator.of(context).push<void>(MaterialPageRoute(
+                    builder: (context) => _RoutesJson(routes: routes))));
               },
               icon: const Icon(Icons.print)),
           IconButton(
@@ -95,7 +96,7 @@ class _RoutesJson extends StatelessWidget {
           IconButton(
               onPressed: () async {
                 final docs = await getTemporaryDirectory();
-                final f = File(path.join(docs.path, "routes.json"));
+                final f = File(path.join(docs.path, 'routes.json'));
                 final json = jsonEncode(routes.map((e) => e.toJson()).toList());
                 await f.writeAsString(json);
                 await Share.shareFiles([f.path]);

@@ -53,7 +53,7 @@ class _LoadingPageState extends ConsumerState<LoadingPage>
     super.initState();
 
     if (Env.page != 'loading') {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) => init());
+      WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(init()));
     }
 
     _controller.forward();
@@ -90,7 +90,7 @@ class _LoadingPageState extends ConsumerState<LoadingPage>
     unawaited(route());
 
     if (isMobile) {
-      MyQuickActions.i.init();
+      await MyQuickActions.i.init();
 
       await ref.read(linksProvider).init(
           onNewRoute: (p) => navigatorKey.currentState!.push(
@@ -170,6 +170,7 @@ class _LoadingPageState extends ConsumerState<LoadingPage>
     } else if (Platform.isAndroid) {
       return getExternalStorageDirectory();
     }
+    return null;
   }
 
   Future<void> showTutoIfNeeded(SharedPreferences prefs) async {

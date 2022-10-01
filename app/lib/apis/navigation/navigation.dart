@@ -10,11 +10,12 @@ import 'switzerland/switzerland.dart';
 
 part 'navigation.freezed.dart';
 
-typedef Create<T> = T Function(Reader reader);
+typedef Create<T> = T Function(Ref ref);
 
 @immutable
 
-/// A factory that alllows to obtain an instance of a Navigation API including its details.
+/// A factory that alllows to obtain an instance of a Navigation API
+/// including its details.
 class NavigationApiFactory<T extends BaseNavigationApi> {
   const NavigationApiFactory(
     this.create, {
@@ -47,7 +48,8 @@ class NavigationApiFactory<T extends BaseNavigationApi> {
 
 @freezed
 
-/// Class containing a single String value representing an ID of a Navigation API.
+/// Class containing a single String value representing
+/// an ID of a Navigation API.
 class NavigationApiId with _$NavigationApiId {
   const factory NavigationApiId(String value) = _NavigationApiId;
 }
@@ -80,7 +82,8 @@ abstract class BaseNavigationApi implements NavigationCompletionDelegateApi {
   @override
   void dispose();
 
-  /// This method is used internally and should be used in [route] once the url to query has been built.
+  /// This method is used internally and should be used in [route]
+  /// once the url to query has been built.
   Future<NavRoute> rawRoute(Uri query);
 }
 

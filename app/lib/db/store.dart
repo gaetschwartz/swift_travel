@@ -74,7 +74,9 @@ class HiveFavoritesStore extends BaseFavoritesStore {
 
   void notify() {
     notifyListeners();
-    MyQuickActions.i.setActions(favRoutesDb.routes, favStopsDb.stops);
+    unawaited(
+      MyQuickActions.i.setActions(favRoutesDb.routes, favStopsDb.stops),
+    );
   }
 
   @override
@@ -85,7 +87,7 @@ class HiveFavoritesStore extends BaseFavoritesStore {
   }
 }
 
-class FavRoutesDb extends LocalDatabase<int, Map, LocalRoute>
+class FavRoutesDb extends LocalDatabase<int, Map<dynamic, dynamic>, LocalRoute>
     with IndexedDatabaseMixin {
   @visibleForTesting
   FavRoutesDb()
@@ -105,7 +107,7 @@ class FavRoutesDb extends LocalDatabase<int, Map, LocalRoute>
   void onDatabaseExceededMaxSize() {}
 }
 
-class FavStopsDb extends LocalDatabase<int, Map, FavoriteStop>
+class FavStopsDb extends LocalDatabase<int, Map<dynamic, dynamic>, FavoriteStop>
     with IndexedDatabaseMixin {
   @visibleForTesting
   FavStopsDb()

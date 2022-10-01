@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -87,9 +89,9 @@ class _FavoriteStationTileState extends ConsumerState<FavoriteStationTile> {
               ),
           ],
         ),
-        onTap: () =>
-            Navigator.of(context).pushNamed('/route', arguments: widget.stop),
-        onLongPress: () => edit(context),
+        onTap: () => unawaited(
+            Navigator.of(context).pushNamed('/route', arguments: widget.stop)),
+        onLongPress: () async => edit(context),
         trailing: Icon(CupertinoIcons.chevron_forward,
             color: IconTheme.of(context).color),
         title: Text(widget.stop.name),
@@ -98,9 +100,9 @@ class _FavoriteStationTileState extends ConsumerState<FavoriteStationTile> {
     );
   }
 
-  void edit(BuildContext context) {
+  Future<void> edit(BuildContext context) async {
     Vibration.instance.select();
-    showActionSheet<void>(
+    await showActionSheet<void>(
       context,
       [
         ActionsSheetAction(

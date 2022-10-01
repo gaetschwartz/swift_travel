@@ -16,7 +16,6 @@ import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/logic/navigation.dart';
-import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/prediction/complete.dart';
 import 'package:swift_travel/states/station_states.dart';
@@ -155,7 +154,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                                     Vibration.instance.select();
                                     searchController.text = '';
                                     focusNode.unfocus();
-                                    context.read(_stateProvider.state).state =
+                                    ref.read(_stateProvider.state).state =
                                         const StationStates.empty();
                                   }),
                             ),
@@ -300,15 +299,14 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
 
   Future<void> _getLocation() async {
     Vibration.instance.selectSoft();
-    context.read(_locatingProvider.state).state = _LoadingState.loading;
+    ref.read(_locatingProvider.state).state = _LoadingState.loading;
 
     try {
       final p = await GeoLocationEngine.instance.getLocation();
       if (!mounted) return;
 
-      final completions = await context
-          .read(navigationAPIProvider)
-          .find(p.latitude, p.longitude);
+      final completions =
+          await ref.read(navigationAPIProvider).find(p.latitude, p.longitude);
 
       final first = completions.first;
       if (first.dist != null) {
@@ -316,7 +314,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
             completions.where((c) => !TransportationModeX.isAnAddress(c.type));
         if (!mounted) return;
 
-        context.read(_stateProvider.state).state =
+        ref.read(_stateProvider.state).state =
             StationStates.completions(completions);
         if (public.isNotEmpty) {
           log.log('Found : ${public.first}');
@@ -325,7 +323,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
       }
       if (!mounted) return;
 
-      context.read(_locatingProvider.state).state = _LoadingState.idle;
+      ref.read(_locatingProvider.state).state = _LoadingState.idle;
     } on Exception catch (e) {
       onError(e);
       // ignore: avoid_catching_errors
@@ -336,12 +334,12 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
 
   void onError(Object e) {
     log.log(e.toString(), channel: 'Location');
-    context.read(_locatingProvider.state).state = _LoadingState.error;
+    ref.read(_locatingProvider.state).state = _LoadingState.error;
     Future.delayed(_kAnimDuration * (5 / 8), cancelAnimation);
   }
 
   void cancelAnimation() {
-    context.read(_locatingProvider.state).state = _LoadingState.idle;
+    ref.read(_locatingProvider.state).state = _LoadingState.idle;
   }
 
   Future<void> fetch(String query) async {

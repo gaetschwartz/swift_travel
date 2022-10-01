@@ -21,7 +21,7 @@ class DelayConverter extends JsonConverter<int?, String?> {
 
   @override
   String toJson(int? object) => object == null
-      ? "X"
+      ? 'X'
       : object >= 0
           ? '+$object'
           : object.toString();

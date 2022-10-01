@@ -14,7 +14,7 @@ mixin Property<T extends Object?> implements ValueListenable<T> {
     SharedPreferences prefs,
   ) =>
       AsyncProperty<bool>(
-        onSet: (d) => prefs.setBool(key, d),
+        onSet: (d) async => prefs.setBool(key, d),
         getValue: getFromPreferences<bool>(key, prefs),
         defaultValue: defaultValue,
       );

@@ -158,7 +158,7 @@ class SwiftSettingsPropertyTile<T> extends StatelessWidget with WithLeading {
         builder: (context, p, _) => valueBuilder(context, p.value),
         listenable: property,
       ),
-      onTap: () => changeValue(context),
+      onTap: () async => changeValue(context),
       showChevron: showChevron,
       tileBorders: tileBorders,
     );
