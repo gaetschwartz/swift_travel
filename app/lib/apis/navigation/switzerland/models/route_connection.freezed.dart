@@ -27,7 +27,7 @@ mixin _$SbbRouteConnection {
   int? get depDelay => throw _privateConstructorUsedError;
   DateTime? get departure => throw _privateConstructorUsedError;
   DateTime? get arrival => throw _privateConstructorUsedError;
-  @JsonKey(name: "duration")
+  @JsonKey(name: 'duration')
   double? get durationInSeconds => throw _privateConstructorUsedError;
   @JsonKey(name: 'legs')
   List<SbbLeg> get sbbLegs => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $SbbRouteConnectionCopyWith<$Res> {
       @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
       DateTime? departure,
       DateTime? arrival,
-      @JsonKey(name: "duration") double? durationInSeconds,
+      @JsonKey(name: 'duration') double? durationInSeconds,
       @JsonKey(name: 'legs') List<SbbLeg> sbbLegs,
       Map<String, Disruption> disruptions});
 }
@@ -125,7 +125,7 @@ abstract class _$$_SbbRouteConnectionCopyWith<$Res>
       @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
       DateTime? departure,
       DateTime? arrival,
-      @JsonKey(name: "duration") double? durationInSeconds,
+      @JsonKey(name: 'duration') double? durationInSeconds,
       @JsonKey(name: 'legs') List<SbbLeg> sbbLegs,
       Map<String, Disruption> disruptions});
 }
@@ -199,7 +199,7 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
       @DelayConverter() @JsonKey(name: 'dep_delay') this.depDelay,
       this.departure,
       this.arrival,
-      @JsonKey(name: "duration") this.durationInSeconds,
+      @JsonKey(name: 'duration') this.durationInSeconds,
       @JsonKey(name: 'legs') final List<SbbLeg> sbbLegs = const <SbbLeg>[],
       final Map<String, Disruption> disruptions = const <String, Disruption>{}})
       : _sbbLegs = sbbLegs,
@@ -222,7 +222,7 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
   @override
   final DateTime? arrival;
   @override
-  @JsonKey(name: "duration")
+  @JsonKey(name: 'duration')
   final double? durationInSeconds;
   final List<SbbLeg> _sbbLegs;
   @override
@@ -296,7 +296,7 @@ abstract class _SbbRouteConnection extends SbbRouteConnection {
       @DelayConverter() @JsonKey(name: 'dep_delay') final int? depDelay,
       final DateTime? departure,
       final DateTime? arrival,
-      @JsonKey(name: "duration") final double? durationInSeconds,
+      @JsonKey(name: 'duration') final double? durationInSeconds,
       @JsonKey(name: 'legs') final List<SbbLeg> sbbLegs,
       final Map<String, Disruption> disruptions}) = _$_SbbRouteConnection;
   const _SbbRouteConnection._() : super._();
@@ -317,7 +317,7 @@ abstract class _SbbRouteConnection extends SbbRouteConnection {
   @override
   DateTime? get arrival;
   @override
-  @JsonKey(name: "duration")
+  @JsonKey(name: 'duration')
   double? get durationInSeconds;
   @override
   @JsonKey(name: 'legs')

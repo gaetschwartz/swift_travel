@@ -410,7 +410,7 @@ GeoAdminAttributes _$GeoAdminAttributesFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$GeoAdminAttributes {
   String get origin => throw _privateConstructorUsedError;
-  @JsonKey(name: "featureId")
+  @JsonKey(name: 'featureId')
   String? get featureId => throw _privateConstructorUsedError;
   String get detail => throw _privateConstructorUsedError;
   int get rank => throw _privateConstructorUsedError;
@@ -435,7 +435,7 @@ abstract class $GeoAdminAttributesCopyWith<$Res> {
       _$GeoAdminAttributesCopyWithImpl<$Res>;
   $Res call(
       {String origin,
-      @JsonKey(name: "featureId") String? featureId,
+      @JsonKey(name: 'featureId') String? featureId,
       String detail,
       int rank,
       @JsonKey(name: 'num') int? number,
@@ -516,7 +516,7 @@ abstract class _$$_GeoAdminAttributesCopyWith<$Res>
   @override
   $Res call(
       {String origin,
-      @JsonKey(name: "featureId") String? featureId,
+      @JsonKey(name: 'featureId') String? featureId,
       String detail,
       int rank,
       @JsonKey(name: 'num') int? number,
@@ -595,7 +595,7 @@ class __$$_GeoAdminAttributesCopyWithImpl<$Res>
 class _$_GeoAdminAttributes extends _GeoAdminAttributes {
   const _$_GeoAdminAttributes(
       {required this.origin,
-      @JsonKey(name: "featureId") required this.featureId,
+      @JsonKey(name: 'featureId') required this.featureId,
       required this.detail,
       required this.rank,
       @JsonKey(name: 'num') this.number,
@@ -611,7 +611,7 @@ class _$_GeoAdminAttributes extends _GeoAdminAttributes {
   @override
   final String origin;
   @override
-  @JsonKey(name: "featureId")
+  @JsonKey(name: 'featureId')
   final String? featureId;
   @override
   final String detail;
@@ -682,7 +682,7 @@ class _$_GeoAdminAttributes extends _GeoAdminAttributes {
 abstract class _GeoAdminAttributes extends GeoAdminAttributes {
   const factory _GeoAdminAttributes(
           {required final String origin,
-          @JsonKey(name: "featureId") required final String? featureId,
+          @JsonKey(name: 'featureId') required final String? featureId,
           required final String detail,
           required final int rank,
           @JsonKey(name: 'num') final int? number,
@@ -699,7 +699,7 @@ abstract class _GeoAdminAttributes extends GeoAdminAttributes {
   @override
   String get origin;
   @override
-  @JsonKey(name: "featureId")
+  @JsonKey(name: 'featureId')
   String? get featureId;
   @override
   String get detail;

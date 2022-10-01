@@ -172,7 +172,7 @@ class __$$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-@Deprecated("Use v2")
+@Deprecated('Use v2')
 class _$LocalRouteV1 extends LocalRouteV1 {
   const _$LocalRouteV1(this.from, this.to,
       {this.displayName, this.timestamp, final String? $type})

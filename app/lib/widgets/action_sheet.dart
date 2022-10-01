@@ -201,7 +201,7 @@ class ActionsSheet<T> extends StatelessWidget {
                       DefaultTextStyle(
                           style: Theme.of(context).textTheme.titleMedium!,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Center(child: title),
                           )),
                     if (message != null)
