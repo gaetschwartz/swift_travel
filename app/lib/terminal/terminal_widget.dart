@@ -45,7 +45,7 @@ class _TerminalWidgetState extends ConsumerState<TerminalWidget> {
 
   void write(String cmd, String result) {
     final history = ref.read(terminalHistoryProvider.state);
-    final newList = List<TerminalCommandResult>.from(history.state);
+    final newList = List<TerminalCommandResult>.of(history.state);
     if (history.state.length > cache) {
       newList.removeRange(0, newList.length - cache);
     }

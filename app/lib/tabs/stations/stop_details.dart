@@ -111,15 +111,18 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
         child: data != null
             ? data!.errors.isEmpty
                 ? ListView.builder(
-                    itemBuilder: (context, i) => i.isEven
-                        ? const Divider(height: 0, thickness: 0.5)
-                        : ConnectionTile(
-                            c: data!.connections[i >> 1], s: data!.stop),
+                    itemBuilder: (context, i) => itemBuilder(i),
                     itemCount: data!.connections.length * 2 + 1,
                   )
                 : _NoData(context: context, s: data!)
             : const Center(child: CupertinoActivityIndicator()),
       );
+
+  StatelessWidget itemBuilder(int i) {
+    return i.isEven
+        ? const Divider(height: 0, thickness: 0.5)
+        : ConnectionTile(c: data!.connections[i >> 1], s: data!.stop);
+  }
 
   @allowReturningWidgets
   Widget buildIOSList() => CustomScrollView(

@@ -42,11 +42,11 @@ mixin _$SbbLeg {
   String? get sbbName => throw _privateConstructorUsedError;
   DateTime? get departure => throw _privateConstructorUsedError;
   DateTime? get arrival => throw _privateConstructorUsedError;
-  @JsonKey(name: "normal_time")
+  @JsonKey(name: 'normal_time')
   double? get normalTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'waittime', defaultValue: 0)
   double get waitTime => throw _privateConstructorUsedError;
-  @JsonKey(name: "isaddress")
+  @JsonKey(name: 'isaddress')
   bool get isAddress => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get lon => throw _privateConstructorUsedError;
@@ -83,9 +83,9 @@ abstract class $SbbLegCopyWith<$Res> {
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
-      @JsonKey(name: "normal_time") double? normalTime,
+      @JsonKey(name: 'normal_time') double? normalTime,
       @JsonKey(name: 'waittime', defaultValue: 0) double waitTime,
-      @JsonKey(name: "isaddress") bool isAddress,
+      @JsonKey(name: 'isaddress') bool isAddress,
       double? lat,
       double? lon,
       @IntConverter() int? x,
@@ -270,9 +270,9 @@ abstract class _$$_SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
-      @JsonKey(name: "normal_time") double? normalTime,
+      @JsonKey(name: 'normal_time') double? normalTime,
       @JsonKey(name: 'waittime', defaultValue: 0) double waitTime,
-      @JsonKey(name: "isaddress") bool isAddress,
+      @JsonKey(name: 'isaddress') bool isAddress,
       double? lat,
       double? lon,
       @IntConverter() int? x,
@@ -452,11 +452,11 @@ class _$_SbbLeg extends _SbbLeg {
       this.sbbName,
       this.departure,
       this.arrival,
-      @JsonKey(name: "normal_time")
+      @JsonKey(name: 'normal_time')
           this.normalTime,
       @JsonKey(name: 'waittime', defaultValue: 0)
           this.waitTime = 0,
-      @JsonKey(name: "isaddress")
+      @JsonKey(name: 'isaddress')
           this.isAddress = false,
       this.lat,
       this.lon,
@@ -517,13 +517,13 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   final DateTime? arrival;
   @override
-  @JsonKey(name: "normal_time")
+  @JsonKey(name: 'normal_time')
   final double? normalTime;
   @override
   @JsonKey(name: 'waittime', defaultValue: 0)
   final double waitTime;
   @override
-  @JsonKey(name: "isaddress")
+  @JsonKey(name: 'isaddress')
   final bool isAddress;
   @override
   final double? lat;
@@ -651,11 +651,11 @@ abstract class _SbbLeg extends SbbLeg {
       final String? sbbName,
       final DateTime? departure,
       final DateTime? arrival,
-      @JsonKey(name: "normal_time")
+      @JsonKey(name: 'normal_time')
           final double? normalTime,
       @JsonKey(name: 'waittime', defaultValue: 0)
           final double waitTime,
-      @JsonKey(name: "isaddress")
+      @JsonKey(name: 'isaddress')
           final bool isAddress,
       final double? lat,
       final double? lon,
@@ -708,13 +708,13 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   DateTime? get arrival;
   @override
-  @JsonKey(name: "normal_time")
+  @JsonKey(name: 'normal_time')
   double? get normalTime;
   @override
   @JsonKey(name: 'waittime', defaultValue: 0)
   double get waitTime;
   @override
-  @JsonKey(name: "isaddress")
+  @JsonKey(name: 'isaddress')
   bool get isAddress;
   @override
   double? get lat;
