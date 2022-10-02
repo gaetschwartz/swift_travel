@@ -171,10 +171,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unable_locate => 'Unable to obtain location.';
 
   @override
-  String get unsupported_area => "You don't seem to be in a supported area.";
+  String get unsupported_area => 'You don\'t seem to be in a supported area.';
 
   @override
-  String get contact_no_address => "This contact doesn't have any address";
+  String get contact_no_address => 'This contact doesn\'t have any address';
 
   @override
   String get contacts => 'Contacts';
