@@ -124,7 +124,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get use_current_location => 'Utilizzare la posizione corrente';
 
   @override
-  String get use_current_time => "Utilizzare l'ora corrente";
+  String get use_current_time => 'Utilizzare l\'ora corrente';
 
   @override
   String walk(String walk) {

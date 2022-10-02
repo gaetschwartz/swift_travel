@@ -138,7 +138,7 @@ void main() {
     });
 
     test('completion', () async {
-      // HACK: Not really sure if this is the best way to test this
+      //? Not really sure if this is the best way to test this
       final container = ProviderContainer(overrides: [
         completionEngineProvider.overrideWithProvider(
           Provider(
@@ -251,7 +251,7 @@ void main() {
       ],
     );
 
-    // HACK: Not really sure if this is the best way to test this
+    //? Not really sure if this is the best way to test this
 
     final c = await container
         .read(completionEngineProvider)

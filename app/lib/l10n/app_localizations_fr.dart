@@ -121,10 +121,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get travel_duration => 'Durée du voyage';
 
   @override
-  String get use_current_location => "Utiliser l'emplacement actuel";
+  String get use_current_location => 'Utiliser l\'emplacement actuel';
 
   @override
-  String get use_current_time => "Utiliser l'heure actuelle";
+  String get use_current_time => 'Utiliser l\'heure actuelle';
 
   @override
   String walk(String walk) {
@@ -168,25 +168,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String get itinerary => 'Itinéraire';
 
   @override
-  String get unable_locate => "Impossible d'obtenir la localisation.";
+  String get unable_locate => 'Impossible d\'obtenir la localisation.';
 
   @override
-  String get unsupported_area => "Vous n'avez pas l'air d'être dans une zone prise en charge.";
+  String get unsupported_area => 'Vous n\'avez pas l\'air d\'être dans une zone prise en charge.';
 
   @override
-  String get contact_no_address => "Ce contact n'a pas d'adresse";
+  String get contact_no_address => 'Ce contact n\'a pas d\'adresse';
 
   @override
   String get contacts => 'Contacts';
 
   @override
-  String get failed_get_contact => "Impossible d'obtenir le carnet d'adresses";
+  String get failed_get_contact => 'Impossible d\'obtenir le carnet d\'adresses';
 
   @override
   String get new_fav => 'Nouvel arrêt préféré';
 
   @override
-  String get no_contacts => "Votre carnet d'adresses est vide";
+  String get no_contacts => 'Votre carnet d\'adresses est vide';
 
   @override
   String get customization => 'Personnalisation';
