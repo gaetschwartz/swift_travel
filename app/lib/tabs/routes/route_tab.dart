@@ -450,12 +450,6 @@ class RoutePageState extends ConsumerState<RoutePage> {
                                       RouteStates(sbbRoute);
                                 }
                               : null,
-                          style: TextButton.styleFrom(
-                              shape: const StadiumBorder(),
-                              backgroundColor: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .color),
                           onPressed: () async {
                             Vibration.instance.select();
                             var type = ref.read(timeTypeProvider.state).state;
