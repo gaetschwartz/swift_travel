@@ -43,6 +43,14 @@ extension ColorX on Color {
         ((blue + red + green) / 3) > 127 ? 1 - strength : 1 + strength;
     return this * factor;
   }
+
+  /// Blends this color with [other] with [ratio] being the ratio of [other] to this color.
+  Color blend(Color other, [double ratio = 0.5]) => Color.fromARGB(
+        alpha,
+        (red * (1 - ratio) + other.red * ratio).round().clamp(0, 255),
+        (green * (1 - ratio) + other.green * ratio).round().clamp(0, 255),
+        (blue * (1 - ratio) + other.blue * ratio).round().clamp(0, 255),
+      );
 }
 
 class GradientMask extends StatelessWidget {
