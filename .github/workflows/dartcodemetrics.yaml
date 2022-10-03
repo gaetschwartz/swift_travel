@@ -4,9 +4,9 @@ on: [push]
 
 jobs:
   check:
-    name: dart-code-metrics-action
-
+    if: ${{ false }}
     runs-on: ubuntu-latest
+    name: dart-code-metrics-action
 
     steps:
       - uses: actions/checkout@v2

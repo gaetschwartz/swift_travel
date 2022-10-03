@@ -6,6 +6,7 @@ on:
 
 jobs:
   close-issues:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     name: Close inactive issues
     permissions:
