@@ -40,10 +40,16 @@ import 'package:vibration/vibration.dart';
 final timeTypeProvider = StateProvider((_) => TimeType.departure);
 final dateProvider = StateProvider((_) => DateTime.now());
 
-final fromTextfieldProvider =
-    StateProvider((_) => const RouteTextfieldState.useCurrentLocation());
-final toTextfieldProvider =
-    StateProvider((_) => const RouteTextfieldState.empty());
+final fromTextfieldProvider = StateProvider(
+  (_) {
+    return const RouteTextfieldState.useCurrentLocation();
+  },
+);
+final toTextfieldProvider = StateProvider(
+  (_) {
+    return const RouteTextfieldState.empty();
+  },
+);
 
 @visibleForTesting
 final fetcherProvider = Provider.autoDispose<FetcherBase>((_) {
