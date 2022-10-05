@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
@@ -99,7 +100,7 @@ class _RoutesJson extends StatelessWidget {
                 final f = File(path.join(docs.path, 'routes.json'));
                 final json = jsonEncode(routes.map((e) => e.toJson()).toList());
                 await f.writeAsString(json);
-                await Share.shareFiles([f.path]);
+                await Share.shareXFiles([XFile(f.path)]);
               },
               icon: const Icon(Icons.share))
         ],

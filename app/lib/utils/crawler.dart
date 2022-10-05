@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -56,8 +57,9 @@ class _CrawlerPageState extends ConsumerState<CrawlerPage> {
                   }
                   await f.writeAsString(jsonEncode(unHandled));
                   if (kIsWeb) {
+                    await Share.shareXFiles([XFile(f.path)]);
                   } else if (isMobile) {
-                    await Share.shareFiles([f.path]);
+                    await Share.shareXFiles([XFile(f.path)]);
                   } else {
                     final shell = Shell();
                     final folder = path.dirname(f.absolute.path);
