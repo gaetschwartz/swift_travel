@@ -169,7 +169,9 @@ class Fetcher extends FetcherBase {
 
   @override
   void dispose() {
-    print('FETCHER DISPOSED');
+    if (kDebugMode) {
+      print('FETCHER DISPOSED');
+    }
     // trigger breakpoint
     debugger();
     super.dispose();
