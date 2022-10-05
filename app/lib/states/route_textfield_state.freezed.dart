@@ -100,8 +100,8 @@ class __$$EmptyRouteStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EmptyRouteState implements EmptyRouteState {
-  const _$EmptyRouteState();
+class _$EmptyRouteState extends EmptyRouteState {
+  const _$EmptyRouteState() : super._();
 
   @override
   String toString() {
@@ -186,8 +186,9 @@ class _$EmptyRouteState implements EmptyRouteState {
   }
 }
 
-abstract class EmptyRouteState implements RouteTextfieldState {
+abstract class EmptyRouteState extends RouteTextfieldState {
   const factory EmptyRouteState() = _$EmptyRouteState;
+  const EmptyRouteState._() : super._();
 }
 
 /// @nodoc
@@ -229,8 +230,8 @@ class __$$TextRouteStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TextRouteState implements TextRouteState {
-  const _$TextRouteState(this.text, {this.doLoad = true});
+class _$TextRouteState extends TextRouteState {
+  const _$TextRouteState(this.text, {this.doLoad = true}) : super._();
 
   @override
   final String text;
@@ -332,9 +333,10 @@ class _$TextRouteState implements TextRouteState {
   }
 }
 
-abstract class TextRouteState implements RouteTextfieldState {
+abstract class TextRouteState extends RouteTextfieldState {
   const factory TextRouteState(final String text, {final bool doLoad}) =
       _$TextRouteState;
+  const TextRouteState._() : super._();
 
   String get text;
   bool get doLoad;
@@ -364,8 +366,8 @@ class __$$UseCurrentLocationCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UseCurrentLocation implements UseCurrentLocation {
-  const _$UseCurrentLocation();
+class _$UseCurrentLocation extends UseCurrentLocation {
+  const _$UseCurrentLocation() : super._();
 
   @override
   String toString() {
@@ -450,6 +452,7 @@ class _$UseCurrentLocation implements UseCurrentLocation {
   }
 }
 
-abstract class UseCurrentLocation implements RouteTextfieldState {
+abstract class UseCurrentLocation extends RouteTextfieldState {
   const factory UseCurrentLocation() = _$UseCurrentLocation;
+  const UseCurrentLocation._() : super._();
 }

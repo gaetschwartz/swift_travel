@@ -245,10 +245,10 @@ class _PredictionTile extends StatelessWidget {
                     to: Text(pred.prediction!.toAsString.stripAt()),
                     onTap: () {
                       ref
-                          .read(fromBinderProvider)
+                          .read(fromTextfieldProvider)
                           .setString(pred.prediction!.fromAsString);
                       ref
-                          .read(toBinderProvider)
+                          .read(toTextfieldProvider)
                           .setString(pred.prediction!.toAsString);
                     },
                     title: Text(AppLocalizations.of(context).suggestion),
