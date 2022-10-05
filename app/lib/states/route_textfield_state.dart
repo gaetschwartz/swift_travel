@@ -10,4 +10,8 @@ class RouteTextfieldState with _$RouteTextfieldState {
     @Default(true) bool doLoad,
   }) = TextRouteState;
   const factory RouteTextfieldState.useCurrentLocation() = UseCurrentLocation;
+
+  const RouteTextfieldState._();
+
+  bool get isEmpty => maybeWhen(empty: () => true, orElse: () => false);
 }

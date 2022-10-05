@@ -22,6 +22,7 @@ import 'package:swift_travel/prediction/complete.dart';
 import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/prediction/predict.dart';
 import 'package:swift_travel/states/station_states.dart';
+import 'package:swift_travel/tabs/routes/location_text_box_manager.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/utils/definitions.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -65,7 +66,7 @@ class SearchPage extends ConsumerStatefulWidget {
     this.dateTime,
   }) : super(key: key);
 
-  final TextStateBinder binder;
+  final LocationTextBoxManager binder;
   // ignore: no-object-declaration
   final Object heroTag;
   final TextFieldConfiguration configuration;
@@ -203,7 +204,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     if (c.origin == DataOrigin.currentLocation) {
       log.log('Using current location');
-      widget.binder.useCurrentLocation(context);
+      widget.binder.useCurrentLocation();
     } else if (c is ContactCompletion) {
       final a = c.contact.postalAddresses.firstOrNull;
       if (a != null) {
@@ -226,7 +227,7 @@ class _ClearButton extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final TextStateBinder binder;
+  final LocationTextBoxManager binder;
 
   @override
   Widget build(BuildContext context) =>
