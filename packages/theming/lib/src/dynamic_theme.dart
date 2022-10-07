@@ -18,9 +18,11 @@ class DynamicTheme extends InheritedNotifier<DynamicThemeData> {
   static DynamicThemeData of(BuildContext context, {bool listen = true}) {
     final DynamicThemeData? dynamicTheme;
     if (listen) {
-      dynamicTheme = context.dependOnInheritedWidgetOfExactType<DynamicTheme>()?.notifier;
+      dynamicTheme =
+          context.dependOnInheritedWidgetOfExactType<DynamicTheme>()?.notifier;
     } else {
-      dynamicTheme = context.findAncestorWidgetOfExactType<DynamicTheme>()?.notifier;
+      dynamicTheme =
+          context.findAncestorWidgetOfExactType<DynamicTheme>()?.notifier;
     }
     if (dynamicTheme == null) {
       throw FlutterError("Couldn't find any `DynamicTheme` parents.");
@@ -95,7 +97,8 @@ class DynamicThemeData extends ChangeNotifier {
         _lightTheme = configuration.defaultLight,
         _darkTheme = configuration.defaultDark,
         assert(
-          configuration.lightThemes.isNotEmpty && configuration.darkThemes.isNotEmpty,
+          configuration.lightThemes.isNotEmpty &&
+              configuration.darkThemes.isNotEmpty,
           "Configuration's themes can't be empty",
         ),
         assert(
@@ -145,29 +148,33 @@ class DynamicThemeData extends ChangeNotifier {
     bool doLog = false,
   }) async {
     if (!_config.persist) {
-      throw StateError("Persist is set to false so you shouldn't call this method !");
+      throw StateError(
+          "Persist is set to false so you shouldn't call this method !");
     }
     _prefs = await SharedPreferences.getInstance();
 
     final thememodeInt = _prefs!.getInt('${_config.prefix}thememode');
-    final themeMode =
-        ThemeMode.values[thememodeInt ?? defaultThemeModeOverride?.index ?? _themeMode.index];
+    final themeMode = ThemeMode.values[
+        thememodeInt ?? defaultThemeModeOverride?.index ?? _themeMode.index];
 
-    final lightThemeId =
-        _prefs!.getString('${_config.prefix}$_lightIdKey') ?? _config.defaultLightThemeId;
-    final darkThemeId =
-        _prefs!.getString('${_config.prefix}$_darkIdKey') ?? _config.defaultDarkThemeId;
+    final lightThemeId = _prefs!.getString('${_config.prefix}$_lightIdKey') ??
+        _config.defaultLightThemeId;
+    final darkThemeId = _prefs!.getString('${_config.prefix}$_darkIdKey') ??
+        _config.defaultDarkThemeId;
 
-    final fontIndex = _prefs!.getInt('${_config.prefix}fontIndex') ?? _config.computedDefaultFont;
+    final fontIndex = _prefs!.getInt('${_config.prefix}fontIndex') ??
+        _config.computedDefaultFont;
 
-    final fontWeightDelta = _prefs!.getInt('${_config.prefix}fontWeightDelta') ?? 0;
+    final fontWeightDelta =
+        _prefs!.getInt('${_config.prefix}fontWeightDelta') ?? 0;
 
     final platformInt = _prefs!.getInt('${_config.prefix}platform');
 
-    final platform =
-        platformInt != null && platformInt >= 0 && platformInt < TargetPlatform.values.length
-            ? TargetPlatform.values[platformInt]
-            : _platform;
+    final platform = platformInt != null &&
+            platformInt >= 0 &&
+            platformInt < TargetPlatform.values.length
+        ? TargetPlatform.values[platformInt]
+        : _platform;
 
     _lightTheme = _config.getLightTheme(lightThemeId);
     _darkTheme = _config.getDarkTheme(darkThemeId);
@@ -229,7 +236,8 @@ class DynamicThemeData extends ChangeNotifier {
 
   void _checkPrefsState() {
     if (!_isReadyToPersist || _prefs == null) {
-      throw StateError('You need to use configure() first to initiate preferences');
+      throw StateError(
+          'You need to use configure() first to initiate preferences');
     }
   }
 
@@ -306,14 +314,18 @@ class DynamicThemeData extends ChangeNotifier {
     return FullTheme(light: _lightTheme, dark: _darkTheme);
   }
 
-  ThemeData get light => _cachedLightTheme ?? (_cachedLightTheme = _computeLightTheme());
+  ThemeData get light =>
+      _cachedLightTheme ?? (_cachedLightTheme = _computeLightTheme());
 
-  ThemeData get dark => _cachedDarkTheme ?? (_cachedDarkTheme = _computeDarkTheme());
+  ThemeData get dark =>
+      _cachedDarkTheme ?? (_cachedDarkTheme = _computeDarkTheme());
 
   ThemeData _computeLightTheme() {
     final data = _themeDataFrom(
       colorScheme: _lightTheme.colorScheme,
-      textTheme: font.textTheme(_config.defaultTextTheme).applyFontWeightDelta(fontWeightDelta),
+      textTheme: font
+          .textTheme(_config.defaultTextTheme)
+          .applyFontWeightDelta(fontWeightDelta),
       platform: _platform,
     );
 
@@ -323,7 +335,9 @@ class DynamicThemeData extends ChangeNotifier {
   ThemeData _computeDarkTheme() {
     final data = _themeDataFrom(
       colorScheme: _darkTheme.colorScheme,
-      textTheme: font.textTheme(_config.defaultTextTheme).applyFontWeightDelta(fontWeightDelta),
+      textTheme: font
+          .textTheme(_config.defaultTextTheme)
+          .applyFontWeightDelta(fontWeightDelta),
       platform: _platform,
     );
 
@@ -345,8 +359,8 @@ class DynamicThemeData extends ChangeNotifier {
 }
 
 extension ThemeDataX on ThemeData {
-  CupertinoThemeData toCupertino() =>
-      CupertinoThemeData(brightness: brightness, primaryColor: colorScheme.secondary);
+  CupertinoThemeData toCupertino() => CupertinoThemeData(
+      brightness: brightness, primaryColor: colorScheme.secondary);
 }
 
 extension TextThemeX on TextTheme {
@@ -388,8 +402,10 @@ ThemeData _themeDataFrom({
   final bool isDark = colorScheme.brightness == Brightness.dark;
 
   // For surfaces that use primary color in light themes and surface color in dark
-  final Color primarySurfaceColor = isDark ? colorScheme.surface : colorScheme.primary;
-  final Color onPrimarySurfaceColor = isDark ? colorScheme.onSurface : colorScheme.onPrimary;
+  final Color primarySurfaceColor =
+      isDark ? colorScheme.surface : colorScheme.primary;
+  final Color onPrimarySurfaceColor =
+      isDark ? colorScheme.onSurface : colorScheme.onPrimary;
 
   return ThemeData(
     platform: platform,
@@ -397,15 +413,13 @@ ThemeData _themeDataFrom({
     primaryColor: primarySurfaceColor,
     canvasColor: colorScheme.background,
     scaffoldBackgroundColor: colorScheme.background,
-    bottomAppBarColor: colorScheme.surface,
     cardColor: colorScheme.surface,
     dividerColor: colorScheme.onSurface.withOpacity(0.12),
-    backgroundColor: colorScheme.background,
     dialogBackgroundColor: colorScheme.background,
-    errorColor: colorScheme.error,
     textTheme: textTheme,
     indicatorColor: onPrimarySurfaceColor,
     applyElevationOverlayColor: isDark,
     colorScheme: colorScheme,
+    bottomAppBarTheme: BottomAppBarTheme(color: colorScheme.surface),
   );
 }
