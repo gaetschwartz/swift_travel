@@ -33,7 +33,8 @@ mixin _$TextFieldConfiguration {
 abstract class $TextFieldConfigurationCopyWith<$Res> {
   factory $TextFieldConfigurationCopyWith(TextFieldConfiguration value,
           $Res Function(TextFieldConfiguration) then) =
-      _$TextFieldConfigurationCopyWithImpl<$Res>;
+      _$TextFieldConfigurationCopyWithImpl<$Res, TextFieldConfiguration>;
+  @useResult
   $Res call(
       {String? placeholder,
       List<TextInputFormatter>? inputFormatters,
@@ -44,14 +45,17 @@ abstract class $TextFieldConfigurationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TextFieldConfigurationCopyWithImpl<$Res>
+class _$TextFieldConfigurationCopyWithImpl<$Res,
+        $Val extends TextFieldConfiguration>
     implements $TextFieldConfigurationCopyWith<$Res> {
   _$TextFieldConfigurationCopyWithImpl(this._value, this._then);
 
-  final TextFieldConfiguration _value;
   // ignore: unused_field
-  final $Res Function(TextFieldConfiguration) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? placeholder = freezed,
@@ -62,31 +66,31 @@ class _$TextFieldConfigurationCopyWithImpl<$Res>
     Object? key = freezed,
   }) {
     return _then(_value.copyWith(
-      placeholder: placeholder == freezed
+      placeholder: freezed == placeholder
           ? _value.placeholder
           : placeholder // ignore: cast_nullable_to_non_nullable
               as String?,
-      inputFormatters: inputFormatters == freezed
+      inputFormatters: freezed == inputFormatters
           ? _value.inputFormatters
           : inputFormatters // ignore: cast_nullable_to_non_nullable
               as List<TextInputFormatter>?,
-      textInputAction: textInputAction == freezed
+      textInputAction: freezed == textInputAction
           ? _value.textInputAction
           : textInputAction // ignore: cast_nullable_to_non_nullable
               as TextInputAction?,
-      prefix: prefix == freezed
+      prefix: freezed == prefix
           ? _value.prefix
           : prefix // ignore: cast_nullable_to_non_nullable
               as Widget?,
-      focusNode: focusNode == freezed
+      focusNode: freezed == focusNode
           ? _value.focusNode
           : focusNode // ignore: cast_nullable_to_non_nullable
               as FocusNode?,
-      key: key == freezed
+      key: freezed == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as Key?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -97,6 +101,7 @@ abstract class _$$_TextFieldConfigurationCopyWith<$Res>
           $Res Function(_$_TextFieldConfiguration) then) =
       __$$_TextFieldConfigurationCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? placeholder,
       List<TextInputFormatter>? inputFormatters,
@@ -108,16 +113,14 @@ abstract class _$$_TextFieldConfigurationCopyWith<$Res>
 
 /// @nodoc
 class __$$_TextFieldConfigurationCopyWithImpl<$Res>
-    extends _$TextFieldConfigurationCopyWithImpl<$Res>
+    extends _$TextFieldConfigurationCopyWithImpl<$Res,
+        _$_TextFieldConfiguration>
     implements _$$_TextFieldConfigurationCopyWith<$Res> {
   __$$_TextFieldConfigurationCopyWithImpl(_$_TextFieldConfiguration _value,
       $Res Function(_$_TextFieldConfiguration) _then)
-      : super(_value, (v) => _then(v as _$_TextFieldConfiguration));
+      : super(_value, _then);
 
-  @override
-  _$_TextFieldConfiguration get _value =>
-      super._value as _$_TextFieldConfiguration;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? placeholder = freezed,
@@ -128,27 +131,27 @@ class __$$_TextFieldConfigurationCopyWithImpl<$Res>
     Object? key = freezed,
   }) {
     return _then(_$_TextFieldConfiguration(
-      placeholder: placeholder == freezed
+      placeholder: freezed == placeholder
           ? _value.placeholder
           : placeholder // ignore: cast_nullable_to_non_nullable
               as String?,
-      inputFormatters: inputFormatters == freezed
+      inputFormatters: freezed == inputFormatters
           ? _value._inputFormatters
           : inputFormatters // ignore: cast_nullable_to_non_nullable
               as List<TextInputFormatter>?,
-      textInputAction: textInputAction == freezed
+      textInputAction: freezed == textInputAction
           ? _value.textInputAction
           : textInputAction // ignore: cast_nullable_to_non_nullable
               as TextInputAction?,
-      prefix: prefix == freezed
+      prefix: freezed == prefix
           ? _value.prefix
           : prefix // ignore: cast_nullable_to_non_nullable
               as Widget?,
-      focusNode: focusNode == freezed
+      focusNode: freezed == focusNode
           ? _value.focusNode
           : focusNode // ignore: cast_nullable_to_non_nullable
               as FocusNode?,
-      key: key == freezed
+      key: freezed == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as Key?,
@@ -199,29 +202,31 @@ class _$_TextFieldConfiguration extends _TextFieldConfiguration {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TextFieldConfiguration &&
-            const DeepCollectionEquality()
-                .equals(other.placeholder, placeholder) &&
+            (identical(other.placeholder, placeholder) ||
+                other.placeholder == placeholder) &&
             const DeepCollectionEquality()
                 .equals(other._inputFormatters, _inputFormatters) &&
-            const DeepCollectionEquality()
-                .equals(other.textInputAction, textInputAction) &&
-            const DeepCollectionEquality().equals(other.prefix, prefix) &&
-            const DeepCollectionEquality().equals(other.focusNode, focusNode) &&
-            const DeepCollectionEquality().equals(other.key, key));
+            (identical(other.textInputAction, textInputAction) ||
+                other.textInputAction == textInputAction) &&
+            (identical(other.prefix, prefix) || other.prefix == prefix) &&
+            (identical(other.focusNode, focusNode) ||
+                other.focusNode == focusNode) &&
+            (identical(other.key, key) || other.key == key));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(placeholder),
+      placeholder,
       const DeepCollectionEquality().hash(_inputFormatters),
-      const DeepCollectionEquality().hash(textInputAction),
-      const DeepCollectionEquality().hash(prefix),
-      const DeepCollectionEquality().hash(focusNode),
-      const DeepCollectionEquality().hash(key));
+      textInputAction,
+      prefix,
+      focusNode,
+      key);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TextFieldConfigurationCopyWith<_$_TextFieldConfiguration> get copyWith =>
       __$$_TextFieldConfigurationCopyWithImpl<_$_TextFieldConfiguration>(
           this, _$identity);

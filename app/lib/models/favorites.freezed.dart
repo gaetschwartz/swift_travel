@@ -43,10 +43,10 @@ mixin _$LocalRoute {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String from, String to, String? displayName, DateTime? timestamp)?
         v1,
-    TResult Function(
+    TResult? Function(
             SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
         v2,
   }) =>
@@ -70,8 +70,8 @@ mixin _$LocalRoute {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(LocalRouteV1 value)? v1,
-    TResult Function(LocalRouteV2 value)? v2,
+    TResult? Function(LocalRouteV1 value)? v1,
+    TResult? Function(LocalRouteV2 value)? v2,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -91,33 +91,37 @@ mixin _$LocalRoute {
 abstract class $LocalRouteCopyWith<$Res> {
   factory $LocalRouteCopyWith(
           LocalRoute value, $Res Function(LocalRoute) then) =
-      _$LocalRouteCopyWithImpl<$Res>;
+      _$LocalRouteCopyWithImpl<$Res, LocalRoute>;
+  @useResult
   $Res call({String? displayName, DateTime? timestamp});
 }
 
 /// @nodoc
-class _$LocalRouteCopyWithImpl<$Res> implements $LocalRouteCopyWith<$Res> {
+class _$LocalRouteCopyWithImpl<$Res, $Val extends LocalRoute>
+    implements $LocalRouteCopyWith<$Res> {
   _$LocalRouteCopyWithImpl(this._value, this._then);
 
-  final LocalRoute _value;
   // ignore: unused_field
-  final $Res Function(LocalRoute) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? displayName = freezed,
     Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
-      displayName: displayName == freezed
+      displayName: freezed == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String?,
-      timestamp: timestamp == freezed
+      timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -128,40 +132,40 @@ abstract class _$$LocalRouteV1CopyWith<$Res>
           _$LocalRouteV1 value, $Res Function(_$LocalRouteV1) then) =
       __$$LocalRouteV1CopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String from, String to, String? displayName, DateTime? timestamp});
 }
 
 /// @nodoc
-class __$$LocalRouteV1CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
+class __$$LocalRouteV1CopyWithImpl<$Res>
+    extends _$LocalRouteCopyWithImpl<$Res, _$LocalRouteV1>
     implements _$$LocalRouteV1CopyWith<$Res> {
   __$$LocalRouteV1CopyWithImpl(
       _$LocalRouteV1 _value, $Res Function(_$LocalRouteV1) _then)
-      : super(_value, (v) => _then(v as _$LocalRouteV1));
+      : super(_value, _then);
 
-  @override
-  _$LocalRouteV1 get _value => super._value as _$LocalRouteV1;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? from = freezed,
-    Object? to = freezed,
+    Object? from = null,
+    Object? to = null,
     Object? displayName = freezed,
     Object? timestamp = freezed,
   }) {
     return _then(_$LocalRouteV1(
-      from == freezed
+      null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
               as String,
-      to == freezed
+      null == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: displayName == freezed
+      displayName: freezed == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String?,
-      timestamp: timestamp == freezed
+      timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -204,24 +208,22 @@ class _$LocalRouteV1 extends LocalRouteV1 {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocalRouteV1 &&
-            const DeepCollectionEquality().equals(other.from, from) &&
-            const DeepCollectionEquality().equals(other.to, to) &&
-            const DeepCollectionEquality()
-                .equals(other.displayName, displayName) &&
-            const DeepCollectionEquality().equals(other.timestamp, timestamp));
+            (identical(other.from, from) || other.from == from) &&
+            (identical(other.to, to) || other.to == to) &&
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
+            (identical(other.timestamp, timestamp) ||
+                other.timestamp == timestamp));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(from),
-      const DeepCollectionEquality().hash(to),
-      const DeepCollectionEquality().hash(displayName),
-      const DeepCollectionEquality().hash(timestamp));
+  int get hashCode =>
+      Object.hash(runtimeType, from, to, displayName, timestamp);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$LocalRouteV1CopyWith<_$LocalRouteV1> get copyWith =>
       __$$LocalRouteV1CopyWithImpl<_$LocalRouteV1>(this, _$identity);
 
@@ -241,10 +243,10 @@ class _$LocalRouteV1 extends LocalRouteV1 {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String from, String to, String? displayName, DateTime? timestamp)?
         v1,
-    TResult Function(
+    TResult? Function(
             SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
         v2,
   }) {
@@ -280,8 +282,8 @@ class _$LocalRouteV1 extends LocalRouteV1 {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(LocalRouteV1 value)? v1,
-    TResult Function(LocalRouteV2 value)? v2,
+    TResult? Function(LocalRouteV1 value)? v1,
+    TResult? Function(LocalRouteV2 value)? v2,
   }) {
     return v1?.call(this);
   }
@@ -334,6 +336,7 @@ abstract class _$$LocalRouteV2CopyWith<$Res>
           _$LocalRouteV2 value, $Res Function(_$LocalRouteV2) then) =
       __$$LocalRouteV2CopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {SbbStop from, SbbStop to, String? displayName, DateTime? timestamp});
 
@@ -342,36 +345,35 @@ abstract class _$$LocalRouteV2CopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
+class __$$LocalRouteV2CopyWithImpl<$Res>
+    extends _$LocalRouteCopyWithImpl<$Res, _$LocalRouteV2>
     implements _$$LocalRouteV2CopyWith<$Res> {
   __$$LocalRouteV2CopyWithImpl(
       _$LocalRouteV2 _value, $Res Function(_$LocalRouteV2) _then)
-      : super(_value, (v) => _then(v as _$LocalRouteV2));
+      : super(_value, _then);
 
-  @override
-  _$LocalRouteV2 get _value => super._value as _$LocalRouteV2;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? from = freezed,
-    Object? to = freezed,
+    Object? from = null,
+    Object? to = null,
     Object? displayName = freezed,
     Object? timestamp = freezed,
   }) {
     return _then(_$LocalRouteV2(
-      from == freezed
+      null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
               as SbbStop,
-      to == freezed
+      null == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
               as SbbStop,
-      displayName: displayName == freezed
+      displayName: freezed == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String?,
-      timestamp: timestamp == freezed
+      timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -379,6 +381,7 @@ class __$$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SbbStopCopyWith<$Res> get from {
     return $SbbStopCopyWith<$Res>(_value.from, (value) {
       return _then(_value.copyWith(from: value));
@@ -386,6 +389,7 @@ class __$$LocalRouteV2CopyWithImpl<$Res> extends _$LocalRouteCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SbbStopCopyWith<$Res> get to {
     return $SbbStopCopyWith<$Res>(_value.to, (value) {
       return _then(_value.copyWith(to: value));
@@ -427,24 +431,22 @@ class _$LocalRouteV2 extends LocalRouteV2 {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocalRouteV2 &&
-            const DeepCollectionEquality().equals(other.from, from) &&
-            const DeepCollectionEquality().equals(other.to, to) &&
-            const DeepCollectionEquality()
-                .equals(other.displayName, displayName) &&
-            const DeepCollectionEquality().equals(other.timestamp, timestamp));
+            (identical(other.from, from) || other.from == from) &&
+            (identical(other.to, to) || other.to == to) &&
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
+            (identical(other.timestamp, timestamp) ||
+                other.timestamp == timestamp));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(from),
-      const DeepCollectionEquality().hash(to),
-      const DeepCollectionEquality().hash(displayName),
-      const DeepCollectionEquality().hash(timestamp));
+  int get hashCode =>
+      Object.hash(runtimeType, from, to, displayName, timestamp);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$LocalRouteV2CopyWith<_$LocalRouteV2> get copyWith =>
       __$$LocalRouteV2CopyWithImpl<_$LocalRouteV2>(this, _$identity);
 
@@ -464,10 +466,10 @@ class _$LocalRouteV2 extends LocalRouteV2 {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String from, String to, String? displayName, DateTime? timestamp)?
         v1,
-    TResult Function(
+    TResult? Function(
             SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
         v2,
   }) {
@@ -503,8 +505,8 @@ class _$LocalRouteV2 extends LocalRouteV2 {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(LocalRouteV1 value)? v1,
-    TResult Function(LocalRouteV2 value)? v2,
+    TResult? Function(LocalRouteV1 value)? v1,
+    TResult? Function(LocalRouteV2 value)? v2,
   }) {
     return v2?.call(this);
   }
@@ -571,43 +573,47 @@ mixin _$FavoriteStop {
 abstract class $FavoriteStopCopyWith<$Res> {
   factory $FavoriteStopCopyWith(
           FavoriteStop value, $Res Function(FavoriteStop) then) =
-      _$FavoriteStopCopyWithImpl<$Res>;
+      _$FavoriteStopCopyWithImpl<$Res, FavoriteStop>;
+  @useResult
   $Res call({String stop, String name, String? api, String? id});
 }
 
 /// @nodoc
-class _$FavoriteStopCopyWithImpl<$Res> implements $FavoriteStopCopyWith<$Res> {
+class _$FavoriteStopCopyWithImpl<$Res, $Val extends FavoriteStop>
+    implements $FavoriteStopCopyWith<$Res> {
   _$FavoriteStopCopyWithImpl(this._value, this._then);
 
-  final FavoriteStop _value;
   // ignore: unused_field
-  final $Res Function(FavoriteStop) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stop = freezed,
-    Object? name = freezed,
+    Object? stop = null,
+    Object? name = null,
     Object? api = freezed,
     Object? id = freezed,
   }) {
     return _then(_value.copyWith(
-      stop: stop == freezed
+      stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      api: api == freezed
+      api: freezed == api
           ? _value.api
           : api // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -618,41 +624,40 @@ abstract class _$$_FavoriteStopCopyWith<$Res>
           _$_FavoriteStop value, $Res Function(_$_FavoriteStop) then) =
       __$$_FavoriteStopCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String stop, String name, String? api, String? id});
 }
 
 /// @nodoc
 class __$$_FavoriteStopCopyWithImpl<$Res>
-    extends _$FavoriteStopCopyWithImpl<$Res>
+    extends _$FavoriteStopCopyWithImpl<$Res, _$_FavoriteStop>
     implements _$$_FavoriteStopCopyWith<$Res> {
   __$$_FavoriteStopCopyWithImpl(
       _$_FavoriteStop _value, $Res Function(_$_FavoriteStop) _then)
-      : super(_value, (v) => _then(v as _$_FavoriteStop));
+      : super(_value, _then);
 
-  @override
-  _$_FavoriteStop get _value => super._value as _$_FavoriteStop;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stop = freezed,
-    Object? name = freezed,
+    Object? stop = null,
+    Object? name = null,
     Object? api = freezed,
     Object? id = freezed,
   }) {
     return _then(_$_FavoriteStop(
-      stop: stop == freezed
+      stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      api: api == freezed
+      api: freezed == api
           ? _value.api
           : api // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -690,23 +695,19 @@ class _$_FavoriteStop extends _FavoriteStop {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FavoriteStop &&
-            const DeepCollectionEquality().equals(other.stop, stop) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.api, api) &&
-            const DeepCollectionEquality().equals(other.id, id));
+            (identical(other.stop, stop) || other.stop == stop) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.api, api) || other.api == api) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(stop),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(api),
-      const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(runtimeType, stop, name, api, id);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FavoriteStopCopyWith<_$_FavoriteStop> get copyWith =>
       __$$_FavoriteStopCopyWithImpl<_$_FavoriteStop>(this, _$identity);
 

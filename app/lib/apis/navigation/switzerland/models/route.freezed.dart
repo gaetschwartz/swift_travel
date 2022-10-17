@@ -41,7 +41,8 @@ mixin _$SbbRoute {
 /// @nodoc
 abstract class $SbbRouteCopyWith<$Res> {
   factory $SbbRouteCopyWith(SbbRoute value, $Res Function(SbbRoute) then) =
-      _$SbbRouteCopyWithImpl<$Res>;
+      _$SbbRouteCopyWithImpl<$Res, SbbRoute>;
+  @useResult
   $Res call(
       {int count,
       @JsonKey(name: 'min_duration')
@@ -56,53 +57,56 @@ abstract class $SbbRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbRouteCopyWithImpl<$Res> implements $SbbRouteCopyWith<$Res> {
+class _$SbbRouteCopyWithImpl<$Res, $Val extends SbbRoute>
+    implements $SbbRouteCopyWith<$Res> {
   _$SbbRouteCopyWithImpl(this._value, this._then);
 
-  final SbbRoute _value;
   // ignore: unused_field
-  final $Res Function(SbbRoute) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? count = freezed,
+    Object? count = null,
     Object? minDuration = freezed,
     Object? maxDuration = freezed,
-    Object? sbbConnections = freezed,
-    Object? messages = freezed,
+    Object? sbbConnections = null,
+    Object? messages = null,
     Object? requestUrl = freezed,
     Object? dateTime = freezed,
   }) {
     return _then(_value.copyWith(
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-      minDuration: minDuration == freezed
+      minDuration: freezed == minDuration
           ? _value.minDuration
           : minDuration // ignore: cast_nullable_to_non_nullable
               as double?,
-      maxDuration: maxDuration == freezed
+      maxDuration: freezed == maxDuration
           ? _value.maxDuration
           : maxDuration // ignore: cast_nullable_to_non_nullable
               as double?,
-      sbbConnections: sbbConnections == freezed
+      sbbConnections: null == sbbConnections
           ? _value.sbbConnections
           : sbbConnections // ignore: cast_nullable_to_non_nullable
               as List<SbbRouteConnection>,
-      messages: messages == freezed
+      messages: null == messages
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      requestUrl: requestUrl == freezed
+      requestUrl: freezed == requestUrl
           ? _value.requestUrl
           : requestUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      dateTime: dateTime == freezed
+      dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -112,6 +116,7 @@ abstract class _$$_SbbRouteCopyWith<$Res> implements $SbbRouteCopyWith<$Res> {
           _$_SbbRoute value, $Res Function(_$_SbbRoute) then) =
       __$$_SbbRouteCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int count,
       @JsonKey(name: 'min_duration')
@@ -126,51 +131,50 @@ abstract class _$$_SbbRouteCopyWith<$Res> implements $SbbRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SbbRouteCopyWithImpl<$Res> extends _$SbbRouteCopyWithImpl<$Res>
+class __$$_SbbRouteCopyWithImpl<$Res>
+    extends _$SbbRouteCopyWithImpl<$Res, _$_SbbRoute>
     implements _$$_SbbRouteCopyWith<$Res> {
   __$$_SbbRouteCopyWithImpl(
       _$_SbbRoute _value, $Res Function(_$_SbbRoute) _then)
-      : super(_value, (v) => _then(v as _$_SbbRoute));
+      : super(_value, _then);
 
-  @override
-  _$_SbbRoute get _value => super._value as _$_SbbRoute;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? count = freezed,
+    Object? count = null,
     Object? minDuration = freezed,
     Object? maxDuration = freezed,
-    Object? sbbConnections = freezed,
-    Object? messages = freezed,
+    Object? sbbConnections = null,
+    Object? messages = null,
     Object? requestUrl = freezed,
     Object? dateTime = freezed,
   }) {
     return _then(_$_SbbRoute(
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-      minDuration: minDuration == freezed
+      minDuration: freezed == minDuration
           ? _value.minDuration
           : minDuration // ignore: cast_nullable_to_non_nullable
               as double?,
-      maxDuration: maxDuration == freezed
+      maxDuration: freezed == maxDuration
           ? _value.maxDuration
           : maxDuration // ignore: cast_nullable_to_non_nullable
               as double?,
-      sbbConnections: sbbConnections == freezed
+      sbbConnections: null == sbbConnections
           ? _value._sbbConnections
           : sbbConnections // ignore: cast_nullable_to_non_nullable
               as List<SbbRouteConnection>,
-      messages: messages == freezed
+      messages: null == messages
           ? _value._messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      requestUrl: requestUrl == freezed
+      requestUrl: freezed == requestUrl
           ? _value.requestUrl
           : requestUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      dateTime: dateTime == freezed
+      dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -241,33 +245,35 @@ class _$_SbbRoute extends _SbbRoute {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SbbRoute &&
-            const DeepCollectionEquality().equals(other.count, count) &&
-            const DeepCollectionEquality()
-                .equals(other.minDuration, minDuration) &&
-            const DeepCollectionEquality()
-                .equals(other.maxDuration, maxDuration) &&
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.minDuration, minDuration) ||
+                other.minDuration == minDuration) &&
+            (identical(other.maxDuration, maxDuration) ||
+                other.maxDuration == maxDuration) &&
             const DeepCollectionEquality()
                 .equals(other._sbbConnections, _sbbConnections) &&
             const DeepCollectionEquality().equals(other._messages, _messages) &&
-            const DeepCollectionEquality()
-                .equals(other.requestUrl, requestUrl) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime));
+            (identical(other.requestUrl, requestUrl) ||
+                other.requestUrl == requestUrl) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(count),
-      const DeepCollectionEquality().hash(minDuration),
-      const DeepCollectionEquality().hash(maxDuration),
+      count,
+      minDuration,
+      maxDuration,
       const DeepCollectionEquality().hash(_sbbConnections),
       const DeepCollectionEquality().hash(_messages),
-      const DeepCollectionEquality().hash(requestUrl),
-      const DeepCollectionEquality().hash(dateTime));
+      requestUrl,
+      dateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SbbRouteCopyWith<_$_SbbRoute> get copyWith =>
       __$$_SbbRouteCopyWithImpl<_$_SbbRoute>(this, _$identity);
 

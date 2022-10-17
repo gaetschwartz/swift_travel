@@ -36,7 +36,8 @@ mixin _$SncfStationboard {
 abstract class $SncfStationboardCopyWith<$Res> {
   factory $SncfStationboardCopyWith(
           SncfStationboard value, $Res Function(SncfStationboard) then) =
-      _$SncfStationboardCopyWithImpl<$Res>;
+      _$SncfStationboardCopyWithImpl<$Res, SncfStationboard>;
+  @useResult
   $Res call(
       {SncfContext context,
       List<SncfDeparture> departures,
@@ -48,56 +49,60 @@ abstract class $SncfStationboardCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SncfStationboardCopyWithImpl<$Res>
+class _$SncfStationboardCopyWithImpl<$Res, $Val extends SncfStationboard>
     implements $SncfStationboardCopyWith<$Res> {
   _$SncfStationboardCopyWithImpl(this._value, this._then);
 
-  final SncfStationboard _value;
   // ignore: unused_field
-  final $Res Function(SncfStationboard) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? context = freezed,
-    Object? departures = freezed,
+    Object? context = null,
+    Object? departures = null,
     Object? error = freezed,
-    Object? stop = freezed,
+    Object? stop = null,
   }) {
     return _then(_value.copyWith(
-      context: context == freezed
+      context: null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as SncfContext,
-      departures: departures == freezed
+      departures: null == departures
           ? _value.departures
           : departures // ignore: cast_nullable_to_non_nullable
               as List<SncfDeparture>,
-      error: error == freezed
+      error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as SncfError?,
-      stop: stop == freezed
+      stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
               as Stop,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SncfContextCopyWith<$Res> get context {
     return $SncfContextCopyWith<$Res>(_value.context, (value) {
-      return _then(_value.copyWith(context: value));
+      return _then(_value.copyWith(context: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SncfErrorCopyWith<$Res>? get error {
     if (_value.error == null) {
       return null;
     }
 
     return $SncfErrorCopyWith<$Res>(_value.error!, (value) {
-      return _then(_value.copyWith(error: value));
+      return _then(_value.copyWith(error: value) as $Val);
     });
   }
 }
@@ -109,6 +114,7 @@ abstract class _$$_SncfStationboardCopyWith<$Res>
           _$_SncfStationboard value, $Res Function(_$_SncfStationboard) then) =
       __$$_SncfStationboardCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {SncfContext context,
       List<SncfDeparture> departures,
@@ -123,36 +129,34 @@ abstract class _$$_SncfStationboardCopyWith<$Res>
 
 /// @nodoc
 class __$$_SncfStationboardCopyWithImpl<$Res>
-    extends _$SncfStationboardCopyWithImpl<$Res>
+    extends _$SncfStationboardCopyWithImpl<$Res, _$_SncfStationboard>
     implements _$$_SncfStationboardCopyWith<$Res> {
   __$$_SncfStationboardCopyWithImpl(
       _$_SncfStationboard _value, $Res Function(_$_SncfStationboard) _then)
-      : super(_value, (v) => _then(v as _$_SncfStationboard));
+      : super(_value, _then);
 
-  @override
-  _$_SncfStationboard get _value => super._value as _$_SncfStationboard;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? context = freezed,
-    Object? departures = freezed,
+    Object? context = null,
+    Object? departures = null,
     Object? error = freezed,
-    Object? stop = freezed,
+    Object? stop = null,
   }) {
     return _then(_$_SncfStationboard(
-      context: context == freezed
+      context: null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as SncfContext,
-      departures: departures == freezed
+      departures: null == departures
           ? _value._departures
           : departures // ignore: cast_nullable_to_non_nullable
               as List<SncfDeparture>,
-      error: error == freezed
+      error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as SncfError?,
-      stop: stop == freezed
+      stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
               as Stop,
@@ -200,24 +204,21 @@ class _$_SncfStationboard extends _SncfStationboard {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SncfStationboard &&
-            const DeepCollectionEquality().equals(other.context, context) &&
+            (identical(other.context, context) || other.context == context) &&
             const DeepCollectionEquality()
                 .equals(other._departures, _departures) &&
-            const DeepCollectionEquality().equals(other.error, error) &&
-            const DeepCollectionEquality().equals(other.stop, stop));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.stop, stop) || other.stop == stop));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(context),
-      const DeepCollectionEquality().hash(_departures),
-      const DeepCollectionEquality().hash(error),
-      const DeepCollectionEquality().hash(stop));
+  int get hashCode => Object.hash(runtimeType, context,
+      const DeepCollectionEquality().hash(_departures), error, stop);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfStationboardCopyWith<_$_SncfStationboard> get copyWith =>
       __$$_SncfStationboardCopyWithImpl<_$_SncfStationboard>(this, _$identity);
 
@@ -273,33 +274,37 @@ mixin _$SncfError {
 /// @nodoc
 abstract class $SncfErrorCopyWith<$Res> {
   factory $SncfErrorCopyWith(SncfError value, $Res Function(SncfError) then) =
-      _$SncfErrorCopyWithImpl<$Res>;
+      _$SncfErrorCopyWithImpl<$Res, SncfError>;
+  @useResult
   $Res call({String id, String message});
 }
 
 /// @nodoc
-class _$SncfErrorCopyWithImpl<$Res> implements $SncfErrorCopyWith<$Res> {
+class _$SncfErrorCopyWithImpl<$Res, $Val extends SncfError>
+    implements $SncfErrorCopyWith<$Res> {
   _$SncfErrorCopyWithImpl(this._value, this._then);
 
-  final SncfError _value;
   // ignore: unused_field
-  final $Res Function(SncfError) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? message = freezed,
+    Object? id = null,
+    Object? message = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      message: message == freezed
+      message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -309,30 +314,30 @@ abstract class _$$_SncfErrorCopyWith<$Res> implements $SncfErrorCopyWith<$Res> {
           _$_SncfError value, $Res Function(_$_SncfError) then) =
       __$$_SncfErrorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id, String message});
 }
 
 /// @nodoc
-class __$$_SncfErrorCopyWithImpl<$Res> extends _$SncfErrorCopyWithImpl<$Res>
+class __$$_SncfErrorCopyWithImpl<$Res>
+    extends _$SncfErrorCopyWithImpl<$Res, _$_SncfError>
     implements _$$_SncfErrorCopyWith<$Res> {
   __$$_SncfErrorCopyWithImpl(
       _$_SncfError _value, $Res Function(_$_SncfError) _then)
-      : super(_value, (v) => _then(v as _$_SncfError));
+      : super(_value, _then);
 
-  @override
-  _$_SncfError get _value => super._value as _$_SncfError;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? message = freezed,
+    Object? id = null,
+    Object? message = null,
   }) {
     return _then(_$_SncfError(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      message == freezed
+      null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
@@ -363,19 +368,17 @@ class _$_SncfError implements _SncfError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SncfError &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.message, message));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(message));
+  int get hashCode => Object.hash(runtimeType, id, message);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfErrorCopyWith<_$_SncfError> get copyWith =>
       __$$_SncfErrorCopyWithImpl<_$_SncfError>(this, _$identity);
 
@@ -427,7 +430,8 @@ mixin _$SncfDeparture {
 abstract class $SncfDepartureCopyWith<$Res> {
   factory $SncfDepartureCopyWith(
           SncfDeparture value, $Res Function(SncfDeparture) then) =
-      _$SncfDepartureCopyWithImpl<$Res>;
+      _$SncfDepartureCopyWithImpl<$Res, SncfDeparture>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'display_informations') SncfDispInfo displayInformations,
       @JsonKey(name: 'stop_date_time') SncfStopDateTime stopDateTime,
@@ -439,54 +443,59 @@ abstract class $SncfDepartureCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SncfDepartureCopyWithImpl<$Res>
+class _$SncfDepartureCopyWithImpl<$Res, $Val extends SncfDeparture>
     implements $SncfDepartureCopyWith<$Res> {
   _$SncfDepartureCopyWithImpl(this._value, this._then);
 
-  final SncfDeparture _value;
   // ignore: unused_field
-  final $Res Function(SncfDeparture) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? displayInformations = freezed,
-    Object? stopDateTime = freezed,
-    Object? stopPoint = freezed,
+    Object? displayInformations = null,
+    Object? stopDateTime = null,
+    Object? stopPoint = null,
   }) {
     return _then(_value.copyWith(
-      displayInformations: displayInformations == freezed
+      displayInformations: null == displayInformations
           ? _value.displayInformations
           : displayInformations // ignore: cast_nullable_to_non_nullable
               as SncfDispInfo,
-      stopDateTime: stopDateTime == freezed
+      stopDateTime: null == stopDateTime
           ? _value.stopDateTime
           : stopDateTime // ignore: cast_nullable_to_non_nullable
               as SncfStopDateTime,
-      stopPoint: stopPoint == freezed
+      stopPoint: null == stopPoint
           ? _value.stopPoint
           : stopPoint // ignore: cast_nullable_to_non_nullable
               as SncfStopPoint,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SncfDispInfoCopyWith<$Res> get displayInformations {
     return $SncfDispInfoCopyWith<$Res>(_value.displayInformations, (value) {
-      return _then(_value.copyWith(displayInformations: value));
+      return _then(_value.copyWith(displayInformations: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SncfStopDateTimeCopyWith<$Res> get stopDateTime {
     return $SncfStopDateTimeCopyWith<$Res>(_value.stopDateTime, (value) {
-      return _then(_value.copyWith(stopDateTime: value));
+      return _then(_value.copyWith(stopDateTime: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SncfStopPointCopyWith<$Res> get stopPoint {
     return $SncfStopPointCopyWith<$Res>(_value.stopPoint, (value) {
-      return _then(_value.copyWith(stopPoint: value));
+      return _then(_value.copyWith(stopPoint: value) as $Val);
     });
   }
 }
@@ -498,6 +507,7 @@ abstract class _$$_SncfDepartureCopyWith<$Res>
           _$_SncfDeparture value, $Res Function(_$_SncfDeparture) then) =
       __$$_SncfDepartureCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'display_informations') SncfDispInfo displayInformations,
       @JsonKey(name: 'stop_date_time') SncfStopDateTime stopDateTime,
@@ -513,31 +523,29 @@ abstract class _$$_SncfDepartureCopyWith<$Res>
 
 /// @nodoc
 class __$$_SncfDepartureCopyWithImpl<$Res>
-    extends _$SncfDepartureCopyWithImpl<$Res>
+    extends _$SncfDepartureCopyWithImpl<$Res, _$_SncfDeparture>
     implements _$$_SncfDepartureCopyWith<$Res> {
   __$$_SncfDepartureCopyWithImpl(
       _$_SncfDeparture _value, $Res Function(_$_SncfDeparture) _then)
-      : super(_value, (v) => _then(v as _$_SncfDeparture));
+      : super(_value, _then);
 
-  @override
-  _$_SncfDeparture get _value => super._value as _$_SncfDeparture;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? displayInformations = freezed,
-    Object? stopDateTime = freezed,
-    Object? stopPoint = freezed,
+    Object? displayInformations = null,
+    Object? stopDateTime = null,
+    Object? stopPoint = null,
   }) {
     return _then(_$_SncfDeparture(
-      displayInformations: displayInformations == freezed
+      displayInformations: null == displayInformations
           ? _value.displayInformations
           : displayInformations // ignore: cast_nullable_to_non_nullable
               as SncfDispInfo,
-      stopDateTime: stopDateTime == freezed
+      stopDateTime: null == stopDateTime
           ? _value.stopDateTime
           : stopDateTime // ignore: cast_nullable_to_non_nullable
               as SncfStopDateTime,
-      stopPoint: stopPoint == freezed
+      stopPoint: null == stopPoint
           ? _value.stopPoint
           : stopPoint // ignore: cast_nullable_to_non_nullable
               as SncfStopPoint,
@@ -578,23 +586,22 @@ class _$_SncfDeparture extends _SncfDeparture {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SncfDeparture &&
-            const DeepCollectionEquality()
-                .equals(other.displayInformations, displayInformations) &&
-            const DeepCollectionEquality()
-                .equals(other.stopDateTime, stopDateTime) &&
-            const DeepCollectionEquality().equals(other.stopPoint, stopPoint));
+            (identical(other.displayInformations, displayInformations) ||
+                other.displayInformations == displayInformations) &&
+            (identical(other.stopDateTime, stopDateTime) ||
+                other.stopDateTime == stopDateTime) &&
+            (identical(other.stopPoint, stopPoint) ||
+                other.stopPoint == stopPoint));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(displayInformations),
-      const DeepCollectionEquality().hash(stopDateTime),
-      const DeepCollectionEquality().hash(stopPoint));
+  int get hashCode =>
+      Object.hash(runtimeType, displayInformations, stopDateTime, stopPoint);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfDepartureCopyWith<_$_SncfDeparture> get copyWith =>
       __$$_SncfDepartureCopyWithImpl<_$_SncfDeparture>(this, _$identity);
 
@@ -653,30 +660,33 @@ mixin _$SncfStopPoint {
 abstract class $SncfStopPointCopyWith<$Res> {
   factory $SncfStopPointCopyWith(
           SncfStopPoint value, $Res Function(SncfStopPoint) then) =
-      _$SncfStopPointCopyWithImpl<$Res>;
+      _$SncfStopPointCopyWithImpl<$Res, SncfStopPoint>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'commercial_modes') List<SncfMode> commercialModes});
 }
 
 /// @nodoc
-class _$SncfStopPointCopyWithImpl<$Res>
+class _$SncfStopPointCopyWithImpl<$Res, $Val extends SncfStopPoint>
     implements $SncfStopPointCopyWith<$Res> {
   _$SncfStopPointCopyWithImpl(this._value, this._then);
 
-  final SncfStopPoint _value;
   // ignore: unused_field
-  final $Res Function(SncfStopPoint) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? commercialModes = freezed,
+    Object? commercialModes = null,
   }) {
     return _then(_value.copyWith(
-      commercialModes: commercialModes == freezed
+      commercialModes: null == commercialModes
           ? _value.commercialModes
           : commercialModes // ignore: cast_nullable_to_non_nullable
               as List<SncfMode>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -687,27 +697,26 @@ abstract class _$$_SncfStopPointCopyWith<$Res>
           _$_SncfStopPoint value, $Res Function(_$_SncfStopPoint) then) =
       __$$_SncfStopPointCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'commercial_modes') List<SncfMode> commercialModes});
 }
 
 /// @nodoc
 class __$$_SncfStopPointCopyWithImpl<$Res>
-    extends _$SncfStopPointCopyWithImpl<$Res>
+    extends _$SncfStopPointCopyWithImpl<$Res, _$_SncfStopPoint>
     implements _$$_SncfStopPointCopyWith<$Res> {
   __$$_SncfStopPointCopyWithImpl(
       _$_SncfStopPoint _value, $Res Function(_$_SncfStopPoint) _then)
-      : super(_value, (v) => _then(v as _$_SncfStopPoint));
+      : super(_value, _then);
 
-  @override
-  _$_SncfStopPoint get _value => super._value as _$_SncfStopPoint;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? commercialModes = freezed,
+    Object? commercialModes = null,
   }) {
     return _then(_$_SncfStopPoint(
-      commercialModes == freezed
+      null == commercialModes
           ? _value._commercialModes
           : commercialModes // ignore: cast_nullable_to_non_nullable
               as List<SncfMode>,
@@ -755,6 +764,7 @@ class _$_SncfStopPoint implements _SncfStopPoint {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfStopPointCopyWith<_$_SncfStopPoint> get copyWith =>
       __$$_SncfStopPointCopyWithImpl<_$_SncfStopPoint>(this, _$identity);
 
@@ -801,33 +811,37 @@ mixin _$SncfMode {
 /// @nodoc
 abstract class $SncfModeCopyWith<$Res> {
   factory $SncfModeCopyWith(SncfMode value, $Res Function(SncfMode) then) =
-      _$SncfModeCopyWithImpl<$Res>;
+      _$SncfModeCopyWithImpl<$Res, SncfMode>;
+  @useResult
   $Res call({String id, String name});
 }
 
 /// @nodoc
-class _$SncfModeCopyWithImpl<$Res> implements $SncfModeCopyWith<$Res> {
+class _$SncfModeCopyWithImpl<$Res, $Val extends SncfMode>
+    implements $SncfModeCopyWith<$Res> {
   _$SncfModeCopyWithImpl(this._value, this._then);
 
-  final SncfMode _value;
   // ignore: unused_field
-  final $Res Function(SncfMode) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -837,30 +851,30 @@ abstract class _$$_SncfModeCopyWith<$Res> implements $SncfModeCopyWith<$Res> {
           _$_SncfMode value, $Res Function(_$_SncfMode) then) =
       __$$_SncfModeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id, String name});
 }
 
 /// @nodoc
-class __$$_SncfModeCopyWithImpl<$Res> extends _$SncfModeCopyWithImpl<$Res>
+class __$$_SncfModeCopyWithImpl<$Res>
+    extends _$SncfModeCopyWithImpl<$Res, _$_SncfMode>
     implements _$$_SncfModeCopyWith<$Res> {
   __$$_SncfModeCopyWithImpl(
       _$_SncfMode _value, $Res Function(_$_SncfMode) _then)
-      : super(_value, (v) => _then(v as _$_SncfMode));
+      : super(_value, _then);
 
-  @override
-  _$_SncfMode get _value => super._value as _$_SncfMode;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
   }) {
     return _then(_$_SncfMode(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name == freezed
+      null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -891,19 +905,17 @@ class _$_SncfMode implements _SncfMode {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SncfMode &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name));
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfModeCopyWith<_$_SncfMode> get copyWith =>
       __$$_SncfModeCopyWithImpl<_$_SncfMode>(this, _$identity);
 
@@ -960,7 +972,8 @@ mixin _$SncfStopDateTime {
 abstract class $SncfStopDateTimeCopyWith<$Res> {
   factory $SncfStopDateTimeCopyWith(
           SncfStopDateTime value, $Res Function(SncfStopDateTime) then) =
-      _$SncfStopDateTimeCopyWithImpl<$Res>;
+      _$SncfStopDateTimeCopyWithImpl<$Res, SncfStopDateTime>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'additional_informations')
           List<Object> additionalInformations,
@@ -978,54 +991,56 @@ abstract class $SncfStopDateTimeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SncfStopDateTimeCopyWithImpl<$Res>
+class _$SncfStopDateTimeCopyWithImpl<$Res, $Val extends SncfStopDateTime>
     implements $SncfStopDateTimeCopyWith<$Res> {
   _$SncfStopDateTimeCopyWithImpl(this._value, this._then);
 
-  final SncfStopDateTime _value;
   // ignore: unused_field
-  final $Res Function(SncfStopDateTime) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? additionalInformations = freezed,
-    Object? arrivalDateTime = freezed,
-    Object? baseArrivalDateTime = freezed,
-    Object? baseDepartureDateTime = freezed,
-    Object? departureDateTime = freezed,
-    Object? dataFreshness = freezed,
-    Object? links = freezed,
+    Object? additionalInformations = null,
+    Object? arrivalDateTime = null,
+    Object? baseArrivalDateTime = null,
+    Object? baseDepartureDateTime = null,
+    Object? departureDateTime = null,
+    Object? dataFreshness = null,
+    Object? links = null,
   }) {
     return _then(_value.copyWith(
-      additionalInformations: additionalInformations == freezed
+      additionalInformations: null == additionalInformations
           ? _value.additionalInformations
           : additionalInformations // ignore: cast_nullable_to_non_nullable
               as List<Object>,
-      arrivalDateTime: arrivalDateTime == freezed
+      arrivalDateTime: null == arrivalDateTime
           ? _value.arrivalDateTime
           : arrivalDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      baseArrivalDateTime: baseArrivalDateTime == freezed
+      baseArrivalDateTime: null == baseArrivalDateTime
           ? _value.baseArrivalDateTime
           : baseArrivalDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      baseDepartureDateTime: baseDepartureDateTime == freezed
+      baseDepartureDateTime: null == baseDepartureDateTime
           ? _value.baseDepartureDateTime
           : baseDepartureDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      departureDateTime: departureDateTime == freezed
+      departureDateTime: null == departureDateTime
           ? _value.departureDateTime
           : departureDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      dataFreshness: dataFreshness == freezed
+      dataFreshness: null == dataFreshness
           ? _value.dataFreshness
           : dataFreshness // ignore: cast_nullable_to_non_nullable
               as String,
-      links: links == freezed
+      links: null == links
           ? _value.links
           : links // ignore: cast_nullable_to_non_nullable
               as List<Object>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1036,6 +1051,7 @@ abstract class _$$_SncfStopDateTimeCopyWith<$Res>
           _$_SncfStopDateTime value, $Res Function(_$_SncfStopDateTime) then) =
       __$$_SncfStopDateTimeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'additional_informations')
           List<Object> additionalInformations,
@@ -1054,51 +1070,49 @@ abstract class _$$_SncfStopDateTimeCopyWith<$Res>
 
 /// @nodoc
 class __$$_SncfStopDateTimeCopyWithImpl<$Res>
-    extends _$SncfStopDateTimeCopyWithImpl<$Res>
+    extends _$SncfStopDateTimeCopyWithImpl<$Res, _$_SncfStopDateTime>
     implements _$$_SncfStopDateTimeCopyWith<$Res> {
   __$$_SncfStopDateTimeCopyWithImpl(
       _$_SncfStopDateTime _value, $Res Function(_$_SncfStopDateTime) _then)
-      : super(_value, (v) => _then(v as _$_SncfStopDateTime));
+      : super(_value, _then);
 
-  @override
-  _$_SncfStopDateTime get _value => super._value as _$_SncfStopDateTime;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? additionalInformations = freezed,
-    Object? arrivalDateTime = freezed,
-    Object? baseArrivalDateTime = freezed,
-    Object? baseDepartureDateTime = freezed,
-    Object? departureDateTime = freezed,
-    Object? dataFreshness = freezed,
-    Object? links = freezed,
+    Object? additionalInformations = null,
+    Object? arrivalDateTime = null,
+    Object? baseArrivalDateTime = null,
+    Object? baseDepartureDateTime = null,
+    Object? departureDateTime = null,
+    Object? dataFreshness = null,
+    Object? links = null,
   }) {
     return _then(_$_SncfStopDateTime(
-      additionalInformations: additionalInformations == freezed
+      additionalInformations: null == additionalInformations
           ? _value._additionalInformations
           : additionalInformations // ignore: cast_nullable_to_non_nullable
               as List<Object>,
-      arrivalDateTime: arrivalDateTime == freezed
+      arrivalDateTime: null == arrivalDateTime
           ? _value.arrivalDateTime
           : arrivalDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      baseArrivalDateTime: baseArrivalDateTime == freezed
+      baseArrivalDateTime: null == baseArrivalDateTime
           ? _value.baseArrivalDateTime
           : baseArrivalDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      baseDepartureDateTime: baseDepartureDateTime == freezed
+      baseDepartureDateTime: null == baseDepartureDateTime
           ? _value.baseDepartureDateTime
           : baseDepartureDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      departureDateTime: departureDateTime == freezed
+      departureDateTime: null == departureDateTime
           ? _value.departureDateTime
           : departureDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      dataFreshness: dataFreshness == freezed
+      dataFreshness: null == dataFreshness
           ? _value.dataFreshness
           : dataFreshness // ignore: cast_nullable_to_non_nullable
               as String,
-      links: links == freezed
+      links: null == links
           ? _value._links
           : links // ignore: cast_nullable_to_non_nullable
               as List<Object>,
@@ -1171,16 +1185,16 @@ class _$_SncfStopDateTime implements _SncfStopDateTime {
             other is _$_SncfStopDateTime &&
             const DeepCollectionEquality().equals(
                 other._additionalInformations, _additionalInformations) &&
-            const DeepCollectionEquality()
-                .equals(other.arrivalDateTime, arrivalDateTime) &&
-            const DeepCollectionEquality()
-                .equals(other.baseArrivalDateTime, baseArrivalDateTime) &&
-            const DeepCollectionEquality()
-                .equals(other.baseDepartureDateTime, baseDepartureDateTime) &&
-            const DeepCollectionEquality()
-                .equals(other.departureDateTime, departureDateTime) &&
-            const DeepCollectionEquality()
-                .equals(other.dataFreshness, dataFreshness) &&
+            (identical(other.arrivalDateTime, arrivalDateTime) ||
+                other.arrivalDateTime == arrivalDateTime) &&
+            (identical(other.baseArrivalDateTime, baseArrivalDateTime) ||
+                other.baseArrivalDateTime == baseArrivalDateTime) &&
+            (identical(other.baseDepartureDateTime, baseDepartureDateTime) ||
+                other.baseDepartureDateTime == baseDepartureDateTime) &&
+            (identical(other.departureDateTime, departureDateTime) ||
+                other.departureDateTime == departureDateTime) &&
+            (identical(other.dataFreshness, dataFreshness) ||
+                other.dataFreshness == dataFreshness) &&
             const DeepCollectionEquality().equals(other._links, _links));
   }
 
@@ -1189,15 +1203,16 @@ class _$_SncfStopDateTime implements _SncfStopDateTime {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_additionalInformations),
-      const DeepCollectionEquality().hash(arrivalDateTime),
-      const DeepCollectionEquality().hash(baseArrivalDateTime),
-      const DeepCollectionEquality().hash(baseDepartureDateTime),
-      const DeepCollectionEquality().hash(departureDateTime),
-      const DeepCollectionEquality().hash(dataFreshness),
+      arrivalDateTime,
+      baseArrivalDateTime,
+      baseDepartureDateTime,
+      departureDateTime,
+      dataFreshness,
       const DeepCollectionEquality().hash(_links));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfStopDateTimeCopyWith<_$_SncfStopDateTime> get copyWith =>
       __$$_SncfStopDateTimeCopyWithImpl<_$_SncfStopDateTime>(this, _$identity);
 
@@ -1289,7 +1304,8 @@ mixin _$SncfDispInfo {
 abstract class $SncfDispInfoCopyWith<$Res> {
   factory $SncfDispInfoCopyWith(
           SncfDispInfo value, $Res Function(SncfDispInfo) then) =
-      _$SncfDispInfoCopyWithImpl<$Res>;
+      _$SncfDispInfoCopyWithImpl<$Res, SncfDispInfo>;
+  @useResult
   $Res call(
       {String code,
       String color,
@@ -1308,88 +1324,91 @@ abstract class $SncfDispInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SncfDispInfoCopyWithImpl<$Res> implements $SncfDispInfoCopyWith<$Res> {
+class _$SncfDispInfoCopyWithImpl<$Res, $Val extends SncfDispInfo>
+    implements $SncfDispInfoCopyWith<$Res> {
   _$SncfDispInfoCopyWithImpl(this._value, this._then);
 
-  final SncfDispInfo _value;
   // ignore: unused_field
-  final $Res Function(SncfDispInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = freezed,
-    Object? color = freezed,
-    Object? commercialMode = freezed,
-    Object? description = freezed,
-    Object? direction = freezed,
-    Object? equipments = freezed,
-    Object? headsign = freezed,
-    Object? label = freezed,
-    Object? links = freezed,
-    Object? name = freezed,
-    Object? network = freezed,
-    Object? physicalMode = freezed,
-    Object? textColor = freezed,
-    Object? tripShortName = freezed,
+    Object? code = null,
+    Object? color = null,
+    Object? commercialMode = null,
+    Object? description = null,
+    Object? direction = null,
+    Object? equipments = null,
+    Object? headsign = null,
+    Object? label = null,
+    Object? links = null,
+    Object? name = null,
+    Object? network = null,
+    Object? physicalMode = null,
+    Object? textColor = null,
+    Object? tripShortName = null,
   }) {
     return _then(_value.copyWith(
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      color: color == freezed
+      color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      commercialMode: commercialMode == freezed
+      commercialMode: null == commercialMode
           ? _value.commercialMode
           : commercialMode // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      direction: direction == freezed
+      direction: null == direction
           ? _value.direction
           : direction // ignore: cast_nullable_to_non_nullable
               as String,
-      equipments: equipments == freezed
+      equipments: null == equipments
           ? _value.equipments
           : equipments // ignore: cast_nullable_to_non_nullable
               as List<Object>,
-      headsign: headsign == freezed
+      headsign: null == headsign
           ? _value.headsign
           : headsign // ignore: cast_nullable_to_non_nullable
               as String,
-      label: label == freezed
+      label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      links: links == freezed
+      links: null == links
           ? _value.links
           : links // ignore: cast_nullable_to_non_nullable
               as List<Object>,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      network: network == freezed
+      network: null == network
           ? _value.network
           : network // ignore: cast_nullable_to_non_nullable
               as String,
-      physicalMode: physicalMode == freezed
+      physicalMode: null == physicalMode
           ? _value.physicalMode
           : physicalMode // ignore: cast_nullable_to_non_nullable
               as String,
-      textColor: textColor == freezed
+      textColor: null == textColor
           ? _value.textColor
           : textColor // ignore: cast_nullable_to_non_nullable
               as String,
-      tripShortName: tripShortName == freezed
+      tripShortName: null == tripShortName
           ? _value.tripShortName
           : tripShortName // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1400,6 +1419,7 @@ abstract class _$$_SncfDispInfoCopyWith<$Res>
           _$_SncfDispInfo value, $Res Function(_$_SncfDispInfo) then) =
       __$$_SncfDispInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String code,
       String color,
@@ -1419,86 +1439,84 @@ abstract class _$$_SncfDispInfoCopyWith<$Res>
 
 /// @nodoc
 class __$$_SncfDispInfoCopyWithImpl<$Res>
-    extends _$SncfDispInfoCopyWithImpl<$Res>
+    extends _$SncfDispInfoCopyWithImpl<$Res, _$_SncfDispInfo>
     implements _$$_SncfDispInfoCopyWith<$Res> {
   __$$_SncfDispInfoCopyWithImpl(
       _$_SncfDispInfo _value, $Res Function(_$_SncfDispInfo) _then)
-      : super(_value, (v) => _then(v as _$_SncfDispInfo));
+      : super(_value, _then);
 
-  @override
-  _$_SncfDispInfo get _value => super._value as _$_SncfDispInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = freezed,
-    Object? color = freezed,
-    Object? commercialMode = freezed,
-    Object? description = freezed,
-    Object? direction = freezed,
-    Object? equipments = freezed,
-    Object? headsign = freezed,
-    Object? label = freezed,
-    Object? links = freezed,
-    Object? name = freezed,
-    Object? network = freezed,
-    Object? physicalMode = freezed,
-    Object? textColor = freezed,
-    Object? tripShortName = freezed,
+    Object? code = null,
+    Object? color = null,
+    Object? commercialMode = null,
+    Object? description = null,
+    Object? direction = null,
+    Object? equipments = null,
+    Object? headsign = null,
+    Object? label = null,
+    Object? links = null,
+    Object? name = null,
+    Object? network = null,
+    Object? physicalMode = null,
+    Object? textColor = null,
+    Object? tripShortName = null,
   }) {
     return _then(_$_SncfDispInfo(
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      color: color == freezed
+      color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      commercialMode: commercialMode == freezed
+      commercialMode: null == commercialMode
           ? _value.commercialMode
           : commercialMode // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      direction: direction == freezed
+      direction: null == direction
           ? _value.direction
           : direction // ignore: cast_nullable_to_non_nullable
               as String,
-      equipments: equipments == freezed
+      equipments: null == equipments
           ? _value._equipments
           : equipments // ignore: cast_nullable_to_non_nullable
               as List<Object>,
-      headsign: headsign == freezed
+      headsign: null == headsign
           ? _value.headsign
           : headsign // ignore: cast_nullable_to_non_nullable
               as String,
-      label: label == freezed
+      label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      links: links == freezed
+      links: null == links
           ? _value._links
           : links // ignore: cast_nullable_to_non_nullable
               as List<Object>,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      network: network == freezed
+      network: null == network
           ? _value.network
           : network // ignore: cast_nullable_to_non_nullable
               as String,
-      physicalMode: physicalMode == freezed
+      physicalMode: null == physicalMode
           ? _value.physicalMode
           : physicalMode // ignore: cast_nullable_to_non_nullable
               as String,
-      textColor: textColor == freezed
+      textColor: null == textColor
           ? _value.textColor
           : textColor // ignore: cast_nullable_to_non_nullable
               as String,
-      tripShortName: tripShortName == freezed
+      tripShortName: null == tripShortName
           ? _value.tripShortName
           : tripShortName // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1583,48 +1601,52 @@ class _$_SncfDispInfo implements _SncfDispInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SncfDispInfo &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality()
-                .equals(other.commercialMode, commercialMode) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.direction, direction) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.commercialMode, commercialMode) ||
+                other.commercialMode == commercialMode) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.direction, direction) ||
+                other.direction == direction) &&
             const DeepCollectionEquality()
                 .equals(other._equipments, _equipments) &&
-            const DeepCollectionEquality().equals(other.headsign, headsign) &&
-            const DeepCollectionEquality().equals(other.label, label) &&
+            (identical(other.headsign, headsign) ||
+                other.headsign == headsign) &&
+            (identical(other.label, label) || other.label == label) &&
             const DeepCollectionEquality().equals(other._links, _links) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.network, network) &&
-            const DeepCollectionEquality()
-                .equals(other.physicalMode, physicalMode) &&
-            const DeepCollectionEquality().equals(other.textColor, textColor) &&
-            const DeepCollectionEquality()
-                .equals(other.tripShortName, tripShortName));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.network, network) || other.network == network) &&
+            (identical(other.physicalMode, physicalMode) ||
+                other.physicalMode == physicalMode) &&
+            (identical(other.textColor, textColor) ||
+                other.textColor == textColor) &&
+            (identical(other.tripShortName, tripShortName) ||
+                other.tripShortName == tripShortName));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(commercialMode),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(direction),
+      code,
+      color,
+      commercialMode,
+      description,
+      direction,
       const DeepCollectionEquality().hash(_equipments),
-      const DeepCollectionEquality().hash(headsign),
-      const DeepCollectionEquality().hash(label),
+      headsign,
+      label,
       const DeepCollectionEquality().hash(_links),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(network),
-      const DeepCollectionEquality().hash(physicalMode),
-      const DeepCollectionEquality().hash(textColor),
-      const DeepCollectionEquality().hash(tripShortName));
+      name,
+      network,
+      physicalMode,
+      textColor,
+      tripShortName);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfDispInfoCopyWith<_$_SncfDispInfo> get copyWith =>
       __$$_SncfDispInfoCopyWithImpl<_$_SncfDispInfo>(this, _$identity);
 

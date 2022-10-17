@@ -29,13 +29,13 @@ mixin _$RouteStates {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(NavRoute routes)? $default, {
-    TResult Function()? networkException,
-    TResult Function()? locationPermissionNotGranted,
-    TResult Function()? missingPluginException,
-    TResult Function(Object exception)? exception,
-    TResult Function()? empty,
-    TResult Function()? loading,
+    TResult? Function(NavRoute routes)? $default, {
+    TResult? Function()? networkException,
+    TResult? Function()? locationPermissionNotGranted,
+    TResult? Function()? missingPluginException,
+    TResult? Function(Object exception)? exception,
+    TResult? Function()? empty,
+    TResult? Function()? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,14 +65,14 @@ mixin _$RouteStates {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(RSData value)? $default, {
-    TResult Function(RSNetworkException value)? networkException,
-    TResult Function(RSLocationPermissionNotGranted value)?
+    TResult? Function(RSData value)? $default, {
+    TResult? Function(RSNetworkException value)? networkException,
+    TResult? Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
-    TResult Function(RSMissingPluginException value)? missingPluginException,
-    TResult Function(RSException value)? exception,
-    TResult Function(RSEmpty value)? empty,
-    TResult Function(RSLoading value)? loading,
+    TResult? Function(RSMissingPluginException value)? missingPluginException,
+    TResult? Function(RSException value)? exception,
+    TResult? Function(RSEmpty value)? empty,
+    TResult? Function(RSLoading value)? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -94,40 +94,42 @@ mixin _$RouteStates {
 abstract class $RouteStatesCopyWith<$Res> {
   factory $RouteStatesCopyWith(
           RouteStates value, $Res Function(RouteStates) then) =
-      _$RouteStatesCopyWithImpl<$Res>;
+      _$RouteStatesCopyWithImpl<$Res, RouteStates>;
 }
 
 /// @nodoc
-class _$RouteStatesCopyWithImpl<$Res> implements $RouteStatesCopyWith<$Res> {
+class _$RouteStatesCopyWithImpl<$Res, $Val extends RouteStates>
+    implements $RouteStatesCopyWith<$Res> {
   _$RouteStatesCopyWithImpl(this._value, this._then);
 
-  final RouteStates _value;
   // ignore: unused_field
-  final $Res Function(RouteStates) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
 abstract class _$$RSDataCopyWith<$Res> {
   factory _$$RSDataCopyWith(_$RSData value, $Res Function(_$RSData) then) =
       __$$RSDataCopyWithImpl<$Res>;
+  @useResult
   $Res call({NavRoute routes});
 }
 
 /// @nodoc
-class __$$RSDataCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
+class __$$RSDataCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSData>
     implements _$$RSDataCopyWith<$Res> {
   __$$RSDataCopyWithImpl(_$RSData _value, $Res Function(_$RSData) _then)
-      : super(_value, (v) => _then(v as _$RSData));
+      : super(_value, _then);
 
-  @override
-  _$RSData get _value => super._value as _$RSData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? routes = freezed,
+    Object? routes = null,
   }) {
     return _then(_$RSData(
-      routes == freezed
+      null == routes
           ? _value.routes
           : routes // ignore: cast_nullable_to_non_nullable
               as NavRoute,
@@ -153,15 +155,15 @@ class _$RSData implements RSData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RSData &&
-            const DeepCollectionEquality().equals(other.routes, routes));
+            (identical(other.routes, routes) || other.routes == routes));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(routes));
+  int get hashCode => Object.hash(runtimeType, routes);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$RSDataCopyWith<_$RSData> get copyWith =>
       __$$RSDataCopyWithImpl<_$RSData>(this, _$identity);
 
@@ -182,13 +184,13 @@ class _$RSData implements RSData {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(NavRoute routes)? $default, {
-    TResult Function()? networkException,
-    TResult Function()? locationPermissionNotGranted,
-    TResult Function()? missingPluginException,
-    TResult Function(Object exception)? exception,
-    TResult Function()? empty,
-    TResult Function()? loading,
+    TResult? Function(NavRoute routes)? $default, {
+    TResult? Function()? networkException,
+    TResult? Function()? locationPermissionNotGranted,
+    TResult? Function()? missingPluginException,
+    TResult? Function(Object exception)? exception,
+    TResult? Function()? empty,
+    TResult? Function()? loading,
   }) {
     return $default?.call(routes);
   }
@@ -230,14 +232,14 @@ class _$RSData implements RSData {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(RSData value)? $default, {
-    TResult Function(RSNetworkException value)? networkException,
-    TResult Function(RSLocationPermissionNotGranted value)?
+    TResult? Function(RSData value)? $default, {
+    TResult? Function(RSNetworkException value)? networkException,
+    TResult? Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
-    TResult Function(RSMissingPluginException value)? missingPluginException,
-    TResult Function(RSException value)? exception,
-    TResult Function(RSEmpty value)? empty,
-    TResult Function(RSLoading value)? loading,
+    TResult? Function(RSMissingPluginException value)? missingPluginException,
+    TResult? Function(RSException value)? exception,
+    TResult? Function(RSEmpty value)? empty,
+    TResult? Function(RSLoading value)? loading,
   }) {
     return $default?.call(this);
   }
@@ -280,14 +282,11 @@ abstract class _$$RSNetworkExceptionCopyWith<$Res> {
 
 /// @nodoc
 class __$$RSNetworkExceptionCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSNetworkException>
     implements _$$RSNetworkExceptionCopyWith<$Res> {
   __$$RSNetworkExceptionCopyWithImpl(
       _$RSNetworkException _value, $Res Function(_$RSNetworkException) _then)
-      : super(_value, (v) => _then(v as _$RSNetworkException));
-
-  @override
-  _$RSNetworkException get _value => super._value as _$RSNetworkException;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -326,13 +325,13 @@ class _$RSNetworkException implements RSNetworkException {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(NavRoute routes)? $default, {
-    TResult Function()? networkException,
-    TResult Function()? locationPermissionNotGranted,
-    TResult Function()? missingPluginException,
-    TResult Function(Object exception)? exception,
-    TResult Function()? empty,
-    TResult Function()? loading,
+    TResult? Function(NavRoute routes)? $default, {
+    TResult? Function()? networkException,
+    TResult? Function()? locationPermissionNotGranted,
+    TResult? Function()? missingPluginException,
+    TResult? Function(Object exception)? exception,
+    TResult? Function()? empty,
+    TResult? Function()? loading,
   }) {
     return networkException?.call();
   }
@@ -374,14 +373,14 @@ class _$RSNetworkException implements RSNetworkException {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(RSData value)? $default, {
-    TResult Function(RSNetworkException value)? networkException,
-    TResult Function(RSLocationPermissionNotGranted value)?
+    TResult? Function(RSData value)? $default, {
+    TResult? Function(RSNetworkException value)? networkException,
+    TResult? Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
-    TResult Function(RSMissingPluginException value)? missingPluginException,
-    TResult Function(RSException value)? exception,
-    TResult Function(RSEmpty value)? empty,
-    TResult Function(RSLoading value)? loading,
+    TResult? Function(RSMissingPluginException value)? missingPluginException,
+    TResult? Function(RSException value)? exception,
+    TResult? Function(RSEmpty value)? empty,
+    TResult? Function(RSLoading value)? loading,
   }) {
     return networkException?.call(this);
   }
@@ -420,16 +419,12 @@ abstract class _$$RSLocationPermissionNotGrantedCopyWith<$Res> {
 
 /// @nodoc
 class __$$RSLocationPermissionNotGrantedCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSLocationPermissionNotGranted>
     implements _$$RSLocationPermissionNotGrantedCopyWith<$Res> {
   __$$RSLocationPermissionNotGrantedCopyWithImpl(
       _$RSLocationPermissionNotGranted _value,
       $Res Function(_$RSLocationPermissionNotGranted) _then)
-      : super(_value, (v) => _then(v as _$RSLocationPermissionNotGranted));
-
-  @override
-  _$RSLocationPermissionNotGranted get _value =>
-      super._value as _$RSLocationPermissionNotGranted;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -470,13 +465,13 @@ class _$RSLocationPermissionNotGranted
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(NavRoute routes)? $default, {
-    TResult Function()? networkException,
-    TResult Function()? locationPermissionNotGranted,
-    TResult Function()? missingPluginException,
-    TResult Function(Object exception)? exception,
-    TResult Function()? empty,
-    TResult Function()? loading,
+    TResult? Function(NavRoute routes)? $default, {
+    TResult? Function()? networkException,
+    TResult? Function()? locationPermissionNotGranted,
+    TResult? Function()? missingPluginException,
+    TResult? Function(Object exception)? exception,
+    TResult? Function()? empty,
+    TResult? Function()? loading,
   }) {
     return locationPermissionNotGranted?.call();
   }
@@ -518,14 +513,14 @@ class _$RSLocationPermissionNotGranted
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(RSData value)? $default, {
-    TResult Function(RSNetworkException value)? networkException,
-    TResult Function(RSLocationPermissionNotGranted value)?
+    TResult? Function(RSData value)? $default, {
+    TResult? Function(RSNetworkException value)? networkException,
+    TResult? Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
-    TResult Function(RSMissingPluginException value)? missingPluginException,
-    TResult Function(RSException value)? exception,
-    TResult Function(RSEmpty value)? empty,
-    TResult Function(RSLoading value)? loading,
+    TResult? Function(RSMissingPluginException value)? missingPluginException,
+    TResult? Function(RSException value)? exception,
+    TResult? Function(RSEmpty value)? empty,
+    TResult? Function(RSLoading value)? loading,
   }) {
     return locationPermissionNotGranted?.call(this);
   }
@@ -564,15 +559,11 @@ abstract class _$$RSMissingPluginExceptionCopyWith<$Res> {
 
 /// @nodoc
 class __$$RSMissingPluginExceptionCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSMissingPluginException>
     implements _$$RSMissingPluginExceptionCopyWith<$Res> {
   __$$RSMissingPluginExceptionCopyWithImpl(_$RSMissingPluginException _value,
       $Res Function(_$RSMissingPluginException) _then)
-      : super(_value, (v) => _then(v as _$RSMissingPluginException));
-
-  @override
-  _$RSMissingPluginException get _value =>
-      super._value as _$RSMissingPluginException;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -612,13 +603,13 @@ class _$RSMissingPluginException implements RSMissingPluginException {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(NavRoute routes)? $default, {
-    TResult Function()? networkException,
-    TResult Function()? locationPermissionNotGranted,
-    TResult Function()? missingPluginException,
-    TResult Function(Object exception)? exception,
-    TResult Function()? empty,
-    TResult Function()? loading,
+    TResult? Function(NavRoute routes)? $default, {
+    TResult? Function()? networkException,
+    TResult? Function()? locationPermissionNotGranted,
+    TResult? Function()? missingPluginException,
+    TResult? Function(Object exception)? exception,
+    TResult? Function()? empty,
+    TResult? Function()? loading,
   }) {
     return missingPluginException?.call();
   }
@@ -660,14 +651,14 @@ class _$RSMissingPluginException implements RSMissingPluginException {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(RSData value)? $default, {
-    TResult Function(RSNetworkException value)? networkException,
-    TResult Function(RSLocationPermissionNotGranted value)?
+    TResult? Function(RSData value)? $default, {
+    TResult? Function(RSNetworkException value)? networkException,
+    TResult? Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
-    TResult Function(RSMissingPluginException value)? missingPluginException,
-    TResult Function(RSException value)? exception,
-    TResult Function(RSEmpty value)? empty,
-    TResult Function(RSLoading value)? loading,
+    TResult? Function(RSMissingPluginException value)? missingPluginException,
+    TResult? Function(RSException value)? exception,
+    TResult? Function(RSEmpty value)? empty,
+    TResult? Function(RSLoading value)? loading,
   }) {
     return missingPluginException?.call(this);
   }
@@ -701,28 +692,25 @@ abstract class _$$RSExceptionCopyWith<$Res> {
   factory _$$RSExceptionCopyWith(
           _$RSException value, $Res Function(_$RSException) then) =
       __$$RSExceptionCopyWithImpl<$Res>;
+  @useResult
   $Res call({Object exception});
 }
 
 /// @nodoc
-class __$$RSExceptionCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
+class __$$RSExceptionCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSException>
     implements _$$RSExceptionCopyWith<$Res> {
   __$$RSExceptionCopyWithImpl(
       _$RSException _value, $Res Function(_$RSException) _then)
-      : super(_value, (v) => _then(v as _$RSException));
+      : super(_value, _then);
 
-  @override
-  _$RSException get _value => super._value as _$RSException;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? exception = freezed,
+    Object? exception = null,
   }) {
     return _then(_$RSException(
-      exception == freezed
-          ? _value.exception
-          : exception // ignore: cast_nullable_to_non_nullable
-              as Object,
+      null == exception ? _value.exception : exception,
     ));
   }
 }
@@ -754,6 +742,7 @@ class _$RSException implements RSException {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$RSExceptionCopyWith<_$RSException> get copyWith =>
       __$$RSExceptionCopyWithImpl<_$RSException>(this, _$identity);
 
@@ -774,13 +763,13 @@ class _$RSException implements RSException {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(NavRoute routes)? $default, {
-    TResult Function()? networkException,
-    TResult Function()? locationPermissionNotGranted,
-    TResult Function()? missingPluginException,
-    TResult Function(Object exception)? exception,
-    TResult Function()? empty,
-    TResult Function()? loading,
+    TResult? Function(NavRoute routes)? $default, {
+    TResult? Function()? networkException,
+    TResult? Function()? locationPermissionNotGranted,
+    TResult? Function()? missingPluginException,
+    TResult? Function(Object exception)? exception,
+    TResult? Function()? empty,
+    TResult? Function()? loading,
   }) {
     return exception?.call(this.exception);
   }
@@ -822,14 +811,14 @@ class _$RSException implements RSException {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(RSData value)? $default, {
-    TResult Function(RSNetworkException value)? networkException,
-    TResult Function(RSLocationPermissionNotGranted value)?
+    TResult? Function(RSData value)? $default, {
+    TResult? Function(RSNetworkException value)? networkException,
+    TResult? Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
-    TResult Function(RSMissingPluginException value)? missingPluginException,
-    TResult Function(RSException value)? exception,
-    TResult Function(RSEmpty value)? empty,
-    TResult Function(RSLoading value)? loading,
+    TResult? Function(RSMissingPluginException value)? missingPluginException,
+    TResult? Function(RSException value)? exception,
+    TResult? Function(RSEmpty value)? empty,
+    TResult? Function(RSLoading value)? loading,
   }) {
     return exception?.call(this);
   }
@@ -870,13 +859,11 @@ abstract class _$$RSEmptyCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$RSEmptyCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
+class __$$RSEmptyCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSEmpty>
     implements _$$RSEmptyCopyWith<$Res> {
   __$$RSEmptyCopyWithImpl(_$RSEmpty _value, $Res Function(_$RSEmpty) _then)
-      : super(_value, (v) => _then(v as _$RSEmpty));
-
-  @override
-  _$RSEmpty get _value => super._value as _$RSEmpty;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -915,13 +902,13 @@ class _$RSEmpty implements RSEmpty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(NavRoute routes)? $default, {
-    TResult Function()? networkException,
-    TResult Function()? locationPermissionNotGranted,
-    TResult Function()? missingPluginException,
-    TResult Function(Object exception)? exception,
-    TResult Function()? empty,
-    TResult Function()? loading,
+    TResult? Function(NavRoute routes)? $default, {
+    TResult? Function()? networkException,
+    TResult? Function()? locationPermissionNotGranted,
+    TResult? Function()? missingPluginException,
+    TResult? Function(Object exception)? exception,
+    TResult? Function()? empty,
+    TResult? Function()? loading,
   }) {
     return empty?.call();
   }
@@ -963,14 +950,14 @@ class _$RSEmpty implements RSEmpty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(RSData value)? $default, {
-    TResult Function(RSNetworkException value)? networkException,
-    TResult Function(RSLocationPermissionNotGranted value)?
+    TResult? Function(RSData value)? $default, {
+    TResult? Function(RSNetworkException value)? networkException,
+    TResult? Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
-    TResult Function(RSMissingPluginException value)? missingPluginException,
-    TResult Function(RSException value)? exception,
-    TResult Function(RSEmpty value)? empty,
-    TResult Function(RSLoading value)? loading,
+    TResult? Function(RSMissingPluginException value)? missingPluginException,
+    TResult? Function(RSException value)? exception,
+    TResult? Function(RSEmpty value)? empty,
+    TResult? Function(RSLoading value)? loading,
   }) {
     return empty?.call(this);
   }
@@ -1007,14 +994,12 @@ abstract class _$$RSLoadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$RSLoadingCopyWithImpl<$Res> extends _$RouteStatesCopyWithImpl<$Res>
+class __$$RSLoadingCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSLoading>
     implements _$$RSLoadingCopyWith<$Res> {
   __$$RSLoadingCopyWithImpl(
       _$RSLoading _value, $Res Function(_$RSLoading) _then)
-      : super(_value, (v) => _then(v as _$RSLoading));
-
-  @override
-  _$RSLoading get _value => super._value as _$RSLoading;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -1053,13 +1038,13 @@ class _$RSLoading implements RSLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(NavRoute routes)? $default, {
-    TResult Function()? networkException,
-    TResult Function()? locationPermissionNotGranted,
-    TResult Function()? missingPluginException,
-    TResult Function(Object exception)? exception,
-    TResult Function()? empty,
-    TResult Function()? loading,
+    TResult? Function(NavRoute routes)? $default, {
+    TResult? Function()? networkException,
+    TResult? Function()? locationPermissionNotGranted,
+    TResult? Function()? missingPluginException,
+    TResult? Function(Object exception)? exception,
+    TResult? Function()? empty,
+    TResult? Function()? loading,
   }) {
     return loading?.call();
   }
@@ -1101,14 +1086,14 @@ class _$RSLoading implements RSLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(RSData value)? $default, {
-    TResult Function(RSNetworkException value)? networkException,
-    TResult Function(RSLocationPermissionNotGranted value)?
+    TResult? Function(RSData value)? $default, {
+    TResult? Function(RSNetworkException value)? networkException,
+    TResult? Function(RSLocationPermissionNotGranted value)?
         locationPermissionNotGranted,
-    TResult Function(RSMissingPluginException value)? missingPluginException,
-    TResult Function(RSException value)? exception,
-    TResult Function(RSEmpty value)? empty,
-    TResult Function(RSLoading value)? loading,
+    TResult? Function(RSMissingPluginException value)? missingPluginException,
+    TResult? Function(RSException value)? exception,
+    TResult? Function(RSEmpty value)? empty,
+    TResult? Function(RSLoading value)? loading,
   }) {
     return loading?.call(this);
   }

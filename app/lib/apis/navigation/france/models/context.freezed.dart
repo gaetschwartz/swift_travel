@@ -33,33 +33,37 @@ mixin _$SncfContext {
 abstract class $SncfContextCopyWith<$Res> {
   factory $SncfContextCopyWith(
           SncfContext value, $Res Function(SncfContext) then) =
-      _$SncfContextCopyWithImpl<$Res>;
+      _$SncfContextCopyWithImpl<$Res, SncfContext>;
+  @useResult
   $Res call({DateTime? dateTime, String? timezone});
 }
 
 /// @nodoc
-class _$SncfContextCopyWithImpl<$Res> implements $SncfContextCopyWith<$Res> {
+class _$SncfContextCopyWithImpl<$Res, $Val extends SncfContext>
+    implements $SncfContextCopyWith<$Res> {
   _$SncfContextCopyWithImpl(this._value, this._then);
 
-  final SncfContext _value;
   // ignore: unused_field
-  final $Res Function(SncfContext) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? dateTime = freezed,
     Object? timezone = freezed,
   }) {
     return _then(_value.copyWith(
-      dateTime: dateTime == freezed
+      dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      timezone: timezone == freezed
+      timezone: freezed == timezone
           ? _value.timezone
           : timezone // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -70,30 +74,30 @@ abstract class _$$_SncfContextCopyWith<$Res>
           _$_SncfContext value, $Res Function(_$_SncfContext) then) =
       __$$_SncfContextCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({DateTime? dateTime, String? timezone});
 }
 
 /// @nodoc
-class __$$_SncfContextCopyWithImpl<$Res> extends _$SncfContextCopyWithImpl<$Res>
+class __$$_SncfContextCopyWithImpl<$Res>
+    extends _$SncfContextCopyWithImpl<$Res, _$_SncfContext>
     implements _$$_SncfContextCopyWith<$Res> {
   __$$_SncfContextCopyWithImpl(
       _$_SncfContext _value, $Res Function(_$_SncfContext) _then)
-      : super(_value, (v) => _then(v as _$_SncfContext));
+      : super(_value, _then);
 
-  @override
-  _$_SncfContext get _value => super._value as _$_SncfContext;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? dateTime = freezed,
     Object? timezone = freezed,
   }) {
     return _then(_$_SncfContext(
-      dateTime: dateTime == freezed
+      dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      timezone: timezone == freezed
+      timezone: freezed == timezone
           ? _value.timezone
           : timezone // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -124,19 +128,19 @@ class _$_SncfContext implements _SncfContext {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SncfContext &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
-            const DeepCollectionEquality().equals(other.timezone, timezone));
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime) &&
+            (identical(other.timezone, timezone) ||
+                other.timezone == timezone));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(dateTime),
-      const DeepCollectionEquality().hash(timezone));
+  int get hashCode => Object.hash(runtimeType, dateTime, timezone);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfContextCopyWith<_$_SncfContext> get copyWith =>
       __$$_SncfContextCopyWithImpl<_$_SncfContext>(this, _$identity);
 

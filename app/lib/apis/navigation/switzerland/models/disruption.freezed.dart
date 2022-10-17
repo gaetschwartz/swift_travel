@@ -39,7 +39,8 @@ mixin _$Disruption {
 abstract class $DisruptionCopyWith<$Res> {
   factory $DisruptionCopyWith(
           Disruption value, $Res Function(Disruption) then) =
-      _$DisruptionCopyWithImpl<$Res>;
+      _$DisruptionCopyWithImpl<$Res, Disruption>;
+  @useResult
   $Res call(
       {String? id,
       String? header,
@@ -51,13 +52,16 @@ abstract class $DisruptionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DisruptionCopyWithImpl<$Res> implements $DisruptionCopyWith<$Res> {
+class _$DisruptionCopyWithImpl<$Res, $Val extends Disruption>
+    implements $DisruptionCopyWith<$Res> {
   _$DisruptionCopyWithImpl(this._value, this._then);
 
-  final Disruption _value;
   // ignore: unused_field
-  final $Res Function(Disruption) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -69,35 +73,35 @@ class _$DisruptionCopyWithImpl<$Res> implements $DisruptionCopyWith<$Res> {
     Object? priority = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      header: header == freezed
+      header: freezed == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as String?,
-      lead: lead == freezed
+      lead: freezed == lead
           ? _value.lead
           : lead // ignore: cast_nullable_to_non_nullable
               as String?,
-      text: text == freezed
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String?,
-      timeRange: timeRange == freezed
+      timeRange: freezed == timeRange
           ? _value.timeRange
           : timeRange // ignore: cast_nullable_to_non_nullable
               as String?,
-      exact: exact == freezed
+      exact: freezed == exact
           ? _value.exact
           : exact // ignore: cast_nullable_to_non_nullable
               as bool?,
-      priority: priority == freezed
+      priority: freezed == priority
           ? _value.priority
           : priority // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -108,6 +112,7 @@ abstract class _$$_DisruptionCopyWith<$Res>
           _$_Disruption value, $Res Function(_$_Disruption) then) =
       __$$_DisruptionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? id,
       String? header,
@@ -119,15 +124,14 @@ abstract class _$$_DisruptionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
+class __$$_DisruptionCopyWithImpl<$Res>
+    extends _$DisruptionCopyWithImpl<$Res, _$_Disruption>
     implements _$$_DisruptionCopyWith<$Res> {
   __$$_DisruptionCopyWithImpl(
       _$_Disruption _value, $Res Function(_$_Disruption) _then)
-      : super(_value, (v) => _then(v as _$_Disruption));
+      : super(_value, _then);
 
-  @override
-  _$_Disruption get _value => super._value as _$_Disruption;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -139,31 +143,31 @@ class __$$_DisruptionCopyWithImpl<$Res> extends _$DisruptionCopyWithImpl<$Res>
     Object? priority = freezed,
   }) {
     return _then(_$_Disruption(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      header: header == freezed
+      header: freezed == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as String?,
-      lead: lead == freezed
+      lead: freezed == lead
           ? _value.lead
           : lead // ignore: cast_nullable_to_non_nullable
               as String?,
-      text: text == freezed
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String?,
-      timeRange: timeRange == freezed
+      timeRange: freezed == timeRange
           ? _value.timeRange
           : timeRange // ignore: cast_nullable_to_non_nullable
               as String?,
-      exact: exact == freezed
+      exact: freezed == exact
           ? _value.exact
           : exact // ignore: cast_nullable_to_non_nullable
               as bool?,
-      priority: priority == freezed
+      priority: freezed == priority
           ? _value.priority
           : priority // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -212,29 +216,25 @@ class _$_Disruption implements _Disruption {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Disruption &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.header, header) &&
-            const DeepCollectionEquality().equals(other.lead, lead) &&
-            const DeepCollectionEquality().equals(other.text, text) &&
-            const DeepCollectionEquality().equals(other.timeRange, timeRange) &&
-            const DeepCollectionEquality().equals(other.exact, exact) &&
-            const DeepCollectionEquality().equals(other.priority, priority));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.header, header) || other.header == header) &&
+            (identical(other.lead, lead) || other.lead == lead) &&
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.timeRange, timeRange) ||
+                other.timeRange == timeRange) &&
+            (identical(other.exact, exact) || other.exact == exact) &&
+            (identical(other.priority, priority) ||
+                other.priority == priority));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(header),
-      const DeepCollectionEquality().hash(lead),
-      const DeepCollectionEquality().hash(text),
-      const DeepCollectionEquality().hash(timeRange),
-      const DeepCollectionEquality().hash(exact),
-      const DeepCollectionEquality().hash(priority));
+      runtimeType, id, header, lead, text, timeRange, exact, priority);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DisruptionCopyWith<_$_Disruption> get copyWith =>
       __$$_DisruptionCopyWithImpl<_$_Disruption>(this, _$identity);
 

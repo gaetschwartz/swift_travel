@@ -27,33 +27,37 @@ mixin _$Attribute {
 /// @nodoc
 abstract class $AttributeCopyWith<$Res> {
   factory $AttributeCopyWith(Attribute value, $Res Function(Attribute) then) =
-      _$AttributeCopyWithImpl<$Res>;
+      _$AttributeCopyWithImpl<$Res, Attribute>;
+  @useResult
   $Res call({String code, String? message});
 }
 
 /// @nodoc
-class _$AttributeCopyWithImpl<$Res> implements $AttributeCopyWith<$Res> {
+class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
+    implements $AttributeCopyWith<$Res> {
   _$AttributeCopyWithImpl(this._value, this._then);
 
-  final Attribute _value;
   // ignore: unused_field
-  final $Res Function(Attribute) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = freezed,
+    Object? code = null,
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      message: message == freezed
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -63,30 +67,30 @@ abstract class _$$_AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
           _$_Attribute value, $Res Function(_$_Attribute) then) =
       __$$_AttributeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String code, String? message});
 }
 
 /// @nodoc
-class __$$_AttributeCopyWithImpl<$Res> extends _$AttributeCopyWithImpl<$Res>
+class __$$_AttributeCopyWithImpl<$Res>
+    extends _$AttributeCopyWithImpl<$Res, _$_Attribute>
     implements _$$_AttributeCopyWith<$Res> {
   __$$_AttributeCopyWithImpl(
       _$_Attribute _value, $Res Function(_$_Attribute) _then)
-      : super(_value, (v) => _then(v as _$_Attribute));
+      : super(_value, _then);
 
-  @override
-  _$_Attribute get _value => super._value as _$_Attribute;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = freezed,
+    Object? code = null,
     Object? message = freezed,
   }) {
     return _then(_$_Attribute(
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      message: message == freezed
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -114,18 +118,16 @@ class _$_Attribute extends _Attribute {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Attribute &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality().equals(other.message, message));
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(message));
+  int get hashCode => Object.hash(runtimeType, code, message);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AttributeCopyWith<_$_Attribute> get copyWith =>
       __$$_AttributeCopyWithImpl<_$_Attribute>(this, _$identity);
 }
@@ -159,34 +161,37 @@ mixin _$AttributeData {
 abstract class $AttributeDataCopyWith<$Res> {
   factory $AttributeDataCopyWith(
           AttributeData value, $Res Function(AttributeData) then) =
-      _$AttributeDataCopyWithImpl<$Res>;
+      _$AttributeDataCopyWithImpl<$Res, AttributeData>;
+  @useResult
   $Res call({Widget? icon, bool ignore});
 }
 
 /// @nodoc
-class _$AttributeDataCopyWithImpl<$Res>
+class _$AttributeDataCopyWithImpl<$Res, $Val extends AttributeData>
     implements $AttributeDataCopyWith<$Res> {
   _$AttributeDataCopyWithImpl(this._value, this._then);
 
-  final AttributeData _value;
   // ignore: unused_field
-  final $Res Function(AttributeData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? icon = freezed,
-    Object? ignore = freezed,
+    Object? ignore = null,
   }) {
     return _then(_value.copyWith(
-      icon: icon == freezed
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as Widget?,
-      ignore: ignore == freezed
+      ignore: null == ignore
           ? _value.ignore
           : ignore // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -197,31 +202,30 @@ abstract class _$$_AttributeDataCopyWith<$Res>
           _$_AttributeData value, $Res Function(_$_AttributeData) then) =
       __$$_AttributeDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({Widget? icon, bool ignore});
 }
 
 /// @nodoc
 class __$$_AttributeDataCopyWithImpl<$Res>
-    extends _$AttributeDataCopyWithImpl<$Res>
+    extends _$AttributeDataCopyWithImpl<$Res, _$_AttributeData>
     implements _$$_AttributeDataCopyWith<$Res> {
   __$$_AttributeDataCopyWithImpl(
       _$_AttributeData _value, $Res Function(_$_AttributeData) _then)
-      : super(_value, (v) => _then(v as _$_AttributeData));
+      : super(_value, _then);
 
-  @override
-  _$_AttributeData get _value => super._value as _$_AttributeData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? icon = freezed,
-    Object? ignore = freezed,
+    Object? ignore = null,
   }) {
     return _then(_$_AttributeData(
-      icon: icon == freezed
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as Widget?,
-      ignore: ignore == freezed
+      ignore: null == ignore
           ? _value.ignore
           : ignore // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -250,18 +254,16 @@ class _$_AttributeData implements _AttributeData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AttributeData &&
-            const DeepCollectionEquality().equals(other.icon, icon) &&
-            const DeepCollectionEquality().equals(other.ignore, ignore));
+            (identical(other.icon, icon) || other.icon == icon) &&
+            (identical(other.ignore, ignore) || other.ignore == ignore));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(icon),
-      const DeepCollectionEquality().hash(ignore));
+  int get hashCode => Object.hash(runtimeType, icon, ignore);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AttributeDataCopyWith<_$_AttributeData> get copyWith =>
       __$$_AttributeDataCopyWithImpl<_$_AttributeData>(this, _$identity);
 }

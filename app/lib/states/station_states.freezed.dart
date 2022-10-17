@@ -26,9 +26,9 @@ mixin _$StationStates {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<NavigationCompletion> completions)? completions,
-    TResult Function()? empty,
-    TResult Function()? network,
+    TResult? Function(List<NavigationCompletion> completions)? completions,
+    TResult? Function()? empty,
+    TResult? Function()? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -48,9 +48,9 @@ mixin _$StationStates {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CompletionsStationStates value)? completions,
-    TResult Function(EmptyStationStates value)? empty,
-    TResult Function(NetworkErrorStationStates value)? network,
+    TResult? Function(CompletionsStationStates value)? completions,
+    TResult? Function(EmptyStationStates value)? empty,
+    TResult? Function(NetworkErrorStationStates value)? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,17 +67,18 @@ mixin _$StationStates {
 abstract class $StationStatesCopyWith<$Res> {
   factory $StationStatesCopyWith(
           StationStates value, $Res Function(StationStates) then) =
-      _$StationStatesCopyWithImpl<$Res>;
+      _$StationStatesCopyWithImpl<$Res, StationStates>;
 }
 
 /// @nodoc
-class _$StationStatesCopyWithImpl<$Res>
+class _$StationStatesCopyWithImpl<$Res, $Val extends StationStates>
     implements $StationStatesCopyWith<$Res> {
   _$StationStatesCopyWithImpl(this._value, this._then);
 
-  final StationStates _value;
   // ignore: unused_field
-  final $Res Function(StationStates) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -85,27 +86,25 @@ abstract class _$$CompletionsStationStatesCopyWith<$Res> {
   factory _$$CompletionsStationStatesCopyWith(_$CompletionsStationStates value,
           $Res Function(_$CompletionsStationStates) then) =
       __$$CompletionsStationStatesCopyWithImpl<$Res>;
+  @useResult
   $Res call({List<NavigationCompletion> completions});
 }
 
 /// @nodoc
 class __$$CompletionsStationStatesCopyWithImpl<$Res>
-    extends _$StationStatesCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res, _$CompletionsStationStates>
     implements _$$CompletionsStationStatesCopyWith<$Res> {
   __$$CompletionsStationStatesCopyWithImpl(_$CompletionsStationStates _value,
       $Res Function(_$CompletionsStationStates) _then)
-      : super(_value, (v) => _then(v as _$CompletionsStationStates));
+      : super(_value, _then);
 
-  @override
-  _$CompletionsStationStates get _value =>
-      super._value as _$CompletionsStationStates;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? completions = freezed,
+    Object? completions = null,
   }) {
     return _then(_$CompletionsStationStates(
-      completions == freezed
+      null == completions
           ? _value._completions
           : completions // ignore: cast_nullable_to_non_nullable
               as List<NavigationCompletion>,
@@ -146,6 +145,7 @@ class _$CompletionsStationStates implements CompletionsStationStates {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$CompletionsStationStatesCopyWith<_$CompletionsStationStates>
       get copyWith =>
           __$$CompletionsStationStatesCopyWithImpl<_$CompletionsStationStates>(
@@ -165,9 +165,9 @@ class _$CompletionsStationStates implements CompletionsStationStates {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<NavigationCompletion> completions)? completions,
-    TResult Function()? empty,
-    TResult Function()? network,
+    TResult? Function(List<NavigationCompletion> completions)? completions,
+    TResult? Function()? empty,
+    TResult? Function()? network,
   }) {
     return completions?.call(this.completions);
   }
@@ -199,9 +199,9 @@ class _$CompletionsStationStates implements CompletionsStationStates {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CompletionsStationStates value)? completions,
-    TResult Function(EmptyStationStates value)? empty,
-    TResult Function(NetworkErrorStationStates value)? network,
+    TResult? Function(CompletionsStationStates value)? completions,
+    TResult? Function(EmptyStationStates value)? empty,
+    TResult? Function(NetworkErrorStationStates value)? network,
   }) {
     return completions?.call(this);
   }
@@ -241,14 +241,11 @@ abstract class _$$EmptyStationStatesCopyWith<$Res> {
 
 /// @nodoc
 class __$$EmptyStationStatesCopyWithImpl<$Res>
-    extends _$StationStatesCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res, _$EmptyStationStates>
     implements _$$EmptyStationStatesCopyWith<$Res> {
   __$$EmptyStationStatesCopyWithImpl(
       _$EmptyStationStates _value, $Res Function(_$EmptyStationStates) _then)
-      : super(_value, (v) => _then(v as _$EmptyStationStates));
-
-  @override
-  _$EmptyStationStates get _value => super._value as _$EmptyStationStates;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -284,9 +281,9 @@ class _$EmptyStationStates implements EmptyStationStates {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<NavigationCompletion> completions)? completions,
-    TResult Function()? empty,
-    TResult Function()? network,
+    TResult? Function(List<NavigationCompletion> completions)? completions,
+    TResult? Function()? empty,
+    TResult? Function()? network,
   }) {
     return empty?.call();
   }
@@ -318,9 +315,9 @@ class _$EmptyStationStates implements EmptyStationStates {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CompletionsStationStates value)? completions,
-    TResult Function(EmptyStationStates value)? empty,
-    TResult Function(NetworkErrorStationStates value)? network,
+    TResult? Function(CompletionsStationStates value)? completions,
+    TResult? Function(EmptyStationStates value)? empty,
+    TResult? Function(NetworkErrorStationStates value)? network,
   }) {
     return empty?.call(this);
   }
@@ -354,15 +351,11 @@ abstract class _$$NetworkErrorStationStatesCopyWith<$Res> {
 
 /// @nodoc
 class __$$NetworkErrorStationStatesCopyWithImpl<$Res>
-    extends _$StationStatesCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res, _$NetworkErrorStationStates>
     implements _$$NetworkErrorStationStatesCopyWith<$Res> {
   __$$NetworkErrorStationStatesCopyWithImpl(_$NetworkErrorStationStates _value,
       $Res Function(_$NetworkErrorStationStates) _then)
-      : super(_value, (v) => _then(v as _$NetworkErrorStationStates));
-
-  @override
-  _$NetworkErrorStationStates get _value =>
-      super._value as _$NetworkErrorStationStates;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -399,9 +392,9 @@ class _$NetworkErrorStationStates implements NetworkErrorStationStates {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<NavigationCompletion> completions)? completions,
-    TResult Function()? empty,
-    TResult Function()? network,
+    TResult? Function(List<NavigationCompletion> completions)? completions,
+    TResult? Function()? empty,
+    TResult? Function()? network,
   }) {
     return network?.call();
   }
@@ -433,9 +426,9 @@ class _$NetworkErrorStationStates implements NetworkErrorStationStates {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CompletionsStationStates value)? completions,
-    TResult Function(EmptyStationStates value)? empty,
-    TResult Function(NetworkErrorStationStates value)? network,
+    TResult? Function(CompletionsStationStates value)? completions,
+    TResult? Function(EmptyStationStates value)? empty,
+    TResult? Function(NetworkErrorStationStates value)? network,
   }) {
     return network?.call(this);
   }

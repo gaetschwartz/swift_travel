@@ -39,7 +39,8 @@ mixin _$GeoLocation {
 abstract class $GeoLocationCopyWith<$Res> {
   factory $GeoLocationCopyWith(
           GeoLocation value, $Res Function(GeoLocation) then) =
-      _$GeoLocationCopyWithImpl<$Res>;
+      _$GeoLocationCopyWithImpl<$Res, GeoLocation>;
+  @useResult
   $Res call(
       {double latitude,
       double longitude,
@@ -52,17 +53,20 @@ abstract class $GeoLocationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$GeoLocationCopyWithImpl<$Res> implements $GeoLocationCopyWith<$Res> {
+class _$GeoLocationCopyWithImpl<$Res, $Val extends GeoLocation>
+    implements $GeoLocationCopyWith<$Res> {
   _$GeoLocationCopyWithImpl(this._value, this._then);
 
-  final GeoLocation _value;
   // ignore: unused_field
-  final $Res Function(GeoLocation) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = freezed,
-    Object? longitude = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
     Object? accuracy = freezed,
     Object? altitude = freezed,
     Object? heading = freezed,
@@ -71,39 +75,39 @@ class _$GeoLocationCopyWithImpl<$Res> implements $GeoLocationCopyWith<$Res> {
     Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
-      latitude: latitude == freezed
+      latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
-      longitude: longitude == freezed
+      longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      accuracy: accuracy == freezed
+      accuracy: freezed == accuracy
           ? _value.accuracy
           : accuracy // ignore: cast_nullable_to_non_nullable
               as double?,
-      altitude: altitude == freezed
+      altitude: freezed == altitude
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      heading: heading == freezed
+      heading: freezed == heading
           ? _value.heading
           : heading // ignore: cast_nullable_to_non_nullable
               as double?,
-      speed: speed == freezed
+      speed: freezed == speed
           ? _value.speed
           : speed // ignore: cast_nullable_to_non_nullable
               as double?,
-      speedAccuracy: speedAccuracy == freezed
+      speedAccuracy: freezed == speedAccuracy
           ? _value.speedAccuracy
           : speedAccuracy // ignore: cast_nullable_to_non_nullable
               as double?,
-      timestamp: timestamp == freezed
+      timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -114,6 +118,7 @@ abstract class _$$_GeoLocationCopyWith<$Res>
           _$_GeoLocation value, $Res Function(_$_GeoLocation) then) =
       __$$_GeoLocationCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {double latitude,
       double longitude,
@@ -126,19 +131,18 @@ abstract class _$$_GeoLocationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_GeoLocationCopyWithImpl<$Res> extends _$GeoLocationCopyWithImpl<$Res>
+class __$$_GeoLocationCopyWithImpl<$Res>
+    extends _$GeoLocationCopyWithImpl<$Res, _$_GeoLocation>
     implements _$$_GeoLocationCopyWith<$Res> {
   __$$_GeoLocationCopyWithImpl(
       _$_GeoLocation _value, $Res Function(_$_GeoLocation) _then)
-      : super(_value, (v) => _then(v as _$_GeoLocation));
+      : super(_value, _then);
 
-  @override
-  _$_GeoLocation get _value => super._value as _$_GeoLocation;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = freezed,
-    Object? longitude = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
     Object? accuracy = freezed,
     Object? altitude = freezed,
     Object? heading = freezed,
@@ -147,35 +151,35 @@ class __$$_GeoLocationCopyWithImpl<$Res> extends _$GeoLocationCopyWithImpl<$Res>
     Object? timestamp = freezed,
   }) {
     return _then(_$_GeoLocation(
-      latitude: latitude == freezed
+      latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
-      longitude: longitude == freezed
+      longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      accuracy: accuracy == freezed
+      accuracy: freezed == accuracy
           ? _value.accuracy
           : accuracy // ignore: cast_nullable_to_non_nullable
               as double?,
-      altitude: altitude == freezed
+      altitude: freezed == altitude
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      heading: heading == freezed
+      heading: freezed == heading
           ? _value.heading
           : heading // ignore: cast_nullable_to_non_nullable
               as double?,
-      speed: speed == freezed
+      speed: freezed == speed
           ? _value.speed
           : speed // ignore: cast_nullable_to_non_nullable
               as double?,
-      speedAccuracy: speedAccuracy == freezed
+      speedAccuracy: freezed == speedAccuracy
           ? _value.speedAccuracy
           : speedAccuracy // ignore: cast_nullable_to_non_nullable
               as double?,
-      timestamp: timestamp == freezed
+      timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -226,32 +230,30 @@ class _$_GeoLocation implements _GeoLocation {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GeoLocation &&
-            const DeepCollectionEquality().equals(other.latitude, latitude) &&
-            const DeepCollectionEquality().equals(other.longitude, longitude) &&
-            const DeepCollectionEquality().equals(other.accuracy, accuracy) &&
-            const DeepCollectionEquality().equals(other.altitude, altitude) &&
-            const DeepCollectionEquality().equals(other.heading, heading) &&
-            const DeepCollectionEquality().equals(other.speed, speed) &&
-            const DeepCollectionEquality()
-                .equals(other.speedAccuracy, speedAccuracy) &&
-            const DeepCollectionEquality().equals(other.timestamp, timestamp));
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.accuracy, accuracy) ||
+                other.accuracy == accuracy) &&
+            (identical(other.altitude, altitude) ||
+                other.altitude == altitude) &&
+            (identical(other.heading, heading) || other.heading == heading) &&
+            (identical(other.speed, speed) || other.speed == speed) &&
+            (identical(other.speedAccuracy, speedAccuracy) ||
+                other.speedAccuracy == speedAccuracy) &&
+            (identical(other.timestamp, timestamp) ||
+                other.timestamp == timestamp));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(latitude),
-      const DeepCollectionEquality().hash(longitude),
-      const DeepCollectionEquality().hash(accuracy),
-      const DeepCollectionEquality().hash(altitude),
-      const DeepCollectionEquality().hash(heading),
-      const DeepCollectionEquality().hash(speed),
-      const DeepCollectionEquality().hash(speedAccuracy),
-      const DeepCollectionEquality().hash(timestamp));
+  int get hashCode => Object.hash(runtimeType, latitude, longitude, accuracy,
+      altitude, heading, speed, speedAccuracy, timestamp);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GeoLocationCopyWith<_$_GeoLocation> get copyWith =>
       __$$_GeoLocationCopyWithImpl<_$_GeoLocation>(this, _$identity);
 

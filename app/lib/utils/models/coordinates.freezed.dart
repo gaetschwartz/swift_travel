@@ -31,33 +31,37 @@ mixin _$LatLon {
 /// @nodoc
 abstract class $LatLonCopyWith<$Res> {
   factory $LatLonCopyWith(LatLon value, $Res Function(LatLon) then) =
-      _$LatLonCopyWithImpl<$Res>;
+      _$LatLonCopyWithImpl<$Res, LatLon>;
+  @useResult
   $Res call({double lat, double lon});
 }
 
 /// @nodoc
-class _$LatLonCopyWithImpl<$Res> implements $LatLonCopyWith<$Res> {
+class _$LatLonCopyWithImpl<$Res, $Val extends LatLon>
+    implements $LatLonCopyWith<$Res> {
   _$LatLonCopyWithImpl(this._value, this._then);
 
-  final LatLon _value;
   // ignore: unused_field
-  final $Res Function(LatLon) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? lat = freezed,
-    Object? lon = freezed,
+    Object? lat = null,
+    Object? lon = null,
   }) {
     return _then(_value.copyWith(
-      lat: lat == freezed
+      lat: null == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double,
-      lon: lon == freezed
+      lon: null == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,29 +70,29 @@ abstract class _$$_LatLonCopyWith<$Res> implements $LatLonCopyWith<$Res> {
   factory _$$_LatLonCopyWith(_$_LatLon value, $Res Function(_$_LatLon) then) =
       __$$_LatLonCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({double lat, double lon});
 }
 
 /// @nodoc
-class __$$_LatLonCopyWithImpl<$Res> extends _$LatLonCopyWithImpl<$Res>
+class __$$_LatLonCopyWithImpl<$Res>
+    extends _$LatLonCopyWithImpl<$Res, _$_LatLon>
     implements _$$_LatLonCopyWith<$Res> {
   __$$_LatLonCopyWithImpl(_$_LatLon _value, $Res Function(_$_LatLon) _then)
-      : super(_value, (v) => _then(v as _$_LatLon));
+      : super(_value, _then);
 
-  @override
-  _$_LatLon get _value => super._value as _$_LatLon;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? lat = freezed,
-    Object? lon = freezed,
+    Object? lat = null,
+    Object? lon = null,
   }) {
     return _then(_$_LatLon(
-      lat == freezed
+      null == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double,
-      lon == freezed
+      null == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double,
@@ -119,19 +123,17 @@ class _$_LatLon extends _LatLon {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LatLon &&
-            const DeepCollectionEquality().equals(other.lat, lat) &&
-            const DeepCollectionEquality().equals(other.lon, lon));
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(lat),
-      const DeepCollectionEquality().hash(lon));
+  int get hashCode => Object.hash(runtimeType, lat, lon);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LatLonCopyWith<_$_LatLon> get copyWith =>
       __$$_LatLonCopyWithImpl<_$_LatLon>(this, _$identity);
 
@@ -173,34 +175,37 @@ mixin _$LV03Coordinates {
 abstract class $LV03CoordinatesCopyWith<$Res> {
   factory $LV03CoordinatesCopyWith(
           LV03Coordinates value, $Res Function(LV03Coordinates) then) =
-      _$LV03CoordinatesCopyWithImpl<$Res>;
+      _$LV03CoordinatesCopyWithImpl<$Res, LV03Coordinates>;
+  @useResult
   $Res call({int x, int y});
 }
 
 /// @nodoc
-class _$LV03CoordinatesCopyWithImpl<$Res>
+class _$LV03CoordinatesCopyWithImpl<$Res, $Val extends LV03Coordinates>
     implements $LV03CoordinatesCopyWith<$Res> {
   _$LV03CoordinatesCopyWithImpl(this._value, this._then);
 
-  final LV03Coordinates _value;
   // ignore: unused_field
-  final $Res Function(LV03Coordinates) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
+    Object? x = null,
+    Object? y = null,
   }) {
     return _then(_value.copyWith(
-      x: x == freezed
+      x: null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int,
-      y: y == freezed
+      y: null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -211,31 +216,30 @@ abstract class _$$_LV03CoordinatesCopyWith<$Res>
           _$_LV03Coordinates value, $Res Function(_$_LV03Coordinates) then) =
       __$$_LV03CoordinatesCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int x, int y});
 }
 
 /// @nodoc
 class __$$_LV03CoordinatesCopyWithImpl<$Res>
-    extends _$LV03CoordinatesCopyWithImpl<$Res>
+    extends _$LV03CoordinatesCopyWithImpl<$Res, _$_LV03Coordinates>
     implements _$$_LV03CoordinatesCopyWith<$Res> {
   __$$_LV03CoordinatesCopyWithImpl(
       _$_LV03Coordinates _value, $Res Function(_$_LV03Coordinates) _then)
-      : super(_value, (v) => _then(v as _$_LV03Coordinates));
+      : super(_value, _then);
 
-  @override
-  _$_LV03Coordinates get _value => super._value as _$_LV03Coordinates;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
+    Object? x = null,
+    Object? y = null,
   }) {
     return _then(_$_LV03Coordinates(
-      x == freezed
+      null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int,
-      y == freezed
+      null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int,
@@ -263,18 +267,16 @@ class _$_LV03Coordinates extends _LV03Coordinates {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LV03Coordinates &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.y, y));
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(x),
-      const DeepCollectionEquality().hash(y));
+  int get hashCode => Object.hash(runtimeType, x, y);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LV03CoordinatesCopyWith<_$_LV03Coordinates> get copyWith =>
       __$$_LV03CoordinatesCopyWithImpl<_$_LV03Coordinates>(this, _$identity);
 }

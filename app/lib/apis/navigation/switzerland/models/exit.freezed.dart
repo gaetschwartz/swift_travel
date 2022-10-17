@@ -45,7 +45,8 @@ mixin _$SbbExit {
 /// @nodoc
 abstract class $SbbExitCopyWith<$Res> {
   factory $SbbExitCopyWith(SbbExit value, $Res Function(SbbExit) then) =
-      _$SbbExitCopyWithImpl<$Res>;
+      _$SbbExitCopyWithImpl<$Res, SbbExit>;
+  @useResult
   $Res call(
       {String name,
       @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
@@ -62,16 +63,19 @@ abstract class $SbbExitCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbExitCopyWithImpl<$Res> implements $SbbExitCopyWith<$Res> {
+class _$SbbExitCopyWithImpl<$Res, $Val extends SbbExit>
+    implements $SbbExitCopyWith<$Res> {
   _$SbbExitCopyWithImpl(this._value, this._then);
 
-  final SbbExit _value;
   // ignore: unused_field
-  final $Res Function(SbbExit) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? arrDelay = freezed,
     Object? arrival = freezed,
     Object? lat = freezed,
@@ -79,61 +83,61 @@ class _$SbbExitCopyWithImpl<$Res> implements $SbbExitCopyWith<$Res> {
     Object? sbbName = freezed,
     Object? stopid = freezed,
     Object? track = freezed,
-    Object? waittime = freezed,
-    Object? isaddress = freezed,
+    Object? waittime = null,
+    Object? isaddress = null,
     Object? x = freezed,
     Object? y = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      arrDelay: arrDelay == freezed
+      arrDelay: freezed == arrDelay
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      lat: lat == freezed
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double?,
-      lon: lon == freezed
+      lon: freezed == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double?,
-      sbbName: sbbName == freezed
+      sbbName: freezed == sbbName
           ? _value.sbbName
           : sbbName // ignore: cast_nullable_to_non_nullable
               as String?,
-      stopid: stopid == freezed
+      stopid: freezed == stopid
           ? _value.stopid
           : stopid // ignore: cast_nullable_to_non_nullable
               as String?,
-      track: track == freezed
+      track: freezed == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
               as String?,
-      waittime: waittime == freezed
+      waittime: null == waittime
           ? _value.waittime
           : waittime // ignore: cast_nullable_to_non_nullable
               as int,
-      isaddress: isaddress == freezed
+      isaddress: null == isaddress
           ? _value.isaddress
           : isaddress // ignore: cast_nullable_to_non_nullable
               as bool,
-      x: x == freezed
+      x: freezed == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: freezed == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -142,6 +146,7 @@ abstract class _$$_ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
   factory _$$_ExitCopyWith(_$_Exit value, $Res Function(_$_Exit) then) =
       __$$_ExitCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
@@ -158,17 +163,15 @@ abstract class _$$_ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
+class __$$_ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res, _$_Exit>
     implements _$$_ExitCopyWith<$Res> {
   __$$_ExitCopyWithImpl(_$_Exit _value, $Res Function(_$_Exit) _then)
-      : super(_value, (v) => _then(v as _$_Exit));
+      : super(_value, _then);
 
-  @override
-  _$_Exit get _value => super._value as _$_Exit;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? arrDelay = freezed,
     Object? arrival = freezed,
     Object? lat = freezed,
@@ -176,57 +179,57 @@ class __$$_ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res>
     Object? sbbName = freezed,
     Object? stopid = freezed,
     Object? track = freezed,
-    Object? waittime = freezed,
-    Object? isaddress = freezed,
+    Object? waittime = null,
+    Object? isaddress = null,
     Object? x = freezed,
     Object? y = freezed,
   }) {
     return _then(_$_Exit(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      arrDelay: arrDelay == freezed
+      arrDelay: freezed == arrDelay
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      lat: lat == freezed
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double?,
-      lon: lon == freezed
+      lon: freezed == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double?,
-      sbbName: sbbName == freezed
+      sbbName: freezed == sbbName
           ? _value.sbbName
           : sbbName // ignore: cast_nullable_to_non_nullable
               as String?,
-      stopid: stopid == freezed
+      stopid: freezed == stopid
           ? _value.stopid
           : stopid // ignore: cast_nullable_to_non_nullable
               as String?,
-      track: track == freezed
+      track: freezed == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
               as String?,
-      waittime: waittime == freezed
+      waittime: null == waittime
           ? _value.waittime
           : waittime // ignore: cast_nullable_to_non_nullable
               as int,
-      isaddress: isaddress == freezed
+      isaddress: null == isaddress
           ? _value.isaddress
           : isaddress // ignore: cast_nullable_to_non_nullable
               as bool,
-      x: x == freezed
+      x: freezed == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: freezed == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -296,39 +299,31 @@ class _$_Exit extends _Exit {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Exit &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.arrDelay, arrDelay) &&
-            const DeepCollectionEquality().equals(other.arrival, arrival) &&
-            const DeepCollectionEquality().equals(other.lat, lat) &&
-            const DeepCollectionEquality().equals(other.lon, lon) &&
-            const DeepCollectionEquality().equals(other.sbbName, sbbName) &&
-            const DeepCollectionEquality().equals(other.stopid, stopid) &&
-            const DeepCollectionEquality().equals(other.track, track) &&
-            const DeepCollectionEquality().equals(other.waittime, waittime) &&
-            const DeepCollectionEquality().equals(other.isaddress, isaddress) &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.y, y));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.arrDelay, arrDelay) ||
+                other.arrDelay == arrDelay) &&
+            (identical(other.arrival, arrival) || other.arrival == arrival) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon) &&
+            (identical(other.sbbName, sbbName) || other.sbbName == sbbName) &&
+            (identical(other.stopid, stopid) || other.stopid == stopid) &&
+            (identical(other.track, track) || other.track == track) &&
+            (identical(other.waittime, waittime) ||
+                other.waittime == waittime) &&
+            (identical(other.isaddress, isaddress) ||
+                other.isaddress == isaddress) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(arrDelay),
-      const DeepCollectionEquality().hash(arrival),
-      const DeepCollectionEquality().hash(lat),
-      const DeepCollectionEquality().hash(lon),
-      const DeepCollectionEquality().hash(sbbName),
-      const DeepCollectionEquality().hash(stopid),
-      const DeepCollectionEquality().hash(track),
-      const DeepCollectionEquality().hash(waittime),
-      const DeepCollectionEquality().hash(isaddress),
-      const DeepCollectionEquality().hash(x),
-      const DeepCollectionEquality().hash(y));
+  int get hashCode => Object.hash(runtimeType, name, arrDelay, arrival, lat,
+      lon, sbbName, stopid, track, waittime, isaddress, x, y);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ExitCopyWith<_$_Exit> get copyWith =>
       __$$_ExitCopyWithImpl<_$_Exit>(this, _$identity);
 

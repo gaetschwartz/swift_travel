@@ -41,7 +41,8 @@ mixin _$SbbStop {
 /// @nodoc
 abstract class $SbbStopCopyWith<$Res> {
   factory $SbbStopCopyWith(SbbStop value, $Res Function(SbbStop) then) =
-      _$SbbStopCopyWithImpl<$Res>;
+      _$SbbStopCopyWithImpl<$Res, SbbStop>;
+  @useResult
   $Res call(
       {String name,
       String? id,
@@ -54,16 +55,19 @@ abstract class $SbbStopCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbStopCopyWithImpl<$Res> implements $SbbStopCopyWith<$Res> {
+class _$SbbStopCopyWithImpl<$Res, $Val extends SbbStop>
+    implements $SbbStopCopyWith<$Res> {
   _$SbbStopCopyWithImpl(this._value, this._then);
 
-  final SbbStop _value;
   // ignore: unused_field
-  final $Res Function(SbbStop) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? id = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
@@ -73,39 +77,39 @@ class _$SbbStopCopyWithImpl<$Res> implements $SbbStopCopyWith<$Res> {
     Object? y = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      departure: departure == freezed
+      departure: freezed == departure
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      lat: lat == freezed
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double?,
-      lon: lon == freezed
+      lon: freezed == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double?,
-      x: x == freezed
+      x: freezed == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: freezed == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -115,6 +119,7 @@ abstract class _$$_SbbStopCopyWith<$Res> implements $SbbStopCopyWith<$Res> {
           _$_SbbStop value, $Res Function(_$_SbbStop) then) =
       __$$_SbbStopCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       String? id,
@@ -127,17 +132,16 @@ abstract class _$$_SbbStopCopyWith<$Res> implements $SbbStopCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
+class __$$_SbbStopCopyWithImpl<$Res>
+    extends _$SbbStopCopyWithImpl<$Res, _$_SbbStop>
     implements _$$_SbbStopCopyWith<$Res> {
   __$$_SbbStopCopyWithImpl(_$_SbbStop _value, $Res Function(_$_SbbStop) _then)
-      : super(_value, (v) => _then(v as _$_SbbStop));
+      : super(_value, _then);
 
-  @override
-  _$_SbbStop get _value => super._value as _$_SbbStop;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? id = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
@@ -147,35 +151,35 @@ class __$$_SbbStopCopyWithImpl<$Res> extends _$SbbStopCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_$_SbbStop(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      departure: departure == freezed
+      departure: freezed == departure
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      lat: lat == freezed
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double?,
-      lon: lon == freezed
+      lon: freezed == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double?,
-      x: x == freezed
+      x: freezed == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: freezed == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -232,31 +236,25 @@ class _$_SbbStop extends _SbbStop {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SbbStop &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.departure, departure) &&
-            const DeepCollectionEquality().equals(other.arrival, arrival) &&
-            const DeepCollectionEquality().equals(other.lat, lat) &&
-            const DeepCollectionEquality().equals(other.lon, lon) &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.y, y));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.departure, departure) ||
+                other.departure == departure) &&
+            (identical(other.arrival, arrival) || other.arrival == arrival) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(departure),
-      const DeepCollectionEquality().hash(arrival),
-      const DeepCollectionEquality().hash(lat),
-      const DeepCollectionEquality().hash(lon),
-      const DeepCollectionEquality().hash(x),
-      const DeepCollectionEquality().hash(y));
+  int get hashCode =>
+      Object.hash(runtimeType, name, id, departure, arrival, lat, lon, x, y);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SbbStopCopyWith<_$_SbbStop> get copyWith =>
       __$$_SbbStopCopyWithImpl<_$_SbbStop>(this, _$identity);
 

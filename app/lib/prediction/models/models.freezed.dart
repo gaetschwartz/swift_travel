@@ -35,7 +35,8 @@ mixin _$RoutePrediction {
 abstract class $RoutePredictionCopyWith<$Res> {
   factory $RoutePredictionCopyWith(
           RoutePrediction value, $Res Function(RoutePrediction) then) =
-      _$RoutePredictionCopyWithImpl<$Res>;
+      _$RoutePredictionCopyWithImpl<$Res, RoutePrediction>;
+  @useResult
   $Res call(
       {@LocalRouteConverter() LocalRoute? prediction,
       double confidence,
@@ -46,51 +47,55 @@ abstract class $RoutePredictionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RoutePredictionCopyWithImpl<$Res>
+class _$RoutePredictionCopyWithImpl<$Res, $Val extends RoutePrediction>
     implements $RoutePredictionCopyWith<$Res> {
   _$RoutePredictionCopyWithImpl(this._value, this._then);
 
-  final RoutePrediction _value;
   // ignore: unused_field
-  final $Res Function(RoutePrediction) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? prediction = freezed,
-    Object? confidence = freezed,
-    Object? arguments = freezed,
+    Object? confidence = null,
+    Object? arguments = null,
   }) {
     return _then(_value.copyWith(
-      prediction: prediction == freezed
+      prediction: freezed == prediction
           ? _value.prediction
           : prediction // ignore: cast_nullable_to_non_nullable
               as LocalRoute?,
-      confidence: confidence == freezed
+      confidence: null == confidence
           ? _value.confidence
           : confidence // ignore: cast_nullable_to_non_nullable
               as double,
-      arguments: arguments == freezed
+      arguments: null == arguments
           ? _value.arguments
           : arguments // ignore: cast_nullable_to_non_nullable
               as PredictionArguments,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LocalRouteCopyWith<$Res>? get prediction {
     if (_value.prediction == null) {
       return null;
     }
 
     return $LocalRouteCopyWith<$Res>(_value.prediction!, (value) {
-      return _then(_value.copyWith(prediction: value));
+      return _then(_value.copyWith(prediction: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PredictionArgumentsCopyWith<$Res> get arguments {
     return $PredictionArgumentsCopyWith<$Res>(_value.arguments, (value) {
-      return _then(_value.copyWith(arguments: value));
+      return _then(_value.copyWith(arguments: value) as $Val);
     });
   }
 }
@@ -102,6 +107,7 @@ abstract class _$$_RoutePredictionCopyWith<$Res>
           _$_RoutePrediction value, $Res Function(_$_RoutePrediction) then) =
       __$$_RoutePredictionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@LocalRouteConverter() LocalRoute? prediction,
       double confidence,
@@ -115,31 +121,29 @@ abstract class _$$_RoutePredictionCopyWith<$Res>
 
 /// @nodoc
 class __$$_RoutePredictionCopyWithImpl<$Res>
-    extends _$RoutePredictionCopyWithImpl<$Res>
+    extends _$RoutePredictionCopyWithImpl<$Res, _$_RoutePrediction>
     implements _$$_RoutePredictionCopyWith<$Res> {
   __$$_RoutePredictionCopyWithImpl(
       _$_RoutePrediction _value, $Res Function(_$_RoutePrediction) _then)
-      : super(_value, (v) => _then(v as _$_RoutePrediction));
+      : super(_value, _then);
 
-  @override
-  _$_RoutePrediction get _value => super._value as _$_RoutePrediction;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? prediction = freezed,
-    Object? confidence = freezed,
-    Object? arguments = freezed,
+    Object? confidence = null,
+    Object? arguments = null,
   }) {
     return _then(_$_RoutePrediction(
-      prediction == freezed
+      freezed == prediction
           ? _value.prediction
           : prediction // ignore: cast_nullable_to_non_nullable
               as LocalRoute?,
-      confidence == freezed
+      null == confidence
           ? _value.confidence
           : confidence // ignore: cast_nullable_to_non_nullable
               as double,
-      arguments == freezed
+      null == arguments
           ? _value.arguments
           : arguments // ignore: cast_nullable_to_non_nullable
               as PredictionArguments,
@@ -175,23 +179,22 @@ class _$_RoutePrediction implements _RoutePrediction {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RoutePrediction &&
-            const DeepCollectionEquality()
-                .equals(other.prediction, prediction) &&
-            const DeepCollectionEquality()
-                .equals(other.confidence, confidence) &&
-            const DeepCollectionEquality().equals(other.arguments, arguments));
+            (identical(other.prediction, prediction) ||
+                other.prediction == prediction) &&
+            (identical(other.confidence, confidence) ||
+                other.confidence == confidence) &&
+            (identical(other.arguments, arguments) ||
+                other.arguments == arguments));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(prediction),
-      const DeepCollectionEquality().hash(confidence),
-      const DeepCollectionEquality().hash(arguments));
+  int get hashCode =>
+      Object.hash(runtimeType, prediction, confidence, arguments);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RoutePredictionCopyWith<_$_RoutePrediction> get copyWith =>
       __$$_RoutePredictionCopyWithImpl<_$_RoutePrediction>(this, _$identity);
 
@@ -244,42 +247,46 @@ mixin _$FullArguments {
 abstract class $FullArgumentsCopyWith<$Res> {
   factory $FullArgumentsCopyWith(
           FullArguments value, $Res Function(FullArguments) then) =
-      _$FullArgumentsCopyWithImpl<$Res>;
+      _$FullArgumentsCopyWithImpl<$Res, FullArguments>;
+  @useResult
   $Res call({List<LocalRoute> routes, PredictionArguments arguments});
 
   $PredictionArgumentsCopyWith<$Res> get arguments;
 }
 
 /// @nodoc
-class _$FullArgumentsCopyWithImpl<$Res>
+class _$FullArgumentsCopyWithImpl<$Res, $Val extends FullArguments>
     implements $FullArgumentsCopyWith<$Res> {
   _$FullArgumentsCopyWithImpl(this._value, this._then);
 
-  final FullArguments _value;
   // ignore: unused_field
-  final $Res Function(FullArguments) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? routes = freezed,
-    Object? arguments = freezed,
+    Object? routes = null,
+    Object? arguments = null,
   }) {
     return _then(_value.copyWith(
-      routes: routes == freezed
+      routes: null == routes
           ? _value.routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<LocalRoute>,
-      arguments: arguments == freezed
+      arguments: null == arguments
           ? _value.arguments
           : arguments // ignore: cast_nullable_to_non_nullable
               as PredictionArguments,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PredictionArgumentsCopyWith<$Res> get arguments {
     return $PredictionArgumentsCopyWith<$Res>(_value.arguments, (value) {
-      return _then(_value.copyWith(arguments: value));
+      return _then(_value.copyWith(arguments: value) as $Val);
     });
   }
 }
@@ -291,6 +298,7 @@ abstract class _$$_FullArgumentsCopyWith<$Res>
           _$_FullArguments value, $Res Function(_$_FullArguments) then) =
       __$$_FullArgumentsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<LocalRoute> routes, PredictionArguments arguments});
 
   @override
@@ -299,26 +307,24 @@ abstract class _$$_FullArgumentsCopyWith<$Res>
 
 /// @nodoc
 class __$$_FullArgumentsCopyWithImpl<$Res>
-    extends _$FullArgumentsCopyWithImpl<$Res>
+    extends _$FullArgumentsCopyWithImpl<$Res, _$_FullArguments>
     implements _$$_FullArgumentsCopyWith<$Res> {
   __$$_FullArgumentsCopyWithImpl(
       _$_FullArguments _value, $Res Function(_$_FullArguments) _then)
-      : super(_value, (v) => _then(v as _$_FullArguments));
+      : super(_value, _then);
 
-  @override
-  _$_FullArguments get _value => super._value as _$_FullArguments;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? routes = freezed,
-    Object? arguments = freezed,
+    Object? routes = null,
+    Object? arguments = null,
   }) {
     return _then(_$_FullArguments(
-      routes == freezed
+      null == routes
           ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<LocalRoute>,
-      arguments == freezed
+      null == arguments
           ? _value.arguments
           : arguments // ignore: cast_nullable_to_non_nullable
               as PredictionArguments,
@@ -357,18 +363,18 @@ class _$_FullArguments implements _FullArguments {
         (other.runtimeType == runtimeType &&
             other is _$_FullArguments &&
             const DeepCollectionEquality().equals(other._routes, _routes) &&
-            const DeepCollectionEquality().equals(other.arguments, arguments));
+            (identical(other.arguments, arguments) ||
+                other.arguments == arguments));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_routes),
-      const DeepCollectionEquality().hash(arguments));
+      runtimeType, const DeepCollectionEquality().hash(_routes), arguments);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FullArgumentsCopyWith<_$_FullArguments> get copyWith =>
       __$$_FullArgumentsCopyWithImpl<_$_FullArguments>(this, _$identity);
 
@@ -425,9 +431,9 @@ mixin _$PredictionArguments {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(DateTime? dateTime)? empty,
-    TResult Function(String source, DateTime? dateTime)? withSource,
-    TResult Function(LatLon latLon, DateTime? dateTime)? withLocation,
+    TResult? Function(DateTime? dateTime)? empty,
+    TResult? Function(String source, DateTime? dateTime)? withSource,
+    TResult? Function(LatLon latLon, DateTime? dateTime)? withLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -447,9 +453,9 @@ mixin _$PredictionArguments {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(EmptyArgument value)? empty,
-    TResult Function(SourceDateArguments value)? withSource,
-    TResult Function(LocationArgument value)? withLocation,
+    TResult? Function(EmptyArgument value)? empty,
+    TResult? Function(SourceDateArguments value)? withSource,
+    TResult? Function(LocationArgument value)? withLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -470,29 +476,32 @@ mixin _$PredictionArguments {
 abstract class $PredictionArgumentsCopyWith<$Res> {
   factory $PredictionArgumentsCopyWith(
           PredictionArguments value, $Res Function(PredictionArguments) then) =
-      _$PredictionArgumentsCopyWithImpl<$Res>;
+      _$PredictionArgumentsCopyWithImpl<$Res, PredictionArguments>;
+  @useResult
   $Res call({DateTime? dateTime});
 }
 
 /// @nodoc
-class _$PredictionArgumentsCopyWithImpl<$Res>
+class _$PredictionArgumentsCopyWithImpl<$Res, $Val extends PredictionArguments>
     implements $PredictionArgumentsCopyWith<$Res> {
   _$PredictionArgumentsCopyWithImpl(this._value, this._then);
 
-  final PredictionArguments _value;
   // ignore: unused_field
-  final $Res Function(PredictionArguments) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? dateTime = freezed,
   }) {
     return _then(_value.copyWith(
-      dateTime: dateTime == freezed
+      dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -503,26 +512,25 @@ abstract class _$$EmptyArgumentCopyWith<$Res>
           _$EmptyArgument value, $Res Function(_$EmptyArgument) then) =
       __$$EmptyArgumentCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({DateTime? dateTime});
 }
 
 /// @nodoc
 class __$$EmptyArgumentCopyWithImpl<$Res>
-    extends _$PredictionArgumentsCopyWithImpl<$Res>
+    extends _$PredictionArgumentsCopyWithImpl<$Res, _$EmptyArgument>
     implements _$$EmptyArgumentCopyWith<$Res> {
   __$$EmptyArgumentCopyWithImpl(
       _$EmptyArgument _value, $Res Function(_$EmptyArgument) _then)
-      : super(_value, (v) => _then(v as _$EmptyArgument));
+      : super(_value, _then);
 
-  @override
-  _$EmptyArgument get _value => super._value as _$EmptyArgument;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? dateTime = freezed,
   }) {
     return _then(_$EmptyArgument(
-      dateTime: dateTime == freezed
+      dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -557,16 +565,17 @@ class _$EmptyArgument extends EmptyArgument {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EmptyArgument &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime));
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(dateTime));
+  int get hashCode => Object.hash(runtimeType, dateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$EmptyArgumentCopyWith<_$EmptyArgument> get copyWith =>
       __$$EmptyArgumentCopyWithImpl<_$EmptyArgument>(this, _$identity);
 
@@ -583,9 +592,9 @@ class _$EmptyArgument extends EmptyArgument {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(DateTime? dateTime)? empty,
-    TResult Function(String source, DateTime? dateTime)? withSource,
-    TResult Function(LatLon latLon, DateTime? dateTime)? withLocation,
+    TResult? Function(DateTime? dateTime)? empty,
+    TResult? Function(String source, DateTime? dateTime)? withSource,
+    TResult? Function(LatLon latLon, DateTime? dateTime)? withLocation,
   }) {
     return empty?.call(dateTime);
   }
@@ -617,9 +626,9 @@ class _$EmptyArgument extends EmptyArgument {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(EmptyArgument value)? empty,
-    TResult Function(SourceDateArguments value)? withSource,
-    TResult Function(LocationArgument value)? withLocation,
+    TResult? Function(EmptyArgument value)? empty,
+    TResult? Function(SourceDateArguments value)? withSource,
+    TResult? Function(LocationArgument value)? withLocation,
   }) {
     return empty?.call(this);
   }
@@ -669,31 +678,30 @@ abstract class _$$SourceDateArgumentsCopyWith<$Res>
           $Res Function(_$SourceDateArguments) then) =
       __$$SourceDateArgumentsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String source, DateTime? dateTime});
 }
 
 /// @nodoc
 class __$$SourceDateArgumentsCopyWithImpl<$Res>
-    extends _$PredictionArgumentsCopyWithImpl<$Res>
+    extends _$PredictionArgumentsCopyWithImpl<$Res, _$SourceDateArguments>
     implements _$$SourceDateArgumentsCopyWith<$Res> {
   __$$SourceDateArgumentsCopyWithImpl(
       _$SourceDateArguments _value, $Res Function(_$SourceDateArguments) _then)
-      : super(_value, (v) => _then(v as _$SourceDateArguments));
+      : super(_value, _then);
 
-  @override
-  _$SourceDateArguments get _value => super._value as _$SourceDateArguments;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? source = freezed,
+    Object? source = null,
     Object? dateTime = freezed,
   }) {
     return _then(_$SourceDateArguments(
-      source == freezed
+      null == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
               as String,
-      dateTime: dateTime == freezed
+      dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -731,19 +739,18 @@ class _$SourceDateArguments extends SourceDateArguments {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SourceDateArguments &&
-            const DeepCollectionEquality().equals(other.source, source) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime));
+            (identical(other.source, source) || other.source == source) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(source),
-      const DeepCollectionEquality().hash(dateTime));
+  int get hashCode => Object.hash(runtimeType, source, dateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SourceDateArgumentsCopyWith<_$SourceDateArguments> get copyWith =>
       __$$SourceDateArgumentsCopyWithImpl<_$SourceDateArguments>(
           this, _$identity);
@@ -761,9 +768,9 @@ class _$SourceDateArguments extends SourceDateArguments {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(DateTime? dateTime)? empty,
-    TResult Function(String source, DateTime? dateTime)? withSource,
-    TResult Function(LatLon latLon, DateTime? dateTime)? withLocation,
+    TResult? Function(DateTime? dateTime)? empty,
+    TResult? Function(String source, DateTime? dateTime)? withSource,
+    TResult? Function(LatLon latLon, DateTime? dateTime)? withLocation,
   }) {
     return withSource?.call(source, dateTime);
   }
@@ -795,9 +802,9 @@ class _$SourceDateArguments extends SourceDateArguments {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(EmptyArgument value)? empty,
-    TResult Function(SourceDateArguments value)? withSource,
-    TResult Function(LocationArgument value)? withLocation,
+    TResult? Function(EmptyArgument value)? empty,
+    TResult? Function(SourceDateArguments value)? withSource,
+    TResult? Function(LocationArgument value)? withLocation,
   }) {
     return withSource?.call(this);
   }
@@ -848,6 +855,7 @@ abstract class _$$LocationArgumentCopyWith<$Res>
           _$LocationArgument value, $Res Function(_$LocationArgument) then) =
       __$$LocationArgumentCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({LatLon latLon, DateTime? dateTime});
 
   $LatLonCopyWith<$Res> get latLon;
@@ -855,26 +863,24 @@ abstract class _$$LocationArgumentCopyWith<$Res>
 
 /// @nodoc
 class __$$LocationArgumentCopyWithImpl<$Res>
-    extends _$PredictionArgumentsCopyWithImpl<$Res>
+    extends _$PredictionArgumentsCopyWithImpl<$Res, _$LocationArgument>
     implements _$$LocationArgumentCopyWith<$Res> {
   __$$LocationArgumentCopyWithImpl(
       _$LocationArgument _value, $Res Function(_$LocationArgument) _then)
-      : super(_value, (v) => _then(v as _$LocationArgument));
+      : super(_value, _then);
 
-  @override
-  _$LocationArgument get _value => super._value as _$LocationArgument;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latLon = freezed,
+    Object? latLon = null,
     Object? dateTime = freezed,
   }) {
     return _then(_$LocationArgument(
-      latLon == freezed
+      null == latLon
           ? _value.latLon
           : latLon // ignore: cast_nullable_to_non_nullable
               as LatLon,
-      dateTime: dateTime == freezed
+      dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -882,6 +888,7 @@ class __$$LocationArgumentCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LatLonCopyWith<$Res> get latLon {
     return $LatLonCopyWith<$Res>(_value.latLon, (value) {
       return _then(_value.copyWith(latLon: value));
@@ -919,19 +926,18 @@ class _$LocationArgument extends LocationArgument {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocationArgument &&
-            const DeepCollectionEquality().equals(other.latLon, latLon) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime));
+            (identical(other.latLon, latLon) || other.latLon == latLon) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(latLon),
-      const DeepCollectionEquality().hash(dateTime));
+  int get hashCode => Object.hash(runtimeType, latLon, dateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$LocationArgumentCopyWith<_$LocationArgument> get copyWith =>
       __$$LocationArgumentCopyWithImpl<_$LocationArgument>(this, _$identity);
 
@@ -948,9 +954,9 @@ class _$LocationArgument extends LocationArgument {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(DateTime? dateTime)? empty,
-    TResult Function(String source, DateTime? dateTime)? withSource,
-    TResult Function(LatLon latLon, DateTime? dateTime)? withLocation,
+    TResult? Function(DateTime? dateTime)? empty,
+    TResult? Function(String source, DateTime? dateTime)? withSource,
+    TResult? Function(LatLon latLon, DateTime? dateTime)? withLocation,
   }) {
     return withLocation?.call(latLon, dateTime);
   }
@@ -982,9 +988,9 @@ class _$LocationArgument extends LocationArgument {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(EmptyArgument value)? empty,
-    TResult Function(SourceDateArguments value)? withSource,
-    TResult Function(LocationArgument value)? withLocation,
+    TResult? Function(EmptyArgument value)? empty,
+    TResult? Function(SourceDateArguments value)? withSource,
+    TResult? Function(LocationArgument value)? withLocation,
   }) {
     return withLocation?.call(this);
   }
@@ -1041,33 +1047,37 @@ mixin _$Pair<R, S> {
 /// @nodoc
 abstract class $PairCopyWith<R, S, $Res> {
   factory $PairCopyWith(Pair<R, S> value, $Res Function(Pair<R, S>) then) =
-      _$PairCopyWithImpl<R, S, $Res>;
+      _$PairCopyWithImpl<R, S, $Res, Pair<R, S>>;
+  @useResult
   $Res call({R first, S second});
 }
 
 /// @nodoc
-class _$PairCopyWithImpl<R, S, $Res> implements $PairCopyWith<R, S, $Res> {
+class _$PairCopyWithImpl<R, S, $Res, $Val extends Pair<R, S>>
+    implements $PairCopyWith<R, S, $Res> {
   _$PairCopyWithImpl(this._value, this._then);
 
-  final Pair<R, S> _value;
   // ignore: unused_field
-  final $Res Function(Pair<R, S>) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = freezed,
-    Object? second = freezed,
+    Object? first = null,
+    Object? second = null,
   }) {
     return _then(_value.copyWith(
-      first: first == freezed
+      first: null == first
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
               as R,
-      second: second == freezed
+      second: null == second
           ? _value.second
           : second // ignore: cast_nullable_to_non_nullable
               as S,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1078,30 +1088,30 @@ abstract class _$$_PairCopyWith<R, S, $Res>
           _$_Pair<R, S> value, $Res Function(_$_Pair<R, S>) then) =
       __$$_PairCopyWithImpl<R, S, $Res>;
   @override
+  @useResult
   $Res call({R first, S second});
 }
 
 /// @nodoc
-class __$$_PairCopyWithImpl<R, S, $Res> extends _$PairCopyWithImpl<R, S, $Res>
+class __$$_PairCopyWithImpl<R, S, $Res>
+    extends _$PairCopyWithImpl<R, S, $Res, _$_Pair<R, S>>
     implements _$$_PairCopyWith<R, S, $Res> {
   __$$_PairCopyWithImpl(
       _$_Pair<R, S> _value, $Res Function(_$_Pair<R, S>) _then)
-      : super(_value, (v) => _then(v as _$_Pair<R, S>));
+      : super(_value, _then);
 
-  @override
-  _$_Pair<R, S> get _value => super._value as _$_Pair<R, S>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = freezed,
-    Object? second = freezed,
+    Object? first = null,
+    Object? second = null,
   }) {
     return _then(_$_Pair<R, S>(
-      first == freezed
+      null == first
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
               as R,
-      second == freezed
+      null == second
           ? _value.second
           : second // ignore: cast_nullable_to_non_nullable
               as S,
@@ -1141,6 +1151,7 @@ class _$_Pair<R, S> extends _Pair<R, S> {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PairCopyWith<R, S, _$_Pair<R, S>> get copyWith =>
       __$$_PairCopyWithImpl<R, S, _$_Pair<R, S>>(this, _$identity);
 }
@@ -1174,39 +1185,42 @@ mixin _$Triple<R, S, T> {
 abstract class $TripleCopyWith<R, S, T, $Res> {
   factory $TripleCopyWith(
           Triple<R, S, T> value, $Res Function(Triple<R, S, T>) then) =
-      _$TripleCopyWithImpl<R, S, T, $Res>;
+      _$TripleCopyWithImpl<R, S, T, $Res, Triple<R, S, T>>;
+  @useResult
   $Res call({R first, S second, T third});
 }
 
 /// @nodoc
-class _$TripleCopyWithImpl<R, S, T, $Res>
+class _$TripleCopyWithImpl<R, S, T, $Res, $Val extends Triple<R, S, T>>
     implements $TripleCopyWith<R, S, T, $Res> {
   _$TripleCopyWithImpl(this._value, this._then);
 
-  final Triple<R, S, T> _value;
   // ignore: unused_field
-  final $Res Function(Triple<R, S, T>) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = freezed,
-    Object? second = freezed,
-    Object? third = freezed,
+    Object? first = null,
+    Object? second = null,
+    Object? third = null,
   }) {
     return _then(_value.copyWith(
-      first: first == freezed
+      first: null == first
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
               as R,
-      second: second == freezed
+      second: null == second
           ? _value.second
           : second // ignore: cast_nullable_to_non_nullable
               as S,
-      third: third == freezed
+      third: null == third
           ? _value.third
           : third // ignore: cast_nullable_to_non_nullable
               as T,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1217,36 +1231,35 @@ abstract class _$$_TripleCopyWith<R, S, T, $Res>
           _$_Triple<R, S, T> value, $Res Function(_$_Triple<R, S, T>) then) =
       __$$_TripleCopyWithImpl<R, S, T, $Res>;
   @override
+  @useResult
   $Res call({R first, S second, T third});
 }
 
 /// @nodoc
 class __$$_TripleCopyWithImpl<R, S, T, $Res>
-    extends _$TripleCopyWithImpl<R, S, T, $Res>
+    extends _$TripleCopyWithImpl<R, S, T, $Res, _$_Triple<R, S, T>>
     implements _$$_TripleCopyWith<R, S, T, $Res> {
   __$$_TripleCopyWithImpl(
       _$_Triple<R, S, T> _value, $Res Function(_$_Triple<R, S, T>) _then)
-      : super(_value, (v) => _then(v as _$_Triple<R, S, T>));
+      : super(_value, _then);
 
-  @override
-  _$_Triple<R, S, T> get _value => super._value as _$_Triple<R, S, T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = freezed,
-    Object? second = freezed,
-    Object? third = freezed,
+    Object? first = null,
+    Object? second = null,
+    Object? third = null,
   }) {
     return _then(_$_Triple<R, S, T>(
-      first == freezed
+      null == first
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
               as R,
-      second == freezed
+      null == second
           ? _value.second
           : second // ignore: cast_nullable_to_non_nullable
               as S,
-      third == freezed
+      null == third
           ? _value.third
           : third // ignore: cast_nullable_to_non_nullable
               as T,
@@ -1290,6 +1303,7 @@ class _$_Triple<R, S, T> implements _Triple<R, S, T> {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TripleCopyWith<R, S, T, _$_Triple<R, S, T>> get copyWith =>
       __$$_TripleCopyWithImpl<R, S, T, _$_Triple<R, S, T>>(this, _$identity);
 }
@@ -1323,29 +1337,32 @@ mixin _$ContactCompletion {
 abstract class $ContactCompletionCopyWith<$Res> {
   factory $ContactCompletionCopyWith(
           ContactCompletion value, $Res Function(ContactCompletion) then) =
-      _$ContactCompletionCopyWithImpl<$Res>;
+      _$ContactCompletionCopyWithImpl<$Res, ContactCompletion>;
+  @useResult
   $Res call({Contact contact});
 }
 
 /// @nodoc
-class _$ContactCompletionCopyWithImpl<$Res>
+class _$ContactCompletionCopyWithImpl<$Res, $Val extends ContactCompletion>
     implements $ContactCompletionCopyWith<$Res> {
   _$ContactCompletionCopyWithImpl(this._value, this._then);
 
-  final ContactCompletion _value;
   // ignore: unused_field
-  final $Res Function(ContactCompletion) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? contact = freezed,
+    Object? contact = null,
   }) {
     return _then(_value.copyWith(
-      contact: contact == freezed
+      contact: null == contact
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
               as Contact,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1356,26 +1373,25 @@ abstract class _$$_ContactCompletionCopyWith<$Res>
           $Res Function(_$_ContactCompletion) then) =
       __$$_ContactCompletionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({Contact contact});
 }
 
 /// @nodoc
 class __$$_ContactCompletionCopyWithImpl<$Res>
-    extends _$ContactCompletionCopyWithImpl<$Res>
+    extends _$ContactCompletionCopyWithImpl<$Res, _$_ContactCompletion>
     implements _$$_ContactCompletionCopyWith<$Res> {
   __$$_ContactCompletionCopyWithImpl(
       _$_ContactCompletion _value, $Res Function(_$_ContactCompletion) _then)
-      : super(_value, (v) => _then(v as _$_ContactCompletion));
+      : super(_value, _then);
 
-  @override
-  _$_ContactCompletion get _value => super._value as _$_ContactCompletion;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? contact = freezed,
+    Object? contact = null,
   }) {
     return _then(_$_ContactCompletion(
-      contact == freezed
+      null == contact
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
               as Contact,
@@ -1401,15 +1417,15 @@ class _$_ContactCompletion extends _ContactCompletion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ContactCompletion &&
-            const DeepCollectionEquality().equals(other.contact, contact));
+            (identical(other.contact, contact) || other.contact == contact));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(contact));
+  int get hashCode => Object.hash(runtimeType, contact);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ContactCompletionCopyWith<_$_ContactCompletion> get copyWith =>
       __$$_ContactCompletionCopyWithImpl<_$_ContactCompletion>(
           this, _$identity);
@@ -1435,17 +1451,19 @@ mixin _$CurrentLocationCompletion {}
 abstract class $CurrentLocationCompletionCopyWith<$Res> {
   factory $CurrentLocationCompletionCopyWith(CurrentLocationCompletion value,
           $Res Function(CurrentLocationCompletion) then) =
-      _$CurrentLocationCompletionCopyWithImpl<$Res>;
+      _$CurrentLocationCompletionCopyWithImpl<$Res, CurrentLocationCompletion>;
 }
 
 /// @nodoc
-class _$CurrentLocationCompletionCopyWithImpl<$Res>
+class _$CurrentLocationCompletionCopyWithImpl<$Res,
+        $Val extends CurrentLocationCompletion>
     implements $CurrentLocationCompletionCopyWith<$Res> {
   _$CurrentLocationCompletionCopyWithImpl(this._value, this._then);
 
-  final CurrentLocationCompletion _value;
   // ignore: unused_field
-  final $Res Function(CurrentLocationCompletion) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -1458,16 +1476,13 @@ abstract class _$$_CurrentLocationCompletionCopyWith<$Res> {
 
 /// @nodoc
 class __$$_CurrentLocationCompletionCopyWithImpl<$Res>
-    extends _$CurrentLocationCompletionCopyWithImpl<$Res>
+    extends _$CurrentLocationCompletionCopyWithImpl<$Res,
+        _$_CurrentLocationCompletion>
     implements _$$_CurrentLocationCompletionCopyWith<$Res> {
   __$$_CurrentLocationCompletionCopyWithImpl(
       _$_CurrentLocationCompletion _value,
       $Res Function(_$_CurrentLocationCompletion) _then)
-      : super(_value, (v) => _then(v as _$_CurrentLocationCompletion));
-
-  @override
-  _$_CurrentLocationCompletion get _value =>
-      super._value as _$_CurrentLocationCompletion;
+      : super(_value, _then);
 }
 
 /// @nodoc

@@ -39,44 +39,47 @@ mixin _$LineCacheEntry {
 abstract class $LineCacheEntryCopyWith<$Res> {
   factory $LineCacheEntryCopyWith(
           LineCacheEntry value, $Res Function(LineCacheEntry) then) =
-      _$LineCacheEntryCopyWithImpl<$Res>;
+      _$LineCacheEntryCopyWithImpl<$Res, LineCacheEntry>;
+  @useResult
   $Res call({DateTime timestamp, String stop, List<Line> lines, int ttl});
 }
 
 /// @nodoc
-class _$LineCacheEntryCopyWithImpl<$Res>
+class _$LineCacheEntryCopyWithImpl<$Res, $Val extends LineCacheEntry>
     implements $LineCacheEntryCopyWith<$Res> {
   _$LineCacheEntryCopyWithImpl(this._value, this._then);
 
-  final LineCacheEntry _value;
   // ignore: unused_field
-  final $Res Function(LineCacheEntry) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? timestamp = freezed,
-    Object? stop = freezed,
-    Object? lines = freezed,
-    Object? ttl = freezed,
+    Object? timestamp = null,
+    Object? stop = null,
+    Object? lines = null,
+    Object? ttl = null,
   }) {
     return _then(_value.copyWith(
-      timestamp: timestamp == freezed
+      timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      stop: stop == freezed
+      stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
               as String,
-      lines: lines == freezed
+      lines: null == lines
           ? _value.lines
           : lines // ignore: cast_nullable_to_non_nullable
               as List<Line>,
-      ttl: ttl == freezed
+      ttl: null == ttl
           ? _value.ttl
           : ttl // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -87,41 +90,40 @@ abstract class _$$_LineCacheEntryCopyWith<$Res>
           _$_LineCacheEntry value, $Res Function(_$_LineCacheEntry) then) =
       __$$_LineCacheEntryCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({DateTime timestamp, String stop, List<Line> lines, int ttl});
 }
 
 /// @nodoc
 class __$$_LineCacheEntryCopyWithImpl<$Res>
-    extends _$LineCacheEntryCopyWithImpl<$Res>
+    extends _$LineCacheEntryCopyWithImpl<$Res, _$_LineCacheEntry>
     implements _$$_LineCacheEntryCopyWith<$Res> {
   __$$_LineCacheEntryCopyWithImpl(
       _$_LineCacheEntry _value, $Res Function(_$_LineCacheEntry) _then)
-      : super(_value, (v) => _then(v as _$_LineCacheEntry));
+      : super(_value, _then);
 
-  @override
-  _$_LineCacheEntry get _value => super._value as _$_LineCacheEntry;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? timestamp = freezed,
-    Object? stop = freezed,
-    Object? lines = freezed,
-    Object? ttl = freezed,
+    Object? timestamp = null,
+    Object? stop = null,
+    Object? lines = null,
+    Object? ttl = null,
   }) {
     return _then(_$_LineCacheEntry(
-      timestamp: timestamp == freezed
+      timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      stop: stop == freezed
+      stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
               as String,
-      lines: lines == freezed
+      lines: null == lines
           ? _value._lines
           : lines // ignore: cast_nullable_to_non_nullable
               as List<Line>,
-      ttl: ttl == freezed
+      ttl: null == ttl
           ? _value.ttl
           : ttl // ignore: cast_nullable_to_non_nullable
               as int,
@@ -172,23 +174,21 @@ class _$_LineCacheEntry implements _LineCacheEntry {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LineCacheEntry &&
-            const DeepCollectionEquality().equals(other.timestamp, timestamp) &&
-            const DeepCollectionEquality().equals(other.stop, stop) &&
+            (identical(other.timestamp, timestamp) ||
+                other.timestamp == timestamp) &&
+            (identical(other.stop, stop) || other.stop == stop) &&
             const DeepCollectionEquality().equals(other._lines, _lines) &&
-            const DeepCollectionEquality().equals(other.ttl, ttl));
+            (identical(other.ttl, ttl) || other.ttl == ttl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(timestamp),
-      const DeepCollectionEquality().hash(stop),
-      const DeepCollectionEquality().hash(_lines),
-      const DeepCollectionEquality().hash(ttl));
+  int get hashCode => Object.hash(runtimeType, timestamp, stop,
+      const DeepCollectionEquality().hash(_lines), ttl);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LineCacheEntryCopyWith<_$_LineCacheEntry> get copyWith =>
       __$$_LineCacheEntryCopyWithImpl<_$_LineCacheEntry>(this, _$identity);
 
@@ -246,18 +246,22 @@ mixin _$Line {
 /// @nodoc
 abstract class $LineCopyWith<$Res> {
   factory $LineCopyWith(Line value, $Res Function(Line) then) =
-      _$LineCopyWithImpl<$Res>;
+      _$LineCopyWithImpl<$Res, Line>;
+  @useResult
   $Res call({String? line, int? bgColor, int? fgColor});
 }
 
 /// @nodoc
-class _$LineCopyWithImpl<$Res> implements $LineCopyWith<$Res> {
+class _$LineCopyWithImpl<$Res, $Val extends Line>
+    implements $LineCopyWith<$Res> {
   _$LineCopyWithImpl(this._value, this._then);
 
-  final Line _value;
   // ignore: unused_field
-  final $Res Function(Line) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? line = freezed,
@@ -265,19 +269,19 @@ class _$LineCopyWithImpl<$Res> implements $LineCopyWith<$Res> {
     Object? fgColor = freezed,
   }) {
     return _then(_value.copyWith(
-      line: line == freezed
+      line: freezed == line
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
               as String?,
-      bgColor: bgColor == freezed
+      bgColor: freezed == bgColor
           ? _value.bgColor
           : bgColor // ignore: cast_nullable_to_non_nullable
               as int?,
-      fgColor: fgColor == freezed
+      fgColor: freezed == fgColor
           ? _value.fgColor
           : fgColor // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -286,18 +290,17 @@ abstract class _$$_LineCopyWith<$Res> implements $LineCopyWith<$Res> {
   factory _$$_LineCopyWith(_$_Line value, $Res Function(_$_Line) then) =
       __$$_LineCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String? line, int? bgColor, int? fgColor});
 }
 
 /// @nodoc
-class __$$_LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res>
+class __$$_LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res, _$_Line>
     implements _$$_LineCopyWith<$Res> {
   __$$_LineCopyWithImpl(_$_Line _value, $Res Function(_$_Line) _then)
-      : super(_value, (v) => _then(v as _$_Line));
+      : super(_value, _then);
 
-  @override
-  _$_Line get _value => super._value as _$_Line;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? line = freezed,
@@ -305,15 +308,15 @@ class __$$_LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res>
     Object? fgColor = freezed,
   }) {
     return _then(_$_Line(
-      line: line == freezed
+      line: freezed == line
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
               as String?,
-      bgColor: bgColor == freezed
+      bgColor: freezed == bgColor
           ? _value.bgColor
           : bgColor // ignore: cast_nullable_to_non_nullable
               as int?,
-      fgColor: fgColor == freezed
+      fgColor: freezed == fgColor
           ? _value.fgColor
           : fgColor // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -346,21 +349,18 @@ class _$_Line implements _Line {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Line &&
-            const DeepCollectionEquality().equals(other.line, line) &&
-            const DeepCollectionEquality().equals(other.bgColor, bgColor) &&
-            const DeepCollectionEquality().equals(other.fgColor, fgColor));
+            (identical(other.line, line) || other.line == line) &&
+            (identical(other.bgColor, bgColor) || other.bgColor == bgColor) &&
+            (identical(other.fgColor, fgColor) || other.fgColor == fgColor));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(line),
-      const DeepCollectionEquality().hash(bgColor),
-      const DeepCollectionEquality().hash(fgColor));
+  int get hashCode => Object.hash(runtimeType, line, bgColor, fgColor);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LineCopyWith<_$_Line> get copyWith =>
       __$$_LineCopyWithImpl<_$_Line>(this, _$identity);
 
