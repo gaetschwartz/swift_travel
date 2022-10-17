@@ -43,7 +43,8 @@ mixin _$SbbRouteConnection {
 abstract class $SbbRouteConnectionCopyWith<$Res> {
   factory $SbbRouteConnectionCopyWith(
           SbbRouteConnection value, $Res Function(SbbRouteConnection) then) =
-      _$SbbRouteConnectionCopyWithImpl<$Res>;
+      _$SbbRouteConnectionCopyWithImpl<$Res, SbbRouteConnection>;
+  @useResult
   $Res call(
       {String from,
       String to,
@@ -56,59 +57,61 @@ abstract class $SbbRouteConnectionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbRouteConnectionCopyWithImpl<$Res>
+class _$SbbRouteConnectionCopyWithImpl<$Res, $Val extends SbbRouteConnection>
     implements $SbbRouteConnectionCopyWith<$Res> {
   _$SbbRouteConnectionCopyWithImpl(this._value, this._then);
 
-  final SbbRouteConnection _value;
   // ignore: unused_field
-  final $Res Function(SbbRouteConnection) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? from = freezed,
-    Object? to = freezed,
+    Object? from = null,
+    Object? to = null,
     Object? depDelay = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
     Object? durationInSeconds = freezed,
-    Object? sbbLegs = freezed,
-    Object? disruptions = freezed,
+    Object? sbbLegs = null,
+    Object? disruptions = null,
   }) {
     return _then(_value.copyWith(
-      from: from == freezed
+      from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
               as String,
-      to: to == freezed
+      to: null == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
               as String,
-      depDelay: depDelay == freezed
+      depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      departure: departure == freezed
+      departure: freezed == departure
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      durationInSeconds: durationInSeconds == freezed
+      durationInSeconds: freezed == durationInSeconds
           ? _value.durationInSeconds
           : durationInSeconds // ignore: cast_nullable_to_non_nullable
               as double?,
-      sbbLegs: sbbLegs == freezed
+      sbbLegs: null == sbbLegs
           ? _value.sbbLegs
           : sbbLegs // ignore: cast_nullable_to_non_nullable
               as List<SbbLeg>,
-      disruptions: disruptions == freezed
+      disruptions: null == disruptions
           ? _value.disruptions
           : disruptions // ignore: cast_nullable_to_non_nullable
               as Map<String, Disruption>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -119,6 +122,7 @@ abstract class _$$_SbbRouteConnectionCopyWith<$Res>
           $Res Function(_$_SbbRouteConnection) then) =
       __$$_SbbRouteConnectionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String from,
       String to,
@@ -132,56 +136,54 @@ abstract class _$$_SbbRouteConnectionCopyWith<$Res>
 
 /// @nodoc
 class __$$_SbbRouteConnectionCopyWithImpl<$Res>
-    extends _$SbbRouteConnectionCopyWithImpl<$Res>
+    extends _$SbbRouteConnectionCopyWithImpl<$Res, _$_SbbRouteConnection>
     implements _$$_SbbRouteConnectionCopyWith<$Res> {
   __$$_SbbRouteConnectionCopyWithImpl(
       _$_SbbRouteConnection _value, $Res Function(_$_SbbRouteConnection) _then)
-      : super(_value, (v) => _then(v as _$_SbbRouteConnection));
+      : super(_value, _then);
 
-  @override
-  _$_SbbRouteConnection get _value => super._value as _$_SbbRouteConnection;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? from = freezed,
-    Object? to = freezed,
+    Object? from = null,
+    Object? to = null,
     Object? depDelay = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
     Object? durationInSeconds = freezed,
-    Object? sbbLegs = freezed,
-    Object? disruptions = freezed,
+    Object? sbbLegs = null,
+    Object? disruptions = null,
   }) {
     return _then(_$_SbbRouteConnection(
-      from: from == freezed
+      from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
               as String,
-      to: to == freezed
+      to: null == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
               as String,
-      depDelay: depDelay == freezed
+      depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      departure: departure == freezed
+      departure: freezed == departure
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      durationInSeconds: durationInSeconds == freezed
+      durationInSeconds: freezed == durationInSeconds
           ? _value.durationInSeconds
           : durationInSeconds // ignore: cast_nullable_to_non_nullable
               as double?,
-      sbbLegs: sbbLegs == freezed
+      sbbLegs: null == sbbLegs
           ? _value._sbbLegs
           : sbbLegs // ignore: cast_nullable_to_non_nullable
               as List<SbbLeg>,
-      disruptions: disruptions == freezed
+      disruptions: null == disruptions
           ? _value._disruptions
           : disruptions // ignore: cast_nullable_to_non_nullable
               as Map<String, Disruption>,
@@ -250,13 +252,15 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SbbRouteConnection &&
-            const DeepCollectionEquality().equals(other.from, from) &&
-            const DeepCollectionEquality().equals(other.to, to) &&
-            const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
-            const DeepCollectionEquality().equals(other.departure, departure) &&
-            const DeepCollectionEquality().equals(other.arrival, arrival) &&
-            const DeepCollectionEquality()
-                .equals(other.durationInSeconds, durationInSeconds) &&
+            (identical(other.from, from) || other.from == from) &&
+            (identical(other.to, to) || other.to == to) &&
+            (identical(other.depDelay, depDelay) ||
+                other.depDelay == depDelay) &&
+            (identical(other.departure, departure) ||
+                other.departure == departure) &&
+            (identical(other.arrival, arrival) || other.arrival == arrival) &&
+            (identical(other.durationInSeconds, durationInSeconds) ||
+                other.durationInSeconds == durationInSeconds) &&
             const DeepCollectionEquality().equals(other._sbbLegs, _sbbLegs) &&
             const DeepCollectionEquality()
                 .equals(other._disruptions, _disruptions));
@@ -266,17 +270,18 @@ class _$_SbbRouteConnection extends _SbbRouteConnection {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(from),
-      const DeepCollectionEquality().hash(to),
-      const DeepCollectionEquality().hash(depDelay),
-      const DeepCollectionEquality().hash(departure),
-      const DeepCollectionEquality().hash(arrival),
-      const DeepCollectionEquality().hash(durationInSeconds),
+      from,
+      to,
+      depDelay,
+      departure,
+      arrival,
+      durationInSeconds,
       const DeepCollectionEquality().hash(_sbbLegs),
       const DeepCollectionEquality().hash(_disruptions));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SbbRouteConnectionCopyWith<_$_SbbRouteConnection> get copyWith =>
       __$$_SbbRouteConnectionCopyWithImpl<_$_SbbRouteConnection>(
           this, _$identity);

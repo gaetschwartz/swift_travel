@@ -55,7 +55,8 @@ mixin _$SbbStationboardConnection {
 abstract class $SbbStationboardConnectionCopyWith<$Res> {
   factory $SbbStationboardConnectionCopyWith(SbbStationboardConnection value,
           $Res Function(SbbStationboardConnection) then) =
-      _$SbbStationboardConnectionCopyWithImpl<$Res>;
+      _$SbbStationboardConnectionCopyWithImpl<$Res, SbbStationboardConnection>;
+  @useResult
   $Res call(
       {DateTime time,
       PlaceType type,
@@ -84,90 +85,94 @@ abstract class $SbbStationboardConnectionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbStationboardConnectionCopyWithImpl<$Res>
+class _$SbbStationboardConnectionCopyWithImpl<$Res,
+        $Val extends SbbStationboardConnection>
     implements $SbbStationboardConnectionCopyWith<$Res> {
   _$SbbStationboardConnectionCopyWithImpl(this._value, this._then);
 
-  final SbbStationboardConnection _value;
   // ignore: unused_field
-  final $Res Function(SbbStationboardConnection) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? time = freezed,
-    Object? type = freezed,
-    Object? color = freezed,
-    Object? sbbTerminal = freezed,
+    Object? time = null,
+    Object? type = null,
+    Object? color = null,
+    Object? sbbTerminal = null,
     Object? line = freezed,
     Object? operator = freezed,
-    Object? number = freezed,
+    Object? number = null,
     Object? g = freezed,
     Object? l = freezed,
-    Object? sbbSubsequentStops = freezed,
+    Object? sbbSubsequentStops = null,
     Object? depDelay = freezed,
     Object? arrDelay = freezed,
     Object? track = freezed,
   }) {
     return _then(_value.copyWith(
-      time: time == freezed
+      time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as PlaceType,
-      color: color == freezed
+      color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      sbbTerminal: sbbTerminal == freezed
+      sbbTerminal: null == sbbTerminal
           ? _value.sbbTerminal
           : sbbTerminal // ignore: cast_nullable_to_non_nullable
               as SbbStop,
-      line: line == freezed
+      line: freezed == line
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
               as String?,
-      operator: operator == freezed
+      operator: freezed == operator
           ? _value.operator
           : operator // ignore: cast_nullable_to_non_nullable
               as String?,
-      number: number == freezed
+      number: null == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as String,
-      g: g == freezed
+      g: freezed == g
           ? _value.g
           : g // ignore: cast_nullable_to_non_nullable
               as String?,
-      l: l == freezed
+      l: freezed == l
           ? _value.l
           : l // ignore: cast_nullable_to_non_nullable
               as String?,
-      sbbSubsequentStops: sbbSubsequentStops == freezed
+      sbbSubsequentStops: null == sbbSubsequentStops
           ? _value.sbbSubsequentStops
           : sbbSubsequentStops // ignore: cast_nullable_to_non_nullable
               as List<SbbSubsequentStop>,
-      depDelay: depDelay == freezed
+      depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      arrDelay: arrDelay == freezed
+      arrDelay: freezed == arrDelay
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      track: track == freezed
+      track: freezed == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SbbStopCopyWith<$Res> get sbbTerminal {
     return $SbbStopCopyWith<$Res>(_value.sbbTerminal, (value) {
-      return _then(_value.copyWith(sbbTerminal: value));
+      return _then(_value.copyWith(sbbTerminal: value) as $Val);
     });
   }
 }
@@ -180,6 +185,7 @@ abstract class _$$_SbbStationboardConnectionCopyWith<$Res>
           $Res Function(_$_SbbStationboardConnection) then) =
       __$$_SbbStationboardConnectionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {DateTime time,
       PlaceType type,
@@ -210,83 +216,81 @@ abstract class _$$_SbbStationboardConnectionCopyWith<$Res>
 
 /// @nodoc
 class __$$_SbbStationboardConnectionCopyWithImpl<$Res>
-    extends _$SbbStationboardConnectionCopyWithImpl<$Res>
+    extends _$SbbStationboardConnectionCopyWithImpl<$Res,
+        _$_SbbStationboardConnection>
     implements _$$_SbbStationboardConnectionCopyWith<$Res> {
   __$$_SbbStationboardConnectionCopyWithImpl(
       _$_SbbStationboardConnection _value,
       $Res Function(_$_SbbStationboardConnection) _then)
-      : super(_value, (v) => _then(v as _$_SbbStationboardConnection));
+      : super(_value, _then);
 
-  @override
-  _$_SbbStationboardConnection get _value =>
-      super._value as _$_SbbStationboardConnection;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? time = freezed,
-    Object? type = freezed,
-    Object? color = freezed,
-    Object? sbbTerminal = freezed,
+    Object? time = null,
+    Object? type = null,
+    Object? color = null,
+    Object? sbbTerminal = null,
     Object? line = freezed,
     Object? operator = freezed,
-    Object? number = freezed,
+    Object? number = null,
     Object? g = freezed,
     Object? l = freezed,
-    Object? sbbSubsequentStops = freezed,
+    Object? sbbSubsequentStops = null,
     Object? depDelay = freezed,
     Object? arrDelay = freezed,
     Object? track = freezed,
   }) {
     return _then(_$_SbbStationboardConnection(
-      time: time == freezed
+      time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as PlaceType,
-      color: color == freezed
+      color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      sbbTerminal: sbbTerminal == freezed
+      sbbTerminal: null == sbbTerminal
           ? _value.sbbTerminal
           : sbbTerminal // ignore: cast_nullable_to_non_nullable
               as SbbStop,
-      line: line == freezed
+      line: freezed == line
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
               as String?,
-      operator: operator == freezed
+      operator: freezed == operator
           ? _value.operator
           : operator // ignore: cast_nullable_to_non_nullable
               as String?,
-      number: number == freezed
+      number: null == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as String,
-      g: g == freezed
+      g: freezed == g
           ? _value.g
           : g // ignore: cast_nullable_to_non_nullable
               as String?,
-      l: l == freezed
+      l: freezed == l
           ? _value.l
           : l // ignore: cast_nullable_to_non_nullable
               as String?,
-      sbbSubsequentStops: sbbSubsequentStops == freezed
+      sbbSubsequentStops: null == sbbSubsequentStops
           ? _value._sbbSubsequentStops
           : sbbSubsequentStops // ignore: cast_nullable_to_non_nullable
               as List<SbbSubsequentStop>,
-      depDelay: depDelay == freezed
+      depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      arrDelay: arrDelay == freezed
+      arrDelay: freezed == arrDelay
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      track: track == freezed
+      track: freezed == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -380,43 +384,47 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SbbStationboardConnection &&
-            const DeepCollectionEquality().equals(other.time, time) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality()
-                .equals(other.sbbTerminal, sbbTerminal) &&
-            const DeepCollectionEquality().equals(other.line, line) &&
-            const DeepCollectionEquality().equals(other.operator, operator) &&
-            const DeepCollectionEquality().equals(other.number, number) &&
-            const DeepCollectionEquality().equals(other.g, g) &&
-            const DeepCollectionEquality().equals(other.l, l) &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.sbbTerminal, sbbTerminal) ||
+                other.sbbTerminal == sbbTerminal) &&
+            (identical(other.line, line) || other.line == line) &&
+            (identical(other.operator, operator) ||
+                other.operator == operator) &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.g, g) || other.g == g) &&
+            (identical(other.l, l) || other.l == l) &&
             const DeepCollectionEquality()
                 .equals(other._sbbSubsequentStops, _sbbSubsequentStops) &&
-            const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
-            const DeepCollectionEquality().equals(other.arrDelay, arrDelay) &&
-            const DeepCollectionEquality().equals(other.track, track));
+            (identical(other.depDelay, depDelay) ||
+                other.depDelay == depDelay) &&
+            (identical(other.arrDelay, arrDelay) ||
+                other.arrDelay == arrDelay) &&
+            (identical(other.track, track) || other.track == track));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(time),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(sbbTerminal),
-      const DeepCollectionEquality().hash(line),
-      const DeepCollectionEquality().hash(operator),
-      const DeepCollectionEquality().hash(number),
-      const DeepCollectionEquality().hash(g),
-      const DeepCollectionEquality().hash(l),
+      time,
+      type,
+      color,
+      sbbTerminal,
+      line,
+      operator,
+      number,
+      g,
+      l,
       const DeepCollectionEquality().hash(_sbbSubsequentStops),
-      const DeepCollectionEquality().hash(depDelay),
-      const DeepCollectionEquality().hash(arrDelay),
-      const DeepCollectionEquality().hash(track));
+      depDelay,
+      arrDelay,
+      track);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SbbStationboardConnectionCopyWith<_$_SbbStationboardConnection>
       get copyWith => __$$_SbbStationboardConnectionCopyWithImpl<
           _$_SbbStationboardConnection>(this, _$identity);

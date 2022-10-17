@@ -32,29 +32,32 @@ mixin _$_VehicleIconclass {
 abstract class _$VehicleIconclassCopyWith<$Res> {
   factory _$VehicleIconclassCopyWith(
           _VehicleIconclass value, $Res Function(_VehicleIconclass) then) =
-      __$VehicleIconclassCopyWithImpl<$Res>;
+      __$VehicleIconclassCopyWithImpl<$Res, _VehicleIconclass>;
+  @useResult
   $Res call({PlaceType v});
 }
 
 /// @nodoc
-class __$VehicleIconclassCopyWithImpl<$Res>
+class __$VehicleIconclassCopyWithImpl<$Res, $Val extends _VehicleIconclass>
     implements _$VehicleIconclassCopyWith<$Res> {
   __$VehicleIconclassCopyWithImpl(this._value, this._then);
 
-  final _VehicleIconclass _value;
   // ignore: unused_field
-  final $Res Function(_VehicleIconclass) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? v = freezed,
+    Object? v = null,
   }) {
     return _then(_value.copyWith(
-      v: v == freezed
+      v: null == v
           ? _value.v
           : v // ignore: cast_nullable_to_non_nullable
               as PlaceType,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,26 +68,25 @@ abstract class _$$__VehicleIconclassCopyWith<$Res>
           $Res Function(_$__VehicleIconclass) then) =
       __$$__VehicleIconclassCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({PlaceType v});
 }
 
 /// @nodoc
 class __$$__VehicleIconclassCopyWithImpl<$Res>
-    extends __$VehicleIconclassCopyWithImpl<$Res>
+    extends __$VehicleIconclassCopyWithImpl<$Res, _$__VehicleIconclass>
     implements _$$__VehicleIconclassCopyWith<$Res> {
   __$$__VehicleIconclassCopyWithImpl(
       _$__VehicleIconclass _value, $Res Function(_$__VehicleIconclass) _then)
-      : super(_value, (v) => _then(v as _$__VehicleIconclass));
+      : super(_value, _then);
 
-  @override
-  _$__VehicleIconclass get _value => super._value as _$__VehicleIconclass;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? v = freezed,
+    Object? v = null,
   }) {
     return _then(_$__VehicleIconclass(
-      v == freezed
+      null == v
           ? _value.v
           : v // ignore: cast_nullable_to_non_nullable
               as PlaceType,
@@ -113,16 +115,16 @@ class _$__VehicleIconclass implements __VehicleIconclass {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$__VehicleIconclass &&
-            const DeepCollectionEquality().equals(other.v, v));
+            (identical(other.v, v) || other.v == v));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(v));
+  int get hashCode => Object.hash(runtimeType, v);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$__VehicleIconclassCopyWith<_$__VehicleIconclass> get copyWith =>
       __$$__VehicleIconclassCopyWithImpl<_$__VehicleIconclass>(
           this, _$identity);

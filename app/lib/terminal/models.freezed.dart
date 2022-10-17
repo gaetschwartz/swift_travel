@@ -31,7 +31,8 @@ mixin _$TerminalContext {
 abstract class $TerminalContextCopyWith<$Res> {
   factory $TerminalContextCopyWith(
           TerminalContext value, $Res Function(TerminalContext) then) =
-      _$TerminalContextCopyWithImpl<$Res>;
+      _$TerminalContextCopyWithImpl<$Res, TerminalContext>;
+  @useResult
   $Res call(
       {List<String> command,
       Writer w,
@@ -40,39 +41,41 @@ abstract class $TerminalContextCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TerminalContextCopyWithImpl<$Res>
+class _$TerminalContextCopyWithImpl<$Res, $Val extends TerminalContext>
     implements $TerminalContextCopyWith<$Res> {
   _$TerminalContextCopyWithImpl(this._value, this._then);
 
-  final TerminalContext _value;
   // ignore: unused_field
-  final $Res Function(TerminalContext) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? command = freezed,
-    Object? w = freezed,
-    Object? stateController = freezed,
-    Object? context = freezed,
+    Object? command = null,
+    Object? w = null,
+    Object? stateController = null,
+    Object? context = null,
   }) {
     return _then(_value.copyWith(
-      command: command == freezed
+      command: null == command
           ? _value.command
           : command // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      w: w == freezed
+      w: null == w
           ? _value.w
           : w // ignore: cast_nullable_to_non_nullable
               as Writer,
-      stateController: stateController == freezed
+      stateController: null == stateController
           ? _value.stateController
           : stateController // ignore: cast_nullable_to_non_nullable
               as StateController<List<TerminalCommandResult>>,
-      context: context == freezed
+      context: null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
-    ));
+    ) as $Val);
   }
 }
 
@@ -83,6 +86,7 @@ abstract class _$$_TerminalContextCopyWith<$Res>
           _$_TerminalContext value, $Res Function(_$_TerminalContext) then) =
       __$$_TerminalContextCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {List<String> command,
       Writer w,
@@ -92,36 +96,34 @@ abstract class _$$_TerminalContextCopyWith<$Res>
 
 /// @nodoc
 class __$$_TerminalContextCopyWithImpl<$Res>
-    extends _$TerminalContextCopyWithImpl<$Res>
+    extends _$TerminalContextCopyWithImpl<$Res, _$_TerminalContext>
     implements _$$_TerminalContextCopyWith<$Res> {
   __$$_TerminalContextCopyWithImpl(
       _$_TerminalContext _value, $Res Function(_$_TerminalContext) _then)
-      : super(_value, (v) => _then(v as _$_TerminalContext));
+      : super(_value, _then);
 
-  @override
-  _$_TerminalContext get _value => super._value as _$_TerminalContext;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? command = freezed,
-    Object? w = freezed,
-    Object? stateController = freezed,
-    Object? context = freezed,
+    Object? command = null,
+    Object? w = null,
+    Object? stateController = null,
+    Object? context = null,
   }) {
     return _then(_$_TerminalContext(
-      command == freezed
+      null == command
           ? _value._command
           : command // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      w == freezed
+      null == w
           ? _value.w
           : w // ignore: cast_nullable_to_non_nullable
               as Writer,
-      stateController == freezed
+      null == stateController
           ? _value.stateController
           : stateController // ignore: cast_nullable_to_non_nullable
               as StateController<List<TerminalCommandResult>>,
-      context == freezed
+      null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
@@ -162,9 +164,9 @@ class _$_TerminalContext implements _TerminalContext {
             other is _$_TerminalContext &&
             const DeepCollectionEquality().equals(other._command, _command) &&
             (identical(other.w, w) || other.w == w) &&
-            const DeepCollectionEquality()
-                .equals(other.stateController, stateController) &&
-            const DeepCollectionEquality().equals(other.context, context));
+            (identical(other.stateController, stateController) ||
+                other.stateController == stateController) &&
+            (identical(other.context, context) || other.context == context));
   }
 
   @override
@@ -172,11 +174,12 @@ class _$_TerminalContext implements _TerminalContext {
       runtimeType,
       const DeepCollectionEquality().hash(_command),
       w,
-      const DeepCollectionEquality().hash(stateController),
-      const DeepCollectionEquality().hash(context));
+      stateController,
+      context);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TerminalContextCopyWith<_$_TerminalContext> get copyWith =>
       __$$_TerminalContextCopyWithImpl<_$_TerminalContext>(this, _$identity);
 }
@@ -216,34 +219,38 @@ mixin _$TerminalCommandResult {
 abstract class $TerminalCommandResultCopyWith<$Res> {
   factory $TerminalCommandResultCopyWith(TerminalCommandResult value,
           $Res Function(TerminalCommandResult) then) =
-      _$TerminalCommandResultCopyWithImpl<$Res>;
+      _$TerminalCommandResultCopyWithImpl<$Res, TerminalCommandResult>;
+  @useResult
   $Res call({String command, String result});
 }
 
 /// @nodoc
-class _$TerminalCommandResultCopyWithImpl<$Res>
+class _$TerminalCommandResultCopyWithImpl<$Res,
+        $Val extends TerminalCommandResult>
     implements $TerminalCommandResultCopyWith<$Res> {
   _$TerminalCommandResultCopyWithImpl(this._value, this._then);
 
-  final TerminalCommandResult _value;
   // ignore: unused_field
-  final $Res Function(TerminalCommandResult) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? command = freezed,
-    Object? result = freezed,
+    Object? command = null,
+    Object? result = null,
   }) {
     return _then(_value.copyWith(
-      command: command == freezed
+      command: null == command
           ? _value.command
           : command // ignore: cast_nullable_to_non_nullable
               as String,
-      result: result == freezed
+      result: null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -254,32 +261,30 @@ abstract class _$$_TerminalCommandResultCopyWith<$Res>
           $Res Function(_$_TerminalCommandResult) then) =
       __$$_TerminalCommandResultCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String command, String result});
 }
 
 /// @nodoc
 class __$$_TerminalCommandResultCopyWithImpl<$Res>
-    extends _$TerminalCommandResultCopyWithImpl<$Res>
+    extends _$TerminalCommandResultCopyWithImpl<$Res, _$_TerminalCommandResult>
     implements _$$_TerminalCommandResultCopyWith<$Res> {
   __$$_TerminalCommandResultCopyWithImpl(_$_TerminalCommandResult _value,
       $Res Function(_$_TerminalCommandResult) _then)
-      : super(_value, (v) => _then(v as _$_TerminalCommandResult));
+      : super(_value, _then);
 
-  @override
-  _$_TerminalCommandResult get _value =>
-      super._value as _$_TerminalCommandResult;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? command = freezed,
-    Object? result = freezed,
+    Object? command = null,
+    Object? result = null,
   }) {
     return _then(_$_TerminalCommandResult(
-      command == freezed
+      null == command
           ? _value.command
           : command // ignore: cast_nullable_to_non_nullable
               as String,
-      result == freezed
+      null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
               as String,
@@ -307,18 +312,16 @@ class _$_TerminalCommandResult implements _TerminalCommandResult {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TerminalCommandResult &&
-            const DeepCollectionEquality().equals(other.command, command) &&
-            const DeepCollectionEquality().equals(other.result, result));
+            (identical(other.command, command) || other.command == command) &&
+            (identical(other.result, result) || other.result == result));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(command),
-      const DeepCollectionEquality().hash(result));
+  int get hashCode => Object.hash(runtimeType, command, result);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TerminalCommandResultCopyWith<_$_TerminalCommandResult> get copyWith =>
       __$$_TerminalCommandResultCopyWithImpl<_$_TerminalCommandResult>(
           this, _$identity);
@@ -354,7 +357,8 @@ mixin _$CommandDefinition {
 abstract class $CommandDefinitionCopyWith<$Res> {
   factory $CommandDefinitionCopyWith(
           CommandDefinition value, $Res Function(CommandDefinition) then) =
-      _$CommandDefinitionCopyWithImpl<$Res>;
+      _$CommandDefinitionCopyWithImpl<$Res, CommandDefinition>;
+  @useResult
   $Res call(
       {String command,
       String description,
@@ -362,34 +366,36 @@ abstract class $CommandDefinitionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CommandDefinitionCopyWithImpl<$Res>
+class _$CommandDefinitionCopyWithImpl<$Res, $Val extends CommandDefinition>
     implements $CommandDefinitionCopyWith<$Res> {
   _$CommandDefinitionCopyWithImpl(this._value, this._then);
 
-  final CommandDefinition _value;
   // ignore: unused_field
-  final $Res Function(CommandDefinition) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? command = freezed,
-    Object? description = freezed,
-    Object? run = freezed,
+    Object? command = null,
+    Object? description = null,
+    Object? run = null,
   }) {
     return _then(_value.copyWith(
-      command: command == freezed
+      command: null == command
           ? _value.command
           : command // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      run: run == freezed
+      run: null == run
           ? _value.run
           : run // ignore: cast_nullable_to_non_nullable
               as FutureOr<void> Function(TerminalContext),
-    ));
+    ) as $Val);
   }
 }
 
@@ -400,6 +406,7 @@ abstract class _$$_CommandDefinitionCopyWith<$Res>
           $Res Function(_$_CommandDefinition) then) =
       __$$_CommandDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String command,
       String description,
@@ -408,31 +415,29 @@ abstract class _$$_CommandDefinitionCopyWith<$Res>
 
 /// @nodoc
 class __$$_CommandDefinitionCopyWithImpl<$Res>
-    extends _$CommandDefinitionCopyWithImpl<$Res>
+    extends _$CommandDefinitionCopyWithImpl<$Res, _$_CommandDefinition>
     implements _$$_CommandDefinitionCopyWith<$Res> {
   __$$_CommandDefinitionCopyWithImpl(
       _$_CommandDefinition _value, $Res Function(_$_CommandDefinition) _then)
-      : super(_value, (v) => _then(v as _$_CommandDefinition));
+      : super(_value, _then);
 
-  @override
-  _$_CommandDefinition get _value => super._value as _$_CommandDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? command = freezed,
-    Object? description = freezed,
-    Object? run = freezed,
+    Object? command = null,
+    Object? description = null,
+    Object? run = null,
   }) {
     return _then(_$_CommandDefinition(
-      command == freezed
+      null == command
           ? _value.command
           : command // ignore: cast_nullable_to_non_nullable
               as String,
-      description == freezed
+      null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      run == freezed
+      null == run
           ? _value.run
           : run // ignore: cast_nullable_to_non_nullable
               as FutureOr<void> Function(TerminalContext),
@@ -462,21 +467,18 @@ class _$_CommandDefinition implements _CommandDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CommandDefinition &&
-            const DeepCollectionEquality().equals(other.command, command) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
+            (identical(other.command, command) || other.command == command) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.run, run) || other.run == run));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(command),
-      const DeepCollectionEquality().hash(description),
-      run);
+  int get hashCode => Object.hash(runtimeType, command, description, run);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CommandDefinitionCopyWith<_$_CommandDefinition> get copyWith =>
       __$$_CommandDefinitionCopyWithImpl<_$_CommandDefinition>(
           this, _$identity);

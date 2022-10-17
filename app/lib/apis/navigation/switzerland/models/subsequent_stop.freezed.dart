@@ -47,7 +47,8 @@ mixin _$SbbSubsequentStop {
 abstract class $SbbSubsequentStopCopyWith<$Res> {
   factory $SbbSubsequentStopCopyWith(
           SbbSubsequentStop value, $Res Function(SbbSubsequentStop) then) =
-      _$SbbSubsequentStopCopyWithImpl<$Res>;
+      _$SbbSubsequentStopCopyWithImpl<$Res, SbbSubsequentStop>;
+  @useResult
   $Res call(
       {String name,
       @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
@@ -62,17 +63,19 @@ abstract class $SbbSubsequentStopCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbSubsequentStopCopyWithImpl<$Res>
+class _$SbbSubsequentStopCopyWithImpl<$Res, $Val extends SbbSubsequentStop>
     implements $SbbSubsequentStopCopyWith<$Res> {
   _$SbbSubsequentStopCopyWithImpl(this._value, this._then);
 
-  final SbbSubsequentStop _value;
   // ignore: unused_field
-  final $Res Function(SbbSubsequentStop) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? depDelay = freezed,
     Object? arrDelay = freezed,
     Object? id = freezed,
@@ -84,47 +87,47 @@ class _$SbbSubsequentStopCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      depDelay: depDelay == freezed
+      depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      arrDelay: arrDelay == freezed
+      arrDelay: freezed == arrDelay
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      departure: departure == freezed
+      departure: freezed == departure
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      lat: lat == freezed
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double?,
-      lon: lon == freezed
+      lon: freezed == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double?,
-      x: x == freezed
+      x: freezed == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: freezed == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -135,6 +138,7 @@ abstract class _$$_SbbSubsequentStopCopyWith<$Res>
           $Res Function(_$_SbbSubsequentStop) then) =
       __$$_SbbSubsequentStopCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
@@ -150,18 +154,16 @@ abstract class _$$_SbbSubsequentStopCopyWith<$Res>
 
 /// @nodoc
 class __$$_SbbSubsequentStopCopyWithImpl<$Res>
-    extends _$SbbSubsequentStopCopyWithImpl<$Res>
+    extends _$SbbSubsequentStopCopyWithImpl<$Res, _$_SbbSubsequentStop>
     implements _$$_SbbSubsequentStopCopyWith<$Res> {
   __$$_SbbSubsequentStopCopyWithImpl(
       _$_SbbSubsequentStop _value, $Res Function(_$_SbbSubsequentStop) _then)
-      : super(_value, (v) => _then(v as _$_SbbSubsequentStop));
+      : super(_value, _then);
 
-  @override
-  _$_SbbSubsequentStop get _value => super._value as _$_SbbSubsequentStop;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? depDelay = freezed,
     Object? arrDelay = freezed,
     Object? id = freezed,
@@ -173,43 +175,43 @@ class __$$_SbbSubsequentStopCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_$_SbbSubsequentStop(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      depDelay: depDelay == freezed
+      depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      arrDelay: arrDelay == freezed
+      arrDelay: freezed == arrDelay
           ? _value.arrDelay
           : arrDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      departure: departure == freezed
+      departure: freezed == departure
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      lat: lat == freezed
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double?,
-      lon: lon == freezed
+      lon: freezed == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double?,
-      x: x == freezed
+      x: freezed == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: freezed == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -273,35 +275,29 @@ class _$_SbbSubsequentStop extends _SbbSubsequentStop {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SbbSubsequentStop &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
-            const DeepCollectionEquality().equals(other.arrDelay, arrDelay) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.departure, departure) &&
-            const DeepCollectionEquality().equals(other.arrival, arrival) &&
-            const DeepCollectionEquality().equals(other.lat, lat) &&
-            const DeepCollectionEquality().equals(other.lon, lon) &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.y, y));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.depDelay, depDelay) ||
+                other.depDelay == depDelay) &&
+            (identical(other.arrDelay, arrDelay) ||
+                other.arrDelay == arrDelay) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.departure, departure) ||
+                other.departure == departure) &&
+            (identical(other.arrival, arrival) || other.arrival == arrival) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(depDelay),
-      const DeepCollectionEquality().hash(arrDelay),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(departure),
-      const DeepCollectionEquality().hash(arrival),
-      const DeepCollectionEquality().hash(lat),
-      const DeepCollectionEquality().hash(lon),
-      const DeepCollectionEquality().hash(x),
-      const DeepCollectionEquality().hash(y));
+  int get hashCode => Object.hash(runtimeType, name, depDelay, arrDelay, id,
+      departure, arrival, lat, lon, x, y);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SbbSubsequentStopCopyWith<_$_SbbSubsequentStop> get copyWith =>
       __$$_SbbSubsequentStopCopyWithImpl<_$_SbbSubsequentStop>(
           this, _$identity);

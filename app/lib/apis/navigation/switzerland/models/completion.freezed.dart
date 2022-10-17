@@ -39,7 +39,8 @@ mixin _$SbbCompletion {
 abstract class $SbbCompletionCopyWith<$Res> {
   factory $SbbCompletionCopyWith(
           SbbCompletion value, $Res Function(SbbCompletion) then) =
-      _$SbbCompletionCopyWithImpl<$Res>;
+      _$SbbCompletionCopyWithImpl<$Res, SbbCompletion>;
+  @useResult
   $Res call(
       {String label,
       double? dist,
@@ -51,54 +52,56 @@ abstract class $SbbCompletionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbCompletionCopyWithImpl<$Res>
+class _$SbbCompletionCopyWithImpl<$Res, $Val extends SbbCompletion>
     implements $SbbCompletionCopyWith<$Res> {
   _$SbbCompletionCopyWithImpl(this._value, this._then);
 
-  final SbbCompletion _value;
   // ignore: unused_field
-  final $Res Function(SbbCompletion) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? label = freezed,
+    Object? label = null,
     Object? dist = freezed,
     Object? iconClass = freezed,
     Object? html = freezed,
     Object? id = freezed,
     Object? favoriteName = freezed,
-    Object? origin = freezed,
+    Object? origin = null,
   }) {
     return _then(_value.copyWith(
-      label: label == freezed
+      label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      dist: dist == freezed
+      dist: freezed == dist
           ? _value.dist
           : dist // ignore: cast_nullable_to_non_nullable
               as double?,
-      iconClass: iconClass == freezed
+      iconClass: freezed == iconClass
           ? _value.iconClass
           : iconClass // ignore: cast_nullable_to_non_nullable
               as String?,
-      html: html == freezed
+      html: freezed == html
           ? _value.html
           : html // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      favoriteName: favoriteName == freezed
+      favoriteName: freezed == favoriteName
           ? _value.favoriteName
           : favoriteName // ignore: cast_nullable_to_non_nullable
               as String?,
-      origin: origin == freezed
+      origin: null == origin
           ? _value.origin
           : origin // ignore: cast_nullable_to_non_nullable
               as DataOrigin,
-    ));
+    ) as $Val);
   }
 }
 
@@ -109,6 +112,7 @@ abstract class _$$_SbbCompletionCopyWith<$Res>
           _$_SbbCompletion value, $Res Function(_$_SbbCompletion) then) =
       __$$_SbbCompletionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String label,
       double? dist,
@@ -121,51 +125,49 @@ abstract class _$$_SbbCompletionCopyWith<$Res>
 
 /// @nodoc
 class __$$_SbbCompletionCopyWithImpl<$Res>
-    extends _$SbbCompletionCopyWithImpl<$Res>
+    extends _$SbbCompletionCopyWithImpl<$Res, _$_SbbCompletion>
     implements _$$_SbbCompletionCopyWith<$Res> {
   __$$_SbbCompletionCopyWithImpl(
       _$_SbbCompletion _value, $Res Function(_$_SbbCompletion) _then)
-      : super(_value, (v) => _then(v as _$_SbbCompletion));
+      : super(_value, _then);
 
-  @override
-  _$_SbbCompletion get _value => super._value as _$_SbbCompletion;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? label = freezed,
+    Object? label = null,
     Object? dist = freezed,
     Object? iconClass = freezed,
     Object? html = freezed,
     Object? id = freezed,
     Object? favoriteName = freezed,
-    Object? origin = freezed,
+    Object? origin = null,
   }) {
     return _then(_$_SbbCompletion(
-      label: label == freezed
+      label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      dist: dist == freezed
+      dist: freezed == dist
           ? _value.dist
           : dist // ignore: cast_nullable_to_non_nullable
               as double?,
-      iconClass: iconClass == freezed
+      iconClass: freezed == iconClass
           ? _value.iconClass
           : iconClass // ignore: cast_nullable_to_non_nullable
               as String?,
-      html: html == freezed
+      html: freezed == html
           ? _value.html
           : html // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      favoriteName: favoriteName == freezed
+      favoriteName: freezed == favoriteName
           ? _value.favoriteName
           : favoriteName // ignore: cast_nullable_to_non_nullable
               as String?,
-      origin: origin == freezed
+      origin: null == origin
           ? _value.origin
           : origin // ignore: cast_nullable_to_non_nullable
               as DataOrigin,
@@ -217,30 +219,25 @@ class _$_SbbCompletion extends _SbbCompletion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SbbCompletion &&
-            const DeepCollectionEquality().equals(other.label, label) &&
-            const DeepCollectionEquality().equals(other.dist, dist) &&
-            const DeepCollectionEquality().equals(other.iconClass, iconClass) &&
-            const DeepCollectionEquality().equals(other.html, html) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality()
-                .equals(other.favoriteName, favoriteName) &&
-            const DeepCollectionEquality().equals(other.origin, origin));
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.dist, dist) || other.dist == dist) &&
+            (identical(other.iconClass, iconClass) ||
+                other.iconClass == iconClass) &&
+            (identical(other.html, html) || other.html == html) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.favoriteName, favoriteName) ||
+                other.favoriteName == favoriteName) &&
+            (identical(other.origin, origin) || other.origin == origin));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(label),
-      const DeepCollectionEquality().hash(dist),
-      const DeepCollectionEquality().hash(iconClass),
-      const DeepCollectionEquality().hash(html),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(favoriteName),
-      const DeepCollectionEquality().hash(origin));
+      runtimeType, label, dist, iconClass, html, id, favoriteName, origin);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SbbCompletionCopyWith<_$_SbbCompletion> get copyWith =>
       __$$_SbbCompletionCopyWithImpl<_$_SbbCompletion>(this, _$identity);
 

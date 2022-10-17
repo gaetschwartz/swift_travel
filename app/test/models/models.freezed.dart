@@ -40,9 +40,9 @@ mixin _$Union {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(String name)? $default, {
-    TResult Function(String name, int legs)? animal,
-    TResult Function(int number)? number,
+    TResult? Function(String name)? $default, {
+    TResult? Function(String name, int legs)? animal,
+    TResult? Function(int number)? number,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,9 +62,9 @@ mixin _$Union {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(Person value)? $default, {
-    TResult Function(Animal value)? animal,
-    TResult Function(Number value)? number,
+    TResult? Function(Person value)? $default, {
+    TResult? Function(Animal value)? animal,
+    TResult? Function(Number value)? number,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,40 +81,41 @@ mixin _$Union {
 /// @nodoc
 abstract class $UnionCopyWith<$Res> {
   factory $UnionCopyWith(Union value, $Res Function(Union) then) =
-      _$UnionCopyWithImpl<$Res>;
+      _$UnionCopyWithImpl<$Res, Union>;
 }
 
 /// @nodoc
-class _$UnionCopyWithImpl<$Res> implements $UnionCopyWith<$Res> {
+class _$UnionCopyWithImpl<$Res, $Val extends Union>
+    implements $UnionCopyWith<$Res> {
   _$UnionCopyWithImpl(this._value, this._then);
 
-  final Union _value;
   // ignore: unused_field
-  final $Res Function(Union) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
 abstract class _$$PersonCopyWith<$Res> {
   factory _$$PersonCopyWith(_$Person value, $Res Function(_$Person) then) =
       __$$PersonCopyWithImpl<$Res>;
+  @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
+class __$$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Person>
     implements _$$PersonCopyWith<$Res> {
   __$$PersonCopyWithImpl(_$Person _value, $Res Function(_$Person) _then)
-      : super(_value, (v) => _then(v as _$Person));
+      : super(_value, _then);
 
-  @override
-  _$Person get _value => super._value as _$Person;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
   }) {
     return _then(_$Person(
-      name == freezed
+      null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -146,16 +147,16 @@ class _$Person implements Person {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Person &&
-            const DeepCollectionEquality().equals(other.name, name));
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(name));
+  int get hashCode => Object.hash(runtimeType, name);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PersonCopyWith<_$Person> get copyWith =>
       __$$PersonCopyWithImpl<_$Person>(this, _$identity);
 
@@ -172,9 +173,9 @@ class _$Person implements Person {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(String name)? $default, {
-    TResult Function(String name, int legs)? animal,
-    TResult Function(int number)? number,
+    TResult? Function(String name)? $default, {
+    TResult? Function(String name, int legs)? animal,
+    TResult? Function(int number)? number,
   }) {
     return $default?.call(name);
   }
@@ -206,9 +207,9 @@ class _$Person implements Person {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(Person value)? $default, {
-    TResult Function(Animal value)? animal,
-    TResult Function(Number value)? number,
+    TResult? Function(Person value)? $default, {
+    TResult? Function(Animal value)? animal,
+    TResult? Function(Number value)? number,
   }) {
     return $default?.call(this);
   }
@@ -250,29 +251,28 @@ abstract class Person implements Union {
 abstract class _$$AnimalCopyWith<$Res> {
   factory _$$AnimalCopyWith(_$Animal value, $Res Function(_$Animal) then) =
       __$$AnimalCopyWithImpl<$Res>;
+  @useResult
   $Res call({String name, int legs});
 }
 
 /// @nodoc
-class __$$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
+class __$$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Animal>
     implements _$$AnimalCopyWith<$Res> {
   __$$AnimalCopyWithImpl(_$Animal _value, $Res Function(_$Animal) _then)
-      : super(_value, (v) => _then(v as _$Animal));
+      : super(_value, _then);
 
-  @override
-  _$Animal get _value => super._value as _$Animal;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? legs = freezed,
+    Object? name = null,
+    Object? legs = null,
   }) {
     return _then(_$Animal(
-      name == freezed
+      null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      legs == freezed
+      null == legs
           ? _value.legs
           : legs // ignore: cast_nullable_to_non_nullable
               as int,
@@ -307,19 +307,17 @@ class _$Animal implements Animal {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Animal &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.legs, legs));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.legs, legs) || other.legs == legs));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(legs));
+  int get hashCode => Object.hash(runtimeType, name, legs);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$AnimalCopyWith<_$Animal> get copyWith =>
       __$$AnimalCopyWithImpl<_$Animal>(this, _$identity);
 
@@ -336,9 +334,9 @@ class _$Animal implements Animal {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(String name)? $default, {
-    TResult Function(String name, int legs)? animal,
-    TResult Function(int number)? number,
+    TResult? Function(String name)? $default, {
+    TResult? Function(String name, int legs)? animal,
+    TResult? Function(int number)? number,
   }) {
     return animal?.call(name, legs);
   }
@@ -370,9 +368,9 @@ class _$Animal implements Animal {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(Person value)? $default, {
-    TResult Function(Animal value)? animal,
-    TResult Function(Number value)? number,
+    TResult? Function(Person value)? $default, {
+    TResult? Function(Animal value)? animal,
+    TResult? Function(Number value)? number,
   }) {
     return animal?.call(this);
   }
@@ -415,24 +413,23 @@ abstract class Animal implements Union {
 abstract class _$$NumberCopyWith<$Res> {
   factory _$$NumberCopyWith(_$Number value, $Res Function(_$Number) then) =
       __$$NumberCopyWithImpl<$Res>;
+  @useResult
   $Res call({int number});
 }
 
 /// @nodoc
-class __$$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
+class __$$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Number>
     implements _$$NumberCopyWith<$Res> {
   __$$NumberCopyWithImpl(_$Number _value, $Res Function(_$Number) _then)
-      : super(_value, (v) => _then(v as _$Number));
+      : super(_value, _then);
 
-  @override
-  _$Number get _value => super._value as _$Number;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? number = freezed,
+    Object? number = null,
   }) {
     return _then(_$Number(
-      number == freezed
+      null == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as int,
@@ -465,16 +462,16 @@ class _$Number implements Number {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Number &&
-            const DeepCollectionEquality().equals(other.number, number));
+            (identical(other.number, number) || other.number == number));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(number));
+  int get hashCode => Object.hash(runtimeType, number);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$NumberCopyWith<_$Number> get copyWith =>
       __$$NumberCopyWithImpl<_$Number>(this, _$identity);
 
@@ -491,9 +488,9 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(String name)? $default, {
-    TResult Function(String name, int legs)? animal,
-    TResult Function(int number)? number,
+    TResult? Function(String name)? $default, {
+    TResult? Function(String name, int legs)? animal,
+    TResult? Function(int number)? number,
   }) {
     return number?.call(this.number);
   }
@@ -525,9 +522,9 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(Person value)? $default, {
-    TResult Function(Animal value)? animal,
-    TResult Function(Number value)? number,
+    TResult? Function(Person value)? $default, {
+    TResult? Function(Animal value)? animal,
+    TResult? Function(Number value)? number,
   }) {
     return number?.call(this);
   }

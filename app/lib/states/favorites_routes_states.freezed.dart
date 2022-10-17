@@ -25,9 +25,9 @@ mixin _$FavoritesRoutesStates {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<LocalRoute> routes)? data,
-    TResult Function()? loading,
-    TResult Function(Exception exception)? exception,
+    TResult? Function(List<LocalRoute> routes)? data,
+    TResult? Function()? loading,
+    TResult? Function(Exception exception)? exception,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,9 +47,9 @@ mixin _$FavoritesRoutesStates {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(FavoritesRoutesStatesData value)? data,
-    TResult Function(FavoritesRoutesStatesLoading value)? loading,
-    TResult Function(FavoritesRoutesStatesError value)? exception,
+    TResult? Function(FavoritesRoutesStatesData value)? data,
+    TResult? Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult? Function(FavoritesRoutesStatesError value)? exception,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,17 +66,19 @@ mixin _$FavoritesRoutesStates {
 abstract class $FavoritesRoutesStatesCopyWith<$Res> {
   factory $FavoritesRoutesStatesCopyWith(FavoritesRoutesStates value,
           $Res Function(FavoritesRoutesStates) then) =
-      _$FavoritesRoutesStatesCopyWithImpl<$Res>;
+      _$FavoritesRoutesStatesCopyWithImpl<$Res, FavoritesRoutesStates>;
 }
 
 /// @nodoc
-class _$FavoritesRoutesStatesCopyWithImpl<$Res>
+class _$FavoritesRoutesStatesCopyWithImpl<$Res,
+        $Val extends FavoritesRoutesStates>
     implements $FavoritesRoutesStatesCopyWith<$Res> {
   _$FavoritesRoutesStatesCopyWithImpl(this._value, this._then);
 
-  final FavoritesRoutesStates _value;
   // ignore: unused_field
-  final $Res Function(FavoritesRoutesStates) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -85,27 +87,26 @@ abstract class _$$FavoritesRoutesStatesDataCopyWith<$Res> {
           _$FavoritesRoutesStatesData value,
           $Res Function(_$FavoritesRoutesStatesData) then) =
       __$$FavoritesRoutesStatesDataCopyWithImpl<$Res>;
+  @useResult
   $Res call({List<LocalRoute> routes});
 }
 
 /// @nodoc
 class __$$FavoritesRoutesStatesDataCopyWithImpl<$Res>
-    extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
+    extends _$FavoritesRoutesStatesCopyWithImpl<$Res,
+        _$FavoritesRoutesStatesData>
     implements _$$FavoritesRoutesStatesDataCopyWith<$Res> {
   __$$FavoritesRoutesStatesDataCopyWithImpl(_$FavoritesRoutesStatesData _value,
       $Res Function(_$FavoritesRoutesStatesData) _then)
-      : super(_value, (v) => _then(v as _$FavoritesRoutesStatesData));
+      : super(_value, _then);
 
-  @override
-  _$FavoritesRoutesStatesData get _value =>
-      super._value as _$FavoritesRoutesStatesData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? routes = freezed,
+    Object? routes = null,
   }) {
     return _then(_$FavoritesRoutesStatesData(
-      routes == freezed
+      null == routes
           ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<LocalRoute>,
@@ -145,6 +146,7 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$FavoritesRoutesStatesDataCopyWith<_$FavoritesRoutesStatesData>
       get copyWith => __$$FavoritesRoutesStatesDataCopyWithImpl<
           _$FavoritesRoutesStatesData>(this, _$identity);
@@ -162,9 +164,9 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<LocalRoute> routes)? data,
-    TResult Function()? loading,
-    TResult Function(Exception exception)? exception,
+    TResult? Function(List<LocalRoute> routes)? data,
+    TResult? Function()? loading,
+    TResult? Function(Exception exception)? exception,
   }) {
     return data?.call(routes);
   }
@@ -196,9 +198,9 @@ class _$FavoritesRoutesStatesData implements FavoritesRoutesStatesData {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(FavoritesRoutesStatesData value)? data,
-    TResult Function(FavoritesRoutesStatesLoading value)? loading,
-    TResult Function(FavoritesRoutesStatesError value)? exception,
+    TResult? Function(FavoritesRoutesStatesData value)? data,
+    TResult? Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult? Function(FavoritesRoutesStatesError value)? exception,
   }) {
     return data?.call(this);
   }
@@ -238,16 +240,13 @@ abstract class _$$FavoritesRoutesStatesLoadingCopyWith<$Res> {
 
 /// @nodoc
 class __$$FavoritesRoutesStatesLoadingCopyWithImpl<$Res>
-    extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
+    extends _$FavoritesRoutesStatesCopyWithImpl<$Res,
+        _$FavoritesRoutesStatesLoading>
     implements _$$FavoritesRoutesStatesLoadingCopyWith<$Res> {
   __$$FavoritesRoutesStatesLoadingCopyWithImpl(
       _$FavoritesRoutesStatesLoading _value,
       $Res Function(_$FavoritesRoutesStatesLoading) _then)
-      : super(_value, (v) => _then(v as _$FavoritesRoutesStatesLoading));
-
-  @override
-  _$FavoritesRoutesStatesLoading get _value =>
-      super._value as _$FavoritesRoutesStatesLoading;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -283,9 +282,9 @@ class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<LocalRoute> routes)? data,
-    TResult Function()? loading,
-    TResult Function(Exception exception)? exception,
+    TResult? Function(List<LocalRoute> routes)? data,
+    TResult? Function()? loading,
+    TResult? Function(Exception exception)? exception,
   }) {
     return loading?.call();
   }
@@ -317,9 +316,9 @@ class _$FavoritesRoutesStatesLoading implements FavoritesRoutesStatesLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(FavoritesRoutesStatesData value)? data,
-    TResult Function(FavoritesRoutesStatesLoading value)? loading,
-    TResult Function(FavoritesRoutesStatesError value)? exception,
+    TResult? Function(FavoritesRoutesStatesData value)? data,
+    TResult? Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult? Function(FavoritesRoutesStatesError value)? exception,
   }) {
     return loading?.call(this);
   }
@@ -349,28 +348,27 @@ abstract class _$$FavoritesRoutesStatesErrorCopyWith<$Res> {
           _$FavoritesRoutesStatesError value,
           $Res Function(_$FavoritesRoutesStatesError) then) =
       __$$FavoritesRoutesStatesErrorCopyWithImpl<$Res>;
+  @useResult
   $Res call({Exception exception});
 }
 
 /// @nodoc
 class __$$FavoritesRoutesStatesErrorCopyWithImpl<$Res>
-    extends _$FavoritesRoutesStatesCopyWithImpl<$Res>
+    extends _$FavoritesRoutesStatesCopyWithImpl<$Res,
+        _$FavoritesRoutesStatesError>
     implements _$$FavoritesRoutesStatesErrorCopyWith<$Res> {
   __$$FavoritesRoutesStatesErrorCopyWithImpl(
       _$FavoritesRoutesStatesError _value,
       $Res Function(_$FavoritesRoutesStatesError) _then)
-      : super(_value, (v) => _then(v as _$FavoritesRoutesStatesError));
+      : super(_value, _then);
 
-  @override
-  _$FavoritesRoutesStatesError get _value =>
-      super._value as _$FavoritesRoutesStatesError;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? exception = freezed,
+    Object? exception = null,
   }) {
     return _then(_$FavoritesRoutesStatesError(
-      exception == freezed
+      null == exception
           ? _value.exception
           : exception // ignore: cast_nullable_to_non_nullable
               as Exception,
@@ -396,15 +394,16 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FavoritesRoutesStatesError &&
-            const DeepCollectionEquality().equals(other.exception, exception));
+            (identical(other.exception, exception) ||
+                other.exception == exception));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(exception));
+  int get hashCode => Object.hash(runtimeType, exception);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$FavoritesRoutesStatesErrorCopyWith<_$FavoritesRoutesStatesError>
       get copyWith => __$$FavoritesRoutesStatesErrorCopyWithImpl<
           _$FavoritesRoutesStatesError>(this, _$identity);
@@ -422,9 +421,9 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<LocalRoute> routes)? data,
-    TResult Function()? loading,
-    TResult Function(Exception exception)? exception,
+    TResult? Function(List<LocalRoute> routes)? data,
+    TResult? Function()? loading,
+    TResult? Function(Exception exception)? exception,
   }) {
     return exception?.call(this.exception);
   }
@@ -456,9 +455,9 @@ class _$FavoritesRoutesStatesError implements FavoritesRoutesStatesError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(FavoritesRoutesStatesData value)? data,
-    TResult Function(FavoritesRoutesStatesLoading value)? loading,
-    TResult Function(FavoritesRoutesStatesError value)? exception,
+    TResult? Function(FavoritesRoutesStatesData value)? data,
+    TResult? Function(FavoritesRoutesStatesLoading value)? loading,
+    TResult? Function(FavoritesRoutesStatesError value)? exception,
   }) {
     return exception?.call(this);
   }

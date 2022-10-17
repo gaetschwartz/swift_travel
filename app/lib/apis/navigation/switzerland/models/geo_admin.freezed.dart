@@ -35,20 +35,23 @@ mixin _$SearchCompletion {
 abstract class $SearchCompletionCopyWith<$Res> {
   factory $SearchCompletionCopyWith(
           SearchCompletion value, $Res Function(SearchCompletion) then) =
-      _$SearchCompletionCopyWithImpl<$Res>;
+      _$SearchCompletionCopyWithImpl<$Res, SearchCompletion>;
+  @useResult
   $Res call(
       {String? label, String? html, String? iconclass, String? corrected});
 }
 
 /// @nodoc
-class _$SearchCompletionCopyWithImpl<$Res>
+class _$SearchCompletionCopyWithImpl<$Res, $Val extends SearchCompletion>
     implements $SearchCompletionCopyWith<$Res> {
   _$SearchCompletionCopyWithImpl(this._value, this._then);
 
-  final SearchCompletion _value;
   // ignore: unused_field
-  final $Res Function(SearchCompletion) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? label = freezed,
@@ -57,23 +60,23 @@ class _$SearchCompletionCopyWithImpl<$Res>
     Object? corrected = freezed,
   }) {
     return _then(_value.copyWith(
-      label: label == freezed
+      label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String?,
-      html: html == freezed
+      html: freezed == html
           ? _value.html
           : html // ignore: cast_nullable_to_non_nullable
               as String?,
-      iconclass: iconclass == freezed
+      iconclass: freezed == iconclass
           ? _value.iconclass
           : iconclass // ignore: cast_nullable_to_non_nullable
               as String?,
-      corrected: corrected == freezed
+      corrected: freezed == corrected
           ? _value.corrected
           : corrected // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -84,21 +87,20 @@ abstract class _$$_SearchCompletionCopyWith<$Res>
           _$_SearchCompletion value, $Res Function(_$_SearchCompletion) then) =
       __$$_SearchCompletionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? label, String? html, String? iconclass, String? corrected});
 }
 
 /// @nodoc
 class __$$_SearchCompletionCopyWithImpl<$Res>
-    extends _$SearchCompletionCopyWithImpl<$Res>
+    extends _$SearchCompletionCopyWithImpl<$Res, _$_SearchCompletion>
     implements _$$_SearchCompletionCopyWith<$Res> {
   __$$_SearchCompletionCopyWithImpl(
       _$_SearchCompletion _value, $Res Function(_$_SearchCompletion) _then)
-      : super(_value, (v) => _then(v as _$_SearchCompletion));
+      : super(_value, _then);
 
-  @override
-  _$_SearchCompletion get _value => super._value as _$_SearchCompletion;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? label = freezed,
@@ -107,19 +109,19 @@ class __$$_SearchCompletionCopyWithImpl<$Res>
     Object? corrected = freezed,
   }) {
     return _then(_$_SearchCompletion(
-      label: label == freezed
+      label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String?,
-      html: html == freezed
+      html: freezed == html
           ? _value.html
           : html // ignore: cast_nullable_to_non_nullable
               as String?,
-      iconclass: iconclass == freezed
+      iconclass: freezed == iconclass
           ? _value.iconclass
           : iconclass // ignore: cast_nullable_to_non_nullable
               as String?,
-      corrected: corrected == freezed
+      corrected: freezed == corrected
           ? _value.corrected
           : corrected // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -156,23 +158,22 @@ class _$_SearchCompletion implements _SearchCompletion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SearchCompletion &&
-            const DeepCollectionEquality().equals(other.label, label) &&
-            const DeepCollectionEquality().equals(other.html, html) &&
-            const DeepCollectionEquality().equals(other.iconclass, iconclass) &&
-            const DeepCollectionEquality().equals(other.corrected, corrected));
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.html, html) || other.html == html) &&
+            (identical(other.iconclass, iconclass) ||
+                other.iconclass == iconclass) &&
+            (identical(other.corrected, corrected) ||
+                other.corrected == corrected));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(label),
-      const DeepCollectionEquality().hash(html),
-      const DeepCollectionEquality().hash(iconclass),
-      const DeepCollectionEquality().hash(corrected));
+  int get hashCode =>
+      Object.hash(runtimeType, label, html, iconclass, corrected);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SearchCompletionCopyWith<_$_SearchCompletion> get copyWith =>
       __$$_SearchCompletionCopyWithImpl<_$_SearchCompletion>(this, _$identity);
 
@@ -229,7 +230,8 @@ mixin _$GeoAdminResult {
 abstract class $GeoAdminResultCopyWith<$Res> {
   factory $GeoAdminResultCopyWith(
           GeoAdminResult value, $Res Function(GeoAdminResult) then) =
-      _$GeoAdminResultCopyWithImpl<$Res>;
+      _$GeoAdminResultCopyWithImpl<$Res, GeoAdminResult>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'id') int intId, int weight, GeoAdminAttributes attrs});
 
@@ -237,40 +239,43 @@ abstract class $GeoAdminResultCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$GeoAdminResultCopyWithImpl<$Res>
+class _$GeoAdminResultCopyWithImpl<$Res, $Val extends GeoAdminResult>
     implements $GeoAdminResultCopyWith<$Res> {
   _$GeoAdminResultCopyWithImpl(this._value, this._then);
 
-  final GeoAdminResult _value;
   // ignore: unused_field
-  final $Res Function(GeoAdminResult) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? intId = freezed,
-    Object? weight = freezed,
-    Object? attrs = freezed,
+    Object? intId = null,
+    Object? weight = null,
+    Object? attrs = null,
   }) {
     return _then(_value.copyWith(
-      intId: intId == freezed
+      intId: null == intId
           ? _value.intId
           : intId // ignore: cast_nullable_to_non_nullable
               as int,
-      weight: weight == freezed
+      weight: null == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as int,
-      attrs: attrs == freezed
+      attrs: null == attrs
           ? _value.attrs
           : attrs // ignore: cast_nullable_to_non_nullable
               as GeoAdminAttributes,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $GeoAdminAttributesCopyWith<$Res> get attrs {
     return $GeoAdminAttributesCopyWith<$Res>(_value.attrs, (value) {
-      return _then(_value.copyWith(attrs: value));
+      return _then(_value.copyWith(attrs: value) as $Val);
     });
   }
 }
@@ -282,6 +287,7 @@ abstract class _$$_GeoAdminResultCopyWith<$Res>
           _$_GeoAdminResult value, $Res Function(_$_GeoAdminResult) then) =
       __$$_GeoAdminResultCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'id') int intId, int weight, GeoAdminAttributes attrs});
 
@@ -291,31 +297,29 @@ abstract class _$$_GeoAdminResultCopyWith<$Res>
 
 /// @nodoc
 class __$$_GeoAdminResultCopyWithImpl<$Res>
-    extends _$GeoAdminResultCopyWithImpl<$Res>
+    extends _$GeoAdminResultCopyWithImpl<$Res, _$_GeoAdminResult>
     implements _$$_GeoAdminResultCopyWith<$Res> {
   __$$_GeoAdminResultCopyWithImpl(
       _$_GeoAdminResult _value, $Res Function(_$_GeoAdminResult) _then)
-      : super(_value, (v) => _then(v as _$_GeoAdminResult));
+      : super(_value, _then);
 
-  @override
-  _$_GeoAdminResult get _value => super._value as _$_GeoAdminResult;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? intId = freezed,
-    Object? weight = freezed,
-    Object? attrs = freezed,
+    Object? intId = null,
+    Object? weight = null,
+    Object? attrs = null,
   }) {
     return _then(_$_GeoAdminResult(
-      intId: intId == freezed
+      intId: null == intId
           ? _value.intId
           : intId // ignore: cast_nullable_to_non_nullable
               as int,
-      weight: weight == freezed
+      weight: null == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as int,
-      attrs: attrs == freezed
+      attrs: null == attrs
           ? _value.attrs
           : attrs // ignore: cast_nullable_to_non_nullable
               as GeoAdminAttributes,
@@ -354,21 +358,18 @@ class _$_GeoAdminResult extends _GeoAdminResult {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GeoAdminResult &&
-            const DeepCollectionEquality().equals(other.intId, intId) &&
-            const DeepCollectionEquality().equals(other.weight, weight) &&
-            const DeepCollectionEquality().equals(other.attrs, attrs));
+            (identical(other.intId, intId) || other.intId == intId) &&
+            (identical(other.weight, weight) || other.weight == weight) &&
+            (identical(other.attrs, attrs) || other.attrs == attrs));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(intId),
-      const DeepCollectionEquality().hash(weight),
-      const DeepCollectionEquality().hash(attrs));
+  int get hashCode => Object.hash(runtimeType, intId, weight, attrs);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GeoAdminResultCopyWith<_$_GeoAdminResult> get copyWith =>
       __$$_GeoAdminResultCopyWithImpl<_$_GeoAdminResult>(this, _$identity);
 
@@ -432,7 +433,8 @@ mixin _$GeoAdminAttributes {
 abstract class $GeoAdminAttributesCopyWith<$Res> {
   factory $GeoAdminAttributesCopyWith(
           GeoAdminAttributes value, $Res Function(GeoAdminAttributes) then) =
-      _$GeoAdminAttributesCopyWithImpl<$Res>;
+      _$GeoAdminAttributesCopyWithImpl<$Res, GeoAdminAttributes>;
+  @useResult
   $Res call(
       {String origin,
       @JsonKey(name: 'featureId') String? featureId,
@@ -446,64 +448,66 @@ abstract class $GeoAdminAttributesCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$GeoAdminAttributesCopyWithImpl<$Res>
+class _$GeoAdminAttributesCopyWithImpl<$Res, $Val extends GeoAdminAttributes>
     implements $GeoAdminAttributesCopyWith<$Res> {
   _$GeoAdminAttributesCopyWithImpl(this._value, this._then);
 
-  final GeoAdminAttributes _value;
   // ignore: unused_field
-  final $Res Function(GeoAdminAttributes) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? origin = freezed,
+    Object? origin = null,
     Object? featureId = freezed,
-    Object? detail = freezed,
-    Object? rank = freezed,
+    Object? detail = null,
+    Object? rank = null,
     Object? number = freezed,
-    Object? y = freezed,
-    Object? x = freezed,
-    Object? zoomlevel = freezed,
-    Object? htmlLabel = freezed,
+    Object? y = null,
+    Object? x = null,
+    Object? zoomlevel = null,
+    Object? htmlLabel = null,
   }) {
     return _then(_value.copyWith(
-      origin: origin == freezed
+      origin: null == origin
           ? _value.origin
           : origin // ignore: cast_nullable_to_non_nullable
               as String,
-      featureId: featureId == freezed
+      featureId: freezed == featureId
           ? _value.featureId
           : featureId // ignore: cast_nullable_to_non_nullable
               as String?,
-      detail: detail == freezed
+      detail: null == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
               as String,
-      rank: rank == freezed
+      rank: null == rank
           ? _value.rank
           : rank // ignore: cast_nullable_to_non_nullable
               as int,
-      number: number == freezed
+      number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as double,
-      x: x == freezed
+      x: null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as double,
-      zoomlevel: zoomlevel == freezed
+      zoomlevel: null == zoomlevel
           ? _value.zoomlevel
           : zoomlevel // ignore: cast_nullable_to_non_nullable
               as int,
-      htmlLabel: htmlLabel == freezed
+      htmlLabel: null == htmlLabel
           ? _value.htmlLabel
           : htmlLabel // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -514,6 +518,7 @@ abstract class _$$_GeoAdminAttributesCopyWith<$Res>
           $Res Function(_$_GeoAdminAttributes) then) =
       __$$_GeoAdminAttributesCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String origin,
       @JsonKey(name: 'featureId') String? featureId,
@@ -528,61 +533,59 @@ abstract class _$$_GeoAdminAttributesCopyWith<$Res>
 
 /// @nodoc
 class __$$_GeoAdminAttributesCopyWithImpl<$Res>
-    extends _$GeoAdminAttributesCopyWithImpl<$Res>
+    extends _$GeoAdminAttributesCopyWithImpl<$Res, _$_GeoAdminAttributes>
     implements _$$_GeoAdminAttributesCopyWith<$Res> {
   __$$_GeoAdminAttributesCopyWithImpl(
       _$_GeoAdminAttributes _value, $Res Function(_$_GeoAdminAttributes) _then)
-      : super(_value, (v) => _then(v as _$_GeoAdminAttributes));
+      : super(_value, _then);
 
-  @override
-  _$_GeoAdminAttributes get _value => super._value as _$_GeoAdminAttributes;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? origin = freezed,
+    Object? origin = null,
     Object? featureId = freezed,
-    Object? detail = freezed,
-    Object? rank = freezed,
+    Object? detail = null,
+    Object? rank = null,
     Object? number = freezed,
-    Object? y = freezed,
-    Object? x = freezed,
-    Object? zoomlevel = freezed,
-    Object? htmlLabel = freezed,
+    Object? y = null,
+    Object? x = null,
+    Object? zoomlevel = null,
+    Object? htmlLabel = null,
   }) {
     return _then(_$_GeoAdminAttributes(
-      origin: origin == freezed
+      origin: null == origin
           ? _value.origin
           : origin // ignore: cast_nullable_to_non_nullable
               as String,
-      featureId: featureId == freezed
+      featureId: freezed == featureId
           ? _value.featureId
           : featureId // ignore: cast_nullable_to_non_nullable
               as String?,
-      detail: detail == freezed
+      detail: null == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
               as String,
-      rank: rank == freezed
+      rank: null == rank
           ? _value.rank
           : rank // ignore: cast_nullable_to_non_nullable
               as int,
-      number: number == freezed
+      number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as double,
-      x: x == freezed
+      x: null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as double,
-      zoomlevel: zoomlevel == freezed
+      zoomlevel: null == zoomlevel
           ? _value.zoomlevel
           : zoomlevel // ignore: cast_nullable_to_non_nullable
               as int,
-      htmlLabel: htmlLabel == freezed
+      htmlLabel: null == htmlLabel
           ? _value.htmlLabel
           : htmlLabel // ignore: cast_nullable_to_non_nullable
               as String,
@@ -640,33 +643,28 @@ class _$_GeoAdminAttributes extends _GeoAdminAttributes {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GeoAdminAttributes &&
-            const DeepCollectionEquality().equals(other.origin, origin) &&
-            const DeepCollectionEquality().equals(other.featureId, featureId) &&
-            const DeepCollectionEquality().equals(other.detail, detail) &&
-            const DeepCollectionEquality().equals(other.rank, rank) &&
-            const DeepCollectionEquality().equals(other.number, number) &&
-            const DeepCollectionEquality().equals(other.y, y) &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.zoomlevel, zoomlevel) &&
-            const DeepCollectionEquality().equals(other.htmlLabel, htmlLabel));
+            (identical(other.origin, origin) || other.origin == origin) &&
+            (identical(other.featureId, featureId) ||
+                other.featureId == featureId) &&
+            (identical(other.detail, detail) || other.detail == detail) &&
+            (identical(other.rank, rank) || other.rank == rank) &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.y, y) || other.y == y) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.zoomlevel, zoomlevel) ||
+                other.zoomlevel == zoomlevel) &&
+            (identical(other.htmlLabel, htmlLabel) ||
+                other.htmlLabel == htmlLabel));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(origin),
-      const DeepCollectionEquality().hash(featureId),
-      const DeepCollectionEquality().hash(detail),
-      const DeepCollectionEquality().hash(rank),
-      const DeepCollectionEquality().hash(number),
-      const DeepCollectionEquality().hash(y),
-      const DeepCollectionEquality().hash(x),
-      const DeepCollectionEquality().hash(zoomlevel),
-      const DeepCollectionEquality().hash(htmlLabel));
+  int get hashCode => Object.hash(runtimeType, origin, featureId, detail, rank,
+      number, y, x, zoomlevel, htmlLabel);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GeoAdminAttributesCopyWith<_$_GeoAdminAttributes> get copyWith =>
       __$$_GeoAdminAttributesCopyWithImpl<_$_GeoAdminAttributes>(
           this, _$identity);

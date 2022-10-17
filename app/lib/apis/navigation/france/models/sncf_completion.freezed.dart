@@ -32,29 +32,32 @@ mixin _$SncfCompletion {
 abstract class $SncfCompletionCopyWith<$Res> {
   factory $SncfCompletionCopyWith(
           SncfCompletion value, $Res Function(SncfCompletion) then) =
-      _$SncfCompletionCopyWithImpl<$Res>;
+      _$SncfCompletionCopyWithImpl<$Res, SncfCompletion>;
+  @useResult
   $Res call({List<SncfPlace> places});
 }
 
 /// @nodoc
-class _$SncfCompletionCopyWithImpl<$Res>
+class _$SncfCompletionCopyWithImpl<$Res, $Val extends SncfCompletion>
     implements $SncfCompletionCopyWith<$Res> {
   _$SncfCompletionCopyWithImpl(this._value, this._then);
 
-  final SncfCompletion _value;
   // ignore: unused_field
-  final $Res Function(SncfCompletion) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? places = freezed,
+    Object? places = null,
   }) {
     return _then(_value.copyWith(
-      places: places == freezed
+      places: null == places
           ? _value.places
           : places // ignore: cast_nullable_to_non_nullable
               as List<SncfPlace>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,26 +68,25 @@ abstract class _$$_SncfCompletionCopyWith<$Res>
           _$_SncfCompletion value, $Res Function(_$_SncfCompletion) then) =
       __$$_SncfCompletionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<SncfPlace> places});
 }
 
 /// @nodoc
 class __$$_SncfCompletionCopyWithImpl<$Res>
-    extends _$SncfCompletionCopyWithImpl<$Res>
+    extends _$SncfCompletionCopyWithImpl<$Res, _$_SncfCompletion>
     implements _$$_SncfCompletionCopyWith<$Res> {
   __$$_SncfCompletionCopyWithImpl(
       _$_SncfCompletion _value, $Res Function(_$_SncfCompletion) _then)
-      : super(_value, (v) => _then(v as _$_SncfCompletion));
+      : super(_value, _then);
 
-  @override
-  _$_SncfCompletion get _value => super._value as _$_SncfCompletion;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? places = freezed,
+    Object? places = null,
   }) {
     return _then(_$_SncfCompletion(
-      places: places == freezed
+      places: null == places
           ? _value._places
           : places // ignore: cast_nullable_to_non_nullable
               as List<SncfPlace>,
@@ -130,6 +132,7 @@ class _$_SncfCompletion implements _SncfCompletion {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfCompletionCopyWith<_$_SncfCompletion> get copyWith =>
       __$$_SncfCompletionCopyWithImpl<_$_SncfCompletion>(this, _$identity);
 

@@ -27,29 +27,32 @@ mixin _$NavigationApiId {
 abstract class $NavigationApiIdCopyWith<$Res> {
   factory $NavigationApiIdCopyWith(
           NavigationApiId value, $Res Function(NavigationApiId) then) =
-      _$NavigationApiIdCopyWithImpl<$Res>;
+      _$NavigationApiIdCopyWithImpl<$Res, NavigationApiId>;
+  @useResult
   $Res call({String value});
 }
 
 /// @nodoc
-class _$NavigationApiIdCopyWithImpl<$Res>
+class _$NavigationApiIdCopyWithImpl<$Res, $Val extends NavigationApiId>
     implements $NavigationApiIdCopyWith<$Res> {
   _$NavigationApiIdCopyWithImpl(this._value, this._then);
 
-  final NavigationApiId _value;
   // ignore: unused_field
-  final $Res Function(NavigationApiId) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? value = freezed,
+    Object? value = null,
   }) {
     return _then(_value.copyWith(
-      value: value == freezed
+      value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -60,26 +63,25 @@ abstract class _$$_NavigationApiIdCopyWith<$Res>
           _$_NavigationApiId value, $Res Function(_$_NavigationApiId) then) =
       __$$_NavigationApiIdCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String value});
 }
 
 /// @nodoc
 class __$$_NavigationApiIdCopyWithImpl<$Res>
-    extends _$NavigationApiIdCopyWithImpl<$Res>
+    extends _$NavigationApiIdCopyWithImpl<$Res, _$_NavigationApiId>
     implements _$$_NavigationApiIdCopyWith<$Res> {
   __$$_NavigationApiIdCopyWithImpl(
       _$_NavigationApiId _value, $Res Function(_$_NavigationApiId) _then)
-      : super(_value, (v) => _then(v as _$_NavigationApiId));
+      : super(_value, _then);
 
-  @override
-  _$_NavigationApiId get _value => super._value as _$_NavigationApiId;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? value = freezed,
+    Object? value = null,
   }) {
     return _then(_$_NavigationApiId(
-      value == freezed
+      null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
@@ -105,15 +107,15 @@ class _$_NavigationApiId implements _NavigationApiId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_NavigationApiId &&
-            const DeepCollectionEquality().equals(other.value, value));
+            (identical(other.value, value) || other.value == value));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(value));
+  int get hashCode => Object.hash(runtimeType, value);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_NavigationApiIdCopyWith<_$_NavigationApiId> get copyWith =>
       __$$_NavigationApiIdCopyWithImpl<_$_NavigationApiId>(this, _$identity);
 }

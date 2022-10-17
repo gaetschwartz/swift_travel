@@ -33,38 +33,42 @@ mixin _$SncfPlace {
 /// @nodoc
 abstract class $SncfPlaceCopyWith<$Res> {
   factory $SncfPlaceCopyWith(SncfPlace value, $Res Function(SncfPlace) then) =
-      _$SncfPlaceCopyWithImpl<$Res>;
+      _$SncfPlaceCopyWithImpl<$Res, SncfPlace>;
+  @useResult
   $Res call({String name, String? id, String? favoriteName});
 }
 
 /// @nodoc
-class _$SncfPlaceCopyWithImpl<$Res> implements $SncfPlaceCopyWith<$Res> {
+class _$SncfPlaceCopyWithImpl<$Res, $Val extends SncfPlace>
+    implements $SncfPlaceCopyWith<$Res> {
   _$SncfPlaceCopyWithImpl(this._value, this._then);
 
-  final SncfPlace _value;
   // ignore: unused_field
-  final $Res Function(SncfPlace) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? id = freezed,
     Object? favoriteName = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      favoriteName: favoriteName == freezed
+      favoriteName: freezed == favoriteName
           ? _value.favoriteName
           : favoriteName // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -74,35 +78,35 @@ abstract class _$$_SncfPlaceCopyWith<$Res> implements $SncfPlaceCopyWith<$Res> {
           _$_SncfPlace value, $Res Function(_$_SncfPlace) then) =
       __$$_SncfPlaceCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, String? id, String? favoriteName});
 }
 
 /// @nodoc
-class __$$_SncfPlaceCopyWithImpl<$Res> extends _$SncfPlaceCopyWithImpl<$Res>
+class __$$_SncfPlaceCopyWithImpl<$Res>
+    extends _$SncfPlaceCopyWithImpl<$Res, _$_SncfPlace>
     implements _$$_SncfPlaceCopyWith<$Res> {
   __$$_SncfPlaceCopyWithImpl(
       _$_SncfPlace _value, $Res Function(_$_SncfPlace) _then)
-      : super(_value, (v) => _then(v as _$_SncfPlace));
+      : super(_value, _then);
 
-  @override
-  _$_SncfPlace get _value => super._value as _$_SncfPlace;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? id = freezed,
     Object? favoriteName = freezed,
   }) {
     return _then(_$_SncfPlace(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      favoriteName: favoriteName == freezed
+      favoriteName: freezed == favoriteName
           ? _value.favoriteName
           : favoriteName // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -137,22 +141,19 @@ class _$_SncfPlace extends _SncfPlace {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SncfPlace &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality()
-                .equals(other.favoriteName, favoriteName));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.favoriteName, favoriteName) ||
+                other.favoriteName == favoriteName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(favoriteName));
+  int get hashCode => Object.hash(runtimeType, name, id, favoriteName);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SncfPlaceCopyWith<_$_SncfPlace> get copyWith =>
       __$$_SncfPlaceCopyWithImpl<_$_SncfPlace>(this, _$identity);
 

@@ -64,7 +64,8 @@ mixin _$SbbLeg {
 /// @nodoc
 abstract class $SbbLegCopyWith<$Res> {
   factory $SbbLegCopyWith(SbbLeg value, $Res Function(SbbLeg) then) =
-      _$SbbLegCopyWithImpl<$Res>;
+      _$SbbLegCopyWithImpl<$Res, SbbLeg>;
+  @useResult
   $Res call(
       {String name,
       @JsonKey(name: 'exit') SbbExit? sbbExit,
@@ -96,16 +97,19 @@ abstract class $SbbLegCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
+class _$SbbLegCopyWithImpl<$Res, $Val extends SbbLeg>
+    implements $SbbLegCopyWith<$Res> {
   _$SbbLegCopyWithImpl(this._value, this._then);
 
-  final SbbLeg _value;
   // ignore: unused_field
-  final $Res Function(SbbLeg) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? sbbExit = freezed,
     Object? depDelay = freezed,
     Object? type = freezed,
@@ -118,131 +122,132 @@ class _$SbbLegCopyWithImpl<$Res> implements $SbbLegCopyWith<$Res> {
     Object? stopid = freezed,
     Object? runningTime = freezed,
     Object? line = freezed,
-    Object? sbbStops = freezed,
+    Object? sbbStops = null,
     Object? sbbName = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
     Object? normalTime = freezed,
-    Object? waitTime = freezed,
-    Object? isAddress = freezed,
+    Object? waitTime = null,
+    Object? isAddress = null,
     Object? lat = freezed,
     Object? lon = freezed,
     Object? x = freezed,
     Object? y = freezed,
-    Object? attributes = freezed,
+    Object? attributes = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      sbbExit: sbbExit == freezed
+      sbbExit: freezed == sbbExit
           ? _value.sbbExit
           : sbbExit // ignore: cast_nullable_to_non_nullable
               as SbbExit?,
-      depDelay: depDelay == freezed
+      depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as PlaceType?,
-      track: track == freezed
+      track: freezed == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
               as String?,
-      terminal: terminal == freezed
+      terminal: freezed == terminal
           ? _value.terminal
           : terminal // ignore: cast_nullable_to_non_nullable
               as String?,
-      bgcolor: bgcolor == freezed
+      bgcolor: freezed == bgcolor
           ? _value.bgcolor
           : bgcolor // ignore: cast_nullable_to_non_nullable
               as String?,
-      fgcolor: fgcolor == freezed
+      fgcolor: freezed == fgcolor
           ? _value.fgcolor
           : fgcolor // ignore: cast_nullable_to_non_nullable
               as String?,
-      number: number == freezed
+      number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as String?,
-      tripid: tripid == freezed
+      tripid: freezed == tripid
           ? _value.tripid
           : tripid // ignore: cast_nullable_to_non_nullable
               as String?,
-      stopid: stopid == freezed
+      stopid: freezed == stopid
           ? _value.stopid
           : stopid // ignore: cast_nullable_to_non_nullable
               as String?,
-      runningTime: runningTime == freezed
+      runningTime: freezed == runningTime
           ? _value.runningTime
           : runningTime // ignore: cast_nullable_to_non_nullable
               as double?,
-      line: line == freezed
+      line: freezed == line
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
               as String?,
-      sbbStops: sbbStops == freezed
+      sbbStops: null == sbbStops
           ? _value.sbbStops
           : sbbStops // ignore: cast_nullable_to_non_nullable
               as List<SbbStop>,
-      sbbName: sbbName == freezed
+      sbbName: freezed == sbbName
           ? _value.sbbName
           : sbbName // ignore: cast_nullable_to_non_nullable
               as String?,
-      departure: departure == freezed
+      departure: freezed == departure
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      normalTime: normalTime == freezed
+      normalTime: freezed == normalTime
           ? _value.normalTime
           : normalTime // ignore: cast_nullable_to_non_nullable
               as double?,
-      waitTime: waitTime == freezed
+      waitTime: null == waitTime
           ? _value.waitTime
           : waitTime // ignore: cast_nullable_to_non_nullable
               as double,
-      isAddress: isAddress == freezed
+      isAddress: null == isAddress
           ? _value.isAddress
           : isAddress // ignore: cast_nullable_to_non_nullable
               as bool,
-      lat: lat == freezed
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double?,
-      lon: lon == freezed
+      lon: freezed == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double?,
-      x: x == freezed
+      x: freezed == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: freezed == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int?,
-      attributes: attributes == freezed
+      attributes: null == attributes
           ? _value.attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SbbExitCopyWith<$Res>? get sbbExit {
     if (_value.sbbExit == null) {
       return null;
     }
 
     return $SbbExitCopyWith<$Res>(_value.sbbExit!, (value) {
-      return _then(_value.copyWith(sbbExit: value));
+      return _then(_value.copyWith(sbbExit: value) as $Val);
     });
   }
 }
@@ -252,6 +257,7 @@ abstract class _$$_SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
   factory _$$_SbbLegCopyWith(_$_SbbLeg value, $Res Function(_$_SbbLeg) then) =
       __$$_SbbLegCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       @JsonKey(name: 'exit') SbbExit? sbbExit,
@@ -284,17 +290,16 @@ abstract class _$$_SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
+class __$$_SbbLegCopyWithImpl<$Res>
+    extends _$SbbLegCopyWithImpl<$Res, _$_SbbLeg>
     implements _$$_SbbLegCopyWith<$Res> {
   __$$_SbbLegCopyWithImpl(_$_SbbLeg _value, $Res Function(_$_SbbLeg) _then)
-      : super(_value, (v) => _then(v as _$_SbbLeg));
+      : super(_value, _then);
 
-  @override
-  _$_SbbLeg get _value => super._value as _$_SbbLeg;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? sbbExit = freezed,
     Object? depDelay = freezed,
     Object? type = freezed,
@@ -307,117 +312,117 @@ class __$$_SbbLegCopyWithImpl<$Res> extends _$SbbLegCopyWithImpl<$Res>
     Object? stopid = freezed,
     Object? runningTime = freezed,
     Object? line = freezed,
-    Object? sbbStops = freezed,
+    Object? sbbStops = null,
     Object? sbbName = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
     Object? normalTime = freezed,
-    Object? waitTime = freezed,
-    Object? isAddress = freezed,
+    Object? waitTime = null,
+    Object? isAddress = null,
     Object? lat = freezed,
     Object? lon = freezed,
     Object? x = freezed,
     Object? y = freezed,
-    Object? attributes = freezed,
+    Object? attributes = null,
   }) {
     return _then(_$_SbbLeg(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      sbbExit: sbbExit == freezed
+      sbbExit: freezed == sbbExit
           ? _value.sbbExit
           : sbbExit // ignore: cast_nullable_to_non_nullable
               as SbbExit?,
-      depDelay: depDelay == freezed
+      depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
               as int?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as PlaceType?,
-      track: track == freezed
+      track: freezed == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
               as String?,
-      terminal: terminal == freezed
+      terminal: freezed == terminal
           ? _value.terminal
           : terminal // ignore: cast_nullable_to_non_nullable
               as String?,
-      bgcolor: bgcolor == freezed
+      bgcolor: freezed == bgcolor
           ? _value.bgcolor
           : bgcolor // ignore: cast_nullable_to_non_nullable
               as String?,
-      fgcolor: fgcolor == freezed
+      fgcolor: freezed == fgcolor
           ? _value.fgcolor
           : fgcolor // ignore: cast_nullable_to_non_nullable
               as String?,
-      number: number == freezed
+      number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as String?,
-      tripid: tripid == freezed
+      tripid: freezed == tripid
           ? _value.tripid
           : tripid // ignore: cast_nullable_to_non_nullable
               as String?,
-      stopid: stopid == freezed
+      stopid: freezed == stopid
           ? _value.stopid
           : stopid // ignore: cast_nullable_to_non_nullable
               as String?,
-      runningTime: runningTime == freezed
+      runningTime: freezed == runningTime
           ? _value.runningTime
           : runningTime // ignore: cast_nullable_to_non_nullable
               as double?,
-      line: line == freezed
+      line: freezed == line
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
               as String?,
-      sbbStops: sbbStops == freezed
+      sbbStops: null == sbbStops
           ? _value._sbbStops
           : sbbStops // ignore: cast_nullable_to_non_nullable
               as List<SbbStop>,
-      sbbName: sbbName == freezed
+      sbbName: freezed == sbbName
           ? _value.sbbName
           : sbbName // ignore: cast_nullable_to_non_nullable
               as String?,
-      departure: departure == freezed
+      departure: freezed == departure
           ? _value.departure
           : departure // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      arrival: arrival == freezed
+      arrival: freezed == arrival
           ? _value.arrival
           : arrival // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      normalTime: normalTime == freezed
+      normalTime: freezed == normalTime
           ? _value.normalTime
           : normalTime // ignore: cast_nullable_to_non_nullable
               as double?,
-      waitTime: waitTime == freezed
+      waitTime: null == waitTime
           ? _value.waitTime
           : waitTime // ignore: cast_nullable_to_non_nullable
               as double,
-      isAddress: isAddress == freezed
+      isAddress: null == isAddress
           ? _value.isAddress
           : isAddress // ignore: cast_nullable_to_non_nullable
               as bool,
-      lat: lat == freezed
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double?,
-      lon: lon == freezed
+      lon: freezed == lon
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double?,
-      x: x == freezed
+      x: freezed == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int?,
-      y: y == freezed
+      y: freezed == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int?,
-      attributes: attributes == freezed
+      attributes: null == attributes
           ? _value._attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
@@ -553,32 +558,37 @@ class _$_SbbLeg extends _SbbLeg {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SbbLeg &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.sbbExit, sbbExit) &&
-            const DeepCollectionEquality().equals(other.depDelay, depDelay) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.track, track) &&
-            const DeepCollectionEquality().equals(other.terminal, terminal) &&
-            const DeepCollectionEquality().equals(other.bgcolor, bgcolor) &&
-            const DeepCollectionEquality().equals(other.fgcolor, fgcolor) &&
-            const DeepCollectionEquality().equals(other.number, number) &&
-            const DeepCollectionEquality().equals(other.tripid, tripid) &&
-            const DeepCollectionEquality().equals(other.stopid, stopid) &&
-            const DeepCollectionEquality()
-                .equals(other.runningTime, runningTime) &&
-            const DeepCollectionEquality().equals(other.line, line) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.sbbExit, sbbExit) || other.sbbExit == sbbExit) &&
+            (identical(other.depDelay, depDelay) ||
+                other.depDelay == depDelay) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.track, track) || other.track == track) &&
+            (identical(other.terminal, terminal) ||
+                other.terminal == terminal) &&
+            (identical(other.bgcolor, bgcolor) || other.bgcolor == bgcolor) &&
+            (identical(other.fgcolor, fgcolor) || other.fgcolor == fgcolor) &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.tripid, tripid) || other.tripid == tripid) &&
+            (identical(other.stopid, stopid) || other.stopid == stopid) &&
+            (identical(other.runningTime, runningTime) ||
+                other.runningTime == runningTime) &&
+            (identical(other.line, line) || other.line == line) &&
             const DeepCollectionEquality().equals(other._sbbStops, _sbbStops) &&
-            const DeepCollectionEquality().equals(other.sbbName, sbbName) &&
-            const DeepCollectionEquality().equals(other.departure, departure) &&
-            const DeepCollectionEquality().equals(other.arrival, arrival) &&
-            const DeepCollectionEquality()
-                .equals(other.normalTime, normalTime) &&
-            const DeepCollectionEquality().equals(other.waitTime, waitTime) &&
-            const DeepCollectionEquality().equals(other.isAddress, isAddress) &&
-            const DeepCollectionEquality().equals(other.lat, lat) &&
-            const DeepCollectionEquality().equals(other.lon, lon) &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.y, y) &&
+            (identical(other.sbbName, sbbName) || other.sbbName == sbbName) &&
+            (identical(other.departure, departure) ||
+                other.departure == departure) &&
+            (identical(other.arrival, arrival) || other.arrival == arrival) &&
+            (identical(other.normalTime, normalTime) ||
+                other.normalTime == normalTime) &&
+            (identical(other.waitTime, waitTime) ||
+                other.waitTime == waitTime) &&
+            (identical(other.isAddress, isAddress) ||
+                other.isAddress == isAddress) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y) &&
             const DeepCollectionEquality()
                 .equals(other._attributes, _attributes));
   }
@@ -587,35 +597,36 @@ class _$_SbbLeg extends _SbbLeg {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        const DeepCollectionEquality().hash(name),
-        const DeepCollectionEquality().hash(sbbExit),
-        const DeepCollectionEquality().hash(depDelay),
-        const DeepCollectionEquality().hash(type),
-        const DeepCollectionEquality().hash(track),
-        const DeepCollectionEquality().hash(terminal),
-        const DeepCollectionEquality().hash(bgcolor),
-        const DeepCollectionEquality().hash(fgcolor),
-        const DeepCollectionEquality().hash(number),
-        const DeepCollectionEquality().hash(tripid),
-        const DeepCollectionEquality().hash(stopid),
-        const DeepCollectionEquality().hash(runningTime),
-        const DeepCollectionEquality().hash(line),
+        name,
+        sbbExit,
+        depDelay,
+        type,
+        track,
+        terminal,
+        bgcolor,
+        fgcolor,
+        number,
+        tripid,
+        stopid,
+        runningTime,
+        line,
         const DeepCollectionEquality().hash(_sbbStops),
-        const DeepCollectionEquality().hash(sbbName),
-        const DeepCollectionEquality().hash(departure),
-        const DeepCollectionEquality().hash(arrival),
-        const DeepCollectionEquality().hash(normalTime),
-        const DeepCollectionEquality().hash(waitTime),
-        const DeepCollectionEquality().hash(isAddress),
-        const DeepCollectionEquality().hash(lat),
-        const DeepCollectionEquality().hash(lon),
-        const DeepCollectionEquality().hash(x),
-        const DeepCollectionEquality().hash(y),
+        sbbName,
+        departure,
+        arrival,
+        normalTime,
+        waitTime,
+        isAddress,
+        lat,
+        lon,
+        x,
+        y,
         const DeepCollectionEquality().hash(_attributes)
       ]);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SbbLegCopyWith<_$_SbbLeg> get copyWith =>
       __$$_SbbLegCopyWithImpl<_$_SbbLeg>(this, _$identity);
 

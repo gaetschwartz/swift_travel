@@ -32,7 +32,8 @@ mixin _$TriasLocation {
 abstract class $TriasLocationCopyWith<$Res> {
   factory $TriasLocationCopyWith(
           TriasLocation value, $Res Function(TriasLocation) then) =
-      _$TriasLocationCopyWithImpl<$Res>;
+      _$TriasLocationCopyWithImpl<$Res, TriasLocation>;
+  @useResult
   $Res call(
       {String stopPointName,
       String stopPointRef,
@@ -45,55 +46,58 @@ abstract class $TriasLocationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TriasLocationCopyWithImpl<$Res>
+class _$TriasLocationCopyWithImpl<$Res, $Val extends TriasLocation>
     implements $TriasLocationCopyWith<$Res> {
   _$TriasLocationCopyWithImpl(this._value, this._then);
 
-  final TriasLocation _value;
   // ignore: unused_field
-  final $Res Function(TriasLocation) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointName = freezed,
-    Object? stopPointRef = freezed,
-    Object? geoPosition = freezed,
-    Object? complete = freezed,
-    Object? probability = freezed,
-    Object? modes = freezed,
+    Object? stopPointName = null,
+    Object? stopPointRef = null,
+    Object? geoPosition = null,
+    Object? complete = null,
+    Object? probability = null,
+    Object? modes = null,
   }) {
     return _then(_value.copyWith(
-      stopPointName: stopPointName == freezed
+      stopPointName: null == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
               as String,
-      stopPointRef: stopPointRef == freezed
+      stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      geoPosition: geoPosition == freezed
+      geoPosition: null == geoPosition
           ? _value.geoPosition
           : geoPosition // ignore: cast_nullable_to_non_nullable
               as TriasGeoPosition,
-      complete: complete == freezed
+      complete: null == complete
           ? _value.complete
           : complete // ignore: cast_nullable_to_non_nullable
               as bool,
-      probability: probability == freezed
+      probability: null == probability
           ? _value.probability
           : probability // ignore: cast_nullable_to_non_nullable
               as double,
-      modes: modes == freezed
+      modes: null == modes
           ? _value.modes
           : modes // ignore: cast_nullable_to_non_nullable
               as List<TriasPtMode>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TriasGeoPositionCopyWith<$Res> get geoPosition {
     return $TriasGeoPositionCopyWith<$Res>(_value.geoPosition, (value) {
-      return _then(_value.copyWith(geoPosition: value));
+      return _then(_value.copyWith(geoPosition: value) as $Val);
     });
   }
 }
@@ -105,6 +109,7 @@ abstract class _$$_TriasLocationCopyWith<$Res>
           _$_TriasLocation value, $Res Function(_$_TriasLocation) then) =
       __$$_TriasLocationCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String stopPointName,
       String stopPointRef,
@@ -119,46 +124,44 @@ abstract class _$$_TriasLocationCopyWith<$Res>
 
 /// @nodoc
 class __$$_TriasLocationCopyWithImpl<$Res>
-    extends _$TriasLocationCopyWithImpl<$Res>
+    extends _$TriasLocationCopyWithImpl<$Res, _$_TriasLocation>
     implements _$$_TriasLocationCopyWith<$Res> {
   __$$_TriasLocationCopyWithImpl(
       _$_TriasLocation _value, $Res Function(_$_TriasLocation) _then)
-      : super(_value, (v) => _then(v as _$_TriasLocation));
+      : super(_value, _then);
 
-  @override
-  _$_TriasLocation get _value => super._value as _$_TriasLocation;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointName = freezed,
-    Object? stopPointRef = freezed,
-    Object? geoPosition = freezed,
-    Object? complete = freezed,
-    Object? probability = freezed,
-    Object? modes = freezed,
+    Object? stopPointName = null,
+    Object? stopPointRef = null,
+    Object? geoPosition = null,
+    Object? complete = null,
+    Object? probability = null,
+    Object? modes = null,
   }) {
     return _then(_$_TriasLocation(
-      stopPointName: stopPointName == freezed
+      stopPointName: null == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
               as String,
-      stopPointRef: stopPointRef == freezed
+      stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      geoPosition: geoPosition == freezed
+      geoPosition: null == geoPosition
           ? _value.geoPosition
           : geoPosition // ignore: cast_nullable_to_non_nullable
               as TriasGeoPosition,
-      complete: complete == freezed
+      complete: null == complete
           ? _value.complete
           : complete // ignore: cast_nullable_to_non_nullable
               as bool,
-      probability: probability == freezed
+      probability: null == probability
           ? _value.probability
           : probability // ignore: cast_nullable_to_non_nullable
               as double,
-      modes: modes == freezed
+      modes: null == modes
           ? _value._modes
           : modes // ignore: cast_nullable_to_non_nullable
               as List<TriasPtMode>,
@@ -208,30 +211,32 @@ class _$_TriasLocation extends _TriasLocation {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasLocation &&
-            const DeepCollectionEquality()
-                .equals(other.stopPointName, stopPointName) &&
-            const DeepCollectionEquality()
-                .equals(other.stopPointRef, stopPointRef) &&
-            const DeepCollectionEquality()
-                .equals(other.geoPosition, geoPosition) &&
-            const DeepCollectionEquality().equals(other.complete, complete) &&
-            const DeepCollectionEquality()
-                .equals(other.probability, probability) &&
+            (identical(other.stopPointName, stopPointName) ||
+                other.stopPointName == stopPointName) &&
+            (identical(other.stopPointRef, stopPointRef) ||
+                other.stopPointRef == stopPointRef) &&
+            (identical(other.geoPosition, geoPosition) ||
+                other.geoPosition == geoPosition) &&
+            (identical(other.complete, complete) ||
+                other.complete == complete) &&
+            (identical(other.probability, probability) ||
+                other.probability == probability) &&
             const DeepCollectionEquality().equals(other._modes, _modes));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(stopPointName),
-      const DeepCollectionEquality().hash(stopPointRef),
-      const DeepCollectionEquality().hash(geoPosition),
-      const DeepCollectionEquality().hash(complete),
-      const DeepCollectionEquality().hash(probability),
+      stopPointName,
+      stopPointRef,
+      geoPosition,
+      complete,
+      probability,
       const DeepCollectionEquality().hash(_modes));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasLocationCopyWith<_$_TriasLocation> get copyWith =>
       __$$_TriasLocationCopyWithImpl<_$_TriasLocation>(this, _$identity);
 }
@@ -278,33 +283,37 @@ mixin _$TriasPtMode {
 abstract class $TriasPtModeCopyWith<$Res> {
   factory $TriasPtModeCopyWith(
           TriasPtMode value, $Res Function(TriasPtMode) then) =
-      _$TriasPtModeCopyWithImpl<$Res>;
+      _$TriasPtModeCopyWithImpl<$Res, TriasPtMode>;
+  @useResult
   $Res call({String mode, String? submode});
 }
 
 /// @nodoc
-class _$TriasPtModeCopyWithImpl<$Res> implements $TriasPtModeCopyWith<$Res> {
+class _$TriasPtModeCopyWithImpl<$Res, $Val extends TriasPtMode>
+    implements $TriasPtModeCopyWith<$Res> {
   _$TriasPtModeCopyWithImpl(this._value, this._then);
 
-  final TriasPtMode _value;
   // ignore: unused_field
-  final $Res Function(TriasPtMode) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mode = freezed,
+    Object? mode = null,
     Object? submode = freezed,
   }) {
     return _then(_value.copyWith(
-      mode: mode == freezed
+      mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as String,
-      submode: submode == freezed
+      submode: freezed == submode
           ? _value.submode
           : submode // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -315,30 +324,30 @@ abstract class _$$_TriasPtModeCopyWith<$Res>
           _$_TriasPtMode value, $Res Function(_$_TriasPtMode) then) =
       __$$_TriasPtModeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String mode, String? submode});
 }
 
 /// @nodoc
-class __$$_TriasPtModeCopyWithImpl<$Res> extends _$TriasPtModeCopyWithImpl<$Res>
+class __$$_TriasPtModeCopyWithImpl<$Res>
+    extends _$TriasPtModeCopyWithImpl<$Res, _$_TriasPtMode>
     implements _$$_TriasPtModeCopyWith<$Res> {
   __$$_TriasPtModeCopyWithImpl(
       _$_TriasPtMode _value, $Res Function(_$_TriasPtMode) _then)
-      : super(_value, (v) => _then(v as _$_TriasPtMode));
+      : super(_value, _then);
 
-  @override
-  _$_TriasPtMode get _value => super._value as _$_TriasPtMode;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mode = freezed,
+    Object? mode = null,
     Object? submode = freezed,
   }) {
     return _then(_$_TriasPtMode(
-      mode == freezed
+      null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as String,
-      submode == freezed
+      freezed == submode
           ? _value.submode
           : submode // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -366,18 +375,16 @@ class _$_TriasPtMode implements _TriasPtMode {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasPtMode &&
-            const DeepCollectionEquality().equals(other.mode, mode) &&
-            const DeepCollectionEquality().equals(other.submode, submode));
+            (identical(other.mode, mode) || other.mode == mode) &&
+            (identical(other.submode, submode) || other.submode == submode));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(mode),
-      const DeepCollectionEquality().hash(submode));
+  int get hashCode => Object.hash(runtimeType, mode, submode);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasPtModeCopyWith<_$_TriasPtMode> get copyWith =>
       __$$_TriasPtModeCopyWithImpl<_$_TriasPtMode>(this, _$identity);
 }
@@ -414,7 +421,8 @@ mixin _$TriasStationBoard {
 abstract class $TriasStationBoardCopyWith<$Res> {
   factory $TriasStationBoardCopyWith(
           TriasStationBoard value, $Res Function(TriasStationBoard) then) =
-      _$TriasStationBoardCopyWithImpl<$Res>;
+      _$TriasStationBoardCopyWithImpl<$Res, TriasStationBoard>;
+  @useResult
   $Res call(
       {Stop stop,
       TriasService service,
@@ -427,57 +435,61 @@ abstract class $TriasStationBoardCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TriasStationBoardCopyWithImpl<$Res>
+class _$TriasStationBoardCopyWithImpl<$Res, $Val extends TriasStationBoard>
     implements $TriasStationBoardCopyWith<$Res> {
   _$TriasStationBoardCopyWithImpl(this._value, this._then);
 
-  final TriasStationBoard _value;
   // ignore: unused_field
-  final $Res Function(TriasStationBoard) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stop = freezed,
-    Object? service = freezed,
-    Object? previousCalls = freezed,
-    Object? thisCall = freezed,
-    Object? onwardCalls = freezed,
+    Object? stop = null,
+    Object? service = null,
+    Object? previousCalls = null,
+    Object? thisCall = null,
+    Object? onwardCalls = null,
   }) {
     return _then(_value.copyWith(
-      stop: stop == freezed
+      stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
               as Stop,
-      service: service == freezed
+      service: null == service
           ? _value.service
           : service // ignore: cast_nullable_to_non_nullable
               as TriasService,
-      previousCalls: previousCalls == freezed
+      previousCalls: null == previousCalls
           ? _value.previousCalls
           : previousCalls // ignore: cast_nullable_to_non_nullable
               as List<TriasPreviousCall>,
-      thisCall: thisCall == freezed
+      thisCall: null == thisCall
           ? _value.thisCall
           : thisCall // ignore: cast_nullable_to_non_nullable
               as TriasThisCall,
-      onwardCalls: onwardCalls == freezed
+      onwardCalls: null == onwardCalls
           ? _value.onwardCalls
           : onwardCalls // ignore: cast_nullable_to_non_nullable
               as List<TriasOnwardCall>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TriasServiceCopyWith<$Res> get service {
     return $TriasServiceCopyWith<$Res>(_value.service, (value) {
-      return _then(_value.copyWith(service: value));
+      return _then(_value.copyWith(service: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TriasThisCallCopyWith<$Res> get thisCall {
     return $TriasThisCallCopyWith<$Res>(_value.thisCall, (value) {
-      return _then(_value.copyWith(thisCall: value));
+      return _then(_value.copyWith(thisCall: value) as $Val);
     });
   }
 }
@@ -489,6 +501,7 @@ abstract class _$$_TriasStationBoardCopyWith<$Res>
           $Res Function(_$_TriasStationBoard) then) =
       __$$_TriasStationBoardCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {Stop stop,
       TriasService service,
@@ -504,41 +517,39 @@ abstract class _$$_TriasStationBoardCopyWith<$Res>
 
 /// @nodoc
 class __$$_TriasStationBoardCopyWithImpl<$Res>
-    extends _$TriasStationBoardCopyWithImpl<$Res>
+    extends _$TriasStationBoardCopyWithImpl<$Res, _$_TriasStationBoard>
     implements _$$_TriasStationBoardCopyWith<$Res> {
   __$$_TriasStationBoardCopyWithImpl(
       _$_TriasStationBoard _value, $Res Function(_$_TriasStationBoard) _then)
-      : super(_value, (v) => _then(v as _$_TriasStationBoard));
+      : super(_value, _then);
 
-  @override
-  _$_TriasStationBoard get _value => super._value as _$_TriasStationBoard;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stop = freezed,
-    Object? service = freezed,
-    Object? previousCalls = freezed,
-    Object? thisCall = freezed,
-    Object? onwardCalls = freezed,
+    Object? stop = null,
+    Object? service = null,
+    Object? previousCalls = null,
+    Object? thisCall = null,
+    Object? onwardCalls = null,
   }) {
     return _then(_$_TriasStationBoard(
-      stop: stop == freezed
+      stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
               as Stop,
-      service: service == freezed
+      service: null == service
           ? _value.service
           : service // ignore: cast_nullable_to_non_nullable
               as TriasService,
-      previousCalls: previousCalls == freezed
+      previousCalls: null == previousCalls
           ? _value._previousCalls
           : previousCalls // ignore: cast_nullable_to_non_nullable
               as List<TriasPreviousCall>,
-      thisCall: thisCall == freezed
+      thisCall: null == thisCall
           ? _value.thisCall
           : thisCall // ignore: cast_nullable_to_non_nullable
               as TriasThisCall,
-      onwardCalls: onwardCalls == freezed
+      onwardCalls: null == onwardCalls
           ? _value._onwardCalls
           : onwardCalls // ignore: cast_nullable_to_non_nullable
               as List<TriasOnwardCall>,
@@ -589,11 +600,12 @@ class _$_TriasStationBoard extends _TriasStationBoard {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasStationBoard &&
-            const DeepCollectionEquality().equals(other.stop, stop) &&
-            const DeepCollectionEquality().equals(other.service, service) &&
+            (identical(other.stop, stop) || other.stop == stop) &&
+            (identical(other.service, service) || other.service == service) &&
             const DeepCollectionEquality()
                 .equals(other._previousCalls, _previousCalls) &&
-            const DeepCollectionEquality().equals(other.thisCall, thisCall) &&
+            (identical(other.thisCall, thisCall) ||
+                other.thisCall == thisCall) &&
             const DeepCollectionEquality()
                 .equals(other._onwardCalls, _onwardCalls));
   }
@@ -601,14 +613,15 @@ class _$_TriasStationBoard extends _TriasStationBoard {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(stop),
-      const DeepCollectionEquality().hash(service),
+      stop,
+      service,
       const DeepCollectionEquality().hash(_previousCalls),
-      const DeepCollectionEquality().hash(thisCall),
+      thisCall,
       const DeepCollectionEquality().hash(_onwardCalls));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasStationBoardCopyWith<_$_TriasStationBoard> get copyWith =>
       __$$_TriasStationBoardCopyWithImpl<_$_TriasStationBoard>(
           this, _$identity);
@@ -663,7 +676,8 @@ mixin _$TriasService {
 abstract class $TriasServiceCopyWith<$Res> {
   factory $TriasServiceCopyWith(
           TriasService value, $Res Function(TriasService) then) =
-      _$TriasServiceCopyWithImpl<$Res>;
+      _$TriasServiceCopyWithImpl<$Res, TriasService>;
+  @useResult
   $Res call(
       {String operatingDayRef,
       String journeyRef,
@@ -680,78 +694,81 @@ abstract class $TriasServiceCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TriasServiceCopyWithImpl<$Res> implements $TriasServiceCopyWith<$Res> {
+class _$TriasServiceCopyWithImpl<$Res, $Val extends TriasService>
+    implements $TriasServiceCopyWith<$Res> {
   _$TriasServiceCopyWithImpl(this._value, this._then);
 
-  final TriasService _value;
   // ignore: unused_field
-  final $Res Function(TriasService) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? operatingDayRef = freezed,
-    Object? journeyRef = freezed,
-    Object? lineRef = freezed,
-    Object? directionRef = freezed,
-    Object? modes = freezed,
-    Object? attributes = freezed,
-    Object? publishedLineName = freezed,
-    Object? operatorRef = freezed,
-    Object? originStopPointRef = freezed,
-    Object? originText = freezed,
-    Object? destinationStopPointRef = freezed,
-    Object? destinationText = freezed,
+    Object? operatingDayRef = null,
+    Object? journeyRef = null,
+    Object? lineRef = null,
+    Object? directionRef = null,
+    Object? modes = null,
+    Object? attributes = null,
+    Object? publishedLineName = null,
+    Object? operatorRef = null,
+    Object? originStopPointRef = null,
+    Object? originText = null,
+    Object? destinationStopPointRef = null,
+    Object? destinationText = null,
   }) {
     return _then(_value.copyWith(
-      operatingDayRef: operatingDayRef == freezed
+      operatingDayRef: null == operatingDayRef
           ? _value.operatingDayRef
           : operatingDayRef // ignore: cast_nullable_to_non_nullable
               as String,
-      journeyRef: journeyRef == freezed
+      journeyRef: null == journeyRef
           ? _value.journeyRef
           : journeyRef // ignore: cast_nullable_to_non_nullable
               as String,
-      lineRef: lineRef == freezed
+      lineRef: null == lineRef
           ? _value.lineRef
           : lineRef // ignore: cast_nullable_to_non_nullable
               as String,
-      directionRef: directionRef == freezed
+      directionRef: null == directionRef
           ? _value.directionRef
           : directionRef // ignore: cast_nullable_to_non_nullable
               as String,
-      modes: modes == freezed
+      modes: null == modes
           ? _value.modes
           : modes // ignore: cast_nullable_to_non_nullable
               as List<TriasMode>,
-      attributes: attributes == freezed
+      attributes: null == attributes
           ? _value.attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as List<TriasAttribute>,
-      publishedLineName: publishedLineName == freezed
+      publishedLineName: null == publishedLineName
           ? _value.publishedLineName
           : publishedLineName // ignore: cast_nullable_to_non_nullable
               as String,
-      operatorRef: operatorRef == freezed
+      operatorRef: null == operatorRef
           ? _value.operatorRef
           : operatorRef // ignore: cast_nullable_to_non_nullable
               as String,
-      originStopPointRef: originStopPointRef == freezed
+      originStopPointRef: null == originStopPointRef
           ? _value.originStopPointRef
           : originStopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      originText: originText == freezed
+      originText: null == originText
           ? _value.originText
           : originText // ignore: cast_nullable_to_non_nullable
               as String,
-      destinationStopPointRef: destinationStopPointRef == freezed
+      destinationStopPointRef: null == destinationStopPointRef
           ? _value.destinationStopPointRef
           : destinationStopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      destinationText: destinationText == freezed
+      destinationText: null == destinationText
           ? _value.destinationText
           : destinationText // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -762,6 +779,7 @@ abstract class _$$_TriasServiceCopyWith<$Res>
           _$_TriasService value, $Res Function(_$_TriasService) then) =
       __$$_TriasServiceCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String operatingDayRef,
       String journeyRef,
@@ -779,76 +797,74 @@ abstract class _$$_TriasServiceCopyWith<$Res>
 
 /// @nodoc
 class __$$_TriasServiceCopyWithImpl<$Res>
-    extends _$TriasServiceCopyWithImpl<$Res>
+    extends _$TriasServiceCopyWithImpl<$Res, _$_TriasService>
     implements _$$_TriasServiceCopyWith<$Res> {
   __$$_TriasServiceCopyWithImpl(
       _$_TriasService _value, $Res Function(_$_TriasService) _then)
-      : super(_value, (v) => _then(v as _$_TriasService));
+      : super(_value, _then);
 
-  @override
-  _$_TriasService get _value => super._value as _$_TriasService;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? operatingDayRef = freezed,
-    Object? journeyRef = freezed,
-    Object? lineRef = freezed,
-    Object? directionRef = freezed,
-    Object? modes = freezed,
-    Object? attributes = freezed,
-    Object? publishedLineName = freezed,
-    Object? operatorRef = freezed,
-    Object? originStopPointRef = freezed,
-    Object? originText = freezed,
-    Object? destinationStopPointRef = freezed,
-    Object? destinationText = freezed,
+    Object? operatingDayRef = null,
+    Object? journeyRef = null,
+    Object? lineRef = null,
+    Object? directionRef = null,
+    Object? modes = null,
+    Object? attributes = null,
+    Object? publishedLineName = null,
+    Object? operatorRef = null,
+    Object? originStopPointRef = null,
+    Object? originText = null,
+    Object? destinationStopPointRef = null,
+    Object? destinationText = null,
   }) {
     return _then(_$_TriasService(
-      operatingDayRef: operatingDayRef == freezed
+      operatingDayRef: null == operatingDayRef
           ? _value.operatingDayRef
           : operatingDayRef // ignore: cast_nullable_to_non_nullable
               as String,
-      journeyRef: journeyRef == freezed
+      journeyRef: null == journeyRef
           ? _value.journeyRef
           : journeyRef // ignore: cast_nullable_to_non_nullable
               as String,
-      lineRef: lineRef == freezed
+      lineRef: null == lineRef
           ? _value.lineRef
           : lineRef // ignore: cast_nullable_to_non_nullable
               as String,
-      directionRef: directionRef == freezed
+      directionRef: null == directionRef
           ? _value.directionRef
           : directionRef // ignore: cast_nullable_to_non_nullable
               as String,
-      modes: modes == freezed
+      modes: null == modes
           ? _value._modes
           : modes // ignore: cast_nullable_to_non_nullable
               as List<TriasMode>,
-      attributes: attributes == freezed
+      attributes: null == attributes
           ? _value._attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as List<TriasAttribute>,
-      publishedLineName: publishedLineName == freezed
+      publishedLineName: null == publishedLineName
           ? _value.publishedLineName
           : publishedLineName // ignore: cast_nullable_to_non_nullable
               as String,
-      operatorRef: operatorRef == freezed
+      operatorRef: null == operatorRef
           ? _value.operatorRef
           : operatorRef // ignore: cast_nullable_to_non_nullable
               as String,
-      originStopPointRef: originStopPointRef == freezed
+      originStopPointRef: null == originStopPointRef
           ? _value.originStopPointRef
           : originStopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      originText: originText == freezed
+      originText: null == originText
           ? _value.originText
           : originText // ignore: cast_nullable_to_non_nullable
               as String,
-      destinationStopPointRef: destinationStopPointRef == freezed
+      destinationStopPointRef: null == destinationStopPointRef
           ? _value.destinationStopPointRef
           : destinationStopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      destinationText: destinationText == freezed
+      destinationText: null == destinationText
           ? _value.destinationText
           : destinationText // ignore: cast_nullable_to_non_nullable
               as String,
@@ -920,48 +936,50 @@ class _$_TriasService implements _TriasService {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasService &&
-            const DeepCollectionEquality()
-                .equals(other.operatingDayRef, operatingDayRef) &&
-            const DeepCollectionEquality()
-                .equals(other.journeyRef, journeyRef) &&
-            const DeepCollectionEquality().equals(other.lineRef, lineRef) &&
-            const DeepCollectionEquality()
-                .equals(other.directionRef, directionRef) &&
+            (identical(other.operatingDayRef, operatingDayRef) ||
+                other.operatingDayRef == operatingDayRef) &&
+            (identical(other.journeyRef, journeyRef) ||
+                other.journeyRef == journeyRef) &&
+            (identical(other.lineRef, lineRef) || other.lineRef == lineRef) &&
+            (identical(other.directionRef, directionRef) ||
+                other.directionRef == directionRef) &&
             const DeepCollectionEquality().equals(other._modes, _modes) &&
             const DeepCollectionEquality()
                 .equals(other._attributes, _attributes) &&
-            const DeepCollectionEquality()
-                .equals(other.publishedLineName, publishedLineName) &&
-            const DeepCollectionEquality()
-                .equals(other.operatorRef, operatorRef) &&
-            const DeepCollectionEquality()
-                .equals(other.originStopPointRef, originStopPointRef) &&
-            const DeepCollectionEquality()
-                .equals(other.originText, originText) &&
-            const DeepCollectionEquality().equals(
-                other.destinationStopPointRef, destinationStopPointRef) &&
-            const DeepCollectionEquality()
-                .equals(other.destinationText, destinationText));
+            (identical(other.publishedLineName, publishedLineName) ||
+                other.publishedLineName == publishedLineName) &&
+            (identical(other.operatorRef, operatorRef) ||
+                other.operatorRef == operatorRef) &&
+            (identical(other.originStopPointRef, originStopPointRef) ||
+                other.originStopPointRef == originStopPointRef) &&
+            (identical(other.originText, originText) ||
+                other.originText == originText) &&
+            (identical(
+                    other.destinationStopPointRef, destinationStopPointRef) ||
+                other.destinationStopPointRef == destinationStopPointRef) &&
+            (identical(other.destinationText, destinationText) ||
+                other.destinationText == destinationText));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(operatingDayRef),
-      const DeepCollectionEquality().hash(journeyRef),
-      const DeepCollectionEquality().hash(lineRef),
-      const DeepCollectionEquality().hash(directionRef),
+      operatingDayRef,
+      journeyRef,
+      lineRef,
+      directionRef,
       const DeepCollectionEquality().hash(_modes),
       const DeepCollectionEquality().hash(_attributes),
-      const DeepCollectionEquality().hash(publishedLineName),
-      const DeepCollectionEquality().hash(operatorRef),
-      const DeepCollectionEquality().hash(originStopPointRef),
-      const DeepCollectionEquality().hash(originText),
-      const DeepCollectionEquality().hash(destinationStopPointRef),
-      const DeepCollectionEquality().hash(destinationText));
+      publishedLineName,
+      operatorRef,
+      originStopPointRef,
+      originText,
+      destinationStopPointRef,
+      destinationText);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasServiceCopyWith<_$_TriasService> get copyWith =>
       __$$_TriasServiceCopyWithImpl<_$_TriasService>(this, _$identity);
 }
@@ -1026,43 +1044,47 @@ mixin _$TriasMode {
 /// @nodoc
 abstract class $TriasModeCopyWith<$Res> {
   factory $TriasModeCopyWith(TriasMode value, $Res Function(TriasMode) then) =
-      _$TriasModeCopyWithImpl<$Res>;
+      _$TriasModeCopyWithImpl<$Res, TriasMode>;
+  @useResult
   $Res call({String mode, String? submode, String? name, String? language});
 }
 
 /// @nodoc
-class _$TriasModeCopyWithImpl<$Res> implements $TriasModeCopyWith<$Res> {
+class _$TriasModeCopyWithImpl<$Res, $Val extends TriasMode>
+    implements $TriasModeCopyWith<$Res> {
   _$TriasModeCopyWithImpl(this._value, this._then);
 
-  final TriasMode _value;
   // ignore: unused_field
-  final $Res Function(TriasMode) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mode = freezed,
+    Object? mode = null,
     Object? submode = freezed,
     Object? name = freezed,
     Object? language = freezed,
   }) {
     return _then(_value.copyWith(
-      mode: mode == freezed
+      mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as String,
-      submode: submode == freezed
+      submode: freezed == submode
           ? _value.submode
           : submode // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      language: language == freezed
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1072,40 +1094,40 @@ abstract class _$$_TriasModeCopyWith<$Res> implements $TriasModeCopyWith<$Res> {
           _$_TriasMode value, $Res Function(_$_TriasMode) then) =
       __$$_TriasModeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String mode, String? submode, String? name, String? language});
 }
 
 /// @nodoc
-class __$$_TriasModeCopyWithImpl<$Res> extends _$TriasModeCopyWithImpl<$Res>
+class __$$_TriasModeCopyWithImpl<$Res>
+    extends _$TriasModeCopyWithImpl<$Res, _$_TriasMode>
     implements _$$_TriasModeCopyWith<$Res> {
   __$$_TriasModeCopyWithImpl(
       _$_TriasMode _value, $Res Function(_$_TriasMode) _then)
-      : super(_value, (v) => _then(v as _$_TriasMode));
+      : super(_value, _then);
 
-  @override
-  _$_TriasMode get _value => super._value as _$_TriasMode;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mode = freezed,
+    Object? mode = null,
     Object? submode = freezed,
     Object? name = freezed,
     Object? language = freezed,
   }) {
     return _then(_$_TriasMode(
-      mode == freezed
+      null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as String,
-      submode: submode == freezed
+      submode: freezed == submode
           ? _value.submode
           : submode // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      language: language == freezed
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -1137,22 +1159,19 @@ class _$_TriasMode implements _TriasMode {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasMode &&
-            const DeepCollectionEquality().equals(other.mode, mode) &&
-            const DeepCollectionEquality().equals(other.submode, submode) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.language, language));
+            (identical(other.mode, mode) || other.mode == mode) &&
+            (identical(other.submode, submode) || other.submode == submode) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.language, language) ||
+                other.language == language));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(mode),
-      const DeepCollectionEquality().hash(submode),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(language));
+  int get hashCode => Object.hash(runtimeType, mode, submode, name, language);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasModeCopyWith<_$_TriasMode> get copyWith =>
       __$$_TriasModeCopyWithImpl<_$_TriasMode>(this, _$identity);
 }
@@ -1191,34 +1210,37 @@ mixin _$TriasAttribute {
 abstract class $TriasAttributeCopyWith<$Res> {
   factory $TriasAttributeCopyWith(
           TriasAttribute value, $Res Function(TriasAttribute) then) =
-      _$TriasAttributeCopyWithImpl<$Res>;
+      _$TriasAttributeCopyWithImpl<$Res, TriasAttribute>;
+  @useResult
   $Res call({String code, String text});
 }
 
 /// @nodoc
-class _$TriasAttributeCopyWithImpl<$Res>
+class _$TriasAttributeCopyWithImpl<$Res, $Val extends TriasAttribute>
     implements $TriasAttributeCopyWith<$Res> {
   _$TriasAttributeCopyWithImpl(this._value, this._then);
 
-  final TriasAttribute _value;
   // ignore: unused_field
-  final $Res Function(TriasAttribute) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = freezed,
-    Object? text = freezed,
+    Object? code = null,
+    Object? text = null,
   }) {
     return _then(_value.copyWith(
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      text: text == freezed
+      text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1229,31 +1251,30 @@ abstract class _$$_TriasAttributeCopyWith<$Res>
           _$_TriasAttribute value, $Res Function(_$_TriasAttribute) then) =
       __$$_TriasAttributeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String code, String text});
 }
 
 /// @nodoc
 class __$$_TriasAttributeCopyWithImpl<$Res>
-    extends _$TriasAttributeCopyWithImpl<$Res>
+    extends _$TriasAttributeCopyWithImpl<$Res, _$_TriasAttribute>
     implements _$$_TriasAttributeCopyWith<$Res> {
   __$$_TriasAttributeCopyWithImpl(
       _$_TriasAttribute _value, $Res Function(_$_TriasAttribute) _then)
-      : super(_value, (v) => _then(v as _$_TriasAttribute));
+      : super(_value, _then);
 
-  @override
-  _$_TriasAttribute get _value => super._value as _$_TriasAttribute;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = freezed,
-    Object? text = freezed,
+    Object? code = null,
+    Object? text = null,
   }) {
     return _then(_$_TriasAttribute(
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      text: text == freezed
+      text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1281,18 +1302,16 @@ class _$_TriasAttribute implements _TriasAttribute {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasAttribute &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality().equals(other.text, text));
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.text, text) || other.text == text));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(text));
+  int get hashCode => Object.hash(runtimeType, code, text);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasAttributeCopyWith<_$_TriasAttribute> get copyWith =>
       __$$_TriasAttributeCopyWithImpl<_$_TriasAttribute>(this, _$identity);
 }
@@ -1329,7 +1348,8 @@ mixin _$TriasOnwardCall {
 abstract class $TriasOnwardCallCopyWith<$Res> {
   factory $TriasOnwardCallCopyWith(
           TriasOnwardCall value, $Res Function(TriasOnwardCall) then) =
-      _$TriasOnwardCallCopyWithImpl<$Res>;
+      _$TriasOnwardCallCopyWithImpl<$Res, TriasOnwardCall>;
+  @useResult
   $Res call(
       {String stopPointRef,
       String stopPointName,
@@ -1341,50 +1361,53 @@ abstract class $TriasOnwardCallCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TriasOnwardCallCopyWithImpl<$Res>
+class _$TriasOnwardCallCopyWithImpl<$Res, $Val extends TriasOnwardCall>
     implements $TriasOnwardCallCopyWith<$Res> {
   _$TriasOnwardCallCopyWithImpl(this._value, this._then);
 
-  final TriasOnwardCall _value;
   // ignore: unused_field
-  final $Res Function(TriasOnwardCall) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointRef = freezed,
-    Object? stopPointName = freezed,
-    Object? plannedBay = freezed,
-    Object? serviceArrival = freezed,
-    Object? stopSeqNumber = freezed,
+    Object? stopPointRef = null,
+    Object? stopPointName = null,
+    Object? plannedBay = null,
+    Object? serviceArrival = null,
+    Object? stopSeqNumber = null,
   }) {
     return _then(_value.copyWith(
-      stopPointRef: stopPointRef == freezed
+      stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      stopPointName: stopPointName == freezed
+      stopPointName: null == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
               as String,
-      plannedBay: plannedBay == freezed
+      plannedBay: null == plannedBay
           ? _value.plannedBay
           : plannedBay // ignore: cast_nullable_to_non_nullable
               as String,
-      serviceArrival: serviceArrival == freezed
+      serviceArrival: null == serviceArrival
           ? _value.serviceArrival
           : serviceArrival // ignore: cast_nullable_to_non_nullable
               as TriasServiceTime,
-      stopSeqNumber: stopSeqNumber == freezed
+      stopSeqNumber: null == stopSeqNumber
           ? _value.stopSeqNumber
           : stopSeqNumber // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TriasServiceTimeCopyWith<$Res> get serviceArrival {
     return $TriasServiceTimeCopyWith<$Res>(_value.serviceArrival, (value) {
-      return _then(_value.copyWith(serviceArrival: value));
+      return _then(_value.copyWith(serviceArrival: value) as $Val);
     });
   }
 }
@@ -1396,6 +1419,7 @@ abstract class _$$_TriasOnwardCallCopyWith<$Res>
           _$_TriasOnwardCall value, $Res Function(_$_TriasOnwardCall) then) =
       __$$_TriasOnwardCallCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String stopPointRef,
       String stopPointName,
@@ -1409,41 +1433,39 @@ abstract class _$$_TriasOnwardCallCopyWith<$Res>
 
 /// @nodoc
 class __$$_TriasOnwardCallCopyWithImpl<$Res>
-    extends _$TriasOnwardCallCopyWithImpl<$Res>
+    extends _$TriasOnwardCallCopyWithImpl<$Res, _$_TriasOnwardCall>
     implements _$$_TriasOnwardCallCopyWith<$Res> {
   __$$_TriasOnwardCallCopyWithImpl(
       _$_TriasOnwardCall _value, $Res Function(_$_TriasOnwardCall) _then)
-      : super(_value, (v) => _then(v as _$_TriasOnwardCall));
+      : super(_value, _then);
 
-  @override
-  _$_TriasOnwardCall get _value => super._value as _$_TriasOnwardCall;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointRef = freezed,
-    Object? stopPointName = freezed,
-    Object? plannedBay = freezed,
-    Object? serviceArrival = freezed,
-    Object? stopSeqNumber = freezed,
+    Object? stopPointRef = null,
+    Object? stopPointName = null,
+    Object? plannedBay = null,
+    Object? serviceArrival = null,
+    Object? stopSeqNumber = null,
   }) {
     return _then(_$_TriasOnwardCall(
-      stopPointRef: stopPointRef == freezed
+      stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      stopPointName: stopPointName == freezed
+      stopPointName: null == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
               as String,
-      plannedBay: plannedBay == freezed
+      plannedBay: null == plannedBay
           ? _value.plannedBay
           : plannedBay // ignore: cast_nullable_to_non_nullable
               as String,
-      serviceArrival: serviceArrival == freezed
+      serviceArrival: null == serviceArrival
           ? _value.serviceArrival
           : serviceArrival // ignore: cast_nullable_to_non_nullable
               as TriasServiceTime,
-      stopSeqNumber: stopSeqNumber == freezed
+      stopSeqNumber: null == stopSeqNumber
           ? _value.stopSeqNumber
           : stopSeqNumber // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1483,29 +1505,25 @@ class _$_TriasOnwardCall extends _TriasOnwardCall {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasOnwardCall &&
-            const DeepCollectionEquality()
-                .equals(other.stopPointRef, stopPointRef) &&
-            const DeepCollectionEquality()
-                .equals(other.stopPointName, stopPointName) &&
-            const DeepCollectionEquality()
-                .equals(other.plannedBay, plannedBay) &&
-            const DeepCollectionEquality()
-                .equals(other.serviceArrival, serviceArrival) &&
-            const DeepCollectionEquality()
-                .equals(other.stopSeqNumber, stopSeqNumber));
+            (identical(other.stopPointRef, stopPointRef) ||
+                other.stopPointRef == stopPointRef) &&
+            (identical(other.stopPointName, stopPointName) ||
+                other.stopPointName == stopPointName) &&
+            (identical(other.plannedBay, plannedBay) ||
+                other.plannedBay == plannedBay) &&
+            (identical(other.serviceArrival, serviceArrival) ||
+                other.serviceArrival == serviceArrival) &&
+            (identical(other.stopSeqNumber, stopSeqNumber) ||
+                other.stopSeqNumber == stopSeqNumber));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(stopPointRef),
-      const DeepCollectionEquality().hash(stopPointName),
-      const DeepCollectionEquality().hash(plannedBay),
-      const DeepCollectionEquality().hash(serviceArrival),
-      const DeepCollectionEquality().hash(stopSeqNumber));
+  int get hashCode => Object.hash(runtimeType, stopPointRef, stopPointName,
+      plannedBay, serviceArrival, stopSeqNumber);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasOnwardCallCopyWith<_$_TriasOnwardCall> get copyWith =>
       __$$_TriasOnwardCallCopyWithImpl<_$_TriasOnwardCall>(this, _$identity);
 }
@@ -1549,34 +1567,37 @@ mixin _$TriasServiceTime {
 abstract class $TriasServiceTimeCopyWith<$Res> {
   factory $TriasServiceTimeCopyWith(
           TriasServiceTime value, $Res Function(TriasServiceTime) then) =
-      _$TriasServiceTimeCopyWithImpl<$Res>;
+      _$TriasServiceTimeCopyWithImpl<$Res, TriasServiceTime>;
+  @useResult
   $Res call({DateTime timetabledTime, DateTime estimatedTime});
 }
 
 /// @nodoc
-class _$TriasServiceTimeCopyWithImpl<$Res>
+class _$TriasServiceTimeCopyWithImpl<$Res, $Val extends TriasServiceTime>
     implements $TriasServiceTimeCopyWith<$Res> {
   _$TriasServiceTimeCopyWithImpl(this._value, this._then);
 
-  final TriasServiceTime _value;
   // ignore: unused_field
-  final $Res Function(TriasServiceTime) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? timetabledTime = freezed,
-    Object? estimatedTime = freezed,
+    Object? timetabledTime = null,
+    Object? estimatedTime = null,
   }) {
     return _then(_value.copyWith(
-      timetabledTime: timetabledTime == freezed
+      timetabledTime: null == timetabledTime
           ? _value.timetabledTime
           : timetabledTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      estimatedTime: estimatedTime == freezed
+      estimatedTime: null == estimatedTime
           ? _value.estimatedTime
           : estimatedTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1587,31 +1608,30 @@ abstract class _$$_TriasServiceTimeCopyWith<$Res>
           _$_TriasServiceTime value, $Res Function(_$_TriasServiceTime) then) =
       __$$_TriasServiceTimeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({DateTime timetabledTime, DateTime estimatedTime});
 }
 
 /// @nodoc
 class __$$_TriasServiceTimeCopyWithImpl<$Res>
-    extends _$TriasServiceTimeCopyWithImpl<$Res>
+    extends _$TriasServiceTimeCopyWithImpl<$Res, _$_TriasServiceTime>
     implements _$$_TriasServiceTimeCopyWith<$Res> {
   __$$_TriasServiceTimeCopyWithImpl(
       _$_TriasServiceTime _value, $Res Function(_$_TriasServiceTime) _then)
-      : super(_value, (v) => _then(v as _$_TriasServiceTime));
+      : super(_value, _then);
 
-  @override
-  _$_TriasServiceTime get _value => super._value as _$_TriasServiceTime;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? timetabledTime = freezed,
-    Object? estimatedTime = freezed,
+    Object? timetabledTime = null,
+    Object? estimatedTime = null,
   }) {
     return _then(_$_TriasServiceTime(
-      timetabledTime: timetabledTime == freezed
+      timetabledTime: null == timetabledTime
           ? _value.timetabledTime
           : timetabledTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      estimatedTime: estimatedTime == freezed
+      estimatedTime: null == estimatedTime
           ? _value.estimatedTime
           : estimatedTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -1641,20 +1661,18 @@ class _$_TriasServiceTime extends _TriasServiceTime {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasServiceTime &&
-            const DeepCollectionEquality()
-                .equals(other.timetabledTime, timetabledTime) &&
-            const DeepCollectionEquality()
-                .equals(other.estimatedTime, estimatedTime));
+            (identical(other.timetabledTime, timetabledTime) ||
+                other.timetabledTime == timetabledTime) &&
+            (identical(other.estimatedTime, estimatedTime) ||
+                other.estimatedTime == estimatedTime));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(timetabledTime),
-      const DeepCollectionEquality().hash(estimatedTime));
+  int get hashCode => Object.hash(runtimeType, timetabledTime, estimatedTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasServiceTimeCopyWith<_$_TriasServiceTime> get copyWith =>
       __$$_TriasServiceTimeCopyWithImpl<_$_TriasServiceTime>(this, _$identity);
 }
@@ -1693,7 +1711,8 @@ mixin _$TriasPreviousCall {
 abstract class $TriasPreviousCallCopyWith<$Res> {
   factory $TriasPreviousCallCopyWith(
           TriasPreviousCall value, $Res Function(TriasPreviousCall) then) =
-      _$TriasPreviousCallCopyWithImpl<$Res>;
+      _$TriasPreviousCallCopyWithImpl<$Res, TriasPreviousCall>;
+  @useResult
   $Res call(
       {String stopPointRef,
       String stopPointName,
@@ -1707,62 +1726,66 @@ abstract class $TriasPreviousCallCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TriasPreviousCallCopyWithImpl<$Res>
+class _$TriasPreviousCallCopyWithImpl<$Res, $Val extends TriasPreviousCall>
     implements $TriasPreviousCallCopyWith<$Res> {
   _$TriasPreviousCallCopyWithImpl(this._value, this._then);
 
-  final TriasPreviousCall _value;
   // ignore: unused_field
-  final $Res Function(TriasPreviousCall) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointRef = freezed,
-    Object? stopPointName = freezed,
-    Object? plannedBay = freezed,
-    Object? serviceArrival = freezed,
-    Object? serviceDeparture = freezed,
-    Object? stopSeqNumber = freezed,
+    Object? stopPointRef = null,
+    Object? stopPointName = null,
+    Object? plannedBay = null,
+    Object? serviceArrival = null,
+    Object? serviceDeparture = null,
+    Object? stopSeqNumber = null,
   }) {
     return _then(_value.copyWith(
-      stopPointRef: stopPointRef == freezed
+      stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      stopPointName: stopPointName == freezed
+      stopPointName: null == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
               as String,
-      plannedBay: plannedBay == freezed
+      plannedBay: null == plannedBay
           ? _value.plannedBay
           : plannedBay // ignore: cast_nullable_to_non_nullable
               as String,
-      serviceArrival: serviceArrival == freezed
+      serviceArrival: null == serviceArrival
           ? _value.serviceArrival
           : serviceArrival // ignore: cast_nullable_to_non_nullable
               as TriasServiceTime,
-      serviceDeparture: serviceDeparture == freezed
+      serviceDeparture: null == serviceDeparture
           ? _value.serviceDeparture
           : serviceDeparture // ignore: cast_nullable_to_non_nullable
               as TriasServiceTime,
-      stopSeqNumber: stopSeqNumber == freezed
+      stopSeqNumber: null == stopSeqNumber
           ? _value.stopSeqNumber
           : stopSeqNumber // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TriasServiceTimeCopyWith<$Res> get serviceArrival {
     return $TriasServiceTimeCopyWith<$Res>(_value.serviceArrival, (value) {
-      return _then(_value.copyWith(serviceArrival: value));
+      return _then(_value.copyWith(serviceArrival: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TriasServiceTimeCopyWith<$Res> get serviceDeparture {
     return $TriasServiceTimeCopyWith<$Res>(_value.serviceDeparture, (value) {
-      return _then(_value.copyWith(serviceDeparture: value));
+      return _then(_value.copyWith(serviceDeparture: value) as $Val);
     });
   }
 }
@@ -1774,6 +1797,7 @@ abstract class _$$_TriasPreviousCallCopyWith<$Res>
           $Res Function(_$_TriasPreviousCall) then) =
       __$$_TriasPreviousCallCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String stopPointRef,
       String stopPointName,
@@ -1790,46 +1814,44 @@ abstract class _$$_TriasPreviousCallCopyWith<$Res>
 
 /// @nodoc
 class __$$_TriasPreviousCallCopyWithImpl<$Res>
-    extends _$TriasPreviousCallCopyWithImpl<$Res>
+    extends _$TriasPreviousCallCopyWithImpl<$Res, _$_TriasPreviousCall>
     implements _$$_TriasPreviousCallCopyWith<$Res> {
   __$$_TriasPreviousCallCopyWithImpl(
       _$_TriasPreviousCall _value, $Res Function(_$_TriasPreviousCall) _then)
-      : super(_value, (v) => _then(v as _$_TriasPreviousCall));
+      : super(_value, _then);
 
-  @override
-  _$_TriasPreviousCall get _value => super._value as _$_TriasPreviousCall;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointRef = freezed,
-    Object? stopPointName = freezed,
-    Object? plannedBay = freezed,
-    Object? serviceArrival = freezed,
-    Object? serviceDeparture = freezed,
-    Object? stopSeqNumber = freezed,
+    Object? stopPointRef = null,
+    Object? stopPointName = null,
+    Object? plannedBay = null,
+    Object? serviceArrival = null,
+    Object? serviceDeparture = null,
+    Object? stopSeqNumber = null,
   }) {
     return _then(_$_TriasPreviousCall(
-      stopPointRef: stopPointRef == freezed
+      stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      stopPointName: stopPointName == freezed
+      stopPointName: null == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
               as String,
-      plannedBay: plannedBay == freezed
+      plannedBay: null == plannedBay
           ? _value.plannedBay
           : plannedBay // ignore: cast_nullable_to_non_nullable
               as String,
-      serviceArrival: serviceArrival == freezed
+      serviceArrival: null == serviceArrival
           ? _value.serviceArrival
           : serviceArrival // ignore: cast_nullable_to_non_nullable
               as TriasServiceTime,
-      serviceDeparture: serviceDeparture == freezed
+      serviceDeparture: null == serviceDeparture
           ? _value.serviceDeparture
           : serviceDeparture // ignore: cast_nullable_to_non_nullable
               as TriasServiceTime,
-      stopSeqNumber: stopSeqNumber == freezed
+      stopSeqNumber: null == stopSeqNumber
           ? _value.stopSeqNumber
           : stopSeqNumber // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1872,32 +1894,27 @@ class _$_TriasPreviousCall extends _TriasPreviousCall {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasPreviousCall &&
-            const DeepCollectionEquality()
-                .equals(other.stopPointRef, stopPointRef) &&
-            const DeepCollectionEquality()
-                .equals(other.stopPointName, stopPointName) &&
-            const DeepCollectionEquality()
-                .equals(other.plannedBay, plannedBay) &&
-            const DeepCollectionEquality()
-                .equals(other.serviceArrival, serviceArrival) &&
-            const DeepCollectionEquality()
-                .equals(other.serviceDeparture, serviceDeparture) &&
-            const DeepCollectionEquality()
-                .equals(other.stopSeqNumber, stopSeqNumber));
+            (identical(other.stopPointRef, stopPointRef) ||
+                other.stopPointRef == stopPointRef) &&
+            (identical(other.stopPointName, stopPointName) ||
+                other.stopPointName == stopPointName) &&
+            (identical(other.plannedBay, plannedBay) ||
+                other.plannedBay == plannedBay) &&
+            (identical(other.serviceArrival, serviceArrival) ||
+                other.serviceArrival == serviceArrival) &&
+            (identical(other.serviceDeparture, serviceDeparture) ||
+                other.serviceDeparture == serviceDeparture) &&
+            (identical(other.stopSeqNumber, stopSeqNumber) ||
+                other.stopSeqNumber == stopSeqNumber));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(stopPointRef),
-      const DeepCollectionEquality().hash(stopPointName),
-      const DeepCollectionEquality().hash(plannedBay),
-      const DeepCollectionEquality().hash(serviceArrival),
-      const DeepCollectionEquality().hash(serviceDeparture),
-      const DeepCollectionEquality().hash(stopSeqNumber));
+  int get hashCode => Object.hash(runtimeType, stopPointRef, stopPointName,
+      plannedBay, serviceArrival, serviceDeparture, stopSeqNumber);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasPreviousCallCopyWith<_$_TriasPreviousCall> get copyWith =>
       __$$_TriasPreviousCallCopyWithImpl<_$_TriasPreviousCall>(
           this, _$identity);
@@ -1949,7 +1966,8 @@ mixin _$TriasThisCall {
 abstract class $TriasThisCallCopyWith<$Res> {
   factory $TriasThisCallCopyWith(
           TriasThisCall value, $Res Function(TriasThisCall) then) =
-      _$TriasThisCallCopyWithImpl<$Res>;
+      _$TriasThisCallCopyWithImpl<$Res, TriasThisCall>;
+  @useResult
   $Res call(
       {String stopPointRef,
       String stopPointName,
@@ -1962,55 +1980,58 @@ abstract class $TriasThisCallCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TriasThisCallCopyWithImpl<$Res>
+class _$TriasThisCallCopyWithImpl<$Res, $Val extends TriasThisCall>
     implements $TriasThisCallCopyWith<$Res> {
   _$TriasThisCallCopyWithImpl(this._value, this._then);
 
-  final TriasThisCall _value;
   // ignore: unused_field
-  final $Res Function(TriasThisCall) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointRef = freezed,
-    Object? stopPointName = freezed,
-    Object? plannedBay = freezed,
-    Object? estimatedBay = freezed,
-    Object? serviceDeparture = freezed,
-    Object? stopSeqNumber = freezed,
+    Object? stopPointRef = null,
+    Object? stopPointName = null,
+    Object? plannedBay = null,
+    Object? estimatedBay = null,
+    Object? serviceDeparture = null,
+    Object? stopSeqNumber = null,
   }) {
     return _then(_value.copyWith(
-      stopPointRef: stopPointRef == freezed
+      stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      stopPointName: stopPointName == freezed
+      stopPointName: null == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
               as String,
-      plannedBay: plannedBay == freezed
+      plannedBay: null == plannedBay
           ? _value.plannedBay
           : plannedBay // ignore: cast_nullable_to_non_nullable
               as String,
-      estimatedBay: estimatedBay == freezed
+      estimatedBay: null == estimatedBay
           ? _value.estimatedBay
           : estimatedBay // ignore: cast_nullable_to_non_nullable
               as String,
-      serviceDeparture: serviceDeparture == freezed
+      serviceDeparture: null == serviceDeparture
           ? _value.serviceDeparture
           : serviceDeparture // ignore: cast_nullable_to_non_nullable
               as TriasServiceTime,
-      stopSeqNumber: stopSeqNumber == freezed
+      stopSeqNumber: null == stopSeqNumber
           ? _value.stopSeqNumber
           : stopSeqNumber // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TriasServiceTimeCopyWith<$Res> get serviceDeparture {
     return $TriasServiceTimeCopyWith<$Res>(_value.serviceDeparture, (value) {
-      return _then(_value.copyWith(serviceDeparture: value));
+      return _then(_value.copyWith(serviceDeparture: value) as $Val);
     });
   }
 }
@@ -2022,6 +2043,7 @@ abstract class _$$_TriasThisCallCopyWith<$Res>
           _$_TriasThisCall value, $Res Function(_$_TriasThisCall) then) =
       __$$_TriasThisCallCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String stopPointRef,
       String stopPointName,
@@ -2036,46 +2058,44 @@ abstract class _$$_TriasThisCallCopyWith<$Res>
 
 /// @nodoc
 class __$$_TriasThisCallCopyWithImpl<$Res>
-    extends _$TriasThisCallCopyWithImpl<$Res>
+    extends _$TriasThisCallCopyWithImpl<$Res, _$_TriasThisCall>
     implements _$$_TriasThisCallCopyWith<$Res> {
   __$$_TriasThisCallCopyWithImpl(
       _$_TriasThisCall _value, $Res Function(_$_TriasThisCall) _then)
-      : super(_value, (v) => _then(v as _$_TriasThisCall));
+      : super(_value, _then);
 
-  @override
-  _$_TriasThisCall get _value => super._value as _$_TriasThisCall;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointRef = freezed,
-    Object? stopPointName = freezed,
-    Object? plannedBay = freezed,
-    Object? estimatedBay = freezed,
-    Object? serviceDeparture = freezed,
-    Object? stopSeqNumber = freezed,
+    Object? stopPointRef = null,
+    Object? stopPointName = null,
+    Object? plannedBay = null,
+    Object? estimatedBay = null,
+    Object? serviceDeparture = null,
+    Object? stopSeqNumber = null,
   }) {
     return _then(_$_TriasThisCall(
-      stopPointRef: stopPointRef == freezed
+      stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
               as String,
-      stopPointName: stopPointName == freezed
+      stopPointName: null == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
               as String,
-      plannedBay: plannedBay == freezed
+      plannedBay: null == plannedBay
           ? _value.plannedBay
           : plannedBay // ignore: cast_nullable_to_non_nullable
               as String,
-      estimatedBay: estimatedBay == freezed
+      estimatedBay: null == estimatedBay
           ? _value.estimatedBay
           : estimatedBay // ignore: cast_nullable_to_non_nullable
               as String,
-      serviceDeparture: serviceDeparture == freezed
+      serviceDeparture: null == serviceDeparture
           ? _value.serviceDeparture
           : serviceDeparture // ignore: cast_nullable_to_non_nullable
               as TriasServiceTime,
-      stopSeqNumber: stopSeqNumber == freezed
+      stopSeqNumber: null == stopSeqNumber
           ? _value.stopSeqNumber
           : stopSeqNumber // ignore: cast_nullable_to_non_nullable
               as String,
@@ -2118,32 +2138,27 @@ class _$_TriasThisCall extends _TriasThisCall {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasThisCall &&
-            const DeepCollectionEquality()
-                .equals(other.stopPointRef, stopPointRef) &&
-            const DeepCollectionEquality()
-                .equals(other.stopPointName, stopPointName) &&
-            const DeepCollectionEquality()
-                .equals(other.plannedBay, plannedBay) &&
-            const DeepCollectionEquality()
-                .equals(other.estimatedBay, estimatedBay) &&
-            const DeepCollectionEquality()
-                .equals(other.serviceDeparture, serviceDeparture) &&
-            const DeepCollectionEquality()
-                .equals(other.stopSeqNumber, stopSeqNumber));
+            (identical(other.stopPointRef, stopPointRef) ||
+                other.stopPointRef == stopPointRef) &&
+            (identical(other.stopPointName, stopPointName) ||
+                other.stopPointName == stopPointName) &&
+            (identical(other.plannedBay, plannedBay) ||
+                other.plannedBay == plannedBay) &&
+            (identical(other.estimatedBay, estimatedBay) ||
+                other.estimatedBay == estimatedBay) &&
+            (identical(other.serviceDeparture, serviceDeparture) ||
+                other.serviceDeparture == serviceDeparture) &&
+            (identical(other.stopSeqNumber, stopSeqNumber) ||
+                other.stopSeqNumber == stopSeqNumber));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(stopPointRef),
-      const DeepCollectionEquality().hash(stopPointName),
-      const DeepCollectionEquality().hash(plannedBay),
-      const DeepCollectionEquality().hash(estimatedBay),
-      const DeepCollectionEquality().hash(serviceDeparture),
-      const DeepCollectionEquality().hash(stopSeqNumber));
+  int get hashCode => Object.hash(runtimeType, stopPointRef, stopPointName,
+      plannedBay, estimatedBay, serviceDeparture, stopSeqNumber);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasThisCallCopyWith<_$_TriasThisCall> get copyWith =>
       __$$_TriasThisCallCopyWithImpl<_$_TriasThisCall>(this, _$identity);
 }
@@ -2190,34 +2205,37 @@ mixin _$TriasGeoPosition {
 abstract class $TriasGeoPositionCopyWith<$Res> {
   factory $TriasGeoPositionCopyWith(
           TriasGeoPosition value, $Res Function(TriasGeoPosition) then) =
-      _$TriasGeoPositionCopyWithImpl<$Res>;
+      _$TriasGeoPositionCopyWithImpl<$Res, TriasGeoPosition>;
+  @useResult
   $Res call({double latitude, double longitude});
 }
 
 /// @nodoc
-class _$TriasGeoPositionCopyWithImpl<$Res>
+class _$TriasGeoPositionCopyWithImpl<$Res, $Val extends TriasGeoPosition>
     implements $TriasGeoPositionCopyWith<$Res> {
   _$TriasGeoPositionCopyWithImpl(this._value, this._then);
 
-  final TriasGeoPosition _value;
   // ignore: unused_field
-  final $Res Function(TriasGeoPosition) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = freezed,
-    Object? longitude = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
   }) {
     return _then(_value.copyWith(
-      latitude: latitude == freezed
+      latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
-      longitude: longitude == freezed
+      longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 }
 
@@ -2228,31 +2246,30 @@ abstract class _$$_TriasGeoPositionCopyWith<$Res>
           _$_TriasGeoPosition value, $Res Function(_$_TriasGeoPosition) then) =
       __$$_TriasGeoPositionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({double latitude, double longitude});
 }
 
 /// @nodoc
 class __$$_TriasGeoPositionCopyWithImpl<$Res>
-    extends _$TriasGeoPositionCopyWithImpl<$Res>
+    extends _$TriasGeoPositionCopyWithImpl<$Res, _$_TriasGeoPosition>
     implements _$$_TriasGeoPositionCopyWith<$Res> {
   __$$_TriasGeoPositionCopyWithImpl(
       _$_TriasGeoPosition _value, $Res Function(_$_TriasGeoPosition) _then)
-      : super(_value, (v) => _then(v as _$_TriasGeoPosition));
+      : super(_value, _then);
 
-  @override
-  _$_TriasGeoPosition get _value => super._value as _$_TriasGeoPosition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = freezed,
-    Object? longitude = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
   }) {
     return _then(_$_TriasGeoPosition(
-      latitude: latitude == freezed
+      latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
-      longitude: longitude == freezed
+      longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
@@ -2280,18 +2297,18 @@ class _$_TriasGeoPosition implements _TriasGeoPosition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TriasGeoPosition &&
-            const DeepCollectionEquality().equals(other.latitude, latitude) &&
-            const DeepCollectionEquality().equals(other.longitude, longitude));
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(latitude),
-      const DeepCollectionEquality().hash(longitude));
+  int get hashCode => Object.hash(runtimeType, latitude, longitude);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TriasGeoPositionCopyWith<_$_TriasGeoPosition> get copyWith =>
       __$$_TriasGeoPositionCopyWithImpl<_$_TriasGeoPosition>(this, _$identity);
 }
