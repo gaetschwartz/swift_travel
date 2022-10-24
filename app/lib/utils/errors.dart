@@ -1,4 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -103,11 +103,24 @@ void reportFlutterError(FlutterErrorDetails details) async {
 
 Future<bool> get _doReport async {
   final instance = await SharedPreferences.getInstance();
-  return !kIsWeb &&
+
+  /*  return !kIsWeb &&
       Firebase.apps.isNotEmpty &&
       (instance
               .getBool(PreferencesBloc.prefix + PreferencesBloc.analyticsKey) ??
-          true);
+          true); */
+  if (kIsWeb) {
+    return false;
+  }
+  // if (Firebase.apps.isEmpty) {
+  //   return false;
+  // }
+  if (!(instance
+          .getBool(PreferencesBloc.prefix + PreferencesBloc.analyticsKey) ??
+      true)) {
+    return false;
+  }
+  return true;
 }
 
 class ErrorPage extends StatefulWidget {

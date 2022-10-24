@@ -27,33 +27,37 @@ mixin _$Font {
 /// @nodoc
 abstract class $FontCopyWith<$Res> {
   factory $FontCopyWith(Font value, $Res Function(Font) then) =
-      _$FontCopyWithImpl<$Res>;
+      _$FontCopyWithImpl<$Res, Font>;
+  @useResult
   $Res call({String name, TextTheme Function(TextTheme) textTheme});
 }
 
 /// @nodoc
-class _$FontCopyWithImpl<$Res> implements $FontCopyWith<$Res> {
+class _$FontCopyWithImpl<$Res, $Val extends Font>
+    implements $FontCopyWith<$Res> {
   _$FontCopyWithImpl(this._value, this._then);
 
-  final Font _value;
   // ignore: unused_field
-  final $Res Function(Font) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? textTheme = freezed,
+    Object? name = null,
+    Object? textTheme = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      textTheme: textTheme == freezed
+      textTheme: null == textTheme
           ? _value.textTheme
           : textTheme // ignore: cast_nullable_to_non_nullable
               as TextTheme Function(TextTheme),
-    ));
+    ) as $Val);
   }
 }
 
@@ -62,29 +66,28 @@ abstract class _$$_FontCopyWith<$Res> implements $FontCopyWith<$Res> {
   factory _$$_FontCopyWith(_$_Font value, $Res Function(_$_Font) then) =
       __$$_FontCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, TextTheme Function(TextTheme) textTheme});
 }
 
 /// @nodoc
-class __$$_FontCopyWithImpl<$Res> extends _$FontCopyWithImpl<$Res>
+class __$$_FontCopyWithImpl<$Res> extends _$FontCopyWithImpl<$Res, _$_Font>
     implements _$$_FontCopyWith<$Res> {
   __$$_FontCopyWithImpl(_$_Font _value, $Res Function(_$_Font) _then)
-      : super(_value, (v) => _then(v as _$_Font));
+      : super(_value, _then);
 
-  @override
-  _$_Font get _value => super._value as _$_Font;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? textTheme = freezed,
+    Object? name = null,
+    Object? textTheme = null,
   }) {
     return _then(_$_Font(
-      name == freezed
+      null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      textTheme == freezed
+      null == textTheme
           ? _value.textTheme
           : textTheme // ignore: cast_nullable_to_non_nullable
               as TextTheme Function(TextTheme),
@@ -112,17 +115,17 @@ class _$_Font implements _Font {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Font &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.textTheme, textTheme) ||
                 other.textTheme == textTheme));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(name), textTheme);
+  int get hashCode => Object.hash(runtimeType, name, textTheme);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FontCopyWith<_$_Font> get copyWith =>
       __$$_FontCopyWithImpl<_$_Font>(this, _$identity);
 }
@@ -160,7 +163,8 @@ mixin _$ExtendedTheme {
 abstract class $ExtendedThemeCopyWith<$Res> {
   factory $ExtendedThemeCopyWith(
           ExtendedTheme value, $Res Function(ExtendedTheme) then) =
-      _$ExtendedThemeCopyWithImpl<$Res>;
+      _$ExtendedThemeCopyWithImpl<$Res, ExtendedTheme>;
+  @useResult
   $Res call(
       {ColorScheme colorScheme,
       String name,
@@ -174,60 +178,63 @@ abstract class $ExtendedThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ExtendedThemeCopyWithImpl<$Res>
+class _$ExtendedThemeCopyWithImpl<$Res, $Val extends ExtendedTheme>
     implements $ExtendedThemeCopyWith<$Res> {
   _$ExtendedThemeCopyWithImpl(this._value, this._then);
 
-  final ExtendedTheme _value;
   // ignore: unused_field
-  final $Res Function(ExtendedTheme) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colorScheme = freezed,
-    Object? name = freezed,
-    Object? id = freezed,
-    Object? apply = freezed,
-    Object? description = freezed,
-    Object? shadow = freezed,
-    Object? hide = freezed,
+    Object? colorScheme = null,
+    Object? name = null,
+    Object? id = null,
+    Object? apply = null,
+    Object? description = null,
+    Object? shadow = null,
+    Object? hide = null,
   }) {
     return _then(_value.copyWith(
-      colorScheme: colorScheme == freezed
+      colorScheme: null == colorScheme
           ? _value.colorScheme
           : colorScheme // ignore: cast_nullable_to_non_nullable
               as ColorScheme,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      apply: apply == freezed
+      apply: null == apply
           ? _value.apply
           : apply // ignore: cast_nullable_to_non_nullable
               as ApplyTo<ThemeData>,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      shadow: shadow == freezed
+      shadow: null == shadow
           ? _value.shadow
           : shadow // ignore: cast_nullable_to_non_nullable
               as ShadowTheme,
-      hide: hide == freezed
+      hide: null == hide
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ShadowThemeCopyWith<$Res> get shadow {
     return $ShadowThemeCopyWith<$Res>(_value.shadow, (value) {
-      return _then(_value.copyWith(shadow: value));
+      return _then(_value.copyWith(shadow: value) as $Val);
     });
   }
 }
@@ -239,6 +246,7 @@ abstract class _$$_ExtendedThemeCopyWith<$Res>
           _$_ExtendedTheme value, $Res Function(_$_ExtendedTheme) then) =
       __$$_ExtendedThemeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ColorScheme colorScheme,
       String name,
@@ -254,51 +262,49 @@ abstract class _$$_ExtendedThemeCopyWith<$Res>
 
 /// @nodoc
 class __$$_ExtendedThemeCopyWithImpl<$Res>
-    extends _$ExtendedThemeCopyWithImpl<$Res>
+    extends _$ExtendedThemeCopyWithImpl<$Res, _$_ExtendedTheme>
     implements _$$_ExtendedThemeCopyWith<$Res> {
   __$$_ExtendedThemeCopyWithImpl(
       _$_ExtendedTheme _value, $Res Function(_$_ExtendedTheme) _then)
-      : super(_value, (v) => _then(v as _$_ExtendedTheme));
+      : super(_value, _then);
 
-  @override
-  _$_ExtendedTheme get _value => super._value as _$_ExtendedTheme;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colorScheme = freezed,
-    Object? name = freezed,
-    Object? id = freezed,
-    Object? apply = freezed,
-    Object? description = freezed,
-    Object? shadow = freezed,
-    Object? hide = freezed,
+    Object? colorScheme = null,
+    Object? name = null,
+    Object? id = null,
+    Object? apply = null,
+    Object? description = null,
+    Object? shadow = null,
+    Object? hide = null,
   }) {
     return _then(_$_ExtendedTheme(
-      colorScheme: colorScheme == freezed
+      colorScheme: null == colorScheme
           ? _value.colorScheme
           : colorScheme // ignore: cast_nullable_to_non_nullable
               as ColorScheme,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      apply: apply == freezed
+      apply: null == apply
           ? _value.apply
           : apply // ignore: cast_nullable_to_non_nullable
               as ApplyTo<ThemeData>,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      shadow: shadow == freezed
+      shadow: null == shadow
           ? _value.shadow
           : shadow // ignore: cast_nullable_to_non_nullable
               as ShadowTheme,
-      hide: hide == freezed
+      hide: null == hide
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -348,30 +354,24 @@ class _$_ExtendedTheme extends _ExtendedTheme {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ExtendedTheme &&
-            const DeepCollectionEquality()
-                .equals(other.colorScheme, colorScheme) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
+            (identical(other.colorScheme, colorScheme) ||
+                other.colorScheme == colorScheme) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.apply, apply) || other.apply == apply) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.shadow, shadow) &&
-            const DeepCollectionEquality().equals(other.hide, hide));
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.shadow, shadow) || other.shadow == shadow) &&
+            (identical(other.hide, hide) || other.hide == hide));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(colorScheme),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(id),
-      apply,
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(shadow),
-      const DeepCollectionEquality().hash(hide));
+      runtimeType, colorScheme, name, id, apply, description, shadow, hide);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ExtendedThemeCopyWith<_$_ExtendedTheme> get copyWith =>
       __$$_ExtendedThemeCopyWithImpl<_$_ExtendedTheme>(this, _$identity);
 }
@@ -420,7 +420,8 @@ mixin _$FullTheme {
 /// @nodoc
 abstract class $FullThemeCopyWith<$Res> {
   factory $FullThemeCopyWith(FullTheme value, $Res Function(FullTheme) then) =
-      _$FullThemeCopyWithImpl<$Res>;
+      _$FullThemeCopyWithImpl<$Res, FullTheme>;
+  @useResult
   $Res call({ExtendedTheme light, ExtendedTheme dark});
 
   $ExtendedThemeCopyWith<$Res> get light;
@@ -428,41 +429,46 @@ abstract class $FullThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FullThemeCopyWithImpl<$Res> implements $FullThemeCopyWith<$Res> {
+class _$FullThemeCopyWithImpl<$Res, $Val extends FullTheme>
+    implements $FullThemeCopyWith<$Res> {
   _$FullThemeCopyWithImpl(this._value, this._then);
 
-  final FullTheme _value;
   // ignore: unused_field
-  final $Res Function(FullTheme) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? light = freezed,
-    Object? dark = freezed,
+    Object? light = null,
+    Object? dark = null,
   }) {
     return _then(_value.copyWith(
-      light: light == freezed
+      light: null == light
           ? _value.light
           : light // ignore: cast_nullable_to_non_nullable
               as ExtendedTheme,
-      dark: dark == freezed
+      dark: null == dark
           ? _value.dark
           : dark // ignore: cast_nullable_to_non_nullable
               as ExtendedTheme,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ExtendedThemeCopyWith<$Res> get light {
     return $ExtendedThemeCopyWith<$Res>(_value.light, (value) {
-      return _then(_value.copyWith(light: value));
+      return _then(_value.copyWith(light: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ExtendedThemeCopyWith<$Res> get dark {
     return $ExtendedThemeCopyWith<$Res>(_value.dark, (value) {
-      return _then(_value.copyWith(dark: value));
+      return _then(_value.copyWith(dark: value) as $Val);
     });
   }
 }
@@ -473,6 +479,7 @@ abstract class _$$_FullThemeCopyWith<$Res> implements $FullThemeCopyWith<$Res> {
           _$_FullTheme value, $Res Function(_$_FullTheme) then) =
       __$$_FullThemeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({ExtendedTheme light, ExtendedTheme dark});
 
   @override
@@ -482,26 +489,25 @@ abstract class _$$_FullThemeCopyWith<$Res> implements $FullThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_FullThemeCopyWithImpl<$Res> extends _$FullThemeCopyWithImpl<$Res>
+class __$$_FullThemeCopyWithImpl<$Res>
+    extends _$FullThemeCopyWithImpl<$Res, _$_FullTheme>
     implements _$$_FullThemeCopyWith<$Res> {
   __$$_FullThemeCopyWithImpl(
       _$_FullTheme _value, $Res Function(_$_FullTheme) _then)
-      : super(_value, (v) => _then(v as _$_FullTheme));
+      : super(_value, _then);
 
-  @override
-  _$_FullTheme get _value => super._value as _$_FullTheme;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? light = freezed,
-    Object? dark = freezed,
+    Object? light = null,
+    Object? dark = null,
   }) {
     return _then(_$_FullTheme(
-      light: light == freezed
+      light: null == light
           ? _value.light
           : light // ignore: cast_nullable_to_non_nullable
               as ExtendedTheme,
-      dark: dark == freezed
+      dark: null == dark
           ? _value.dark
           : dark // ignore: cast_nullable_to_non_nullable
               as ExtendedTheme,
@@ -529,18 +535,16 @@ class _$_FullTheme implements _FullTheme {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FullTheme &&
-            const DeepCollectionEquality().equals(other.light, light) &&
-            const DeepCollectionEquality().equals(other.dark, dark));
+            (identical(other.light, light) || other.light == light) &&
+            (identical(other.dark, dark) || other.dark == dark));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(light),
-      const DeepCollectionEquality().hash(dark));
+  int get hashCode => Object.hash(runtimeType, light, dark);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FullThemeCopyWith<_$_FullTheme> get copyWith =>
       __$$_FullThemeCopyWithImpl<_$_FullTheme>(this, _$identity);
 }
@@ -573,28 +577,32 @@ mixin _$ShadowTheme {
 abstract class $ShadowThemeCopyWith<$Res> {
   factory $ShadowThemeCopyWith(
           ShadowTheme value, $Res Function(ShadowTheme) then) =
-      _$ShadowThemeCopyWithImpl<$Res>;
+      _$ShadowThemeCopyWithImpl<$Res, ShadowTheme>;
+  @useResult
   $Res call({BoxShadow? buttonShadow});
 }
 
 /// @nodoc
-class _$ShadowThemeCopyWithImpl<$Res> implements $ShadowThemeCopyWith<$Res> {
+class _$ShadowThemeCopyWithImpl<$Res, $Val extends ShadowTheme>
+    implements $ShadowThemeCopyWith<$Res> {
   _$ShadowThemeCopyWithImpl(this._value, this._then);
 
-  final ShadowTheme _value;
   // ignore: unused_field
-  final $Res Function(ShadowTheme) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? buttonShadow = freezed,
   }) {
     return _then(_value.copyWith(
-      buttonShadow: buttonShadow == freezed
+      buttonShadow: freezed == buttonShadow
           ? _value.buttonShadow
           : buttonShadow // ignore: cast_nullable_to_non_nullable
               as BoxShadow?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -605,25 +613,25 @@ abstract class _$$_ShadowThemeCopyWith<$Res>
           _$_ShadowTheme value, $Res Function(_$_ShadowTheme) then) =
       __$$_ShadowThemeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({BoxShadow? buttonShadow});
 }
 
 /// @nodoc
-class __$$_ShadowThemeCopyWithImpl<$Res> extends _$ShadowThemeCopyWithImpl<$Res>
+class __$$_ShadowThemeCopyWithImpl<$Res>
+    extends _$ShadowThemeCopyWithImpl<$Res, _$_ShadowTheme>
     implements _$$_ShadowThemeCopyWith<$Res> {
   __$$_ShadowThemeCopyWithImpl(
       _$_ShadowTheme _value, $Res Function(_$_ShadowTheme) _then)
-      : super(_value, (v) => _then(v as _$_ShadowTheme));
+      : super(_value, _then);
 
-  @override
-  _$_ShadowTheme get _value => super._value as _$_ShadowTheme;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? buttonShadow = freezed,
   }) {
     return _then(_$_ShadowTheme(
-      buttonShadow: buttonShadow == freezed
+      buttonShadow: freezed == buttonShadow
           ? _value.buttonShadow
           : buttonShadow // ignore: cast_nullable_to_non_nullable
               as BoxShadow?,
@@ -649,16 +657,16 @@ class _$_ShadowTheme extends _ShadowTheme {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ShadowTheme &&
-            const DeepCollectionEquality()
-                .equals(other.buttonShadow, buttonShadow));
+            (identical(other.buttonShadow, buttonShadow) ||
+                other.buttonShadow == buttonShadow));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(buttonShadow));
+  int get hashCode => Object.hash(runtimeType, buttonShadow);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ShadowThemeCopyWith<_$_ShadowTheme> get copyWith =>
       __$$_ShadowThemeCopyWithImpl<_$_ShadowTheme>(this, _$identity);
 }
@@ -686,7 +694,6 @@ mixin _$ThemeConfiguration {
   String? get defaultLightThemeId => throw _privateConstructorUsedError;
   String? get defaultDarkThemeId => throw _privateConstructorUsedError;
   Font? get defaultFont => throw _privateConstructorUsedError;
-  TextTheme get defaultTextTheme => throw _privateConstructorUsedError;
   ThemeData Function(ThemeData) get applyToAllThemes =>
       throw _privateConstructorUsedError;
 
@@ -699,7 +706,8 @@ mixin _$ThemeConfiguration {
 abstract class $ThemeConfigurationCopyWith<$Res> {
   factory $ThemeConfigurationCopyWith(
           ThemeConfiguration value, $Res Function(ThemeConfiguration) then) =
-      _$ThemeConfigurationCopyWithImpl<$Res>;
+      _$ThemeConfigurationCopyWithImpl<$Res, ThemeConfiguration>;
+  @useResult
   $Res call(
       {List<ExtendedTheme> lightThemes,
       List<ExtendedTheme> darkThemes,
@@ -710,91 +718,88 @@ abstract class $ThemeConfigurationCopyWith<$Res> {
       String? defaultLightThemeId,
       String? defaultDarkThemeId,
       Font? defaultFont,
-      TextTheme defaultTextTheme,
       ThemeData Function(ThemeData) applyToAllThemes});
 
   $FontCopyWith<$Res>? get defaultFont;
 }
 
 /// @nodoc
-class _$ThemeConfigurationCopyWithImpl<$Res>
+class _$ThemeConfigurationCopyWithImpl<$Res, $Val extends ThemeConfiguration>
     implements $ThemeConfigurationCopyWith<$Res> {
   _$ThemeConfigurationCopyWithImpl(this._value, this._then);
 
-  final ThemeConfiguration _value;
   // ignore: unused_field
-  final $Res Function(ThemeConfiguration) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? lightThemes = freezed,
-    Object? darkThemes = freezed,
-    Object? fonts = freezed,
-    Object? prefix = freezed,
-    Object? defaultThemeMode = freezed,
-    Object? persist = freezed,
+    Object? lightThemes = null,
+    Object? darkThemes = null,
+    Object? fonts = null,
+    Object? prefix = null,
+    Object? defaultThemeMode = null,
+    Object? persist = null,
     Object? defaultLightThemeId = freezed,
     Object? defaultDarkThemeId = freezed,
     Object? defaultFont = freezed,
-    Object? defaultTextTheme = freezed,
-    Object? applyToAllThemes = freezed,
+    Object? applyToAllThemes = null,
   }) {
     return _then(_value.copyWith(
-      lightThemes: lightThemes == freezed
+      lightThemes: null == lightThemes
           ? _value.lightThemes
           : lightThemes // ignore: cast_nullable_to_non_nullable
               as List<ExtendedTheme>,
-      darkThemes: darkThemes == freezed
+      darkThemes: null == darkThemes
           ? _value.darkThemes
           : darkThemes // ignore: cast_nullable_to_non_nullable
               as List<ExtendedTheme>,
-      fonts: fonts == freezed
+      fonts: null == fonts
           ? _value.fonts
           : fonts // ignore: cast_nullable_to_non_nullable
               as List<Font>,
-      prefix: prefix == freezed
+      prefix: null == prefix
           ? _value.prefix
           : prefix // ignore: cast_nullable_to_non_nullable
               as String,
-      defaultThemeMode: defaultThemeMode == freezed
+      defaultThemeMode: null == defaultThemeMode
           ? _value.defaultThemeMode
           : defaultThemeMode // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
-      persist: persist == freezed
+      persist: null == persist
           ? _value.persist
           : persist // ignore: cast_nullable_to_non_nullable
               as bool,
-      defaultLightThemeId: defaultLightThemeId == freezed
+      defaultLightThemeId: freezed == defaultLightThemeId
           ? _value.defaultLightThemeId
           : defaultLightThemeId // ignore: cast_nullable_to_non_nullable
               as String?,
-      defaultDarkThemeId: defaultDarkThemeId == freezed
+      defaultDarkThemeId: freezed == defaultDarkThemeId
           ? _value.defaultDarkThemeId
           : defaultDarkThemeId // ignore: cast_nullable_to_non_nullable
               as String?,
-      defaultFont: defaultFont == freezed
+      defaultFont: freezed == defaultFont
           ? _value.defaultFont
           : defaultFont // ignore: cast_nullable_to_non_nullable
               as Font?,
-      defaultTextTheme: defaultTextTheme == freezed
-          ? _value.defaultTextTheme
-          : defaultTextTheme // ignore: cast_nullable_to_non_nullable
-              as TextTheme,
-      applyToAllThemes: applyToAllThemes == freezed
+      applyToAllThemes: null == applyToAllThemes
           ? _value.applyToAllThemes
           : applyToAllThemes // ignore: cast_nullable_to_non_nullable
               as ThemeData Function(ThemeData),
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $FontCopyWith<$Res>? get defaultFont {
     if (_value.defaultFont == null) {
       return null;
     }
 
     return $FontCopyWith<$Res>(_value.defaultFont!, (value) {
-      return _then(_value.copyWith(defaultFont: value));
+      return _then(_value.copyWith(defaultFont: value) as $Val);
     });
   }
 }
@@ -806,6 +811,7 @@ abstract class _$$_ThemeConfigurationCopyWith<$Res>
           $Res Function(_$_ThemeConfiguration) then) =
       __$$_ThemeConfigurationCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {List<ExtendedTheme> lightThemes,
       List<ExtendedTheme> darkThemes,
@@ -816,7 +822,6 @@ abstract class _$$_ThemeConfigurationCopyWith<$Res>
       String? defaultLightThemeId,
       String? defaultDarkThemeId,
       Font? defaultFont,
-      TextTheme defaultTextTheme,
       ThemeData Function(ThemeData) applyToAllThemes});
 
   @override
@@ -825,71 +830,64 @@ abstract class _$$_ThemeConfigurationCopyWith<$Res>
 
 /// @nodoc
 class __$$_ThemeConfigurationCopyWithImpl<$Res>
-    extends _$ThemeConfigurationCopyWithImpl<$Res>
+    extends _$ThemeConfigurationCopyWithImpl<$Res, _$_ThemeConfiguration>
     implements _$$_ThemeConfigurationCopyWith<$Res> {
   __$$_ThemeConfigurationCopyWithImpl(
       _$_ThemeConfiguration _value, $Res Function(_$_ThemeConfiguration) _then)
-      : super(_value, (v) => _then(v as _$_ThemeConfiguration));
+      : super(_value, _then);
 
-  @override
-  _$_ThemeConfiguration get _value => super._value as _$_ThemeConfiguration;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? lightThemes = freezed,
-    Object? darkThemes = freezed,
-    Object? fonts = freezed,
-    Object? prefix = freezed,
-    Object? defaultThemeMode = freezed,
-    Object? persist = freezed,
+    Object? lightThemes = null,
+    Object? darkThemes = null,
+    Object? fonts = null,
+    Object? prefix = null,
+    Object? defaultThemeMode = null,
+    Object? persist = null,
     Object? defaultLightThemeId = freezed,
     Object? defaultDarkThemeId = freezed,
     Object? defaultFont = freezed,
-    Object? defaultTextTheme = freezed,
-    Object? applyToAllThemes = freezed,
+    Object? applyToAllThemes = null,
   }) {
     return _then(_$_ThemeConfiguration(
-      lightThemes: lightThemes == freezed
+      lightThemes: null == lightThemes
           ? _value._lightThemes
           : lightThemes // ignore: cast_nullable_to_non_nullable
               as List<ExtendedTheme>,
-      darkThemes: darkThemes == freezed
+      darkThemes: null == darkThemes
           ? _value._darkThemes
           : darkThemes // ignore: cast_nullable_to_non_nullable
               as List<ExtendedTheme>,
-      fonts: fonts == freezed
+      fonts: null == fonts
           ? _value._fonts
           : fonts // ignore: cast_nullable_to_non_nullable
               as List<Font>,
-      prefix: prefix == freezed
+      prefix: null == prefix
           ? _value.prefix
           : prefix // ignore: cast_nullable_to_non_nullable
               as String,
-      defaultThemeMode: defaultThemeMode == freezed
+      defaultThemeMode: null == defaultThemeMode
           ? _value.defaultThemeMode
           : defaultThemeMode // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
-      persist: persist == freezed
+      persist: null == persist
           ? _value.persist
           : persist // ignore: cast_nullable_to_non_nullable
               as bool,
-      defaultLightThemeId: defaultLightThemeId == freezed
+      defaultLightThemeId: freezed == defaultLightThemeId
           ? _value.defaultLightThemeId
           : defaultLightThemeId // ignore: cast_nullable_to_non_nullable
               as String?,
-      defaultDarkThemeId: defaultDarkThemeId == freezed
+      defaultDarkThemeId: freezed == defaultDarkThemeId
           ? _value.defaultDarkThemeId
           : defaultDarkThemeId // ignore: cast_nullable_to_non_nullable
               as String?,
-      defaultFont: defaultFont == freezed
+      defaultFont: freezed == defaultFont
           ? _value.defaultFont
           : defaultFont // ignore: cast_nullable_to_non_nullable
               as Font?,
-      defaultTextTheme: defaultTextTheme == freezed
-          ? _value.defaultTextTheme
-          : defaultTextTheme // ignore: cast_nullable_to_non_nullable
-              as TextTheme,
-      applyToAllThemes: applyToAllThemes == freezed
+      applyToAllThemes: null == applyToAllThemes
           ? _value.applyToAllThemes
           : applyToAllThemes // ignore: cast_nullable_to_non_nullable
               as ThemeData Function(ThemeData),
@@ -910,7 +908,6 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
       this.defaultLightThemeId,
       this.defaultDarkThemeId,
       this.defaultFont,
-      this.defaultTextTheme = Typography.englishLike2018,
       this.applyToAllThemes = _identity})
       : _lightThemes = lightThemes,
         _darkThemes = darkThemes,
@@ -955,14 +952,11 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
   final Font? defaultFont;
   @override
   @JsonKey()
-  final TextTheme defaultTextTheme;
-  @override
-  @JsonKey()
   final ThemeData Function(ThemeData) applyToAllThemes;
 
   @override
   String toString() {
-    return 'ThemeConfiguration(lightThemes: $lightThemes, darkThemes: $darkThemes, fonts: $fonts, prefix: $prefix, defaultThemeMode: $defaultThemeMode, persist: $persist, defaultLightThemeId: $defaultLightThemeId, defaultDarkThemeId: $defaultDarkThemeId, defaultFont: $defaultFont, defaultTextTheme: $defaultTextTheme, applyToAllThemes: $applyToAllThemes)';
+    return 'ThemeConfiguration(lightThemes: $lightThemes, darkThemes: $darkThemes, fonts: $fonts, prefix: $prefix, defaultThemeMode: $defaultThemeMode, persist: $persist, defaultLightThemeId: $defaultLightThemeId, defaultDarkThemeId: $defaultDarkThemeId, defaultFont: $defaultFont, applyToAllThemes: $applyToAllThemes)';
   }
 
   @override
@@ -975,18 +969,16 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
             const DeepCollectionEquality()
                 .equals(other._darkThemes, _darkThemes) &&
             const DeepCollectionEquality().equals(other._fonts, _fonts) &&
-            const DeepCollectionEquality().equals(other.prefix, prefix) &&
-            const DeepCollectionEquality()
-                .equals(other.defaultThemeMode, defaultThemeMode) &&
-            const DeepCollectionEquality().equals(other.persist, persist) &&
-            const DeepCollectionEquality()
-                .equals(other.defaultLightThemeId, defaultLightThemeId) &&
-            const DeepCollectionEquality()
-                .equals(other.defaultDarkThemeId, defaultDarkThemeId) &&
-            const DeepCollectionEquality()
-                .equals(other.defaultFont, defaultFont) &&
-            const DeepCollectionEquality()
-                .equals(other.defaultTextTheme, defaultTextTheme) &&
+            (identical(other.prefix, prefix) || other.prefix == prefix) &&
+            (identical(other.defaultThemeMode, defaultThemeMode) ||
+                other.defaultThemeMode == defaultThemeMode) &&
+            (identical(other.persist, persist) || other.persist == persist) &&
+            (identical(other.defaultLightThemeId, defaultLightThemeId) ||
+                other.defaultLightThemeId == defaultLightThemeId) &&
+            (identical(other.defaultDarkThemeId, defaultDarkThemeId) ||
+                other.defaultDarkThemeId == defaultDarkThemeId) &&
+            (identical(other.defaultFont, defaultFont) ||
+                other.defaultFont == defaultFont) &&
             (identical(other.applyToAllThemes, applyToAllThemes) ||
                 other.applyToAllThemes == applyToAllThemes));
   }
@@ -997,17 +989,17 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
       const DeepCollectionEquality().hash(_lightThemes),
       const DeepCollectionEquality().hash(_darkThemes),
       const DeepCollectionEquality().hash(_fonts),
-      const DeepCollectionEquality().hash(prefix),
-      const DeepCollectionEquality().hash(defaultThemeMode),
-      const DeepCollectionEquality().hash(persist),
-      const DeepCollectionEquality().hash(defaultLightThemeId),
-      const DeepCollectionEquality().hash(defaultDarkThemeId),
-      const DeepCollectionEquality().hash(defaultFont),
-      const DeepCollectionEquality().hash(defaultTextTheme),
+      prefix,
+      defaultThemeMode,
+      persist,
+      defaultLightThemeId,
+      defaultDarkThemeId,
+      defaultFont,
       applyToAllThemes);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ThemeConfigurationCopyWith<_$_ThemeConfiguration> get copyWith =>
       __$$_ThemeConfigurationCopyWithImpl<_$_ThemeConfiguration>(
           this, _$identity);
@@ -1024,7 +1016,6 @@ abstract class _ThemeConfiguration extends ThemeConfiguration {
           final String? defaultLightThemeId,
           final String? defaultDarkThemeId,
           final Font? defaultFont,
-          final TextTheme defaultTextTheme,
           final ThemeData Function(ThemeData) applyToAllThemes}) =
       _$_ThemeConfiguration;
   const _ThemeConfiguration._() : super._();
@@ -1047,8 +1038,6 @@ abstract class _ThemeConfiguration extends ThemeConfiguration {
   String? get defaultDarkThemeId;
   @override
   Font? get defaultFont;
-  @override
-  TextTheme get defaultTextTheme;
   @override
   ThemeData Function(ThemeData) get applyToAllThemes;
   @override

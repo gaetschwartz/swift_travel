@@ -324,7 +324,7 @@ class DynamicThemeData extends ChangeNotifier {
     final data = _themeDataFrom(
       colorScheme: _lightTheme.colorScheme,
       textTheme: font
-          .textTheme(_config.defaultTextTheme)
+          .textTheme(Typography.material2021(platform: platform).black)
           .applyFontWeightDelta(fontWeightDelta),
       platform: _platform,
     );
@@ -336,7 +336,7 @@ class DynamicThemeData extends ChangeNotifier {
     final data = _themeDataFrom(
       colorScheme: _darkTheme.colorScheme,
       textTheme: font
-          .textTheme(_config.defaultTextTheme)
+          .textTheme(Typography.material2021(platform: platform).white)
           .applyFontWeightDelta(fontWeightDelta),
       platform: _platform,
     );
@@ -396,30 +396,12 @@ extension ListX<T> on List<T> {
 
 ThemeData _themeDataFrom({
   required ColorScheme colorScheme,
-  TextTheme? textTheme,
+  required TextTheme? textTheme,
   TargetPlatform? platform,
 }) {
-  final bool isDark = colorScheme.brightness == Brightness.dark;
-
-  // For surfaces that use primary color in light themes and surface color in dark
-  final Color primarySurfaceColor =
-      isDark ? colorScheme.surface : colorScheme.primary;
-  final Color onPrimarySurfaceColor =
-      isDark ? colorScheme.onSurface : colorScheme.onPrimary;
-
-  return ThemeData(
-    platform: platform,
-    brightness: colorScheme.brightness,
-    primaryColor: primarySurfaceColor,
-    canvasColor: colorScheme.background,
-    scaffoldBackgroundColor: colorScheme.background,
-    cardColor: colorScheme.surface,
-    dividerColor: colorScheme.onSurface.withOpacity(0.12),
-    dialogBackgroundColor: colorScheme.background,
-    textTheme: textTheme,
-    indicatorColor: onPrimarySurfaceColor,
-    applyElevationOverlayColor: isDark,
+  return ThemeData.from(
     colorScheme: colorScheme,
-    bottomAppBarTheme: BottomAppBarTheme(color: colorScheme.surface),
+    textTheme: textTheme,
+    useMaterial3: true,
   );
 }
