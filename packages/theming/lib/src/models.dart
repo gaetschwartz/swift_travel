@@ -73,7 +73,6 @@ class ThemeConfiguration with _$ThemeConfiguration {
     String? defaultLightThemeId,
     String? defaultDarkThemeId,
     Font? defaultFont,
-    @Default(Typography.englishLike2018) TextTheme defaultTextTheme,
     @Default(_identity)
         ThemeData Function(ThemeData themeData) applyToAllThemes,
   }) = _ThemeConfiguration;

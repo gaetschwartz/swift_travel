@@ -86,7 +86,7 @@ Map<String, dynamic> _$$_SbbLegToJson(_$_SbbLeg instance) {
 
   writeNotNull('exit', instance.sbbExit?.toJson());
   writeNotNull('dep_delay', const DelayConverter().toJson(instance.depDelay));
-  val['type'] = _$PlaceTypeEnumMap[instance.type];
+  writeNotNull('type', _$PlaceTypeEnumMap[instance.type]);
   writeNotNull('track', instance.track);
   writeNotNull('terminal', instance.terminal);
   writeNotNull('bgcolor', instance.bgcolor);

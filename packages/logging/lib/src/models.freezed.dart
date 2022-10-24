@@ -30,7 +30,8 @@ mixin _$LogMessage {
 abstract class $LogMessageCopyWith<$Res> {
   factory $LogMessageCopyWith(
           LogMessage value, $Res Function(LogMessage) then) =
-      _$LogMessageCopyWithImpl<$Res>;
+      _$LogMessageCopyWithImpl<$Res, LogMessage>;
+  @useResult
   $Res call(
       {String message, LogLevel level, DateTime timestamp, String? channel});
 
@@ -38,44 +39,48 @@ abstract class $LogMessageCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LogMessageCopyWithImpl<$Res> implements $LogMessageCopyWith<$Res> {
+class _$LogMessageCopyWithImpl<$Res, $Val extends LogMessage>
+    implements $LogMessageCopyWith<$Res> {
   _$LogMessageCopyWithImpl(this._value, this._then);
 
-  final LogMessage _value;
   // ignore: unused_field
-  final $Res Function(LogMessage) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = freezed,
-    Object? level = freezed,
-    Object? timestamp = freezed,
+    Object? message = null,
+    Object? level = null,
+    Object? timestamp = null,
     Object? channel = freezed,
   }) {
     return _then(_value.copyWith(
-      message: message == freezed
+      message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      level: level == freezed
+      level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as LogLevel,
-      timestamp: timestamp == freezed
+      timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      channel: channel == freezed
+      channel: freezed == channel
           ? _value.channel
           : channel // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LogLevelCopyWith<$Res> get level {
     return $LogLevelCopyWith<$Res>(_value.level, (value) {
-      return _then(_value.copyWith(level: value));
+      return _then(_value.copyWith(level: value) as $Val);
     });
   }
 }
@@ -87,6 +92,7 @@ abstract class _$$_LogMessageCopyWith<$Res>
           _$_LogMessage value, $Res Function(_$_LogMessage) then) =
       __$$_LogMessageCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String message, LogLevel level, DateTime timestamp, String? channel});
 
@@ -95,36 +101,35 @@ abstract class _$$_LogMessageCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_LogMessageCopyWithImpl<$Res> extends _$LogMessageCopyWithImpl<$Res>
+class __$$_LogMessageCopyWithImpl<$Res>
+    extends _$LogMessageCopyWithImpl<$Res, _$_LogMessage>
     implements _$$_LogMessageCopyWith<$Res> {
   __$$_LogMessageCopyWithImpl(
       _$_LogMessage _value, $Res Function(_$_LogMessage) _then)
-      : super(_value, (v) => _then(v as _$_LogMessage));
+      : super(_value, _then);
 
-  @override
-  _$_LogMessage get _value => super._value as _$_LogMessage;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = freezed,
-    Object? level = freezed,
-    Object? timestamp = freezed,
+    Object? message = null,
+    Object? level = null,
+    Object? timestamp = null,
     Object? channel = freezed,
   }) {
     return _then(_$_LogMessage(
-      message: message == freezed
+      message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      level: level == freezed
+      level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as LogLevel,
-      timestamp: timestamp == freezed
+      timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      channel: channel == freezed
+      channel: freezed == channel
           ? _value.channel
           : channel // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -161,22 +166,20 @@ class _$_LogMessage implements _LogMessage {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LogMessage &&
-            const DeepCollectionEquality().equals(other.message, message) &&
-            const DeepCollectionEquality().equals(other.level, level) &&
-            const DeepCollectionEquality().equals(other.timestamp, timestamp) &&
-            const DeepCollectionEquality().equals(other.channel, channel));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.level, level) || other.level == level) &&
+            (identical(other.timestamp, timestamp) ||
+                other.timestamp == timestamp) &&
+            (identical(other.channel, channel) || other.channel == channel));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(message),
-      const DeepCollectionEquality().hash(level),
-      const DeepCollectionEquality().hash(timestamp),
-      const DeepCollectionEquality().hash(channel));
+  int get hashCode =>
+      Object.hash(runtimeType, message, level, timestamp, channel);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LogMessageCopyWith<_$_LogMessage> get copyWith =>
       __$$_LogMessageCopyWithImpl<_$_LogMessage>(this, _$identity);
 }
@@ -216,38 +219,42 @@ mixin _$LogLevel {
 /// @nodoc
 abstract class $LogLevelCopyWith<$Res> {
   factory $LogLevelCopyWith(LogLevel value, $Res Function(LogLevel) then) =
-      _$LogLevelCopyWithImpl<$Res>;
+      _$LogLevelCopyWithImpl<$Res, LogLevel>;
+  @useResult
   $Res call({int level, Sentiment sentiment, String name});
 }
 
 /// @nodoc
-class _$LogLevelCopyWithImpl<$Res> implements $LogLevelCopyWith<$Res> {
+class _$LogLevelCopyWithImpl<$Res, $Val extends LogLevel>
+    implements $LogLevelCopyWith<$Res> {
   _$LogLevelCopyWithImpl(this._value, this._then);
 
-  final LogLevel _value;
   // ignore: unused_field
-  final $Res Function(LogLevel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? level = freezed,
-    Object? sentiment = freezed,
-    Object? name = freezed,
+    Object? level = null,
+    Object? sentiment = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
-      level: level == freezed
+      level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as int,
-      sentiment: sentiment == freezed
+      sentiment: null == sentiment
           ? _value.sentiment
           : sentiment // ignore: cast_nullable_to_non_nullable
               as Sentiment,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -257,35 +264,35 @@ abstract class _$$_LogLevelCopyWith<$Res> implements $LogLevelCopyWith<$Res> {
           _$_LogLevel value, $Res Function(_$_LogLevel) then) =
       __$$_LogLevelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int level, Sentiment sentiment, String name});
 }
 
 /// @nodoc
-class __$$_LogLevelCopyWithImpl<$Res> extends _$LogLevelCopyWithImpl<$Res>
+class __$$_LogLevelCopyWithImpl<$Res>
+    extends _$LogLevelCopyWithImpl<$Res, _$_LogLevel>
     implements _$$_LogLevelCopyWith<$Res> {
   __$$_LogLevelCopyWithImpl(
       _$_LogLevel _value, $Res Function(_$_LogLevel) _then)
-      : super(_value, (v) => _then(v as _$_LogLevel));
+      : super(_value, _then);
 
-  @override
-  _$_LogLevel get _value => super._value as _$_LogLevel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? level = freezed,
-    Object? sentiment = freezed,
-    Object? name = freezed,
+    Object? level = null,
+    Object? sentiment = null,
+    Object? name = null,
   }) {
     return _then(_$_LogLevel(
-      level == freezed
+      null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as int,
-      sentiment == freezed
+      null == sentiment
           ? _value.sentiment
           : sentiment // ignore: cast_nullable_to_non_nullable
               as Sentiment,
-      name == freezed
+      null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -315,20 +322,18 @@ class _$_LogLevel implements _LogLevel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LogLevel &&
-            const DeepCollectionEquality().equals(other.level, level) &&
-            const DeepCollectionEquality().equals(other.sentiment, sentiment) &&
-            const DeepCollectionEquality().equals(other.name, name));
+            (identical(other.level, level) || other.level == level) &&
+            (identical(other.sentiment, sentiment) ||
+                other.sentiment == sentiment) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(level),
-      const DeepCollectionEquality().hash(sentiment),
-      const DeepCollectionEquality().hash(name));
+  int get hashCode => Object.hash(runtimeType, level, sentiment, name);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LogLevelCopyWith<_$_LogLevel> get copyWith =>
       __$$_LogLevelCopyWithImpl<_$_LogLevel>(this, _$identity);
 }
