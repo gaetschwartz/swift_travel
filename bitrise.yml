@@ -82,7 +82,7 @@ workflows:
                 set -o pipefail
                 flutter build ios --config-only --no-codesign --release --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
           title: flutter build ios
-      - xcode-archive@4.6:
+      - xcode-archive@4.7:
           inputs:
             - distribution_method: app-store
             - export_development_team: Y2PPW6ETTC
