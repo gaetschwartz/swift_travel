@@ -15,6 +15,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
     required this.boxKey,
     required this.maxSize,
   });
+  final log = Logger.of('LocalDatabase');
 
   static final _runtimeTypeRegistry = <String, Type>{};
 

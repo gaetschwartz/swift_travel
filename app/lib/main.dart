@@ -47,6 +47,7 @@ void main() {
 }
 
 void preLaunchRoutine() {
+  final log = Logger.of('main');
   if (kReleaseMode) {
     log.log(
       '=== Release mode ===\n'
@@ -91,7 +92,8 @@ void overridePlatform() {
       return;
   }
 
-  log.log('Overriding $defaultTargetPlatform by $platform');
+  Logger.of('overridePlatform')
+      .log('Overriding $defaultTargetPlatform by $platform');
   debugDefaultTargetPlatformOverride = p;
 }
 
@@ -107,6 +109,8 @@ class FullApp extends StatefulWidget {
 class _FullAppState extends State<FullApp> {
   final DynamicThemeData dynamicThemeData =
       DynamicThemeData(DynamicThemeData.defaultConfig);
+
+  final log = Logger.of('FullApp');
 
   @override
   void reassemble() {
@@ -142,6 +146,8 @@ final _shortcuts = {
 };
 
 class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
+  final log = Logger.of('SwiftTravelApp');
+
   @override
   Widget build(BuildContext context) {
     final theme = DynamicTheme.of(context);
@@ -230,7 +236,9 @@ Route<void> onUnknownRoute(RouteSettings settings) {
 
 // ignore: long-method
 Route<void>? onGenerateRoute(RouteSettings settings) {
-  log.log('Routing to ${settings.name}');
+  if (kDebugMode) {
+    Logger.of('onGenerateRoute').log('Routing to ${settings.name}');
+  }
 
   switch (settings.name) {
     case '/':

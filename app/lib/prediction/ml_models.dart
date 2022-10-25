@@ -36,6 +36,7 @@ RoutePrediction? _setCached(
 
 RoutePrediction predictRouteSync(
     List<LocalRoute> routes, PredictionArguments arguments) {
+  final log = Logger('predictRouteSync');
   if (kDebugMode) log.log('Making a prediction from arguments $arguments');
   final watch = Stopwatch()..start();
 
@@ -133,11 +134,11 @@ void _report(
   Iterable<Triple<LocalRoute, ValueVector, double>> top,
   ValueVector arg,
 ) {
-  log.log('arg: $arg');
+  Logger.root.log('arg: $arg');
   var i = 0;
   for (final p in top) {
     i++;
-    log.log(
+    Logger.root.log(
         '[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.third}');
   }
 }

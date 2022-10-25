@@ -80,6 +80,7 @@ class SearchPage extends ConsumerStatefulWidget {
 
 class _SearchPageState extends ConsumerState<SearchPage> {
   final debouncer = Debouncer();
+  final log = Logger.of('SearchPage');
 
   late BaseFavoritesStore store;
   late BaseNavigationApi api;
@@ -339,6 +340,7 @@ class _Results extends StatelessWidget {
 
   Future<void> pickContact(BuildContext context) async {
     Vibration.instance.select();
+    final log = Logger('search', 'Result', 'pickContact');
     final c = await showContactPicker(context);
     if (c != null) {
       log.log('Chose ${c.displayName}');

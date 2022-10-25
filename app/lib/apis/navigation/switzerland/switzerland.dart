@@ -40,6 +40,8 @@ class SearchChApi extends BaseNavigationApi {
 
   final _client = http.Client();
 
+  final log = Logger.of('SearchChApi');
+
   @override
   Locale locale = const Locale('en');
 

@@ -89,6 +89,8 @@ abstract class FetcherBase extends ChangeNotifier {
 }
 
 class Fetcher extends FetcherBase {
+  static final log = Logger('Fetcher');
+
   @override
   Future<void> fetch(Ref ref) async {
     final from = ref.watch(fromTextfieldProvider);
@@ -235,6 +237,8 @@ class RoutePageState extends ConsumerState<RoutePage> {
   late BaseFavoritesStore favorites;
   late BaseNavigationApi api;
   final historyRepository = RouteHistoryRepository.instance;
+
+  final log = Logger('RoutePageState');
 
   @override
   void initState() {

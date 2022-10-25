@@ -64,6 +64,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
   final TextEditingController searchController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   Timer? _debouncer;
+  final log = Logger.of('StationsTab');
 
   @override
   void initState() {

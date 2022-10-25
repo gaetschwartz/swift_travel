@@ -6,6 +6,8 @@ abstract class MessagePrinter {
   const MessagePrinter();
 
   String call(LogMessage msg);
+
+  String formatScope(Scope scope) => scope.join('');
 }
 
 class DetailedPrinter extends MessagePrinter {
@@ -19,18 +21,29 @@ class DetailedPrinter extends MessagePrinter {
 
   @override
   String call(LogMessage msg) {
+    final df = DateFormat("HH:mm:ss dd.MM.yyyy");
     final b = StringBuffer();
 
     if (displayTimestamp) {
-      b.write("(${DateFormat("HH:mm:ss dd.MM.yyyy").format(msg.timestamp)}) ");
+      b.write("(${df.format(msg.timestamp)}) ");
     }
 
-    b.write('[${capitalLetterLevel ? msg.level.name.toUpperCase() : msg.level.name}] ');
-    if (msg.channel != null) {
-      b.write('${msg.channel}: ');
+    b.write(
+        '[${capitalLetterLevel ? msg.level.name.toUpperCase() : msg.level.name}] ');
+    if (msg.scope.value.isNotEmpty) {
+      b.write('${formatScope(msg.scope)}: ');
     }
     b.write(msg.message);
     return b.toString();
+  }
+}
+
+class JsonPrinter extends MessagePrinter {
+  const JsonPrinter();
+
+  @override
+  String call(LogMessage msg) {
+    return msg.toJson().toString();
   }
 }
 

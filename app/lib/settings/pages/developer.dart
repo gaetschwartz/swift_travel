@@ -26,6 +26,7 @@ class DeveloperSettingsPage extends StatefulWidget {
 }
 
 class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
+  final log = Logger.of('DeveloperSettingsPage');
   Future<void> resetSettingsPrompt() async {
     final c = await confirm(
       context,

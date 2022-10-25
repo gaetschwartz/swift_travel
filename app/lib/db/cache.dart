@@ -8,6 +8,8 @@ import 'db.dart';
 class LineCache
     extends LocalDatabase<String, Map<dynamic, dynamic>, LineCacheEntry>
     with KeyedDatabaseMixin {
+  final log = Logger.of('LineCache');
+
   @visibleForTesting
   LineCache()
       : super(

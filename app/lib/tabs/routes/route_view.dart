@@ -235,6 +235,7 @@ class _PredictionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final log = Logger('PredictionTile');
     return Consumer(
       builder: (context, ref, child) {
         return ref.watch(_predictionProvider).when(

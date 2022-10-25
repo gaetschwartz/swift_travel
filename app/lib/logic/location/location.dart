@@ -11,6 +11,8 @@ class GeoLocationEngine {
   GeoLocationEngine._();
   static final instance = GeoLocationEngine._();
 
+  final log = Logger.of('GeoLocationEngine');
+
   Future<GeoLocation> getLocation({
     LocationAccuracy accuracy = LocationAccuracy.best,
     Duration? timeout,

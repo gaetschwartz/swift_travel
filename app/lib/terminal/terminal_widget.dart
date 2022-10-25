@@ -42,6 +42,7 @@ class _TerminalWidgetState extends ConsumerState<TerminalWidget> {
   final ScrollController scrollController = ScrollController();
   final FocusNode focusNode = FocusNode();
   final int cache = 25;
+  final log = Logger.of('TerminalWidget');
 
   void write(String cmd, String result) {
     final history = ref.read(terminalHistoryProvider.state);

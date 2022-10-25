@@ -9,15 +9,17 @@ import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:theming/responsive.dart';
 
-class MyQuickActions {
-  MyQuickActions._();
+class QuickActionsRepository {
+  QuickActionsRepository._();
 
   static const maxFavoriteRoutes = 5;
   static const maxFavoriteStops = 5;
 
-  static final i = MyQuickActions._();
+  static final i = QuickActionsRepository._();
 
   bool _debugInitialized = false;
+
+  final log = Logger.of('QuickActionsRepository');
 
   Future<void> init() async {
     log.log('Initialize', channel: 'QuickActions');

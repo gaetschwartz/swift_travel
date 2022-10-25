@@ -194,6 +194,7 @@ class _LinesWidget extends ConsumerStatefulWidget {
 
 class __LinesWidgetState extends ConsumerState<_LinesWidget> {
   static const numberOfLines = 6;
+  final log = Logger('LinesWidget');
 
   List<Widget>? lines;
 

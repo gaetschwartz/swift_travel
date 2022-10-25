@@ -59,7 +59,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
     _box = await Hive.openBox<TEncValue>(boxKey, path: path);
     assert(_debugInitialized = true, '');
     if (doLog) {
-      log.log('Opened $this at ${box.path}');
+      Logger.of('LocalDatabase', 'open').log('Opened $this at ${box.path}');
     }
   }
 

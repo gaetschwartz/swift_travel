@@ -48,6 +48,8 @@ class _LoadingPageState extends ConsumerState<LoadingPage>
       vsync: this, duration: const Duration(milliseconds: 500));
   bool darwin = false;
 
+  final log = Logger.of('LoadingPage');
+
   @override
   void initState() {
     super.initState();
@@ -90,7 +92,7 @@ class _LoadingPageState extends ConsumerState<LoadingPage>
     unawaited(route());
 
     if (isMobile) {
-      await MyQuickActions.i.init();
+      await QuickActionsRepository.i.init();
 
       await ref.read(linksProvider).init(
           onNewRoute: (p) => navigatorKey.currentState!.push(
@@ -184,7 +186,7 @@ class _LoadingPageState extends ConsumerState<LoadingPage>
   Future<void> route() async {
     if (widget.uri != null) {
       try {
-        final args = await DeepLinkBloc.parseRouteArguments(
+        final args = await DeepLinkManager.parseRouteArguments(
             widget.uri!, ref.read(navigationAPIProvider));
         await Navigator.of(context).pushNamed('/routeDetails', arguments: args);
       } on Exception catch (e, s) {
