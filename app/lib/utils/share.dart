@@ -13,14 +13,15 @@ const String websiteHost = 'travel.gaetanschwartz.com';
 
 Future<void> shareRoute(BuildContext context, NavRoute route, int i) async {
   final params = encodeRouteUri(Uri.parse(route.requestUrl!), i);
-  log.log(params);
+  final log = Logger.of('shareRoute');
+  log.log('Params: $params');
 
   final sharedUri = Uri(
       scheme: 'https',
       host: websiteHost,
       path: 'route',
       queryParameters: params);
-  log.log(sharedUri);
+  log.log('Shared uri: $sharedUri');
 
   if (kIsWeb) {
     final b = await confirm(context,
@@ -35,6 +36,7 @@ Future<void> shareRoute(BuildContext context, NavRoute route, int i) async {
     try {
       await Share.share(sharedUri.toString());
     } on MissingPluginException {
+      log.w('Missing plugin exception');
       ignoreError();
     }
   }

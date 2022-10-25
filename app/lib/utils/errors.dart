@@ -14,6 +14,8 @@ const _doShowSnackbars = !kDebugMode || Env.doShowErrors;
 
 void ignoreError() {}
 
+final _log = Logger.of('error_reporter');
+
 // ignore: avoid_void_async
 void reportDartError(
   Object e,
@@ -22,7 +24,7 @@ void reportDartError(
   String reason = '',
   bool showSnackbar = true,
 }) async {
-  log.log('Caught an error: ');
+  _log.log('Caught an error: ');
   debugPrintStack(stackTrace: s, label: '[$library] $e $reason');
 
   final details = FlutterErrorDetails(
@@ -66,7 +68,7 @@ void reportDartError(
 
 // ignore: avoid_void_async
 void reportFlutterError(FlutterErrorDetails details) async {
-  log.log('Caught a Flutter error: ${details.exception}');
+  _log.log('Caught a Flutter error: ${details.exception}');
   debugPrintStack(
       stackTrace: details.stack, label: details.exception.toString());
 

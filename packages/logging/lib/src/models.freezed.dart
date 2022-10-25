@@ -14,13 +14,21 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+LogMessage _$LogMessageFromJson(Map<String, dynamic> json) {
+  return _LogMessage.fromJson(json);
+}
+
 /// @nodoc
 mixin _$LogMessage {
   String get message => throw _privateConstructorUsedError;
   LogLevel get level => throw _privateConstructorUsedError;
   DateTime get timestamp => throw _privateConstructorUsedError;
-  String? get channel => throw _privateConstructorUsedError;
+  Scope get scope => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  @StackTraceJsonConverter()
+  StackTrace? get stackTrace => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $LogMessageCopyWith<LogMessage> get copyWith =>
       throw _privateConstructorUsedError;
@@ -33,9 +41,15 @@ abstract class $LogMessageCopyWith<$Res> {
       _$LogMessageCopyWithImpl<$Res, LogMessage>;
   @useResult
   $Res call(
-      {String message, LogLevel level, DateTime timestamp, String? channel});
+      {String message,
+      LogLevel level,
+      DateTime timestamp,
+      Scope scope,
+      String? error,
+      @StackTraceJsonConverter() StackTrace? stackTrace});
 
   $LogLevelCopyWith<$Res> get level;
+  $ScopeCopyWith<$Res> get scope;
 }
 
 /// @nodoc
@@ -54,7 +68,9 @@ class _$LogMessageCopyWithImpl<$Res, $Val extends LogMessage>
     Object? message = null,
     Object? level = null,
     Object? timestamp = null,
-    Object? channel = freezed,
+    Object? scope = null,
+    Object? error = freezed,
+    Object? stackTrace = freezed,
   }) {
     return _then(_value.copyWith(
       message: null == message
@@ -69,10 +85,18 @@ class _$LogMessageCopyWithImpl<$Res, $Val extends LogMessage>
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      channel: freezed == channel
-          ? _value.channel
-          : channel // ignore: cast_nullable_to_non_nullable
+      scope: null == scope
+          ? _value.scope
+          : scope // ignore: cast_nullable_to_non_nullable
+              as Scope,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      stackTrace: freezed == stackTrace
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace?,
     ) as $Val);
   }
 
@@ -81,6 +105,14 @@ class _$LogMessageCopyWithImpl<$Res, $Val extends LogMessage>
   $LogLevelCopyWith<$Res> get level {
     return $LogLevelCopyWith<$Res>(_value.level, (value) {
       return _then(_value.copyWith(level: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ScopeCopyWith<$Res> get scope {
+    return $ScopeCopyWith<$Res>(_value.scope, (value) {
+      return _then(_value.copyWith(scope: value) as $Val);
     });
   }
 }
@@ -94,10 +126,17 @@ abstract class _$$_LogMessageCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String message, LogLevel level, DateTime timestamp, String? channel});
+      {String message,
+      LogLevel level,
+      DateTime timestamp,
+      Scope scope,
+      String? error,
+      @StackTraceJsonConverter() StackTrace? stackTrace});
 
   @override
   $LogLevelCopyWith<$Res> get level;
+  @override
+  $ScopeCopyWith<$Res> get scope;
 }
 
 /// @nodoc
@@ -114,7 +153,9 @@ class __$$_LogMessageCopyWithImpl<$Res>
     Object? message = null,
     Object? level = null,
     Object? timestamp = null,
-    Object? channel = freezed,
+    Object? scope = null,
+    Object? error = freezed,
+    Object? stackTrace = freezed,
   }) {
     return _then(_$_LogMessage(
       message: null == message
@@ -129,22 +170,35 @@ class __$$_LogMessageCopyWithImpl<$Res>
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      channel: freezed == channel
-          ? _value.channel
-          : channel // ignore: cast_nullable_to_non_nullable
+      scope: null == scope
+          ? _value.scope
+          : scope // ignore: cast_nullable_to_non_nullable
+              as Scope,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      stackTrace: freezed == stackTrace
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace?,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_LogMessage implements _LogMessage {
   const _$_LogMessage(
       {required this.message,
       this.level = LogLevel.info,
       required this.timestamp,
-      this.channel});
+      this.scope = Scope.empty,
+      this.error,
+      @StackTraceJsonConverter() this.stackTrace});
+
+  factory _$_LogMessage.fromJson(Map<String, dynamic> json) =>
+      _$$_LogMessageFromJson(json);
 
   @override
   final String message;
@@ -154,11 +208,17 @@ class _$_LogMessage implements _LogMessage {
   @override
   final DateTime timestamp;
   @override
-  final String? channel;
+  @JsonKey()
+  final Scope scope;
+  @override
+  final String? error;
+  @override
+  @StackTraceJsonConverter()
+  final StackTrace? stackTrace;
 
   @override
   String toString() {
-    return 'LogMessage(message: $message, level: $level, timestamp: $timestamp, channel: $channel)';
+    return 'LogMessage(message: $message, level: $level, timestamp: $timestamp, scope: $scope, error: $error, stackTrace: $stackTrace)';
   }
 
   @override
@@ -170,18 +230,29 @@ class _$_LogMessage implements _LogMessage {
             (identical(other.level, level) || other.level == level) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
-            (identical(other.channel, channel) || other.channel == channel));
+            (identical(other.scope, scope) || other.scope == scope) &&
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.stackTrace, stackTrace) ||
+                other.stackTrace == stackTrace));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, message, level, timestamp, channel);
+  int get hashCode => Object.hash(
+      runtimeType, message, level, timestamp, scope, error, stackTrace);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_LogMessageCopyWith<_$_LogMessage> get copyWith =>
       __$$_LogMessageCopyWithImpl<_$_LogMessage>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_LogMessageToJson(
+      this,
+    );
+  }
 }
 
 abstract class _LogMessage implements LogMessage {
@@ -189,7 +260,12 @@ abstract class _LogMessage implements LogMessage {
       {required final String message,
       final LogLevel level,
       required final DateTime timestamp,
-      final String? channel}) = _$_LogMessage;
+      final Scope scope,
+      final String? error,
+      @StackTraceJsonConverter() final StackTrace? stackTrace}) = _$_LogMessage;
+
+  factory _LogMessage.fromJson(Map<String, dynamic> json) =
+      _$_LogMessage.fromJson;
 
   @override
   String get message;
@@ -198,11 +274,20 @@ abstract class _LogMessage implements LogMessage {
   @override
   DateTime get timestamp;
   @override
-  String? get channel;
+  Scope get scope;
+  @override
+  String? get error;
+  @override
+  @StackTraceJsonConverter()
+  StackTrace? get stackTrace;
   @override
   @JsonKey(ignore: true)
   _$$_LogMessageCopyWith<_$_LogMessage> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+LogLevel _$LogLevelFromJson(Map<String, dynamic> json) {
+  return _LogLevel.fromJson(json);
 }
 
 /// @nodoc
@@ -211,6 +296,7 @@ mixin _$LogLevel {
   Sentiment get sentiment => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $LogLevelCopyWith<LogLevel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -301,9 +387,12 @@ class __$$_LogLevelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_LogLevel implements _LogLevel {
   const _$_LogLevel(this.level, this.sentiment, this.name);
+
+  factory _$_LogLevel.fromJson(Map<String, dynamic> json) =>
+      _$$_LogLevelFromJson(json);
 
   @override
   final int level;
@@ -328,6 +417,7 @@ class _$_LogLevel implements _LogLevel {
             (identical(other.name, name) || other.name == name));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, level, sentiment, name);
 
@@ -336,12 +426,21 @@ class _$_LogLevel implements _LogLevel {
   @pragma('vm:prefer-inline')
   _$$_LogLevelCopyWith<_$_LogLevel> get copyWith =>
       __$$_LogLevelCopyWithImpl<_$_LogLevel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_LogLevelToJson(
+      this,
+    );
+  }
 }
 
 abstract class _LogLevel implements LogLevel {
   const factory _LogLevel(
           final int level, final Sentiment sentiment, final String name) =
       _$_LogLevel;
+
+  factory _LogLevel.fromJson(Map<String, dynamic> json) = _$_LogLevel.fromJson;
 
   @override
   int get level;
@@ -352,5 +451,142 @@ abstract class _LogLevel implements LogLevel {
   @override
   @JsonKey(ignore: true)
   _$$_LogLevelCopyWith<_$_LogLevel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Scope _$ScopeFromJson(Map<String, dynamic> json) {
+  return _Scope.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Scope {
+  List<String> get value => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ScopeCopyWith<Scope> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ScopeCopyWith<$Res> {
+  factory $ScopeCopyWith(Scope value, $Res Function(Scope) then) =
+      _$ScopeCopyWithImpl<$Res, Scope>;
+  @useResult
+  $Res call({List<String> value});
+}
+
+/// @nodoc
+class _$ScopeCopyWithImpl<$Res, $Val extends Scope>
+    implements $ScopeCopyWith<$Res> {
+  _$ScopeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_value.copyWith(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_ScopeCopyWith<$Res> implements $ScopeCopyWith<$Res> {
+  factory _$$_ScopeCopyWith(_$_Scope value, $Res Function(_$_Scope) then) =
+      __$$_ScopeCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<String> value});
+}
+
+/// @nodoc
+class __$$_ScopeCopyWithImpl<$Res> extends _$ScopeCopyWithImpl<$Res, _$_Scope>
+    implements _$$_ScopeCopyWith<$Res> {
+  __$$_ScopeCopyWithImpl(_$_Scope _value, $Res Function(_$_Scope) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$_Scope(
+      null == value
+          ? _value._value
+          : value // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Scope extends _Scope {
+  const _$_Scope(final List<String> value)
+      : _value = value,
+        super._();
+
+  factory _$_Scope.fromJson(Map<String, dynamic> json) =>
+      _$$_ScopeFromJson(json);
+
+  final List<String> _value;
+  @override
+  List<String> get value {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_value);
+  }
+
+  @override
+  String toString() {
+    return 'Scope(value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Scope &&
+            const DeepCollectionEquality().equals(other._value, _value));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_value));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ScopeCopyWith<_$_Scope> get copyWith =>
+      __$$_ScopeCopyWithImpl<_$_Scope>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ScopeToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Scope extends Scope {
+  const factory _Scope(final List<String> value) = _$_Scope;
+  const _Scope._() : super._();
+
+  factory _Scope.fromJson(Map<String, dynamic> json) = _$_Scope.fromJson;
+
+  @override
+  List<String> get value;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ScopeCopyWith<_$_Scope> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -75,7 +75,7 @@ class HiveFavoritesStore extends BaseFavoritesStore {
   void notify() {
     notifyListeners();
     unawaited(
-      MyQuickActions.i.setActions(favRoutesDb.routes, favStopsDb.stops),
+      QuickActionsRepository.i.setActions(favRoutesDb.routes, favStopsDb.stops),
     );
   }
 
@@ -132,6 +132,8 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
 
   static const stopsKey = 'favoritesStop';
   static const routesKey = 'favoritesRoutes';
+
+  final log = Logger.of('FavoritesSharedPreferencesStore');
 
   final Ref ref;
   final Set<FavoriteStop> _stops = {};
@@ -247,7 +249,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
     await _prefs!.setStringList(routesKey, routes);
 
     if (isMobile) {
-      await MyQuickActions.i.setActions(
+      await QuickActionsRepository.i.setActions(
           _routes.toList(growable: false), _stops.toList(growable: false));
     }
   }

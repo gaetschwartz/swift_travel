@@ -31,6 +31,8 @@ class FavoritesTab extends ConsumerStatefulWidget {
 
 class _FavoritesTabState extends ConsumerState<FavoritesTab>
     with AutomaticKeepAliveClientMixin {
+  final log = Logger.of('FavoritesTab');
+
   @override
   bool get wantKeepAlive => true;
 

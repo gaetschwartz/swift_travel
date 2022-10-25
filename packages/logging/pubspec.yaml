@@ -3,14 +3,16 @@ description: A new Flutter package project.
 version: 0.0.1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
+  collection: ^1.16.0
   flutter:
     sdk: flutter
   freezed_annotation: ^2.0.0
   intl: ^0.17.0
+  json_annotation: ^4.7.0
 
 dev_dependencies:
   freezed: ^2.0.0
@@ -18,5 +20,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
+  json_serializable: ^6.5.3
 
 flutter:

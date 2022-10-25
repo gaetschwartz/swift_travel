@@ -30,6 +30,8 @@ class WalkingTile extends ConsumerStatefulWidget {
 }
 
 class _WalkingTileState extends ConsumerState<WalkingTile> {
+  final log = Logger.of('WalkingTile');
+
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: openRoute,

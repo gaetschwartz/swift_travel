@@ -29,6 +29,8 @@ class _LiveRoutePageState extends ConsumerState<LiveRoutePage> {
   late final LiveRouteController _controller =
       ref.read(liveRouteControllerProvider);
 
+  final log = Logger.of('LiveRoutePage');
+
   @override
   void initState() {
     super.initState();

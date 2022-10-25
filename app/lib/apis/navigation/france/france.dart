@@ -27,6 +27,7 @@ class SncfApi extends BaseNavigationApi {
   SncfApi._(this.ref);
 
   final Ref ref;
+  final log = Logger.of('SncfApi');
 
   @override
 

@@ -12,8 +12,8 @@ import 'package:swift_travel/utils/route_uri.dart';
 
 import 'navigation.dart';
 
-final linksProvider = Provider<DeepLinkBloc>((ref) {
-  final deepLinkBloc = DeepLinkBloc(ref);
+final linksProvider = Provider<DeepLinkManager>((ref) {
+  final deepLinkBloc = DeepLinkManager(ref);
   ref.onDispose(deepLinkBloc.dispose);
   return deepLinkBloc;
 });
@@ -27,7 +27,7 @@ class InvalidRouteException implements Exception {
   String toString() => 'InvalidRouteException : $map';
 }
 
-class DeepLinkBloc {
+class DeepLinkManager {
   static const stream =
       EventChannel('com.gaetanschwartz.swift_travel.deeplink/events');
   static const channel =
@@ -36,8 +36,9 @@ class DeepLinkBloc {
   late StreamSubscription<String> _sub;
   void Function(Pair<NavRoute, int> pair)? onNewRoute;
   final Ref ref;
+  final log = Logger.of('DeepLinkManager');
 
-  DeepLinkBloc(this.ref);
+  DeepLinkManager(this.ref);
 
   Future<void> init({
     required void Function(Pair<NavRoute, int> pair) onNewRoute,
@@ -71,6 +72,7 @@ class DeepLinkBloc {
 
   static Future<Pair<NavRoute, int>> parseRouteArguments(
       Uri uri, BaseNavigationApi navApi) async {
+    final log = Logger.of('DeepLinkManager', 'parseRouteArguments');
     final params = decodeRouteUri(uri);
 
     final qUri = SearchChApi.queryBuilder('route', params);

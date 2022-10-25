@@ -30,6 +30,7 @@ class _CrawlerPageState extends ConsumerState<CrawlerPage> {
   final routes = RouteHistoryRepository.instance.history;
   Map<String, String> handled = {};
   Map<String, String> unHandled = {};
+  final log = Logger.of('CrawlerPage');
 
   String current = '';
   String current2 = '';

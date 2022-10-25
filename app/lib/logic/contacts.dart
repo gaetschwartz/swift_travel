@@ -11,6 +11,8 @@ class ContactsRepository {
   bool _granted = false;
   Iterable<Contact>? _contacts;
 
+  final log = Logger.of('ContactsRepository');
+
   Future<Iterable<Contact>> getAll(
       {bool cache = false, bool withThumbnails = false}) async {
     if (Env.doMockContacts) {
