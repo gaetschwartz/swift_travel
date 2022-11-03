@@ -203,7 +203,7 @@ class BuildDetailsWidget extends ConsumerWidget {
   }) : super(key: key);
 
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
-    final controller = ref.read(_tapCountProvider.state);
+    final controller = ref.read(_tapCountProvider.notifier);
 
     if (controller.state == 6) {
       unawaited(ref.read(preferencesProvider).isDeveloper.setValue(true));

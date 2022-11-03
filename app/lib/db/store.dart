@@ -153,9 +153,9 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
   @override
   Future<void> init({SharedPreferences? prefs, bool doNotify = true}) async {
     if (doNotify) {
-      ref.read(favoritesStatesProvider.state).state =
+      ref.read(favoritesStatesProvider.notifier).state =
           const FavoritesStates.loading();
-      ref.read(favoritesRoutesStatesProvider.state).state =
+      ref.read(favoritesRoutesStatesProvider.notifier).state =
           const FavoritesRoutesStates.loading();
     }
     _prefs = prefs ?? await SharedPreferences.getInstance();
@@ -172,7 +172,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
       ..clear()
       ..addAll(favStops);
 
-    ref.read(favoritesStatesProvider.state).state =
+    ref.read(favoritesStatesProvider.notifier).state =
         FavoritesStates.data(stops.toList(growable: false));
 
     //? Routes
@@ -184,7 +184,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
       _routes.add(r);
     }
 
-    ref.read(favoritesRoutesStatesProvider.state).state =
+    ref.read(favoritesRoutesStatesProvider.notifier).state =
         FavoritesRoutesStates.data(_routes.toList(growable: false));
 
     if (doNotify) {
@@ -196,7 +196,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
   Future<void> addRoute(LocalRoute route) async {
     _routes.add(route);
 
-    ref.read(favoritesRoutesStatesProvider.state).state =
+    ref.read(favoritesRoutesStatesProvider.notifier).state =
         FavoritesRoutesStates.data(_routes.toList(growable: false));
     await sync();
   }
@@ -204,7 +204,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
   @override
   Future<void> removeRoute(LocalRoute route) async {
     _routes.remove(route);
-    ref.read(favoritesRoutesStatesProvider.state).state =
+    ref.read(favoritesRoutesStatesProvider.notifier).state =
         FavoritesRoutesStates.data(_routes.toList(growable: false));
     await sync();
   }
@@ -212,7 +212,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
   @override
   Future<void> addStop(FavoriteStop stop) async {
     _stops.add(stop);
-    ref.read(favoritesStatesProvider.state).state =
+    ref.read(favoritesStatesProvider.notifier).state =
         FavoritesStates.data(stops.toList(growable: false));
     await sync();
   }
@@ -224,7 +224,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
     if (!_stops.remove(favoriteStop)) {
       log.log('$favoriteStop was not in favorites ?', channel: 'Store');
     }
-    ref.read(favoritesStatesProvider.state).state =
+    ref.read(favoritesStatesProvider.notifier).state =
         FavoritesStates.data(stops.toList(growable: false));
     await sync();
   }

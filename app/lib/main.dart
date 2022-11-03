@@ -172,7 +172,7 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
       actions: {
         EscapeIntent: CallbackAction(onInvoke: (e) {
           // log.log('Clearing sidebar');
-          ref.read(sideTabBarProvider.state).state = null;
+          ref.read(sideTabBarProvider.notifier).state = null;
           sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
           return null;
         }),
@@ -194,8 +194,8 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
       initialRoute: 'loading',
       builder: (context, child) => OverWriteProvidersFromContext(
         overrides: (context) => [
-          appLocalizationsProvider.overrideWithProvider(
-            Provider((_) => AppLocalizations.of(context)),
+          appLocalizationsProvider.overrideWith(
+            (_) => AppLocalizations.of(context),
           ),
         ],
         child: child!,

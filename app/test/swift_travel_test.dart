@@ -140,18 +140,16 @@ void main() {
     test('completion', () async {
       //? Not really sure if this is the best way to test this
       final container = ProviderContainer(overrides: [
-        completionEngineProvider.overrideWithProvider(
-          Provider(
-            (r) => CompletionEngine(
-              r.read,
-              routeHistoryRepository: MockRouteHistory(
-                mockedHistory: [
-                  route1,
-                  route3,
-                  route1,
-                  route3,
-                ],
-              ),
+        completionEngineProvider.overrideWith(
+          (r) => CompletionEngine(
+            r.read,
+            routeHistoryRepository: MockRouteHistory(
+              mockedHistory: [
+                route1,
+                route3,
+                route1,
+                route3,
+              ],
             ),
           ),
         ),
@@ -227,25 +225,21 @@ void main() {
     late ProviderContainer container;
     container = ProviderContainer(
       overrides: [
-        storeProvider.overrideWithProvider(
-          ChangeNotifierProvider(
-            (ref) => MockFavoriteStore(stops: [
-              FavoriteStop.fromStop(geneva, api: searchChApi.id),
-              FavoriteStop.fromStop('Genève gare', api: searchChApi.id),
-              FavoriteStop.fromStop('Genève nord', api: searchChApi.id),
-              FavoriteStop.fromStop('Lausanne Aéroport', api: searchChApi.id),
-            ]),
-          ),
+        storeProvider.overrideWith(
+          (r) => MockFavoriteStore(stops: [
+            FavoriteStop.fromStop(geneva, api: searchChApi.id),
+            FavoriteStop.fromStop('Genève gare', api: searchChApi.id),
+            FavoriteStop.fromStop('Genève nord', api: searchChApi.id),
+            FavoriteStop.fromStop('Lausanne Aéroport', api: searchChApi.id),
+          ]),
         ),
         navigationAPIProvider.overrideWithValue(
           MockNavigationApi(mockCompletions: [SbbCompletion(label: geneva)]),
         ),
-        completionEngineProvider.overrideWithProvider(
-          Provider(
-            (r) => CompletionEngine(
-              r.read,
-              routeHistoryRepository: MockRouteHistory(mockedHistory: [route1]),
-            ),
+        completionEngineProvider.overrideWith(
+          (r) => CompletionEngine(
+            r.read,
+            routeHistoryRepository: MockRouteHistory(mockedHistory: [route1]),
           ),
         )
       ],
