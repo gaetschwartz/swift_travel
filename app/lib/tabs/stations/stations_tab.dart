@@ -155,7 +155,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                                     Vibration.instance.select();
                                     searchController.text = '';
                                     focusNode.unfocus();
-                                    ref.read(_stateProvider.state).state =
+                                    ref.read(_stateProvider.notifier).state =
                                         const StationStates.empty();
                                   }),
                             ),
@@ -168,7 +168,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                 const Gap(8),
                 IconButton(
                   icon: Consumer(builder: (context, w, _) {
-                    final loading = w.watch(_locatingProvider.state).state;
+                    final loading = w.watch(_locatingProvider);
                     return AnimatedLocation(loadingState: loading);
                   }),
                   tooltip: AppLocalizations.of(context).use_current_location,
@@ -180,7 +180,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
           const Gap(8),
           Expanded(
             child: Consumer(builder: (context, w, _) {
-              return w.watch(_stateProvider.state).state.when(
+              return w.watch(_stateProvider).when(
                     completions: (c) => Column(
                       children: [
                         Padding(
@@ -286,7 +286,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
   }
 
   Future<void> debounce(String s) async {
-    ref.read(_loadingProvider.state).state = true;
+    ref.read(_loadingProvider.notifier).state = true;
     // Debounce
     if (_debouncer?.isActive ?? false) {
       _debouncer?.cancel();
@@ -300,7 +300,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
 
   Future<void> _getLocation() async {
     Vibration.instance.selectSoft();
-    ref.read(_locatingProvider.state).state = _LoadingState.loading;
+    ref.read(_locatingProvider.notifier).state = _LoadingState.loading;
 
     try {
       final p = await GeoLocationEngine.instance.getLocation();
@@ -315,7 +315,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
             completions.where((c) => !TransportationModeX.isAnAddress(c.type));
         if (!mounted) return;
 
-        ref.read(_stateProvider.state).state =
+        ref.read(_stateProvider.notifier).state =
             StationStates.completions(completions);
         if (public.isNotEmpty) {
           log.log('Found : ${public.first}');
@@ -324,7 +324,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
       }
       if (!mounted) return;
 
-      ref.read(_locatingProvider.state).state = _LoadingState.idle;
+      ref.read(_locatingProvider.notifier).state = _LoadingState.idle;
     } on Exception catch (e) {
       onError(e);
       // ignore: avoid_catching_errors
@@ -335,12 +335,12 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
 
   void onError(Object e) {
     log.log(e.toString(), channel: 'Location');
-    ref.read(_locatingProvider.state).state = _LoadingState.error;
+    ref.read(_locatingProvider.notifier).state = _LoadingState.error;
     Future.delayed(_kAnimDuration * (5 / 8), cancelAnimation);
   }
 
   void cancelAnimation() {
-    ref.read(_locatingProvider.state).state = _LoadingState.idle;
+    ref.read(_locatingProvider.notifier).state = _LoadingState.idle;
   }
 
   Future<void> fetch(String query) async {
@@ -352,14 +352,14 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
               );
       if (!mounted) return;
 
-      ref.read(_stateProvider.state).state =
+      ref.read(_stateProvider.notifier).state =
           StationStates.completions(completionsWithFavs);
     } on SocketException {
-      ref.read(_stateProvider.state).state = const StationStates.network();
+      ref.read(_stateProvider.notifier).state = const StationStates.network();
     } on Exception catch (e, s) {
       reportDartError(e, s);
     } finally {
-      ref.read(_loadingProvider.state).state = false;
+      ref.read(_loadingProvider.notifier).state = false;
     }
   }
 

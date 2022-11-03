@@ -144,7 +144,7 @@ class _TabViewState extends ConsumerState<TabView>
                   navigatorKeys[i]
                       .currentState!
                       .popUntil((route) => route.isFirst);
-                  ref.read(sideTabBarProvider.state).state = null;
+                  ref.read(sideTabBarProvider.notifier).state = null;
                 }
                 oldI = i;
               },
@@ -294,7 +294,7 @@ class _TabWidget extends ConsumerWidget {
                   navigatorKeys[i]
                       .currentState
                       ?.popUntil((route) => route.isFirst);
-                  ref.read(sideTabBarProvider.state).state = null;
+                  ref.read(sideTabBarProvider.notifier).state = null;
                 }
               },
               splashColor: Theme.of(context).primaryColor.withAlpha(32),
@@ -346,7 +346,7 @@ class SideBar extends ConsumerWidget {
   }) {
     if (shouldShowSidebar(context)) {
       // ignore: deprecated_member_use_from_same_package
-      readFromContext(context, sideTabBarProvider.state).state = builder;
+      readFromContext(context, sideTabBarProvider.notifier).state = builder;
       sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
     } else {
       unawaited(Navigator.of(context, rootNavigator: rootNavigator)

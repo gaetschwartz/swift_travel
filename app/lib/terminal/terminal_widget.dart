@@ -45,7 +45,7 @@ class _TerminalWidgetState extends ConsumerState<TerminalWidget> {
   final log = Logger.of('TerminalWidget');
 
   void write(String cmd, String result) {
-    final history = ref.read(terminalHistoryProvider.state);
+    final history = ref.read(terminalHistoryProvider.notifier);
     final newList = List<TerminalCommandResult>.of(history.state);
     if (history.state.length > cache) {
       newList.removeRange(0, newList.length - cache);
@@ -66,7 +66,7 @@ class _TerminalWidgetState extends ConsumerState<TerminalWidget> {
     );
   }
 
-  void clear() => ref.read(terminalHistoryProvider.state).state = [];
+  void clear() => ref.read(terminalHistoryProvider.notifier).state = [];
 
   final maxLength =
       commands.map<int>((e) => e.command.length).fold(0, math.max);
@@ -85,7 +85,11 @@ class _TerminalWidgetState extends ConsumerState<TerminalWidget> {
     } else {
       def.run(
         TerminalContext(
-            s, write, ref.read(terminalHistoryProvider.state), context),
+          s,
+          write,
+          ref.read(terminalHistoryProvider.notifier),
+          context,
+        ),
       );
     }
     controller.text = '';

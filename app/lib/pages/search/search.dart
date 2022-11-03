@@ -129,17 +129,18 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           .complete(
             query: query,
             doPredict: widget.isDestination,
-            date: ref.read(dateProvider.state).state,
+            date: ref.read(dateProvider),
           )
           .listen(
         (c) {
           if (mounted) {
-            ref.read(_stateProvider.state).state = StationStates.completions(c);
+            ref.read(_stateProvider.notifier).state =
+                StationStates.completions(c);
           }
         },
         onError: (dynamic e, dynamic s) {
           if (e is SocketException) {
-            ref.read(_stateProvider.state).state =
+            ref.read(_stateProvider.notifier).state =
                 const StationStates.network();
           } else if (e is Exception) {
             reportDartError(e, s as StackTrace,

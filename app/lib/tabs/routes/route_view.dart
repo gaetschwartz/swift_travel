@@ -208,7 +208,7 @@ class RoutesView extends StatelessWidget {
 }
 
 final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
-  final dateTime = ref.watch(dateProvider.state).state;
+  final dateTime = ref.watch(dateProvider);
   LatLon? pos;
   try {
     final loc = await GeoLocationEngine.instance

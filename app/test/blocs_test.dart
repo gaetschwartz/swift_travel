@@ -45,10 +45,8 @@ void main() {
 
     setUp(() async {
       container = ProviderContainer(overrides: [
-        storeProvider.overrideWithProvider(
-          ChangeNotifierProvider(
-            (ref) => HiveFavoritesStore(),
-          ),
+        storeProvider.overrideWith(
+          (_) => HiveFavoritesStore(),
         )
       ]);
     });

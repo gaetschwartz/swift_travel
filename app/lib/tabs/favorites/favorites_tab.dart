@@ -73,12 +73,10 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
       ),
       builder: (context, d) => Consumer(builder: (context, w, _) {
         final stops = w
-            .watch(favoritesStatesProvider.state)
-            .state
+            .watch(favoritesStatesProvider)
             .maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
         final routes = w
-            .watch(favoritesRoutesStatesProvider.state)
-            .state
+            .watch(favoritesRoutesStatesProvider)
             .maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
 
         return stops.isEmpty && routes.isEmpty

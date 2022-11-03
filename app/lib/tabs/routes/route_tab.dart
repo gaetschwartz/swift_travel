@@ -95,8 +95,8 @@ class Fetcher extends FetcherBase {
   Future<void> fetch(Ref ref) async {
     final from = ref.watch(fromTextfieldProvider);
     final to = ref.watch(toTextfieldProvider);
-    final date = ref.watch(dateProvider.state).state;
-    final timeType = ref.watch(timeTypeProvider.state).state;
+    final date = ref.watch(dateProvider);
+    final timeType = ref.watch(timeTypeProvider);
     final api = ref.read(navigationAPIProvider);
 
     if (kDebugMode) {
@@ -255,8 +255,8 @@ class RoutePageState extends ConsumerState<RoutePage> {
 
   void clearProviders() {
     ref.read(routeStatesProvider).state = const RouteStates.empty();
-    ref.read(dateProvider.state).state = DateTime.now();
-    ref.read(timeTypeProvider.state).state = TimeType.departure;
+    ref.read(dateProvider.notifier).state = DateTime.now();
+    ref.read(timeTypeProvider.notifier).state = TimeType.departure;
   }
 
   @override
@@ -437,8 +437,8 @@ class RoutePageState extends ConsumerState<RoutePage> {
                               : null,
                           onPressed: () async {
                             Vibration.instance.select();
-                            var type = ref.read(timeTypeProvider.state).state;
-                            final currentDate = ref.read(dateProvider.state);
+                            var type = ref.read(timeTypeProvider);
+                            final currentDate = ref.read(dateProvider.notifier);
                             final date = await pickDate(
                               context,
                               initialDateTime: currentDate.state.subtract(
@@ -454,16 +454,16 @@ class RoutePageState extends ConsumerState<RoutePage> {
                             if (date != null) currentDate.state = date;
 
                             if (!mounted) return;
-                            ref.read(timeTypeProvider.state).state = type;
+                            ref.read(timeTypeProvider.notifier).state = type;
                           },
                           child: Consumer(builder: (context, w, _) {
-                            final date = w.watch(dateProvider.state);
-                            final time = w.watch(timeTypeProvider.state);
+                            final date = w.watch(dateProvider);
+                            final time = w.watch(timeTypeProvider);
                             final dateFormatted =
-                                DateFormat('d MMM y').format(date.state);
+                                DateFormat('d MMM y').format(date);
                             final timeFormatted =
-                                DateFormat('H:mm').format(date.state);
-                            final type = describeEnum(time.state);
+                                DateFormat('H:mm').format(date);
+                            final type = describeEnum(time);
                             return Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -489,7 +489,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
                       onPressed: () {
                         Vibration.instance.select();
                         unFocusFields();
-                        ref.read(dateProvider.state).state = DateTime.now();
+                        ref.read(dateProvider.notifier).state = DateTime.now();
                       },
                       icon: const Icon(Icons.restore),
                     ),
@@ -608,8 +608,7 @@ class _TextFieldState extends ConsumerState<_TextField> {
           configuration: widget.textFieldConfiguration,
           // new params
           isDestination: widget.isDestination,
-          dateTime:
-              widget.isDestination ? ref.read(dateProvider.state).state : null,
+          dateTime: widget.isDestination ? ref.read(dateProvider) : null,
         ),
       ),
     ));

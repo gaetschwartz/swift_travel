@@ -54,11 +54,11 @@ class _StopInputDialogState extends ConsumerState<StopInputDialog> {
       final compls = await api.complete(query);
 
       if (mounted) {
-        ref.read(_stateProvider.state).state =
+        ref.read(_stateProvider.notifier).state =
             StationStates.completions(compls);
       }
     } on SocketException {
-      ref.read(_stateProvider.state).state = const StationStates.network();
+      ref.read(_stateProvider.notifier).state = const StationStates.network();
     } on Exception catch (e, s) {
       reportDartError(e, s, library: 'search', reason: 'while fetching');
     }
