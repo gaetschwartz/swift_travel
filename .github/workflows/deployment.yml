@@ -148,14 +148,11 @@ jobs:
       - name: Pre-build configuration
         working-directory: app/
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
+        env:
+          KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
       - name: Build
         working-directory: app/
         run: flutter build apk --build-number ${{ env.COMMIT_NUMBER }}
-      - name: Sign APK
-        working-directory: app/
-        run: bash $GITHUB_WORKSPACE/CI/sign_apk.sh
-        env:
-          PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
       - name: Upload apk
         uses: actions/upload-artifact@v2
         with:
