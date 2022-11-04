@@ -51,6 +51,7 @@ class Trias2020Api implements BaseNavigationApi {
             ?.findElements('trias:Location') ??
         [];
     final completions = locations.map((loc) {
+      print(loc.toXmlString(pretty: true));
       final e = loc['trias:Location']!;
       final stopPoint = e['trias:StopPoint'];
       final name = stopPoint?['trias:StopPointName']?.getTriasText()?.text;
@@ -73,8 +74,8 @@ class Trias2020Api implements BaseNavigationApi {
       }).toList();
 
       return TriasLocation(
-        stopPointName: name!,
-        stopPointRef: id!,
+        stopPointName: name ?? 'name',
+        stopPointRef: id ?? 'id',
         geoPosition: TriasGeoPosition.fromXML(geo),
         complete: complete,
         probability: probability,
@@ -260,6 +261,7 @@ class Trias2020RequestBuilder {
     _QueryType query, {
     int maxResults = 10,
     bool includePtModes = false,
+    String? restrctionType = 'stop',
   }) {
     return '''
 <?xml version="1.0" encoding="UTF-8"?>
@@ -271,7 +273,7 @@ class Trias2020RequestBuilder {
             <LocationInformationRequest>
                 <InitialInput>${query.render()}</InitialInput>
                 <Restrictions>
-                    <Type>stop</Type>
+                    ${restrctionType == null ? '' : '<Type>$restrctionType</Type>'}
                     <NumberOfResults>$maxResults</NumberOfResults>
                     <IncludePtModes>$includePtModes</IncludePtModes>
                 </Restrictions>

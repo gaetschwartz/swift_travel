@@ -56,5 +56,6 @@ class AttributeData with _$AttributeData {
     '1_6.5_VB': AttributeData(icon: Icon(Icons.pedal_bike)),
     '0_2.7_MI': AttributeData(icon: Icon(Icons.restaurant)),
     '0_1.6_2': AttributeData(icon: Icon(CupertinoIcons.tickets)),
+    '1_7.3_SN': AttributeData(icon: Icon(Icons.restaurant)),
   };
 }

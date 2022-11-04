@@ -60,5 +60,7 @@
 	"no_contacts": "La tua rubrica è vuota",
 	"customization": "Personalizzazione",
 	"advanced_settings": "Impostazioni avanzate", 
-	"share_as_image": "Condividi come immagine"
+	"share_as_image": "Condividi come immagine",
+	"start":  "Inizio",
+	"arrive" : "Arrivo"
 }

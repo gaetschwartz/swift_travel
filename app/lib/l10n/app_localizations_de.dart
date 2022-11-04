@@ -196,4 +196,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get share_as_image => 'Als Bild teilen';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get arrive => 'Ankunft';
 }

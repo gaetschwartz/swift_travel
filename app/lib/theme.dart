@@ -48,6 +48,7 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
     pageTransitionsTheme: const PageTransitionsTheme(),
     dividerTheme: DividerThemeData(
       color: t.dividerColor.withOpacity(0.1),
+      thickness: 0.5,
     ),
   ),
   lightThemes: [

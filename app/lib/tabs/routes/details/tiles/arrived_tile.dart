@@ -1,11 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/strings/format.dart';
-import 'package:swift_travel/utils/strings/markdown.dart';
 
 class ArrivedTile extends StatelessWidget {
   const ArrivedTile(
@@ -26,28 +25,40 @@ class ArrivedTile extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Row(
+                const Icon(CupertinoIcons.map_pin, size: 24),
+                const Gap(8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const FaIcon(FontAwesomeIcons.mapPin),
+                    Text.rich(
+                      TextSpan(
+                        text: AppLocalizations.of(context).arrive,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(fontWeight: FontWeight.bold),
+                        children: [
+                          TextSpan(
+                            text: ' (${Format.time(l.arrival)})',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
+                      ),
+                    ),
                     const Gap(8),
-                    Expanded(
-                      child: Text(l.displayName,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(fontWeight: FontWeight.bold)),
+                    Text(
+                      l.displayName,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.6),
+                          ),
                     ),
                   ],
                 ),
-                const Gap(8),
-                Text.rich(parseDecoratedText(
-                  AppLocalizations.of(context)
-                      .youll_be_there(Format.time(l.arrival)),
-                  style: Theme.of(context).textTheme.titleSmall,
-                )),
               ],
             ),
           ),

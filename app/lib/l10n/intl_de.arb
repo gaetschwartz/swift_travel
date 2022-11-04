@@ -60,5 +60,7 @@
 	"no_contacts": "Ihr Adressbuch ist leer",
 	"customization": "Personalisierung",
 	"advanced_settings": "Erweiterte Einstellungen",
-	"share_as_image": "Als Bild teilen"
+	"share_as_image": "Als Bild teilen",
+	"start":  "Start",
+	"arrive" : "Ankunft"
 }

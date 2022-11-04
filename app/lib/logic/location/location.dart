@@ -24,6 +24,7 @@ class GeoLocationEngine {
         var permission = await Geolocator.checkPermission();
 
         if (permission == LocationPermission.denied) {
+          log.i('Requesting permission because it was denied.');
           permission = await Geolocator.requestPermission();
         }
 

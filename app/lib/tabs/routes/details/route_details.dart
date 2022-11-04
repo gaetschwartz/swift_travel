@@ -80,12 +80,7 @@ class _RouteDetailsState extends State<RouteDetails> {
                         ),
                       ]),
                 SliverSafeArea(
-                  sliver: SliverToBoxAdapter(child: _Header(conn)),
-                  bottom: false,
                   top: platform == PlatformDesign.cupertino,
-                ),
-                SliverSafeArea(
-                  top: false,
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (_, i) => i == 0

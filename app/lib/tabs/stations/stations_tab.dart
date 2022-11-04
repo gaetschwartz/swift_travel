@@ -11,7 +11,6 @@ import 'package:gap/gap.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
-import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/location/location.dart';
@@ -22,7 +21,6 @@ import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:swift_travel/utils/errors.dart';
-import 'package:swift_travel/widgets/animated_widget.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:vibration/vibration.dart';
@@ -183,40 +181,28 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
               return w.watch(_stateProvider).when(
                     completions: (c) => Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: SizedBox(
-                            height: 4,
-                            child: Center(
-                              child: Consumer(
-                                builder: (context, w, _) =>
-                                    w.watch(_loadingProvider)
-                                        ? const LinearProgressIndicator()
-                                        : const SizedBox(),
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 8),
+                        //   child: SizedBox(
+                        //     height: 4,
+                        //     child: Center(
+                        //       child: Consumer(
+                        //         builder: (context, w, _) =>
+                        //             w.watch(_loadingProvider)
+                        //                 ? const LinearProgressIndicator()
+                        //                 : const SizedBox(),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         Expanded(
                           child: ScrollablePositionedList.builder(
                             itemPositionsListener: itemPositionsListener,
                             itemCount: c.length,
                             itemBuilder: (context, i) {
-                              final completion = c[i];
-                              return IfWrapper(
-                                key: ValueKey(completion),
-                                condition: Env.enableAnimations,
-                                builder: (context, child) =>
-                                    InstantlyAnimatedWidget(
-                                  delay: computeDelay(i),
-                                  builder: InstantlyAnimatedWidget.fadeScale,
-                                  start: 0.5,
-                                  child: child!,
-                                ),
-                                child: CompletionTile(
-                                  completion,
-                                  key: Key('stations-key-$i'),
-                                ),
+                              return CompletionTile(
+                                c[i],
+                                key: Key('stations-key-$i'),
                               );
                             },
                           ),

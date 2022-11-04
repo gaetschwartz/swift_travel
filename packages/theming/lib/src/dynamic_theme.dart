@@ -359,6 +359,8 @@ class DynamicThemeNotifier extends ChangeNotifier {
       colorScheme: colorScheme,
       textTheme: textTheme,
       useMaterial3: true,
+    ).copyWith(
+      platform: platform,
     );
   }
 

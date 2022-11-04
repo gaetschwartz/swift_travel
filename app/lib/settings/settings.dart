@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -217,12 +218,14 @@ class BuildDetailsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
-      isThreeLine: true,
-      dense: true,
-      title: const Text(commitMessage),
-      subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
-      onTap: () async => onTap(context, ref),
-    );
+        isThreeLine: true,
+        dense: true,
+        title: const Text(commitMessage),
+        subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
+        onTap: () async => onTap(context, ref),
+        onLongPress: () async {
+          await Clipboard.setData(const ClipboardData(text: commitHash));
+        });
   }
 }
 
