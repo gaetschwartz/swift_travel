@@ -96,5 +96,7 @@
 	"no_contacts": "Your address book is empty",
 	"customization": "Customisation",
 	"advanced_settings": "Advanced settings",
-	"share_as_image": "Share as image"
+	"share_as_image": "Share as image",
+	"start": "Start",
+	"arrive": "Arrive"
 }

@@ -51,7 +51,10 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(
           trailing: IconButton(
-              icon: const Icon(CupertinoIcons.add), onPressed: addFav),
+            icon: const Icon(CupertinoIcons.add),
+            onPressed: addFav,
+          ),
+          middle: Text(AppLocalizations.of(context).tabs_favourites),
         ),
         child: child!,
       ),

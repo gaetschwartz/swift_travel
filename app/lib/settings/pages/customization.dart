@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
@@ -32,7 +33,7 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
         const _ThemeModeList(),
         const Gap(16),
         const _FontChoiceTile(),
-        const _PlatformTile(),
+        if (Env.isDebugMode) const _PlatformTile(),
       ],
     );
   }
@@ -48,6 +49,7 @@ class _PlatformTile extends StatelessWidget {
     final theme = DynamicTheme.of(context);
     final p = defaultTargetPlatform;
     return SwiftSettingsPropertyTile<TargetPlatform>(
+      leading: const Icon(Icons.phone_android),
       tileBorders: const TileBorders(bottom: true),
       property: SyncProperty<TargetPlatform>(
         onSet: (p) => unawaited(theme.setPlatform(p)),
@@ -79,7 +81,9 @@ class _FontChoiceTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = DynamicTheme.of(context);
     return SwiftSettingsPropertyTile<Font>(
-      tileBorders: const TileBorders(top: true),
+      leading: const Icon(Icons.font_download),
+      // ignore: use_named_constants
+      tileBorders: const TileBorders(top: true, bottom: !Env.isDebugMode),
       title: Text(AppLocalizations.of(context).font),
       subtitle: Text(DynamicTheme.of(context).font.name),
       options: theme.configuration.fonts.map(

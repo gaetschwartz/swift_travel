@@ -58,7 +58,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
     return Column(
       children: [
         if (showDividers && !tileBorders.top)
-          const Divider(indent: 56, thickness: 0.5, height: 0),
+          const Divider(indent: 56, thickness: 0.2, height: 0),
         Material(
           color: Colors.transparent,
           child: Theme(
@@ -68,11 +68,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
               horizontalTitleGap: 0,
               dense: true,
               title: DefaultTextStyle(
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(letterSpacing: 0)
-                    .apply(fontSizeFactor: 1.05),
+                style: Theme.of(context).textTheme.bodyLarge!,
                 child: title,
               ),
               leading: leading,
@@ -84,40 +80,43 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
               shape: RoundedRectangleBorder(
                   borderRadius: tileBorders.toBorderRadius(borderRadius)),
               trailing: isDarwin
-                  ? Row(
+                  ? Column(
                       mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
                       children: [
-                          if (subtitle != null)
-                            SizedBox(
-                              child: Center(
-                                child: Padding(
-                                  padding: EdgeInsets.zero,
-                                  child: ConstrainedBox(
-                                    constraints:
-                                        const BoxConstraints(maxWidth: 100),
-                                    child: DefaultTextStyle(
-                                      style: theme.textTheme.titleMedium!
-                                          .copyWith(color: subtitleColor),
-                                      softWrap: false,
-                                      textAlign: TextAlign.right,
-                                      overflow: TextOverflow.fade,
-                                      child: subtitle!,
-                                    ),
+                        Row(
+                            mainAxisSize: MainAxisSize.min,
+                            verticalDirection: VerticalDirection.down,
+                            children: [
+                              const Text(''),
+                              if (subtitle != null)
+                                ConstrainedBox(
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 100),
+                                  child: DefaultTextStyle(
+                                    style: theme.textTheme.bodyMedium!
+                                        .copyWith(color: subtitleColor),
+                                    softWrap: false,
+                                    textAlign: TextAlign.right,
+                                    overflow: TextOverflow.fade,
+                                    child: subtitle!,
                                   ),
                                 ),
-                              ),
-                            ),
-                          if (showChevron)
-                            Icon(CupertinoIcons.chevron_forward,
-                                color: subtitleColor)
-                        ])
+                              if (showChevron)
+                                Icon(
+                                  CupertinoIcons.chevron_forward,
+                                  color: subtitleColor,
+                                )
+                            ]),
+                      ],
+                    )
                   : null,
             ),
           ),
         ),
         if (showDividers && !tileBorders.bottom)
-          const Divider(indent: 56, thickness: 0.5, height: 0),
+          const Divider(indent: 56, thickness: 0.2, height: 0),
       ],
     );
   }

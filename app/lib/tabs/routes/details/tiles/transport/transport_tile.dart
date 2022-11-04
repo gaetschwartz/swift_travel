@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -141,6 +142,9 @@ class _Collapsed extends StatelessWidget {
                     InkWell(
                       onTap: () async {
                         final darwin = isThemeDarwin(context);
+                        if (kDebugMode) {
+                          print('darwin: $darwin');
+                        }
                         final list = l.attributes.entries
                             .map(Attribute.fromAttribute)
                             .where((e) => !e.ignore)
@@ -176,17 +180,18 @@ class _Collapsed extends StatelessWidget {
                                   ),
                               expand: false);
                         } else {
-                          await showMaterialModalBottomSheet<void>(
-                              context: context,
-                              builder: (context) => Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Gap(8),
-                                      ...list.map(AttributeTile.new),
-                                      const Gap(8),
-                                    ],
-                                  ),
-                              expand: false);
+                          await showModalBottomSheet<void>(
+                            context: context,
+                            builder: (context) => Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Gap(8),
+                                ...list.map(AttributeTile.new),
+                                const Gap(8),
+                              ],
+                            ),
+                            isScrollControlled: true,
+                          );
                         }
                       },
                       child: Row(
@@ -197,7 +202,8 @@ class _Collapsed extends StatelessWidget {
                               .where((e) => !e.ignore)
                               .map((att) => Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 1),
+                                      horizontal: 1,
+                                    ),
                                     child: DecoratedBox(
                                       decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.all(
@@ -206,7 +212,9 @@ class _Collapsed extends StatelessWidget {
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(2),
-                                        child: att.icon,
+                                        child: att.icon ??
+                                            const Icon(
+                                                CupertinoIcons.info_circle),
                                       ),
                                     ),
                                   ))

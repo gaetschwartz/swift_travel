@@ -14,7 +14,6 @@ class Env {
       !kDebugMode || bool.fromEnvironment('CACHE_LINES_IN_DEBUG');
   static const enableLiveRoute = bool.fromEnvironment('ENABLE_LIVE_ROUTE');
   static const doMockContacts = bool.fromEnvironment('DO_MOCK_CONTACTS');
-  static const enableAnimations = true;
 
   static bool boolean(String s) => bool.fromEnvironment(s);
   static String string(String s) => String.fromEnvironment(s);
@@ -32,5 +31,5 @@ class Env {
 
   static bool get isLiveRouteEnabled => kDebugMode || enableLiveRoute;
 
-  static bool get isDebugMode => kDebugMode && !Env.isReleaseMode;
+  static const isDebugMode = kDebugMode && !Env.isReleaseMode;
 }

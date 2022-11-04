@@ -7,7 +7,7 @@ abstract class MessagePrinter {
 
   String call(LogMessage msg);
 
-  String formatScope(Scope scope) => scope.join('');
+  String formatScope(Scope scope) => scope.join(':');
 }
 
 class DetailedPrinter extends MessagePrinter {

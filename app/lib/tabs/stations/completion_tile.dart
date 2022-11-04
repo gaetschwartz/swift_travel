@@ -28,8 +28,6 @@ import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
-enum _Actions { favorite }
-
 class CompletionTile extends ConsumerStatefulWidget {
   const CompletionTile(
     this.sugg, {
@@ -51,7 +49,9 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
     final iconClass = widget.sugg.icon;
     final isPrivate = TransportationModeX.isAnAddress(widget.sugg.type);
 
-    final isFav = widget.sugg.favoriteName != null;
+    final favoriteStop =
+        store.stops.firstWhereOrNull((f) => f.stop == widget.sugg.label);
+    final isFav = favoriteStop != null;
     final darwin = isThemeDarwin(context);
 
     final subtitle = [
@@ -83,7 +83,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
               iconClass,
           ],
         ),
-        title: Text(isFav ? widget.sugg.favoriteName! : widget.sugg.label),
+        title: Text(isFav ? favoriteStop.displayName : widget.sugg.label),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: subtitle,
@@ -135,7 +135,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
         store.stops.firstWhereOrNull((f) => f.stop == widget.sugg.label);
     final isFav = favoriteStop != null;
 
-    final c = await showActionSheet<_Actions>(
+    await showActionSheet<void>(
         context,
         [
           ActionsSheetAction(
@@ -148,7 +148,24 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
             cupertinoIcon: isFav
                 ? const Icon(CupertinoIcons.heart_slash)
                 : const Icon(CupertinoIcons.heart),
-            onPressed: () => _Actions.favorite,
+            onPressed: () async {
+              print('isFav: $isFav');
+              print('stops: ${store.stops}');
+              if (isFav) {
+                await store.removeStop(favoriteStop);
+              } else {
+                final preferencesBloc = ref.read(preferencesProvider);
+                final name = await input(context,
+                    title: const Text('What is the name of this stop'));
+                if (name == null) return;
+
+                await store.addStop(FavoriteStop.fromCompletion(
+                  widget.sugg,
+                  name: name,
+                  api: preferencesBloc.api.value,
+                ));
+              }
+            },
             isDestructive: isFav,
           )
         ],
@@ -156,27 +173,6 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
           title: Text(AppLocalizations.of(context).cancel),
           icon: const Icon(CupertinoIcons.xmark),
         ));
-
-    switch (c) {
-      case _Actions.favorite:
-        if (isFav) {
-          await store.removeStop(favoriteStop);
-        } else {
-          final preferencesBloc = ref.read(preferencesProvider);
-          final name = await input(context,
-              title: const Text('What is the name of this stop'));
-          if (name == null) return;
-
-          await store.addStop(FavoriteStop.fromCompletion(
-            widget.sugg,
-            name: name,
-            api: preferencesBloc.api.value,
-          ));
-        }
-        break;
-      case null:
-        break;
-    }
   }
 }
 

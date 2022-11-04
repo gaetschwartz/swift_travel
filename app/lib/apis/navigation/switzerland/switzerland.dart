@@ -19,7 +19,7 @@ import 'package:swift_travel/constants/config.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
-const kUseTrias2020 = false;
+const kUseTrias2020 = true;
 
 const searchChApi = NavigationApiFactory(
   SearchChApi.new,
@@ -29,6 +29,10 @@ const searchChApi = NavigationApiFactory(
   countryName: 'Switzerland',
   id: NavigationApiId('sbb'),
 );
+
+final trias2020ApiProvider = FutureProvider((ref) => ref
+    .read(configProvider.future)
+    .then((value) => Trias2020Api(value.triasKey!)));
 
 class SearchChApi extends BaseNavigationApi {
   SearchChApi(this.ref);
@@ -48,9 +52,7 @@ class SearchChApi extends BaseNavigationApi {
   Map<String, String> get headers =>
       {'accept-language': locale.toLanguageTag()};
 
-  late final trias = ref
-      .read(configProvider.future)
-      .then((value) => Trias2020Api(value.triasKey!));
+  Future<Trias2020Api> get trias => ref.read(trias2020ApiProvider.future);
 
   @override
   Future<List<NavigationCompletion>> complete(
