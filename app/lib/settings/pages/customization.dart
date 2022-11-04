@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -49,7 +50,7 @@ class _PlatformTile extends StatelessWidget {
     return SwiftSettingsPropertyTile<TargetPlatform>(
       tileBorders: const TileBorders(bottom: true),
       property: SyncProperty<TargetPlatform>(
-        onSet: (p) => theme.platform = p,
+        onSet: (p) => unawaited(theme.setPlatform(p)),
         initialValue: theme.platform,
       ),
       valueBuilder: (_, v) => Text(v.name),
@@ -81,19 +82,19 @@ class _FontChoiceTile extends StatelessWidget {
       tileBorders: const TileBorders(top: true),
       title: Text(AppLocalizations.of(context).font),
       subtitle: Text(DynamicTheme.of(context).font.name),
-      options: theme.configuration.fonts
-          .map(
-            (e) => ValueOption(
-              value: e,
-              title: Text(
-                e.name,
-                style: e.textTheme(Typography.englishLike2018).bodyMedium,
-              ),
+      options: theme.configuration.fonts.map(
+        (f) {
+          return ValueOption(
+            value: f,
+            title: Text(
+              f.name,
+              style: f.textTheme(Theme.of(context).textTheme).bodyMedium,
             ),
-          )
-          .toList(),
+          );
+        },
+      ).toList(),
       property: SyncProperty<Font>(
-        onSet: (f) => theme.font = f,
+        onSet: (f) => unawaited(theme.setFont(f)),
         initialValue: theme.font,
       ),
       valueBuilder: (context, value) => Text(value.name),
@@ -165,7 +166,7 @@ class _ThememodeWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final DynamicThemeData theme;
+  final DynamicThemeNotifier theme;
   final ThemeMode mode;
   final String label;
 
@@ -180,7 +181,7 @@ class _ThememodeWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: InkWell(
-        onTap: () => theme.themeMode = mode,
+        onTap: () => unawaited(theme.setThemeMode(mode)),
         child: AspectRatio(
           aspectRatio: 1,
           child: DecoratedBox(

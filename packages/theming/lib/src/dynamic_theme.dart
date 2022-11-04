@@ -4,19 +4,20 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
 
+import 'empty_box.dart';
 import 'models.dart';
 
-class DynamicTheme extends InheritedNotifier<DynamicThemeData> {
+class DynamicTheme extends InheritedNotifier<DynamicThemeNotifier> {
   const DynamicTheme({
-    required DynamicThemeData theme,
+    required DynamicThemeNotifier theme,
     required Widget child,
     Key? key,
   }) : super(key: key, notifier: theme, child: child);
 
-  static DynamicThemeData of(BuildContext context, {bool listen = true}) {
-    final DynamicThemeData? dynamicTheme;
+  static DynamicThemeNotifier of(BuildContext context, {bool listen = true}) {
+    final DynamicThemeNotifier? dynamicTheme;
     if (listen) {
       dynamicTheme =
           context.dependOnInheritedWidgetOfExactType<DynamicTheme>()?.notifier;
@@ -66,7 +67,7 @@ class DynamicTheme extends InheritedNotifier<DynamicThemeData> {
 
 /// Theme model that allows to easily change theme dynamically and save the settings to preferences.
 ///
-class DynamicThemeData extends ChangeNotifier {
+class DynamicThemeNotifier extends ChangeNotifier {
   static TextTheme _identity(TextTheme t) => t;
   static const _default = Font('Default', _identity);
   static const List<Font> defaultFonts = [_default];
@@ -77,20 +78,20 @@ class DynamicThemeData extends ChangeNotifier {
       ExtendedTheme(
         colorScheme: ColorScheme.light(),
         name: 'Default',
-        id: "default",
+        id: 'default',
       ),
     ],
     darkThemes: [
       ExtendedTheme(
         colorScheme: ColorScheme.dark(),
         name: 'Default',
-        id: "default",
+        id: 'default',
       ),
     ],
     persist: false,
   );
 
-  DynamicThemeData(ThemeConfiguration configuration)
+  DynamicThemeNotifier(ThemeConfiguration configuration)
       : _config = configuration,
         _themeMode = configuration.defaultThemeMode,
         _fontIndex = 0,
@@ -106,10 +107,18 @@ class DynamicThemeData extends ChangeNotifier {
           'Set a persistent configuration with `configure(config)`',
         );
 
+  factory DynamicThemeNotifier.withDefaultConfig() =>
+      DynamicThemeNotifier(defaultConfig);
+
   ThemeConfiguration _config;
 
   ExtendedTheme _lightTheme;
   ExtendedTheme _darkTheme;
+
+  @visibleForTesting
+  ExtendedTheme get lightTheme => _lightTheme;
+  @visibleForTesting
+  ExtendedTheme get darkTheme => _darkTheme;
 
   late ThemeMode _themeMode;
   late int _fontIndex;
@@ -118,7 +127,7 @@ class DynamicThemeData extends ChangeNotifier {
   TargetPlatform _platform = defaultTargetPlatform;
   bool _isReadyToPersist = false;
 
-  SharedPreferences? _prefs;
+  Box<Object?> _box = EmptyBox();
 
   Future<void> configure(
     ThemeConfiguration newConfig, {
@@ -134,7 +143,7 @@ class DynamicThemeData extends ChangeNotifier {
     _themeMode = newConfig.defaultThemeMode;
     _fontIndex = 0; // newConfig.computedDefaultFont;
     if (newConfig.persist) {
-      await reloadFromPreferences(doLog: doLog);
+      await loadFromLocal(doLog: doLog);
     } else {
       notifyListeners();
     }
@@ -143,32 +152,33 @@ class DynamicThemeData extends ChangeNotifier {
   ThemeConfiguration get configuration => _config;
 
   /// Loads theme settings from `SharedPreferences`. If not run, the class won't presist the themes.
-  Future<void> reloadFromPreferences({
+  Future<void> loadFromLocal({
     ThemeMode? defaultThemeModeOverride,
     bool doLog = false,
   }) async {
-    if (!_config.persist) {
-      throw StateError(
-          "Persist is set to false so you shouldn't call this method !");
-    }
-    _prefs = await SharedPreferences.getInstance();
+    assert(_config.persist,
+        "Persist is set to false so you shouldn't call this method !");
 
-    final thememodeInt = _prefs!.getInt('${_config.prefix}thememode');
+    if (_box is EmptyBox) {
+      if (kDebugMode) print('Opening box');
+      _box = await openBox();
+    }
+
+    final thememodeInt = _box.getTyped<int>('thememode');
     final themeMode = ThemeMode.values[
         thememodeInt ?? defaultThemeModeOverride?.index ?? _themeMode.index];
 
-    final lightThemeId = _prefs!.getString('${_config.prefix}$_lightIdKey') ??
-        _config.defaultLightThemeId;
-    final darkThemeId = _prefs!.getString('${_config.prefix}$_darkIdKey') ??
-        _config.defaultDarkThemeId;
+    final lightThemeId =
+        _box.getTyped<String>(_lightIdKey) ?? _config.defaultLightThemeId;
+    final darkThemeId =
+        _box.getTyped<String>(_darkIdKey) ?? _config.defaultDarkThemeId;
 
-    final fontIndex = _prefs!.getInt('${_config.prefix}fontIndex') ??
-        _config.computedDefaultFont;
+    final fontIndex =
+        _box.getTyped<int>('fontIndex') ?? _config.computedDefaultFont;
 
-    final fontWeightDelta =
-        _prefs!.getInt('${_config.prefix}fontWeightDelta') ?? 0;
+    final fontWeightDelta = _box.getTyped<int>('fontWeightDelta') ?? 0;
 
-    final platformInt = _prefs!.getInt('${_config.prefix}platform');
+    final platformInt = _box.getTyped<int>('platform');
 
     final platform = platformInt != null &&
             platformInt >= 0 &&
@@ -186,29 +196,34 @@ class DynamicThemeData extends ChangeNotifier {
     _invalidateCache();
 
     if (doLog) {
-      print(
-        '[dyn_theme] Loaded theme from preferences :\n'
-        'Got : {themMode: ${thememodeInt == null ? null : ThemeMode.values[thememodeInt]}, themeName: $lightThemeId}\n'
-        'Resolved : {themeMode: $_themeMode, lightThemeId: $lightThemeId, darkThemeId: $darkThemeId}',
-      );
+      if (kDebugMode) {
+        print(
+          '[dyn_theme] Loaded theme from preferences :\n'
+          'Got : {themMode: ${thememodeInt == null ? null : ThemeMode.values[thememodeInt]}, themeName: $lightThemeId}\n'
+          'Resolved : {themeMode: $_themeMode, lightThemeId: $lightThemeId, darkThemeId: $darkThemeId}',
+        );
+      }
     }
 
     _isReadyToPersist = true;
     notifyListeners();
   }
 
+  @visibleForTesting
+  static Future<Box<Object?>> openBox() async => Hive.openBox('theme');
+
   bool get readyToPersist => _isReadyToPersist;
 
   Font get font => _config.fonts.safeGet(_fontIndex);
 
-  set font(Font font) {
+  Future<void> setFont(Font font) async {
     final i = _config.fonts.indexWhere((f) => f.name == font.name);
-    fontIndex = i;
+    await setFontIndex(i);
   }
 
   int get fontIndex => _fontIndex;
 
-  set fontIndex(int i) {
+  Future<void> setFontIndex(int i) async {
     assert(i >= 0 && i < _config.fonts.length,
         '$fontIndex must be is not in range 0 (inclusive) to ${_config.fonts.length} (exclusive)');
 
@@ -217,88 +232,79 @@ class DynamicThemeData extends ChangeNotifier {
     notifyListeners();
     if (_config.persist) {
       _checkPrefsState();
-      _prefs!.setInt('${_config.prefix}fontIndex', i);
+      await _box.put('fontIndex', i);
     }
   }
 
   int get fontWeightDelta => _fontWeightDelta;
 
-  set fontWeightDelta(int fontWeightDelta) {
+  Future<void> setTontWeightDelta(int fontWeightDelta) async {
     ArgumentError.checkNotNull(fontWeightDelta, 'fontWeightDelta');
     _fontWeightDelta = fontWeightDelta;
     _invalidateCache();
     notifyListeners();
     if (_config.persist) {
       _checkPrefsState();
-      _prefs!.setInt('${_config.prefix}fontWeightDelta', fontWeightDelta);
-    }
-  }
-
-  void _checkPrefsState() {
-    if (!_isReadyToPersist || _prefs == null) {
-      throw StateError(
-          'You need to use configure() first to initiate preferences');
+      await _box.put('fontWeightDelta', fontWeightDelta);
     }
   }
 
   ThemeMode get themeMode => _themeMode;
 
-  set themeMode(ThemeMode themeMode) {
+  Future<void> setThemeMode(ThemeMode themeMode) async {
     ArgumentError.checkNotNull(themeMode, 'themeMode');
     _themeMode = themeMode;
     notifyListeners();
     if (_config.persist) {
       _checkPrefsState();
-      _prefs!.setInt('${_config.prefix}thememode', themeMode.index);
+      await _box.put('thememode', themeMode.index);
     }
   }
 
-  static const _lightIdKey = "light_theme";
-  static const _darkIdKey = "dark_theme";
+  static const _lightIdKey = 'light_theme';
+  static const _darkIdKey = 'dark_theme';
 
-  void setLightTheme(String id) => _setId(
+  Future<void> setLightTheme(String id) => _setId(
         id,
         _config.lightThemes,
         _lightIdKey,
         (t) => _lightTheme = t,
       );
-  void setDarkTheme(String id) => _setId(
+  Future<void> setDarkTheme(String id) => _setId(
         id,
         _config.darkThemes,
         _darkIdKey,
         (t) => _darkTheme = t,
       );
 
-  void _setId(
+  Future<void> _setId(
     String id,
     List<ExtendedTheme> themes,
     String key,
     void Function(ExtendedTheme) setId,
-  ) {
-    final theme = themes.firstWhereOrNull((element) => element.id == id);
+  ) async {
+    final theme = themes.firstWhereOrNull((e) => e.id == id);
     if (theme == null) {
-      throw ArgumentError(
-        'No theme named `$id` exist. All available themes are: ${themes.map((e) => e.id).toList()}',
-      );
+      throw ArgumentError.value(id, 'id', 'Theme with id $id not found');
     }
     setId(theme);
     _invalidateCache();
     notifyListeners();
     if (_config.persist) {
       _checkPrefsState();
-      _prefs!.setString('${_config.prefix}$key', id);
+      await _box.put(key, id);
     }
   }
 
   TargetPlatform get platform => _platform;
 
-  set platform(TargetPlatform platform) {
+  Future<void> setPlatform(TargetPlatform platform) async {
     _platform = platform;
     _invalidateCache();
     notifyListeners();
     if (_config.persist) {
       _checkPrefsState();
-      _prefs!.setInt('${_config.prefix}platform', platform.index);
+      await _box.put('platform', platform.index);
     }
   }
 
@@ -344,6 +350,18 @@ class DynamicThemeData extends ChangeNotifier {
     return _config.applyToAllThemes(_darkTheme.apply(data));
   }
 
+  ThemeData _themeDataFrom({
+    required ColorScheme colorScheme,
+    required TextTheme? textTheme,
+    TargetPlatform? platform,
+  }) {
+    return ThemeData.from(
+      colorScheme: colorScheme,
+      textTheme: textTheme,
+      useMaterial3: true,
+    );
+  }
+
   ShadowTheme get shadowLight => _lightTheme.shadow;
   ShadowTheme get shadowDark => _darkTheme.shadow;
 
@@ -355,6 +373,15 @@ class DynamicThemeData extends ChangeNotifier {
       case Brightness.light:
         return light;
     }
+  }
+
+  void _checkPrefsState() {
+    assert(_isReadyToPersist, 'You must call loadFromPreferences() before');
+  }
+
+  Future<void> save() {
+    _checkPrefsState();
+    return _box.flush();
   }
 }
 
@@ -389,19 +416,11 @@ extension ApplyToX<T> on ApplyTo<T> {
 }
 
 extension ListX<T> on List<T> {
-  T safeGet(int i) => this[clamp(i)];
+  T safeGet(int i) => this[i.clamp(0, length - 1)];
 
   int clamp(int i) => i.clamp(0, length - 1);
 }
 
-ThemeData _themeDataFrom({
-  required ColorScheme colorScheme,
-  required TextTheme? textTheme,
-  TargetPlatform? platform,
-}) {
-  return ThemeData.from(
-    colorScheme: colorScheme,
-    textTheme: textTheme,
-    useMaterial3: true,
-  );
+extension BoxX on Box<Object?> {
+  T? getTyped<T>(String key) => get(key) as T?;
 }

@@ -12,6 +12,10 @@ class Font with _$Font {
     String name,
     TextTheme Function(TextTheme textTheme) textTheme,
   ) = _Font;
+
+  static TextTheme _i(TextTheme textTheme) => textTheme;
+
+  static const platform = Font('Platform', _i);
 }
 
 @freezed

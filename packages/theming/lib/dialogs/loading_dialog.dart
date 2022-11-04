@@ -32,12 +32,14 @@ Future<T?> load<T>(
       barrierDismissible: false,
       transitionDuration: const Duration(milliseconds: 300),
       barrierColor: Colors.black54,
-      pageBuilder: (context, animation, secondaryAnimation) => SharedAxisTransition(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          SharedAxisTransition(
         animation: animation,
         secondaryAnimation: secondaryAnimation,
         transitionType: SharedAxisTransitionType.scaled,
         fillColor: Colors.transparent,
-        child: _LoadingDialog<T>(future: future, onDone: onDone, onError: onError, title: title),
+        child: _LoadingDialog<T>(
+            future: future, onDone: onDone, onError: onError, title: title),
       ),
     );
   }
@@ -62,14 +64,18 @@ class _LoadingDialog<T> extends StatefulWidget {
   final bool isDarwin;
 
   @override
-  _LoadingDialogState createState() => _LoadingDialogState<T>();
+  _LoadingDialogState<T> createState() => _LoadingDialogState<T>();
 }
 
 class _LoadingDialogState<T> extends State<_LoadingDialog<T>> {
   @override
   void initState() {
     super.initState();
-    widget.future().then((v) {
+    unawaited(init());
+  }
+
+  Future<void> init() async {
+    await widget.future().then((v) {
       Navigator.of(context).pop<T>(v);
       if (widget.onDone != null) {
         widget.onDone?.call(v);
@@ -95,8 +101,12 @@ class _LoadingDialogState<T> extends State<_LoadingDialog<T>> {
                       const CupertinoActivityIndicator(),
                       const SizedBox(width: 16),
                       DefaultTextStyle(
-                        style: CupertinoTheme.of(context).textTheme.navActionTextStyle.copyWith(
-                            color: CupertinoDynamicColor.resolve(CupertinoColors.label, context)),
+                        style: CupertinoTheme.of(context)
+                            .textTheme
+                            .navActionTextStyle
+                            .copyWith(
+                                color: CupertinoDynamicColor.resolve(
+                                    CupertinoColors.label, context)),
                         child: widget.title,
                       ),
                     ],

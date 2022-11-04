@@ -334,7 +334,7 @@ class _EditorPageState extends State<EditorPage> {
               ),
             ),
             DynamicTheme(
-              theme: DynamicThemeData(DynamicThemeData.defaultConfig),
+              theme: DynamicThemeNotifier(DynamicThemeNotifier.defaultConfig),
               child: Builder(
                 builder: (context) {
                   return SingleChildScrollView(
