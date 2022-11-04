@@ -292,7 +292,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   flutter_slidable:
     dependency: transitive
     description:
@@ -750,7 +750,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   scrollable_positioned_list:
     dependency: transitive
     description:

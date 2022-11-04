@@ -107,8 +107,8 @@ class FullApp extends StatefulWidget {
 }
 
 class _FullAppState extends State<FullApp> {
-  final DynamicThemeData dynamicThemeData =
-      DynamicThemeData(DynamicThemeData.defaultConfig);
+  final DynamicThemeNotifier dynamicThemeData =
+      DynamicThemeNotifier(DynamicThemeNotifier.defaultConfig);
 
   final log = Logger.of('FullApp');
 

@@ -25,15 +25,13 @@ TextTheme _platform(TextTheme t) => t;
 
 const List<Font> fonts = [
   Font('Platform', _platform),
+  Font('Work Sans', GoogleFonts.workSansTextTheme),
   Font('Montserrat', GoogleFonts.montserratTextTheme),
   Font('Lexend', GoogleFonts.lexendDecaTextTheme),
   Font('Muli', GoogleFonts.mulishTextTheme),
   Font('Open Sans', GoogleFonts.openSansTextTheme),
-  Font('QuickSand', GoogleFonts.quicksandTextTheme),
   Font('Raleway', GoogleFonts.ralewayTextTheme),
   Font('Lato', GoogleFonts.latoTextTheme),
-  Font('Source Sans Pro', GoogleFonts.sourceSansProTextTheme),
-  Font('Poppins', GoogleFonts.poppinsTextTheme),
   Font('Ubuntu', GoogleFonts.ubuntuTextTheme),
   Font('Inter', GoogleFonts.interTextTheme),
 ];
@@ -44,13 +42,14 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
   defaultLightThemeId: 'swift',
   defaultDarkThemeId: 'swift',
   persist: true,
-  applyToAllThemes: (t) {
-    return t.copyWith(
-      cupertinoOverrideTheme:
-          CupertinoThemeData(brightness: t.brightness).rawCopy(),
-      pageTransitionsTheme: const PageTransitionsTheme(),
-    );
-  },
+  applyToAllThemes: (t) => t.copyWith(
+    cupertinoOverrideTheme:
+        CupertinoThemeData(brightness: t.brightness).rawCopy(),
+    pageTransitionsTheme: const PageTransitionsTheme(),
+    dividerTheme: DividerThemeData(
+      color: t.dividerColor.withOpacity(0.1),
+    ),
+  ),
   lightThemes: [
     ExtendedTheme(
       name: 'Swift',
