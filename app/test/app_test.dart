@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:swift_travel/apis/navigation/models/route.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
 import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/db/history.dart';
@@ -21,6 +22,8 @@ import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/states/route_states.dart';
+import 'package:swift_travel/tabs/routes/fetcher.dart';
+import 'package:swift_travel/tabs/routes/location_text_box_manager.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/utils/route_uri.dart';
@@ -31,7 +34,13 @@ import 'blocs_test.dart';
 
 class MockFetcher extends FetcherBase {
   @override
-  Future<void> fetch(Ref ref) async {
+  Future<void> fetch({
+    required LocationTextBoxManager from,
+    required LocationTextBoxManager to,
+    required DateTime date,
+    required TimeType timeType,
+    required BaseNavigationApi api,
+  }) async {
     state = RouteStates(SbbRoute.fromJson(mockRoute));
   }
 }
@@ -104,7 +113,7 @@ void main() {
           child: ProviderScope(
               overrides: [
                 navigationAPIProvider.overrideWithValue(MockNavigationApi()),
-                fetcherProvider.overrideWithValue(MockFetcher()),
+                routeStatesProvider.overrideWith((_) => MockFetcher())
               ],
               child: MaterialApp(
                 home: const RoutePage(),

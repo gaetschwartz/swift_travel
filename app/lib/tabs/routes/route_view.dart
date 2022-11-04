@@ -12,6 +12,7 @@ import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/prediction/predict.dart';
+import 'package:swift_travel/tabs/routes/fetcher.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/routes/route_tile.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -32,7 +33,7 @@ class RoutesView extends StatelessWidget {
   Widget build(BuildContext context) => Consumer(builder: (context, w, _) {
         final fetcher = w.watch(routeStatesProvider);
 
-        return fetcher.state.when(
+        return fetcher.when(
           (routes) => CustomScrollView(
             slivers: [
               const SliverGap(8),

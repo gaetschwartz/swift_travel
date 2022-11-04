@@ -1,5 +1,10 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:ui' as ui;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:share_plus/share_plus.dart';
@@ -39,5 +44,122 @@ Future<void> shareRoute(BuildContext context, NavRoute route, int i) async {
       log.w('Missing plugin exception');
       ignoreError();
     }
+  }
+}
+
+Future<void> shareFiles(
+  List<File> files, {
+  String? subject,
+  String? text,
+  Rect? sharePositionOrigin,
+}) async {
+  if (Platform.isWindows) {
+    // open the explorer and select the file
+    await Process.run('explorer.exe', ['/select,', files.first.path]);
+  } else {
+    await Share.shareXFiles(
+      files.map((e) => XFile(e.path)).toList(),
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+}
+
+Future<void> shareFile(
+  File file, {
+  String? subject,
+  String? text,
+  Rect? sharePositionOrigin,
+}) async {
+  return shareFiles(
+    [file],
+    subject: subject,
+    text: text,
+    sharePositionOrigin: sharePositionOrigin,
+  );
+}
+
+Future<ui.Image?> screenshot(
+  BuildContext context,
+  Widget widget, {
+  double pixelRatio = 1.0,
+  double? width,
+}) async {
+  // show a dialog with the widget
+  return showGeneralDialog<ui.Image?>(
+    context: context,
+    pageBuilder: (context, a1, a2) => _ScreenshotDialog(
+      pixelRatio: pixelRatio,
+      width: width,
+      child: widget,
+    ),
+    transitionDuration: Duration.zero,
+  );
+}
+
+class _ScreenshotDialog extends StatefulWidget {
+  const _ScreenshotDialog({
+    Key? key,
+    required this.child,
+    required this.pixelRatio,
+    required this.width,
+  }) : super(key: key);
+
+  final Widget child;
+  final double pixelRatio;
+  final double? width;
+
+  @override
+  State<_ScreenshotDialog> createState() => _ScreenshotDialogState();
+}
+
+class _ScreenshotDialogState extends State<_ScreenshotDialog> {
+  final screenshotKey = GlobalKey();
+
+  Future<void> screenshot() async {
+    // await Future<void>.delayed(const Duration(milliseconds: 100));
+    try {
+      final box = screenshotKey.currentContext!.findRenderObject()
+          as RenderRepaintBoundary?;
+      if (box == null) {
+        Navigator.of(context).pop();
+        return;
+      }
+
+      final image = await box.toImage(pixelRatio: widget.pixelRatio);
+      if (mounted) {
+        Navigator.of(context).pop(image);
+      }
+    } on Exception catch (e, s) {
+      debugPrintStack(label: e.toString(), stackTrace: s);
+      Navigator.of(context).pop();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => unawaited(screenshot()));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: Material(
+        child: Center(
+          child: SizedBox(
+            width: widget.width,
+            child: SingleChildScrollView(
+              child: RepaintBoundary(
+                key: screenshotKey,
+                child: widget.child,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

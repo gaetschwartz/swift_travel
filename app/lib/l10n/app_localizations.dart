@@ -457,6 +457,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Advanced settings'**
   String get advanced_settings;
+
+  /// No description provided for @share_as_image.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as image'**
+  String get share_as_image;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
