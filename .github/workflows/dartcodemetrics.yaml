@@ -1,18 +1,18 @@
-name: Dart Code Metrics
+# name: Dart Code Metrics
 
-on: [push]
+# on: [push]
 
-jobs:
-  check:
-    if: ${{ false }}
-    runs-on: ubuntu-latest
-    name: dart-code-metrics-action
+# jobs:
+#   check:
+#     if: ${{ false }}
+#     runs-on: ubuntu-latest
+#     name: dart-code-metrics-action
 
-    steps:
-      - uses: actions/checkout@v2
+#     steps:
+#       - uses: actions/checkout@v2
 
-      - name: dart-code-metrics
-        uses: dart-code-checker/dart-code-metrics-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          relative_path: app/
+#       - name: dart-code-metrics
+#         uses: dart-code-checker/dart-code-metrics-action@v1
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           relative_path: app/
