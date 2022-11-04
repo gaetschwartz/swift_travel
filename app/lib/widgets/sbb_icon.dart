@@ -8,12 +8,11 @@ class SbbIcon extends StatelessWidget {
     this.vehicle, {
     this.size,
     this.color,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
-  SbbIcon.fromIconClass(String? iconclass, {this.size, this.color, Key? key})
-      : vehicle = getVehicle(iconclass),
-        super(key: key);
+  SbbIcon.fromIconClass(String? iconclass, {this.size, this.color, super.key})
+      : vehicle = getVehicle(iconclass);
 
   static PlaceType? getVehicle(String? iconclass) {
     if (iconclass == null) {

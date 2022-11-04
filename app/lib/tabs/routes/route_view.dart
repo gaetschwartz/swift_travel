@@ -26,8 +26,8 @@ final _locationNotFound = RegExp(r'Stop (.*) not found\.');
 
 class RoutesView extends StatelessWidget {
   const RoutesView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) => Consumer(builder: (context, w, _) {
@@ -230,9 +230,7 @@ final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
 });
 
 class _PredictionTile extends StatelessWidget {
-  const _PredictionTile({
-    Key? key,
-  }) : super(key: key);
+  const _PredictionTile();
 
   @override
   Widget build(BuildContext context) {

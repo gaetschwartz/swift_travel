@@ -19,7 +19,7 @@ import 'package:swift_travel/widgets/sbb_icon.dart';
 import 'package:theming/responsive.dart';
 
 class StopDetails extends ConsumerStatefulWidget {
-  const StopDetails(this.stop, {Key? key}) : super(key: key);
+  const StopDetails(this.stop, {super.key});
 
   final Stop stop;
 
@@ -168,10 +168,9 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
 
 class _NoData extends StatelessWidget {
   const _NoData({
-    Key? key,
     required this.context,
     required this.s,
-  }) : super(key: key);
+  });
 
   final BuildContext context;
   final StationBoard s;
@@ -206,8 +205,8 @@ class ConnectionTile extends StatelessWidget {
   const ConnectionTile({
     required this.c,
     required this.s,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final StationboardConnection c;
   final Stop? s;

@@ -24,7 +24,7 @@ import 'package:swift_travel/widgets/property_page.dart';
 import 'package:swift_travel/widgets/route.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -200,8 +200,8 @@ final isDeveloperProvider =
 
 class BuildDetailsWidget extends ConsumerWidget {
   const BuildDetailsWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
     final controller = ref.read(_tapCountProvider.notifier);
@@ -232,8 +232,8 @@ class BuildDetailsWidget extends ConsumerWidget {
 class ColorRow extends StatelessWidget {
   const ColorRow(
     this.colorScheme, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final ColorScheme colorScheme;
 
@@ -270,9 +270,7 @@ class ColorRow extends StatelessWidget {
 
 class _ColorCircle extends StatelessWidget {
   const _ColorCircle(
-    this.color, {
-    Key? key,
-  }) : super(key: key);
+    this.color);
 
   final Color color;
 
@@ -302,9 +300,7 @@ class _ColorCircle extends StatelessWidget {
 class _ScrollProgress extends StatefulWidget {
   const _ScrollProgress({
     required ScrollController controller,
-    Key? key,
-  })  : _controller = controller,
-        super(key: key);
+  })  : _controller = controller;
 
   final ScrollController _controller;
 
@@ -353,8 +349,8 @@ class __ScrollProgressState extends State<_ScrollProgress> {
 class SectionTitle extends StatelessWidget {
   const SectionTitle({
     required this.title,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final Widget title;
 
   @override

@@ -29,7 +29,7 @@ typedef BuildVoidCallback = VoidCallback Function(BuildContext context);
 
 class SwiftSettingsTile extends StatelessWidget with WithLeading {
   const SwiftSettingsTile({
-    Key? key,
+    super.key,
     required this.title,
     this.leading,
     this.subtitle,
@@ -37,7 +37,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
     this.showChevron = true,
     this.tileBorders = TileBorders.none,
     this.showDividers = true,
-  }) : super(key: key);
+  });
 
   final Widget title;
   @override
@@ -124,7 +124,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
 
 class SwiftSettingsPropertyTile<T> extends StatelessWidget with WithLeading {
   const SwiftSettingsPropertyTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.property,
     this.leading,
@@ -134,7 +134,7 @@ class SwiftSettingsPropertyTile<T> extends StatelessWidget with WithLeading {
     this.tileBorders = TileBorders.none,
     this.valueBuilder = _valueBuilder,
     required this.options,
-  }) : super(key: key);
+  });
 
   final Widget title;
   @override

@@ -54,8 +54,7 @@ extension ColorX on Color {
 }
 
 class GradientMask extends StatelessWidget {
-  const GradientMask({required this.child, required this.gradient, Key? key})
-      : super(key: key);
+  const GradientMask({required this.child, required this.gradient, super.key});
   final Widget child;
   final Gradient gradient;
 

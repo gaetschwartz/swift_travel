@@ -6,10 +6,10 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 
 class SettingsPageWidget extends StatelessWidget {
   const SettingsPageWidget({
-    Key? key,
+    super.key,
     this.title,
     required this.children,
-  }) : super(key: key);
+  });
 
   final Widget? title;
   final List<Widget> children;
@@ -31,10 +31,10 @@ class SettingsPageWidget extends StatelessWidget {
 
 class PlatformSettingsScaffold extends StatelessWidget {
   const PlatformSettingsScaffold({
-    Key? key,
+    super.key,
     required this.child,
     this.title,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final Widget? title;

@@ -9,8 +9,8 @@ class IfWrapper extends StatelessWidget {
     required this.builder,
     required this.child,
     this.elseBuilder,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final bool condition;
   final Widget? child;
@@ -36,8 +36,8 @@ class PlatformBuilder extends StatelessWidget {
     required this.materialBuilder,
     this.child,
     this.builder,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Widget? child;
   final Widget Function(BuildContext context, Widget? child) cupertinoBuilder;

@@ -24,7 +24,7 @@ final _filteredContacts = FutureProvider((ref) async {
 });
 
 class ContactsDialog extends StatelessWidget {
-  const ContactsDialog({Key? key}) : super(key: key);
+  const ContactsDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

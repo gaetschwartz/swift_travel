@@ -55,12 +55,12 @@ Future<void> showPropertyPage<T>(
 
 class _PropertyPage<T> extends StatelessWidget {
   const _PropertyPage({
-    Key? key,
+    super.key,
     required this.title,
     required this.message,
     required this.choices,
     required this.property,
-  }) : super(key: key);
+  });
 
   final Widget title;
   final Widget? message;

@@ -183,7 +183,7 @@ abstract class Value<T> {
 }
 
 class StringValue extends Value<String?> {
-  StringValue(String? value, String description) : super(value, description);
+  StringValue(super.value, super.description);
 
   @override
   double distanceTo(covariant StringValue other) {
@@ -195,8 +195,7 @@ class StringValue extends Value<String?> {
 }
 
 class DoubleValue extends Value<double> {
-  DoubleValue(double value, String description, {this.factor = 1})
-      : super(value, description);
+  DoubleValue(super.value, super.description, {this.factor = 1});
   final double factor;
 
   @override
@@ -204,7 +203,7 @@ class DoubleValue extends Value<double> {
 }
 
 class PositionValue extends Value<LatLon?> {
-  PositionValue(LatLon? value, String description) : super(value, description);
+  PositionValue(super.value, super.description);
   static const switzerlandWidth = 350000;
 
   @override

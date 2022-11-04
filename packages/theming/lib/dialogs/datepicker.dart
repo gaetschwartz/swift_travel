@@ -41,8 +41,7 @@ class _DatePicker extends StatefulWidget {
     required this.minuteInterval,
     required this.bottom,
     required this.textColor,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final DateTime? minimumDate;
   final DateTime? initialDateTime;

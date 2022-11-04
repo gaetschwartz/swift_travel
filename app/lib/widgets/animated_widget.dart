@@ -12,12 +12,12 @@ class InstantlyAnimatedWidget extends StatefulWidget {
   const InstantlyAnimatedWidget({
     required this.child,
     required this.builder,
-    Key? key,
+    super.key,
     this.duration = _kDefaultAnimationDuration,
     this.delay,
     this.start = 0.0,
     this.end = 1.0,
-  }) : super(key: key);
+  });
 
   factory InstantlyAnimatedWidget.fade({
     required Widget child,

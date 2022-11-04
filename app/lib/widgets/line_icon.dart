@@ -11,10 +11,9 @@ class LineIcon extends StatelessWidget {
     Color defaultBg = defaultBackground,
     Color defaultFg = defaultForeground,
     this.small = false,
-    Key? key,
+    super.key,
   })  : foreground = foreground ?? defaultFg,
-        background = background ?? defaultBg,
-        super(key: key);
+        background = background ?? defaultBg;
 
   factory LineIcon.fromString({
     required String? line,

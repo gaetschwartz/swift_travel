@@ -7,7 +7,7 @@ import 'package:theming/responsive.dart';
 
 class SwiftSettingsSwitchTile extends StatefulWidget with WithLeading {
   const SwiftSettingsSwitchTile({
-    Key? key,
+    super.key,
     required this.title,
     this.leading,
     required this.initialValue,
@@ -15,8 +15,7 @@ class SwiftSettingsSwitchTile extends StatefulWidget with WithLeading {
     this.onChanged,
     this.tileBorders = TileBorders.none,
     this.isSubtitleOutside = false,
-  })  : listenable = null,
-        super(key: key);
+  })  : listenable = null;
 
   final Widget title;
   @override
@@ -29,7 +28,7 @@ class SwiftSettingsSwitchTile extends StatefulWidget with WithLeading {
   final bool isSubtitleOutside;
 
   SwiftSettingsSwitchTile.property({
-    Key? key,
+    super.key,
     required this.title,
     this.leading,
     this.subtitle,
@@ -38,8 +37,7 @@ class SwiftSettingsSwitchTile extends StatefulWidget with WithLeading {
     this.isSubtitleOutside = false,
   })  : initialValue = property.value,
         onChanged = ((v) => property.setValue(v)),
-        listenable = property,
-        super(key: key);
+        listenable = property;
 
   @override
   State<SwiftSettingsSwitchTile> createState() =>

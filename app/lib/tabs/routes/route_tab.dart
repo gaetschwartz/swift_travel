@@ -62,7 +62,7 @@ final toTextfieldProvider = ChangeNotifierProvider(
 );
 
 class RouteTab extends StatefulWidget {
-  const RouteTab({Key? key}) : super(key: key);
+  const RouteTab({super.key});
 
   @override
   _RouteTabState createState() => _RouteTabState();
@@ -81,18 +81,15 @@ class _RouteTabState extends State<RouteTab>
 }
 
 class RoutePage extends ConsumerStatefulWidget {
-  const RoutePage({Key? key})
+  const RoutePage({super.key})
       : favStop = null,
-        localRoute = null,
-        super(key: key);
+        localRoute = null;
 
-  const RoutePage.route(this.localRoute, {Key? key})
-      : favStop = null,
-        super(key: key);
+  const RoutePage.route(this.localRoute, {super.key})
+      : favStop = null;
 
-  const RoutePage.stop(this.favStop, {Key? key})
-      : localRoute = null,
-        super(key: key);
+  const RoutePage.stop(this.favStop, {super.key})
+      : localRoute = null;
 
   final LocalRoute? localRoute;
   final FavoriteStop? favStop;
@@ -460,7 +457,6 @@ class RoutePageState extends ConsumerState<RoutePage> {
 
 class _TextField extends ConsumerStatefulWidget {
   const _TextField({
-    Key? key,
     required this.herotag,
     required this.textfieldKey,
     required this.binder,
@@ -469,7 +465,7 @@ class _TextField extends ConsumerStatefulWidget {
     required this.text,
     required this.icon,
     this.isDestination = false,
-  }) : super(key: key);
+  });
 
   final String herotag;
   final Key textfieldKey;
@@ -535,7 +531,7 @@ class _TextFieldState extends ConsumerState<_TextField> {
 }
 
 class _IconForState extends StatelessWidget {
-  const _IconForState(this.state, {Key? key, this.iconSize}) : super(key: key);
+  const _IconForState(this.state, {this.iconSize});
 
   final RouteTextfieldState state;
   final double? iconSize;
@@ -551,7 +547,7 @@ class _IconForState extends StatelessWidget {
 }
 
 class ShadowsAround extends StatelessWidget {
-  const ShadowsAround({Key? key, this.child}) : super(key: key);
+  const ShadowsAround({super.key, this.child});
 
   final Widget? child;
 
@@ -566,8 +562,7 @@ class _Segmented extends StatefulWidget {
   const _Segmented({
     required this.onChange,
     required this.initialValue,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final ValueChanged<TimeType> onChange;
   final TimeType initialValue;

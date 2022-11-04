@@ -15,8 +15,8 @@ class NextStopsPage extends StatefulWidget {
   const NextStopsPage({
     required this.c,
     required this.s,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Stop? s;
   final StationboardConnection c;
@@ -90,8 +90,8 @@ class StopTile extends StatelessWidget {
     required this.connection,
     this.isFirst = false,
     this.isLast = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final DelayedStop stop;
   final StationboardConnection connection;
@@ -151,9 +151,7 @@ class StopTile extends StatelessWidget {
 
 class _Circle extends StatelessWidget {
   const _Circle(
-    this.connection, {
-    Key? key,
-  }) : super(key: key);
+    this.connection);
 
   final StationboardConnection connection;
 
@@ -173,9 +171,7 @@ class _Circle extends StatelessWidget {
 
 class _Line extends StatelessWidget {
   const _Line(
-    this.isVisible, {
-    Key? key,
-  }) : super(key: key);
+    this.isVisible);
 
   final bool isVisible;
 

@@ -5,8 +5,8 @@ class ListenableBuilder<T extends Listenable> extends StatefulWidget {
     required this.builder,
     required this.listenable,
     this.child,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Widget Function(BuildContext context, T listenable, Widget? child)
       builder;

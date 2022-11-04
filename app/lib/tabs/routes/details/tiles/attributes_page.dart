@@ -9,8 +9,8 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 class AttributesPage extends StatelessWidget {
   const AttributesPage(
     this.attributes, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final List<Attribute> attributes;
 
@@ -51,8 +51,8 @@ class AttributesPage extends StatelessWidget {
 class AttributeTile extends StatelessWidget {
   const AttributeTile(
     this.att, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Attribute att;
 

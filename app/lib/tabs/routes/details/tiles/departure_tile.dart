@@ -9,8 +9,8 @@ import 'package:swift_travel/utils/strings/format.dart';
 class DepartureTile extends StatelessWidget {
   const DepartureTile(
     this.c, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final RouteConnection c;
 

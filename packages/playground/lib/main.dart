@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -113,9 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class BreatheWidget extends StatefulWidget {
   const BreatheWidget({
-    Key? key,
+    super.key,
     required this.scale,
-  }) : super(key: key);
+  });
 
   final double scale;
 
@@ -254,8 +254,8 @@ class EditorPage extends StatefulWidget {
   const EditorPage(
     this.name,
     this.builder, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Widget Function(double scale) builder;
   final String name;
@@ -395,9 +395,9 @@ class _EditorPageState extends State<EditorPage> {
 
 class WidgetsShowcase extends StatelessWidget {
   const WidgetsShowcase({
-    Key? key,
+    super.key,
     required this.scale,
-  }) : super(key: key);
+  });
 
   final double scale;
 
@@ -524,9 +524,9 @@ class WidgetsShowcase extends StatelessWidget {
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({
-    Key? key,
+    super.key,
     required this.scale,
-  }) : super(key: key);
+  });
 
   final double scale;
 

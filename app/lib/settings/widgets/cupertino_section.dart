@@ -7,11 +7,11 @@ import 'package:swift_travel/utils/definitions.dart';
 class CupertinoSettingsSection extends StatelessWidget {
   const CupertinoSettingsSection(
     this.items, {
-    Key? key,
+    super.key,
     this.header,
     this.headerPadding = defaultTitlePadding,
     this.footer,
-  }) : super(key: key);
+  });
 
   final List<Widget> items;
 

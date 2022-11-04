@@ -16,8 +16,8 @@ import 'package:theming/dynamic_theme.dart';
 class TransportDetails extends StatefulWidget {
   const TransportDetails({
     required this.leg,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Leg leg;
 
@@ -124,11 +124,10 @@ class _TransportDetailsState extends State<TransportDetails> {
 class _Stop extends StatelessWidget {
   const _Stop(
     this.stop, {
-    Key? key,
     this.isFirst = false,
     this.isLast = false,
     required this.leg,
-  }) : super(key: key);
+  });
 
   final Stop stop;
   final bool isFirst;
@@ -179,9 +178,8 @@ class _Stop extends StatelessWidget {
 
 class _AttributeTile extends StatelessWidget {
   const _AttributeTile({
-    Key? key,
     required this.att,
-  }) : super(key: key);
+  });
 
   final Attribute att;
 
@@ -211,9 +209,7 @@ class _AttributeTile extends StatelessWidget {
 
 class _Circle extends StatelessWidget {
   const _Circle(
-    this.leg, {
-    Key? key,
-  }) : super(key: key);
+    this.leg);
 
   final Leg leg;
 
@@ -228,9 +224,8 @@ class _Circle extends StatelessWidget {
 
 class _Line extends StatelessWidget {
   const _Line({
-    Key? key,
     required this.isVisible,
-  }) : super(key: key);
+  });
 
   final bool isVisible;
 

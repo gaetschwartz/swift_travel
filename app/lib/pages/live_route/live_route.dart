@@ -16,8 +16,8 @@ final StreamProvider<Position> positionProvider =
 class LiveRoutePage extends ConsumerStatefulWidget {
   const LiveRoutePage({
     required this.connection,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final RouteConnection connection;
 
@@ -143,11 +143,10 @@ class _LiveRoutePageState extends ConsumerState<LiveRoutePage> {
 
 class _LegCard extends StatelessWidget {
   const _LegCard({
-    Key? key,
     required this.controller,
     required this.i,
     required this.leg,
-  }) : super(key: key);
+  });
 
   final LiveRouteController controller;
   final int i;

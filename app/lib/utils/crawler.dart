@@ -19,7 +19,7 @@ import 'package:swift_travel/logic/navigation.dart';
 import 'package:theming/responsive.dart';
 
 class CrawlerPage extends ConsumerStatefulWidget {
-  const CrawlerPage({Key? key}) : super(key: key);
+  const CrawlerPage({super.key});
 
   @override
   _CrawlerPageState createState() => _CrawlerPageState();
@@ -223,9 +223,7 @@ class _Tile extends StatelessWidget {
   const _Tile(
     this.att,
     this.mapKey,
-    this.value, {
-    Key? key,
-  }) : super(key: key);
+    this.value);
 
   final AttributeData att;
   final String mapKey;

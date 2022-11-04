@@ -20,8 +20,8 @@ import 'package:vibration/vibration.dart';
 class FavoriteStationTile extends ConsumerStatefulWidget {
   const FavoriteStationTile(
     this.stop, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final FavoriteStop stop;
 

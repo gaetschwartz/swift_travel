@@ -165,17 +165,12 @@ mixin IndexedDatabaseMixin<TEncValue extends Object, TValue extends Object>
 class SimpleDatabase<TKey extends Object, TEncValue extends Object,
     TValue extends Object> extends LocalDatabase<TKey, TEncValue, TValue> {
   SimpleDatabase({
-    required String boxKey,
-    required int maxSize,
-    required DataConverter<TEncValue, TValue> decode,
-    required DataConverter<TValue, TEncValue> encode,
+    required super.boxKey,
+    required super.maxSize,
+    required super.decode,
+    required super.encode,
     this.onDatabaseExceededMaxSizeCallback,
-  }) : super(
-          boxKey: boxKey,
-          maxSize: maxSize,
-          decode: decode,
-          encode: encode,
-        );
+  });
 
   final FutureOr<void> Function()? onDatabaseExceededMaxSizeCallback;
 

@@ -17,8 +17,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 class WalkingTile extends ConsumerStatefulWidget {
   const WalkingTile(
     this.l, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Leg l;
 

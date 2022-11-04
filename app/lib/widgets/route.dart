@@ -5,16 +5,12 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class PlatformPageRoute<T extends Object?>
     extends MaterialWithModalsPageRoute<T> with PlatformRouteTitleMixin {
   PlatformPageRoute({
-    required WidgetBuilder builder,
-    RouteSettings? settings,
-    bool maintainState = true,
-    bool fullscreenDialog = false,
+    required super.builder,
+    super.settings,
+    super.maintainState,
+    super.fullscreenDialog,
     this.title,
-  }) : super(
-            settings: settings,
-            fullscreenDialog: fullscreenDialog,
-            builder: builder,
-            maintainState: maintainState);
+  });
 
   @override
   final String? title;

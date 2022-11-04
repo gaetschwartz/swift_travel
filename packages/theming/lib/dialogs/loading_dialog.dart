@@ -54,8 +54,8 @@ class _LoadingDialog<T> extends StatefulWidget {
     required this.onDone,
     required this.onError,
     this.isDarwin = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Future<T> Function() future;
   final ValueChanged<T>? onDone;
