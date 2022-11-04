@@ -76,11 +76,15 @@ workflows:
       - script@1:
           inputs:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: |-
+            - content: >-
                 #!/usr/bin/env bash
+
                 set -ex
+
                 set -o pipefail
-                flutter build ios --config-only --no-codesign --release --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
+
+                flutter build ios --config-only --no-codesign --release
+                --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
           title: flutter build ios
       - xcode-archive@4.7:
           inputs:
@@ -91,6 +95,48 @@ workflows:
             - password: $APPLE_PASSWORD
             - app_password: $APPLE_2FA
             - itunescon_user: $APPLE_EMAIL
+      - cache-push@2: {}
+    after_run: []
+  deploy-android:
+    steps:
+      - activate-ssh-key@4:
+          run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - git-clone@6: {}
+      - certificate-and-profile-installer@1: {}
+      - script@1:
+          inputs:
+            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh beta
+          title: Get latest version
+      - script-runner@0:
+          inputs:
+            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_git_data.sh
+          title: Get git data
+      - script-runner@0:
+          inputs:
+            - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
+            - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - is_debug: true
+          title: Prebuild
+      - cache-pull@2: {}
+      - flutter-installer@0:
+          inputs:
+            - installation_bundle_url: $FLUTTER_ARCHIVE_URL
+            - version: stable
+      - flutter-build@0:
+          inputs:
+            - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
+            - ios_additional_params: >-
+                --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
+                $SKSL_ARGUMENT
+            - platform: android
+            - android_output_type: appbundle
+            - android_additional_params: >-
+                --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform
+                android-arm64
+      - google-play-deploy@3:
+          inputs:
+            - service_account_json_key_path: $BITRISEIO_SERVICE_ACCOUNT_URL
+            - package_name: com.gaetanschwartz.swiss_travel
       - cache-push@2: {}
     after_run: []
 app:
