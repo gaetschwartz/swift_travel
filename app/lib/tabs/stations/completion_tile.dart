@@ -149,8 +149,6 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
                 ? const Icon(CupertinoIcons.heart_slash)
                 : const Icon(CupertinoIcons.heart),
             onPressed: () async {
-              print('isFav: $isFav');
-              print('stops: ${store.stops}');
               if (isFav) {
                 await store.removeStop(favoriteStop);
               } else {

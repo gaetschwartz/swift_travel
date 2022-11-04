@@ -51,7 +51,6 @@ class Trias2020Api implements BaseNavigationApi {
             ?.findElements('trias:Location') ??
         [];
     final completions = locations.map((loc) {
-      print(loc.toXmlString(pretty: true));
       final e = loc['trias:Location']!;
       final stopPoint = e['trias:StopPoint'];
       final name = stopPoint?['trias:StopPointName']?.getTriasText()?.text;
