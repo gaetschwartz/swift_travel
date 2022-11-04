@@ -29,7 +29,7 @@ class Env {
       };
   static String get summary => env.toString();
 
-  static bool get isLiveRouteEnabled => kDebugMode || enableLiveRoute;
+  static const isLiveRouteEnabled = kDebugMode || enableLiveRoute;
 
   static const isDebugMode = kDebugMode && !Env.isReleaseMode;
 }

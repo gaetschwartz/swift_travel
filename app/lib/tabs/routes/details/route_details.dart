@@ -102,26 +102,27 @@ class _RouteDetailsState extends State<RouteDetails> {
             onPressed: () => openLive(context, conn),
             title: Text(AppLocalizations.of(context).live_route),
           ),
-        ActionsSheetAction(
-          icon: const Icon(CupertinoIcons.game_controller),
-          onPressed: () => Navigator.of(context).push<void>(
-              CupertinoPageRoute(builder: (_) => const SneccGame())),
-          title: const Text('Snake'),
-        ),
+        if (Env.isDebugMode)
+          ActionsSheetAction(
+            icon: const Icon(CupertinoIcons.game_controller),
+            onPressed: () => Navigator.of(context).push<void>(
+                CupertinoPageRoute(builder: (_) => const SneccGame())),
+            title: const Text('Snake'),
+          ),
         ActionsSheetAction(
           icon: const Icon(CupertinoIcons.share),
           onPressed: () => _shareRoute(context),
           title: Text(AppLocalizations.of(context).share),
         ),
         ActionsSheetAction(
-          icon: const Icon(CupertinoIcons.info),
+          icon: const Icon(CupertinoIcons.photo_fill),
           title: Text(AppLocalizations.of(context).share_as_image),
           onPressed: () => _shareRouteAsImage(context),
         ),
       ],
       cancel: ActionsSheetAction(
           icon: const Icon(CupertinoIcons.xmark),
-          title: Text(AppLocalizations.of(context).close)),
+          title: Text(AppLocalizations.of(context).cancel)),
     );
   }
 

@@ -192,8 +192,8 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
       onUnknownRoute: onUnknownRoute,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       initialRoute: 'loading',
-      builder: (context, child) => OverWriteProvidersFromContext(
-        overrides: (context) => [
+      builder: (context, child) => ProviderScope(
+        overrides: [
           appLocalizationsProvider.overrideWith(
             (_) => AppLocalizations.of(context),
           ),
@@ -339,24 +339,4 @@ class Unfocus extends StatelessWidget {
 // ignore: unreachable_from_main
 T readFromContext<T>(BuildContext context, ProviderListenable<T> provider) {
   return ProviderScope.containerOf(context, listen: false).read(provider);
-}
-
-class OverWriteProvidersFromContext extends StatelessWidget {
-  const OverWriteProvidersFromContext({
-    super.key,
-    required this.child,
-    required this.overrides,
-  });
-
-  final Widget child;
-
-  final List<Override> Function(BuildContext context) overrides;
-
-  @override
-  Widget build(BuildContext context) {
-    return ProviderScope(
-      overrides: overrides(context),
-      child: child,
-    );
-  }
 }

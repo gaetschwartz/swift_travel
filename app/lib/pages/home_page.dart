@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +17,6 @@ import 'package:swift_travel/utils/definitions.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/page.dart';
 import 'package:swift_travel/widgets/route.dart';
-import 'package:theming/dynamic_theme.dart';
 import 'package:vibration/vibration.dart';
 
 final tabProvider = ChangeNotifierProvider<CupertinoTabController>((ref) {
@@ -142,8 +140,8 @@ class _TabViewState extends ConsumerState<TabView>
                 Vibration.instance.selectSoft();
                 if (i == oldI) {
                   navigatorKeys[i]
-                      .currentState!
-                      .popUntil((route) => route.isFirst);
+                      .currentState
+                      ?.popUntil((route) => route.isFirst);
                   ref.read(sideTabBarProvider.notifier).state = null;
                 }
                 oldI = i;
@@ -173,44 +171,44 @@ class _TabViewState extends ConsumerState<TabView>
       ];
 
   @allowReturningWidgets
-  Widget buildScaffold() => Consumer(builder: (context, w, _) {
-        final controllers = w.watch(tabProvider);
-        final page = controllers.index % TabView.androidTabs.length;
+  Widget buildScaffold() => Consumer(builder: (context, ref, _) {
+        final controller = ref.watch(tabProvider);
+        final page = controller.index % TabView.androidTabs.length;
 
         return Scaffold(
           key: const Key('home-scaffold'),
           resizeToAvoidBottomInset: false,
           bottomNavigationBar: SwiftNavigationBar(
-              controllers: controllers, page: page, items: materialItems),
-          body: PageTransitionSwitcher(
-            transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
-                child,
-            duration: Duration.zero,
-            child: Navigator(
-              key: navigatorKeys[page],
-              pages: [
-                SingleWidgetPage<void>(TabView.androidTabs[page],
-                    name: titles[page])
-              ],
-              onPopPage: (_, dynamic __) => true,
-              onUnknownRoute: onUnknownRoute,
-              onGenerateRoute: onGenerateRoute,
-            ),
+            controller: controller,
+            page: page,
+            items: materialItems,
+          ),
+          body: Navigator(
+            key: navigatorKeys[page],
+            pages: [
+              SingleWidgetPage<void>(
+                TabView.androidTabs[page],
+                name: titles[page],
+              )
+            ],
+            onPopPage: (_, dynamic __) => true,
+            onUnknownRoute: onUnknownRoute,
+            onGenerateRoute: onGenerateRoute,
           ),
         );
       });
 }
 
-class SwiftNavigationBar extends StatelessWidget {
+class SwiftNavigationBar extends ConsumerWidget {
   const SwiftNavigationBar({
-    required this.controllers,
+    required this.controller,
     required this.page,
     required this.items,
     this.activeColor,
     super.key,
   });
 
-  final CupertinoTabController controllers;
+  final CupertinoTabController controller;
   final int page;
   final List<BottomNavigationBarItem> items;
   final Color? activeColor;
@@ -218,115 +216,30 @@ class SwiftNavigationBar extends StatelessWidget {
   static const height = 64.0;
 
   @override
-  Widget build(BuildContext context) {
-    final activeColor =
-        this.activeColor ?? Theme.of(context).colorScheme.secondary;
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        boxShadow: [
-          BoxShadow(
-            color: (ShadowTheme.of(context).buttonShadow?.color ?? Colors.grey)
-                .withAlpha(24),
-            blurRadius: 32,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return NavigationBar(
+      destinations: [
+        for (var i = 0; i < items.length; i++)
+          NavigationDestination(
+            icon: items[i].icon,
+            selectedIcon: items[i].activeIcon,
+            label: items[i].label!,
           )
-        ],
-      ),
-      child: Material(
-        child: SafeArea(
-          child: SizedBox(
-            height: height,
-            child: Row(
-              children: [
-                for (var i = 0; i < items.length; i++)
-                  _TabWidget(
-                    controllers: controllers,
-                    page: page,
-                    item: items[i],
-                    i: i,
-                    activeColor: activeColor,
-                  ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      ],
+      selectedIndex: page,
+      animationDuration: const Duration(milliseconds: 300),
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+      onDestinationSelected: (i) {
+        Vibration.instance.selectSoft();
+        if (controller.index != i) {
+          controller.index = i;
+        } else {
+          navigatorKeys[i].currentState?.popUntil((route) => route.isFirst);
+          ref.read(sideTabBarProvider.notifier).state = null;
+        }
+      },
     );
   }
-}
-
-class _TabWidget extends ConsumerWidget {
-  const _TabWidget({
-    required this.page,
-    required this.controllers,
-    required this.item,
-    required this.i,
-    required this.activeColor,
-  });
-
-  final int page;
-  final CupertinoTabController controllers;
-  final BottomNavigationBarItem item;
-  final int i;
-  final Color activeColor;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) => Expanded(
-          child: DefaultTextStyle(
-        style: page == i
-            ? Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: activeColor)
-            : Theme.of(context).textTheme.bodyMedium!,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2),
-            child: InkWell(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              onTap: () {
-                Vibration.instance.selectSoft();
-                if (controllers.index != i) {
-                  controllers.index = i;
-                } else {
-                  navigatorKeys[i]
-                      .currentState
-                      ?.popUntil((route) => route.isFirst);
-                  ref.read(sideTabBarProvider.notifier).state = null;
-                }
-              },
-              splashColor: Theme.of(context).primaryColor.withAlpha(32),
-              child: SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      if (i != page)
-                        item.icon
-                      else
-                        GradientMask(
-                          gradient: LinearGradient(
-                            colors: [
-                              activeColor,
-                              activeColor.augmentlinear(0.3),
-                            ],
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                          ),
-                          child: item.activeIcon,
-                        ),
-                      if (item.label != null) Text(item.label!),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ));
 }
 
 class SideBar extends ConsumerWidget {

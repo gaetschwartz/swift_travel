@@ -177,7 +177,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get unable_locate => 'Impossibile ottenere la posizione.';
 
   @override
-  String get unsupported_area => 'Non sembra che tu sia in una zona supportata.';
+  String get unsupported_area =>
+      'Non sembra che tu sia in una zona supportata.';
 
   @override
   String get use_current_location => 'Utilizzare la posizione corrente';
@@ -205,4 +206,71 @@ class AppLocalizationsIt extends AppLocalizations {
   String youll_be_there(String time) {
     return 'Arrivi a *$time*.';
   }
+
+  @override
+  String get suggestion => 'Suggerimento';
+
+  @override
+  String get live_route => 'Percorso in diretta';
+
+  @override
+  String get share => 'Azione';
+
+  @override
+  String get journey_informations => 'Informazioni sul viaggio';
+
+  @override
+  String direction(String dir) {
+    return 'In direzione di $dir';
+  }
+
+  @override
+  String get itinerary => 'Percorso';
+
+  @override
+  String get unable_locate => 'Impossibile ottenere la posizione.';
+
+  @override
+  String get unsupported_area =>
+      'Non sembra che tu sia in una zona supportata.';
+
+  @override
+  String get contact_no_address => 'Questo contatto non ha nessun indirizzo';
+
+  @override
+  String get contacts => 'Contatti';
+
+  @override
+  String get failed_get_contact => 'Impossibile ottenere la rubrica';
+
+  @override
+  String get new_fav => 'Nuova fermata preferita';
+
+  @override
+  String get no_contacts => 'La tua rubrica è vuota';
+
+  @override
+  String get customization => 'Personalizzazione';
+
+  @override
+  String get advanced_settings => 'Impostazioni avanzate';
+
+  @override
+  String get share_as_image => 'Condividi come immagine';
+
+  @override
+  String get start => 'Inizio';
+
+  @override
+  String get arrive => 'Arrivo';
+
+  @override
+  String get in_app_purchases => 'Acquisti in-app';
+
+  @override
+  String get in_app_purchases_description =>
+      'Puoi supportarci acquistando le seguenti funzionalità:';
+
+  @override
+  String get in_app_purchases_available => 'Funzionalità disponibili';
 }

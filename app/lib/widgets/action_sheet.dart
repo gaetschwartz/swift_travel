@@ -25,17 +25,10 @@ Future<T?> showActionSheet<T>(
                   title: title,
                   message: message,
                   actions: actions
-                      .map((a) => _Tile<T>(
-                            a,
-                            isDarwin: true,
-                          ))
+                      .map((a) => _Tile<T>(a, isDarwin: true))
                       .toList(growable: false),
-                  cancelButton: cancel == null
-                      ? null
-                      : _Tile<T>(
-                          cancel,
-                          isDarwin: true,
-                        ),
+                  cancelButton:
+                      cancel == null ? null : _Tile<T>(cancel, isDarwin: true),
                 ),
               ))
       : showMaterialModalBottomSheet<T>(
@@ -144,31 +137,33 @@ class _Tile<T> extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => CupertinoActionSheetAction(
-        onPressed: () => onPressed(context),
-        isDefaultAction: isSelected || a.isDefault,
-        isDestructiveAction: a.isDestructive,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Row(
-            children: [
-              a.title,
-              if (a.icon != null) ...[
-                const Spacer(),
-                IconTheme(
-                  data: IconThemeData(
-                    color: a.isDestructive
-                        ? CupertinoDynamicColor.resolve(
-                            CupertinoColors.systemRed, context)
-                        : CupertinoTheme.of(context).primaryColor,
-                  ),
-                  child: a.icon!,
+  Widget build(BuildContext context) {
+    return CupertinoActionSheetAction(
+      onPressed: () => onPressed(context),
+      isDefaultAction: isSelected || a.isDefault,
+      isDestructiveAction: a.isDestructive,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Row(
+          children: [
+            a.title,
+            if (a.icon != null) ...[
+              const Spacer(),
+              IconTheme(
+                data: IconThemeData(
+                  color: a.isDestructive
+                      ? CupertinoDynamicColor.resolve(
+                          CupertinoColors.systemRed, context)
+                      : CupertinoTheme.of(context).primaryColor,
                 ),
-              ],
+                child: a.icon!,
+              ),
             ],
-          ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }
 
 class ActionsSheet<T> extends StatelessWidget {

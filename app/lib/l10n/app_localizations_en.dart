@@ -205,4 +205,70 @@ class AppLocalizationsEn extends AppLocalizations {
   String youll_be_there(String time) {
     return 'You arrive at *$time*.';
   }
+
+  @override
+  String get suggestion => 'Suggestion';
+
+  @override
+  String get live_route => 'Live route';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get journey_informations => 'Journey information';
+
+  @override
+  String direction(String dir) {
+    return 'Direction $dir';
+  }
+
+  @override
+  String get itinerary => 'Itinerary';
+
+  @override
+  String get unable_locate => 'Unable to obtain location.';
+
+  @override
+  String get unsupported_area => 'You don\'t seem to be in a supported area.';
+
+  @override
+  String get contact_no_address => 'This contact doesn\'t have any address';
+
+  @override
+  String get contacts => 'Contacts';
+
+  @override
+  String get failed_get_contact => 'Failed to obtain the address book';
+
+  @override
+  String get new_fav => 'New favourite stop';
+
+  @override
+  String get no_contacts => 'Your address book is empty';
+
+  @override
+  String get customization => 'Customisation';
+
+  @override
+  String get advanced_settings => 'Advanced settings';
+
+  @override
+  String get share_as_image => 'Share as image';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get arrive => 'Arrive';
+
+  @override
+  String get in_app_purchases => 'In-app purchases';
+
+  @override
+  String get in_app_purchases_description =>
+      'You can support us by purchasing the following features:';
+
+  @override
+  String get in_app_purchases_available => 'Available features';
 }

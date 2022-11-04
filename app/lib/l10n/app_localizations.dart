@@ -63,7 +63,8 @@ import 'app_localizations_it.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,7 +72,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -83,7 +85,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -481,9 +484,136 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You arrive at *{time}*.'**
   String youll_be_there(String time);
+
+  /// No description provided for @suggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion'**
+  String get suggestion;
+
+  /// No description provided for @live_route.
+  ///
+  /// In en, this message translates to:
+  /// **'Live route'**
+  String get live_route;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @journey_informations.
+  ///
+  /// In en, this message translates to:
+  /// **'Journey information'**
+  String get journey_informations;
+
+  /// No description provided for @direction.
+  ///
+  /// In en, this message translates to:
+  /// **'Direction {dir}'**
+  String direction(String dir);
+
+  /// No description provided for @itinerary.
+  ///
+  /// In en, this message translates to:
+  /// **'Itinerary'**
+  String get itinerary;
+
+  /// No description provided for @unable_locate.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to obtain location.'**
+  String get unable_locate;
+
+  /// No description provided for @unsupported_area.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t seem to be in a supported area.'**
+  String get unsupported_area;
+
+  /// No description provided for @contact_no_address.
+  ///
+  /// In en, this message translates to:
+  /// **'This contact doesn\'t have any address'**
+  String get contact_no_address;
+
+  /// No description provided for @contacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get contacts;
+
+  /// No description provided for @failed_get_contact.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to obtain the address book'**
+  String get failed_get_contact;
+
+  /// No description provided for @new_fav.
+  ///
+  /// In en, this message translates to:
+  /// **'New favourite stop'**
+  String get new_fav;
+
+  /// No description provided for @no_contacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Your address book is empty'**
+  String get no_contacts;
+
+  /// No description provided for @customization.
+  ///
+  /// In en, this message translates to:
+  /// **'Customisation'**
+  String get customization;
+
+  /// No description provided for @advanced_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced settings'**
+  String get advanced_settings;
+
+  /// No description provided for @share_as_image.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as image'**
+  String get share_as_image;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @arrive.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrive'**
+  String get arrive;
+
+  /// No description provided for @in_app_purchases.
+  ///
+  /// In en, this message translates to:
+  /// **'In-app purchases'**
+  String get in_app_purchases;
+
+  /// No description provided for @in_app_purchases_description.
+  ///
+  /// In en, this message translates to:
+  /// **'You can support us by purchasing the following features:'**
+  String get in_app_purchases_description;
+
+  /// No description provided for @in_app_purchases_available.
+  ///
+  /// In en, this message translates to:
+  /// **'Available features'**
+  String get in_app_purchases_available;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -492,27 +622,29 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['de', 'en', 'fr', 'it'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['de', 'en', 'fr', 'it'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
-    case 'fr': return AppLocalizationsFr();
-    case 'it': return AppLocalizationsIt();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'it':
+      return AppLocalizationsIt();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }
