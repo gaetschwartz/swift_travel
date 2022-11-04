@@ -62,5 +62,8 @@
 	"advanced_settings": "Erweiterte Einstellungen",
 	"share_as_image": "Als Bild teilen",
 	"start":  "Start",
-	"arrive" : "Ankunft"
+	"arrive" : "Ankunft",
+	"in_app_purchases": "In-App-Käufe",
+	"in_app_purchases_description": "Sie können uns durch den Kauf der folgenden Funktionen unterstützen:",
+	"in_app_purchases_available" : "Verfügbare Funktionen"
 }

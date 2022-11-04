@@ -62,5 +62,8 @@
 	"advanced_settings": "Impostazioni avanzate", 
 	"share_as_image": "Condividi come immagine",
 	"start":  "Inizio",
-	"arrive" : "Arrivo"
+	"arrive" : "Arrivo",
+	"in_app_purchases": "Acquisti in-app",
+	"in_app_purchases_description": "Puoi supportarci acquistando le seguenti funzionalità:",
+	"in_app_purchases_available" : "Funzionalità disponibili"
 }

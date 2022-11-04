@@ -62,5 +62,8 @@
 	"advanced_settings": "Paramètres avancés",
 	"share_as_image": "Partager comme image",
 	"start":  "Départ",
-	"arrive" : "Arrivée"
+	"arrive" : "Arrivée",
+	"in_app_purchases": "Achats intégrés",
+	"in_app_purchases_description": "Vous pouvez nous soutenir en achetant les fonctionnalités suivantes:",
+	"in_app_purchases_available" : "Fonctionnalités disponibles"
 }

@@ -202,4 +202,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get arrive => 'Arrive';
+
+  @override
+  String get in_app_purchases => 'In-app purchases';
+
+  @override
+  String get in_app_purchases_description => 'You can support us by purchasing the following features:';
+
+  @override
+  String get in_app_purchases_available => 'Available features';
 }

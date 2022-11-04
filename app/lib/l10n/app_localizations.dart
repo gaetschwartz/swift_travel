@@ -475,6 +475,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Arrive'**
   String get arrive;
+
+  /// No description provided for @in_app_purchases.
+  ///
+  /// In en, this message translates to:
+  /// **'In-app purchases'**
+  String get in_app_purchases;
+
+  /// No description provided for @in_app_purchases_description.
+  ///
+  /// In en, this message translates to:
+  /// **'You can support us by purchasing the following features:'**
+  String get in_app_purchases_description;
+
+  /// No description provided for @in_app_purchases_available.
+  ///
+  /// In en, this message translates to:
+  /// **'Available features'**
+  String get in_app_purchases_available;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

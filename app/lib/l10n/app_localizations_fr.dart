@@ -202,4 +202,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get arrive => 'Arrivée';
+
+  @override
+  String get in_app_purchases => 'Achats intégrés';
+
+  @override
+  String get in_app_purchases_description => 'Vous pouvez nous soutenir en achetant les fonctionnalités suivantes:';
+
+  @override
+  String get in_app_purchases_available => 'Fonctionnalités disponibles';
 }

@@ -146,15 +146,18 @@ class _ScreenshotDialogState extends State<_ScreenshotDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Material(
-        child: Center(
-          child: SizedBox(
-            width: widget.width,
-            child: SingleChildScrollView(
-              child: RepaintBoundary(
-                key: screenshotKey,
-                child: widget.child,
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      child: SizedBox.expand(
+        child: Material(
+          child: Center(
+            child: SizedBox(
+              width: widget.width,
+              child: SingleChildScrollView(
+                child: RepaintBoundary(
+                  key: screenshotKey,
+                  child: widget.child,
+                ),
               ),
             ),
           ),

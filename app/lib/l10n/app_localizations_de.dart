@@ -202,4 +202,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get arrive => 'Ankunft';
+
+  @override
+  String get in_app_purchases => 'In-App-Käufe';
+
+  @override
+  String get in_app_purchases_description => 'Sie können uns durch den Kauf der folgenden Funktionen unterstützen:';
+
+  @override
+  String get in_app_purchases_available => 'Verfügbare Funktionen';
 }

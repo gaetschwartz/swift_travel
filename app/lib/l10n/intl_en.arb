@@ -98,5 +98,8 @@
 	"advanced_settings": "Advanced settings",
 	"share_as_image": "Share as image",
 	"start": "Start",
-	"arrive": "Arrive"
+	"arrive": "Arrive",
+	"in_app_purchases": "In-app purchases",
+	"in_app_purchases_description": "You can support us by purchasing the following features:",
+	"in_app_purchases_available" : "Available features"
 }
