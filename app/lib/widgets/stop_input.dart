@@ -15,10 +15,10 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 
 class StopInputDialog extends ConsumerStatefulWidget {
   const StopInputDialog({
-    Key? key,
+    super.key,
     this.title = '',
     this.inputType = TextInputType.text,
-  }) : super(key: key);
+  });
 
   final String title;
   final TextInputType inputType;
@@ -118,15 +118,14 @@ class _StopInputDialogState extends ConsumerState<StopInputDialog> {
 class RouteCompletionTile extends StatelessWidget {
   const RouteCompletionTile(
     this.completion, {
-    Key? key,
+    super.key,
     this.onTap,
-  }) : super(key: key);
+  });
 
   const RouteCompletionTile.empty({
-    Key? key,
+    super.key,
     this.onTap,
-  })  : completion = null,
-        super(key: key);
+  })  : completion = null;
 
   final NavigationCompletion? completion;
   final VoidCallback? onTap;
@@ -162,9 +161,7 @@ class RouteCompletionTile extends StatelessWidget {
 
 class _Icon extends StatelessWidget {
   const _Icon(
-    this.completion, {
-    Key? key,
-  }) : super(key: key);
+    this.completion);
 
   final NavigationCompletion completion;
 

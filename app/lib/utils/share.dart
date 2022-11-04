@@ -100,11 +100,10 @@ Future<ui.Image?> screenshot(
 
 class _ScreenshotDialog extends StatefulWidget {
   const _ScreenshotDialog({
-    Key? key,
     required this.child,
     required this.pixelRatio,
     required this.width,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final double pixelRatio;

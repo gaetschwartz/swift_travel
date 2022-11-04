@@ -22,8 +22,8 @@ import 'details.dart';
 class TransportLegTile extends StatefulWidget {
   const TransportLegTile(
     this.l, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Leg l;
 
@@ -81,9 +81,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
 
 class _Collapsed extends StatelessWidget {
   const _Collapsed(
-    this.l, {
-    Key? key,
-  }) : super(key: key);
+    this.l);
 
   final Leg l;
 
@@ -236,9 +234,7 @@ class _Collapsed extends StatelessWidget {
 
 class _Header extends StatelessWidget {
   const _Header(
-    this.l, {
-    Key? key,
-  }) : super(key: key);
+    this.l);
 
   final Leg l;
 

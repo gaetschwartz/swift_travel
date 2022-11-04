@@ -7,7 +7,7 @@ import 'package:swift_travel/settings/widgets/switch.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
 
 class AdvancedSettingsPage extends ConsumerStatefulWidget {
-  const AdvancedSettingsPage({Key? key}) : super(key: key);
+  const AdvancedSettingsPage({super.key});
 
   @override
   _AdvancedSettingsPageState createState() => _AdvancedSettingsPageState();

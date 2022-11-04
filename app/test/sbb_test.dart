@@ -862,15 +862,11 @@ Matcher buildMatcher(
 // ignore: unreachable_from_main
 class ChildMatcher<T> extends CustomMatcher {
   ChildMatcher(
-    String featureDescription,
-    String featureName,
-    dynamic matcher,
+    super.featureDescription,
+    super.featureName,
+    dynamic super.matcher,
     this.extractFeature,
-  ) : super(
-          featureDescription,
-          featureName,
-          matcher,
-        );
+  );
 
   final Object? Function(
     T data,

@@ -4,16 +4,12 @@ import 'package:flutter/material.dart';
 @immutable
 class SharedAxisConfiguration extends ModalConfiguration {
   const SharedAxisConfiguration({
-    Color barrierColor = Colors.black54,
-    Duration transitionDuration = const Duration(milliseconds: 150),
-    Duration reverseTransitionDuration = const Duration(milliseconds: 75),
-    String barrierLabel = 'Dismiss',
+    super.barrierColor = Colors.black54,
+    super.transitionDuration = const Duration(milliseconds: 150),
+    super.reverseTransitionDuration = const Duration(milliseconds: 75),
+    String super.barrierLabel = 'Dismiss',
   }) : super(
           barrierDismissible: true,
-          transitionDuration: transitionDuration,
-          reverseTransitionDuration: reverseTransitionDuration,
-          barrierColor: barrierColor,
-          barrierLabel: barrierLabel,
         );
 
   @override

@@ -35,9 +35,8 @@ class ComputedSum extends Sum {
       : _addends = List.unmodifiable(sum.addends),
         super(squareRoot: sum.squareRoot);
 
-  ComputedSum.fromAddends(List<Addend> addends, {bool squareRoot = false})
-      : _addends = List.unmodifiable(addends),
-        super(squareRoot: squareRoot);
+  ComputedSum.fromAddends(List<Addend> addends, {super.squareRoot})
+      : _addends = List.unmodifiable(addends);
 
   final List<Addend> _addends;
 

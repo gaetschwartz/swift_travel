@@ -34,7 +34,7 @@ import 'package:theming/responsive.dart';
 const _tutoKey = 'hasAlreadySeenTuto';
 
 class LoadingPage extends ConsumerStatefulWidget {
-  const LoadingPage({this.uri, Key? key}) : super(key: key);
+  const LoadingPage({this.uri, super.key});
 
   final Uri? uri;
 

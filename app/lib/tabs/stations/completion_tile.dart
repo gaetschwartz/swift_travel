@@ -31,8 +31,8 @@ import 'package:vibration/vibration.dart';
 class CompletionTile extends ConsumerStatefulWidget {
   const CompletionTile(
     this.sugg, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final NavigationCompletion sugg;
 
@@ -177,8 +177,8 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
 class _LinesWidget extends ConsumerStatefulWidget {
   const _LinesWidget({
     required this.compl,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final NavigationCompletion compl;
 
@@ -324,8 +324,8 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
 class _LineIcon extends StatelessWidget {
   const _LineIcon(
     this.l, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Line l;
 

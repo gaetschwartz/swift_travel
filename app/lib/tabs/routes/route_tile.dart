@@ -20,8 +20,8 @@ class RouteTile extends StatelessWidget {
   const RouteTile({
     required this.route,
     required this.i,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final NavRoute route;
   final int i;
@@ -91,10 +91,9 @@ class RouteTile extends StatelessWidget {
 
 class _RowIcon extends StatelessWidget {
   const _RowIcon({
-    Key? key,
     required this.route,
     required this.i,
-  }) : super(key: key);
+  });
 
   final NavRoute route;
   final int i;

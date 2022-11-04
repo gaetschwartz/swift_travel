@@ -19,7 +19,7 @@ import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dialogs/confirmation_alert.dart';
 
 class DeveloperSettingsPage extends StatefulWidget {
-  const DeveloperSettingsPage({Key? key}) : super(key: key);
+  const DeveloperSettingsPage({super.key});
 
   @override
   State<DeveloperSettingsPage> createState() => _DeveloperSettingsPageState();
@@ -143,9 +143,7 @@ class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
 }
 
 class _ScreenPage extends StatelessWidget {
-  const _ScreenPage({
-    Key? key,
-  }) : super(key: key);
+  const _ScreenPage();
 
   @override
   Widget build(BuildContext context) => Scaffold(

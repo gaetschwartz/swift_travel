@@ -60,11 +60,11 @@ class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({
     required this.binder,
     required this.heroTag,
-    Key? key,
+    super.key,
     this.configuration = const TextFieldConfiguration(),
     this.isDestination = false,
     this.dateTime,
-  }) : super(key: key);
+  });
 
   final LocationTextBoxManager binder;
   // ignore: no-object-declaration
@@ -226,8 +226,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 class _ClearButton extends StatelessWidget {
   const _ClearButton({
     required this.binder,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final LocationTextBoxManager binder;
 
@@ -251,8 +250,7 @@ class _Results extends StatelessWidget {
   const _Results({
     required this.onTap,
     required this.focusNode,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final void Function(NavigationCompletion completion) onTap;
 
@@ -354,9 +352,9 @@ class _Results extends StatelessWidget {
 class SuggestedTile extends StatelessWidget {
   const SuggestedTile(
     this.suggestion, {
-    Key? key,
+    super.key,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final NavigationCompletion suggestion;
   final ValueChanged<NavigationCompletion>? onTap;
@@ -400,8 +398,7 @@ class SuggestedTile extends StatelessWidget {
 class _SuggestedTileIcon extends StatelessWidget {
   const _SuggestedTileIcon({
     required this.suggestion,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final NavigationCompletion suggestion;
 

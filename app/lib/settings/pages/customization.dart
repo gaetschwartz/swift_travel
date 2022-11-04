@@ -16,7 +16,7 @@ import 'package:swift_travel/widgets/property_page.dart';
 import 'package:theming/dynamic_theme.dart';
 
 class CustomizationSettingsPage extends StatefulWidget {
-  const CustomizationSettingsPage({Key? key}) : super(key: key);
+  const CustomizationSettingsPage({super.key});
 
   @override
   State<CustomizationSettingsPage> createState() =>
@@ -40,9 +40,7 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
 }
 
 class _PlatformTile extends StatelessWidget {
-  const _PlatformTile({
-    Key? key,
-  }) : super(key: key);
+  const _PlatformTile();
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +71,7 @@ class _PlatformTile extends StatelessWidget {
 }
 
 class _FontChoiceTile extends StatelessWidget {
-  const _FontChoiceTile({
-    Key? key,
-  }) : super(key: key);
+  const _FontChoiceTile();
 
   @override
   Widget build(BuildContext context) {
@@ -126,9 +122,7 @@ extension TargetPlatfromX on TargetPlatform {
 }
 
 class _ThemeModeList extends StatelessWidget {
-  const _ThemeModeList({
-    Key? key,
-  }) : super(key: key);
+  const _ThemeModeList();
 
   @override
   Widget build(BuildContext context) {
@@ -167,8 +161,7 @@ class _ThememodeWidget extends StatelessWidget {
     required this.theme,
     required this.mode,
     required this.label,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final DynamicThemeNotifier theme;
   final ThemeMode mode;

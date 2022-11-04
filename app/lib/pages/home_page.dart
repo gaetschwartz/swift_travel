@@ -28,7 +28,7 @@ final tabProvider = ChangeNotifierProvider<CupertinoTabController>((ref) {
 });
 
 class TabView extends ConsumerStatefulWidget {
-  const TabView({Key? key}) : super(key: key);
+  const TabView({super.key});
 
   @override
   _TabViewState createState() => _TabViewState();
@@ -207,8 +207,8 @@ class SwiftNavigationBar extends StatelessWidget {
     required this.page,
     required this.items,
     this.activeColor,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final CupertinoTabController controllers;
   final int page;
@@ -263,8 +263,7 @@ class _TabWidget extends ConsumerWidget {
     required this.item,
     required this.i,
     required this.activeColor,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final int page;
   final CupertinoTabController controllers;
@@ -332,8 +331,8 @@ class _TabWidget extends ConsumerWidget {
 
 class SideBar extends ConsumerWidget {
   const SideBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static void push(
     BuildContext context,
@@ -413,17 +412,14 @@ final sideBarNavigatorKey = GlobalKey<NavigatorState>();
 class MaterialAppBar extends AppBar {
   MaterialAppBar({
     this.showSettingsButton = true,
-    Key? key,
+    super.key,
     List<Widget> actions = const [],
-    Widget? title,
-    Widget? leading,
+    super.title,
+    super.leading,
   }) : super(
-          key: key,
           automaticallyImplyLeading: false,
-          title: title,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: leading,
           actions: [
             ...actions,
             if (showSettingsButton)
@@ -451,7 +447,7 @@ class MaterialAppBar extends AppBar {
 class SwiftCupertinoBar extends StatefulWidget
     implements ObstructingPreferredSizeWidget {
   const SwiftCupertinoBar({
-    Key? key,
+    super.key,
     this.leading,
     this.automaticallyImplyLeading = true,
     this.automaticallyImplyMiddle = true,
@@ -462,7 +458,7 @@ class SwiftCupertinoBar extends StatefulWidget
     this.padding,
     this.transitionBetweenRoutes = true,
     this.opacity = 0.5,
-  }) : super(key: key);
+  });
 
   final Widget? leading;
   final bool automaticallyImplyLeading;

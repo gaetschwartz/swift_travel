@@ -132,8 +132,8 @@ class _Tile<T> extends StatelessWidget {
     this.a, {
     required this.isDarwin,
     this.isSelected = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final ActionsSheetAction<T> a;
   final bool isDarwin;
@@ -162,9 +162,9 @@ class ActionsSheet<T> extends StatelessWidget {
     this.cancel,
     this.title,
     this.message,
-    Key? key,
+    super.key,
     this.defaultValue,
-  }) : super(key: key);
+  });
 
   final List<ActionsSheetAction<T>> actions;
   final ActionsSheetAction<T>? cancel;

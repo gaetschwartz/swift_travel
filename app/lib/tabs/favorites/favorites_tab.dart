@@ -23,7 +23,7 @@ import 'fav_route_tile.dart';
 import 'fav_stop_tile.dart';
 
 class FavoritesTab extends ConsumerStatefulWidget {
-  const FavoritesTab({Key? key}) : super(key: key);
+  const FavoritesTab({super.key});
 
   @override
   _FavoritesTabState createState() => _FavoritesTabState();

@@ -12,11 +12,11 @@ abstract class AbstractSection extends StatelessWidget {
   final EdgeInsetsGeometry titlePadding;
 
   const AbstractSection({
-    Key? key,
+    super.key,
     required this.titleWidget,
     this.titlePadding = defaultTitlePadding,
     this.showBottomDivider = false,
-  }) : super(key: key);
+  });
 }
 
 class SettingsSection extends AbstractSection {
@@ -28,21 +28,16 @@ class SettingsSection extends AbstractSection {
   final TargetPlatform? platform;
 
   const SettingsSection({
-    Key? key,
+    super.key,
     required this.tiles,
-    required Widget titleWidget,
-    EdgeInsetsGeometry titlePadding = defaultTitlePadding,
+    required super.titleWidget,
+    super.titlePadding,
     this.maxLines,
     this.subtitle,
     this.subtitlePadding = defaultTitlePadding,
     this.titleTextStyle,
     this.platform,
-  })  : assert(maxLines == null || maxLines > 0, ''),
-        super(
-          key: key,
-          titleWidget: titleWidget,
-          titlePadding: titlePadding,
-        );
+  })  : assert(maxLines == null || maxLines > 0, '');
 
   @override
   Widget build(BuildContext context) {

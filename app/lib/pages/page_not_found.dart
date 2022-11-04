@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 class PageNotFound extends StatefulWidget {
   const PageNotFound({
     required this.settings,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final RouteSettings settings;
 
@@ -67,9 +67,9 @@ class ErrorDataWidget extends StatelessWidget {
   const ErrorDataWidget(
     this.name,
     this.value, {
-    Key? key,
+    super.key,
     this.wrapped = true,
-  }) : super(key: key);
+  });
 
   final String name;
   final String? value;

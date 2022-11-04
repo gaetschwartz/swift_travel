@@ -12,9 +12,9 @@ import 'models.dart';
 class DynamicTheme extends InheritedNotifier<DynamicThemeNotifier> {
   const DynamicTheme({
     required DynamicThemeNotifier theme,
-    required Widget child,
-    Key? key,
-  }) : super(key: key, notifier: theme, child: child);
+    required super.child,
+    super.key,
+  }) : super(notifier: theme);
 
   static DynamicThemeNotifier of(BuildContext context, {bool listen = true}) {
     final DynamicThemeNotifier? dynamicTheme;

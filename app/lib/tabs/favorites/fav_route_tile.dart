@@ -14,7 +14,7 @@ import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 
 class FavoriteRouteTile extends ConsumerWidget {
-  const FavoriteRouteTile(this.route, {Key? key}) : super(key: key);
+  const FavoriteRouteTile(this.route, {super.key});
 
   final LocalRoute route;
 

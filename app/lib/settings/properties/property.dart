@@ -165,12 +165,10 @@ class MappedSharedPreferencesProperty<TValue extends Object?,
 
 class SimpleSharedPreferencesProperty<T extends Object?>
     extends MappedSharedPreferencesProperty<T, T> {
-  SimpleSharedPreferencesProperty(String key, {T? defaultValue})
+  SimpleSharedPreferencesProperty(super.key, {super.defaultValue})
       : super(
-          key,
           decode: (v) => v,
           encode: (v) => v,
-          defaultValue: defaultValue,
         );
 }
 

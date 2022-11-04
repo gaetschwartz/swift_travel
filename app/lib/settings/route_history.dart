@@ -15,8 +15,8 @@ import 'package:swift_travel/widgets/route_widget.dart';
 
 class RouteHistoryPage extends StatefulWidget {
   const RouteHistoryPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _RouteHistoryPageState createState() => _RouteHistoryPageState();
@@ -82,8 +82,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
 class _RoutesJson extends StatelessWidget {
   const _RoutesJson({
     required this.routes,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final List<LocalRoute> routes;
 

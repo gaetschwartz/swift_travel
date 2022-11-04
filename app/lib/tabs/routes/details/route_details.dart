@@ -30,8 +30,8 @@ class RouteDetails extends StatefulWidget {
     required this.route,
     required this.i,
     this.doShowCloseButton = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final NavRoute? route;
   final int i;
@@ -185,9 +185,7 @@ class _RouteDetailsState extends State<RouteDetails> {
 
 class _Header extends StatelessWidget {
   const _Header(
-    this.c, {
-    Key? key,
-  }) : super(key: key);
+    this.c);
 
   final RouteConnection c;
 
@@ -240,9 +238,7 @@ class _Header extends StatelessWidget {
 class _DataRow extends StatelessWidget {
   const _DataRow(
     this.title,
-    this.text, {
-    Key? key,
-  }) : super(key: key);
+    this.text);
 
   final String title;
   final String text;
@@ -268,8 +264,8 @@ class _DataRow extends StatelessWidget {
 class LegTile extends StatelessWidget {
   const LegTile(
     this.leg, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Leg leg;
 

@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:swift_travel/terminal/models.dart';
 
 class TerminalPage extends StatelessWidget {
-  const TerminalPage({Key? key}) : super(key: key);
+  const TerminalPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class TerminalPage extends StatelessWidget {
 
 class TerminalWidget extends ConsumerStatefulWidget {
   const TerminalWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _TerminalWidgetState createState() => _TerminalWidgetState();
@@ -164,12 +164,12 @@ class _TerminalWidgetState extends ConsumerState<TerminalWidget> {
 
 class PrompTextField extends StatefulWidget {
   const PrompTextField({
-    Key? key,
+    super.key,
     required this.firaCode,
     required this.focusNode,
     required this.text,
     required this.handleCommand,
-  }) : super(key: key);
+  });
 
   final TextStyle firaCode;
   final FocusNode focusNode;
@@ -216,8 +216,8 @@ class _PrompTextFieldState extends State<PrompTextField> {
 
 class Prompt extends StatelessWidget {
   const Prompt({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

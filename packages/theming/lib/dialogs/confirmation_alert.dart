@@ -61,8 +61,7 @@ class _IOSConfirmationAlert extends StatelessWidget {
     required this.isCancelDestructive,
     required this.isConfirmDestructive,
     required this.defaultAction,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final Widget title;
   final Widget content;
@@ -100,8 +99,7 @@ class _ConfirmationAlert extends StatelessWidget {
     required this.content,
     required this.confirm,
     required this.cancel,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final Widget title;
   final Widget content;

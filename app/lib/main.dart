@@ -99,8 +99,8 @@ void overridePlatform() {
 
 class FullApp extends StatefulWidget {
   const FullApp({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _FullAppState createState() => _FullAppState();
@@ -130,7 +130,7 @@ class _FullAppState extends State<FullApp> {
 }
 
 class SwiftTravelApp extends ConsumerStatefulWidget {
-  const SwiftTravelApp({Key? key}) : super(key: key);
+  const SwiftTravelApp({super.key});
 
   @override
   _SwiftTravelAppState createState() => _SwiftTravelAppState();
@@ -319,7 +319,7 @@ Route<void>? onGenerateRoute(RouteSettings settings) {
 }
 
 class Unfocus extends StatelessWidget {
-  const Unfocus({Key? key, required this.child}) : super(key: key);
+  const Unfocus({super.key, required this.child});
 
   final Widget child;
 
@@ -343,10 +343,10 @@ T readFromContext<T>(BuildContext context, ProviderListenable<T> provider) {
 
 class OverWriteProvidersFromContext extends StatelessWidget {
   const OverWriteProvidersFromContext({
-    Key? key,
+    super.key,
     required this.child,
     required this.overrides,
-  }) : super(key: key);
+  });
 
   final Widget child;
 

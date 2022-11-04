@@ -14,8 +14,8 @@ class RouteWidget extends StatelessWidget {
     this.onLongPress,
     this.fromOverride,
     this.toOverride,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Widget? icon;
   final Widget from;

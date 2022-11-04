@@ -4,16 +4,12 @@ import 'package:flutter/material.dart';
 @immutable
 class BottomSheetConfiguration extends ModalConfiguration {
   const BottomSheetConfiguration({
-    Color barrierColor = Colors.black54,
-    Duration transitionDuration = const Duration(milliseconds: 300),
-    Duration reverseTransitionDuration = const Duration(milliseconds: 300),
-    String barrierLabel = 'Dismiss',
+    super.barrierColor = Colors.black54,
+    super.transitionDuration = const Duration(milliseconds: 300),
+    super.reverseTransitionDuration = const Duration(milliseconds: 300),
+    String super.barrierLabel = 'Dismiss',
   }) : super(
           barrierDismissible: true,
-          transitionDuration: transitionDuration,
-          reverseTransitionDuration: reverseTransitionDuration,
-          barrierColor: barrierColor,
-          barrierLabel: barrierLabel,
         );
 
   @override

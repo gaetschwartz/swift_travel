@@ -128,8 +128,8 @@ Future<bool> get _doReport async {
 class ErrorPage extends StatefulWidget {
   const ErrorPage(
     this.details, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final FlutterErrorDetails? details;
 

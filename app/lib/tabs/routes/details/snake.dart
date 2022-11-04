@@ -9,8 +9,8 @@ import 'package:gap/gap.dart';
 
 class SneccGame extends StatefulWidget {
   const SneccGame({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _SneccGameState createState() => _SneccGameState();

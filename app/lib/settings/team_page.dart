@@ -13,8 +13,8 @@ typedef JSON = Map<String, Object?>;
 
 class TeamPage extends StatefulWidget {
   const TeamPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static const primaryCoders = <Member>[
     Member(
@@ -124,9 +124,7 @@ class _TeamPageState extends State<TeamPage> {
 }
 
 class _Contributors extends StatelessWidget {
-  const _Contributors({
-    Key? key,
-  }) : super(key: key);
+  const _Contributors();
 
   @override
   Widget build(BuildContext context) {
@@ -165,9 +163,8 @@ class _Contributors extends StatelessWidget {
 class _MemberTile extends StatelessWidget {
   const _MemberTile(
     this.c, {
-    Key? key,
     this.dense = false,
-  }) : super(key: key);
+  });
 
   final Member c;
   final bool dense;

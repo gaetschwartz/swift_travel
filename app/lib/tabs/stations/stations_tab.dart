@@ -33,7 +33,7 @@ final _loadingProvider = StateProvider((_) => false);
 enum _LoadingState { loading, idle, error }
 
 class StationsTab extends StatefulWidget {
-  const StationsTab({Key? key}) : super(key: key);
+  const StationsTab({super.key});
 
   @override
   _StationsTabState createState() => _StationsTabState();
@@ -361,8 +361,8 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
 class AnimatedLocation extends StatefulWidget {
   const AnimatedLocation({
     required this.loadingState,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final _LoadingState loadingState;
 

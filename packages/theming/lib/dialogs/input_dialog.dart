@@ -78,8 +78,7 @@ class _IOSTextInputDialog extends StatefulWidget {
     required this.registerController,
     required this.unRegisterController,
     required this.autofocus,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final Widget title;
   final Widget? content;
@@ -155,8 +154,7 @@ class _TextInputDialog extends StatefulWidget {
     required this.initialText,
     required this.cancel,
     required this.decoration,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final Widget title;
   final Widget? content;

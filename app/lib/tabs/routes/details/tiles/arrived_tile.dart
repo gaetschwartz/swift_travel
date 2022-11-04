@@ -9,8 +9,8 @@ import 'package:swift_travel/utils/strings/format.dart';
 class ArrivedTile extends StatelessWidget {
   const ArrivedTile(
     this.l, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Leg l;
 

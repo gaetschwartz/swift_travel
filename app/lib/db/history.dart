@@ -8,10 +8,9 @@ import 'db.dart';
 class RouteHistoryRepository extends LocalDatabase<int, String, LocalRoute>
     with IndexedDatabaseMixin {
   @visibleForTesting
-  RouteHistoryRepository({int maxSize = 512})
+  RouteHistoryRepository({super.maxSize = 512})
       : super(
           boxKey: 'route_history',
-          maxSize: maxSize,
           decode: (d) =>
               LocalRoute.fromJson(jsonDecode(d) as Map<String, dynamic>),
           encode: (d) => jsonEncode(d.toJson()),
