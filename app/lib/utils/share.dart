@@ -83,14 +83,14 @@ Future<void> shareFile(
 Future<ui.Image?> screenshot(
   BuildContext context,
   Widget widget, {
-  double pixelRatio = 1.0,
+  double? pixelRatio,
   double? width,
 }) async {
   // show a dialog with the widget
   return showGeneralDialog<ui.Image?>(
     context: context,
     pageBuilder: (context, a1, a2) => _ScreenshotDialog(
-      pixelRatio: pixelRatio,
+      pixelRatio: pixelRatio ?? MediaQuery.of(context).devicePixelRatio,
       width: width,
       child: widget,
     ),
