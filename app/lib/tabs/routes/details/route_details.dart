@@ -159,6 +159,7 @@ class _RouteDetailsState extends State<RouteDetails> {
           ),
         ),
       ),
+      pixelRatio: MediaQuery.of(context).devicePixelRatio * 2,
     );
     if (image == null) {
       return;
@@ -184,8 +185,7 @@ class _RouteDetailsState extends State<RouteDetails> {
 }
 
 class _Header extends StatelessWidget {
-  const _Header(
-    this.c);
+  const _Header(this.c);
 
   final RouteConnection c;
 
@@ -236,9 +236,7 @@ class _Header extends StatelessWidget {
 }
 
 class _DataRow extends StatelessWidget {
-  const _DataRow(
-    this.title,
-    this.text);
+  const _DataRow(this.title, this.text);
 
   final String title;
   final String text;

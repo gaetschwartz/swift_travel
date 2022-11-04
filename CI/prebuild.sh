@@ -9,7 +9,7 @@ fi
 
 now=$(date +"%A %d %B %Y - %H:%M:%S")
 
-cat >lib/constants/build.dart <<-EOM
+cat >lib/constants/build.dart <<- EOM
 const String commitBuildDate = "${now}";
 const String commitHash = "${GIT_SHORT_SHA}";
 const String commitMessage = "${COMMIT_MSG}";
@@ -27,3 +27,6 @@ EOM
 echo "=== config.json ==="
 cat assets/config.json
 echo "=================="
+
+# write key properties
+echo "$KEY_PROPERTIES" > android/key.properties
