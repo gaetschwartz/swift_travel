@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -9,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
-import 'package:geolocator/geolocator.dart' hide Position;
 import 'package:intl/intl.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
@@ -19,8 +16,6 @@ import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/l10n/app_localizations_en.dart';
-import 'package:swift_travel/logic/location/location.dart';
-import 'package:swift_travel/logic/location/models/models.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -29,11 +24,11 @@ import 'package:swift_travel/pages/search/models.dart';
 import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/states/route_textfield_state.dart';
+import 'package:swift_travel/tabs/routes/fetcher.dart';
 import 'package:swift_travel/tabs/routes/location_text_box_manager.dart';
 import 'package:swift_travel/tabs/routes/route_view.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/definitions.dart';
-import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:theming/dialogs/datepicker.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -65,120 +60,6 @@ final toTextfieldProvider = ChangeNotifierProvider(
     return textStateBinder;
   },
 );
-
-@visibleForTesting
-final fetcherProvider = Provider<FetcherBase>((_) => Fetcher());
-
-final routeStatesProvider = ChangeNotifierProvider((ref) {
-  final fetcher = ref.watch(fetcherProvider);
-  fetcher.fetch(ref);
-  return fetcher;
-});
-
-abstract class FetcherBase extends ChangeNotifier {
-  Future<void> fetch(Ref ref);
-
-  RouteStates _state = const RouteStates.empty();
-
-  RouteStates get state => _state;
-
-  set state(RouteStates state) {
-    _state = state;
-    notifyListeners();
-  }
-}
-
-class Fetcher extends FetcherBase {
-  static final log = Logger('Fetcher');
-
-  @override
-  Future<void> fetch(Ref ref) async {
-    final from = ref.watch(fromTextfieldProvider);
-    final to = ref.watch(toTextfieldProvider);
-    final date = ref.watch(dateProvider);
-    final timeType = ref.watch(timeTypeProvider);
-    final api = ref.read(navigationAPIProvider);
-
-    if (kDebugMode) {
-      log.log('Something changed checking if we need to rebuild');
-    }
-
-    if (from.state.isEmpty || to.state.isEmpty) {
-      if (from.state.isEmpty && to.state.isEmpty) {
-        state = const RouteStates.empty();
-      }
-      return;
-    } else if (from.state.maybeWhen(
-          text: (t, l) => t.isEmpty || !l,
-          orElse: () => false,
-        ) ||
-        to.state.maybeWhen(
-          text: (t, l) => t.isEmpty || !l,
-          orElse: () => false,
-        )) {
-      return;
-    } else {
-      state = const RouteStates.loading();
-    }
-
-    if (kDebugMode) {
-      log.log('From: ${from.state}');
-      log.log('To: ${to.state}');
-    }
-
-    GeoLocation? p;
-
-    try {
-      final departure = await from.state.when<FutureOr<String>?>(
-        empty: () => null,
-        text: (t, l) => t,
-        useCurrentLocation: () async {
-          p ??= await GeoLocationEngine.instance.getLocation();
-          return '${p!.latitude},${p!.longitude}';
-        },
-      )!;
-      final arrival = await to.state.when<FutureOr<String>?>(
-        empty: () => null,
-        text: (t, l) => t,
-        useCurrentLocation: () async {
-          p ??= await GeoLocationEngine.instance.getLocation();
-          return '${p!.latitude},${p!.longitude}';
-        },
-      )!;
-      log.log('Fetching route from $departure to $arrival');
-      final it = await api.route(
-        departure,
-        arrival,
-        date: date,
-        time: TimeOfDay.fromDateTime(date),
-        timeType: timeType,
-      );
-      state = RouteStates(it);
-    } on SocketException catch (e, s) {
-      log.e(e.toString(), stackTrace: s);
-      state = const RouteStates.networkException();
-    } on MissingPluginException {
-      state = const RouteStates.missingPluginException();
-    } on PermissionDeniedException {
-      state = const RouteStates.locationPermissionNotGranted();
-    } on LocationServiceDisabledException {
-      state = const RouteStates.locationPermissionNotGranted();
-    } on Exception catch (e, s) {
-      state = RouteStates.exception(e);
-      reportDartError(e, s, library: 'fetcher', reason: 'while fetching');
-    }
-  }
-
-  @override
-  void dispose() {
-    if (kDebugMode) {
-      print('FETCHER DISPOSED');
-    }
-    // trigger breakpoint
-    debugger();
-    super.dispose();
-  }
-}
 
 class RouteTab extends StatefulWidget {
   const RouteTab({Key? key}) : super(key: key);
@@ -254,7 +135,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
   }
 
   void clearProviders() {
-    ref.read(routeStatesProvider).state = const RouteStates.empty();
+    ref.read(routeStatesProvider.notifier).state = const RouteStates.empty();
     ref.read(dateProvider.notifier).state = DateTime.now();
     ref.read(timeTypeProvider.notifier).state = TimeType.departure;
   }
@@ -417,6 +298,12 @@ class RoutePageState extends ConsumerState<RoutePage> {
                       child: Tooltip(
                         message: 'Change date and time',
                         child: TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor:
+                                Theme.of(context).colorScheme.onSurface,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.surface,
+                          ),
                           onLongPress: kDebugMode
                               ? () {
                                   unFocusFields();
@@ -430,8 +317,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
                                         sbbRoute.connections.first.to,
                                         doLoad: false,
                                       );
-
-                                  ref.read(routeStatesProvider).state =
+                                  ref.read(routeStatesProvider.notifier).state =
                                       RouteStates(sbbRoute);
                                 }
                               : null,

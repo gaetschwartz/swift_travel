@@ -59,5 +59,6 @@
 	"new_fav": "Nouvel arrêt préféré",
 	"no_contacts": "Votre carnet d'adresses est vide",
 	"customization": "Personnalisation",
-	"advanced_settings": "Paramètres avancés"
+	"advanced_settings": "Paramètres avancés",
+	"share_as_image": "Partager comme image"
 }
