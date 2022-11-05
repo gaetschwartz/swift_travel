@@ -299,17 +299,15 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
       if (first.dist != null) {
         final public =
             completions.where((c) => !TransportationModeX.isAnAddress(c.type));
-        if (!mounted) return;
 
-        ref.read(_stateProvider.notifier).state =
-            StationStates.completions(completions);
         if (public.isNotEmpty) {
           log.log('Found : ${public.first}');
           searchController.text = public.first.label;
         }
       }
-      if (!mounted) return;
 
+      ref.read(_stateProvider.notifier).state =
+          StationStates.completions(completions);
       ref.read(_locatingProvider.notifier).state = _LoadingState.idle;
     } on Exception catch (e) {
       onError(e);

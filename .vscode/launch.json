@@ -25,6 +25,16 @@
       ]
     },
     {
+      "name": "Launch (spoof location)",
+      "request": "launch",
+      "type": "dart",
+      "program": "app/lib/main.dart",
+      "args": [
+        "--dart-define",
+        "SPOOF_LOCATION=true"
+      ]
+    },
+    {
       "name": "Launch (mock release)",
       "request": "launch",
       "type": "dart",
