@@ -83,6 +83,7 @@ workflows:
       - google-play-deploy@3:
           inputs:
             - service_account_json_key_path: $BITRISEIO_SERVICE_ACCOUNT_URL
+            - retry_without_sending_to_review: "true"
             - package_name: com.gaetanschwartz.swiss_travel
       - cache-push@2: {}
     after_run: []
