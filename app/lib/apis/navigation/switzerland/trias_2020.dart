@@ -53,33 +53,66 @@ class Trias2020Api implements BaseNavigationApi {
     final completions = locations.map((loc) {
       final e = loc['trias:Location']!;
       final stopPoint = e['trias:StopPoint'];
-      final name = stopPoint?['trias:StopPointName']?.getTriasText()?.text;
-      final id = stopPoint?['trias:StopPointRef']?.text;
-      final geo = e['trias:GeoPosition']!;
+      final stopPlace = e['trias:StopPlace'];
+      if (stopPoint != null) {
+        final name = stopPoint['trias:StopPointName']?.getTriasText()?.text;
+        final id = stopPoint['trias:StopPointRef']?.text;
+        final geo = e['trias:GeoPosition']!;
 
-      final probability = _parseDouble(loc['trias:Probability']?.text);
-      final complete = loc['trias:Complete']?.text == 'true';
-      final modes = loc.findElements('trias:Mode').map((e) {
-        final mode = e['trias:PtMode']!.text;
-        final submode = e.childElements
-            .where(
-              (e) =>
-                  e.name.qualified != 'trias:PtMode' &&
-                  e.name.local.contains('Submode'),
-            )
-            .firstOrNull
-            ?.text;
-        return TriasPtMode(mode, submode);
-      }).toList();
+        final probability = _parseDouble(loc['trias:Probability']?.text);
+        final complete = loc['trias:Complete']?.text == 'true';
+        final modes = loc.findElements('trias:Mode').map((e) {
+          final mode = e['trias:PtMode']!.text;
+          final submode = e.childElements
+              .where(
+                (e) =>
+                    e.name.qualified != 'trias:PtMode' &&
+                    e.name.local.contains('Submode'),
+              )
+              .firstOrNull
+              ?.text;
+          return TriasPtMode(mode, submode);
+        }).toList();
 
-      return TriasLocation(
-        stopPointName: name ?? 'name',
-        stopPointRef: id ?? 'id',
-        geoPosition: TriasGeoPosition.fromXML(geo),
-        complete: complete,
-        probability: probability,
-        modes: modes,
-      );
+        return TriasLocation(
+          stopPointName: name ?? 'name',
+          stopPointRef: id ?? 'id',
+          geoPosition: TriasGeoPosition.fromXML(geo),
+          complete: complete,
+          probability: probability,
+          modes: modes,
+        );
+      } else if (stopPlace != null) {
+        final name = stopPlace['trias:StopPlaceName']?.getTriasText()?.text;
+        final id = stopPlace['trias:StopPlaceRef']?.text;
+        final geo = e['trias:GeoPosition']!;
+
+        final probability = _parseDouble(loc['trias:Probability']?.text);
+        final complete = loc['trias:Complete']?.text == 'true';
+        final modes = loc.findElements('trias:Mode').map((e) {
+          final mode = e['trias:PtMode']!.text;
+          final submode = e.childElements
+              .where(
+                (e) =>
+                    e.name.qualified != 'trias:PtMode' &&
+                    e.name.local.contains('Submode'),
+              )
+              .firstOrNull
+              ?.text;
+          return TriasPtMode(mode, submode);
+        }).toList();
+
+        return TriasLocation(
+          stopPointName: name!,
+          stopPointRef: id!,
+          geoPosition: TriasGeoPosition.fromXML(geo),
+          complete: complete,
+          probability: probability,
+          modes: modes,
+        );
+      } else {
+        throw Exception('Unknown location type');
+      }
     }).toList();
 
     return completions;
@@ -209,14 +242,14 @@ class Trias2020Api implements BaseNavigationApi {
       url,
       headers: {
         'Authorization': apiKey,
-        'Content-Type': 'application/xml',
+        'Content-Type': 'text/xml',
       },
       body: const Trias2020RequestBuilder().search(_GeoPosition(
         lon: lon,
         lat: lat,
       )),
     );
-    return parseLocations(res.body);
+    return parseLocations(utf8.decode(res.bodyBytes));
   }
 
   @override
