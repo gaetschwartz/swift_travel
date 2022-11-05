@@ -41,7 +41,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.gaetanschwartz.swift_travel"
+        applicationId "com.gaetanschwartz.swiss_travel"
         minSdkVersion 23
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
