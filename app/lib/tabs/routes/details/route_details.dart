@@ -4,7 +4,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
@@ -19,8 +18,6 @@ import 'package:swift_travel/tabs/routes/details/tiles/departure_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/transport/transport_tile.dart';
 import 'package:swift_travel/tabs/routes/details/tiles/walking_tile.dart';
 import 'package:swift_travel/utils/share.dart';
-import 'package:swift_travel/utils/strings/format.dart';
-import 'package:swift_travel/utils/strings/strings.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:vibration/vibration.dart';
@@ -151,7 +148,6 @@ class _RouteDetailsState extends State<RouteDetails> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              _Header(widget.route!.connections[widget.i]),
               DepartureTile(widget.route!.connections[widget.i]),
               for (final leg in widget.route!.connections[widget.i].legs)
                 LegTile(leg),
@@ -182,81 +178,6 @@ class _RouteDetailsState extends State<RouteDetails> {
       // sharePositionOrigin: const Rect.fromLTWH(0, 0, 0, 0),
     );
   }
-}
-
-class _Header extends StatelessWidget {
-  const _Header(this.c);
-
-  final RouteConnection c;
-
-  @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          const Gap(8),
-          DefaultTextStyle(
-            style: Theme.of(context).textTheme.bodyLarge!,
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _DataRow(
-                      AppLocalizations.of(context).departure, c.from.stripAt()),
-                  _DataRow(
-                      AppLocalizations.of(context).destination, c.to.stripAt()),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(AppLocalizations.of(context).travel_duration),
-                      const Gap(8),
-                      Expanded(
-                          child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text.rich(
-                                TextSpan(children: [
-                                  TextSpan(
-                                      text:
-                                          '${Format.time(c.departure)} - ${Format.time(c.arrival)}',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(
-                                      text: ' (${Format.duration(c.duration)})')
-                                ]),
-                                textAlign: TextAlign.end,
-                              )))
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const Divider(height: 8),
-        ],
-      );
-}
-
-class _DataRow extends StatelessWidget {
-  const _DataRow(this.title, this.text);
-
-  final String title;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(title),
-          const Gap(8),
-          Expanded(
-              child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    text,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.end,
-                  )))
-        ],
-      );
 }
 
 class LegTile extends StatelessWidget {
