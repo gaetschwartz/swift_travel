@@ -295,8 +295,8 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
       final completions =
           await ref.read(navigationAPIProvider).find(p.latitude, p.longitude);
 
-      final first = completions.first;
-      if (first.dist != null) {
+      final first = completions.firstOrNull;
+      if (first?.dist != null) {
         final public =
             completions.where((c) => !TransportationModeX.isAnAddress(c.type));
 
@@ -309,16 +309,13 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
       ref.read(_stateProvider.notifier).state =
           StationStates.completions(completions);
       ref.read(_locatingProvider.notifier).state = _LoadingState.idle;
-    } on Exception catch (e) {
-      onError(e);
-      // ignore: avoid_catching_errors
-    } on Error catch (e) {
-      onError(e);
+    } on Exception catch (e, s) {
+      onError(e, s);
     }
   }
 
-  void onError(Object e) {
-    log.log(e.toString(), channel: 'Location');
+  void onError(Object e, StackTrace s) {
+    log.e(e.toString(), channel: 'Location', stackTrace: s);
     ref.read(_locatingProvider.notifier).state = _LoadingState.error;
     Future.delayed(_kAnimDuration * (5 / 8), cancelAnimation);
   }
