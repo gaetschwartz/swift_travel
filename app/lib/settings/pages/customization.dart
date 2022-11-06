@@ -219,14 +219,14 @@ class _ThememodeWidget extends StatelessWidget {
                                 left: 8, right: 8, bottom: 8, top: 4),
                             child: Text(
                               label,
-                              style: t.textTheme.titleLarge!
+                              style: t.textTheme.titleMedium!
                                   .copyWith(color: Colors.black),
                             ),
                           ),
                         ),
                       ),
                     )
-                  : Text(label, style: t.textTheme.titleLarge),
+                  : Text(label, style: t.textTheme.titleMedium),
             ),
           ),
         ),
