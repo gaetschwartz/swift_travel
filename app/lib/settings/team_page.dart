@@ -29,7 +29,7 @@ class TeamPage extends StatefulWidget {
       'Abin W.',
       role: 'Testing, Icon design'
           '\nand ❤ ',
-      imageUrl: 'assets/profiles/abin2.jpg',
+      imageUrl: 'assets/profiles/abin.jpeg',
     ),
   ];
 
@@ -38,11 +38,6 @@ class TeamPage extends StatefulWidget {
       'David M.',
       role: 'Icon design, testing',
       imageUrl: 'assets/profiles/david.jpg',
-    ),
-    Member(
-      'Vincent',
-      role: 'Early work',
-      isAssets: false,
     ),
     Member(
       'Alexandre',
