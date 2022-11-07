@@ -21,9 +21,6 @@ class SncfPlace with _$SncfPlace implements NavigationCompletion {
       _$SncfPlaceFromJson(json);
 
   @override
-  double? get dist => null;
-
-  @override
   DataOrigin get origin => DataOrigin.data;
 
   @override
@@ -34,4 +31,11 @@ class SncfPlace with _$SncfPlace implements NavigationCompletion {
 
   @override
   Widget get icon => SbbIcon(type);
+
+  @override
+  Coordinates? get coordinates => null;
+
+  @override
+  // TODO: implement dist
+  double? get dist => null;
 }

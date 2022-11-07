@@ -37,9 +37,6 @@ class GeoAdminResult with _$GeoAdminResult implements NavigationCompletion {
   String get id => intId.toString();
 
   @override
-  double? get dist => null;
-
-  @override
   String? get favoriteName => null;
 
   @override
@@ -53,6 +50,14 @@ class GeoAdminResult with _$GeoAdminResult implements NavigationCompletion {
 
   @override
   PlaceType? get type => null;
+
+// TODO: implement coordinates
+  @override
+  Coordinates? get coordinates => null;
+
+// TODO: implement dist
+  @override
+  double? get dist => null;
 }
 
 @freezed

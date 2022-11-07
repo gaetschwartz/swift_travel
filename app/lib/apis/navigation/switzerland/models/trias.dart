@@ -20,11 +20,10 @@ class TriasLocation with _$TriasLocation implements NavigationCompletion {
     required final bool complete,
     @Default(1.0) final double probability,
     @Default(<TriasPtMode>[]) final List<TriasPtMode> modes,
+    Coordinates? coordinates,
+    double? dist,
   }) = _TriasLocation;
   const TriasLocation._();
-
-  @override
-  double? get dist => null;
 
   @override
   String? get favoriteName => null;
@@ -43,6 +42,8 @@ class TriasLocation with _$TriasLocation implements NavigationCompletion {
 
   @override
   PlaceType? get type => PlaceType.unknown;
+
+  // TODO: implement coordinates
 }
 
 @freezed
