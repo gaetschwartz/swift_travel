@@ -177,7 +177,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get unable_locate => 'Impossibile ottenere la posizione.';
 
   @override
-  String get unsupported_area => 'Non sembra che tu sia in una zona supportata.';
+  String get unsupported_area =>
+      'Non sembra che tu sia in una zona supportata.';
 
   @override
   String get use_current_location => 'Utilizzare la posizione corrente';

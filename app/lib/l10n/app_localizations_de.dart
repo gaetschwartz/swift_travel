@@ -177,7 +177,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get unable_locate => 'Der Standort kann nicht ermittelt werden.';
 
   @override
-  String get unsupported_area => 'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
+  String get unsupported_area =>
+      'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
 
   @override
   String get use_current_location => 'Aktuellen Standort verwenden';
