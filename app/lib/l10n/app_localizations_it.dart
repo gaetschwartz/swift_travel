@@ -10,7 +10,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get add_to_favs => 'Aggiungi ai preferiti';
 
   @override
+  String get advanced_settings => 'Impostazioni avanzate';
+
+  @override
   String get arrival => 'Arrivo';
+
+  @override
+  String get arrive => 'Arrivo';
 
   @override
   String get brightness => 'Luminosità';
@@ -31,10 +37,19 @@ class AppLocalizationsIt extends AppLocalizations {
   String get close => 'Chiudere';
 
   @override
+  String get contact_no_address => 'Questo contatto non ha nessun indirizzo';
+
+  @override
+  String get contacts => 'Contatti';
+
+  @override
   String get continue_ => 'Continua';
 
   @override
   String get current_location => 'Posizione attuale';
+
+  @override
+  String get customization => 'Personalizzazione';
 
   @override
   String get delete => 'Cancellare';
@@ -52,7 +67,15 @@ class AppLocalizationsIt extends AppLocalizations {
   String get developer => 'Sviluppatore';
 
   @override
+  String direction(String dir) {
+    return 'In direzione di $dir';
+  }
+
+  @override
   String get done => 'Fatto';
+
+  @override
+  String get failed_get_contact => 'Impossibile ottenere la rubrica';
 
   @override
   String get fav_route => 'Salvare il percorso';
@@ -67,6 +90,15 @@ class AppLocalizationsIt extends AppLocalizations {
   String get from => 'a partire dal';
 
   @override
+  String get itinerary => 'Percorso';
+
+  @override
+  String get journey_informations => 'Informazioni sul viaggio';
+
+  @override
+  String get live_route => 'Percorso in diretta';
+
+  @override
   String get maps_app => 'Applicazione mappe';
 
   @override
@@ -76,7 +108,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get navigation_api => 'API di navigazione';
 
   @override
+  String get new_fav => 'Nuova fermata preferita';
+
+  @override
   String get no => 'No';
+
+  @override
+  String get no_contacts => 'La tua rubrica è vuota';
 
   @override
   String get our_team => 'Il nostro team';
@@ -91,6 +129,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get reset_settings => 'Reimpostare le impostazioni';
 
   @override
+  String get route_to => 'Percorso';
+
+  @override
   String get search => 'Ricerca';
 
   @override
@@ -98,6 +139,18 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get settings => 'Impostazioni';
+
+  @override
+  String get share => 'Azione';
+
+  @override
+  String get share_as_image => 'Condividi come immagine';
+
+  @override
+  String get start => 'Inizio';
+
+  @override
+  String get suggestion => 'Suggerimento';
 
   @override
   String get tabs_favourites => 'Preferiti';
@@ -119,6 +172,12 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get travel_duration => 'Durata del viaggio';
+
+  @override
+  String get unable_locate => 'Impossibile ottenere la posizione.';
+
+  @override
+  String get unsupported_area => 'Non sembra che tu sia in una zona supportata.';
 
   @override
   String get use_current_location => 'Utilizzare la posizione corrente';
@@ -146,60 +205,4 @@ class AppLocalizationsIt extends AppLocalizations {
   String youll_be_there(String time) {
     return 'Arrivi a *$time*.';
   }
-
-  @override
-  String get suggestion => 'Suggerimento';
-
-  @override
-  String get live_route => 'Percorso in diretta';
-
-  @override
-  String get share => 'Azione';
-
-  @override
-  String get journey_informations => 'Informazioni sul viaggio';
-
-  @override
-  String direction(String dir) {
-    return 'In direzione di $dir';
-  }
-
-  @override
-  String get itinerary => 'Percorso';
-
-  @override
-  String get unable_locate => 'Impossibile ottenere la posizione.';
-
-  @override
-  String get unsupported_area => 'Non sembra che tu sia in una zona supportata.';
-
-  @override
-  String get contact_no_address => 'Questo contatto non ha nessun indirizzo';
-
-  @override
-  String get contacts => 'Contatti';
-
-  @override
-  String get failed_get_contact => 'Impossibile ottenere la rubrica';
-
-  @override
-  String get new_fav => 'Nuova fermata preferita';
-
-  @override
-  String get no_contacts => 'La tua rubrica è vuota';
-
-  @override
-  String get customization => 'Personalizzazione';
-
-  @override
-  String get advanced_settings => 'Impostazioni avanzate';
-
-  @override
-  String get share_as_image => 'Condividi come immagine';
-
-  @override
-  String get start => 'Inizio';
-
-  @override
-  String get arrive => 'Arrivo';
 }

@@ -41,7 +41,7 @@ abstract class FetcherBase extends StateNotifier<RouteStates> {
     required LocationTextBoxManager from,
     required LocationTextBoxManager to,
     required DateTime date,
-    required TimeType timeType,
+    required SearchChMode timeType,
     required BaseNavigationApi api,
   });
 
@@ -59,7 +59,7 @@ class Fetcher extends FetcherBase {
     required LocationTextBoxManager from,
     required LocationTextBoxManager to,
     required DateTime date,
-    required TimeType timeType,
+    required SearchChMode timeType,
     required BaseNavigationApi api,
   }) async {
     if (kDebugMode) {

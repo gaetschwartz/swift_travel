@@ -10,7 +10,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get add_to_favs => 'Zu Favoriten hinzufügen ';
 
   @override
+  String get advanced_settings => 'Erweiterte Einstellungen';
+
+  @override
   String get arrival => 'Ankunft';
+
+  @override
+  String get arrive => 'Ankunft';
 
   @override
   String get brightness => 'Helligkeit';
@@ -31,10 +37,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String get close => 'Schließen';
 
   @override
+  String get contact_no_address => 'Dieser Kontakt hat keine Adresse';
+
+  @override
+  String get contacts => 'Kontakte';
+
+  @override
   String get continue_ => 'Fortsetzen';
 
   @override
   String get current_location => 'Aktueller Standort';
+
+  @override
+  String get customization => 'Personalisierung';
 
   @override
   String get delete => 'Löschen';
@@ -52,7 +67,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get developer => 'Entwickler';
 
   @override
+  String direction(String dir) {
+    return 'Richtung $dir';
+  }
+
+  @override
   String get done => 'Erledigt';
+
+  @override
+  String get failed_get_contact => 'Das Adressbuch kann nicht abgerufen werden';
 
   @override
   String get fav_route => 'Route speichern';
@@ -67,6 +90,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get from => 'von';
 
   @override
+  String get itinerary => 'Reiseplan';
+
+  @override
+  String get journey_informations => 'Fahrtinfo';
+
+  @override
+  String get live_route => 'Live-Strecke';
+
+  @override
   String get maps_app => 'Karten-App';
 
   @override
@@ -76,7 +108,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get navigation_api => 'Navigation-API';
 
   @override
+  String get new_fav => 'Neue Lieblingshaltestelle';
+
+  @override
   String get no => 'Nein';
+
+  @override
+  String get no_contacts => 'Ihr Adressbuch ist leer';
 
   @override
   String get our_team => 'Unser Team';
@@ -91,6 +129,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reset_settings => 'Einstellungen zurücksetzen';
 
   @override
+  String get route_to => 'Streck';
+
+  @override
   String get search => 'Suche';
 
   @override
@@ -98,6 +139,18 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get settings => 'Einstellungen';
+
+  @override
+  String get share => 'Aktie';
+
+  @override
+  String get share_as_image => 'Als Bild teilen';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get suggestion => 'Vorschlag';
 
   @override
   String get tabs_favourites => 'Favoriten';
@@ -119,6 +172,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get travel_duration => 'Reisedauer';
+
+  @override
+  String get unable_locate => 'Der Standort kann nicht ermittelt werden.';
+
+  @override
+  String get unsupported_area => 'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
 
   @override
   String get use_current_location => 'Aktuellen Standort verwenden';
@@ -146,60 +205,4 @@ class AppLocalizationsDe extends AppLocalizations {
   String youll_be_there(String time) {
     return 'Sie kommen zu *$time*.';
   }
-
-  @override
-  String get suggestion => 'Vorschlag';
-
-  @override
-  String get live_route => 'Live-Strecke';
-
-  @override
-  String get share => 'Aktie';
-
-  @override
-  String get journey_informations => 'Fahrtinfo';
-
-  @override
-  String direction(String dir) {
-    return 'Richtung $dir';
-  }
-
-  @override
-  String get itinerary => 'Reiseplan';
-
-  @override
-  String get unable_locate => 'Der Standort kann nicht ermittelt werden.';
-
-  @override
-  String get unsupported_area => 'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
-
-  @override
-  String get contact_no_address => 'Dieser Kontakt hat keine Adresse';
-
-  @override
-  String get contacts => 'Kontakte';
-
-  @override
-  String get failed_get_contact => 'Das Adressbuch kann nicht abgerufen werden';
-
-  @override
-  String get new_fav => 'Neue Lieblingshaltestelle';
-
-  @override
-  String get no_contacts => 'Ihr Adressbuch ist leer';
-
-  @override
-  String get customization => 'Personalisierung';
-
-  @override
-  String get advanced_settings => 'Erweiterte Einstellungen';
-
-  @override
-  String get share_as_image => 'Als Bild teilen';
-
-  @override
-  String get start => 'Start';
-
-  @override
-  String get arrive => 'Ankunft';
 }

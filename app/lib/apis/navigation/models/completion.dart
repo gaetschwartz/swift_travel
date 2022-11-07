@@ -1,11 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-
-part 'completion.freezed.dart';
 
 /// The response to [NavigationCompletionDelegateApi.complete]
 abstract class NavigationCompletion {
@@ -30,7 +27,7 @@ abstract class NavigationCompletion {
 
   /// Coordinates of the completion
   /// (if available)
-  Coordinates? get coordinates;
+  GeoCoordinates? get coordinates;
 
   /// Distance to the query if available
   double? get dist;
@@ -60,23 +57,31 @@ enum DataOrigin {
   contacts
 }
 
-@freezed
-class Coordinates with _$Coordinates {
-  const factory Coordinates({
-    required double lat,
-    required double lon,
-  }) = _Coordinates;
+mixin GeoCoordinates {
+  double get latitude;
+  double get longitude;
 
-  const Coordinates._();
+// haversine formula
+  static double distance(GeoCoordinates c1, GeoCoordinates c2) {
+    const earthRadius = 6378137.0;
+    final startLatitude = c1.latitude;
+    final startLongitude = c1.longitude;
+    final endLatitude = c2.latitude;
+    final endLongitude = c2.longitude;
+    final dLat = _toRadians(endLatitude - startLatitude);
+    final dLon = _toRadians(endLongitude - startLongitude);
 
-  double distanceTo(Coordinates other) {
-    const p = pi / 180; // Math.PI / 180
-    final a = 0.5 -
-        cos((other.lat - lat) * p) / 2 +
-        cos(lat * p) *
-            cos(other.lat * p) *
-            (1 - cos((other.lon - lon) * p)) /
-            2;
-    return 12742 * asin(sqrt(a)); // 2 * R; R = 6371 km
+    final a = pow(sin(dLat / 2), 2) +
+        pow(sin(dLon / 2), 2) *
+            cos(_toRadians(startLatitude)) *
+            cos(_toRadians(endLatitude));
+    final c = 2 * asin(sqrt(a));
+
+    return earthRadius * c;
   }
+
+  static const earthRadius = 6378137.0;
+  static const piDiv180 = pi / 180.0;
+
+  static double _toRadians(double deg) => deg * piDiv180;
 }

@@ -20,7 +20,6 @@ class TriasLocation with _$TriasLocation implements NavigationCompletion {
     required final bool complete,
     @Default(1.0) final double probability,
     @Default(<TriasPtMode>[]) final List<TriasPtMode> modes,
-    Coordinates? coordinates,
     double? dist,
   }) = _TriasLocation;
   const TriasLocation._();
@@ -43,7 +42,8 @@ class TriasLocation with _$TriasLocation implements NavigationCompletion {
   @override
   PlaceType? get type => PlaceType.unknown;
 
-  // TODO: implement coordinates
+  @override
+  GeoCoordinates? get coordinates => geoPosition;
 }
 
 @freezed
@@ -447,7 +447,7 @@ class TriasThisCall with _$TriasThisCall implements StationboardConnection {
 }
 
 @freezed
-class TriasGeoPosition with _$TriasGeoPosition {
+class TriasGeoPosition with _$TriasGeoPosition, GeoCoordinates {
   const factory TriasGeoPosition({
     required double latitude,
     required double longitude,

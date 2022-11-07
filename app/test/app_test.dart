@@ -38,7 +38,7 @@ class MockFetcher extends FetcherBase {
     required LocationTextBoxManager from,
     required LocationTextBoxManager to,
     required DateTime date,
-    required TimeType timeType,
+    required SearchChMode timeType,
     required BaseNavigationApi api,
   }) async {
     state = RouteStates(SbbRoute.fromJson(mockRoute));

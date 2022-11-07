@@ -135,7 +135,7 @@ class SearchChApi extends BaseNavigationApi {
   Future<StationBoard> stationboard(
     Stop stop, {
     DateTime? when,
-    TimeType timeType = TimeType.arrival,
+    SearchChMode mode = SearchChMode.departure,
     List<TransportationTypes> transportationTypes = const [],
   }) async {
     const limit = 32;
@@ -150,7 +150,7 @@ class SearchChApi extends BaseNavigationApi {
       'show_subsequent_stops': showSubsequentStops.toInt(),
       'show_delays': showDelays.toInt(),
       'show_trackchanges': showTrackchanges.toInt(),
-      'mode': timeType.name,
+      'mode': mode.name,
       if (transportationTypes.isNotEmpty)
         'transportation_types': transportationTypes.join(','),
     };
@@ -194,7 +194,7 @@ class SearchChApi extends BaseNavigationApi {
     String arrival, {
     required DateTime date,
     required TimeOfDay time,
-    TimeType timeType = TimeType.departure,
+    SearchChMode timeType = SearchChMode.departure,
     bool showDelays = true,
     int number = 4,
     int previous = 0,
@@ -260,4 +260,18 @@ class QueryBuilder<T> {
 
 enum TransportationTypes { train, tram, bus, ship, cableway }
 
-enum TimeType { departure, arrival }
+enum SearchChMode {
+  departure,
+  arrival,
+}
+
+extension SearchChModeX on SearchChMode {
+  String toApiString() {
+    switch (this) {
+      case SearchChMode.departure:
+        return 'depart';
+      case SearchChMode.arrival:
+        return 'arrival';
+    }
+  }
+}

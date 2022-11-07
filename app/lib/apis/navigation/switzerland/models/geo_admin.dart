@@ -53,7 +53,7 @@ class GeoAdminResult with _$GeoAdminResult implements NavigationCompletion {
 
 // TODO: implement coordinates
   @override
-  Coordinates? get coordinates => null;
+  GeoCoordinates? get coordinates => null;
 
 // TODO: implement dist
   @override

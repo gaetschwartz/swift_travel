@@ -152,7 +152,7 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
           'Bern',
           date: DateTime.now(),
           time: TimeOfDay.now(),
-          timeType: TimeType.departure,
+          timeType: SearchChMode.departure,
         );
         if (sbbRoute.connections.isNotEmpty) {
           final from = sbbRoute.connections.first.from;
