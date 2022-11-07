@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/models/purchase.dart';
 
 final inAppPurchaseManagerProvider = ChangeNotifierProvider(
-  (ref) => InAppPurchaseManager(),
+  (ref) => InAppPurchaseManager()..init(),
 );
 
 class InAppPurchaseManager extends ChangeNotifier {

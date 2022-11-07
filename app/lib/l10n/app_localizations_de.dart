@@ -177,8 +177,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get unable_locate => 'Der Standort kann nicht ermittelt werden.';
 
   @override
-  String get unsupported_area =>
-      'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
+  String get unsupported_area => 'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
 
   @override
   String get use_current_location => 'Aktuellen Standort verwenden';
@@ -206,71 +205,4 @@ class AppLocalizationsDe extends AppLocalizations {
   String youll_be_there(String time) {
     return 'Sie kommen zu *$time*.';
   }
-
-  @override
-  String get suggestion => 'Vorschlag';
-
-  @override
-  String get live_route => 'Live-Strecke';
-
-  @override
-  String get share => 'Aktie';
-
-  @override
-  String get journey_informations => 'Fahrtinfo';
-
-  @override
-  String direction(String dir) {
-    return 'Richtung $dir';
-  }
-
-  @override
-  String get itinerary => 'Reiseplan';
-
-  @override
-  String get unable_locate => 'Der Standort kann nicht ermittelt werden.';
-
-  @override
-  String get unsupported_area =>
-      'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
-
-  @override
-  String get contact_no_address => 'Dieser Kontakt hat keine Adresse';
-
-  @override
-  String get contacts => 'Kontakte';
-
-  @override
-  String get failed_get_contact => 'Das Adressbuch kann nicht abgerufen werden';
-
-  @override
-  String get new_fav => 'Neue Lieblingshaltestelle';
-
-  @override
-  String get no_contacts => 'Ihr Adressbuch ist leer';
-
-  @override
-  String get customization => 'Personalisierung';
-
-  @override
-  String get advanced_settings => 'Erweiterte Einstellungen';
-
-  @override
-  String get share_as_image => 'Als Bild teilen';
-
-  @override
-  String get start => 'Start';
-
-  @override
-  String get arrive => 'Ankunft';
-
-  @override
-  String get in_app_purchases => 'In-App-Käufe';
-
-  @override
-  String get in_app_purchases_description =>
-      'Sie können uns durch den Kauf der folgenden Funktionen unterstützen:';
-
-  @override
-  String get in_app_purchases_available => 'Verfügbare Funktionen';
 }

@@ -13,6 +13,7 @@ import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/pages/purchases.dart';
 import 'package:swift_travel/settings/pages/advanced.dart';
 import 'package:swift_travel/settings/pages/customization.dart';
 import 'package:swift_travel/settings/pages/developer.dart';
@@ -87,6 +88,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         ))),
         tileBorders: const TileBorders(top: true),
       ),
+      // in app purchases
+      if (Env.isDebugMode)
+        SwiftSettingsTile(
+          title: const Text('In-App Purchases'),
+          leading: const Icon(Icons.shop),
+          onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
+            builder: (_) => const InAppPurchasesPage(),
+            title: AppLocalizations.of(context).developer,
+          ))),
+        ),
       Consumer(builder: (context, w, _) {
         final isDev = w.watch(isDeveloperProvider).value;
         return SwiftSettingsTile(
@@ -269,8 +280,7 @@ class ColorRow extends StatelessWidget {
 }
 
 class _ColorCircle extends StatelessWidget {
-  const _ColorCircle(
-    this.color);
+  const _ColorCircle(this.color);
 
   final Color color;
 
@@ -300,7 +310,7 @@ class _ColorCircle extends StatelessWidget {
 class _ScrollProgress extends StatefulWidget {
   const _ScrollProgress({
     required ScrollController controller,
-  })  : _controller = controller;
+  }) : _controller = controller;
 
   final ScrollController _controller;
 

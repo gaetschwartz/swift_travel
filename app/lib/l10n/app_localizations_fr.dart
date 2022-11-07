@@ -10,7 +10,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get add_to_favs => 'Ajouter aux Favoris';
 
   @override
+  String get advanced_settings => 'Paramètres avancés';
+
+  @override
   String get arrival => 'Arrivée';
+
+  @override
+  String get arrive => 'Arrivée';
 
   @override
   String get brightness => 'Luminosité';
@@ -31,10 +37,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get close => 'Fermer';
 
   @override
+  String get contact_no_address => 'Ce contact n\'a pas d\'adresse';
+
+  @override
+  String get contacts => 'Contacts';
+
+  @override
   String get continue_ => 'Continuer';
 
   @override
   String get current_location => 'Localisation actuelle';
+
+  @override
+  String get customization => 'Personnalisation';
 
   @override
   String get delete => 'Supprimer';
@@ -52,7 +67,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get developer => 'Développeur';
 
   @override
+  String direction(String dir) {
+    return 'Direction $dir';
+  }
+
+  @override
   String get done => 'Terminé';
+
+  @override
+  String get failed_get_contact => 'Impossible d\'obtenir le carnet d\'adresses';
 
   @override
   String get fav_route => 'Ajouter la route aux favoris';
@@ -67,6 +90,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get from => 'de';
 
   @override
+  String get itinerary => 'Itinéraire';
+
+  @override
+  String get journey_informations => 'Itinéraire';
+
+  @override
+  String get live_route => 'Parcours en direct';
+
+  @override
   String get maps_app => 'Application de cartes';
 
   @override
@@ -76,7 +108,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get navigation_api => 'API de navigation';
 
   @override
+  String get new_fav => 'Nouvel arrêt préféré';
+
+  @override
   String get no => 'Non';
+
+  @override
+  String get no_contacts => 'Votre carnet d\'adresses est vide';
 
   @override
   String get our_team => 'Notre équipe';
@@ -91,6 +129,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get reset_settings => 'Réinitialiser les paramètres';
 
   @override
+  String get route_to => 'Itinéraire';
+
+  @override
   String get search => 'Recherche';
 
   @override
@@ -98,6 +139,18 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get settings => 'Paramètres';
+
+  @override
+  String get share => 'Partager';
+
+  @override
+  String get share_as_image => 'Partager comme image';
+
+  @override
+  String get start => 'Départ';
+
+  @override
+  String get suggestion => 'Suggestion';
 
   @override
   String get tabs_favourites => 'Favoris';
@@ -119,6 +172,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get travel_duration => 'Durée du voyage';
+
+  @override
+  String get unable_locate => 'Impossible d\'obtenir la localisation.';
+
+  @override
+  String get unsupported_area => 'Vous n\'avez pas l\'air d\'être dans une zone prise en charge.';
 
   @override
   String get use_current_location => 'Utiliser l\'emplacement actuel';
@@ -146,69 +205,4 @@ class AppLocalizationsFr extends AppLocalizations {
   String youll_be_there(String time) {
     return 'Vous arrivez à *$time*.';
   }
-
-  @override
-  String get suggestion => 'Suggestion';
-
-  @override
-  String get live_route => 'Parcours en direct';
-
-  @override
-  String get share => 'Partager';
-
-  @override
-  String get journey_informations => 'Itinéraire';
-
-  @override
-  String direction(String dir) {
-    return 'Direction $dir';
-  }
-
-  @override
-  String get itinerary => 'Itinéraire';
-
-  @override
-  String get unable_locate => 'Impossible d\'obtenir la localisation.';
-
-  @override
-  String get unsupported_area => 'Vous n\'avez pas l\'air d\'être dans une zone prise en charge.';
-
-  @override
-  String get contact_no_address => 'Ce contact n\'a pas d\'adresse';
-
-  @override
-  String get contacts => 'Contacts';
-
-  @override
-  String get failed_get_contact => 'Impossible d\'obtenir le carnet d\'adresses';
-
-  @override
-  String get new_fav => 'Nouvel arrêt préféré';
-
-  @override
-  String get no_contacts => 'Votre carnet d\'adresses est vide';
-
-  @override
-  String get customization => 'Personnalisation';
-
-  @override
-  String get advanced_settings => 'Paramètres avancés';
-
-  @override
-  String get share_as_image => 'Partager comme image';
-
-  @override
-  String get start => 'Départ';
-
-  @override
-  String get arrive => 'Arrivée';
-
-  @override
-  String get in_app_purchases => 'Achats intégrés';
-
-  @override
-  String get in_app_purchases_description => 'Vous pouvez nous soutenir en achetant les fonctionnalités suivantes:';
-
-  @override
-  String get in_app_purchases_available => 'Fonctionnalités disponibles';
 }

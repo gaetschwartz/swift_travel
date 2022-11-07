@@ -14,7 +14,7 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 
 class InAppPurchasesPage extends StatefulWidget {
-  const InAppPurchasesPage({Key? key}) : super(key: key);
+  const InAppPurchasesPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _InAppPurchasesPageState();
@@ -46,61 +46,61 @@ class _Main extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final inApp = ref.watch(inAppPurchaseManagerProvider);
     return Padding(
-      padding: const EdgeInsets.all(8),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Text(
-              AppLocalizations.of(context).in_app_purchases,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
-          ),
-          SliverToBoxAdapter(
-            child: Text(
-              AppLocalizations.of(context).in_app_purchases_description,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
-          ),
-          SliverToBoxAdapter(
-            child: Text(
-              AppLocalizations.of(context).in_app_purchases_available,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
-          ),
-          inApp.products.when(
-            products: (data) {
-              return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, i) {
-                    final product = data[i];
-                    return _ProductTile(product: product);
-                  },
-                  childCount: data.length,
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          await ref.read(inAppPurchaseManagerProvider.notifier).getProducts();
+        },
+        child: CustomScrollView(
+          slivers: [
+            SliverSafeArea(
+              bottom: false,
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'In-App Purchases',
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-              );
-            },
-            iapError: (e) => SliverToBoxAdapter(
-              child: Text(e.toString()),
-            ),
-            unavailable: () => const SliverToBoxAdapter(
-              child: Text(
-                'The store is unavailable, please try again later',
               ),
             ),
-            loading: () => const SliverToBoxAdapter(
-              child: Center(child: CircularProgressIndicator()),
+            const SliverGap(16),
+            SliverToBoxAdapter(
+              child: Text(
+                'You can support the development of this app by purchasing one of the following products. ',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
             ),
-          )
-        ],
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 8),
+            ),
+            inApp.products.when(
+              products: (data) {
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, i) {
+                      return _ProductTile(product: data[i]);
+                    },
+                    childCount: data.length,
+                  ),
+                );
+              },
+              iapError: (e) => SliverToBoxAdapter(
+                child: Text(
+                  e.toString(),
+                ),
+              ),
+              unavailable: () => const SliverToBoxAdapter(
+                child: Text(
+                  'The store is unavailable, please try again later',
+                ),
+              ),
+              loading: () => const SliverToBoxAdapter(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -121,6 +121,8 @@ class _ProductTile extends ConsumerWidget {
       title: Text(product.title),
       subtitle: Text(product.description),
       trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(product.price),
           if (purchased) ...[
