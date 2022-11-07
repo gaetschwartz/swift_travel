@@ -66,7 +66,7 @@ abstract class BaseNavigationApi implements NavigationCompletionDelegateApi {
   Future<StationBoard> stationboard(
     Stop stop, {
     DateTime? when,
-    TimeType timeType = TimeType.departure,
+    SearchChMode mode = SearchChMode.departure,
     List<TransportationTypes> transportationTypes = const [],
   });
 
@@ -76,7 +76,7 @@ abstract class BaseNavigationApi implements NavigationCompletionDelegateApi {
     String arrival, {
     required DateTime date,
     required TimeOfDay time,
-    TimeType timeType = TimeType.arrival,
+    SearchChMode timeType = SearchChMode.arrival,
   });
 
   @override

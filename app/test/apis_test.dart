@@ -90,7 +90,7 @@ class MockNavigationApi extends BaseNavigationApi {
   Future<SbbStationboard> stationboard(
     Stop stop, {
     DateTime? when,
-    TimeType? timeType,
+    SearchChMode? mode,
     List<TransportationTypes>? transportationTypes,
   }) =>
       Future.value(SbbStationboard.fromJson(mockStationboard));
@@ -99,7 +99,7 @@ class MockNavigationApi extends BaseNavigationApi {
   Future<SbbRoute> route(String departure, String arrival,
           {required DateTime date,
           required TimeOfDay time,
-          TimeType? timeType,
+          SearchChMode? timeType,
           bool? showDelays,
           int? previous}) =>
       Future.value(SbbRoute.fromJson(mockRoute));

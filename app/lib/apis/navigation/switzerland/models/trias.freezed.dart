@@ -22,7 +22,6 @@ mixin _$TriasLocation {
   bool get complete => throw _privateConstructorUsedError;
   double get probability => throw _privateConstructorUsedError;
   List<TriasPtMode> get modes => throw _privateConstructorUsedError;
-  Coordinates? get coordinates => throw _privateConstructorUsedError;
   double? get dist => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -43,11 +42,9 @@ abstract class $TriasLocationCopyWith<$Res> {
       bool complete,
       double probability,
       List<TriasPtMode> modes,
-      Coordinates? coordinates,
       double? dist});
 
   $TriasGeoPositionCopyWith<$Res> get geoPosition;
-  $CoordinatesCopyWith<$Res>? get coordinates;
 }
 
 /// @nodoc
@@ -69,7 +66,6 @@ class _$TriasLocationCopyWithImpl<$Res, $Val extends TriasLocation>
     Object? complete = null,
     Object? probability = null,
     Object? modes = null,
-    Object? coordinates = freezed,
     Object? dist = freezed,
   }) {
     return _then(_value.copyWith(
@@ -97,10 +93,6 @@ class _$TriasLocationCopyWithImpl<$Res, $Val extends TriasLocation>
           ? _value.modes
           : modes // ignore: cast_nullable_to_non_nullable
               as List<TriasPtMode>,
-      coordinates: freezed == coordinates
-          ? _value.coordinates
-          : coordinates // ignore: cast_nullable_to_non_nullable
-              as Coordinates?,
       dist: freezed == dist
           ? _value.dist
           : dist // ignore: cast_nullable_to_non_nullable
@@ -113,18 +105,6 @@ class _$TriasLocationCopyWithImpl<$Res, $Val extends TriasLocation>
   $TriasGeoPositionCopyWith<$Res> get geoPosition {
     return $TriasGeoPositionCopyWith<$Res>(_value.geoPosition, (value) {
       return _then(_value.copyWith(geoPosition: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CoordinatesCopyWith<$Res>? get coordinates {
-    if (_value.coordinates == null) {
-      return null;
-    }
-
-    return $CoordinatesCopyWith<$Res>(_value.coordinates!, (value) {
-      return _then(_value.copyWith(coordinates: value) as $Val);
     });
   }
 }
@@ -144,13 +124,10 @@ abstract class _$$_TriasLocationCopyWith<$Res>
       bool complete,
       double probability,
       List<TriasPtMode> modes,
-      Coordinates? coordinates,
       double? dist});
 
   @override
   $TriasGeoPositionCopyWith<$Res> get geoPosition;
-  @override
-  $CoordinatesCopyWith<$Res>? get coordinates;
 }
 
 /// @nodoc
@@ -170,7 +147,6 @@ class __$$_TriasLocationCopyWithImpl<$Res>
     Object? complete = null,
     Object? probability = null,
     Object? modes = null,
-    Object? coordinates = freezed,
     Object? dist = freezed,
   }) {
     return _then(_$_TriasLocation(
@@ -198,10 +174,6 @@ class __$$_TriasLocationCopyWithImpl<$Res>
           ? _value._modes
           : modes // ignore: cast_nullable_to_non_nullable
               as List<TriasPtMode>,
-      coordinates: freezed == coordinates
-          ? _value.coordinates
-          : coordinates // ignore: cast_nullable_to_non_nullable
-              as Coordinates?,
       dist: freezed == dist
           ? _value.dist
           : dist // ignore: cast_nullable_to_non_nullable
@@ -220,7 +192,6 @@ class _$_TriasLocation extends _TriasLocation {
       required this.complete,
       this.probability = 1.0,
       final List<TriasPtMode> modes = const <TriasPtMode>[],
-      this.coordinates,
       this.dist})
       : _modes = modes,
         super._();
@@ -245,13 +216,11 @@ class _$_TriasLocation extends _TriasLocation {
   }
 
   @override
-  final Coordinates? coordinates;
-  @override
   final double? dist;
 
   @override
   String toString() {
-    return 'TriasLocation(stopPointName: $stopPointName, stopPointRef: $stopPointRef, geoPosition: $geoPosition, complete: $complete, probability: $probability, modes: $modes, coordinates: $coordinates, dist: $dist)';
+    return 'TriasLocation(stopPointName: $stopPointName, stopPointRef: $stopPointRef, geoPosition: $geoPosition, complete: $complete, probability: $probability, modes: $modes, dist: $dist)';
   }
 
   @override
@@ -270,8 +239,6 @@ class _$_TriasLocation extends _TriasLocation {
             (identical(other.probability, probability) ||
                 other.probability == probability) &&
             const DeepCollectionEquality().equals(other._modes, _modes) &&
-            (identical(other.coordinates, coordinates) ||
-                other.coordinates == coordinates) &&
             (identical(other.dist, dist) || other.dist == dist));
   }
 
@@ -284,7 +251,6 @@ class _$_TriasLocation extends _TriasLocation {
       complete,
       probability,
       const DeepCollectionEquality().hash(_modes),
-      coordinates,
       dist);
 
   @JsonKey(ignore: true)
@@ -302,7 +268,6 @@ abstract class _TriasLocation extends TriasLocation {
       required final bool complete,
       final double probability,
       final List<TriasPtMode> modes,
-      final Coordinates? coordinates,
       final double? dist}) = _$_TriasLocation;
   const _TriasLocation._() : super._();
 
@@ -318,8 +283,6 @@ abstract class _TriasLocation extends TriasLocation {
   double get probability;
   @override
   List<TriasPtMode> get modes;
-  @override
-  Coordinates? get coordinates;
   @override
   double? get dist;
   @override

@@ -35,7 +35,7 @@ import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
-final timeTypeProvider = StateProvider((_) => TimeType.departure);
+final timeTypeProvider = StateProvider((_) => SearchChMode.departure);
 final dateProvider = StateProvider((_) => DateTime.now());
 
 final appLocalizationsProvider =
@@ -85,11 +85,9 @@ class RoutePage extends ConsumerStatefulWidget {
       : favStop = null,
         localRoute = null;
 
-  const RoutePage.route(this.localRoute, {super.key})
-      : favStop = null;
+  const RoutePage.route(this.localRoute, {super.key}) : favStop = null;
 
-  const RoutePage.stop(this.favStop, {super.key})
-      : localRoute = null;
+  const RoutePage.stop(this.favStop, {super.key}) : localRoute = null;
 
   final LocalRoute? localRoute;
   final FavoriteStop? favStop;
@@ -134,7 +132,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
   void clearProviders() {
     ref.read(routeStatesProvider.notifier).state = const RouteStates.empty();
     ref.read(dateProvider.notifier).state = DateTime.now();
-    ref.read(timeTypeProvider.notifier).state = TimeType.departure;
+    ref.read(timeTypeProvider.notifier).state = SearchChMode.departure;
   }
 
   @override
@@ -564,27 +562,27 @@ class _Segmented extends StatefulWidget {
     required this.initialValue,
   });
 
-  final ValueChanged<TimeType> onChange;
-  final TimeType initialValue;
+  final ValueChanged<SearchChMode> onChange;
+  final SearchChMode initialValue;
 
   @override
   __SegmentedState createState() => __SegmentedState();
 }
 
 class __SegmentedState extends State<_Segmented> {
-  late TimeType _type = widget.initialValue;
+  late SearchChMode _type = widget.initialValue;
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<TimeType>(
+    return CupertinoSlidingSegmentedControl<SearchChMode>(
       groupValue: _type,
       onValueChanged: onValueChanged,
       children: {
-        TimeType.departure: Text(
+        SearchChMode.departure: Text(
           AppLocalizations.of(context).departure,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
-        TimeType.arrival: Text(
+        SearchChMode.arrival: Text(
           AppLocalizations.of(context).arrival,
           style: CupertinoTheme.of(context).textTheme.textStyle,
         ),
@@ -592,7 +590,7 @@ class __SegmentedState extends State<_Segmented> {
     );
   }
 
-  void onValueChanged(TimeType? v) {
+  void onValueChanged(SearchChMode? v) {
     if (v != null) {
       setState(() => _type = v);
       widget.onChange(v);

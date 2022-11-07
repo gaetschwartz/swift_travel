@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/switzerland/models/trias.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/widgets/sbb_icon.dart';
 
@@ -42,14 +43,14 @@ class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
 
   final regex = RegExp(r'@ (\d+\.\d+), (\d+\.\d+)');
   @override
-  Coordinates? get coordinates {
+  GeoCoordinates? get coordinates {
     final match = regex.firstMatch(html ?? '');
     if (match == null) {
       return null;
     }
-    return Coordinates(
-      lat: double.parse(match.group(1)!),
-      lon: double.parse(match.group(2)!),
+    return TriasGeoPosition(
+      latitude: double.parse(match.group(1)!),
+      longitude: double.parse(match.group(2)!),
     );
   }
 }

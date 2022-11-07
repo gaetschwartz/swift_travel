@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/db/preferences.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
@@ -58,16 +59,21 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
       return CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(
-            trailing: IconButton(
-                icon: const Icon(Icons.double_arrow_rounded),
-                onPressed: () {
-                  SideBar.push(
-                      context,
-                      (context) => RoutePage.stop(FavoriteStop.fromStop(
-                            widget.stop.name,
-                            api: ref.read(preferencesProvider).api.value,
-                          )));
-                })),
+          trailing: CupertinoButton(
+            child: Text(AppLocalizations.of(context).route_to),
+            onPressed: () {
+              SideBar.push(
+                context,
+                (context) => RoutePage.stop(
+                  FavoriteStop.fromStop(
+                    widget.stop.name,
+                    api: ref.read(preferencesProvider).api.value,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
         child: buildIOSList(),
       );
     } else {

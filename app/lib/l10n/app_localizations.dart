@@ -104,11 +104,23 @@ abstract class AppLocalizations {
   /// **'Add to favourites'**
   String get add_to_favs;
 
+  /// No description provided for @advanced_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced settings'**
+  String get advanced_settings;
+
   /// No description provided for @arrival.
   ///
   /// In en, this message translates to:
   /// **'Arrival'**
   String get arrival;
+
+  /// No description provided for @arrive.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrive'**
+  String get arrive;
 
   /// No description provided for @brightness.
   ///
@@ -146,6 +158,18 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get close;
 
+  /// No description provided for @contact_no_address.
+  ///
+  /// In en, this message translates to:
+  /// **'This contact doesn\'t have any address'**
+  String get contact_no_address;
+
+  /// No description provided for @contacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get contacts;
+
   /// No description provided for @continue_.
   ///
   /// In en, this message translates to:
@@ -157,6 +181,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Current location'**
   String get current_location;
+
+  /// No description provided for @customization.
+  ///
+  /// In en, this message translates to:
+  /// **'Customisation'**
+  String get customization;
 
   /// No description provided for @delete.
   ///
@@ -188,11 +218,23 @@ abstract class AppLocalizations {
   /// **'Developer'**
   String get developer;
 
+  /// No description provided for @direction.
+  ///
+  /// In en, this message translates to:
+  /// **'Direction {dir}'**
+  String direction(String dir);
+
   /// No description provided for @done.
   ///
   /// In en, this message translates to:
   /// **'Done'**
   String get done;
+
+  /// No description provided for @failed_get_contact.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to obtain the address book'**
+  String get failed_get_contact;
 
   /// No description provided for @fav_route.
   ///
@@ -218,6 +260,24 @@ abstract class AppLocalizations {
   /// **'from'**
   String get from;
 
+  /// No description provided for @itinerary.
+  ///
+  /// In en, this message translates to:
+  /// **'Itinerary'**
+  String get itinerary;
+
+  /// No description provided for @journey_informations.
+  ///
+  /// In en, this message translates to:
+  /// **'Journey information'**
+  String get journey_informations;
+
+  /// No description provided for @live_route.
+  ///
+  /// In en, this message translates to:
+  /// **'Live route'**
+  String get live_route;
+
   /// No description provided for @maps_app.
   ///
   /// In en, this message translates to:
@@ -236,11 +296,23 @@ abstract class AppLocalizations {
   /// **'Navigation API'**
   String get navigation_api;
 
+  /// No description provided for @new_fav.
+  ///
+  /// In en, this message translates to:
+  /// **'New favourite stop'**
+  String get new_fav;
+
   /// No description provided for @no.
   ///
   /// In en, this message translates to:
   /// **'No'**
   String get no;
+
+  /// No description provided for @no_contacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Your address book is empty'**
+  String get no_contacts;
 
   /// No description provided for @our_team.
   ///
@@ -266,6 +338,12 @@ abstract class AppLocalizations {
   /// **'Reset settings'**
   String get reset_settings;
 
+  /// No description provided for @route_to.
+  ///
+  /// In en, this message translates to:
+  /// **'Route'**
+  String get route_to;
+
   /// No description provided for @search.
   ///
   /// In en, this message translates to:
@@ -283,6 +361,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @share_as_image.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as image'**
+  String get share_as_image;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @suggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion'**
+  String get suggestion;
 
   /// No description provided for @tabs_favourites.
   ///
@@ -326,6 +428,18 @@ abstract class AppLocalizations {
   /// **'Travel duration'**
   String get travel_duration;
 
+  /// No description provided for @unable_locate.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to obtain location.'**
+  String get unable_locate;
+
+  /// No description provided for @unsupported_area.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t seem to be in a supported area.'**
+  String get unsupported_area;
+
   /// No description provided for @use_current_location.
   ///
   /// In en, this message translates to:
@@ -367,114 +481,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You arrive at *{time}*.'**
   String youll_be_there(String time);
-
-  /// No description provided for @suggestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Suggestion'**
-  String get suggestion;
-
-  /// No description provided for @live_route.
-  ///
-  /// In en, this message translates to:
-  /// **'Live route'**
-  String get live_route;
-
-  /// No description provided for @share.
-  ///
-  /// In en, this message translates to:
-  /// **'Share'**
-  String get share;
-
-  /// No description provided for @journey_informations.
-  ///
-  /// In en, this message translates to:
-  /// **'Journey information'**
-  String get journey_informations;
-
-  /// No description provided for @direction.
-  ///
-  /// In en, this message translates to:
-  /// **'Direction {dir}'**
-  String direction(String dir);
-
-  /// No description provided for @itinerary.
-  ///
-  /// In en, this message translates to:
-  /// **'Itinerary'**
-  String get itinerary;
-
-  /// No description provided for @unable_locate.
-  ///
-  /// In en, this message translates to:
-  /// **'Unable to obtain location.'**
-  String get unable_locate;
-
-  /// No description provided for @unsupported_area.
-  ///
-  /// In en, this message translates to:
-  /// **'You don\'t seem to be in a supported area.'**
-  String get unsupported_area;
-
-  /// No description provided for @contact_no_address.
-  ///
-  /// In en, this message translates to:
-  /// **'This contact doesn\'t have any address'**
-  String get contact_no_address;
-
-  /// No description provided for @contacts.
-  ///
-  /// In en, this message translates to:
-  /// **'Contacts'**
-  String get contacts;
-
-  /// No description provided for @failed_get_contact.
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to obtain the address book'**
-  String get failed_get_contact;
-
-  /// No description provided for @new_fav.
-  ///
-  /// In en, this message translates to:
-  /// **'New favourite stop'**
-  String get new_fav;
-
-  /// No description provided for @no_contacts.
-  ///
-  /// In en, this message translates to:
-  /// **'Your address book is empty'**
-  String get no_contacts;
-
-  /// No description provided for @customization.
-  ///
-  /// In en, this message translates to:
-  /// **'Customisation'**
-  String get customization;
-
-  /// No description provided for @advanced_settings.
-  ///
-  /// In en, this message translates to:
-  /// **'Advanced settings'**
-  String get advanced_settings;
-
-  /// No description provided for @share_as_image.
-  ///
-  /// In en, this message translates to:
-  /// **'Share as image'**
-  String get share_as_image;
-
-  /// No description provided for @start.
-  ///
-  /// In en, this message translates to:
-  /// **'Start'**
-  String get start;
-
-  /// No description provided for @arrive.
-  ///
-  /// In en, this message translates to:
-  /// **'Arrive'**
-  String get arrive;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

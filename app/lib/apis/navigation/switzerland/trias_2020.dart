@@ -3,7 +3,9 @@ library switzerland_navigation_api;
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
@@ -22,6 +24,8 @@ class Trias2020Api implements BaseNavigationApi {
   Locale locale = const Locale('de');
 
   Trias2020Api(this.apiKey);
+
+  final log = Logger('Trias2020Api');
 
   @override
   Future<List<NavigationCompletion>> complete(
@@ -54,10 +58,11 @@ class Trias2020Api implements BaseNavigationApi {
       final e = loc['trias:Location']!;
       final stopPoint = e['trias:StopPoint'];
       final stopPlace = e['trias:StopPlace'];
+      final geo = e['trias:GeoPosition']!;
+
       if (stopPoint != null) {
         final name = stopPoint['trias:StopPointName']?.getTriasText()?.text;
         final id = stopPoint['trias:StopPointRef']?.text;
-        final geo = e['trias:GeoPosition']!;
 
         final probability = _parseDouble(loc['trias:Probability']?.text);
         final complete = loc['trias:Complete']?.text == 'true';
@@ -89,8 +94,7 @@ class Trias2020Api implements BaseNavigationApi {
 
         final probability = _parseDouble(loc['trias:Probability']?.text);
         final complete = loc['trias:Complete']?.text == 'true';
-        final latitude = loc['trias:GeoPosition']?['trias:Latitude']?.text;
-        final longitude = loc['trias:GeoPosition']?['trias:Longitude']?.text;
+
         final modes = loc.findElements('trias:Mode').map((e) {
           final mode = e['trias:PtMode']!.text;
           final submode = e.childElements
@@ -111,10 +115,6 @@ class Trias2020Api implements BaseNavigationApi {
           complete: complete,
           probability: probability,
           modes: modes,
-          coordinates: Coordinates(
-            lat: _parseDouble(latitude),
-            lon: _parseDouble(longitude),
-          ),
         );
       } else {
         throw Exception('Unknown location type');
@@ -244,7 +244,7 @@ class Trias2020Api implements BaseNavigationApi {
   @override
   Future<List<NavigationCompletion>> find(double lat, double lon) async {
     final url = Uri.https('api.opentransportdata.swiss', 'trias2020');
-    final coord = Coordinates(lon: lon, lat: lat);
+    final coord = TriasGeoPosition(longitude: lon, latitude: lat);
     final res = await client.post(
       url,
       headers: {
@@ -256,10 +256,16 @@ class Trias2020Api implements BaseNavigationApi {
         lat: lat,
       )),
     );
+    if (kDebugMode) {
+      log.log(XmlDocument.parse(utf8.decode(res.bodyBytes))
+          .toXmlString(pretty: true));
+    }
     return parseLocations(utf8.decode(res.bodyBytes))
         .map(
           (e) => e.copyWith(
-            dist: e.coordinates?.distanceTo(coord),
+            dist: e.coordinates != null
+                ? GeoCoordinates.distance(e.coordinates!, coord)
+                : null,
           ),
         )
         .toList();
@@ -275,7 +281,7 @@ class Trias2020Api implements BaseNavigationApi {
   Future<NavRoute> route(String departure, String arrival,
       {required DateTime date,
       required TimeOfDay time,
-      TimeType timeType = TimeType.arrival}) {
+      SearchChMode timeType = SearchChMode.arrival}) {
     // TODO: implement route
     throw UnimplementedError();
   }
@@ -284,7 +290,7 @@ class Trias2020Api implements BaseNavigationApi {
   Future<StationBoard> stationboard(
     Stop stop, {
     DateTime? when,
-    TimeType timeType = TimeType.departure,
+    SearchChMode mode = SearchChMode.departure,
     List<TransportationTypes> transportationTypes = const [],
   }) {
     // TODO: implement stationboard

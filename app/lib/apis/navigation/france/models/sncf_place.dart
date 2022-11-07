@@ -33,7 +33,7 @@ class SncfPlace with _$SncfPlace implements NavigationCompletion {
   Widget get icon => SbbIcon(type);
 
   @override
-  Coordinates? get coordinates => null;
+  GeoCoordinates? get coordinates => null;
 
   @override
   // TODO: implement dist

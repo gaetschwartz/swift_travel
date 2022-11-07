@@ -101,7 +101,7 @@ class SncfApi extends BaseNavigationApi {
   Future<StationBoard> stationboard(
     Stop stop, {
     DateTime? when,
-    TimeType? timeType,
+    SearchChMode? mode,
     int? limit,
     List<TransportationTypes>? transportationTypes,
   }) async {
@@ -147,7 +147,7 @@ class SncfApi extends BaseNavigationApi {
     String arrival, {
     required DateTime date,
     required TimeOfDay time,
-    TimeType? timeType,
+    SearchChMode? timeType,
     bool showDelays = true,
     int previous = 1,
   }) =>
