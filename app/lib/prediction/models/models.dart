@@ -151,6 +151,9 @@ class ContactCompletion
 
   @override
   PlaceType? get type => null;
+
+  @override
+  Coordinates? get coordinates => null;
 }
 
 @freezed
@@ -180,4 +183,7 @@ class CurrentLocationCompletion
 
   @override
   PlaceType? get type => null;
+
+  @override
+  Coordinates? get coordinates => null;
 }

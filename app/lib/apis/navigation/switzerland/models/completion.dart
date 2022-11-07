@@ -37,4 +37,19 @@ class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
 
   @override
   Widget get icon => SbbIcon(type);
+
+  // blah blah blah @ 46.8537495783, 7.65740776062
+
+  final regex = RegExp(r'@ (\d+\.\d+), (\d+\.\d+)');
+  @override
+  Coordinates? get coordinates {
+    final match = regex.firstMatch(html ?? '');
+    if (match == null) {
+      return null;
+    }
+    return Coordinates(
+      lat: double.parse(match.group(1)!),
+      lon: double.parse(match.group(2)!),
+    );
+  }
 }

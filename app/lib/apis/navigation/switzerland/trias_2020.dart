@@ -89,6 +89,8 @@ class Trias2020Api implements BaseNavigationApi {
 
         final probability = _parseDouble(loc['trias:Probability']?.text);
         final complete = loc['trias:Complete']?.text == 'true';
+        final latitude = loc['trias:GeoPosition']?['trias:Latitude']?.text;
+        final longitude = loc['trias:GeoPosition']?['trias:Longitude']?.text;
         final modes = loc.findElements('trias:Mode').map((e) {
           final mode = e['trias:PtMode']!.text;
           final submode = e.childElements
@@ -109,6 +111,10 @@ class Trias2020Api implements BaseNavigationApi {
           complete: complete,
           probability: probability,
           modes: modes,
+          coordinates: Coordinates(
+            lat: _parseDouble(latitude),
+            lon: _parseDouble(longitude),
+          ),
         );
       } else {
         throw Exception('Unknown location type');
@@ -238,6 +244,7 @@ class Trias2020Api implements BaseNavigationApi {
   @override
   Future<List<NavigationCompletion>> find(double lat, double lon) async {
     final url = Uri.https('api.opentransportdata.swiss', 'trias2020');
+    final coord = Coordinates(lon: lon, lat: lat);
     final res = await client.post(
       url,
       headers: {
@@ -249,7 +256,13 @@ class Trias2020Api implements BaseNavigationApi {
         lat: lat,
       )),
     );
-    return parseLocations(utf8.decode(res.bodyBytes));
+    return parseLocations(utf8.decode(res.bodyBytes))
+        .map(
+          (e) => e.copyWith(
+            dist: e.coordinates?.distanceTo(coord),
+          ),
+        )
+        .toList();
   }
 
   @override

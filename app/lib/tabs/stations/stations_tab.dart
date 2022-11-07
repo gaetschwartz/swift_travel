@@ -294,15 +294,18 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
 
       final completions =
           await ref.read(navigationAPIProvider).find(p.latitude, p.longitude);
+      // sort by distance
+      completions.sort(
+          (a, b) => (a.dist ?? double.nan).compareTo(b.dist ?? double.nan));
 
       final first = completions.firstOrNull;
       if (first?.dist != null) {
-        final public =
-            completions.where((c) => !TransportationModeX.isAnAddress(c.type));
+        final firstPublic = completions
+            .firstWhereOrNull((c) => !TransportationModeX.isAnAddress(c.type));
 
-        if (public.isNotEmpty) {
-          log.log('Found : ${public.first}');
-          searchController.text = public.first.label;
+        if (firstPublic != null) {
+          log.log('Found : $firstPublic');
+          searchController.text = firstPublic.label;
         }
       }
 
