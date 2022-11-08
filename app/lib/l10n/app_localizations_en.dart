@@ -43,9 +43,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contacts => 'Contacts';
 
   @override
-  String get continue_ => 'Continue';
-
-  @override
   String get current_location => 'Current location';
 
   @override
@@ -205,4 +202,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String youll_be_there(String time) {
     return 'You arrive at *$time*.';
   }
+
+  @override
+  String get continue_welcome => 'Continue';
 }

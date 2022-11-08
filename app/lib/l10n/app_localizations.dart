@@ -173,12 +173,6 @@ abstract class AppLocalizations {
   /// **'Contacts'**
   String get contacts;
 
-  /// No description provided for @continue_.
-  ///
-  /// In en, this message translates to:
-  /// **'Continue'**
-  String get continue_;
-
   /// No description provided for @current_location.
   ///
   /// In en, this message translates to:
@@ -484,6 +478,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You arrive at *{time}*.'**
   String youll_be_there(String time);
+
+  /// No description provided for @continue_welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continue_welcome;
 }
 
 class _AppLocalizationsDelegate
