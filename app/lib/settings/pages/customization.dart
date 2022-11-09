@@ -32,6 +32,14 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
         SectionTitle(title: Text(AppLocalizations.of(context).brightness)),
         const _ThemeModeList(),
         const Gap(16),
+        _ThemeTile(
+          brightness: Brightness.light,
+          title: Text(AppLocalizations.of(context).brightness_light),
+        ),
+        _ThemeTile(
+          brightness: Brightness.dark,
+          title: Text(AppLocalizations.of(context).brightness_dark),
+        ),
         const _FontChoiceTile(),
         if (Env.isDebugMode) const _PlatformTile(),
       ],
@@ -66,6 +74,41 @@ class _PlatformTile extends StatelessWidget {
               ValueOption(
                   value: TargetPlatform.windows, title: Text('Windows')),
             ],
+    );
+  }
+}
+
+class _ThemeTile extends StatelessWidget {
+  const _ThemeTile({required this.brightness, required this.title});
+
+  final Brightness brightness;
+  final Widget title;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = DynamicTheme.of(context);
+    return SwiftSettingsPropertyTile<ExtendedTheme>(
+      leading: const Icon(Icons.color_lens),
+      tileBorders: const TileBorders(bottom: true),
+      property: brightness == Brightness.light
+          ? SyncProperty<ExtendedTheme>(
+              onSet: (p) => unawaited(theme.setLightTheme(p.id)),
+              initialValue: theme.theme.light,
+            )
+          : SyncProperty<ExtendedTheme>(
+              onSet: (p) => unawaited(theme.setDarkTheme(p.id)),
+              initialValue: theme.theme.dark,
+            ),
+      valueBuilder: (_, v) => Text(v.name),
+      title: title,
+      options: (brightness == Brightness.light
+              ? theme.configuration.lightThemes
+              : theme.configuration.darkThemes)
+          .map((e) => ValueOption<ExtendedTheme>(
+                value: e,
+                title: Text(e.name),
+              ))
+          .toList(),
     );
   }
 }
