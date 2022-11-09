@@ -6,10 +6,10 @@ import 'package:theming/dynamic_theme.dart';
 List<BoxShadow> shadowListOf(BuildContext context) =>
     ShadowTheme.of(context).shadows((s) => [s.buttonShadow]);
 
-final MaterialColor purpleAbin = const Color(0xffcbaacb).toMaterialColor();
-final MaterialColor blueAbin = const Color(0xffabdee6).toMaterialColor();
-final MaterialColor redAccent = Colors.redAccent.toMaterialColor();
-final MaterialColor white = Colors.white.toMaterialColor();
+const purpleAbin = Colors.purple;
+const blueAbin = Color(0xffabdee6);
+const redAccent = Colors.redAccent;
+const white = Colors.white;
 
 const lightShadow = ShadowTheme(
   buttonShadow:
@@ -26,14 +26,13 @@ TextTheme _platform(TextTheme t) => t;
 const List<Font> allFonts = [
   Font('Platform', _platform),
   Font('Work Sans', GoogleFonts.workSansTextTheme),
-  Font('Montserrat', GoogleFonts.montserratTextTheme),
   Font('Lexend', GoogleFonts.lexendDecaTextTheme),
   Font('Muli', GoogleFonts.mulishTextTheme),
-  Font('Open Sans', GoogleFonts.openSansTextTheme),
   Font('Raleway', GoogleFonts.ralewayTextTheme),
   Font('Lato', GoogleFonts.latoTextTheme),
   Font('Ubuntu', GoogleFonts.ubuntuTextTheme),
-  Font('Inter', GoogleFonts.interTextTheme),
+  Font('Fira Sans', GoogleFonts.firaSansTextTheme),
+  Font('Roboto', GoogleFonts.robotoTextTheme),
 ];
 
 final ThemeConfiguration themeConfiguration = ThemeConfiguration(
@@ -45,7 +44,6 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
   applyToAllThemes: (t) => t.copyWith(
     cupertinoOverrideTheme:
         CupertinoThemeData(brightness: t.brightness).rawCopy(),
-    pageTransitionsTheme: const PageTransitionsTheme(),
     dividerTheme: DividerThemeData(
       color: t.dividerColor.withOpacity(0.1),
       thickness: 0.5,
@@ -70,7 +68,7 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
     ExtendedTheme(
       name: 'Abin',
       id: 'abin',
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: purpleAbin),
+      colorScheme: ColorScheme.fromSeed(seedColor: purpleAbin),
       shadow: lightShadow,
     ),
   ],
@@ -93,8 +91,10 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
     ExtendedTheme(
       name: 'Abin',
       id: 'abin',
-      colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: purpleAbin, brightness: Brightness.dark),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: purpleAbin,
+        brightness: Brightness.dark,
+      ),
       shadow: darkShadow,
     ),
   ],

@@ -35,7 +35,15 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
         SectionTitle(title: Text(AppLocalizations.of(context).brightness)),
         const _ThemeModeList(),
         const Gap(16),
-        const _FontChoiceTile(isLast: !Env.isDebugMode),
+        _ThemeTile(
+          brightness: Brightness.light,
+          title: Text(AppLocalizations.of(context).brightness_light),
+        ),
+        _ThemeTile(
+          brightness: Brightness.dark,
+          title: Text(AppLocalizations.of(context).brightness_dark),
+        ),
+        const _FontChoiceTile(),
         if (Env.isDebugMode) const _PlatformTile(),
       ],
     );
@@ -73,10 +81,43 @@ class _PlatformTile extends StatelessWidget {
   }
 }
 
-class _FontChoiceTile extends ConsumerWidget {
-  const _FontChoiceTile({required this.isLast});
+class _ThemeTile extends StatelessWidget {
+  const _ThemeTile({required this.brightness, required this.title});
 
-  final bool isLast;
+  final Brightness brightness;
+  final Widget title;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = DynamicTheme.of(context);
+    return SwiftSettingsPropertyTile<ExtendedTheme>(
+      leading: const Icon(Icons.color_lens),
+      tileBorders: const TileBorders(bottom: true),
+      property: brightness == Brightness.light
+          ? SyncProperty<ExtendedTheme>(
+              onSet: (p) => unawaited(theme.setLightTheme(p.id)),
+              initialValue: theme.theme.light,
+            )
+          : SyncProperty<ExtendedTheme>(
+              onSet: (p) => unawaited(theme.setDarkTheme(p.id)),
+              initialValue: theme.theme.dark,
+            ),
+      valueBuilder: (_, v) => Text(v.name),
+      title: title,
+      options: (brightness == Brightness.light
+              ? theme.configuration.lightThemes
+              : theme.configuration.darkThemes)
+          .map((e) => ValueOption<ExtendedTheme>(
+                value: e,
+                title: Text(e.name),
+              ))
+          .toList(),
+    );
+  }
+}
+
+class _FontChoiceTile extends StatelessWidget {
+  const _FontChoiceTile();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -117,7 +158,7 @@ class _FontChoiceTile extends ConsumerWidget {
   }
 }
 
-extension TargetPlatfromX on TargetPlatform {
+extension TargetPlatfromX on String String TargetPlatform {
   String get name {
     switch (this) {
       case TargetPlatform.android:
