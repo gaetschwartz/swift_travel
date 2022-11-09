@@ -205,4 +205,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get continue_welcome => 'Continue';
+
+  @override
+  String get purchase_success => 'Purchase successful';
+
+  @override
+  String get thank_you_for_purchase =>
+      'Thank you so much for supporting the development of the app !';
 }

@@ -174,7 +174,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get unable_locate => 'Impossibile ottenere la posizione.';
 
   @override
-  String get unsupported_area => 'Non sembra che tu sia in una zona supportata.';
+  String get unsupported_area =>
+      'Non sembra che tu sia in una zona supportata.';
 
   @override
   String get use_current_location => 'Utilizzare la posizione corrente';
@@ -205,4 +206,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get continue_welcome => 'Continua';
+
+  @override
+  String get purchase_success => 'Acquisto riuscito';
+
+  @override
+  String get thank_you_for_purchase =>
+      'Grazie mille per aver sostenuto lo sviluppo dell\'app!';
 }

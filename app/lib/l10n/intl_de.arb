@@ -63,5 +63,7 @@
 	"what_to_do": "Was ist zu tun?",
 	"yes": "Ja",
 	"youll_be_there": "Sie kommen zu *{time}*.",
-	"continue_welcome": "Fortsetzen"
+	"continue_welcome": "Fortsetzen",
+	"purchase_success": "Kauf erfolgreich",
+	"thank_you_for_purchase": "Vielen Dank, dass Sie die Entwicklung der App unterstützen!"
 }

@@ -49,9 +49,8 @@ class InAppPurchaseManager extends ChangeNotifier {
     // if purchase is restored, we should update the UI
     if (purchaseDetails.status == PurchaseStatus.restored) {
       await deliverProduct(purchaseDetails);
-    } else {
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   Future<void> init() async {
@@ -140,6 +139,10 @@ class InAppPurchaseManager extends ChangeNotifier {
   }
 
   Future<void> deliverProduct(PurchaseDetails purchase) async {
+    if (!(purchase.status == PurchaseStatus.purchased ||
+        purchase.status == PurchaseStatus.restored)) {
+      throw PurchaseingError(purchase, 'Purchase not completed');
+    }
     final prefs = await SharedPreferences.getInstance();
     final purchased = prefs.getStringList(_purchasedKey) ?? [];
     if (purchased.contains(purchase.productID)) {
@@ -160,6 +163,14 @@ class InAppPurchaseManager extends ChangeNotifier {
   }
 
   bool isPurchased(String id) => _purchasedIds.contains(id);
+
+  ProductDetails? productDetails(String productID) {
+    return _products.whenOrNull(
+      products: (products) => products.firstWhereOrNull(
+        (element) => element.id == productID,
+      ),
+    );
+  }
 }
 
 extension PurchaseDetailsX on PurchaseDetails {
@@ -174,6 +185,18 @@ extension PurchaseDetailsX on PurchaseDetails {
       error: $error,
     )
     ''';
+  }
+}
+
+class PurchaseingError extends Error {
+  final PurchaseDetails purchaseDetails;
+  final String? message;
+
+  PurchaseingError(this.purchaseDetails, [this.message]);
+
+  @override
+  String toString() {
+    return 'PurchaseingError{purchaseDetails: $purchaseDetails, message: $message}';
   }
 }
 

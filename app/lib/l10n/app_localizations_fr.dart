@@ -72,7 +72,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get done => 'Terminé';
 
   @override
-  String get failed_get_contact => 'Impossible d\'obtenir le carnet d\'adresses';
+  String get failed_get_contact =>
+      'Impossible d\'obtenir le carnet d\'adresses';
 
   @override
   String get fav_route => 'Ajouter la route aux favoris';
@@ -174,7 +175,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unable_locate => 'Impossible d\'obtenir la localisation.';
 
   @override
-  String get unsupported_area => 'Vous n\'avez pas l\'air d\'être dans une zone prise en charge.';
+  String get unsupported_area =>
+      'Vous n\'avez pas l\'air d\'être dans une zone prise en charge.';
 
   @override
   String get use_current_location => 'Utiliser l\'emplacement actuel';
@@ -205,4 +207,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get continue_welcome => 'Continuer';
+
+  @override
+  String get purchase_success => 'Achat réussi';
+
+  @override
+  String get thank_you_for_purchase =>
+      'Merci beaucoup de soutenir le développement de l\'application !';
 }
