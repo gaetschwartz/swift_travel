@@ -210,6 +210,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchase_success => 'Purchase successful';
 
   @override
-  String get thank_you_for_purchase =>
-      'Thank you so much for supporting the development of the app !';
+  String get thank_you_for_purchase => 'Thank you so much for supporting the development of the app !';
+
+  @override
+  String get in_app_purchases => 'In-App Purchases';
+
+  @override
+  String get in_app_purchases_desc => 'You can support the development of this app by donating. Any amount is really appreciated. Any donation will unlock Swift Travel Pro with more customization options.';
+
+  @override
+  String get in_app_purchases_restore => 'Restore purchases';
+
+  @override
+  String get in_app_purchases_restore_desc => 'If you have already purchased one of the above products, you can restore it here.';
+
+  @override
+  String that_is_required(String that) {
+    return '$that is required';
+  }
+
+  @override
+  String get pro_desc => '';
+
+  @override
+  String get open => 'Open';
 }

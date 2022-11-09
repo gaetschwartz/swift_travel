@@ -174,8 +174,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get unable_locate => 'Der Standort kann nicht ermittelt werden.';
 
   @override
-  String get unsupported_area =>
-      'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
+  String get unsupported_area => 'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
 
   @override
   String get use_current_location => 'Aktuellen Standort verwenden';
@@ -211,6 +210,28 @@ class AppLocalizationsDe extends AppLocalizations {
   String get purchase_success => 'Kauf erfolgreich';
 
   @override
-  String get thank_you_for_purchase =>
-      'Vielen Dank, dass Sie die Entwicklung der App unterstützen!';
+  String get thank_you_for_purchase => 'Vielen Dank, dass Sie die Entwicklung der App unterstützen!';
+
+  @override
+  String get in_app_purchases => 'In-App-Käufe';
+
+  @override
+  String get in_app_purchases_desc => 'Sie können die Entwicklung dieser App durch eine Spende unterstützen. Jeder Betrag wird sehr geschätzt. Jede Spende wird Swift Travel Pro mit mehr Anpassungsmöglichkeiten freischalten.';
+
+  @override
+  String get in_app_purchases_restore => 'Käufe wiederherstellen';
+
+  @override
+  String get in_app_purchases_restore_desc => 'Wenn Sie bereits eines der oben genannten Produkte erworben haben, können Sie es hier wiederherstellen.';
+
+  @override
+  String that_is_required(String that) {
+    return '$that ist erforderlich';
+  }
+
+  @override
+  String get pro_desc => '';
+
+  @override
+  String get open => 'Öffnen';
 }

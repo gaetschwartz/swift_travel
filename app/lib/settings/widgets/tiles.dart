@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/settings/properties/property.dart';
@@ -122,56 +124,69 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
   }
 }
 
-class SwiftSettingsPropertyTile<T> extends StatelessWidget with WithLeading {
+class SwiftSettingsPropertyTile<T> extends StatefulWidget with WithLeading {
   const SwiftSettingsPropertyTile({
     super.key,
     required this.title,
     required this.property,
     this.leading,
     this.subtitle,
-    this.onTap,
     this.showChevron = true,
     this.tileBorders = TileBorders.none,
     this.valueBuilder = _valueBuilder,
     required this.options,
+    this.isAllowedToChangeValue,
   });
 
   final Widget title;
   @override
   final Widget? leading;
   final Widget? subtitle;
-  final VoidCallback? onTap;
   final bool showChevron;
   final TileBorders tileBorders;
   final Property<T> property;
   final Widget Function(BuildContext context, T value) valueBuilder;
+  // is allowed to change the value
+  final FutureOr<bool> Function(T value)? isAllowedToChangeValue;
 
   final List<ValueOption<T>> options;
 
   @override
+  State<SwiftSettingsPropertyTile<T>> createState() =>
+      _SwiftSettingsPropertyTileState<T>();
+
+  static Widget _valueBuilder(BuildContext _, dynamic val) =>
+      Text(val.toString());
+}
+
+class _SwiftSettingsPropertyTileState<T>
+    extends State<SwiftSettingsPropertyTile<T>> {
+  @override
   Widget build(BuildContext context) {
     return SwiftSettingsTile(
-      leading: leading,
-      title: title,
+      leading: widget.leading,
+      title: widget.title,
       subtitle: ListenableBuilder<Property<T>>(
-        builder: (context, p, _) => valueBuilder(context, p.value),
-        listenable: property,
+        builder: (context, p, _) => widget.valueBuilder(context, p.value),
+        listenable: widget.property,
       ),
-      onTap: () async => changeValue(context),
-      showChevron: showChevron,
-      tileBorders: tileBorders,
+      onTap: () async {
+        if (widget.isAllowedToChangeValue == null ||
+            await widget.isAllowedToChangeValue!(widget.property.value)) {
+          if (mounted) await changeValue(context);
+        }
+      },
+      showChevron: widget.showChevron,
+      tileBorders: widget.tileBorders,
     );
   }
 
   Future<void> changeValue(BuildContext context) async {
     await showPropertyPage<T>(
       context,
-      options: options,
-      title: title,
-      property: property,
+      options: widget.options,
+      title: widget.title,
+      property: widget.property,
     );
   }
-
-  static Widget _valueBuilder(BuildContext _, dynamic val) =>
-      Text(val.toString());
 }

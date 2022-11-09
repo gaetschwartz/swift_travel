@@ -3,9 +3,12 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
+import 'package:swift_travel/logic/in_app_purchase.dart';
+import 'package:swift_travel/pages/purchases.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
 import 'package:swift_travel/settings/widgets/settings_page_widget.dart';
@@ -32,7 +35,7 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
         SectionTitle(title: Text(AppLocalizations.of(context).brightness)),
         const _ThemeModeList(),
         const Gap(16),
-        const _FontChoiceTile(),
+        const _FontChoiceTile(isLast: !Env.isDebugMode),
         if (Env.isDebugMode) const _PlatformTile(),
       ],
     );
@@ -54,7 +57,7 @@ class _PlatformTile extends StatelessWidget {
         initialValue: theme.platform,
       ),
       valueBuilder: (_, v) => Text(v.name),
-      title: const Text('Platform'),
+      title: const Text('Design'),
       options: p == TargetPlatform.iOS || p == TargetPlatform.android
           ? const [
               ValueOption(
@@ -70,34 +73,46 @@ class _PlatformTile extends StatelessWidget {
   }
 }
 
-class _FontChoiceTile extends StatelessWidget {
-  const _FontChoiceTile();
+class _FontChoiceTile extends ConsumerWidget {
+  const _FontChoiceTile({required this.isLast});
+
+  final bool isLast;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = DynamicTheme.of(context);
-    return SwiftSettingsPropertyTile<Font>(
-      leading: const Icon(Icons.font_download),
-      // ignore: use_named_constants
-      tileBorders: const TileBorders(top: true, bottom: !Env.isDebugMode),
-      title: Text(AppLocalizations.of(context).font),
-      subtitle: Text(DynamicTheme.of(context).font.name),
-      options: theme.configuration.fonts.map(
-        (f) {
-          return ValueOption(
+    final inApp = ref.read(inAppPurchaseManagerProvider);
+    final unlocked = inApp.hasUnlockedFeature(InAppPaidFeature.customFonts);
+
+    final options = theme.configuration.fonts
+        .map(
+          (f) => ValueOption(
             value: f,
             title: Text(
               f.name,
               style: f.textTheme(Theme.of(context).textTheme).bodyMedium,
             ),
-          );
-        },
-      ).toList(),
+          ),
+        )
+        .toList();
+    return SwiftSettingsPropertyTile<Font>(
+      leading: const Icon(Icons.font_download),
+      // ignore: use_named_constants
+      tileBorders: TileBorders(top: true, bottom: !isLast),
+      title: Text(AppLocalizations.of(context).font),
+      options: options,
       property: SyncProperty<Font>(
-        onSet: (f) => unawaited(theme.setFont(f)),
+        onSet: unlocked ? ((f) => unawaited(theme.setFont(f))) : ((f) {}),
         initialValue: theme.font,
       ),
       valueBuilder: (context, value) => Text(value.name),
+      isAllowedToChangeValue: (value) async {
+        if (unlocked) {
+          return true;
+        }
+        await showProDialog(context);
+        return false;
+      },
     );
   }
 }
@@ -169,12 +184,16 @@ class _ThememodeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = DynamicTheme.resolve(
-      context,
-      mode,
-      theme.theme,
-      textTheme: Typography.englishLike2018,
-    );
+    final b = DynamicTheme.resolveBrightness(context, mode);
+    final ThemeData t;
+    switch (b) {
+      case Brightness.light:
+        t = theme.light;
+        break;
+      case Brightness.dark:
+        t = theme.dark;
+        break;
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: InkWell(

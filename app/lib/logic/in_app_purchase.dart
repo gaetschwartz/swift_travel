@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -9,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/models/purchase.dart';
 
 final inAppPurchaseManagerProvider = ChangeNotifierProvider(
-  (ref) => InAppPurchaseManager()..init(),
+  (ref) => InAppPurchaseManager(),
 );
 
 class InAppPurchaseManager extends ChangeNotifier {
@@ -21,6 +22,8 @@ class InAppPurchaseManager extends ChangeNotifier {
   static const productIds = [...donationsIds];
 
   final log = Logger('InAppPurchaseManager');
+  bool _isInitialized = false;
+  bool get isInitialized => _isInitialized;
 
   StreamSubscription<List<PurchaseDetails>>? _subscription;
 
@@ -60,6 +63,8 @@ class InAppPurchaseManager extends ChangeNotifier {
     });
     await getProducts();
     await getPurchasedIds();
+    _isInitialized = true;
+    notifyListeners();
   }
 
   Stream<List<PurchaseDetails>> purchaseStreamOfProduct(String productId) =>
@@ -162,6 +167,15 @@ class InAppPurchaseManager extends ChangeNotifier {
     return p;
   }
 
+  List<ProductDetails> getPurchasedProducts() {
+    final ids = _purchasedIds;
+    final products = _products.maybeWhen(
+      products: (p) => p,
+      orElse: () => <ProductDetails>[],
+    );
+    return products.where((e) => ids.contains(e.id)).toList();
+  }
+
   bool isPurchased(String id) => _purchasedIds.contains(id);
 
   ProductDetails? productDetails(String productID) {
@@ -171,6 +185,72 @@ class InAppPurchaseManager extends ChangeNotifier {
       ),
     );
   }
+
+  int? _donationAmountOfProduct(ProductDetails productDetails) {
+    final regex = RegExp(r'donation_(\d+)');
+    final match = regex.firstMatch(productDetails.id);
+    if (match == null) {
+      return null;
+    }
+    return int.tryParse(match.group(1)!);
+  }
+
+  int amountDonated() {
+    final purchased = getPurchasedProducts();
+    final amount = purchased.fold<int>(
+      0,
+      (previousValue, e) => previousValue + (_donationAmountOfProduct(e) ?? 0),
+    );
+    return amount;
+  }
+
+  bool hasUnlockedFeature(InAppPaidFeature feature) {
+    final donated = amountDonated();
+    log.i('Donated: $donated');
+    return donated >= feature.requiredAmount;
+  }
+
+  Future<void> clearPurchases() async {
+    if (!kDebugMode) {
+      throw Exception('Not in debug mode');
+    }
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_purchasedKey);
+    _purchasedIds = [];
+    notifyListeners();
+  }
+
+  Future<void> purchaseProductDebug(ProductDetails product) async {
+    if (!kDebugMode) {
+      throw Exception('Not in debug mode');
+    }
+    _purchasedIds = [..._purchasedIds, product.id];
+    notifyListeners();
+  }
+}
+
+@immutable
+class InAppPaidFeature {
+  const InAppPaidFeature({
+    required this.id,
+    required this.title,
+    required this.requiredAmount,
+    this.description,
+    this.icon,
+  });
+
+  final String id;
+  final String title;
+  final Widget? description;
+  final Widget? icon;
+  final int requiredAmount;
+
+  static const customFonts = InAppPaidFeature(
+    id: 'fonts',
+    title: 'Fonts',
+    requiredAmount: 1,
+    description: Text('Use custom fonts in your notes'),
+  );
 }
 
 extension PurchaseDetailsX on PurchaseDetails {

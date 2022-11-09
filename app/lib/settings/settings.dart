@@ -89,15 +89,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         tileBorders: const TileBorders(top: true),
       ),
       // in app purchases
-      if (Env.isDebugMode)
-        SwiftSettingsTile(
-          title: const Text('In-App Purchases'),
-          leading: const Icon(Icons.shop),
-          onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
-            builder: (_) => const InAppPurchasesPage(),
-            title: AppLocalizations.of(context).developer,
-          ))),
-        ),
+      SwiftSettingsTile(
+        title: Text(AppLocalizations.of(context).in_app_purchases),
+        leading: const Icon(Icons.shop),
+        onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
+          builder: (_) => const InAppPurchasesPage(),
+          title: AppLocalizations.of(context).in_app_purchases,
+        ))),
+      ),
       Consumer(builder: (context, w, _) {
         final isDev = w.watch(isDeveloperProvider).value;
         return SwiftSettingsTile(

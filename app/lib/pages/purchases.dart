@@ -7,10 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/in_app_purchase.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/platform_button.dart';
+import 'package:swift_travel/widgets/route.dart';
+import 'package:theming/responsive.dart';
 
 class InAppPurchasesPage extends ConsumerStatefulWidget {
   const InAppPurchasesPage({super.key});
@@ -123,56 +127,18 @@ class _InAppPurchasesPageState extends ConsumerState<InAppPurchasesPage> {
         child: CupertinoPageScaffold(
           resizeToAvoidBottomInset: false,
           navigationBar: SwiftCupertinoBar(
-            middle: Text(AppLocalizations.of(context).settings),
+            middle: Text(AppLocalizations.of(context).in_app_purchases),
           ),
           child: child!,
         ),
       ),
-      materialBuilder: (context, child) => Scaffold(body: child),
-      builder: (context, design) => _Main(onPurchase: purchaseProduct),
-    );
-  }
-}
-
-class _SuccessfulPurchaseWidget extends StatelessWidget {
-  final PurchaseDetails purchaseDetails;
-  final ProductDetails productDetails;
-
-  const _SuccessfulPurchaseWidget({
-    required this.purchaseDetails,
-    required this.productDetails,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-      ),
-      child: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Gap(16),
-            Text(
-              '${AppLocalizations.of(context).purchase_success} ☺️',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            const Gap(16),
-            Text(
-              AppLocalizations.of(context).thank_you_for_purchase,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            const Gap(16),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(AppLocalizations.of(context).close),
-            ),
-          ],
+      materialBuilder: (context, child) => Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context).in_app_purchases),
         ),
+        body: child,
       ),
+      builder: (context, design) => _Main(onPurchase: purchaseProduct),
     );
   }
 }
@@ -197,7 +163,7 @@ class _Main extends ConsumerWidget {
               bottom: false,
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  'In-App Purchases',
+                  AppLocalizations.of(context).in_app_purchases,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
@@ -205,7 +171,7 @@ class _Main extends ConsumerWidget {
             const SliverGap(16),
             SliverToBoxAdapter(
               child: Text(
-                'You can support the development of this app by purchasing one of the following products. ',
+                AppLocalizations.of(context).in_app_purchases_desc,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
@@ -246,7 +212,7 @@ class _Main extends ConsumerWidget {
             const SliverGap(16),
             SliverToBoxAdapter(
               child: Text(
-                'Restore purchases',
+                AppLocalizations.of(context).in_app_purchases_restore,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -255,21 +221,34 @@ class _Main extends ConsumerWidget {
             ),
             SliverToBoxAdapter(
               child: Text(
-                'If you have already purchased one of the above products, you can restore it here. ',
-                style: Theme.of(context).textTheme.titleSmall,
+                AppLocalizations.of(context).in_app_purchases_restore_desc,
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
             const SliverGap(8),
             SliverToBoxAdapter(
-              child: ElevatedButton(
+              child: PlatformButton.filled(
                 onPressed: () async {
                   await ref
                       .read(inAppPurchaseManagerProvider.notifier)
                       .restorePurchases();
                 },
-                child: const Text('Restore purchases'),
+                child: Text(
+                  AppLocalizations.of(context).in_app_purchases_restore,
+                ),
               ),
             ),
+            if (Env.isDebugMode)
+              SliverToBoxAdapter(
+                child: PlatformButton.filled(
+                  onPressed: () async {
+                    await ref
+                        .read(inAppPurchaseManagerProvider.notifier)
+                        .clearPurchases();
+                  },
+                  child: const Text('Clear purchases'),
+                ),
+              ),
           ],
         ),
       ),
@@ -307,6 +286,110 @@ class _ProductTile extends ConsumerWidget {
       onTap: () async {
         await onPurchase(product);
       },
+      onLongPress: kDebugMode
+          ? () async {
+              await ref
+                  .read(inAppPurchaseManagerProvider.notifier)
+                  .purchaseProductDebug(product);
+            }
+          : null,
+    );
+  }
+}
+
+class _SuccessfulPurchaseWidget extends StatelessWidget {
+  final PurchaseDetails purchaseDetails;
+  final ProductDetails productDetails;
+
+  const _SuccessfulPurchaseWidget({
+    required this.purchaseDetails,
+    required this.productDetails,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+      ),
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Gap(16),
+            Text(
+              '${AppLocalizations.of(context).purchase_success} ☺️',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const Gap(16),
+            Text(
+              AppLocalizations.of(context).thank_you_for_purchase,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const Gap(16),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(AppLocalizations.of(context).close),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> showProDialog(BuildContext context) async {
+  if (!isThemeDarwin(context)) {
+    await showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+            AppLocalizations.of(context).that_is_required('Swift Travel Pro')),
+        content: Text(AppLocalizations.of(context).in_app_purchases_desc),
+        actions: [
+          TextButton(
+            child: Text(AppLocalizations.of(context).cancel),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          TextButton(
+            child: Text(AppLocalizations.of(context).open),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await Navigator.of(context).push(PlatformPageRoute(
+                builder: (_) => const InAppPurchasesPage(),
+                title: AppLocalizations.of(context).in_app_purchases,
+              ));
+            },
+          ),
+        ],
+      ),
+    );
+  } else {
+    await showCupertinoDialog<void>(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        title: Text(
+            AppLocalizations.of(context).that_is_required('Swift Travel Pro')),
+        content: Text(AppLocalizations.of(context).in_app_purchases_desc),
+        actions: [
+          TextButton(
+            child: Text(AppLocalizations.of(context).cancel),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          TextButton(
+            child: Text(AppLocalizations.of(context).open),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await Navigator.of(context).push(PlatformPageRoute(
+                builder: (_) => const InAppPurchasesPage(),
+                title: AppLocalizations.of(context).in_app_purchases,
+              ));
+            },
+          ),
+        ],
+      ),
     );
   }
 }

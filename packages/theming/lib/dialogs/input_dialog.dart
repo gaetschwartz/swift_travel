@@ -48,7 +48,8 @@ Future<String?> input(
       transitionDuration: const Duration(milliseconds: 150),
       barrierColor: Colors.black54,
       useRootNavigator: useRootNavigator,
-      transitionBuilder: (context, animation, secondaryAnimation, child) => FadeScaleTransition(
+      transitionBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeScaleTransition(
         animation: animation,
         child: child,
       ),
@@ -96,7 +97,8 @@ class _IOSTextInputDialog extends StatefulWidget {
 }
 
 class __IOSTextInputDialogState extends State<_IOSTextInputDialog> {
-  late final TextEditingController _controller = TextEditingController(text: widget.initialText);
+  late final TextEditingController _controller =
+      TextEditingController(text: widget.initialText);
 
   @override
   void initState() {
@@ -137,7 +139,8 @@ class __IOSTextInputDialogState extends State<_IOSTextInputDialog> {
           ),
           CupertinoDialogAction(
             isDefaultAction: true,
-            onPressed: () => Navigator.of(context).pop<String>(_controller.text),
+            onPressed: () =>
+                Navigator.of(context).pop<String>(_controller.text),
             child: widget.submit,
           )
         ],
@@ -207,13 +210,9 @@ class __TextInputDialogState extends State<_TextInputDialog> {
             child: widget.cancel,
           ),
           TextButton(
-            onPressed: () => Navigator.of(context).pop<String>(_controller!.text),
-            child: DefaultTextStyle(
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(color: Theme.of(context).colorScheme.secondary),
-                child: widget.submit),
+            onPressed: () =>
+                Navigator.of(context).pop<String>(_controller!.text),
+            child: widget.submit,
           )
         ],
       );

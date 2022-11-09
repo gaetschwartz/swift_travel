@@ -65,5 +65,12 @@
 	"youll_be_there": "Sie kommen zu *{time}*.",
 	"continue_welcome": "Fortsetzen",
 	"purchase_success": "Kauf erfolgreich",
-	"thank_you_for_purchase": "Vielen Dank, dass Sie die Entwicklung der App unterstützen!"
+	"thank_you_for_purchase": "Vielen Dank, dass Sie die Entwicklung der App unterstützen!",
+	"in_app_purchases": "In-App-Käufe",
+	"in_app_purchases_desc": "Sie können die Entwicklung dieser App durch eine Spende unterstützen. Jeder Betrag wird sehr geschätzt. Jede Spende wird Swift Travel Pro mit mehr Anpassungsmöglichkeiten freischalten.",
+	"in_app_purchases_restore": "Käufe wiederherstellen",
+	"in_app_purchases_restore_desc": "Wenn Sie bereits eines der oben genannten Produkte erworben haben, können Sie es hier wiederherstellen.",
+	"that_is_required": "{that} ist erforderlich",
+	"pro_desc": "",
+	"open": "Öffnen"
 }

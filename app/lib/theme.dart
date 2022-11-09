@@ -23,7 +23,7 @@ const darkShadow = ShadowTheme(
 
 TextTheme _platform(TextTheme t) => t;
 
-const List<Font> fonts = [
+const List<Font> allFonts = [
   Font('Platform', _platform),
   Font('Work Sans', GoogleFonts.workSansTextTheme),
   Font('Montserrat', GoogleFonts.montserratTextTheme),
@@ -37,8 +37,8 @@ const List<Font> fonts = [
 ];
 
 final ThemeConfiguration themeConfiguration = ThemeConfiguration(
-  fonts: fonts,
-  defaultFont: fonts.first,
+  fonts: allFonts,
+  defaultFont: allFonts.first,
   defaultLightThemeId: 'swift',
   defaultDarkThemeId: 'swift',
   persist: true,
