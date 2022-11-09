@@ -896,8 +896,7 @@ abstract class _Products implements ProductDetailsState {
 mixin _$PurchaseState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(IAPError error) iapError,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(PurchaseStateError error) error,
     required TResult Function() success,
     required TResult Function() loading,
     required TResult Function(PurchaseDetails purchase) pending,
@@ -906,8 +905,7 @@ mixin _$PurchaseState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(IAPError error)? iapError,
-    TResult? Function(Object error, StackTrace stackTrace)? error,
+    TResult? Function(PurchaseStateError error)? error,
     TResult? Function()? success,
     TResult? Function()? loading,
     TResult? Function(PurchaseDetails purchase)? pending,
@@ -916,8 +914,7 @@ mixin _$PurchaseState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(IAPError error)? iapError,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(PurchaseStateError error)? error,
     TResult Function()? success,
     TResult Function()? loading,
     TResult Function(PurchaseDetails purchase)? pending,
@@ -927,7 +924,6 @@ mixin _$PurchaseState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PurchaseStateIapError value) iapError,
     required TResult Function(_PurchaseStateError value) error,
     required TResult Function(_PurchaseStateSuccess value) success,
     required TResult Function(_PurchaseStateLoading value) loading,
@@ -937,7 +933,6 @@ mixin _$PurchaseState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PurchaseStateIapError value)? iapError,
     TResult? Function(_PurchaseStateError value)? error,
     TResult? Function(_PurchaseStateSuccess value)? success,
     TResult? Function(_PurchaseStateLoading value)? loading,
@@ -947,7 +942,6 @@ mixin _$PurchaseState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PurchaseStateIapError value)? iapError,
     TResult Function(_PurchaseStateError value)? error,
     TResult Function(_PurchaseStateSuccess value)? success,
     TResult Function(_PurchaseStateLoading value)? loading,
@@ -977,171 +971,14 @@ class _$PurchaseStateCopyWithImpl<$Res, $Val extends PurchaseState>
 }
 
 /// @nodoc
-abstract class _$$_PurchaseStateIapErrorCopyWith<$Res> {
-  factory _$$_PurchaseStateIapErrorCopyWith(_$_PurchaseStateIapError value,
-          $Res Function(_$_PurchaseStateIapError) then) =
-      __$$_PurchaseStateIapErrorCopyWithImpl<$Res>;
-  @useResult
-  $Res call({IAPError error});
-}
-
-/// @nodoc
-class __$$_PurchaseStateIapErrorCopyWithImpl<$Res>
-    extends _$PurchaseStateCopyWithImpl<$Res, _$_PurchaseStateIapError>
-    implements _$$_PurchaseStateIapErrorCopyWith<$Res> {
-  __$$_PurchaseStateIapErrorCopyWithImpl(_$_PurchaseStateIapError _value,
-      $Res Function(_$_PurchaseStateIapError) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? error = null,
-  }) {
-    return _then(_$_PurchaseStateIapError(
-      null == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as IAPError,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_PurchaseStateIapError implements _PurchaseStateIapError {
-  const _$_PurchaseStateIapError(this.error);
-
-  @override
-  final IAPError error;
-
-  @override
-  String toString() {
-    return 'PurchaseState.iapError(error: $error)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_PurchaseStateIapError &&
-            (identical(other.error, error) || other.error == error));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, error);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_PurchaseStateIapErrorCopyWith<_$_PurchaseStateIapError> get copyWith =>
-      __$$_PurchaseStateIapErrorCopyWithImpl<_$_PurchaseStateIapError>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(IAPError error) iapError,
-    required TResult Function(Object error, StackTrace stackTrace) error,
-    required TResult Function() success,
-    required TResult Function() loading,
-    required TResult Function(PurchaseDetails purchase) pending,
-    required TResult Function(PurchaseDetails purchase) invalid,
-  }) {
-    return iapError(this.error);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(IAPError error)? iapError,
-    TResult? Function(Object error, StackTrace stackTrace)? error,
-    TResult? Function()? success,
-    TResult? Function()? loading,
-    TResult? Function(PurchaseDetails purchase)? pending,
-    TResult? Function(PurchaseDetails purchase)? invalid,
-  }) {
-    return iapError?.call(this.error);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(IAPError error)? iapError,
-    TResult Function(Object error, StackTrace stackTrace)? error,
-    TResult Function()? success,
-    TResult Function()? loading,
-    TResult Function(PurchaseDetails purchase)? pending,
-    TResult Function(PurchaseDetails purchase)? invalid,
-    required TResult orElse(),
-  }) {
-    if (iapError != null) {
-      return iapError(this.error);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_PurchaseStateIapError value) iapError,
-    required TResult Function(_PurchaseStateError value) error,
-    required TResult Function(_PurchaseStateSuccess value) success,
-    required TResult Function(_PurchaseStateLoading value) loading,
-    required TResult Function(_PurchaseStatePending value) pending,
-    required TResult Function(_PurchaseStateInvalid value) invalid,
-  }) {
-    return iapError(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PurchaseStateIapError value)? iapError,
-    TResult? Function(_PurchaseStateError value)? error,
-    TResult? Function(_PurchaseStateSuccess value)? success,
-    TResult? Function(_PurchaseStateLoading value)? loading,
-    TResult? Function(_PurchaseStatePending value)? pending,
-    TResult? Function(_PurchaseStateInvalid value)? invalid,
-  }) {
-    return iapError?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PurchaseStateIapError value)? iapError,
-    TResult Function(_PurchaseStateError value)? error,
-    TResult Function(_PurchaseStateSuccess value)? success,
-    TResult Function(_PurchaseStateLoading value)? loading,
-    TResult Function(_PurchaseStatePending value)? pending,
-    TResult Function(_PurchaseStateInvalid value)? invalid,
-    required TResult orElse(),
-  }) {
-    if (iapError != null) {
-      return iapError(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _PurchaseStateIapError implements PurchaseState {
-  const factory _PurchaseStateIapError(final IAPError error) =
-      _$_PurchaseStateIapError;
-
-  IAPError get error;
-  @JsonKey(ignore: true)
-  _$$_PurchaseStateIapErrorCopyWith<_$_PurchaseStateIapError> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
 abstract class _$$_PurchaseStateErrorCopyWith<$Res> {
   factory _$$_PurchaseStateErrorCopyWith(_$_PurchaseStateError value,
           $Res Function(_$_PurchaseStateError) then) =
       __$$_PurchaseStateErrorCopyWithImpl<$Res>;
   @useResult
-  $Res call({Object error, StackTrace stackTrace});
+  $Res call({PurchaseStateError error});
+
+  $PurchaseStateErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -1156,31 +993,35 @@ class __$$_PurchaseStateErrorCopyWithImpl<$Res>
   @override
   $Res call({
     Object? error = null,
-    Object? stackTrace = null,
   }) {
     return _then(_$_PurchaseStateError(
-      null == error ? _value.error : error,
-      null == stackTrace
-          ? _value.stackTrace
-          : stackTrace // ignore: cast_nullable_to_non_nullable
-              as StackTrace,
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PurchaseStateError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PurchaseStateErrorCopyWith<$Res> get error {
+    return $PurchaseStateErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$_PurchaseStateError implements _PurchaseStateError {
-  const _$_PurchaseStateError(this.error, this.stackTrace);
+class _$_PurchaseStateError extends _PurchaseStateError {
+  const _$_PurchaseStateError(this.error) : super._();
 
   @override
-  final Object error;
-  @override
-  final StackTrace stackTrace;
+  final PurchaseStateError error;
 
   @override
   String toString() {
-    return 'PurchaseState.error(error: $error, stackTrace: $stackTrace)';
+    return 'PurchaseState.error(error: $error)';
   }
 
   @override
@@ -1188,14 +1029,11 @@ class _$_PurchaseStateError implements _PurchaseStateError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PurchaseStateError &&
-            const DeepCollectionEquality().equals(other.error, error) &&
-            (identical(other.stackTrace, stackTrace) ||
-                other.stackTrace == stackTrace));
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(error), stackTrace);
+  int get hashCode => Object.hash(runtimeType, error);
 
   @JsonKey(ignore: true)
   @override
@@ -1207,34 +1045,31 @@ class _$_PurchaseStateError implements _PurchaseStateError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(IAPError error) iapError,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(PurchaseStateError error) error,
     required TResult Function() success,
     required TResult Function() loading,
     required TResult Function(PurchaseDetails purchase) pending,
     required TResult Function(PurchaseDetails purchase) invalid,
   }) {
-    return error(this.error, stackTrace);
+    return error(this.error);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(IAPError error)? iapError,
-    TResult? Function(Object error, StackTrace stackTrace)? error,
+    TResult? Function(PurchaseStateError error)? error,
     TResult? Function()? success,
     TResult? Function()? loading,
     TResult? Function(PurchaseDetails purchase)? pending,
     TResult? Function(PurchaseDetails purchase)? invalid,
   }) {
-    return error?.call(this.error, stackTrace);
+    return error?.call(this.error);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(IAPError error)? iapError,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(PurchaseStateError error)? error,
     TResult Function()? success,
     TResult Function()? loading,
     TResult Function(PurchaseDetails purchase)? pending,
@@ -1242,7 +1077,7 @@ class _$_PurchaseStateError implements _PurchaseStateError {
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(this.error, stackTrace);
+      return error(this.error);
     }
     return orElse();
   }
@@ -1250,7 +1085,6 @@ class _$_PurchaseStateError implements _PurchaseStateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PurchaseStateIapError value) iapError,
     required TResult Function(_PurchaseStateError value) error,
     required TResult Function(_PurchaseStateSuccess value) success,
     required TResult Function(_PurchaseStateLoading value) loading,
@@ -1263,7 +1097,6 @@ class _$_PurchaseStateError implements _PurchaseStateError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PurchaseStateIapError value)? iapError,
     TResult? Function(_PurchaseStateError value)? error,
     TResult? Function(_PurchaseStateSuccess value)? success,
     TResult? Function(_PurchaseStateLoading value)? loading,
@@ -1276,7 +1109,6 @@ class _$_PurchaseStateError implements _PurchaseStateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PurchaseStateIapError value)? iapError,
     TResult Function(_PurchaseStateError value)? error,
     TResult Function(_PurchaseStateSuccess value)? success,
     TResult Function(_PurchaseStateLoading value)? loading,
@@ -1291,12 +1123,12 @@ class _$_PurchaseStateError implements _PurchaseStateError {
   }
 }
 
-abstract class _PurchaseStateError implements PurchaseState {
-  const factory _PurchaseStateError(
-      final Object error, final StackTrace stackTrace) = _$_PurchaseStateError;
+abstract class _PurchaseStateError extends PurchaseState {
+  const factory _PurchaseStateError(final PurchaseStateError error) =
+      _$_PurchaseStateError;
+  const _PurchaseStateError._() : super._();
 
-  Object get error;
-  StackTrace get stackTrace;
+  PurchaseStateError get error;
   @JsonKey(ignore: true)
   _$$_PurchaseStateErrorCopyWith<_$_PurchaseStateError> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1320,8 +1152,8 @@ class __$$_PurchaseStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchaseStateSuccess implements _PurchaseStateSuccess {
-  const _$_PurchaseStateSuccess();
+class _$_PurchaseStateSuccess extends _PurchaseStateSuccess {
+  const _$_PurchaseStateSuccess() : super._();
 
   @override
   String toString() {
@@ -1340,8 +1172,7 @@ class _$_PurchaseStateSuccess implements _PurchaseStateSuccess {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(IAPError error) iapError,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(PurchaseStateError error) error,
     required TResult Function() success,
     required TResult Function() loading,
     required TResult Function(PurchaseDetails purchase) pending,
@@ -1353,8 +1184,7 @@ class _$_PurchaseStateSuccess implements _PurchaseStateSuccess {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(IAPError error)? iapError,
-    TResult? Function(Object error, StackTrace stackTrace)? error,
+    TResult? Function(PurchaseStateError error)? error,
     TResult? Function()? success,
     TResult? Function()? loading,
     TResult? Function(PurchaseDetails purchase)? pending,
@@ -1366,8 +1196,7 @@ class _$_PurchaseStateSuccess implements _PurchaseStateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(IAPError error)? iapError,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(PurchaseStateError error)? error,
     TResult Function()? success,
     TResult Function()? loading,
     TResult Function(PurchaseDetails purchase)? pending,
@@ -1383,7 +1212,6 @@ class _$_PurchaseStateSuccess implements _PurchaseStateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PurchaseStateIapError value) iapError,
     required TResult Function(_PurchaseStateError value) error,
     required TResult Function(_PurchaseStateSuccess value) success,
     required TResult Function(_PurchaseStateLoading value) loading,
@@ -1396,7 +1224,6 @@ class _$_PurchaseStateSuccess implements _PurchaseStateSuccess {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PurchaseStateIapError value)? iapError,
     TResult? Function(_PurchaseStateError value)? error,
     TResult? Function(_PurchaseStateSuccess value)? success,
     TResult? Function(_PurchaseStateLoading value)? loading,
@@ -1409,7 +1236,6 @@ class _$_PurchaseStateSuccess implements _PurchaseStateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PurchaseStateIapError value)? iapError,
     TResult Function(_PurchaseStateError value)? error,
     TResult Function(_PurchaseStateSuccess value)? success,
     TResult Function(_PurchaseStateLoading value)? loading,
@@ -1424,8 +1250,9 @@ class _$_PurchaseStateSuccess implements _PurchaseStateSuccess {
   }
 }
 
-abstract class _PurchaseStateSuccess implements PurchaseState {
+abstract class _PurchaseStateSuccess extends PurchaseState {
   const factory _PurchaseStateSuccess() = _$_PurchaseStateSuccess;
+  const _PurchaseStateSuccess._() : super._();
 }
 
 /// @nodoc
@@ -1446,8 +1273,8 @@ class __$$_PurchaseStateLoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchaseStateLoading implements _PurchaseStateLoading {
-  const _$_PurchaseStateLoading();
+class _$_PurchaseStateLoading extends _PurchaseStateLoading {
+  const _$_PurchaseStateLoading() : super._();
 
   @override
   String toString() {
@@ -1466,8 +1293,7 @@ class _$_PurchaseStateLoading implements _PurchaseStateLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(IAPError error) iapError,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(PurchaseStateError error) error,
     required TResult Function() success,
     required TResult Function() loading,
     required TResult Function(PurchaseDetails purchase) pending,
@@ -1479,8 +1305,7 @@ class _$_PurchaseStateLoading implements _PurchaseStateLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(IAPError error)? iapError,
-    TResult? Function(Object error, StackTrace stackTrace)? error,
+    TResult? Function(PurchaseStateError error)? error,
     TResult? Function()? success,
     TResult? Function()? loading,
     TResult? Function(PurchaseDetails purchase)? pending,
@@ -1492,8 +1317,7 @@ class _$_PurchaseStateLoading implements _PurchaseStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(IAPError error)? iapError,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(PurchaseStateError error)? error,
     TResult Function()? success,
     TResult Function()? loading,
     TResult Function(PurchaseDetails purchase)? pending,
@@ -1509,7 +1333,6 @@ class _$_PurchaseStateLoading implements _PurchaseStateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PurchaseStateIapError value) iapError,
     required TResult Function(_PurchaseStateError value) error,
     required TResult Function(_PurchaseStateSuccess value) success,
     required TResult Function(_PurchaseStateLoading value) loading,
@@ -1522,7 +1345,6 @@ class _$_PurchaseStateLoading implements _PurchaseStateLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PurchaseStateIapError value)? iapError,
     TResult? Function(_PurchaseStateError value)? error,
     TResult? Function(_PurchaseStateSuccess value)? success,
     TResult? Function(_PurchaseStateLoading value)? loading,
@@ -1535,7 +1357,6 @@ class _$_PurchaseStateLoading implements _PurchaseStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PurchaseStateIapError value)? iapError,
     TResult Function(_PurchaseStateError value)? error,
     TResult Function(_PurchaseStateSuccess value)? success,
     TResult Function(_PurchaseStateLoading value)? loading,
@@ -1550,8 +1371,9 @@ class _$_PurchaseStateLoading implements _PurchaseStateLoading {
   }
 }
 
-abstract class _PurchaseStateLoading implements PurchaseState {
+abstract class _PurchaseStateLoading extends PurchaseState {
   const factory _PurchaseStateLoading() = _$_PurchaseStateLoading;
+  const _PurchaseStateLoading._() : super._();
 }
 
 /// @nodoc
@@ -1587,8 +1409,8 @@ class __$$_PurchaseStatePendingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchaseStatePending implements _PurchaseStatePending {
-  const _$_PurchaseStatePending(this.purchase);
+class _$_PurchaseStatePending extends _PurchaseStatePending {
+  const _$_PurchaseStatePending(this.purchase) : super._();
 
   @override
   final PurchaseDetails purchase;
@@ -1620,8 +1442,7 @@ class _$_PurchaseStatePending implements _PurchaseStatePending {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(IAPError error) iapError,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(PurchaseStateError error) error,
     required TResult Function() success,
     required TResult Function() loading,
     required TResult Function(PurchaseDetails purchase) pending,
@@ -1633,8 +1454,7 @@ class _$_PurchaseStatePending implements _PurchaseStatePending {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(IAPError error)? iapError,
-    TResult? Function(Object error, StackTrace stackTrace)? error,
+    TResult? Function(PurchaseStateError error)? error,
     TResult? Function()? success,
     TResult? Function()? loading,
     TResult? Function(PurchaseDetails purchase)? pending,
@@ -1646,8 +1466,7 @@ class _$_PurchaseStatePending implements _PurchaseStatePending {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(IAPError error)? iapError,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(PurchaseStateError error)? error,
     TResult Function()? success,
     TResult Function()? loading,
     TResult Function(PurchaseDetails purchase)? pending,
@@ -1663,7 +1482,6 @@ class _$_PurchaseStatePending implements _PurchaseStatePending {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PurchaseStateIapError value) iapError,
     required TResult Function(_PurchaseStateError value) error,
     required TResult Function(_PurchaseStateSuccess value) success,
     required TResult Function(_PurchaseStateLoading value) loading,
@@ -1676,7 +1494,6 @@ class _$_PurchaseStatePending implements _PurchaseStatePending {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PurchaseStateIapError value)? iapError,
     TResult? Function(_PurchaseStateError value)? error,
     TResult? Function(_PurchaseStateSuccess value)? success,
     TResult? Function(_PurchaseStateLoading value)? loading,
@@ -1689,7 +1506,6 @@ class _$_PurchaseStatePending implements _PurchaseStatePending {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PurchaseStateIapError value)? iapError,
     TResult Function(_PurchaseStateError value)? error,
     TResult Function(_PurchaseStateSuccess value)? success,
     TResult Function(_PurchaseStateLoading value)? loading,
@@ -1704,9 +1520,10 @@ class _$_PurchaseStatePending implements _PurchaseStatePending {
   }
 }
 
-abstract class _PurchaseStatePending implements PurchaseState {
+abstract class _PurchaseStatePending extends PurchaseState {
   const factory _PurchaseStatePending(final PurchaseDetails purchase) =
       _$_PurchaseStatePending;
+  const _PurchaseStatePending._() : super._();
 
   PurchaseDetails get purchase;
   @JsonKey(ignore: true)
@@ -1747,8 +1564,8 @@ class __$$_PurchaseStateInvalidCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchaseStateInvalid implements _PurchaseStateInvalid {
-  const _$_PurchaseStateInvalid(this.purchase);
+class _$_PurchaseStateInvalid extends _PurchaseStateInvalid {
+  const _$_PurchaseStateInvalid(this.purchase) : super._();
 
   @override
   final PurchaseDetails purchase;
@@ -1780,8 +1597,7 @@ class _$_PurchaseStateInvalid implements _PurchaseStateInvalid {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(IAPError error) iapError,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(PurchaseStateError error) error,
     required TResult Function() success,
     required TResult Function() loading,
     required TResult Function(PurchaseDetails purchase) pending,
@@ -1793,8 +1609,7 @@ class _$_PurchaseStateInvalid implements _PurchaseStateInvalid {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(IAPError error)? iapError,
-    TResult? Function(Object error, StackTrace stackTrace)? error,
+    TResult? Function(PurchaseStateError error)? error,
     TResult? Function()? success,
     TResult? Function()? loading,
     TResult? Function(PurchaseDetails purchase)? pending,
@@ -1806,8 +1621,7 @@ class _$_PurchaseStateInvalid implements _PurchaseStateInvalid {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(IAPError error)? iapError,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(PurchaseStateError error)? error,
     TResult Function()? success,
     TResult Function()? loading,
     TResult Function(PurchaseDetails purchase)? pending,
@@ -1823,7 +1637,6 @@ class _$_PurchaseStateInvalid implements _PurchaseStateInvalid {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PurchaseStateIapError value) iapError,
     required TResult Function(_PurchaseStateError value) error,
     required TResult Function(_PurchaseStateSuccess value) success,
     required TResult Function(_PurchaseStateLoading value) loading,
@@ -1836,7 +1649,6 @@ class _$_PurchaseStateInvalid implements _PurchaseStateInvalid {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PurchaseStateIapError value)? iapError,
     TResult? Function(_PurchaseStateError value)? error,
     TResult? Function(_PurchaseStateSuccess value)? success,
     TResult? Function(_PurchaseStateLoading value)? loading,
@@ -1849,7 +1661,6 @@ class _$_PurchaseStateInvalid implements _PurchaseStateInvalid {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PurchaseStateIapError value)? iapError,
     TResult Function(_PurchaseStateError value)? error,
     TResult Function(_PurchaseStateSuccess value)? success,
     TResult Function(_PurchaseStateLoading value)? loading,
@@ -1864,12 +1675,362 @@ class _$_PurchaseStateInvalid implements _PurchaseStateInvalid {
   }
 }
 
-abstract class _PurchaseStateInvalid implements PurchaseState {
+abstract class _PurchaseStateInvalid extends PurchaseState {
   const factory _PurchaseStateInvalid(final PurchaseDetails purchase) =
       _$_PurchaseStateInvalid;
+  const _PurchaseStateInvalid._() : super._();
 
   PurchaseDetails get purchase;
   @JsonKey(ignore: true)
   _$$_PurchaseStateInvalidCopyWith<_$_PurchaseStateInvalid> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$PurchaseStateError {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(IAPError error) iapError,
+    required TResult Function(Object error, StackTrace stackTrace) generalError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(IAPError error)? iapError,
+    TResult? Function(Object error, StackTrace stackTrace)? generalError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(IAPError error)? iapError,
+    TResult Function(Object error, StackTrace stackTrace)? generalError,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PurchaseStateErrorIapError value) iapError,
+    required TResult Function(_PurchaseStateErrorGeneralError value)
+        generalError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PurchaseStateErrorIapError value)? iapError,
+    TResult? Function(_PurchaseStateErrorGeneralError value)? generalError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PurchaseStateErrorIapError value)? iapError,
+    TResult Function(_PurchaseStateErrorGeneralError value)? generalError,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PurchaseStateErrorCopyWith<$Res> {
+  factory $PurchaseStateErrorCopyWith(
+          PurchaseStateError value, $Res Function(PurchaseStateError) then) =
+      _$PurchaseStateErrorCopyWithImpl<$Res, PurchaseStateError>;
+}
+
+/// @nodoc
+class _$PurchaseStateErrorCopyWithImpl<$Res, $Val extends PurchaseStateError>
+    implements $PurchaseStateErrorCopyWith<$Res> {
+  _$PurchaseStateErrorCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_PurchaseStateErrorIapErrorCopyWith<$Res> {
+  factory _$$_PurchaseStateErrorIapErrorCopyWith(
+          _$_PurchaseStateErrorIapError value,
+          $Res Function(_$_PurchaseStateErrorIapError) then) =
+      __$$_PurchaseStateErrorIapErrorCopyWithImpl<$Res>;
+  @useResult
+  $Res call({IAPError error});
+}
+
+/// @nodoc
+class __$$_PurchaseStateErrorIapErrorCopyWithImpl<$Res>
+    extends _$PurchaseStateErrorCopyWithImpl<$Res,
+        _$_PurchaseStateErrorIapError>
+    implements _$$_PurchaseStateErrorIapErrorCopyWith<$Res> {
+  __$$_PurchaseStateErrorIapErrorCopyWithImpl(
+      _$_PurchaseStateErrorIapError _value,
+      $Res Function(_$_PurchaseStateErrorIapError) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_PurchaseStateErrorIapError(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as IAPError,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_PurchaseStateErrorIapError implements _PurchaseStateErrorIapError {
+  const _$_PurchaseStateErrorIapError(this.error);
+
+  @override
+  final IAPError error;
+
+  @override
+  String toString() {
+    return 'PurchaseStateError.iapError(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PurchaseStateErrorIapError &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PurchaseStateErrorIapErrorCopyWith<_$_PurchaseStateErrorIapError>
+      get copyWith => __$$_PurchaseStateErrorIapErrorCopyWithImpl<
+          _$_PurchaseStateErrorIapError>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(IAPError error) iapError,
+    required TResult Function(Object error, StackTrace stackTrace) generalError,
+  }) {
+    return iapError(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(IAPError error)? iapError,
+    TResult? Function(Object error, StackTrace stackTrace)? generalError,
+  }) {
+    return iapError?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(IAPError error)? iapError,
+    TResult Function(Object error, StackTrace stackTrace)? generalError,
+    required TResult orElse(),
+  }) {
+    if (iapError != null) {
+      return iapError(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PurchaseStateErrorIapError value) iapError,
+    required TResult Function(_PurchaseStateErrorGeneralError value)
+        generalError,
+  }) {
+    return iapError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PurchaseStateErrorIapError value)? iapError,
+    TResult? Function(_PurchaseStateErrorGeneralError value)? generalError,
+  }) {
+    return iapError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PurchaseStateErrorIapError value)? iapError,
+    TResult Function(_PurchaseStateErrorGeneralError value)? generalError,
+    required TResult orElse(),
+  }) {
+    if (iapError != null) {
+      return iapError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PurchaseStateErrorIapError implements PurchaseStateError {
+  const factory _PurchaseStateErrorIapError(final IAPError error) =
+      _$_PurchaseStateErrorIapError;
+
+  IAPError get error;
+  @JsonKey(ignore: true)
+  _$$_PurchaseStateErrorIapErrorCopyWith<_$_PurchaseStateErrorIapError>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_PurchaseStateErrorGeneralErrorCopyWith<$Res> {
+  factory _$$_PurchaseStateErrorGeneralErrorCopyWith(
+          _$_PurchaseStateErrorGeneralError value,
+          $Res Function(_$_PurchaseStateErrorGeneralError) then) =
+      __$$_PurchaseStateErrorGeneralErrorCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Object error, StackTrace stackTrace});
+}
+
+/// @nodoc
+class __$$_PurchaseStateErrorGeneralErrorCopyWithImpl<$Res>
+    extends _$PurchaseStateErrorCopyWithImpl<$Res,
+        _$_PurchaseStateErrorGeneralError>
+    implements _$$_PurchaseStateErrorGeneralErrorCopyWith<$Res> {
+  __$$_PurchaseStateErrorGeneralErrorCopyWithImpl(
+      _$_PurchaseStateErrorGeneralError _value,
+      $Res Function(_$_PurchaseStateErrorGeneralError) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+    Object? stackTrace = null,
+  }) {
+    return _then(_$_PurchaseStateErrorGeneralError(
+      null == error ? _value.error : error,
+      null == stackTrace
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_PurchaseStateErrorGeneralError
+    implements _PurchaseStateErrorGeneralError {
+  const _$_PurchaseStateErrorGeneralError(this.error, this.stackTrace);
+
+  @override
+  final Object error;
+  @override
+  final StackTrace stackTrace;
+
+  @override
+  String toString() {
+    return 'PurchaseStateError.generalError(error: $error, stackTrace: $stackTrace)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PurchaseStateErrorGeneralError &&
+            const DeepCollectionEquality().equals(other.error, error) &&
+            (identical(other.stackTrace, stackTrace) ||
+                other.stackTrace == stackTrace));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(error), stackTrace);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PurchaseStateErrorGeneralErrorCopyWith<_$_PurchaseStateErrorGeneralError>
+      get copyWith => __$$_PurchaseStateErrorGeneralErrorCopyWithImpl<
+          _$_PurchaseStateErrorGeneralError>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(IAPError error) iapError,
+    required TResult Function(Object error, StackTrace stackTrace) generalError,
+  }) {
+    return generalError(error, stackTrace);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(IAPError error)? iapError,
+    TResult? Function(Object error, StackTrace stackTrace)? generalError,
+  }) {
+    return generalError?.call(error, stackTrace);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(IAPError error)? iapError,
+    TResult Function(Object error, StackTrace stackTrace)? generalError,
+    required TResult orElse(),
+  }) {
+    if (generalError != null) {
+      return generalError(error, stackTrace);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PurchaseStateErrorIapError value) iapError,
+    required TResult Function(_PurchaseStateErrorGeneralError value)
+        generalError,
+  }) {
+    return generalError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PurchaseStateErrorIapError value)? iapError,
+    TResult? Function(_PurchaseStateErrorGeneralError value)? generalError,
+  }) {
+    return generalError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PurchaseStateErrorIapError value)? iapError,
+    TResult Function(_PurchaseStateErrorGeneralError value)? generalError,
+    required TResult orElse(),
+  }) {
+    if (generalError != null) {
+      return generalError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PurchaseStateErrorGeneralError implements PurchaseStateError {
+  const factory _PurchaseStateErrorGeneralError(
+          final Object error, final StackTrace stackTrace) =
+      _$_PurchaseStateErrorGeneralError;
+
+  Object get error;
+  StackTrace get stackTrace;
+  @JsonKey(ignore: true)
+  _$$_PurchaseStateErrorGeneralErrorCopyWith<_$_PurchaseStateErrorGeneralError>
+      get copyWith => throw _privateConstructorUsedError;
 }

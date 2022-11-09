@@ -34,10 +34,8 @@ class ProductDetailsState with _$ProductDetailsState {
 
 @freezed
 class PurchaseState with _$PurchaseState {
-  // inapp error
-  const factory PurchaseState.iapError(IAPError error) = _PurchaseStateIapError;
   // general error
-  const factory PurchaseState.error(Object error, StackTrace stackTrace) =
+  const factory PurchaseState.error(PurchaseStateError error) =
       _PurchaseStateError;
   // products
   const factory PurchaseState.success() = _PurchaseStateSuccess;
@@ -49,4 +47,14 @@ class PurchaseState with _$PurchaseState {
   // invalid
   const factory PurchaseState.invalid(PurchaseDetails purchase) =
       _PurchaseStateInvalid;
+
+  const PurchaseState._();
+}
+
+@freezed
+class PurchaseStateError with _$PurchaseStateError {
+  const factory PurchaseStateError.iapError(IAPError error) =
+      _PurchaseStateErrorIapError;
+  const factory PurchaseStateError.generalError(
+      Object error, StackTrace stackTrace) = _PurchaseStateErrorGeneralError;
 }

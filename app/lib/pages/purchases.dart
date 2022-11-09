@@ -12,6 +12,7 @@ import 'package:swift_travel/logic/in_app_purchase.dart';
 import 'package:swift_travel/models/purchase.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:theming/responsive.dart';
 
 class InAppPurchasesPage extends StatefulWidget {
   const InAppPurchasesPage({super.key});
@@ -98,7 +99,35 @@ class _Main extends ConsumerWidget {
                   child: CircularProgressIndicator(),
                 ),
               ),
-            )
+            ),
+            // restore purchases
+            const SliverGap(16),
+            SliverToBoxAdapter(
+              child: Text(
+                'Restore purchases',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 8),
+            ),
+            SliverToBoxAdapter(
+              child: Text(
+                'If you have already purchased one of the above products, you can restore it here. ',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ),
+            const SliverGap(8),
+            SliverToBoxAdapter(
+              child: ElevatedButton(
+                onPressed: () async {
+                  await ref
+                      .read(inAppPurchaseManagerProvider.notifier)
+                      .restorePurchases();
+                },
+                child: const Text('Restore purchases'),
+              ),
+            ),
           ],
         ),
       ),
@@ -131,13 +160,24 @@ class _ProductTile extends ConsumerWidget {
           ]
         ],
       ),
-      onTap: () {
-        unawaited(showMaterialModalBottomSheet(
-          context: context,
-          builder: (_) => _InAppPurchaseDialog(product),
-          isDismissible: false,
-          backgroundColor: Colors.transparent,
-        ));
+      onTap: () async {
+        if (isThemeDarwin(context)) {
+          await showCupertinoModalBottomSheet<void>(
+            context: context,
+            builder: (_) => _InAppPurchaseDialog(product),
+            isDismissible: false,
+            backgroundColor: Colors.transparent,
+            expand: false,
+          );
+        } else {
+          await showMaterialModalBottomSheet<void>(
+            context: context,
+            builder: (_) => _InAppPurchaseDialog(product),
+            isDismissible: false,
+            backgroundColor: Colors.transparent,
+            expand: false,
+          );
+        }
       },
     );
   }
@@ -180,7 +220,7 @@ class _InAppPurchaseDialogState extends ConsumerState<_InAppPurchaseDialog> {
           .catchError((Object e, StackTrace s) {
         log.e('Error while purchasing', stackTrace: s);
         setState(() {
-          _state = PurchaseState.error(e, s);
+          _state = PurchaseState.error(PurchaseStateError.generalError(e, s));
         });
       }),
     );
@@ -191,13 +231,13 @@ class _InAppPurchaseDialogState extends ConsumerState<_InAppPurchaseDialog> {
       log.w('More than one purchase at a time');
     }
     for (final purchaseDetails in details) {
-      log.i('Purchase updated: $purchaseDetails');
+      log.i('Purchase updated: ${purchaseDetails.toDebugString()}');
       if (purchaseDetails.status == PurchaseStatus.pending) {
         setState(() => _state = PurchaseState.pending(purchaseDetails));
       } else {
         if (purchaseDetails.status == PurchaseStatus.error) {
-          setState(
-              () => _state = PurchaseState.iapError(purchaseDetails.error!));
+          setState(() => _state = PurchaseState.error(
+              PurchaseStateError.iapError(purchaseDetails.error!)));
         } else if (purchaseDetails.status == PurchaseStatus.purchased ||
             purchaseDetails.status == PurchaseStatus.restored) {
           final manager = ref.read(inAppPurchaseManagerProvider.notifier);
@@ -226,28 +266,38 @@ class _InAppPurchaseDialogState extends ConsumerState<_InAppPurchaseDialog> {
   @override
   Widget build(BuildContext context) {
     // display a bottom sheet
-    return DecoratedBox(
+    return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
       ),
+      height: MediaQuery.of(context).size.height * 0.375,
       child: _state.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         pending: (details) {
           return Column(
-            children: const [
-              Text('Purchase pending...'),
-              Gap(8),
-              CircularProgressIndicator(),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Purchase pending...',
+                  style: Theme.of(context).textTheme.titleLarge),
+              const Gap(8),
+              const CircularProgressIndicator(),
             ],
           );
         },
         success: () {
           return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Purchase successful!'),
+              Text('Purchase successful!',
+                  style: Theme.of(context).textTheme.titleLarge),
               const Gap(8),
-              const Text('Thank you so much for supporting the app!'),
+              Text('Thank you so much for supporting the app!',
+                  style: Theme.of(context).textTheme.titleSmall),
               const Gap(8),
               CupertinoButton(
                 child: Text(AppLocalizations.of(context).close),
@@ -258,28 +308,17 @@ class _InAppPurchaseDialogState extends ConsumerState<_InAppPurchaseDialog> {
             ],
           );
         },
-        error: (error, s) {
+        error: (error) {
           return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Purchase failed'),
+              Text('Purchase failed',
+                  style: Theme.of(context).textTheme.titleLarge),
               const Gap(8),
-              Text(error.toString()),
-              const Gap(8),
-              CupertinoButton(
-                child: Text(AppLocalizations.of(context).close),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        },
-        iapError: (error) {
-          return Column(
-            children: [
-              const Text('Purchase failed'),
-              const Gap(8),
-              Text(error.toString()),
+              Text(error.toString(),
+                  style: Theme.of(context).textTheme.titleSmall),
               const Gap(8),
               CupertinoButton(
                 child: Text(AppLocalizations.of(context).close),
@@ -292,10 +331,15 @@ class _InAppPurchaseDialogState extends ConsumerState<_InAppPurchaseDialog> {
         },
         invalid: (details) {
           return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Purchase failed'),
+              Text('Purchase failed',
+                  style: Theme.of(context).textTheme.titleLarge),
               const Gap(8),
-              const Text('The purchase is invalid'),
+              Text('The purchase is invalid',
+                  style: Theme.of(context).textTheme.titleSmall),
               const Gap(8),
               CupertinoButton(
                 child: Text(AppLocalizations.of(context).close),

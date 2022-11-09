@@ -40,19 +40,24 @@ class InAppPurchaseManager extends ChangeNotifier {
     return purchases?.lastOrNull?.status;
   }
 
-  void _addPurchase(PurchaseDetails purchaseDetails) {
+  Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
     _purchaseStatuses.update(
       purchaseDetails.productID,
       (value) => [...value, purchaseDetails],
       ifAbsent: () => [purchaseDetails],
     );
-    notifyListeners();
+    // if purchase is restored, we should update the UI
+    if (purchaseDetails.status == PurchaseStatus.restored) {
+      await deliverProduct(purchaseDetails);
+    } else {
+      notifyListeners();
+    }
   }
 
   Future<void> init() async {
     _subscription = InAppPurchase.instance.purchaseStream.listen((purchases) {
-      log.i('Purchases: $purchases');
-      purchases.forEach(_addPurchase);
+      log.i('Purchases: ${purchases.map((e) => e.toDebugString()).toList()}');
+      purchases.forEach(_handlePurchase);
     });
     await getProducts();
     await getPurchasedIds();
@@ -93,7 +98,7 @@ class InAppPurchaseManager extends ChangeNotifier {
       return;
     }
     final details = products.productDetails;
-    log.i('Donation products: $details');
+    log.i('All products: ${details.map((e) => e.toDebugString()).toList()}');
     setProducts(ProductDetailsState.products(details));
   }
 
@@ -155,4 +160,75 @@ class InAppPurchaseManager extends ChangeNotifier {
   }
 
   bool isPurchased(String id) => _purchasedIds.contains(id);
+}
+
+extension PurchaseDetailsX on PurchaseDetails {
+  String toDebugString() {
+    return '''
+    PurchaseDetails(
+      status: $status,
+      productID: $productID,
+      verificationData: ${verificationData.toDebugString()},
+      transactionDate: $transactionDate,
+      pendingCompletePurchase: $pendingCompletePurchase,
+      error: $error,
+    )
+    ''';
+  }
+}
+
+extension PurchaseVerificationDataX on PurchaseVerificationData {
+  String toDebugString() {
+    return 'PurchaseVerificationData(source: $source, localVerificationData: $localVerificationData, serverVerificationData: $serverVerificationData)';
+  }
+}
+
+/*   /// The identifier of the product.
+  ///
+  /// For example, on iOS it is specified in App Store Connect; on Android, it is specified in Google Play Console.
+  final String id;
+
+  /// The title of the product.
+  ///
+  /// For example, on iOS it is specified in App Store Connect; on Android, it is specified in Google Play Console.
+  final String title;
+
+  /// The description of the product.
+  ///
+  /// For example, on iOS it is specified in App Store Connect; on Android, it is specified in Google Play Console.
+  final String description;
+
+  /// The price of the product, formatted with currency symbol ("$0.99").
+  ///
+  /// For example, on iOS it is specified in App Store Connect; on Android, it is specified in Google Play Console.
+  final String price;
+
+  /// The unformatted price of the product, specified in the App Store Connect or Sku in Google Play console based on the platform.
+  /// The currency unit for this value can be found in the [currencyCode] property.
+  /// The value always describes full units of the currency. (e.g. 2.45 in the case of $2.45)
+  final double rawPrice;
+
+  /// The currency code for the price of the product.
+  /// Based on the price specified in the App Store Connect or Sku in Google Play console based on the platform.
+  final String currencyCode;
+
+  /// The currency symbol for the locale, e.g. $ for US locale.
+  ///
+  /// When the currency symbol cannot be determined, the ISO 4217 currency code is returned.
+  final String currencySymbol; */
+
+extension ProductDetailsX on ProductDetails {
+  String toDebugString() {
+    return '''
+    ProductDetails(
+      id: $id,
+      title: $title,
+      description: $description,
+      price: $price,
+      rawPrice: $rawPrice,
+      currencyCode: $currencyCode,
+      currencySymbol: $currencySymbol,
+    )
+    ''';
+  }
 }
