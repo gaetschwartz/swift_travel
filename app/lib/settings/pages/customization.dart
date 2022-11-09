@@ -43,7 +43,7 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
           brightness: Brightness.dark,
           title: Text(AppLocalizations.of(context).brightness_dark),
         ),
-        const _FontChoiceTile(),
+        const _FontChoiceTile(isLast: !Env.isDebugMode),
         if (Env.isDebugMode) const _PlatformTile(),
       ],
     );
@@ -116,8 +116,10 @@ class _ThemeTile extends StatelessWidget {
   }
 }
 
-class _FontChoiceTile extends StatelessWidget {
-  const _FontChoiceTile();
+class _FontChoiceTile extends ConsumerWidget {
+  const _FontChoiceTile({required this.isLast});
+
+  final bool isLast;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -158,7 +160,7 @@ class _FontChoiceTile extends StatelessWidget {
   }
 }
 
-extension TargetPlatfromX on String String TargetPlatform {
+extension TargetPlatfromX on TargetPlatform {
   String get name {
     switch (this) {
       case TargetPlatform.android:
