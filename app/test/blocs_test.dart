@@ -45,7 +45,7 @@ void main() {
 
     setUp(() async {
       container = ProviderContainer(overrides: [
-        storeProvider.overrideWith(
+        favoritesStoreProvider.overrideWith(
           (_) => HiveFavoritesStore(),
         )
       ]);
@@ -57,9 +57,9 @@ void main() {
     });
 
     test('favs and routes are persisted correctly', () async {
-      final store = container.read(storeProvider);
+      final store = container.read(favoritesStoreProvider);
 
-      await store.init(prefs: prefs);
+      await store.init();
 
       final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
       await store.addStop(bern);
@@ -68,12 +68,12 @@ void main() {
 
       await store.init();
 
-      expect(store.stops, [bern]);
-      expect(store.routes, [route]);
+      expect(store.stops.map((e) => e.data), [bern]);
+      expect(store.routes.map((e) => e.data), [route]);
     });
 
     test('default is empty', () async {
-      final store = container.read(storeProvider);
+      final store = container.read(favoritesStoreProvider);
 
       await store.init();
       expect(store.stops, <FavoriteStop>{});
@@ -82,9 +82,9 @@ void main() {
 
     test('add favs and remove', () async {
       final favsListener = FavsListener();
-      final store = container.read(storeProvider);
+      final store = container.read(favoritesStoreProvider);
 
-      store.addListener(() => favsListener(store.stops));
+      store.addListener(() => favsListener(store.stops.map((e) => e.data)));
 
       await store.init();
       verify(favsListener([])).called(1);
@@ -92,11 +92,11 @@ void main() {
       final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
       final nowhere = FavoriteStop.fromStop('Nowhere', api: searchChApi.id);
 
-      await store.addStop(bern);
-      expect(store.stops, [bern]);
+      final dataWithIdBern = await store.addStop(bern);
+      expect(store.stops.map((e) => e.data), [bern]);
       verify(favsListener([bern])).called(1);
-      await store.removeStop(bern);
-      expect(store.stops, <FavoriteStop>{});
+      await store.removeStop(dataWithIdBern);
+      expect(store.stops.map((e) => e.data), <FavoriteStop>{});
       verify(favsListener([])).called(1);
 
       verifyNever(favsListener([nowhere]));
@@ -105,9 +105,9 @@ void main() {
 
     test('add routes and remove', () async {
       final routesListener = RoutesListener();
-      final store = container.read(storeProvider);
+      final store = container.read(favoritesStoreProvider);
 
-      store.addListener(() => routesListener(store.routes));
+      store.addListener(() => routesListener(store.routes.map((e) => e.data)));
 
       await store.init();
       verify(routesListener([])).called(1);
@@ -115,11 +115,11 @@ void main() {
       final route = LocalRoute.simple('Bern', 'Bern');
       final routeNever = LocalRoute.simple('Nowhere', 'Everywhere');
 
-      await store.addRoute(route);
-      expect(store.routes, [route]);
+      final routeWithId = await store.addRoute(route);
+      expect(store.routes.map((e) => e.data), [route]);
       verify(routesListener([route])).called(1);
-      await store.removeRoute(route);
-      expect(store.routes, <LocalRoute>{});
+      await store.removeRoute(routeWithId);
+      expect(store.routes.map((e) => e.data), isEmpty);
       verify(routesListener([])).called(1);
 
       verifyNever(routesListener([routeNever]));

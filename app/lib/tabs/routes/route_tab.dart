@@ -140,7 +140,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
     super.didChangeDependencies();
     fromFormatter = ref.read(fromTextfieldProvider).inputFormatter;
     toFormatter = ref.read(toTextfieldProvider).inputFormatter;
-    favorites = ref.read(storeProvider);
+    favorites = ref.read(favoritesStoreProvider);
     api = ref.read(navigationAPIProvider);
   }
 
@@ -247,9 +247,9 @@ class RoutePageState extends ConsumerState<RoutePage> {
                           log.log(favorites.routes.toString());
                           if (favorites.routes.any(
                             (lr) =>
-                                lr.fromAsString ==
+                                lr.data.fromAsString ==
                                     ref.read(fromTextfieldProvider).text &&
-                                lr.toAsString ==
+                                lr.data.toAsString ==
                                     ref.read(toTextfieldProvider).text,
                           )) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -278,11 +278,14 @@ class RoutePageState extends ConsumerState<RoutePage> {
                         icon: Consumer(builder: (context, ref, _) {
                           ref.watch(routeStatesProvider);
 
-                          return ref.watch(storeProvider).routes.any((lr) =>
-                                  lr.fromAsString ==
-                                      ref.read(fromTextfieldProvider).text &&
-                                  lr.toAsString ==
-                                      ref.read(toTextfieldProvider).text)
+                          return ref.watch(favoritesStoreProvider).routes.any(
+                                  (lr) =>
+                                      lr.data.fromAsString ==
+                                          ref
+                                              .read(fromTextfieldProvider)
+                                              .text &&
+                                      lr.data.toAsString ==
+                                          ref.read(toTextfieldProvider).text)
                               ? const Icon(Icons.star)
                               : const Icon(Icons.star_border);
                         }),

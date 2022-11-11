@@ -106,7 +106,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     api = ref.read(navigationAPIProvider);
-    store = ref.read(storeProvider);
+    store = ref.read(favoritesStoreProvider);
   }
 
   Future<void> onChanged() async {

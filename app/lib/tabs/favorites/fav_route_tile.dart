@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -14,9 +15,11 @@ import 'package:theming/dialogs/confirmation_alert.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 
 class FavoriteRouteTile extends ConsumerWidget {
-  const FavoriteRouteTile(this.route, {super.key});
+  const FavoriteRouteTile(this.routeWithId, {super.key});
 
-  final LocalRoute route;
+  final DataWithId<LocalRoute> routeWithId;
+
+  LocalRoute get route => routeWithId.data;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,13 +59,13 @@ class FavoriteRouteTile extends ConsumerWidget {
   }
 
   Future<void> rename(BuildContext context, WidgetRef ref) async {
-    final store = ref.read(storeProvider);
+    final store = ref.read(favoritesStoreProvider);
     final displayName = await input(context,
         title: Text('How to rename "${route.displayName}" ?'));
     if (displayName == null) {
       return;
     }
-    await store.removeRoute(route);
+    await store.removeRoute(routeWithId);
     await store.addRoute(route.copyWith(displayName: displayName));
     return;
   }
@@ -91,7 +94,7 @@ class FavoriteRouteTile extends ConsumerWidget {
   }
 
   Future<void> deleteRoute(BuildContext context, WidgetRef ref) async {
-    final favoritesStore = ref.read(storeProvider);
+    final favoritesStore = ref.read(favoritesStoreProvider);
     final b = await confirm(
       context,
       title: Text.rich(TextSpan(text: 'Delete ', children: [
@@ -127,6 +130,6 @@ class FavoriteRouteTile extends ConsumerWidget {
     );
     if (!b) return;
 
-    return favoritesStore.removeRoute(route);
+    return favoritesStore.removeRoute(routeWithId);
   }
 }

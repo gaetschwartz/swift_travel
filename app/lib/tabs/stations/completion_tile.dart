@@ -45,12 +45,12 @@ class CompletionTile extends ConsumerStatefulWidget {
 class _CompletionTileState extends ConsumerState<CompletionTile> {
   @override
   Widget build(BuildContext context) {
-    final store = ref.watch(storeProvider);
+    final store = ref.watch(favoritesStoreProvider);
     final iconClass = widget.sugg.icon;
     final isPrivate = TransportationModeX.isAnAddress(widget.sugg.type);
 
     final favoriteStop =
-        store.stops.firstWhereOrNull((f) => f.stop == widget.sugg.label);
+        store.stops.firstWhereOrNull((f) => f.data.stop == widget.sugg.label);
     final isFav = favoriteStop != null;
     final darwin = isThemeDarwin(context);
 
@@ -83,7 +83,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
               iconClass,
           ],
         ),
-        title: Text(isFav ? favoriteStop.displayName : widget.sugg.label),
+        title: Text(isFav ? favoriteStop.data.displayName : widget.sugg.label),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: subtitle,
@@ -132,7 +132,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
     Vibration.instance.select();
 
     final favoriteStop =
-        store.stops.firstWhereOrNull((f) => f.stop == widget.sugg.label);
+        store.stops.firstWhereOrNull((f) => f.data.stop == widget.sugg.label);
     final isFav = favoriteStop != null;
 
     await showActionSheet<void>(
@@ -233,8 +233,9 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
     if (!Env.doCacheLines) {
       log.log('We are not caching lines');
     }
-    if (Env.doCacheLines && LineCache.i.containsKey(widget.compl.label)) {
-      final l = LineCache.i
+    if (Env.doCacheLines &&
+        LineCacheRepository.instance.containsKey(widget.compl.label)) {
+      final l = LineCacheRepository.instance
           .get(widget.compl.label)
           .lines
           .map(_LineIcon.new)
@@ -294,7 +295,7 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
       }
 
       if (Env.doCacheLines) {
-        await LineCache.i.put(
+        await LineCacheRepository.instance.put(
             widget.compl.label,
             LineCacheEntry(
                 timestamp: DateTime.now(),
@@ -316,7 +317,7 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
         ttl: Duration.minutesPerHour * 6,
       );
 
-      await LineCache.i.put(widget.compl.label, entry);
+      await LineCacheRepository.instance.put(widget.compl.label, entry);
     }
   }
 }
