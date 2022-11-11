@@ -15,6 +15,7 @@ class PreferencesBloc {
   static const String mapsKey = 'maps_app';
   static const String navigationApiKey = 'nav_api_id';
   static const String analyticsKey = 'accepted_analytics';
+  static const String isDeveloperKey = 'is_developer';
 
   final mapsApp = MappedSharedPreferencesProperty<NavigationApp, int>(
     prefix + mapsKey,
@@ -31,12 +32,14 @@ class PreferencesBloc {
   );
 
   final useAnalytics = SimpleSharedPreferencesProperty<bool>(
-      prefix + analyticsKey,
-      defaultValue: true);
+    prefix + analyticsKey,
+    defaultValue: true,
+  );
 
   final isDeveloper = SimpleSharedPreferencesProperty<bool>(
-      '${prefix}is_developer',
-      defaultValue: false);
+    prefix + isDeveloperKey,
+    defaultValue: false,
+  );
 
   Future<void> loadFromPreferences({SharedPreferences? prefs}) async {
     final p = prefs ?? await SharedPreferences.getInstance();
@@ -47,6 +50,13 @@ class PreferencesBloc {
       useAnalytics.init,
       isDeveloper.init,
     ].map((e) => e(p)));
+  }
+
+  void dispose() {
+    mapsApp.dispose();
+    api.dispose();
+    useAnalytics.dispose();
+    isDeveloper.dispose();
   }
 }
 

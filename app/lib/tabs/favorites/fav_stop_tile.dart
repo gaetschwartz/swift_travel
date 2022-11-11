@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
+import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -18,12 +19,11 @@ import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class FavoriteStationTile extends ConsumerStatefulWidget {
-  const FavoriteStationTile(
-    this.stop, {
-    super.key,
-  });
+  const FavoriteStationTile(this.stopWithId, {super.key});
 
-  final FavoriteStop stop;
+  final DataWithId<FavoriteStop> stopWithId;
+
+  FavoriteStop get stop => stopWithId.data;
 
   @override
   ConsumerState<FavoriteStationTile> createState() =>
@@ -131,18 +131,18 @@ class _FavoriteStationTileState extends ConsumerState<FavoriteStationTile> {
   }
 
   Future<void> rename(BuildContext context) async {
-    final store = ref.read(storeProvider);
+    final store = ref.read(favoritesStoreProvider);
     final s = await input(context,
         title: Text('How to rename "${widget.stop.name}" ?'));
     if (s == null) {
       return;
     }
-    await store.removeStop(widget.stop);
-    return store.addStop(widget.stop.copyWith(name: s));
+    await store.removeStop(widget.stopWithId);
+    await store.addStop(widget.stop.copyWith(name: s));
   }
 
   Future<void> delete(BuildContext context) async {
-    final favoritesStore = ref.read(storeProvider);
+    final favoritesStore = ref.read(favoritesStoreProvider);
     final b = await confirm(
       context,
       title: Text(AppLocalizations.of(context).delete_fav),
@@ -159,6 +159,6 @@ class _FavoriteStationTileState extends ConsumerState<FavoriteStationTile> {
     );
     if (!b) return;
 
-    return favoritesStore.removeStop(widget.stop);
+    return favoritesStore.removeStop(widget.stopWithId);
   }
 }

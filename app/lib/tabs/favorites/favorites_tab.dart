@@ -36,7 +36,7 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
   @override
   bool get wantKeepAlive => true;
 
-  late final BaseFavoritesStore store = ref.read(storeProvider);
+  late final BaseFavoritesStore store = ref.read(favoritesStoreProvider);
 
   @override
   void didChangeDependencies() {
@@ -74,13 +74,10 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
         ),
         body: child,
       ),
-      builder: (context, d) => Consumer(builder: (context, w, _) {
-        final stops = w
-            .watch(favoritesStatesProvider)
-            .maybeWhen<List<FavoriteStop>>(data: (d) => d, orElse: () => []);
-        final routes = w
-            .watch(favoritesRoutesStatesProvider)
-            .maybeWhen<List<LocalRoute>>(data: (d) => d, orElse: () => []);
+      builder: (context, d) => Consumer(builder: (context, ref, _) {
+        final store = ref.watch(favoritesStoreProvider);
+        final stops = store.stops.toList(growable: false);
+        final routes = store.routes.toList(growable: false);
 
         return stops.isEmpty && routes.isEmpty
             ? SizedBox.expand(

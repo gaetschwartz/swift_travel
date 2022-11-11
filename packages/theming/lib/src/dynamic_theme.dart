@@ -195,8 +195,8 @@ class DynamicThemeNotifier extends ChangeNotifier {
     _platform = platform;
     _invalidateCache();
 
-    if (doLog) {
-      if (kDebugMode) {
+    if (kDebugMode) {
+      if (doLog) {
         print(
           '[dyn_theme] Loaded theme from preferences :\n'
           'Got : {themMode: ${thememodeInt == null ? null : ThemeMode.values[thememodeInt]}, themeName: $lightThemeId}\n'
@@ -210,7 +210,7 @@ class DynamicThemeNotifier extends ChangeNotifier {
   }
 
   @visibleForTesting
-  static Future<Box<Object?>> openBox() async => Hive.openBox('theme');
+  static Future<Box<Object?>> openBox() => Hive.openBox('dynamic_theme');
 
   bool get readyToPersist => _isReadyToPersist;
 

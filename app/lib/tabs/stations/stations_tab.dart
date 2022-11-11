@@ -209,46 +209,33 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                         ),
                       ],
                     ),
-                    empty: () => Consumer(
-                        builder: (context, w, _) => w
-                            .watch(favoritesStatesProvider)
-                            .map(
-                              data: (c) => c.favorites.isEmpty
-                                  ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          '🔎',
-                                          style: TextStyle(fontSize: 48),
-                                        ),
-                                        const Gap(24),
-                                        Text(
-                                          'Search a station',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge,
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ],
-                                    )
-                                  : ListView.builder(
-                                      itemBuilder: (context, i) =>
-                                          CompletionTile(
-                                        SbbCompletion.fromFavorite(
-                                            c.favorites[i]),
-                                      ),
-                                      itemCount: c.favorites.length,
-                                    ),
-                              loading: (_) => const Center(
-                                  child: CircularProgressIndicator.adaptive()),
-                              exception: (e) => Center(
-                                child: Text(
-                                  e.exception.toString(),
+                    empty: () => Consumer(builder: (context, w, _) {
+                      final stops = w.watch(favoritesStoreProvider).stops;
+                      return stops.isEmpty
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  '🔎',
+                                  style: TextStyle(fontSize: 48),
+                                ),
+                                const Gap(24),
+                                Text(
+                                  'Search a station',
                                   style: Theme.of(context).textTheme.titleLarge,
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
+                            )
+                          : ListView.builder(
+                              itemBuilder: (context, i) => CompletionTile(
+                                SbbCompletion.fromFavorite(
+                                  stops.elementAt(i).data,
                                 ),
                               ),
-                            )),
+                              itemCount: stops.length,
+                            );
+                    }),
                     network: () => Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

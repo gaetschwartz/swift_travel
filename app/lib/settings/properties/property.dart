@@ -118,26 +118,22 @@ class MappedSharedPreferencesProperty<TValue extends Object?,
 
   TValue _value;
 
-  SharedPreferences? _prefs;
+  late SharedPreferences _prefs;
 
   @override
   TValue get value => _value;
 
   @override
   Future<void> setValue(TValue value) async {
-    if (value == _value) {
-      return;
-    }
     _value = value;
-    _prefs ??= await SharedPreferences.getInstance();
     notifyListeners();
-    await saveInPreferences<TEncValue>(key, encode(value), _prefs!);
+    await saveInPreferences<TEncValue>(key, encode(value), _prefs);
   }
 
   Future<void> init([SharedPreferences? prefs]) async {
     _prefs = prefs ?? await SharedPreferences.getInstance();
-    final x = _prefs!.get(key) as TEncValue?;
-    _value = (x == null ? null : decode(x)) ?? defaultValue!;
+    final x = _prefs.get(key) as TEncValue?;
+    _value = x == null ? defaultValue! : decode(x);
     notifyListeners();
   }
 
@@ -157,8 +153,10 @@ class MappedSharedPreferencesProperty<TValue extends Object?,
     } else if (value is double) {
       await prefs.setDouble(key, value);
     } else {
-      assert(false,
-          'Type ${value.runtimeType} is not supported for shared preferences');
+      assert(
+        false,
+        'Type ${value.runtimeType} is not supported for shared preferences',
+      );
     }
   }
 }
@@ -166,10 +164,9 @@ class MappedSharedPreferencesProperty<TValue extends Object?,
 class SimpleSharedPreferencesProperty<T extends Object?>
     extends MappedSharedPreferencesProperty<T, T> {
   SimpleSharedPreferencesProperty(super.key, {super.defaultValue})
-      : super(
-          decode: (v) => v,
-          encode: (v) => v,
-        );
+      : super(decode: _i, encode: _i);
+
+  static T _i<T>(T x) => x;
 }
 
 typedef SimpleSPProperty = SimpleSharedPreferencesProperty;

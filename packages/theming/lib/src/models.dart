@@ -73,7 +73,7 @@ class ThemeConfiguration with _$ThemeConfiguration {
     required List<Font> fonts,
     @Default('dyn_theme_') String prefix,
     @Default(ThemeMode.system) ThemeMode defaultThemeMode,
-    @Default(true) bool persist,
+    @Default(false) bool persist,
     String? defaultLightThemeId,
     String? defaultDarkThemeId,
     Font? defaultFont,

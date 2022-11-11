@@ -225,8 +225,8 @@ void main() {
     late ProviderContainer container;
     container = ProviderContainer(
       overrides: [
-        storeProvider.overrideWith(
-          (r) => MockFavoriteStore(stops: [
+        favoritesStoreProvider.overrideWith(
+          (r) => MockFavoriteStore(stops_: [
             FavoriteStop.fromStop(geneva, api: searchChApi.id),
             FavoriteStop.fromStop('Genève gare', api: searchChApi.id),
             FavoriteStop.fromStop('Genève nord', api: searchChApi.id),
@@ -361,25 +361,10 @@ void main() {
 }
 
 class MockFavoriteStore implements BaseFavoritesStore {
-  MockFavoriteStore({this.routes = const [], this.stops = const []});
-
-  @override
-  final Iterable<LocalRoute> routes;
-  @override
-  final Iterable<FavoriteStop> stops;
+  MockFavoriteStore({this.routes_ = const [], this.stops_ = const []});
 
   @override
   void addListener(VoidCallback listener) {}
-
-  @override
-  Future<void> addRoute(LocalRoute route) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> addStop(FavoriteStop stop) {
-    throw UnimplementedError();
-  }
 
   @override
   void dispose() {}
@@ -399,14 +384,36 @@ class MockFavoriteStore implements BaseFavoritesStore {
   void removeListener(VoidCallback listener) {}
 
   @override
-  Future<void> removeRoute(LocalRoute route) {
+  Future<void> removeRoute(DataWithId<LocalRoute> route) {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> removeStop(FavoriteStop favoriteStop) {
+  Future<void> removeStop(DataWithId<FavoriteStop> favoriteStop) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<DataWithId<LocalRoute>> addRoute(LocalRoute route) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<DataWithId<FavoriteStop>> addStop(FavoriteStop stop) {
+    throw UnimplementedError();
+  }
+
+  final Iterable<LocalRoute> routes_;
+
+  final Iterable<FavoriteStop> stops_;
+
+  @override
+  Iterable<DataWithId<LocalRoute>> get routes =>
+      routes_.map((e) => DataWithId(0, e));
+
+  @override
+  Iterable<DataWithId<FavoriteStop>> get stops =>
+      stops_.map((e) => DataWithId(0, e));
 }
 
 class MockRouteHistory implements RouteHistoryRepository {

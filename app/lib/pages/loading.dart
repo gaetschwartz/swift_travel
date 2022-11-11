@@ -77,47 +77,46 @@ class _LoadingPageState extends ConsumerState<LoadingPage>
   Widget build(BuildContext context) => const Scaffold();
 
   Future<void> init() async {
-    final prefs = await SharedPreferences.getInstance();
+    await initSettings();
 
-    await initSettings(prefs);
-
-    if (!isTest) {
-      try {
-        await Geolocator.requestPermission();
-      } on MissingPluginException {
-        ignoreError();
-      }
+    try {
+      await Geolocator.requestPermission();
+    } on MissingPluginException {
+      ignoreError();
     }
 
     unawaited(route());
 
     if (isMobile) {
-      await QuickActionsRepository.i.init();
+      await QuickActionsManager.instance.init();
 
       await ref.read(linksProvider).init(
-          onNewRoute: (p) => navigatorKey.currentState!.push(
-                PlatformPageRoute(
-                  builder: (_) => RouteDetails(
-                    route: p.first,
-                    i: p.second,
-                    doShowCloseButton: true,
-                  ),
+            onNewRoute: (p) => navigatorKey.currentState?.push(
+              PlatformPageRoute(
+                builder: (_) => RouteDetails(
+                  route: p.first,
+                  i: p.second,
+                  doShowCloseButton: true,
                 ),
-              ));
+              ),
+            ),
+          );
     }
   }
 
-  Future<void> initSettings(SharedPreferences prefs) async {
+  Future<void> initSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+
     await initHive();
-    await Future.wait([
-      RouteHistoryRepository.instance.open(),
-      LineCache.i.open(),
-    ]);
 
     try {
-      await DynamicTheme.of(context).configure(themeConfiguration);
+      await Future.wait([
+        RouteHistoryRepository.instance.open(),
+        LineCacheRepository.instance.open(),
+        ref.read(favoritesStoreProvider).init(),
+        DynamicTheme.of(context).configure(themeConfiguration),
+      ]);
       await ref.read(preferencesProvider).loadFromPreferences(prefs: prefs);
-      await ref.read(storeProvider).init(prefs: prefs);
     } on Exception catch (e, s) {
       await failedToLoadSettings(e, s, prefs);
       // ignore: avoid_catching_errors

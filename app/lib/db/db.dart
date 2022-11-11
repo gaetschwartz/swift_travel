@@ -54,7 +54,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
           return _runtimeTypeRegistry[boxKey] == runtimeType;
         }
       }(),
-      'The key `$boxKey` is already associated with a different database ${_runtimeTypeRegistry[boxKey]}',
+      'The key `$boxKey` is already associated with a different database type ${_runtimeTypeRegistry[boxKey]}',
     );
     _box = await Hive.openBox<TEncValue>(boxKey, path: path);
     assert(_debugInitialized = true, '');
@@ -106,8 +106,10 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
   TValue get last => decode(box.get(keys.last)!);
 
   Iterable<TKey> get keys => box.keys.cast();
+
   Future<void> deleteAll(Iterable<TKey> keys) =>
       box.deleteAll(keys.map<TKey>(sanitizeKey));
+
   Future<void> delete(TKey key) => box.delete(sanitizeKey(key));
 
   bool containsKey(TKey key) => box.containsKey(sanitizeKey(key));
@@ -120,8 +122,12 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
     return decode(at);
   }
 
-  TKey sanitizeKey(TKey key) =>
-      key is String ? _maxStringSize(Uri.encodeComponent(key)) as TKey : key;
+  TKey sanitizeKey(TKey key) {
+    if (key is String) {
+      return _maxStringSize(Uri.encodeComponent(key)) as TKey;
+    }
+    return key;
+  }
 
   Map<TKey, TValue> get map {
     return box
@@ -131,14 +137,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
 }
 
 mixin KeyedDatabaseMixin<TKey extends Object, TEncValue extends Object,
-    TValue extends Object> on LocalDatabase<TKey, TEncValue, TValue> {
-  Future<void> safePut(TKey key, TValue value) async {
-    if (_box == null) {
-      await open();
-    }
-    await put(key, value);
-  }
-}
+    TValue extends Object> on LocalDatabase<TKey, TEncValue, TValue> {}
 
 mixin IndexedDatabaseMixin<TEncValue extends Object, TValue extends Object>
     on LocalDatabase<int, TEncValue, TValue> {
@@ -153,32 +152,51 @@ mixin IndexedDatabaseMixin<TEncValue extends Object, TValue extends Object>
     if (box.length >= maxSize) {
       await onDatabaseExceededMaxSize();
     }
-    final map = encode(data);
-    return box.add(map);
+    return box.add(encode(data));
   }
 
   Future<void> hashAdd(TValue data) => put(data.hashCode, data);
   Future<void> hashDelete(TValue data) => delete(data.hashCode);
 }
 
-class SimpleDatabase<TKey extends Object, TEncValue extends Object,
-    TValue extends Object> extends LocalDatabase<TKey, TEncValue, TValue> {
-  SimpleDatabase({
-    required super.boxKey,
-    required super.maxSize,
-    required super.decode,
-    required super.encode,
-    this.onDatabaseExceededMaxSizeCallback,
-  });
+class DataWithId<T> {
+  DataWithId(this.id, this.data);
 
-  final FutureOr<void> Function()? onDatabaseExceededMaxSizeCallback;
+  final int id;
+  final T data;
 
   @override
-  FutureOr<void> onDatabaseExceededMaxSize() {
-    if (onDatabaseExceededMaxSizeCallback != null) {
-      onDatabaseExceededMaxSizeCallback!.call();
-    } else {
-      super.onDatabaseExceededMaxSize();
+  String toString() => 'DataWithId($id, $data)';
+}
+
+mixin IndexedDatabaseWithIdMixin<TEncValue extends Object,
+    TValue extends Object> on LocalDatabase<int, TEncValue, TValue> {
+  Future<int> add(TValue data) async {
+    if (box.length >= maxSize) {
+      await onDatabaseExceededMaxSize();
+    }
+    return box.add(encode(data));
+  }
+
+  Future<void> deleteById(int id) => box.delete(id);
+
+  Future<void> deleteAllByIds(Iterable<int> ids) => box.deleteAll(ids);
+
+  Future<void> deleteByData(TValue data) => box.delete(data.hashCode);
+
+  bool containsId(int id) => box.containsKey(id);
+
+  TValue getById(int id) {
+    final at = box.get(id);
+    if (at == null) {
+      throw StateError('No item with id `$id`');
+    }
+    return decode(at);
+  }
+
+  Iterable<DataWithId<TValue>> get valuesWithIds sync* {
+    for (final id in keys) {
+      yield DataWithId(id, decode(box.get(id)!));
     }
   }
 }

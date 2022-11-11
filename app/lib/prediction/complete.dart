@@ -43,7 +43,7 @@ class CompletionEngine {
     required String query,
     bool doUseHistory = true,
   }) async {
-    final favorites = read(storeProvider).stops;
+    final favorites = read(favoritesStoreProvider).stops;
     final history = doUseHistory
         ? routeHistoryRepository.history
         : const Iterable<LocalRoute>.empty();
@@ -51,9 +51,9 @@ class CompletionEngine {
     final distances = <MapEntry<FavoriteStop, double>>[];
 
     for (final c in favorites) {
-      final leven = scaledLevenshtein(query, c.name.replaceAll(',', ''));
+      final leven = scaledLevenshtein(query, c.data.name.replaceAll(',', ''));
       if (leven < _kConfidenceThreshold) {
-        distances.add(MapEntry(c, leven));
+        distances.add(MapEntry(c.data, leven));
       }
     }
 
@@ -87,21 +87,20 @@ class CompletionEngine {
     assert(!doPredict || date != null,
         'If you use prediction, you must provide a date argument');
 
-    final favorites = read(storeProvider).stops;
+    final favorites = read(favoritesStoreProvider).stops;
     final history =
         doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
     final completions = await read(navigationAPIProvider).complete(query);
-    final distances = <FavoriteStop, double>{};
+    final distances = <Pair<FavoriteStop, double>>[];
 
     for (final c in favorites) {
-      final leven = scaledLevenshtein(query, c.name.replaceAll(',', ''));
+      final leven = scaledLevenshtein(query, c.data.name.replaceAll(',', ''));
       if (leven < _kConfidenceThreshold) {
-        distances[c] = leven;
+        distances.add(Pair(c.data, leven));
       }
     }
 
-    final favs = distances.entries.toList(growable: false)
-      ..sort((a, b) => a.value.compareTo(b.value));
+    distances.sort((a, b) => a.second.compareTo(b.second));
 
     final historySet = history
         .flatMap((e) => [
@@ -111,9 +110,9 @@ class CompletionEngine {
         .take(_kMaxHistoryCount)
         .toSet();
 
-    final favsIter = favs
-        .take(min(favs.length, _kMaxFavoritesCount))
-        .map((e) => SbbCompletion.fromFavorite(e.key));
+    final favsIter = distances
+        .take(min(distances.length, _kMaxFavoritesCount))
+        .map((e) => SbbCompletion.fromFavorite(e.first));
 
     final list = _returnedList(
       q: query,
