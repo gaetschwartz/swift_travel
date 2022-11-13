@@ -157,6 +157,8 @@ void main() {
             .overrideWithValue(MockNavigationApi(mockCompletions: []))
       ]);
 
+      await container.read(favoritesStoreProvider).init();
+
       final c = await container
           .read(completionEngineProvider)
           .complete(query: 'query', doUseCurrentLocation: false)

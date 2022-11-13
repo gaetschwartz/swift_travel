@@ -265,7 +265,7 @@ Future<Directory> getTempDirForTests() async {
   try {
     directory = await getTemporaryDirectory();
   } on MissingPluginException {
-    directory = Directory('./temp');
+    directory = Directory('./test/tmp');
   }
   return directory;
 }
