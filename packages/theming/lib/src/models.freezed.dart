@@ -904,7 +904,7 @@ class _$_ThemeConfiguration extends _ThemeConfiguration {
       required final List<Font> fonts,
       this.prefix = 'dyn_theme_',
       this.defaultThemeMode = ThemeMode.system,
-      this.persist = true,
+      this.persist = false,
       this.defaultLightThemeId,
       this.defaultDarkThemeId,
       this.defaultFont,
