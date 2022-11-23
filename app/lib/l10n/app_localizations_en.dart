@@ -68,6 +68,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String direction(String dir) {
+
     return 'Direction $dir';
   }
 
@@ -187,11 +188,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String walk(String walk) {
+
     return 'Walk *$walk*.';
   }
 
   @override
   String walk_and_wait(String wait, String walk) {
+
     return 'Walk *$walk* and wait *$wait*.';
   }
 
@@ -203,6 +206,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String youll_be_there(String time) {
+
     return 'You arrive at *$time*.';
   }
 }
