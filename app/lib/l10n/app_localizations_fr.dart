@@ -73,8 +73,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get done => 'Terminé';
 
   @override
-  String get failed_get_contact =>
-      'Impossible d\'obtenir le carnet d\'adresses';
+  String get failed_get_contact => 'Impossible d\'obtenir le carnet d\'adresses';
 
   @override
   String get fav_route => 'Ajouter la route aux favoris';
@@ -176,8 +175,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unable_locate => 'Impossible d\'obtenir la localisation.';
 
   @override
-  String get unsupported_area =>
-      'Vous n\'avez pas l\'air d\'être dans une zone prise en charge.';
+  String get unsupported_area => 'Vous n\'avez pas l\'air d\'être dans une zone prise en charge.';
 
   @override
   String get use_current_location => 'Utiliser l\'emplacement actuel';
@@ -216,25 +214,23 @@ class AppLocalizationsFr extends AppLocalizations {
   String get purchase_success => 'Achat réussi';
 
   @override
-  String get thank_you_for_purchase =>
-      'Merci beaucoup de soutenir le développement de l\'application !';
+  String get thank_you_for_purchase => 'Merci beaucoup de soutenir le développement de l\'application !';
 
   @override
   String get in_app_purchases => 'Achats In-App';
 
   @override
-  String get in_app_purchases_desc =>
-      'Vous pouvez soutenir le développement de cette application en faisant un don. Tout montant est vraiment apprécié. Tout don débloquera Swift Travel Pro avec plus d\'options de personnalisation.';
+  String get in_app_purchases_desc => 'Vous pouvez soutenir le développement de cette application en faisant un don. Tout montant est vraiment apprécié. Tout don débloquera Swift Travel Pro avec plus d\'options de personnalisation.';
 
   @override
   String get in_app_purchases_restore => 'Restaurer les achats';
 
   @override
-  String get in_app_purchases_restore_desc =>
-      'Si vous avez déjà acheté l\'un des produits ci-dessus, vous pouvez le restaurer ici.';
+  String get in_app_purchases_restore_desc => 'Si vous avez déjà acheté l\'un des produits ci-dessus, vous pouvez le restaurer ici.';
 
   @override
   String that_is_required(String that) {
+
     return '$that est nécessaire';
   }
 
