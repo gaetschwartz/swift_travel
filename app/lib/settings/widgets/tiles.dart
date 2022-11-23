@@ -89,7 +89,6 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
                             mainAxisSize: MainAxisSize.min,
                             verticalDirection: VerticalDirection.down,
                             children: [
-                              const Text(''),
                               if (subtitle != null)
                                 ConstrainedBox(
                                   constraints:

@@ -190,7 +190,7 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
   static const numberOfLines = 6;
   final log = Logger('LinesWidget');
 
-  List<Widget>? lines;
+  List<Line>? lines;
 
   @override
   void initState() {
@@ -202,16 +202,16 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(top: 4),
         child: lines == null
-            ? const SizedBox(
-                width: 8,
-                height: 8,
-                child: CircularProgressIndicator.adaptive())
+            ? const SizedBox.square(
+                dimension: 8,
+                child: CircularProgressIndicator.adaptive(),
+              )
             : SizedBox(
                 width: double.infinity,
                 child: ClipRect(
                   child: Row(
                     children: [
-                      ...lines!.take(numberOfLines),
+                      ...lines!.take(numberOfLines).map(_LineIcon.new),
                       if (lines!.length > numberOfLines)
                         const Text(' ...', overflow: TextOverflow.fade)
                     ],
@@ -224,8 +224,8 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
     try {
       await stationboard();
     } on Exception catch (e, s) {
-      debugPrintStack(stackTrace: s, label: e.toString());
       setState(() => lines = []);
+      log.e('Failed to get lines for ${widget.compl.label}: $e', stackTrace: s);
     }
   }
 
@@ -238,7 +238,6 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
       final l = LineCacheRepository.instance
           .get(widget.compl.label)
           .lines
-          .map(_LineIcon.new)
           .take(numberOfLines + 1)
           .toList(growable: false);
       if (mounted) {
@@ -256,7 +255,7 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
               ),
               when: DateTime.now(),
             )
-            .timeout(const Duration(seconds: 1));
+            .timeout(const Duration(seconds: 2));
       } on TimeoutException {
         await cacheShortLivedErrorEntry();
         return;
@@ -269,28 +268,23 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
 
       final connections = sData.connections.where((c) => c.line != null);
 
-      final l = connections.sorted((a, b) {
-        final la = int.tryParse((a.l ?? a.line)!);
-        final lb = int.tryParse((b.l ?? b.line)!);
-        if (la == null && lb == null) {
-          return a.line!.compareTo(b.line!);
-        } else {
-          return (la ?? double.infinity).compareTo(lb ?? double.infinity);
-        }
-      }).map((c) => Line(
-            line: c.line,
-            bgColor: c.bgcolor?.value,
-            fgColor: c.fgcolor?.value,
-          ));
-
-      final l2 = l
-          .map(_LineIcon.new)
+      final l = connections
+          .sorted((a, b) {
+            final la = a.l ?? a.line ?? '';
+            final lb = b.l ?? b.line ?? '';
+            return la.compareTo(lb);
+          })
+          .map((c) => Line(
+                line: c.line,
+                bgColor: c.bgcolor?.value,
+                fgColor: c.fgcolor?.value,
+              ))
           .toSet()
           .take(numberOfLines + 1)
           .toList(growable: false);
 
       if (mounted) {
-        setState(() => lines = l2);
+        setState(() => lines = l);
       }
 
       if (Env.doCacheLines) {
@@ -299,7 +293,7 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
           LineCacheEntry(
             timestamp: DateTime.now(),
             stop: widget.compl.label,
-            lines: l.toList(growable: false),
+            lines: l,
           ),
         );
       }
@@ -325,10 +319,7 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
 }
 
 class _LineIcon extends StatelessWidget {
-  const _LineIcon(
-    this.l, {
-    super.key,
-  });
+  const _LineIcon(this.l);
 
   final Line l;
 
