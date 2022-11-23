@@ -42,13 +42,13 @@ jobs:
         run: bash $GITHUB_WORKSPACE/CI/prebuild.sh
         working-directory: app/
       - name: Test
-        run: flutter test --coverage
+        run: flutter test
         working-directory: app/
-      - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v1
-        with:
-          files: app/coverage/lcov.info
-          token: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload coverage to codecov
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     files: app/coverage/lcov.info
+      #     token: ${{ secrets.CODECOV_TOKEN }}
 
   build-android:
     runs-on: ubuntu-latest

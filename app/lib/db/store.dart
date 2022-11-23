@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -14,20 +16,22 @@ import 'package:swift_travel/states/favorites_states.dart';
 import 'package:theming/responsive.dart';
 
 abstract class BaseFavoritesStore extends ChangeNotifier {
-  Future<void> init({SharedPreferences? prefs, bool doNotify = true});
-  Future<void> addStop(FavoriteStop stop);
-  Future<void> removeStop(FavoriteStop favoriteStop);
-  Future<void> addRoute(LocalRoute route);
-  Future<void> removeRoute(LocalRoute route);
+  Future<void> init({bool doNotify = true});
+  Future<DataWithId<FavoriteStop>> addStop(FavoriteStop stop);
+  Future<void> removeStop(DataWithId<FavoriteStop> favoriteStop);
+  Future<DataWithId<LocalRoute>> addRoute(LocalRoute route);
+  Future<void> removeRoute(DataWithId<LocalRoute> route);
 
-  Iterable<LocalRoute> get routes;
-  Iterable<FavoriteStop> get stops;
+  Iterable<DataWithId<LocalRoute>> get routes;
+  Iterable<DataWithId<FavoriteStop>> get stops;
 }
 
-final storeProvider = ChangeNotifierProvider<BaseFavoritesStore>(
-    FavoritesSharedPreferencesStore.new);
+final favoritesStoreProvider =
+    ChangeNotifierProvider<BaseFavoritesStore>((_) => HiveFavoritesStore());
+@Deprecated('Use favoritesStoreProvider instead')
 final favoritesStatesProvider =
     StateProvider<FavoritesStates>((_) => const FavoritesStates.loading());
+@Deprecated('Use favoritesStoreProvider instead')
 final favoritesRoutesStatesProvider = StateProvider<FavoritesRoutesStates>(
     (_) => const FavoritesRoutesStates.loading());
 
@@ -36,46 +40,49 @@ class HiveFavoritesStore extends BaseFavoritesStore {
   final favStopsDb = FavStopsDb();
 
   @override
-  Future<void> addRoute(LocalRoute route) async {
-    await favRoutesDb.hashAdd(route);
+  Future<DataWithId<LocalRoute>> addRoute(LocalRoute route) async {
+    final id = await favRoutesDb.add(route);
     notify();
+    return DataWithId(id, route);
   }
 
   @override
-  Future<void> addStop(FavoriteStop stop) async {
-    await favStopsDb.hashAdd(stop);
+  Future<DataWithId<FavoriteStop>> addStop(FavoriteStop stop) async {
+    final id = await favStopsDb.add(stop);
     notify();
+    return DataWithId(id, stop);
   }
 
   @override
-  Future<void> init({SharedPreferences? prefs, bool doNotify = true}) async {
+  Future<void> init({bool doNotify = true}) async {
     await favRoutesDb.open();
     await favStopsDb.open();
     notify();
   }
 
   @override
-  Future<void> removeRoute(LocalRoute route) async {
-    await favRoutesDb.hashDelete(route);
+  Future<void> removeRoute(DataWithId<LocalRoute> route) async {
+    await favRoutesDb.delete(route.id);
     notify();
   }
 
   @override
-  Future<void> removeStop(FavoriteStop favoriteStop) async {
-    await favStopsDb.hashDelete(favoriteStop);
+  Future<void> removeStop(DataWithId<FavoriteStop> favoriteStop) async {
+    await favStopsDb.delete(favoriteStop.id);
     notify();
   }
 
   @override
-  Iterable<LocalRoute> get routes => favRoutesDb.routes;
+  Iterable<DataWithId<LocalRoute>> get routes => favRoutesDb.valuesWithIds;
 
   @override
-  Iterable<FavoriteStop> get stops => favStopsDb.stops;
+  Iterable<DataWithId<FavoriteStop>> get stops => favStopsDb.valuesWithIds;
 
   void notify() {
     notifyListeners();
     unawaited(
-      QuickActionsRepository.i.setActions(favRoutesDb.routes, favStopsDb.stops),
+      QuickActionsManager.instance
+          .setActions(favRoutesDb.routes, favStopsDb.stops),
     );
   }
 
@@ -88,12 +95,14 @@ class HiveFavoritesStore extends BaseFavoritesStore {
 }
 
 class FavRoutesDb extends LocalDatabase<int, Map<dynamic, dynamic>, LocalRoute>
-    with IndexedDatabaseMixin {
+    with IndexedDatabaseWithIdMixin<Map<dynamic, dynamic>, LocalRoute> {
   @visibleForTesting
-  FavRoutesDb()
+  FavRoutesDb() : this._();
+
+  FavRoutesDb._()
       : super(
           boxKey: 'favorite_routes',
-          maxSize: 100,
+          maxSize: 0,
           decode: (d) => LocalRoute.fromJson(d.cast<String, dynamic>()),
           encode: (d) => d.toJson(),
         );
@@ -108,7 +117,7 @@ class FavRoutesDb extends LocalDatabase<int, Map<dynamic, dynamic>, LocalRoute>
 }
 
 class FavStopsDb extends LocalDatabase<int, Map<dynamic, dynamic>, FavoriteStop>
-    with IndexedDatabaseMixin {
+    with IndexedDatabaseWithIdMixin<Map<dynamic, dynamic>, FavoriteStop> {
   @visibleForTesting
   FavStopsDb()
       : super(
@@ -138,17 +147,15 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
   final Ref ref;
   final Set<FavoriteStop> _stops = {};
 
-  SharedPreferences? _prefs;
+  late SharedPreferences _prefs;
   final Set<LocalRoute> _routes = {};
 
   @override
-  Set<LocalRoute> get routes => _routes;
+  Iterable<DataWithId<LocalRoute>> get routes =>
+      _routes.map((e) => DataWithId(0, e));
   @override
-  Set<FavoriteStop> get stops => _stops;
-
-  Future<void> _checkState() async {
-    _prefs ??= await SharedPreferences.getInstance();
-  }
+  Iterable<DataWithId<FavoriteStop>> get stops =>
+      _stops.map((e) => DataWithId(0, e));
 
   @override
   Future<void> init({SharedPreferences? prefs, bool doNotify = true}) async {
@@ -163,7 +170,7 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
     //? Stops
 
     final favStops = <FavoriteStop>[];
-    for (final stopString in _prefs!.getStringList(stopsKey) ?? <String>[]) {
+    for (final stopString in _prefs.getStringList(stopsKey) ?? <String>[]) {
       final decode = jsonDecode(stopString) as Map<String, dynamic>;
       final fs = FavoriteStop.fromJson(decode);
       favStops.add(fs);
@@ -173,10 +180,10 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
       ..addAll(favStops);
 
     ref.read(favoritesStatesProvider.notifier).state =
-        FavoritesStates.data(stops.toList(growable: false));
+        FavoritesStates.data(stops.map((e) => e.data).toList(growable: false));
 
     //? Routes
-    final routes = _prefs!.getStringList(routesKey) ?? [];
+    final routes = _prefs.getStringList(routesKey) ?? [];
     _routes.clear();
     for (final spr in routes) {
       final decode = jsonDecode(spr) as Map<String, dynamic>;
@@ -193,39 +200,41 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
   }
 
   @override
-  Future<void> addRoute(LocalRoute route) async {
+  Future<DataWithId<LocalRoute>> addRoute(LocalRoute route) async {
     _routes.add(route);
 
     ref.read(favoritesRoutesStatesProvider.notifier).state =
         FavoritesRoutesStates.data(_routes.toList(growable: false));
     await sync();
+    return DataWithId(0, route);
   }
 
   @override
-  Future<void> removeRoute(LocalRoute route) async {
-    _routes.remove(route);
+  Future<void> removeRoute(DataWithId<LocalRoute> route) async {
+    if (!_routes.remove(route.data)) {
+      log.log('${route.data} was not in favorites ?', channel: 'Store');
+    }
     ref.read(favoritesRoutesStatesProvider.notifier).state =
         FavoritesRoutesStates.data(_routes.toList(growable: false));
     await sync();
   }
 
   @override
-  Future<void> addStop(FavoriteStop stop) async {
+  Future<DataWithId<FavoriteStop>> addStop(FavoriteStop stop) async {
     _stops.add(stop);
     ref.read(favoritesStatesProvider.notifier).state =
-        FavoritesStates.data(stops.toList(growable: false));
+        FavoritesStates.data(_stops.toList(growable: false));
     await sync();
+    return DataWithId(0, stop);
   }
 
   @override
-  Future<void> removeStop(FavoriteStop? favoriteStop) async {
-    await _checkState();
-
-    if (!_stops.remove(favoriteStop)) {
-      log.log('$favoriteStop was not in favorites ?', channel: 'Store');
+  Future<void> removeStop(DataWithId<FavoriteStop> favoriteStop) async {
+    if (!_stops.remove(favoriteStop.data)) {
+      log.log('${favoriteStop.data} was not in favorites ?', channel: 'Store');
     }
     ref.read(favoritesStatesProvider.notifier).state =
-        FavoritesStates.data(stops.toList(growable: false));
+        FavoritesStates.data(_stops.toList(growable: false));
     await sync();
   }
 
@@ -237,19 +246,19 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
       try {
         stops.add(jsonEncode(e.toJson()));
       } on FormatException {
-        await _prefs!.setStringList(stopsKey, []);
+        await _prefs.setStringList(stopsKey, []);
         rethrow;
       }
     }
-    await _prefs!.setStringList(stopsKey, stops);
+    await _prefs.setStringList(stopsKey, stops);
 
     final routes =
         _routes.map((e) => jsonEncode(e.toJson())).toList(growable: false);
 
-    await _prefs!.setStringList(routesKey, routes);
+    await _prefs.setStringList(routesKey, routes);
 
     if (isMobile) {
-      await QuickActionsRepository.i.setActions(
+      await QuickActionsManager.instance.setActions(
           _routes.toList(growable: false), _stops.toList(growable: false));
     }
   }

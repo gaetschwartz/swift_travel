@@ -5,13 +5,13 @@ import 'package:swift_travel/mocking/mocking.dart';
 
 import 'db.dart';
 
-class LineCache
+class LineCacheRepository
     extends LocalDatabase<String, Map<dynamic, dynamic>, LineCacheEntry>
     with KeyedDatabaseMixin {
   final log = Logger.of('LineCache');
 
   @visibleForTesting
-  LineCache()
+  LineCacheRepository()
       : super(
           boxKey: 'line_cache',
           maxSize: 250,
@@ -19,7 +19,7 @@ class LineCache
           encode: (d) => d.toJson(),
         );
 
-  static final i = LineCache();
+  static final instance = LineCacheRepository();
 
   List<LineCacheEntry> get entries => values.toList(growable: false);
 

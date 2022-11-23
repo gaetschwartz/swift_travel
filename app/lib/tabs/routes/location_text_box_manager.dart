@@ -14,13 +14,26 @@ class LocationTextBoxManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController controller;
   final String currentLocation;
 
   LocationTextBoxManager({
     RouteTextfieldState initialState = const RouteTextfieldState.text(''),
     required this.currentLocation,
-  }) : _state = initialState;
+  })  : _state = initialState,
+        controller = TextEditingController(
+            text: _stateToString(initialState, currentLocation));
+
+  static String _stateToString(
+    RouteTextfieldState state,
+    String currentLocation,
+  ) {
+    return state.when(
+      empty: () => '',
+      text: (s, doLoad) => s,
+      useCurrentLocation: () => currentLocation,
+    );
+  }
 
   void clear() {
     _state = const RouteTextfieldState.empty();

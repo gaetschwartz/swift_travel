@@ -45,12 +45,12 @@ class CompletionTile extends ConsumerStatefulWidget {
 class _CompletionTileState extends ConsumerState<CompletionTile> {
   @override
   Widget build(BuildContext context) {
-    final store = ref.watch(storeProvider);
+    final store = ref.watch(favoritesStoreProvider);
     final iconClass = widget.sugg.icon;
     final isPrivate = TransportationModeX.isAnAddress(widget.sugg.type);
 
     final favoriteStop =
-        store.stops.firstWhereOrNull((f) => f.stop == widget.sugg.label);
+        store.stops.firstWhereOrNull((f) => f.data.stop == widget.sugg.label);
     final isFav = favoriteStop != null;
     final darwin = isThemeDarwin(context);
 
@@ -83,7 +83,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
               iconClass,
           ],
         ),
-        title: Text(isFav ? favoriteStop.displayName : widget.sugg.label),
+        title: Text(isFav ? favoriteStop.data.displayName : widget.sugg.label),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: subtitle,
@@ -132,7 +132,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
     Vibration.instance.select();
 
     final favoriteStop =
-        store.stops.firstWhereOrNull((f) => f.stop == widget.sugg.label);
+        store.stops.firstWhereOrNull((f) => f.data.stop == widget.sugg.label);
     final isFav = favoriteStop != null;
 
     await showActionSheet<void>(
@@ -233,8 +233,9 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
     if (!Env.doCacheLines) {
       log.log('We are not caching lines');
     }
-    if (Env.doCacheLines && LineCache.i.containsKey(widget.compl.label)) {
-      final l = LineCache.i
+    if (Env.doCacheLines &&
+        LineCacheRepository.instance.containsKey(widget.compl.label)) {
+      final l = LineCacheRepository.instance
           .get(widget.compl.label)
           .lines
           .map(_LineIcon.new)
@@ -268,42 +269,44 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
 
       final connections = sData.connections.where((c) => c.line != null);
 
-      final l = connections
-          .sorted((a, b) {
-            final la = int.tryParse((a.l ?? a.line)!);
-            final lb = int.tryParse((b.l ?? b.line)!);
-            if (la == null && lb == null) {
-              return a.line!.compareTo(b.line!);
-            } else {
-              return (la ?? double.infinity).compareTo(lb ?? double.infinity);
-            }
-          })
-          // ignore: deprecated_member_use_from_same_package
-          .map((c) => Line(
-                line: c.line,
-                bgColor: c.bgcolor?.value,
-                fgColor: c.fgcolor?.value,
-              ))
-          .toSet()
-          .take(numberOfLines + 1);
+      final l = connections.sorted((a, b) {
+        final la = int.tryParse((a.l ?? a.line)!);
+        final lb = int.tryParse((b.l ?? b.line)!);
+        if (la == null && lb == null) {
+          return a.line!.compareTo(b.line!);
+        } else {
+          return (la ?? double.infinity).compareTo(lb ?? double.infinity);
+        }
+      }).map((c) => Line(
+            line: c.line,
+            bgColor: c.bgcolor?.value,
+            fgColor: c.fgcolor?.value,
+          ));
 
-      final l2 = l.map(_LineIcon.new).toList(growable: false);
+      final l2 = l
+          .map(_LineIcon.new)
+          .toSet()
+          .take(numberOfLines + 1)
+          .toList(growable: false);
 
       if (mounted) {
         setState(() => lines = l2);
       }
 
       if (Env.doCacheLines) {
-        await LineCache.i.put(
-            widget.compl.label,
-            LineCacheEntry(
-                timestamp: DateTime.now(),
-                stop: widget.compl.label,
-                lines: l.toList(growable: false)));
+        await LineCacheRepository.instance.put(
+          widget.compl.label,
+          LineCacheEntry(
+            timestamp: DateTime.now(),
+            stop: widget.compl.label,
+            lines: l.toList(growable: false),
+          ),
+        );
       }
     }
   }
 
+  /// Caches an empty list of lines for 1 hour.
   Future<void> cacheShortLivedErrorEntry() async {
     if (mounted) {
       setState(() => lines = []);
@@ -313,10 +316,10 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
         timestamp: DateTime.now(),
         stop: widget.compl.label,
         lines: [],
-        ttl: Duration.minutesPerHour * 6,
+        ttl: Duration.minutesPerHour * 1,
       );
 
-      await LineCache.i.put(widget.compl.label, entry);
+      await LineCacheRepository.instance.put(widget.compl.label, entry);
     }
   }
 }

@@ -9,13 +9,13 @@ import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:theming/responsive.dart';
 
-class QuickActionsRepository {
-  QuickActionsRepository._();
+class QuickActionsManager {
+  QuickActionsManager._();
 
   static const maxFavoriteRoutes = 5;
   static const maxFavoriteStops = 5;
 
-  static final i = QuickActionsRepository._();
+  static final instance = QuickActionsManager._();
 
   bool _debugInitialized = false;
 

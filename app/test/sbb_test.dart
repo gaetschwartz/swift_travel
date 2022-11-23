@@ -854,7 +854,7 @@ Matcher buildMatcher(
           );
         }
       }
-      throw FallThroughError();
+      throw StateError("This shouldn't happen");
     }
   }
 }
