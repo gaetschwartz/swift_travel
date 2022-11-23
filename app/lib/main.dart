@@ -120,13 +120,15 @@ class _FullAppState extends State<FullApp> {
   }
 
   @override
-  Widget build(BuildContext context) => ProviderScope(
-        overrides: const [],
-        child: DynamicTheme(
-          theme: dynamicThemeData,
-          child: const Unfocus(child: SwiftTravelApp()),
-        ),
-      );
+  Widget build(BuildContext context) {
+    return ProviderScope(
+      overrides: const [],
+      child: DynamicTheme(
+        theme: dynamicThemeData,
+        child: const Unfocus(child: SwiftTravelApp()),
+      ),
+    );
+  }
 }
 
 class SwiftTravelApp extends ConsumerStatefulWidget {
@@ -192,14 +194,7 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
       onUnknownRoute: onUnknownRoute,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       initialRoute: 'loading',
-      builder: (context, child) => OverWriteProvidersFromContext(
-        overrides: (context) => [
-          appLocalizationsProvider.overrideWith(
-            (_) => AppLocalizations.of(context),
-          ),
-        ],
-        child: child!,
-      ),
+      builder: (context, child) => ListenToLocaleChange(child: child!),
     );
   }
 
@@ -232,6 +227,37 @@ Route<void> onUnknownRoute(RouteSettings settings) {
   reportDartError('Unknown page : `${settings.name}`', StackTrace.current,
       library: 'router', reason: 'while trying to route', showSnackbar: false);
   return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
+}
+
+class ListenToLocaleChange extends ConsumerStatefulWidget {
+  const ListenToLocaleChange({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  ConsumerState<ListenToLocaleChange> createState() =>
+      _ListenToLocaleChangeState();
+}
+
+class _ListenToLocaleChangeState extends ConsumerState<ListenToLocaleChange> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final notifier = ref.read(appLocalizationsProvider.notifier);
+    final locale = notifier.state.localeName;
+    final newAppLoc = AppLocalizations.of(context);
+    final newLocale = newAppLoc.localeName;
+    if (locale != newLocale) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(appLocalizationsProvider.notifier).state = newAppLoc;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
 }
 
 // ignore: long-method
@@ -339,24 +365,4 @@ class Unfocus extends StatelessWidget {
 // ignore: unreachable_from_main
 T readFromContext<T>(BuildContext context, ProviderListenable<T> provider) {
   return ProviderScope.containerOf(context, listen: false).read(provider);
-}
-
-class OverWriteProvidersFromContext extends StatelessWidget {
-  const OverWriteProvidersFromContext({
-    super.key,
-    required this.child,
-    required this.overrides,
-  });
-
-  final Widget child;
-
-  final List<Override> Function(BuildContext context) overrides;
-
-  @override
-  Widget build(BuildContext context) {
-    return ProviderScope(
-      overrides: overrides(context),
-      child: child,
-    );
-  }
 }

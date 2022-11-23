@@ -209,4 +209,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
     return 'Arrivi a *$time*.';
   }
+
+  @override
+  String get search_a_station => 'Ricerca di una stazione';
+
+  @override
+  String get no_favorites => 'Ricerca di una stazione';
+
+  @override
+  String get how_to_add_favorite => 'È possibile aggiungerne uno toccando il tasto ➕.';
 }

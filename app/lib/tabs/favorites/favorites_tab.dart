@@ -90,13 +90,13 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
                     ),
                     const Gap(32),
                     Text(
-                      'You have no favorites !',
+                      AppLocalizations.of(context).no_favorites,
                       style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
                     const Gap(8),
                     Text(
-                      'You can add one by tapping the ➕ button.',
+                      AppLocalizations.of(context).how_to_add_favorite,
                       style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),

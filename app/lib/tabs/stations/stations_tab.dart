@@ -221,7 +221,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                                 ),
                                 const Gap(24),
                                 Text(
-                                  'Search a station',
+                                  AppLocalizations.of(context).search_station,
                                   style: Theme.of(context).textTheme.titleLarge,
                                   textAlign: TextAlign.center,
                                 )

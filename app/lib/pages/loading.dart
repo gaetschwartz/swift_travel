@@ -42,12 +42,7 @@ class LoadingPage extends ConsumerStatefulWidget {
   _LoadingPageState createState() => _LoadingPageState();
 }
 
-class _LoadingPageState extends ConsumerState<LoadingPage>
-    with TickerProviderStateMixin {
-  late final _controller = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 500));
-  bool darwin = false;
-
+class _LoadingPageState extends ConsumerState<LoadingPage> {
   final log = Logger.of('LoadingPage');
 
   @override
@@ -57,24 +52,12 @@ class _LoadingPageState extends ConsumerState<LoadingPage>
     if (Env.page != 'loading') {
       WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(init()));
     }
-
-    _controller.forward();
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    darwin = isThemeDarwin(context);
+  Widget build(BuildContext context) {
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => const Scaffold();
 
   Future<void> init() async {
     await initSettings();

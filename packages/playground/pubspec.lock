@@ -447,10 +447,11 @@ packages:
   modal_bottom_sheet:
     dependency: transitive
     description:
-      name: modal_bottom_sheet
-      sha256: ef533916a2c3089571c32bd34e410faca77a6849a3f28f748e0794525c5658a0
-      url: "https://pub.dev"
-    source: hosted
+      path: modal_bottom_sheet
+      ref: d3779be7d661481cc0d99090d6356a286ae4f86b
+      resolved-ref: d3779be7d661481cc0d99090d6356a286ae4f86b
+      url: "https://github.com/CoolDude53/modal_bottom_sheet.git"
+    source: git
     version: "2.1.2"
   octo_image:
     dependency: transitive

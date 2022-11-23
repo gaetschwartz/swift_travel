@@ -481,6 +481,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You arrive at *{time}*.'**
   String youll_be_there(String time);
+
+  /// No description provided for @search_a_station.
+  ///
+  /// In en, this message translates to:
+  /// **'Search a station'**
+  String get search_a_station;
+
+  /// No description provided for @no_favorites.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no favorites !'**
+  String get no_favorites;
+
+  /// No description provided for @how_to_add_favorite.
+  ///
+  /// In en, this message translates to:
+  /// **'You can add one by tapping the ➕ button.'**
+  String get how_to_add_favorite;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

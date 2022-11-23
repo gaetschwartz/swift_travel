@@ -38,28 +38,31 @@ import 'package:vibration/vibration.dart';
 final timeTypeProvider = StateProvider((_) => SearchChMode.departure);
 final dateProvider = StateProvider((_) => DateTime.now());
 
-final appLocalizationsProvider =
-    Provider<AppLocalizations>((_) => AppLocalizationsEn());
+final StateProvider<AppLocalizations> appLocalizationsProvider = StateProvider(
+  (_) => AppLocalizationsEn(),
+);
 
 final fromTextfieldProvider = ChangeNotifierProvider(
   (ref) {
     final textStateBinder = LocationTextBoxManager(
       initialState: const RouteTextfieldState.useCurrentLocation(),
-      currentLocation: ref.read(appLocalizationsProvider).current_location,
+      currentLocation: ref.watch(appLocalizationsProvider).current_location,
     );
     ref.onDispose(textStateBinder.dispose);
     return textStateBinder;
   },
+  dependencies: [appLocalizationsProvider],
 );
 
 final toTextfieldProvider = ChangeNotifierProvider(
   (ref) {
     final textStateBinder = LocationTextBoxManager(
-      currentLocation: ref.read(appLocalizationsProvider).current_location,
+      currentLocation: ref.watch(appLocalizationsProvider).current_location,
     );
     ref.onDispose(textStateBinder.dispose);
     return textStateBinder;
   },
+  dependencies: [appLocalizationsProvider],
 );
 
 class RouteTab extends StatefulWidget {

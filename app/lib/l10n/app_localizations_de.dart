@@ -209,4 +209,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
     return 'Sie kommen zu *$time*.';
   }
+
+  @override
+  String get search_a_station => 'Einen Sender suchen';
+
+  @override
+  String get no_favorites => 'Sie haben keine Lieblinge!';
+
+  @override
+  String get how_to_add_favorite => 'Sie können eine hinzufügen, indem Sie auf die Schaltfläche ➕ tippen.';
 }
