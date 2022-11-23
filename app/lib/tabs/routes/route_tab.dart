@@ -44,6 +44,7 @@ final appLocalizationsProvider =
 final fromTextfieldProvider = ChangeNotifierProvider(
   (ref) {
     final textStateBinder = LocationTextBoxManager(
+      initialState: const RouteTextfieldState.useCurrentLocation(),
       currentLocation: ref.read(appLocalizationsProvider).current_location,
     );
     ref.onDispose(textStateBinder.dispose);
