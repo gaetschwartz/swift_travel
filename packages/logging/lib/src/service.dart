@@ -74,12 +74,27 @@ abstract class Logger {
     // assert that each scope path doesn't contain any of "./\:"
     assert(scope.value.every((e) => !e.contains(RegExp(r'[./\\:]'))),
         'Scope path cannot contain any of "./\\:"');
+    final parent = firstParentOfScope(scope);
     return _registery.putIfAbsent(scope, () {
       return ScopedLogger._(
-        consumers: [const ConsoleLogger()],
+        consumers: parent.consumers,
         scope: scope,
       );
     });
+  }
+
+  static ScopedLogger firstParentOfScope(Scope scope) {
+    // asset that the snope is not empty
+    assert(scope.value.isNotEmpty);
+
+    Scope parentScope = scope;
+    while (parentScope.value.isNotEmpty) {
+      parentScope = parentScope.parent;
+      if (_registery.containsKey(parentScope)) {
+        return _registery[parentScope]!;
+      }
+    }
+    return root;
   }
 
   void clearRegistry() {

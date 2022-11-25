@@ -51,5 +51,22 @@ class SimplePrinter extends MessagePrinter {
   const SimplePrinter();
 
   @override
-  String call(LogMessage msg) => msg.message;
+  String call(LogMessage msg) =>
+      "${msg.level.name[0].toUpperCase()}: ${msg.message}";
+}
+
+class BasicPrinter extends MessagePrinter {
+  const BasicPrinter();
+
+  @override
+  String call(LogMessage msg) {
+    final b = StringBuffer();
+
+    b.write('${msg.level.name[0].toUpperCase()} ');
+    if (msg.scope.value.isNotEmpty) {
+      b.write('[${formatScope(msg.scope)}] ');
+    }
+    b.write(msg.message);
+    return b.toString();
+  }
 }

@@ -74,6 +74,8 @@ class Scope with _$Scope {
 
   Scope operator /(String value) => Scope([...this.value, value]);
 
+  Scope get parent => Scope(value.sublist(0, value.length - 1));
+
   String join([String separator = ' ']) => value.join(separator);
 
   static const empty = Scope([]);

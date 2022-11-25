@@ -182,7 +182,9 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
   }
 
   Future<void> _routeToDefault() {
-    log.log(Env.page);
+    if (Env.page.isNotEmpty) {
+      log.log('Page: ${Env.page}');
+    }
 
     if (Env.page.isEmpty) {
       return Navigator.of(context).pushReplacement(
