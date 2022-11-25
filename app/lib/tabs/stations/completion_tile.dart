@@ -154,7 +154,8 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
               } else {
                 final preferencesBloc = ref.read(preferencesProvider);
                 final name = await input(context,
-                    title: const Text('What is the name of this stop'));
+                    title:
+                        Text(AppLocalizations.of(context).how_call_this_fav));
                 if (name == null) return;
 
                 await store.addStop(FavoriteStop.fromCompletion(

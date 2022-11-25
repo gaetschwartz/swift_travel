@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -140,24 +139,25 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
 
     await load(context, future: () async {
       final api = ref.read(navigationAPIProvider);
+      // ignore: prefer_final_locals
       var completions = await api.complete(s, showIds: true);
 
-      if (completions.isEmpty) {
-        log.log("Didn't find a station, will try using routes as a hack...");
-        final sbbRoute = await api.route(
-          s,
-          'Bern',
-          date: DateTime.now(),
-          time: TimeOfDay.now(),
-          timeType: SearchChMode.departure,
-        );
-        if (sbbRoute.connections.isNotEmpty) {
-          final from = sbbRoute.connections.first.from;
-          log.log('Found $from');
-          completions = await api.complete(from, showIds: true);
-          log.log(completions.toString());
-        }
-      }
+      // if (completions.isEmpty) {
+      //   log.log("Didn't find a station, will try using routes as a hack...");
+      //   final sbbRoute = await api.route(
+      //     s,
+      //     'Bern',
+      //     date: DateTime.now(),
+      //     time: TimeOfDay(hour:12),
+      //     timeType: SearchChMode.departure,
+      //   );
+      //   if (sbbRoute.connections.isNotEmpty) {
+      //     final from = sbbRoute.connections.first.from;
+      //     log.log('Found $from');
+      //     completions = await api.complete(from, showIds: true);
+      //     log.log(completions.toString());
+      //   }
+      // }
 
       if (completions.isEmpty) {
         log.log("Didn't find anything for string $s");
@@ -166,9 +166,10 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
 
       if (!mounted) return;
 
-      final name = await input(context,
-          title: const Text('What is the name of this stop'));
-
+      final name = await input(
+        context,
+        title: Text(AppLocalizations.of(context).how_call_this_fav),
+      );
       if (name == null) return;
       if (!mounted) return;
 

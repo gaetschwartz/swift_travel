@@ -9,6 +9,7 @@ class PlatformButton extends StatelessWidget {
     required this.child,
     this.filled = false,
     this.icon,
+    this.onLongPress,
   });
 
   const PlatformButton.filled({
@@ -17,9 +18,11 @@ class PlatformButton extends StatelessWidget {
     required this.child,
     this.filled = true,
     this.icon,
+    this.onLongPress,
   });
 
   final VoidCallback onPressed;
+  final VoidCallback? onLongPress;
   final Widget child;
   final bool filled;
   final Widget? icon;
@@ -27,7 +30,7 @@ class PlatformButton extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     if (isThemeDarwin(context)) {
-      return filled
+      final btn = filled
           ? CupertinoButton.filled(
               onPressed: onPressed,
               child: Row(
@@ -56,6 +59,13 @@ class PlatformButton extends StatelessWidget {
                 ],
               ),
             );
+      if (onLongPress != null) {
+        return GestureDetector(
+          onLongPress: onLongPress,
+          child: btn,
+        );
+      }
+      return btn;
     } else {
       if (filled) {
         if (icon != null) {
@@ -63,10 +73,12 @@ class PlatformButton extends StatelessWidget {
             onPressed: onPressed,
             icon: icon!,
             label: child,
+            onLongPress: onLongPress,
           );
         } else {
           return ElevatedButton(
             onPressed: onPressed,
+            onLongPress: onLongPress,
             child: child,
           );
         }
@@ -76,10 +88,12 @@ class PlatformButton extends StatelessWidget {
             onPressed: onPressed,
             icon: icon!,
             label: child,
+            onLongPress: onLongPress,
           );
         } else {
           return TextButton(
             onPressed: onPressed,
+            onLongPress: onLongPress,
             child: child,
           );
         }

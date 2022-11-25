@@ -16,14 +16,11 @@ class SettingsPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DividerTheme(
-      data: const DividerThemeData(indent: 16, endIndent: 0, thickness: 0.5),
-      child: PlatformSettingsScaffold(
-        title: title,
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: ListView(children: children),
-        ),
+    return PlatformSettingsScaffold(
+      title: title,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: ListView(children: children),
       ),
     );
   }

@@ -38,6 +38,7 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
         _ThemeTile(
           brightness: Brightness.light,
           title: Text(AppLocalizations.of(context).brightness_light),
+          tileBorders: const TileBorders(top: true),
         ),
         _ThemeTile(
           brightness: Brightness.dark,
@@ -82,17 +83,21 @@ class _PlatformTile extends StatelessWidget {
 }
 
 class _ThemeTile extends StatelessWidget {
-  const _ThemeTile({required this.brightness, required this.title});
+  const _ThemeTile({
+    required this.brightness,
+    required this.title,
+    this.tileBorders = TileBorders.none,
+  });
 
   final Brightness brightness;
   final Widget title;
-
+  final TileBorders tileBorders;
   @override
   Widget build(BuildContext context) {
     final theme = DynamicTheme.of(context);
     return SwiftSettingsPropertyTile<ExtendedTheme>(
       leading: const Icon(Icons.color_lens),
-      tileBorders: const TileBorders(bottom: true),
+      tileBorders: tileBorders,
       property: brightness == Brightness.light
           ? SyncProperty<ExtendedTheme>(
               onSet: (p) => unawaited(theme.setLightTheme(p.id)),
@@ -141,7 +146,7 @@ class _FontChoiceTile extends ConsumerWidget {
     return SwiftSettingsPropertyTile<Font>(
       leading: const Icon(Icons.font_download),
       // ignore: use_named_constants
-      tileBorders: TileBorders(top: true, bottom: !isLast),
+      tileBorders: TileBorders(bottom: isLast),
       title: Text(AppLocalizations.of(context).font),
       options: options,
       property: SyncProperty<Font>(

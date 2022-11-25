@@ -163,9 +163,12 @@ class _Main extends ConsumerWidget {
             SliverSafeArea(
               bottom: false,
               sliver: SliverToBoxAdapter(
-                child: Text(
-                  AppLocalizations.of(context).in_app_purchases_desc,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    AppLocalizations.of(context).in_app_purchases_desc,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ),
               ),
             ),

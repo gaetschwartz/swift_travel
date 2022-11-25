@@ -132,5 +132,8 @@
 		}
 	},
 	"support_me": "Support me",
-	"about_the_app": "About the app"
+	"about_the_app": "About the app",
+	"departure_abbr": "Dep.",
+	"arrival_abbr": "Arr.",
+	"how_call_this_fav": "Enter a name for this favourite"
 }

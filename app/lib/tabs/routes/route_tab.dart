@@ -126,7 +126,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
     if (widget.localRoute != null) {
       useLocalRoute();
     } else if (widget.favStop != null) {
-      goToDest();
+      routeToStop();
     }
 
     fnFrom.addListener(_onFocusFromChanged);
@@ -171,7 +171,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
     });
   }
 
-  void goToDest() {
+  void routeToStop() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unFocusFields();
       clearProviders();
@@ -238,7 +238,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              height: 40,
+              height: 48,
               child: Stack(
                 children: [
                   Positioned(
@@ -294,82 +294,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
                               : const Icon(Icons.star_border);
                         }),
                       )),
-                  Center(
-                    child: SizedBox(
-                      height: 48,
-                      child: Tooltip(
-                        message: 'Change date and time',
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            foregroundColor:
-                                Theme.of(context).colorScheme.onSurface,
-                            backgroundColor:
-                                Theme.of(context).colorScheme.surface,
-                          ),
-                          onLongPress: kDebugMode
-                              ? () {
-                                  unFocusFields();
-                                  final sbbRoute = SbbRoute.fromJson(mockRoute);
-
-                                  ref.read(fromTextfieldProvider).setString(
-                                        sbbRoute.connections.first.from,
-                                        doLoad: false,
-                                      );
-                                  ref.read(toTextfieldProvider).setString(
-                                        sbbRoute.connections.first.to,
-                                        doLoad: false,
-                                      );
-                                  ref.read(routeStatesProvider.notifier).state =
-                                      RouteStates(sbbRoute);
-                                }
-                              : null,
-                          onPressed: () async {
-                            Vibration.instance.select();
-                            var type = ref.read(timeTypeProvider);
-                            final currentDate = ref.read(dateProvider.notifier);
-                            final date = await pickDate(
-                              context,
-                              initialDateTime: currentDate.state.subtract(
-                                  Duration(
-                                      minutes: currentDate.state.minute % 5)),
-                              minuteInterval: 5,
-                              bottom: _Segmented(
-                                onChange: (v) => type = v,
-                                initialValue: type,
-                              ),
-                              textColor: CupertinoColors.activeBlue,
-                            );
-                            if (date != null) currentDate.state = date;
-
-                            if (!mounted) return;
-                            ref.read(timeTypeProvider.notifier).state = type;
-                          },
-                          child: Consumer(builder: (context, w, _) {
-                            final date = w.watch(dateProvider);
-                            final time = w.watch(timeTypeProvider);
-                            final dateFormatted =
-                                DateFormat('d MMM y').format(date);
-                            final timeFormatted =
-                                DateFormat('H:mm').format(date);
-                            final type = describeEnum(time);
-                            return Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                    '${type[0].toUpperCase()}${type.substring(1, 3)}.'),
-                                const VerticalDivider(
-                                    indent: 12, endIndent: 12, thickness: 1.5),
-                                Text(dateFormatted),
-                                const VerticalDivider(
-                                    indent: 12, endIndent: 12, thickness: 1.5),
-                                Text(timeFormatted),
-                              ],
-                            );
-                          }),
-                        ),
-                      ),
-                    ),
-                  ),
+                  const Center(child: _TimeAndDateButton()),
                   Positioned(
                     right: 0,
                     child: IconButton(
@@ -414,7 +339,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
           key: routeFromTextfieldKey,
         ),
         textInputAction: TextInputAction.next,
-        text: AppLocalizations.of(context).departure,
+        hintText: AppLocalizations.of(context).departure,
         icon: Consumer(
           builder: (context, ref, _) => _IconForState(
             ref.watch(fromTextfieldProvider).state,
@@ -441,7 +366,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
             iconSize: 16,
           ),
         ),
-        text: AppLocalizations.of(context).destination,
+        hintText: AppLocalizations.of(context).destination,
         textInputAction: TextInputAction.search,
         isDestination: true,
       );
@@ -460,6 +385,91 @@ class RoutePageState extends ConsumerState<RoutePage> {
   }
 }
 
+class _TimeAndDateButton extends ConsumerWidget {
+  const _TimeAndDateButton();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final date = ref.watch(dateProvider);
+    final time = ref.watch(timeTypeProvider);
+    final dateFormat = DateFormat('d MMM');
+    final dateFormatted = dateFormat.format(date);
+    final timeFormat = DateFormat('H:mm');
+    final timeFormatted = timeFormat.format(date);
+    final String abbr;
+    switch (time) {
+      case SearchChMode.arrival:
+        abbr = AppLocalizations.of(context).arrival_abbr;
+        break;
+      case SearchChMode.departure:
+        abbr = AppLocalizations.of(context).departure_abbr;
+        break;
+    }
+
+    return Tooltip(
+      message: 'Change date and time',
+      child: TextButton(
+        style: isThemeDarwin(context)
+            ? TextButton.styleFrom(
+                foregroundColor: CupertinoDynamicColor.resolve(
+                    CupertinoColors.label, context),
+                backgroundColor:
+                    CupertinoTheme.of(context).scaffoldBackgroundColor,
+              )
+            : TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.onSurface,
+                backgroundColor: Theme.of(context).colorScheme.surface,
+              ),
+        onLongPress: kDebugMode
+            ? () {
+                final sbbRoute = SbbRoute.fromJson(mockRoute);
+
+                ref.read(fromTextfieldProvider).setString(
+                      sbbRoute.connections.first.from,
+                      doLoad: false,
+                    );
+                ref.read(toTextfieldProvider).setString(
+                      sbbRoute.connections.first.to,
+                      doLoad: false,
+                    );
+                ref.read(routeStatesProvider.notifier).state =
+                    RouteStates(sbbRoute);
+              }
+            : null,
+        onPressed: () async {
+          Vibration.instance.select();
+          var type = ref.read(timeTypeProvider);
+          final currentDate = ref.read(dateProvider.notifier);
+          final date = await pickDate(
+            context,
+            initialDateTime: currentDate.state
+                .subtract(Duration(minutes: currentDate.state.minute % 5)),
+            minuteInterval: 5,
+            bottom: _Segmented(
+              onChange: (v) => type = v,
+              initialValue: type,
+            ),
+            textColor: CupertinoColors.activeBlue,
+          );
+          if (date != null) currentDate.state = date;
+
+          ref.read(timeTypeProvider.notifier).state = type;
+        },
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(abbr),
+            const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
+            Text(dateFormatted),
+            const VerticalDivider(indent: 12, endIndent: 12, thickness: 1.5),
+            Text(timeFormatted),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _TextField extends ConsumerStatefulWidget {
   const _TextField({
     required this.herotag,
@@ -467,7 +477,7 @@ class _TextField extends ConsumerStatefulWidget {
     required this.binder,
     required this.textFieldConfiguration,
     required this.textInputAction,
-    required this.text,
+    required this.hintText,
     required this.icon,
     this.isDestination = false,
   });
@@ -477,7 +487,7 @@ class _TextField extends ConsumerStatefulWidget {
   final LocationTextBoxManager binder;
   final TextFieldConfiguration textFieldConfiguration;
   final TextInputAction textInputAction;
-  final String text;
+  final String hintText;
   final Widget icon;
   final bool isDestination;
 
@@ -510,7 +520,7 @@ class _TextFieldState extends ConsumerState<_TextField> {
               key: widget.textfieldKey,
               focusNode: widget.textFieldConfiguration.focusNode,
               controller: widget.binder.controller,
-              placeholder: widget.text,
+              placeholder: widget.hintText,
               textInputAction: widget.textInputAction,
               prefix: Padding(
                 padding: const EdgeInsets.only(left: 8),
@@ -524,8 +534,9 @@ class _TextFieldState extends ConsumerState<_TextField> {
                 focusNode: widget.textFieldConfiguration.focusNode,
                 controller: widget.binder.controller,
                 decoration: InputDecoration(
-                  hintText: widget.text,
+                  hintText: widget.hintText,
                   prefixIcon: widget.icon,
+                  isDense: true,
                 ),
                 textInputAction: widget.textInputAction,
                 onTap: () => openSearch(context),

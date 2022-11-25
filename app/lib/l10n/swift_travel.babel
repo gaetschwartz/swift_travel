@@ -116,6 +116,30 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>arrival_abbr</name>
+						<description/>
+						<comment/>
+						<default_text/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-CH</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>arrive</name>
 						<description/>
 						<comment/>
@@ -500,6 +524,30 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>departure_abbr</name>
+						<description/>
+						<comment/>
+						<default_text/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-CH</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>destination</name>
 						<description/>
 						<comment/>
@@ -717,6 +765,30 @@
 					</concept_node>
 					<concept_node>
 						<name>from</name>
+						<description/>
+						<comment/>
+						<default_text/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-CH</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>how_call_this_fav</name>
 						<description/>
 						<comment/>
 						<default_text/>

@@ -23,6 +23,7 @@ import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/property_page.dart';
 import 'package:swift_travel/widgets/route.dart';
+import 'package:theming/responsive.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -81,7 +82,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       SectionTitle(title: Text(AppLocalizations.of(context).more)),
       SwiftSettingsTile(
         title: Text(AppLocalizations.of(context).advanced_settings),
-        leading: const Icon(Icons.settings),
+        leading: isThemeDarwin(context)
+            ? const Icon(CupertinoIcons.settings)
+            : const Icon(Icons.settings),
         onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
           builder: (_) => const AdvancedSettingsPage(),
           title: AppLocalizations.of(context).advanced_settings,
@@ -101,7 +104,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         final isDev = w.watch(isDeveloperProvider).value;
         return SwiftSettingsTile(
           tileBorders: TileBorders(bottom: !isDev),
-          leading: const Icon(CupertinoIcons.person_3_fill),
+          leading: const Icon(CupertinoIcons.app_badge),
           title: Text(AppLocalizations.of(context).about_the_app),
           onTap: () => unawaited(
               Navigator.of(context, rootNavigator: true).push(PlatformPageRoute(

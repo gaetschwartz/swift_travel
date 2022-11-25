@@ -307,15 +307,19 @@ Route<void>? onGenerateRoute(RouteSettings settings) {
       if (settings.arguments is LocalRoute) {
         return PlatformPageRoute(
           settings: settings,
-          builder: (_) => RoutePage.route(settings.arguments as LocalRoute?),
+          builder: (_) => RoutePage.route(settings.arguments! as LocalRoute),
         );
       } else if (settings.arguments is FavoriteStop) {
         return PlatformPageRoute(
           settings: settings,
-          builder: (_) => RoutePage.stop(settings.arguments as FavoriteStop?),
+          builder: (_) => RoutePage.stop(settings.arguments! as FavoriteStop),
+        );
+      } else {
+        return PlatformPageRoute(
+          settings: settings,
+          builder: (_) => const RoutePage(),
         );
       }
-      break;
     case '/ourTeam':
       return PlatformPageRoute(
         settings: settings,

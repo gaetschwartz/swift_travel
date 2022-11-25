@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math' show min;
 
@@ -7,6 +8,7 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:theming/responsive.dart';
 
 class QuickActionsManager {
@@ -17,79 +19,94 @@ class QuickActionsManager {
 
   static final instance = QuickActionsManager._();
 
-  bool _debugInitialized = false;
+  bool _initialized = false;
 
-  final log = Logger.of('QuickActionsRepository');
+  final log = Logger.of('QuickActionsManager');
+  static const quickActions = QuickActions();
 
   Future<void> init() async {
-    log.log('Initialize', channel: 'QuickActions');
+    log.log('Initialize');
     try {
-      await const QuickActions().initialize(_init);
+      await quickActions.initialize(_handler);
+      _initialized = true;
+      if (_actions != null) {
+        await setActions(_actions!.first, _actions!.second);
+      }
     } on MissingPluginException {
       log.log('Unsupported for now on $platform');
-      _debugInitialized = true;
     }
   }
 
-  Future<void> _init(String shortcutType) async {
-    assert(!_debugInitialized, "Quick Actions aren't initialized.");
+  static const favRouteId = 'froute';
+  static const favStopId = 'fstop';
 
-    log.log('Tapped shortcut $shortcutType', channel: 'QuickActions');
+  Future<void> _handler(String shortcutType) async {
+    log.log('Tapped shortcut $shortcutType');
 
-    final split = shortcutType.split('_');
+    final index = shortcutType.indexOf('_');
 
-    final id = int.parse(split.last);
+    final actionId = shortcutType.substring(0, index);
 
-    final actionId = split.first;
-
-    if (actionId == 'route') {
-      log.log('Tapped route $shortcutType', channel: 'QuickActions');
+    if (actionId == favRouteId) {
+      log.log('Tapped route $shortcutType');
       final favsDb = FavRoutesDb.i;
       await favsDb.open();
 
+      final id = int.parse(shortcutType.substring(index + 1));
       final lr = favsDb.values.elementAt(id);
 
-      await navigatorKey.currentState!.pushNamed('/route', arguments: lr);
-    } else if (actionId == 'fav') {
-      log.log('Tapped fav $shortcutType', channel: 'QuickActions');
+      unawaited(navigatorKey.currentState?.pushNamed('/route', arguments: lr));
+    } else if (actionId == favStopId) {
+      log.log('Tapped stop $shortcutType');
       final stopsDB = FavStopsDb.i;
       await stopsDB.open();
 
+      final id = int.parse(shortcutType.substring(index + 1));
       final f2 = stopsDB.values.elementAt(id);
 
-      await navigatorKey.currentState!.pushNamed('/route', arguments: f2);
+      unawaited(navigatorKey.currentState?.pushNamed('/route', arguments: f2));
+    } else {
+      log.log("Unknown shortcut '$shortcutType'");
     }
   }
 
+  Pair<List<LocalRoute>, List<FavoriteStop>>? _actions;
+
   Future<void> setActions(
-      List<LocalRoute> routes, List<FavoriteStop> favorites) async {
+    List<LocalRoute> routes,
+    List<FavoriteStop> stops,
+  ) async {
     if (!isMobile) {
       log.log('Actions not supported for now on $platform');
       return;
     }
+    if (!_initialized) {
+      _actions = Pair(routes, stops);
+      return;
+    }
     final shortcuts = <ShortcutItem>[];
 
-    log.log('Add favorites $favorites', channel: 'QuickActions');
-    for (var i = 0; i < min(maxFavoriteStops, favorites.length); i++) {
-      final fav = favorites[i];
+    log.log('Adding stops $stops');
+    for (var i = 0; i < min(maxFavoriteStops, stops.length); i++) {
+      final fav = stops[i];
       shortcuts.add(ShortcutItem(
-        type: 'fav_$i',
+        type: '${favStopId}_$i',
         localizedTitle: fav.stop,
         icon: Platform.isIOS ? 'star' : 'ic_favorites_round',
       ));
     }
 
-    log.log('Add routes $routes', channel: 'QuickActions');
+    log.log('Adding routes $routes');
     for (var i = 0; i < min(maxFavoriteRoutes, routes.length); i++) {
       final route = routes[i];
       shortcuts.add(ShortcutItem(
-        type: 'route_$i',
+        type: '${favRouteId}_$i',
         localizedTitle: route.displayName ?? 'Unnamed route $i',
         icon: Platform.isIOS ? 'route' : 'ic_route_round',
       ));
     }
     try {
-      await const QuickActions().setShortcutItems(shortcuts);
+      await quickActions.setShortcutItems(shortcuts);
     } on MissingPluginException {
       log.log('Quick actions currently unspported on $platform');
     }

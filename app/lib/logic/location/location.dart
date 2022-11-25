@@ -38,7 +38,7 @@ class GeoLocationEngine {
               final seconds = now.difference(timestamp).inSeconds;
               final condition = seconds < 60;
               log.log(
-                  "Obtained last known position which was $seconds ago which is ${condition ? 'valid' : 'invalid'}");
+                  "Obtained last known position which was ${seconds}s ago which is ${condition ? 'valid' : 'too old'}.");
 
               if (condition) return GeoLocation.fromPosition(lastKnown);
             }

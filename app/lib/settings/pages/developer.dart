@@ -57,87 +57,84 @@ class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTheme(
-      data: CupertinoTheme.of(context),
-      child: SettingsPageWidget(
-        title: Text(AppLocalizations.of(context).developer),
-        children: [
+    return SettingsPageWidget(
+      title: Text(AppLocalizations.of(context).developer),
+      children: [
+        SwiftSettingsTile(
+          leading: const Icon(Icons.restore),
+          title: Text(AppLocalizations.of(context).reset_settings),
+          onTap: resetSettingsPrompt,
+          showChevron: false,
+          tileBorders: const TileBorders(top: true),
+        ),
+        if (kDebugMode)
           SwiftSettingsTile(
-            leading: const Icon(Icons.restore),
-            title: Text(AppLocalizations.of(context).reset_settings),
-            onTap: resetSettingsPrompt,
-            showChevron: false,
-            tileBorders: const TileBorders(top: true),
+            leading: const Icon(CupertinoIcons.search),
+            title: const Text('Terminal'),
+            onTap: openTerminal,
           ),
-          if (kDebugMode)
-            SwiftSettingsTile(
-              leading: const Icon(CupertinoIcons.search),
-              title: const Text('Terminal'),
-              onTap: openTerminal,
-            ),
-          SwiftSettingsTile(
-              leading: const Icon(CupertinoIcons.search),
-              title: const Text('Attributes crawler'),
-              onTap: () {
-                Navigator.of(context, rootNavigator: true).push(
-                  PlatformPageRoute(
-                    builder: (context) => const CrawlerPage(),
+        SwiftSettingsTile(
+            leading: const Icon(CupertinoIcons.search),
+            title: const Text('Attributes crawler'),
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).push(
+                PlatformPageRoute(
+                  builder: (context) => const CrawlerPage(),
+                ),
+              );
+            }),
+        SwiftSettingsTile(
+            leading: const Icon(CupertinoIcons.clock),
+            title: const Text('Route history'),
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).push(
+                PlatformPageRoute(
+                  builder: (context) => const RouteHistoryPage(),
+                ),
+              );
+            }),
+        SwiftSettingsTile(
+          leading: const Icon(CupertinoIcons.clear),
+          title: const Text('Clear history'),
+          onTap: RouteHistoryRepository.instance.clear,
+        ),
+        SwiftSettingsTile(
+            leading: const Icon(Icons.screen_lock_landscape),
+            title: const Text('Screen info'),
+            onTap: () {
+              Navigator.of(context).push<void>(
+                MaterialPageRoute(
+                  builder: (context) => Theme(
+                    data: ThemeData.light(),
+                    child: Builder(builder: (context) => const _ScreenPage()),
                   ),
-                );
-              }),
-          SwiftSettingsTile(
-              leading: const Icon(CupertinoIcons.clock),
-              title: const Text('Route history'),
-              onTap: () {
-                Navigator.of(context, rootNavigator: true).push(
-                  PlatformPageRoute(
-                    builder: (context) => const RouteHistoryPage(),
-                  ),
-                );
-              }),
-          SwiftSettingsTile(
-            leading: const Icon(CupertinoIcons.clear),
-            title: const Text('Clear history'),
-            onTap: RouteHistoryRepository.instance.clear,
-          ),
-          SwiftSettingsTile(
-              leading: const Icon(Icons.screen_lock_landscape),
-              title: const Text('Screen info'),
-              onTap: () {
-                Navigator.of(context).push<void>(
-                  MaterialPageRoute(
-                    builder: (context) => Theme(
-                      data: ThemeData.light(),
-                      child: Builder(builder: (context) => const _ScreenPage()),
-                    ),
-                  ),
-                );
-              }),
-          SwiftSettingsTile(
-              leading: const Icon(Icons.warning_rounded),
-              title: const Text('Throw a Flutter error'),
-              onTap: () => throw StateError('Debug error')),
-          SwiftSettingsTile(
-              leading: const Icon(Icons.warning_rounded),
-              title: const Text('Throw a Dart error'),
-              // ignore: prefer-extracting-callbacks
-              onTap: () {
-                reportDartError(
-                  const ProcessException('swift_travel', []),
-                  StackTrace.current,
-                  library: 'settings',
-                  reason: 'voluntarirly',
-                );
-              }),
-          SwiftSettingsTile(
-            leading: const Icon(Icons.open_in_browser),
-            title: const Text('Open incorrect page'),
-            onTap: () =>
-                Navigator.of(context).pushNamed('/thisIsNotACorrectPage'),
-            tileBorders: const TileBorders(bottom: true),
-          ),
-        ],
-      ),
+                ),
+              );
+            }),
+        SwiftSettingsTile(
+            leading: const Icon(Icons.warning_rounded),
+            title: const Text('Throw a Flutter error'),
+            onTap: () => throw StateError('Debug error')),
+        SwiftSettingsTile(
+            leading: const Icon(Icons.warning_rounded),
+            title: const Text('Throw a Dart error'),
+            // ignore: prefer-extracting-callbacks
+            onTap: () {
+              reportDartError(
+                const ProcessException('swift_travel', []),
+                StackTrace.current,
+                library: 'settings',
+                reason: 'voluntarirly',
+              );
+            }),
+        SwiftSettingsTile(
+          leading: const Icon(Icons.open_in_browser),
+          title: const Text('Open incorrect page'),
+          onTap: () =>
+              Navigator.of(context).pushNamed('/thisIsNotACorrectPage'),
+          tileBorders: const TileBorders(bottom: true),
+        ),
+      ],
     );
   }
 }

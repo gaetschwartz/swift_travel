@@ -92,19 +92,18 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
     final prefs = await SharedPreferences.getInstance();
 
     await initHive();
+    final inApp = ref.read(inAppPurchaseManagerProvider);
+    await inApp.init();
+    log.i('User has donated ${inApp.amountDonated()}');
 
     try {
-      final inApp = ref.read(inAppPurchaseManagerProvider);
-      await inApp.init();
-      log.i('User has donated ${inApp.amountDonated()}');
-
       await Future.wait([
         RouteHistoryRepository.instance.open(),
         LineCacheRepository.instance.open(),
         ref.read(favoritesStoreProvider).init(),
         DynamicTheme.of(context).configure(themeConfiguration),
+        ref.read(preferencesProvider).loadFromPreferences(prefs: prefs)
       ]);
-      await ref.read(preferencesProvider).loadFromPreferences(prefs: prefs);
     } on Exception catch (e, s) {
       await failedToLoadSettings(e, s, prefs);
       // ignore: avoid_catching_errors
@@ -134,32 +133,20 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
   Future<void> initHive() async {
     if (!kIsWeb) {
       final appDir = await getApplicationPath();
-      final finalPath = await getHivePathOf(appDir, const ['hive_data']);
-      try {
-        Hive.init(finalPath);
-      } finally {}
+      final finalPath = path.join(appDir.path, 'hive_data');
+      Hive.init(finalPath);
     }
   }
 
-  Future<String> getHivePathOf(Directory? appDir,
-      [List<String> paths = const []]) async {
-    if (appDir == null) {
-      throw Exception('Failed to get application path.');
-    }
-
-    final finalPath = path.joinAll([appDir.path, ...paths]);
-    return finalPath;
-  }
-
-  Future<Directory?> getApplicationPath() async {
+  Future<Directory> getApplicationPath() async {
     if (Platform.isWindows || Platform.isLinux) {
       return getApplicationSupportDirectory();
     } else if (Platform.isIOS || Platform.isMacOS) {
       return getLibraryDirectory();
     } else if (Platform.isAndroid) {
-      return getExternalStorageDirectory();
+      return getApplicationSupportDirectory();
     }
-    return null;
+    throw UnsupportedError('Unsupported platform');
   }
 
   Future<void> showTutoIfNeeded(SharedPreferences prefs) async {

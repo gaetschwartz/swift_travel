@@ -68,7 +68,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String direction(String dir) {
-
     return 'In direzione di $dir';
   }
 
@@ -178,7 +177,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get unable_locate => 'Impossibile ottenere la posizione.';
 
   @override
-  String get unsupported_area => 'Non sembra che tu sia in una zona supportata.';
+  String get unsupported_area =>
+      'Non sembra che tu sia in una zona supportata.';
 
   @override
   String get use_current_location => 'Utilizzare la posizione corrente';
@@ -188,13 +188,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String walk(String walk) {
-
     return 'Cammina *$walk*.';
   }
 
   @override
   String walk_and_wait(String wait, String walk) {
-
     return 'Camminare *$walk* e aspettare *$wait*.';
   }
 
@@ -206,7 +204,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String youll_be_there(String time) {
-
     return 'Arrivi a *$time*.';
   }
 
@@ -217,7 +214,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get no_favorites => 'Ricerca di una stazione';
 
   @override
-  String get how_to_add_favorite => 'È possibile aggiungerne uno toccando il tasto ➕.';
+  String get how_to_add_favorite =>
+      'È possibile aggiungerne uno toccando il tasto ➕.';
 
   @override
   String get continue_welcome => 'Continua';
@@ -226,23 +224,25 @@ class AppLocalizationsIt extends AppLocalizations {
   String get purchase_success => 'Acquisto riuscito';
 
   @override
-  String get thank_you_for_purchase => 'Grazie mille per aver sostenuto lo sviluppo dell\'app!';
+  String get thank_you_for_purchase =>
+      'Grazie mille per aver sostenuto lo sviluppo dell\'app!';
 
   @override
   String get in_app_purchases => 'Acquisti In-App';
 
   @override
-  String get in_app_purchases_desc => 'È possibile sostenere lo sviluppo di questa applicazione con una donazione. Qualsiasi importo è molto apprezzato. Ogni donazione sbloccherà Swift Travel Pro con maggiori opzioni di personalizzazione.';
+  String get in_app_purchases_desc =>
+      'È possibile sostenere lo sviluppo di questa applicazione con una donazione. Qualsiasi importo è molto apprezzato. Ogni donazione sbloccherà Swift Travel Pro con maggiori opzioni di personalizzazione.';
 
   @override
   String get in_app_purchases_restore => 'Ripristino degli acquisti';
 
   @override
-  String get in_app_purchases_restore_desc => 'Se avete già acquistato uno dei prodotti di cui sopra, potete ripristinarlo qui.';
+  String get in_app_purchases_restore_desc =>
+      'Se avete già acquistato uno dei prodotti di cui sopra, potete ripristinarlo qui.';
 
   @override
   String that_is_required(String that) {
-
     return 'È necessario $that';
   }
 
@@ -257,7 +257,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String donation_of(String price) {
-
     return 'Donazione di $price';
   }
 
@@ -266,4 +265,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get about_the_app => 'Informazioni sull\'applicazione';
+
+  @override
+  String get departure_abbr => 'Part.';
+
+  @override
+  String get arrival_abbr => 'Arr.';
+
+  @override
+  String get how_call_this_fav => 'Inserire un nome per questo preferito';
 }

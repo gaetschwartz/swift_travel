@@ -80,5 +80,8 @@
 	"redeem_code": "Einen Code verwenden",
 	"donation_of": "Spende von {price}",
 	"support_me": "Unterstützen Sie mich",
-	"about_the_app": "Über die App"
+	"about_the_app": "Über die App",
+	"departure_abbr": "Abr.",
+	"arrival_abbr": "Ank.",
+	"how_call_this_fav": "Geben Sie einen Namen für diesen Favoriten ein"
 }

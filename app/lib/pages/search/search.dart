@@ -166,6 +166,35 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     return null;
   }
 
+  Widget toTextField(TextFieldConfiguration configuration,
+          {TextEditingController? controller}) =>
+      Material(
+        child: TextField(
+          decoration: InputDecoration(
+            hintText: configuration.placeholder,
+            prefixIcon: configuration.prefix,
+            isDense: true,
+          ),
+          inputFormatters: configuration.inputFormatters,
+          textInputAction: configuration.textInputAction,
+          focusNode: configuration.focusNode,
+          controller: controller,
+          key: configuration.key,
+        ),
+      );
+
+  Widget toCupertino(TextFieldConfiguration configuration,
+          {TextEditingController? controller}) =>
+      CupertinoTextField(
+        placeholder: configuration.placeholder,
+        inputFormatters: configuration.inputFormatters,
+        textInputAction: configuration.textInputAction,
+        prefix: configuration.prefix,
+        focusNode: configuration.focusNode,
+        controller: controller,
+        key: configuration.key,
+      );
+
   @override
   Widget build(BuildContext context) => CupertinoScaffold(
         body: PlatformBuilder(
@@ -175,8 +204,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 transitionBetweenRoutes: false,
                 middle: Hero(
                   tag: widget.heroTag,
-                  child: widget.configuration
-                      .toCupertino(controller: widget.binder.controller),
+                  child: toCupertino(
+                    widget.configuration,
+                    controller: widget.binder.controller,
+                  ),
                 ),
                 trailing: _ClearButton(binder: widget.binder),
               ),
@@ -187,8 +218,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             appBar: AppBar(
               title: Hero(
                   tag: widget.heroTag,
-                  child: widget.configuration
-                      .toTextField(controller: widget.binder.controller)),
+                  child: toTextField(
+                    widget.configuration,
+                    controller: widget.binder.controller,
+                  )),
               actions: [_ClearButton(binder: widget.binder)],
               leading: const CloseButton(key: SearchPage.closeSearchKey),
             ),
