@@ -142,8 +142,8 @@ class _TabViewState extends ConsumerState<TabView>
                 Vibration.instance.selectSoft();
                 if (i == oldI) {
                   navigatorKeys[i]
-                      .currentState!
-                      .popUntil((route) => route.isFirst);
+                      .currentState
+                      ?.popUntil((route) => route.isFirst);
                   ref.read(sideTabBarProvider.notifier).state = null;
                 }
                 oldI = i;
