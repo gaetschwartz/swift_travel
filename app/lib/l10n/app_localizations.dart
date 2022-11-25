@@ -308,12 +308,6 @@ abstract class AppLocalizations {
   /// **'Your address book is empty'**
   String get no_contacts;
 
-  /// No description provided for @our_team.
-  ///
-  /// In en, this message translates to:
-  /// **'Our team'**
-  String get our_team;
-
   /// No description provided for @remove_from_favoruites.
   ///
   /// In en, this message translates to:
@@ -535,6 +529,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open'**
   String get open;
+
+  /// No description provided for @redeem_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Redeem a code'**
+  String get redeem_code;
+
+  /// No description provided for @donation_of.
+  ///
+  /// In en, this message translates to:
+  /// **'Donation of {price}'**
+  String donation_of(String price);
+
+  /// No description provided for @support_me.
+  ///
+  /// In en, this message translates to:
+  /// **'Support me'**
+  String get support_me;
+
+  /// No description provided for @about_the_app.
+  ///
+  /// In en, this message translates to:
+  /// **'About the app'**
+  String get about_the_app;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

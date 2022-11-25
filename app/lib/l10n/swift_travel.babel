@@ -20,6 +20,30 @@
 				<name>main</name>
 				<children>
 					<concept_node>
+						<name>about_the_app</name>
+						<description/>
+						<comment/>
+						<default_text/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-CH</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>add_to_favs</name>
 						<description/>
 						<comment/>
@@ -524,6 +548,30 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>donation_of</name>
+						<description/>
+						<comment/>
+						<default_text/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-CH</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>done</name>
 						<description/>
 						<comment/>
@@ -1004,30 +1052,6 @@
 						</translations>
 					</concept_node>
 					<concept_node>
-						<name>our_team</name>
-						<description/>
-						<comment/>
-						<default_text/>
-						<translations>
-							<translation>
-								<language>de-DE</language>
-								<approved>false</approved>
-							</translation>
-							<translation>
-								<language>en-GB</language>
-								<approved>false</approved>
-							</translation>
-							<translation>
-								<language>fr-CH</language>
-								<approved>false</approved>
-							</translation>
-							<translation>
-								<language>it-IT</language>
-								<approved>false</approved>
-							</translation>
-						</translations>
-					</concept_node>
-					<concept_node>
 						<name>pro_desc</name>
 						<description/>
 						<comment/>
@@ -1053,6 +1077,30 @@
 					</concept_node>
 					<concept_node>
 						<name>purchase_success</name>
+						<description/>
+						<comment/>
+						<default_text/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-CH</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>redeem_code</name>
 						<description/>
 						<comment/>
 						<default_text/>
@@ -1317,6 +1365,30 @@
 					</concept_node>
 					<concept_node>
 						<name>suggestion</name>
+						<description/>
+						<comment/>
+						<default_text/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-CH</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>support_me</name>
 						<description/>
 						<comment/>
 						<default_text/>

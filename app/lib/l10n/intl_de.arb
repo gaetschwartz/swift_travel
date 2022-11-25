@@ -35,7 +35,6 @@
 	"new_fav": "Neue Lieblingshaltestelle",
 	"no": "Nein",
 	"no_contacts": "Ihr Adressbuch ist leer",
-	"our_team": "Unser Team",
 	"remove_from_favoruites": "Aus Favoriten entfernen",
 	"rename": "Umbenennen",
 	"reset_settings": "Einstellungen zurücksetzen",
@@ -72,5 +71,9 @@
 	"in_app_purchases_restore_desc": "Wenn Sie bereits eines der oben genannten Produkte erworben haben, können Sie es hier wiederherstellen.",
 	"that_is_required": "{that} ist erforderlich",
 	"pro_desc": "",
-	"open": "Öffnen"
+	"open": "Öffnen",
+	"redeem_code": "Einen Code verwenden",
+	"donation_of": "Spende von {price}",
+	"support_me": "Unterstützen Sie mich",
+	"about_the_app": "Über die App"
 }

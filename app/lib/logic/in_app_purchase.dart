@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -6,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/purchase.dart';
 
 final inAppPurchaseManagerProvider = ChangeNotifierProvider(
@@ -207,7 +210,6 @@ class InAppPurchaseManager extends ChangeNotifier {
 
   bool hasUnlockedFeature(InAppPaidFeature feature) {
     final donated = amountDonated();
-    log.i('Donated: $donated');
     return donated >= feature.requiredAmount;
   }
 
@@ -228,6 +230,29 @@ class InAppPurchaseManager extends ChangeNotifier {
     _purchasedIds = [..._purchasedIds, product.id];
     notifyListeners();
   }
+
+  Future<void> showRedeemACodeSheet() async {
+    if (Platform.isIOS) {
+      final iosPlatformAddition = InAppPurchase.instance
+          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+      await iosPlatformAddition.presentCodeRedemptionSheet();
+    } else if (Platform.isAndroid) {
+      throw Exception('Android not supported yet');
+    } else {
+      throw Exception('Unsupported platform');
+    }
+  }
+
+  // transform "product name (Appp Name)" to "product name"
+  static String productName(AppLocalizations localizations, ProductDetails p) {
+    if (isProductADonation(p)) {
+      return localizations.donation_of(p.price);
+    }
+    return p.title;
+  }
+
+  static bool isProductADonation(ProductDetails p) =>
+      p.id.startsWith('donation_');
 }
 
 @immutable

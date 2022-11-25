@@ -8,7 +8,7 @@ import 'package:gap/gap.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/in_app_purchase.dart';
-import 'package:swift_travel/pages/purchases.dart';
+import 'package:swift_travel/settings/pages/in_app_purchases.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
 import 'package:swift_travel/settings/widgets/settings_page_widget.dart';

@@ -27,7 +27,7 @@ class InAppPurchasesPage extends ConsumerStatefulWidget {
 class _InAppPurchasesPageState extends ConsumerState<InAppPurchasesPage> {
   late StreamSubscription<List<PurchaseDetails>> _subscription;
 
-  final log = Logger('InAppPurchaseDialog');
+  final log = Logger('InAppPurchasePage');
 
   @override
   void initState() {
@@ -35,13 +35,13 @@ class _InAppPurchasesPageState extends ConsumerState<InAppPurchasesPage> {
     final purchaseUpdated = InAppPurchase.instance.purchaseStream;
     _subscription = purchaseUpdated.listen(
       _listenToPurchaseUpdated,
-      onDone: () {
-        unawaited(_subscription.cancel());
-      },
-      onError: (error) {
-        // handle error here.
-      },
     );
+  }
+
+  @override
+  void dispose() {
+    unawaited(_subscription.cancel());
+    super.dispose();
   }
 
   Future<void> purchaseProduct(ProductDetails productDetails) async {
@@ -49,9 +49,10 @@ class _InAppPurchasesPageState extends ConsumerState<InAppPurchasesPage> {
       await ref
           .read(inAppPurchaseManagerProvider.notifier)
           .purchaseProduct(productDetails);
-    } on Exception catch (e) {
+    } on Exception catch (e, s) {
       if (kDebugMode) {
         print('Error while purchasing: $e');
+        debugPrintStack(stackTrace: s);
       }
       // TODO: Show error
     }
@@ -68,15 +69,17 @@ class _InAppPurchasesPageState extends ConsumerState<InAppPurchasesPage> {
       } else {
         if (purchaseDetails.status == PurchaseStatus.error) {
           // TODO: Show better error message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                purchaseDetails.error!.message,
-                style: const TextStyle(color: Colors.white),
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  purchaseDetails.error!.message,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.red,
               ),
-              backgroundColor: Colors.red,
-            ),
-          );
+            );
+          }
         } else if (purchaseDetails.status == PurchaseStatus.purchased ||
             purchaseDetails.status == PurchaseStatus.restored) {
           final manager = ref.read(inAppPurchaseManagerProvider.notifier);
@@ -126,15 +129,13 @@ class _InAppPurchasesPageState extends ConsumerState<InAppPurchasesPage> {
       cupertinoBuilder: (context, child) => Material(
         child: CupertinoPageScaffold(
           resizeToAvoidBottomInset: false,
-          navigationBar: SwiftCupertinoBar(
-            middle: Text(AppLocalizations.of(context).in_app_purchases),
-          ),
+          navigationBar: const SwiftCupertinoBar(),
           child: child!,
         ),
       ),
       materialBuilder: (context, child) => Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context).in_app_purchases),
+          title: Text(AppLocalizations.of(context).support_me),
         ),
         body: child,
       ),
@@ -163,21 +164,12 @@ class _Main extends ConsumerWidget {
               bottom: false,
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  AppLocalizations.of(context).in_app_purchases,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  AppLocalizations.of(context).in_app_purchases_desc,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
             ),
-            const SliverGap(16),
-            SliverToBoxAdapter(
-              child: Text(
-                AppLocalizations.of(context).in_app_purchases_desc,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 8),
-            ),
+            const SliverToBoxAdapter(child: Divider()),
             inApp.products.when(
               products: (data) {
                 return SliverList(
@@ -211,42 +203,44 @@ class _Main extends ConsumerWidget {
             // restore purchases
             const SliverGap(16),
             SliverToBoxAdapter(
-              child: Text(
-                AppLocalizations.of(context).in_app_purchases_restore,
-                style: Theme.of(context).textTheme.titleLarge,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: PlatformButton(
+                      child: Text(AppLocalizations.of(context)
+                          .in_app_purchases_restore),
+                      onPressed: () async {
+                        await ref
+                            .read(inAppPurchaseManagerProvider.notifier)
+                            .restorePurchases();
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: PlatformButton(
+                      onPressed: () async {
+                        await ref
+                            .read(inAppPurchaseManagerProvider.notifier)
+                            .showRedeemACodeSheet();
+                      },
+                      child: Text(
+                        AppLocalizations.of(context).redeem_code,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 8),
-            ),
-            SliverToBoxAdapter(
-              child: Text(
-                AppLocalizations.of(context).in_app_purchases_restore_desc,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ),
-            const SliverGap(8),
-            SliverToBoxAdapter(
-              child: PlatformButton.filled(
-                onPressed: () async {
-                  await ref
-                      .read(inAppPurchaseManagerProvider.notifier)
-                      .restorePurchases();
-                },
-                child: Text(
-                  AppLocalizations.of(context).in_app_purchases_restore,
-                ),
-              ),
-            ),
+
             if (Env.isDebugMode)
               SliverToBoxAdapter(
-                child: PlatformButton.filled(
+                child: PlatformButton(
                   onPressed: () async {
                     await ref
                         .read(inAppPurchaseManagerProvider.notifier)
                         .clearPurchases();
                   },
-                  child: const Text('Clear purchases'),
+                  child: const Text('(DEBUG) Clear purchases'),
                 ),
               ),
           ],
@@ -269,9 +263,17 @@ class _ProductTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final manager = ref.watch(inAppPurchaseManagerProvider.notifier);
     final purchased = manager.isPurchased(product.id);
+
     return ListTile(
-      title: Text(product.title),
-      subtitle: Text(product.description),
+      contentPadding: const EdgeInsets.only(right: 16),
+      title: Text(InAppPurchaseManager.productName(
+        AppLocalizations.of(context),
+        product,
+      )),
+      subtitle: InAppPurchaseManager.isProductADonation(product)
+          ? null
+          : Text(product.description),
+      dense: true,
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,

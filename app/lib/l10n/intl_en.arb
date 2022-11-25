@@ -43,7 +43,6 @@
 	"new_fav": "New favourite stop",
 	"no": "No",
 	"no_contacts": "Your address book is empty",
-	"our_team": "Our team",
 	"remove_from_favoruites": "Remove from favourites",
 	"rename": "Rename",
 	"reset_settings": "Reset settings",
@@ -116,5 +115,17 @@
 		}
 	},
 	"pro_desc": "",
-	"open": "Open"
+	"open": "Open",
+	"redeem_code": "Redeem a code",
+	"donation_of": "Donation of {price}",
+	"@donation_of": {
+		"placeholders": {
+			"price": {
+				"example": "1.99",
+				"type": "String"
+			}
+		}
+	},
+	"support_me": "Support me",
+	"about_the_app": "About the app"
 }

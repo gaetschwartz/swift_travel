@@ -115,9 +115,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get no_contacts => 'Votre carnet d\'adresses est vide';
 
   @override
-  String get our_team => 'Notre équipe';
-
-  @override
   String get remove_from_favoruites => 'Retirer des favoris';
 
   @override
@@ -239,4 +236,19 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get open => 'Ouvrir';
+
+  @override
+  String get redeem_code => 'Utiliser un code';
+
+  @override
+  String donation_of(String price) {
+
+    return 'Don de $price';
+  }
+
+  @override
+  String get support_me => 'Soutenez-moi';
+
+  @override
+  String get about_the_app => 'À propos de l\'app';
 }

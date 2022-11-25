@@ -35,7 +35,6 @@
 	"new_fav": "Nouvel arrêt préféré",
 	"no": "Non",
 	"no_contacts": "Votre carnet d'adresses est vide",
-	"our_team": "Notre équipe",
 	"remove_from_favoruites": "Retirer des favoris",
 	"rename": "Renommer",
 	"reset_settings": "Réinitialiser les paramètres",
@@ -72,5 +71,9 @@
 	"in_app_purchases_restore_desc": "Si vous avez déjà acheté l'un des produits ci-dessus, vous pouvez le restaurer ici.",
 	"that_is_required": "{that} est nécessaire",
 	"pro_desc": "",
-	"open": "Ouvrir"
+	"open": "Ouvrir",
+	"redeem_code": "Utiliser un code",
+	"donation_of": "Don de {price}",
+	"support_me": "Soutenez-moi",
+	"about_the_app": "À propos de l'app"
 }

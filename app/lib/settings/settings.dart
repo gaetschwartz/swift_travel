@@ -13,10 +13,10 @@ import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/pages/home_page.dart';
-import 'package:swift_travel/pages/purchases.dart';
 import 'package:swift_travel/settings/pages/advanced.dart';
 import 'package:swift_travel/settings/pages/customization.dart';
 import 'package:swift_travel/settings/pages/developer.dart';
+import 'package:swift_travel/settings/pages/in_app_purchases.dart';
 import 'package:swift_travel/settings/team_page.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/utils/colors.dart';
@@ -90,11 +90,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       ),
       // in app purchases
       SwiftSettingsTile(
-        title: Text(AppLocalizations.of(context).in_app_purchases),
-        leading: const Icon(Icons.shop),
+        title: Text(AppLocalizations.of(context).support_me),
+        leading: const Icon(Icons.favorite),
         onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
           builder: (_) => const InAppPurchasesPage(),
-          title: AppLocalizations.of(context).in_app_purchases,
+          title: AppLocalizations.of(context).support_me,
         ))),
       ),
       Consumer(builder: (context, w, _) {
@@ -102,9 +102,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         return SwiftSettingsTile(
           tileBorders: TileBorders(bottom: !isDev),
           leading: const Icon(CupertinoIcons.person_3_fill),
-          title: Text(AppLocalizations.of(context).our_team),
-          onTap: () => unawaited(Navigator.of(context, rootNavigator: true)
-              .push(PlatformPageRoute(builder: (_) => const TeamPage()))),
+          title: Text(AppLocalizations.of(context).about_the_app),
+          onTap: () => unawaited(
+              Navigator.of(context, rootNavigator: true).push(PlatformPageRoute(
+            builder: (_) => const TeamPage(),
+            title: AppLocalizations.of(context).about_the_app,
+          ))),
         );
       }),
       Consumer(
