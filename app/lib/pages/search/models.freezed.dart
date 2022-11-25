@@ -161,7 +161,7 @@ class __$$_TextFieldConfigurationCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TextFieldConfiguration extends _TextFieldConfiguration {
+class _$_TextFieldConfiguration implements _TextFieldConfiguration {
   const _$_TextFieldConfiguration(
       {this.placeholder,
       final List<TextInputFormatter>? inputFormatters,
@@ -169,8 +169,7 @@ class _$_TextFieldConfiguration extends _TextFieldConfiguration {
       this.prefix,
       this.focusNode,
       this.key})
-      : _inputFormatters = inputFormatters,
-        super._();
+      : _inputFormatters = inputFormatters;
 
   @override
   final String? placeholder;
@@ -232,7 +231,7 @@ class _$_TextFieldConfiguration extends _TextFieldConfiguration {
           this, _$identity);
 }
 
-abstract class _TextFieldConfiguration extends TextFieldConfiguration {
+abstract class _TextFieldConfiguration implements TextFieldConfiguration {
   const factory _TextFieldConfiguration(
       {final String? placeholder,
       final List<TextInputFormatter>? inputFormatters,
@@ -240,7 +239,6 @@ abstract class _TextFieldConfiguration extends TextFieldConfiguration {
       final Widget? prefix,
       final FocusNode? focusNode,
       final Key? key}) = _$_TextFieldConfiguration;
-  const _TextFieldConfiguration._() : super._();
 
   @override
   String? get placeholder;
