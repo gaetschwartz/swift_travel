@@ -218,4 +218,52 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get how_to_add_favorite => 'Sie können eine hinzufügen, indem Sie auf die Schaltfläche ➕ tippen.';
+
+  @override
+  String get continue_welcome => 'Fortsetzen';
+
+  @override
+  String get purchase_success => 'Kauf erfolgreich';
+
+  @override
+  String get thank_you_for_purchase => 'Vielen Dank, dass Sie die Entwicklung der App unterstützen!';
+
+  @override
+  String get in_app_purchases => 'In-App-Käufe';
+
+  @override
+  String get in_app_purchases_desc => 'Sie können die Entwicklung dieser App durch eine Spende unterstützen. Jeder Betrag wird sehr geschätzt. Jede Spende wird Swift Travel Pro mit mehr Anpassungsmöglichkeiten freischalten.';
+
+  @override
+  String get in_app_purchases_restore => 'Käufe wiederherstellen';
+
+  @override
+  String get in_app_purchases_restore_desc => 'Wenn Sie bereits eines der oben genannten Produkte erworben haben, können Sie es hier wiederherstellen.';
+
+  @override
+  String that_is_required(String that) {
+
+    return '$that ist erforderlich';
+  }
+
+  @override
+  String get pro_desc => '';
+
+  @override
+  String get open => 'Öffnen';
+
+  @override
+  String get redeem_code => 'Einen Code verwenden';
+
+  @override
+  String donation_of(String price) {
+
+    return 'Spende von $price';
+  }
+
+  @override
+  String get support_me => 'Unterstützen Sie mich';
+
+  @override
+  String get about_the_app => 'Über die App';
 }

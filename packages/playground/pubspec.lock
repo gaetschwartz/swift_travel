@@ -353,28 +353,32 @@ packages:
     dependency: transitive
     description:
       name: in_app_purchase
-      url: "https://pub.dartlang.org"
+      sha256: c6a0479a55faed37fad123b4ac71567ff5a8d98e86266ad1469dcfacb9f1c855
+      url: "https://pub.dev"
     source: hosted
     version: "3.0.8"
   in_app_purchase_android:
     dependency: transitive
     description:
       name: in_app_purchase_android
-      url: "https://pub.dartlang.org"
+      sha256: a43295532f8d9fba4dfa46c110073a6ac43413903426bddeeb81580c021df154
+      url: "https://pub.dev"
     source: hosted
-    version: "0.2.3+6"
+    version: "0.2.3+7"
   in_app_purchase_platform_interface:
     dependency: transitive
     description:
       name: in_app_purchase_platform_interface
-      url: "https://pub.dartlang.org"
+      sha256: d20d37a3cb513a647a570bfcae7ca0ec2038dab6258f58926ddc926a859a03d0
+      url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
   in_app_purchase_storekit:
     dependency: transitive
     description:
       name: in_app_purchase_storekit
-      url: "https://pub.dartlang.org"
+      sha256: e479be9061223eded9d42f00f9d8b22370bf710c845764c55f522bba175512dc
+      url: "https://pub.dev"
     source: hosted
     version: "0.3.3"
   intl:
@@ -475,10 +479,11 @@ packages:
   modal_bottom_sheet:
     dependency: transitive
     description:
-      name: modal_bottom_sheet
-      sha256: ef533916a2c3089571c32bd34e410faca77a6849a3f28f748e0794525c5658a0
-      url: "https://pub.dev"
-    source: hosted
+      path: modal_bottom_sheet
+      ref: d3779be7d661481cc0d99090d6356a286ae4f86b
+      resolved-ref: d3779be7d661481cc0d99090d6356a286ae4f86b
+      url: "https://github.com/CoolDude53/modal_bottom_sheet.git"
+    source: git
     version: "2.1.2"
   octo_image:
     dependency: transitive
@@ -688,6 +693,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  riverpod_annotation:
+    dependency: transitive
+    description:
+      name: riverpod_annotation
+      sha256: "96f59467a2dd09939e55b7acaf7508381b8634c90a18bbe4212cad955d1925f7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   scrollable_positioned_list:
     dependency: transitive
     description:

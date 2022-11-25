@@ -499,6 +499,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can add one by tapping the ➕ button.'**
   String get how_to_add_favorite;
+
+  /// No description provided for @continue_welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continue_welcome;
+
+  /// No description provided for @purchase_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase successful'**
+  String get purchase_success;
+
+  /// No description provided for @thank_you_for_purchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you so much for supporting the development of the app !'**
+  String get thank_you_for_purchase;
+
+  /// No description provided for @in_app_purchases.
+  ///
+  /// In en, this message translates to:
+  /// **'In-App Purchases'**
+  String get in_app_purchases;
+
+  /// No description provided for @in_app_purchases_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'You can support the development of this app by donating. Any amount is really appreciated. Any donation will unlock Swift Travel Pro with more customization options.'**
+  String get in_app_purchases_desc;
+
+  /// No description provided for @in_app_purchases_restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get in_app_purchases_restore;
+
+  /// No description provided for @in_app_purchases_restore_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'If you have already purchased one of the above products, you can restore it here.'**
+  String get in_app_purchases_restore_desc;
+
+  /// No description provided for @that_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'{that} is required'**
+  String that_is_required(String that);
+
+  /// No description provided for @pro_desc.
+  ///
+  /// In en, this message translates to:
+  /// **''**
+  String get pro_desc;
+
+  /// No description provided for @open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get open;
+
+  /// No description provided for @redeem_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Redeem a code'**
+  String get redeem_code;
+
+  /// No description provided for @donation_of.
+  ///
+  /// In en, this message translates to:
+  /// **'Donation of {price}'**
+  String donation_of(String price);
+
+  /// No description provided for @support_me.
+  ///
+  /// In en, this message translates to:
+  /// **'Support me'**
+  String get support_me;
+
+  /// No description provided for @about_the_app.
+  ///
+  /// In en, this message translates to:
+  /// **'About the app'**
+  String get about_the_app;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
