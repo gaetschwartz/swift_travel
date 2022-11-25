@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
-import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
@@ -58,8 +57,6 @@ class SbbStop with _$SbbStop, BaseStop, SbbDisplayNameMixin implements Stop {
   }) = _SbbStop;
   const SbbStop._();
 
-  factory SbbStop.fromFavoriteStop(FavoriteStop fav) =>
-      SbbStop(name: fav.name, id: fav.id);
   factory SbbStop.fromJson(Map<String, dynamic> json) =>
       _$SbbStopFromJson(json);
   factory SbbStop.fromStop(Stop stop) {

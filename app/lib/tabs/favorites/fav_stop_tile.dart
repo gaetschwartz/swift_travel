@@ -31,6 +31,9 @@ class FavoriteStationTile extends ConsumerStatefulWidget {
 }
 
 class _FavoriteStationTileState extends ConsumerState<FavoriteStationTile> {
+  SbbStop favoriteToStop(FavoriteStop stop) =>
+      SbbStop(name: stop.stop, id: stop.id);
+
   @override
   Widget build(BuildContext context) {
     final darwin = isThemeDarwin(context);
@@ -60,9 +63,7 @@ class _FavoriteStationTileState extends ConsumerState<FavoriteStationTile> {
             backgroundColor: Colors.blue,
             icon: CupertinoIcons.list_number,
             onPressed: (context) => SideBar.push(
-                context,
-                (context) =>
-                    StopDetails(SbbStop.fromFavoriteStop(widget.stop))),
+                context, (context) => StopDetails(favoriteToStop(widget.stop))),
           ),
         ],
       ),
@@ -108,8 +109,8 @@ class _FavoriteStationTileState extends ConsumerState<FavoriteStationTile> {
         ActionsSheetAction(
           title: Text(AppLocalizations.of(context).timetable),
           icon: const Icon(CupertinoIcons.list_number),
-          onPressed: () => SideBar.push(context,
-              (context) => StopDetails(SbbStop.fromFavoriteStop(widget.stop))),
+          onPressed: () => SideBar.push(
+              context, (context) => StopDetails(favoriteToStop(widget.stop))),
         ),
         ActionsSheetAction(
           title: Text(AppLocalizations.of(context).rename),
