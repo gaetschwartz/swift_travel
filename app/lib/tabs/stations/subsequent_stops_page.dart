@@ -100,8 +100,10 @@ class StopTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: () => unawaited(Navigator.of(context)
-            .push(PlatformPageRoute(builder: (context) => StopDetails(stop)))),
+        onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
+          builder: (context) => StopDetails(stop),
+          title: stop.name,
+        ))),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SizedBox(
@@ -150,8 +152,7 @@ class StopTile extends StatelessWidget {
 }
 
 class _Circle extends StatelessWidget {
-  const _Circle(
-    this.connection);
+  const _Circle(this.connection);
 
   final StationboardConnection connection;
 
@@ -170,8 +171,7 @@ class _Circle extends StatelessWidget {
 }
 
 class _Line extends StatelessWidget {
-  const _Line(
-    this.isVisible);
+  const _Line(this.isVisible);
 
   final bool isVisible;
 
