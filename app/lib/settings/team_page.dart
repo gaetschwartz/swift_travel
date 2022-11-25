@@ -1,20 +1,33 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/l10n/app_localizations.dart';
+import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/platform_button.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'models/contributor.dart';
 
 typedef JSON = Map<String, Object?>;
 
-class TeamPage extends StatefulWidget {
-  const TeamPage({
-    super.key,
-  });
+final _contributorsProvider = FutureProvider<List<Contributor>>((_) async {
+  final uri = Uri.parse(
+      'https://api.github.com/repos/gaetschwartz/swift_travel/contributors');
+  final r = await http.get(uri);
+  final list = jsonDecode(r.body) as List;
+  final contribs =
+      list.map((dynamic e) => Contributor.fromJson(e as JSON)).toList();
+
+  return contribs;
+});
+
+class TeamPage extends StatelessWidget {
+  const TeamPage({super.key});
 
   static const primaryCoders = <Member>[
     Member(
@@ -46,28 +59,32 @@ class TeamPage extends StatefulWidget {
   ];
 
   @override
-  _TeamPageState createState() => _TeamPageState();
+  Widget build(BuildContext context) {
+    return PlatformBuilder(
+      cupertinoBuilder: (context, child) => Material(
+        child: CupertinoPageScaffold(
+          resizeToAvoidBottomInset: false,
+          navigationBar: const SwiftCupertinoBar(),
+          child: child!,
+        ),
+      ),
+      materialBuilder: (context, child) => Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context).about_the_app),
+        ),
+        body: child,
+      ),
+      builder: (context, design) => _Main(),
+    );
+  }
 }
 
-final _contributorsProvider = FutureProvider<List<Contributor>>((_) async {
-  final uri = Uri.parse(
-      'https://api.github.com/repos/gaetschwartz/swift_travel/contributors');
-  final r = await http.get(uri);
-  final list = jsonDecode(r.body) as List;
-  final contribs =
-      list.map((dynamic e) => Contributor.fromJson(e as JSON)).toList();
+class _Main extends StatefulWidget {
+  @override
+  State<_Main> createState() => _MainState();
+}
 
-  return contribs;
-});
-
-class _TeamPageState extends State<TeamPage> {
-  final primaryMemberWidgets = TeamPage.primaryCoders
-      .map((c) => _MemberTile(c, dense: true))
-      .toList(growable: false);
-  final secondaryMembersWidgets = TeamPage.secondaryCoders
-      .map((c) => _MemberTile(c, dense: true))
-      .toList(growable: false);
-
+class _MainState extends State<_Main> {
   final client = http.Client();
 
   @override
@@ -76,46 +93,53 @@ class _TeamPageState extends State<TeamPage> {
     super.dispose();
   }
 
+  final primaryMemberWidgets = TeamPage.primaryCoders
+      .map((c) => _MemberTile(c, dense: true))
+      .toList(growable: false);
+
+  final secondaryMembersWidgets = TeamPage.secondaryCoders
+      .map((c) => _MemberTile(c, dense: true))
+      .toList(growable: false);
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context).our_team),
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        SliverSafeArea(
+          bottom: false,
+          sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (context, i) => primaryMemberWidgets[i],
+            childCount: primaryMemberWidgets.length,
+          )),
         ),
-        body: CustomScrollView(
-          slivers: [
-            SliverList(
-                delegate: SliverChildBuilderDelegate(
-              (context, i) => primaryMemberWidgets[i],
-              childCount: primaryMemberWidgets.length,
-            )),
-            const SliverToBoxAdapter(
-              child: ListTile(
-                horizontalTitleGap: 0,
-                leading: FaIcon(FontAwesomeIcons.github),
-                title: Text('Github Contributors'),
-              ),
-            ),
-            const _Contributors(),
-            SliverToBoxAdapter(
-              child: ExpansionTile(
-                title: const Text('Helpers'),
-                children: secondaryMembersWidgets,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                width: double.infinity,
-                height: 64,
-                child: TextButton(
-                  onPressed: () => showLicensePage(
-                      context: context, applicationIcon: const FlutterLogo()),
-                  child: const Text('View licenses'),
-                ),
-              ),
-            ),
-          ],
+        const SliverToBoxAdapter(
+          child: ListTile(
+            horizontalTitleGap: 0,
+            leading: FaIcon(FontAwesomeIcons.github),
+            title: Text('Github Contributors'),
+          ),
         ),
-      );
+        const _Contributors(),
+        SliverToBoxAdapter(
+          child: ExpansionTile(
+            title: const Text('Helpers'),
+            children: secondaryMembersWidgets,
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            width: double.infinity,
+            height: 64,
+            child: PlatformButton(
+              onPressed: () => showLicensePage(context: context),
+              child: const Text('Licenses'),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class _Contributors extends StatelessWidget {

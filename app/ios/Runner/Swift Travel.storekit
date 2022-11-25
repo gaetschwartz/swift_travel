@@ -1,0 +1,80 @@
+{
+  "identifier" : "0D68A01D",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6444220291",
+      "localizations" : [
+        {
+          "description" : "A $1 donation to thank the developer 😊",
+          "displayName" : "Donation $1",
+          "locale" : "en_GB"
+        },
+        {
+          "description" : "Une donation de 1 EUR/CHF pour remercier 😊",
+          "displayName" : "Donation de 1 EUR/CHF",
+          "locale" : "fr"
+        }
+      ],
+      "productID" : "donation_1",
+      "referenceName" : "Donation 1",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "6444258736",
+      "localizations" : [
+        {
+          "description" : "Une donation de 2 EUR/CHF pour remercier 😊",
+          "displayName" : " Donation de 5 EUR/CHF",
+          "locale" : "fr"
+        },
+        {
+          "description" : "A $2 donation to thank the developer 😊",
+          "displayName" : "Donation of 2",
+          "locale" : "en_GB"
+        }
+      ],
+      "productID" : "donation_2",
+      "referenceName" : "Donation 2",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "6444220488",
+      "localizations" : [
+        {
+          "description" : "A $5 donation to thank the developer 😊",
+          "displayName" : "Donation $5",
+          "locale" : "en_GB"
+        },
+        {
+          "description" : "Une donation de 5 EUR/CHF pour remercier 😊",
+          "displayName" : "Donation de 5 EUR/CHF",
+          "locale" : "fr"
+        }
+      ],
+      "productID" : "donation_5",
+      "referenceName" : "Donation 5",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1554758158",
+    "_developerTeamID" : "Y2PPW6ETTC",
+    "_lastSynchronizedDate" : 689635026.69477999
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

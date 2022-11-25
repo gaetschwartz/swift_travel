@@ -18,6 +18,7 @@ import 'package:swift_travel/db/cache.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
+import 'package:swift_travel/logic/in_app_purchase.dart';
 import 'package:swift_travel/logic/links.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/logic/quick_actions.dart';
@@ -93,6 +94,10 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
     await initHive();
 
     try {
+      final inApp = ref.read(inAppPurchaseManagerProvider);
+      await inApp.init();
+      log.i('User has donated ${inApp.amountDonated()}');
+
       await Future.wait([
         RouteHistoryRepository.instance.open(),
         LineCacheRepository.instance.open(),

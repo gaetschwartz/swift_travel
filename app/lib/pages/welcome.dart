@@ -108,7 +108,9 @@ class WelcomePage extends StatelessWidget {
                           },
                           child: Row(
                             children: [
-                              Text(AppLocalizations.of(context).continue_),
+                              Text(
+                                AppLocalizations.of(context).continue_welcome,
+                              ),
                               const Gap(8),
                               const Icon(CupertinoIcons.chevron_forward),
                             ],

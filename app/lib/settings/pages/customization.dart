@@ -7,6 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
+import 'package:swift_travel/logic/in_app_purchase.dart';
+import 'package:swift_travel/settings/pages/in_app_purchases.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
 import 'package:swift_travel/settings/widgets/settings_page_widget.dart';
@@ -122,6 +124,8 @@ class _FontChoiceTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = DynamicTheme.of(context);
+    final inApp = ref.read(inAppPurchaseManagerProvider);
+    final unlocked = inApp.hasUnlockedFeature(InAppPaidFeature.customFonts);
 
     final options = theme.configuration.fonts
         .map(
@@ -141,10 +145,17 @@ class _FontChoiceTile extends ConsumerWidget {
       title: Text(AppLocalizations.of(context).font),
       options: options,
       property: SyncProperty<Font>(
-        onSet: (f) => unawaited(theme.setFont(f)),
+        onSet: unlocked ? ((f) => unawaited(theme.setFont(f))) : ((f) {}),
         initialValue: theme.font,
       ),
       valueBuilder: (context, value) => Text(value.name),
+      isAllowedToChangeValue: (value) async {
+        if (unlocked) {
+          return true;
+        }
+        await showProDialog(context);
+        return false;
+      },
     );
   }
 }

@@ -67,4 +67,18 @@
 	"search_a_station": "Ricerca di una stazione",
 	"no_favorites": "Ricerca di una stazione",
 	"how_to_add_favorite": "È possibile aggiungerne uno toccando il tasto ➕."
+	"continue_welcome": "Continua",
+	"purchase_success": "Acquisto riuscito",
+	"thank_you_for_purchase": "Grazie mille per aver sostenuto lo sviluppo dell'app!",
+	"in_app_purchases": "Acquisti In-App",
+	"in_app_purchases_desc": "È possibile sostenere lo sviluppo di questa applicazione con una donazione. Qualsiasi importo è molto apprezzato. Ogni donazione sbloccherà Swift Travel Pro con maggiori opzioni di personalizzazione.",
+	"in_app_purchases_restore": "Ripristino degli acquisti",
+	"in_app_purchases_restore_desc": "Se avete già acquistato uno dei prodotti di cui sopra, potete ripristinarlo qui.",
+	"that_is_required": "È necessario {that}",
+	"pro_desc": "",
+	"open": "Aperto",
+	"redeem_code": "Utilizzo di un codice",
+	"donation_of": "Donazione di {price}",
+	"support_me": "Sostenetemi",
+	"about_the_app": "Informazioni sull'applicazione"
 }

@@ -16,6 +16,7 @@ import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/settings/pages/advanced.dart';
 import 'package:swift_travel/settings/pages/customization.dart';
 import 'package:swift_travel/settings/pages/developer.dart';
+import 'package:swift_travel/settings/pages/in_app_purchases.dart';
 import 'package:swift_travel/settings/team_page.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/utils/colors.dart';
@@ -87,14 +88,26 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         ))),
         tileBorders: const TileBorders(top: true),
       ),
+      // in app purchases
+      SwiftSettingsTile(
+        title: Text(AppLocalizations.of(context).support_me),
+        leading: const Icon(Icons.favorite),
+        onTap: () => unawaited(Navigator.of(context).push(PlatformPageRoute(
+          builder: (_) => const InAppPurchasesPage(),
+          title: AppLocalizations.of(context).support_me,
+        ))),
+      ),
       Consumer(builder: (context, w, _) {
         final isDev = w.watch(isDeveloperProvider).value;
         return SwiftSettingsTile(
           tileBorders: TileBorders(bottom: !isDev),
           leading: const Icon(CupertinoIcons.person_3_fill),
-          title: Text(AppLocalizations.of(context).our_team),
-          onTap: () => unawaited(Navigator.of(context, rootNavigator: true)
-              .push(PlatformPageRoute(builder: (_) => const TeamPage()))),
+          title: Text(AppLocalizations.of(context).about_the_app),
+          onTap: () => unawaited(
+              Navigator.of(context, rootNavigator: true).push(PlatformPageRoute(
+            builder: (_) => const TeamPage(),
+            title: AppLocalizations.of(context).about_the_app,
+          ))),
         );
       }),
       Consumer(
@@ -269,8 +282,7 @@ class ColorRow extends StatelessWidget {
 }
 
 class _ColorCircle extends StatelessWidget {
-  const _ColorCircle(
-    this.color);
+  const _ColorCircle(this.color);
 
   final Color color;
 
@@ -300,7 +312,7 @@ class _ColorCircle extends StatelessWidget {
 class _ScrollProgress extends StatefulWidget {
   const _ScrollProgress({
     required ScrollController controller,
-  })  : _controller = controller;
+  }) : _controller = controller;
 
   final ScrollController _controller;
 
