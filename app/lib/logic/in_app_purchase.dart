@@ -88,10 +88,11 @@ class InAppPurchaseManager extends ChangeNotifier {
     if (!available) {
       // The store cannot be reached or accessed. Update the UI accordingly.
       setProducts(const ProductDetailsState.unavailable());
+      log.w('Store is unavailable');
       return;
     }
     final products = await InAppPurchase.instance.queryProductDetails(
-      InAppPurchaseManager.productIds.map((e) => e.id).toSet(),
+      productIds.map((e) => e.id).toSet(),
     );
     if (products.notFoundIDs.isNotEmpty) {
       log.w('Products not found: ${products.notFoundIDs}');
