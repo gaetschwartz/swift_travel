@@ -64,7 +64,6 @@ class InAppPurchaseManager extends ChangeNotifier {
       log.i('Purchases: ${purchases.map((e) => e.toDebugString()).toList()}');
       purchases.forEach(_handlePurchase);
     });
-    await getProducts();
     await getPurchasedIds();
     _isInitialized = true;
     notifyListeners();
@@ -86,7 +85,7 @@ class InAppPurchaseManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getProducts() async {
+  Future<void> fetchProductDetails() async {
     final bool available = await InAppPurchase.instance.isAvailable();
     if (!available) {
       // The store cannot be reached or accessed. Update the UI accordingly.

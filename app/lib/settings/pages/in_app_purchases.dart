@@ -11,6 +11,7 @@ import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/in_app_purchase.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/platform_button.dart';
 import 'package:swift_travel/widgets/route.dart';
@@ -50,10 +51,7 @@ class _InAppPurchasesPageState extends ConsumerState<InAppPurchasesPage> {
           .read(inAppPurchaseManagerProvider.notifier)
           .purchaseProduct(productDetails);
     } on Exception catch (e, s) {
-      if (kDebugMode) {
-        print('Error while purchasing: $e');
-        debugPrintStack(stackTrace: s);
-      }
+      reportDartError(e, s);
       // TODO: Show error
     }
   }
@@ -144,19 +142,33 @@ class _InAppPurchasesPageState extends ConsumerState<InAppPurchasesPage> {
   }
 }
 
-class _Main extends ConsumerWidget {
+class _Main extends ConsumerStatefulWidget {
   const _Main({required this.onPurchase});
 
   final Future<void> Function(ProductDetails details) onPurchase;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_Main> createState() => _MainState();
+}
+
+class _MainState extends ConsumerState<_Main> {
+  @override
+  void initState() {
+    super.initState();
+    unawaited(
+        ref.read(inAppPurchaseManagerProvider.notifier).fetchProductDetails());
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final inApp = ref.watch(inAppPurchaseManagerProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: RefreshIndicator(
         onRefresh: () async {
-          await ref.read(inAppPurchaseManagerProvider.notifier).getProducts();
+          await ref
+              .read(inAppPurchaseManagerProvider.notifier)
+              .fetchProductDetails();
         },
         child: CustomScrollView(
           slivers: [
@@ -180,7 +192,7 @@ class _Main extends ConsumerWidget {
                     (context, i) {
                       return _ProductTile(
                         product: data[i],
-                        onPurchase: onPurchase,
+                        onPurchase: widget.onPurchase,
                       );
                     },
                     childCount: data.length,
@@ -188,18 +200,22 @@ class _Main extends ConsumerWidget {
                 );
               },
               iapError: (e) => SliverToBoxAdapter(
-                child: Text(
-                  e.toString(),
+                child: Center(
+                  child: Text(
+                    e.toString(),
+                  ),
                 ),
               ),
               unavailable: () => const SliverToBoxAdapter(
-                child: Text(
-                  'The store is unavailable, please try again later',
+                child: Center(
+                  child: Text(
+                    'The store is unavailable, please try again later',
+                  ),
                 ),
               ),
               loading: () => const SliverToBoxAdapter(
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator.adaptive(),
                 ),
               ),
             ),
