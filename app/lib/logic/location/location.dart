@@ -14,7 +14,7 @@ class GeoLocationEngine {
   final log = Logger.of('GeoLocationEngine');
 
   Future<GeoLocation> getLocation({
-    LocationAccuracy accuracy = LocationAccuracy.best,
+    LocationAccuracy accuracy = LocationAccuracy.high,
     Duration? timeout,
   }) async {
     if (Env.spoofLocation) {
@@ -44,9 +44,6 @@ class GeoLocationEngine {
             }
           }
 
-          log.log(
-              'Last known location was invalid (too old or innexistent). Obtaining current one...');
-
           final p = await Geolocator.getCurrentPosition(
             desiredAccuracy: accuracy,
             timeLimit: timeout,
@@ -58,9 +55,9 @@ class GeoLocationEngine {
           throw PermissionDeniedException(permission.toString());
         }
       } on MissingPluginException {
+        log.log(
+            'Location is not supported on this device, returned a spoofed location');
         if (Env.isDebugMode) {
-          log.log(
-              'Location is not supported on this dervice, returned a spoofed location');
           return Future<GeoLocation>.delayed(
             const Duration(milliseconds: 500),
             () => _spoofedLocation,

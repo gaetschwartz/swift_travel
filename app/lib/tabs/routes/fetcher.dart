@@ -108,7 +108,9 @@ class Fetcher extends FetcherBase {
           return '${p!.latitude},${p!.longitude}';
         },
       )!;
-      log.log('Fetching route from $departure to $arrival');
+      if (kDebugMode) {
+        log.log('Fetching route from $departure to $arrival');
+      }
       final it = await api.route(
         departure,
         arrival,

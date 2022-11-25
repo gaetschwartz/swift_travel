@@ -25,6 +25,16 @@
       ]
     },
     {
+      "name": "Launch (first stop quick actions)",
+      "request": "launch",
+      "type": "dart",
+      "program": "app/lib/main.dart",
+      "args": [
+        "--dart-define",
+        "QUICK_ACTIONS=fstop_0"
+      ]
+    },
+    {
       "name": "Launch (spoof location)",
       "request": "launch",
       "type": "dart",

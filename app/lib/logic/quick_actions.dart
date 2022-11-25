@@ -5,6 +5,7 @@ import 'dart:math' show min;
 import 'package:flutter/services.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:quick_actions/quick_actions.dart';
+import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -28,6 +29,10 @@ class QuickActionsManager {
     log.log('Initialize');
     try {
       await quickActions.initialize(_handler);
+      if (Env.quickActionsOverride != null) {
+        log.log('Override quick actions with ${Env.quickActionsOverride}');
+        await _handler(Env.quickActionsOverride!);
+      }
       _initialized = true;
       if (_actions != null) {
         await setActions(_actions!.first, _actions!.second);

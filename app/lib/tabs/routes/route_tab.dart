@@ -190,10 +190,12 @@ class RoutePageState extends ConsumerState<RoutePage> {
   @override
   Widget build(BuildContext context) {
     return PlatformBuilder(
-      cupertinoBuilder: (context, child) => CupertinoPageScaffold(
-        navigationBar: const SwiftCupertinoBar(),
-        resizeToAvoidBottomInset: false,
-        child: child!,
+      cupertinoBuilder: (context, child) => Material(
+        child: CupertinoPageScaffold(
+          navigationBar: const SwiftCupertinoBar(),
+          resizeToAvoidBottomInset: false,
+          child: child!,
+        ),
       ),
       materialBuilder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
