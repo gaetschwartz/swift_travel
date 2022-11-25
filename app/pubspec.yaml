@@ -35,6 +35,7 @@ dependencies:
   google_fonts: ^3.0.1
   hive: ^2.0.0
   http: ^0.13.3
+  in_app_purchase: ^3.0.8
   intl: ^0.17.0
   isar: ^3.0.2
   isar_flutter_libs: ^3.0.2
