@@ -65,6 +65,11 @@ class InAppPurchaseManager extends ChangeNotifier {
       purchases.forEach(_handlePurchase);
     });
     await getPurchasedIds();
+    unawaited(fetchProductDetails().timeout(const Duration(seconds: 5),
+        onTimeout: () {
+      log.w('Timeout while fetching products');
+      return null;
+    }));
     _isInitialized = true;
     notifyListeners();
   }
