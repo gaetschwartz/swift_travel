@@ -120,8 +120,8 @@ class Fetcher extends FetcherBase {
       );
       state = RouteStates(it);
     } on SocketException catch (e, s) {
-      log.e(e.toString(), stackTrace: s);
       state = const RouteStates.networkException();
+      reportDartError(e, s, library: 'fetcher', reason: 'while fetching');
     } on MissingPluginException {
       state = const RouteStates.missingPluginException();
     } on PermissionDeniedException {

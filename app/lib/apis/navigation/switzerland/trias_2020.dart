@@ -4,24 +4,17 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/models/route.dart';
-import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/trias.dart';
-import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:xml/xml.dart';
 
 /// https://opentransportdata.swiss/en/cookbook/departurearrival-display/
-class Trias2020Api implements BaseNavigationApi {
+class Trias2020Api implements NavigationCompletionDelegateApi {
   final String apiKey;
   final client = http.Client();
-
-  @override
-  Locale locale = const Locale('de');
 
   Trias2020Api(this.apiKey);
 
@@ -241,7 +234,6 @@ class Trias2020Api implements BaseNavigationApi {
     client.close();
   }
 
-  @override
   Future<List<NavigationCompletion>> find(double lat, double lon) async {
     final url = Uri.https('api.opentransportdata.swiss', 'trias2020');
     final coord = TriasGeoPosition(longitude: lon, latitude: lat);
@@ -269,32 +261,6 @@ class Trias2020Api implements BaseNavigationApi {
           ),
         )
         .toList();
-  }
-
-  @override
-  Future<NavRoute> rawRoute(Uri query) {
-    // TODO: implement rawRoute
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<NavRoute> route(String departure, String arrival,
-      {required DateTime date,
-      required TimeOfDay time,
-      SearchChMode timeType = SearchChMode.arrival}) {
-    // TODO: implement route
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<StationBoard> stationboard(
-    Stop stop, {
-    DateTime? when,
-    SearchChMode mode = SearchChMode.departure,
-    List<TransportationTypes> transportationTypes = const [],
-  }) {
-    // TODO: implement stationboard
-    throw UnimplementedError();
   }
 }
 

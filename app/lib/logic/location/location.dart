@@ -52,12 +52,12 @@ class GeoLocationEngine {
           return GeoLocation.fromPosition(p);
         } else {
           log.e('Failed to obtain permisisons for location: $permission');
-          throw PermissionDeniedException(permission.toString());
+          throw PermissionDeniedException('Permission denied: $permission');
         }
       } on MissingPluginException {
-        log.log(
-            'Location is not supported on this device, returned a spoofed location');
         if (Env.isDebugMode) {
+          log.log(
+              'Location is not supported on this device, returned a spoofed location instead.');
           return Future<GeoLocation>.delayed(
             const Duration(milliseconds: 500),
             () => _spoofedLocation,

@@ -11,6 +11,7 @@ import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/apis/navigation/switzerland/geo_admin_ch.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/stationboard.dart';
@@ -18,8 +19,6 @@ import 'package:swift_travel/apis/navigation/switzerland/trias_2020.dart';
 import 'package:swift_travel/constants/config.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/utils/route_uri.dart';
-
-const kUseTrias2020 = true;
 
 const searchChApi = NavigationApiFactory(
   SearchChApi.new,
@@ -30,11 +29,14 @@ const searchChApi = NavigationApiFactory(
   id: NavigationApiId('sbb'),
 );
 
-final trias2020ApiProvider = FutureProvider((ref) => ref
+final _trias2020ApiProvider = FutureProvider((ref) => ref
     .read(configProvider.future)
     .then((value) => Trias2020Api(value.triasKey!)));
 
 class SearchChApi extends BaseNavigationApi {
+  static const kUseTrias2020 = true;
+  static const useGeoAdmin = true;
+
   SearchChApi(this.ref);
 
   static const queryBuilder =
@@ -52,7 +54,9 @@ class SearchChApi extends BaseNavigationApi {
   Map<String, String> get headers =>
       {'accept-language': locale.toLanguageTag()};
 
-  Future<Trias2020Api> get trias => ref.read(trias2020ApiProvider.future);
+  Future<Trias2020Api> get trias => ref.read(_trias2020ApiProvider.future);
+
+  final _geoAdmin = GeoAdminEngine();
 
   @override
   Future<List<NavigationCompletion>> complete(
@@ -62,6 +66,13 @@ class SearchChApi extends BaseNavigationApi {
     bool noFavorites = true,
     bool filterNull = true,
   }) async {
+    if (useGeoAdmin) {
+      return _geoAdmin.complete(
+        string,
+        showCoordinates: showCoordinates,
+        showIds: showIds,
+      );
+    }
     if (kUseTrias2020) {
       return (await trias).complete(
         string,
@@ -232,6 +243,7 @@ class SearchChApi extends BaseNavigationApi {
 
   @override
   void dispose() {
+    _geoAdmin.dispose();
     _client.close();
   }
 }

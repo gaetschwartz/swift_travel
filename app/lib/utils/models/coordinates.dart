@@ -143,3 +143,63 @@ class LV03ToWGS84Converter extends Converter<LV03Coordinates, LatLon> {
     return LatLon(phiP, lambdaP);
   }
 }
+
+class WGS84ToLV03Converter extends Converter<LatLon, LV03Coordinates> {
+  const WGS84ToLV03Converter();
+
+// 1. Convert the ellipsoidal latitudes φ and longitudes λ into arcseconds ["]
+// 2. Calculate the auxiliary values (differences of latitude and longitude relative to Bern in the unit
+// [10000"]):
+// φ' = (φ – 169028.66 ")/10000
+// λ' = (λ – 26782.5 ")/10000
+// 3. Calculate projection coordinates in LV95 (E, N, h) or in LV03 (y, x, h)
+// E [m] = 2600072.37
+//  + 211455.93 * λ'
+//  - 10938.51 * λ' * φ'
+//  - 0.36 * λ' * φ'
+// 2
+//  - 44.54 * λ'
+// 3
+// y [m] = E – 2000000.00
+// N [m] = 1200147.07
+//  + 308807.95 * φ'
+//  + 3745.25 * λ'
+// 2
+//  + 76.63 * φ'
+// 2
+//  - 194.56 * λ'
+// 2 * φ'
+//  + 119.79 * φ'
+// 3
+// x [m] = N – 1000000.00
+// hCH [m] =hWGS – 49.55
+//  + 2.73 * λ'
+//  + 6.94 * φ'
+  @override
+  LV03Coordinates convert(LatLon input) {
+    // 1. Convert the ellipsoidal latitudes φ and longitudes λ into arcseconds ["]
+    final phi = input.lat * 3600;
+    final lambda = input.lon * 3600;
+
+    // 2. Calculate the auxiliary values (differences of latitude and longitude relative to Bern in the unit
+    // [10000"]):
+    final phiP = (phi - 169028.66) / 10000;
+    final lambdaP = (lambda - 26782.5) / 10000;
+
+    // 3. Calculate projection coordinates in LV95 (E, N, h) or in LV03 (y, x, h)
+    final e = 2600072.37 +
+        211455.93 * lambdaP -
+        10938.51 * lambdaP * phiP -
+        0.36 * lambdaP * pow(phiP, 2) -
+        44.54 * pow(lambdaP, 3);
+
+    final n = 1200147.07 +
+        308807.95 * phiP +
+        3745.25 * pow(lambdaP, 2) +
+        76.63 * pow(phiP, 2) -
+        194.56 * pow(lambdaP, 2) * phiP +
+        119.79 * pow(phiP, 3);
+
+    return LV03Coordinates((e - 2000000).round(), (n - 1000000).round());
+  }
+}
