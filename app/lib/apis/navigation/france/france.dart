@@ -51,8 +51,7 @@ class SncfApi extends BaseNavigationApi {
     String string, {
     bool showCoordinates = true,
     bool showIds = true,
-    bool noFavorites = true,
-    bool filterNull = true,
+    LocationType locationType = LocationType.any,
   }) async {
     if (string.isEmpty) {
       return [];

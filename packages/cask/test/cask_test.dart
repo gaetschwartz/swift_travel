@@ -9,17 +9,14 @@ import 'package:cask/src/testing/fake_io.dart';
 import 'package:cask/src/typed_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 
 void main() {
-  final r = Random(302292);
+  final r = Random(12345678);
 
   group('cask', () {
     late CaskImpl<String, int> cask;
     setUpAll(() async {
-      final temp = await getTemporaryDirectory();
-
-      Storage.init(path.join(temp.path, 'cask_tests', 'casks'));
+      Storage.init(path.join("test", "temp", 'cask_tests', 'casks'));
     });
 
     setUp(() async {

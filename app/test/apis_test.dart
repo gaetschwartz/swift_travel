@@ -59,11 +59,12 @@ class MockNavigationApi extends BaseNavigationApi {
   final List<NavigationCompletion>? mockCompletions;
 
   @override
-  Future<List<NavigationCompletion>> complete(String? string,
-          {bool? showCoordinates,
-          bool? showIds,
-          bool? noFavorites,
-          bool? filterNull}) async =>
+  Future<List<NavigationCompletion>> complete(
+    String? string, {
+    bool? showCoordinates,
+    bool? showIds,
+    LocationType locationType = LocationType.any,
+  }) async =>
       mockCompletions ??
       [SbbCompletion(label: 'Genève'), SbbCompletion(label: 'Genève Cornavin')];
 

@@ -3,6 +3,7 @@ import 'dart:math' show min;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
@@ -17,7 +18,7 @@ const _kMaxFavoritesCount = 3;
 const _kMaxHistoryCount = 3;
 
 final completionEngineProvider = Provider<CompletionEngine>((ref) {
-  final completionEngine = CompletionEngine(ref.read);
+  final completionEngine = CompletionEngine(ref);
   ref.onDispose(completionEngine.dispose);
   return completionEngine;
 });
@@ -25,29 +26,29 @@ final completionEngineProvider = Provider<CompletionEngine>((ref) {
 typedef UseCompletionEngineCallback = Stream<List<NavigationCompletion>>
     Function(CompletionEngine engine);
 
-final completionStreamProvider = StreamProvider.family<
-        List<NavigationCompletion>, UseCompletionEngineCallback>(
-    (r, cb) => cb(r.watch(completionEngineProvider)));
-
 class CompletionEngine {
   CompletionEngine(
-    this.read, {
+    this.ref, {
     RouteHistoryRepository? routeHistoryRepository,
   }) : routeHistoryRepository =
             routeHistoryRepository ?? RouteHistoryRepository.instance;
 
-  final T Function<T>(ProviderBase<T> provider) read;
+  final ProviderRef<CompletionEngine> ref;
   final RouteHistoryRepository routeHistoryRepository;
 
   Future<List<NavigationCompletion>> completeNavigation({
     required String query,
     bool doUseHistory = true,
+    LocationType locationType = LocationType.any,
   }) async {
-    final favorites = read(favoritesStoreProvider).stops;
+    final favorites = ref.read(favoritesStoreProvider).stops;
     final history = doUseHistory
         ? routeHistoryRepository.history
         : const Iterable<LocalRoute>.empty();
-    final completions = await read(navigationAPIProvider).complete(query);
+    final completions = await ref.read(navigationAPIProvider).complete(
+          query,
+          locationType: locationType,
+        );
     final distances = <MapEntry<FavoriteStop, double>>[];
 
     for (final c in favorites) {
@@ -87,10 +88,10 @@ class CompletionEngine {
     assert(!doPredict || date != null,
         'If you use prediction, you must provide a date argument');
 
-    final favorites = read(favoritesStoreProvider).stops;
+    final favorites = ref.read(favoritesStoreProvider).stops;
     final history =
         doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
-    final completions = await read(navigationAPIProvider).complete(query);
+    final completions = await ref.read(navigationAPIProvider).complete(query);
     final distances = <Pair<FavoriteStop, double>>[];
 
     for (final c in favorites) {

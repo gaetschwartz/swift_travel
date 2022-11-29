@@ -35,7 +35,7 @@ final _trias2020ApiProvider = FutureProvider((ref) => ref
 
 class SearchChApi extends BaseNavigationApi {
   static const kUseTrias2020 = true;
-  static const useGeoAdmin = true;
+  static const kUseGeoAdmin = true;
 
   SearchChApi(this.ref);
 
@@ -63,18 +63,19 @@ class SearchChApi extends BaseNavigationApi {
     String string, {
     bool showCoordinates = false,
     bool showIds = false,
-    bool noFavorites = true,
-    bool filterNull = true,
+    LocationType locationType = LocationType.any,
   }) async {
-    if (useGeoAdmin) {
-      return _geoAdmin.complete(
+    const filterNull = true;
+
+    if (kUseTrias2020 && locationType == LocationType.station) {
+      return (await trias).complete(
         string,
         showCoordinates: showCoordinates,
         showIds: showIds,
       );
     }
-    if (kUseTrias2020) {
-      return (await trias).complete(
+    if (kUseGeoAdmin && locationType == LocationType.any) {
+      return _geoAdmin.complete(
         string,
         showCoordinates: showCoordinates,
         showIds: showIds,
@@ -83,7 +84,7 @@ class SearchChApi extends BaseNavigationApi {
     final uri = queryBuilder('completion', {
       'show_ids': showIds.toInt(),
       'show_coordinates': showCoordinates.toInt(),
-      'nofavorites': noFavorites.toInt(),
+      'nofavorites': 1,
       'term': string,
     });
 

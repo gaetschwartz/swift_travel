@@ -11,6 +11,7 @@ import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/purchase.dart';
+import 'package:theming/responsive.dart';
 
 final inAppPurchaseManagerProvider = ChangeNotifierProvider(
   (ref) => InAppPurchaseManager(),
@@ -60,10 +61,19 @@ class InAppPurchaseManager extends ChangeNotifier {
   }
 
   Future<void> init() async {
+    if (!isMobile) {
+      return;
+    }
+    final available = await InAppPurchase.instance.isAvailable();
+    if (!available) {
+      log.w('InAppPurchase is not available');
+      return;
+    }
     _subscription = InAppPurchase.instance.purchaseStream.listen((purchases) {
       log.i('Purchases: ${purchases.map((e) => e.toDebugString()).toList()}');
       purchases.forEach(_handlePurchase);
     });
+
     await getPurchasedIds();
     unawaited(fetchProductDetails().timeout(const Duration(seconds: 5),
         onTimeout: () {

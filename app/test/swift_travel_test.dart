@@ -141,8 +141,8 @@ void main() {
       //? Not really sure if this is the best way to test this
       final container = ProviderContainer(overrides: [
         completionEngineProvider.overrideWith(
-          (r) => CompletionEngine(
-            r.read,
+          (ref) => CompletionEngine(
+            ref,
             routeHistoryRepository: MockRouteHistory(
               mockedHistory: [
                 route1,
@@ -239,8 +239,8 @@ void main() {
           MockNavigationApi(mockCompletions: [SbbCompletion(label: geneva)]),
         ),
         completionEngineProvider.overrideWith(
-          (r) => CompletionEngine(
-            r.read,
+          (ref) => CompletionEngine(
+            ref,
             routeHistoryRepository: MockRouteHistory(mockedHistory: [route1]),
           ),
         )

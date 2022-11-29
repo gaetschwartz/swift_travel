@@ -21,6 +21,7 @@ class GeoAdminEngine implements NavigationCompletionDelegateApi {
     final String query, {
     bool showCoordinates = true,
     bool showIds = true,
+    LocationType locationType = LocationType.any,
   }) async {
     if (query.isEmpty) {
       return [];

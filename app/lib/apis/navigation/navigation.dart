@@ -54,6 +54,8 @@ class NavigationApiId with _$NavigationApiId {
   const factory NavigationApiId(String value) = _NavigationApiId;
 }
 
+enum LocationType { station, any }
+
 /// Base class for any Navigation API.
 abstract class BaseNavigationApi implements NavigationCompletionDelegateApi {
   Locale get locale;
@@ -98,8 +100,12 @@ class NavigationApiException implements Exception {
 
 abstract class NavigationCompletionDelegateApi {
   /// Returns an autocompletion based on the provided query [query].
-  Future<List<NavigationCompletion>> complete(String query,
-      {bool showCoordinates, bool showIds});
+  Future<List<NavigationCompletion>> complete(
+    String query, {
+    bool showCoordinates,
+    bool showIds,
+    LocationType locationType,
+  });
 
   @mustCallSuper
   void dispose() {}

@@ -25,6 +25,7 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
     String query, {
     bool showCoordinates = true,
     bool showIds = true,
+    LocationType locationType = LocationType.any,
   }) async {
     final url = Uri.https('api.opentransportdata.swiss', 'trias2020');
     final search = const Trias2020RequestBuilder().search(_LocationName(query));

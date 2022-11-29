@@ -14,7 +14,7 @@ void main() {
 
       final s = printer(msg);
 
-      expect(s, msg.message);
+      expect(s, contains("Hello world"));
     });
     test("DetailedPrinter", () {
       final s = const DetailedPrinter()(LogMessage(

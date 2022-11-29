@@ -10,6 +10,7 @@ import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
+import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
 import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -320,6 +321,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
           await ref.read(completionEngineProvider).completeNavigation(
                 query: query,
                 doUseHistory: false,
+                locationType: LocationType.station,
               );
       if (!mounted) return;
 
