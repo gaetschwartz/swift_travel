@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'models.dart';
 
@@ -345,6 +345,7 @@ class _$_FullArguments implements _FullArguments {
   final List<LocalRoute> _routes;
   @override
   List<LocalRoute> get routes {
+    if (_routes is EqualUnmodifiableListView) return _routes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_routes);
   }
@@ -1065,15 +1066,15 @@ class _$PairCopyWithImpl<R, S, $Res, $Val extends Pair<R, S>>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = null,
-    Object? second = null,
+    Object? first = freezed,
+    Object? second = freezed,
   }) {
     return _then(_value.copyWith(
-      first: null == first
+      first: freezed == first
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
               as R,
-      second: null == second
+      second: freezed == second
           ? _value.second
           : second // ignore: cast_nullable_to_non_nullable
               as S,
@@ -1103,15 +1104,15 @@ class __$$_PairCopyWithImpl<R, S, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = null,
-    Object? second = null,
+    Object? first = freezed,
+    Object? second = freezed,
   }) {
     return _then(_$_Pair<R, S>(
-      null == first
+      freezed == first
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
               as R,
-      null == second
+      freezed == second
           ? _value.second
           : second // ignore: cast_nullable_to_non_nullable
               as S,
@@ -1203,20 +1204,20 @@ class _$TripleCopyWithImpl<R, S, T, $Res, $Val extends Triple<R, S, T>>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = null,
-    Object? second = null,
-    Object? third = null,
+    Object? first = freezed,
+    Object? second = freezed,
+    Object? third = freezed,
   }) {
     return _then(_value.copyWith(
-      first: null == first
+      first: freezed == first
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
               as R,
-      second: null == second
+      second: freezed == second
           ? _value.second
           : second // ignore: cast_nullable_to_non_nullable
               as S,
-      third: null == third
+      third: freezed == third
           ? _value.third
           : third // ignore: cast_nullable_to_non_nullable
               as T,
@@ -1246,20 +1247,20 @@ class __$$_TripleCopyWithImpl<R, S, T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = null,
-    Object? second = null,
-    Object? third = null,
+    Object? first = freezed,
+    Object? second = freezed,
+    Object? third = freezed,
   }) {
     return _then(_$_Triple<R, S, T>(
-      null == first
+      freezed == first
           ? _value.first
           : first // ignore: cast_nullable_to_non_nullable
               as R,
-      null == second
+      freezed == second
           ? _value.second
           : second // ignore: cast_nullable_to_non_nullable
               as S,
-      null == third
+      freezed == third
           ? _value.third
           : third // ignore: cast_nullable_to_non_nullable
               as T,

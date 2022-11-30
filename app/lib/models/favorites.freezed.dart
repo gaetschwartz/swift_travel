@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'favorites.dart';
 
@@ -29,6 +29,8 @@ LocalRoute _$LocalRouteFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LocalRoute {
+  Object get from => throw _privateConstructorUsedError;
+  Object get to => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   DateTime? get timestamp => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -317,7 +319,9 @@ abstract class LocalRouteV1 extends LocalRoute {
   factory LocalRouteV1.fromJson(Map<String, dynamic> json) =
       _$LocalRouteV1.fromJson;
 
+  @override
   String get from;
+  @override
   String get to;
   @override
   String? get displayName;
@@ -540,7 +544,9 @@ abstract class LocalRouteV2 extends LocalRoute {
   factory LocalRouteV2.fromJson(Map<String, dynamic> json) =
       _$LocalRouteV2.fromJson;
 
+  @override
   SbbStop get from;
+  @override
   SbbStop get to;
   @override
   String? get displayName;

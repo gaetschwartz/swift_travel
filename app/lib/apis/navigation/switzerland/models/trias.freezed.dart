@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of switzerland_navigation_api;
 
@@ -211,6 +211,7 @@ class _$_TriasLocation extends _TriasLocation {
   @override
   @JsonKey()
   List<TriasPtMode> get modes {
+    if (_modes is EqualUnmodifiableListView) return _modes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_modes);
   }
@@ -599,6 +600,7 @@ class _$_TriasStationBoard extends _TriasStationBoard {
   final List<TriasPreviousCall> _previousCalls;
   @override
   List<TriasPreviousCall> get previousCalls {
+    if (_previousCalls is EqualUnmodifiableListView) return _previousCalls;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_previousCalls);
   }
@@ -608,6 +610,7 @@ class _$_TriasStationBoard extends _TriasStationBoard {
   final List<TriasOnwardCall> _onwardCalls;
   @override
   List<TriasOnwardCall> get onwardCalls {
+    if (_onwardCalls is EqualUnmodifiableListView) return _onwardCalls;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_onwardCalls);
   }
@@ -924,6 +927,7 @@ class _$_TriasService implements _TriasService {
   final List<TriasMode> _modes;
   @override
   List<TriasMode> get modes {
+    if (_modes is EqualUnmodifiableListView) return _modes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_modes);
   }
@@ -931,6 +935,7 @@ class _$_TriasService implements _TriasService {
   final List<TriasAttribute> _attributes;
   @override
   List<TriasAttribute> get attributes {
+    if (_attributes is EqualUnmodifiableListView) return _attributes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_attributes);
   }

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'departures.dart';
 
@@ -184,6 +184,7 @@ class _$_SncfStationboard extends _SncfStationboard {
   final List<SncfDeparture> _departures;
   @override
   List<SncfDeparture> get departures {
+    if (_departures is EqualUnmodifiableListView) return _departures;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_departures);
   }
@@ -739,6 +740,7 @@ class _$_SncfStopPoint implements _SncfStopPoint {
   @override
   @JsonKey(name: 'commercial_modes')
   List<SncfMode> get commercialModes {
+    if (_commercialModes is EqualUnmodifiableListView) return _commercialModes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_commercialModes);
   }
@@ -1147,6 +1149,8 @@ class _$_SncfStopDateTime implements _SncfStopDateTime {
   @override
   @JsonKey(name: 'additional_informations')
   List<Object> get additionalInformations {
+    if (_additionalInformations is EqualUnmodifiableListView)
+      return _additionalInformations;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_additionalInformations);
   }
@@ -1169,6 +1173,7 @@ class _$_SncfStopDateTime implements _SncfStopDateTime {
   final List<Object> _links;
   @override
   List<Object> get links {
+    if (_links is EqualUnmodifiableListView) return _links;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_links);
   }
@@ -1562,6 +1567,7 @@ class _$_SncfDispInfo implements _SncfDispInfo {
   final List<Object> _equipments;
   @override
   List<Object> get equipments {
+    if (_equipments is EqualUnmodifiableListView) return _equipments;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_equipments);
   }
@@ -1573,6 +1579,7 @@ class _$_SncfDispInfo implements _SncfDispInfo {
   final List<Object> _links;
   @override
   List<Object> get links {
+    if (_links is EqualUnmodifiableListView) return _links;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_links);
   }
