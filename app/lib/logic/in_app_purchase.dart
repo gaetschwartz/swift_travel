@@ -11,7 +11,6 @@ import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/purchase.dart';
-import 'package:theming/responsive.dart';
 
 final inAppPurchaseManagerProvider = ChangeNotifierProvider(
   (ref) => InAppPurchaseManager(),
@@ -60,8 +59,14 @@ class InAppPurchaseManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool get isSupported =>
+      defaultTargetPlatform == TargetPlatform.iOS ||
+      defaultTargetPlatform == TargetPlatform.android ||
+      defaultTargetPlatform == TargetPlatform.macOS;
+
   Future<void> init() async {
-    if (!isMobile) {
+    if (!isSupported) {
+      log.w('Platform not supported: $defaultTargetPlatform');
       return;
     }
     final available = await InAppPurchase.instance.isAvailable();
@@ -136,7 +141,7 @@ class InAppPurchaseManager extends ChangeNotifier {
     if (!available) {
       // The store cannot be reached or accessed. Update the UI accordingly.
       log.w('The store cannot be reached or accessed.');
-      throw Exception('The store cannot be reached or accessed.');
+      throw const StoreUnavailableException();
     }
     if (_isConsumable(product)) {
       unawaited(
@@ -267,6 +272,22 @@ class InAppPurchaseManager extends ChangeNotifier {
 
   static bool isProductADonation(ProductDetails p) =>
       p.id.startsWith('donation_');
+}
+
+class InAppPurchaseException implements Exception {
+  final String message;
+
+  InAppPurchaseException(this.message);
+
+  @override
+  String toString() => 'InAppPurchaseException: $message';
+}
+
+class StoreUnavailableException implements InAppPurchaseException {
+  const StoreUnavailableException();
+
+  @override
+  String get message => 'Store unavailable';
 }
 
 @immutable
