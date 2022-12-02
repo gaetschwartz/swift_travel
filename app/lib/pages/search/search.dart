@@ -30,7 +30,6 @@ import 'package:swift_travel/widgets/contacts.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:swift_travel/widgets/vehicle_icon.dart';
-import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 class Debouncer {
@@ -168,8 +167,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   }
 
   @allowReturningWidgets
-  Widget toTextField(TextFieldConfiguration configuration,
-          {TextEditingController? controller}) =>
+  Widget toTextField(
+    BuildContext context,
+    TextFieldConfiguration configuration, {
+    TextEditingController? controller,
+  }) =>
       Material(
         child: TextField(
           decoration: InputDecoration(
@@ -182,12 +184,16 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           focusNode: configuration.focusNode,
           controller: controller,
           key: configuration.key,
+          onSubmitted: (s) => Navigator.of(context).pop(s),
         ),
       );
 
   @allowReturningWidgets
-  Widget toCupertino(TextFieldConfiguration configuration,
-          {TextEditingController? controller}) =>
+  Widget toCupertino(
+    BuildContext context,
+    TextFieldConfiguration configuration, {
+    TextEditingController? controller,
+  }) =>
       CupertinoTextField(
         placeholder: configuration.placeholder,
         inputFormatters: configuration.inputFormatters,
@@ -196,6 +202,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         focusNode: configuration.focusNode,
         controller: controller,
         key: configuration.key,
+        onSubmitted: (s) => Navigator.of(context).pop(s),
       );
 
   @override
@@ -208,6 +215,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 middle: Hero(
                   tag: widget.heroTag,
                   child: toCupertino(
+                    context,
                     widget.configuration,
                     controller: widget.binder.controller,
                   ),
@@ -222,6 +230,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               title: Hero(
                   tag: widget.heroTag,
                   child: toTextField(
+                    context,
                     widget.configuration,
                     controller: widget.binder.controller,
                   )),
@@ -246,7 +255,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     } else if (c is ContactCompletion) {
       final a = c.contact.postalAddresses.firstOrNull;
       if (a != null) {
-        log.log(c.contact.toMap());
+        log.log('Selecting contact ${c.contact.toMap()}');
         widget.binder.setString(a.toString());
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -411,7 +420,7 @@ class SuggestedTile extends StatelessWidget {
       child: ListTile(
         onTap: isLoading ? null : () => onTap?.call(suggestion),
         leading: _SuggestedTileIcon(suggestion: suggestion),
-        horizontalTitleGap: 8,
+        horizontalTitleGap: 0,
         title: isLoading
             ? Text(
                 label,
@@ -421,22 +430,9 @@ class SuggestedTile extends StatelessWidget {
             : Text(suggestion.displayName ?? label),
         subtitle:
             suggestion.displayName != null ? Text(suggestion.label) : null,
-        trailing: icon(context),
         dense: true,
       ),
     );
-  }
-
-  Widget? icon(BuildContext context) {
-    if (suggestion.origin == DataOrigin.favorites) {
-      if (isThemeDarwin(context)) {
-        return const Icon(CupertinoIcons.heart_fill);
-      } else {
-        return const Icon(Icons.star);
-      }
-    } else {
-      return null;
-    }
   }
 }
 
@@ -464,7 +460,7 @@ class _SuggestedTileIcon extends StatelessWidget {
       case DataOrigin.loading:
         return const Icon(CupertinoIcons.wand_stars);
       case DataOrigin.contacts:
-        return const Icon(CupertinoIcons.person);
+        return const Icon(CupertinoIcons.person_fill);
     }
   }
 

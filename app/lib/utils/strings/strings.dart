@@ -44,10 +44,6 @@ extension StringUtils on String {
 int levenshtein(String stringA, String stringB, {bool caseSensitive = false}) {
   final s = caseSensitive ? stringA : stringA.toLowerCase();
   final t = caseSensitive ? stringB : stringB.toLowerCase();
-
-  if (s == t) {
-    return 0;
-  }
   if (s.isEmpty) {
     return t.length;
   }
@@ -56,7 +52,7 @@ int levenshtein(String stringA, String stringB, {bool caseSensitive = false}) {
   }
 
   final v0 = List.generate(t.length + 1, (i) => i, growable: false);
-  final v1 = List<int>.filled(t.length + 1, 0);
+  final v1 = List<int>.filled(t.length + 1, 0, growable: false);
 
   for (var i = 0; i < s.length; i++) {
     v1.first = i + 1;

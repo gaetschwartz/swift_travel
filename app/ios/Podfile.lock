@@ -22,6 +22,7 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.10.0)"
   - in_app_purchase_storekit (0.0.1):
     - Flutter
+    - FlutterMacOS
   - integration_test (0.0.1):
     - Flutter
   - isar_flutter_libs (1.0.0):
@@ -105,7 +106,7 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
-  in_app_purchase_storekit: d7fcf4646136ec258e237872755da8ea6c1b6096
+  in_app_purchase_storekit: 6b297e2b5eab9fa3251a492d57301722e4132a71
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   isar_flutter_libs: b69f437aeab9c521821c3f376198c4371fa21073
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02

@@ -1,4 +1,5 @@
 import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter/services.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:swift_travel/constants/env.dart';
@@ -16,6 +17,19 @@ class ContactsRepository {
 
   final log = Logger.of('ContactsRepository');
 
+  static String contactName(Contact c) {
+    final b = StringBuffer();
+
+    b.write(c.givenName);
+    b.write(' ');
+    if (c.middleName != null && c.middleName!.isNotEmpty) {
+      b.write(c.middleName);
+      b.write(' ');
+    }
+    b.write(c.familyName);
+    return b.toString();
+  }
+
   Future<List<Contact>> getAll({
     bool withThumbnails = false,
   }) async {
@@ -29,26 +43,31 @@ class ContactsRepository {
         )
       ];
     }
-    if (!_granted) {
-      final status = await Permission.contacts.request();
-      log.log('Status1: $status');
-
-      _granted = status.isGranted;
+    try {
       if (!_granted) {
-        throw Exception('Contacts permission is needed. Status: $status');
-      }
-    }
+        final status = await Permission.contacts.request();
+        log.log('Status1: $status');
 
-    if (_data == null || _data!.isExpired(ttl)) {
-      final data = ContactsData(
-        await ContactsService.getContacts(withThumbnails: withThumbnails)
-            .then((value) => value.toList()),
-        DateTime.now(),
-      );
-      _data = data;
-      return data.contacts;
-    } else {
-      return _data!.contacts;
+        _granted = status.isGranted;
+        if (!_granted) {
+          throw Exception('Contacts permission is needed. Status: $status');
+        }
+      }
+
+      if (_data == null || _data!.isExpired(ttl)) {
+        final data = ContactsData(
+          await ContactsService.getContacts(withThumbnails: withThumbnails)
+              .then((value) => value.toList()),
+          DateTime.now(),
+        );
+        _data = data;
+        return data.contacts;
+      } else {
+        return _data!.contacts;
+      }
+    } on MissingPluginException {
+      log.log('MissingPluginException');
+      return const [];
     }
   }
 }

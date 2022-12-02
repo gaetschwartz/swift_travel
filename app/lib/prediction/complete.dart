@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
@@ -14,13 +16,11 @@ import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/prediction/predict.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
-const _kConfidenceThreshold = .9;
-const _kMaxFavoritesCount = 3;
-const _kMaxHistoryCount = 3;
+const _kConfidenceThreshold = .5;
+const _kMaxSuggestedCount = 3;
 
 final completionEngineProvider = Provider<CompletionEngine>((ref) {
   final engine = CompletionEngine(ref);
-  engine.init();
   ref.onDispose(engine.dispose);
   return engine;
 });
@@ -34,41 +34,6 @@ class CompletionEngine {
 
   final ProviderRef<CompletionEngine> ref;
   final RouteHistoryRepository routeHistoryRepository;
-
-  Future<void> init() async {}
-
-  Future<List<Completion>> completeNavigation({
-    required String query,
-    bool doUseHistory = true,
-    LocationType? locationType,
-  }) async {
-    final favorites = ref.read(favoritesStoreProvider).stops;
-    final history = doUseHistory
-        ? routeHistoryRepository.history
-        : const Iterable<LocalRoute>.empty();
-    final completions = await ref.read(navigationAPIProvider).complete(
-          query,
-          locationType: locationType,
-        );
-    final favs = <MapEntry<FavoriteStop, double>>[];
-
-    for (final c in favorites) {
-      final leven = scaledLevenshtein(query, c.data.name);
-      if (leven < _kConfidenceThreshold) {
-        favs.add(MapEntry(c.data, leven));
-      }
-    }
-
-    favs.sort((a, b) => a.value.compareTo(b.value));
-
-    return [
-      ...favs
-          .take(_kMaxFavoritesCount)
-          .map((e) => Completion.fromFavoriteStop(e.key)),
-      ..._routeHistoryToCompletions(history).toSet().take(_kMaxHistoryCount),
-      ...completions.map(Completion.fromApi),
-    ];
-  }
 
   Iterable<Completion> _routeHistoryToCompletions(
     Iterable<LocalRoute> history,
@@ -95,7 +60,7 @@ class CompletionEngine {
     assert(!doPredict || date != null,
         'If you use prediction, you must provide a date argument');
 
-    final favorites = ref.read(favoritesStoreProvider).stops;
+    final favoriteStops = ref.read(favoritesStoreProvider).stops;
     final history =
         doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
     final all = await Future.wait([
@@ -105,33 +70,46 @@ class CompletionEngine {
     final completions = all[0] as List<NavigationCompletion>;
     final contacts = all[1] as List<Contact>;
     final distances = <MapEntry<Completion, double>>[];
+    final queryLower = query.toLowerCase();
 
-    for (final c in favorites) {
-      final leven = scaledLevenshtein(query, c.data.name.replaceAll(',', ''));
-      if (leven < _kConfidenceThreshold) {
-        distances.add(MapEntry(Completion.fromFavoriteStop(c.data), leven));
+    for (final c in favoriteStops) {
+      final dist = scaledLevenshtein(query, c.data.name);
+      if (dist < _kConfidenceThreshold ||
+          c.data.name.toLowerCase().startsWith(queryLower)) {
+        distances.add(MapEntry(Completion.fromFavoriteStop(c.data), dist));
       }
     }
 
     for (final c in contacts) {
-      final leven = scaledLevenshtein(query, c.displayName ?? '');
-      if (leven < _kConfidenceThreshold) {
-        distances.add(MapEntry(ContactCompletion(c), leven));
+      final contactName = ContactsRepository.contactName(c);
+
+      final dist = scaledLevenshtein(query, contactName);
+      if (kDebugMode) {
+        print('Contact $contactName has distance $dist with query $query');
+      }
+      if (dist < _kConfidenceThreshold ||
+          contactName.toLowerCase().startsWith(queryLower)) {
+        distances.add(MapEntry(ContactCompletion(c), dist));
       }
     }
 
-    distances.sort((a, b) => a.value.compareTo(b.value));
+    for (final c in _routeHistoryToCompletions(history)) {
+      final dist = scaledLevenshtein(query, c.label);
+      if (dist < _kConfidenceThreshold ||
+          c.label.toLowerCase().startsWith(queryLower)) {
+        distances.add(MapEntry(c, dist));
+      }
+    }
 
-    final historySet =
-        _routeHistoryToCompletions(history).toSet().take(_kMaxHistoryCount);
-
-    final favsIter = distances.take(_kMaxFavoritesCount).map((e) => e.key);
+    // get top k smallest distances
+    final topK = distances
+        .topK(_kMaxSuggestedCount, (a, b) => b.value.compareTo(a.value))
+        .map((e) => e.key);
 
     final list = _returnedList(
       q: query,
       doUseCurrentLocation: doUseCurrentLocation,
-      history: historySet,
-      favs: favsIter,
+      suggested: topK,
       completions: completions,
       doPredict: doPredict,
       prediction: null,
@@ -146,8 +124,7 @@ class CompletionEngine {
       final event = _returnedList(
         q: query,
         doUseCurrentLocation: doUseCurrentLocation,
-        history: historySet,
-        favs: favsIter,
+        suggested: topK,
         completions: completions,
         doPredict: doPredict,
         prediction: prediction,
@@ -156,12 +133,48 @@ class CompletionEngine {
     }
   }
 
+  Future<List<Completion>> completeNavigation({
+    required String query,
+    bool doUseHistory = true,
+    LocationType? locationType,
+  }) async {
+    final favoriteStops = ref.read(favoritesStoreProvider).stops;
+    final history = doUseHistory
+        ? routeHistoryRepository.history
+        : const Iterable<LocalRoute>.empty();
+    final completions = await ref.read(navigationAPIProvider).complete(
+          query,
+          locationType: locationType,
+        );
+    final distances = <MapEntry<Completion, double>>[];
+
+    for (final c in favoriteStops) {
+      final dist = scaledLevenshtein(query, c.data.name);
+      if (dist < _kConfidenceThreshold) {
+        distances.add(MapEntry(Completion.fromFavoriteStop(c.data), dist));
+      }
+    }
+
+    for (final c in _routeHistoryToCompletions(history)) {
+      final dist = scaledLevenshtein(query, c.label);
+      if (dist < _kConfidenceThreshold) {
+        distances.add(MapEntry(c, dist));
+      }
+    }
+
+    return [
+      ...distances
+          .topK(_kMaxSuggestedCount, (a, b) => b.value.compareTo(a.value))
+          .map((e) => e.key),
+      ...completions.map(Completion.fromApi),
+    ];
+  }
+
 // ignore: long-parameter-list
   List<Completion> _returnedList({
     required String q,
     required bool doUseCurrentLocation,
-    required Iterable<Completion> history,
-    required Iterable<Completion> favs,
+    required Iterable<Completion> suggested,
     required Iterable<NavigationCompletion> completions,
     required bool doPredict,
     required RoutePrediction? prediction,
@@ -179,8 +192,7 @@ class CompletionEngine {
               SbbCompletion(label: prediction.prediction!.toAsString),
               origin: DataOrigin.prediction,
             ),
-        if (history.isNotEmpty) ...history,
-        ...favs,
+        ...suggested,
         ...completions.map(Completion.fromApi),
       ];
 
@@ -194,5 +206,20 @@ extension IterableX<T> on Iterable<T> {
         yield e2;
       }
     }
+  }
+}
+
+extension ListX<T> on List<T> {
+  List<T> topK(int k, int Function(T a, T b) compare) {
+    final pq = HeapPriorityQueue<T>(compare);
+
+    for (final e in this) {
+      pq.add(e);
+      if (pq.length > k) {
+        pq.removeFirst();
+      }
+    }
+
+    return pq.toUnorderedList()..sort((a, b) => compare(b, a));
   }
 }
