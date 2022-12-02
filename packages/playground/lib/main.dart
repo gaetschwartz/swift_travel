@@ -4,9 +4,11 @@ import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:playground/icon_page.dart';
 import 'package:playground/perspective.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -31,6 +33,9 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       localizationsDelegates: const [
         AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
     );
@@ -103,6 +108,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: const Text('Perspective'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const IconPage(),
+                  ),
+                );
+              },
+              child: const Text('Icon maker'),
             ),
           ],
         ),
