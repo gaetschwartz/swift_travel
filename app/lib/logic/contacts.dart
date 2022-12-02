@@ -16,7 +16,7 @@ class ContactsRepository {
 
   final log = Logger.of('ContactsRepository');
 
-  Future<Iterable<Contact>> getAll({
+  Future<List<Contact>> getAll({
     bool withThumbnails = false,
   }) async {
     if (Env.doMockContacts) {

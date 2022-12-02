@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
+import 'package:swift_travel/logic/contacts.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/prediction/models/models.dart';
@@ -72,7 +74,6 @@ class CompletionEngine {
     Iterable<LocalRoute> history,
   ) sync* {
     for (final e in history) {
-      // HACK: we shouldnt use sbb here
       yield Completion.from(
         SbbCompletion(label: e.fromAsString),
         origin: DataOrigin.history,
@@ -97,13 +98,25 @@ class CompletionEngine {
     final favorites = ref.read(favoritesStoreProvider).stops;
     final history =
         doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
-    final completions = await ref.read(navigationAPIProvider).complete(query);
-    final distances = <MapEntry<FavoriteStop, double>>[];
+    final all = await Future.wait([
+      ref.read(navigationAPIProvider).complete(query),
+      ContactsRepository.instance.getAll()
+    ]);
+    final completions = all[0] as List<NavigationCompletion>;
+    final contacts = all[1] as List<Contact>;
+    final distances = <MapEntry<Completion, double>>[];
 
     for (final c in favorites) {
       final leven = scaledLevenshtein(query, c.data.name.replaceAll(',', ''));
       if (leven < _kConfidenceThreshold) {
-        distances.add(MapEntry(c.data, leven));
+        distances.add(MapEntry(Completion.fromFavoriteStop(c.data), leven));
+      }
+    }
+
+    for (final c in contacts) {
+      final leven = scaledLevenshtein(query, c.displayName ?? '');
+      if (leven < _kConfidenceThreshold) {
+        distances.add(MapEntry(ContactCompletion(c), leven));
       }
     }
 
@@ -112,9 +125,7 @@ class CompletionEngine {
     final historySet =
         _routeHistoryToCompletions(history).toSet().take(_kMaxHistoryCount);
 
-    final favsIter = distances
-        .take(_kMaxFavoritesCount)
-        .map((e) => Completion.fromFavoriteStop(e.key));
+    final favsIter = distances.take(_kMaxFavoritesCount).map((e) => e.key);
 
     final list = _returnedList(
       q: query,
