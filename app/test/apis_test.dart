@@ -9,6 +9,7 @@ import 'package:shared_preferences_platform_interface/shared_preferences_platfor
 import 'package:swift_travel/apis/navigation/france/france.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
@@ -63,7 +64,7 @@ class MockNavigationApi extends BaseNavigationApi {
     String? string, {
     bool? showCoordinates,
     bool? showIds,
-    LocationType locationType = LocationType.any,
+    LocationType? locationType,
   }) async =>
       mockCompletions ??
       [SbbCompletion(label: 'Genève'), SbbCompletion(label: 'Genève Cornavin')];

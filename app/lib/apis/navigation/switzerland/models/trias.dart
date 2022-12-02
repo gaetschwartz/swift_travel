@@ -30,7 +30,7 @@ class TriasLocation with _$TriasLocation implements NavigationCompletion {
   String get label => stopPointName;
 
   @override
-  PlaceType get type => PlaceType.station;
+  LocationType get type => LocationType.station;
 
   @override
   GeoCoordinates? get coordinates => geoPosition;

@@ -20,7 +20,7 @@ class SncfPlace with _$SncfPlace implements NavigationCompletion {
       _$SncfPlaceFromJson(json);
 
   @override
-  PlaceType get type => PlaceType.unknown;
+  LocationType get type => LocationType.unknown;
 
   @override
   String get label => name;

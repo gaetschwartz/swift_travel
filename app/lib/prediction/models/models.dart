@@ -132,7 +132,7 @@ class Completion implements NavigationCompletion {
   final String label;
   final String? displayName;
   @override
-  final PlaceType type;
+  final LocationType type;
   final DataOrigin origin;
   @override
   final double? dist;
@@ -174,7 +174,7 @@ class Completion implements NavigationCompletion {
   factory Completion.fromFavoriteStop(FavoriteStop stop) => Completion(
         id: stop.id,
         label: stop.stop,
-        type: PlaceType.station,
+        type: LocationType.station,
         origin: DataOrigin.favorites,
         dist: null,
         iconBuilder: null,
@@ -185,7 +185,7 @@ class Completion implements NavigationCompletion {
   static const currentLocation = Completion(
     id: null,
     label: '%current_location%',
-    type: PlaceType.address,
+    type: LocationType.address,
     origin: DataOrigin.currentLocation,
     dist: null,
     iconBuilder: null,
@@ -222,7 +222,7 @@ class ContactCompletion extends Completion {
       : super(
           id: null,
           label: contact.postalAddresses.firstOrNull?.toString() ?? 'null',
-          type: PlaceType.address,
+          type: LocationType.address,
           origin: DataOrigin.contacts,
           dist: null,
           iconBuilder: null,

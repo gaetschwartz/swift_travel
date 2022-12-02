@@ -248,7 +248,7 @@ _PlaceTypeIconclass _$_PlaceTypeIconclassFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$_PlaceTypeIconclass {
-  PlaceType get v => throw _privateConstructorUsedError;
+  LocationType get v => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -262,7 +262,7 @@ abstract class _$PlaceTypeIconclassCopyWith<$Res> {
           _PlaceTypeIconclass value, $Res Function(_PlaceTypeIconclass) then) =
       __$PlaceTypeIconclassCopyWithImpl<$Res, _PlaceTypeIconclass>;
   @useResult
-  $Res call({PlaceType v});
+  $Res call({LocationType v});
 }
 
 /// @nodoc
@@ -284,7 +284,7 @@ class __$PlaceTypeIconclassCopyWithImpl<$Res, $Val extends _PlaceTypeIconclass>
       v: null == v
           ? _value.v
           : v // ignore: cast_nullable_to_non_nullable
-              as PlaceType,
+              as LocationType,
     ) as $Val);
   }
 }
@@ -297,7 +297,7 @@ abstract class _$$__PlaceTypeIconclassCopyWith<$Res>
       __$$__PlaceTypeIconclassCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PlaceType v});
+  $Res call({LocationType v});
 }
 
 /// @nodoc
@@ -317,7 +317,7 @@ class __$$__PlaceTypeIconclassCopyWithImpl<$Res>
       null == v
           ? _value.v
           : v // ignore: cast_nullable_to_non_nullable
-              as PlaceType,
+              as LocationType,
     ));
   }
 }
@@ -331,7 +331,7 @@ class _$__PlaceTypeIconclass implements __PlaceTypeIconclass {
       _$$__PlaceTypeIconclassFromJson(json);
 
   @override
-  final PlaceType v;
+  final LocationType v;
 
   @override
   String toString() {
@@ -366,14 +366,14 @@ class _$__PlaceTypeIconclass implements __PlaceTypeIconclass {
 }
 
 abstract class __PlaceTypeIconclass implements _PlaceTypeIconclass {
-  const factory __PlaceTypeIconclass(final PlaceType v) =
+  const factory __PlaceTypeIconclass(final LocationType v) =
       _$__PlaceTypeIconclass;
 
   factory __PlaceTypeIconclass.fromJson(Map<String, dynamic> json) =
       _$__PlaceTypeIconclass.fromJson;
 
   @override
-  PlaceType get v;
+  LocationType get v;
   @override
   @JsonKey(ignore: true)
   _$$__PlaceTypeIconclassCopyWith<_$__PlaceTypeIconclass> get copyWith =>

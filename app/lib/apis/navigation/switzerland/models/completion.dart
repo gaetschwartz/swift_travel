@@ -23,16 +23,17 @@ class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
   factory SbbCompletion.fromJson(Map<String, dynamic> json) =>
       _$SbbCompletionFromJson(json);
 
-  static PlaceType? parsePlaceType(String? iconclass) {
+  static LocationType? parsePlaceType(String? iconclass) {
     if (iconclass == null) {
       return null;
     }
     final substring = iconclass.substring(iconclass.lastIndexOf('-') + 1);
-    return $enumDecode(_$PlaceTypeEnumMap, substring);
+    return $enumDecode(_$LocationTypeEnumMap, substring);
   }
 
   @override
-  late final PlaceType type = parsePlaceType(iconClass) ?? PlaceType.unknown;
+  late final LocationType type =
+      parsePlaceType(iconClass) ?? LocationType.unknown;
 
   // blah blah blah @ 46.8537495783, 7.65740776062
 
@@ -55,7 +56,7 @@ class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
 
 @freezed
 class _PlaceTypeIconclass with _$_PlaceTypeIconclass {
-  const factory _PlaceTypeIconclass(PlaceType v) = __PlaceTypeIconclass;
+  const factory _PlaceTypeIconclass(LocationType v) = __PlaceTypeIconclass;
 
   factory _PlaceTypeIconclass.fromJson(Map<String, dynamic> json) =>
       _$_PlaceTypeIconclassFromJson(json);

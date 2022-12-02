@@ -180,7 +180,7 @@ class _Icon extends StatelessWidget {
             return const Icon(CupertinoIcons.clock);
           case DataOrigin.api:
             return completion.iconBuilder?.call(context) ??
-                PlaceIcon(completion.type);
+                LocationTypeIcon(completion.type);
           case DataOrigin.currentLocation:
             return const Icon(CupertinoIcons.location_fill);
           case DataOrigin.prediction:

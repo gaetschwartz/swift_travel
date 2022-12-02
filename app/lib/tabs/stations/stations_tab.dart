@@ -10,7 +10,6 @@ import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
-import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -278,7 +277,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
       final first = completions.firstOrNull;
       if (first?.dist != null) {
         final firstPublic =
-            completions.firstWhereOrNull((c) => c.type == PlaceType.station);
+            completions.firstWhereOrNull((c) => c.type == LocationType.station);
 
         if (firstPublic != null) {
           log.log('Found : $firstPublic');

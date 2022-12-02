@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 
 import 'france/france.dart';
 import 'models/completion.dart';
@@ -54,8 +55,6 @@ class NavigationApiId with _$NavigationApiId {
   const factory NavigationApiId(String value) = _NavigationApiId;
 }
 
-enum LocationType { station, any }
-
 /// Base class for any Navigation API.
 abstract class BaseNavigationApi implements NavigationCompletionDelegateApi {
   Locale get locale;
@@ -104,7 +103,7 @@ abstract class NavigationCompletionDelegateApi {
     String query, {
     bool showCoordinates,
     bool showIds,
-    LocationType locationType,
+    LocationType? locationType,
   });
 
   @mustCallSuper

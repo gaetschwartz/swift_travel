@@ -26,15 +26,15 @@ enum VehicleType {
   unknown,
 }
 
-enum PlaceType {
+enum LocationType {
   address,
   business,
   station,
   unknown;
 
-  static const _privatePlaces = <PlaceType>[
-    PlaceType.address,
-    PlaceType.business,
+  static const _privatePlaces = <LocationType>[
+    LocationType.address,
+    LocationType.business,
   ];
 
   bool get isAddress => _privatePlaces.contains(this);

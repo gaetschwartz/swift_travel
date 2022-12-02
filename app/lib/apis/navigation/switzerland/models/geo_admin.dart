@@ -39,7 +39,7 @@ class GeoAdminResult with _$GeoAdminResult implements NavigationCompletion {
   String get label => attrs.cleanLabel;
 
   @override
-  PlaceType get type => PlaceType.address;
+  LocationType get type => LocationType.address;
 
   @override
   GeoCoordinates? get coordinates => null;

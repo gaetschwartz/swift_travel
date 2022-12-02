@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/trias.dart';
 import 'package:xml/xml.dart';
@@ -25,7 +26,7 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
     String query, {
     bool showCoordinates = true,
     bool showIds = true,
-    LocationType locationType = LocationType.any,
+    LocationType? locationType,
   }) async {
     final url = Uri.https('api.opentransportdata.swiss', 'trias2020');
     final search = const Trias2020RequestBuilder().search(_LocationName(query));

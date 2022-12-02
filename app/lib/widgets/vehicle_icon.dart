@@ -59,29 +59,29 @@ class VehicleIcon extends StatelessWidget {
   }
 }
 
-class PlaceIcon extends StatelessWidget {
-  const PlaceIcon(
+class LocationTypeIcon extends StatelessWidget {
+  const LocationTypeIcon(
     this.place, {
     this.size,
     this.color,
     super.key,
   });
 
-  final PlaceType? place;
+  final LocationType? place;
   final double? size;
   final Color? color;
 
   @allowReturningWidgets
-  Widget getIcon(PlaceType? p) {
+  Widget getIcon(LocationType? p) {
     switch (p) {
-      case PlaceType.address:
+      case LocationType.address:
         return const FaIcon(FontAwesomeIcons.house);
-      case PlaceType.business:
+      case LocationType.business:
         return const FaIcon(FontAwesomeIcons.store);
-      case PlaceType.station:
+      case LocationType.station:
         return const FaIcon(FontAwesomeIcons.train);
       case null:
-      case PlaceType.unknown:
+      case LocationType.unknown:
         return const FaIcon(FontAwesomeIcons.question);
     }
   }

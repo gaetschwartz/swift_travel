@@ -10,6 +10,7 @@ import 'package:swift_travel/apis/navigation/france/models/sncf_completion.dart'
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/constants/config.dart';
@@ -51,7 +52,7 @@ class SncfApi extends BaseNavigationApi {
     String string, {
     bool showCoordinates = true,
     bool showIds = true,
-    LocationType locationType = LocationType.any,
+    LocationType? locationType,
   }) async {
     if (string.isEmpty) {
       return [];

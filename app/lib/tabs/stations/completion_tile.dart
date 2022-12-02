@@ -47,9 +47,9 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
   @override
   Widget build(BuildContext context) {
     final store = ref.watch(favoritesStoreProvider);
-    final iconClass =
-        widget.sugg.iconBuilder?.call(context) ?? PlaceIcon(widget.sugg.type);
-    final isNotStation = widget.sugg.type != PlaceType.station;
+    final iconClass = widget.sugg.iconBuilder?.call(context) ??
+        LocationTypeIcon(widget.sugg.type);
+    final isNotStation = widget.sugg.type != LocationType.station;
 
     final favoriteStop =
         store.stops.firstWhereOrNull((f) => f.data.stop == widget.sugg.label);

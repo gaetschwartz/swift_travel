@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/utils/models/coordinates.dart';
 
@@ -21,7 +22,7 @@ class GeoAdminEngine implements NavigationCompletionDelegateApi {
     final String query, {
     bool showCoordinates = true,
     bool showIds = true,
-    LocationType locationType = LocationType.any,
+    LocationType? locationType,
   }) async {
     if (query.isEmpty) {
       return [];

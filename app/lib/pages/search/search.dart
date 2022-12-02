@@ -456,7 +456,7 @@ class _SuggestedTileIcon extends StatelessWidget {
         return const Icon(CupertinoIcons.clock);
       case DataOrigin.api:
         return suggestion.iconBuilder?.call(context) ??
-            PlaceIcon(suggestion.type);
+            LocationTypeIcon(suggestion.type);
       case DataOrigin.currentLocation:
         return const Icon(CupertinoIcons.location_fill);
       case DataOrigin.prediction:

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
-import 'package:swift_travel/apis/navigation/navigation.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/store.dart';
@@ -38,7 +38,7 @@ class CompletionEngine {
   Future<List<Completion>> completeNavigation({
     required String query,
     bool doUseHistory = true,
-    LocationType locationType = LocationType.any,
+    LocationType? locationType,
   }) async {
     final favorites = ref.read(favoritesStoreProvider).stops;
     final history = doUseHistory

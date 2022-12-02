@@ -13,7 +13,7 @@ abstract class NavigationCompletion {
   String? get id;
 
   /// Type of the completion
-  PlaceType get type;
+  LocationType get type;
 
   /// Returns the icon for this completion.
   // ignore: avoid-unused-parameters

@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/models/stationboard.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/geo_admin_ch.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
@@ -63,7 +64,7 @@ class SearchChApi extends BaseNavigationApi {
     String string, {
     bool showCoordinates = false,
     bool showIds = false,
-    LocationType locationType = LocationType.any,
+    LocationType? locationType,
   }) async {
     const filterNull = true;
 
@@ -74,7 +75,7 @@ class SearchChApi extends BaseNavigationApi {
         showIds: showIds,
       );
     }
-    if (kUseGeoAdmin && locationType == LocationType.any) {
+    if (kUseGeoAdmin && locationType == null) {
       return _geoAdmin.complete(
         string,
         showCoordinates: showCoordinates,
