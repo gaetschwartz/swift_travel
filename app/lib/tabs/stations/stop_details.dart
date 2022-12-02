@@ -15,7 +15,7 @@ import 'package:swift_travel/utils/definitions.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:swift_travel/widgets/route.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
+import 'package:swift_travel/widgets/vehicle_icon.dart';
 import 'package:theming/responsive.dart';
 
 class StopDetails extends ConsumerStatefulWidget {
@@ -244,7 +244,7 @@ class ConnectionTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: <Widget>[
-            SbbIcon(c.type, size: 16),
+            VehicleIcon(c.type, size: 16),
             const Gap(8),
             Text.rich(
               TextSpan(text: Format.time(c.time), children: [

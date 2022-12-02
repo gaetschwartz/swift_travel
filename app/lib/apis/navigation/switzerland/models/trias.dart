@@ -1,6 +1,5 @@
 library switzerland_navigation_api;
 
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
@@ -25,25 +24,19 @@ class TriasLocation with _$TriasLocation implements NavigationCompletion {
   const TriasLocation._();
 
   @override
-  String? get favoriteName => null;
-
-  @override
-  Widget get icon => const Icon(FluentIcons.location_24_filled);
-
-  @override
   String? get id => stopPointRef;
 
   @override
   String get label => stopPointName;
 
   @override
-  DataOrigin get origin => DataOrigin.data;
-
-  @override
-  PlaceType? get type => PlaceType.unknown;
+  PlaceType get type => PlaceType.station;
 
   @override
   GeoCoordinates? get coordinates => geoPosition;
+
+  @override
+  Widget Function(BuildContext context)? get iconBuilder => null;
 }
 
 @freezed
@@ -258,7 +251,7 @@ class TriasOnwardCall with _$TriasOnwardCall implements StationboardConnection {
 
   @override
   // TODO: implement type
-  PlaceType get type => throw UnimplementedError();
+  VehicleType get type => throw UnimplementedError();
 }
 
 @freezed
@@ -362,7 +355,7 @@ class TriasPreviousCall
 
   @override
   // TODO: implement type
-  PlaceType get type => throw UnimplementedError();
+  VehicleType get type => throw UnimplementedError();
 }
 
 @freezed
@@ -443,7 +436,7 @@ class TriasThisCall with _$TriasThisCall implements StationboardConnection {
 
   @override
   // TODO: implement type
-  PlaceType get type => throw UnimplementedError();
+  VehicleType get type => throw UnimplementedError();
 }
 
 @freezed

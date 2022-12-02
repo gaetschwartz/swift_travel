@@ -20,7 +20,7 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
           depDelay: $checkedConvert('dep_delay',
               (v) => const DelayConverter().fromJson(v as String?)),
           type: $checkedConvert(
-              'type', (v) => $enumDecodeNullable(_$PlaceTypeEnumMap, v)),
+              'type', (v) => $enumDecodeNullable(_$VehicleTypeEnumMap, v)),
           track: $checkedConvert('track', (v) => v as String?),
           terminal: $checkedConvert('terminal', (v) => v as String?),
           bgcolor: $checkedConvert('bgcolor', (v) => v as String?),
@@ -86,7 +86,7 @@ Map<String, dynamic> _$$_SbbLegToJson(_$_SbbLeg instance) {
 
   writeNotNull('exit', instance.sbbExit?.toJson());
   writeNotNull('dep_delay', const DelayConverter().toJson(instance.depDelay));
-  writeNotNull('type', _$PlaceTypeEnumMap[instance.type]);
+  writeNotNull('type', _$VehicleTypeEnumMap[instance.type]);
   writeNotNull('track', instance.track);
   writeNotNull('terminal', instance.terminal);
   writeNotNull('bgcolor', instance.bgcolor);
@@ -111,26 +111,24 @@ Map<String, dynamic> _$$_SbbLegToJson(_$_SbbLeg instance) {
   return val;
 }
 
-const _$PlaceTypeEnumMap = {
-  PlaceType.bus: 'bus',
-  PlaceType.post: 'post',
-  PlaceType.nightBus: 'night_bus',
-  PlaceType.tram: 'tram',
-  PlaceType.walk: 'walk',
-  PlaceType.strain: 'strain',
-  PlaceType.train: 'train',
-  PlaceType.expressTrain: 'express_train',
-  PlaceType.funicular: 'funicular',
-  PlaceType.business: 'business',
-  PlaceType.address: 'adr',
-  PlaceType.private: 'private',
-  PlaceType.gondola: 'gondola',
-  PlaceType.cablecar: 'cablecar',
-  PlaceType.chairlift: 'chairlift',
-  PlaceType.ship: 'ship',
-  PlaceType.str: 'str',
-  PlaceType.metro: 'metro',
-  PlaceType.rer: 'rer',
-  PlaceType.nightStrain: 'night_strain',
-  PlaceType.unknown: 'unknown',
+const _$VehicleTypeEnumMap = {
+  VehicleType.bus: 'bus',
+  VehicleType.post: 'post',
+  VehicleType.nightBus: 'night_bus',
+  VehicleType.tram: 'tram',
+  VehicleType.walk: 'walk',
+  VehicleType.strain: 'strain',
+  VehicleType.train: 'train',
+  VehicleType.expressTrain: 'express_train',
+  VehicleType.funicular: 'funicular',
+  VehicleType.business: 'business',
+  VehicleType.gondola: 'adr',
+  VehicleType.cablecar: 'cablecar',
+  VehicleType.chairlift: 'chairlift',
+  VehicleType.ship: 'ship',
+  VehicleType.str: 'str',
+  VehicleType.metro: 'metro',
+  VehicleType.rer: 'rer',
+  VehicleType.nightStrain: 'night_strain',
+  VehicleType.unknown: 'unknown',
 };

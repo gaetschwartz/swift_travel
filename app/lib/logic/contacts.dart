@@ -9,12 +9,16 @@ class ContactsRepository {
   static final instance = ContactsRepository._();
 
   bool _granted = false;
-  Iterable<Contact>? _contacts;
+  ContactsData? _data;
+
+  /// ttl is in seconds, default is 1 hour
+  int ttl = 3600;
 
   final log = Logger.of('ContactsRepository');
 
-  Future<Iterable<Contact>> getAll(
-      {bool cache = false, bool withThumbnails = false}) async {
+  Future<Iterable<Contact>> getAll({
+    bool withThumbnails = false,
+  }) async {
     if (Env.doMockContacts) {
       return const [
         Contact(
@@ -26,23 +30,38 @@ class ContactsRepository {
       ];
     }
     if (!_granted) {
-      final request = await Permission.contacts.request();
-      log.log('Status1: $request');
+      final status = await Permission.contacts.request();
+      log.log('Status1: $status');
 
-      _granted = request.isGranted;
-    }
-    if (_granted) {
-      if (cache) {
-        _contacts ??=
-            await ContactsService.getContacts(withThumbnails: withThumbnails);
-        return _contacts!;
-      } else {
-        return ContactsService.getContacts(withThumbnails: withThumbnails);
+      _granted = status.isGranted;
+      if (!_granted) {
+        throw Exception('Contacts permission is needed. Status: $status');
       }
-    } else {
-      final status = await Permission.contacts.status;
-      log.log('Status2: $status');
-      throw Exception('Contacts permission is needed. Status: $status');
     }
+
+    if (_data == null || _data!.isExpired(ttl)) {
+      final data = ContactsData(
+        await ContactsService.getContacts(withThumbnails: withThumbnails)
+            .then((value) => value.toList()),
+        DateTime.now(),
+      );
+      _data = data;
+      return data.contacts;
+    } else {
+      return _data!.contacts;
+    }
+  }
+}
+
+class ContactsData {
+  const ContactsData(this.contacts, this.timestamp);
+
+  final List<Contact> contacts;
+  final DateTime timestamp;
+
+  bool isExpired(int ttl) {
+    final now = DateTime.now();
+    final diff = now.difference(timestamp);
+    return diff.inSeconds > ttl;
   }
 }

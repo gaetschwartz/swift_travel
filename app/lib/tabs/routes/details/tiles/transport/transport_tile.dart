@@ -14,7 +14,7 @@ import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
 import 'package:swift_travel/widgets/route.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
+import 'package:swift_travel/widgets/vehicle_icon.dart';
 import 'package:theming/responsive.dart';
 
 import 'details.dart';
@@ -80,8 +80,7 @@ class _TransportLegTileState extends State<TransportLegTile> {
 }
 
 class _Collapsed extends StatelessWidget {
-  const _Collapsed(
-    this.l);
+  const _Collapsed(this.l);
 
   final Leg l;
 
@@ -233,8 +232,7 @@ class _Collapsed extends StatelessWidget {
 }
 
 class _Header extends StatelessWidget {
-  const _Header(
-    this.l);
+  const _Header(this.l);
 
   final Leg l;
 
@@ -249,7 +247,7 @@ class _Header extends StatelessWidget {
         children: [
           Row(
             children: <Widget>[
-              if (l.line != null) LineIcon.fromLeg(l) else SbbIcon(l.type),
+              if (l.line != null) LineIcon.fromLeg(l) else VehicleIcon(l.type),
               const Gap(8),
               Expanded(
                 child: Align(

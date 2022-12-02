@@ -29,6 +29,7 @@ import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/contacts.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
+import 'package:swift_travel/widgets/vehicle_icon.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
@@ -236,7 +237,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         ),
       );
 
-  void onSuggestionTapped(NavigationCompletion c) {
+  void onSuggestionTapped(Completion c) {
     Vibration.instance.select();
 
     if (c.origin == DataOrigin.currentLocation) {
@@ -287,90 +288,90 @@ class _Results extends StatelessWidget {
     required this.focusNode,
   });
 
-  final void Function(NavigationCompletion completion) onTap;
+  final void Function(Completion completion) onTap;
 
   final FocusNode? focusNode;
 
   @override
-  Widget build(BuildContext context) => Consumer(builder: (context, w, _) {
-        final state = w.watch(_stateProvider);
-        return state.when(
-          completions: (c) => Stack(
-            children: [
-              Positioned.fill(
-                child: ListView.builder(
-                  itemBuilder: (context, i) =>
-                      SuggestedTile(c[i], onTap: onTap),
-                  itemCount: c.length,
-                ),
+  Widget build(BuildContext context) {
+    return Consumer(builder: (context, w, _) {
+      final state = w.watch(_stateProvider);
+      return state.when(
+        completions: (c) => Stack(
+          children: [
+            Positioned.fill(
+              child: ListView.builder(
+                itemBuilder: (context, i) => SuggestedTile(c[i], onTap: onTap),
+                itemCount: c.length,
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                left: 0,
-                child: ListenableBuilder(
-                  listenable: focusNode!,
-                  builder: (context, _, __) {
-                    return AnimatedOpacity(
-                      duration: const Duration(milliseconds: 500),
-                      opacity: focusNode!.hasFocus ? 1 : 0,
-                      child: Card(
-                        child: SizedBox(
-                          height: 40,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton.icon(
-                                onPressed: () =>
-                                    unawaited(pickContact(context)),
-                                icon: const Icon(
-                                    FluentIcons.contact_card_group_24_regular),
-                                label:
-                                    Text(AppLocalizations.of(context).contacts),
-                              )
-                            ],
-                          ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: ListenableBuilder(
+                listenable: focusNode!,
+                builder: (context, _, __) {
+                  return AnimatedOpacity(
+                    duration: const Duration(milliseconds: 500),
+                    opacity: focusNode!.hasFocus ? 1 : 0,
+                    child: Card(
+                      child: SizedBox(
+                        height: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton.icon(
+                              onPressed: () => unawaited(pickContact(context)),
+                              icon: const Icon(
+                                  FluentIcons.contact_card_group_24_regular),
+                              label:
+                                  Text(AppLocalizations.of(context).contacts),
+                            )
+                          ],
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
-          empty: () => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text(
-                '🔎',
-                style: TextStyle(fontSize: 48),
-                textAlign: TextAlign.center,
-              ),
-              const Gap(24),
-              Text(
-                AppLocalizations.of(context).search_station,
-                style: Theme.of(context).textTheme.titleLarge,
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),
-          network: () => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.wifi_off,
-                size: 48,
-              ),
-              const Gap(16),
-              Text(
-                'Network Error',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ],
-          ),
-        );
-      });
+            ),
+          ],
+        ),
+        empty: () => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+              '🔎',
+              style: TextStyle(fontSize: 48),
+              textAlign: TextAlign.center,
+            ),
+            const Gap(24),
+            Text(
+              AppLocalizations.of(context).search_station,
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+        network: () => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.wifi_off,
+              size: 48,
+            ),
+            const Gap(16),
+            Text(
+              'Network Error',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ],
+        ),
+      );
+    });
+  }
 
   Future<void> pickContact(BuildContext context) async {
     Vibration.instance.select();
@@ -391,8 +392,8 @@ class SuggestedTile extends StatelessWidget {
     this.onTap,
   });
 
-  final NavigationCompletion suggestion;
-  final ValueChanged<NavigationCompletion>? onTap;
+  final Completion suggestion;
+  final ValueChanged<Completion>? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -417,16 +418,25 @@ class SuggestedTile extends StatelessWidget {
                 style: const TextStyle(
                     backgroundColor: Colors.black, color: Colors.transparent),
               )
-            : Text(suggestion.favoriteName ?? label),
-        subtitle: suggestion.favoriteName != null ? Text(label) : null,
-        trailing: suggestion.favoriteName != null
-            ? (isThemeDarwin(context)
-                ? const Icon(CupertinoIcons.heart_fill)
-                : const Icon(Icons.star))
-            : null,
+            : Text(suggestion.displayName ?? label),
+        subtitle:
+            suggestion.displayName != null ? Text(suggestion.label) : null,
+        trailing: icon(context),
         dense: true,
       ),
     );
+  }
+
+  Widget? icon(BuildContext context) {
+    if (suggestion.origin == DataOrigin.favorites) {
+      if (isThemeDarwin(context)) {
+        return const Icon(CupertinoIcons.heart_fill);
+      } else {
+        return const Icon(Icons.star);
+      }
+    } else {
+      return null;
+    }
   }
 }
 
@@ -435,17 +445,18 @@ class _SuggestedTileIcon extends StatelessWidget {
     required this.suggestion,
   });
 
-  final NavigationCompletion suggestion;
+  final Completion suggestion;
 
   @allowReturningWidgets
-  Widget icon() {
+  Widget icon(BuildContext context) {
     switch (suggestion.origin) {
       case DataOrigin.favorites:
         return const Icon(CupertinoIcons.heart_fill);
       case DataOrigin.history:
         return const Icon(CupertinoIcons.clock);
-      case DataOrigin.data:
-        return suggestion.icon;
+      case DataOrigin.api:
+        return suggestion.iconBuilder?.call(context) ??
+            PlaceIcon(suggestion.type);
       case DataOrigin.currentLocation:
         return const Icon(CupertinoIcons.location_fill);
       case DataOrigin.prediction:
@@ -461,7 +472,7 @@ class _SuggestedTileIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconTheme(
       data: Theme.of(context).iconTheme.copyWith(size: 20),
-      child: icon(),
+      child: icon(context),
     );
   }
 }

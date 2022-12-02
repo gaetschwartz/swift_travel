@@ -61,8 +61,7 @@ class InAppPurchaseManager extends ChangeNotifier {
 
   bool get isSupported =>
       defaultTargetPlatform == TargetPlatform.iOS ||
-      defaultTargetPlatform == TargetPlatform.android ||
-      defaultTargetPlatform == TargetPlatform.macOS;
+      defaultTargetPlatform == TargetPlatform.android;
 
   Future<void> init() async {
     if (!isSupported) {

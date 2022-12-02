@@ -22,7 +22,7 @@ SbbStationboardConnection _$SbbStationboardConnectionFromJson(
 /// @nodoc
 mixin _$SbbStationboardConnection {
   DateTime get time => throw _privateConstructorUsedError;
-  PlaceType get type => throw _privateConstructorUsedError;
+  VehicleType get type => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   @JsonKey(name: 'terminal')
   SbbStop get sbbTerminal => throw _privateConstructorUsedError;
@@ -59,7 +59,7 @@ abstract class $SbbStationboardConnectionCopyWith<$Res> {
   @useResult
   $Res call(
       {DateTime time,
-      PlaceType type,
+      VehicleType type,
       String color,
       @JsonKey(name: 'terminal')
           SbbStop sbbTerminal,
@@ -120,7 +120,7 @@ class _$SbbStationboardConnectionCopyWithImpl<$Res,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as PlaceType,
+              as VehicleType,
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -188,7 +188,7 @@ abstract class _$$_SbbStationboardConnectionCopyWith<$Res>
   @useResult
   $Res call(
       {DateTime time,
-      PlaceType type,
+      VehicleType type,
       String color,
       @JsonKey(name: 'terminal')
           SbbStop sbbTerminal,
@@ -249,7 +249,7 @@ class __$$_SbbStationboardConnectionCopyWithImpl<$Res>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as PlaceType,
+              as VehicleType,
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -335,7 +335,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @override
   final DateTime time;
   @override
-  final PlaceType type;
+  final VehicleType type;
   @override
   final String color;
   @override
@@ -442,7 +442,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
 abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   factory _SbbStationboardConnection(
       {required final DateTime time,
-      required final PlaceType type,
+      required final VehicleType type,
       required final String color,
       @JsonKey(name: 'terminal')
           required final SbbStop sbbTerminal,
@@ -471,7 +471,7 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   @override
   DateTime get time;
   @override
-  PlaceType get type;
+  VehicleType get type;
   @override
   String get color;
   @override

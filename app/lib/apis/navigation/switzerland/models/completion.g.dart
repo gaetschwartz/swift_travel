@@ -13,9 +13,6 @@ _$_SbbCompletion _$$_SbbCompletionFromJson(Map<String, dynamic> json) =>
       iconClass: json['iconclass'] as String?,
       html: json['html'] as String?,
       id: json['id'] as String?,
-      favoriteName: json['favoriteName'] as String?,
-      origin: $enumDecodeNullable(_$DataOriginEnumMap, json['origin']) ??
-          DataOrigin.data,
     );
 
 Map<String, dynamic> _$$_SbbCompletionToJson(_$_SbbCompletion instance) {
@@ -33,17 +30,24 @@ Map<String, dynamic> _$$_SbbCompletionToJson(_$_SbbCompletion instance) {
   writeNotNull('iconclass', instance.iconClass);
   writeNotNull('html', instance.html);
   writeNotNull('id', instance.id);
-  writeNotNull('favoriteName', instance.favoriteName);
-  val['origin'] = _$DataOriginEnumMap[instance.origin]!;
   return val;
 }
 
-const _$DataOriginEnumMap = {
-  DataOrigin.favorites: 'favorites',
-  DataOrigin.history: 'history',
-  DataOrigin.data: 'data',
-  DataOrigin.currentLocation: 'currentLocation',
-  DataOrigin.prediction: 'prediction',
-  DataOrigin.loading: 'loading',
-  DataOrigin.contacts: 'contacts',
+_$__PlaceTypeIconclass _$$__PlaceTypeIconclassFromJson(
+        Map<String, dynamic> json) =>
+    _$__PlaceTypeIconclass(
+      $enumDecode(_$PlaceTypeEnumMap, json['v']),
+    );
+
+Map<String, dynamic> _$$__PlaceTypeIconclassToJson(
+        _$__PlaceTypeIconclass instance) =>
+    <String, dynamic>{
+      'v': _$PlaceTypeEnumMap[instance.v]!,
+    };
+
+const _$PlaceTypeEnumMap = {
+  PlaceType.address: 'address',
+  PlaceType.business: 'business',
+  PlaceType.station: 'station',
+  PlaceType.unknown: 'unknown',
 };

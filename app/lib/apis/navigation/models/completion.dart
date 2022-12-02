@@ -13,20 +13,13 @@ abstract class NavigationCompletion {
   String? get id;
 
   /// Type of the completion
-  PlaceType? get type;
-
-  /// If this completion is a favorite, its name.
-  String? get favoriteName;
+  PlaceType get type;
 
   /// Returns the icon for this completion.
   // ignore: avoid-unused-parameters
-  Widget get icon;
+  Widget Function(BuildContext context)? get iconBuilder;
 
-  /// Origin of the data, read [DataOrigin].
-  DataOrigin get origin;
-
-  /// Coordinates of the completion
-  /// (if available)
+  /// Coordinates of the location, if available.
   GeoCoordinates? get coordinates;
 
   /// Distance to the query if available
@@ -42,7 +35,7 @@ enum DataOrigin {
   history,
 
   /// Comes from the data being in online/up-to-date.
-  data,
+  api,
 
   /// Comes from the current location.
   currentLocation,

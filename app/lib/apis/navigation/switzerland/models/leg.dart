@@ -21,7 +21,7 @@ class SbbLeg with _$SbbLeg, Leg, SbbDisplayNameMixin {
     required String name,
     @JsonKey(name: 'exit') SbbExit? sbbExit,
     @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
-    PlaceType? type,
+    VehicleType? type,
     String? track,
     String? terminal,
     String? bgcolor,

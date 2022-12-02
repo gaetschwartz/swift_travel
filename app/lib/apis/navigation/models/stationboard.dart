@@ -26,7 +26,7 @@ mixin WithTimeMixin {
 
 mixin BaseStationboardConnection {
   DateTime get time;
-  PlaceType get type;
+  VehicleType get type;
 
   Color? get bgcolor;
   Color? get fgcolor;

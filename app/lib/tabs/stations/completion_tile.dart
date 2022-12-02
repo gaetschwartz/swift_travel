@@ -24,6 +24,7 @@ import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
+import 'package:swift_travel/widgets/vehicle_icon.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
@@ -46,8 +47,9 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
   @override
   Widget build(BuildContext context) {
     final store = ref.watch(favoritesStoreProvider);
-    final iconClass = widget.sugg.icon;
-    final isPrivate = TransportationModeX.isAnAddress(widget.sugg.type);
+    final iconClass =
+        widget.sugg.iconBuilder?.call(context) ?? PlaceIcon(widget.sugg.type);
+    final isNotStation = widget.sugg.type != PlaceType.station;
 
     final favoriteStop =
         store.stops.firstWhereOrNull((f) => f.data.stop == widget.sugg.label);
@@ -57,7 +59,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
     final subtitle = [
       if (isFav) Text(widget.sugg.label, overflow: TextOverflow.ellipsis),
       if (widget.sugg.dist != null) Text('${widget.sugg.dist!.round()}m'),
-      if (!isPrivate)
+      if (!isNotStation)
         _LinesWidget(key: Key(widget.sugg.label), compl: widget.sugg)
     ];
 
@@ -90,7 +92,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
         ),
         isThreeLine: subtitle.length > 1,
         onLongPress: () async => more(context, store: store),
-        trailing: isPrivate
+        trailing: isNotStation
             ? IconButton(
                 icon: const Icon(Icons.more_horiz),
                 onPressed: () async {
@@ -98,7 +100,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
                   await more(context, store: store);
                 })
             : const Icon(CupertinoIcons.chevron_forward),
-        onTap: isPrivate
+        onTap: isNotStation
             ? null
             : () {
                 Vibration.instance.select();

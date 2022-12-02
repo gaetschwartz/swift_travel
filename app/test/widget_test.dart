@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,14 +5,16 @@ import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/db/models/cache.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
+import 'package:swift_travel/widgets/vehicle_icon.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   group('widgets >', () {
     group('lineIcon >', () {
-      const lineIcon =
-          LineIcon.raw(foreground: Color(0xffffffff), background: Color(0xff72c1f0), line: '5');
+      const lineIcon = LineIcon.raw(
+          foreground: Color(0xffffffff),
+          background: Color(0xff72c1f0),
+          line: '5');
       final lineIcon2 = LineIcon.fromLine(const Line(
         line: '5',
         bgColor: 0xff72c1f0,
@@ -36,7 +37,9 @@ void main() {
           decoration.boxShadow,
           anyElement(
             predicate<BoxShadow>(
-              (s) => (s.color.value ^ lineIcon.background.value) & 0xffffff == 0x000000,
+              (s) =>
+                  (s.color.value ^ lineIcon.background.value) & 0xffffff ==
+                  0x000000,
             ),
           ),
         );
@@ -54,12 +57,14 @@ void main() {
 
     testWidgets('ifWrapper', (t) async {
       // ignore: avoid_positional_boolean_parameters
-      Widget buildWrapper(bool condition, {bool addElseBuilder = true}) => MaterialApp(
+      Widget buildWrapper(bool condition, {bool addElseBuilder = true}) =>
+          MaterialApp(
             home: IfWrapper(
               condition: condition,
               builder: (_, c) => SizedBox(key: const Key('true-key'), child: c),
-              elseBuilder:
-                  addElseBuilder ? (_, c) => SizedBox(key: const Key('false-key'), child: c) : null,
+              elseBuilder: addElseBuilder
+                  ? (_, c) => SizedBox(key: const Key('false-key'), child: c)
+                  : null,
               child: const Text('child'),
             ),
           );
@@ -82,20 +87,8 @@ void main() {
 
     group('sbbIcon >', () {
       testWidgets('.constructor()', (t) async {
-        for (final v in PlaceType.values) {
-          final sbbIcon = SbbIcon(v);
-
-          await t.pumpWidget(MaterialApp(home: Center(child: sbbIcon)));
-          final icon = [find.byType(FaIcon), find.byType(Icon)];
-          expect(icon, anyElement(findsOneWidget));
-        }
-      });
-      testWidgets('.fromIconClass()', (t) async {
-        for (final v in PlaceType.values) {
-          final text = describeEnum(v);
-          final exp = RegExp('(?<=[a-z])[A-Z]');
-          final result = text.replaceAllMapped(exp, (m) => '_${m.group(0)!}').toLowerCase();
-          final sbbIcon = SbbIcon.fromIconClass(result);
+        for (final v in VehicleType.values) {
+          final sbbIcon = VehicleIcon(v);
 
           await t.pumpWidget(MaterialApp(home: Center(child: sbbIcon)));
           final icon = [find.byType(FaIcon), find.byType(Icon)];

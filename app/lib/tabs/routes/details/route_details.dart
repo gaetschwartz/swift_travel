@@ -192,7 +192,7 @@ class LegTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) => leg.exit == null
       ? ArrivedTile(leg)
-      : leg.type == PlaceType.walk
+      : leg.type == VehicleType.walk
           ? WalkingTile(leg)
           : TransportLegTile(leg);
 }

@@ -98,9 +98,12 @@ class SncfDeparture with _$SncfDeparture implements StationboardConnection {
   @override
   DateTime get time => stopDateTime.arrivalDateTime;
 
+  // @override
+  // VehicleType get type =>
+  //     VehicleTypeX.parse(stopPoint.commercialModes.first.id.split(':').last);
   @override
-  PlaceType get type => TransportationModeX.parse(
-      stopPoint.commercialModes.first.id.split(':').last);
+  // TODO: implement type
+  VehicleType get type => VehicleType.unknown;
 
   @override
   Color? get bgcolor {

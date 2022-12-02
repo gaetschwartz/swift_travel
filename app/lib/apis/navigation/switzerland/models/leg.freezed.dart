@@ -26,7 +26,7 @@ mixin _$SbbLeg {
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
   int? get depDelay => throw _privateConstructorUsedError;
-  PlaceType? get type => throw _privateConstructorUsedError;
+  VehicleType? get type => throw _privateConstructorUsedError;
   String? get track => throw _privateConstructorUsedError;
   String? get terminal => throw _privateConstructorUsedError;
   String? get bgcolor => throw _privateConstructorUsedError;
@@ -70,7 +70,7 @@ abstract class $SbbLegCopyWith<$Res> {
       {String name,
       @JsonKey(name: 'exit') SbbExit? sbbExit,
       @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
-      PlaceType? type,
+      VehicleType? type,
       String? track,
       String? terminal,
       String? bgcolor,
@@ -151,7 +151,7 @@ class _$SbbLegCopyWithImpl<$Res, $Val extends SbbLeg>
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as PlaceType?,
+              as VehicleType?,
       track: freezed == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
@@ -262,7 +262,7 @@ abstract class _$$_SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       {String name,
       @JsonKey(name: 'exit') SbbExit? sbbExit,
       @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
-      PlaceType? type,
+      VehicleType? type,
       String? track,
       String? terminal,
       String? bgcolor,
@@ -341,7 +341,7 @@ class __$$_SbbLegCopyWithImpl<$Res>
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as PlaceType?,
+              as VehicleType?,
       track: freezed == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
@@ -487,7 +487,7 @@ class _$_SbbLeg extends _SbbLeg {
   @JsonKey(name: 'dep_delay')
   final int? depDelay;
   @override
-  final PlaceType? type;
+  final VehicleType? type;
   @override
   final String? track;
   @override
@@ -648,7 +648,7 @@ abstract class _SbbLeg extends SbbLeg {
       @DelayConverter()
       @JsonKey(name: 'dep_delay')
           final int? depDelay,
-      final PlaceType? type,
+      final VehicleType? type,
       final String? track,
       final String? terminal,
       final String? bgcolor,
@@ -691,7 +691,7 @@ abstract class _SbbLeg extends SbbLeg {
   @JsonKey(name: 'dep_delay')
   int? get depDelay;
   @override
-  PlaceType? get type;
+  VehicleType? get type;
   @override
   String? get track;
   @override

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
 
 part 'geo_admin.freezed.dart';
 part 'geo_admin.g.dart';
@@ -37,27 +36,19 @@ class GeoAdminResult with _$GeoAdminResult implements NavigationCompletion {
   String get id => intId.toString();
 
   @override
-  String? get favoriteName => null;
-
-  @override
-  Widget get icon => const SbbIcon(PlaceType.address);
-
-  @override
   String get label => attrs.cleanLabel;
 
   @override
-  DataOrigin get origin => DataOrigin.data;
+  PlaceType get type => PlaceType.address;
 
-  @override
-  PlaceType? get type => null;
-
-// TODO: implement coordinates
   @override
   GeoCoordinates? get coordinates => null;
 
-// TODO: implement dist
   @override
   double? get dist => null;
+
+  @override
+  Widget Function(BuildContext context)? get iconBuilder => null;
 }
 
 @freezed

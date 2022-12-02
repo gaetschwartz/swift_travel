@@ -164,14 +164,21 @@ void main() {
           .complete(query: 'query', doUseCurrentLocation: false)
           .last;
 
-      expect(
-        c,
-        [
-          SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
-          SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
-          SbbCompletion(label: route3.fromAsString, origin: DataOrigin.history),
-        ],
-      );
+      // expect(
+      //   c,
+      //   [
+      //     SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
+      //     SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
+      //     SbbCompletion(label: route3.fromAsString, origin: DataOrigin.history),
+      //   ],
+      // );
+      expect(c, hasLength(3));
+      expect(c[0].label, route1.fromAsString);
+      expect(c[0].origin, DataOrigin.history);
+      expect(c[1].label, route1.toAsString);
+      expect(c[1].origin, DataOrigin.history);
+      expect(c[2].label, route3.fromAsString);
+      expect(c[2].origin, DataOrigin.history);
     });
   });
 
@@ -254,20 +261,33 @@ void main() {
         .complete(query: geneva)
         .last;
 
-    final expected = <NavigationCompletion>[
-      const CurrentLocationCompletion(),
-      SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
-      SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
-      SbbCompletion.fromFavorite(
-          FavoriteStop.fromStop(geneva, api: searchChApi.id)),
-      SbbCompletion.fromFavorite(
-          FavoriteStop.fromStop('Genève gare', api: searchChApi.id)),
-      SbbCompletion.fromFavorite(
-          FavoriteStop.fromStop('Genève nord', api: searchChApi.id)),
-      SbbCompletion(label: 'Genève'),
-    ];
+    // final expected = <NavigationCompletion>[
+    //   Completion.currentLocation,
+    //   SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
+    //   SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
+    //   SbbCompletion.fromFavorite(
+    //       FavoriteStop.fromStop(geneva, api: searchChApi.id)),
+    //   SbbCompletion.fromFavorite(
+    //       FavoriteStop.fromStop('Genève gare', api: searchChApi.id)),
+    //   SbbCompletion.fromFavorite(
+    //       FavoriteStop.fromStop('Genève nord', api: searchChApi.id)),
+    //   SbbCompletion(label: 'Genève'),
+    // ];
 
-    expect(c, expected);
+    // expect(c, expected);
+    expect(c, hasLength(7));
+    expect(c[0], Completion.currentLocation);
+    expect(c[1].label, route1.fromAsString);
+    expect(c[1].origin, DataOrigin.history);
+    expect(c[2].label, route1.toAsString);
+    expect(c[2].origin, DataOrigin.history);
+    expect(c[3].label, geneva);
+    expect(c[3].origin, DataOrigin.favorites);
+    expect(c[4].label, 'Genève gare');
+    expect(c[4].origin, DataOrigin.favorites);
+    expect(c[5].label, 'Genève nord');
+    expect(c[5].origin, DataOrigin.favorites);
+    expect(c[6].label, 'Genève');
   });
 
   group('route uri >', () {

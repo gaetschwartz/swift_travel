@@ -19,7 +19,7 @@ class SbbStationboardConnection
   @JsonSerializable(explicitToJson: true, checked: true)
   factory SbbStationboardConnection({
     required DateTime time,
-    required PlaceType type,
+    required VehicleType type,
     required String color,
     @JsonKey(name: 'terminal') required SbbStop sbbTerminal,
     String? line,

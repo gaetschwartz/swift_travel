@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -124,66 +125,109 @@ class Triple<R, S, T> with _$Triple<R, S, T> {
   const factory Triple(R first, S second, T third) = _Triple;
 }
 
-@freezed
-class ContactCompletion
-    with _$ContactCompletion
-    implements NavigationCompletion {
-  const factory ContactCompletion(Contact contact) = _ContactCompletion;
-  const ContactCompletion._();
-
+class Completion implements NavigationCompletion {
   @override
-  DataOrigin get origin => DataOrigin.contacts;
-
+  final String? id;
   @override
-  double? get dist => null;
-
+  final String label;
+  final String? displayName;
   @override
-  String? get favoriteName => null;
-
+  final PlaceType type;
+  final DataOrigin origin;
   @override
-  Widget get icon => throw UnimplementedError();
-
+  final double? dist;
   @override
-  String? get id => null;
-
+  final Widget Function(BuildContext)? iconBuilder;
   @override
-  String get label => contact.displayName ?? '';
+  final GeoCoordinates? coordinates;
 
-  @override
-  PlaceType? get type => null;
+  const Completion({
+    required this.id,
+    required this.label,
+    required this.displayName,
+    required this.type,
+    required this.origin,
+    required this.dist,
+    required this.iconBuilder,
+    required this.coordinates,
+  });
 
-  @override
-  GeoCoordinates? get coordinates => null;
+  factory Completion.from(
+    NavigationCompletion completion, {
+    required DataOrigin origin,
+    String? favoriteName,
+  }) =>
+      Completion(
+        id: completion.id,
+        label: completion.label,
+        type: completion.type,
+        origin: origin,
+        dist: completion.dist,
+        iconBuilder: completion.iconBuilder,
+        displayName: favoriteName,
+        coordinates: completion.coordinates,
+      );
+
+  factory Completion.fromApi(NavigationCompletion completion) =>
+      Completion.from(completion, origin: DataOrigin.api);
+
+  factory Completion.fromFavoriteStop(FavoriteStop stop) => Completion(
+        id: stop.id,
+        label: stop.stop,
+        type: PlaceType.station,
+        origin: DataOrigin.favorites,
+        dist: null,
+        iconBuilder: null,
+        displayName: stop.name,
+        coordinates: null,
+      );
+
+  static const currentLocation = Completion(
+    id: null,
+    label: '%current_location%',
+    type: PlaceType.address,
+    origin: DataOrigin.currentLocation,
+    dist: null,
+    iconBuilder: null,
+    displayName: null,
+    coordinates: null,
+  );
+
+  // factory Completion.fromContact(Contact contact) {
+  //   final a = contact.postalAddresses.firstOrNull;
+  //   final address = [
+  //     a?.street,
+  //     a?.postcode,
+  //     a?.city,
+  //     a?.country,
+  //   ].whereNotNull().join(', ');
+  //   return Completion(
+  //     id: null,
+  //     type: PlaceType.address,
+  //     origin: DataOrigin.contacts,
+  //     dist: null,
+  //     iconBuilder: null,
+  //     displayName:
+  //         contact.displayName ?? '${contact.givenName} ${contact.familyName}',
+  //     label: address,
+  //     coordinates: null,
+  //   );
+  // }
 }
 
-@freezed
-class CurrentLocationCompletion
-    with _$CurrentLocationCompletion
-    implements NavigationCompletion {
-  const factory CurrentLocationCompletion() = _CurrentLocationCompletion;
-  const CurrentLocationCompletion._();
+class ContactCompletion extends Completion {
+  final Contact contact;
 
-  @override
-  DataOrigin get origin => DataOrigin.currentLocation;
-
-  @override
-  double? get dist => null;
-
-  @override
-  String? get favoriteName => null;
-
-  @override
-  Widget get icon => throw UnimplementedError();
-
-  @override
-  String? get id => null;
-
-  @override
-  String get label => '%current_location%';
-
-  @override
-  PlaceType? get type => null;
-
-  @override
-  GeoCoordinates? get coordinates => null;
+  ContactCompletion(this.contact)
+      : super(
+          id: null,
+          label: contact.postalAddresses.firstOrNull?.toString() ?? 'null',
+          type: PlaceType.address,
+          origin: DataOrigin.contacts,
+          dist: null,
+          iconBuilder: null,
+          displayName: contact.displayName ??
+              '${contact.givenName} ${contact.familyName}',
+          coordinates: null,
+        );
 }

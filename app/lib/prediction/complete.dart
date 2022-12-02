@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math' show min;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
@@ -18,9 +17,10 @@ const _kMaxFavoritesCount = 3;
 const _kMaxHistoryCount = 3;
 
 final completionEngineProvider = Provider<CompletionEngine>((ref) {
-  final completionEngine = CompletionEngine(ref);
-  ref.onDispose(completionEngine.dispose);
-  return completionEngine;
+  final engine = CompletionEngine(ref);
+  engine.init();
+  ref.onDispose(engine.dispose);
+  return engine;
 });
 
 class CompletionEngine {
@@ -33,7 +33,9 @@ class CompletionEngine {
   final ProviderRef<CompletionEngine> ref;
   final RouteHistoryRepository routeHistoryRepository;
 
-  Future<List<NavigationCompletion>> completeNavigation({
+  Future<void> init() async {}
+
+  Future<List<Completion>> completeNavigation({
     required String query,
     bool doUseHistory = true,
     LocationType locationType = LocationType.any,
@@ -46,36 +48,43 @@ class CompletionEngine {
           query,
           locationType: locationType,
         );
-    final distances = <MapEntry<FavoriteStop, double>>[];
+    final favs = <MapEntry<FavoriteStop, double>>[];
 
     for (final c in favorites) {
-      final leven = scaledLevenshtein(query, c.data.name.replaceAll(',', ''));
+      final leven = scaledLevenshtein(query, c.data.name);
       if (leven < _kConfidenceThreshold) {
-        distances.add(MapEntry(c.data, leven));
+        favs.add(MapEntry(c.data, leven));
       }
     }
 
-    final favs = distances..sort((a, b) => a.value.compareTo(b.value));
+    favs.sort((a, b) => a.value.compareTo(b.value));
 
     return [
-      if (history.isNotEmpty)
-        ...history
-            .flatMap((e) => [
-                  SbbCompletion(
-                      label: e.fromAsString, origin: DataOrigin.history),
-                  SbbCompletion(
-                      label: e.toAsString, origin: DataOrigin.history),
-                ])
-            .take(_kMaxHistoryCount)
-            .toSet(),
       ...favs
           .take(_kMaxFavoritesCount)
-          .map((e) => SbbCompletion.fromFavorite(e.key)),
-      ...completions,
+          .map((e) => Completion.fromFavoriteStop(e.key)),
+      ..._routeHistoryToCompletions(history).toSet().take(_kMaxHistoryCount),
+      ...completions.map(Completion.fromApi),
     ];
   }
 
-  Stream<List<NavigationCompletion>> complete({
+  Iterable<Completion> _routeHistoryToCompletions(
+    Iterable<LocalRoute> history,
+  ) sync* {
+    for (final e in history) {
+      // HACK: we shouldnt use sbb here
+      yield Completion.from(
+        SbbCompletion(label: e.fromAsString),
+        origin: DataOrigin.history,
+      );
+      yield Completion.from(
+        SbbCompletion(label: e.toAsString),
+        origin: DataOrigin.history,
+      );
+    }
+  }
+
+  Stream<List<Completion>> complete({
     required String query,
     DateTime? date,
     bool doPredict = false,
@@ -89,28 +98,23 @@ class CompletionEngine {
     final history =
         doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
     final completions = await ref.read(navigationAPIProvider).complete(query);
-    final distances = <Pair<FavoriteStop, double>>[];
+    final distances = <MapEntry<FavoriteStop, double>>[];
 
     for (final c in favorites) {
       final leven = scaledLevenshtein(query, c.data.name.replaceAll(',', ''));
       if (leven < _kConfidenceThreshold) {
-        distances.add(Pair(c.data, leven));
+        distances.add(MapEntry(c.data, leven));
       }
     }
 
-    distances.sort((a, b) => a.second.compareTo(b.second));
+    distances.sort((a, b) => a.value.compareTo(b.value));
 
-    final historySet = history
-        .flatMap((e) => [
-              SbbCompletion(label: e.fromAsString, origin: DataOrigin.history),
-              SbbCompletion(label: e.toAsString, origin: DataOrigin.history),
-            ])
-        .take(_kMaxHistoryCount)
-        .toSet();
+    final historySet =
+        _routeHistoryToCompletions(history).toSet().take(_kMaxHistoryCount);
 
     final favsIter = distances
-        .take(min(distances.length, _kMaxFavoritesCount))
-        .map((e) => SbbCompletion.fromFavorite(e.first));
+        .take(_kMaxFavoritesCount)
+        .map((e) => Completion.fromFavoriteStop(e.key));
 
     final list = _returnedList(
       q: query,
@@ -125,7 +129,9 @@ class CompletionEngine {
 
     if (doPredict) {
       final prediction = await predictRoute(
-          history, PredictionArguments.withSource(query, dateTime: date));
+        history,
+        PredictionArguments.withSource(query, dateTime: date),
+      );
       final event = _returnedList(
         q: query,
         doUseCurrentLocation: doUseCurrentLocation,
@@ -140,75 +146,34 @@ class CompletionEngine {
   }
 
 // ignore: long-parameter-list
-  List<NavigationCompletion> _returnedList({
+  List<Completion> _returnedList({
     required String q,
     required bool doUseCurrentLocation,
-    required Iterable<SbbCompletion> history,
-    required Iterable<SbbCompletion> favs,
+    required Iterable<Completion> history,
+    required Iterable<Completion> favs,
     required Iterable<NavigationCompletion> completions,
     required bool doPredict,
     required RoutePrediction? prediction,
   }) =>
       [
-        if (doUseCurrentLocation) const CurrentLocationCompletion(),
+        if (doUseCurrentLocation) Completion.currentLocation,
         if (doPredict)
           if (prediction == null)
-            SbbCompletion(label: q, origin: DataOrigin.loading)
+            Completion.from(
+              SbbCompletion(label: q),
+              origin: DataOrigin.loading,
+            )
           else if (prediction.prediction != null)
-            SbbCompletion(
-                label: prediction.prediction!.toAsString,
-                origin: DataOrigin.prediction),
+            Completion.from(
+              SbbCompletion(label: prediction.prediction!.toAsString),
+              origin: DataOrigin.prediction,
+            ),
         if (history.isNotEmpty) ...history,
         ...favs,
-        ...completions,
+        ...completions.map(Completion.fromApi),
       ];
 
   void dispose() {}
-}
-
-@Deprecated('Use CompletionEngine instead.')
-
-/// Add similar favorites to the completions
-List<NavigationCompletion> completeWithFavorites({
-  required Iterable<FavoriteStop> favorites,
-  required List<NavigationCompletion> completions,
-  required String query,
-  required List<LocalRoute> history,
-  String? currentLocationString,
-  String? prediction,
-}) {
-  final distances = <FavoriteStop?, double>{};
-
-  for (final c in favorites) {
-    final leven = scaledLevenshtein(query, c.name.replaceAll(',', ''));
-    if (leven < _kConfidenceThreshold) {
-      distances[c] = leven;
-    }
-  }
-
-  final favs = distances.entries.toList(growable: false)
-    ..sort((a, b) => a.value.compareTo(b.value));
-
-  return [
-    if (currentLocationString != null)
-      SbbCompletion(
-          label: currentLocationString, origin: DataOrigin.currentLocation),
-    if (prediction != null)
-      SbbCompletion(label: prediction, origin: DataOrigin.prediction),
-    if (history.isNotEmpty)
-      ...history
-          .flatMap((e) => [
-                SbbCompletion(
-                    label: e.fromAsString, origin: DataOrigin.history),
-                SbbCompletion(label: e.toAsString, origin: DataOrigin.history),
-              ])
-          .take(_kMaxHistoryCount)
-          .toSet(),
-    ...favs
-        .take(min(favs.length, _kMaxFavoritesCount))
-        .map((e) => SbbCompletion.fromFavorite(e.key!)),
-    ...completions,
-  ];
 }
 
 extension IterableX<T> on Iterable<T> {

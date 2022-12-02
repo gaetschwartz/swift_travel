@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
 
 part 'sncf_place.freezed.dart';
 part 'sncf_place.g.dart';
@@ -21,21 +20,17 @@ class SncfPlace with _$SncfPlace implements NavigationCompletion {
       _$SncfPlaceFromJson(json);
 
   @override
-  DataOrigin get origin => DataOrigin.data;
-
-  @override
-  PlaceType? get type => null;
+  PlaceType get type => PlaceType.unknown;
 
   @override
   String get label => name;
 
   @override
-  Widget get icon => SbbIcon(type);
-
-  @override
   GeoCoordinates? get coordinates => null;
 
   @override
-  // TODO: implement dist
   double? get dist => null;
+
+  @override
+  Widget Function(BuildContext context)? get iconBuilder => null;
 }

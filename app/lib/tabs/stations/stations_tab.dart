@@ -11,13 +11,12 @@ import 'package:gap/gap.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
-import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
-import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/location/location.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/prediction/complete.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
@@ -211,31 +210,21 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                       ],
                     ),
                     empty: () => Consumer(builder: (context, w, _) {
-                      final stops = w.watch(favoritesStoreProvider).stops;
-                      return stops.isEmpty
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  '🔎',
-                                  style: TextStyle(fontSize: 48),
-                                ),
-                                const Gap(24),
-                                Text(
-                                  AppLocalizations.of(context).search_station,
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                  textAlign: TextAlign.center,
-                                )
-                              ],
-                            )
-                          : ListView.builder(
-                              itemBuilder: (context, i) => CompletionTile(
-                                SbbCompletion.fromFavorite(
-                                  stops.elementAt(i).data,
-                                ),
-                              ),
-                              itemCount: stops.length,
-                            );
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            '🔎',
+                            style: TextStyle(fontSize: 48),
+                          ),
+                          const Gap(24),
+                          Text(
+                            AppLocalizations.of(context).search_station,
+                            style: Theme.of(context).textTheme.titleLarge,
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      );
                     }),
                     network: () => Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -288,8 +277,8 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
 
       final first = completions.firstOrNull;
       if (first?.dist != null) {
-        final firstPublic = completions
-            .firstWhereOrNull((c) => !TransportationModeX.isAnAddress(c.type));
+        final firstPublic =
+            completions.firstWhereOrNull((c) => c.type == PlaceType.station);
 
         if (firstPublic != null) {
           log.log('Found : $firstPublic');
@@ -297,8 +286,8 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
         }
       }
 
-      ref.read(_stateProvider.notifier).state =
-          StationStates.completions(completions);
+      ref.read(_stateProvider.notifier).state = StationStates.completions(
+          completions.map(Completion.fromApi).toList());
       ref.read(_locatingProvider.notifier).state = _LoadingState.idle;
     } on Exception catch (e, s) {
       onError(e, s);

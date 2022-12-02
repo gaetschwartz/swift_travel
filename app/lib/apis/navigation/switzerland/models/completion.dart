@@ -4,8 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/trias.dart';
-import 'package:swift_travel/models/favorites.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
 
 part 'completion.freezed.dart';
 part 'completion.g.dart';
@@ -19,25 +17,22 @@ class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
     @JsonKey(name: 'iconclass') String? iconClass,
     String? html,
     String? id,
-    String? favoriteName,
-    @Default(DataOrigin.data) DataOrigin origin,
   }) = _SbbCompletion;
   SbbCompletion._();
-
-  factory SbbCompletion.fromFavorite(FavoriteStop stop) => _SbbCompletion(
-        label: stop.stop,
-        favoriteName: stop.name,
-        origin: DataOrigin.favorites,
-      );
 
   factory SbbCompletion.fromJson(Map<String, dynamic> json) =>
       _$SbbCompletionFromJson(json);
 
-  @override
-  late final PlaceType? type = SbbIcon.getVehicle(iconClass);
+  static PlaceType? parsePlaceType(String? iconclass) {
+    if (iconclass == null) {
+      return null;
+    }
+    final substring = iconclass.substring(iconclass.lastIndexOf('-') + 1);
+    return $enumDecode(_$PlaceTypeEnumMap, substring);
+  }
 
   @override
-  Widget get icon => SbbIcon(type);
+  late final PlaceType type = parsePlaceType(iconClass) ?? PlaceType.unknown;
 
   // blah blah blah @ 46.8537495783, 7.65740776062
 
@@ -53,4 +48,15 @@ class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
       longitude: double.parse(match.group(2)!),
     );
   }
+
+  @override
+  final Widget Function(BuildContext context)? iconBuilder = null;
+}
+
+@freezed
+class _PlaceTypeIconclass with _$_PlaceTypeIconclass {
+  const factory _PlaceTypeIconclass(PlaceType v) = __PlaceTypeIconclass;
+
+  factory _PlaceTypeIconclass.fromJson(Map<String, dynamic> json) =>
+      _$_PlaceTypeIconclassFromJson(json);
 }

@@ -9,9 +9,11 @@ import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/pages/home_page.dart';
 import 'package:swift_travel/pages/search/search.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/states/station_states.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
+import 'package:swift_travel/widgets/vehicle_icon.dart';
 
 class StopInputDialog extends ConsumerStatefulWidget {
   const StopInputDialog({
@@ -55,7 +57,7 @@ class _StopInputDialogState extends ConsumerState<StopInputDialog> {
 
       if (mounted) {
         ref.read(_stateProvider.notifier).state =
-            StationStates.completions(compls);
+            StationStates.completions(compls.map(Completion.fromApi).toList());
       }
     } on SocketException {
       ref.read(_stateProvider.notifier).state = const StationStates.network();
@@ -125,9 +127,9 @@ class RouteCompletionTile extends StatelessWidget {
   const RouteCompletionTile.empty({
     super.key,
     this.onTap,
-  })  : completion = null;
+  }) : completion = null;
 
-  final NavigationCompletion? completion;
+  final Completion? completion;
   final VoidCallback? onTap;
 
   @override
@@ -148,10 +150,12 @@ class RouteCompletionTile extends StatelessWidget {
         )
       : ListTile(
           leading: _Icon(completion!),
-          title: Text(completion!.favoriteName ?? completion!.label),
+          title: Text(completion!.displayName ?? completion!.label),
           subtitle:
-              completion!.favoriteName != null ? Text(completion!.label) : null,
-          trailing: completion!.favoriteName != null ? const Text('⭐') : null,
+              completion!.displayName != null ? Text(completion!.label) : null,
+          trailing: completion!.origin == DataOrigin.favorites
+              ? const Text('⭐')
+              : null,
           horizontalTitleGap: 0,
           dense: true,
           tileColor: Colors.transparent,
@@ -160,10 +164,9 @@ class RouteCompletionTile extends StatelessWidget {
 }
 
 class _Icon extends StatelessWidget {
-  const _Icon(
-    this.completion);
+  const _Icon(this.completion);
 
-  final NavigationCompletion completion;
+  final Completion completion;
 
   @override
   Widget build(BuildContext context) {
@@ -175,8 +178,9 @@ class _Icon extends StatelessWidget {
             return const Icon(CupertinoIcons.heart_fill);
           case DataOrigin.history:
             return const Icon(CupertinoIcons.clock);
-          case DataOrigin.data:
-            return completion.icon;
+          case DataOrigin.api:
+            return completion.iconBuilder?.call(context) ??
+                PlaceIcon(completion.type);
           case DataOrigin.currentLocation:
             return const Icon(CupertinoIcons.location_fill);
           case DataOrigin.prediction:

@@ -13,7 +13,7 @@ import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/strings/format.dart';
 import 'package:swift_travel/widgets/line_icon.dart';
-import 'package:swift_travel/widgets/sbb_icon.dart';
+import 'package:swift_travel/widgets/vehicle_icon.dart';
 import 'package:vibration/vibration.dart';
 
 class RouteTile extends StatelessWidget {
@@ -30,7 +30,7 @@ class RouteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = route.connections[i];
     final leg = c.legs.firstWhereOrNull((l) =>
-            l.type != PlaceType.walk && l.type != null && l != c.legs.last) ??
+            l.type != VehicleType.walk && l.type != null && l != c.legs.last) ??
         c.legs.first;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -49,7 +49,7 @@ class RouteTile extends StatelessWidget {
                 if (LineIcon.isValidLeg(leg))
                   LineIcon.fromLeg(leg)
                 else
-                  SbbIcon(leg.type),
+                  VehicleIcon(leg.type),
                 const Gap(8),
                 Expanded(child: Text(leg.exit!.name)),
               ],
@@ -103,7 +103,7 @@ class _RowIcon extends StatelessWidget {
     final c = route.connections[i];
     final listWidget = <Widget>[
       for (var i = 0; i < c.legs.length - 1; i++)
-        SbbIcon(c.legs[i].type, size: 18)
+        VehicleIcon(c.legs[i].type, size: 18)
     ];
 
     return Column(

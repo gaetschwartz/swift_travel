@@ -18,22 +18,21 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$StationStates {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<NavigationCompletion> completions)
-        completions,
+    required TResult Function(List<Completion> completions) completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<NavigationCompletion> completions)? completions,
+    TResult? Function(List<Completion> completions)? completions,
     TResult? Function()? empty,
     TResult? Function()? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<NavigationCompletion> completions)? completions,
+    TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
@@ -87,7 +86,7 @@ abstract class _$$CompletionsStationStatesCopyWith<$Res> {
           $Res Function(_$CompletionsStationStates) then) =
       __$$CompletionsStationStatesCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<NavigationCompletion> completions});
+  $Res call({List<Completion> completions});
 }
 
 /// @nodoc
@@ -107,7 +106,7 @@ class __$$CompletionsStationStatesCopyWithImpl<$Res>
       null == completions
           ? _value._completions
           : completions // ignore: cast_nullable_to_non_nullable
-              as List<NavigationCompletion>,
+              as List<Completion>,
     ));
   }
 }
@@ -115,12 +114,12 @@ class __$$CompletionsStationStatesCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CompletionsStationStates implements CompletionsStationStates {
-  const _$CompletionsStationStates(final List<NavigationCompletion> completions)
+  const _$CompletionsStationStates(final List<Completion> completions)
       : _completions = completions;
 
-  final List<NavigationCompletion> _completions;
+  final List<Completion> _completions;
   @override
-  List<NavigationCompletion> get completions {
+  List<Completion> get completions {
     if (_completions is EqualUnmodifiableListView) return _completions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_completions);
@@ -155,8 +154,7 @@ class _$CompletionsStationStates implements CompletionsStationStates {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<NavigationCompletion> completions)
-        completions,
+    required TResult Function(List<Completion> completions) completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) {
@@ -166,7 +164,7 @@ class _$CompletionsStationStates implements CompletionsStationStates {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<NavigationCompletion> completions)? completions,
+    TResult? Function(List<Completion> completions)? completions,
     TResult? Function()? empty,
     TResult? Function()? network,
   }) {
@@ -176,7 +174,7 @@ class _$CompletionsStationStates implements CompletionsStationStates {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<NavigationCompletion> completions)? completions,
+    TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
@@ -223,11 +221,10 @@ class _$CompletionsStationStates implements CompletionsStationStates {
 }
 
 abstract class CompletionsStationStates implements StationStates {
-  const factory CompletionsStationStates(
-          final List<NavigationCompletion> completions) =
+  const factory CompletionsStationStates(final List<Completion> completions) =
       _$CompletionsStationStates;
 
-  List<NavigationCompletion> get completions;
+  List<Completion> get completions;
   @JsonKey(ignore: true)
   _$$CompletionsStationStatesCopyWith<_$CompletionsStationStates>
       get copyWith => throw _privateConstructorUsedError;
@@ -271,8 +268,7 @@ class _$EmptyStationStates implements EmptyStationStates {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<NavigationCompletion> completions)
-        completions,
+    required TResult Function(List<Completion> completions) completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) {
@@ -282,7 +278,7 @@ class _$EmptyStationStates implements EmptyStationStates {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<NavigationCompletion> completions)? completions,
+    TResult? Function(List<Completion> completions)? completions,
     TResult? Function()? empty,
     TResult? Function()? network,
   }) {
@@ -292,7 +288,7 @@ class _$EmptyStationStates implements EmptyStationStates {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<NavigationCompletion> completions)? completions,
+    TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),
@@ -382,8 +378,7 @@ class _$NetworkErrorStationStates implements NetworkErrorStationStates {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<NavigationCompletion> completions)
-        completions,
+    required TResult Function(List<Completion> completions) completions,
     required TResult Function() empty,
     required TResult Function() network,
   }) {
@@ -393,7 +388,7 @@ class _$NetworkErrorStationStates implements NetworkErrorStationStates {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<NavigationCompletion> completions)? completions,
+    TResult? Function(List<Completion> completions)? completions,
     TResult? Function()? empty,
     TResult? Function()? network,
   }) {
@@ -403,7 +398,7 @@ class _$NetworkErrorStationStates implements NetworkErrorStationStates {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<NavigationCompletion> completions)? completions,
+    TResult Function(List<Completion> completions)? completions,
     TResult Function()? empty,
     TResult Function()? network,
     required TResult orElse(),

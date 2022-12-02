@@ -26,8 +26,6 @@ mixin _$SbbCompletion {
   String? get iconClass => throw _privateConstructorUsedError;
   String? get html => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
-  String? get favoriteName => throw _privateConstructorUsedError;
-  DataOrigin get origin => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,9 +44,7 @@ abstract class $SbbCompletionCopyWith<$Res> {
       double? dist,
       @JsonKey(name: 'iconclass') String? iconClass,
       String? html,
-      String? id,
-      String? favoriteName,
-      DataOrigin origin});
+      String? id});
 }
 
 /// @nodoc
@@ -69,8 +65,6 @@ class _$SbbCompletionCopyWithImpl<$Res, $Val extends SbbCompletion>
     Object? iconClass = freezed,
     Object? html = freezed,
     Object? id = freezed,
-    Object? favoriteName = freezed,
-    Object? origin = null,
   }) {
     return _then(_value.copyWith(
       label: null == label
@@ -93,14 +87,6 @@ class _$SbbCompletionCopyWithImpl<$Res, $Val extends SbbCompletion>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      favoriteName: freezed == favoriteName
-          ? _value.favoriteName
-          : favoriteName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      origin: null == origin
-          ? _value.origin
-          : origin // ignore: cast_nullable_to_non_nullable
-              as DataOrigin,
     ) as $Val);
   }
 }
@@ -118,9 +104,7 @@ abstract class _$$_SbbCompletionCopyWith<$Res>
       double? dist,
       @JsonKey(name: 'iconclass') String? iconClass,
       String? html,
-      String? id,
-      String? favoriteName,
-      DataOrigin origin});
+      String? id});
 }
 
 /// @nodoc
@@ -139,8 +123,6 @@ class __$$_SbbCompletionCopyWithImpl<$Res>
     Object? iconClass = freezed,
     Object? html = freezed,
     Object? id = freezed,
-    Object? favoriteName = freezed,
-    Object? origin = null,
   }) {
     return _then(_$_SbbCompletion(
       label: null == label
@@ -163,14 +145,6 @@ class __$$_SbbCompletionCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      favoriteName: freezed == favoriteName
-          ? _value.favoriteName
-          : favoriteName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      origin: null == origin
-          ? _value.origin
-          : origin // ignore: cast_nullable_to_non_nullable
-              as DataOrigin,
     ));
   }
 }
@@ -184,9 +158,7 @@ class _$_SbbCompletion extends _SbbCompletion {
       this.dist,
       @JsonKey(name: 'iconclass') this.iconClass,
       this.html,
-      this.id,
-      this.favoriteName,
-      this.origin = DataOrigin.data})
+      this.id})
       : super._();
 
   factory _$_SbbCompletion.fromJson(Map<String, dynamic> json) =>
@@ -203,15 +175,10 @@ class _$_SbbCompletion extends _SbbCompletion {
   final String? html;
   @override
   final String? id;
-  @override
-  final String? favoriteName;
-  @override
-  @JsonKey()
-  final DataOrigin origin;
 
   @override
   String toString() {
-    return 'SbbCompletion(label: $label, dist: $dist, iconClass: $iconClass, html: $html, id: $id, favoriteName: $favoriteName, origin: $origin)';
+    return 'SbbCompletion(label: $label, dist: $dist, iconClass: $iconClass, html: $html, id: $id)';
   }
 
   @override
@@ -224,16 +191,13 @@ class _$_SbbCompletion extends _SbbCompletion {
             (identical(other.iconClass, iconClass) ||
                 other.iconClass == iconClass) &&
             (identical(other.html, html) || other.html == html) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.favoriteName, favoriteName) ||
-                other.favoriteName == favoriteName) &&
-            (identical(other.origin, origin) || other.origin == origin));
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, label, dist, iconClass, html, id, favoriteName, origin);
+  int get hashCode =>
+      Object.hash(runtimeType, label, dist, iconClass, html, id);
 
   @JsonKey(ignore: true)
   @override
@@ -255,9 +219,7 @@ abstract class _SbbCompletion extends SbbCompletion {
       final double? dist,
       @JsonKey(name: 'iconclass') final String? iconClass,
       final String? html,
-      final String? id,
-      final String? favoriteName,
-      final DataOrigin origin}) = _$_SbbCompletion;
+      final String? id}) = _$_SbbCompletion;
   _SbbCompletion._() : super._();
 
   factory _SbbCompletion.fromJson(Map<String, dynamic> json) =
@@ -275,11 +237,145 @@ abstract class _SbbCompletion extends SbbCompletion {
   @override
   String? get id;
   @override
-  String? get favoriteName;
-  @override
-  DataOrigin get origin;
-  @override
   @JsonKey(ignore: true)
   _$$_SbbCompletionCopyWith<_$_SbbCompletion> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+_PlaceTypeIconclass _$_PlaceTypeIconclassFromJson(Map<String, dynamic> json) {
+  return __PlaceTypeIconclass.fromJson(json);
+}
+
+/// @nodoc
+mixin _$_PlaceTypeIconclass {
+  PlaceType get v => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$PlaceTypeIconclassCopyWith<_PlaceTypeIconclass> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$PlaceTypeIconclassCopyWith<$Res> {
+  factory _$PlaceTypeIconclassCopyWith(
+          _PlaceTypeIconclass value, $Res Function(_PlaceTypeIconclass) then) =
+      __$PlaceTypeIconclassCopyWithImpl<$Res, _PlaceTypeIconclass>;
+  @useResult
+  $Res call({PlaceType v});
+}
+
+/// @nodoc
+class __$PlaceTypeIconclassCopyWithImpl<$Res, $Val extends _PlaceTypeIconclass>
+    implements _$PlaceTypeIconclassCopyWith<$Res> {
+  __$PlaceTypeIconclassCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? v = null,
+  }) {
+    return _then(_value.copyWith(
+      v: null == v
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as PlaceType,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$__PlaceTypeIconclassCopyWith<$Res>
+    implements _$PlaceTypeIconclassCopyWith<$Res> {
+  factory _$$__PlaceTypeIconclassCopyWith(_$__PlaceTypeIconclass value,
+          $Res Function(_$__PlaceTypeIconclass) then) =
+      __$$__PlaceTypeIconclassCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({PlaceType v});
+}
+
+/// @nodoc
+class __$$__PlaceTypeIconclassCopyWithImpl<$Res>
+    extends __$PlaceTypeIconclassCopyWithImpl<$Res, _$__PlaceTypeIconclass>
+    implements _$$__PlaceTypeIconclassCopyWith<$Res> {
+  __$$__PlaceTypeIconclassCopyWithImpl(_$__PlaceTypeIconclass _value,
+      $Res Function(_$__PlaceTypeIconclass) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? v = null,
+  }) {
+    return _then(_$__PlaceTypeIconclass(
+      null == v
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as PlaceType,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$__PlaceTypeIconclass implements __PlaceTypeIconclass {
+  const _$__PlaceTypeIconclass(this.v);
+
+  factory _$__PlaceTypeIconclass.fromJson(Map<String, dynamic> json) =>
+      _$$__PlaceTypeIconclassFromJson(json);
+
+  @override
+  final PlaceType v;
+
+  @override
+  String toString() {
+    return '_PlaceTypeIconclass(v: $v)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$__PlaceTypeIconclass &&
+            (identical(other.v, v) || other.v == v));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, v);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$__PlaceTypeIconclassCopyWith<_$__PlaceTypeIconclass> get copyWith =>
+      __$$__PlaceTypeIconclassCopyWithImpl<_$__PlaceTypeIconclass>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$__PlaceTypeIconclassToJson(
+      this,
+    );
+  }
+}
+
+abstract class __PlaceTypeIconclass implements _PlaceTypeIconclass {
+  const factory __PlaceTypeIconclass(final PlaceType v) =
+      _$__PlaceTypeIconclass;
+
+  factory __PlaceTypeIconclass.fromJson(Map<String, dynamic> json) =
+      _$__PlaceTypeIconclass.fromJson;
+
+  @override
+  PlaceType get v;
+  @override
+  @JsonKey(ignore: true)
+  _$$__PlaceTypeIconclassCopyWith<_$__PlaceTypeIconclass> get copyWith =>
       throw _privateConstructorUsedError;
 }

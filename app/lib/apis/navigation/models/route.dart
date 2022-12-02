@@ -56,7 +56,7 @@ mixin Leg {
 
   int? get depDelay;
 
-  PlaceType? get type;
+  VehicleType? get type;
   String? get track;
   String? get terminal;
 
