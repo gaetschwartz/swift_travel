@@ -143,7 +143,7 @@ class _RouteDetailsState extends State<RouteDetails> {
     final image = await screenshot(
       context,
       ClipRRect(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
         child: ColoredBox(
           color: Theme.of(context).scaffoldBackgroundColor,
           child: ListView(

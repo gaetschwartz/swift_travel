@@ -166,6 +166,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     return null;
   }
 
+  @allowReturningWidgets
   Widget toTextField(TextFieldConfiguration configuration,
           {TextEditingController? controller}) =>
       Material(
@@ -183,6 +184,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         ),
       );
 
+  @allowReturningWidgets
   Widget toCupertino(TextFieldConfiguration configuration,
           {TextEditingController? controller}) =>
       CupertinoTextField(

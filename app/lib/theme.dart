@@ -7,9 +7,6 @@ List<BoxShadow> shadowListOf(BuildContext context) =>
     ShadowTheme.of(context).shadows((s) => [s.buttonShadow]);
 
 const purpleAbin = Colors.purple;
-const blueAbin = Color(0xffabdee6);
-const redAccent = Colors.redAccent;
-const white = Colors.white;
 
 const lightShadow = ShadowTheme(
   buttonShadow:

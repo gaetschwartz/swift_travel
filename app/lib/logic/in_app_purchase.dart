@@ -160,6 +160,9 @@ class InAppPurchaseManager extends ChangeNotifier {
   static const _purchasedKey = 'InAppPurchaseManager_purchased';
 
   Future<bool> verifyPurchase(PurchaseDetails purchaseDetails) async {
+    if (kDebugMode) {
+      log.i('Verifying purchase: ${purchaseDetails.toDebugString()}');
+    }
     if (!kDebugMode) {
       return false;
     }

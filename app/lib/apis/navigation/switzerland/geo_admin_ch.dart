@@ -50,7 +50,6 @@ class GeoAdminEngine implements NavigationCompletionDelegateApi {
     double lat,
     double lon, {
     int accuracy = 100,
-    bool showCoordinates = true,
   }) async {
     // we need to compute a bounding box that is bigger than the accuracy (in meters) with center at lat, lon
 

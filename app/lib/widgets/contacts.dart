@@ -15,9 +15,6 @@ Future<Contact?> showContactPicker(BuildContext context) =>
       builder: (context) => const ContactsDialog(),
     );
 
-final contactsProvider = FutureProvider(
-    (ref) async => (await ContactsRepository.instance.getAll()).toList());
-
 final _filteredContacts = FutureProvider((ref) async {
   final contacts = await ContactsRepository.instance.getAll();
   return contacts.where((c) => c.postalAddresses.isNotEmpty).toList();

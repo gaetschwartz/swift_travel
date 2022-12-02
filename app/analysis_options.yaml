@@ -27,8 +27,8 @@ include: package:all_lint_rules_community/all.yaml
 
 dart_code_metrics:
   anti-patterns:
-  # - long-method
-  # - long-parameter-list
+    # - long-method
+    - long-parameter-list
   metrics:
     cyclomatic-complexity: 20
     maximum-nesting-level: 5
@@ -57,7 +57,6 @@ dart_code_metrics:
     - avoid-throw-in-catch-block
     - prefer-iterable-of
     - avoid-shrink-wrap-in-lists
-    - avoid-use-expanded-as-spacer
     - prefer-correct-edge-insets-constructor
 
 analyzer:

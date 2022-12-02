@@ -19,54 +19,63 @@ class GeoLocationEngine {
   }) async {
     if (Env.spoofLocation) {
       return _spoofedLocation;
-    } else {
-      try {
-        var permission = await Geolocator.checkPermission();
+    }
+    try {
+      return await _getLocation(accuracy: accuracy, timeout: timeout);
+    } on MissingPluginException {
+      if (Env.isDebugMode) {
+        log.log(
+            'Location is not supported on this device, returned a spoofed location instead.');
+        return Future<GeoLocation>.delayed(
+          const Duration(milliseconds: 500),
+          () => _spoofedLocation,
+        );
+      } else {
+        rethrow;
+      }
+    }
+  }
 
-        if (permission == LocationPermission.denied) {
-          log.i('Requesting permission because it was denied.');
-          permission = await Geolocator.requestPermission();
-        }
+  Future<GeoLocation> _getLocation({
+    required LocationAccuracy accuracy,
+    required Duration? timeout,
+  }) async {
+    var permission = await Geolocator.checkPermission();
 
-        if (permission.isAccepted) {
-          final lastKnown = await Geolocator.getLastKnownPosition();
+    if (permission == LocationPermission.denied) {
+      log.i('Requesting permission because it was denied.');
+      permission = await Geolocator.requestPermission();
+    }
 
-          if (lastKnown != null) {
-            final now = DateTime.now();
-            final timestamp = lastKnown.timestamp;
-            if (timestamp != null) {
-              final seconds = now.difference(timestamp).inSeconds;
-              final condition = seconds < 60;
-              log.log(
-                  "Obtained last known position which was ${seconds}s ago which is ${condition ? 'valid' : 'too old'}.");
+    if (!permission.isAccepted) {
+      log.e('Failed to obtain permisisons for location: $permission');
+      throw PermissionDeniedException('Permission denied: $permission');
+    }
 
-              if (condition) return GeoLocation.fromPosition(lastKnown);
-            }
-          }
+    final lastKnown = await Geolocator.getLastKnownPosition();
 
-          final p = await Geolocator.getCurrentPosition(
-            desiredAccuracy: accuracy,
-            timeLimit: timeout,
-          );
+    if (lastKnown != null) {
+      final timestamp = lastKnown.timestamp;
+      if (timestamp != null) {
+        final now = DateTime.now();
+        final seconds = now.difference(timestamp).inSeconds;
+        final condition = seconds < 60;
+        log.log(
+          "Obtained last known position which was ${seconds}s ago which is ${condition ? 'valid' : 'too old'}.",
+        );
 
-          return GeoLocation.fromPosition(p);
-        } else {
-          log.e('Failed to obtain permisisons for location: $permission');
-          throw PermissionDeniedException('Permission denied: $permission');
-        }
-      } on MissingPluginException {
-        if (Env.isDebugMode) {
-          log.log(
-              'Location is not supported on this device, returned a spoofed location instead.');
-          return Future<GeoLocation>.delayed(
-            const Duration(milliseconds: 500),
-            () => _spoofedLocation,
-          );
-        } else {
-          rethrow;
+        if (condition) {
+          return GeoLocation.fromPosition(lastKnown);
         }
       }
     }
+
+    final p = await Geolocator.getCurrentPosition(
+      desiredAccuracy: accuracy,
+      timeLimit: timeout,
+    );
+
+    return GeoLocation.fromPosition(p);
   }
 }
 
@@ -84,8 +93,4 @@ extension LocationPermissionX on LocationPermission {
   }
 
   bool get isDenied => !isAccepted;
-}
-
-extension PositionX on Position {
-  GeoLocation toGeoLocation() => GeoLocation.fromPosition(this);
 }

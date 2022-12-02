@@ -7,8 +7,6 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/listener.dart';
 import 'package:swift_travel/widgets/route.dart';
 
-enum DefaultAction { cancel, confirm }
-
 @immutable
 class ValueOption<T> {
   const ValueOption({

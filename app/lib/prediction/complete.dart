@@ -23,9 +23,6 @@ final completionEngineProvider = Provider<CompletionEngine>((ref) {
   return completionEngine;
 });
 
-typedef UseCompletionEngineCallback = Stream<List<NavigationCompletion>>
-    Function(CompletionEngine engine);
-
 class CompletionEngine {
   CompletionEngine(
     this.ref, {

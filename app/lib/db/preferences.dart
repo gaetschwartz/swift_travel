@@ -75,5 +75,3 @@ extension NavigationAppX on NavigationApp {
     }
   }
 }
-
-enum QuickActionsDisplays { stops, routes, generic }
