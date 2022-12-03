@@ -73,7 +73,7 @@ class CompletionEngine {
     final queryLower = query.toLowerCase();
 
     for (final c in favoriteStops) {
-      final dist = scaledLevenshtein(query, c.data.name);
+      final dist = jaroDistance(query, c.data.name);
       if (dist < _kConfidenceThreshold ||
           c.data.name.toLowerCase().startsWith(queryLower)) {
         distances.add(MapEntry(Completion.fromFavoriteStop(c.data), dist));
@@ -87,7 +87,7 @@ class CompletionEngine {
         continue;
       }
 
-      final dist = scaledLevenshtein(query, contactName);
+      final dist = jaroDistance(query, contactName);
       if (kDebugMode) {
         print('Contact $contactName has distance $dist with query $query');
       }
@@ -98,7 +98,7 @@ class CompletionEngine {
     }
 
     for (final c in _routeHistoryToCompletions(history)) {
-      final dist = scaledLevenshtein(query, c.label);
+      final dist = jaroDistance(query, c.label);
       if (dist < _kConfidenceThreshold ||
           c.label.toLowerCase().startsWith(queryLower)) {
         distances.add(MapEntry(c, dist));
@@ -153,14 +153,14 @@ class CompletionEngine {
     final distances = <MapEntry<Completion, double>>[];
 
     for (final c in favoriteStops) {
-      final dist = scaledLevenshtein(query, c.data.name);
+      final dist = jaroDistance(query, c.data.name);
       if (dist < _kConfidenceThreshold) {
         distances.add(MapEntry(Completion.fromFavoriteStop(c.data), dist));
       }
     }
 
     for (final c in _routeHistoryToCompletions(history)) {
-      final dist = scaledLevenshtein(query, c.label);
+      final dist = jaroDistance(query, c.label);
       if (dist < _kConfidenceThreshold) {
         distances.add(MapEntry(c, dist));
       }

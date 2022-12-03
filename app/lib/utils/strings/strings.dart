@@ -42,35 +42,33 @@ extension StringUtils on String {
 ///
 /// See also: https://en.wikipedia.org/wiki/Levenshtein_distance
 int levenshtein(String stringA, String stringB, {bool caseSensitive = false}) {
-  final s = caseSensitive ? stringA : stringA.toLowerCase();
-  final t = caseSensitive ? stringB : stringB.toLowerCase();
-  if (s.isEmpty) {
-    return t.length;
-  }
-  if (t.isEmpty) {
-    return s.length;
-  }
+  final a = caseSensitive ? stringA : stringA.toLowerCase();
+  final b = caseSensitive ? stringB : stringB.toLowerCase();
 
-  final v0 = List.generate(t.length + 1, (i) => i, growable: false);
-  final v1 = List<int>.filled(t.length + 1, 0, growable: false);
+  var previousRow = List.generate(a.length + 1, (i) => i, growable: false);
+  var currentRow = List.filled(a.length + 1, 0, growable: false);
 
-  for (var i = 0; i < s.length; i++) {
-    v1.first = i + 1;
+  for (var i = 1; i <= b.length; i++) {
+    currentRow[0] = i;
 
-    for (var j = 0; j < t.length; j++) {
-      final cost = (s[i] == t[j]) ? 0 : 1;
-      v1[j + 1] = min<int>(v1[j] + 1, min<int>(v0[j + 1] + 1, v0[j] + cost));
+    for (var j = 1; j <= a.length; j++) {
+      final cost = a[j - 1] == b[i - 1] ? 0 : 1;
+      currentRow[j] = min(
+        currentRow[j - 1] + 1,
+        min(previousRow[j] + 1, previousRow[j - 1] + cost),
+      );
     }
 
-    for (var j = 0; j < t.length + 1; j++) {
-      v0[j] = v1[j];
-    }
+    previousRow = currentRow;
+    currentRow = List.filled(a.length + 1, 0, growable: false);
   }
-  return v1[t.length];
+
+  return previousRow[a.length];
 }
 
 /// Scaled version of the Levenshtein algorithm to stringB's length.
 /// Basically means what is proportion of stringA similar to stringB.
+/// 0.0 means the strings are identical, 1.0 means they are completely different.
 ///
 /// ```dart
 /// scaledLevenshtein(a,b) = levenshtein(a,b) / b.length;
@@ -78,6 +76,61 @@ int levenshtein(String stringA, String stringB, {bool caseSensitive = false}) {
 ///
 /// See also: https://en.wikipedia.org/wiki/Levenshtein_distance
 double scaledLevenshtein(String stringA, String stringB,
-        {bool caseSensitive = false}) =>
-    levenshtein(stringA, stringB, caseSensitive: caseSensitive) /
-    max(stringA.length, stringB.length);
+    {bool caseSensitive = false}) {
+  final max2 = max(stringA.length, stringB.length);
+  if (max2 == 0) {
+    return 0.0;
+  } else {
+    return levenshtein(stringA, stringB, caseSensitive: caseSensitive) / max2;
+  }
+}
+
+/// The jaro distance between two strings.
+/// 1.0 means the strings are *identical*, 0.0 means they are *completely different*.
+double formalJaroDistance(String a, String b) {
+  // Create a set of the characters in B.
+  final bSet = Set.of(b.split(''));
+
+  // Calculate the number of matching characters in the two strings.
+  var m = 0;
+  for (var i = 0; i < a.length; i++) {
+    if (bSet.contains(a[i])) {
+      m++;
+    }
+  }
+
+  if (m == 0) {
+    return 0.0;
+  }
+
+  // Calculate the number of transpositions in the two strings.
+  var t = 0;
+  var b1 = '';
+  var b2 = '';
+
+  for (var i = 0; i < b.length; i++) {
+    if (bSet.contains(b[i])) {
+      b1 += b[i];
+    }
+  }
+
+  for (var i = 0; i < a.length; i++) {
+    if (bSet.contains(a[i])) {
+      b2 += a[i];
+    }
+  }
+
+  for (var i = 0; i < min(b1.length, b2.length); i++) {
+    if (b1[i] != b2[i]) {
+      t++;
+    }
+  }
+
+  // Calculate and return the Jaro distance.
+  return (m / a.length + m / b.length + (m - t / 2) / m) / 3;
+}
+
+/// Jaro distance between two strings.
+/// 1.0 means the strings are *completely different*, 0.0 means they are *identical*.
+double jaroDistance(String a, String b) =>
+    1 - formalJaroDistance(a.toLowerCase(), b.toLowerCase());
