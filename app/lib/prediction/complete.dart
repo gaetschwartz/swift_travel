@@ -82,6 +82,10 @@ class CompletionEngine {
 
     for (final c in contacts) {
       final contactName = ContactsRepository.contactName(c);
+      // skip contacts that don't have an address
+      if (c.postalAddresses.isEmpty) {
+        continue;
+      }
 
       final dist = scaledLevenshtein(query, contactName);
       if (kDebugMode) {
