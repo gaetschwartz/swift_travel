@@ -83,5 +83,6 @@
 	"about_the_app": "Über die App",
 	"departure_abbr": "Abr.",
 	"arrival_abbr": "Ank.",
-	"how_call_this_fav": "Geben Sie einen Namen für diesen Favoriten ein"
+	"how_call_this_fav": "Geben Sie einen Namen für diesen Favoriten ein",
+	"contacts_rationale": "Die App benötigt Zugriff auf Ihre Kontakte, um einige Adressen Ihrer Kontakte vorzuschlagen. Dies ist optional, wird aber für ein besseres Erlebnis empfohlen ☺️."
 }

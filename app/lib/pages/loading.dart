@@ -12,12 +12,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/cache.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/db/store.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/in_app_purchase.dart';
 import 'package:swift_travel/logic/links.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -109,6 +111,28 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
       // ignore: avoid_catching_errors
     } on Error catch (e, s) {
       await failedToLoadSettings(e, s, prefs);
+    }
+    // request permission for contacts
+    // show a dialog if the user has not already granted permission to explain why we need it
+    if (await Permission.contacts.isDenied &&
+        !prefs.containsKey('contacts_rationale_shown')) {
+      await showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Contacts'),
+          content: Text(
+            AppLocalizations.of(context).contacts_rationale,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+      await prefs.setBool('contacts_rationale_shown', true);
+      await Permission.contacts.request();
     }
   }
 

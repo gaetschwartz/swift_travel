@@ -68,7 +68,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String direction(String dir) {
-
     return 'Direction $dir';
   }
 
@@ -188,13 +187,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String walk(String walk) {
-
     return 'Walk *$walk*.';
   }
 
   @override
   String walk_and_wait(String wait, String walk) {
-
     return 'Walk *$walk* and wait *$wait*.';
   }
 
@@ -206,7 +203,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String youll_be_there(String time) {
-
     return 'You arrive at *$time*.';
   }
 
@@ -226,23 +222,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchase_success => 'Purchase successful';
 
   @override
-  String get thank_you_for_purchase => 'Thank you so much for supporting the development of the app !';
+  String get thank_you_for_purchase =>
+      'Thank you so much for supporting the development of the app !';
 
   @override
   String get in_app_purchases => 'In-App Purchases';
 
   @override
-  String get in_app_purchases_desc => 'You can support the development of this app by donating. Any amount is really appreciated. Any donation will unlock Swift Travel Pro with more customization options.';
+  String get in_app_purchases_desc =>
+      'You can support the development of this app by donating. Any amount is really appreciated. Any donation will unlock Swift Travel Pro with more customization options.';
 
   @override
   String get in_app_purchases_restore => 'Restore purchases';
 
   @override
-  String get in_app_purchases_restore_desc => 'If you have already purchased one of the above products, you can restore it here.';
+  String get in_app_purchases_restore_desc =>
+      'If you have already purchased one of the above products, you can restore it here.';
 
   @override
   String that_is_required(String that) {
-
     return '$that is required';
   }
 
@@ -257,7 +255,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String donation_of(String price) {
-
     return 'Donation of $price';
   }
 
@@ -275,4 +272,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get how_call_this_fav => 'Enter a name for this favourite';
+
+  @override
+  String get contacts_rationale =>
+      'The app needs access to your contacts to suggest some of your contacts\' addresses. This is optional but recommended for a better experience ☺️.';
 }

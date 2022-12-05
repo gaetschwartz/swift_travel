@@ -135,5 +135,6 @@
 	"about_the_app": "About the app",
 	"departure_abbr": "Dep.",
 	"arrival_abbr": "Arr.",
-	"how_call_this_fav": "Enter a name for this favourite"
+	"how_call_this_fav": "Enter a name for this favourite",
+	"contacts_rationale": "The app needs access to your contacts to suggest some of your contacts' addresses. This is optional but recommended for a better experience ☺️."
 }

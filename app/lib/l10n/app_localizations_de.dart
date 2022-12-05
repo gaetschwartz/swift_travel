@@ -68,7 +68,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String direction(String dir) {
-
     return 'Richtung $dir';
   }
 
@@ -178,7 +177,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get unable_locate => 'Der Standort kann nicht ermittelt werden.';
 
   @override
-  String get unsupported_area => 'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
+  String get unsupported_area =>
+      'Sie scheinen sich nicht in einem geförderten Gebiet zu befinden.';
 
   @override
   String get use_current_location => 'Aktuellen Standort verwenden';
@@ -188,13 +188,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String walk(String walk) {
-
     return 'Gehen Sie *$walk*.';
   }
 
   @override
   String walk_and_wait(String wait, String walk) {
-
     return '*$walk* gehen und *$wait* warten.';
   }
 
@@ -206,7 +204,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String youll_be_there(String time) {
-
     return 'Sie kommen zu *$time*.';
   }
 
@@ -217,7 +214,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get no_favorites => 'Sie haben keine Lieblinge!';
 
   @override
-  String get how_to_add_favorite => 'Sie können eine hinzufügen, indem Sie auf die Schaltfläche ➕ tippen.';
+  String get how_to_add_favorite =>
+      'Sie können eine hinzufügen, indem Sie auf die Schaltfläche ➕ tippen.';
 
   @override
   String get continue_welcome => 'Fortsetzen';
@@ -226,23 +224,25 @@ class AppLocalizationsDe extends AppLocalizations {
   String get purchase_success => 'Kauf erfolgreich';
 
   @override
-  String get thank_you_for_purchase => 'Vielen Dank, dass Sie die Entwicklung der App unterstützen!';
+  String get thank_you_for_purchase =>
+      'Vielen Dank, dass Sie die Entwicklung der App unterstützen!';
 
   @override
   String get in_app_purchases => 'In-App-Käufe';
 
   @override
-  String get in_app_purchases_desc => 'Sie können die Entwicklung dieser App durch eine Spende unterstützen. Jeder Betrag wird sehr geschätzt. Jede Spende wird Swift Travel Pro mit mehr Anpassungsmöglichkeiten freischalten.';
+  String get in_app_purchases_desc =>
+      'Sie können die Entwicklung dieser App durch eine Spende unterstützen. Jeder Betrag wird sehr geschätzt. Jede Spende wird Swift Travel Pro mit mehr Anpassungsmöglichkeiten freischalten.';
 
   @override
   String get in_app_purchases_restore => 'Käufe wiederherstellen';
 
   @override
-  String get in_app_purchases_restore_desc => 'Wenn Sie bereits eines der oben genannten Produkte erworben haben, können Sie es hier wiederherstellen.';
+  String get in_app_purchases_restore_desc =>
+      'Wenn Sie bereits eines der oben genannten Produkte erworben haben, können Sie es hier wiederherstellen.';
 
   @override
   String that_is_required(String that) {
-
     return '$that ist erforderlich';
   }
 
@@ -257,7 +257,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String donation_of(String price) {
-
     return 'Spende von $price';
   }
 
@@ -274,5 +273,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get arrival_abbr => 'Ank.';
 
   @override
-  String get how_call_this_fav => 'Geben Sie einen Namen für diesen Favoriten ein';
+  String get how_call_this_fav =>
+      'Geben Sie einen Namen für diesen Favoriten ein';
+
+  @override
+  String get contacts_rationale =>
+      'Die App benötigt Zugriff auf Ihre Kontakte, um einige Adressen Ihrer Kontakte vorzuschlagen. Dies ist optional, wird aber für ein besseres Erlebnis empfohlen ☺️.';
 }

@@ -1,7 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/services.dart';
 import 'package:gaets_logging/logging.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:swift_travel/constants/env.dart';
 
 class ContactsRepository {
@@ -9,7 +8,6 @@ class ContactsRepository {
 
   static final instance = ContactsRepository._();
 
-  bool _hasRequested = false;
   ContactsData? _data;
 
   /// ttl is in seconds, default is 1 hour
@@ -44,13 +42,6 @@ class ContactsRepository {
       ];
     }
     try {
-      if (!_hasRequested) {
-        final status = await Permission.contacts.request();
-        log.log('Status1: $status');
-
-        _hasRequested = true;
-      }
-
       if (_data == null || _data!.isExpired(ttl)) {
         final data = ContactsData(
           await ContactsService.getContacts(withThumbnails: withThumbnails)
