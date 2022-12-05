@@ -38,7 +38,8 @@ class DoubleInterval<T extends num> {
             to.high,
             max(
               to.low,
-              (a - from.low) * (to.high - to.low) / (from.high - from.low) + to.low,
+              (a - from.low) * (to.high - to.low) / (from.high - from.low) +
+                  to.low,
             ),
           ).toDouble();
 }
@@ -46,18 +47,18 @@ class DoubleInterval<T extends num> {
 class Responsive {
   const Responsive(this.smallScreenWidth, this.bigScreenWidth);
 
-  const Responsive.def()
-      : smallScreenWidth = 400,
-        bigScreenWidth = 1200;
+  static const default_ = Responsive(400, 1200);
 
   final double smallScreenWidth;
   final double bigScreenWidth;
 
   bool isSmallScreen(BuildContext context) =>
       MediaQuery.of(context).size.shortestSide < smallScreenWidth;
+
   bool isMediumScreen(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return size.shortestSide >= smallScreenWidth && size.shortestSide <= bigScreenWidth;
+    return size.shortestSide >= smallScreenWidth &&
+        size.shortestSide <= bigScreenWidth;
   }
 
   bool isLargeScreen(BuildContext context) =>
@@ -70,7 +71,8 @@ class Responsive {
 
   bool isSmall(BoxConstraints c) => c.maxWidth < smallScreenWidth;
   bool isLarge(BoxConstraints c) => c.maxWidth > bigScreenWidth;
-  bool isMedium(BoxConstraints c) => c.maxWidth >= smallScreenWidth && c.maxWidth <= bigScreenWidth;
+  bool isMedium(BoxConstraints c) =>
+      c.maxWidth >= smallScreenWidth && c.maxWidth <= bigScreenWidth;
 
   ScreenSize getScreenSize(BuildContext context) =>
       getSizeOfWidth(MediaQuery.of(context).size.shortestSide);
@@ -87,7 +89,8 @@ class Responsive {
 }
 
 extension TargetPlatformX on TargetPlatform {
-  bool get isDarwin => this == TargetPlatform.iOS || this == TargetPlatform.macOS;
+  bool get isDarwin =>
+      this == TargetPlatform.iOS || this == TargetPlatform.macOS;
 }
 
 extension ThemeDataX on ThemeData {

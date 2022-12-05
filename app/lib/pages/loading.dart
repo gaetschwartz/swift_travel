@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -114,22 +115,40 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
     }
     // request permission for contacts
     // show a dialog if the user has not already granted permission to explain why we need it
-    if (await Permission.contacts.isDenied &&
+    if (!await Permission.contacts.isGranted &&
         !prefs.containsKey('contacts_rationale_shown')) {
       await showDialog<void>(
         context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Contacts'),
-          content: Text(
-            AppLocalizations.of(context).contacts_rationale,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
+        builder: (context) {
+          final isDarwin = Theme.of(context).isDarwin;
+          if (isDarwin) {
+            return CupertinoAlertDialog(
+              title: const Text('Contacts'),
+              content: Text(
+                AppLocalizations.of(context).contacts_rationale,
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          } else {
+            return AlertDialog(
+              title: const Text('Contacts'),
+              content: Text(
+                AppLocalizations.of(context).contacts_rationale,
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          }
+        },
       );
       await prefs.setBool('contacts_rationale_shown', true);
       await Permission.contacts.request();

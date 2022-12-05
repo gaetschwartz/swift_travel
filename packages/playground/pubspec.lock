@@ -77,11 +77,11 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: e0e99c0d5c2a214ec048c4aef6e4a234136f2938
+      ref: "21ecb33d5bf6f19776cc8466db2437a6e5600703"
+      resolved-ref: "21ecb33d5bf6f19776cc8466db2437a6e5600703"
       url: "https://github.com/gaetschwartz/flutter_contacts.git"
     source: git
-    version: "0.6.1"
+    version: "0.6.3"
   cross_file:
     dependency: transitive
     description:
@@ -191,14 +191,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
-  flutter_lints:
-    dependency: transitive
-    description:
-      name: flutter_lints
-      sha256: b543301ad291598523947dc534aaddc5aaad597b709d2426d3a0e0d44c5cb493
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.4"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -437,14 +429,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  lints:
-    dependency: transitive
-    description:
-      name: lints
-      sha256: a2c3d198cb5ea2e179926622d433331d8b58374ab8f29cdda6e863bd62fd369c
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   live_route:
     dependency: transitive
     description:

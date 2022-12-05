@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -387,16 +386,12 @@ class DynamicThemeNotifier extends ChangeNotifier {
   }
 }
 
-extension ThemeDataX on ThemeData {
-  CupertinoThemeData toCupertino() => CupertinoThemeData(
-      brightness: brightness, primaryColor: colorScheme.secondary);
-}
-
 extension TextThemeX on TextTheme {
   TextTheme applyFontWeightDelta(int fontWeightDelta) => copyWith(
         displayLarge: displayLarge?.apply(fontWeightDelta: fontWeightDelta),
         displayMedium: displayMedium?.apply(fontWeightDelta: fontWeightDelta),
         displaySmall: displaySmall?.apply(fontWeightDelta: fontWeightDelta),
+        headlineLarge: headlineLarge?.apply(fontWeightDelta: fontWeightDelta),
         headlineMedium: headlineMedium?.apply(fontWeightDelta: fontWeightDelta),
         headlineSmall: headlineSmall?.apply(fontWeightDelta: fontWeightDelta),
         titleLarge: titleLarge?.apply(fontWeightDelta: fontWeightDelta),
@@ -406,6 +401,7 @@ extension TextThemeX on TextTheme {
         bodyMedium: bodyMedium?.apply(fontWeightDelta: fontWeightDelta),
         bodySmall: bodySmall?.apply(fontWeightDelta: fontWeightDelta),
         labelLarge: labelLarge?.apply(fontWeightDelta: fontWeightDelta),
+        labelMedium: labelMedium?.apply(fontWeightDelta: fontWeightDelta),
         labelSmall: labelSmall?.apply(fontWeightDelta: fontWeightDelta),
       );
 }
