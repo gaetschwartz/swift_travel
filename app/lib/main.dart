@@ -125,7 +125,7 @@ class _FullAppState extends State<FullApp> {
       overrides: const [],
       child: DynamicTheme(
         theme: dynamicThemeData,
-        child: const Unfocus(child: SwiftTravelApp()),
+        child: const SwiftTravelApp(),
       ),
     );
   }
@@ -194,7 +194,8 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
       onUnknownRoute: onUnknownRoute,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       initialRoute: 'loading',
-      builder: (context, child) => ListenToLocaleChange(child: child!),
+      builder: (context, child) =>
+          Unfocus(child: ListenToLocaleChange(child: child!)),
     );
   }
 

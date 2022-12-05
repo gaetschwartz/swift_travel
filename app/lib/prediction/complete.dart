@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:contacts_service/contacts_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
@@ -88,9 +87,6 @@ class CompletionEngine {
       }
 
       final dist = jaroDistance(query, contactName);
-      if (kDebugMode) {
-        print('Contact $contactName has distance $dist with query $query');
-      }
       if (dist < _kConfidenceThreshold ||
           contactName.toLowerCase().startsWith(queryLower)) {
         distances.add(MapEntry(ContactCompletion(c), dist));
