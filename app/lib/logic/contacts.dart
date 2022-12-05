@@ -9,7 +9,7 @@ class ContactsRepository {
 
   static final instance = ContactsRepository._();
 
-  bool _granted = false;
+  bool _hasRequested = false;
   ContactsData? _data;
 
   /// ttl is in seconds, default is 1 hour
@@ -34,7 +34,7 @@ class ContactsRepository {
     bool withThumbnails = false,
   }) async {
     if (Env.doMockContacts) {
-      return const [
+      return [
         Contact(
           displayName: 'John Doe',
           postalAddresses: [
@@ -44,14 +44,11 @@ class ContactsRepository {
       ];
     }
     try {
-      if (!_granted) {
+      if (!_hasRequested) {
         final status = await Permission.contacts.request();
         log.log('Status1: $status');
 
-        _granted = status.isGranted;
-        if (!_granted) {
-          throw Exception('Contacts permission is needed. Status: $status');
-        }
+        _hasRequested = true;
       }
 
       if (_data == null || _data!.isExpired(ttl)) {

@@ -205,11 +205,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: e0e99c0d5c2a214ec048c4aef6e4a234136f2938
+      ref: "21ecb33d5bf6f19776cc8466db2437a6e5600703"
+      resolved-ref: "21ecb33d5bf6f19776cc8466db2437a6e5600703"
       url: "https://github.com/gaetschwartz/flutter_contacts.git"
     source: git
-    version: "0.6.1"
+    version: "0.6.3"
   convert:
     dependency: transitive
     description:

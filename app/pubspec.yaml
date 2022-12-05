@@ -13,7 +13,10 @@ dependencies:
   async: ^2.4.2
   collection: ^1.15.0
   contacts_service:
-    git: https://github.com/gaetschwartz/flutter_contacts.git
+    git:
+      url: https://github.com/gaetschwartz/flutter_contacts.git
+      ref: 21ecb33d5bf6f19776cc8466db2437a6e5600703
+
   cross_file: ^0.3.3+2
   cupertino_icons: ^1.0.0
   file: ^6.0.0
