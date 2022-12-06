@@ -215,10 +215,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "267055676c5111e1b17c48c285dcd89fa0d2cea807c22c1e90278ca4f76163e5"
+      sha256: "52c2e116cb2aab22bb580e4a8ec01959bcf8214965e2d2d57b213d46afc7e511"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.3.1"
   freezed_annotation:
     dependency: "direct main"
     description:
