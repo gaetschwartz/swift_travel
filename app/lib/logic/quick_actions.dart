@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -31,19 +32,30 @@ class QuickActionsManager
 
   late final AppLocalizations appLocalizations;
 
+  /// This code initializes the Quick Actions plugin and overrides the
+  /// Quick Actions with the value of Env.quickActionsOverride, if it is
+  /// not null. It then generates the list of reorderable items from the
+  /// Quick Actions database. It takes an [AppLocalizations] object as parameter
+  /// because it needs to use localized strings and obtaining an instance of
+  /// [AppLocalizations] requires a [BuildContext] which we don't have here.
   Future<void> init(AppLocalizations appLocalizations) async {
     log.log('Initialize');
     this.appLocalizations = appLocalizations;
     await db.open();
     try {
+      // Initialize the Quick Actions plugin.
       await const QuickActions().initialize(_handler);
+
+      // For testing purposes, override the Quick Actions.
       if (Env.quickActionsOverride != null) {
-        log.log('Override quick actions with ${Env.quickActionsOverride}');
+        log.log('Overriding quick actions with ${Env.quickActionsOverride}');
         await _handler(Env.quickActionsOverride!);
       }
     } on MissingPluginException {
       log.log('Unsupported for now on $platform');
     }
+
+    // Generate the list of reorderable items from the Quick Actions database.
     state = db.values.map(QuickActionsReorderableItem.item).toList();
   }
 
@@ -83,15 +95,15 @@ class QuickActionsManager
   }
 
   Future<void> setQuickActions(
-      List<QuickActionsReorderableItem> reoerderableItems) async {
-    state = reoerderableItems;
+      List<QuickActionsReorderableItem> reorderableItems) async {
+    state = reorderableItems;
     if (!isMobile) {
       log.log('Actions not supported for now on $platform');
       return;
     }
 
     final shortcutItems = <ShortcutItem>[];
-    final items = reoerderableItems
+    final items = reorderableItems
         .whereType<QuickActionsFavoriteItem>()
         .map((e) => e.item)
         .where((e) => e.quickActionsIndex != null)
