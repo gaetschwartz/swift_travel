@@ -133,30 +133,31 @@ class FavoriteStop with _$FavoriteStop, BaseStop, SbbDisplayNameMixin {
 }
 
 @freezed
-class Favorite with _$Favorite {
-  const factory Favorite.stop(FavoriteStop stop, int id) = _FavoriteUnionStop;
-  const factory Favorite.route(LocalRoute route, int id) = _FavoriteUnionRoute;
+class QuickActionsItem with _$QuickActionsItem {
+  const factory QuickActionsItem.stop(FavoriteStop stop, int id) =
+      _FavoriteUnionStop;
+  const factory QuickActionsItem.route(LocalRoute route, int id) =
+      _FavoriteUnionRoute;
+  const factory QuickActionsItem.stationTabsCurrentLocation() =
+      _FavoriteUnionStationTabsCurrentLocation;
 
-  factory Favorite.fromStopWithId(DataWithId<FavoriteStop> stop) =>
-      Favorite.stop(stop.data, stop.id);
+  factory QuickActionsItem.fromStopWithId(DataWithId<FavoriteStop> stop) =>
+      QuickActionsItem.stop(stop.data, stop.id);
 
-  factory Favorite.fromRouteWithId(DataWithId<LocalRoute> route) =>
-      Favorite.route(route.data, route.id);
+  factory QuickActionsItem.fromRouteWithId(DataWithId<LocalRoute> route) =>
+      QuickActionsItem.route(route.data, route.id);
 
-  factory Favorite.fromJson(Map<String, dynamic> json) =>
-      _$FavoriteFromJson(json);
+  factory QuickActionsItem.fromJson(Map<String, dynamic> json) =>
+      _$QuickActionsItemFromJson(json);
 }
 
 @freezed
-class QuickActionsFavoriteItem with _$QuickActionsFavoriteItem {
-  const factory QuickActionsFavoriteItem.favorite(
-    Favorite favorite, {
-    @Default(true) bool present,
-    required int index,
-  }) = QuickActionsFavoriteItemFavorite;
-  const factory QuickActionsFavoriteItem.divider() =
-      QuickActionsFavoriteItemDivider;
+class QuickActionsReorderableItem with _$QuickActionsReorderableItem {
+  const factory QuickActionsReorderableItem.item(
+      QuickActionsItem item, bool present) = QuickActionsFavoriteItem;
+  const factory QuickActionsReorderableItem.divider() =
+      QuickActionsFavoriteDivider;
 
-  factory QuickActionsFavoriteItem.fromJson(Map<String, dynamic> json) =>
-      _$QuickActionsFavoriteItemFromJson(json);
+  factory QuickActionsReorderableItem.fromJson(Map<String, dynamic> json) =>
+      _$QuickActionsReorderableItemFromJson(json);
 }

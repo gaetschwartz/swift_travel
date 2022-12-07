@@ -126,21 +126,24 @@ class FavStopsDb extends LocalDatabase<int, Map<dynamic, dynamic>, FavoriteStop>
   void onDatabaseExceededMaxSize() {}
 }
 
-class QuickActionsFavoriteItemsDb
-    extends LocalDatabase<int, Map<dynamic, dynamic>, Favorite>
-    with IndexedDatabaseWithIdMixin<Map<dynamic, dynamic>, Favorite> {
+class QuickActionsFavoriteItemsDb extends LocalDatabase<int,
+        Map<dynamic, dynamic>, QuickActionsReorderableItem>
+    with
+        IndexedDatabaseWithIdMixin<Map<dynamic, dynamic>,
+            QuickActionsReorderableItem> {
   @visibleForTesting
   QuickActionsFavoriteItemsDb()
       : super(
           boxKey: 'quick_actions_favorite_items',
           maxSize: 3,
-          decode: (d) => Favorite.fromJson(d.cast<String, dynamic>()),
+          decode: (d) =>
+              QuickActionsReorderableItem.fromJson(d.cast<String, dynamic>()),
           encode: (d) => d.toJson(),
         );
 
   static final i = QuickActionsFavoriteItemsDb();
 
-  List<Favorite> get items => values.toList(growable: false);
+  List<QuickActionsReorderableItem> get items => values.toList(growable: false);
 
   /// Do nothing.
   @override

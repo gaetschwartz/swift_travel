@@ -75,7 +75,9 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
     unawaited(route());
 
     if (isMobile) {
-      await QuickActionsManager.instance.init();
+      await ref
+          .read(quickActionsManagerProvider.notifier)
+          .init(AppLocalizations.of(context));
 
       await ref.read(linksProvider).init(
             onNewRoute: (p) => navigatorKey.currentState?.push(

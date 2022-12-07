@@ -362,23 +362,15 @@ class _QuickActionsEditionPageState
   final quickActions = const QuickActions();
 
   late BaseFavoritesStore store;
-  List<Favorite> favs = [];
-  final dismissed = <Favorite>[];
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    store = ref.watch(favoritesStoreProvider);
-    favs = [
-      ...store.routes.map(Favorite.fromRouteWithId),
-      ...store.stops.map(Favorite.fromStopWithId),
-    ];
-    dismissed.clear();
-  }
+  List<QuickActionsReorderableItem> items = [];
+  final nonFavItems = [
+    const QuickActionsItem.stationTabsCurrentLocation(),
+  ];
 
   // we want to be to reorder the list, as well as choose which favorites to display in the quick actions
   @override
   Widget build(BuildContext context) {
+    final manager = ref.watch(quickActionsManagerProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Quick actions'),
@@ -396,44 +388,50 @@ class _QuickActionsEditionPageState
           ReorderableListView(
             shrinkWrap: true,
             onReorder: (oldIndex, newIndex) {
-              final old = favs[oldIndex];
+              final old = items[oldIndex];
               setState(() {
-                favs.removeAt(oldIndex);
+                items.removeAt(oldIndex);
                 // if we remove an item, we need to adjust the new index
                 // take in account if the new index is after the old index
                 if (newIndex > oldIndex) {
                   newIndex--;
                 }
-                favs.insert(newIndex, old);
+                items.insert(newIndex, old);
               });
-              unawaited(QuickActionsManager.instance.setQuickActions(favs));
+              unawaited(manager.setQuickActions(items));
             },
             children: [
-              for (final fav in favs)
+              for (final item in items)
                 Dismissible(
-                  key: ValueKey(fav),
+                  key: ValueKey(item),
                   onDismissed: (_) {
                     setState(() {
-                      favs.remove(fav);
-                      dismissed.add(fav);
+                      items.remove(item);
                     });
-                    unawaited(
-                        QuickActionsManager.instance.setQuickActions(favs));
+                    unawaited(manager.setQuickActions(items));
                   },
-                  child: ListTile(
-                    leading: fav.map(
-                      stop: (_) => const Icon(Icons.place),
-                      route: (_) => const Icon(Icons.directions_bus),
+                  child: item.map(
+                    item: (favItem) => ListTile(
+                      leading: favItem.item.map(
+                        stop: (_) => const Icon(Icons.place),
+                        route: (_) => const Icon(Icons.directions_bus),
+                        stationTabsCurrentLocation: (_) =>
+                            const Icon(Icons.my_location),
+                      ),
+                      title: Text(favItem.item.when(
+                        stop: (s, id) => s.name,
+                        route: (r, id) => r.displayName ?? r.toPrettyString(),
+                        stationTabsCurrentLocation: () =>
+                            AppLocalizations.of(context).current_location,
+                      )),
+                      subtitle: Text(favItem.item.when(
+                        stop: (s, id) => s.stop,
+                        route: (r, id) => r.toPrettyString(),
+                        stationTabsCurrentLocation: () => '',
+                      )),
+                      trailing: const Icon(Icons.drag_handle),
                     ),
-                    title: Text(fav.when(
-                      stop: (s, id) => s.name,
-                      route: (r, id) => r.displayName ?? r.toPrettyString(),
-                    )),
-                    subtitle: Text(fav.when(
-                      stop: (s, id) => s.stop,
-                      route: (r, id) => r.toPrettyString(),
-                    )),
-                    trailing: const Icon(Icons.drag_handle),
+                    divider: (_) => const Divider(),
                   ),
                 ),
             ],

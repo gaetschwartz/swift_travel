@@ -750,38 +750,42 @@ abstract class _FavoriteStop extends FavoriteStop {
       throw _privateConstructorUsedError;
 }
 
-Favorite _$FavoriteFromJson(Map<String, dynamic> json) {
+QuickActionsItem _$QuickActionsItemFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'stop':
       return _FavoriteUnionStop.fromJson(json);
     case 'route':
       return _FavoriteUnionRoute.fromJson(json);
+    case 'stationTabsCurrentLocation':
+      return _FavoriteUnionStationTabsCurrentLocation.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'Favorite',
+      throw CheckedFromJsonException(json, 'runtimeType', 'QuickActionsItem',
           'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
 /// @nodoc
-mixin _$Favorite {
-  int get id => throw _privateConstructorUsedError;
+mixin _$QuickActionsItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FavoriteStop stop, int id) stop,
     required TResult Function(LocalRoute route, int id) route,
+    required TResult Function() stationTabsCurrentLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FavoriteStop stop, int id)? stop,
     TResult? Function(LocalRoute route, int id)? route,
+    TResult? Function()? stationTabsCurrentLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FavoriteStop stop, int id)? stop,
     TResult Function(LocalRoute route, int id)? route,
+    TResult Function()? stationTabsCurrentLocation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -789,66 +793,53 @@ mixin _$Favorite {
   TResult map<TResult extends Object?>({
     required TResult Function(_FavoriteUnionStop value) stop,
     required TResult Function(_FavoriteUnionRoute value) route,
+    required TResult Function(_FavoriteUnionStationTabsCurrentLocation value)
+        stationTabsCurrentLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FavoriteUnionStop value)? stop,
     TResult? Function(_FavoriteUnionRoute value)? route,
+    TResult? Function(_FavoriteUnionStationTabsCurrentLocation value)?
+        stationTabsCurrentLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FavoriteUnionStop value)? stop,
     TResult Function(_FavoriteUnionRoute value)? route,
+    TResult Function(_FavoriteUnionStationTabsCurrentLocation value)?
+        stationTabsCurrentLocation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $FavoriteCopyWith<Favorite> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FavoriteCopyWith<$Res> {
-  factory $FavoriteCopyWith(Favorite value, $Res Function(Favorite) then) =
-      _$FavoriteCopyWithImpl<$Res, Favorite>;
-  @useResult
-  $Res call({int id});
+abstract class $QuickActionsItemCopyWith<$Res> {
+  factory $QuickActionsItemCopyWith(
+          QuickActionsItem value, $Res Function(QuickActionsItem) then) =
+      _$QuickActionsItemCopyWithImpl<$Res, QuickActionsItem>;
 }
 
 /// @nodoc
-class _$FavoriteCopyWithImpl<$Res, $Val extends Favorite>
-    implements $FavoriteCopyWith<$Res> {
-  _$FavoriteCopyWithImpl(this._value, this._then);
+class _$QuickActionsItemCopyWithImpl<$Res, $Val extends QuickActionsItem>
+    implements $QuickActionsItemCopyWith<$Res> {
+  _$QuickActionsItemCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_FavoriteUnionStopCopyWith<$Res>
-    implements $FavoriteCopyWith<$Res> {
+abstract class _$$_FavoriteUnionStopCopyWith<$Res> {
   factory _$$_FavoriteUnionStopCopyWith(_$_FavoriteUnionStop value,
           $Res Function(_$_FavoriteUnionStop) then) =
       __$$_FavoriteUnionStopCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({FavoriteStop stop, int id});
 
@@ -857,7 +848,7 @@ abstract class _$$_FavoriteUnionStopCopyWith<$Res>
 
 /// @nodoc
 class __$$_FavoriteUnionStopCopyWithImpl<$Res>
-    extends _$FavoriteCopyWithImpl<$Res, _$_FavoriteUnionStop>
+    extends _$QuickActionsItemCopyWithImpl<$Res, _$_FavoriteUnionStop>
     implements _$$_FavoriteUnionStopCopyWith<$Res> {
   __$$_FavoriteUnionStopCopyWithImpl(
       _$_FavoriteUnionStop _value, $Res Function(_$_FavoriteUnionStop) _then)
@@ -909,7 +900,7 @@ class _$_FavoriteUnionStop implements _FavoriteUnionStop {
 
   @override
   String toString() {
-    return 'Favorite.stop(stop: $stop, id: $id)';
+    return 'QuickActionsItem.stop(stop: $stop, id: $id)';
   }
 
   @override
@@ -937,6 +928,7 @@ class _$_FavoriteUnionStop implements _FavoriteUnionStop {
   TResult when<TResult extends Object?>({
     required TResult Function(FavoriteStop stop, int id) stop,
     required TResult Function(LocalRoute route, int id) route,
+    required TResult Function() stationTabsCurrentLocation,
   }) {
     return stop(this.stop, id);
   }
@@ -946,6 +938,7 @@ class _$_FavoriteUnionStop implements _FavoriteUnionStop {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FavoriteStop stop, int id)? stop,
     TResult? Function(LocalRoute route, int id)? route,
+    TResult? Function()? stationTabsCurrentLocation,
   }) {
     return stop?.call(this.stop, id);
   }
@@ -955,6 +948,7 @@ class _$_FavoriteUnionStop implements _FavoriteUnionStop {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FavoriteStop stop, int id)? stop,
     TResult Function(LocalRoute route, int id)? route,
+    TResult Function()? stationTabsCurrentLocation,
     required TResult orElse(),
   }) {
     if (stop != null) {
@@ -968,6 +962,8 @@ class _$_FavoriteUnionStop implements _FavoriteUnionStop {
   TResult map<TResult extends Object?>({
     required TResult Function(_FavoriteUnionStop value) stop,
     required TResult Function(_FavoriteUnionRoute value) route,
+    required TResult Function(_FavoriteUnionStationTabsCurrentLocation value)
+        stationTabsCurrentLocation,
   }) {
     return stop(this);
   }
@@ -977,6 +973,8 @@ class _$_FavoriteUnionStop implements _FavoriteUnionStop {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FavoriteUnionStop value)? stop,
     TResult? Function(_FavoriteUnionRoute value)? route,
+    TResult? Function(_FavoriteUnionStationTabsCurrentLocation value)?
+        stationTabsCurrentLocation,
   }) {
     return stop?.call(this);
   }
@@ -986,6 +984,8 @@ class _$_FavoriteUnionStop implements _FavoriteUnionStop {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FavoriteUnionStop value)? stop,
     TResult Function(_FavoriteUnionRoute value)? route,
+    TResult Function(_FavoriteUnionStationTabsCurrentLocation value)?
+        stationTabsCurrentLocation,
     required TResult orElse(),
   }) {
     if (stop != null) {
@@ -1002,7 +1002,7 @@ class _$_FavoriteUnionStop implements _FavoriteUnionStop {
   }
 }
 
-abstract class _FavoriteUnionStop implements Favorite {
+abstract class _FavoriteUnionStop implements QuickActionsItem {
   const factory _FavoriteUnionStop(final FavoriteStop stop, final int id) =
       _$_FavoriteUnionStop;
 
@@ -1010,21 +1010,17 @@ abstract class _FavoriteUnionStop implements Favorite {
       _$_FavoriteUnionStop.fromJson;
 
   FavoriteStop get stop;
-  @override
   int get id;
-  @override
   @JsonKey(ignore: true)
   _$$_FavoriteUnionStopCopyWith<_$_FavoriteUnionStop> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_FavoriteUnionRouteCopyWith<$Res>
-    implements $FavoriteCopyWith<$Res> {
+abstract class _$$_FavoriteUnionRouteCopyWith<$Res> {
   factory _$$_FavoriteUnionRouteCopyWith(_$_FavoriteUnionRoute value,
           $Res Function(_$_FavoriteUnionRoute) then) =
       __$$_FavoriteUnionRouteCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({LocalRoute route, int id});
 
@@ -1033,7 +1029,7 @@ abstract class _$$_FavoriteUnionRouteCopyWith<$Res>
 
 /// @nodoc
 class __$$_FavoriteUnionRouteCopyWithImpl<$Res>
-    extends _$FavoriteCopyWithImpl<$Res, _$_FavoriteUnionRoute>
+    extends _$QuickActionsItemCopyWithImpl<$Res, _$_FavoriteUnionRoute>
     implements _$$_FavoriteUnionRouteCopyWith<$Res> {
   __$$_FavoriteUnionRouteCopyWithImpl(
       _$_FavoriteUnionRoute _value, $Res Function(_$_FavoriteUnionRoute) _then)
@@ -1085,7 +1081,7 @@ class _$_FavoriteUnionRoute implements _FavoriteUnionRoute {
 
   @override
   String toString() {
-    return 'Favorite.route(route: $route, id: $id)';
+    return 'QuickActionsItem.route(route: $route, id: $id)';
   }
 
   @override
@@ -1113,6 +1109,7 @@ class _$_FavoriteUnionRoute implements _FavoriteUnionRoute {
   TResult when<TResult extends Object?>({
     required TResult Function(FavoriteStop stop, int id) stop,
     required TResult Function(LocalRoute route, int id) route,
+    required TResult Function() stationTabsCurrentLocation,
   }) {
     return route(this.route, id);
   }
@@ -1122,6 +1119,7 @@ class _$_FavoriteUnionRoute implements _FavoriteUnionRoute {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FavoriteStop stop, int id)? stop,
     TResult? Function(LocalRoute route, int id)? route,
+    TResult? Function()? stationTabsCurrentLocation,
   }) {
     return route?.call(this.route, id);
   }
@@ -1131,6 +1129,7 @@ class _$_FavoriteUnionRoute implements _FavoriteUnionRoute {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FavoriteStop stop, int id)? stop,
     TResult Function(LocalRoute route, int id)? route,
+    TResult Function()? stationTabsCurrentLocation,
     required TResult orElse(),
   }) {
     if (route != null) {
@@ -1144,6 +1143,8 @@ class _$_FavoriteUnionRoute implements _FavoriteUnionRoute {
   TResult map<TResult extends Object?>({
     required TResult Function(_FavoriteUnionStop value) stop,
     required TResult Function(_FavoriteUnionRoute value) route,
+    required TResult Function(_FavoriteUnionStationTabsCurrentLocation value)
+        stationTabsCurrentLocation,
   }) {
     return route(this);
   }
@@ -1153,6 +1154,8 @@ class _$_FavoriteUnionRoute implements _FavoriteUnionRoute {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FavoriteUnionStop value)? stop,
     TResult? Function(_FavoriteUnionRoute value)? route,
+    TResult? Function(_FavoriteUnionStationTabsCurrentLocation value)?
+        stationTabsCurrentLocation,
   }) {
     return route?.call(this);
   }
@@ -1162,6 +1165,8 @@ class _$_FavoriteUnionRoute implements _FavoriteUnionRoute {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FavoriteUnionStop value)? stop,
     TResult Function(_FavoriteUnionRoute value)? route,
+    TResult Function(_FavoriteUnionStationTabsCurrentLocation value)?
+        stationTabsCurrentLocation,
     required TResult orElse(),
   }) {
     if (route != null) {
@@ -1178,7 +1183,7 @@ class _$_FavoriteUnionRoute implements _FavoriteUnionRoute {
   }
 }
 
-abstract class _FavoriteUnionRoute implements Favorite {
+abstract class _FavoriteUnionRoute implements QuickActionsItem {
   const factory _FavoriteUnionRoute(final LocalRoute route, final int id) =
       _$_FavoriteUnionRoute;
 
@@ -1186,331 +1191,55 @@ abstract class _FavoriteUnionRoute implements Favorite {
       _$_FavoriteUnionRoute.fromJson;
 
   LocalRoute get route;
-  @override
   int get id;
-  @override
   @JsonKey(ignore: true)
   _$$_FavoriteUnionRouteCopyWith<_$_FavoriteUnionRoute> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-QuickActionsFavoriteItem _$QuickActionsFavoriteItemFromJson(
-    Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'favorite':
-      return QuickActionsFavoriteItemFavorite.fromJson(json);
-    case 'divider':
-      return QuickActionsFavoriteItemDivider.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(
-          json,
-          'runtimeType',
-          'QuickActionsFavoriteItem',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
+/// @nodoc
+abstract class _$$_FavoriteUnionStationTabsCurrentLocationCopyWith<$Res> {
+  factory _$$_FavoriteUnionStationTabsCurrentLocationCopyWith(
+          _$_FavoriteUnionStationTabsCurrentLocation value,
+          $Res Function(_$_FavoriteUnionStationTabsCurrentLocation) then) =
+      __$$_FavoriteUnionStationTabsCurrentLocationCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-mixin _$QuickActionsFavoriteItem {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Favorite favorite, bool present, int index)
-        favorite,
-    required TResult Function() divider,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Favorite favorite, bool present, int index)? favorite,
-    TResult? Function()? divider,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Favorite favorite, bool present, int index)? favorite,
-    TResult Function()? divider,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(QuickActionsFavoriteItemFavorite value) favorite,
-    required TResult Function(QuickActionsFavoriteItemDivider value) divider,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(QuickActionsFavoriteItemFavorite value)? favorite,
-    TResult? Function(QuickActionsFavoriteItemDivider value)? divider,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(QuickActionsFavoriteItemFavorite value)? favorite,
-    TResult Function(QuickActionsFavoriteItemDivider value)? divider,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $QuickActionsFavoriteItemCopyWith<$Res> {
-  factory $QuickActionsFavoriteItemCopyWith(QuickActionsFavoriteItem value,
-          $Res Function(QuickActionsFavoriteItem) then) =
-      _$QuickActionsFavoriteItemCopyWithImpl<$Res, QuickActionsFavoriteItem>;
-}
-
-/// @nodoc
-class _$QuickActionsFavoriteItemCopyWithImpl<$Res,
-        $Val extends QuickActionsFavoriteItem>
-    implements $QuickActionsFavoriteItemCopyWith<$Res> {
-  _$QuickActionsFavoriteItemCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$QuickActionsFavoriteItemFavoriteCopyWith<$Res> {
-  factory _$$QuickActionsFavoriteItemFavoriteCopyWith(
-          _$QuickActionsFavoriteItemFavorite value,
-          $Res Function(_$QuickActionsFavoriteItemFavorite) then) =
-      __$$QuickActionsFavoriteItemFavoriteCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Favorite favorite, bool present, int index});
-
-  $FavoriteCopyWith<$Res> get favorite;
-}
-
-/// @nodoc
-class __$$QuickActionsFavoriteItemFavoriteCopyWithImpl<$Res>
-    extends _$QuickActionsFavoriteItemCopyWithImpl<$Res,
-        _$QuickActionsFavoriteItemFavorite>
-    implements _$$QuickActionsFavoriteItemFavoriteCopyWith<$Res> {
-  __$$QuickActionsFavoriteItemFavoriteCopyWithImpl(
-      _$QuickActionsFavoriteItemFavorite _value,
-      $Res Function(_$QuickActionsFavoriteItemFavorite) _then)
+class __$$_FavoriteUnionStationTabsCurrentLocationCopyWithImpl<$Res>
+    extends _$QuickActionsItemCopyWithImpl<$Res,
+        _$_FavoriteUnionStationTabsCurrentLocation>
+    implements _$$_FavoriteUnionStationTabsCurrentLocationCopyWith<$Res> {
+  __$$_FavoriteUnionStationTabsCurrentLocationCopyWithImpl(
+      _$_FavoriteUnionStationTabsCurrentLocation _value,
+      $Res Function(_$_FavoriteUnionStationTabsCurrentLocation) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? favorite = null,
-    Object? present = null,
-    Object? index = null,
-  }) {
-    return _then(_$QuickActionsFavoriteItemFavorite(
-      null == favorite
-          ? _value.favorite
-          : favorite // ignore: cast_nullable_to_non_nullable
-              as Favorite,
-      present: null == present
-          ? _value.present
-          : present // ignore: cast_nullable_to_non_nullable
-              as bool,
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $FavoriteCopyWith<$Res> get favorite {
-    return $FavoriteCopyWith<$Res>(_value.favorite, (value) {
-      return _then(_value.copyWith(favorite: value));
-    });
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$QuickActionsFavoriteItemFavorite
-    implements QuickActionsFavoriteItemFavorite {
-  const _$QuickActionsFavoriteItemFavorite(this.favorite,
-      {this.present = true, required this.index, final String? $type})
-      : $type = $type ?? 'favorite';
+class _$_FavoriteUnionStationTabsCurrentLocation
+    implements _FavoriteUnionStationTabsCurrentLocation {
+  const _$_FavoriteUnionStationTabsCurrentLocation({final String? $type})
+      : $type = $type ?? 'stationTabsCurrentLocation';
 
-  factory _$QuickActionsFavoriteItemFavorite.fromJson(
+  factory _$_FavoriteUnionStationTabsCurrentLocation.fromJson(
           Map<String, dynamic> json) =>
-      _$$QuickActionsFavoriteItemFavoriteFromJson(json);
-
-  @override
-  final Favorite favorite;
-  @override
-  @JsonKey()
-  final bool present;
-  @override
-  final int index;
+      _$$_FavoriteUnionStationTabsCurrentLocationFromJson(json);
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'QuickActionsFavoriteItem.favorite(favorite: $favorite, present: $present, index: $index)';
+    return 'QuickActionsItem.stationTabsCurrentLocation()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$QuickActionsFavoriteItemFavorite &&
-            (identical(other.favorite, favorite) ||
-                other.favorite == favorite) &&
-            (identical(other.present, present) || other.present == present) &&
-            (identical(other.index, index) || other.index == index));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, favorite, present, index);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$QuickActionsFavoriteItemFavoriteCopyWith<
-          _$QuickActionsFavoriteItemFavorite>
-      get copyWith => __$$QuickActionsFavoriteItemFavoriteCopyWithImpl<
-          _$QuickActionsFavoriteItemFavorite>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Favorite favorite, bool present, int index)
-        favorite,
-    required TResult Function() divider,
-  }) {
-    return favorite(this.favorite, present, index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Favorite favorite, bool present, int index)? favorite,
-    TResult? Function()? divider,
-  }) {
-    return favorite?.call(this.favorite, present, index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Favorite favorite, bool present, int index)? favorite,
-    TResult Function()? divider,
-    required TResult orElse(),
-  }) {
-    if (favorite != null) {
-      return favorite(this.favorite, present, index);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(QuickActionsFavoriteItemFavorite value) favorite,
-    required TResult Function(QuickActionsFavoriteItemDivider value) divider,
-  }) {
-    return favorite(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(QuickActionsFavoriteItemFavorite value)? favorite,
-    TResult? Function(QuickActionsFavoriteItemDivider value)? divider,
-  }) {
-    return favorite?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(QuickActionsFavoriteItemFavorite value)? favorite,
-    TResult Function(QuickActionsFavoriteItemDivider value)? divider,
-    required TResult orElse(),
-  }) {
-    if (favorite != null) {
-      return favorite(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$QuickActionsFavoriteItemFavoriteToJson(
-      this,
-    );
-  }
-}
-
-abstract class QuickActionsFavoriteItemFavorite
-    implements QuickActionsFavoriteItem {
-  const factory QuickActionsFavoriteItemFavorite(final Favorite favorite,
-      {final bool present,
-      required final int index}) = _$QuickActionsFavoriteItemFavorite;
-
-  factory QuickActionsFavoriteItemFavorite.fromJson(Map<String, dynamic> json) =
-      _$QuickActionsFavoriteItemFavorite.fromJson;
-
-  Favorite get favorite;
-  bool get present;
-  int get index;
-  @JsonKey(ignore: true)
-  _$$QuickActionsFavoriteItemFavoriteCopyWith<
-          _$QuickActionsFavoriteItemFavorite>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$QuickActionsFavoriteItemDividerCopyWith<$Res> {
-  factory _$$QuickActionsFavoriteItemDividerCopyWith(
-          _$QuickActionsFavoriteItemDivider value,
-          $Res Function(_$QuickActionsFavoriteItemDivider) then) =
-      __$$QuickActionsFavoriteItemDividerCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$QuickActionsFavoriteItemDividerCopyWithImpl<$Res>
-    extends _$QuickActionsFavoriteItemCopyWithImpl<$Res,
-        _$QuickActionsFavoriteItemDivider>
-    implements _$$QuickActionsFavoriteItemDividerCopyWith<$Res> {
-  __$$QuickActionsFavoriteItemDividerCopyWithImpl(
-      _$QuickActionsFavoriteItemDivider _value,
-      $Res Function(_$QuickActionsFavoriteItemDivider) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$QuickActionsFavoriteItemDivider
-    implements QuickActionsFavoriteItemDivider {
-  const _$QuickActionsFavoriteItemDivider({final String? $type})
-      : $type = $type ?? 'divider';
-
-  factory _$QuickActionsFavoriteItemDivider.fromJson(
-          Map<String, dynamic> json) =>
-      _$$QuickActionsFavoriteItemDividerFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'QuickActionsFavoriteItem.divider()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$QuickActionsFavoriteItemDivider);
+            other is _$_FavoriteUnionStationTabsCurrentLocation);
   }
 
   @JsonKey(ignore: true)
@@ -1520,8 +1249,400 @@ class _$QuickActionsFavoriteItemDivider
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Favorite favorite, bool present, int index)
-        favorite,
+    required TResult Function(FavoriteStop stop, int id) stop,
+    required TResult Function(LocalRoute route, int id) route,
+    required TResult Function() stationTabsCurrentLocation,
+  }) {
+    return stationTabsCurrentLocation();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(FavoriteStop stop, int id)? stop,
+    TResult? Function(LocalRoute route, int id)? route,
+    TResult? Function()? stationTabsCurrentLocation,
+  }) {
+    return stationTabsCurrentLocation?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(FavoriteStop stop, int id)? stop,
+    TResult Function(LocalRoute route, int id)? route,
+    TResult Function()? stationTabsCurrentLocation,
+    required TResult orElse(),
+  }) {
+    if (stationTabsCurrentLocation != null) {
+      return stationTabsCurrentLocation();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FavoriteUnionStop value) stop,
+    required TResult Function(_FavoriteUnionRoute value) route,
+    required TResult Function(_FavoriteUnionStationTabsCurrentLocation value)
+        stationTabsCurrentLocation,
+  }) {
+    return stationTabsCurrentLocation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FavoriteUnionStop value)? stop,
+    TResult? Function(_FavoriteUnionRoute value)? route,
+    TResult? Function(_FavoriteUnionStationTabsCurrentLocation value)?
+        stationTabsCurrentLocation,
+  }) {
+    return stationTabsCurrentLocation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FavoriteUnionStop value)? stop,
+    TResult Function(_FavoriteUnionRoute value)? route,
+    TResult Function(_FavoriteUnionStationTabsCurrentLocation value)?
+        stationTabsCurrentLocation,
+    required TResult orElse(),
+  }) {
+    if (stationTabsCurrentLocation != null) {
+      return stationTabsCurrentLocation(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_FavoriteUnionStationTabsCurrentLocationToJson(
+      this,
+    );
+  }
+}
+
+abstract class _FavoriteUnionStationTabsCurrentLocation
+    implements QuickActionsItem {
+  const factory _FavoriteUnionStationTabsCurrentLocation() =
+      _$_FavoriteUnionStationTabsCurrentLocation;
+
+  factory _FavoriteUnionStationTabsCurrentLocation.fromJson(
+          Map<String, dynamic> json) =
+      _$_FavoriteUnionStationTabsCurrentLocation.fromJson;
+}
+
+QuickActionsReorderableItem _$QuickActionsReorderableItemFromJson(
+    Map<String, dynamic> json) {
+  switch (json['runtimeType']) {
+    case 'item':
+      return QuickActionsFavoriteItem.fromJson(json);
+    case 'divider':
+      return QuickActionsFavoriteDivider.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(
+          json,
+          'runtimeType',
+          'QuickActionsReorderableItem',
+          'Invalid union type "${json['runtimeType']}"!');
+  }
+}
+
+/// @nodoc
+mixin _$QuickActionsReorderableItem {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QuickActionsItem item, bool present) item,
+    required TResult Function() divider,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(QuickActionsItem item, bool present)? item,
+    TResult? Function()? divider,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(QuickActionsItem item, bool present)? item,
+    TResult Function()? divider,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuickActionsFavoriteItem value) item,
+    required TResult Function(QuickActionsFavoriteDivider value) divider,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuickActionsFavoriteItem value)? item,
+    TResult? Function(QuickActionsFavoriteDivider value)? divider,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuickActionsFavoriteItem value)? item,
+    TResult Function(QuickActionsFavoriteDivider value)? divider,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $QuickActionsReorderableItemCopyWith<$Res> {
+  factory $QuickActionsReorderableItemCopyWith(
+          QuickActionsReorderableItem value,
+          $Res Function(QuickActionsReorderableItem) then) =
+      _$QuickActionsReorderableItemCopyWithImpl<$Res,
+          QuickActionsReorderableItem>;
+}
+
+/// @nodoc
+class _$QuickActionsReorderableItemCopyWithImpl<$Res,
+        $Val extends QuickActionsReorderableItem>
+    implements $QuickActionsReorderableItemCopyWith<$Res> {
+  _$QuickActionsReorderableItemCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$QuickActionsFavoriteItemCopyWith<$Res> {
+  factory _$$QuickActionsFavoriteItemCopyWith(_$QuickActionsFavoriteItem value,
+          $Res Function(_$QuickActionsFavoriteItem) then) =
+      __$$QuickActionsFavoriteItemCopyWithImpl<$Res>;
+  @useResult
+  $Res call({QuickActionsItem item, bool present});
+
+  $QuickActionsItemCopyWith<$Res> get item;
+}
+
+/// @nodoc
+class __$$QuickActionsFavoriteItemCopyWithImpl<$Res>
+    extends _$QuickActionsReorderableItemCopyWithImpl<$Res,
+        _$QuickActionsFavoriteItem>
+    implements _$$QuickActionsFavoriteItemCopyWith<$Res> {
+  __$$QuickActionsFavoriteItemCopyWithImpl(_$QuickActionsFavoriteItem _value,
+      $Res Function(_$QuickActionsFavoriteItem) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? item = null,
+    Object? present = null,
+  }) {
+    return _then(_$QuickActionsFavoriteItem(
+      null == item
+          ? _value.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as QuickActionsItem,
+      null == present
+          ? _value.present
+          : present // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $QuickActionsItemCopyWith<$Res> get item {
+    return $QuickActionsItemCopyWith<$Res>(_value.item, (value) {
+      return _then(_value.copyWith(item: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$QuickActionsFavoriteItem implements QuickActionsFavoriteItem {
+  const _$QuickActionsFavoriteItem(this.item, this.present,
+      {final String? $type})
+      : $type = $type ?? 'item';
+
+  factory _$QuickActionsFavoriteItem.fromJson(Map<String, dynamic> json) =>
+      _$$QuickActionsFavoriteItemFromJson(json);
+
+  @override
+  final QuickActionsItem item;
+  @override
+  final bool present;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'QuickActionsReorderableItem.item(item: $item, present: $present)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuickActionsFavoriteItem &&
+            (identical(other.item, item) || other.item == item) &&
+            (identical(other.present, present) || other.present == present));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, item, present);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$QuickActionsFavoriteItemCopyWith<_$QuickActionsFavoriteItem>
+      get copyWith =>
+          __$$QuickActionsFavoriteItemCopyWithImpl<_$QuickActionsFavoriteItem>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QuickActionsItem item, bool present) item,
+    required TResult Function() divider,
+  }) {
+    return item(this.item, present);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(QuickActionsItem item, bool present)? item,
+    TResult? Function()? divider,
+  }) {
+    return item?.call(this.item, present);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(QuickActionsItem item, bool present)? item,
+    TResult Function()? divider,
+    required TResult orElse(),
+  }) {
+    if (item != null) {
+      return item(this.item, present);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuickActionsFavoriteItem value) item,
+    required TResult Function(QuickActionsFavoriteDivider value) divider,
+  }) {
+    return item(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuickActionsFavoriteItem value)? item,
+    TResult? Function(QuickActionsFavoriteDivider value)? divider,
+  }) {
+    return item?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuickActionsFavoriteItem value)? item,
+    TResult Function(QuickActionsFavoriteDivider value)? divider,
+    required TResult orElse(),
+  }) {
+    if (item != null) {
+      return item(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$QuickActionsFavoriteItemToJson(
+      this,
+    );
+  }
+}
+
+abstract class QuickActionsFavoriteItem implements QuickActionsReorderableItem {
+  const factory QuickActionsFavoriteItem(
+          final QuickActionsItem item, final bool present) =
+      _$QuickActionsFavoriteItem;
+
+  factory QuickActionsFavoriteItem.fromJson(Map<String, dynamic> json) =
+      _$QuickActionsFavoriteItem.fromJson;
+
+  QuickActionsItem get item;
+  bool get present;
+  @JsonKey(ignore: true)
+  _$$QuickActionsFavoriteItemCopyWith<_$QuickActionsFavoriteItem>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$QuickActionsFavoriteDividerCopyWith<$Res> {
+  factory _$$QuickActionsFavoriteDividerCopyWith(
+          _$QuickActionsFavoriteDivider value,
+          $Res Function(_$QuickActionsFavoriteDivider) then) =
+      __$$QuickActionsFavoriteDividerCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$QuickActionsFavoriteDividerCopyWithImpl<$Res>
+    extends _$QuickActionsReorderableItemCopyWithImpl<$Res,
+        _$QuickActionsFavoriteDivider>
+    implements _$$QuickActionsFavoriteDividerCopyWith<$Res> {
+  __$$QuickActionsFavoriteDividerCopyWithImpl(
+      _$QuickActionsFavoriteDivider _value,
+      $Res Function(_$QuickActionsFavoriteDivider) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$QuickActionsFavoriteDivider implements QuickActionsFavoriteDivider {
+  const _$QuickActionsFavoriteDivider({final String? $type})
+      : $type = $type ?? 'divider';
+
+  factory _$QuickActionsFavoriteDivider.fromJson(Map<String, dynamic> json) =>
+      _$$QuickActionsFavoriteDividerFromJson(json);
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'QuickActionsReorderableItem.divider()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuickActionsFavoriteDivider);
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QuickActionsItem item, bool present) item,
     required TResult Function() divider,
   }) {
     return divider();
@@ -1530,7 +1651,7 @@ class _$QuickActionsFavoriteItemDivider
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Favorite favorite, bool present, int index)? favorite,
+    TResult? Function(QuickActionsItem item, bool present)? item,
     TResult? Function()? divider,
   }) {
     return divider?.call();
@@ -1539,7 +1660,7 @@ class _$QuickActionsFavoriteItemDivider
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Favorite favorite, bool present, int index)? favorite,
+    TResult Function(QuickActionsItem item, bool present)? item,
     TResult Function()? divider,
     required TResult orElse(),
   }) {
@@ -1552,8 +1673,8 @@ class _$QuickActionsFavoriteItemDivider
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(QuickActionsFavoriteItemFavorite value) favorite,
-    required TResult Function(QuickActionsFavoriteItemDivider value) divider,
+    required TResult Function(QuickActionsFavoriteItem value) item,
+    required TResult Function(QuickActionsFavoriteDivider value) divider,
   }) {
     return divider(this);
   }
@@ -1561,8 +1682,8 @@ class _$QuickActionsFavoriteItemDivider
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(QuickActionsFavoriteItemFavorite value)? favorite,
-    TResult? Function(QuickActionsFavoriteItemDivider value)? divider,
+    TResult? Function(QuickActionsFavoriteItem value)? item,
+    TResult? Function(QuickActionsFavoriteDivider value)? divider,
   }) {
     return divider?.call(this);
   }
@@ -1570,8 +1691,8 @@ class _$QuickActionsFavoriteItemDivider
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(QuickActionsFavoriteItemFavorite value)? favorite,
-    TResult Function(QuickActionsFavoriteItemDivider value)? divider,
+    TResult Function(QuickActionsFavoriteItem value)? item,
+    TResult Function(QuickActionsFavoriteDivider value)? divider,
     required TResult orElse(),
   }) {
     if (divider != null) {
@@ -1582,17 +1703,16 @@ class _$QuickActionsFavoriteItemDivider
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$QuickActionsFavoriteItemDividerToJson(
+    return _$$QuickActionsFavoriteDividerToJson(
       this,
     );
   }
 }
 
-abstract class QuickActionsFavoriteItemDivider
-    implements QuickActionsFavoriteItem {
-  const factory QuickActionsFavoriteItemDivider() =
-      _$QuickActionsFavoriteItemDivider;
+abstract class QuickActionsFavoriteDivider
+    implements QuickActionsReorderableItem {
+  const factory QuickActionsFavoriteDivider() = _$QuickActionsFavoriteDivider;
 
-  factory QuickActionsFavoriteItemDivider.fromJson(Map<String, dynamic> json) =
-      _$QuickActionsFavoriteItemDivider.fromJson;
+  factory QuickActionsFavoriteDivider.fromJson(Map<String, dynamic> json) =
+      _$QuickActionsFavoriteDivider.fromJson;
 }
