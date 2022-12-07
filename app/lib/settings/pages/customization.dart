@@ -5,9 +5,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:swift_travel/constants/env.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/in_app_purchase.dart';
+import 'package:swift_travel/logic/quick_actions.dart';
+import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/settings/pages/in_app_purchases.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
@@ -44,9 +48,27 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
           brightness: Brightness.dark,
           title: Text(AppLocalizations.of(context).brightness_dark),
         ),
-        const _FontChoiceTile(isLast: !Env.isDebugMode),
+        const _FontChoiceTile(),
         if (Env.isDebugMode) const _PlatformTile(),
+        const _QuickActionsEditionTile()
       ],
+    );
+  }
+}
+
+class _QuickActionsEditionTile extends StatelessWidget {
+  const _QuickActionsEditionTile();
+
+  @override
+  Widget build(BuildContext context) {
+    return SwiftSettingsTile(
+      title: Text(AppLocalizations.of(context).quick_actions),
+      leading: const Icon(Icons.touch_app),
+      onTap: () async => Navigator.of(context).push<void>(
+        MaterialPageRoute(
+          builder: (context) => const QuickActionsEditionPage(),
+        ),
+      ),
     );
   }
 }
@@ -60,7 +82,7 @@ class _PlatformTile extends StatelessWidget {
     final p = defaultTargetPlatform;
     return SwiftSettingsPropertyTile<TargetPlatform>(
       leading: const Icon(Icons.phone_android),
-      tileBorders: const TileBorders(bottom: true),
+      tileBorders: TileBorders.none,
       property: SyncProperty<TargetPlatform>(
         onSet: (p) => unawaited(theme.setPlatform(p)),
         initialValue: theme.platform,
@@ -122,9 +144,7 @@ class _ThemeTile extends StatelessWidget {
 }
 
 class _FontChoiceTile extends ConsumerWidget {
-  const _FontChoiceTile({required this.isLast});
-
-  final bool isLast;
+  const _FontChoiceTile();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -146,7 +166,7 @@ class _FontChoiceTile extends ConsumerWidget {
     return SwiftSettingsPropertyTile<Font>(
       leading: const Icon(Icons.font_download),
       // ignore: use_named_constants
-      tileBorders: TileBorders(bottom: isLast),
+      tileBorders: const TileBorders(),
       title: Text(AppLocalizations.of(context).font),
       options: options,
       property: SyncProperty<Font>(
@@ -328,3 +348,99 @@ class _ThememodeWidget extends StatelessWidget {
     );
   }
 } */
+
+class QuickActionsEditionPage extends ConsumerStatefulWidget {
+  const QuickActionsEditionPage({super.key});
+
+  @override
+  _QuickActionsEditionPageState createState() =>
+      _QuickActionsEditionPageState();
+}
+
+class _QuickActionsEditionPageState
+    extends ConsumerState<QuickActionsEditionPage> {
+  final quickActions = const QuickActions();
+
+  late BaseFavoritesStore store;
+  List<Favorite> favs = [];
+  final dismissed = <Favorite>[];
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    store = ref.watch(favoritesStoreProvider);
+    favs = [
+      ...store.routes.map(Favorite.fromRouteWithId),
+      ...store.stops.map(Favorite.fromStopWithId),
+    ];
+    dismissed.clear();
+  }
+
+  // we want to be to reorder the list, as well as choose which favorites to display in the quick actions
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Quick actions'),
+      ),
+      body: Column(
+        children: [
+          // explanation
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              'You can reorder the quick actions by dragging them up or down. You can also remove them by swiping them to the left.',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+          ReorderableListView(
+            shrinkWrap: true,
+            onReorder: (oldIndex, newIndex) {
+              final old = favs[oldIndex];
+              setState(() {
+                favs.removeAt(oldIndex);
+                // if we remove an item, we need to adjust the new index
+                // take in account if the new index is after the old index
+                if (newIndex > oldIndex) {
+                  newIndex--;
+                }
+                favs.insert(newIndex, old);
+              });
+              unawaited(QuickActionsManager.instance.setQuickActions(favs));
+            },
+            children: [
+              for (final fav in favs)
+                Dismissible(
+                  key: ValueKey(fav),
+                  onDismissed: (_) {
+                    setState(() {
+                      favs.remove(fav);
+                      dismissed.add(fav);
+                    });
+                    unawaited(
+                        QuickActionsManager.instance.setQuickActions(favs));
+                  },
+                  child: ListTile(
+                    leading: fav.map(
+                      stop: (_) => const Icon(Icons.place),
+                      route: (_) => const Icon(Icons.directions_bus),
+                    ),
+                    title: Text(fav.when(
+                      stop: (s, id) => s.name,
+                      route: (r, id) => r.displayName ?? r.toPrettyString(),
+                    )),
+                    subtitle: Text(fav.when(
+                      stop: (s, id) => s.stop,
+                      route: (r, id) => r.toPrettyString(),
+                    )),
+                    trailing: const Icon(Icons.drag_handle),
+                  ),
+                ),
+            ],
+          ),
+          // dismissed actions listview,
+        ],
+      ),
+    );
+  }
+}

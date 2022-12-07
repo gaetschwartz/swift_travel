@@ -178,10 +178,7 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
           sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
           return null;
         }),
-        TabIntent: TabAction((tab) {
-          //log.log('Changing tab to $tab');
-          ref.read(tabProvider).index = tab;
-        }),
+        TabIntent: TabAction(() => ref.read(tabProvider)),
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
           // log.log('Switching tab');
           final tabs = ref.read(tabProvider);

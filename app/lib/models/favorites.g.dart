@@ -88,3 +88,64 @@ Map<String, dynamic> _$$_FavoriteStopToJson(_$_FavoriteStop instance) {
   writeNotNull('id', instance.id);
   return val;
 }
+
+_$_FavoriteUnionStop _$$_FavoriteUnionStopFromJson(Map<String, dynamic> json) =>
+    _$_FavoriteUnionStop(
+      FavoriteStop.fromJson(json['stop'] as Map<String, dynamic>),
+      json['id'] as int,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$_FavoriteUnionStopToJson(
+        _$_FavoriteUnionStop instance) =>
+    <String, dynamic>{
+      'stop': instance.stop,
+      'id': instance.id,
+      'runtimeType': instance.$type,
+    };
+
+_$_FavoriteUnionRoute _$$_FavoriteUnionRouteFromJson(
+        Map<String, dynamic> json) =>
+    _$_FavoriteUnionRoute(
+      LocalRoute.fromJson(json['route'] as Map<String, dynamic>),
+      json['id'] as int,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$_FavoriteUnionRouteToJson(
+        _$_FavoriteUnionRoute instance) =>
+    <String, dynamic>{
+      'route': instance.route,
+      'id': instance.id,
+      'runtimeType': instance.$type,
+    };
+
+_$QuickActionsFavoriteItemFavorite _$$QuickActionsFavoriteItemFavoriteFromJson(
+        Map<String, dynamic> json) =>
+    _$QuickActionsFavoriteItemFavorite(
+      Favorite.fromJson(json['favorite'] as Map<String, dynamic>),
+      present: json['present'] as bool? ?? true,
+      index: json['index'] as int,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$QuickActionsFavoriteItemFavoriteToJson(
+        _$QuickActionsFavoriteItemFavorite instance) =>
+    <String, dynamic>{
+      'favorite': instance.favorite,
+      'present': instance.present,
+      'index': instance.index,
+      'runtimeType': instance.$type,
+    };
+
+_$QuickActionsFavoriteItemDivider _$$QuickActionsFavoriteItemDividerFromJson(
+        Map<String, dynamic> json) =>
+    _$QuickActionsFavoriteItemDivider(
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$QuickActionsFavoriteItemDividerToJson(
+        _$QuickActionsFavoriteItemDivider instance) =>
+    <String, dynamic>{
+      'runtimeType': instance.$type,
+    };

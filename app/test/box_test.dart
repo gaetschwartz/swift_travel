@@ -3,7 +3,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
-import 'package:swift_travel/db/store.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/models/favorites.dart';
 
 void main() {

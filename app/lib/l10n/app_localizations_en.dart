@@ -278,4 +278,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contacts_rationale => 'The app needs access to your contacts to suggest some of your contacts\' addresses. This is optional but recommended for a better experience ☺️.';
+
+  @override
+  String get quick_actions => 'Quick actions';
 }

@@ -9,11 +9,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/db/db.dart';
-import 'package:swift_travel/logic/quick_actions.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/states/favorites_routes_states.dart';
 import 'package:swift_travel/states/favorites_states.dart';
-import 'package:theming/responsive.dart';
 
 abstract class BaseFavoritesStore extends ChangeNotifier {
   Future<void> init({bool doNotify = true});
@@ -42,14 +40,14 @@ class HiveFavoritesStore extends BaseFavoritesStore {
   @override
   Future<DataWithId<LocalRoute>> addRoute(LocalRoute route) async {
     final id = await favRoutesDb.add(route);
-    notify();
+    notifyListeners();
     return DataWithId(id, route);
   }
 
   @override
   Future<DataWithId<FavoriteStop>> addStop(FavoriteStop stop) async {
     final id = await favStopsDb.add(stop);
-    notify();
+    notifyListeners();
     return DataWithId(id, stop);
   }
 
@@ -57,19 +55,19 @@ class HiveFavoritesStore extends BaseFavoritesStore {
   Future<void> init({bool doNotify = true}) async {
     await favRoutesDb.open();
     await favStopsDb.open();
-    notify();
+    notifyListeners();
   }
 
   @override
   Future<void> removeRoute(DataWithId<LocalRoute> route) async {
     await favRoutesDb.delete(route.id);
-    notify();
+    notifyListeners();
   }
 
   @override
   Future<void> removeStop(DataWithId<FavoriteStop> favoriteStop) async {
     await favStopsDb.delete(favoriteStop.id);
-    notify();
+    notifyListeners();
   }
 
   @override
@@ -77,14 +75,6 @@ class HiveFavoritesStore extends BaseFavoritesStore {
 
   @override
   Iterable<DataWithId<FavoriteStop>> get stops => favStopsDb.valuesWithIds;
-
-  void notify() {
-    notifyListeners();
-    unawaited(
-      QuickActionsManager.instance
-          .setActions(favRoutesDb.routes, favStopsDb.stops),
-    );
-  }
 
   @override
   Future<void> dispose() async {
@@ -130,6 +120,27 @@ class FavStopsDb extends LocalDatabase<int, Map<dynamic, dynamic>, FavoriteStop>
   static final i = FavStopsDb();
 
   List<FavoriteStop> get stops => values.toList(growable: false);
+
+  /// Do nothing.
+  @override
+  void onDatabaseExceededMaxSize() {}
+}
+
+class QuickActionsFavoriteItemsDb
+    extends LocalDatabase<int, Map<dynamic, dynamic>, Favorite>
+    with IndexedDatabaseWithIdMixin<Map<dynamic, dynamic>, Favorite> {
+  @visibleForTesting
+  QuickActionsFavoriteItemsDb()
+      : super(
+          boxKey: 'quick_actions_favorite_items',
+          maxSize: 3,
+          decode: (d) => Favorite.fromJson(d.cast<String, dynamic>()),
+          encode: (d) => d.toJson(),
+        );
+
+  static final i = QuickActionsFavoriteItemsDb();
+
+  List<Favorite> get items => values.toList(growable: false);
 
   /// Do nothing.
   @override
@@ -256,11 +267,6 @@ class FavoritesSharedPreferencesStore extends BaseFavoritesStore {
         _routes.map((e) => jsonEncode(e.toJson())).toList(growable: false);
 
     await _prefs.setStringList(routesKey, routes);
-
-    if (isMobile) {
-      await QuickActionsManager.instance.setActions(
-          _routes.toList(growable: false), _stops.toList(growable: false));
-    }
   }
 
   Future<void> editRoute(LocalRoute oldRoute, LocalRoute route) async {

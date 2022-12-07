@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
 import 'package:swift_travel/db/db.dart';
-import 'package:swift_travel/db/store.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';

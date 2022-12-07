@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/preferences.dart';
-import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -49,9 +49,14 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
       cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(
-          trailing: IconButton(
-            icon: const Icon(CupertinoIcons.add),
+          trailing: CupertinoButton(
+            padding: EdgeInsets.zero,
             onPressed: addFav,
+            child: Icon(
+              CupertinoIcons.add,
+              color: CupertinoTheme.of(context).primaryColor,
+              size: 32,
+            ),
           ),
           middle: Text(AppLocalizations.of(context).tabs_favourites),
         ),
@@ -78,45 +83,72 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
         final stops = store.stops.toList(growable: false);
         final routes = store.routes.toList(growable: false);
 
-        return stops.isEmpty && routes.isEmpty
-            ? SizedBox.expand(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      '⭐',
-                      style: TextStyle(fontSize: 64),
-                    ),
-                    const Gap(32),
-                    Text(
-                      AppLocalizations.of(context).no_favorites,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.center,
-                    ),
-                    const Gap(8),
-                    Text(
-                      AppLocalizations.of(context).how_to_add_favorite,
-                      style: Theme.of(context).textTheme.titleMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+        if (stops.isEmpty && routes.isEmpty) {
+          return SizedBox.expand(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '⭐',
+                  style: TextStyle(fontSize: 64),
                 ),
-              )
-            : ListView.builder(
-                itemCount: stops.length + routes.length,
-                itemBuilder: (context, i) => IfWrapper(
-                  condition: d == PlatformDesign.cupertino,
-                  builder: (context, child) => Column(
-                    children: [
-                      const Divider(height: 0),
-                      child!,
-                    ],
+                const Gap(32),
+                Text(
+                  AppLocalizations.of(context).no_favorites,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.center,
+                ),
+                const Gap(8),
+                Text(
+                  AppLocalizations.of(context).how_to_add_favorite,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          );
+        } else {
+          // return ListView.builder(
+          //       itemCount: stops.length + routes.length,
+          //       itemBuilder: (context, i) => IfWrapper(
+          //         condition: d == PlatformDesign.cupertino,
+          //         builder: (context, child) => Column(
+          //           children: [
+          //             const Divider(height: 0),
+          //             child!,
+          //           ],
+          //         ),
+          //         child: i < stops.length
+          //             ? FavoriteStationTile(stops[i])
+          //             : FavoriteRouteTile(routes[i - stops.length]),
+          //       ),
+          //     );
+          return CustomScrollView(
+            slivers: [
+              SliverSafeArea(
+                bottom: false,
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, i) => IfWrapper(
+                      condition: d == PlatformDesign.cupertino,
+                      builder: (context, child) => Column(
+                        children: [
+                          const Divider(height: 0),
+                          child!,
+                        ],
+                      ),
+                      child: i < stops.length
+                          ? FavoriteStationTile(stops[i])
+                          : FavoriteRouteTile(routes[i - stops.length]),
+                    ),
+                    childCount: stops.length + routes.length,
                   ),
-                  child: i < stops.length
-                      ? FavoriteStationTile(stops[i])
-                      : FavoriteRouteTile(routes[i - stops.length]),
                 ),
-              );
+              ),
+              // tile to order
+            ],
+          );
+        }
       }),
     );
   }

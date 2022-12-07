@@ -84,5 +84,6 @@
 	"departure_abbr": "Part.",
 	"arrival_abbr": "Arr.",
 	"how_call_this_fav": "Inserire un nome per questo preferito",
-	"contacts_rationale": "L'applicazione ha bisogno di accedere ai vostri contatti per suggerirvi alcuni indirizzi. Si tratta di un'opzione facoltativa ma consigliata per una migliore esperienza ☺️."
+	"contacts_rationale": "L'applicazione ha bisogno di accedere ai vostri contatti per suggerirvi alcuni indirizzi. Si tratta di un'opzione facoltativa ma consigliata per una migliore esperienza ☺️.",
+	"quick_actions": "Azioni rapide"
 }

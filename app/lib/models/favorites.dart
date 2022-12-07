@@ -6,6 +6,7 @@ import 'package:swift_travel/apis/navigation/models/stationboard.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/base.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
+import 'package:swift_travel/db/db.dart';
 
 part 'favorites.freezed.dart';
 part 'favorites.g.dart';
@@ -97,6 +98,9 @@ class LocalRoute with _$LocalRoute {
         v1: (v1) => v1.copyWith(from: v1.to, to: v1.from),
         v2: (v2) => v2.copyWith(from: v2.to, to: v2.from),
       );
+
+  String toPrettyString([String separator = ' → ']) =>
+      '$fromAsString$separator$toAsString';
 }
 
 @freezed
@@ -126,4 +130,33 @@ class FavoriteStop with _$FavoriteStop, BaseStop, SbbDisplayNameMixin {
 
   factory FavoriteStop.fromJson(Map<String, dynamic> json) =>
       _$FavoriteStopFromJson(json);
+}
+
+@freezed
+class Favorite with _$Favorite {
+  const factory Favorite.stop(FavoriteStop stop, int id) = _FavoriteUnionStop;
+  const factory Favorite.route(LocalRoute route, int id) = _FavoriteUnionRoute;
+
+  factory Favorite.fromStopWithId(DataWithId<FavoriteStop> stop) =>
+      Favorite.stop(stop.data, stop.id);
+
+  factory Favorite.fromRouteWithId(DataWithId<LocalRoute> route) =>
+      Favorite.route(route.data, route.id);
+
+  factory Favorite.fromJson(Map<String, dynamic> json) =>
+      _$FavoriteFromJson(json);
+}
+
+@freezed
+class QuickActionsFavoriteItem with _$QuickActionsFavoriteItem {
+  const factory QuickActionsFavoriteItem.favorite(
+    Favorite favorite, {
+    @Default(true) bool present,
+    required int index,
+  }) = QuickActionsFavoriteItemFavorite;
+  const factory QuickActionsFavoriteItem.divider() =
+      QuickActionsFavoriteItemDivider;
+
+  factory QuickActionsFavoriteItem.fromJson(Map<String, dynamic> json) =>
+      _$QuickActionsFavoriteItemFromJson(json);
 }

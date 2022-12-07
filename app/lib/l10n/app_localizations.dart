@@ -607,6 +607,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The app needs access to your contacts to suggest some of your contacts\' addresses. This is optional but recommended for a better experience ☺️.'**
   String get contacts_rationale;
+
+  /// No description provided for @quick_actions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick actions'**
+  String get quick_actions;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
