@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -34,116 +35,79 @@ final favoritesRoutesStatesProvider = StateProvider<FavoritesRoutesStates>(
     (_) => const FavoritesRoutesStates.loading());
 
 class HiveFavoritesStore extends BaseFavoritesStore {
-  final favRoutesDb = FavRoutesDb();
-  final favStopsDb = FavStopsDb();
+  final favoritesDb = FavoritesDatabase();
 
   @override
   Future<DataWithId<LocalRoute>> addRoute(LocalRoute route) async {
-    final id = await favRoutesDb.add(route);
+    final id = newUuid();
+    await favoritesDb.put(id, QuickActionsItem.route(route, id: id));
     notifyListeners();
     return DataWithId(id, route);
   }
 
+  int newUuid() =>
+      DateTime.now().millisecondsSinceEpoch ^ Random().nextInt(1000);
+
   @override
   Future<DataWithId<FavoriteStop>> addStop(FavoriteStop stop) async {
-    final id = await favStopsDb.add(stop);
+    final id = newUuid();
+    await favoritesDb.put(id, QuickActionsItem.stop(stop, id: id));
     notifyListeners();
     return DataWithId(id, stop);
   }
 
   @override
   Future<void> init({bool doNotify = true}) async {
-    await favRoutesDb.open();
-    await favStopsDb.open();
+    await favoritesDb.open();
     notifyListeners();
   }
 
   @override
   Future<void> removeRoute(DataWithId<LocalRoute> route) async {
-    await favRoutesDb.delete(route.id);
+    await favoritesDb.delete(route.id);
     notifyListeners();
   }
 
   @override
   Future<void> removeStop(DataWithId<FavoriteStop> favoriteStop) async {
-    await favStopsDb.delete(favoriteStop.id);
+    await favoritesDb.delete(favoriteStop.id);
     notifyListeners();
   }
 
   @override
-  Iterable<DataWithId<LocalRoute>> get routes => favRoutesDb.valuesWithIds;
+  Iterable<DataWithId<LocalRoute>> get routes => favoritesDb.values
+      .whereType<FavoriteUnionRoute>()
+      .map((e) => DataWithId(e.id, e.route))
+      .toList(growable: false);
 
   @override
-  Iterable<DataWithId<FavoriteStop>> get stops => favStopsDb.valuesWithIds;
+  Iterable<DataWithId<FavoriteStop>> get stops => favoritesDb.values
+      .whereType<FavoriteUnionStop>()
+      .map((e) => DataWithId(e.id, e.stop))
+      .toList(growable: false);
 
   @override
   Future<void> dispose() async {
-    await favRoutesDb.close();
-    await favStopsDb.close();
+    await favoritesDb.close();
     super.dispose();
   }
 }
 
-class FavRoutesDb extends LocalDatabase<int, Map<dynamic, dynamic>, LocalRoute>
-    with IndexedDatabaseWithIdMixin<Map<dynamic, dynamic>, LocalRoute> {
-  @visibleForTesting
-  FavRoutesDb() : this._();
+class FavoritesDatabase
+    extends LocalDatabase<int, Map<dynamic, dynamic>, QuickActionsItem> {
+  FavoritesDatabase() : this._();
 
-  FavRoutesDb._()
+  FavoritesDatabase._()
       : super(
-          boxKey: 'favorite_routes',
+          boxKey: 'favorites',
           maxSize: 0,
-          decode: (d) => LocalRoute.fromJson(d.cast<String, dynamic>()),
+          decode: (d) => QuickActionsItem.fromJson(d.cast<String, dynamic>()),
           encode: (d) => d.toJson(),
         );
 
-  static final i = FavRoutesDb();
+  static final i = FavoritesDatabase();
 
-  List<LocalRoute> get routes => values.toList(growable: false);
-
-  /// Do nothing.
-  @override
-  void onDatabaseExceededMaxSize() {}
-}
-
-class FavStopsDb extends LocalDatabase<int, Map<dynamic, dynamic>, FavoriteStop>
-    with IndexedDatabaseWithIdMixin<Map<dynamic, dynamic>, FavoriteStop> {
-  @visibleForTesting
-  FavStopsDb()
-      : super(
-          boxKey: 'favorite_stops',
-          maxSize: 100,
-          decode: (d) => FavoriteStop.fromJson(d.cast<String, dynamic>()),
-          encode: (d) => d.toJson(),
-        );
-
-  static final i = FavStopsDb();
-
-  List<FavoriteStop> get stops => values.toList(growable: false);
-
-  /// Do nothing.
-  @override
-  void onDatabaseExceededMaxSize() {}
-}
-
-class QuickActionsFavoriteItemsDb extends LocalDatabase<int,
-        Map<dynamic, dynamic>, QuickActionsReorderableItem>
-    with
-        IndexedDatabaseWithIdMixin<Map<dynamic, dynamic>,
-            QuickActionsReorderableItem> {
-  @visibleForTesting
-  QuickActionsFavoriteItemsDb()
-      : super(
-          boxKey: 'quick_actions_favorite_items',
-          maxSize: 3,
-          decode: (d) =>
-              QuickActionsReorderableItem.fromJson(d.cast<String, dynamic>()),
-          encode: (d) => d.toJson(),
-        );
-
-  static final i = QuickActionsFavoriteItemsDb();
-
-  List<QuickActionsReorderableItem> get items => values.toList(growable: false);
+  List<QuickActionsItem> get items => values.toList(growable: false);
 
   /// Do nothing.
   @override

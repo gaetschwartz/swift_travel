@@ -183,7 +183,6 @@ void main() {
 }
 
 Future<void> openBoxes() async {
-  await FavRoutesDb.i.open();
-  await FavStopsDb.i.open();
+  await FavoritesDatabase.i.open();
   await RouteHistoryRepository.instance.open();
 }

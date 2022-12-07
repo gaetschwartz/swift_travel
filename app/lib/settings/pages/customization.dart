@@ -398,7 +398,7 @@ class _QuickActionsEditionPageState
                 }
                 items.insert(newIndex, old);
               });
-              unawaited(manager.setQuickActions(items));
+              // TODO: sync with the manager
             },
             children: [
               for (final item in items)
@@ -408,7 +408,7 @@ class _QuickActionsEditionPageState
                     setState(() {
                       items.remove(item);
                     });
-                    unawaited(manager.setQuickActions(items));
+                    // TODO: sync with the manager
                   },
                   child: item.map(
                     item: (favItem) => ListTile(
@@ -419,15 +419,16 @@ class _QuickActionsEditionPageState
                             const Icon(Icons.my_location),
                       ),
                       title: Text(favItem.item.when(
-                        stop: (s, id) => s.name,
-                        route: (r, id) => r.displayName ?? r.toPrettyString(),
-                        stationTabsCurrentLocation: () =>
+                        stop: (s, id, _) => s.name,
+                        route: (r, id, _) =>
+                            r.displayName ?? r.toPrettyString(),
+                        stationTabsCurrentLocation: (_) =>
                             AppLocalizations.of(context).current_location,
                       )),
                       subtitle: Text(favItem.item.when(
-                        stop: (s, id) => s.stop,
-                        route: (r, id) => r.toPrettyString(),
-                        stationTabsCurrentLocation: () => '',
+                        stop: (s, id, _) => s.stop,
+                        route: (r, id, _) => r.toPrettyString(),
+                        stationTabsCurrentLocation: (_) => '',
                       )),
                       trailing: const Icon(Icons.drag_handle),
                     ),

@@ -124,9 +124,10 @@ class FavoriteStop with _$FavoriteStop, BaseStop, SbbDisplayNameMixin {
     String? name,
   }) =>
       _FavoriteStop(
-          stop: completion.label,
-          name: name ?? completion.label,
-          api: api.value);
+        stop: completion.label,
+        name: name ?? completion.label,
+        api: api.value,
+      );
 
   factory FavoriteStop.fromJson(Map<String, dynamic> json) =>
       _$FavoriteStopFromJson(json);
@@ -134,27 +135,51 @@ class FavoriteStop with _$FavoriteStop, BaseStop, SbbDisplayNameMixin {
 
 @freezed
 class QuickActionsItem with _$QuickActionsItem {
-  const factory QuickActionsItem.stop(FavoriteStop stop, int id) =
-      _FavoriteUnionStop;
-  const factory QuickActionsItem.route(LocalRoute route, int id) =
-      _FavoriteUnionRoute;
-  const factory QuickActionsItem.stationTabsCurrentLocation() =
-      _FavoriteUnionStationTabsCurrentLocation;
+  const factory QuickActionsItem.stop(
+    FavoriteStop stop, {
+    required int id,
+    int? quickActionsIndex,
+  }) = FavoriteUnionStop;
 
-  factory QuickActionsItem.fromStopWithId(DataWithId<FavoriteStop> stop) =>
-      QuickActionsItem.stop(stop.data, stop.id);
+  const factory QuickActionsItem.route(
+    LocalRoute route, {
+    required int id,
+    int? quickActionsIndex,
+  }) = FavoriteUnionRoute;
 
-  factory QuickActionsItem.fromRouteWithId(DataWithId<LocalRoute> route) =>
-      QuickActionsItem.route(route.data, route.id);
+  const factory QuickActionsItem.stationTabsCurrentLocation({
+    int? quickActionsIndex,
+  }) = FavoriteUnionStationTabsCurrentLocation;
+
+  factory QuickActionsItem.fromStopWithId(DataWithId<FavoriteStop> stop,
+          {int? quickActionsIndex}) =>
+      QuickActionsItem.stop(
+        stop.data,
+        id: stop.id,
+        quickActionsIndex: quickActionsIndex,
+      );
+
+  factory QuickActionsItem.fromRouteWithId(DataWithId<LocalRoute> route,
+          {int? quickActionsIndex}) =>
+      QuickActionsItem.route(
+        route.data,
+        id: route.id,
+        quickActionsIndex: quickActionsIndex,
+      );
 
   factory QuickActionsItem.fromJson(Map<String, dynamic> json) =>
       _$QuickActionsItemFromJson(json);
+
+  const QuickActionsItem._();
+
+  bool get isStop => this is FavoriteUnionStop;
+  bool get isRoute => this is FavoriteUnionRoute;
 }
 
 @freezed
 class QuickActionsReorderableItem with _$QuickActionsReorderableItem {
-  const factory QuickActionsReorderableItem.item(
-      QuickActionsItem item, bool present) = QuickActionsFavoriteItem;
+  const factory QuickActionsReorderableItem.item(QuickActionsItem item) =
+      QuickActionsFavoriteItem;
   const factory QuickActionsReorderableItem.divider() =
       QuickActionsFavoriteDivider;
 

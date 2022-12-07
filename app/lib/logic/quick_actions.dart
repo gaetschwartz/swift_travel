@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
@@ -26,7 +27,7 @@ class QuickActionsManager
 
   QuickActionsManager() : super([]);
 
-  final QuickActionsFavoriteItemsDb db = QuickActionsFavoriteItemsDb.i;
+  final db = FavoritesDatabase();
 
   late final AppLocalizations appLocalizations;
 
@@ -43,7 +44,7 @@ class QuickActionsManager
     } on MissingPluginException {
       log.log('Unsupported for now on $platform');
     }
-    state = db.values.toList();
+    state = db.values.map(QuickActionsReorderableItem.item).toList();
   }
 
   static const favRouteId = 'froute';
@@ -58,62 +59,68 @@ class QuickActionsManager
 
     final actionId = shortcutType.substring(0, index);
 
+    final favsDb = FavoritesDatabase.i;
+    await favsDb.open();
     if (actionId == favRouteId) {
       log.log('Tapped route $shortcutType');
-      final favsDb = FavRoutesDb.i;
-      await favsDb.open();
 
       final id = int.parse(shortcutType.substring(index + 1));
-      final lr = favsDb.values.elementAt(id);
+      final route = favsDb.get(id);
 
-      unawaited(navigatorKey.currentState?.pushNamed('/route', arguments: lr));
+      unawaited(
+          navigatorKey.currentState?.pushNamed('/route', arguments: route));
     } else if (actionId == favStopId) {
       log.log('Tapped stop $shortcutType');
-      final stopsDB = FavStopsDb.i;
-      await stopsDB.open();
 
       final id = int.parse(shortcutType.substring(index + 1));
-      final f2 = stopsDB.values.elementAt(id);
+      final stop = favsDb.get(id);
 
-      unawaited(navigatorKey.currentState?.pushNamed('/route', arguments: f2));
+      unawaited(
+          navigatorKey.currentState?.pushNamed('/route', arguments: stop));
     } else {
-      log.log("Unknown shortcut '$shortcutType'");
+      log.log("Unknown shortcut type: '$shortcutType'");
     }
   }
 
-  Future<void> setQuickActions(List<QuickActionsReorderableItem> items) async {
-    state = items;
+  Future<void> setQuickActions(
+      List<QuickActionsReorderableItem> reoerderableItems) async {
+    state = reoerderableItems;
     if (!isMobile) {
       log.log('Actions not supported for now on $platform');
       return;
     }
 
     final shortcutItems = <ShortcutItem>[];
-    for (final item in items) {
-      item.when(
-        item: (fav, p) {
-          fav.when(stop: (stop, id) {
-            shortcutItems.add(ShortcutItem(
-              type: [favStopId, id].join(delimiter),
-              localizedTitle: stop.name,
-              icon: Platform.isIOS ? 'star' : 'ic_favorites_round',
-            ));
-          }, route: (route, id) {
-            shortcutItems.add(ShortcutItem(
-              type: [favRouteId, id].join(delimiter),
-              localizedTitle: route.displayName ?? route.toPrettyString(),
-              icon: Platform.isIOS ? 'route' : 'ic_route_round',
-            ));
-          }, stationTabsCurrentLocation: () {
-            shortcutItems.add(ShortcutItem(
-              type: currentLocationId,
-              localizedTitle: appLocalizations.current_location,
-            ));
-          });
+    final items = reoerderableItems
+        .whereType<QuickActionsFavoriteItem>()
+        .map((e) => e.item)
+        .where((e) => e.quickActionsIndex != null)
+        .sortedBy<num>((e) => e.quickActionsIndex!);
+    for (final fav in items) {
+      fav.when(
+        stop: (stop, id, _) {
+          shortcutItems.add(ShortcutItem(
+            type: [favStopId, id].join(delimiter),
+            localizedTitle: stop.name,
+            icon: Platform.isIOS ? 'star' : 'ic_favorites_round',
+          ));
         },
-        divider: () {},
+        route: (route, id, _) {
+          shortcutItems.add(ShortcutItem(
+            type: [favRouteId, id].join(delimiter),
+            localizedTitle: route.displayName ?? route.toPrettyString(),
+            icon: Platform.isIOS ? 'route' : 'ic_route_round',
+          ));
+        },
+        stationTabsCurrentLocation: (_) {
+          shortcutItems.add(ShortcutItem(
+            type: currentLocationId,
+            localizedTitle: appLocalizations.current_location,
+          ));
+        },
       );
     }
+
     try {
       await const QuickActions().setShortcutItems(shortcutItems);
     } on MissingPluginException {

@@ -89,47 +89,51 @@ Map<String, dynamic> _$$_FavoriteStopToJson(_$_FavoriteStop instance) {
   return val;
 }
 
-_$_FavoriteUnionStop _$$_FavoriteUnionStopFromJson(Map<String, dynamic> json) =>
-    _$_FavoriteUnionStop(
+_$FavoriteUnionStop _$$FavoriteUnionStopFromJson(Map<String, dynamic> json) =>
+    _$FavoriteUnionStop(
       FavoriteStop.fromJson(json['stop'] as Map<String, dynamic>),
-      json['id'] as int,
+      id: json['id'] as int,
+      quickActionsIndex: json['quickActionsIndex'] as int?,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$_FavoriteUnionStopToJson(
-        _$_FavoriteUnionStop instance) =>
+Map<String, dynamic> _$$FavoriteUnionStopToJson(_$FavoriteUnionStop instance) =>
     <String, dynamic>{
       'stop': instance.stop,
       'id': instance.id,
+      'quickActionsIndex': instance.quickActionsIndex,
       'runtimeType': instance.$type,
     };
 
-_$_FavoriteUnionRoute _$$_FavoriteUnionRouteFromJson(
-        Map<String, dynamic> json) =>
-    _$_FavoriteUnionRoute(
+_$FavoriteUnionRoute _$$FavoriteUnionRouteFromJson(Map<String, dynamic> json) =>
+    _$FavoriteUnionRoute(
       LocalRoute.fromJson(json['route'] as Map<String, dynamic>),
-      json['id'] as int,
+      id: json['id'] as int,
+      quickActionsIndex: json['quickActionsIndex'] as int?,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$_FavoriteUnionRouteToJson(
-        _$_FavoriteUnionRoute instance) =>
+Map<String, dynamic> _$$FavoriteUnionRouteToJson(
+        _$FavoriteUnionRoute instance) =>
     <String, dynamic>{
       'route': instance.route,
       'id': instance.id,
+      'quickActionsIndex': instance.quickActionsIndex,
       'runtimeType': instance.$type,
     };
 
-_$_FavoriteUnionStationTabsCurrentLocation
-    _$$_FavoriteUnionStationTabsCurrentLocationFromJson(
+_$FavoriteUnionStationTabsCurrentLocation
+    _$$FavoriteUnionStationTabsCurrentLocationFromJson(
             Map<String, dynamic> json) =>
-        _$_FavoriteUnionStationTabsCurrentLocation(
+        _$FavoriteUnionStationTabsCurrentLocation(
+          quickActionsIndex: json['quickActionsIndex'] as int?,
           $type: json['runtimeType'] as String?,
         );
 
-Map<String, dynamic> _$$_FavoriteUnionStationTabsCurrentLocationToJson(
-        _$_FavoriteUnionStationTabsCurrentLocation instance) =>
+Map<String, dynamic> _$$FavoriteUnionStationTabsCurrentLocationToJson(
+        _$FavoriteUnionStationTabsCurrentLocation instance) =>
     <String, dynamic>{
+      'quickActionsIndex': instance.quickActionsIndex,
       'runtimeType': instance.$type,
     };
 
@@ -137,7 +141,6 @@ _$QuickActionsFavoriteItem _$$QuickActionsFavoriteItemFromJson(
         Map<String, dynamic> json) =>
     _$QuickActionsFavoriteItem(
       QuickActionsItem.fromJson(json['item'] as Map<String, dynamic>),
-      json['present'] as bool,
       $type: json['runtimeType'] as String?,
     );
 
@@ -145,7 +148,6 @@ Map<String, dynamic> _$$QuickActionsFavoriteItemToJson(
         _$QuickActionsFavoriteItem instance) =>
     <String, dynamic>{
       'item': instance.item,
-      'present': instance.present,
       'runtimeType': instance.$type,
     };
 
