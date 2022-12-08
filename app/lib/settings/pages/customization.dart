@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:quick_actions/quick_actions.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
@@ -392,8 +391,6 @@ final _itemsProvider =
 
 class QuickActionsEditionPage extends ConsumerWidget {
   const QuickActionsEditionPage({super.key});
-
-  static const quickActions = QuickActions();
 
   // we want to be to reorder the list, as well as choose which favorites to display in the quick actions
   @override

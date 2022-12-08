@@ -47,16 +47,6 @@ import Flutter
         print("We have a new URL \(incomingURL)")
         return linkStreamHandler.handleLink(incomingURL.absoluteString)
     }
-    
-    
-    //quick_actions item click not work, should copy this method to AppDelegate.swift�
-    @available(iOS 9.0, *)
-    override func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        let controller = window.rootViewController as? FlutterViewController
-        
-        let channel = FlutterMethodChannel(name: "plugins.flutter.io/quick_actions", binaryMessenger: controller! as! FlutterBinaryMessenger)
-        channel.invokeMethod("launch", arguments: shortcutItem.type)
-    }
 }
 
 class LinkStreamHandler:NSObject, FlutterStreamHandler {

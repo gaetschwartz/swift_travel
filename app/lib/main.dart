@@ -261,8 +261,9 @@ class _ListenToLocaleChangeState extends ConsumerState<ListenToLocaleChange> {
 
 // ignore: long-method
 Route<void>? onGenerateRoute(RouteSettings settings) {
+  final log = Logger.of('onGenerateRoute');
   if (kDebugMode) {
-    Logger.of('onGenerateRoute').log('Routing to ${settings.name}');
+    log.log('Routing to ${settings.name}');
   }
 
   switch (settings.name) {
@@ -313,6 +314,9 @@ Route<void>? onGenerateRoute(RouteSettings settings) {
           settings: settings,
           builder: (_) => RoutePage.stop(settings.arguments! as FavoriteStop),
         );
+      } else if (settings.arguments is Object) {
+        log.e('Unknown route argument type ${settings.arguments.runtimeType}');
+        break;
       } else {
         return PlatformPageRoute(
           settings: settings,
