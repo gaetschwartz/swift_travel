@@ -281,4 +281,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quick_actions => 'Quick actions';
+
+  @override
+  String get quick_actions_instructions => 'You can reorder the quick actions by dragging them up or down. You can also remove them by swiping them to the left.';
+
+  @override
+  String get quick_actions_to_display => 'Items to display in quick actions';
+
+  @override
+  String get quick_actions_to_not_display => 'Items to hide in quick actions';
+
+  @override
+  String get quick_actions_nearby_stops => 'Nearby stops';
 }

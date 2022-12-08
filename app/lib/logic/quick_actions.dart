@@ -12,6 +12,7 @@ import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
+import 'package:swift_travel/tabs/stations/stations_tab.dart';
 import 'package:theming/responsive.dart';
 
 final quickActionsManagerProvider = Provider.autoDispose<QuickActionsManager>(
@@ -51,13 +52,13 @@ class QuickActionsManager {
 
   static const favRouteId = 'froute';
   static const favStopId = 'fstop';
-  static const currentLocationId = 'stationTabsCurrentLocation';
+  static const nearbyStopsId = 'nearby_stops';
   static const delimiter = ',';
 
   Future<void> _handler(String shortcutType) async {
     log.log('Tapped shortcut $shortcutType');
 
-    final index = shortcutType.indexOf(delimiter);
+    final index = shortcutType.indexOfOrNull(delimiter) ?? shortcutType.length;
 
     final actionId = shortcutType.substring(0, index);
 
@@ -79,8 +80,15 @@ class QuickActionsManager {
 
       unawaited(
           navigatorKey.currentState?.pushNamed('/route', arguments: stop));
+    } else if (actionId == nearbyStopsId) {
+      log.log('Tapped nearby stops $shortcutType');
+
+      unawaited(navigatorKey.currentState?.pushNamed(
+        '/stop',
+        arguments: StationsTabAction.useCurrentLocation,
+      ));
     } else {
-      log.log("Unknown shortcut type: '$shortcutType'");
+      log.log("Unknown shortcut type: '$actionId'");
     }
   }
 
@@ -113,8 +121,8 @@ class QuickActionsManager {
         },
         stationTabsCurrentLocation: (_, __) {
           shortcutItems.add(ShortcutItem(
-            type: currentLocationId,
-            localizedTitle: appLocalizations.current_location,
+            type: nearbyStopsId,
+            localizedTitle: appLocalizations.quick_actions_nearby_stops,
           ));
         },
       );
@@ -134,4 +142,11 @@ class QuickActionsManager {
 extension on ShortcutItem {
   String toDetailedString() =>
       'ShortcutItem(type: $type, localizedTitle: $localizedTitle, icon: $icon)';
+}
+
+extension on String {
+  int? indexOfOrNull(String other) {
+    final index = indexOf(other);
+    return index == -1 ? null : index;
+  }
 }

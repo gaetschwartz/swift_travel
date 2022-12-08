@@ -613,6 +613,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quick actions'**
   String get quick_actions;
+
+  /// No description provided for @quick_actions_instructions.
+  ///
+  /// In en, this message translates to:
+  /// **'You can reorder the quick actions by dragging them up or down. You can also remove them by swiping them to the left.'**
+  String get quick_actions_instructions;
+
+  /// No description provided for @quick_actions_to_display.
+  ///
+  /// In en, this message translates to:
+  /// **'Items to display in quick actions'**
+  String get quick_actions_to_display;
+
+  /// No description provided for @quick_actions_to_not_display.
+  ///
+  /// In en, this message translates to:
+  /// **'Items to hide in quick actions'**
+  String get quick_actions_to_not_display;
+
+  /// No description provided for @quick_actions_nearby_stops.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearby stops'**
+  String get quick_actions_nearby_stops;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

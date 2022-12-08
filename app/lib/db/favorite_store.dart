@@ -1,11 +1,12 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 
 import 'dart:async';
-import 'dart:math';
+import 'dart:convert';
+import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/models/favorites.dart';
 
@@ -15,6 +16,8 @@ final favoritesStoreProvider =
 class HiveFavoritesStore extends BaseFavoritesStore {
   final favoritesDb = FavoritesDatabase();
 
+  final log = Logger.of('HiveFavoritesStore');
+
   @override
   Future<DataWithId<LocalRoute>> addRoute(LocalRoute route) async {
     final id = newUuid();
@@ -23,8 +26,14 @@ class HiveFavoritesStore extends BaseFavoritesStore {
     return DataWithId(id, route);
   }
 
-  int newUuid() =>
-      DateTime.now().millisecondsSinceEpoch ^ Random().nextInt(1000);
+  final random = math.Random();
+
+  // must be always positive and in range [0xF,  0xFFFFFFFF]
+  int newUuid() {
+    final i = DateTime.now().millisecondsSinceEpoch ^
+        (random.nextInt(0xFFFFFFFF - 0xF) + 0xF);
+    return (i | 0xf) & 0xFFFFFFFF;
+  }
 
   @override
   Future<DataWithId<FavoriteStop>> addStop(FavoriteStop stop) async {
@@ -35,8 +44,8 @@ class HiveFavoritesStore extends BaseFavoritesStore {
   }
 
   @override
-  Future<void> init({bool doNotify = true}) async {
-    await favoritesDb.open();
+  Future<void> init() async {
+    await favoritesDb.open(doLog: true);
     notifyListeners();
   }
 
@@ -78,7 +87,7 @@ class HiveFavoritesStore extends BaseFavoritesStore {
 }
 
 abstract class BaseFavoritesStore extends ChangeNotifier {
-  Future<void> init({bool doNotify = true});
+  Future<void> init();
   Future<DataWithId<FavoriteStop>> addStop(FavoriteStop stop);
   Future<void> removeStop(DataWithId<FavoriteStop> favoriteStop);
   Future<DataWithId<LocalRoute>> addRoute(LocalRoute route);
@@ -97,16 +106,16 @@ abstract class BaseFavoritesStore extends ChangeNotifier {
   }
 }
 
-class FavoritesDatabase
-    extends LocalDatabase<int, Map<dynamic, dynamic>, QuickActionsItem> {
+class FavoritesDatabase extends LocalDatabase<int, String, QuickActionsItem> {
   FavoritesDatabase() : this._();
 
   FavoritesDatabase._()
       : super(
           boxKey: 'favorites',
           maxSize: 0,
-          decode: (d) => QuickActionsItem.fromJson(d.cast<String, dynamic>()),
-          encode: (d) => d.toJson(),
+          decode: (d) =>
+              QuickActionsItem.fromJson(jsonDecode(d) as Map<String, dynamic>),
+          encode: (d) => jsonEncode(d.toJson()),
         );
 
   static final i = FavoritesDatabase();

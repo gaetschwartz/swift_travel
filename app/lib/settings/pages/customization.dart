@@ -350,7 +350,8 @@ class _ThememodeWidget extends StatelessWidget {
   }
 } */
 
-final _itemsProvider = StateProvider<List<QuickActionsReorderableItem>>((ref) {
+final _itemsProvider =
+    StateProvider.autoDispose<List<QuickActionsReorderableItem>>((ref) {
   ref.listenSelf((previous, next) {
     final list = next
         .whereType<QuickActionsFavoriteItem>()
@@ -360,13 +361,32 @@ final _itemsProvider = StateProvider<List<QuickActionsReorderableItem>>((ref) {
     ref.read(favoritesStoreProvider).save(list);
   });
   final store = ref.watch(favoritesStoreProvider);
-  final list =
-      store.items.map(QuickActionsReorderableItem.item).toList(growable: false);
+  final list = store.items.map(QuickActionsReorderableItem.item).toList();
   // sort by quickActionsIndex
   list.sortBy<num>((e) => e.map(
         item: (e) => e.item.quickActionsIndex ?? double.infinity,
         divider: (_) => double.infinity - 1,
       ));
+  // find index of last item with quickActionsIndex != null
+  final lastItemIndex = list.lastIndexWhere((e) => e.map(
+        item: (e) => e.item.quickActionsIndex != null,
+        divider: (_) => false,
+      ));
+  // insert the divider after the last item with quickActionsIndex != null. if there is no such item, insert at the beginning
+  list.insert(lastItemIndex + 1, const QuickActionsReorderableItem.divider());
+
+  if (!list.any((e) => e.map(
+        item: (e) => e.item is FavoriteUnionStationTabsCurrentLocation,
+        divider: (_) => false,
+      ))) {
+    list.add(const QuickActionsReorderableItem.item(
+      FavoriteUnionStationTabsCurrentLocation(
+        quickActionsIndex: null,
+        id: QuickActionsItem.stationTabsCurrentLocationId,
+      ),
+    ));
+  }
+
   return list;
 });
 
@@ -381,7 +401,7 @@ class QuickActionsEditionPage extends ConsumerWidget {
     final items = ref.watch(_itemsProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quick actions'),
+        title: Text(AppLocalizations.of(context).quick_actions),
       ),
       body: Column(
         children: [
@@ -389,13 +409,17 @@ class QuickActionsEditionPage extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Text(
-              'You can reorder the quick actions by dragging them up or down. You can also remove them by swiping them to the left.',
+              AppLocalizations.of(context).quick_actions_instructions,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
+          const Divider(),
+          ListTile(
+              title:
+                  Text(AppLocalizations.of(context).quick_actions_to_display)),
           ReorderableListView(
             shrinkWrap: true,
-            onReorder: (oldIndex, newIndex) async {
+            onReorder: (oldIndex, newIndex) {
               final old = items[oldIndex];
 
               items.removeAt(oldIndex);
@@ -409,7 +433,8 @@ class QuickActionsEditionPage extends ConsumerWidget {
               // get index of the divider in the new list
               final dividerIndex =
                   items.indexWhere((e) => e is QuickActionsFavoriteDivider);
-              if (oldIndex > dividerIndex) {
+              assert(dividerIndex != -1, 'divider not found');
+              if (newIndex > dividerIndex) {
                 // if the moved item is after the divider, we need set the moved item's index to null
                 // so that it doesn't appear in the quick actions
                 items[newIndex] = items[newIndex].map(
@@ -422,26 +447,17 @@ class QuickActionsEditionPage extends ConsumerWidget {
                 // so that it appears in the quick actions
                 items[newIndex] = items[newIndex].map(
                   item: (e) => e.copyWith(
-                      item: e.item.copyWith(quickActionsIndex: dividerIndex)),
+                      item: e.item.copyWith(quickActionsIndex: newIndex)),
                   divider: (e) => e,
                 );
               }
               // update the state of the list
-              ref.read(_itemsProvider.notifier).state = items;
+              final list = List.of(items);
+              ref.read(_itemsProvider.notifier).state = list;
             },
             children: items.mapIndexed((index, item) {
-              return Dismissible(
+              return SizedBox(
                 key: ValueKey(item),
-                onDismissed: (_) async {
-                  // remove the item from quick actions by setting its index to null
-                  items[index] = items[index].map(
-                    item: (e) => e.copyWith(
-                        item: e.item.copyWith(quickActionsIndex: null)),
-                    divider: (e) => e,
-                  );
-                  // update the state of the list
-                  ref.read(_itemsProvider.notifier).state = items;
-                },
                 child: item.map(
                   item: (favItem) => ListTile(
                     leading: favItem.item.map(
@@ -454,16 +470,33 @@ class QuickActionsEditionPage extends ConsumerWidget {
                       stop: (s, id, _) => s.name,
                       route: (r, id, _) => r.displayName ?? r.toPrettyString(),
                       stationTabsCurrentLocation: (_, __) =>
-                          AppLocalizations.of(context).current_location,
+                          AppLocalizations.of(context)
+                              .quick_actions_nearby_stops,
                     )),
-                    subtitle: Text(favItem.item.when(
-                      stop: (s, id, _) => s.stop,
-                      route: (r, id, _) => r.toPrettyString(),
-                      stationTabsCurrentLocation: (_, __) => '',
-                    )),
-                    trailing: const Icon(Icons.drag_handle),
+                    subtitle: favItem.item.when(
+                      stop: (s, id, _) => Text(s.stop),
+                      route: (r, id, _) => Text(r.toPrettyString()),
+                      stationTabsCurrentLocation: (_, __) => null,
+                    ),
+                    trailing: ReorderableDragStartListener(
+                      index: index,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(shape: BoxShape.circle),
+                        child: const Icon(Icons.reorder),
+                      ),
+                    ),
                   ),
-                  divider: (_) => const Divider(),
+                  divider: (_) => ReorderableDragStartListener(
+                    index: index,
+                    enabled: false,
+                    child: ListTile(
+                      title: Text(
+                        AppLocalizations.of(context)
+                            .quick_actions_to_not_display,
+                      ),
+                    ),
+                  ),
                 ),
               );
             }).toList(),
@@ -472,24 +505,6 @@ class QuickActionsEditionPage extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  List<QuickActionsItem> computeList(List<QuickActionsReorderableItem> items) {
-    final newList = <QuickActionsItem>[];
-    bool hasMetDivider = false;
-    for (int i = 0; i < items.length; i++) {
-      items[i].when(item: (item) {
-        if (hasMetDivider) {
-          newList.add(item.copyWith(quickActionsIndex: null));
-        } else {
-          newList.add(item.copyWith(quickActionsIndex: i));
-        }
-      }, divider: () {
-        hasMetDivider = true;
-      });
-    }
-    // when quickActionsIndex is null, it means it's not in the quick actions
-    return newList;
   }
 }
 

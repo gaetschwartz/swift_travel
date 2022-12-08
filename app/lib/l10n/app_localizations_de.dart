@@ -281,4 +281,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get quick_actions => 'Schnelle Aktionen';
+
+  @override
+  String get quick_actions_instructions => 'Sie können die Schnellaktionen neu anordnen, indem Sie sie nach oben oder unten ziehen. Sie können sie auch entfernen, indem Sie sie nach links streichen.';
+
+  @override
+  String get quick_actions_to_display => 'Elemente, die in Schnellaktionen angezeigt werden sollen';
+
+  @override
+  String get quick_actions_to_not_display => 'Auszublendende Elemente in Schnellaktionen';
+
+  @override
+  String get quick_actions_nearby_stops => 'Nahe gelegene Haltestellen';
 }

@@ -25,13 +25,13 @@
       ]
     },
     {
-      "name": "Launch (first stop quick actions)",
+      "name": "Launch (nearby stops qa)",
       "request": "launch",
       "type": "dart",
       "program": "app/lib/main.dart",
       "args": [
         "--dart-define",
-        "QUICK_ACTIONS=fstop_0"
+        "QUICK_ACTIONS=stationTabsCurrentLocation"
       ]
     },
     {

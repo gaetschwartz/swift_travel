@@ -40,7 +40,7 @@ Map<String, dynamic> _$$_GeoAdminResultToJson(_$_GeoAdminResult instance) =>
     <String, dynamic>{
       'id': instance.intId,
       'weight': instance.weight,
-      'attrs': instance.attrs,
+      'attrs': instance.attrs.toJson(),
     };
 
 _$_GeoAdminAttributes _$$_GeoAdminAttributesFromJson(

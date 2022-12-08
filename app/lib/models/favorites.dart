@@ -152,6 +152,8 @@ class QuickActionsItem with _$QuickActionsItem {
     int? quickActionsIndex,
   }) = FavoriteUnionStationTabsCurrentLocation;
 
+  static const stationTabsCurrentLocationId = 0;
+
   factory QuickActionsItem.fromStopWithId(DataWithId<FavoriteStop> stop,
           {int? quickActionsIndex}) =>
       QuickActionsItem.stop(

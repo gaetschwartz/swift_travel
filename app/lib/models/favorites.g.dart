@@ -99,7 +99,7 @@ _$FavoriteUnionStop _$$FavoriteUnionStopFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$FavoriteUnionStopToJson(_$FavoriteUnionStop instance) =>
     <String, dynamic>{
-      'stop': instance.stop,
+      'stop': instance.stop.toJson(),
       'id': instance.id,
       'quickActionsIndex': instance.quickActionsIndex,
       'runtimeType': instance.$type,
@@ -116,7 +116,7 @@ _$FavoriteUnionRoute _$$FavoriteUnionRouteFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$FavoriteUnionRouteToJson(
         _$FavoriteUnionRoute instance) =>
     <String, dynamic>{
-      'route': instance.route,
+      'route': instance.route.toJson(),
       'id': instance.id,
       'quickActionsIndex': instance.quickActionsIndex,
       'runtimeType': instance.$type,
@@ -149,7 +149,7 @@ _$QuickActionsFavoriteItem _$$QuickActionsFavoriteItemFromJson(
 Map<String, dynamic> _$$QuickActionsFavoriteItemToJson(
         _$QuickActionsFavoriteItem instance) =>
     <String, dynamic>{
-      'item': instance.item,
+      'item': instance.item.toJson(),
       'runtimeType': instance.$type,
     };
 

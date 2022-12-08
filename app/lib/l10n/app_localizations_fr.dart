@@ -281,4 +281,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get quick_actions => 'Actions rapides';
+
+  @override
+  String get quick_actions_instructions => 'Vous pouvez réorganiser les actions rapides en les faisant glisser vers le haut ou vers le bas. Vous pouvez également les supprimer en les faisant glisser vers la gauche.';
+
+  @override
+  String get quick_actions_to_display => 'Éléments à afficher dans les actions rapides';
+
+  @override
+  String get quick_actions_to_not_display => 'Éléments à masquer dans les actions rapides';
+
+  @override
+  String get quick_actions_nearby_stops => 'Arrêts proches';
 }

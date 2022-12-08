@@ -7,9 +7,9 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
-import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/stop_input.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -156,57 +156,30 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
   Future<void> addFav() async {
     Vibration.instance.select();
 
-    final s = isThemeDarwin(context)
-        ? await showCupertinoModalBottomSheet<String>(
+    final completion = isThemeDarwin(context)
+        ? await showCupertinoModalBottomSheet<Completion>(
             context: context,
             builder: (context) =>
-                const StopInputDialog(title: 'Add a favorite'))
-        : await showMaterialModalBottomSheet<String>(
+                StopInputDialog(title: AppLocalizations.of(context).new_fav))
+        : await showMaterialModalBottomSheet<Completion>(
             context: context,
-            builder: (_) => const StopInputDialog(title: 'Add a favorite'),
+            builder: (_) =>
+                StopInputDialog(title: AppLocalizations.of(context).new_fav),
           );
 
-    if (s == null) return;
+    if (completion == null) return;
+    if (!mounted) return;
+
+    final name = await input(
+      context,
+      title: Text(AppLocalizations.of(context).how_call_this_fav),
+    );
+    if (name == null) return;
     if (!mounted) return;
 
     await load(context, future: () async {
-      final api = ref.read(navigationAPIProvider);
-      // ignore: prefer_final_locals
-      var completions = await api.complete(s, showIds: true);
-
-      // if (completions.isEmpty) {
-      //   log.log("Didn't find a station, will try using routes as a hack...");
-      //   final sbbRoute = await api.route(
-      //     s,
-      //     'Bern',
-      //     date: DateTime.now(),
-      //     time: TimeOfDay(hour:12),
-      //     timeType: SearchChMode.departure,
-      //   );
-      //   if (sbbRoute.connections.isNotEmpty) {
-      //     final from = sbbRoute.connections.first.from;
-      //     log.log('Found $from');
-      //     completions = await api.complete(from, showIds: true);
-      //     log.log(completions.toString());
-      //   }
-      // }
-
-      if (completions.isEmpty) {
-        log.log("Didn't find anything for string $s");
-        return;
-      }
-
-      if (!mounted) return;
-
-      final name = await input(
-        context,
-        title: Text(AppLocalizations.of(context).how_call_this_fav),
-      );
-      if (name == null) return;
-      if (!mounted) return;
-
       await store.addStop(FavoriteStop.fromCompletion(
-        completions.first,
+        completion,
         name: name,
         api: ref.read(preferencesProvider).api.value,
       ));
