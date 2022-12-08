@@ -134,10 +134,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_core
-      sha256: "904bd270364cf4dfaf3c58dc6939c4c7ad26e2877d820dc295ade2cd589d70f3"
+      sha256: "01962872df08437d9be593caeab8c700624c93b629f3d3d60f061612d6263666"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -150,10 +150,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_core_web
-      sha256: a2acf43001a7fcd2997ce6b487b17666077be507d885c9941dd870a16aef3040
+      sha256: b2917618cbe75196261621d676a992e05215ce6a70daca5f655794d5a008d369
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   flex_color_scheme:
     dependency: transitive
     description:
@@ -174,10 +174,10 @@ packages:
     dependency: transitive
     description:
       name: fluentui_system_icons
-      sha256: "8e0385df20b9341801c596dbc415c080c7bb95b0d14fd33e5512cd1868de81a2"
+      sha256: b4948440b5761323a04db093c0f2c44f6d917221b4cc9ec362df1286e511acef
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.188"
+    version: "1.1.189"
   flutter:
     dependency: "direct main"
     description: flutter

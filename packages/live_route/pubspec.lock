@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "3444216bfd127af50bbe4862d8843ed44db946dd933554f0d7285e89f10e28ac"
+      sha256: "8c7478991c7bbde2c1e18034ac697723176a5d3e7e0ca06c7f9aed69b6f388d7"
       url: "https://pub.dev"
     source: hosted
-    version: "50.0.0"
+    version: "51.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "68796c31f510c8455a06fed75fc97d8e5ad04d324a830322ab3efc9feb6201c1"
+      sha256: "120fe7ce25377ba616bb210e7584983b163861f45d6ec446744d507e3943881b"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.0"
+    version: "5.3.1"
   android_intent_plus:
     dependency: transitive
     description:
@@ -246,10 +246,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_core
-      sha256: "904bd270364cf4dfaf3c58dc6939c4c7ad26e2877d820dc295ade2cd589d70f3"
+      sha256: "01962872df08437d9be593caeab8c700624c93b629f3d3d60f061612d6263666"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -262,10 +262,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_core_web
-      sha256: a2acf43001a7fcd2997ce6b487b17666077be507d885c9941dd870a16aef3040
+      sha256: b2917618cbe75196261621d676a992e05215ce6a70daca5f655794d5a008d369
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   fixnum:
     dependency: transitive
     description:
@@ -294,10 +294,10 @@ packages:
     dependency: transitive
     description:
       name: fluentui_system_icons
-      sha256: "8e0385df20b9341801c596dbc415c080c7bb95b0d14fd33e5512cd1868de81a2"
+      sha256: b4948440b5761323a04db093c0f2c44f6d917221b4cc9ec362df1286e511acef
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.188"
+    version: "1.1.189"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -354,10 +354,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "52c2e116cb2aab22bb580e4a8ec01959bcf8214965e2d2d57b213d46afc7e511"
+      sha256: e819441678f1679b719008ff2ff0ef045d66eed9f9ec81166ca0d9b02a187454
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   freezed_annotation:
     dependency: "direct main"
     description:
