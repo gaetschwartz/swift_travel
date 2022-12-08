@@ -18,6 +18,8 @@ typedef Create<T> = T Function(Ref ref);
 /// A factory that alllows to obtain an instance of a Navigation API
 /// including its details.
 class NavigationApiFactory<T extends BaseNavigationApi> {
+  static const factories = <NavigationApiFactory>[searchChApi, sncfFactory];
+
   const NavigationApiFactory(
     this.create, {
     required this.name,
@@ -36,15 +38,16 @@ class NavigationApiFactory<T extends BaseNavigationApi> {
 
   String get shortDesc => '$countryEmoji $shortName';
 
-  static const factories = <NavigationApiFactory>[searchChApi, sncfFactory];
-
   static NavigationApiFactory get defaultFactory => searchChApi;
 
-  static NavigationApiFactory<BaseNavigationApi> fromId(NavigationApiId id) =>
-      factories.firstWhere(
-        (f) => f.id.value == id.value,
-        orElse: () => defaultFactory,
-      );
+  static NavigationApiFactory<BaseNavigationApi> fromId(NavigationApiId id) {
+    // assert that every factory has a unique id
+    assert(
+      factories.length == factories.map((f) => f.id.value).toSet().length,
+      'Every factory must have a unique id',
+    );
+    return factories.firstWhere((f) => f.id.value == id.value);
+  }
 }
 
 @freezed

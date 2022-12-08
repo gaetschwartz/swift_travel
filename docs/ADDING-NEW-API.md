@@ -15,15 +15,17 @@
   3. Your folder structure should look like something like this: 
 
   ```bash
-  lib/
-    apis/
-      navigation/
-        models/
-        sncf/...
-        search.ch/...
-        your_api_name/ # Your api folder here
-          your_api_name.dart # File where you will put implement your class
-        navigation.dart
+  app/
+    lib/
+      apis/
+        navigation/
+          models/
+          france/
+          switzerland/
+          your_api_country_name/ # Your api folder here
+            your_api_country_name.dart # File where you will put implement your class
+            [other files if needed]
+          ...
   ```
 ## 2. Implementing your class
 
@@ -32,7 +34,7 @@ You need to implement two different things:
 - The api factory
 - The api class itself extending `BaseNavigationApi`
 
-Your `your_api_name.dart` should look like this:
+Your `your_api_country_name.dart` should look like this:
 
 ```dart
 final yourApiNameFactory = NavigationApiFactory(
@@ -41,6 +43,7 @@ final yourApiNameFactory = NavigationApiFactory(
   shortName: "<your api's short name>",
   countryEmoji: "<the api's country emoji>",
   countryName: "<your api's country name>",
+  id: NavigationApiId('<your api id, must be unique !!>'),
 );
 
 class YourApiNameApi extends BaseNavigationApi {
@@ -75,32 +78,30 @@ class YourApiRoute with NavRoute {
 ```
 
 ## 3. Add your api to the api factory
-1. Add your api name in the `NavigationApi` enum. It needs to of course be unique.
-2. Add your api factory in the `BaseNavigationApi.getFactory(api)` method's switch statement like so in `lib/apis/navigation/navigation.dart`.
+1. Add your api factory in the static `NavigationApiFactory.factories` field.
 
 It should look similar to this:
 
 ```dart
 
-enum NavigationApi { sbb, sncf, yourApi }
+class NavigationApiFactory<T extends BaseNavigationApi> {
+  static const factories = <NavigationApiFactory>[searchChApi, sncfFactory, yourApiNameFactory];
 
-abstract class BaseNavigationApi {
-  static NavigationApiFactory getFactory(NavigationApi api) {
-    switch (api) {
-      case NavigationApi.sncf:
-        return sncfFactory;
-      case NavigationApi.sbb:
-        return searchChApi;
-      case NavigationApi.yourApi:
-        return yourApiNameFactory;
-    }
-  }
+  const NavigationApiFactory(
+    this.create, {
+    required this.name,
+    required this.shortName,
+    required this.countryEmoji,
+    required this.countryName,
+    required this.id,
+  });
 
+  [...]
 ```
 
 ## 4. (Optional) Using API keys 
 
-**If you are using an API key, DO NOT COMMIT IT**
+**If you are using an API key, DO NOT COMMIT IT TO THE REPOSITORY.**
 
 Instead, add a new field in the freezed class at `lib/constants/config.dart` like so: 
 ```dart
@@ -121,6 +122,7 @@ flutter pub run build_runner build --delete-conflicting-outputs
 For more help on the `freezed` package, see [the package documentation](https://pub.dev/packages/freezed).
 
 Finally, make sure to specify in your Pull-Request the link or quick instructions on how to obtain a key for this api key.
+I will then add the key to the server's config file and the api will be able to use it.
 
 ## Complete example
 For a complete example, see the implementation of the `search.ch` api in [`lib/apis/navigation/switzerland/`](../lib/apis/navigation/switzerland/).
