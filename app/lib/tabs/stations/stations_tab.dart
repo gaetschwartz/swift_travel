@@ -31,8 +31,12 @@ final _loadingProvider = StateProvider((_) => false);
 
 enum _LoadingState { loading, idle, error }
 
+enum StationsTabAction { useCurrentLocation }
+
 class StationsTab extends StatefulWidget {
-  const StationsTab({super.key});
+  const StationsTab({super.key, this.action});
+
+  final StationsTabAction? action;
 
   @override
   _StationsTabState createState() => _StationsTabState();
@@ -43,7 +47,7 @@ class _StationsTabState extends State<StationsTab>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return const _StationsTabWidget();
+    return _StationsTabWidget(widget.action);
   }
 
   @override
@@ -51,7 +55,9 @@ class _StationsTabState extends State<StationsTab>
 }
 
 class _StationsTabWidget extends ConsumerStatefulWidget {
-  const _StationsTabWidget();
+  const _StationsTabWidget(this.action);
+
+  final StationsTabAction? action;
 
   @override
   _StationsTabWidgetState createState() => _StationsTabWidgetState();
@@ -67,6 +73,15 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
   void initState() {
     super.initState();
     focusNode.addListener(onFocusChanged);
+    switch (widget.action) {
+      case StationsTabAction.useCurrentLocation:
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          unawaited(_getLocation());
+        });
+        break;
+      case null:
+        break;
+    }
   }
 
   void onFocusChanged() {

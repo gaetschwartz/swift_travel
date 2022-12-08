@@ -136,5 +136,10 @@
 	"departure_abbr": "Dep.",
 	"arrival_abbr": "Arr.",
 	"how_call_this_fav": "Enter a name for this favourite",
-	"contacts_rationale": "The app needs access to your contacts to suggest some of your contacts' addresses. This is optional but recommended for a better experience ☺️."
+	"contacts_rationale": "The app needs access to your contacts to suggest some of your contacts' addresses. This is optional but recommended for a better experience ☺️.",
+	"quick_actions": "Quick actions",
+	"quick_actions_instructions": "You can reorder the quick actions by dragging them up or down. You can also remove them by swiping them to the left.",
+	"quick_actions_to_display": "Items to display in quick actions",
+	"quick_actions_to_not_display": "Items to hide in quick actions",
+	"quick_actions_nearby_stops": "Nearby stops"
 }

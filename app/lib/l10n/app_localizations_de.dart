@@ -278,4 +278,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get contacts_rationale => 'Die App benötigt Zugriff auf Ihre Kontakte, um einige Adressen Ihrer Kontakte vorzuschlagen. Dies ist optional, wird aber für ein besseres Erlebnis empfohlen ☺️.';
+
+  @override
+  String get quick_actions => 'Schnelle Aktionen';
+
+  @override
+  String get quick_actions_instructions => 'Sie können die Schnellaktionen neu anordnen, indem Sie sie nach oben oder unten ziehen. Sie können sie auch entfernen, indem Sie sie nach links streichen.';
+
+  @override
+  String get quick_actions_to_display => 'Elemente, die in Schnellaktionen angezeigt werden sollen';
+
+  @override
+  String get quick_actions_to_not_display => 'Auszublendende Elemente in Schnellaktionen';
+
+  @override
+  String get quick_actions_nearby_stops => 'Nahe gelegene Haltestellen';
 }

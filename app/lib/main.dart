@@ -21,6 +21,7 @@ import 'package:swift_travel/settings/settings.dart';
 import 'package:swift_travel/settings/team_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
 import 'package:swift_travel/tabs/routes/route_tab.dart';
+import 'package:swift_travel/tabs/stations/stations_tab.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/errors.dart';
@@ -178,10 +179,7 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
           sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
           return null;
         }),
-        TabIntent: TabAction((tab) {
-          //log.log('Changing tab to $tab');
-          ref.read(tabProvider).index = tab;
-        }),
+        TabIntent: TabAction(() => ref.read(tabProvider)),
         SwitchTabIntent: CallbackAction(onInvoke: (_) {
           // log.log('Switching tab');
           final tabs = ref.read(tabProvider);
@@ -337,6 +335,13 @@ Route<void>? onGenerateRoute(RouteSettings settings) {
         settings: settings,
         builder: (_) =>
             StopDetails(SbbStop(name: settings.arguments! as String)),
+      );
+    case '/stop':
+      return PlatformPageRoute(
+        settings: settings,
+        builder: (_) => Material(
+            child:
+                StationsTab(action: settings.arguments as StationsTabAction?)),
       );
 
     case '/error':

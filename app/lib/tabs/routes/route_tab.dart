@@ -12,8 +12,8 @@ import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
 import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/history.dart';
-import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/l10n/app_localizations_en.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -250,7 +250,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
                         onPressed: () async {
                           Vibration.instance.select();
 
-                          log.log(favorites.routes.toString());
+                          log.log('Adding route to favorites');
                           if (favorites.routes.any(
                             (lr) =>
                                 lr.data.fromAsString ==

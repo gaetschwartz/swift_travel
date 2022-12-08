@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 
 typedef DataConverter<R, S> = S Function(R data);
 
@@ -68,7 +67,11 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
       try {
         yield decode(v);
         // ignore: avoid_catches_without_on_clauses
-      } catch (_) {}
+      } catch (e, s) {
+        if (kDebugMode) {
+          debugPrintStack(stackTrace: s, label: 'Error decoding $v ($e)');
+        }
+      }
     }
   }
 
@@ -98,6 +101,16 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
 
     final map = encode(value);
     await box.put(sanitizeKey(key), map);
+  }
+
+  Future<void> putAll(Map<TKey, TValue> values) async {
+    if (box.length >= maxSize - values.length) {
+      await onDatabaseExceededMaxSize();
+    }
+
+    final map =
+        values.map((key, value) => MapEntry(sanitizeKey(key), encode(value)));
+    await box.putAll(map);
   }
 
   String _maxStringSize(String s) => s.length > 0xff ? s.substring(0, 0xff) : s;

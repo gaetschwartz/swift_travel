@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 final ctrl = Platform.isIOS || Platform.isMacOS
     ? LogicalKeyboardKey.meta
@@ -14,13 +14,13 @@ class TabIntent extends Intent {
 }
 
 class TabAction extends Action {
-  TabAction(this.changeTab);
+  TabAction(this.controller);
 
-  final void Function(int tab) changeTab;
+  final CupertinoTabController Function() controller;
 
   @override
   Object? invoke(covariant TabIntent intent) {
-    changeTab(intent.tab);
+    controller().index = intent.tab;
     return null;
   }
 }

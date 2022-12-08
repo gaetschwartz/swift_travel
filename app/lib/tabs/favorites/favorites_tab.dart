@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/preferences.dart';
-import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
-import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/stop_input.dart';
 import 'package:theming/dialogs/input_dialog.dart';
@@ -49,9 +49,14 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
       cupertinoBuilder: (context, child) => CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         navigationBar: SwiftCupertinoBar(
-          trailing: IconButton(
-            icon: const Icon(CupertinoIcons.add),
+          trailing: CupertinoButton(
+            padding: EdgeInsets.zero,
             onPressed: addFav,
+            child: Icon(
+              CupertinoIcons.add,
+              color: CupertinoTheme.of(context).primaryColor,
+              size: 32,
+            ),
           ),
           middle: Text(AppLocalizations.of(context).tabs_favourites),
         ),
@@ -78,45 +83,72 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
         final stops = store.stops.toList(growable: false);
         final routes = store.routes.toList(growable: false);
 
-        return stops.isEmpty && routes.isEmpty
-            ? SizedBox.expand(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      '⭐',
-                      style: TextStyle(fontSize: 64),
-                    ),
-                    const Gap(32),
-                    Text(
-                      AppLocalizations.of(context).no_favorites,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.center,
-                    ),
-                    const Gap(8),
-                    Text(
-                      AppLocalizations.of(context).how_to_add_favorite,
-                      style: Theme.of(context).textTheme.titleMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+        if (stops.isEmpty && routes.isEmpty) {
+          return SizedBox.expand(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '⭐',
+                  style: TextStyle(fontSize: 64),
                 ),
-              )
-            : ListView.builder(
-                itemCount: stops.length + routes.length,
-                itemBuilder: (context, i) => IfWrapper(
-                  condition: d == PlatformDesign.cupertino,
-                  builder: (context, child) => Column(
-                    children: [
-                      const Divider(height: 0),
-                      child!,
-                    ],
+                const Gap(32),
+                Text(
+                  AppLocalizations.of(context).no_favorites,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.center,
+                ),
+                const Gap(8),
+                Text(
+                  AppLocalizations.of(context).how_to_add_favorite,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          );
+        } else {
+          // return ListView.builder(
+          //       itemCount: stops.length + routes.length,
+          //       itemBuilder: (context, i) => IfWrapper(
+          //         condition: d == PlatformDesign.cupertino,
+          //         builder: (context, child) => Column(
+          //           children: [
+          //             const Divider(height: 0),
+          //             child!,
+          //           ],
+          //         ),
+          //         child: i < stops.length
+          //             ? FavoriteStationTile(stops[i])
+          //             : FavoriteRouteTile(routes[i - stops.length]),
+          //       ),
+          //     );
+          return CustomScrollView(
+            slivers: [
+              SliverSafeArea(
+                bottom: false,
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, i) => IfWrapper(
+                      condition: d == PlatformDesign.cupertino,
+                      builder: (context, child) => Column(
+                        children: [
+                          const Divider(height: 0),
+                          child!,
+                        ],
+                      ),
+                      child: i < stops.length
+                          ? FavoriteStationTile(stops[i])
+                          : FavoriteRouteTile(routes[i - stops.length]),
+                    ),
+                    childCount: stops.length + routes.length,
                   ),
-                  child: i < stops.length
-                      ? FavoriteStationTile(stops[i])
-                      : FavoriteRouteTile(routes[i - stops.length]),
                 ),
-              );
+              ),
+              // tile to order
+            ],
+          );
+        }
       }),
     );
   }
@@ -124,57 +156,30 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
   Future<void> addFav() async {
     Vibration.instance.select();
 
-    final s = isThemeDarwin(context)
-        ? await showCupertinoModalBottomSheet<String>(
+    final completion = isThemeDarwin(context)
+        ? await showCupertinoModalBottomSheet<Completion>(
             context: context,
             builder: (context) =>
-                const StopInputDialog(title: 'Add a favorite'))
-        : await showMaterialModalBottomSheet<String>(
+                StopInputDialog(title: AppLocalizations.of(context).new_fav))
+        : await showMaterialModalBottomSheet<Completion>(
             context: context,
-            builder: (_) => const StopInputDialog(title: 'Add a favorite'),
+            builder: (_) =>
+                StopInputDialog(title: AppLocalizations.of(context).new_fav),
           );
 
-    if (s == null) return;
+    if (completion == null) return;
+    if (!mounted) return;
+
+    final name = await input(
+      context,
+      title: Text(AppLocalizations.of(context).how_call_this_fav),
+    );
+    if (name == null) return;
     if (!mounted) return;
 
     await load(context, future: () async {
-      final api = ref.read(navigationAPIProvider);
-      // ignore: prefer_final_locals
-      var completions = await api.complete(s, showIds: true);
-
-      // if (completions.isEmpty) {
-      //   log.log("Didn't find a station, will try using routes as a hack...");
-      //   final sbbRoute = await api.route(
-      //     s,
-      //     'Bern',
-      //     date: DateTime.now(),
-      //     time: TimeOfDay(hour:12),
-      //     timeType: SearchChMode.departure,
-      //   );
-      //   if (sbbRoute.connections.isNotEmpty) {
-      //     final from = sbbRoute.connections.first.from;
-      //     log.log('Found $from');
-      //     completions = await api.complete(from, showIds: true);
-      //     log.log(completions.toString());
-      //   }
-      // }
-
-      if (completions.isEmpty) {
-        log.log("Didn't find anything for string $s");
-        return;
-      }
-
-      if (!mounted) return;
-
-      final name = await input(
-        context,
-        title: Text(AppLocalizations.of(context).how_call_this_fav),
-      );
-      if (name == null) return;
-      if (!mounted) return;
-
       await store.addStop(FavoriteStop.fromCompletion(
-        completions.first,
+        completion,
         name: name,
         api: ref.read(preferencesProvider).api.value,
       ));

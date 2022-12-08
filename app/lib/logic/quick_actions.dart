@@ -1,41 +1,49 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math' show min;
 
+import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:swift_travel/constants/env.dart';
-import 'package:swift_travel/db/store.dart';
+import 'package:swift_travel/db/favorite_store.dart';
+import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
-import 'package:swift_travel/prediction/models/models.dart';
+import 'package:swift_travel/tabs/stations/stations_tab.dart';
 import 'package:theming/responsive.dart';
 
+final quickActionsManagerProvider = Provider.autoDispose<QuickActionsManager>(
+  (ref) {
+    ref.keepAlive();
+    return QuickActionsManager();
+  },
+);
+
 class QuickActionsManager {
-  QuickActionsManager._();
-
-  static const maxFavoriteRoutes = 5;
-  static const maxFavoriteStops = 5;
-
-  static final instance = QuickActionsManager._();
-
-  bool _initialized = false;
-
   final log = Logger.of('QuickActionsManager');
-  static const quickActions = QuickActions();
 
-  Future<void> init() async {
+  late final AppLocalizations appLocalizations;
+
+  /// This code initializes the Quick Actions plugin and overrides the
+  /// Quick Actions with the value of Env.quickActionsOverride, if it is
+  /// not null. It then generates the list of reorderable items from the
+  /// Quick Actions database. It takes an [AppLocalizations] object as parameter
+  /// because it needs to use localized strings and obtaining an instance of
+  /// [AppLocalizations] requires a [BuildContext] which we don't have here.
+  Future<void> init(AppLocalizations appLocalizations) async {
     log.log('Initialize');
+    this.appLocalizations = appLocalizations;
     try {
-      await quickActions.initialize(_handler);
+      // Initialize the Quick Actions plugin.
+      await const QuickActions().initialize(_handler);
+
+      // For testing purposes, override the Quick Actions.
       if (Env.quickActionsOverride != null) {
-        log.log('Override quick actions with ${Env.quickActionsOverride}');
+        log.log('Overriding quick actions with ${Env.quickActionsOverride}');
         await _handler(Env.quickActionsOverride!);
-      }
-      _initialized = true;
-      if (_actions != null) {
-        await setActions(_actions!.first, _actions!.second);
       }
     } on MissingPluginException {
       log.log('Unsupported for now on $platform');
@@ -44,76 +52,101 @@ class QuickActionsManager {
 
   static const favRouteId = 'froute';
   static const favStopId = 'fstop';
+  static const nearbyStopsId = 'nearby_stops';
+  static const delimiter = ',';
 
   Future<void> _handler(String shortcutType) async {
     log.log('Tapped shortcut $shortcutType');
 
-    final index = shortcutType.indexOf('_');
+    final index = shortcutType.indexOfOrNull(delimiter) ?? shortcutType.length;
 
     final actionId = shortcutType.substring(0, index);
 
+    final favsDb = FavoritesDatabase.i;
+    await favsDb.open();
     if (actionId == favRouteId) {
       log.log('Tapped route $shortcutType');
-      final favsDb = FavRoutesDb.i;
-      await favsDb.open();
 
       final id = int.parse(shortcutType.substring(index + 1));
-      final lr = favsDb.values.elementAt(id);
+      final route = favsDb.get(id);
 
-      unawaited(navigatorKey.currentState?.pushNamed('/route', arguments: lr));
+      unawaited(
+          navigatorKey.currentState?.pushNamed('/route', arguments: route));
     } else if (actionId == favStopId) {
       log.log('Tapped stop $shortcutType');
-      final stopsDB = FavStopsDb.i;
-      await stopsDB.open();
 
       final id = int.parse(shortcutType.substring(index + 1));
-      final f2 = stopsDB.values.elementAt(id);
+      final stop = favsDb.get(id);
 
-      unawaited(navigatorKey.currentState?.pushNamed('/route', arguments: f2));
+      unawaited(
+          navigatorKey.currentState?.pushNamed('/route', arguments: stop));
+    } else if (actionId == nearbyStopsId) {
+      log.log('Tapped nearby stops $shortcutType');
+
+      unawaited(navigatorKey.currentState?.pushNamed(
+        '/stop',
+        arguments: StationsTabAction.useCurrentLocation,
+      ));
     } else {
-      log.log("Unknown shortcut '$shortcutType'");
+      log.log("Unknown shortcut type: '$actionId'");
     }
   }
 
-  Pair<List<LocalRoute>, List<FavoriteStop>>? _actions;
-
-  Future<void> setActions(
-    List<LocalRoute> routes,
-    List<FavoriteStop> stops,
-  ) async {
+  Future<void> setQuickActions(List<QuickActionsItem> quickActionsItems) async {
+    // update the database
     if (!isMobile) {
       log.log('Actions not supported for now on $platform');
       return;
     }
-    if (!_initialized) {
-      _actions = Pair(routes, stops);
-      return;
-    }
-    final shortcuts = <ShortcutItem>[];
 
-    log.log('Adding stops $stops');
-    for (var i = 0; i < min(maxFavoriteStops, stops.length); i++) {
-      final fav = stops[i];
-      shortcuts.add(ShortcutItem(
-        type: '${favStopId}_$i',
-        localizedTitle: fav.stop,
-        icon: Platform.isIOS ? 'star' : 'ic_favorites_round',
-      ));
+    final shortcutItems = <ShortcutItem>[];
+    final items = quickActionsItems
+        .where((e) => e.quickActionsIndex != null)
+        .sortedBy<num>((e) => e.quickActionsIndex!);
+    for (final fav in items) {
+      fav.when(
+        stop: (stop, id, _) {
+          shortcutItems.add(ShortcutItem(
+            type: [favStopId, id].join(delimiter),
+            localizedTitle: stop.name,
+            icon: Platform.isIOS ? 'star' : 'ic_favorites_round',
+          ));
+        },
+        route: (route, id, _) {
+          shortcutItems.add(ShortcutItem(
+            type: [favRouteId, id].join(delimiter),
+            localizedTitle: route.displayName ?? route.toPrettyString(),
+            icon: Platform.isIOS ? 'route' : 'ic_route_round',
+          ));
+        },
+        stationTabsCurrentLocation: (_, __) {
+          shortcutItems.add(ShortcutItem(
+            type: nearbyStopsId,
+            localizedTitle: appLocalizations.quick_actions_nearby_stops,
+          ));
+        },
+      );
     }
 
-    log.log('Adding routes $routes');
-    for (var i = 0; i < min(maxFavoriteRoutes, routes.length); i++) {
-      final route = routes[i];
-      shortcuts.add(ShortcutItem(
-        type: '${favRouteId}_$i',
-        localizedTitle: route.displayName ?? 'Unnamed route $i',
-        icon: Platform.isIOS ? 'route' : 'ic_route_round',
-      ));
-    }
+    log.i(
+        'Setting shortcut items: ${shortcutItems.map((e) => e.toDetailedString())}');
+
     try {
-      await quickActions.setShortcutItems(shortcuts);
+      await const QuickActions().setShortcutItems(shortcutItems);
     } on MissingPluginException {
       log.log('Quick actions currently unspported on $platform');
     }
+  }
+}
+
+extension on ShortcutItem {
+  String toDetailedString() =>
+      'ShortcutItem(type: $type, localizedTitle: $localizedTitle, icon: $icon)';
+}
+
+extension on String {
+  int? indexOfOrNull(String other) {
+    final index = indexOf(other);
+    return index == -1 ? null : index;
   }
 }

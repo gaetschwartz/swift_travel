@@ -17,9 +17,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/cache.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/db/preferences.dart';
-import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/in_app_purchase.dart';
 import 'package:swift_travel/logic/links.dart';
@@ -75,7 +75,9 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
     unawaited(route());
 
     if (isMobile) {
-      await QuickActionsManager.instance.init();
+      await ref
+          .read(quickActionsManagerProvider)
+          .init(AppLocalizations.of(context));
 
       await ref.read(linksProvider).init(
             onNewRoute: (p) => navigatorKey.currentState?.push(

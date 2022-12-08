@@ -13,8 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 import 'package:swift_travel/apis/navigation/france/france.dart';
 import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/preferences.dart';
-import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/models/favorites.dart';
 
 class FavsListener extends Mock {

@@ -350,10 +350,10 @@ packages:
     dependency: "direct main"
     description:
       name: fluentui_system_icons
-      sha256: "8e0385df20b9341801c596dbc415c080c7bb95b0d14fd33e5512cd1868de81a2"
+      sha256: b4948440b5761323a04db093c0f2c44f6d917221b4cc9ec362df1286e511acef
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.188"
+    version: "1.1.189"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -423,10 +423,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "52c2e116cb2aab22bb580e4a8ec01959bcf8214965e2d2d57b213d46afc7e511"
+      sha256: e819441678f1679b719008ff2ff0ef045d66eed9f9ec81166ca0d9b02a187454
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   freezed_annotation:
     dependency: "direct main"
     description:

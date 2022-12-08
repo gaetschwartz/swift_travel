@@ -16,8 +16,8 @@ import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
 import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
 import 'package:swift_travel/constants/env.dart';
 import 'package:swift_travel/db/db.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/history.dart';
-import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/models/favorites.dart';
@@ -414,6 +414,14 @@ class MockFavoriteStore implements BaseFavoritesStore {
   @override
   Iterable<DataWithId<FavoriteStop>> get stops =>
       stops_.map((e) => DataWithId(0, e));
+
+  @override
+  Iterable<QuickActionsItem> get items => throw UnimplementedError();
+
+  @override
+  Future<void> save(List<QuickActionsItem> list) {
+    throw UnimplementedError();
+  }
 }
 
 class MockRouteHistory implements RouteHistoryRepository {
@@ -530,6 +538,11 @@ class MockRouteHistory implements RouteHistoryRepository {
 
   @override
   int sanitizeKey(int key) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> putAll(Map<int, LocalRoute> values) {
     throw UnimplementedError();
   }
 }

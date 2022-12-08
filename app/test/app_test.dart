@@ -12,8 +12,8 @@ import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/route.dart';
 import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/history.dart';
-import 'package:swift_travel/db/store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/links.dart';
 import 'package:swift_travel/logic/navigation.dart';
@@ -183,7 +183,6 @@ void main() {
 }
 
 Future<void> openBoxes() async {
-  await FavRoutesDb.i.open();
-  await FavStopsDb.i.open();
+  await FavoritesDatabase.i.open();
   await RouteHistoryRepository.instance.open();
 }

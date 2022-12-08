@@ -99,7 +99,7 @@ class _StopInputDialogState extends ConsumerState<StopInputDialog> {
                   itemBuilder: (context, i) => RouteCompletionTile(
                     c[i],
                     onTap: () {
-                      Navigator.of(context).pop<String>(c[i].label);
+                      Navigator.of(context).pop<Completion>(c[i]);
                       node.unfocus();
                     },
                   ),
@@ -114,7 +114,9 @@ class _StopInputDialogState extends ConsumerState<StopInputDialog> {
     );
   }
 
-  void submit(String s) => Navigator.of(context).pop<String>(s);
+  void submit(String s) {
+    // TODO: implement submit
+  }
 }
 
 class RouteCompletionTile extends StatelessWidget {

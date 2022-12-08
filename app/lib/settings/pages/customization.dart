@@ -1,13 +1,18 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:swift_travel/constants/env.dart';
+import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/in_app_purchase.dart';
+import 'package:swift_travel/logic/quick_actions.dart';
+import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/settings/pages/in_app_purchases.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
@@ -44,9 +49,27 @@ class _CustomizationSettingsPageState extends State<CustomizationSettingsPage> {
           brightness: Brightness.dark,
           title: Text(AppLocalizations.of(context).brightness_dark),
         ),
-        const _FontChoiceTile(isLast: !Env.isDebugMode),
+        const _FontChoiceTile(),
         if (Env.isDebugMode) const _PlatformTile(),
+        const _QuickActionsEditionTile()
       ],
+    );
+  }
+}
+
+class _QuickActionsEditionTile extends StatelessWidget {
+  const _QuickActionsEditionTile();
+
+  @override
+  Widget build(BuildContext context) {
+    return SwiftSettingsTile(
+      title: Text(AppLocalizations.of(context).quick_actions),
+      leading: const Icon(Icons.touch_app),
+      onTap: () async => Navigator.of(context).push<void>(
+        MaterialPageRoute(
+          builder: (context) => const QuickActionsEditionPage(),
+        ),
+      ),
     );
   }
 }
@@ -60,7 +83,7 @@ class _PlatformTile extends StatelessWidget {
     final p = defaultTargetPlatform;
     return SwiftSettingsPropertyTile<TargetPlatform>(
       leading: const Icon(Icons.phone_android),
-      tileBorders: const TileBorders(bottom: true),
+      tileBorders: TileBorders.none,
       property: SyncProperty<TargetPlatform>(
         onSet: (p) => unawaited(theme.setPlatform(p)),
         initialValue: theme.platform,
@@ -122,9 +145,7 @@ class _ThemeTile extends StatelessWidget {
 }
 
 class _FontChoiceTile extends ConsumerWidget {
-  const _FontChoiceTile({required this.isLast});
-
-  final bool isLast;
+  const _FontChoiceTile();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -146,7 +167,7 @@ class _FontChoiceTile extends ConsumerWidget {
     return SwiftSettingsPropertyTile<Font>(
       leading: const Icon(Icons.font_download),
       // ignore: use_named_constants
-      tileBorders: TileBorders(bottom: isLast),
+      tileBorders: const TileBorders(),
       title: Text(AppLocalizations.of(context).font),
       options: options,
       property: SyncProperty<Font>(
@@ -328,3 +349,173 @@ class _ThememodeWidget extends StatelessWidget {
     );
   }
 } */
+
+final _itemsProvider =
+    StateProvider.autoDispose<List<QuickActionsReorderableItem>>((ref) {
+  ref.listenSelf((previous, next) {
+    final list = next
+        .whereType<QuickActionsFavoriteItem>()
+        .map((e) => e.item)
+        .toList(growable: false);
+    ref.read(quickActionsManagerProvider).setQuickActions(list);
+    ref.read(favoritesStoreProvider).save(list);
+  });
+  final store = ref.watch(favoritesStoreProvider);
+  final list = store.items.map(QuickActionsReorderableItem.item).toList();
+  // sort by quickActionsIndex
+  list.sortBy<num>((e) => e.map(
+        item: (e) => e.item.quickActionsIndex ?? double.infinity,
+        divider: (_) => double.infinity - 1,
+      ));
+  // find index of last item with quickActionsIndex != null
+  final lastItemIndex = list.lastIndexWhere((e) => e.map(
+        item: (e) => e.item.quickActionsIndex != null,
+        divider: (_) => false,
+      ));
+  // insert the divider after the last item with quickActionsIndex != null. if there is no such item, insert at the beginning
+  list.insert(lastItemIndex + 1, const QuickActionsReorderableItem.divider());
+
+  if (!list.any((e) => e.map(
+        item: (e) => e.item is FavoriteUnionStationTabsCurrentLocation,
+        divider: (_) => false,
+      ))) {
+    list.add(const QuickActionsReorderableItem.item(
+      FavoriteUnionStationTabsCurrentLocation(
+        quickActionsIndex: null,
+        id: QuickActionsItem.stationTabsCurrentLocationId,
+      ),
+    ));
+  }
+
+  return list;
+});
+
+class QuickActionsEditionPage extends ConsumerWidget {
+  const QuickActionsEditionPage({super.key});
+
+  static const quickActions = QuickActions();
+
+  // we want to be to reorder the list, as well as choose which favorites to display in the quick actions
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final items = ref.watch(_itemsProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).quick_actions),
+      ),
+      body: Column(
+        children: [
+          // explanation
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              AppLocalizations.of(context).quick_actions_instructions,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+          const Divider(),
+          ListTile(
+              title:
+                  Text(AppLocalizations.of(context).quick_actions_to_display)),
+          ReorderableListView(
+            shrinkWrap: true,
+            onReorder: (oldIndex, newIndex) {
+              final old = items[oldIndex];
+
+              items.removeAt(oldIndex);
+              // if we remove an item, we need to adjust the new index
+              // take in account if the new index is after the old index
+              if (newIndex > oldIndex) {
+                newIndex--;
+              }
+              items.insert(newIndex, old);
+
+              // get index of the divider in the new list
+              final dividerIndex =
+                  items.indexWhere((e) => e is QuickActionsFavoriteDivider);
+              assert(dividerIndex != -1, 'divider not found');
+              if (newIndex > dividerIndex) {
+                // if the moved item is after the divider, we need set the moved item's index to null
+                // so that it doesn't appear in the quick actions
+                items[newIndex] = items[newIndex].map(
+                  item: (e) => e.copyWith(
+                      item: e.item.copyWith(quickActionsIndex: null)),
+                  divider: (e) => e,
+                );
+              } else {
+                // otherwise, we need to set the index of the moved item to the index of the divider
+                // so that it appears in the quick actions
+                items[newIndex] = items[newIndex].map(
+                  item: (e) => e.copyWith(
+                      item: e.item.copyWith(quickActionsIndex: newIndex)),
+                  divider: (e) => e,
+                );
+              }
+              // update the state of the list
+              final list = List.of(items);
+              ref.read(_itemsProvider.notifier).state = list;
+            },
+            children: items.mapIndexed((index, item) {
+              return SizedBox(
+                key: ValueKey(item),
+                child: item.map(
+                  item: (favItem) => ListTile(
+                    leading: favItem.item.map(
+                      stop: (_) => const Icon(Icons.place),
+                      route: (_) => const Icon(Icons.directions_bus),
+                      stationTabsCurrentLocation: (_) =>
+                          const Icon(Icons.my_location),
+                    ),
+                    title: Text(favItem.item.when(
+                      stop: (s, id, _) => s.name,
+                      route: (r, id, _) => r.displayName ?? r.toPrettyString(),
+                      stationTabsCurrentLocation: (_, __) =>
+                          AppLocalizations.of(context)
+                              .quick_actions_nearby_stops,
+                    )),
+                    subtitle: favItem.item.when(
+                      stop: (s, id, _) => Text(s.stop),
+                      route: (r, id, _) => Text(r.toPrettyString()),
+                      stationTabsCurrentLocation: (_, __) => null,
+                    ),
+                    trailing: ReorderableDragStartListener(
+                      index: index,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(shape: BoxShape.circle),
+                        child: const Icon(Icons.reorder),
+                      ),
+                    ),
+                  ),
+                  divider: (_) => ReorderableDragStartListener(
+                    index: index,
+                    enabled: false,
+                    child: ListTile(
+                      title: Text(
+                        AppLocalizations.of(context)
+                            .quick_actions_to_not_display,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+          // dismissed actions listview,
+        ],
+      ),
+    );
+  }
+}
+
+@immutable
+class Indexed<T> {
+  final int index;
+  final T value;
+
+  const Indexed(this.index, this.value);
+}
+
+extension ListX<T> on List<T> {
+  List<Indexed<T>> get enumerated => mapIndexed(Indexed.new).toList();
+}
