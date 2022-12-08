@@ -1,3 +1,4 @@
+/// A library for responsive design.
 library responsive;
 
 import 'dart:io';

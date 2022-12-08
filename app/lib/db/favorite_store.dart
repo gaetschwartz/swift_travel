@@ -8,15 +8,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/db/db.dart';
+import 'package:swift_travel/logic/quick_actions.dart';
 import 'package:swift_travel/models/favorites.dart';
 
 final favoritesStoreProvider =
-    ChangeNotifierProvider<BaseFavoritesStore>((_) => HiveFavoritesStore());
+    ChangeNotifierProvider<BaseFavoritesStore>(HiveFavoritesStore.new);
 
 class HiveFavoritesStore extends BaseFavoritesStore {
   final favoritesDb = FavoritesDatabase();
 
   final log = Logger.of('HiveFavoritesStore');
+
+  final ChangeNotifierProviderRef<BaseFavoritesStore> ref;
+
+  HiveFavoritesStore(this.ref);
 
   @override
   Future<DataWithId<LocalRoute>> addRoute(LocalRoute route) async {
@@ -52,12 +57,14 @@ class HiveFavoritesStore extends BaseFavoritesStore {
   @override
   Future<void> removeRoute(DataWithId<LocalRoute> route) async {
     await favoritesDb.delete(route.id);
+    await ref.read(quickActionsManagerProvider).setQuickActions(items.toList());
     notifyListeners();
   }
 
   @override
   Future<void> removeStop(DataWithId<FavoriteStop> favoriteStop) async {
     await favoritesDb.delete(favoriteStop.id);
+    await ref.read(quickActionsManagerProvider).setQuickActions(items.toList());
     notifyListeners();
   }
 

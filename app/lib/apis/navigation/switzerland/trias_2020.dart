@@ -1,5 +1,3 @@
-library switzerland_navigation_api;
-
 import 'dart:convert';
 
 import 'package:collection/collection.dart';

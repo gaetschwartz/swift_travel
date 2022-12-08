@@ -80,7 +80,7 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
   @mustCallSuper
   Future<void> close() async {
     await box.close();
-    _runtimeTypeRegistry.remove(runtimeType);
+    _runtimeTypeRegistry.remove(boxKey);
   }
 
   /// Method called when the databse size exceeds the `maxSize`. Is is supposed to delete items.

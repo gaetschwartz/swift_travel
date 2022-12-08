@@ -71,7 +71,7 @@ class PredictionArguments with _$PredictionArguments {
   PredictionArguments round([int minutes = 5]) {
     final dt = dateTime;
     if (dt == null) {
-      return this;
+      return copyWith();
     }
 
     return copyWith(

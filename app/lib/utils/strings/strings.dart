@@ -1,5 +1,3 @@
-library string_utils;
-
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';

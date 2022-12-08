@@ -45,9 +45,7 @@ void main() {
 
     setUp(() async {
       container = ProviderContainer(overrides: [
-        favoritesStoreProvider.overrideWith(
-          (_) => HiveFavoritesStore(),
-        )
+        favoritesStoreProvider.overrideWith(HiveFavoritesStore.new)
       ]);
     });
 

@@ -1,5 +1,4 @@
 {
   "terminal.integrated.cwd": "app/",
-  "build-runner.commandToUse": "flutter",
-  "dart.sdkPath": "app/.fvm/flutter_sdk",
+  "build-runner.commandToUse": "flutter"
 }
