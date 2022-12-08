@@ -14,21 +14,15 @@ import 'package:swift_travel/main.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:theming/responsive.dart';
 
-final quickActionsManagerProvider = StateNotifierProvider.autoDispose<
-    QuickActionsManager, List<QuickActionsReorderableItem>>(
+final quickActionsManagerProvider = Provider.autoDispose<QuickActionsManager>(
   (ref) {
     ref.keepAlive();
     return QuickActionsManager();
   },
 );
 
-class QuickActionsManager
-    extends StateNotifier<List<QuickActionsReorderableItem>> {
+class QuickActionsManager {
   final log = Logger.of('QuickActionsManager');
-
-  QuickActionsManager() : super([]);
-
-  final db = FavoritesDatabase();
 
   late final AppLocalizations appLocalizations;
 
@@ -41,7 +35,6 @@ class QuickActionsManager
   Future<void> init(AppLocalizations appLocalizations) async {
     log.log('Initialize');
     this.appLocalizations = appLocalizations;
-    await db.open();
     try {
       // Initialize the Quick Actions plugin.
       await const QuickActions().initialize(_handler);
@@ -54,9 +47,6 @@ class QuickActionsManager
     } on MissingPluginException {
       log.log('Unsupported for now on $platform');
     }
-
-    // Generate the list of reorderable items from the Quick Actions database.
-    state = db.values.map(QuickActionsReorderableItem.item).toList();
   }
 
   static const favRouteId = 'froute';
@@ -94,18 +84,15 @@ class QuickActionsManager
     }
   }
 
-  Future<void> setQuickActions(
-      List<QuickActionsReorderableItem> reorderableItems) async {
-    state = reorderableItems;
+  Future<void> setQuickActions(List<QuickActionsItem> quickActionsItems) async {
+    // update the database
     if (!isMobile) {
       log.log('Actions not supported for now on $platform');
       return;
     }
 
     final shortcutItems = <ShortcutItem>[];
-    final items = reorderableItems
-        .whereType<QuickActionsFavoriteItem>()
-        .map((e) => e.item)
+    final items = quickActionsItems
         .where((e) => e.quickActionsIndex != null)
         .sortedBy<num>((e) => e.quickActionsIndex!);
     for (final fav in items) {
@@ -124,7 +111,7 @@ class QuickActionsManager
             icon: Platform.isIOS ? 'route' : 'ic_route_round',
           ));
         },
-        stationTabsCurrentLocation: (_) {
+        stationTabsCurrentLocation: (_, __) {
           shortcutItems.add(ShortcutItem(
             type: currentLocationId,
             localizedTitle: appLocalizations.current_location,
@@ -133,10 +120,18 @@ class QuickActionsManager
       );
     }
 
+    log.i(
+        'Setting shortcut items: ${shortcutItems.map((e) => e.toDetailedString())}');
+
     try {
       await const QuickActions().setShortcutItems(shortcutItems);
     } on MissingPluginException {
       log.log('Quick actions currently unspported on $platform');
     }
   }
+}
+
+extension on ShortcutItem {
+  String toDetailedString() =>
+      'ShortcutItem(type: $type, localizedTitle: $localizedTitle, icon: $icon)';
 }

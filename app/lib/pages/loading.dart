@@ -76,7 +76,7 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
 
     if (isMobile) {
       await ref
-          .read(quickActionsManagerProvider.notifier)
+          .read(quickActionsManagerProvider)
           .init(AppLocalizations.of(context));
 
       await ref.read(linksProvider).init(

@@ -767,6 +767,7 @@ QuickActionsItem _$QuickActionsItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$QuickActionsItem {
+  int get id => throw _privateConstructorUsedError;
   int? get quickActionsIndex => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -774,7 +775,7 @@ mixin _$QuickActionsItem {
         stop,
     required TResult Function(LocalRoute route, int id, int? quickActionsIndex)
         route,
-    required TResult Function(int? quickActionsIndex)
+    required TResult Function(int id, int? quickActionsIndex)
         stationTabsCurrentLocation,
   }) =>
       throw _privateConstructorUsedError;
@@ -782,14 +783,16 @@ mixin _$QuickActionsItem {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FavoriteStop stop, int id, int? quickActionsIndex)? stop,
     TResult? Function(LocalRoute route, int id, int? quickActionsIndex)? route,
-    TResult? Function(int? quickActionsIndex)? stationTabsCurrentLocation,
+    TResult? Function(int id, int? quickActionsIndex)?
+        stationTabsCurrentLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FavoriteStop stop, int id, int? quickActionsIndex)? stop,
     TResult Function(LocalRoute route, int id, int? quickActionsIndex)? route,
-    TResult Function(int? quickActionsIndex)? stationTabsCurrentLocation,
+    TResult Function(int id, int? quickActionsIndex)?
+        stationTabsCurrentLocation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -830,7 +833,7 @@ abstract class $QuickActionsItemCopyWith<$Res> {
           QuickActionsItem value, $Res Function(QuickActionsItem) then) =
       _$QuickActionsItemCopyWithImpl<$Res, QuickActionsItem>;
   @useResult
-  $Res call({int? quickActionsIndex});
+  $Res call({int id, int? quickActionsIndex});
 }
 
 /// @nodoc
@@ -846,9 +849,14 @@ class _$QuickActionsItemCopyWithImpl<$Res, $Val extends QuickActionsItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? quickActionsIndex = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       quickActionsIndex: freezed == quickActionsIndex
           ? _value.quickActionsIndex
           : quickActionsIndex // ignore: cast_nullable_to_non_nullable
@@ -964,7 +972,7 @@ class _$FavoriteUnionStop extends FavoriteUnionStop {
         stop,
     required TResult Function(LocalRoute route, int id, int? quickActionsIndex)
         route,
-    required TResult Function(int? quickActionsIndex)
+    required TResult Function(int id, int? quickActionsIndex)
         stationTabsCurrentLocation,
   }) {
     return stop(this.stop, id, quickActionsIndex);
@@ -975,7 +983,8 @@ class _$FavoriteUnionStop extends FavoriteUnionStop {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FavoriteStop stop, int id, int? quickActionsIndex)? stop,
     TResult? Function(LocalRoute route, int id, int? quickActionsIndex)? route,
-    TResult? Function(int? quickActionsIndex)? stationTabsCurrentLocation,
+    TResult? Function(int id, int? quickActionsIndex)?
+        stationTabsCurrentLocation,
   }) {
     return stop?.call(this.stop, id, quickActionsIndex);
   }
@@ -985,7 +994,8 @@ class _$FavoriteUnionStop extends FavoriteUnionStop {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FavoriteStop stop, int id, int? quickActionsIndex)? stop,
     TResult Function(LocalRoute route, int id, int? quickActionsIndex)? route,
-    TResult Function(int? quickActionsIndex)? stationTabsCurrentLocation,
+    TResult Function(int id, int? quickActionsIndex)?
+        stationTabsCurrentLocation,
     required TResult orElse(),
   }) {
     if (stop != null) {
@@ -1049,6 +1059,7 @@ abstract class FavoriteUnionStop extends QuickActionsItem {
       _$FavoriteUnionStop.fromJson;
 
   FavoriteStop get stop;
+  @override
   int get id;
   @override
   int? get quickActionsIndex;
@@ -1166,7 +1177,7 @@ class _$FavoriteUnionRoute extends FavoriteUnionRoute {
         stop,
     required TResult Function(LocalRoute route, int id, int? quickActionsIndex)
         route,
-    required TResult Function(int? quickActionsIndex)
+    required TResult Function(int id, int? quickActionsIndex)
         stationTabsCurrentLocation,
   }) {
     return route(this.route, id, quickActionsIndex);
@@ -1177,7 +1188,8 @@ class _$FavoriteUnionRoute extends FavoriteUnionRoute {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FavoriteStop stop, int id, int? quickActionsIndex)? stop,
     TResult? Function(LocalRoute route, int id, int? quickActionsIndex)? route,
-    TResult? Function(int? quickActionsIndex)? stationTabsCurrentLocation,
+    TResult? Function(int id, int? quickActionsIndex)?
+        stationTabsCurrentLocation,
   }) {
     return route?.call(this.route, id, quickActionsIndex);
   }
@@ -1187,7 +1199,8 @@ class _$FavoriteUnionRoute extends FavoriteUnionRoute {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FavoriteStop stop, int id, int? quickActionsIndex)? stop,
     TResult Function(LocalRoute route, int id, int? quickActionsIndex)? route,
-    TResult Function(int? quickActionsIndex)? stationTabsCurrentLocation,
+    TResult Function(int id, int? quickActionsIndex)?
+        stationTabsCurrentLocation,
     required TResult orElse(),
   }) {
     if (route != null) {
@@ -1251,6 +1264,7 @@ abstract class FavoriteUnionRoute extends QuickActionsItem {
       _$FavoriteUnionRoute.fromJson;
 
   LocalRoute get route;
+  @override
   int get id;
   @override
   int? get quickActionsIndex;
@@ -1269,7 +1283,7 @@ abstract class _$$FavoriteUnionStationTabsCurrentLocationCopyWith<$Res>
       __$$FavoriteUnionStationTabsCurrentLocationCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? quickActionsIndex});
+  $Res call({int id, int? quickActionsIndex});
 }
 
 /// @nodoc
@@ -1285,9 +1299,14 @@ class __$$FavoriteUnionStationTabsCurrentLocationCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? quickActionsIndex = freezed,
   }) {
     return _then(_$FavoriteUnionStationTabsCurrentLocation(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       quickActionsIndex: freezed == quickActionsIndex
           ? _value.quickActionsIndex
           : quickActionsIndex // ignore: cast_nullable_to_non_nullable
@@ -1301,7 +1320,7 @@ class __$$FavoriteUnionStationTabsCurrentLocationCopyWithImpl<$Res>
 class _$FavoriteUnionStationTabsCurrentLocation
     extends FavoriteUnionStationTabsCurrentLocation {
   const _$FavoriteUnionStationTabsCurrentLocation(
-      {this.quickActionsIndex, final String? $type})
+      {required this.id, this.quickActionsIndex, final String? $type})
       : $type = $type ?? 'stationTabsCurrentLocation',
         super._();
 
@@ -1310,6 +1329,8 @@ class _$FavoriteUnionStationTabsCurrentLocation
       _$$FavoriteUnionStationTabsCurrentLocationFromJson(json);
 
   @override
+  final int id;
+  @override
   final int? quickActionsIndex;
 
   @JsonKey(name: 'runtimeType')
@@ -1317,7 +1338,7 @@ class _$FavoriteUnionStationTabsCurrentLocation
 
   @override
   String toString() {
-    return 'QuickActionsItem.stationTabsCurrentLocation(quickActionsIndex: $quickActionsIndex)';
+    return 'QuickActionsItem.stationTabsCurrentLocation(id: $id, quickActionsIndex: $quickActionsIndex)';
   }
 
   @override
@@ -1325,13 +1346,14 @@ class _$FavoriteUnionStationTabsCurrentLocation
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FavoriteUnionStationTabsCurrentLocation &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.quickActionsIndex, quickActionsIndex) ||
                 other.quickActionsIndex == quickActionsIndex));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, quickActionsIndex);
+  int get hashCode => Object.hash(runtimeType, id, quickActionsIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -1348,10 +1370,10 @@ class _$FavoriteUnionStationTabsCurrentLocation
         stop,
     required TResult Function(LocalRoute route, int id, int? quickActionsIndex)
         route,
-    required TResult Function(int? quickActionsIndex)
+    required TResult Function(int id, int? quickActionsIndex)
         stationTabsCurrentLocation,
   }) {
-    return stationTabsCurrentLocation(quickActionsIndex);
+    return stationTabsCurrentLocation(id, quickActionsIndex);
   }
 
   @override
@@ -1359,9 +1381,10 @@ class _$FavoriteUnionStationTabsCurrentLocation
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FavoriteStop stop, int id, int? quickActionsIndex)? stop,
     TResult? Function(LocalRoute route, int id, int? quickActionsIndex)? route,
-    TResult? Function(int? quickActionsIndex)? stationTabsCurrentLocation,
+    TResult? Function(int id, int? quickActionsIndex)?
+        stationTabsCurrentLocation,
   }) {
-    return stationTabsCurrentLocation?.call(quickActionsIndex);
+    return stationTabsCurrentLocation?.call(id, quickActionsIndex);
   }
 
   @override
@@ -1369,11 +1392,12 @@ class _$FavoriteUnionStationTabsCurrentLocation
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FavoriteStop stop, int id, int? quickActionsIndex)? stop,
     TResult Function(LocalRoute route, int id, int? quickActionsIndex)? route,
-    TResult Function(int? quickActionsIndex)? stationTabsCurrentLocation,
+    TResult Function(int id, int? quickActionsIndex)?
+        stationTabsCurrentLocation,
     required TResult orElse(),
   }) {
     if (stationTabsCurrentLocation != null) {
-      return stationTabsCurrentLocation(quickActionsIndex);
+      return stationTabsCurrentLocation(id, quickActionsIndex);
     }
     return orElse();
   }
@@ -1426,7 +1450,7 @@ class _$FavoriteUnionStationTabsCurrentLocation
 abstract class FavoriteUnionStationTabsCurrentLocation
     extends QuickActionsItem {
   const factory FavoriteUnionStationTabsCurrentLocation(
-          {final int? quickActionsIndex}) =
+          {required final int id, final int? quickActionsIndex}) =
       _$FavoriteUnionStationTabsCurrentLocation;
   const FavoriteUnionStationTabsCurrentLocation._() : super._();
 
@@ -1434,6 +1458,8 @@ abstract class FavoriteUnionStationTabsCurrentLocation
           Map<String, dynamic> json) =
       _$FavoriteUnionStationTabsCurrentLocation.fromJson;
 
+  @override
+  int get id;
   @override
   int? get quickActionsIndex;
   @override

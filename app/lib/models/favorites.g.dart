@@ -126,6 +126,7 @@ _$FavoriteUnionStationTabsCurrentLocation
     _$$FavoriteUnionStationTabsCurrentLocationFromJson(
             Map<String, dynamic> json) =>
         _$FavoriteUnionStationTabsCurrentLocation(
+          id: json['id'] as int,
           quickActionsIndex: json['quickActionsIndex'] as int?,
           $type: json['runtimeType'] as String?,
         );
@@ -133,6 +134,7 @@ _$FavoriteUnionStationTabsCurrentLocation
 Map<String, dynamic> _$$FavoriteUnionStationTabsCurrentLocationToJson(
         _$FavoriteUnionStationTabsCurrentLocation instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'quickActionsIndex': instance.quickActionsIndex,
       'runtimeType': instance.$type,
     };

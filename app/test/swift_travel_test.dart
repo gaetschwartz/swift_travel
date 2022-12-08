@@ -414,6 +414,14 @@ class MockFavoriteStore implements BaseFavoritesStore {
   @override
   Iterable<DataWithId<FavoriteStop>> get stops =>
       stops_.map((e) => DataWithId(0, e));
+
+  @override
+  Iterable<QuickActionsItem> get items => throw UnimplementedError();
+
+  @override
+  Future<void> save(List<QuickActionsItem> list) {
+    throw UnimplementedError();
+  }
 }
 
 class MockRouteHistory implements RouteHistoryRepository {
@@ -530,6 +538,11 @@ class MockRouteHistory implements RouteHistoryRepository {
 
   @override
   int sanitizeKey(int key) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> putAll(Map<int, LocalRoute> values) {
     throw UnimplementedError();
   }
 }

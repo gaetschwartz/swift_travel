@@ -100,6 +100,16 @@ abstract class LocalDatabase<TKey extends Object, TEncValue extends Object,
     await box.put(sanitizeKey(key), map);
   }
 
+  Future<void> putAll(Map<TKey, TValue> values) async {
+    if (box.length >= maxSize - values.length) {
+      await onDatabaseExceededMaxSize();
+    }
+
+    final map =
+        values.map((key, value) => MapEntry(sanitizeKey(key), encode(value)));
+    await box.putAll(map);
+  }
+
   String _maxStringSize(String s) => s.length > 0xff ? s.substring(0, 0xff) : s;
 
   TValue get first => values.first;

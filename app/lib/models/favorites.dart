@@ -148,6 +148,7 @@ class QuickActionsItem with _$QuickActionsItem {
   }) = FavoriteUnionRoute;
 
   const factory QuickActionsItem.stationTabsCurrentLocation({
+    required int id,
     int? quickActionsIndex,
   }) = FavoriteUnionStationTabsCurrentLocation;
 

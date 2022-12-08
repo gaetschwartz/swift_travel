@@ -250,7 +250,7 @@ class RoutePageState extends ConsumerState<RoutePage> {
                         onPressed: () async {
                           Vibration.instance.select();
 
-                          log.log(favorites.routes.toString());
+                          log.log('Adding route to favorites');
                           if (favorites.routes.any(
                             (lr) =>
                                 lr.data.fromAsString ==

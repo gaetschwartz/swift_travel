@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -349,28 +350,35 @@ class _ThememodeWidget extends StatelessWidget {
   }
 } */
 
-class QuickActionsEditionPage extends ConsumerStatefulWidget {
+final _itemsProvider = StateProvider<List<QuickActionsReorderableItem>>((ref) {
+  ref.listenSelf((previous, next) {
+    final list = next
+        .whereType<QuickActionsFavoriteItem>()
+        .map((e) => e.item)
+        .toList(growable: false);
+    ref.read(quickActionsManagerProvider).setQuickActions(list);
+    ref.read(favoritesStoreProvider).save(list);
+  });
+  final store = ref.watch(favoritesStoreProvider);
+  final list =
+      store.items.map(QuickActionsReorderableItem.item).toList(growable: false);
+  // sort by quickActionsIndex
+  list.sortBy<num>((e) => e.map(
+        item: (e) => e.item.quickActionsIndex ?? double.infinity,
+        divider: (_) => double.infinity - 1,
+      ));
+  return list;
+});
+
+class QuickActionsEditionPage extends ConsumerWidget {
   const QuickActionsEditionPage({super.key});
 
-  @override
-  _QuickActionsEditionPageState createState() =>
-      _QuickActionsEditionPageState();
-}
-
-class _QuickActionsEditionPageState
-    extends ConsumerState<QuickActionsEditionPage> {
-  final quickActions = const QuickActions();
-
-  late BaseFavoritesStore store;
-  List<QuickActionsReorderableItem> items = [];
-  final nonFavItems = [
-    const QuickActionsItem.stationTabsCurrentLocation(),
-  ];
+  static const quickActions = QuickActions();
 
   // we want to be to reorder the list, as well as choose which favorites to display in the quick actions
   @override
-  Widget build(BuildContext context) {
-    final manager = ref.watch(quickActionsManagerProvider.notifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final items = ref.watch(_itemsProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Quick actions'),
@@ -387,59 +395,112 @@ class _QuickActionsEditionPageState
           ),
           ReorderableListView(
             shrinkWrap: true,
-            onReorder: (oldIndex, newIndex) {
+            onReorder: (oldIndex, newIndex) async {
               final old = items[oldIndex];
-              setState(() {
-                items.removeAt(oldIndex);
-                // if we remove an item, we need to adjust the new index
-                // take in account if the new index is after the old index
-                if (newIndex > oldIndex) {
-                  newIndex--;
-                }
-                items.insert(newIndex, old);
-              });
-              // TODO: sync with the manager
+
+              items.removeAt(oldIndex);
+              // if we remove an item, we need to adjust the new index
+              // take in account if the new index is after the old index
+              if (newIndex > oldIndex) {
+                newIndex--;
+              }
+              items.insert(newIndex, old);
+
+              // get index of the divider in the new list
+              final dividerIndex =
+                  items.indexWhere((e) => e is QuickActionsFavoriteDivider);
+              if (oldIndex > dividerIndex) {
+                // if the moved item is after the divider, we need set the moved item's index to null
+                // so that it doesn't appear in the quick actions
+                items[newIndex] = items[newIndex].map(
+                  item: (e) => e.copyWith(
+                      item: e.item.copyWith(quickActionsIndex: null)),
+                  divider: (e) => e,
+                );
+              } else {
+                // otherwise, we need to set the index of the moved item to the index of the divider
+                // so that it appears in the quick actions
+                items[newIndex] = items[newIndex].map(
+                  item: (e) => e.copyWith(
+                      item: e.item.copyWith(quickActionsIndex: dividerIndex)),
+                  divider: (e) => e,
+                );
+              }
+              // update the state of the list
+              ref.read(_itemsProvider.notifier).state = items;
             },
-            children: [
-              for (final item in items)
-                Dismissible(
-                  key: ValueKey(item),
-                  onDismissed: (_) {
-                    setState(() {
-                      items.remove(item);
-                    });
-                    // TODO: sync with the manager
-                  },
-                  child: item.map(
-                    item: (favItem) => ListTile(
-                      leading: favItem.item.map(
-                        stop: (_) => const Icon(Icons.place),
-                        route: (_) => const Icon(Icons.directions_bus),
-                        stationTabsCurrentLocation: (_) =>
-                            const Icon(Icons.my_location),
-                      ),
-                      title: Text(favItem.item.when(
-                        stop: (s, id, _) => s.name,
-                        route: (r, id, _) =>
-                            r.displayName ?? r.toPrettyString(),
-                        stationTabsCurrentLocation: (_) =>
-                            AppLocalizations.of(context).current_location,
-                      )),
-                      subtitle: Text(favItem.item.when(
-                        stop: (s, id, _) => s.stop,
-                        route: (r, id, _) => r.toPrettyString(),
-                        stationTabsCurrentLocation: (_) => '',
-                      )),
-                      trailing: const Icon(Icons.drag_handle),
+            children: items.mapIndexed((index, item) {
+              return Dismissible(
+                key: ValueKey(item),
+                onDismissed: (_) async {
+                  // remove the item from quick actions by setting its index to null
+                  items[index] = items[index].map(
+                    item: (e) => e.copyWith(
+                        item: e.item.copyWith(quickActionsIndex: null)),
+                    divider: (e) => e,
+                  );
+                  // update the state of the list
+                  ref.read(_itemsProvider.notifier).state = items;
+                },
+                child: item.map(
+                  item: (favItem) => ListTile(
+                    leading: favItem.item.map(
+                      stop: (_) => const Icon(Icons.place),
+                      route: (_) => const Icon(Icons.directions_bus),
+                      stationTabsCurrentLocation: (_) =>
+                          const Icon(Icons.my_location),
                     ),
-                    divider: (_) => const Divider(),
+                    title: Text(favItem.item.when(
+                      stop: (s, id, _) => s.name,
+                      route: (r, id, _) => r.displayName ?? r.toPrettyString(),
+                      stationTabsCurrentLocation: (_, __) =>
+                          AppLocalizations.of(context).current_location,
+                    )),
+                    subtitle: Text(favItem.item.when(
+                      stop: (s, id, _) => s.stop,
+                      route: (r, id, _) => r.toPrettyString(),
+                      stationTabsCurrentLocation: (_, __) => '',
+                    )),
+                    trailing: const Icon(Icons.drag_handle),
                   ),
+                  divider: (_) => const Divider(),
                 ),
-            ],
+              );
+            }).toList(),
           ),
           // dismissed actions listview,
         ],
       ),
     );
   }
+
+  List<QuickActionsItem> computeList(List<QuickActionsReorderableItem> items) {
+    final newList = <QuickActionsItem>[];
+    bool hasMetDivider = false;
+    for (int i = 0; i < items.length; i++) {
+      items[i].when(item: (item) {
+        if (hasMetDivider) {
+          newList.add(item.copyWith(quickActionsIndex: null));
+        } else {
+          newList.add(item.copyWith(quickActionsIndex: i));
+        }
+      }, divider: () {
+        hasMetDivider = true;
+      });
+    }
+    // when quickActionsIndex is null, it means it's not in the quick actions
+    return newList;
+  }
+}
+
+@immutable
+class Indexed<T> {
+  final int index;
+  final T value;
+
+  const Indexed(this.index, this.value);
+}
+
+extension ListX<T> on List<T> {
+  List<Indexed<T>> get enumerated => mapIndexed(Indexed.new).toList();
 }
