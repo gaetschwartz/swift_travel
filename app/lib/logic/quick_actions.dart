@@ -65,23 +65,21 @@ class QuickActionsManager {
     final favsDb = FavoritesDatabase.i;
     await favsDb.open();
     if (actionId == favRouteId) {
-      log.log('Tapped route $shortcutType');
-
       final id = int.parse(shortcutType.substring(index + 1));
-      final route = favsDb.get(id);
+      final item = favsDb.get(id);
 
-      unawaited(
-          navigatorKey.currentState?.pushNamed('/route', arguments: route));
+      log.log('Tapped route $item');
+      unawaited(navigatorKey.currentState?.pushNamed('/route',
+          arguments: item.maybeMap(route: (r) => r.route, orElse: () => null)));
     } else if (actionId == favStopId) {
-      log.log('Tapped stop $shortcutType');
-
       final id = int.parse(shortcutType.substring(index + 1));
-      final stop = favsDb.get(id);
+      final item = favsDb.get(id);
 
-      unawaited(
-          navigatorKey.currentState?.pushNamed('/route', arguments: stop));
+      log.log('Tapped stop $item');
+      unawaited(navigatorKey.currentState?.pushNamed('/route',
+          arguments: item.maybeMap(stop: (s) => s.stop, orElse: () => null)));
     } else if (actionId == nearbyStopsId) {
-      log.log('Tapped nearby stops $shortcutType');
+      log.log('Tapped nearby stops');
 
       unawaited(navigatorKey.currentState?.pushNamed(
         '/stop',
