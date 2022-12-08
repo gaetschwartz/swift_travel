@@ -20,7 +20,6 @@ dependencies:
   cross_file: ^0.3.3+2
   cupertino_icons: ^1.0.0
   file: ^6.0.0
-  firebase_core: ^2.1.1
   flex_color_scheme: ^6.0.1
   fluentui_system_icons: ^1.1.136
   flutter:

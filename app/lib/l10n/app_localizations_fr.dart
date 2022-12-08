@@ -68,7 +68,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String direction(String dir) {
-
     return 'Direction $dir';
   }
 
@@ -188,13 +187,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String walk(String walk) {
-
     return 'Marchez *$walk*.';
   }
 
   @override
   String walk_and_wait(String wait, String walk) {
-
     return 'Marchez *$walk* et attendez *$wait*.';
   }
 
@@ -206,7 +203,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String youll_be_there(String time) {
-
     return 'Vous arrivez à *$time*.';
   }
 
@@ -242,7 +238,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String that_is_required(String that) {
-
     return '$that est nécessaire';
   }
 
@@ -257,7 +252,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String donation_of(String price) {
-
     return 'Don de $price';
   }
 
