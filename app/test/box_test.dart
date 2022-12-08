@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/stop.dart';
@@ -10,7 +8,7 @@ import 'package:swift_travel/models/favorites.dart';
 
 void main() {
   setUpAll(() async {
-    Hive.init('test/hive');
+    Hive.init('test/tmp/hive');
   });
 
   test('favRouteDb', () async {
@@ -25,7 +23,7 @@ void main() {
     const name2 = 'from';
     const name3 = 'to';
     const displayName2 = 'display';
-    final id = DateTime.now().millisecondsSinceEpoch ^ Random().nextInt(1000);
+    final id = HiveFavoritesStore.newUuid();
 
     await db.put(
         id,
@@ -50,7 +48,7 @@ void main() {
             displayName: displayName2,
             timestamp: dateTime,
           ),
-          id: 0,
+          id: id,
         ));
     // ignore: deprecated_member_use_from_same_package
     expect(db.values.first, isNot(const LocalRoute.v1(name2, name3)));

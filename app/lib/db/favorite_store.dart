@@ -26,10 +26,10 @@ class HiveFavoritesStore extends BaseFavoritesStore {
     return DataWithId(id, route);
   }
 
-  final random = math.Random();
+  static final random = math.Random();
 
   // must be always positive and in range [0xF,  0xFFFFFFFF]
-  int newUuid() {
+  static int newUuid() {
     final i = DateTime.now().millisecondsSinceEpoch ^
         (random.nextInt(0xFFFFFFFF - 0xF) + 0xF);
     return (i | 0xf) & 0xFFFFFFFF;
