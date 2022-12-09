@@ -21,6 +21,7 @@ import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/utils/colors.dart';
 import 'package:swift_travel/widgets/property_page.dart';
 import 'package:theming/dynamic_theme.dart';
+import 'package:vibration/vibration.dart';
 
 class CustomizationSettingsPage extends StatefulWidget {
   const CustomizationSettingsPage({super.key});
@@ -414,89 +415,96 @@ class QuickActionsEditionPage extends ConsumerWidget {
           ListTile(
               title:
                   Text(AppLocalizations.of(context).quick_actions_to_display)),
-          ReorderableListView(
-            shrinkWrap: true,
-            onReorder: (oldIndex, newIndex) {
-              final old = items[oldIndex];
+          Expanded(
+            child: ReorderableListView.builder(
+              itemCount: items.length,
+              onReorderStart: (index) => Vibration.instance.selectSoft(),
+              onReorderEnd: (index) => Vibration.instance.selectSoft(),
+              onReorder: (oldIndex, newIndex) {
+                final old = items[oldIndex];
 
-              items.removeAt(oldIndex);
-              // if we remove an item, we need to adjust the new index
-              // take in account if the new index is after the old index
-              if (newIndex > oldIndex) {
-                newIndex--;
-              }
-              items.insert(newIndex, old);
+                items.removeAt(oldIndex);
+                // if we remove an item, we need to adjust the new index
+                // take in account if the new index is after the old index
+                if (newIndex > oldIndex) {
+                  newIndex--;
+                }
+                items.insert(newIndex, old);
 
-              // get index of the divider in the new list
-              final dividerIndex =
-                  items.indexWhere((e) => e is QuickActionsFavoriteDivider);
-              assert(dividerIndex != -1, 'divider not found');
-              if (newIndex > dividerIndex) {
-                // if the moved item is after the divider, we need set the moved item's index to null
-                // so that it doesn't appear in the quick actions
-                items[newIndex] = items[newIndex].map(
-                  item: (e) => e.copyWith(
-                      item: e.item.copyWith(quickActionsIndex: null)),
-                  divider: (e) => e,
-                );
-              } else {
-                // otherwise, we need to set the index of the moved item to the index of the divider
-                // so that it appears in the quick actions
-                items[newIndex] = items[newIndex].map(
-                  item: (e) => e.copyWith(
-                      item: e.item.copyWith(quickActionsIndex: newIndex)),
-                  divider: (e) => e,
-                );
-              }
-              // update the state of the list
-              final list = List.of(items);
-              ref.read(_itemsProvider.notifier).state = list;
-            },
-            children: items.mapIndexed((index, item) {
-              return SizedBox(
-                key: ValueKey(item),
-                child: item.map(
-                  item: (favItem) => ListTile(
-                    leading: favItem.item.map(
-                      stop: (_) => const Icon(Icons.place),
-                      route: (_) => const Icon(Icons.directions_bus),
-                      stationTabsCurrentLocation: (_) =>
-                          const Icon(Icons.my_location),
+                // get index of the divider in the new list
+                final dividerIndex =
+                    items.indexWhere((e) => e is QuickActionsFavoriteDivider);
+                assert(dividerIndex != -1, 'divider not found');
+                if (newIndex > dividerIndex) {
+                  // if the moved item is after the divider, we need set the moved item's index to null
+                  // so that it doesn't appear in the quick actions
+                  items[newIndex] = items[newIndex].map(
+                    item: (e) => e.copyWith(
+                        item: e.item.copyWith(quickActionsIndex: null)),
+                    divider: (e) => e,
+                  );
+                } else {
+                  // otherwise, we need to set the index of the moved item to the index of the divider
+                  // so that it appears in the quick actions
+                  items[newIndex] = items[newIndex].map(
+                    item: (e) => e.copyWith(
+                        item: e.item.copyWith(quickActionsIndex: newIndex)),
+                    divider: (e) => e,
+                  );
+                }
+                // update the state of the list
+                final list = List.of(items);
+                ref.read(_itemsProvider.notifier).state = list;
+              },
+              itemBuilder: (context, index) {
+                final item = items[index];
+                return SizedBox(
+                  key: ValueKey(item),
+                  child: item.map(
+                    item: (favItem) => ListTile(
+                      leading: favItem.item.map(
+                        stop: (_) => const Icon(Icons.place),
+                        route: (_) => const Icon(Icons.directions_bus),
+                        stationTabsCurrentLocation: (_) =>
+                            const Icon(Icons.my_location),
+                      ),
+                      title: Text(favItem.item.when(
+                        stop: (s, id, _) => s.name,
+                        route: (r, id, _) =>
+                            r.displayName ?? r.toPrettyString(),
+                        stationTabsCurrentLocation: (_, __) =>
+                            AppLocalizations.of(context)
+                                .quick_actions_nearby_stops,
+                      )),
+                      subtitle: favItem.item.when(
+                        stop: (s, id, _) => Text(s.stop),
+                        route: (r, id, _) => Text(r.toPrettyString()),
+                        stationTabsCurrentLocation: (_, __) => null,
+                      ),
+                      trailing: ReorderableDragStartListener(
+                        index: index,
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration:
+                              const BoxDecoration(shape: BoxShape.circle),
+                          child: const Icon(Icons.reorder),
+                        ),
+                      ),
                     ),
-                    title: Text(favItem.item.when(
-                      stop: (s, id, _) => s.name,
-                      route: (r, id, _) => r.displayName ?? r.toPrettyString(),
-                      stationTabsCurrentLocation: (_, __) =>
-                          AppLocalizations.of(context)
-                              .quick_actions_nearby_stops,
-                    )),
-                    subtitle: favItem.item.when(
-                      stop: (s, id, _) => Text(s.stop),
-                      route: (r, id, _) => Text(r.toPrettyString()),
-                      stationTabsCurrentLocation: (_, __) => null,
-                    ),
-                    trailing: ReorderableDragStartListener(
+                    divider: (_) => ReorderableDragStartListener(
                       index: index,
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(shape: BoxShape.circle),
-                        child: const Icon(Icons.reorder),
+                      enabled: false,
+                      child: ListTile(
+                        title: Text(
+                          AppLocalizations.of(context)
+                              .quick_actions_to_not_display,
+                        ),
                       ),
                     ),
                   ),
-                  divider: (_) => ReorderableDragStartListener(
-                    index: index,
-                    enabled: false,
-                    child: ListTile(
-                      title: Text(
-                        AppLocalizations.of(context)
-                            .quick_actions_to_not_display,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
+                );
+              },
+            ),
           ),
           // dismissed actions listview,
         ],
