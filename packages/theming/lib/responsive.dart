@@ -2,19 +2,20 @@
 library responsive;
 
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-enum ScreenSize { small, medium, large }
 
 bool isThemeDarwin(BuildContext context) => Theme.of(context).platform.isDarwin;
 bool isPlatformDarwin(TargetPlatform p) => p.isDarwin;
 
 bool get isMobile => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
-extension ScreenSizeX on ScreenSize {
+enum ScreenSize {
+  small,
+  medium,
+  large;
+
   bool operator <(ScreenSize s) => index < s.index;
 
   bool operator <=(ScreenSize s) => index <= s.index;
@@ -25,24 +26,21 @@ extension ScreenSizeX on ScreenSize {
 }
 
 @immutable
-class DoubleInterval<T extends num> {
+class DoubleInterval {
   const DoubleInterval(this.low, this.high);
 
-  final T low;
-  final T high;
+  final double low;
+  final double high;
 
   static double Function(double a) lerp(
     DoubleInterval from,
     DoubleInterval to,
   ) =>
-      (a) => min(
-            to.high,
-            max(
-              to.low,
-              (a - from.low) * (to.high - to.low) / (from.high - from.low) +
-                  to.low,
-            ),
-          ).toDouble();
+      (a) {
+        return (to.low +
+                (a - from.low) * (to.high - to.low) / (from.high - from.low))
+            .clamp(to.low, to.high);
+      };
 }
 
 class Responsive {

@@ -139,7 +139,7 @@ class _TabViewState extends ConsumerState<TabView>
               onTap: (i) {
                 Vibration.instance.selectSoft();
                 if (i == oldI) {
-                  navigatorKeys[i]
+                  navigatorTabKeys[i]
                       .currentState
                       ?.popUntil((route) => route.isFirst);
                   ref.read(sideTabBarProvider.notifier).state = null;
@@ -152,7 +152,7 @@ class _TabViewState extends ConsumerState<TabView>
               items: cupertinoItems,
             ),
             tabBuilder: (context, i) => Navigator(
-              key: navigatorKeys[i],
+              key: navigatorTabKeys[i],
               pages: [
                 SingleWidgetPage<void>(TabView.iosTabs[i],
                     title: cupertinoItems[i].label)
@@ -184,7 +184,7 @@ class _TabViewState extends ConsumerState<TabView>
             items: materialItems,
           ),
           body: Navigator(
-            key: navigatorKeys[page],
+            key: navigatorTabKeys[page],
             pages: [
               SingleWidgetPage<void>(
                 TabView.androidTabs[page],
@@ -234,7 +234,7 @@ class SwiftNavigationBar extends ConsumerWidget {
         if (controller.index != i) {
           controller.index = i;
         } else {
-          navigatorKeys[i].currentState?.popUntil((route) => route.isFirst);
+          navigatorTabKeys[i].currentState?.popUntil((route) => route.isFirst);
           ref.read(sideTabBarProvider.notifier).state = null;
         }
       },
@@ -258,11 +258,11 @@ class SideBar extends ConsumerWidget {
   }) {
     if (shouldShowSidebar(context)) {
       // ignore: deprecated_member_use_from_same_package
-      readFromContext(context, sideTabBarProvider.notifier).state = builder;
-      sideBarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+      final container = ProviderScope.containerOf(context, listen: false);
+      container.read(sideTabBarProvider.notifier).state = builder;
+      sideBarNavigatorKey.currentState!.popUntil((r) => r.isFirst);
     } else {
-      unawaited(Navigator.of(context, rootNavigator: rootNavigator)
-          .push<void>(PlatformPageRoute(
+      unawaited(navigatorKey.currentState!.push<void>(PlatformPageRoute(
         builder: builder,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState,
@@ -275,45 +275,56 @@ class SideBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(sideTabBarProvider)?.call(context) ??
-        Stack(
-          children: [
-            Positioned.fill(
-              child: OctoImage(
-                image: const AssetImage('assets/pictures/train.jfif'),
-                placeholderBuilder: OctoPlaceholder.blurHash(
-                  'qwJRdKRORjayoej[fja{_4Rjf5fQayj@fRj[%MkDaejtWCazj@j[%1tRfkWBj[f7azayWDj]ogayoejsayayoff5ogofWBWBayoe',
-                ),
-                errorBuilder: OctoError.icon(color: Colors.red),
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned.fill(
-                child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Container(
-                      color: Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.5),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 12),
-                      child: const Text(
-                          'Start searching a station or an itinerary to start using the app'),
-                    ),
-                  ),
-                ),
-              ),
-            )),
-          ],
-        );
+        const DefaultSidebarWidget();
   }
 }
 
-final navigatorKeys = <GlobalKey<NavigatorState>>[
+class DefaultSidebarWidget extends StatelessWidget {
+  const DefaultSidebarWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: OctoImage(
+            image: const AssetImage('assets/pictures/train.jfif'),
+            placeholderBuilder: OctoPlaceholder.blurHash(
+              'qwJRdKRORjayoej[fja{_4Rjf5fQayj@fRj[%MkDaejtWCazj@j[%1tRfkWBj[f7azayWDj]ogayoejsayayoff5ogofWBWBayoe',
+            ),
+            errorBuilder: OctoError.icon(color: Colors.red),
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned.fill(
+            child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  color: Theme.of(context)
+                      .scaffoldBackgroundColor
+                      .withOpacity(0.5),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  child: const Text(
+                      'Start searching a station or an itinerary to start using the app'),
+                ),
+              ),
+            ),
+          ),
+        )),
+      ],
+    );
+  }
+}
+
+final navigatorTabKeys = <GlobalKey<NavigatorState>>[
   GlobalKey(debugLabel: 'stations tab key'),
   GlobalKey(debugLabel: 'route tab key'),
   GlobalKey(debugLabel: 'favs tab key'),

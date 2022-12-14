@@ -36,9 +36,9 @@ import 'models/favorites.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-bool get isTest => Platform.environment.containsKey('FLUTTER_TEST');
 
-String get platform =>
+final isTest = Platform.environment.containsKey('FLUTTER_TEST');
+final platform =
     kIsWeb ? 'Web ($defaultTargetPlatform)' : Platform.operatingSystem;
 
 void main() {
@@ -86,15 +86,18 @@ void overridePlatform() {
       p = TargetPlatform.iOS;
       break;
 
-    case TargetPlatform.fuchsia:
     case TargetPlatform.iOS:
-    case TargetPlatform.linux:
+      p = TargetPlatform.android;
+      break;
     case TargetPlatform.macOS:
+      p = TargetPlatform.windows;
+      break;
+    case TargetPlatform.fuchsia:
+    case TargetPlatform.linux:
       return;
   }
 
-  Logger.of('overridePlatform')
-      .log('Overriding $defaultTargetPlatform by $platform');
+  Logger.of('overridePlatform').log('Overriding $defaultTargetPlatform by $p');
   debugDefaultTargetPlatformOverride = p;
 }
 
@@ -116,14 +119,15 @@ class _FullAppState extends State<FullApp> {
   @override
   void reassemble() {
     super.reassemble();
-    log.log('Reload theme');
+    if (kDebugMode) {
+      log.log('Reload theme');
+    }
     unawaited(dynamicThemeData.configure(themeConfiguration, doLog: true));
   }
 
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      overrides: const [],
       child: DynamicTheme(
         theme: dynamicThemeData,
         child: const SwiftTravelApp(),
@@ -371,12 +375,4 @@ class Unfocus extends StatelessWidget {
       child: child,
     );
   }
-}
-
-@Deprecated(
-  'This is to be used only in very exceptional cases, should almost always be replaced by using `Ref.read` instead.',
-)
-// ignore: unreachable_from_main
-T readFromContext<T>(BuildContext context, ProviderListenable<T> provider) {
-  return ProviderScope.containerOf(context, listen: false).read(provider);
 }
