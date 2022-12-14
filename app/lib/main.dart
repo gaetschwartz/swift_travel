@@ -54,7 +54,8 @@ void preLaunchRoutine() {
       '=== Release mode ===\n'
       'Build date: $commitBuildDate\n'
       'Commit message: $commitMessage\n'
-      'Commit hash: $commitHash',
+      'Commit hash: $commitHash\n'
+      'Platform: $platform\n',
     );
   }
   if (kDebugMode) {

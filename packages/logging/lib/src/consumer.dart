@@ -31,7 +31,7 @@ class ConsoleLogger extends LogConsumer {
   const ConsoleLogger({
     MessagePrinter printer = const SimplePrinter(),
     LogFilter logFilter = const AlwaysAllowFilter(),
-    this.useDeveloperLog = true,
+    this.useDeveloperLog = kDebugMode,
   }) : super(printer, logFilter);
 
   final bool useDeveloperLog;
