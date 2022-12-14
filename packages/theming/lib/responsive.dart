@@ -81,10 +81,12 @@ class Responsive {
   ScreenSize getSizeOfWidth(double width) {
     if (width > bigScreenWidth) {
       return ScreenSize.large;
-    } else if (width < smallScreenWidth) {
+    } else if (width > smallScreenWidth) {
+      return ScreenSize.medium;
+    } else if (width > 0) {
       return ScreenSize.small;
     } else {
-      return ScreenSize.medium;
+      throw ArgumentError.value(width, 'width', 'must be positive');
     }
   }
 }

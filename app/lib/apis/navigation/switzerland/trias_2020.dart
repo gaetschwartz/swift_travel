@@ -48,73 +48,84 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
             ?.findElements('trias:Location') ??
         [];
     final completions = locations.map((loc) {
-      final e = loc['trias:Location']!;
-      final stopPoint = e['trias:StopPoint'];
-      final stopPlace = e['trias:StopPlace'];
-      final geo = e['trias:GeoPosition']!;
+      final location = loc['trias:Location']!;
+      final geo = location['trias:GeoPosition']!;
 
+      final stopPoint = location['trias:StopPoint'];
       if (stopPoint != null) {
-        final name = stopPoint['trias:StopPointName']?.getTriasText()?.text;
-        final id = stopPoint['trias:StopPointRef']?.text;
-
-        final probability = _parseDouble(loc['trias:Probability']?.text);
-        final complete = loc['trias:Complete']?.text == 'true';
-        final modes = loc.findElements('trias:Mode').map((e) {
-          final mode = e['trias:PtMode']!.text;
-          final submode = e.childElements
-              .where(
-                (e) =>
-                    e.name.qualified != 'trias:PtMode' &&
-                    e.name.local.contains('Submode'),
-              )
-              .firstOrNull
-              ?.text;
-          return TriasPtMode(mode, submode);
-        }).toList();
-
-        return TriasLocation(
-          stopPointName: name ?? 'name',
-          stopPointRef: id ?? 'id',
-          geoPosition: TriasGeoPosition.fromXML(geo),
-          complete: complete,
-          probability: probability,
-          modes: modes,
-        );
-      } else if (stopPlace != null) {
-        final name = stopPlace['trias:StopPlaceName']?.getTriasText()?.text;
-        final id = stopPlace['trias:StopPlaceRef']?.text;
-        final geo = e['trias:GeoPosition']!;
-
-        final probability = _parseDouble(loc['trias:Probability']?.text);
-        final complete = loc['trias:Complete']?.text == 'true';
-
-        final modes = loc.findElements('trias:Mode').map((e) {
-          final mode = e['trias:PtMode']!.text;
-          final submode = e.childElements
-              .where(
-                (e) =>
-                    e.name.qualified != 'trias:PtMode' &&
-                    e.name.local.contains('Submode'),
-              )
-              .firstOrNull
-              ?.text;
-          return TriasPtMode(mode, submode);
-        }).toList();
-
-        return TriasLocation(
-          stopPointName: name!,
-          stopPointRef: id!,
-          geoPosition: TriasGeoPosition.fromXML(geo),
-          complete: complete,
-          probability: probability,
-          modes: modes,
-        );
-      } else {
-        throw Exception('Unknown location type');
+        return _parseStopPoint(stopPoint, loc, geo);
       }
+
+      final stopPlace = location['trias:StopPlace'];
+      if (stopPlace != null) {
+        return _parseStopPlace(stopPlace, loc, geo);
+      }
+
+      throw Exception('Unknown location type');
     }).toList();
 
     return completions;
+  }
+
+  static TriasLocation _parseStopPlace(
+      XmlElement stopPlace, XmlElement loc, XmlElement geo) {
+    final name = stopPlace['trias:StopPlaceName']?.getTriasText()?.text;
+    final id = stopPlace['trias:StopPlaceRef']?.text;
+
+    final probability = _parseDouble(loc['trias:Probability']?.text);
+    final complete = loc['trias:Complete']?.text == 'true';
+
+    final modes = loc.findElements('trias:Mode').map((e) {
+      final mode = e['trias:PtMode']!.text;
+      final submode = e.childElements
+          .where(
+            (e) =>
+                e.name.qualified != 'trias:PtMode' &&
+                e.name.local.contains('Submode'),
+          )
+          .firstOrNull
+          ?.text;
+      return TriasPtMode(mode, submode);
+    }).toList();
+
+    return TriasLocation(
+      stopPointName: name!,
+      stopPointRef: id!,
+      geoPosition: TriasGeoPosition.fromXML(geo),
+      complete: complete,
+      probability: probability,
+      modes: modes,
+    );
+  }
+
+  static TriasLocation _parseStopPoint(
+      XmlElement stopPoint, XmlElement loc, XmlElement geo) {
+    final name = stopPoint['trias:StopPointName']?.getTriasText()?.text;
+    final id = stopPoint['trias:StopPointRef']?.text;
+
+    final probability = _parseDouble(loc['trias:Probability']?.text);
+    final complete = loc['trias:Complete']?.text == 'true';
+    final modes = loc.findElements('trias:Mode').map((e) {
+      final mode = e['trias:PtMode']!.text;
+      final submode = e.childElements
+          .where(
+            (e) =>
+                e.name.qualified != 'trias:PtMode' &&
+                e.name.local.contains('Submode'),
+          )
+          .firstOrNull
+          ?.text;
+      return TriasPtMode(mode, submode);
+    }).toList();
+
+    return TriasLocation(
+      stopPointName: name ?? 'name',
+      stopPointRef: id ?? 'id',
+      geoPosition: TriasGeoPosition.fromXML(geo),
+      complete: complete,
+      probability: probability,
+      modes: modes,
+    );
   }
 
 /*Parse this xml 

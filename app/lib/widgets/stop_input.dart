@@ -84,7 +84,7 @@ class _StopInputDialogState extends ConsumerState<StopInputDialog> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: TextField(
-              onSubmitted: submit,
+              onSubmitted: (_) => submit(),
               focusNode: node,
               decoration: InputDecoration(
                   hintText: AppLocalizations.of(context).search_station),
@@ -114,7 +114,7 @@ class _StopInputDialogState extends ConsumerState<StopInputDialog> {
     );
   }
 
-  void submit(String s) {
+  void submit() {
     // TODO: implement submit
   }
 }
