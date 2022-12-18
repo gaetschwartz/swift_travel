@@ -24,11 +24,12 @@ void main() {
   );
 
   test('Stop formatting', () {
-    expect(const SbbStop(name: 'Genève@34534535,345345').displayName, 'Genève');
     expect(
-        const SbbStop(name: 'Genève @34534535,345345').displayName, 'Genève');
-    expect(
-        const SbbStop(name: 'Genève  @34534535,345345').displayName, 'Genève');
+        const SbbStop(sbbName: 'Genève@34534535,345345').displayName, 'Genève');
+    expect(const SbbStop(sbbName: 'Genève @34534535,345345').displayName,
+        'Genève');
+    expect(const SbbStop(sbbName: 'Genève  @34534535,345345').displayName,
+        'Genève');
   });
 
   test(
@@ -113,7 +114,7 @@ final sbbRoute = SbbRoute(
           line: '15',
           sbbStops: [
             SbbStop(
-              name: 'Genève, Cirque',
+              sbbName: 'Genève, Cirque',
               departure: DateTime.parse(
                 '2021-02-15 14:29:00.000',
               ),
@@ -126,7 +127,7 @@ final sbbRoute = SbbRoute(
               y: 117408,
             ),
             SbbStop(
-              name: 'Genève, Stand',
+              sbbName: 'Genève, Stand',
               departure: DateTime.parse(
                 '2021-02-15 14:31:00.000',
               ),
@@ -139,7 +140,7 @@ final sbbRoute = SbbRoute(
               y: 117746,
             ),
             SbbStop(
-              name: 'Genève, Goulart',
+              sbbName: 'Genève, Goulart',
               departure: DateTime.parse(
                 '2021-02-15 14:33:00.000',
               ),
@@ -227,7 +228,7 @@ final sbbRoute = SbbRoute(
           line: 'IC 1',
           sbbStops: [
             SbbStop(
-              name: 'Lausanne',
+              sbbName: 'Lausanne',
               departure: DateTime.parse(
                 '2021-02-15 15:20:00.000',
               ),
@@ -240,7 +241,7 @@ final sbbRoute = SbbRoute(
               y: 152042,
             ),
             SbbStop(
-              name: 'Fribourg/Freiburg',
+              sbbName: 'Fribourg/Freiburg',
               departure: DateTime.parse(
                 '2021-02-15 16:04:00.000',
               ),
@@ -384,7 +385,7 @@ final sbbRoute = SbbRoute(
           line: '21',
           sbbStops: [
             SbbStop(
-              name: 'Thun, Freienhof',
+              sbbName: 'Thun, Freienhof',
               departure: DateTime.parse(
                 '2021-02-15 17:03:00.000',
               ),
@@ -397,7 +398,7 @@ final sbbRoute = SbbRoute(
               y: 178493,
             ),
             SbbStop(
-              name: 'Thun, Lauitor',
+              sbbName: 'Thun, Lauitor',
               departure: DateTime.parse(
                 '2021-02-15 17:04:00.000',
               ),
@@ -410,7 +411,7 @@ final sbbRoute = SbbRoute(
               y: 178565,
             ),
             SbbStop(
-              name: 'Thun, Thunerhof',
+              sbbName: 'Thun, Thunerhof',
               departure: DateTime.parse(
                 '2021-02-15 17:05:00.000',
               ),
@@ -423,7 +424,7 @@ final sbbRoute = SbbRoute(
               y: 178328,
             ),
             SbbStop(
-              name: 'Thun, Hofstetten',
+              sbbName: 'Thun, Hofstetten',
               departure: DateTime.parse(
                 '2021-02-15 17:06:00.000',
               ),
@@ -436,7 +437,7 @@ final sbbRoute = SbbRoute(
               y: 178151,
             ),
             SbbStop(
-              name: 'Thun, Bächimatt',
+              sbbName: 'Thun, Bächimatt',
               departure: DateTime.parse(
                 '2021-02-15 17:07:00.000',
               ),
@@ -449,7 +450,7 @@ final sbbRoute = SbbRoute(
               y: 177843,
             ),
             SbbStop(
-              name: 'Hünibach, Seematte',
+              sbbName: 'Hünibach, Seematte',
               departure: DateTime.parse(
                 '2021-02-15 17:08:00.000',
               ),
@@ -462,7 +463,7 @@ final sbbRoute = SbbRoute(
               y: 177430,
             ),
             SbbStop(
-              name: 'Hünibach, Chartreuse',
+              sbbName: 'Hünibach, Chartreuse',
               departure: DateTime.parse(
                 '2021-02-15 17:10:00.000',
               ),
@@ -475,7 +476,7 @@ final sbbRoute = SbbRoute(
               y: 177148,
             ),
             SbbStop(
-              name: 'Hünibach, Stationsstrasse',
+              sbbName: 'Hünibach, Stationsstrasse',
               departure: DateTime.parse(
                 '2021-02-15 17:10:00.000',
               ),
@@ -488,7 +489,7 @@ final sbbRoute = SbbRoute(
               y: 176996,
             ),
             SbbStop(
-              name: 'Hünibach, Eichbühl',
+              sbbName: 'Hünibach, Eichbühl',
               departure: DateTime.parse(
                 '2021-02-15 17:11:00.000',
               ),
@@ -501,7 +502,7 @@ final sbbRoute = SbbRoute(
               y: 176740,
             ),
             SbbStop(
-              name: 'Hilterfingen, Post',
+              sbbName: 'Hilterfingen, Post',
               departure: DateTime.parse(
                 '2021-02-15 17:13:00.000',
               ),
@@ -514,7 +515,7 @@ final sbbRoute = SbbRoute(
               y: 176058,
             ),
             SbbStop(
-              name: 'Hilterfingen, Kirche',
+              sbbName: 'Hilterfingen, Kirche',
               departure: DateTime.parse(
                 '2021-02-15 17:14:00.000',
               ),
@@ -527,7 +528,7 @@ final sbbRoute = SbbRoute(
               y: 175863,
             ),
             SbbStop(
-              name: 'Oberhofen a. T., Dorf',
+              sbbName: 'Oberhofen a. T., Dorf',
               departure: DateTime.parse(
                 '2021-02-15 17:16:00.000',
               ),
@@ -540,7 +541,7 @@ final sbbRoute = SbbRoute(
               y: 175585,
             ),
             SbbStop(
-              name: 'Oberhofen a. T., Wichterheer',
+              sbbName: 'Oberhofen a. T., Wichterheer',
               departure: DateTime.parse(
                 '2021-02-15 17:17:00.000',
               ),
@@ -553,7 +554,7 @@ final sbbRoute = SbbRoute(
               y: 175310,
             ),
             SbbStop(
-              name: 'Oberhofen a. T., Längenschach.',
+              sbbName: 'Oberhofen a. T., Längenschach.',
               departure: DateTime.parse(
                 '2021-02-15 17:18:00.000',
               ),
@@ -566,7 +567,7 @@ final sbbRoute = SbbRoute(
               y: 174994,
             ),
             SbbStop(
-              name: 'Oberhofen a.T., Örtlibach',
+              sbbName: 'Oberhofen a.T., Örtlibach',
               departure: DateTime.parse(
                 '2021-02-15 17:20:00.000',
               ),
@@ -579,7 +580,7 @@ final sbbRoute = SbbRoute(
               y: 173977,
             ),
             SbbStop(
-              name: 'Gunten, Du Lac',
+              sbbName: 'Gunten, Du Lac',
               departure: DateTime.parse(
                 '2021-02-15 17:21:00.000',
               ),
@@ -592,7 +593,7 @@ final sbbRoute = SbbRoute(
               y: 173738,
             ),
             SbbStop(
-              name: 'Gunten, Dorf',
+              sbbName: 'Gunten, Dorf',
               departure: DateTime.parse(
                 '2021-02-15 17:22:00.000',
               ),
@@ -605,7 +606,7 @@ final sbbRoute = SbbRoute(
               y: 173545,
             ),
             SbbStop(
-              name: 'Gunten, Stampbach',
+              sbbName: 'Gunten, Stampbach',
               departure: DateTime.parse(
                 '2021-02-15 17:24:00.000',
               ),
@@ -618,7 +619,7 @@ final sbbRoute = SbbRoute(
               y: 173159,
             ),
             SbbStop(
-              name: 'Merligen, Ralligen',
+              sbbName: 'Merligen, Ralligen',
               departure: DateTime.parse(
                 '2021-02-15 17:25:00.000',
               ),
@@ -631,7 +632,7 @@ final sbbRoute = SbbRoute(
               y: 172850,
             ),
             SbbStop(
-              name: 'Merligen, Bäregg',
+              sbbName: 'Merligen, Bäregg',
               departure: DateTime.parse(
                 '2021-02-15 17:25:00.000',
               ),
@@ -644,7 +645,7 @@ final sbbRoute = SbbRoute(
               y: 172586,
             ),
             SbbStop(
-              name: 'Merligen, Vorderdorf',
+              sbbName: 'Merligen, Vorderdorf',
               departure: DateTime.parse(
                 '2021-02-15 17:26:00.000',
               ),
@@ -657,7 +658,7 @@ final sbbRoute = SbbRoute(
               y: 172335,
             ),
             SbbStop(
-              name: 'Merligen, Kreuz',
+              sbbName: 'Merligen, Kreuz',
               departure: DateTime.parse(
                 '2021-02-15 17:26:00.000',
               ),
@@ -670,7 +671,7 @@ final sbbRoute = SbbRoute(
               y: 172180,
             ),
             SbbStop(
-              name: 'Merligen, Beatus',
+              sbbName: 'Merligen, Beatus',
               departure: DateTime.parse(
                 '2021-02-15 17:28:00.000',
               ),
@@ -683,7 +684,7 @@ final sbbRoute = SbbRoute(
               y: 171714,
             ),
             SbbStop(
-              name: 'Beatenbucht',
+              sbbName: 'Beatenbucht',
               departure: DateTime.parse(
                 '2021-02-15 17:32:00.000',
               ),
@@ -696,7 +697,7 @@ final sbbRoute = SbbRoute(
               y: 170585,
             ),
             SbbStop(
-              name: 'Merligen, Nastel',
+              sbbName: 'Merligen, Nastel',
               departure: DateTime.parse(
                 '2021-02-15 17:33:00.000',
               ),
@@ -709,7 +710,7 @@ final sbbRoute = SbbRoute(
               y: 170054,
             ),
             SbbStop(
-              name: 'Sundlauenen, Geisskilche',
+              sbbName: 'Sundlauenen, Geisskilche',
               departure: DateTime.parse(
                 '2021-02-15 17:35:00.000',
               ),
@@ -722,7 +723,7 @@ final sbbRoute = SbbRoute(
               y: 170228,
             ),
             SbbStop(
-              name: 'Sundlauenen, Balmholz',
+              sbbName: 'Sundlauenen, Balmholz',
               departure: DateTime.parse(
                 '2021-02-15 17:36:00.000',
               ),

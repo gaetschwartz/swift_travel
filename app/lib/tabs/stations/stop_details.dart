@@ -55,25 +55,27 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
   @override
   Widget build(BuildContext context) {
     if (isThemeDarwin(context)) {
-      return CupertinoPageScaffold(
-        resizeToAvoidBottomInset: false,
-        navigationBar: SwiftCupertinoBar(
-          trailing: IconButton(
-            icon: const Icon(Icons.route),
-            onPressed: () {
-              SideBar.push(
-                context,
-                (context) => RoutePage.stop(
-                  FavoriteStop.fromStop(
-                    widget.stop.name,
-                    api: ref.read(preferencesProvider).api.value,
+      return Material(
+        child: CupertinoPageScaffold(
+          resizeToAvoidBottomInset: false,
+          navigationBar: SwiftCupertinoBar(
+            trailing: IconButton(
+              icon: const Icon(Icons.route),
+              onPressed: () {
+                SideBar.push(
+                  context,
+                  (context) => RoutePage.stop(
+                    FavoriteStop.fromStop(
+                      widget.stop.name,
+                      api: ref.read(preferencesProvider).api.value,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
+          child: buildIOSList(),
         ),
-        child: buildIOSList(),
       );
     } else {
       return NotificationListener<ScrollNotification>(

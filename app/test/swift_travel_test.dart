@@ -180,7 +180,7 @@ void main() {
     });
     test('localRoute', () {
       final route1 = LocalRoute.v2(
-          const SbbStop(name: 'from'), const SbbStop(name: 'to'),
+          const SbbStop(sbbName: 'from'), const SbbStop(sbbName: 'to'),
           displayName: 'name', timestamp: FakeableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
         SbbRouteConnection(
@@ -191,8 +191,8 @@ void main() {
         displayName: 'name',
       );
       final json = {
-        'from': const SbbStop(name: 'from').toJson(),
-        'to': const SbbStop(name: 'to').toJson(),
+        'from': const SbbStop(sbbName: 'from').toJson(),
+        'to': const SbbStop(sbbName: 'to').toJson(),
         'displayName': 'name',
         'timestamp': FakeableDateTime.now().toIso8601String(),
         'runtimeType': 'v2',

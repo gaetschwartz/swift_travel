@@ -32,7 +32,7 @@ class FavoriteStationTile extends ConsumerStatefulWidget {
 
 class _FavoriteStationTileState extends ConsumerState<FavoriteStationTile> {
   SbbStop favoriteToStop(FavoriteStop stop) =>
-      SbbStop(name: stop.stop, id: stop.id);
+      SbbStop(sbbName: stop.stop, id: stop.id);
 
   @override
   Widget build(BuildContext context) {

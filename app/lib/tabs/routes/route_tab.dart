@@ -272,8 +272,10 @@ class RoutePageState extends ConsumerState<RoutePage> {
                           }
                           await favorites.addRoute(LocalRoute.v2(
                               SbbStop(
-                                  name: ref.read(fromTextfieldProvider).text),
-                              SbbStop(name: ref.read(toTextfieldProvider).text),
+                                  sbbName:
+                                      ref.read(fromTextfieldProvider).text),
+                              SbbStop(
+                                  sbbName: ref.read(toTextfieldProvider).text),
                               displayName: s));
 
                           if (!mounted) return;

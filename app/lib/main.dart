@@ -343,7 +343,7 @@ Route<void>? onGenerateRoute(RouteSettings settings) {
       return PlatformPageRoute(
         settings: settings,
         builder: (_) =>
-            StopDetails(SbbStop(name: settings.arguments! as String)),
+            StopDetails(SbbStop(sbbName: settings.arguments as String?)),
       );
     case '/stop':
       return PlatformPageRoute(

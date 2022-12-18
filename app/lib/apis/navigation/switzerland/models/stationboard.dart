@@ -24,7 +24,7 @@ class CustomStopConverter
     }
     assert(
         false, 'Stop is supposed to be either a `SbbStop` to be serializable');
-    return const SbbStop(name: '').toJson();
+    return const SbbStop(sbbName: '').toJson();
   }
 
   static Stop customStopFromJson(Map<String, dynamic>? json) =>
@@ -35,7 +35,7 @@ class CustomStopConverter
 class SbbStationboard with _$SbbStationboard, StationBoard {
   @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
   const factory SbbStationboard({
-    @Default(SbbStop(name: '')) @JsonKey(name: 'stop') SbbStop? sbbStop,
+    @Default(SbbStop(sbbName: '')) @JsonKey(name: 'stop') SbbStop? sbbStop,
     @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
     @Default(<SbbStationboardConnection>[])
         List<SbbStationboardConnection> sbbConnections,

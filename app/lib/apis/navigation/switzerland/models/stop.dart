@@ -46,7 +46,7 @@ class IntConverter implements JsonConverter<int?, Object?> {
 class SbbStop with _$SbbStop, BaseStop, SbbDisplayNameMixin implements Stop {
   @JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
   const factory SbbStop({
-    required String name,
+    @JsonKey(name: 'name') required String? sbbName,
     String? id,
     @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
     @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
@@ -59,11 +59,12 @@ class SbbStop with _$SbbStop, BaseStop, SbbDisplayNameMixin implements Stop {
 
   factory SbbStop.fromJson(Map<String, dynamic> json) =>
       _$SbbStopFromJson(json);
+
   factory SbbStop.fromStop(Stop stop) {
     final position = stop.position;
 
     return SbbStop(
-      name: stop.name,
+      sbbName: stop.name,
       id: stop.id,
       departure: stop.departure,
       arrival: stop.arrival,
@@ -75,4 +76,7 @@ class SbbStop with _$SbbStop, BaseStop, SbbDisplayNameMixin implements Stop {
   @override
   LatLon? get position =>
       LatLon.computeFrom(lat: lat, lon: lon, x: x, y: y, name: name);
+
+  @override
+  String get name => sbbName ?? id ?? '';
 }

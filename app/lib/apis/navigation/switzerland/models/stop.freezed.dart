@@ -20,7 +20,8 @@ SbbStop _$SbbStopFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SbbStop {
-  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
+  String? get sbbName => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
   DateTime? get departure => throw _privateConstructorUsedError;
@@ -44,7 +45,7 @@ abstract class $SbbStopCopyWith<$Res> {
       _$SbbStopCopyWithImpl<$Res, SbbStop>;
   @useResult
   $Res call(
-      {String name,
+      {@JsonKey(name: 'name') String? sbbName,
       String? id,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
@@ -67,7 +68,7 @@ class _$SbbStopCopyWithImpl<$Res, $Val extends SbbStop>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? sbbName = freezed,
     Object? id = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
@@ -77,10 +78,10 @@ class _$SbbStopCopyWithImpl<$Res, $Val extends SbbStop>
     Object? y = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+      sbbName: freezed == sbbName
+          ? _value.sbbName
+          : sbbName // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -121,7 +122,7 @@ abstract class _$$_SbbStopCopyWith<$Res> implements $SbbStopCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String name,
+      {@JsonKey(name: 'name') String? sbbName,
       String? id,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? arrival,
@@ -141,7 +142,7 @@ class __$$_SbbStopCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? sbbName = freezed,
     Object? id = freezed,
     Object? departure = freezed,
     Object? arrival = freezed,
@@ -151,10 +152,10 @@ class __$$_SbbStopCopyWithImpl<$Res>
     Object? y = freezed,
   }) {
     return _then(_$_SbbStop(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+      sbbName: freezed == sbbName
+          ? _value.sbbName
+          : sbbName // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -192,7 +193,7 @@ class __$$_SbbStopCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
 class _$_SbbStop extends _SbbStop {
   const _$_SbbStop(
-      {required this.name,
+      {@JsonKey(name: 'name') required this.sbbName,
       this.id,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) this.departure,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) this.arrival,
@@ -206,7 +207,8 @@ class _$_SbbStop extends _SbbStop {
       _$$_SbbStopFromJson(json);
 
   @override
-  final String name;
+  @JsonKey(name: 'name')
+  final String? sbbName;
   @override
   final String? id;
   @override
@@ -228,7 +230,7 @@ class _$_SbbStop extends _SbbStop {
 
   @override
   String toString() {
-    return 'SbbStop(name: $name, id: $id, departure: $departure, arrival: $arrival, lat: $lat, lon: $lon, x: $x, y: $y)';
+    return 'SbbStop(sbbName: $sbbName, id: $id, departure: $departure, arrival: $arrival, lat: $lat, lon: $lon, x: $x, y: $y)';
   }
 
   @override
@@ -236,7 +238,7 @@ class _$_SbbStop extends _SbbStop {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SbbStop &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.sbbName, sbbName) || other.sbbName == sbbName) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.departure, departure) ||
                 other.departure == departure) &&
@@ -250,7 +252,7 @@ class _$_SbbStop extends _SbbStop {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, id, departure, arrival, lat, lon, x, y);
+      Object.hash(runtimeType, sbbName, id, departure, arrival, lat, lon, x, y);
 
   @JsonKey(ignore: true)
   @override
@@ -268,7 +270,7 @@ class _$_SbbStop extends _SbbStop {
 
 abstract class _SbbStop extends SbbStop {
   const factory _SbbStop(
-      {required final String name,
+      {@JsonKey(name: 'name') required final String? sbbName,
       final String? id,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) final DateTime? departure,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) final DateTime? arrival,
@@ -281,7 +283,8 @@ abstract class _SbbStop extends SbbStop {
   factory _SbbStop.fromJson(Map<String, dynamic> json) = _$_SbbStop.fromJson;
 
   @override
-  String get name;
+  @JsonKey(name: 'name')
+  String? get sbbName;
   @override
   String? get id;
   @override

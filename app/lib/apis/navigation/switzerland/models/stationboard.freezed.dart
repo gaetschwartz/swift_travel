@@ -152,7 +152,7 @@ class __$$_SbbStationboardCopyWithImpl<$Res>
 class _$_SbbStationboard extends _SbbStationboard {
   const _$_SbbStationboard(
       {@JsonKey(name: 'stop')
-          this.sbbStop = const SbbStop(name: ''),
+          this.sbbStop = const SbbStop(sbbName: ''),
       @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
           final List<SbbStationboardConnection>
               sbbConnections = const <SbbStationboardConnection>[],

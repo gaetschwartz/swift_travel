@@ -28,7 +28,7 @@ class TransportDetails extends StatefulWidget {
 class _TransportDetailsState extends State<TransportDetails> {
   late final stops = <Widget>[
     _Stop(
-      SbbStop(name: widget.leg.name, departure: widget.leg.departure),
+      SbbStop(sbbName: widget.leg.name, departure: widget.leg.departure),
       isFirst: true,
       leg: widget.leg,
     ),
@@ -37,7 +37,8 @@ class _TransportDetailsState extends State<TransportDetails> {
           leg: widget.leg,
         )),
     _Stop(
-      SbbStop(name: widget.leg.exit!.name, departure: widget.leg.exit!.arrival),
+      SbbStop(
+          sbbName: widget.leg.exit!.name, departure: widget.leg.exit!.arrival),
       isLast: true,
       leg: widget.leg,
     )
@@ -208,8 +209,7 @@ class _AttributeTile extends StatelessWidget {
 }
 
 class _Circle extends StatelessWidget {
-  const _Circle(
-    this.leg);
+  const _Circle(this.leg);
 
   final Leg leg;
 

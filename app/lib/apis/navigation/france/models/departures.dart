@@ -93,7 +93,7 @@ class SncfDeparture with _$SncfDeparture implements StationboardConnection {
   List<DelayedStop> get subsequentStops => [];
 
   @override
-  Stop get terminal => SbbStop(name: displayInformations.direction);
+  Stop get terminal => SbbStop(sbbName: displayInformations.direction);
 
   @override
   DateTime get time => stopDateTime.arrivalDateTime;

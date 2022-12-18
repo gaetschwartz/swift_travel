@@ -11,7 +11,7 @@ _$_SbbStop _$$_SbbStopFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = _$_SbbStop(
-          name: $checkedConvert('name', (v) => v as String),
+          sbbName: $checkedConvert('name', (v) => v as String?),
           id: $checkedConvert('id', (v) => v as String?),
           departure:
               $checkedConvert('departure', (v) => _fromJson(v as String?)),
@@ -23,12 +23,11 @@ _$_SbbStop _$$_SbbStopFromJson(Map<String, dynamic> json) => $checkedCreate(
         );
         return val;
       },
+      fieldKeyMap: const {'sbbName': 'name'},
     );
 
 Map<String, dynamic> _$$_SbbStopToJson(_$_SbbStop instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -36,6 +35,7 @@ Map<String, dynamic> _$$_SbbStopToJson(_$_SbbStop instance) {
     }
   }
 
+  writeNotNull('name', instance.sbbName);
   writeNotNull('id', instance.id);
   writeNotNull('departure', _toJson(instance.departure));
   writeNotNull('arrival', _toJson(instance.arrival));

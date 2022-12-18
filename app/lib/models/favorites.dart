@@ -58,8 +58,8 @@ class LocalRoute with _$LocalRoute {
     DateTime? timestamp,
   }) =>
       LocalRoute.v2(
-        SbbStop(name: from),
-        SbbStop(name: to),
+        SbbStop(sbbName: from),
+        SbbStop(sbbName: to),
         displayName: displayName,
         timestamp: timestamp,
       );
@@ -70,12 +70,12 @@ class LocalRoute with _$LocalRoute {
   }) =>
       LocalRoute.v2(
         SbbStop(
-          name: connection.from,
+          sbbName: connection.from,
           lat: connection.legs.firstOrNull?.position?.lat,
           lon: connection.legs.firstOrNull?.position?.lon,
         ),
         SbbStop(
-          name: connection.to,
+          sbbName: connection.to,
           lat: connection.legs.lastOrNull?.position?.lat,
           lon: connection.legs.lastOrNull?.position?.lon,
         ),
@@ -90,7 +90,8 @@ class LocalRoute with _$LocalRoute {
   String get toAsString => map(v1: (v1) => v1.to, v2: (v2) => v2.to.name);
 
   LocalRoute copyClean() => map(
-        v1: (v1) => LocalRoute.v2(SbbStop(name: v1.from), SbbStop(name: v1.to)),
+        v1: (v1) =>
+            LocalRoute.v2(SbbStop(sbbName: v1.from), SbbStop(sbbName: v1.to)),
         v2: (v2) => LocalRoute.v2(v2.from, v2.to),
       );
 
