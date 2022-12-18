@@ -6,8 +6,6 @@ import 'package:theming/dynamic_theme.dart';
 List<BoxShadow> shadowListOf(BuildContext context) =>
     ShadowTheme.of(context).shadows((s) => [s.buttonShadow]);
 
-const purpleAbin = Colors.purple;
-
 const lightShadow = ShadowTheme(
   buttonShadow:
       BoxShadow(blurRadius: 8, color: Color(0x200700b1), offset: Offset(0, 4)),
@@ -62,12 +60,6 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
       ),
       shadow: lightShadow,
     ),
-    ExtendedTheme(
-      name: 'Abin',
-      id: 'abin',
-      colorScheme: ColorScheme.fromSeed(seedColor: purpleAbin),
-      shadow: lightShadow,
-    ),
   ],
   darkThemes: [
     ExtendedTheme(
@@ -84,15 +76,6 @@ final ThemeConfiguration themeConfiguration = ThemeConfiguration(
       shadow: darkShadow,
       id: 'swift',
       name: 'Swift',
-    ),
-    ExtendedTheme(
-      name: 'Abin',
-      id: 'abin',
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: purpleAbin,
-        brightness: Brightness.dark,
-      ),
-      shadow: darkShadow,
     ),
   ],
 );

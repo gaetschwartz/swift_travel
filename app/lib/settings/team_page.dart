@@ -29,7 +29,7 @@ final _contributorsProvider = FutureProvider<List<Contributor>>((_) async {
 class TeamPage extends StatelessWidget {
   const TeamPage({super.key});
 
-  static const primaryCoders = <Member>[
+  static const mainTeam = <Member>[
     Member(
       'Gaëtan Schwartz',
       role: 'Developer\nApp Concept/Design',
@@ -38,15 +38,9 @@ class TeamPage extends StatelessWidget {
       email: 'gaetan.schwartz@gmail.com',
       githubUrl: 'https://github.com/gaetschwartz',
     ),
-    Member(
-      'Abin W.',
-      role: 'Testing, Icon design'
-          '\nand ❤ ',
-      imageUrl: 'assets/profiles/abin.jpeg',
-    ),
   ];
 
-  static const secondaryCoders = <Member>[
+  static const morePeople = <Member>[
     Member(
       'David M.',
       role: 'Icon design, testing',
@@ -55,6 +49,11 @@ class TeamPage extends StatelessWidget {
     Member(
       'Alexandre',
       role: 'Testing',
+    ),
+    Member(
+      'Abin W.',
+      role: 'Testing, Icon design',
+      imageUrl: 'assets/profiles/abin.jpeg',
     ),
   ];
 
@@ -93,11 +92,11 @@ class _MainState extends State<_Main> {
     super.dispose();
   }
 
-  final primaryMemberWidgets = TeamPage.primaryCoders
+  final primaryMemberWidgets = TeamPage.mainTeam
       .map((c) => _MemberTile(c, dense: true))
       .toList(growable: false);
 
-  final secondaryMembersWidgets = TeamPage.secondaryCoders
+  final secondaryMembersWidgets = TeamPage.morePeople
       .map((c) => _MemberTile(c, dense: true))
       .toList(growable: false);
 
