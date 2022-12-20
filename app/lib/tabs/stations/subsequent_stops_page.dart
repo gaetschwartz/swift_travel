@@ -51,9 +51,11 @@ class _NextStopsPageState extends State<NextStopsPage> {
         top: false,
         bottom: false,
         child: PlatformBuilder(
-          cupertinoBuilder: (context, child) => CupertinoPageScaffold(
-            navigationBar: const SwiftCupertinoBar(),
-            child: child!,
+          cupertinoBuilder: (context, child) => Material(
+            child: CupertinoPageScaffold(
+              navigationBar: const SwiftCupertinoBar(),
+              child: child!,
+            ),
           ),
           materialBuilder: (context, child) => Scaffold(
               appBar: AppBar(
