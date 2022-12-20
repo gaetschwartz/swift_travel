@@ -33,11 +33,11 @@ class GeoAdminEngine implements NavigationCompletionDelegateApi {
       'type': 'locations',
       'sr': '4326',
     });
-    if (kDebugMode) print(uri);
     final resp = await http.get(uri, headers: {'accept-language': 'fr-CH'});
     if (resp.statusCode != 200) {
       throw GeoAdminEngineException(
-          '${resp.statusCode} (${resp.reasonPhrase})');
+        '${resp.statusCode} (${resp.reasonPhrase})',
+      );
     }
     final parsed = jsonDecode(resp.body) as Map;
     final results = parsed['results'] as List<dynamic>;

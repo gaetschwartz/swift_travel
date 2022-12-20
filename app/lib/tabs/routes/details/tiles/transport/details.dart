@@ -53,9 +53,11 @@ class _TransportDetailsState extends State<TransportDetails> {
     final empty = attributes.isEmpty;
     final dividerCount = empty ? 0 : 1;
     return PlatformBuilder(
-      cupertinoBuilder: (context, child) => CupertinoPageScaffold(
-        navigationBar: SwiftCupertinoBar(middle: Text(title)),
-        child: child!,
+      cupertinoBuilder: (context, child) => Material(
+        child: CupertinoPageScaffold(
+          navigationBar: SwiftCupertinoBar(middle: Text(title)),
+          child: child!,
+        ),
       ),
       materialBuilder: (context, child) => Scaffold(
         appBar: AppBar(title: Text(title)),
