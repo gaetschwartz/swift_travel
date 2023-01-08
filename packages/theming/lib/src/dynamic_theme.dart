@@ -114,9 +114,7 @@ class DynamicThemeNotifier extends ChangeNotifier {
   ExtendedTheme _lightTheme;
   ExtendedTheme _darkTheme;
 
-  @visibleForTesting
   ExtendedTheme get lightTheme => _lightTheme;
-  @visibleForTesting
   ExtendedTheme get darkTheme => _darkTheme;
 
   late ThemeMode _themeMode;
