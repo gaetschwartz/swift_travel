@@ -173,10 +173,10 @@ packages:
     dependency: transitive
     description:
       name: checked_yaml
-      sha256: dd007e4fb8270916820a0d66e24f619266b60773cddd082c6439341645af2659
+      sha256: "3d1505d91afa809d177efd4eed5bb0eb65805097a1463abdd2add076effae311"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   cli_util:
     dependency: transitive
     description:
@@ -262,10 +262,18 @@ packages:
     dependency: "direct dev"
     description:
       name: dart_code_metrics
-      sha256: "2089d4323d372397a8918636c911bbd140d6bc15c323393ae220fa29984ba990"
+      sha256: "95f22e95638c0dfb0cb4e3ba45e00bb06dd509c98f06d4c0fa45340b0a5392e0"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.4.0"
+  dart_code_metrics_presets:
+    dependency: transitive
+    description:
+      name: dart_code_metrics_presets
+      sha256: e19e41149806642574a2d35c3116349cb2270f42ca23c35b1ecc70d3b10188ae
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   dart_style:
     dependency: transitive
     description:
@@ -587,10 +595,10 @@ packages:
     dependency: "direct main"
     description:
       name: in_app_purchase
-      sha256: f6a377b7f6e8caa1eecbc65d96883289a9056c719a61c2919860ff97ac797f57
+      sha256: "9a167cef15ebe86bb57c78d6121e8b04af3845b6c97a6086fe6df2d487c10f1f"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   in_app_purchase_android:
     dependency: "direct main"
     description:
@@ -1080,10 +1088,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_macos
-      sha256: fbb94bf296576f49be37a1496d5951796211a8db0aa22cc0d68c46440dad808c
+      sha256: "81b6a60b2d27020eb0fc41f4cebc91353047309967901a79ee8203e40c42ed46"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   shared_preferences_platform_interface:
     dependency: transitive
     description:
