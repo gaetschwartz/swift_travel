@@ -10,14 +10,15 @@ class LiveRoutePlugin {
 
   static Future<bool?> initialize() async {
     final callback = PluginUtilities.getCallbackHandle(callbackDispatcher);
-    final res =
-        await _channel.invokeMethod<bool>('LiveRoute.initializeService', [callback!.toRawHandle()]);
+    final res = await _channel.invokeMethod<bool>(
+        'LiveRoute.initializeService', [callback!.toRawHandle()]);
     return res;
   }
 
   static void callbackDispatcher() {
     // 1. Initialize MethodChannel used to communicate with the platform portion of the plugin.
-    const _backgroundChannel = MethodChannel('gaetanschwartz.com/liveroute_plugin_background');
+    const _backgroundChannel =
+        MethodChannel('gaetanschwartz.com/liveroute_plugin_background');
 
     // 2. Setup internal state needed for MethodChannels.
     WidgetsFlutterBinding.ensureInitialized();
@@ -28,9 +29,8 @@ class LiveRoutePlugin {
         final args = call.arguments as List<Object>;
 
         // 3.1. Retrieve callback instance for handle.
-        final callback =
-            PluginUtilities.getCallbackFromHandle(CallbackHandle.fromRawHandle(args[0] as int))!
-                as Function();
+        final callback = PluginUtilities.getCallbackFromHandle(
+            CallbackHandle.fromRawHandle(args[0] as int))! as void Function();
 
         // 3.3. Invoke callback.
         callback();
