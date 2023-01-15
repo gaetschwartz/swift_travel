@@ -33,7 +33,7 @@ final _trias2020ApiProvider = FutureProvider((ref) => ref
     .then((value) => Trias2020Api(value.triasKey!)));
 
 class SearchChApi extends BaseNavigationApi {
-  static const kUseTrias2020 = true;
+  static const kUseTrias2020 = false;
   static const kUseGeoAdmin = true;
 
   SearchChApi(this.ref);

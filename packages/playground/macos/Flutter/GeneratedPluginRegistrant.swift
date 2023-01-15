@@ -10,7 +10,7 @@ import in_app_purchase_storekit
 import isar_flutter_libs
 import path_provider_macos
 import share_plus
-import shared_preferences_macos
+import shared_preferences_foundation
 import url_launcher_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
