@@ -51,3 +51,37 @@ const _$LocationTypeEnumMap = {
   LocationType.station: 'station',
   LocationType.unknown: 'unknown',
 };
+
+_$__VehicleTypeIconclass _$$__VehicleTypeIconclassFromJson(
+        Map<String, dynamic> json) =>
+    _$__VehicleTypeIconclass(
+      $enumDecode(_$VehicleTypeEnumMap, json['v']),
+    );
+
+Map<String, dynamic> _$$__VehicleTypeIconclassToJson(
+        _$__VehicleTypeIconclass instance) =>
+    <String, dynamic>{
+      'v': _$VehicleTypeEnumMap[instance.v]!,
+    };
+
+const _$VehicleTypeEnumMap = {
+  VehicleType.bus: 'bus',
+  VehicleType.post: 'post',
+  VehicleType.nightBus: 'night_bus',
+  VehicleType.tram: 'tram',
+  VehicleType.walk: 'walk',
+  VehicleType.strain: 'strain',
+  VehicleType.train: 'train',
+  VehicleType.expressTrain: 'express_train',
+  VehicleType.funicular: 'funicular',
+  VehicleType.business: 'business',
+  VehicleType.gondola: 'adr',
+  VehicleType.cablecar: 'cablecar',
+  VehicleType.chairlift: 'chairlift',
+  VehicleType.ship: 'ship',
+  VehicleType.str: 'str',
+  VehicleType.metro: 'metro',
+  VehicleType.rer: 'rer',
+  VehicleType.nightStrain: 'night_strain',
+  VehicleType.unknown: 'unknown',
+};

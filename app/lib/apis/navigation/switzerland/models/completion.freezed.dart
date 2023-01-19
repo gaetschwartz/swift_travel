@@ -152,7 +152,7 @@ class __$$_SbbCompletionCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-class _$_SbbCompletion extends _SbbCompletion {
+class _$_SbbCompletion extends _SbbCompletion with DiagnosticableTreeMixin {
   _$_SbbCompletion(
       {required this.label,
       this.dist,
@@ -177,8 +177,20 @@ class _$_SbbCompletion extends _SbbCompletion {
   final String? id;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SbbCompletion(label: $label, dist: $dist, iconClass: $iconClass, html: $html, id: $id)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SbbCompletion'))
+      ..add(DiagnosticsProperty('label', label))
+      ..add(DiagnosticsProperty('dist', dist))
+      ..add(DiagnosticsProperty('iconClass', iconClass))
+      ..add(DiagnosticsProperty('html', html))
+      ..add(DiagnosticsProperty('id', id));
   }
 
   @override
@@ -324,7 +336,9 @@ class __$$__PlaceTypeIconclassCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$__PlaceTypeIconclass implements __PlaceTypeIconclass {
+class _$__PlaceTypeIconclass
+    with DiagnosticableTreeMixin
+    implements __PlaceTypeIconclass {
   const _$__PlaceTypeIconclass(this.v);
 
   factory _$__PlaceTypeIconclass.fromJson(Map<String, dynamic> json) =>
@@ -334,8 +348,16 @@ class _$__PlaceTypeIconclass implements __PlaceTypeIconclass {
   final LocationType v;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return '_PlaceTypeIconclass(v: $v)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', '_PlaceTypeIconclass'))
+      ..add(DiagnosticsProperty('v', v));
   }
 
   @override
@@ -377,5 +399,155 @@ abstract class __PlaceTypeIconclass implements _PlaceTypeIconclass {
   @override
   @JsonKey(ignore: true)
   _$$__PlaceTypeIconclassCopyWith<_$__PlaceTypeIconclass> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+_VehicleTypeIconclass _$_VehicleTypeIconclassFromJson(
+    Map<String, dynamic> json) {
+  return __VehicleTypeIconclass.fromJson(json);
+}
+
+/// @nodoc
+mixin _$_VehicleTypeIconclass {
+  VehicleType get v => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$VehicleTypeIconclassCopyWith<_VehicleTypeIconclass> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$VehicleTypeIconclassCopyWith<$Res> {
+  factory _$VehicleTypeIconclassCopyWith(_VehicleTypeIconclass value,
+          $Res Function(_VehicleTypeIconclass) then) =
+      __$VehicleTypeIconclassCopyWithImpl<$Res, _VehicleTypeIconclass>;
+  @useResult
+  $Res call({VehicleType v});
+}
+
+/// @nodoc
+class __$VehicleTypeIconclassCopyWithImpl<$Res,
+        $Val extends _VehicleTypeIconclass>
+    implements _$VehicleTypeIconclassCopyWith<$Res> {
+  __$VehicleTypeIconclassCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? v = null,
+  }) {
+    return _then(_value.copyWith(
+      v: null == v
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as VehicleType,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$__VehicleTypeIconclassCopyWith<$Res>
+    implements _$VehicleTypeIconclassCopyWith<$Res> {
+  factory _$$__VehicleTypeIconclassCopyWith(_$__VehicleTypeIconclass value,
+          $Res Function(_$__VehicleTypeIconclass) then) =
+      __$$__VehicleTypeIconclassCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({VehicleType v});
+}
+
+/// @nodoc
+class __$$__VehicleTypeIconclassCopyWithImpl<$Res>
+    extends __$VehicleTypeIconclassCopyWithImpl<$Res, _$__VehicleTypeIconclass>
+    implements _$$__VehicleTypeIconclassCopyWith<$Res> {
+  __$$__VehicleTypeIconclassCopyWithImpl(_$__VehicleTypeIconclass _value,
+      $Res Function(_$__VehicleTypeIconclass) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? v = null,
+  }) {
+    return _then(_$__VehicleTypeIconclass(
+      null == v
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as VehicleType,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$__VehicleTypeIconclass
+    with DiagnosticableTreeMixin
+    implements __VehicleTypeIconclass {
+  const _$__VehicleTypeIconclass(this.v);
+
+  factory _$__VehicleTypeIconclass.fromJson(Map<String, dynamic> json) =>
+      _$$__VehicleTypeIconclassFromJson(json);
+
+  @override
+  final VehicleType v;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return '_VehicleTypeIconclass(v: $v)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', '_VehicleTypeIconclass'))
+      ..add(DiagnosticsProperty('v', v));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$__VehicleTypeIconclass &&
+            (identical(other.v, v) || other.v == v));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, v);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$__VehicleTypeIconclassCopyWith<_$__VehicleTypeIconclass> get copyWith =>
+      __$$__VehicleTypeIconclassCopyWithImpl<_$__VehicleTypeIconclass>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$__VehicleTypeIconclassToJson(
+      this,
+    );
+  }
+}
+
+abstract class __VehicleTypeIconclass implements _VehicleTypeIconclass {
+  const factory __VehicleTypeIconclass(final VehicleType v) =
+      _$__VehicleTypeIconclass;
+
+  factory __VehicleTypeIconclass.fromJson(Map<String, dynamic> json) =
+      _$__VehicleTypeIconclass.fromJson;
+
+  @override
+  VehicleType get v;
+  @override
+  @JsonKey(ignore: true)
+  _$$__VehicleTypeIconclassCopyWith<_$__VehicleTypeIconclass> get copyWith =>
       throw _privateConstructorUsedError;
 }
