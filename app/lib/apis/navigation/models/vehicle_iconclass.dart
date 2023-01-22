@@ -32,10 +32,6 @@ enum LocationType {
   station,
   unknown;
 
-  static const _privatePlaces = <LocationType>[
-    LocationType.address,
-    LocationType.business,
-  ];
-
-  bool get isAddress => _privatePlaces.contains(this);
+  bool get isPrivate =>
+      this == LocationType.address || this == LocationType.business;
 }

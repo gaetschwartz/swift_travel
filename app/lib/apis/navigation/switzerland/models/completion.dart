@@ -44,7 +44,16 @@ class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
   }
 
   @override
-  late final LocationType type = parseLocationType(iconClass);
+  late final LocationType type = () {
+    final icon = parseLocationType(iconClass);
+    if (icon == LocationType.unknown) {
+      return vehicle == VehicleType.unknown
+          ? LocationType.unknown
+          : LocationType.station;
+    } else {
+      return icon;
+    }
+  }();
 
   late final VehicleType vehicle = () {
     if (iconClass == null) {
@@ -65,7 +74,6 @@ class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
   }();
 
   // blah blah blah @ 46.8537495783, 7.65740776062
-
   final regex = RegExp(r'@ (\d+\.\d+), (\d+\.\d+)');
   @override
   GeoCoordinates? get coordinates {
