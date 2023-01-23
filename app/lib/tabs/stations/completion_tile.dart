@@ -20,6 +20,7 @@ import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/tabs/stations/stop_details.dart';
 import 'package:swift_travel/theme.dart';
 import 'package:swift_travel/widgets/action_sheet.dart';
@@ -35,7 +36,7 @@ class CompletionTile extends ConsumerStatefulWidget {
     super.key,
   });
 
-  final NavigationCompletion sugg;
+  final Completion sugg;
 
   static const _kRadius = BorderRadius.all(Radius.circular(16));
 
@@ -47,7 +48,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
   @override
   Widget build(BuildContext context) {
     final store = ref.watch(favoritesStoreProvider);
-    final iconClass = widget.sugg.iconBuilder?.call(context) ??
+    final icon = widget.sugg.iconBuilder?.call(context) ??
         LocationTypeIcon(widget.sugg.type);
     final isNotStation = widget.sugg.type != LocationType.station;
 
@@ -60,7 +61,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
       if (isFav) Text(widget.sugg.label, overflow: TextOverflow.ellipsis),
       if (widget.sugg.dist != null) Text('${widget.sugg.dist!.round()}m'),
       if (!isNotStation)
-        _LinesWidget(key: Key(widget.sugg.label), compl: widget.sugg)
+        _LinesWidget(key: Key(widget.sugg.label), compl: widget.sugg),
     ];
 
     final listTile = DecoratedBox(
@@ -82,7 +83,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
                   ? const Icon(CupertinoIcons.heart_fill)
                   : const Icon(Icons.star)
             else
-              iconClass,
+              icon,
           ],
         ),
         title: Text(isFav ? favoriteStop.data.displayName : widget.sugg.label),
@@ -272,11 +273,7 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
       final connections = sData.connections.where((c) => c.line != null);
 
       final l = connections
-          .sorted((a, b) {
-            final la = a.l ?? a.line ?? '';
-            final lb = b.l ?? b.line ?? '';
-            return la.compareTo(lb);
-          })
+          .sorted((a, b) => a.line!.compareTo(b.line!))
           .map((c) => Line(
                 line: c.line,
                 bgColor: c.bgcolor?.value,

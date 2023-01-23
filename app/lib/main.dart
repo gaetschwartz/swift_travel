@@ -1,3 +1,5 @@
+// ignore_for_file: unreachable_from_main
+
 import 'dart:async';
 import 'dart:io';
 
@@ -29,7 +31,6 @@ import 'package:swift_travel/utils/intents.dart';
 import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 import 'l10n/app_localizations.dart';
 import 'models/favorites.dart';
@@ -48,6 +49,7 @@ void main() {
 }
 
 void preLaunchRoutine() {
+  Logger.root.setConsumers([const ConsoleLogger(useDeveloperLog: false)]);
   final log = Logger.of('main');
   if (kReleaseMode) {
     log.log(
@@ -62,10 +64,10 @@ void preLaunchRoutine() {
     log.log(Env.env);
   }
 
-  if (Env.overridePlatform) {
-    overridePlatform();
-  }
-  setPathUrlStrategy();
+  // if (Env.overridePlatform) {
+  //   overridePlatform();
+  // }
+  // setPathUrlStrategy();
 
   if (isTest) {
     log.log('We are in a test');
@@ -229,7 +231,7 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
 
 Route<void> onUnknownRoute(RouteSettings settings) {
   reportDartError('Unknown page : `${settings.name}`', StackTrace.current,
-      library: 'router', reason: 'while trying to route', showSnackbar: false);
+      library: 'router', context: 'while trying to route', showSnackbar: false);
   return MaterialPageRoute(builder: (_) => PageNotFound(settings: settings));
 }
 

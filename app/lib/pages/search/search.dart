@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
@@ -11,6 +12,7 @@ import 'package:gap/gap.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
+import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/history.dart';
@@ -59,19 +61,27 @@ final _stateProvider =
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({
     required this.binder,
-    required this.heroTag,
+    this.heroTag,
     super.key,
     this.configuration = const TextFieldConfiguration(),
     this.isDestination = false,
     this.dateTime,
+    this.completeCurrentLocation = true,
+    this.completeContacts = true,
+    this.completeHistory = true,
+    this.completeFavorites = true,
   });
 
   final LocationTextBoxManager binder;
   // ignore: no-object-declaration
-  final Object heroTag;
+  final Object? heroTag;
   final TextFieldConfiguration configuration;
   final bool isDestination;
   final DateTime? dateTime;
+  final bool completeCurrentLocation;
+  final bool completeContacts;
+  final bool completeHistory;
+  final bool completeFavorites;
   static const closeSearchKey = Key('close-search');
 
   @override
@@ -99,6 +109,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     unawaited(_sub?.cancel());
     debouncer.dispose();
     widget.binder.controller.removeListener(onChanged);
+    if (widget.configuration.focusNode == null) {
+      focusNode.dispose();
+    }
     super.dispose();
   }
 
@@ -124,15 +137,33 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       await _sub!.cancel();
     }
     if (mounted) {
+      final LocationType locationType;
+
+      switch (ref.read(_searchTypeProvider)) {
+        case SearchType.station:
+          locationType = LocationType.station;
+          break;
+        case SearchType.address:
+          locationType = LocationType.address;
+          break;
+      }
       _sub = ref
           .read(completionEngineProvider)
           .complete(
             query: query,
             doPredict: widget.isDestination,
             date: ref.read(dateProvider),
+            locationType: locationType,
+            doUseCurrentLocation: widget.completeCurrentLocation,
+            doUseContacts: widget.completeContacts,
+            doUseHistory: widget.completeHistory,
+            doUseFavorites: widget.completeFavorites,
           )
           .listen(
         (c) {
+          if (kDebugMode) {
+            log.log('Got completions: $c');
+          }
           if (mounted) {
             ref.read(_stateProvider.notifier).state =
                 StationStates.completions(c);
@@ -143,8 +174,12 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             ref.read(_stateProvider.notifier).state =
                 const StationStates.network();
           } else if (e is Exception) {
-            reportDartError(e, s as StackTrace,
-                library: 'search', reason: 'while fetching');
+            reportDartError(
+              e,
+              s as StackTrace,
+              library: 'search',
+              context: 'while fetching',
+            );
           }
         },
       );
@@ -167,7 +202,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   }
 
   @allowReturningWidgets
-  Widget toTextField(
+  Widget getTextField(
     BuildContext context,
     TextFieldConfiguration configuration, {
     TextEditingController? controller,
@@ -184,12 +219,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           focusNode: configuration.focusNode,
           controller: controller,
           key: configuration.key,
-          onSubmitted: (s) => Navigator.of(context).pop(s),
+          autocorrect: false,
+          onSubmitted: (s) =>
+              Navigator.of(context).pop<Completion>(Completion.fromString(s)),
         ),
       );
 
   @allowReturningWidgets
-  Widget toCupertino(
+  Widget getCupertinoTextField(
     BuildContext context,
     TextFieldConfiguration configuration, {
     TextEditingController? controller,
@@ -202,49 +239,68 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         focusNode: configuration.focusNode,
         controller: controller,
         key: configuration.key,
-        onSubmitted: (s) => Navigator.of(context).pop(s),
+        autocorrect: false,
+        onSubmitted: (s) =>
+            Navigator.of(context).pop<Completion>(Completion.fromString(s)),
       );
 
+  late final focusNode = widget.configuration.focusNode ?? FocusNode();
+
   @override
-  Widget build(BuildContext context) => CupertinoScaffold(
-        body: PlatformBuilder(
-          cupertinoBuilder: (context, child) => Material(
+  Widget build(BuildContext context) {
+    return CupertinoScaffold(
+      body: PlatformBuilder(
+        cupertinoBuilder: (context, child) {
+          Widget cup = getCupertinoTextField(
+            context,
+            widget.configuration,
+            controller: widget.binder.controller,
+          );
+          if (widget.heroTag != null) {
+            cup = Hero(tag: widget.heroTag!, child: cup);
+          }
+          return Material(
             child: CupertinoPageScaffold(
               navigationBar: SwiftCupertinoBar(
                 transitionBetweenRoutes: false,
-                middle: Hero(
-                  tag: widget.heroTag,
-                  child: toCupertino(
-                    context,
-                    widget.configuration,
-                    controller: widget.binder.controller,
-                  ),
-                ),
+                middle: cup,
                 trailing: _ClearButton(binder: widget.binder),
               ),
               child: child!,
             ),
-          ),
-          materialBuilder: (context, child) => Scaffold(
+          );
+        },
+        materialBuilder: (context, child) {
+          Widget txt = getTextField(
+            context,
+            widget.configuration,
+            controller: widget.binder.controller,
+          );
+          if (widget.heroTag != null) {
+            txt = Hero(tag: widget.heroTag!, child: txt);
+          }
+          return Scaffold(
             appBar: AppBar(
-              title: Hero(
-                  tag: widget.heroTag,
-                  child: toTextField(
-                    context,
-                    widget.configuration,
-                    controller: widget.binder.controller,
-                  )),
+              title: txt,
               actions: [_ClearButton(binder: widget.binder)],
               leading: const CloseButton(key: SearchPage.closeSearchKey),
+              // show segmented control to select between stations and addresses
             ),
             body: child,
-          ),
-          child: _Results(
-            onTap: onSuggestionTapped,
-            focusNode: widget.configuration.focusNode,
+          );
+        },
+        child: _Results(
+          onTap: onSuggestionTapped,
+          focusNode: widget.configuration.focusNode ?? focusNode,
+          top: _SearchTypeSelector(
+            onTap: (t) async {
+              await debouncer.debounce(() => fetch(widget.binder.text));
+            },
           ),
         ),
-      );
+      ),
+    );
+  }
 
   void onSuggestionTapped(Completion c) {
     Vibration.instance.select();
@@ -264,7 +320,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     } else {
       widget.binder.setString(c.label);
     }
-    Navigator.of(context).pop();
+    Navigator.of(context).pop<Completion>(c);
   }
 }
 
@@ -291,39 +347,124 @@ class _ClearButton extends StatelessWidget {
       );
 }
 
+enum SearchType { station, address }
+
+final _searchTypeProvider = StateProvider((ref) => SearchType.station);
+
+class _SearchTypeSelector extends ConsumerWidget {
+  const _SearchTypeSelector({this.onTap});
+
+  final ValueChanged<SearchType>? onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final searchType = ref.watch(_searchTypeProvider);
+    return CupertinoSlidingSegmentedControl<SearchType>(
+      groupValue: searchType,
+      onValueChanged: (value) {
+        ref.read(_searchTypeProvider.notifier).state = value!;
+        onTap?.call(value);
+      },
+      children: const {
+        SearchType.station: Text('Station'),
+        SearchType.address: Text('Address'),
+      },
+    );
+  }
+}
+
 class _Results extends StatelessWidget {
   const _Results({
     required this.onTap,
     required this.focusNode,
+    required this.top,
   });
 
   final void Function(Completion completion) onTap;
 
-  final FocusNode? focusNode;
+  final FocusNode focusNode;
+  final Widget top;
 
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, w, _) {
       final state = w.watch(_stateProvider);
-      return state.when(
-        completions: (c) => Stack(
-          children: [
-            Positioned.fill(
-              child: ListView.builder(
-                itemBuilder: (context, i) => SuggestedTile(c[i], onTap: onTap),
-                itemCount: c.length,
-              ),
+      final slivers = state.when(
+        completions: (c) => [
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, i) => SuggestedTile(c[i], onTap: onTap),
+              childCount: c.length,
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              left: 0,
-              child: ListenableBuilder(
-                listenable: focusNode!,
-                builder: (context, _, __) {
-                  return AnimatedOpacity(
+          )
+        ],
+        empty: () => [
+          SliverToBoxAdapter(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  '🔎',
+                  style: TextStyle(fontSize: 48),
+                  textAlign: TextAlign.center,
+                ),
+                const Gap(24),
+                Text(
+                  AppLocalizations.of(context).search_station,
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+          )
+        ],
+        network: () => [
+          SliverToBoxAdapter(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.wifi_off,
+                size: 48,
+              ),
+              const Gap(16),
+              Text(
+                'Network Error',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ],
+          ))
+        ],
+      );
+      return Stack(
+        children: [
+          Positioned.fill(
+            child: CustomScrollView(
+              slivers: [
+                SliverSafeArea(
+                  sliver: SliverToBoxAdapter(
+                      child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: top,
+                  )),
+                  bottom: false,
+                ),
+                ...slivers,
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: ListenableBuilder(
+              listenable: focusNode,
+              builder: (context, _, __) {
+                return SafeArea(
+                  child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 500),
-                    opacity: focusNode!.hasFocus ? 1 : 0,
+                    opacity: focusNode.hasFocus ? 1 : 0,
                     child: Card(
                       child: SizedBox(
                         height: 40,
@@ -341,43 +482,12 @@ class _Results extends StatelessWidget {
                         ),
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
-        empty: () => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text(
-              '🔎',
-              style: TextStyle(fontSize: 48),
-              textAlign: TextAlign.center,
-            ),
-            const Gap(24),
-            Text(
-              AppLocalizations.of(context).search_station,
-              style: Theme.of(context).textTheme.titleLarge,
-              textAlign: TextAlign.center,
-            )
-          ],
-        ),
-        network: () => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.wifi_off,
-              size: 48,
-            ),
-            const Gap(16),
-            Text(
-              'Network Error',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ],
-        ),
+          ),
+        ],
       );
     });
   }

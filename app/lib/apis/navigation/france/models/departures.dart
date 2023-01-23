@@ -107,13 +107,13 @@ class SncfDeparture with _$SncfDeparture implements StationboardConnection {
 
   @override
   Color? get bgcolor {
-    final c = parseColorInt(displayInformations.color);
+    final c = tryParseColorInt(displayInformations.color);
     return c == null ? null : Color(c);
   }
 
   @override
   Color? get fgcolor {
-    final c = parseColorInt(displayInformations.textColor);
+    final c = tryParseColorInt(displayInformations.textColor);
     return c == null ? null : Color(c);
   }
 

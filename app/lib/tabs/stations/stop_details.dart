@@ -66,7 +66,7 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
                   context,
                   (context) => RoutePage.stop(
                     FavoriteStop.fromStop(
-                      widget.stop.name,
+                      widget.stop,
                       api: ref.read(preferencesProvider).api.value,
                     ),
                   ),
@@ -90,11 +90,14 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
                   icon: const Icon(Icons.double_arrow_rounded),
                   onPressed: () {
                     SideBar.push(
-                        context,
-                        (context) => RoutePage.stop(FavoriteStop.fromStop(
-                              widget.stop.name,
-                              api: ref.read(preferencesProvider).api.value,
-                            )));
+                      context,
+                      (context) => RoutePage.stop(
+                        FavoriteStop.fromStop(
+                          widget.stop,
+                          api: ref.read(preferencesProvider).api.value,
+                        ),
+                      ),
+                    );
                   })
             ],
           ),

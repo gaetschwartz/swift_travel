@@ -133,6 +133,8 @@ class Completion implements NavigationCompletion {
   final String? displayName;
   @override
   final LocationType type;
+  @override
+  final VehicleType vehicle;
   final DataOrigin origin;
   @override
   final double? dist;
@@ -150,6 +152,7 @@ class Completion implements NavigationCompletion {
     required this.dist,
     required this.iconBuilder,
     required this.coordinates,
+    required this.vehicle,
   });
 
   factory Completion.from(
@@ -166,6 +169,7 @@ class Completion implements NavigationCompletion {
         iconBuilder: completion.iconBuilder,
         displayName: favoriteName,
         coordinates: completion.coordinates,
+        vehicle: completion.vehicle,
       );
 
   factory Completion.fromApi(NavigationCompletion completion) =>
@@ -180,6 +184,19 @@ class Completion implements NavigationCompletion {
         iconBuilder: null,
         displayName: stop.name,
         coordinates: null,
+        vehicle: VehicleType.unknown,
+      );
+
+  factory Completion.fromString(String label) => Completion(
+        id: null,
+        label: label,
+        type: LocationType.unknown,
+        origin: DataOrigin.api,
+        dist: null,
+        iconBuilder: null,
+        displayName: null,
+        coordinates: null,
+        vehicle: VehicleType.unknown,
       );
 
   static const currentLocation = Completion(
@@ -191,6 +208,7 @@ class Completion implements NavigationCompletion {
     iconBuilder: null,
     displayName: null,
     coordinates: null,
+    vehicle: VehicleType.unknown,
   );
 
   // factory Completion.fromContact(Contact contact) {
@@ -229,5 +247,6 @@ class ContactCompletion extends Completion {
           displayName: contact.displayName ??
               '${contact.givenName} ${contact.familyName}',
           coordinates: null,
+          vehicle: VehicleType.unknown,
         );
 }

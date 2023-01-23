@@ -116,8 +116,22 @@ class FavoriteStop with _$FavoriteStop, BaseStop, SchDisplayNameMixin {
 
   const FavoriteStop._();
 
-  factory FavoriteStop.fromStop(String stop, {required NavigationApiId api}) =>
-      _FavoriteStop(stop: stop, name: stop, api: api.value);
+  factory FavoriteStop.fromStop(Stop stop, {required NavigationApiId api}) =>
+      _FavoriteStop(
+        stop: stop.name,
+        name: stop.name,
+        api: api.value,
+        id: stop.id,
+      );
+
+  @visibleForTesting
+  factory FavoriteStop.fromString(String stop,
+          {required NavigationApiId api}) =>
+      _FavoriteStop(
+        stop: stop,
+        name: stop,
+        api: api.value,
+      );
 
   factory FavoriteStop.fromCompletion(
     NavigationCompletion completion, {
@@ -128,6 +142,7 @@ class FavoriteStop with _$FavoriteStop, BaseStop, SchDisplayNameMixin {
         stop: completion.label,
         name: name ?? completion.label,
         api: api.value,
+        id: completion.id,
       );
 
   factory FavoriteStop.fromJson(Map<String, dynamic> json) =>

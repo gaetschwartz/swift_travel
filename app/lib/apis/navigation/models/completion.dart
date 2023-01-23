@@ -15,6 +15,9 @@ abstract class NavigationCompletion {
   /// Type of the completion
   LocationType get type;
 
+  /// The vehicle type of the completion
+  VehicleType get vehicle;
+
   /// Returns the icon for this completion.
   // ignore: avoid-unused-parameters
   Widget Function(BuildContext context)? get iconBuilder;

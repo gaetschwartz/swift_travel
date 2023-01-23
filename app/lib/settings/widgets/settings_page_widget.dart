@@ -31,10 +31,12 @@ class PlatformSettingsScaffold extends StatelessWidget {
     super.key,
     required this.child,
     this.title,
+    this.action,
   });
 
   final Widget child;
   final Widget? title;
+  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class PlatformSettingsScaffold extends StatelessWidget {
         child: CupertinoPageScaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: SettingsColor.background.resolveFrom(context),
-          navigationBar: SwiftCupertinoBar(middle: title),
+          navigationBar: SwiftCupertinoBar(middle: title, trailing: action),
           child: child!,
         ),
       ),
@@ -51,6 +53,9 @@ class PlatformSettingsScaffold extends StatelessWidget {
         body: child,
         appBar: AppBar(
           title: title,
+          actions: [
+            if (action != null) action!,
+          ],
         ),
       ),
       child: child,

@@ -44,6 +44,8 @@ class VehicleIcon extends StatelessWidget {
       case VehicleType.cablecar:
       case VehicleType.chairlift:
         return const FaIcon(FontAwesomeIcons.trainTram);
+      case VehicleType.address:
+        return const FaIcon(FontAwesomeIcons.house);
       case null:
       case VehicleType.unknown:
         return const FaIcon(FontAwesomeIcons.question);

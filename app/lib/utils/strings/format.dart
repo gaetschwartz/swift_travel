@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/exit.dart';
 
-int? parseColorInt(String? s) {
+int parseColorInt(String? s) {
   const alpha = 0xff000000;
   if (s == null || s.isEmpty) {
-    return null;
+    throw Exception('Color code is empty');
   } else if (s.length == 3) {
     return int.parse('${s[0]}0${s[1]}0${s[2]}0', radix: 16) | alpha;
   } else if (s.length == 6) {
     return int.parse(s, radix: 16) | alpha;
   } else {
-    throw ArgumentError('Color code is not valid : $s');
+    throw Exception('Color code is not valid : $s');
   }
+}
+
+int? tryParseColorInt(String? s) {
+  try {
+    return parseColorInt(s);
+  } on Exception {
+    return null;
+  }
+}
+
+Color? tryParseColor(String? s) {
+  final i = tryParseColorInt(s);
+  return i == null ? null : Color(i);
 }
 
 class Format {

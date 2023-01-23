@@ -49,6 +49,9 @@ class GeoAdminResult with _$GeoAdminResult implements NavigationCompletion {
 
   @override
   Widget Function(BuildContext context)? get iconBuilder => null;
+
+  @override
+  VehicleType get vehicle => VehicleType.unknown;
 }
 
 @freezed

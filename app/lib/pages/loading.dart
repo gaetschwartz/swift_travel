@@ -110,10 +110,10 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
         ref.read(preferencesProvider).loadFromPreferences(prefs: prefs)
       ]);
     } on Exception catch (e, s) {
-      await failedToLoadSettings(e, s, prefs);
+      await failedToLoadSettings(e, s);
       // ignore: avoid_catching_errors
     } on Error catch (e, s) {
-      await failedToLoadSettings(e, s, prefs);
+      await failedToLoadSettings(e, s);
     }
     // request permission for contacts
     // show a dialog if the user has not already granted permission to explain why we need it
@@ -157,21 +157,33 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
     }
   }
 
-  Future<void> failedToLoadSettings(
-      Object e, StackTrace s, SharedPreferences prefs) async {
-    reportDartError(e, s, library: 'loading', reason: 'while loading');
-    final delete = await confirm(
+  Future<void> failedToLoadSettings(Object e, StackTrace s) async {
+    reportDartError(
+      e,
+      s,
+      library: 'loading',
+      context: 'while loading',
+      showSnackbar: false,
+    );
+
+    final c = await confirm(
       context,
-      title: const Text('Failed to load your previous settings !'),
+      title: const Text('Failed to load the app.'),
       content: const SingleChildScrollView(
         child: Text(
-          'We are very sorry for this inconvenience. Reset settings ?',
-          textAlign: TextAlign.center,
+          'An error occured while loading the app. Please try again later. If the problem persists, please contact the developer. Open the report ?',
         ),
       ),
     );
-    if (delete) {
-      await prefs.clear();
+
+    if (c) {
+      final details = createErrorDetails(
+          error: e,
+          stackTrace: s,
+          context: 'while loading',
+          library: 'loading');
+      await navigatorKey.currentState
+          ?.push<void>(MaterialPageRoute(builder: (_) => ErrorPage(details)));
     }
   }
 

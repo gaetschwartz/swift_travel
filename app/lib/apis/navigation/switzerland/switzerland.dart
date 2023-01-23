@@ -33,7 +33,7 @@ final _trias2020ApiProvider = FutureProvider((ref) => ref
     .then((value) => Trias2020Api(value.triasKey!)));
 
 class SearchChApi extends BaseNavigationApi {
-  static const kUseTrias2020 = false;
+  static const kUseTrias2020 = true;
   static const kUseGeoAdmin = true;
 
   SearchChApi(this.ref);
@@ -65,7 +65,10 @@ class SearchChApi extends BaseNavigationApi {
     LocationType? locationType,
   }) async {
     const filterNull = true;
-
+    if (kDebugMode) {
+      log.log(
+          'complete($string, showCoordinates: $showCoordinates, showIds: $showIds, locationType: $locationType)');
+    }
     if (kUseTrias2020 && locationType == LocationType.station) {
       return (await trias).complete(
         string,

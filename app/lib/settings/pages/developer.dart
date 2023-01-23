@@ -118,13 +118,12 @@ class _DeveloperSettingsPageState extends State<DeveloperSettingsPage> {
         SwiftSettingsTile(
             leading: const Icon(Icons.warning_rounded),
             title: const Text('Throw a Dart error'),
-            // ignore: prefer-extracting-callbacks
             onTap: () {
               reportDartError(
                 const ProcessException('swift_travel', []),
                 StackTrace.current,
                 library: 'settings',
-                reason: 'voluntarirly',
+                context: 'voluntarirly',
               );
             }),
         SwiftSettingsTile(

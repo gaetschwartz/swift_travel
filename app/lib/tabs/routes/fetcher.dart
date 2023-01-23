@@ -121,7 +121,7 @@ class Fetcher extends FetcherBase {
       state = RouteStates(it);
     } on SocketException catch (e, s) {
       state = const RouteStates.networkException();
-      reportDartError(e, s, library: 'fetcher', reason: 'while fetching');
+      reportDartError(e, s, library: 'fetcher', context: 'while fetching');
     } on MissingPluginException {
       state = const RouteStates.missingPluginException();
     } on PermissionDeniedException {
@@ -130,7 +130,7 @@ class Fetcher extends FetcherBase {
       state = const RouteStates.locationPermissionNotGranted();
     } on Exception catch (e, s) {
       state = RouteStates.exception(e);
-      reportDartError(e, s, library: 'fetcher', reason: 'while fetching');
+      reportDartError(e, s, library: 'fetcher', context: 'while fetching');
     }
   }
 }

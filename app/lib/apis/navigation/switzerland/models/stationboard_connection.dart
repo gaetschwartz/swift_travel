@@ -50,17 +50,16 @@ class SchStationboardConnection
     final i = color.indexOf('~');
     if (i == -1) return null;
     final bg = color.substring(0, i);
-    final c = parseColorInt(bg);
-    return c == null ? null : Color(c);
+    return tryParseColor(bg);
   }();
 
   @override
   late final Color? fgcolor = () {
     final first = color.indexOf('~');
     if (first == -1) return null;
-    final last = color.lastIndexOf('~');
+    final last = color.indexOf('~', first + 1);
+    if (last == -1) return null;
     final fg = color.substring(first + 1, last);
-    final c = parseColorInt(fg);
-    return c == null ? null : Color(c);
+    return tryParseColor(fg);
   }();
 }

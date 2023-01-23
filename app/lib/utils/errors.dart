@@ -3,9 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gaets_logging/logging.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_travel/constants/env.dart';
-import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:vibration/vibration.dart';
@@ -16,21 +14,43 @@ void ignoreError() {}
 
 final _log = Logger.of('error_reporter');
 
+class ErrorEvent {
+  final DateTime time;
+  final FlutterErrorDetails errorDetails;
+
+  const ErrorEvent(this.time, this.errorDetails);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'time': time.toIso8601String(),
+      'error_details': {
+        'exception': errorDetails.exceptionAsString(),
+        'stack': errorDetails.stack.toString(),
+        'library': errorDetails.library,
+        'context': errorDetails.context.toString(),
+        'summary': errorDetails.summary.toString(),
+      }
+    };
+  }
+}
+
+final errorEvents = <ErrorEvent>[];
+
 // ignore: avoid_void_async
 void reportDartError(
   Object e,
   StackTrace s, {
   String library = '',
-  String reason = '',
+  String context = '',
   bool showSnackbar = true,
 }) async {
   _log.log('Caught an error: ');
-  debugPrintStack(stackTrace: s, label: '[$library] $e $reason');
+  debugPrintStack(stackTrace: s, label: '[$library] $e $context');
 
-  final details = FlutterErrorDetails(
-    exception: e,
-    stack: s,
-    context: ErrorDescription(reason),
+  final details = createErrorDetails(
+    error: e,
+    stackTrace: s,
+    context: context,
     library: library,
   );
 
@@ -61,9 +81,21 @@ void reportDartError(
     }
   }
 
-  if (await _doReport) {
-    //await FirebaseCrashlytics.instance.recordError(e, s, reason: reason, printDetails: false);
-  }
+  errorEvents.add(ErrorEvent(DateTime.now(), details));
+}
+
+FlutterErrorDetails createErrorDetails({
+  required Object error,
+  required StackTrace stackTrace,
+  required String context,
+  required String library,
+}) {
+  return FlutterErrorDetails(
+    exception: error,
+    stack: stackTrace,
+    context: ErrorDescription(context),
+    library: library,
+  );
 }
 
 // ignore: avoid_void_async
@@ -98,31 +130,8 @@ void reportFlutterError(FlutterErrorDetails details) async {
       debugPrintStack(stackTrace: s, label: e.toString());
     }
   }
-  if (await _doReport) {
-    //await FirebaseCrashlytics.instance.recordFlutterError(details);
-  }
-}
 
-Future<bool> get _doReport async {
-  final instance = await SharedPreferences.getInstance();
-
-  /*  return !kIsWeb &&
-      Firebase.apps.isNotEmpty &&
-      (instance
-              .getBool(PreferencesBloc.prefix + PreferencesBloc.analyticsKey) ??
-          true); */
-  if (kIsWeb) {
-    return false;
-  }
-  // if (Firebase.apps.isEmpty) {
-  //   return false;
-  // }
-  if (!(instance
-          .getBool(PreferencesBloc.prefix + PreferencesBloc.analyticsKey) ??
-      true)) {
-    return false;
-  }
-  return true;
+  errorEvents.add(ErrorEvent(DateTime.now(), details));
 }
 
 class ErrorPage extends StatefulWidget {
@@ -145,7 +154,7 @@ class _ErrorPageState extends State<ErrorPage> {
         data: ThemeData(),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Something went wrong'),
+            title: const Text('Error report'),
             leading: const CloseButton(),
             actions: [
               IconButton(

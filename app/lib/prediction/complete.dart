@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swift_travel/apis/navigation/models/completion.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/completion.dart';
+import 'package:swift_travel/db/db.dart';
 import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/history.dart';
 import 'package:swift_travel/logic/contacts.dart';
@@ -55,16 +57,33 @@ class CompletionEngine {
     bool doPredict = false,
     bool doUseCurrentLocation = true,
     bool doUseHistory = true,
+    bool doUseContacts = true,
+    bool doUseFavorites = true,
+    LocationType? locationType,
   }) async* {
+    if (kDebugMode) {
+      print('complete(query: $query, date: $date, doPredict: $doPredict, '
+          'doUseCurrentLocation: $doUseCurrentLocation, doUseHistory: $doUseHistory, '
+          'doUseContacts: $doUseContacts, doUseFavorites: $doUseFavorites, '
+          'locationType: $locationType)');
+    }
     assert(!doPredict || date != null,
         'If you use prediction, you must provide a date argument');
 
-    final favoriteStops = ref.read(favoritesStoreProvider).stops;
+    final favoriteStops = doUseFavorites
+        ? ref.read(favoritesStoreProvider).stops
+        : const Iterable<DataWithId<FavoriteStop>>.empty();
+
     final history =
         doUseHistory ? routeHistoryRepository.history : const <LocalRoute>[];
     final all = await Future.wait([
-      ref.read(navigationAPIProvider).complete(query),
-      ContactsRepository.instance.getAll()
+      ref
+          .read(navigationAPIProvider)
+          .complete(query, locationType: locationType),
+      if (doUseContacts)
+        ContactsRepository.instance.getAll()
+      else
+        Future.value(<Contact>[]),
     ]);
     final completions = all[0] as List<NavigationCompletion>;
     final contacts = all[1] as List<Contact>;

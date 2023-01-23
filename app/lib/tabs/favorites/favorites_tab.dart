@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gaets_logging/logging.dart';
 import 'package:gap/gap.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:swift_travel/db/favorite_store.dart';
 import 'package:swift_travel/db/preferences.dart';
 import 'package:swift_travel/l10n/app_localizations.dart';
 import 'package:swift_travel/models/favorites.dart';
 import 'package:swift_travel/pages/home_page.dart';
+import 'package:swift_travel/pages/search/search.dart';
 import 'package:swift_travel/prediction/models/models.dart';
+import 'package:swift_travel/tabs/routes/location_text_box_manager.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
-import 'package:swift_travel/widgets/stop_input.dart';
 import 'package:theming/dialogs/input_dialog.dart';
 import 'package:theming/dialogs/loading_dialog.dart';
 import 'package:theming/dynamic_theme.dart';
-import 'package:theming/responsive.dart';
 import 'package:vibration/vibration.dart';
 
 import 'fav_route_tile.dart';
@@ -156,16 +155,22 @@ class _FavoritesTabState extends ConsumerState<FavoritesTab>
   Future<void> addFav() async {
     Vibration.instance.select();
 
-    final completion = isThemeDarwin(context)
-        ? await showCupertinoModalBottomSheet<Completion>(
-            context: context,
-            builder: (context) =>
-                StopInputDialog(title: AppLocalizations.of(context).new_fav))
-        : await showMaterialModalBottomSheet<Completion>(
-            context: context,
-            builder: (_) =>
-                StopInputDialog(title: AppLocalizations.of(context).new_fav),
-          );
+    final binder = LocationTextBoxManager(
+      currentLocation: AppLocalizations.of(context).current_location,
+    );
+
+    final completion = await Navigator.of(context).push<Completion>(
+      MaterialPageRoute(
+        builder: (context) => SearchPage(
+          heroTag: 0,
+          binder: binder,
+          completeCurrentLocation: false,
+          completeFavorites: false,
+          completeContacts: false,
+          completeHistory: true,
+        ),
+      ),
+    );
 
     if (completion == null) return;
     if (!mounted) return;

@@ -133,6 +133,7 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                           key: const Key('stations-textfield'),
                           focusNode: focusNode,
                           controller: searchController,
+                          autocorrect: false,
                           style: DefaultTextStyle.of(context)
                               .style
                               .copyWith(fontStyle: FontStyle.normal),

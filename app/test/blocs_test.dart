@@ -59,7 +59,7 @@ void main() {
 
       await store.init();
 
-      final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
+      final bern = FavoriteStop.fromString('Bern', api: searchChApi.id);
       await store.addStop(bern);
       final route = LocalRoute.simple('Bern', 'Bern');
       await store.addRoute(route);
@@ -87,8 +87,8 @@ void main() {
       await store.init();
       verify(favsListener([])).called(1);
 
-      final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
-      final nowhere = FavoriteStop.fromStop('Nowhere', api: searchChApi.id);
+      final bern = FavoriteStop.fromString('Bern', api: searchChApi.id);
+      final nowhere = FavoriteStop.fromString('Nowhere', api: searchChApi.id);
 
       final dataWithIdBern = await store.addStop(bern);
       expect(store.stops.map((e) => e.data), [bern]);
@@ -150,7 +150,7 @@ void main() {
 
       await store.init(prefs: prefs);
 
-      final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
+      final bern = FavoriteStop.fromString('Bern', api: searchChApi.id);
       await store.addStop(bern);
       final route = LocalRoute.simple('Bern', 'Bern');
       await store.addRoute(route);
@@ -178,8 +178,8 @@ void main() {
       await store.init(prefs: prefs);
       verify(favsListener([])).called(1);
 
-      final bern = FavoriteStop.fromStop('Bern', api: searchChApi.id);
-      final nowhere = FavoriteStop.fromStop('Nowhere', api: searchChApi.id);
+      final bern = FavoriteStop.fromString('Bern', api: searchChApi.id);
+      final nowhere = FavoriteStop.fromString('Nowhere', api: searchChApi.id);
 
       await store.addStop(bern);
       expect(store.stops, [bern]);

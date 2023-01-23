@@ -74,14 +74,14 @@ class SchLeg with _$SchLeg, Leg, SchDisplayNameMixin {
   @override
   Color? get bgColor {
     // ignore: deprecated_member_use_from_same_package
-    final c = parseColorInt(bgcolor);
+    final c = tryParseColorInt(bgcolor);
     return c == null ? null : Color(c);
   }
 
   @override
   Color? get fgColor {
     // ignore: deprecated_member_use_from_same_package
-    final c = parseColorInt(fgcolor);
+    final c = tryParseColorInt(fgcolor);
     return c == null ? null : Color(c);
   }
 }

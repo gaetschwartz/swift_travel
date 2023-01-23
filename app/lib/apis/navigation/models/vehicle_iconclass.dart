@@ -14,6 +14,7 @@ enum VehicleType {
   funicular,
   business,
   @JsonValue('adr')
+  address,
   gondola,
   cablecar,
   chairlift,

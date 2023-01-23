@@ -98,6 +98,6 @@ class LineIcon extends StatelessWidget {
 }
 
 Color parseColor(String? s, Color defaultColor) {
-  final c = parseColorInt(s);
+  final c = tryParseColorInt(s);
   return c == null ? defaultColor : Color(c);
 }

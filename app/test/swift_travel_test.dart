@@ -205,7 +205,7 @@ void main() {
     test('favoriteStop', () {
       final stop1 =
           FavoriteStop(stop: geneva, name: geneva, api: searchChApi.id.value);
-      final stop2 = FavoriteStop.fromStop(geneva, api: searchChApi.id);
+      final stop2 = FavoriteStop.fromString(geneva, api: searchChApi.id);
       final stop3 = FavoriteStop.fromCompletion(SchCompletion(label: geneva),
           api: searchChApi.id);
       final stop4 = FavoriteStop.fromJson(
@@ -228,10 +228,10 @@ void main() {
       overrides: [
         favoritesStoreProvider.overrideWith(
           (r) => MockFavoriteStore(stops_: [
-            FavoriteStop.fromStop(geneva, api: searchChApi.id),
-            FavoriteStop.fromStop('Genève gare', api: searchChApi.id),
-            FavoriteStop.fromStop('Genève nord', api: searchChApi.id),
-            FavoriteStop.fromStop('Lausanne Aéroport', api: searchChApi.id),
+            FavoriteStop.fromString(geneva, api: searchChApi.id),
+            FavoriteStop.fromString('Genève gare', api: searchChApi.id),
+            FavoriteStop.fromString('Genève nord', api: searchChApi.id),
+            FavoriteStop.fromString('Lausanne Aéroport', api: searchChApi.id),
           ]),
         ),
         navigationAPIProvider.overrideWithValue(
@@ -259,11 +259,11 @@ void main() {
     //   SchCompletion(label: route1.fromAsString, origin: DataOrigin.history),
     //   SchCompletion(label: route1.toAsString, origin: DataOrigin.history),
     //   SchCompletion.fromFavorite(
-    //       FavoriteStop.fromStop(geneva, api: searchChApi.id)),
+    //       FavoriteStop.fromString(geneva, api: searchChApi.id)),
     //   SchCompletion.fromFavorite(
-    //       FavoriteStop.fromStop('Genève gare', api: searchChApi.id)),
+    //       FavoriteStop.fromString('Genève gare', api: searchChApi.id)),
     //   SchCompletion.fromFavorite(
-    //       FavoriteStop.fromStop('Genève nord', api: searchChApi.id)),
+    //       FavoriteStop.fromString('Genève nord', api: searchChApi.id)),
     //   SchCompletion(label: 'Genève'),
     // ];
   });

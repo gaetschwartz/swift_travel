@@ -114,14 +114,14 @@ void main() {
         final nextInt = r.nextInt(1 << 12);
         final s = nextInt.toRadixString(16).padLeft(3, '0');
         expect(s.length, 3);
-        expect(
-            parseColorInt(s)!.toRadixString(16), 'ff${s[0]}0${s[1]}0${s[2]}0');
+        expect(tryParseColorInt(s)!.toRadixString(16),
+            'ff${s[0]}0${s[1]}0${s[2]}0');
       }
       for (var i = 0; i < iterCount; i++) {
         final nextInt = r.nextInt(1 << 24);
         final s = nextInt.toRadixString(16).padLeft(6, '0');
         expect(s.length, 6);
-        expect(parseColorInt(s)!.toRadixString(16), 'ff$s');
+        expect(tryParseColorInt(s)!.toRadixString(16), 'ff$s');
       }
     });
 
@@ -130,14 +130,14 @@ void main() {
       expect(parseColor('', Colors.blue), isSameColorAs(Colors.blue));
     });
     test('handles malformed data correctly', () {
-      expect(() => parseColorInt('hell'), throwsArgumentError);
-      expect(() => parseColorInt('1234'), throwsArgumentError);
+      expect(() => tryParseColorInt('hell'), throwsArgumentError);
+      expect(() => tryParseColorInt('1234'), throwsArgumentError);
 
-      expect(() => parseColorInt('zzz'), throwsFormatException);
-      expect(() => parseColorInt('------'), throwsFormatException);
+      expect(() => tryParseColorInt('zzz'), throwsFormatException);
+      expect(() => tryParseColorInt('------'), throwsFormatException);
 
-      expect(parseColorInt(''), null);
-      expect(parseColorInt(null), null);
+      expect(tryParseColorInt(''), null);
+      expect(tryParseColorInt(null), null);
     });
   });
 

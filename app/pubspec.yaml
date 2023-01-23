@@ -53,6 +53,7 @@ dependencies:
       ref: d3779be7d661481cc0d99090d6356a286ae4f86b
       path: modal_bottom_sheet
   octo_image: ^1.0.0
+  package_info_plus: ^3.0.2
   path: ^1.8.0
   path_provider: ^2.0.0
   permission_handler: ^10.0.0

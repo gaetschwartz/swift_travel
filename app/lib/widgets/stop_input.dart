@@ -62,7 +62,7 @@ class _StopInputDialogState extends ConsumerState<StopInputDialog> {
     } on SocketException {
       ref.read(_stateProvider.notifier).state = const StationStates.network();
     } on Exception catch (e, s) {
-      reportDartError(e, s, library: 'search', reason: 'while fetching');
+      reportDartError(e, s, library: 'search', context: 'while fetching');
     }
   }
 

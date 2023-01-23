@@ -55,6 +55,7 @@ class SchCompletion with _$SchCompletion implements NavigationCompletion {
     }
   }();
 
+  @override
   late final VehicleType vehicle = () {
     if (iconClass == null) {
       return VehicleType.unknown;
@@ -65,10 +66,8 @@ class SchCompletion with _$SchCompletion implements NavigationCompletion {
       substring,
       unknownValue: VehicleType.unknown,
     );
-    if (kDebugMode) {
-      if (decoded == VehicleType.unknown) {
-        debugPrint('Unknown vehicle type: $substring');
-      }
+    if (kDebugMode && decoded == VehicleType.unknown) {
+      debugPrint('Unknown vehicle type: $substring');
     }
     return decoded;
   }();

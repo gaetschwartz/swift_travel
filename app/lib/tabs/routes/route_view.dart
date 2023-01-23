@@ -22,190 +22,188 @@ import 'package:swift_travel/widgets/route_widget.dart';
 import 'package:theming/dynamic_theme.dart';
 import 'package:theming/responsive.dart';
 
-final _locationNotFound = RegExp(r'Stop (.*) not found\.');
-
 class RoutesView extends StatelessWidget {
   const RoutesView({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) => Consumer(builder: (context, w, _) {
-        final fetcher = w.watch(routeStatesProvider);
+  Widget build(BuildContext context) {
+    return Consumer(builder: (context, w, _) {
+      final fetcher = w.watch(routeStatesProvider);
 
-        return fetcher.when(
-          (routes) => CustomScrollView(
-            slivers: [
-              const SliverGap(8),
-              SliverSafeArea(
-                sliver: routes.connections.isNotEmpty
-                    ? SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, i) => RouteTile(
-                            key: Key('routetile-$i'),
-                            route: routes,
-                            i: i,
-                          ),
-                          childCount: routes.connections.length,
+      return fetcher.when(
+        (routes) => CustomScrollView(
+          slivers: [
+            const SliverGap(8),
+            SliverSafeArea(
+              sliver: routes.connections.isNotEmpty
+                  ? SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, i) => RouteTile(
+                          key: Key('routetile-$i'),
+                          route: routes,
+                          i: i,
                         ),
-                      )
-                    : SliverFillRemaining(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Center(
-                            child: DefaultTextStyle(
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .apply(fontSizeFactor: 1.4),
-                              child: routes.messages.isEmpty ||
-                                      _locationNotFound
-                                          .hasMatch(routes.messages.first)
-                                  ? Text(
-                                      AppLocalizations.of(context)
-                                          .unsupported_area,
-                                      textAlign: TextAlign.center,
-                                    )
-                                  : Text(
-                                      routes.messages.join('\n'),
-                                      textAlign: TextAlign.center,
-                                    ),
-                            ),
-                          ),
-                        ),
-                      ),
-              ),
-            ],
-          ),
-          networkException: () => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Center(
-                      child: Text(
-                    '😢',
-                    style: TextStyle(fontSize: 96),
-                  )),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  'Network Error',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
-            ],
-          ),
-          locationPermissionNotGranted: () => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Center(
-                          child: Text(
-                        '🗺',
-                        style: TextStyle(fontSize: 80),
-                      )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text(
-                        'This app requires location permissions !',
-                        style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.center,
+                        childCount: routes.connections.length,
                       ),
                     )
-                  ],
-                ),
-              ),
-              Expanded(
-                  child: Center(
-                child: isThemeDarwin(context)
-                    ? const CupertinoButton.filled(
-                        onPressed: Geolocator.openAppSettings,
-                        child: Text('Open settings'),
-                      )
-                    : ElevatedButton(
-                        onPressed: Geolocator.openAppSettings,
-                        style: ElevatedButton.styleFrom(
-                          shadowColor:
-                              ShadowTheme.of(context).buttonShadow?.color,
-                          elevation: 8,
-                          shape: const StadiumBorder(),
+                  : SliverFillRemaining(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Center(
+                          child: DefaultTextStyle(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .apply(fontSizeFactor: 1.4),
+                            child: routes.messages.isEmpty
+                                ? Text(
+                                    AppLocalizations.of(context)
+                                        .unsupported_area,
+                                    textAlign: TextAlign.center,
+                                  )
+                                : Text(
+                                    routes.messages.join('\n'),
+                                    textAlign: TextAlign.center,
+                                  ),
+                          ),
                         ),
-                        child: const Text('Open settings'),
                       ),
-              )),
-            ],
-          ),
-          exception: (e) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Center(
-                      child: Text(
-                    '😢',
-                    style: TextStyle(fontSize: 80),
-                  )),
-                ),
+                    ),
+            ),
+          ],
+        ),
+        networkException: () => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Center(
+                    child: Text(
+                  '😢',
+                  style: TextStyle(fontSize: 96),
+                )),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    e.toString(),
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                'Network Error',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+          ],
+        ),
+        locationPermissionNotGranted: () => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Center(
+                        child: Text(
+                      '🗺',
+                      style: TextStyle(fontSize: 80),
+                    )),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      'This app requires location permissions !',
+                      style: Theme.of(context).textTheme.titleLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+                child: Center(
+              child: isThemeDarwin(context)
+                  ? const CupertinoButton.filled(
+                      onPressed: Geolocator.openAppSettings,
+                      child: Text('Open settings'),
+                    )
+                  : ElevatedButton(
+                      onPressed: Geolocator.openAppSettings,
+                      style: ElevatedButton.styleFrom(
+                        shadowColor:
+                            ShadowTheme.of(context).buttonShadow?.color,
+                        elevation: 8,
+                        shape: const StadiumBorder(),
+                      ),
+                      child: const Text('Open settings'),
+                    ),
+            )),
+          ],
+        ),
+        exception: (e) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Expanded(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Center(
+                    child: Text(
+                  '😢',
+                  style: TextStyle(fontSize: 80),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  e.toString(),
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ],
-          ),
-          loading: () =>
-              const Center(child: CircularProgressIndicator.adaptive()),
-          empty: () => const Align(
-            alignment: Alignment.topCenter,
-            child: _PredictionTile(),
-          ),
-          missingPluginException: () => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Center(
-                      child: Text(
-                    '😢',
-                    style: TextStyle(fontSize: 80),
-                  )),
+            ),
+          ],
+        ),
+        loading: () =>
+            const Center(child: CircularProgressIndicator.adaptive()),
+        empty: () => const Align(
+          alignment: Alignment.topCenter,
+          child: _PredictionTile(),
+        ),
+        missingPluginException: () => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Expanded(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Center(
+                    child: Text(
+                  '😢',
+                  style: TextStyle(fontSize: 80),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  'Location is not supported on this device',
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    'Location is not supported on this device',
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      });
+            ),
+          ],
+        ),
+      );
+    });
+  }
 }
 
 final _predictionProvider = FutureProvider<RoutePrediction>((ref) async {
