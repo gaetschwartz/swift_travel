@@ -45,8 +45,8 @@ class LocalRoute with _$LocalRoute {
 
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
   const factory LocalRoute.v2(
-    SbbStop from,
-    SbbStop to, {
+    SchStop from,
+    SchStop to, {
     String? displayName,
     DateTime? timestamp,
   }) = LocalRouteV2;
@@ -58,8 +58,8 @@ class LocalRoute with _$LocalRoute {
     DateTime? timestamp,
   }) =>
       LocalRoute.v2(
-        SbbStop(sbbName: from),
-        SbbStop(sbbName: to),
+        SchStop(sbbName: from),
+        SchStop(sbbName: to),
         displayName: displayName,
         timestamp: timestamp,
       );
@@ -69,12 +69,12 @@ class LocalRoute with _$LocalRoute {
     String? displayName,
   }) =>
       LocalRoute.v2(
-        SbbStop(
+        SchStop(
           sbbName: connection.from,
           lat: connection.legs.firstOrNull?.position?.lat,
           lon: connection.legs.firstOrNull?.position?.lon,
         ),
-        SbbStop(
+        SchStop(
           sbbName: connection.to,
           lat: connection.legs.lastOrNull?.position?.lat,
           lon: connection.legs.lastOrNull?.position?.lon,
@@ -91,7 +91,7 @@ class LocalRoute with _$LocalRoute {
 
   LocalRoute copyClean() => map(
         v1: (v1) =>
-            LocalRoute.v2(SbbStop(sbbName: v1.from), SbbStop(sbbName: v1.to)),
+            LocalRoute.v2(SchStop(sbbName: v1.from), SchStop(sbbName: v1.to)),
         v2: (v2) => LocalRoute.v2(v2.from, v2.to),
       );
 
@@ -105,7 +105,7 @@ class LocalRoute with _$LocalRoute {
 }
 
 @freezed
-class FavoriteStop with _$FavoriteStop, BaseStop, SbbDisplayNameMixin {
+class FavoriteStop with _$FavoriteStop, BaseStop, SchDisplayNameMixin {
   @JsonSerializable(includeIfNull: false)
   const factory FavoriteStop({
     required String stop,

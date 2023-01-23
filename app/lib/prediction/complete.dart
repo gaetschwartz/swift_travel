@@ -39,11 +39,11 @@ class CompletionEngine {
   ) sync* {
     for (final e in history) {
       yield Completion.from(
-        SbbCompletion(label: e.fromAsString),
+        SchCompletion(label: e.fromAsString),
         origin: DataOrigin.history,
       );
       yield Completion.from(
-        SbbCompletion(label: e.toAsString),
+        SchCompletion(label: e.toAsString),
         origin: DataOrigin.history,
       );
     }
@@ -184,12 +184,12 @@ class CompletionEngine {
         if (doPredict)
           if (prediction == null)
             Completion.from(
-              SbbCompletion(label: q),
+              SchCompletion(label: q),
               origin: DataOrigin.loading,
             )
           else if (prediction.prediction != null)
             Completion.from(
-              SbbCompletion(label: prediction.prediction!.toAsString),
+              SchCompletion(label: prediction.prediction!.toAsString),
               origin: DataOrigin.prediction,
             ),
         ...suggested,

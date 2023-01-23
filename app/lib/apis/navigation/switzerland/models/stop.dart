@@ -43,9 +43,9 @@ class IntConverter implements JsonConverter<int?, Object?> {
 }
 
 @freezed
-class SbbStop with _$SbbStop, BaseStop, SbbDisplayNameMixin implements Stop {
+class SchStop with _$SchStop, BaseStop, SchDisplayNameMixin implements Stop {
   @JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
-  const factory SbbStop({
+  const factory SchStop({
     @JsonKey(name: 'name') required String? sbbName,
     String? id,
     @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime? departure,
@@ -54,16 +54,16 @@ class SbbStop with _$SbbStop, BaseStop, SbbDisplayNameMixin implements Stop {
     double? lon,
     @IntConverter() int? x,
     @IntConverter() int? y,
-  }) = _SbbStop;
-  const SbbStop._();
+  }) = _SchStop;
+  const SchStop._();
 
-  factory SbbStop.fromJson(Map<String, dynamic> json) =>
-      _$SbbStopFromJson(json);
+  factory SchStop.fromJson(Map<String, dynamic> json) =>
+      _$SchStopFromJson(json);
 
-  factory SbbStop.fromStop(Stop stop) {
+  factory SchStop.fromStop(Stop stop) {
     final position = stop.position;
 
-    return SbbStop(
+    return SchStop(
       sbbName: stop.name,
       id: stop.id,
       departure: stop.departure,

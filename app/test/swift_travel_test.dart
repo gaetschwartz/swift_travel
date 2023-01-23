@@ -166,9 +166,9 @@ void main() {
       // expect(
       //   c,
       //   [
-      //     SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
-      //     SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
-      //     SbbCompletion(label: route3.fromAsString, origin: DataOrigin.history),
+      //     SchCompletion(label: route1.fromAsString, origin: DataOrigin.history),
+      //     SchCompletion(label: route1.toAsString, origin: DataOrigin.history),
+      //     SchCompletion(label: route3.fromAsString, origin: DataOrigin.history),
       //   ],
       // );
     });
@@ -180,10 +180,10 @@ void main() {
     });
     test('localRoute', () {
       final route1 = LocalRoute.v2(
-          const SbbStop(sbbName: 'from'), const SbbStop(sbbName: 'to'),
+          const SchStop(sbbName: 'from'), const SchStop(sbbName: 'to'),
           displayName: 'name', timestamp: FakeableDateTime.now());
       final route2 = LocalRoute.fromRouteConnection(
-        SbbRouteConnection(
+        SchRouteConnection(
             from: 'from',
             to: 'to',
             depDelay: 0,
@@ -191,8 +191,8 @@ void main() {
         displayName: 'name',
       );
       final json = {
-        'from': const SbbStop(sbbName: 'from').toJson(),
-        'to': const SbbStop(sbbName: 'to').toJson(),
+        'from': const SchStop(sbbName: 'from').toJson(),
+        'to': const SchStop(sbbName: 'to').toJson(),
         'displayName': 'name',
         'timestamp': FakeableDateTime.now().toIso8601String(),
         'runtimeType': 'v2',
@@ -206,7 +206,7 @@ void main() {
       final stop1 =
           FavoriteStop(stop: geneva, name: geneva, api: searchChApi.id.value);
       final stop2 = FavoriteStop.fromStop(geneva, api: searchChApi.id);
-      final stop3 = FavoriteStop.fromCompletion(SbbCompletion(label: geneva),
+      final stop3 = FavoriteStop.fromCompletion(SchCompletion(label: geneva),
           api: searchChApi.id);
       final stop4 = FavoriteStop.fromJson(
           <String, Object>{'stop': geneva, 'name': geneva, 'api': 'sbb'});
@@ -235,7 +235,7 @@ void main() {
           ]),
         ),
         navigationAPIProvider.overrideWithValue(
-          MockNavigationApi(mockCompletions: [SbbCompletion(label: geneva)]),
+          MockNavigationApi(mockCompletions: [SchCompletion(label: geneva)]),
         ),
         completionEngineProvider.overrideWith(
           (ref) => CompletionEngine(
@@ -256,15 +256,15 @@ void main() {
 
     // final expected = <NavigationCompletion>[
     //   Completion.currentLocation,
-    //   SbbCompletion(label: route1.fromAsString, origin: DataOrigin.history),
-    //   SbbCompletion(label: route1.toAsString, origin: DataOrigin.history),
-    //   SbbCompletion.fromFavorite(
+    //   SchCompletion(label: route1.fromAsString, origin: DataOrigin.history),
+    //   SchCompletion(label: route1.toAsString, origin: DataOrigin.history),
+    //   SchCompletion.fromFavorite(
     //       FavoriteStop.fromStop(geneva, api: searchChApi.id)),
-    //   SbbCompletion.fromFavorite(
+    //   SchCompletion.fromFavorite(
     //       FavoriteStop.fromStop('Genève gare', api: searchChApi.id)),
-    //   SbbCompletion.fromFavorite(
+    //   SchCompletion.fromFavorite(
     //       FavoriteStop.fromStop('Genève nord', api: searchChApi.id)),
-    //   SbbCompletion(label: 'Genève'),
+    //   SchCompletion(label: 'Genève'),
     // ];
   });
 

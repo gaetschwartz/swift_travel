@@ -28,9 +28,9 @@ class DelayConverter extends JsonConverter<int?, String?> {
 }
 
 @freezed
-class SbbExit with _$SbbExit, BaseStop, SbbDisplayNameMixin implements Exit {
+class SchExit with _$SchExit, BaseStop, SchDisplayNameMixin implements Exit {
   @JsonSerializable(includeIfNull: false, checked: true)
-  factory SbbExit({
+  factory SchExit({
     required String name,
     @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
     DateTime? arrival,
@@ -44,10 +44,10 @@ class SbbExit with _$SbbExit, BaseStop, SbbDisplayNameMixin implements Exit {
     @IntConverter() int? x,
     @IntConverter() int? y,
   }) = _Exit;
-  SbbExit._();
+  SchExit._();
 
-  factory SbbExit.fromJson(Map<String, dynamic> json) =>
-      _$SbbExitFromJson(json);
+  factory SchExit.fromJson(Map<String, dynamic> json) =>
+      _$SchExitFromJson(json);
 
   @override
   late final LatLon? position =

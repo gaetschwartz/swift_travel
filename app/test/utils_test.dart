@@ -18,7 +18,8 @@ void main() {
 
   test('double flipped RouteTransformer', () {
     final routes = [localRoute, localRoute2];
-    final doubled = const DoubleFlippedRouteTransformer().apply(routes).toList();
+    final doubled =
+        const DoubleFlippedRouteTransformer().apply(routes).toList();
     expect(doubled, hasLength(routes.length * 2));
     expect(
         doubled,
@@ -38,7 +39,8 @@ void main() {
   });
 
   test('LV03 to WGS84', () {
-    final out = const LV03ToWGS84Converter().convert(const LV03Coordinates(100000, 700000));
+    final out = const LV03ToWGS84Converter()
+        .convert(const LV03Coordinates(100000, 700000));
 
     final lonMatcher = closeTo(8 + 43 / 60 + 49.80 / 3600, 1 / 3600);
     final latMatcher = closeTo(46 + 02 / 60 + 38.86 / 3600, 1 / 3600);
@@ -46,7 +48,7 @@ void main() {
     expect(out.lon, lonMatcher);
     expect(out.lat, latMatcher);
 
-    final pos = SbbExit(name: 'test @700000, 100000').position;
+    final pos = SchExit(name: 'test @700000, 100000').position;
     expect(pos, isNotNull);
     expect(pos!.lon, lonMatcher);
     expect(pos.lat, latMatcher);
@@ -71,9 +73,12 @@ void main() {
 
     test('duration - fr', () {
       const locale = Locale('fr');
-      expect(Format.duration(const Duration(hours: 2, minutes: 3), locale: locale), '2h03');
+      expect(
+          Format.duration(const Duration(hours: 2, minutes: 3), locale: locale),
+          '2h03');
       expect(Format.duration(const Duration(hours: 2), locale: locale), '2h00');
-      expect(Format.duration(const Duration(minutes: 3), locale: locale), '3 mins');
+      expect(Format.duration(const Duration(minutes: 3), locale: locale),
+          '3 mins');
       expect(Format.duration(Duration.zero, locale: locale), 'Maint.');
     });
 
@@ -90,7 +95,8 @@ void main() {
   });
   test('query builder', () {
     final builder = QueryBuilder<String>('example.com', (s) => '$s.json');
-    expect(builder('compute', {}), Uri.parse('https://example.com/compute.json'));
+    expect(
+        builder('compute', {}), Uri.parse('https://example.com/compute.json'));
     expect(builder('delete', {'test1': true, 'test2': false}),
         Uri.parse('https://example.com/delete.json?test1=true&test2=false'));
     expect(
@@ -108,7 +114,8 @@ void main() {
         final nextInt = r.nextInt(1 << 12);
         final s = nextInt.toRadixString(16).padLeft(3, '0');
         expect(s.length, 3);
-        expect(parseColorInt(s)!.toRadixString(16), 'ff${s[0]}0${s[1]}0${s[2]}0');
+        expect(
+            parseColorInt(s)!.toRadixString(16), 'ff${s[0]}0${s[1]}0${s[2]}0');
       }
       for (var i = 0; i < iterCount; i++) {
         final nextInt = r.nextInt(1 << 24);
@@ -135,22 +142,27 @@ void main() {
   });
 
   test('ellipsis', () {
-    expect('Hello World this is a String qwertzuiop'.ellipsis(16), 'Hello World t...');
+    expect('Hello World this is a String qwertzuiop'.ellipsis(16),
+        'Hello World t...');
     expect('Hello World this is a String'.ellipsis(16), 'Hello World t...');
     expect('Hello World'.ellipsis(16), 'Hello World');
   });
 
   test('markdown', () {
-    final textSpan = parseDecoratedText('Text in *bold*, text in _italic_, and _*bold-italic*_.');
+    final textSpan = parseDecoratedText(
+        'Text in *bold*, text in _italic_, and _*bold-italic*_.');
     expect(textSpan.children, [
       const TextSpan(text: 'Text in ', style: TextStyle()),
-      const TextSpan(text: 'bold', style: TextStyle(fontWeight: FontWeight.bold)),
+      const TextSpan(
+          text: 'bold', style: TextStyle(fontWeight: FontWeight.bold)),
       const TextSpan(text: ', text in ', style: TextStyle()),
-      const TextSpan(text: 'italic', style: TextStyle(fontStyle: FontStyle.italic)),
+      const TextSpan(
+          text: 'italic', style: TextStyle(fontStyle: FontStyle.italic)),
       const TextSpan(text: ', and ', style: TextStyle()),
       const TextSpan(
         text: 'bold-italic',
-        style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+        style:
+            TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
       ),
       const TextSpan(text: '.', style: TextStyle()),
     ]);

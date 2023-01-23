@@ -15,11 +15,11 @@ part 'leg.freezed.dart';
 part 'leg.g.dart';
 
 @freezed
-class SbbLeg with _$SbbLeg, Leg, SbbDisplayNameMixin {
+class SchLeg with _$SchLeg, Leg, SchDisplayNameMixin {
   @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-  factory SbbLeg({
+  factory SchLeg({
     required String name,
-    @JsonKey(name: 'exit') SbbExit? sbbExit,
+    @JsonKey(name: 'exit') SchExit? sbbExit,
     @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
     VehicleType? type,
     String? track,
@@ -31,9 +31,9 @@ class SbbLeg with _$SbbLeg, Leg, SbbDisplayNameMixin {
     String? stopid,
     @JsonKey(name: 'runningtime') double? runningTime,
     String? line,
-    @Default(<SbbStop>[])
-    @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-        List<SbbStop> sbbStops,
+    @Default(<SchStop>[])
+    @JsonKey(name: 'stops', defaultValue: <SchStop>[])
+        List<SchStop> sbbStops,
     String? sbbName,
     DateTime? departure,
     DateTime? arrival,
@@ -45,10 +45,10 @@ class SbbLeg with _$SbbLeg, Leg, SbbDisplayNameMixin {
     @IntConverter() int? x,
     @IntConverter() int? y,
     @Default(<String, String>{}) Map<String, String> attributes,
-  }) = _SbbLeg;
-  SbbLeg._();
+  }) = _SchLeg;
+  SchLeg._();
 
-  factory SbbLeg.fromJson(Map<String, dynamic> json) => _$SbbLegFromJson(json);
+  factory SchLeg.fromJson(Map<String, dynamic> json) => _$SchLegFromJson(json);
 
   @override
   List<Stop> get stops => sbbStops;

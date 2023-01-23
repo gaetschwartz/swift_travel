@@ -19,32 +19,32 @@ class CustomStopConverter
   Map<String, dynamic>? toJson(Stop object) => customToJson(object);
 
   static Map<String, dynamic>? customToJson(Stop object) {
-    if (object is SbbStop) {
+    if (object is SchStop) {
       return object.toJson();
     }
     assert(
-        false, 'Stop is supposed to be either a `SbbStop` to be serializable');
-    return const SbbStop(sbbName: '').toJson();
+        false, 'Stop is supposed to be either a `SchStop` to be serializable');
+    return const SchStop(sbbName: '').toJson();
   }
 
   static Stop customStopFromJson(Map<String, dynamic>? json) =>
-      json == null ? const MockStop() : SbbStop.fromJson(json);
+      json == null ? const MockStop() : SchStop.fromJson(json);
 }
 
 @freezed
-class SbbStationboard with _$SbbStationboard, StationBoard {
+class SchStationboard with _$SchStationboard, StationBoard {
   @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-  const factory SbbStationboard({
-    @Default(SbbStop(sbbName: '')) @JsonKey(name: 'stop') SbbStop? sbbStop,
-    @JsonKey(name: 'connections', defaultValue: <SbbStationboardConnection>[])
-    @Default(<SbbStationboardConnection>[])
-        List<SbbStationboardConnection> sbbConnections,
+  const factory SchStationboard({
+    @Default(SchStop(sbbName: '')) @JsonKey(name: 'stop') SchStop? sbbStop,
+    @JsonKey(name: 'connections', defaultValue: <SchStationboardConnection>[])
+    @Default(<SchStationboardConnection>[])
+        List<SchStationboardConnection> sbbConnections,
     @Default(<Object>[]) List<Object> messages,
-  }) = _SbbStationboard;
-  const SbbStationboard._();
+  }) = _SchStationboard;
+  const SchStationboard._();
 
-  factory SbbStationboard.fromJson(Map<String, dynamic> json) =>
-      _$SbbStationboardFromJson(json);
+  factory SchStationboard.fromJson(Map<String, dynamic> json) =>
+      _$SchStationboardFromJson(json);
 
   @override
   List<StationboardConnection> get connections => sbbConnections;

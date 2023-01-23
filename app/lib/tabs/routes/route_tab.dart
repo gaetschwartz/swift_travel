@@ -271,10 +271,10 @@ class RoutePageState extends ConsumerState<RoutePage> {
                             return;
                           }
                           await favorites.addRoute(LocalRoute.v2(
-                              SbbStop(
+                              SchStop(
                                   sbbName:
                                       ref.read(fromTextfieldProvider).text),
-                              SbbStop(
+                              SchStop(
                                   sbbName: ref.read(toTextfieldProvider).text),
                               displayName: s));
 
@@ -426,7 +426,7 @@ class _TimeAndDateButton extends ConsumerWidget {
               ),
         onLongPress: kDebugMode
             ? () {
-                final sbbRoute = SbbRoute.fromJson(mockRoute);
+                final sbbRoute = SchRoute.fromJson(mockRoute);
 
                 ref.read(fromTextfieldProvider).setString(
                       sbbRoute.connections.first.from,

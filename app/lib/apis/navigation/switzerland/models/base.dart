@@ -1,4 +1,4 @@
-mixin SbbDisplayNameMixin {
+mixin SchDisplayNameMixin {
   String get name;
   String get displayName {
     final indexOf = name.indexOf('@');

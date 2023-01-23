@@ -7,30 +7,30 @@ part 'route.freezed.dart';
 part 'route.g.dart';
 
 @freezed
-class SbbRoute with _$SbbRoute, NavRoute {
+class SchRoute with _$SchRoute, NavRoute {
   @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-  const factory SbbRoute({
+  const factory SchRoute({
     @Default(0)
         int count,
     @JsonKey(name: 'min_duration')
         double? minDuration,
     @JsonKey(name: 'max_duration')
         double? maxDuration,
-    @Default(<SbbRouteConnection>[])
+    @Default(<SchRouteConnection>[])
     @JsonKey(
       name: 'connections',
-      defaultValue: <SbbRouteConnection>[],
+      defaultValue: <SchRouteConnection>[],
     )
-        List<SbbRouteConnection> sbbConnections,
+        List<SchRouteConnection> sbbConnections,
     @Default(<String>[])
         List<String> messages,
     String? requestUrl,
     DateTime? dateTime,
-  }) = _SbbRoute;
-  const SbbRoute._();
+  }) = _SchRoute;
+  const SchRoute._();
 
-  factory SbbRoute.fromJson(Map<String, dynamic> json) =>
-      _$SbbRouteFromJson(json);
+  factory SchRoute.fromJson(Map<String, dynamic> json) =>
+      _$SchRouteFromJson(json);
 
   @override
   List<RouteConnection> get connections => sbbConnections;

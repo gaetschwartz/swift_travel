@@ -28,7 +28,7 @@ class TransportDetails extends StatefulWidget {
 class _TransportDetailsState extends State<TransportDetails> {
   late final stops = <Widget>[
     _Stop(
-      SbbStop(sbbName: widget.leg.name, departure: widget.leg.departure),
+      SchStop(sbbName: widget.leg.name, departure: widget.leg.departure),
       isFirst: true,
       leg: widget.leg,
     ),
@@ -37,7 +37,7 @@ class _TransportDetailsState extends State<TransportDetails> {
           leg: widget.leg,
         )),
     _Stop(
-      SbbStop(
+      SchStop(
           sbbName: widget.leg.exit!.name, departure: widget.leg.exit!.arrival),
       isLast: true,
       leg: widget.leg,

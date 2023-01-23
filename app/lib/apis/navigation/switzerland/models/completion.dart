@@ -11,19 +11,19 @@ part 'completion.freezed.dart';
 part 'completion.g.dart';
 
 @freezed
-class SbbCompletion with _$SbbCompletion implements NavigationCompletion {
+class SchCompletion with _$SchCompletion implements NavigationCompletion {
   @JsonSerializable(includeIfNull: false)
-  factory SbbCompletion({
+  factory SchCompletion({
     required String label,
     double? dist,
     @JsonKey(name: 'iconclass') String? iconClass,
     String? html,
     String? id,
-  }) = _SbbCompletion;
-  SbbCompletion._();
+  }) = _SchCompletion;
+  SchCompletion._();
 
-  factory SbbCompletion.fromJson(Map<String, dynamic> json) =>
-      _$SbbCompletionFromJson(json);
+  factory SchCompletion.fromJson(Map<String, dynamic> json) =>
+      _$SchCompletionFromJson(json);
 
   static LocationType parseLocationType(String? iconclass) {
     if (iconclass == null) {

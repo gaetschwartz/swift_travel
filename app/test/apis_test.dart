@@ -67,44 +67,44 @@ class MockNavigationApi extends BaseNavigationApi {
     LocationType? locationType,
   }) async =>
       mockCompletions ??
-      [SbbCompletion(label: 'Genève'), SbbCompletion(label: 'Genève Cornavin')];
+      [SchCompletion(label: 'Genève'), SchCompletion(label: 'Genève Cornavin')];
 
   @override
   void dispose() {}
 
   @override
-  Future<List<SbbCompletion>> find(double lat, double lon,
+  Future<List<SchCompletion>> find(double lat, double lon,
           {int? accuracy, bool? showCoordinates, bool? showIds}) =>
       Future.value([
-        SbbCompletion(label: 'Genève'),
-        SbbCompletion(label: 'Genève Cornavin'),
+        SchCompletion(label: 'Genève'),
+        SchCompletion(label: 'Genève Cornavin'),
       ]);
 
   final rawQueries = <Uri>[];
   @override
-  Future<SbbRoute> rawRoute(Uri query) {
+  Future<SchRoute> rawRoute(Uri query) {
     rawQueries.add(query);
     return Future.value(
-        SbbRoute.fromJson(mockRoute).copyWith(requestUrl: query.toString()));
+        SchRoute.fromJson(mockRoute).copyWith(requestUrl: query.toString()));
   }
 
   @override
-  Future<SbbStationboard> stationboard(
+  Future<SchStationboard> stationboard(
     Stop stop, {
     DateTime? when,
     SearchChMode? mode,
     List<TransportationTypes>? transportationTypes,
   }) =>
-      Future.value(SbbStationboard.fromJson(mockStationboard));
+      Future.value(SchStationboard.fromJson(mockStationboard));
 
   @override
-  Future<SbbRoute> route(String departure, String arrival,
+  Future<SchRoute> route(String departure, String arrival,
           {required DateTime date,
           required TimeOfDay time,
           SearchChMode? timeType,
           bool? showDelays,
           int? previous}) =>
-      Future.value(SbbRoute.fromJson(mockRoute));
+      Future.value(SchRoute.fromJson(mockRoute));
 
   @override
   Locale locale = const Locale('fr', 'CH');

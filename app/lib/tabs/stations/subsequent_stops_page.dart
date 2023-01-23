@@ -67,7 +67,7 @@ class _NextStopsPageState extends State<NextStopsPage> {
             itemCount: widget.c.subsequentStops.length + 1,
             itemBuilder: (context, i) => i == 0
                 ? StopTile(
-                    stop: SbbSubsequentStop(
+                    stop: SchSubsequentStop(
                       name: widget.s!.name,
                       departure: widget.c.time,
                       depDelay: widget.c.depDelay,

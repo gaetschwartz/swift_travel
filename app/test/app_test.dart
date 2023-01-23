@@ -41,7 +41,7 @@ class MockFetcher extends FetcherBase {
     required SearchChMode timeType,
     required BaseNavigationApi api,
   }) async {
-    state = RouteStates(SbbRoute.fromJson(mockRoute));
+    state = RouteStates(SchRoute.fromJson(mockRoute));
   }
 }
 

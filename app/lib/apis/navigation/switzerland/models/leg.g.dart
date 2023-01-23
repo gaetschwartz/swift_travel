@@ -6,17 +6,17 @@ part of 'leg.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
-      r'_$_SbbLeg',
+_$_SchLeg _$$_SchLegFromJson(Map<String, dynamic> json) => $checkedCreate(
+      r'_$_SchLeg',
       json,
       ($checkedConvert) {
-        final val = _$_SbbLeg(
+        final val = _$_SchLeg(
           name: $checkedConvert('name', (v) => v as String),
           sbbExit: $checkedConvert(
               'exit',
               (v) => v == null
                   ? null
-                  : SbbExit.fromJson(v as Map<String, dynamic>)),
+                  : SchExit.fromJson(v as Map<String, dynamic>)),
           depDelay: $checkedConvert('dep_delay',
               (v) => const DelayConverter().fromJson(v as String?)),
           type: $checkedConvert(
@@ -35,7 +35,7 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
               'stops',
               (v) =>
                   (v as List<dynamic>?)
-                      ?.map((e) => SbbStop.fromJson(e as Map<String, dynamic>))
+                      ?.map((e) => SchStop.fromJson(e as Map<String, dynamic>))
                       .toList() ??
                   []),
           sbbName: $checkedConvert('sbbName', (v) => v as String?),
@@ -73,7 +73,7 @@ _$_SbbLeg _$$_SbbLegFromJson(Map<String, dynamic> json) => $checkedCreate(
       },
     );
 
-Map<String, dynamic> _$$_SbbLegToJson(_$_SbbLeg instance) {
+Map<String, dynamic> _$$_SchLegToJson(_$_SchLeg instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };

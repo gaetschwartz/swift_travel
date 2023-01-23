@@ -37,8 +37,8 @@ Map<String, dynamic> _$$LocalRouteV1ToJson(_$LocalRouteV1 instance) {
 
 _$LocalRouteV2 _$$LocalRouteV2FromJson(Map<String, dynamic> json) =>
     _$LocalRouteV2(
-      SbbStop.fromJson(json['from'] as Map<String, dynamic>),
-      SbbStop.fromJson(json['to'] as Map<String, dynamic>),
+      SchStop.fromJson(json['from'] as Map<String, dynamic>),
+      SchStop.fromJson(json['to'] as Map<String, dynamic>),
       displayName: json['displayName'] as String?,
       timestamp: json['timestamp'] == null
           ? null

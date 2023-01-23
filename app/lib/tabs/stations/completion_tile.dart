@@ -108,7 +108,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
                 SideBar.push(
                   context,
                   (context) => StopDetails(
-                    SbbStop(sbbName: widget.sugg.label, id: widget.sugg.id),
+                    SchStop(sbbName: widget.sugg.label, id: widget.sugg.id),
                     key: Key(widget.sugg.label),
                   ),
                   title: widget.sugg.label,
@@ -252,7 +252,7 @@ class __LinesWidgetState extends ConsumerState<_LinesWidget> {
         sData = await ref
             .read(navigationAPIProvider)
             .stationboard(
-              SbbStop(
+              SchStop(
                 sbbName: widget.compl.label,
                 id: widget.compl.id,
               ),

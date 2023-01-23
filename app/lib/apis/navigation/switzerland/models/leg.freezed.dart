@@ -14,15 +14,15 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SbbLeg _$SbbLegFromJson(Map<String, dynamic> json) {
-  return _SbbLeg.fromJson(json);
+SchLeg _$SchLegFromJson(Map<String, dynamic> json) {
+  return _SchLeg.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SbbLeg {
+mixin _$SchLeg {
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'exit')
-  SbbExit? get sbbExit => throw _privateConstructorUsedError;
+  SchExit? get sbbExit => throw _privateConstructorUsedError;
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
   int? get depDelay => throw _privateConstructorUsedError;
@@ -37,8 +37,8 @@ mixin _$SbbLeg {
   @JsonKey(name: 'runningtime')
   double? get runningTime => throw _privateConstructorUsedError;
   String? get line => throw _privateConstructorUsedError;
-  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-  List<SbbStop> get sbbStops => throw _privateConstructorUsedError;
+  @JsonKey(name: 'stops', defaultValue: <SchStop>[])
+  List<SchStop> get sbbStops => throw _privateConstructorUsedError;
   String? get sbbName => throw _privateConstructorUsedError;
   DateTime? get departure => throw _privateConstructorUsedError;
   DateTime? get arrival => throw _privateConstructorUsedError;
@@ -58,17 +58,17 @@ mixin _$SbbLeg {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbLegCopyWith<SbbLeg> get copyWith => throw _privateConstructorUsedError;
+  $SchLegCopyWith<SchLeg> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SbbLegCopyWith<$Res> {
-  factory $SbbLegCopyWith(SbbLeg value, $Res Function(SbbLeg) then) =
-      _$SbbLegCopyWithImpl<$Res, SbbLeg>;
+abstract class $SchLegCopyWith<$Res> {
+  factory $SchLegCopyWith(SchLeg value, $Res Function(SchLeg) then) =
+      _$SchLegCopyWithImpl<$Res, SchLeg>;
   @useResult
   $Res call(
       {String name,
-      @JsonKey(name: 'exit') SbbExit? sbbExit,
+      @JsonKey(name: 'exit') SchExit? sbbExit,
       @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
       VehicleType? type,
       String? track,
@@ -80,7 +80,7 @@ abstract class $SbbLegCopyWith<$Res> {
       String? stopid,
       @JsonKey(name: 'runningtime') double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[]) List<SbbStop> sbbStops,
+      @JsonKey(name: 'stops', defaultValue: <SchStop>[]) List<SchStop> sbbStops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
@@ -93,13 +93,13 @@ abstract class $SbbLegCopyWith<$Res> {
       @IntConverter() int? y,
       Map<String, String> attributes});
 
-  $SbbExitCopyWith<$Res>? get sbbExit;
+  $SchExitCopyWith<$Res>? get sbbExit;
 }
 
 /// @nodoc
-class _$SbbLegCopyWithImpl<$Res, $Val extends SbbLeg>
-    implements $SbbLegCopyWith<$Res> {
-  _$SbbLegCopyWithImpl(this._value, this._then);
+class _$SchLegCopyWithImpl<$Res, $Val extends SchLeg>
+    implements $SchLegCopyWith<$Res> {
+  _$SchLegCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -143,7 +143,7 @@ class _$SbbLegCopyWithImpl<$Res, $Val extends SbbLeg>
       sbbExit: freezed == sbbExit
           ? _value.sbbExit
           : sbbExit // ignore: cast_nullable_to_non_nullable
-              as SbbExit?,
+              as SchExit?,
       depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
@@ -191,7 +191,7 @@ class _$SbbLegCopyWithImpl<$Res, $Val extends SbbLeg>
       sbbStops: null == sbbStops
           ? _value.sbbStops
           : sbbStops // ignore: cast_nullable_to_non_nullable
-              as List<SbbStop>,
+              as List<SchStop>,
       sbbName: freezed == sbbName
           ? _value.sbbName
           : sbbName // ignore: cast_nullable_to_non_nullable
@@ -241,26 +241,26 @@ class _$SbbLegCopyWithImpl<$Res, $Val extends SbbLeg>
 
   @override
   @pragma('vm:prefer-inline')
-  $SbbExitCopyWith<$Res>? get sbbExit {
+  $SchExitCopyWith<$Res>? get sbbExit {
     if (_value.sbbExit == null) {
       return null;
     }
 
-    return $SbbExitCopyWith<$Res>(_value.sbbExit!, (value) {
+    return $SchExitCopyWith<$Res>(_value.sbbExit!, (value) {
       return _then(_value.copyWith(sbbExit: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
-  factory _$$_SbbLegCopyWith(_$_SbbLeg value, $Res Function(_$_SbbLeg) then) =
-      __$$_SbbLegCopyWithImpl<$Res>;
+abstract class _$$_SchLegCopyWith<$Res> implements $SchLegCopyWith<$Res> {
+  factory _$$_SchLegCopyWith(_$_SchLeg value, $Res Function(_$_SchLeg) then) =
+      __$$_SchLegCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String name,
-      @JsonKey(name: 'exit') SbbExit? sbbExit,
+      @JsonKey(name: 'exit') SchExit? sbbExit,
       @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
       VehicleType? type,
       String? track,
@@ -272,7 +272,7 @@ abstract class _$$_SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       String? stopid,
       @JsonKey(name: 'runningtime') double? runningTime,
       String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[]) List<SbbStop> sbbStops,
+      @JsonKey(name: 'stops', defaultValue: <SchStop>[]) List<SchStop> sbbStops,
       String? sbbName,
       DateTime? departure,
       DateTime? arrival,
@@ -286,14 +286,14 @@ abstract class _$$_SbbLegCopyWith<$Res> implements $SbbLegCopyWith<$Res> {
       Map<String, String> attributes});
 
   @override
-  $SbbExitCopyWith<$Res>? get sbbExit;
+  $SchExitCopyWith<$Res>? get sbbExit;
 }
 
 /// @nodoc
-class __$$_SbbLegCopyWithImpl<$Res>
-    extends _$SbbLegCopyWithImpl<$Res, _$_SbbLeg>
-    implements _$$_SbbLegCopyWith<$Res> {
-  __$$_SbbLegCopyWithImpl(_$_SbbLeg _value, $Res Function(_$_SbbLeg) _then)
+class __$$_SchLegCopyWithImpl<$Res>
+    extends _$SchLegCopyWithImpl<$Res, _$_SchLeg>
+    implements _$$_SchLegCopyWith<$Res> {
+  __$$_SchLegCopyWithImpl(_$_SchLeg _value, $Res Function(_$_SchLeg) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -325,7 +325,7 @@ class __$$_SbbLegCopyWithImpl<$Res>
     Object? y = freezed,
     Object? attributes = null,
   }) {
-    return _then(_$_SbbLeg(
+    return _then(_$_SchLeg(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -333,7 +333,7 @@ class __$$_SbbLegCopyWithImpl<$Res>
       sbbExit: freezed == sbbExit
           ? _value.sbbExit
           : sbbExit // ignore: cast_nullable_to_non_nullable
-              as SbbExit?,
+              as SchExit?,
       depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
@@ -381,7 +381,7 @@ class __$$_SbbLegCopyWithImpl<$Res>
       sbbStops: null == sbbStops
           ? _value._sbbStops
           : sbbStops // ignore: cast_nullable_to_non_nullable
-              as List<SbbStop>,
+              as List<SchStop>,
       sbbName: freezed == sbbName
           ? _value.sbbName
           : sbbName // ignore: cast_nullable_to_non_nullable
@@ -433,8 +433,8 @@ class __$$_SbbLegCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-class _$_SbbLeg extends _SbbLeg {
-  _$_SbbLeg(
+class _$_SchLeg extends _SchLeg {
+  _$_SchLeg(
       {required this.name,
       @JsonKey(name: 'exit')
           this.sbbExit,
@@ -452,8 +452,8 @@ class _$_SbbLeg extends _SbbLeg {
       @JsonKey(name: 'runningtime')
           this.runningTime,
       this.line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-          final List<SbbStop> sbbStops = const <SbbStop>[],
+      @JsonKey(name: 'stops', defaultValue: <SchStop>[])
+          final List<SchStop> sbbStops = const <SchStop>[],
       this.sbbName,
       this.departure,
       this.arrival,
@@ -474,14 +474,14 @@ class _$_SbbLeg extends _SbbLeg {
         _attributes = attributes,
         super._();
 
-  factory _$_SbbLeg.fromJson(Map<String, dynamic> json) =>
-      _$$_SbbLegFromJson(json);
+  factory _$_SchLeg.fromJson(Map<String, dynamic> json) =>
+      _$$_SchLegFromJson(json);
 
   @override
   final String name;
   @override
   @JsonKey(name: 'exit')
-  final SbbExit? sbbExit;
+  final SchExit? sbbExit;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
@@ -507,10 +507,10 @@ class _$_SbbLeg extends _SbbLeg {
   final double? runningTime;
   @override
   final String? line;
-  final List<SbbStop> _sbbStops;
+  final List<SchStop> _sbbStops;
   @override
-  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-  List<SbbStop> get sbbStops {
+  @JsonKey(name: 'stops', defaultValue: <SchStop>[])
+  List<SchStop> get sbbStops {
     if (_sbbStops is EqualUnmodifiableListView) return _sbbStops;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_sbbStops);
@@ -552,14 +552,14 @@ class _$_SbbLeg extends _SbbLeg {
 
   @override
   String toString() {
-    return 'SbbLeg(name: $name, sbbExit: $sbbExit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, bgcolor: $bgcolor, fgcolor: $fgcolor, number: $number, tripid: $tripid, stopid: $stopid, runningTime: $runningTime, line: $line, sbbStops: $sbbStops, sbbName: $sbbName, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isAddress: $isAddress, lat: $lat, lon: $lon, x: $x, y: $y, attributes: $attributes)';
+    return 'SchLeg(name: $name, sbbExit: $sbbExit, depDelay: $depDelay, type: $type, track: $track, terminal: $terminal, bgcolor: $bgcolor, fgcolor: $fgcolor, number: $number, tripid: $tripid, stopid: $stopid, runningTime: $runningTime, line: $line, sbbStops: $sbbStops, sbbName: $sbbName, departure: $departure, arrival: $arrival, normalTime: $normalTime, waitTime: $waitTime, isAddress: $isAddress, lat: $lat, lon: $lon, x: $x, y: $y, attributes: $attributes)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SbbLeg &&
+            other is _$_SchLeg &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.sbbExit, sbbExit) || other.sbbExit == sbbExit) &&
             (identical(other.depDelay, depDelay) ||
@@ -629,22 +629,22 @@ class _$_SbbLeg extends _SbbLeg {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SbbLegCopyWith<_$_SbbLeg> get copyWith =>
-      __$$_SbbLegCopyWithImpl<_$_SbbLeg>(this, _$identity);
+  _$$_SchLegCopyWith<_$_SchLeg> get copyWith =>
+      __$$_SchLegCopyWithImpl<_$_SchLeg>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbLegToJson(
+    return _$$_SchLegToJson(
       this,
     );
   }
 }
 
-abstract class _SbbLeg extends SbbLeg {
-  factory _SbbLeg(
+abstract class _SchLeg extends SchLeg {
+  factory _SchLeg(
       {required final String name,
       @JsonKey(name: 'exit')
-          final SbbExit? sbbExit,
+          final SchExit? sbbExit,
       @DelayConverter()
       @JsonKey(name: 'dep_delay')
           final int? depDelay,
@@ -659,8 +659,8 @@ abstract class _SbbLeg extends SbbLeg {
       @JsonKey(name: 'runningtime')
           final double? runningTime,
       final String? line,
-      @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-          final List<SbbStop> sbbStops,
+      @JsonKey(name: 'stops', defaultValue: <SchStop>[])
+          final List<SchStop> sbbStops,
       final String? sbbName,
       final DateTime? departure,
       final DateTime? arrival,
@@ -676,16 +676,16 @@ abstract class _SbbLeg extends SbbLeg {
           final int? x,
       @IntConverter()
           final int? y,
-      final Map<String, String> attributes}) = _$_SbbLeg;
-  _SbbLeg._() : super._();
+      final Map<String, String> attributes}) = _$_SchLeg;
+  _SchLeg._() : super._();
 
-  factory _SbbLeg.fromJson(Map<String, dynamic> json) = _$_SbbLeg.fromJson;
+  factory _SchLeg.fromJson(Map<String, dynamic> json) = _$_SchLeg.fromJson;
 
   @override
   String get name;
   @override
   @JsonKey(name: 'exit')
-  SbbExit? get sbbExit;
+  SchExit? get sbbExit;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
@@ -712,8 +712,8 @@ abstract class _SbbLeg extends SbbLeg {
   @override
   String? get line;
   @override
-  @JsonKey(name: 'stops', defaultValue: <SbbStop>[])
-  List<SbbStop> get sbbStops;
+  @JsonKey(name: 'stops', defaultValue: <SchStop>[])
+  List<SchStop> get sbbStops;
   @override
   String? get sbbName;
   @override
@@ -743,6 +743,6 @@ abstract class _SbbLeg extends SbbLeg {
   Map<String, String> get attributes;
   @override
   @JsonKey(ignore: true)
-  _$$_SbbLegCopyWith<_$_SbbLeg> get copyWith =>
+  _$$_SchLegCopyWith<_$_SchLeg> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -14,18 +14,18 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SbbStationboardConnection _$SbbStationboardConnectionFromJson(
+SchStationboardConnection _$SchStationboardConnectionFromJson(
     Map<String, dynamic> json) {
-  return _SbbStationboardConnection.fromJson(json);
+  return _SchStationboardConnection.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SbbStationboardConnection {
+mixin _$SchStationboardConnection {
   DateTime get time => throw _privateConstructorUsedError;
   VehicleType get type => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   @JsonKey(name: 'terminal')
-  SbbStop get sbbTerminal => throw _privateConstructorUsedError;
+  SchStop get sbbTerminal => throw _privateConstructorUsedError;
   String? get line => throw _privateConstructorUsedError;
   @JsonKey(name: 'operator')
   String? get operator => throw _privateConstructorUsedError;
@@ -34,8 +34,8 @@ mixin _$SbbStationboardConnection {
   String? get g => throw _privateConstructorUsedError;
   @JsonKey(name: '*L')
   String? get l => throw _privateConstructorUsedError;
-  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-  List<SbbSubsequentStop> get sbbSubsequentStops =>
+  @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
+  List<SchSubsequentStop> get sbbSubsequentStops =>
       throw _privateConstructorUsedError;
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
@@ -47,22 +47,22 @@ mixin _$SbbStationboardConnection {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbStationboardConnectionCopyWith<SbbStationboardConnection> get copyWith =>
+  $SchStationboardConnectionCopyWith<SchStationboardConnection> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SbbStationboardConnectionCopyWith<$Res> {
-  factory $SbbStationboardConnectionCopyWith(SbbStationboardConnection value,
-          $Res Function(SbbStationboardConnection) then) =
-      _$SbbStationboardConnectionCopyWithImpl<$Res, SbbStationboardConnection>;
+abstract class $SchStationboardConnectionCopyWith<$Res> {
+  factory $SchStationboardConnectionCopyWith(SchStationboardConnection value,
+          $Res Function(SchStationboardConnection) then) =
+      _$SchStationboardConnectionCopyWithImpl<$Res, SchStationboardConnection>;
   @useResult
   $Res call(
       {DateTime time,
       VehicleType type,
       String color,
       @JsonKey(name: 'terminal')
-          SbbStop sbbTerminal,
+          SchStop sbbTerminal,
       String? line,
       @JsonKey(name: 'operator')
           String? operator,
@@ -71,8 +71,8 @@ abstract class $SbbStationboardConnectionCopyWith<$Res> {
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-          List<SbbSubsequentStop> sbbSubsequentStops,
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
+          List<SchSubsequentStop> sbbSubsequentStops,
       @DelayConverter()
       @JsonKey(name: 'dep_delay')
           int? depDelay,
@@ -81,14 +81,14 @@ abstract class $SbbStationboardConnectionCopyWith<$Res> {
           int? arrDelay,
       String? track});
 
-  $SbbStopCopyWith<$Res> get sbbTerminal;
+  $SchStopCopyWith<$Res> get sbbTerminal;
 }
 
 /// @nodoc
-class _$SbbStationboardConnectionCopyWithImpl<$Res,
-        $Val extends SbbStationboardConnection>
-    implements $SbbStationboardConnectionCopyWith<$Res> {
-  _$SbbStationboardConnectionCopyWithImpl(this._value, this._then);
+class _$SchStationboardConnectionCopyWithImpl<$Res,
+        $Val extends SchStationboardConnection>
+    implements $SchStationboardConnectionCopyWith<$Res> {
+  _$SchStationboardConnectionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -128,7 +128,7 @@ class _$SbbStationboardConnectionCopyWithImpl<$Res,
       sbbTerminal: null == sbbTerminal
           ? _value.sbbTerminal
           : sbbTerminal // ignore: cast_nullable_to_non_nullable
-              as SbbStop,
+              as SchStop,
       line: freezed == line
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
@@ -152,7 +152,7 @@ class _$SbbStationboardConnectionCopyWithImpl<$Res,
       sbbSubsequentStops: null == sbbSubsequentStops
           ? _value.sbbSubsequentStops
           : sbbSubsequentStops // ignore: cast_nullable_to_non_nullable
-              as List<SbbSubsequentStop>,
+              as List<SchSubsequentStop>,
       depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
@@ -170,20 +170,20 @@ class _$SbbStationboardConnectionCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
-  $SbbStopCopyWith<$Res> get sbbTerminal {
-    return $SbbStopCopyWith<$Res>(_value.sbbTerminal, (value) {
+  $SchStopCopyWith<$Res> get sbbTerminal {
+    return $SchStopCopyWith<$Res>(_value.sbbTerminal, (value) {
       return _then(_value.copyWith(sbbTerminal: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_SbbStationboardConnectionCopyWith<$Res>
-    implements $SbbStationboardConnectionCopyWith<$Res> {
-  factory _$$_SbbStationboardConnectionCopyWith(
-          _$_SbbStationboardConnection value,
-          $Res Function(_$_SbbStationboardConnection) then) =
-      __$$_SbbStationboardConnectionCopyWithImpl<$Res>;
+abstract class _$$_SchStationboardConnectionCopyWith<$Res>
+    implements $SchStationboardConnectionCopyWith<$Res> {
+  factory _$$_SchStationboardConnectionCopyWith(
+          _$_SchStationboardConnection value,
+          $Res Function(_$_SchStationboardConnection) then) =
+      __$$_SchStationboardConnectionCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -191,7 +191,7 @@ abstract class _$$_SbbStationboardConnectionCopyWith<$Res>
       VehicleType type,
       String color,
       @JsonKey(name: 'terminal')
-          SbbStop sbbTerminal,
+          SchStop sbbTerminal,
       String? line,
       @JsonKey(name: 'operator')
           String? operator,
@@ -200,8 +200,8 @@ abstract class _$$_SbbStationboardConnectionCopyWith<$Res>
           String? g,
       @JsonKey(name: '*L')
           String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-          List<SbbSubsequentStop> sbbSubsequentStops,
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
+          List<SchSubsequentStop> sbbSubsequentStops,
       @DelayConverter()
       @JsonKey(name: 'dep_delay')
           int? depDelay,
@@ -211,17 +211,17 @@ abstract class _$$_SbbStationboardConnectionCopyWith<$Res>
       String? track});
 
   @override
-  $SbbStopCopyWith<$Res> get sbbTerminal;
+  $SchStopCopyWith<$Res> get sbbTerminal;
 }
 
 /// @nodoc
-class __$$_SbbStationboardConnectionCopyWithImpl<$Res>
-    extends _$SbbStationboardConnectionCopyWithImpl<$Res,
-        _$_SbbStationboardConnection>
-    implements _$$_SbbStationboardConnectionCopyWith<$Res> {
-  __$$_SbbStationboardConnectionCopyWithImpl(
-      _$_SbbStationboardConnection _value,
-      $Res Function(_$_SbbStationboardConnection) _then)
+class __$$_SchStationboardConnectionCopyWithImpl<$Res>
+    extends _$SchStationboardConnectionCopyWithImpl<$Res,
+        _$_SchStationboardConnection>
+    implements _$$_SchStationboardConnectionCopyWith<$Res> {
+  __$$_SchStationboardConnectionCopyWithImpl(
+      _$_SchStationboardConnection _value,
+      $Res Function(_$_SchStationboardConnection) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -241,7 +241,7 @@ class __$$_SbbStationboardConnectionCopyWithImpl<$Res>
     Object? arrDelay = freezed,
     Object? track = freezed,
   }) {
-    return _then(_$_SbbStationboardConnection(
+    return _then(_$_SchStationboardConnection(
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -257,7 +257,7 @@ class __$$_SbbStationboardConnectionCopyWithImpl<$Res>
       sbbTerminal: null == sbbTerminal
           ? _value.sbbTerminal
           : sbbTerminal // ignore: cast_nullable_to_non_nullable
-              as SbbStop,
+              as SchStop,
       line: freezed == line
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
@@ -281,7 +281,7 @@ class __$$_SbbStationboardConnectionCopyWithImpl<$Res>
       sbbSubsequentStops: null == sbbSubsequentStops
           ? _value._sbbSubsequentStops
           : sbbSubsequentStops // ignore: cast_nullable_to_non_nullable
-              as List<SbbSubsequentStop>,
+              as List<SchSubsequentStop>,
       depDelay: freezed == depDelay
           ? _value.depDelay
           : depDelay // ignore: cast_nullable_to_non_nullable
@@ -301,8 +301,8 @@ class __$$_SbbStationboardConnectionCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, checked: true)
-class _$_SbbStationboardConnection extends _SbbStationboardConnection {
-  _$_SbbStationboardConnection(
+class _$_SchStationboardConnection extends _SchStationboardConnection {
+  _$_SchStationboardConnection(
       {required this.time,
       required this.type,
       required this.color,
@@ -316,9 +316,9 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
           this.g,
       @JsonKey(name: '*L')
           this.l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-          final List<SbbSubsequentStop>
-              sbbSubsequentStops = const <SbbSubsequentStop>[],
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
+          final List<SchSubsequentStop>
+              sbbSubsequentStops = const <SchSubsequentStop>[],
       @DelayConverter()
       @JsonKey(name: 'dep_delay')
           this.depDelay,
@@ -329,8 +329,8 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
       : _sbbSubsequentStops = sbbSubsequentStops,
         super._();
 
-  factory _$_SbbStationboardConnection.fromJson(Map<String, dynamic> json) =>
-      _$$_SbbStationboardConnectionFromJson(json);
+  factory _$_SchStationboardConnection.fromJson(Map<String, dynamic> json) =>
+      _$$_SchStationboardConnectionFromJson(json);
 
   @override
   final DateTime time;
@@ -340,7 +340,7 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   final String color;
   @override
   @JsonKey(name: 'terminal')
-  final SbbStop sbbTerminal;
+  final SchStop sbbTerminal;
   @override
   final String? line;
   @override
@@ -355,10 +355,10 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @override
   @JsonKey(name: '*L')
   final String? l;
-  final List<SbbSubsequentStop> _sbbSubsequentStops;
+  final List<SchSubsequentStop> _sbbSubsequentStops;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-  List<SbbSubsequentStop> get sbbSubsequentStops {
+  @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
+  List<SchSubsequentStop> get sbbSubsequentStops {
     if (_sbbSubsequentStops is EqualUnmodifiableListView)
       return _sbbSubsequentStops;
     // ignore: implicit_dynamic_type
@@ -378,14 +378,14 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
 
   @override
   String toString() {
-    return 'SbbStationboardConnection(time: $time, type: $type, color: $color, sbbTerminal: $sbbTerminal, line: $line, operator: $operator, number: $number, g: $g, l: $l, sbbSubsequentStops: $sbbSubsequentStops, depDelay: $depDelay, arrDelay: $arrDelay, track: $track)';
+    return 'SchStationboardConnection(time: $time, type: $type, color: $color, sbbTerminal: $sbbTerminal, line: $line, operator: $operator, number: $number, g: $g, l: $l, sbbSubsequentStops: $sbbSubsequentStops, depDelay: $depDelay, arrDelay: $arrDelay, track: $track)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SbbStationboardConnection &&
+            other is _$_SchStationboardConnection &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.color, color) || other.color == color) &&
@@ -427,25 +427,25 @@ class _$_SbbStationboardConnection extends _SbbStationboardConnection {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SbbStationboardConnectionCopyWith<_$_SbbStationboardConnection>
-      get copyWith => __$$_SbbStationboardConnectionCopyWithImpl<
-          _$_SbbStationboardConnection>(this, _$identity);
+  _$$_SchStationboardConnectionCopyWith<_$_SchStationboardConnection>
+      get copyWith => __$$_SchStationboardConnectionCopyWithImpl<
+          _$_SchStationboardConnection>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbStationboardConnectionToJson(
+    return _$$_SchStationboardConnectionToJson(
       this,
     );
   }
 }
 
-abstract class _SbbStationboardConnection extends SbbStationboardConnection {
-  factory _SbbStationboardConnection(
+abstract class _SchStationboardConnection extends SchStationboardConnection {
+  factory _SchStationboardConnection(
       {required final DateTime time,
       required final VehicleType type,
       required final String color,
       @JsonKey(name: 'terminal')
-          required final SbbStop sbbTerminal,
+          required final SchStop sbbTerminal,
       final String? line,
       @JsonKey(name: 'operator')
           final String? operator,
@@ -454,19 +454,19 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
           final String? g,
       @JsonKey(name: '*L')
           final String? l,
-      @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-          final List<SbbSubsequentStop> sbbSubsequentStops,
+      @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
+          final List<SchSubsequentStop> sbbSubsequentStops,
       @DelayConverter()
       @JsonKey(name: 'dep_delay')
           final int? depDelay,
       @DelayConverter()
       @JsonKey(name: 'arr_delay')
           final int? arrDelay,
-      final String? track}) = _$_SbbStationboardConnection;
-  _SbbStationboardConnection._() : super._();
+      final String? track}) = _$_SchStationboardConnection;
+  _SchStationboardConnection._() : super._();
 
-  factory _SbbStationboardConnection.fromJson(Map<String, dynamic> json) =
-      _$_SbbStationboardConnection.fromJson;
+  factory _SchStationboardConnection.fromJson(Map<String, dynamic> json) =
+      _$_SchStationboardConnection.fromJson;
 
   @override
   DateTime get time;
@@ -476,7 +476,7 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   String get color;
   @override
   @JsonKey(name: 'terminal')
-  SbbStop get sbbTerminal;
+  SchStop get sbbTerminal;
   @override
   String? get line;
   @override
@@ -491,8 +491,8 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   @JsonKey(name: '*L')
   String? get l;
   @override
-  @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-  List<SbbSubsequentStop> get sbbSubsequentStops;
+  @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
+  List<SchSubsequentStop> get sbbSubsequentStops;
   @override
   @DelayConverter()
   @JsonKey(name: 'dep_delay')
@@ -505,6 +505,6 @@ abstract class _SbbStationboardConnection extends SbbStationboardConnection {
   String? get track;
   @override
   @JsonKey(ignore: true)
-  _$$_SbbStationboardConnectionCopyWith<_$_SbbStationboardConnection>
+  _$$_SchStationboardConnectionCopyWith<_$_SchStationboardConnection>
       get copyWith => throw _privateConstructorUsedError;
 }

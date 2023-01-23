@@ -6,8 +6,8 @@ part of 'subsequent_stop.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SbbSubsequentStop _$$_SbbSubsequentStopFromJson(Map<String, dynamic> json) =>
-    _$_SbbSubsequentStop(
+_$_SchSubsequentStop _$$_SchSubsequentStopFromJson(Map<String, dynamic> json) =>
+    _$_SchSubsequentStop(
       name: json['name'] as String,
       depDelay: const DelayConverter().fromJson(json['dep_delay'] as String?),
       arrDelay: const DelayConverter().fromJson(json['arr_delay'] as String?),
@@ -22,8 +22,8 @@ _$_SbbSubsequentStop _$$_SbbSubsequentStopFromJson(Map<String, dynamic> json) =>
       y: json['y'] as int?,
     );
 
-Map<String, dynamic> _$$_SbbSubsequentStopToJson(
-        _$_SbbSubsequentStop instance) =>
+Map<String, dynamic> _$$_SchSubsequentStopToJson(
+        _$_SchSubsequentStop instance) =>
     <String, dynamic>{
       'name': instance.name,
       'dep_delay': const DelayConverter().toJson(instance.depDelay),

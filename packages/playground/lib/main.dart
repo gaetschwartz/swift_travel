@@ -447,7 +447,7 @@ class WidgetsShowcase extends StatelessWidget {
                           SizedBox(
                             width: 400,
                             child: RouteTile(
-                              route: SbbRoute.fromJson(mockRoute),
+                              route: SchRoute.fromJson(mockRoute),
                               i: 0,
                             ),
                           ),
@@ -471,13 +471,13 @@ class WidgetsShowcase extends StatelessWidget {
                               child: Column(
                                 children: [
                                   WalkingTile(
-                                    SbbRoute.fromJson(mockRoute)
+                                    SchRoute.fromJson(mockRoute)
                                         .connections
                                         .first
                                         .legs[0],
                                   ),
                                   TransportLegTile(
-                                    SbbRoute.fromJson(mockRoute)
+                                    SchRoute.fromJson(mockRoute)
                                         .connections
                                         .first
                                         .legs[1],

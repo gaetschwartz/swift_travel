@@ -103,7 +103,7 @@ class SearchChApi extends BaseNavigationApi {
           }
           return true;
         })
-        .map((dynamic e) => SbbCompletion.fromJson(e as Map<String, dynamic>))
+        .map((dynamic e) => SchCompletion.fromJson(e as Map<String, dynamic>))
         .toList();
 
     return completions;
@@ -138,7 +138,7 @@ class SearchChApi extends BaseNavigationApi {
     final decode = jsonDecode(response.body) as List<Object?>;
 
     return decode
-        .map((e) => SbbCompletion.fromJson(e! as Map<String, dynamic>))
+        .map((e) => SchCompletion.fromJson(e! as Map<String, dynamic>))
         .toList(growable: false);
   }
 
@@ -176,7 +176,7 @@ class SearchChApi extends BaseNavigationApi {
     }
     final decode = await Future.microtask(() => timedDecode(response.body));
 
-    final sbbStationboard = SbbStationboard.fromJson(decode);
+    final sbbStationboard = SchStationboard.fromJson(decode);
 
     return sbbStationboard;
   }
@@ -238,7 +238,7 @@ class SearchChApi extends BaseNavigationApi {
 
     final map = timedDecode(response.body);
 
-    return SbbRoute.fromJson(map).copyWith(requestUrl: query.toString());
+    return SchRoute.fromJson(map).copyWith(requestUrl: query.toString());
   }
 
   @override

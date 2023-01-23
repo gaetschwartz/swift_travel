@@ -13,31 +13,31 @@ part 'stationboard_connection.freezed.dart';
 part 'stationboard_connection.g.dart';
 
 @freezed
-class SbbStationboardConnection
-    with _$SbbStationboardConnection
+class SchStationboardConnection
+    with _$SchStationboardConnection
     implements StationboardConnection {
   @JsonSerializable(explicitToJson: true, checked: true)
-  factory SbbStationboardConnection({
+  factory SchStationboardConnection({
     required DateTime time,
     required VehicleType type,
     required String color,
-    @JsonKey(name: 'terminal') required SbbStop sbbTerminal,
+    @JsonKey(name: 'terminal') required SchStop sbbTerminal,
     String? line,
     @JsonKey(name: 'operator') String? operator,
     @Default('') String number,
     @JsonKey(name: '*G') String? g,
     @JsonKey(name: '*L') String? l,
-    @JsonKey(name: 'subsequent_stops', defaultValue: <SbbSubsequentStop>[])
-    @Default(<SbbSubsequentStop>[])
-        List<SbbSubsequentStop> sbbSubsequentStops,
+    @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
+    @Default(<SchSubsequentStop>[])
+        List<SchSubsequentStop> sbbSubsequentStops,
     @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
     @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
     String? track,
-  }) = _SbbStationboardConnection;
-  SbbStationboardConnection._();
+  }) = _SchStationboardConnection;
+  SchStationboardConnection._();
 
-  factory SbbStationboardConnection.fromJson(Map<String, dynamic> json) =>
-      _$SbbStationboardConnectionFromJson(json);
+  factory SchStationboardConnection.fromJson(Map<String, dynamic> json) =>
+      _$SchStationboardConnectionFromJson(json);
 
   @override
   List<DelayedStop> get subsequentStops => sbbSubsequentStops;

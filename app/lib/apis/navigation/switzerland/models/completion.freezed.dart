@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SbbCompletion _$SbbCompletionFromJson(Map<String, dynamic> json) {
-  return _SbbCompletion.fromJson(json);
+SchCompletion _$SchCompletionFromJson(Map<String, dynamic> json) {
+  return _SchCompletion.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SbbCompletion {
+mixin _$SchCompletion {
   String get label => throw _privateConstructorUsedError;
   double? get dist => throw _privateConstructorUsedError;
   @JsonKey(name: 'iconclass')
@@ -29,15 +29,15 @@ mixin _$SbbCompletion {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbCompletionCopyWith<SbbCompletion> get copyWith =>
+  $SchCompletionCopyWith<SchCompletion> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SbbCompletionCopyWith<$Res> {
-  factory $SbbCompletionCopyWith(
-          SbbCompletion value, $Res Function(SbbCompletion) then) =
-      _$SbbCompletionCopyWithImpl<$Res, SbbCompletion>;
+abstract class $SchCompletionCopyWith<$Res> {
+  factory $SchCompletionCopyWith(
+          SchCompletion value, $Res Function(SchCompletion) then) =
+      _$SchCompletionCopyWithImpl<$Res, SchCompletion>;
   @useResult
   $Res call(
       {String label,
@@ -48,9 +48,9 @@ abstract class $SbbCompletionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbCompletionCopyWithImpl<$Res, $Val extends SbbCompletion>
-    implements $SbbCompletionCopyWith<$Res> {
-  _$SbbCompletionCopyWithImpl(this._value, this._then);
+class _$SchCompletionCopyWithImpl<$Res, $Val extends SchCompletion>
+    implements $SchCompletionCopyWith<$Res> {
+  _$SchCompletionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -92,11 +92,11 @@ class _$SbbCompletionCopyWithImpl<$Res, $Val extends SbbCompletion>
 }
 
 /// @nodoc
-abstract class _$$_SbbCompletionCopyWith<$Res>
-    implements $SbbCompletionCopyWith<$Res> {
-  factory _$$_SbbCompletionCopyWith(
-          _$_SbbCompletion value, $Res Function(_$_SbbCompletion) then) =
-      __$$_SbbCompletionCopyWithImpl<$Res>;
+abstract class _$$_SchCompletionCopyWith<$Res>
+    implements $SchCompletionCopyWith<$Res> {
+  factory _$$_SchCompletionCopyWith(
+          _$_SchCompletion value, $Res Function(_$_SchCompletion) then) =
+      __$$_SchCompletionCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -108,11 +108,11 @@ abstract class _$$_SbbCompletionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SbbCompletionCopyWithImpl<$Res>
-    extends _$SbbCompletionCopyWithImpl<$Res, _$_SbbCompletion>
-    implements _$$_SbbCompletionCopyWith<$Res> {
-  __$$_SbbCompletionCopyWithImpl(
-      _$_SbbCompletion _value, $Res Function(_$_SbbCompletion) _then)
+class __$$_SchCompletionCopyWithImpl<$Res>
+    extends _$SchCompletionCopyWithImpl<$Res, _$_SchCompletion>
+    implements _$$_SchCompletionCopyWith<$Res> {
+  __$$_SchCompletionCopyWithImpl(
+      _$_SchCompletion _value, $Res Function(_$_SchCompletion) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -124,7 +124,7 @@ class __$$_SbbCompletionCopyWithImpl<$Res>
     Object? html = freezed,
     Object? id = freezed,
   }) {
-    return _then(_$_SbbCompletion(
+    return _then(_$_SchCompletion(
       label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
@@ -152,8 +152,8 @@ class __$$_SbbCompletionCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-class _$_SbbCompletion extends _SbbCompletion with DiagnosticableTreeMixin {
-  _$_SbbCompletion(
+class _$_SchCompletion extends _SchCompletion with DiagnosticableTreeMixin {
+  _$_SchCompletion(
       {required this.label,
       this.dist,
       @JsonKey(name: 'iconclass') this.iconClass,
@@ -161,8 +161,8 @@ class _$_SbbCompletion extends _SbbCompletion with DiagnosticableTreeMixin {
       this.id})
       : super._();
 
-  factory _$_SbbCompletion.fromJson(Map<String, dynamic> json) =>
-      _$$_SbbCompletionFromJson(json);
+  factory _$_SchCompletion.fromJson(Map<String, dynamic> json) =>
+      _$$_SchCompletionFromJson(json);
 
   @override
   final String label;
@@ -178,14 +178,14 @@ class _$_SbbCompletion extends _SbbCompletion with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SbbCompletion(label: $label, dist: $dist, iconClass: $iconClass, html: $html, id: $id)';
+    return 'SchCompletion(label: $label, dist: $dist, iconClass: $iconClass, html: $html, id: $id)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SbbCompletion'))
+      ..add(DiagnosticsProperty('type', 'SchCompletion'))
       ..add(DiagnosticsProperty('label', label))
       ..add(DiagnosticsProperty('dist', dist))
       ..add(DiagnosticsProperty('iconClass', iconClass))
@@ -197,7 +197,7 @@ class _$_SbbCompletion extends _SbbCompletion with DiagnosticableTreeMixin {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SbbCompletion &&
+            other is _$_SchCompletion &&
             (identical(other.label, label) || other.label == label) &&
             (identical(other.dist, dist) || other.dist == dist) &&
             (identical(other.iconClass, iconClass) ||
@@ -214,28 +214,28 @@ class _$_SbbCompletion extends _SbbCompletion with DiagnosticableTreeMixin {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SbbCompletionCopyWith<_$_SbbCompletion> get copyWith =>
-      __$$_SbbCompletionCopyWithImpl<_$_SbbCompletion>(this, _$identity);
+  _$$_SchCompletionCopyWith<_$_SchCompletion> get copyWith =>
+      __$$_SchCompletionCopyWithImpl<_$_SchCompletion>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SbbCompletionToJson(
+    return _$$_SchCompletionToJson(
       this,
     );
   }
 }
 
-abstract class _SbbCompletion extends SbbCompletion {
-  factory _SbbCompletion(
+abstract class _SchCompletion extends SchCompletion {
+  factory _SchCompletion(
       {required final String label,
       final double? dist,
       @JsonKey(name: 'iconclass') final String? iconClass,
       final String? html,
-      final String? id}) = _$_SbbCompletion;
-  _SbbCompletion._() : super._();
+      final String? id}) = _$_SchCompletion;
+  _SchCompletion._() : super._();
 
-  factory _SbbCompletion.fromJson(Map<String, dynamic> json) =
-      _$_SbbCompletion.fromJson;
+  factory _SchCompletion.fromJson(Map<String, dynamic> json) =
+      _$_SchCompletion.fromJson;
 
   @override
   String get label;
@@ -250,7 +250,7 @@ abstract class _SbbCompletion extends SbbCompletion {
   String? get id;
   @override
   @JsonKey(ignore: true)
-  _$$_SbbCompletionCopyWith<_$_SbbCompletion> get copyWith =>
+  _$$_SchCompletionCopyWith<_$_SchCompletion> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

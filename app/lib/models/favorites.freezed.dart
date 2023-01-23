@@ -39,7 +39,7 @@ mixin _$LocalRoute {
             String from, String to, String? displayName, DateTime? timestamp)
         v1,
     required TResult Function(
-            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)
+            SchStop from, SchStop to, String? displayName, DateTime? timestamp)
         v2,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ mixin _$LocalRoute {
             String from, String to, String? displayName, DateTime? timestamp)?
         v1,
     TResult? Function(
-            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
+            SchStop from, SchStop to, String? displayName, DateTime? timestamp)?
         v2,
   }) =>
       throw _privateConstructorUsedError;
@@ -59,7 +59,7 @@ mixin _$LocalRoute {
             String from, String to, String? displayName, DateTime? timestamp)?
         v1,
     TResult Function(
-            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
+            SchStop from, SchStop to, String? displayName, DateTime? timestamp)?
         v2,
     required TResult orElse(),
   }) =>
@@ -236,7 +236,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
             String from, String to, String? displayName, DateTime? timestamp)
         v1,
     required TResult Function(
-            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)
+            SchStop from, SchStop to, String? displayName, DateTime? timestamp)
         v2,
   }) {
     return v1(from, to, displayName, timestamp);
@@ -249,7 +249,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
             String from, String to, String? displayName, DateTime? timestamp)?
         v1,
     TResult? Function(
-            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
+            SchStop from, SchStop to, String? displayName, DateTime? timestamp)?
         v2,
   }) {
     return v1?.call(from, to, displayName, timestamp);
@@ -262,7 +262,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
             String from, String to, String? displayName, DateTime? timestamp)?
         v1,
     TResult Function(
-            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
+            SchStop from, SchStop to, String? displayName, DateTime? timestamp)?
         v2,
     required TResult orElse(),
   }) {
@@ -342,10 +342,10 @@ abstract class _$$LocalRouteV2CopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {SbbStop from, SbbStop to, String? displayName, DateTime? timestamp});
+      {SchStop from, SchStop to, String? displayName, DateTime? timestamp});
 
-  $SbbStopCopyWith<$Res> get from;
-  $SbbStopCopyWith<$Res> get to;
+  $SchStopCopyWith<$Res> get from;
+  $SchStopCopyWith<$Res> get to;
 }
 
 /// @nodoc
@@ -368,11 +368,11 @@ class __$$LocalRouteV2CopyWithImpl<$Res>
       null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
-              as SbbStop,
+              as SchStop,
       null == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
-              as SbbStop,
+              as SchStop,
       displayName: freezed == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
@@ -386,16 +386,16 @@ class __$$LocalRouteV2CopyWithImpl<$Res>
 
   @override
   @pragma('vm:prefer-inline')
-  $SbbStopCopyWith<$Res> get from {
-    return $SbbStopCopyWith<$Res>(_value.from, (value) {
+  $SchStopCopyWith<$Res> get from {
+    return $SchStopCopyWith<$Res>(_value.from, (value) {
       return _then(_value.copyWith(from: value));
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $SbbStopCopyWith<$Res> get to {
-    return $SbbStopCopyWith<$Res>(_value.to, (value) {
+  $SchStopCopyWith<$Res> get to {
+    return $SchStopCopyWith<$Res>(_value.to, (value) {
       return _then(_value.copyWith(to: value));
     });
   }
@@ -414,9 +414,9 @@ class _$LocalRouteV2 extends LocalRouteV2 {
       _$$LocalRouteV2FromJson(json);
 
   @override
-  final SbbStop from;
+  final SchStop from;
   @override
-  final SbbStop to;
+  final SchStop to;
   @override
   final String? displayName;
   @override
@@ -461,7 +461,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
             String from, String to, String? displayName, DateTime? timestamp)
         v1,
     required TResult Function(
-            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)
+            SchStop from, SchStop to, String? displayName, DateTime? timestamp)
         v2,
   }) {
     return v2(from, to, displayName, timestamp);
@@ -474,7 +474,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
             String from, String to, String? displayName, DateTime? timestamp)?
         v1,
     TResult? Function(
-            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
+            SchStop from, SchStop to, String? displayName, DateTime? timestamp)?
         v2,
   }) {
     return v2?.call(from, to, displayName, timestamp);
@@ -487,7 +487,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
             String from, String to, String? displayName, DateTime? timestamp)?
         v1,
     TResult Function(
-            SbbStop from, SbbStop to, String? displayName, DateTime? timestamp)?
+            SchStop from, SchStop to, String? displayName, DateTime? timestamp)?
         v2,
     required TResult orElse(),
   }) {
@@ -537,7 +537,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 }
 
 abstract class LocalRouteV2 extends LocalRoute {
-  const factory LocalRouteV2(final SbbStop from, final SbbStop to,
+  const factory LocalRouteV2(final SchStop from, final SchStop to,
       {final String? displayName, final DateTime? timestamp}) = _$LocalRouteV2;
   const LocalRouteV2._() : super._();
 
@@ -545,9 +545,9 @@ abstract class LocalRouteV2 extends LocalRoute {
       _$LocalRouteV2.fromJson;
 
   @override
-  SbbStop get from;
+  SchStop get from;
   @override
-  SbbStop get to;
+  SchStop get to;
   @override
   String? get displayName;
   @override

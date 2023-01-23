@@ -6,19 +6,19 @@ part of 'stationboard_connection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SbbStationboardConnection _$$_SbbStationboardConnectionFromJson(
+_$_SchStationboardConnection _$$_SchStationboardConnectionFromJson(
         Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$_SbbStationboardConnection',
+      r'_$_SchStationboardConnection',
       json,
       ($checkedConvert) {
-        final val = _$_SbbStationboardConnection(
+        final val = _$_SchStationboardConnection(
           time: $checkedConvert('time', (v) => DateTime.parse(v as String)),
           type: $checkedConvert(
               'type', (v) => $enumDecode(_$VehicleTypeEnumMap, v)),
           color: $checkedConvert('color', (v) => v as String),
           sbbTerminal: $checkedConvert(
-              'terminal', (v) => SbbStop.fromJson(v as Map<String, dynamic>)),
+              'terminal', (v) => SchStop.fromJson(v as Map<String, dynamic>)),
           line: $checkedConvert('line', (v) => v as String?),
           operator: $checkedConvert('operator', (v) => v as String?),
           number: $checkedConvert('number', (v) => v as String? ?? ''),
@@ -29,7 +29,7 @@ _$_SbbStationboardConnection _$$_SbbStationboardConnectionFromJson(
               (v) =>
                   (v as List<dynamic>?)
                       ?.map((e) =>
-                          SbbSubsequentStop.fromJson(e as Map<String, dynamic>))
+                          SchSubsequentStop.fromJson(e as Map<String, dynamic>))
                       .toList() ??
                   []),
           depDelay: $checkedConvert('dep_delay',
@@ -50,8 +50,8 @@ _$_SbbStationboardConnection _$$_SbbStationboardConnectionFromJson(
       },
     );
 
-Map<String, dynamic> _$$_SbbStationboardConnectionToJson(
-        _$_SbbStationboardConnection instance) =>
+Map<String, dynamic> _$$_SchStationboardConnectionToJson(
+        _$_SchStationboardConnection instance) =>
     <String, dynamic>{
       'time': instance.time.toIso8601String(),
       'type': _$VehicleTypeEnumMap[instance.type]!,

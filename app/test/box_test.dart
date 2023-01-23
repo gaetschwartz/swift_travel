@@ -29,8 +29,8 @@ void main() {
         id,
         QuickActionsItem.route(
           LocalRoute.v2(
-            const SbbStop(sbbName: name2),
-            const SbbStop(sbbName: name3),
+            const SchStop(sbbName: name2),
+            const SchStop(sbbName: name3),
             displayName: displayName2,
             timestamp: dateTime,
           ),
@@ -43,8 +43,8 @@ void main() {
         db.values.first,
         QuickActionsItem.route(
           LocalRoute.v2(
-            const SbbStop(sbbName: name2),
-            const SbbStop(sbbName: name3),
+            const SchStop(sbbName: name2),
+            const SchStop(sbbName: name3),
             displayName: displayName2,
             timestamp: dateTime,
           ),

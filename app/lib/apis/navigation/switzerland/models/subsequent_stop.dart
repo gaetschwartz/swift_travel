@@ -9,10 +9,10 @@ part 'subsequent_stop.freezed.dart';
 part 'subsequent_stop.g.dart';
 
 @freezed
-class SbbSubsequentStop
-    with _$SbbSubsequentStop, BaseStop, SbbDisplayNameMixin
+class SchSubsequentStop
+    with _$SchSubsequentStop, BaseStop, SchDisplayNameMixin
     implements DelayedStop {
-  factory SbbSubsequentStop({
+  factory SchSubsequentStop({
     required String name,
     @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
     @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
@@ -23,11 +23,11 @@ class SbbSubsequentStop
     double? lon,
     int? x,
     int? y,
-  }) = _SbbSubsequentStop;
-  SbbSubsequentStop._();
+  }) = _SchSubsequentStop;
+  SchSubsequentStop._();
 
-  factory SbbSubsequentStop.fromJson(Map<String, dynamic> json) =>
-      _$SbbSubsequentStopFromJson(json);
+  factory SchSubsequentStop.fromJson(Map<String, dynamic> json) =>
+      _$SchSubsequentStopFromJson(json);
 
   @override
   late final LatLon? position =

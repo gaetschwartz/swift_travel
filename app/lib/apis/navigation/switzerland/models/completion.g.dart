@@ -6,8 +6,8 @@ part of 'completion.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SbbCompletion _$$_SbbCompletionFromJson(Map<String, dynamic> json) =>
-    _$_SbbCompletion(
+_$_SchCompletion _$$_SchCompletionFromJson(Map<String, dynamic> json) =>
+    _$_SchCompletion(
       label: json['label'] as String,
       dist: (json['dist'] as num?)?.toDouble(),
       iconClass: json['iconclass'] as String?,
@@ -15,7 +15,7 @@ _$_SbbCompletion _$$_SbbCompletionFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
     );
 
-Map<String, dynamic> _$$_SbbCompletionToJson(_$_SbbCompletion instance) {
+Map<String, dynamic> _$$_SchCompletionToJson(_$_SchCompletion instance) {
   final val = <String, dynamic>{
     'label': instance.label,
   };

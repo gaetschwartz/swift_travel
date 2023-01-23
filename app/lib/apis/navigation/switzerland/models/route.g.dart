@@ -6,11 +6,11 @@ part of 'route.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SbbRoute _$$_SbbRouteFromJson(Map<String, dynamic> json) => $checkedCreate(
-      r'_$_SbbRoute',
+_$_SchRoute _$$_SchRouteFromJson(Map<String, dynamic> json) => $checkedCreate(
+      r'_$_SchRoute',
       json,
       ($checkedConvert) {
-        final val = _$_SbbRoute(
+        final val = _$_SchRoute(
           count: $checkedConvert('count', (v) => v as int? ?? 0),
           minDuration:
               $checkedConvert('min_duration', (v) => (v as num?)?.toDouble()),
@@ -20,7 +20,7 @@ _$_SbbRoute _$$_SbbRouteFromJson(Map<String, dynamic> json) => $checkedCreate(
               'connections',
               (v) =>
                   (v as List<dynamic>?)
-                      ?.map((e) => SbbRouteConnection.fromJson(
+                      ?.map((e) => SchRouteConnection.fromJson(
                           e as Map<String, dynamic>))
                       .toList() ??
                   []),
@@ -42,7 +42,7 @@ _$_SbbRoute _$$_SbbRouteFromJson(Map<String, dynamic> json) => $checkedCreate(
       },
     );
 
-Map<String, dynamic> _$$_SbbRouteToJson(_$_SbbRoute instance) {
+Map<String, dynamic> _$$_SchRouteToJson(_$_SchRoute instance) {
   final val = <String, dynamic>{
     'count': instance.count,
   };

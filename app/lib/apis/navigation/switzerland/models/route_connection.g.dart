@@ -6,13 +6,13 @@ part of 'route_connection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SbbRouteConnection _$$_SbbRouteConnectionFromJson(
+_$_SchRouteConnection _$$_SchRouteConnectionFromJson(
         Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$_SbbRouteConnection',
+      r'_$_SchRouteConnection',
       json,
       ($checkedConvert) {
-        final val = _$_SbbRouteConnection(
+        final val = _$_SchRouteConnection(
           from: $checkedConvert('from', (v) => v as String),
           to: $checkedConvert('to', (v) => v as String),
           depDelay: $checkedConvert('dep_delay',
@@ -27,9 +27,9 @@ _$_SbbRouteConnection _$$_SbbRouteConnectionFromJson(
               'legs',
               (v) =>
                   (v as List<dynamic>?)
-                      ?.map((e) => SbbLeg.fromJson(e as Map<String, dynamic>))
+                      ?.map((e) => SchLeg.fromJson(e as Map<String, dynamic>))
                       .toList() ??
-                  const <SbbLeg>[]),
+                  const <SchLeg>[]),
           disruptions: $checkedConvert(
               'disruptions',
               (v) =>
@@ -48,8 +48,8 @@ _$_SbbRouteConnection _$$_SbbRouteConnectionFromJson(
       },
     );
 
-Map<String, dynamic> _$$_SbbRouteConnectionToJson(
-    _$_SbbRouteConnection instance) {
+Map<String, dynamic> _$$_SchRouteConnectionToJson(
+    _$_SchRouteConnection instance) {
   final val = <String, dynamic>{
     'from': instance.from,
     'to': instance.to,

@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SbbExit _$SbbExitFromJson(Map<String, dynamic> json) {
+SchExit _$SchExitFromJson(Map<String, dynamic> json) {
   return _Exit.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SbbExit {
+mixin _$SchExit {
   String get name => throw _privateConstructorUsedError;
   @DelayConverter()
   @JsonKey(name: 'arr_delay')
@@ -39,13 +39,13 @@ mixin _$SbbExit {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SbbExitCopyWith<SbbExit> get copyWith => throw _privateConstructorUsedError;
+  $SchExitCopyWith<SchExit> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SbbExitCopyWith<$Res> {
-  factory $SbbExitCopyWith(SbbExit value, $Res Function(SbbExit) then) =
-      _$SbbExitCopyWithImpl<$Res, SbbExit>;
+abstract class $SchExitCopyWith<$Res> {
+  factory $SchExitCopyWith(SchExit value, $Res Function(SchExit) then) =
+      _$SchExitCopyWithImpl<$Res, SchExit>;
   @useResult
   $Res call(
       {String name,
@@ -63,9 +63,9 @@ abstract class $SbbExitCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SbbExitCopyWithImpl<$Res, $Val extends SbbExit>
-    implements $SbbExitCopyWith<$Res> {
-  _$SbbExitCopyWithImpl(this._value, this._then);
+class _$SchExitCopyWithImpl<$Res, $Val extends SchExit>
+    implements $SchExitCopyWith<$Res> {
+  _$SchExitCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -142,7 +142,7 @@ class _$SbbExitCopyWithImpl<$Res, $Val extends SbbExit>
 }
 
 /// @nodoc
-abstract class _$$_ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
+abstract class _$$_ExitCopyWith<$Res> implements $SchExitCopyWith<$Res> {
   factory _$$_ExitCopyWith(_$_Exit value, $Res Function(_$_Exit) then) =
       __$$_ExitCopyWithImpl<$Res>;
   @override
@@ -163,7 +163,7 @@ abstract class _$$_ExitCopyWith<$Res> implements $SbbExitCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ExitCopyWithImpl<$Res> extends _$SbbExitCopyWithImpl<$Res, _$_Exit>
+class __$$_ExitCopyWithImpl<$Res> extends _$SchExitCopyWithImpl<$Res, _$_Exit>
     implements _$$_ExitCopyWith<$Res> {
   __$$_ExitCopyWithImpl(_$_Exit _value, $Res Function(_$_Exit) _then)
       : super(_value, _then);
@@ -291,7 +291,7 @@ class _$_Exit extends _Exit {
 
   @override
   String toString() {
-    return 'SbbExit(name: $name, arrDelay: $arrDelay, arrival: $arrival, lat: $lat, lon: $lon, sbbName: $sbbName, stopid: $stopid, track: $track, waittime: $waittime, isaddress: $isaddress, x: $x, y: $y)';
+    return 'SchExit(name: $name, arrDelay: $arrDelay, arrival: $arrival, lat: $lat, lon: $lon, sbbName: $sbbName, stopid: $stopid, track: $track, waittime: $waittime, isaddress: $isaddress, x: $x, y: $y)';
   }
 
   @override
@@ -335,7 +335,7 @@ class _$_Exit extends _Exit {
   }
 }
 
-abstract class _Exit extends SbbExit {
+abstract class _Exit extends SchExit {
   factory _Exit(
       {required final String name,
       @DelayConverter() @JsonKey(name: 'arr_delay') final int? arrDelay,
