@@ -4,13 +4,13 @@ import 'package:swift_travel/apis/navigation/switzerland/models/exit.dart';
 int parseColorInt(String? s) {
   const alpha = 0xff000000;
   if (s == null || s.isEmpty) {
-    throw Exception('Color code is empty');
+    throw FormatException('Color code is empty', s, 0);
   } else if (s.length == 3) {
     return int.parse('${s[0]}0${s[1]}0${s[2]}0', radix: 16) | alpha;
   } else if (s.length == 6) {
     return int.parse(s, radix: 16) | alpha;
   } else {
-    throw Exception('Color code is not valid : $s');
+    throw FormatException('Color code is not valid.', s, 0);
   }
 }
 

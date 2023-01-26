@@ -130,14 +130,14 @@ void main() {
       expect(parseColor('', Colors.blue), isSameColorAs(Colors.blue));
     });
     test('handles malformed data correctly', () {
-      expect(() => tryParseColorInt('hell'), throwsArgumentError);
-      expect(() => tryParseColorInt('1234'), throwsArgumentError);
+      expect(() => parseColorInt('hell'), throwsFormatException);
+      expect(() => parseColorInt('1234'), throwsFormatException);
 
-      expect(() => tryParseColorInt('zzz'), throwsFormatException);
-      expect(() => tryParseColorInt('------'), throwsFormatException);
+      expect(() => parseColorInt('zzz'), throwsFormatException);
+      expect(() => parseColorInt('------'), throwsFormatException);
 
-      expect(tryParseColorInt(''), null);
-      expect(tryParseColorInt(null), null);
+      expect(() => parseColorInt(''), throwsFormatException);
+      expect(() => parseColorInt(null), throwsFormatException);
     });
   });
 
