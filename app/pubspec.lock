@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "8c7478991c7bbde2c1e18034ac697723176a5d3e7e0ca06c7f9aed69b6f388d7"
+      sha256: "0c80aeab9bc807ab10022cd3b2f4cf2ecdf231949dc1ddd9442406a003f19201"
       url: "https://pub.dev"
     source: hosted
-    version: "51.0.0"
+    version: "52.0.0"
   all_lint_rules_community:
     dependency: "direct dev"
     description:
@@ -21,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "120fe7ce25377ba616bb210e7584983b163861f45d6ec446744d507e3943881b"
+      sha256: cd8ee83568a77f3ae6b913a36093a1c9b1264e7cb7f834d9ddd2311dade9c1f4
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.1"
+    version: "5.4.0"
   analyzer_plugin:
     dependency: transitive
     description:
@@ -262,10 +262,10 @@ packages:
     dependency: "direct dev"
     description:
       name: dart_code_metrics
-      sha256: "95f22e95638c0dfb0cb4e3ba45e00bb06dd509c98f06d4c0fa45340b0a5392e0"
+      sha256: d44c456bc26d5d9e2479eeaa4f18cbbbee626b3055a66c58ab252103d2c3c6fc
       url: "https://pub.dev"
     source: hosted
-    version: "5.4.0"
+    version: "5.5.0"
   dart_code_metrics_presets:
     dependency: transitive
     description:
@@ -816,10 +816,10 @@ packages:
     dependency: "direct main"
     description:
       name: path_provider
-      sha256: "050e8e85e4b7fecdf2bb3682c1c64c4887a183720c802d323de8a5fd76d372dd"
+      sha256: dcea5feb97d8abf90cab9e9030b497fb7c3cbf26b7a1fe9e3ef7dcb0a1ddec95
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.11"
+    version: "2.0.12"
   path_provider_android:
     dependency: transitive
     description:
@@ -828,14 +828,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.22"
-  path_provider_ios:
+  path_provider_foundation:
     dependency: transitive
     description:
-      name: path_provider_ios
-      sha256: "03d639406f5343478352433f00d3c4394d52dac8df3d847869c5e2333e0bbce8"
+      name: path_provider_foundation
+      sha256: "62a68e7e1c6c459f9289859e2fae58290c981ce21d1697faf54910fe1faa4c74"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.11"
+    version: "2.1.1"
   path_provider_linux:
     dependency: transitive
     description:
@@ -844,14 +844,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.7"
-  path_provider_macos:
-    dependency: transitive
-    description:
-      name: path_provider_macos
-      sha256: cd57cb98a30ce9d12fdd1896d9d3b0517ce689f942de6ccd2708cd39b3d18a7c
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.7"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -968,10 +960,10 @@ packages:
     dependency: transitive
     description:
       name: pub_updater
-      sha256: "00e42b515aa046b171d05bbe2dd566c0feaab7808c33c5bacb5beff93cf16561"
+      sha256: "42890302ab2672adf567dc2b20e55b4ecc29d7e19c63b6b98143ab68dd717d3a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3"
+    version: "0.2.4"
   pubspec_parse:
     dependency: transitive
     description:
@@ -1340,10 +1332,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_windows
-      sha256: "387e227c4b979034cc52afb11d66b04ed9b288ca1f45beeef39b2ea69e714fa5"
+      sha256: b6217370f8eb1fd85c8890c539f5a639a01ab209a36db82c921ebeacefc7a615
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2"
+    version: "3.0.3"
   url_strategy:
     dependency: "direct main"
     description:

@@ -9,7 +9,7 @@ import geolocator_apple
 import in_app_purchase_storekit
 import isar_flutter_libs
 import package_info_plus
-import path_provider_macos
+import path_provider_foundation
 import share_plus
 import shared_preferences_foundation
 import url_launcher_macos
