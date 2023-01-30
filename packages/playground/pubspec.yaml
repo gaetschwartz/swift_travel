@@ -21,7 +21,9 @@ dependencies:
   swift_travel:
     path: ../../app
   theming:
-    path: ../theming
+    git:
+      url: https://github.com/gaetschwartz/gaet_utils.git
+      path: packages/theming
 
 dev_dependencies:
   flutter_test:

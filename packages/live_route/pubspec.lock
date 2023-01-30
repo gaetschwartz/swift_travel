@@ -353,9 +353,11 @@ packages:
   gaets_logging:
     dependency: transitive
     description:
-      path: "../logging"
-      relative: true
-    source: path
+      path: "packages/logging"
+      ref: HEAD
+      resolved-ref: e9f68361bff21c5791b7537b89d68e3dbb1accda
+      url: "https://github.com/gaetschwartz/gaet_utils.git"
+    source: git
     version: "0.0.1"
   gap:
     dependency: transitive
@@ -1077,9 +1079,11 @@ packages:
   theming:
     dependency: transitive
     description:
-      path: "../theming"
-      relative: true
-    source: path
+      path: "packages/theming"
+      ref: HEAD
+      resolved-ref: e9f68361bff21c5791b7537b89d68e3dbb1accda
+      url: "https://github.com/gaetschwartz/gaet_utils.git"
+    source: git
     version: "0.0.1"
   timing:
     dependency: transitive
@@ -1188,9 +1192,11 @@ packages:
   vibration:
     dependency: transitive
     description:
-      path: "../vibration"
-      relative: true
-    source: path
+      path: "packages/vibration"
+      ref: HEAD
+      resolved-ref: e9f68361bff21c5791b7537b89d68e3dbb1accda
+      url: "https://github.com/gaetschwartz/gaet_utils.git"
+    source: git
     version: "0.0.1"
   watcher:
     dependency: transitive

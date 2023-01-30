@@ -451,9 +451,11 @@ packages:
   gaets_logging:
     dependency: "direct main"
     description:
-      path: "../packages/logging"
-      relative: true
-    source: path
+      path: "packages/logging"
+      ref: HEAD
+      resolved-ref: e9f68361bff21c5791b7537b89d68e3dbb1accda
+      url: "https://github.com/gaetschwartz/gaet_utils.git"
+    source: git
     version: "0.0.1"
   gap:
     dependency: "direct main"
@@ -1244,9 +1246,11 @@ packages:
   theming:
     dependency: "direct main"
     description:
-      path: "../packages/theming"
-      relative: true
-    source: path
+      path: "packages/theming"
+      ref: HEAD
+      resolved-ref: e9f68361bff21c5791b7537b89d68e3dbb1accda
+      url: "https://github.com/gaetschwartz/gaet_utils.git"
+    source: git
     version: "0.0.1"
   time:
     dependency: transitive
@@ -1363,9 +1367,11 @@ packages:
   vibration:
     dependency: "direct main"
     description:
-      path: "../packages/vibration"
-      relative: true
-    source: path
+      path: "packages/vibration"
+      ref: HEAD
+      resolved-ref: e9f68361bff21c5791b7537b89d68e3dbb1accda
+      url: "https://github.com/gaetschwartz/gaet_utils.git"
+    source: git
     version: "0.0.1"
   vm_service:
     dependency: transitive
