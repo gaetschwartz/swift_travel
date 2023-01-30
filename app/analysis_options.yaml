@@ -71,7 +71,7 @@ dart_code_metrics:
 
 analyzer:
   plugins:
-    # - dart_code_metrics
+  # - dart_code_metrics
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
@@ -130,6 +130,7 @@ analyzer:
     todo: ignore
 
     invalid_annotation_target: ignore
+    avoid_as: ignore
 
 # LINTER Preferences
 #
