@@ -1,6 +1,5 @@
----
 format_version: "8"
-default_step_lib_source: "https://github.com/bitrise-io/bitrise-steplib.git"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: flutter
 workflows:
   build:
@@ -36,12 +35,8 @@ workflows:
       - flutter-build@0:
           inputs:
             - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - ios_additional_params: >-
-                --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
-                $SKSL_ARGUMENT
-            - android_additional_params: >-
-                --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform
-                android-arm64
+            - ios_additional_params: --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT $SKSL_ARGUMENT
+            - android_additional_params: --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform android-arm64
       - cache-push@2: {}
     after_run: []
   deploy-android:
@@ -72,14 +67,10 @@ workflows:
       - flutter-build@0:
           inputs:
             - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - ios_additional_params: >-
-                --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT
-                $SKSL_ARGUMENT
+            - ios_additional_params: --no-codesign --release --build-number $GIT_CLONE_COMMIT_COUNT $SKSL_ARGUMENT
             - platform: android
             - android_output_type: appbundle
-            - android_additional_params: >-
-                --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform
-                android-arm64
+            - android_additional_params: --release --build-number $GIT_CLONE_COMMIT_COUNT --target-platform android-arm64
       - google-play-deploy@3:
           inputs:
             - service_account_json_key_path: $BITRISEIO_SERVICE_ACCOUNT_URL
@@ -119,15 +110,11 @@ workflows:
       - script@1:
           inputs:
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
-            - content: >-
+            - content: |-
                 #!/usr/bin/env bash
-
                 set -ex
-
                 set -o pipefail
-
-                flutter build ios --config-only --no-codesign --release
-                --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
+                flutter build ios --config-only --no-codesign --release --build-number $COMMIT_NUMBER $SKSL_ARGUMENT
           title: flutter build ios
       - xcode-archive@4.7:
           inputs:
@@ -163,4 +150,4 @@ trigger_map:
     workflow: deploy-ios
 meta:
   bitrise.io:
-    stack: osx-xcode-14.0.x
+    stack: osx-xcode-14.2.x-ventura
